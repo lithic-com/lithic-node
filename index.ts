@@ -34,7 +34,6 @@ export namespace Lithic {
   export import ConsumerEnrollParams = API.ConsumerEnrollParams;
 
   export import FundingSource = API.FundingSource;
-  export import FundingSourceRetrieveParams = API.FundingSourceRetrieveParams;
   export import FundingSourceUpdateParams = API.FundingSourceUpdateParams;
   export import FundingSourceListParams = API.FundingSourceListParams;
   export import FundingSourceVerifyParams = API.FundingSourceVerifyParams;

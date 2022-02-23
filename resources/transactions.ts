@@ -65,14 +65,34 @@ export class Transactions extends Core.APIResource {
 
 export interface Transaction {
   /**
-   * Authorization amount (in cents) of the transaction. This may change over time, and will represent the settled amount once the transaction is settled.
+   * Authorization amount (in USD cents) of the transaction. This may change over time, and will represent the settled amount once the transaction is settled.
    */
   amount?: number;
 
   /**
-   * Authorization amount (in cents) of the transaction. This amount always represents the amount authorized for the transaction, unaffected by settlement.
+   * Authorization amount (in USD cents) of the transaction. This amount always represents the amount authorized for the transaction, unaffected by settlement.
    */
   authorization_amount?: number;
+
+  /**
+   * Analogous to the "amount" property, but represents the amount in the local currency at the time of the transaction.
+   */
+  merchant_amount?: number;
+
+  /**
+   * Analogous to the "authorization_amount" property, but represents the amount in the local currency at the time of the transaction.
+   */
+  merchant_authorization_amount?: number;
+
+  /**
+   * 3-digit alphabetic ISO 4217 code for the local currency of the transaction.
+   */
+  merchant_currency?: string;
+
+  /**
+   * A fixed-width 6-digit numeric identifier that can be used to identify a transaction with networks.
+   */
+  authorization_code?: string;
 
   card?: Transaction.Card;
 
@@ -455,7 +475,17 @@ export interface TransactionSimulateAuthorizationParams {
   /**
    * Type of event to simulate.
    */
-  event_type?: 'AUTHORIZATION' | 'FINANCIAL_CREDIT_AUTHORIZATION';
+  status?: 'AUTHORIZATION' | 'FINANCIAL_CREDIT_AUTHORIZATION';
+
+  /**
+   * 3-digit alphabetic ISO 4217 currency code.
+   */
+  merchant_currency?: string;
+
+  /**
+   * Amount of the transaction to be simlated in currency specified in merchant_currency.
+   */
+  merchant_amount?: number;
 }
 
 export interface TransactionSimulateClearingParams {

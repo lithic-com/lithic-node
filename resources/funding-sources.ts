@@ -14,10 +14,9 @@ export class FundingSources extends Core.APIResource {
    */
   retrieve(
     id: string,
-    query?: FundingSourceRetrieveParams | null | undefined,
     options?: Core.RequestOptions
   ): Promise<Core.Response<FundingSource>> {
-    return this.get(`/funding_sources/${id}`, {query, ...options});
+    return this.get(`/funding_sources/${id}`, options);
   }
 
   /**
@@ -92,10 +91,6 @@ export interface FundingSource {
 
 export interface FundingSourceCreateParams {}
 
-export interface FundingSourceRetrieveParams {
-  funding_source_token?: string;
-}
-
 export interface FundingSourceUpdateParams {
   /**
    * Only required for multi-account users. Token identifying the account that the bank account will be associated with. Only applicable if using account enrollment. See [Managing Accounts](https://docs.lithic.com/docs/managing-accounts) for more information.
@@ -122,9 +117,4 @@ export interface FundingSourceVerifyParams {
    * An array of dollar amounts (in cents) received in two credit transactions.
    */
   micro_deposits: Array<number>;
-
-  /**
-   * The token of the funding account to validate.
-   */
-  token: string;
 }
