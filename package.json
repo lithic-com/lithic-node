@@ -1,0 +1,21 @@
+{
+  "name": "lithic-node",
+  "version": "0.0.1",
+  "description": "Client library for the Lithic API",
+  "main": "index.js",
+  "repository": "git@github.com:lithic-com/lithic-node.git",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "test": "yarn ts-node example.ts"
+  },
+  "dependencies": {
+    "isomorphic-fetch": "^3.0.0",
+    "qs": "^6.10.3"
+  },
+  "devDependencies": {
+    "@types/qs": "^6.9.7",
+    "ts-node": "^10.5.0",
+    "typescript": "^4.5.5"
+  }
+}
