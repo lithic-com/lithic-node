@@ -59,16 +59,34 @@ export class APIResource {
   }: FinalRequestOptions<Req>): Promise<Rsp> {
     const url = this.buildURL(path!, query);
 
-    const result = await fetch(url, {
+    const options = {
       method,
       ...(body && {body: JSON.stringify(body, null, 2)}),
       headers: {
         ...this.defaultHeaders(),
         ...headers,
       },
-    });
-    // TODO support other response formats, handle errors, etc.
-    return result.json();
+    };
+
+    const response = await fetch(url, options);
+
+    if (!response.ok) {
+      const errJSON = await response.json().catch((e) => undefined);
+      if (errJSON) {
+        throw {status: response.status, error: errJSON};
+      } else {
+        const errText = await response.text().catch((e) => 'Unknown');
+        throw {status: response.status, message: errText};
+      }
+    }
+
+    const contentType = response.headers.get('content-type');
+    if (contentType?.indexOf('application/json') !== -1) {
+      return response.json();
+    } else {
+      // TODO handle blob, arraybuffer, other content types, etc.
+      return response.text();
+    }
   }
 
   buildURL<Req>(path: string, query: Req | undefined): string {

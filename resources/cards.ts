@@ -49,8 +49,11 @@ export class Cards extends Core.APIResource {
   embed(
     query?: CardEmbedParams | null | undefined,
     options?: Core.RequestOptions
-  ): Promise<void> {
-    return this.get('/embed/card', {query, ...options});
+  ): Promise<string> {
+    return this.get('/embed/card', {
+      ...{query, ...options},
+      headers: {Accept: 'text/html', ...options?.headers},
+    });
   }
 
   /**
