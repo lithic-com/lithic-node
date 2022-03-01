@@ -88,7 +88,7 @@ export abstract class APIClient {
         value: responseHeaders,
       });
 
-      return json;
+      return json as Rsp;
     } else {
       // TODO handle blob, arraybuffer, other content types, etc.
       return response.text() as Promise<any>;
