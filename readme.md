@@ -36,7 +36,7 @@ main();
 
 When the library is unable to connect to the API,
 or if the API returns a non-success status code (i.e., 4xx or 5xx response),
-an `APIError` will be thrown:
+a subclass of `APIError` will be thrown:
 
 ```ts
 async function main() {
@@ -94,7 +94,7 @@ This library provides helpers to automatically request more pages as you iterate
 In Node 10+ (or other environments with support for
 [async iteration](https://github.com/tc39/proposal-async-iteration#the-async-iteration-statement-for-await-of)
 such as [babel](https://babeljs.io/docs/en/babel-plugin-transform-async-generator-functions)),
-you can use `for await of` syntax:
+you can use `for await of` syntax to iterate through items across all pages:
 
 ```js
 for await (const card of lithic.cards.list()) {
