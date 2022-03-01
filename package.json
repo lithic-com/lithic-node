@@ -10,7 +10,8 @@
   "private": false,
   "scripts": {
     "test": "yarn ts-node example.ts",
-    "prepublish": "./prepublish"
+    "build": "./build",
+    "prepack": "yarn build"
   },
   "dependencies": {
     "cross-fetch": "^3.1.5",
