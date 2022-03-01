@@ -1,5 +1,4 @@
-import fetch from 'node-fetch';
-import type {RequestInit, Response} from 'node-fetch';
+import fetch from 'cross-fetch';
 import qs from 'qs';
 import {makeAutoPaginationMethods, AutoPaginationMethods} from './pagination';
 
