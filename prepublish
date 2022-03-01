@@ -3,20 +3,6 @@ set -euo pipefail
 
 rm -rf dist/*
 
-tsc -p tsconfig.mjs.json
 tsc -p tsconfig.cjs.json
-
-cat >dist/mjs/package.json <<EOF
-{
-  "type": "module"
-}
-EOF
-cat >dist/cjs/package.json <<EOF
-{
-  "type": "commonjs"
-}
-EOF
-
-rename 's/.js$/.mjs/' dist/mjs/**/*.js
 
 yarn prettier --write .
