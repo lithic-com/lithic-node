@@ -34,7 +34,7 @@ export abstract class APIClient {
   async request<Req, Rsp>(
     options: FinalRequestOptions<Req>,
     retriesRemaining = options.maxRetries ?? this.maxRetries
-  ): Promise<Rsp> {
+  ): Promise<APIResponse<Rsp>> {
     const {method, path, query, body, headers} = options;
 
     const url = this.buildURL(path!, query);
@@ -87,7 +87,7 @@ export abstract class APIClient {
         value: responseHeaders,
       });
 
-      return json as Rsp;
+      return json as APIResponse<Rsp>;
     } else {
       // TODO handle blob, arraybuffer, other content types, etc.
       return response.text() as Promise<any>;

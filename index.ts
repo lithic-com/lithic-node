@@ -24,14 +24,13 @@ export class Lithic extends Core.APIClient {
   }
 
   accounts: API.Accounts = new API.Accounts(this);
-  authStreamEnrollment: API.AuthStreamEnrollment = new API.AuthStreamEnrollment(
-    this
-  );
+  authStreamEnrollment: API.AuthStreamEnrollmentResource =
+    new API.AuthStreamEnrollmentResource(this);
   cards: API.Cards = new API.Cards(this);
   consumers: API.Consumers = new API.Consumers(this);
   fundingSources: API.FundingSources = new API.FundingSources(this);
   transactions: API.Transactions = new API.Transactions(this);
-  status: API.Status = new API.Status(this);
+  status: API.StatusResource = new API.StatusResource(this);
 
   defaultHeaders(): Core.Headers {
     const Authorization = `api-key ${this.apiKey}`;
