@@ -8,7 +8,7 @@ export class Consumers extends Core.APIResource {
   enroll(
     body: ConsumerEnrollParams,
     options?: Core.RequestOptions
-  ): Promise<Core.Response<ConsumersEnrollResponse>> {
+  ): Promise<Core.APIResponse<ConsumersEnrollResponse>> {
     return this.post('/enroll/consumer', {body, ...options});
   }
 }

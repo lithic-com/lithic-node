@@ -8,7 +8,7 @@ export class Cards extends Core.APIResource {
   create(
     body: CardCreateParams,
     options?: Core.RequestOptions
-  ): Promise<Core.Response<Card>> {
+  ): Promise<Core.APIResponse<Card>> {
     return this.post('/cards', {body, ...options});
   }
 
@@ -18,7 +18,7 @@ export class Cards extends Core.APIResource {
   retrieve(
     id: string,
     options?: Core.RequestOptions
-  ): Promise<Core.Response<Card>> {
+  ): Promise<Core.APIResponse<Card>> {
     return this.get(`/cards/${id}`, options);
   }
 
@@ -29,7 +29,7 @@ export class Cards extends Core.APIResource {
     id: string,
     body?: CardUpdateParams | null | undefined,
     options?: Core.RequestOptions
-  ): Promise<Core.Response<Card>> {
+  ): Promise<Core.APIResponse<Card>> {
     return this.patch(`/cards/${id}`, {body, ...options});
   }
 
@@ -40,7 +40,7 @@ export class Cards extends Core.APIResource {
     query?: CardListParams | null | undefined,
     options?: Core.RequestOptions
   ): Core.APIListPromise<Card> {
-    return this.get('/cards', {query, ...options});
+    return this.getAPIList('/cards', {query, ...options});
   }
 
   /**
@@ -63,7 +63,7 @@ export class Cards extends Core.APIResource {
     id: string,
     body?: CardProvisionParams | null | undefined,
     options?: Core.RequestOptions
-  ): Promise<Core.Response<CardsProvisionResponse>> {
+  ): Promise<Core.APIResponse<CardsProvisionResponse>> {
     return this.post(`/cards/${id}/provision`, {body, ...options});
   }
 
@@ -74,7 +74,7 @@ export class Cards extends Core.APIResource {
     id: string,
     body?: CardReissueParams | null | undefined,
     options?: Core.RequestOptions
-  ): Promise<Core.Response<Card>> {
+  ): Promise<Core.APIResponse<Card>> {
     return this.post(`/cards/${id}/reissue`, {body, ...options});
   }
 }
@@ -83,14 +83,14 @@ export interface Card {
   /**
    * An ISO 8601 timestamp for when the card was created. UTC time zone.
    */
-  created?: string;
+  created: string;
 
   /**
    * Three digit cvv printed on the back of the card.
    */
   cvv?: string;
 
-  funding?: Card.Funding;
+  funding: Card.Funding;
 
   /**
    * Two digit (MM) expiry month.
@@ -110,7 +110,7 @@ export interface Card {
   /**
    * Last four digits of the card number.
    */
-  last_four?: string;
+  last_four: string;
 
   /**
    * Friendly name to identify the card.
@@ -125,17 +125,17 @@ export interface Card {
   /**
    * Amount (in cents) to limit approved authorizations. Transaction requests above the spend limit will be declined.
    */
-  spend_limit?: number;
+  spend_limit: number;
 
   /**
    * Spend limit duration values: * `ANNUALLY` - Card will authorize transactions up to spend limit in a calendar year. * `FOREVER` - Card will authorize only up to spend limit for the entire lifetime of the card. * `MONTHLY` - Card will authorize transactions up to spend limit for the trailing month. Month is calculated as this calendar date one month prior. * `TRANSACTION` - Card will authorizate multiple transactions if each individual transaction is under the spend limit.
    */
-  spend_limit_duration?: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION';
+  spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION';
 
   /**
    * Card state values: * `CLOSED` - Card will no longer approve authorizations. Closing a card cannot be undone. * `OPEN` - Card will approve authorizations (if they match card and account parameters). * `PAUSED` - Card will decline authorizations, but can be resumed at a later time. * `PENDING_FULFILLMENT` - The initial state for cards of type `PHYSICAL`. The card is provisioned pending manufacturing and fulfillment. Cards in this state can accept authorizations for e-commerce purchases, but not for "Card Present" purchases where the physical card itself is present. * `PENDING_ACTIVATION` - Each business day at 2pm Eastern Time Zone (ET), cards of type `PHYSICAL` in state `PENDING_FULFILLMENT` are sent to the card production warehouse and updated to state `PENDING_ACTIVATION` . Similar to `PENDING_FULFILLMENT`, cards in this state can be used for e-commerce transactions. API clients should update the card's state to `OPEN` only after the cardholder confirms receipt of the card. In sandbox, the same daily batch fulfillment occurs, but no cards are actually manufactured.
    */
-  state?:
+  state:
     | 'CLOSED'
     | 'OPEN'
     | 'PAUSED'
@@ -145,12 +145,12 @@ export interface Card {
   /**
    * Globally unique identifier.
    */
-  token?: string;
+  token: string;
 
   /**
    * Card types: * `DIGITAL_WALLET` - Cards that can be provisioned to a digital wallet like Google Pay or Apple Wallet. * `MERCHANT_LOCKED` - Card is locked to first merchant that successfully authorizes the card. * `PHYSICAL` - Manufactured and sent to the cardholder. We offer white label branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe functionality. Contact [api@lithic.com](mailto:api@lithic.com) for more information. * `SINGLE_USE` - Card will close shortly after the first transaction. * `UNLOCKED` - Card will authorize at any merchant. Creating these cards requires additional privileges.
    */
-  type?:
+  type:
     | 'DIGITAL_WALLET'
     | 'MERCHANT_LOCKED'
     | 'PHYSICAL'
@@ -168,12 +168,12 @@ export namespace Card {
     /**
      * An ISO 8601 string representing when this funding source was added to the Lithic account. This may be `null`. UTC time zone.
      */
-    created?: string;
+    created: string;
 
     /**
      * The last 4 digits of the account (e.g. bank account, debit card) associated with this FundingAccount. This may be null.
      */
-    last_four?: string;
+    last_four: string;
 
     /**
      * The nickname given to the `FundingAccount` or `null` if it has no nickname.
@@ -183,17 +183,17 @@ export namespace Card {
     /**
      * State of funding source. Funding source states: * `ENABLED` - The funding account is available to use for card creation and transactions. * `PENDING` - The funding account is still being verified e.g. bank micro-deposits verification.
      */
-    state?: 'ENABLED' | 'PENDING';
+    state: 'ENABLED' | 'PENDING';
 
     /**
      * A globally unique identifier for this FundingAccount.
      */
-    token?: string;
+    token: string;
 
     /**
-     * Types of funding source: * `CARD_DEBIT` - Debit card. * `DEPOSITORY_CHECKING` - Bank checking account. * `DEPOSITORY_SAVINGS` - Bank savings account.
+     * Types of funding source: * `DEPOSITORY_CHECKING` - Bank checking account. * `DEPOSITORY_SAVINGS` - Bank savings account.
      */
-    type?: 'CARD_DEBIT' | 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS';
+    type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS';
   }
 }
 

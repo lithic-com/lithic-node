@@ -63,10 +63,36 @@ async function main() {
   const embedHtml = await lithic.cards.embed(embedParams);
   console.log(embedHtml);
 
-  const cards = await lithic.cards.list();
-  for (const card of cards.data) {
-    console.log('Card', card.token);
-  }
+  let i = 0;
+  // for await (const card of lithic.cards.list({ page_size: 5 })) {
+  //   console.log('Card', i++, card.token);
+  //   if (i > 16) {
+  //     break;
+  //   }
+  // }
+  await lithic.cards.list({page_size: 5}).autoPagingEach(async (card) => {
+    console.log('Card', i++, card.token);
+    if (i > 16) return false;
+  });
+  console.log('Done', i);
+
+  const someCards = await lithic.cards
+    .list({page_size: 5})
+    .autoPagingToArray({limit: 17});
+  console.log(
+    'Done',
+    someCards.map(({token}) => token),
+    someCards.length
+  );
+
+  // @ts-expect-error 'foo' does not exist in type 'CardCreateParams'
+  await lithic.cards.create({type: 'singel_use'}).catch((e: unknown) => {
+    if (e instanceof Lithic.BadRequestError) {
+      console.log('Bad request!', e);
+    } else {
+      throw e;
+    }
+  });
 }
 
 main().catch(console.error);

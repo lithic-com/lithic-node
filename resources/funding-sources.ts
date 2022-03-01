@@ -5,18 +5,10 @@ export class FundingSources extends Core.APIResource {
   /**
    * Add a funding source using bank routing and account numbers or via Plaid. In the production environment, funding accounts will be set to `PENDING` state until micro-deposit validation completes while funding accounts in sandbox will be set to `ENABLED` state automatically.
    */
-  create(options?: Core.RequestOptions): Promise<Core.Response<FundingSource>> {
-    return this.post('/funding_sources', options);
-  }
-
-  /**
-   * Get funding source associated with the Lithic account.
-   */
-  retrieve(
-    id: string,
+  create(
     options?: Core.RequestOptions
-  ): Promise<Core.Response<FundingSource>> {
-    return this.get(`/funding_sources/${id}`, options);
+  ): Promise<Core.APIResponse<FundingSource>> {
+    return this.post('/funding_sources', options);
   }
 
   /**
@@ -26,7 +18,7 @@ export class FundingSources extends Core.APIResource {
     id: string,
     body?: FundingSourceUpdateParams | null | undefined,
     options?: Core.RequestOptions
-  ): Promise<Core.Response<FundingSource>> {
+  ): Promise<Core.APIResponse<FundingSource>> {
     return this.patch(`/funding_sources/${id}`, {body, ...options});
   }
 
@@ -37,7 +29,7 @@ export class FundingSources extends Core.APIResource {
     query?: FundingSourceListParams | null | undefined,
     options?: Core.RequestOptions
   ): Core.APIListPromise<FundingSource> {
-    return this.get('/funding_sources', {query, ...options});
+    return this.getAPIList('/funding_sources', {query, ...options});
   }
 
   /**
@@ -47,7 +39,7 @@ export class FundingSources extends Core.APIResource {
     id: string,
     body: FundingSourceVerifyParams,
     options?: Core.RequestOptions
-  ): Promise<Core.Response<FundingSource>> {
+  ): Promise<Core.APIResponse<FundingSource>> {
     return this.post(`/funding_sources/${id}/verify`, {body, ...options});
   }
 }
@@ -61,12 +53,12 @@ export interface FundingSource {
   /**
    * An ISO 8601 string representing when this funding source was added to the Lithic account. This may be `null`. UTC time zone.
    */
-  created?: string;
+  created: string;
 
   /**
    * The last 4 digits of the account (e.g. bank account, debit card) associated with this FundingAccount. This may be null.
    */
-  last_four?: string;
+  last_four: string;
 
   /**
    * The nickname given to the `FundingAccount` or `null` if it has no nickname.
@@ -76,17 +68,17 @@ export interface FundingSource {
   /**
    * State of funding source. Funding source states: * `ENABLED` - The funding account is available to use for card creation and transactions. * `PENDING` - The funding account is still being verified e.g. bank micro-deposits verification.
    */
-  state?: 'ENABLED' | 'PENDING';
+  state: 'ENABLED' | 'PENDING';
 
   /**
    * A globally unique identifier for this FundingAccount.
    */
-  token?: string;
+  token: string;
 
   /**
-   * Types of funding source: * `CARD_DEBIT` - Debit card. * `DEPOSITORY_CHECKING` - Bank checking account. * `DEPOSITORY_SAVINGS` - Bank savings account.
+   * Types of funding source: * `DEPOSITORY_CHECKING` - Bank checking account. * `DEPOSITORY_SAVINGS` - Bank savings account.
    */
-  type?: 'CARD_DEBIT' | 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS';
+  type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS';
 }
 
 export interface FundingSourceCreateParams {}

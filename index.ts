@@ -1,7 +1,28 @@
 import * as Core from './core';
 import * as API from './resources';
 
+const environments = {
+  production: 'https://api.lithic.com/v1',
+  sandbox: 'https://sandbox.lithic.com/v1',
+};
+
 export class Lithic extends Core.APIClient {
+  constructor(
+    apiKey: string,
+    {
+      environment = 'production',
+      baseURL,
+    }: {
+      environment?: keyof typeof environments;
+      baseURL?: string;
+    } = {}
+  ) {
+    super({
+      apiKey,
+      baseURL: baseURL || environments[environment],
+    });
+  }
+
   accounts: API.Accounts = new API.Accounts(this);
   authStreamEnrollment: API.AuthStreamEnrollment = new API.AuthStreamEnrollment(
     this
@@ -11,6 +32,40 @@ export class Lithic extends Core.APIClient {
   fundingSources: API.FundingSources = new API.FundingSources(this);
   transactions: API.Transactions = new API.Transactions(this);
   status: API.Status = new API.Status(this);
+
+  defaultHeaders(): Core.Headers {
+    const Authorization = `api-key ${this.apiKey}`;
+    return {
+      Authorization,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    };
+  }
+
+  getNextPageQuery(
+    request: Core.FinalRequestOptions<Lithic.PaginationParams>,
+    response: Core.APIList<unknown>
+  ): Partial<Lithic.PaginationParams> | false {
+    // Do not iterate if we're on the last page.
+    if (response.page >= response.total_pages) return false;
+
+    return {page: response.page + 1};
+  }
+
+  getPaginatedItems<Rsp>(response: Core.APIList<Rsp>): Rsp[] {
+    return response.data;
+  }
+
+  static APIError = Core.APIError;
+  static APIConnectionError = Core.APIConnectionError;
+  static AuthenticationError = Core.AuthenticationError;
+  static BadRequestError = Core.BadRequestError;
+  static InternalServerError = Core.InternalServerError;
+  static NotFoundError = Core.NotFoundError;
+  static ConflictError = Core.ConflictError;
+  static PermissionDeniedError = Core.PermissionDeniedError;
+  static RateLimitError = Core.RateLimitError;
+  static UnprocessableEntityError = Core.UnprocessableEntityError;
 }
 
 export namespace Lithic {
@@ -50,6 +105,11 @@ export namespace Lithic {
   export import TransactionSimulateVoidParams = API.TransactionSimulateVoidParams;
 
   export import ApiStatus = API.ApiStatus;
+
+  export type PaginationParams = {
+    page?: number;
+    page_size?: number;
+  };
 }
 
 export default Lithic;

@@ -8,7 +8,7 @@ export class Accounts extends Core.APIResource {
   retrieve(
     id: string,
     options?: Core.RequestOptions
-  ): Promise<Core.Response<Account>> {
+  ): Promise<Core.APIResponse<Account>> {
     return this.get(`/accounts/${id}`, options);
   }
 
@@ -19,7 +19,7 @@ export class Accounts extends Core.APIResource {
     id: string,
     body?: AccountUpdateParams | null | undefined,
     options?: Core.RequestOptions
-  ): Promise<Core.Response<Account>> {
+  ): Promise<Core.APIResponse<Account>> {
     return this.patch(`/accounts/${id}`, {body, ...options});
   }
 
@@ -30,25 +30,25 @@ export class Accounts extends Core.APIResource {
     query?: AccountListParams | null | undefined,
     options?: Core.RequestOptions
   ): Core.APIListPromise<Account> {
-    return this.get('/accounts', {query, ...options});
+    return this.getAPIList('/accounts', {query, ...options});
   }
 }
 
 export interface Account {
   /**
-   * Globally unique identifier for the account. This is the same as the account_token returned by the enroll endpoint. If using this parameter, do not include pagination.
-   */
-  token?: string;
-
-  /**
    * Spend limit information for the user containing the daily, monthly, and lifetime spend limit of the account. Any charges to a card owned by this account will be declined once their transaction volume has surpassed the value in the applicable time limit (rolling). A lifetime limit of 0 indicates that the lifetime limit feature is disabled.
    */
-  spend_limit?: Account.SpendLimit;
+  spend_limit: Account.SpendLimit;
 
   /**
    * Account state: * `ACTIVE` - Active, account is able to transact and create new cards. * `PAUSED` - Paused, account will not be able to transact or create new cards.
    */
-  state?: 'ACTIVE' | 'PAUSED';
+  state: 'ACTIVE' | 'PAUSED';
+
+  /**
+   * Globally unique identifier for the account. This is the same as the account_token returned by the enroll endpoint. If using this parameter, do not include pagination.
+   */
+  token: string;
 }
 
 export namespace Account {
@@ -56,17 +56,17 @@ export namespace Account {
     /**
      * Daily spend limit (in cents).
      */
-    daily?: number;
+    daily: number;
 
     /**
      * Monthly spend limit (in cents).
      */
-    monthly?: number;
+    monthly: number;
 
     /**
      * Total spend limit over account lifetime (in cents).
      */
-    lifetime?: number;
+    lifetime: number;
   }
 }
 

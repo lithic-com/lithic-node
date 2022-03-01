@@ -7,7 +7,7 @@ export class AuthStreamEnrollment extends Core.APIResource {
    */
   retrieve(
     options?: Core.RequestOptions
-  ): Promise<Core.Response<AuthStreamEnrollment>> {
+  ): Promise<Core.APIResponse<AuthStreamEnrollment>> {
     return this.get('/auth_stream', options);
   }
 
