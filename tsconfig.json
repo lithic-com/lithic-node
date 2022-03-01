@@ -9,6 +9,7 @@
     "declaration": true,
     "outDir": "dist",
     "pretty": true,
+    "sourceMap": true,
 
     "forceConsistentCasingInFileNames": true,
 
