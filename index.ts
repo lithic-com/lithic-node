@@ -111,4 +111,6 @@ export namespace Lithic {
   };
 }
 
+exports = module.exports = Lithic;
+module.exports.__esModule = true;
 export default Lithic;

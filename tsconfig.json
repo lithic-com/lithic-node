@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
     "target": "es2016",
-    "lib": ["ES2019"],
+    "lib": ["esnext"],
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
 
     "declaration": true,
     "outDir": "dist",
+    "pretty": true,
 
     "forceConsistentCasingInFileNames": true,
 
