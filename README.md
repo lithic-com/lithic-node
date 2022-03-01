@@ -1,15 +1,26 @@
-# Lithic Node API Library
+# Lithic Node API Library [beta]
 
 The Lithic Node library provides convenient access
 to the Lithic REST API from applications written in server-side JavaScript.
 It includes TypeScript definitions for all request params and response fields.
 
+## Status
+
+This package is in beta. Its internals and interfaces are not stable
+and subject to change without a major semver bump;
+please reach out if you rely on any undocumented behavior.
+
+We are keen for your feedback; please email us at [lithic-dev-feedback@stainlessapi.com](mailto:lithic-dev-feedback@stainlessapi.com)
+with questions, bugs, or suggestions.
+
 ## Installation
 
+While this package is in beta, please install directly from Github:
+
 ```sh
-npm install --save lithic
+npm install --save lithic-com/lithic-node#main
 # or
-yarn add lithic
+yarn add lithic-com/lithic-node#main
 ```
 
 ## Usage
