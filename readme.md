@@ -15,7 +15,7 @@ yarn add lithic
 ## Usage
 
 ```js
-import Lithic from 'lithic;
+import Lithic from 'lithic';
 
 const lithic = new Lithic(process.env.LITHIC_API_KEY, {
   environment: 'sandbox', // or 'production'
