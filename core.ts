@@ -45,24 +45,20 @@ export abstract class APIClient {
     const {method, path, query, body, headers} = options;
 
     const url = this.buildURL(path!, query);
+    const jsonBody = body && JSON.stringify(body, null, 2);
+    const contentLength = jsonBody?.length.toString();
 
     const req: RequestInit = {
       method,
-      ...(body && {body: JSON.stringify(body, null, 2)}),
+      ...(jsonBody && {body: jsonBody}),
       headers: {
+        ...(contentLength && {'Content-Length': contentLength}),
         ...this.defaultHeaders(),
         ...headers,
       },
     };
 
-    if (process.env['DEBUG'] === 'true') {
-      console.log(
-        `${this.constructor.name}:DEBUG:request`,
-        url,
-        options,
-        req.headers
-      );
-    }
+    this.debug('request', url, options, req.headers);
 
     const response = await fetch(url, req).catch(() => null);
 
@@ -212,6 +208,12 @@ export abstract class APIClient {
   getUserAgent(): string {
     const packageVersion = getPackageVersion();
     return `${this.constructor.name}/JS ${packageVersion}`;
+  }
+
+  debug(action: string, ...args: any[]) {
+    if (process.env['DEBUG'] === 'true') {
+      console.log(`${this.constructor.name}:DEBUG:${action}`, ...args);
+    }
   }
 }
 
