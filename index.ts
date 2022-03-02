@@ -32,12 +32,11 @@ export class Lithic extends Core.APIClient {
   transactions: API.Transactions = new API.Transactions(this);
   status: API.StatusResource = new API.StatusResource(this);
 
-  defaultHeaders(): Core.Headers {
+  override defaultHeaders(): Core.Headers {
     const Authorization = `api-key ${this.apiKey}`;
     return {
+      ...super.defaultHeaders(),
       Authorization,
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
     };
   }
 

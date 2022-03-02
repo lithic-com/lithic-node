@@ -1,6 +1,7 @@
 import fetch from 'cross-fetch';
 import qs from 'qs';
 import {makeAutoPaginationMethods, AutoPaginationMethods} from './pagination';
+import pkgUp from 'pkg-up';
 
 export abstract class APIClient {
   apiKey: string;
@@ -21,15 +22,21 @@ export abstract class APIClient {
   }
 
   /**
-   * Should return an object like:
+   * Override this to add your own default headers, for example:
    *
    *  {
+   *    ...super.defaultHeaders(),
    *    Authorization: 'Bearer 123',
-   *    Accept: 'application/json',
-   *    'Content-Type': 'application/json',
    *  }
    */
-  abstract defaultHeaders(): Headers;
+  defaultHeaders(): Headers {
+    return {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'User-Agent': this.getUserAgent(),
+      'X-Stainless-Client-User-Agent': getPlatformPropertiesJSON(),
+    };
+  }
 
   async request<Req, Rsp>(
     options: FinalRequestOptions<Req>,
@@ -47,6 +54,15 @@ export abstract class APIClient {
         ...headers,
       },
     };
+
+    if (process.env['DEBUG'] === 'true') {
+      console.log(
+        `${this.constructor.name}:DEBUG:request`,
+        url,
+        options,
+        req.headers
+      );
+    }
 
     const response = await fetch(url, req).catch(() => null);
 
@@ -192,6 +208,11 @@ export abstract class APIClient {
 
     return sleepSeconds + jitter;
   }
+
+  getUserAgent(): string {
+    const packageVersion = getPackageVersion();
+    return `${this.constructor.name}/JS ${packageVersion}`;
+  }
 }
 
 export class APIResource {
@@ -335,6 +356,52 @@ export class APIConnectionError extends APIError {
     super(undefined, undefined, 'Connection error.', undefined);
   }
 }
+
+let _packageVersion: string;
+const getPackageVersion = (): string => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  return (_packageVersion ??= require(pkgUp.sync()!).version);
+};
+
+declare const Deno: any;
+type PlatformProperties = {
+  lang: 'js';
+  packageVersion: string;
+  os: string;
+  arch: string;
+  runtime: 'node' | 'deno';
+  runtimeVersion: string;
+};
+const getPlatformProperties = (): PlatformProperties | void => {
+  if (typeof process !== 'undefined') {
+    return {
+      lang: 'js',
+      packageVersion: getPackageVersion(),
+      os: process.platform,
+      arch: process.arch,
+      runtime: 'node',
+      runtimeVersion: process.version,
+    };
+  }
+  if (typeof Deno !== 'undefined') {
+    return {
+      lang: 'js',
+      packageVersion: getPackageVersion(),
+      os: Deno.build.os,
+      arch: Deno.build.arch,
+      runtime: 'deno',
+      runtimeVersion: Deno.version,
+    };
+  }
+  // TODO add support for Cloudflare workers, browsers, etc.
+};
+
+let _platformPropertiesJSON: string;
+const getPlatformPropertiesJSON = () => {
+  return (
+    (_platformPropertiesJSON ??= JSON.stringify(getPlatformProperties())) || ''
+  );
+};
 
 const safeJSON = (text: string) => {
   try {
