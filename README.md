@@ -33,7 +33,6 @@ const lithic = new Lithic(process.env.LITHIC_API_KEY, {
 });
 
 async function main() {
-  // returns type Lithic.Card
   const card = await lithic.cards.create({
     type: 'SINGLE_USE',
   });
@@ -42,6 +41,31 @@ async function main() {
 }
 main();
 ```
+
+### Usage with TypeScript
+
+Importing, instantiating, and interacting with the library are the same as above.
+If you like, you may reference our types directly:
+
+```ts
+import Lithic from 'lithic';
+
+const lithic = new Lithic(process.env.LITHIC_API_KEY, {
+  environment: 'sandbox', // or 'production'
+});
+
+async function main() {
+  const params: Lithic.CardCreateParams = {type: 'SINGLE_USE'};
+
+  const card: Lithic.Card = await lithic.cards.create(params);
+
+  const funding: Lithic.Card.Funding['type'] = card.funding;
+  console.log(funding.type); // TS knows this is 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS'
+}
+main();
+```
+
+Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
 
 ## Handling errors
 
