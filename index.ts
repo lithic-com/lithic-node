@@ -102,7 +102,7 @@ export namespace Lithic {
   export import TransactionSimulateReturnParams = API.TransactionSimulateReturnParams;
   export import TransactionSimulateVoidParams = API.TransactionSimulateVoidParams;
 
-  export import ApiStatus = API.ApiStatus;
+  export import APIStatus = API.APIStatus;
 
   export type PaginationParams = {
     page?: number;

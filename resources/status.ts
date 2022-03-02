@@ -4,11 +4,11 @@ import * as Core from '../core';
 export class StatusResource extends Core.APIResource {
   retrieve(
     options?: Core.RequestOptions
-  ): Promise<Core.APIResponse<ApiStatus>> {
+  ): Promise<Core.APIResponse<APIStatus>> {
     return this.get('/status', options);
   }
 }
 
-export interface ApiStatus {
+export interface APIStatus {
   message?: string;
 }
