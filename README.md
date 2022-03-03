@@ -15,12 +15,10 @@ with questions, bugs, or suggestions.
 
 ## Installation
 
-While this package is in beta, please install directly from Github:
-
 ```sh
-npm install --save lithic-com/lithic-node#main
+npm install --save lithic
 # or
-yarn add lithic-com/lithic-node#main
+yarn add lithic
 ```
 
 ## Usage
