@@ -119,7 +119,7 @@ lithic.cards.list({page_size: 5}, {maxRetries: 5});
 
 ### Timeouts
 
-Requests time out after 80 seconds by default. You may pass a timeout option when instantiating the client or sending a
+Requests time out after 60 seconds by default. You may pass a `timeout` option when instantiating the client or sending a
 request to override this, e.g.,
 
 ```
@@ -128,12 +128,14 @@ const lithic = new Lithic(process.env.LITHIC_API_KEY, {
 });
 
 // Or, configure per-request:
-lithic.cards.list({page_size: 5}, {timeout: 5 * 1000}); // 5 seconds
+lithic.cards.list({page_size: 5}, {
+  timeout: 5 * 1000 // 5 seconds
+});
 ```
 
-On timeout an `APIConnectionTimeoutError` is thrown.
+On timeout, an `APIConnectionTimeoutError` is thrown.
 
-> Note that request which time out will be [retried twice by default](#retries).
+Note that request which time out will be [retried twice by default](#retries).
 
 ## Auto-pagination
 
