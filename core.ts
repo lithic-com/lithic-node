@@ -4,7 +4,7 @@ import {makeAutoPaginationMethods, AutoPaginationMethods} from './pagination';
 import pkgUp from 'pkg-up';
 
 const DEFAULT_MAX_RETRIES = 2;
-const DEFAULT_TIMEOUT = 80 * 1000; // 80s
+const DEFAULT_TIMEOUT = 60 * 1000; // 60s
 
 export abstract class APIClient {
   apiKey: string;
