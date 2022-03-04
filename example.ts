@@ -3,6 +3,7 @@ import Lithic from './index';
 
 const lithic = new Lithic('5344d81a-da4a-4843-bce5-5495e79096b3', {
   environment: 'sandbox',
+  timeout: 10 * 1000,
 });
 
 const hmacSignature = (key: string, msg: string): string => {
@@ -93,6 +94,23 @@ async function main() {
       throw e;
     }
   });
+
+  // per-request timeout error
+  await lithic.cards
+    .create(
+      {type: 'SINGLE_USE'},
+      {timeout: 100 /* 100ms should be too short and fail with a timeout */}
+    )
+    .catch((e: unknown) => {
+      if (
+        e instanceof Lithic.APIConnectionTimeoutError &&
+        e instanceof Lithic.APIConnectionError // should subclass APIConnectionError
+      ) {
+        console.log('Request timed out!', e);
+      } else {
+        throw e;
+      }
+    });
 }
 
 main().catch(console.error);

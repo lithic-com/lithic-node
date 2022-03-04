@@ -105,7 +105,7 @@ Connection errors (for example, due to a network connectivity problem), 409 Conf
 and >=500 Internal errors will all be retried by default.
 
 You can disable or configure this behavior by passing `maxRetries: 0` to the client instantiation
-or in a request's options, e.g.;
+or in a request's options, e.g.,
 
 ```js
 // Configure the default across the library:
@@ -116,6 +116,26 @@ const lithic = new Lithic(process.env.LITHIC_API_KEY, {
 // Or, configure this per-request:
 lithic.cards.list({page_size: 5}, {maxRetries: 5});
 ```
+
+### Timeouts
+
+Requests time out after 60 seconds by default. You may pass a `timeout` option when instantiating the client or sending a
+request to override this, e.g.,
+
+```
+const lithic = new Lithic(process.env.LITHIC_API_KEY, {
+  timeout: 20 * 1000, // 20 seconds
+});
+
+// Or, configure per-request:
+lithic.cards.list({page_size: 5}, {
+  timeout: 5 * 1000 // 5 seconds
+});
+```
+
+On timeout, an `APIConnectionTimeoutError` is thrown.
+
+Note that request which time out will be [retried twice by default](#retries).
 
 ## Auto-pagination
 

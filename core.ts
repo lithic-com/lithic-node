@@ -3,22 +3,29 @@ import qs from 'qs';
 import {makeAutoPaginationMethods, AutoPaginationMethods} from './pagination';
 import pkgUp from 'pkg-up';
 
+const DEFAULT_MAX_RETRIES = 2;
+const DEFAULT_TIMEOUT = 60 * 1000; // 60s
+
 export abstract class APIClient {
   apiKey: string;
   baseURL: string;
   maxRetries: number;
+  timeout: number;
   constructor({
     apiKey,
     baseURL,
-    maxRetries = 2,
+    maxRetries = DEFAULT_MAX_RETRIES,
+    timeout = DEFAULT_TIMEOUT,
   }: {
     apiKey: string;
     baseURL: string;
     maxRetries?: number;
+    timeout: number | undefined;
   }) {
     this.apiKey = apiKey;
     this.baseURL = baseURL;
-    this.maxRetries = maxRetries;
+    this.maxRetries = validatePositiveInteger('maxRetries', maxRetries);
+    this.timeout = validatePositiveInteger('timeout', timeout);
   }
 
   /**
@@ -44,6 +51,9 @@ export abstract class APIClient {
   ): Promise<APIResponse<Rsp>> {
     const {method, path, query, body, headers} = options;
 
+    const timeout = options.timeout || this.timeout;
+    validatePositiveInteger('timeout', timeout);
+
     const url = this.buildURL(path!, query);
     const jsonBody = body && JSON.stringify(body, null, 2);
     const contentLength = jsonBody?.length.toString();
@@ -60,8 +70,20 @@ export abstract class APIClient {
 
     this.debug('request', url, options, req.headers);
 
-    const response = await fetch(url, req).catch(() => null);
+    const fetchPromise = fetch(url, req).catch(() => null);
+    let timeoutId: ReturnType<typeof setTimeout> | null;
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      timeoutId = setTimeout(() => {
+        timeoutId = null;
+        reject(new APIConnectionTimeoutError());
+      }, timeout);
+    });
 
+    const response = await Promise.race([fetchPromise, timeoutPromise]).finally(
+      () => {
+        if (timeoutId) clearTimeout(timeoutId);
+      }
+    );
     if (!response) {
       if (retriesRemaining) return this.retryRequest(options, retriesRemaining);
 
@@ -259,6 +281,7 @@ export type RequestOptions<Req extends {} = Record<string, unknown>> = {
   headers?: Headers | undefined;
 
   maxRetries?: number;
+  timeout?: number;
 };
 
 export type FinalRequestOptions<Req extends {} = Record<string, unknown>> =
@@ -354,8 +377,14 @@ export class InternalServerError extends APIError {}
 export class APIConnectionError extends APIError {
   override readonly status: undefined;
 
+  constructor(message: string = 'Connection error.') {
+    super(undefined, undefined, message, undefined);
+  }
+}
+
+export class APIConnectionTimeoutError extends APIConnectionError {
   constructor() {
-    super(undefined, undefined, 'Connection error.', undefined);
+    super('Request timed out.');
   }
 }
 
@@ -414,3 +443,13 @@ const safeJSON = (text: string) => {
 };
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const validatePositiveInteger = (name: string, n: number) => {
+  if (!Number.isInteger(n)) {
+    throw new Error(`${name} must be an integer`);
+  }
+  if (n < 0) {
+    throw new Error(`${name} must be a positive integer`);
+  }
+  return n;
+};
