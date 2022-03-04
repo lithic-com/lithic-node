@@ -12,14 +12,17 @@ export class Lithic extends Core.APIClient {
     {
       environment = 'production',
       baseURL,
+      timeout,
     }: {
       environment?: keyof typeof environments;
       baseURL?: string;
+      timeout?: number;
     } = {}
   ) {
     super({
       apiKey,
       baseURL: baseURL || environments[environment],
+      timeout,
     });
   }
 
@@ -64,6 +67,7 @@ export class Lithic extends Core.APIClient {
   static PermissionDeniedError = Core.PermissionDeniedError;
   static RateLimitError = Core.RateLimitError;
   static UnprocessableEntityError = Core.UnprocessableEntityError;
+  static APIConnectionTimeoutError = Core.APIConnectionTimeoutError;
 }
 
 export namespace Lithic {
