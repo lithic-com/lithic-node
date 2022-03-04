@@ -71,7 +71,7 @@ export abstract class APIClient {
     this.debug('request', url, options, req.headers);
 
     const fetchPromise = fetch(url, req).catch(() => null);
-    let timeoutId: NodeJS.Timeout | null;
+    let timeoutId: ReturnType<typeof setTimeout> | null;
     const timeoutPromise = new Promise<never>((_, reject) => {
       timeoutId = setTimeout(() => {
         timeoutId = null;
