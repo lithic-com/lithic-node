@@ -5,10 +5,7 @@ export class Accounts extends Core.APIResource {
   /**
    * Get account configuration such as spend limits.
    */
-  retrieve(
-    id: string,
-    options?: Core.RequestOptions
-  ): Promise<Core.APIResponse<Account>> {
+  retrieve(id: string, options?: Core.RequestOptions): Promise<Core.APIResponse<Account>> {
     return this.get(`/accounts/${id}`, options);
   }
 
@@ -18,9 +15,9 @@ export class Accounts extends Core.APIResource {
   update(
     id: string,
     body?: AccountUpdateParams | null | undefined,
-    options?: Core.RequestOptions
+    options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<Account>> {
-    return this.patch(`/accounts/${id}`, {body, ...options});
+    return this.patch(`/accounts/${id}`, { body, ...options });
   }
 
   /**
@@ -28,9 +25,9 @@ export class Accounts extends Core.APIResource {
    */
   list(
     query?: AccountListParams | null | undefined,
-    options?: Core.RequestOptions
+    options?: Core.RequestOptions,
   ): Core.APIListPromise<Account> {
-    return this.getAPIList('/accounts', {query, ...options});
+    return this.getAPIList('/accounts', { query, ...options });
   }
 }
 
@@ -59,14 +56,14 @@ export namespace Account {
     daily: number;
 
     /**
-     * Monthly spend limit (in cents).
-     */
-    monthly: number;
-
-    /**
      * Total spend limit over account lifetime (in cents).
      */
     lifetime: number;
+
+    /**
+     * Monthly spend limit (in cents).
+     */
+    monthly: number;
   }
 }
 

@@ -2,9 +2,7 @@
 import * as Core from '../core';
 
 export class StatusResource extends Core.APIResource {
-  retrieve(
-    options?: Core.RequestOptions
-  ): Promise<Core.APIResponse<APIStatus>> {
+  retrieve(options?: Core.RequestOptions): Promise<Core.APIResponse<APIStatus>> {
     return this.get('/status', options);
   }
 }

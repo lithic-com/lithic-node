@@ -7,9 +7,9 @@ export class Consumers extends Core.APIResource {
    */
   enroll(
     body: ConsumerEnrollParams,
-    options?: Core.RequestOptions
+    options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<ConsumersEnrollResponse>> {
-    return this.post('/enroll/consumer', {body, ...options});
+    return this.post('/enroll/consumer', { body, ...options });
   }
 }
 
@@ -34,8 +34,6 @@ export namespace ConsumersEnrollResponse {
 
   export namespace Data {
     export interface Kyc {
-      success?: boolean;
-
       failure_reasons?: Array<
         | 'ADDRESS_VERIFICATION_FAILURE'
         | 'AGE_THRESHOLD_FAILURE'
@@ -48,6 +46,8 @@ export namespace ConsumersEnrollResponse {
         | 'ID_VERIFICATION_FAILURE'
         | 'COMPLETE_VERIFICATION_FAILURE'
       >;
+
+      success?: boolean;
     }
   }
 }
@@ -74,11 +74,6 @@ export interface ConsumerEnrollParams {
   kyc_passed_timestamp: string;
 
   /**
-   * Specifies the KYC workflow to run on the person for which the account is being created. Review the KYC Type enumeration section for more information. KYC types: * `BASIC` - Lithic Basic-tier KYC **[BETA]**. Offers simple identity verification with no yellow-path remediation or document upload. * `PRECHECKED` - Bypass Lithic KYC. Only usable by customers with KYC processes approved by Lithic.
-   */
-  kyc_type?: 'BASIC' | 'PRECHECKED';
-
-  /**
    * Customer's surname (family name).
    */
   last_name: string;
@@ -99,11 +94,6 @@ export interface ConsumerEnrollParams {
   street1: string;
 
   /**
-   * Unit or apartment number (if applicable).
-   */
-  street2?: string;
-
-  /**
    * An ISO 8601 timestamp at which Lithic's terms of service were accepted by customer. UTC time zone.
    */
   tos_timestamp: string;
@@ -112,4 +102,14 @@ export interface ConsumerEnrollParams {
    * Postal code.
    */
   zipcode: string;
+
+  /**
+   * Specifies the KYC workflow to run on the person for which the account is being created. Review the KYC Type enumeration section for more information. KYC types: * `BASIC` - Lithic Basic-tier KYC **[BETA]**. Offers simple identity verification with no yellow-path remediation or document upload. * `PRECHECKED` - Bypass Lithic KYC. Only usable by customers with KYC processes approved by Lithic.
+   */
+  kyc_type?: 'BASIC' | 'PRECHECKED';
+
+  /**
+   * Unit or apartment number (if applicable).
+   */
+  street2?: string;
 }

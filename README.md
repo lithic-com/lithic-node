@@ -1,7 +1,6 @@
 # Lithic Node API Library [beta]
 
-The Lithic Node library provides convenient access
-to the Lithic REST API from applications written in server-side JavaScript.
+The Lithic Node library provides convenient access to the Lithic REST API from applications written in server-side JavaScript.
 It includes TypeScript definitions for all request params and response fields.
 
 ## Status
@@ -53,7 +52,7 @@ const lithic = new Lithic(process.env.LITHIC_API_KEY, {
 });
 
 async function main() {
-  const params: Lithic.CardCreateParams = {type: 'SINGLE_USE'};
+  const params: Lithic.CardCreateParams = { type: 'SINGLE_USE' };
 
   const card: Lithic.Card = await lithic.cards.create(params);
 
@@ -73,7 +72,7 @@ a subclass of `APIError` will be thrown:
 
 ```ts
 async function main() {
-  const card = await lithic.cards.create({type: 'singel_use'}).catch((err) => {
+  const card = await lithic.cards.create({ type: 'an_incorrect_type' }).catch((err) => {
     if (err instanceof Lithic.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -97,16 +96,17 @@ Error codes are as followed:
 | 422         | `UnprocessableEntityError` |
 | 429         | `RateLimitError`           |
 | >=500       | `InternalServerError`      |
+| N/A         | `APIConnectionError`       |
 
 ### Retries
 
-Certain errors will be automatically retried twice by default, with a short exponential backoff.
+Certain errors will be automatically retried 2 times by default, with a short exponential backoff.
 Connection errors (for example, due to a network connectivity problem), 409 Conflict, 429 Rate Limit,
 and >=500 Internal errors will all be retried by default.
 
-You can disable or configure this behavior by passing `maxRetries: 0` to the client instantiation
-or in a request's options, e.g.,
+You can use the `maxRetries` option to configure or disable this:
 
+<!-- prettier-ignore -->
 ```js
 // Configure the default across the library:
 const lithic = new Lithic(process.env.LITHIC_API_KEY, {
@@ -114,22 +114,25 @@ const lithic = new Lithic(process.env.LITHIC_API_KEY, {
 });
 
 // Or, configure this per-request:
-lithic.cards.list({page_size: 5}, {maxRetries: 5});
+lithic.cards.list({ page_size: 5 }, {
+  maxRetries: 5
+});
 ```
 
 ### Timeouts
 
-Requests time out after 60 seconds by default. You may pass a `timeout` option when instantiating the client or sending a
-request to override this, e.g.,
+Requests time out after 60 seconds by default. You can configure this with a `timeout` option:
 
-```
+<!-- prettier-ignore -->
+```ts
+// Configure the default across the library:
 const lithic = new Lithic(process.env.LITHIC_API_KEY, {
-  timeout: 20 * 1000, // 20 seconds
+  timeout: 20 * 1000, // 20 seconds (default is 60s)
 });
 
 // Or, configure per-request:
-lithic.cards.list({page_size: 5}, {
-  timeout: 5 * 1000 // 5 seconds
+lithic.cards.list({ page_size: 5 }, {
+  timeout: 5 * 1000
 });
 ```
 
@@ -164,9 +167,9 @@ On older versions of Node which do not support async iteration,
 you can use `autoPagingEach`, which accepts a callback for each item.
 Return `false` (or a promise resolving to `false`) from this callback to stop iteration.
 
+<!-- prettier-ignore -->
 ```js
-lithic.cards
-  .list()
+lithic.cards.list()
   .autoPagingEach((card) => {
     console.log(card.token);
     return doSomething(card).then(() => {
@@ -180,15 +183,15 @@ lithic.cards
   });
 ```
 
-#### `.autoPagingToArray()`
+### `.autoPagingToArray()`
 
 As a convenience for cases where you expect the number of items to be relatively small,
 this helper returns a promise of an array of items across _all_ pages for a list request.
 
+<!-- prettier-ignore -->
 ```js
-const allNewCards = await lithic.cards
-  .list({begin: lastMonth})
-  .autoPagingToArray({limit: 1000});
+const allNewCards = await lithic.cards.list({ begin: lastMonth })
+  .autoPagingToArray({ limit: 1000 });
 ```
 
 Note that you must pass a `limit` option to prevent runaway list growth from consuming too much memory.

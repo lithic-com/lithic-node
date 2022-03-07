@@ -5,9 +5,7 @@ export class FundingSources extends Core.APIResource {
   /**
    * Add a funding source using bank routing and account numbers or via Plaid. In the production environment, funding accounts will be set to `PENDING` state until micro-deposit validation completes while funding accounts in sandbox will be set to `ENABLED` state automatically.
    */
-  create(
-    options?: Core.RequestOptions
-  ): Promise<Core.APIResponse<FundingSource>> {
+  create(options?: Core.RequestOptions): Promise<Core.APIResponse<FundingSource>> {
     return this.post('/funding_sources', options);
   }
 
@@ -17,9 +15,9 @@ export class FundingSources extends Core.APIResource {
   update(
     id: string,
     body?: FundingSourceUpdateParams | null | undefined,
-    options?: Core.RequestOptions
+    options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<FundingSource>> {
-    return this.patch(`/funding_sources/${id}`, {body, ...options});
+    return this.patch(`/funding_sources/${id}`, { body, ...options });
   }
 
   /**
@@ -27,9 +25,9 @@ export class FundingSources extends Core.APIResource {
    */
   list(
     query?: FundingSourceListParams | null | undefined,
-    options?: Core.RequestOptions
+    options?: Core.RequestOptions,
   ): Core.APIListPromise<FundingSource> {
-    return this.getAPIList('/funding_sources', {query, ...options});
+    return this.getAPIList('/funding_sources', { query, ...options });
   }
 
   /**
@@ -38,18 +36,13 @@ export class FundingSources extends Core.APIResource {
   verify(
     id: string,
     body: FundingSourceVerifyParams,
-    options?: Core.RequestOptions
+    options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<FundingSource>> {
-    return this.post(`/funding_sources/${id}/verify`, {body, ...options});
+    return this.post(`/funding_sources/${id}/verify`, { body, ...options });
   }
 }
 
 export interface FundingSource {
-  /**
-   * Account name identifying the funding source. This may be `null`.
-   */
-  account_name?: string;
-
   /**
    * An ISO 8601 string representing when this funding source was added to the Lithic account. This may be `null`. UTC time zone.
    */
@@ -59,11 +52,6 @@ export interface FundingSource {
    * The last 4 digits of the account (e.g. bank account, debit card) associated with this FundingAccount. This may be null.
    */
   last_four: string;
-
-  /**
-   * The nickname given to the `FundingAccount` or `null` if it has no nickname.
-   */
-  nickname?: string;
 
   /**
    * State of funding source. Funding source states: * `ENABLED` - The funding account is available to use for card creation and transactions. * `PENDING` - The funding account is still being verified e.g. bank micro-deposits verification.
@@ -79,6 +67,16 @@ export interface FundingSource {
    * Types of funding source: * `DEPOSITORY_CHECKING` - Bank checking account. * `DEPOSITORY_SAVINGS` - Bank savings account.
    */
   type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS';
+
+  /**
+   * Account name identifying the funding source. This may be `null`.
+   */
+  account_name?: string;
+
+  /**
+   * The nickname given to the `FundingAccount` or `null` if it has no nickname.
+   */
+  nickname?: string;
 }
 
 export interface FundingSourceCreateParams {}
@@ -101,12 +99,12 @@ export interface FundingSourceListParams {
 
 export interface FundingSourceVerifyParams {
   /**
-   * Only required for multi-account users. Token identifying the account that the bank account will be associated with. Only applicable if using account enrollment. See [Managing Accounts](https://docs.lithic.com/docs/managing-accounts) for more information.
-   */
-  account_token?: string;
-
-  /**
    * An array of dollar amounts (in cents) received in two credit transactions.
    */
   micro_deposits: Array<number>;
+
+  /**
+   * Only required for multi-account users. Token identifying the account that the bank account will be associated with. Only applicable if using account enrollment. See [Managing Accounts](https://docs.lithic.com/docs/managing-accounts) for more information.
+   */
+  account_token?: string;
 }

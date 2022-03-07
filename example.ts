@@ -16,13 +16,8 @@ const embedRequestParams = (params: {
   account_token?: string | undefined;
   target_origin?: string | undefined;
 }): Lithic.CardEmbedParams => {
-  const queryParams = Object.fromEntries(
-    Object.entries(params).filter(([k, v]) => !!v)
-  );
-  const embedRequestJson = JSON.stringify(
-    queryParams,
-    Object.keys(queryParams).sort()
-  );
+  const queryParams = Object.fromEntries(Object.entries(params).filter(([k, v]) => !!v));
+  const embedRequestJson = JSON.stringify(queryParams, Object.keys(queryParams).sort());
 
   return {
     embed_request: Buffer.from(embedRequestJson).toString('base64'),
@@ -37,7 +32,7 @@ async function main() {
   console.log(card);
   const card_token = card.token!;
 
-  const {token} = await lithic.transactions.simulateAuthorization({
+  const { token } = await lithic.transactions.simulateAuthorization({
     amount: 200,
     descriptor: 'Test',
     pan: card.pan!,
@@ -52,14 +47,14 @@ async function main() {
   });
   console.log(
     'Transactions',
-    transactions.data.map(({result, status, amount}) => ({
+    transactions.data.map(({ result, status, amount }) => ({
       result,
       status,
       amount,
-    }))
+    })),
   );
 
-  const embedParams = embedRequestParams({token: card_token});
+  const embedParams = embedRequestParams({ token: card_token });
   console.log(embedParams);
   const embedHtml = await lithic.cards.embed(embedParams);
   console.log(embedHtml);
@@ -71,23 +66,21 @@ async function main() {
   //     break;
   //   }
   // }
-  await lithic.cards.list({page_size: 5}).autoPagingEach(async (card) => {
+  await lithic.cards.list({ page_size: 5 }).autoPagingEach(async (card) => {
     console.log('Card', i++, card.token);
     if (i > 16) return false;
   });
   console.log('Done', i);
 
-  const someCards = await lithic.cards
-    .list({page_size: 5})
-    .autoPagingToArray({limit: 17});
+  const someCards = await lithic.cards.list({ page_size: 5 }).autoPagingToArray({ limit: 17 });
   console.log(
     'Done',
-    someCards.map(({token}) => token),
-    someCards.length
+    someCards.map(({ token }) => token),
+    someCards.length,
   );
 
   // @ts-expect-error 'foo' does not exist in type 'CardCreateParams'
-  await lithic.cards.create({type: 'singel_use'}).catch((e: unknown) => {
+  await lithic.cards.create({ type: 'singel_use' }).catch((e: unknown) => {
     if (e instanceof Lithic.BadRequestError) {
       console.log('Bad request!', e);
     } else {
@@ -97,10 +90,7 @@ async function main() {
 
   // per-request timeout error
   await lithic.cards
-    .create(
-      {type: 'SINGLE_USE'},
-      {timeout: 100 /* 100ms should be too short and fail with a timeout */}
-    )
+    .create({ type: 'SINGLE_USE' }, { timeout: 100 /* 100ms should be too short and fail with a timeout */ })
     .catch((e: unknown) => {
       if (
         e instanceof Lithic.APIConnectionTimeoutError &&

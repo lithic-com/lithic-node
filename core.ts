@@ -1,6 +1,6 @@
 import fetch from 'cross-fetch';
 import qs from 'qs';
-import {makeAutoPaginationMethods, AutoPaginationMethods} from './pagination';
+import { makeAutoPaginationMethods, AutoPaginationMethods } from './pagination';
 import pkgUp from 'pkg-up';
 
 const DEFAULT_MAX_RETRIES = 2;
@@ -47,9 +47,9 @@ export abstract class APIClient {
 
   async request<Req, Rsp>(
     options: FinalRequestOptions<Req>,
-    retriesRemaining = options.maxRetries ?? this.maxRetries
+    retriesRemaining = options.maxRetries ?? this.maxRetries,
   ): Promise<APIResponse<Rsp>> {
-    const {method, path, query, body, headers} = options;
+    const { method, path, query, body, headers } = options;
 
     const timeout = options.timeout || this.timeout;
     validatePositiveInteger('timeout', timeout);
@@ -60,9 +60,9 @@ export abstract class APIClient {
 
     const req: RequestInit = {
       method,
-      ...(jsonBody && {body: jsonBody}),
+      ...(jsonBody && { body: jsonBody }),
       headers: {
-        ...(contentLength && {'Content-Length': contentLength}),
+        ...(contentLength && { 'Content-Length': contentLength }),
         ...this.defaultHeaders(),
         ...headers,
       },
@@ -79,11 +79,9 @@ export abstract class APIClient {
       }, timeout);
     });
 
-    const response = await Promise.race([fetchPromise, timeoutPromise]).finally(
-      () => {
-        if (timeoutId) clearTimeout(timeoutId);
-      }
-    );
+    const response = await Promise.race([fetchPromise, timeoutPromise]).finally(() => {
+      if (timeoutId) clearTimeout(timeoutId);
+    });
     if (!response) {
       if (retriesRemaining) return this.retryRequest(options, retriesRemaining);
 
@@ -101,12 +99,7 @@ export abstract class APIClient {
       const errJSON = safeJSON(errText);
       const errMessage = errJSON ? undefined : errText;
 
-      const err = APIError.generate(
-        response.status,
-        errJSON,
-        errMessage,
-        responseHeaders
-      );
+      const err = APIError.generate(response.status, errJSON, errMessage, responseHeaders);
 
       throw err;
     }
@@ -128,22 +121,13 @@ export abstract class APIClient {
     }
   }
 
-  requestAPIList<Req, Rsp>(
-    options: FinalRequestOptions<Req>
-  ): APIListPromise<Rsp> {
+  requestAPIList<Req, Rsp>(options: FinalRequestOptions<Req>): APIListPromise<Rsp> {
     const requestPromise = this.request(options) as Promise<APIList<Rsp>>;
-    const autoPaginationMethods = makeAutoPaginationMethods(
-      this,
-      requestPromise,
-      options
-    );
+    const autoPaginationMethods = makeAutoPaginationMethods(this, requestPromise, options);
     return Object.assign(requestPromise, autoPaginationMethods);
   }
 
-  abstract getNextPageQuery(
-    request: FinalRequestOptions<Object>,
-    response: APIList<unknown>
-  ): Object | false;
+  abstract getNextPageQuery(request: FinalRequestOptions<Object>, response: APIList<unknown>): Object | false;
 
   abstract getPaginatedItems<Rsp>(response: APIList<Rsp>): Rsp[];
 
@@ -180,7 +164,7 @@ export abstract class APIClient {
   async retryRequest<Req, Rsp>(
     options: FinalRequestOptions<Req>,
     retriesRemaining: number,
-    responseHeaders?: Headers | undefined
+    responseHeaders?: Headers | undefined,
   ): Promise<Rsp> {
     retriesRemaining -= 1;
 
@@ -188,22 +172,13 @@ export abstract class APIClient {
     const retryAfter = parseInt(responseHeaders?.['retry-after'] || '');
 
     const maxRetries = options.maxRetries ?? this.maxRetries;
-    const timeout =
-      this.calculateRetryTimeoutSeconds(
-        retriesRemaining,
-        retryAfter,
-        maxRetries
-      ) * 1000;
+    const timeout = this.calculateRetryTimeoutSeconds(retriesRemaining, retryAfter, maxRetries) * 1000;
     await sleep(timeout);
 
     return this.request(options, retriesRemaining);
   }
 
-  calculateRetryTimeoutSeconds(
-    retriesRemaining: number,
-    retryAfter: number,
-    maxRetries: number
-  ): number {
+  calculateRetryTimeoutSeconds(retriesRemaining: number, retryAfter: number, maxRetries: number): number {
     const initialRetryDelay = 0.5;
     const maxRetryDelay = 2;
 
@@ -216,10 +191,7 @@ export abstract class APIClient {
     const numRetries = maxRetries - retriesRemaining;
 
     // Apply exponential backoff, but not more than the max.
-    const sleepSeconds = Math.min(
-      initialRetryDelay * Math.pow(numRetries - 1, 2),
-      maxRetryDelay
-    );
+    const sleepSeconds = Math.min(initialRetryDelay * Math.pow(numRetries - 1, 2), maxRetryDelay);
 
     // Apply some jitter, plus-or-minus half a second.
     const jitter = Math.random() - 0.5;
@@ -246,26 +218,23 @@ export class APIResource {
   }
 
   get<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
-    return this.client.request({method: 'get', path, ...opts});
+    return this.client.request({ method: 'get', path, ...opts });
   }
   post<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
-    return this.client.request({method: 'post', path, ...opts});
+    return this.client.request({ method: 'post', path, ...opts });
   }
   patch<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
-    return this.client.request({method: 'patch', path, ...opts});
+    return this.client.request({ method: 'patch', path, ...opts });
   }
   put<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
-    return this.client.request({method: 'put', path, ...opts});
+    return this.client.request({ method: 'put', path, ...opts });
   }
   delete<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
-    return this.client.request({method: 'delete', path, ...opts});
+    return this.client.request({ method: 'delete', path, ...opts });
   }
 
-  getAPIList<Req, Rsp>(
-    path: string,
-    opts?: RequestOptions<Req>
-  ): APIListPromise<Rsp> {
-    return this.client.requestAPIList({method: 'get', path, ...opts});
+  getAPIList<Req, Rsp>(path: string, opts?: RequestOptions<Req>): APIListPromise<Rsp> {
+    return this.client.requestAPIList({ method: 'get', path, ...opts });
   }
 }
 
@@ -284,11 +253,10 @@ export type RequestOptions<Req extends {} = Record<string, unknown>> = {
   timeout?: number;
 };
 
-export type FinalRequestOptions<Req extends {} = Record<string, unknown>> =
-  RequestOptions<Req> & {
-    method: HTTPMethod;
-    path: string;
-  };
+export type FinalRequestOptions<Req extends {} = Record<string, unknown>> = RequestOptions<Req> & {
+  method: HTTPMethod;
+  path: string;
+};
 
 export type APIResponse<T> = T & {
   responseHeaders: Headers;
@@ -301,9 +269,7 @@ export type APIList<Rsp> = APIResponse<{
   page: number;
 }>;
 
-export interface APIListPromise<Rsp>
-  extends Promise<APIResponse<APIList<Rsp>>>,
-    AutoPaginationMethods<Rsp> {}
+export interface APIListPromise<Rsp> extends Promise<APIResponse<APIList<Rsp>>>, AutoPaginationMethods<Rsp> {}
 
 export class APIError extends Error {
   readonly status: number | undefined;
@@ -314,7 +280,7 @@ export class APIError extends Error {
     status: number | undefined,
     error: Object | undefined,
     message: string | undefined,
-    headers: Headers | undefined
+    headers: Headers | undefined,
   ) {
     super(message || (error as any)?.message);
     this.status = status;
@@ -326,26 +292,18 @@ export class APIError extends Error {
     status: number | undefined,
     error: Object | undefined,
     message: string | undefined,
-    headers: Headers | undefined
+    headers: Headers | undefined,
   ) {
     if (!status) return new APIConnectionError();
 
-    if (status === 400)
-      return new BadRequestError(status, error, message, headers);
-    if (status === 401)
-      return new AuthenticationError(status, error, message, headers);
-    if (status === 403)
-      return new PermissionDeniedError(status, error, message, headers);
-    if (status === 404)
-      return new NotFoundError(status, error, message, headers);
-    if (status === 409)
-      return new ConflictError(status, error, message, headers);
-    if (status === 422)
-      return new UnprocessableEntityError(status, error, message, headers);
-    if (status === 429)
-      return new RateLimitError(status, error, message, headers);
-    if (status >= 500)
-      return new InternalServerError(status, error, message, headers);
+    if (status === 400) return new BadRequestError(status, error, message, headers);
+    if (status === 401) return new AuthenticationError(status, error, message, headers);
+    if (status === 403) return new PermissionDeniedError(status, error, message, headers);
+    if (status === 404) return new NotFoundError(status, error, message, headers);
+    if (status === 409) return new ConflictError(status, error, message, headers);
+    if (status === 422) return new UnprocessableEntityError(status, error, message, headers);
+    if (status === 429) return new RateLimitError(status, error, message, headers);
+    if (status >= 500) return new InternalServerError(status, error, message, headers);
 
     return new APIError(status, error, message, headers);
   }
@@ -377,7 +335,7 @@ export class InternalServerError extends APIError {}
 export class APIConnectionError extends APIError {
   override readonly status: undefined;
 
-  constructor(message: string = 'Connection error.') {
+  constructor(message = 'Connection error.') {
     super(undefined, undefined, message, undefined);
   }
 }
@@ -429,9 +387,7 @@ const getPlatformProperties = (): PlatformProperties | void => {
 
 let _platformPropertiesJSON: string;
 const getPlatformPropertiesJSON = () => {
-  return (
-    (_platformPropertiesJSON ??= JSON.stringify(getPlatformProperties())) || ''
-  );
+  return (_platformPropertiesJSON ??= JSON.stringify(getPlatformProperties())) || '';
 };
 
 const safeJSON = (text: string) => {

@@ -1,14 +1,10 @@
-import {APIList, APIClient, FinalRequestOptions} from './core';
+import { APIList, APIClient, FinalRequestOptions } from './core';
 
-type AutoPagingEachCallback<Rsp> = (
-  item: Rsp
-) => boolean | void | Promise<boolean | void>;
+type AutoPagingEachCallback<Rsp> = (item: Rsp) => boolean | void | Promise<boolean | void>;
 
-type AutoPagingEach<Rsp> = (
-  callback: AutoPagingEachCallback<Rsp>
-) => Promise<void>;
+type AutoPagingEach<Rsp> = (callback: AutoPagingEachCallback<Rsp>) => Promise<void>;
 
-type AutoPagingToArray<Rsp> = (opts: {limit: number}) => Promise<Array<Rsp>>;
+type AutoPagingToArray<Rsp> = (opts: { limit: number }) => Promise<Array<Rsp>>;
 
 export type AutoPaginationMethods<Rsp> = AsyncIterableIterator<Rsp> & {
   autoPagingEach: AutoPagingEach<Rsp>;
@@ -18,16 +14,12 @@ export type AutoPaginationMethods<Rsp> = AsyncIterableIterator<Rsp> & {
 export const makeAutoPaginationMethods = <Req, Rsp>(
   client: APIClient,
   requestPromise: Promise<APIList<Rsp>>, // Mutated.
-  options: FinalRequestOptions<Req> // Mutated.
+  options: FinalRequestOptions<Req>, // Mutated.
 ): AutoPaginationMethods<Rsp> => {
-  const promiseCache: PromiseCache<IteratorResult<Rsp>> = {
-    currentPromise: null,
-  };
+  const promiseCache: PromiseCache<IteratorResult<Rsp>> = { currentPromise: null };
   let i = 0;
 
-  function iterate(
-    pageResult: APIList<Rsp>
-  ): Promise<IteratorResult<Rsp>> | IteratorResult<Rsp> {
+  function iterate(pageResult: APIList<Rsp>): Promise<IteratorResult<Rsp>> | IteratorResult<Rsp> {
     const items: Rsp[] = client.getPaginatedItems(pageResult);
 
     // Iterate through items on the current page.
@@ -35,18 +27,18 @@ export const makeAutoPaginationMethods = <Req, Rsp>(
       const value = items[i]!;
       i += 1;
 
-      return {value, done: false};
+      return { value, done: false };
     }
 
     // Get params for the next page.
     const nextPageQuery = client.getNextPageQuery(options, pageResult);
 
     // If we're done, we're done.
-    if (!nextPageQuery) return {value: undefined, done: true};
+    if (!nextPageQuery) return { value: undefined, done: true };
 
     // Reset the counter, update the request, and request the next page.
     i = 0;
-    Object.assign(options, {query: {...options.query, ...nextPageQuery}});
+    Object.assign(options, { query: { ...options.query, ...nextPageQuery } });
     requestPromise = client.request<Req, APIList<Rsp>>(options);
     return requestPromise.then(iterate);
   }
@@ -68,7 +60,7 @@ export const makeAutoPaginationMethods = <Req, Rsp>(
     next: asyncIteratorNext,
     return: async () => {
       // For when the consumer does 'break' or 'return' early in the loop.
-      return {done: true, value: undefined};
+      return { done: true, value: undefined };
     },
     [getAsyncIteratorSymbol()]: () => autoPaginationMethods,
   };
@@ -100,10 +92,7 @@ function getAsyncIteratorSymbol(): typeof Symbol.asyncIterator {
  */
 function memoizedPromise<T>(
   promiseCache: PromiseCache<T>,
-  cb: (
-    resolve: (value: T | PromiseLike<T>) => void,
-    reject: (reason?: any) => void
-  ) => void
+  cb: (resolve: (value: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void,
 ): Promise<T> {
   if (promiseCache.currentPromise) {
     return promiseCache.currentPromise;
@@ -119,16 +108,14 @@ const makeAutoPagingEach =
   <Rsp>(asyncIteratorNext: () => Promise<IteratorResult<Rsp>>) =>
   (onItem: AutoPagingEachCallback<Rsp>) =>
     new Promise<void>((resolve, reject) => {
-      async function handleIteration(
-        iterResult: IteratorResult<Rsp>
-      ): Promise<boolean | void> {
+      async function handleIteration(iterResult: IteratorResult<Rsp>): Promise<boolean | void> {
         if (iterResult.done) return resolve();
 
         const item = iterResult.value;
 
         const shouldContinue = await onItem(item);
         if (shouldContinue === false) {
-          return handleIteration({done: true, value: undefined});
+          return handleIteration({ done: true, value: undefined });
         }
 
         return asyncIteratorNext().then(handleIteration);
@@ -137,19 +124,17 @@ const makeAutoPagingEach =
       asyncIteratorNext().then(handleIteration).catch(reject);
     });
 
-function makeAutoPagingToArray<Rsp>(
-  autoPagingEach: AutoPagingEach<Rsp>
-): AutoPagingToArray<Rsp> {
-  return function autoPagingToArray(opts: {limit: number}): Promise<Rsp[]> {
+function makeAutoPagingToArray<Rsp>(autoPagingEach: AutoPagingEach<Rsp>): AutoPagingToArray<Rsp> {
+  return function autoPagingToArray(opts: { limit: number }): Promise<Rsp[]> {
     const limit = opts?.limit;
     if (!limit) {
       throw Error(
-        'You must pass a `limit` option to autoPagingToArray, e.g., `.autoPagingToArray({limit: 1000});`.'
+        'You must pass a `limit` option to autoPagingToArray, e.g., `.autoPagingToArray({limit: 1000});`.',
       );
     }
     if (limit > 100000) {
       throw Error(
-        'You cannot specify a limit of more than 100,000 items to fetch in `autoPagingToArray`; use `autoPagingEach` to iterate through longer lists.'
+        'You cannot specify a limit of more than 100,000 items to fetch in `autoPagingToArray`; use `autoPagingEach` to iterate through longer lists.',
       );
     }
     const promise = new Promise<Rsp[]>((resolve, reject) => {
@@ -167,39 +152,4 @@ function makeAutoPagingToArray<Rsp>(
     });
     return promise;
   };
-}
-
-function wrapAsyncIteratorWithCallback<Rsp>(
-  asyncIteratorNext: () => Promise<IteratorResult<Rsp>>,
-  onItem: (
-    item: Rsp,
-    next: (shouldContinue: boolean | void | Promise<boolean | void>) => void
-  ) => void
-): Promise<void> {
-  return new Promise((resolve, reject) => {
-    function handleIteration(
-      iterResult: IteratorResult<Rsp>
-    ): Promise<boolean | void> | undefined {
-      if (iterResult.done) {
-        resolve();
-        return;
-      }
-
-      const item = iterResult.value;
-      return new Promise<boolean | void>((next) => {
-        // Bit confusing, perhaps; we pass a `resolve` fn
-        // to the user, so they can decide when and if to continue.
-        // They can return false, or a promise which resolves to false, to break.
-        onItem(item, next);
-      }).then((shouldContinue) => {
-        if (shouldContinue === false) {
-          return handleIteration({done: true, value: undefined});
-        } else {
-          return asyncIteratorNext().then(handleIteration);
-        }
-      });
-    }
-
-    asyncIteratorNext().then(handleIteration).catch(reject);
-  });
 }

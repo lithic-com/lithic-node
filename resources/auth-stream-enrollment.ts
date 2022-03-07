@@ -5,9 +5,7 @@ export class AuthStreamEnrollmentResource extends Core.APIResource {
   /**
    * Check status for whether you have enrolled in Authorization Stream Access (ASA) for your program in Sandbox.
    */
-  retrieve(
-    options?: Core.RequestOptions
-  ): Promise<Core.APIResponse<AuthStreamEnrollment>> {
+  retrieve(options?: Core.RequestOptions): Promise<Core.APIResponse<AuthStreamEnrollment>> {
     return this.get('/auth_stream', options);
   }
 
@@ -23,9 +21,9 @@ export class AuthStreamEnrollmentResource extends Core.APIResource {
    */
   enroll(
     body?: AuthStreamEnrollmentEnrollParams | null | undefined,
-    options?: Core.RequestOptions
+    options?: Core.RequestOptions,
   ): Promise<void> {
-    return this.post('/auth_stream', {body, ...options});
+    return this.post('/auth_stream', { body, ...options });
   }
 }
 

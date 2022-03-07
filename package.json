@@ -6,11 +6,11 @@
   "main": "dist/cjs/index.js",
   "type": "commonjs",
   "repository": "git@github.com:lithic-com/lithic-node.git",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "private": false,
   "scripts": {
     "test": "yarn ts-node example.ts",
-    "build": "./build",
+    "build": "bash ./build",
     "prepack": "yarn build"
   },
   "dependencies": {

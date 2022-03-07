@@ -1,10 +1,7 @@
 import * as Core from './core';
 import * as API from './resources';
 
-const environments = {
-  production: 'https://api.lithic.com/v1',
-  sandbox: 'https://sandbox.lithic.com/v1',
-};
+const environments = { production: 'https://api.lithic.com/v1', sandbox: 'https://sandbox.lithic.com/v1' };
 
 export class Lithic extends Core.APIClient {
   constructor(
@@ -17,7 +14,7 @@ export class Lithic extends Core.APIClient {
       environment?: keyof typeof environments;
       baseURL?: string;
       timeout?: number;
-    } = {}
+    } = {},
   ) {
     super({
       apiKey,
@@ -27,8 +24,7 @@ export class Lithic extends Core.APIClient {
   }
 
   accounts: API.Accounts = new API.Accounts(this);
-  authStreamEnrollment: API.AuthStreamEnrollmentResource =
-    new API.AuthStreamEnrollmentResource(this);
+  authStreamEnrollment: API.AuthStreamEnrollmentResource = new API.AuthStreamEnrollmentResource(this);
   cards: API.Cards = new API.Cards(this);
   consumers: API.Consumers = new API.Consumers(this);
   fundingSources: API.FundingSources = new API.FundingSources(this);
@@ -45,12 +41,12 @@ export class Lithic extends Core.APIClient {
 
   getNextPageQuery(
     request: Core.FinalRequestOptions<Lithic.PaginationParams>,
-    response: Core.APIList<unknown>
+    response: Core.APIList<unknown>,
   ): Partial<Lithic.PaginationParams> | false {
     // Do not iterate if we're on the last page.
     if (response.page >= response.total_pages) return false;
 
-    return {page: response.page + 1};
+    return { page: response.page + 1 };
   }
 
   getPaginatedItems<Rsp>(response: Core.APIList<Rsp>): Rsp[] {
@@ -58,16 +54,18 @@ export class Lithic extends Core.APIClient {
   }
 
   static APIError = Core.APIError;
+
   static APIConnectionError = Core.APIConnectionError;
-  static AuthenticationError = Core.AuthenticationError;
+  static APIConnectionTimeoutError = Core.APIConnectionTimeoutError;
+
   static BadRequestError = Core.BadRequestError;
-  static InternalServerError = Core.InternalServerError;
+  static AuthenticationError = Core.AuthenticationError;
+  static PermissionDeniedError = Core.PermissionDeniedError;
   static NotFoundError = Core.NotFoundError;
   static ConflictError = Core.ConflictError;
-  static PermissionDeniedError = Core.PermissionDeniedError;
-  static RateLimitError = Core.RateLimitError;
   static UnprocessableEntityError = Core.UnprocessableEntityError;
-  static APIConnectionTimeoutError = Core.APIConnectionTimeoutError;
+  static RateLimitError = Core.RateLimitError;
+  static InternalServerError = Core.InternalServerError;
 }
 
 export namespace Lithic {
