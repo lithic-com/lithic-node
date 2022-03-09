@@ -1,6 +1,6 @@
 {
   "name": "lithic",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Client library for the Lithic API",
   "types": "dist/cjs/index.d.ts",
   "main": "dist/cjs/index.js",
