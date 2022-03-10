@@ -90,15 +90,16 @@ async function main() {
 
   // per-request timeout error
   await lithic.cards
-    .create({ type: 'SINGLE_USE' }, { timeout: 100 /* 100ms should be too short and fail with a timeout */ })
+    .create({ type: 'SINGLE_USE' }, { timeout: 1 /* 1ms should be too short and fail with a timeout */ })
     .catch((e: unknown) => {
       if (
         e instanceof Lithic.APIConnectionTimeoutError &&
         e instanceof Lithic.APIConnectionError // should subclass APIConnectionError
       ) {
-        console.log('Request timed out!', e);
+        console.log('Request timed out, as intended:', e);
       } else {
-        throw e;
+        console.error(e);
+        throw `Unexpected non-APIConnectionTimeoutError`;
       }
     });
 }

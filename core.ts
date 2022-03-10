@@ -1,10 +1,15 @@
+import 'abort-controller';
+
 import qs from 'qs';
-import { makeAutoPaginationMethods, AutoPaginationMethods } from './pagination';
 import pkgUp from 'pkg-up';
+
 import type { Agent } from 'http';
 import type NodeFetch from 'node-fetch';
-import type { RequestInit, Response } from 'node-fetch';
+import type { RequestInfo, RequestInit, Response } from 'node-fetch';
 import type KeepAliveAgent from 'agentkeepalive';
+import type { AbortSignal } from 'node-fetch/externals';
+
+import { makeAutoPaginationMethods, AutoPaginationMethods } from './pagination';
 
 const isNode = typeof process !== 'undefined';
 let nodeFetch: typeof NodeFetch | undefined = undefined;
@@ -74,7 +79,7 @@ export abstract class APIClient {
    *    Authorization: 'Bearer 123',
    *  }
    */
-  defaultHeaders(): Headers {
+  protected defaultHeaders(): Headers {
     return {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -110,26 +115,11 @@ export abstract class APIClient {
 
     this.debug('request', url, options, req.headers);
 
-    const fetchPromise = this.fetch(url, req);
-
-    // Start another promise with a setTimeout to serve as a request timeout. If it ends before the request promise we
-    // throw an error.
-    let timeoutId: ReturnType<typeof setTimeout> | null;
-    const timeoutPromise = new Promise<never>((_, reject) => {
-      timeoutId = setTimeout(() => {
-        timeoutId = null;
-        reject(new APIConnectionTimeoutError());
-      }, timeout);
-    });
-
-    const response = await Promise.race([fetchPromise, timeoutPromise])
-      .catch(castToError)
-      .finally(() => {
-        if (timeoutId) clearTimeout(timeoutId);
-      });
+    const response = await this.fetchWithTimeout(url, req, timeout).catch(castToError);
 
     if (response instanceof Error) {
       if (retriesRemaining) return this.retryRequest(options, retriesRemaining);
+      if (response.name === 'AbortError') throw new APIConnectionTimeoutError();
       throw new APIConnectionError({ cause: response });
     }
 
@@ -176,7 +166,7 @@ export abstract class APIClient {
 
   abstract getPaginatedItems<Rsp>(response: APIList<Rsp>): Rsp[];
 
-  buildURL<Req>(path: string, query: Req | undefined): string {
+  private buildURL<Req>(path: string, query: Req | undefined): string {
     const url = new URL(this.baseURL + path);
 
     if (query) {
@@ -186,7 +176,18 @@ export abstract class APIClient {
     return url.toString();
   }
 
-  shouldRetry(response: Response): boolean {
+  async fetchWithTimeout(url: RequestInfo, { signal, ...options }: RequestInit = {}, ms: number) {
+    const controller = new AbortController();
+    if (signal) signal.addEventListener('abort', (reason) => controller.abort(reason));
+
+    const timeout = setTimeout(() => controller.abort('timeout'), ms);
+
+    return this.fetch(url, { signal: controller.signal as AbortSignal, ...options }).finally(() => {
+      clearTimeout(timeout);
+    });
+  }
+
+  private shouldRetry(response: Response): boolean {
     // Note this is not a standard header.
     const shouldRetryHeader = response.headers.get('x-should-retry');
 
@@ -206,7 +207,7 @@ export abstract class APIClient {
     return false;
   }
 
-  async retryRequest<Req, Rsp>(
+  private async retryRequest<Req, Rsp>(
     options: FinalRequestOptions<Req>,
     retriesRemaining: number,
     responseHeaders?: Headers | undefined,
@@ -223,7 +224,11 @@ export abstract class APIClient {
     return this.request(options, retriesRemaining);
   }
 
-  calculateRetryTimeoutSeconds(retriesRemaining: number, retryAfter: number, maxRetries: number): number {
+  private calculateRetryTimeoutSeconds(
+    retriesRemaining: number,
+    retryAfter: number,
+    maxRetries: number,
+  ): number {
     const initialRetryDelay = 0.5;
     const maxRetryDelay = 2;
 
@@ -244,12 +249,12 @@ export abstract class APIClient {
     return sleepSeconds + jitter;
   }
 
-  getUserAgent(): string {
+  private getUserAgent(): string {
     const packageVersion = getPackageVersion();
     return `${this.constructor.name}/JS ${packageVersion}`;
   }
 
-  debug(action: string, ...args: any[]) {
+  private debug(action: string, ...args: any[]) {
     if (process.env['DEBUG'] === 'true') {
       console.log(`${this.constructor.name}:DEBUG:${action}`, ...args);
     }
@@ -257,28 +262,28 @@ export abstract class APIClient {
 }
 
 export class APIResource {
-  client: APIClient;
+  protected client: APIClient;
   constructor(client: APIClient) {
     this.client = client;
   }
 
-  get<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
+  protected get<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
     return this.client.request({ method: 'get', path, ...opts });
   }
-  post<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
+  protected post<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
     return this.client.request({ method: 'post', path, ...opts });
   }
-  patch<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
+  protected patch<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
     return this.client.request({ method: 'patch', path, ...opts });
   }
-  put<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
+  protected put<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
     return this.client.request({ method: 'put', path, ...opts });
   }
-  delete<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
+  protected delete<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
     return this.client.request({ method: 'delete', path, ...opts });
   }
 
-  getAPIList<Req, Rsp>(path: string, opts?: RequestOptions<Req>): APIListPromise<Rsp> {
+  protected getAPIList<Req, Rsp>(path: string, opts?: RequestOptions<Req>): APIListPromise<Rsp> {
     return this.client.requestAPIList({ method: 'get', path, ...opts });
   }
 }

@@ -35,7 +35,7 @@ export class Lithic extends Core.APIClient {
   transactions: API.Transactions = new API.Transactions(this);
   status: API.StatusResource = new API.StatusResource(this);
 
-  override defaultHeaders(): Core.Headers {
+  protected override defaultHeaders(): Core.Headers {
     const Authorization = `api-key ${this.apiKey}`;
     return {
       ...super.defaultHeaders(),
