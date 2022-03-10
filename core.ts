@@ -61,7 +61,8 @@ export abstract class APIClient {
           `Unexpected; running in a non-Node environment without a global "fetch" function defined.`,
         );
       }
-      this.fetch = fetch as typeof NodeFetch;
+      // For now, we just pretend that Fetch is the same type as NodeFetch.
+      this.fetch = fetch as unknown as typeof NodeFetch;
     }
   }
 
@@ -315,6 +316,11 @@ export type APIList<Rsp> = APIResponse<{
 }>;
 
 export interface APIListPromise<Rsp> extends Promise<APIResponse<APIList<Rsp>>>, AutoPaginationMethods<Rsp> {}
+
+// ES2022 compat.
+interface Error extends globalThis.Error {
+  cause?: Error;
+}
 
 export class APIError extends Error {
   readonly status: number | undefined;
