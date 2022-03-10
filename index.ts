@@ -1,5 +1,6 @@
 import * as Core from './core';
 import * as API from './resources';
+import type { Agent } from 'http';
 
 const environments = { production: 'https://api.lithic.com/v1', sandbox: 'https://sandbox.lithic.com/v1' };
 
@@ -10,16 +11,19 @@ export class Lithic extends Core.APIClient {
       environment = 'production',
       baseURL,
       timeout,
+      httpAgent,
     }: {
       environment?: keyof typeof environments;
       baseURL?: string;
       timeout?: number;
+      httpAgent?: Agent;
     } = {},
   ) {
     super({
       apiKey,
       baseURL: baseURL || environments[environment],
       timeout,
+      httpAgent,
     });
   }
 

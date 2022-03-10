@@ -1,7 +1,25 @@
-import fetch from 'cross-fetch';
 import qs from 'qs';
 import { makeAutoPaginationMethods, AutoPaginationMethods } from './pagination';
 import pkgUp from 'pkg-up';
+import type { Agent } from 'http';
+import type NodeFetch from 'node-fetch';
+import type { RequestInit, Response } from 'node-fetch';
+import type KeepAliveAgent from 'agentkeepalive';
+
+const isNode = typeof process !== 'undefined';
+let nodeFetch: typeof NodeFetch | undefined = undefined;
+let getDefaultAgent = (url: string): Agent | undefined => undefined;
+if (isNode) {
+  /* eslint-disable @typescript-eslint/no-var-requires */
+  nodeFetch = require('node-fetch');
+  const HttpAgent: typeof KeepAliveAgent = require('agentkeepalive');
+  const HttpsAgent = HttpAgent.HttpsAgent;
+  /* eslint-enable @typescript-eslint/no-var-requires */
+
+  const defaultHttpAgent = new HttpAgent({ keepAlive: true });
+  const defaultHttpsAgent = new HttpsAgent({ keepAlive: true });
+  getDefaultAgent = (url: string) => (url.startsWith('https') ? defaultHttpsAgent : defaultHttpAgent);
+}
 
 const DEFAULT_MAX_RETRIES = 2;
 const DEFAULT_TIMEOUT = 60 * 1000; // 60s
@@ -11,21 +29,40 @@ export abstract class APIClient {
   baseURL: string;
   maxRetries: number;
   timeout: number;
+  httpAgent: Agent | undefined;
+
+  private fetch: typeof NodeFetch;
+
   constructor({
     apiKey,
     baseURL,
     maxRetries = DEFAULT_MAX_RETRIES,
     timeout = DEFAULT_TIMEOUT,
+    httpAgent,
   }: {
     apiKey: string;
     baseURL: string;
     maxRetries?: number;
     timeout: number | undefined;
+    httpAgent: Agent | undefined;
   }) {
     this.apiKey = apiKey;
     this.baseURL = baseURL;
     this.maxRetries = validatePositiveInteger('maxRetries', maxRetries);
     this.timeout = validatePositiveInteger('timeout', timeout);
+    this.httpAgent = httpAgent;
+
+    if (isNode) {
+      this.fetch = nodeFetch!;
+    } else {
+      // For other environments, use a global fetch function expected to already be present
+      if (typeof fetch === 'undefined' || typeof fetch !== 'function') {
+        throw new Error(
+          `Unexpected; running in a non-Node environment without a global "fetch" function defined.`,
+        );
+      }
+      this.fetch = fetch as typeof NodeFetch;
+    }
   }
 
   /**
@@ -51,12 +88,13 @@ export abstract class APIClient {
   ): Promise<APIResponse<Rsp>> {
     const { method, path, query, body, headers } = options;
 
-    const timeout = options.timeout || this.timeout;
-    validatePositiveInteger('timeout', timeout);
-
     const url = this.buildURL(path!, query);
     const jsonBody = body && JSON.stringify(body, null, 2);
     const contentLength = jsonBody?.length.toString();
+
+    const httpAgent = options.httpAgent ?? this.httpAgent ?? getDefaultAgent(url);
+    const timeout = options.timeout ?? this.timeout;
+    validatePositiveInteger('timeout', timeout);
 
     const req: RequestInit = {
       method,
@@ -66,11 +104,15 @@ export abstract class APIClient {
         ...this.defaultHeaders(),
         ...headers,
       },
+      ...(httpAgent && { agent: httpAgent }),
     };
 
     this.debug('request', url, options, req.headers);
 
-    const fetchPromise = fetch(url, req).catch(() => null);
+    const fetchPromise = this.fetch(url, req);
+
+    // Start another promise with a setTimeout to serve as a request timeout. If it ends before the request promise we
+    // throw an error.
     let timeoutId: ReturnType<typeof setTimeout> | null;
     const timeoutPromise = new Promise<never>((_, reject) => {
       timeoutId = setTimeout(() => {
@@ -79,13 +121,15 @@ export abstract class APIClient {
       }, timeout);
     });
 
-    const response = await Promise.race([fetchPromise, timeoutPromise]).finally(() => {
-      if (timeoutId) clearTimeout(timeoutId);
-    });
-    if (!response) {
-      if (retriesRemaining) return this.retryRequest(options, retriesRemaining);
+    const response = await Promise.race([fetchPromise, timeoutPromise])
+      .catch(castToError)
+      .finally(() => {
+        if (timeoutId) clearTimeout(timeoutId);
+      });
 
-      throw new APIConnectionError();
+    if (response instanceof Error) {
+      if (retriesRemaining) return this.retryRequest(options, retriesRemaining);
+      throw new APIConnectionError({ cause: response });
     }
 
     const responseHeaders = Object.fromEntries(response.headers.entries());
@@ -251,6 +295,7 @@ export type RequestOptions<Req extends {} = Record<string, unknown>> = {
 
   maxRetries?: number;
   timeout?: number;
+  httpAgent?: Agent;
 };
 
 export type FinalRequestOptions<Req extends {} = Record<string, unknown>> = RequestOptions<Req> & {
@@ -294,7 +339,7 @@ export class APIError extends Error {
     message: string | undefined,
     headers: Headers | undefined,
   ) {
-    if (!status) return new APIConnectionError();
+    if (!status) return new APIConnectionError({ cause: castToError(error) });
 
     if (status === 400) return new BadRequestError(status, error, message, headers);
     if (status === 401) return new AuthenticationError(status, error, message, headers);
@@ -335,14 +380,15 @@ export class InternalServerError extends APIError {}
 export class APIConnectionError extends APIError {
   override readonly status: undefined;
 
-  constructor(message = 'Connection error.') {
-    super(undefined, undefined, message, undefined);
+  constructor({ message, cause }: { message?: string; cause?: Error | undefined }) {
+    super(undefined, undefined, message || 'Connection error.', undefined);
+    if (cause) this.cause = cause;
   }
 }
 
 export class APIConnectionTimeoutError extends APIConnectionError {
   constructor() {
-    super('Request timed out.');
+    super({ message: 'Request timed out.' });
   }
 }
 
@@ -408,4 +454,9 @@ const validatePositiveInteger = (name: string, n: number) => {
     throw new Error(`${name} must be a positive integer`);
   }
   return n;
+};
+
+const castToError = (err: any): Error => {
+  if (err instanceof Error) return err;
+  return new Error(err);
 };
