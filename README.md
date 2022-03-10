@@ -10,7 +10,7 @@ and subject to change without a major semver bump;
 please reach out if you rely on any undocumented behavior.
 
 We are keen for your feedback; please email us at [support@lithic.com](mailto:support@lithic.com)
-with questions, bugs, or suggestions.
+or open an issue with questions, bugs, or suggestions.
 
 ## Installation
 
