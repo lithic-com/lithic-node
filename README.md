@@ -140,27 +140,6 @@ On timeout, an `APIConnectionTimeoutError` is thrown.
 
 Note that request which time out will be [retried twice by default](#retries).
 
-## Configuring an HTTP(S) Agent (e.g., for proxies)
-
-By default, this library uses a stable agent for all http/https requests to reuse TCP connections, eliminating many TCP & TLS handshakes and shaving around 100ms off most requests.
-
-If you would like to disable or customize this behavior, for example to use the API behind a proxy, you can pass an `httpAgent` which is used for all requests (be they http or https), for example:
-
-```ts
-import http from 'http';
-import HttpsProxyAgent from 'https-proxy-agent';
-
-const lithic = new Lithic(process.env.LITHIC_API_KEY, {
-  httpAgent: new HttpsProxyAgent(process.env.PROXY_URL),
-});
-
-// Can override per-request
-lithic.cards.create(params, {
-  baseURL: 'http://localhost:8080/test-api',
-  httpAgent: new http.Agent({ keepAlive: false }),
-});
-```
-
 ## Auto-pagination
 
 List methods in the Lithic API are paginated.
@@ -216,6 +195,27 @@ const allNewCards = await lithic.cards.list({ begin: lastMonth })
 ```
 
 Note that you must pass a `limit` option to prevent runaway list growth from consuming too much memory.
+
+## Configuring an HTTP(S) Agent (e.g., for proxies)
+
+By default, this library uses a stable agent for all http/https requests to reuse TCP connections, eliminating many TCP & TLS handshakes and shaving around 100ms off most requests.
+
+If you would like to disable or customize this behavior, for example to use the API behind a proxy, you can pass an `httpAgent` which is used for all requests (be they http or https), for example:
+
+```ts
+import http from 'http';
+import HttpsProxyAgent from 'https-proxy-agent';
+
+const lithic = new Lithic(process.env.LITHIC_API_KEY, {
+  httpAgent: new HttpsProxyAgent(process.env.PROXY_URL),
+});
+
+// Can override per-request
+lithic.cards.create(params, {
+  baseURL: 'http://localhost:8080/test-api',
+  httpAgent: new http.Agent({ keepAlive: false }),
+});
+```
 
 ## Requirements
 
