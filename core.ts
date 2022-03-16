@@ -134,6 +134,8 @@ export abstract class APIClient {
       const errJSON = safeJSON(errText);
       const errMessage = errJSON ? undefined : errText;
 
+      this.debug('response', response.status, url, responseHeaders, errMessage);
+
       const err = APIError.generate(response.status, errJSON, errMessage, responseHeaders);
 
       throw err;
@@ -149,10 +151,14 @@ export abstract class APIClient {
         value: responseHeaders,
       });
 
+      this.debug('response', response.status, url, responseHeaders, json);
+
       return json as APIResponse<Rsp>;
     } else {
       // TODO handle blob, arraybuffer, other content types, etc.
-      return response.text() as Promise<any>;
+      const text = response.text();
+      this.debug('response', response.status, url, responseHeaders, text);
+      return text as Promise<any>;
     }
   }
 
@@ -315,17 +321,12 @@ export type APIResponse<T> = T & {
 
 export type APIList<Rsp> = APIResponse<{
   data: Rsp[];
-  total_entries: number;
-  total_pages: number;
   page: number;
+  total_pages: number;
+  total_entries: number;
 }>;
 
 export interface APIListPromise<Rsp> extends Promise<APIResponse<APIList<Rsp>>>, AutoPaginationMethods<Rsp> {}
-
-// ES2022 compat.
-interface Error extends globalThis.Error {
-  cause?: Error;
-}
 
 export class APIError extends Error {
   readonly status: number | undefined;
@@ -389,7 +390,7 @@ export class RateLimitError extends APIError {
 export class InternalServerError extends APIError {}
 
 export class APIConnectionError extends APIError {
-  override readonly status: undefined;
+  override readonly status: undefined = undefined;
 
   constructor({ message, cause }: { message?: string; cause?: Error | undefined }) {
     super(undefined, undefined, message || 'Connection error.', undefined);
