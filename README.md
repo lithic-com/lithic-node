@@ -9,7 +9,7 @@ This package is in beta. Its internals and interfaces are not stable
 and subject to change without a major semver bump;
 please reach out if you rely on any undocumented behavior.
 
-We are keen for your feedback; please email us at [support@lithic.com](mailto:support@lithic.com)
+We are keen for your feedback; please email us at [sdk-feedback@lithic.com](mailto:sdk-feedback@lithic.com)
 or open an issue with questions, bugs, or suggestions.
 
 ## Installation
