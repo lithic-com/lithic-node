@@ -143,58 +143,18 @@ Note that request which time out will be [retried twice by default](#retries).
 ## Auto-pagination
 
 List methods in the Lithic API are paginated.
-This library provides helpers to automatically request more pages as you iterate through data.
-
-### Async Iteration
-
-In Node 10+ (or other environments with support for
-[async iteration](https://github.com/tc39/proposal-async-iteration#the-async-iteration-statement-for-await-of)
-such as [babel](https://babeljs.io/docs/en/babel-plugin-transform-async-generator-functions)),
-you can use `for await of` syntax to iterate through items across all pages:
+Use `for await … of` syntax to iterate through items across all pages.
 
 ```js
-for await (const card of lithic.cards.list()) {
-  console.log(card.token);
-  if (shouldStop()) {
-    break;
+async function fetchAllCards(params) {
+  const allCards = [];
+  // Automatically fetches more pages as needed.
+  for await (const card of lithic.cards.list()) {
+    allCards.push(card);
   }
+  return allCards;
 }
 ```
-
-### `.autoPagingEach(callback)`
-
-On older versions of Node which do not support async iteration,
-you can use `autoPagingEach`, which accepts a callback for each item.
-Return `false` (or a promise resolving to `false`) from this callback to stop iteration.
-
-<!-- prettier-ignore -->
-```js
-lithic.cards.list()
-  .autoPagingEach((card) => {
-    console.log(card.token);
-    return doSomething(card).then(() => {
-      if (shouldBreak()) {
-        return false;
-      }
-    });
-  })
-  .then(() => {
-    console.log('Done iterating.');
-  });
-```
-
-### `.autoPagingToArray()`
-
-As a convenience for cases where you expect the number of items to be relatively small,
-this helper returns a promise of an array of items across _all_ pages for a list request.
-
-<!-- prettier-ignore -->
-```js
-const allNewCards = await lithic.cards.list({ begin: lastMonth })
-  .autoPagingToArray({ limit: 1000 });
-```
-
-Note that you must pass a `limit` option to prevent runaway list growth from consuming too much memory.
 
 ## Configuring an HTTP(S) Agent (e.g., for proxies)
 
@@ -219,4 +179,6 @@ lithic.cards.create(params, {
 
 ## Requirements
 
-Node 8, 10 or higher.
+Node.js version 12 or higher.
+
+If you are interested in other runtime environments, please open or upvote an issue on Github.

@@ -7,7 +7,9 @@ type AutoPagingEach<Rsp> = (callback: AutoPagingEachCallback<Rsp>) => Promise<vo
 type AutoPagingToArray<Rsp> = (opts: { limit: number }) => Promise<Array<Rsp>>;
 
 export type AutoPaginationMethods<Rsp> = AsyncIterableIterator<Rsp> & {
+  /** @deprecated This method will be removed shortly; please reach out if you need it. */
   autoPagingEach: AutoPagingEach<Rsp>;
+  /** @deprecated This method will be removed shortly; please reach out if you need it. */
   autoPagingToArray: AutoPagingToArray<Rsp>;
 };
 
