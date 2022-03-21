@@ -1,5 +1,3 @@
-import 'abort-controller';
-
 import qs from 'qs';
 import pkgUp from 'pkg-up';
 
@@ -7,7 +5,7 @@ import type { Agent } from 'http';
 import type NodeFetch from 'node-fetch';
 import type { RequestInfo, RequestInit, Response } from 'node-fetch';
 import type KeepAliveAgent from 'agentkeepalive';
-import type { AbortSignal } from 'node-fetch/externals';
+import { AbortController, AbortSignal } from 'abort-controller';
 
 import { makeAutoPaginationMethods, AutoPaginationMethods } from './pagination';
 
@@ -184,9 +182,9 @@ export abstract class APIClient {
 
   async fetchWithTimeout(url: RequestInfo, { signal, ...options }: RequestInit = {}, ms: number) {
     const controller = new AbortController();
-    if (signal) signal.addEventListener('abort', (reason) => controller.abort(reason));
+    if (signal) signal.addEventListener('abort', controller.abort);
 
-    const timeout = setTimeout(() => controller.abort('timeout'), ms);
+    const timeout = setTimeout(() => controller.abort(), ms);
 
     return this.fetch(url, { signal: controller.signal as AbortSignal, ...options }).finally(() => {
       clearTimeout(timeout);
