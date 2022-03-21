@@ -1,3 +1,4 @@
+// File generated from our OpenAPI spec by Stainless.
 import * as Core from './core';
 import * as API from './resources';
 import type { Agent } from 'http';
