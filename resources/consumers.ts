@@ -24,7 +24,7 @@ export namespace ConsumersEnrollResponse {
      */
     account_token?: string;
 
-    kyc?: Data.Kyc;
+    kyc?: Data.KYC;
 
     /**
      * Result types: * `ACCEPTED` - KYC passed. * `REJECTED` - KYC failed.
@@ -33,7 +33,7 @@ export namespace ConsumersEnrollResponse {
   }
 
   export namespace Data {
-    export interface Kyc {
+    export interface KYC {
       failure_reasons?: Array<
         | 'ADDRESS_VERIFICATION_FAILURE'
         | 'AGE_THRESHOLD_FAILURE'
