@@ -14,7 +14,7 @@ export class FundingSources extends Core.APIResource {
    */
   update(
     id: string,
-    body?: FundingSourceUpdateParams | null | undefined,
+    body: FundingSourceUpdateParams,
     options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<FundingSource>> {
     return this.patch(`/funding_sources/${id}`, { body, ...options });
@@ -54,9 +54,9 @@ export interface FundingSource {
   last_four: string;
 
   /**
-   * State of funding source. Funding source states: * `ENABLED` - The funding account is available to use for card creation and transactions. * `PENDING` - The funding account is still being verified e.g. bank micro-deposits verification.
+   * State of funding source. Funding source states: * `ENABLED` - The funding account is available to use for card creation and transactions. * `PENDING` - The funding account is still being verified e.g. bank micro-deposits verification. * `DELETED` - The founding account has been deleted.
    */
-  state: 'ENABLED' | 'PENDING';
+  state: 'ENABLED' | 'PENDING' | 'DELETED';
 
   /**
    * A globally unique identifier for this FundingAccount.

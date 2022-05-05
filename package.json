@@ -12,7 +12,8 @@
   "scripts": {
     "test": "yarn ts-node example.ts",
     "build": "bash ./build",
-    "prepack": "yarn build"
+    "prepack": "yarn build",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "abort-controller": "^3.0.0",

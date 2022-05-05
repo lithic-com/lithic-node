@@ -186,7 +186,7 @@ export abstract class APIClient {
 
     const timeout = setTimeout(() => controller.abort(), ms);
 
-    return this.fetch(url, { signal: controller.signal as AbortSignal, ...options }).finally(() => {
+    return this.fetch(url, { signal: controller.signal as any, ...options }).finally(() => {
       clearTimeout(timeout);
     });
   }
@@ -219,6 +219,9 @@ export abstract class APIClient {
     retriesRemaining -= 1;
 
     // About the Retry-After header: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After
+    //
+    // TODO: we may want to handle the case where the header is using the http-date syntax: "Retry-After: <http-date>".
+    // See https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Retry-After#syntax for details.
     const retryAfter = parseInt(responseHeaders?.['retry-after'] || '');
 
     const maxRetries = options.maxRetries ?? this.maxRetries;

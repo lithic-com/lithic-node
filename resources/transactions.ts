@@ -3,7 +3,7 @@ import * as Core from '../core';
 
 export class Transactions extends Core.APIResource {
   /**
-   * List specific transaction.
+   * Get specific transaction.
    */
   retrieve(id: string, options?: Core.RequestOptions): Promise<Core.APIResponse<Transaction>> {
     return this.get(`/transactions/${id}`, options);
@@ -25,7 +25,7 @@ export class Transactions extends Core.APIResource {
   simulateAuthorization(
     body: TransactionSimulateAuthorizationParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<TransactionsSimulateAuthorizationResponse>> {
+  ): Promise<Core.APIResponse<TransactionSimulateAuthorizationResponse>> {
     return this.post('/simulate/authorize', { body, ...options });
   }
 
@@ -35,7 +35,7 @@ export class Transactions extends Core.APIResource {
   simulateClearing(
     body: TransactionSimulateClearingParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<TransactionsSimulateClearingResponse>> {
+  ): Promise<Core.APIResponse<TransactionSimulateClearingResponse>> {
     return this.post('/simulate/clearing', { body, ...options });
   }
 
@@ -45,7 +45,7 @@ export class Transactions extends Core.APIResource {
   simulateReturn(
     body: TransactionSimulateReturnParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<TransactionsSimulateReturnResponse>> {
+  ): Promise<Core.APIResponse<TransactionSimulateReturnResponse>> {
     return this.post('/simulate/return', { body, ...options });
   }
 
@@ -55,7 +55,7 @@ export class Transactions extends Core.APIResource {
   simulateVoid(
     body: TransactionSimulateVoidParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<TransactionsSimulateVoidResponse>> {
+  ): Promise<Core.APIResponse<TransactionSimulateVoidResponse>> {
     return this.post('/simulate/void', { body, ...options });
   }
 }
@@ -76,7 +76,7 @@ export interface Transaction {
    */
   authorization_code?: string;
 
-  card?: Transaction.Card;
+  card?: Card;
 
   /**
    * Date and time when the transaction first occurred. UTC time zone.
@@ -91,7 +91,7 @@ export interface Transaction {
   /**
    * A list of objects that describe how this transaction was funded, with the `amount` represented in cents. A reference to the funding account for the `card` that made this transaction may appear here and the `token` will match the `token` for the funding account in the `card` field. If any promotional credit was used in paying for this transaction, its `type` will be `PROMO`.
    */
-  funding?: Transaction.Funding;
+  funding?: Array<Transaction.Funding>;
 
   merchant?: Transaction.Merchant;
 
@@ -109,6 +109,11 @@ export interface Transaction {
    * 3-digit alphabetic ISO 4217 code for the local currency of the transaction.
    */
   merchant_currency?: string;
+
+  /**
+   * Card network of the authorization. Can be `INTERLINK`, `MAESTRO`, `MASTERCARD`, `VISA`, or `UNKNOWN`. Value is `UNKNOWN` when Lithic cannot determine the network code from the upstream provider.
+   */
+  network?: 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'VISA' | 'UNKNOWN' | null;
 
   /**
    * `APPROVED` or decline reason. See Event result types
@@ -158,7 +163,7 @@ export namespace Transaction {
      */
     created: string;
 
-    funding: Card.Funding;
+    funding: FundingSource;
 
     /**
      * Last four digits of the card number.
@@ -189,6 +194,11 @@ export namespace Transaction {
      * Card types: * `DIGITAL_WALLET` - Cards that can be provisioned to a digital wallet like Google Pay or Apple Wallet. * `MERCHANT_LOCKED` - Card is locked to first merchant that successfully authorizes the card. * `PHYSICAL` - Manufactured and sent to the cardholder. We offer white label branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe functionality. Contact [api@lithic.com](mailto:api@lithic.com) for more information. * `SINGLE_USE` - Card will close shortly after the first transaction. * `UNLOCKED` - Card will authorize at any merchant. Creating these cards requires additional privileges.
      */
     type: 'DIGITAL_WALLET' | 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'UNLOCKED';
+
+    /**
+     * List of identifiers for the Auth Rule(s) that are applied on the card.
+     */
+    auth_rule_tokens?: Array<string>;
 
     /**
      * Three digit cvv printed on the back of the card.
@@ -234,9 +244,9 @@ export namespace Transaction {
       last_four: string;
 
       /**
-       * State of funding source. Funding source states: * `ENABLED` - The funding account is available to use for card creation and transactions. * `PENDING` - The funding account is still being verified e.g. bank micro-deposits verification.
+       * State of funding source. Funding source states: * `ENABLED` - The funding account is available to use for card creation and transactions. * `PENDING` - The funding account is still being verified e.g. bank micro-deposits verification. * `DELETED` - The founding account has been deleted.
        */
-      state: 'ENABLED' | 'PENDING';
+      state: 'ENABLED' | 'PENDING' | 'DELETED';
 
       /**
        * A globally unique identifier for this FundingAccount.
@@ -302,9 +312,16 @@ export namespace Transaction {
     token: string;
 
     /**
-     * Event types: * `AUTHORIZATION` - Authorize a transaction. * `AUTHORIZATION_ADVICE` - Advice on a transaction. * `CLEARING` - Transaction is settled. * `RETURN` - A return authorization. * `VOID` - Transaction is voided.
+     * Event types: * `AUTHORIZATION` - Authorize a transaction. * `AUTHORIZATION_ADVICE` - Advice on a transaction. * `CLEARING` - Transaction is settled. * `RETURN` - A return authorization. * `VOID` - Transaction is voided. * `TRANSACTION_CORRECTION_DEBIT` - Manual transaction correction (Debit). * `TRANSACTION_CORRECTION_CREDIT` - Manual transaction correction (Credit).
      */
-    type: 'AUTHORIZATION' | 'AUTHORIZATION_ADVICE' | 'CLEARING' | 'RETURN' | 'VOID';
+    type:
+      | 'AUTHORIZATION'
+      | 'AUTHORIZATION_ADVICE'
+      | 'CLEARING'
+      | 'RETURN'
+      | 'VOID'
+      | 'TRANSACTION_CORRECTION_DEBIT'
+      | 'TRANSACTION_CORRECTION_CREDIT';
   }
 
   export interface Funding {
@@ -319,9 +336,9 @@ export namespace Transaction {
     token?: string;
 
     /**
-     * Types of funding: * `PROMO` - Any promotional credit was used in paying for this transaction.
+     * Types of funding: * `DEPOSITORY_CHECKING` - Bank checking account. * `DEPOSITORY_SAVINGS` - Bank savings account. * `PROMO` - Any promotional credit was used in paying for this transaction.
      */
-    type?: 'PROMO';
+    type?: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS' | 'PROMO';
   }
 
   export interface Merchant {
@@ -357,7 +374,7 @@ export namespace Transaction {
   }
 }
 
-export interface TransactionsSimulateAuthorizationResponse {
+export interface TransactionSimulateAuthorizationResponse {
   /**
    * Debugging request ID to share with Lithic Support team.
    */
@@ -369,14 +386,14 @@ export interface TransactionsSimulateAuthorizationResponse {
   token?: string;
 }
 
-export interface TransactionsSimulateClearingResponse {
+export interface TransactionSimulateClearingResponse {
   /**
    * Debugging request ID to share with Lithic Support team.
    */
   debugging_request_id?: string;
 }
 
-export interface TransactionsSimulateReturnResponse {
+export interface TransactionSimulateReturnResponse {
   /**
    * Debugging request ID to share with Lithic Support team.
    */
@@ -388,7 +405,7 @@ export interface TransactionsSimulateReturnResponse {
   token?: string;
 }
 
-export interface TransactionsSimulateVoidResponse {
+export interface TransactionSimulateVoidResponse {
   /**
    * Debugging request ID to share with Lithic Support team.
    */
