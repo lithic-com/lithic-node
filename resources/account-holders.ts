@@ -223,7 +223,7 @@ export namespace AccountHolderListDocumentsResponse {
   }
 }
 
-export interface AccountHolderCreateParams {}
+export type AccountHolderCreateParams = AccountHolderCreateParams.KYC | AccountHolderCreateParams.KYB;
 
 export namespace AccountHolderCreateParams {
   export interface KYC {
@@ -321,26 +321,26 @@ export namespace AccountHolderCreateParams {
     }
   }
 
-  export interface Kyb {
+  export interface KYB {
     /**
      * List of all entities with >25% ownership in the company. If no entity or individual owns >25% of the company, and the largest shareholder is an entity, please identify them in this field. See [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf) (Section I) for more background. If no business owner is an entity, pass in an empty list. However, either this parameter or `beneficial_owner_individuals` must be populated. on entities that should be included.
      */
-    beneficial_owner_entities: Array<Kyb.BeneficialOwnerEntities>;
+    beneficial_owner_entities: Array<KYB.BeneficialOwnerEntities>;
 
     /**
      * List of all individuals with >25% ownership in the company. If no entity or individual owns >25% of the company, and the largest shareholder is an individual, please identify them in this field. See [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf) (Section I) for more background on individuals that should be included. If no individual is an entity, pass in an empty list. However, either this parameter or `beneficial_owner_entities` must be populated.
      */
-    beneficial_owner_individuals: Array<Kyb.BeneficialOwnerIndividuals>;
+    beneficial_owner_individuals: Array<KYB.BeneficialOwnerIndividuals>;
 
     /**
      * Information for business for which the account is being opened and KYB is being run.
      */
-    business_entity: Kyb.BusinessEntity;
+    business_entity: KYB.BusinessEntity;
 
     /**
      * An individual with significant responsibility for managing the legal entity (e.g., a Chief Executive Officer, Chief Financial Officer, Chief Operating Officer, Managing Member, General Partner, President, Vice President, or Treasurer). This can be an executive, or someone who will have program-wide access to the cards that Lithic will provide. In some cases, this individual could also be a beneficial owner listed above. See [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf) (Section II) for more background.
      */
-    control_person: Kyb.ControlPerson;
+    control_person: KYB.ControlPerson;
 
     /**
      * Short description of the company's line of business (i.e., what does the company do?).
@@ -368,7 +368,7 @@ export namespace AccountHolderCreateParams {
     kyb_passed_timestamp?: string;
   }
 
-  export namespace Kyb {
+  export namespace KYB {
     export interface BusinessEntity {
       /**
        * Business's physical address - PO boxes, UPS drops, and FedEx drops are not acceptable; APO/FPO are acceptable.

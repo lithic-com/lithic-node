@@ -82,7 +82,7 @@ export interface FundingSource {
   nickname?: string;
 }
 
-export interface FundingSourceCreateParams {}
+export type FundingSourceCreateParams = FundingSourceCreateParams.Bank | FundingSourceCreateParams.Plaid;
 
 export namespace FundingSourceCreateParams {
   export interface Bank {
