@@ -186,7 +186,7 @@ export abstract class APIClient {
 
     const timeout = setTimeout(() => controller.abort(), ms);
 
-    return this.fetch(url, { signal: controller.signal as AbortSignal, ...options }).finally(() => {
+    return this.fetch(url, { signal: controller.signal as any, ...options }).finally(() => {
       clearTimeout(timeout);
     });
   }
