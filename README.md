@@ -1,16 +1,7 @@
-# Lithic Node API Library [beta]
+# Lithic Node API Library
 
 The Lithic Node library provides convenient access to the Lithic REST API from applications written in server-side JavaScript.
 It includes TypeScript definitions for all request params and response fields.
-
-## Status
-
-This package is in beta. Its internals and interfaces are not stable
-and subject to change without a major semver bump;
-please reach out if you rely on any undocumented behavior.
-
-We are keen for your feedback; please email us at [sdk-feedback@lithic.com](mailto:sdk-feedback@lithic.com)
-or open an issue with questions, bugs, or suggestions.
 
 ## Installation
 
@@ -55,9 +46,6 @@ async function main() {
   const params: Lithic.CardCreateParams = { type: 'SINGLE_USE' };
 
   const card: Lithic.Card = await lithic.cards.create(params);
-
-  const funding: Lithic.Card.Funding['type'] = card.funding;
-  console.log(funding.type); // TS knows this is 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS'
 }
 main();
 ```
@@ -178,6 +166,15 @@ lithic.cards.list({}, {
   httpAgent: new http.Agent({ keepAlive: false })
 })
 ```
+
+## Status
+
+This package is in beta. Its internals and interfaces are not stable
+and subject to change without a major semver bump;
+please reach out if you rely on any undocumented behavior.
+
+We are keen for your feedback; please email us at [sdk-feedback@lithic.com](mailto:sdk-feedback@lithic.com)
+or open an issue with questions, bugs, or suggestions.
 
 ## Requirements
 
