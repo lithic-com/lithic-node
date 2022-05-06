@@ -5,8 +5,11 @@ export class AccountHolders extends Core.APIResource {
   /**
    * Run an individual or business's information through the Customer Identification Program (CIP) and return an `account_token` if the status is accepted or pending (i.e., further action required). All calls to this endpoint will return an immediate response - though in some cases, the response may indicate the workflow is under review or further action will be needed to complete the account creation process. This endpoint can only be used on accounts that are part of the program the calling API key manages.
    */
-  create(options?: Core.RequestOptions): Promise<Core.APIResponse<AccountHolder>> {
-    return this.post('/account_holders', options);
+  create(
+    body: AccountHolderCreateParams,
+    options?: Core.RequestOptions,
+  ): Promise<Core.APIResponse<AccountHolder>> {
+    return this.post('/account_holders', { body, ...options });
   }
 
   /**
@@ -220,7 +223,427 @@ export namespace AccountHolderListDocumentsResponse {
   }
 }
 
-export interface AccountHolderCreateParams {}
+export type AccountHolderCreateParams = AccountHolderCreateParams.KYC | AccountHolderCreateParams.KYB;
+
+export namespace AccountHolderCreateParams {
+  export interface KYC {
+    /**
+     * Information on individual for whom the account is being opened and KYC is being run.
+     */
+    individual: KYC.Individual;
+
+    /**
+     * An ISO 8601 timestamp indicating when Lithic's terms of service were accepted by the API customer.
+     */
+    tos_timestamp: string;
+
+    /**
+     * Specifies the type of KYC workflow to run.
+     */
+    workflow: 'KYC_ADVANCED' | 'KYC_BASIC' | 'KYC_BYO';
+
+    /**
+     * An ISO 8601 timestamp indicating when precomputed KYC was completed on the individual with a pass result. This field is required only if workflow type is `KYC_BYO`.
+     */
+    kyc_passed_timestamp?: string;
+  }
+
+  export namespace KYC {
+    export interface Individual {
+      /**
+       * Individual's current address - PO boxes, UPS drops, and FedEx drops are not acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+       */
+      address: Individual.Address;
+
+      /**
+       * Individual's date of birth, as an ISO 8601 date.
+       */
+      dob: string;
+
+      /**
+       * Individual's email address. If utilizing Lithic for chargeback processing, this customer email address may be used to communicate dispute status and resolution.
+       */
+      email: string;
+
+      /**
+       * Individual's first name, as it appears on government-issued identity documents.
+       */
+      first_name: string;
+
+      /**
+       * Government-issued identification number (required for identity verification and compliance with banking regulations). Social Security Numbers (SSN) and Individual Taxpayer Identification Numbers (ITIN) are currently supported, entered as full nine-digits, with or without hyphens
+       */
+      government_id: string;
+
+      /**
+       * Individual's last name, as it appears on government-issued identity documents.
+       */
+      last_name: string;
+
+      /**
+       * Individual's phone number, entered in E.164 format.
+       */
+      phone_number: string;
+    }
+
+    export namespace Individual {
+      export interface Address {
+        /**
+         * Valid deliverable address (no PO boxes).
+         */
+        address1: string;
+
+        /**
+         * Name of city.
+         */
+        city: string;
+
+        /**
+         * Valid country code. Only USA is currently supported, entered in uppercase ISO 3166-1 alpha-3 three-character format.
+         */
+        country: string;
+
+        /**
+         * Valid postal code. Only USA ZIP codes are currently supported, entered as a five-digit ZIP or nine-digit ZIP+4.
+         */
+        postal_code: string;
+
+        /**
+         * Valid state code. Only USA state codes are currently supported, entered in uppercase ISO 3166-2 two-character format.
+         */
+        state: string;
+
+        /**
+         * Unit or apartment number (if applicable).
+         */
+        address2?: string;
+      }
+    }
+  }
+
+  export interface KYB {
+    /**
+     * List of all entities with >25% ownership in the company. If no entity or individual owns >25% of the company, and the largest shareholder is an entity, please identify them in this field. See [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf) (Section I) for more background. If no business owner is an entity, pass in an empty list. However, either this parameter or `beneficial_owner_individuals` must be populated. on entities that should be included.
+     */
+    beneficial_owner_entities: Array<KYB.BeneficialOwnerEntities>;
+
+    /**
+     * List of all individuals with >25% ownership in the company. If no entity or individual owns >25% of the company, and the largest shareholder is an individual, please identify them in this field. See [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf) (Section I) for more background on individuals that should be included. If no individual is an entity, pass in an empty list. However, either this parameter or `beneficial_owner_entities` must be populated.
+     */
+    beneficial_owner_individuals: Array<KYB.BeneficialOwnerIndividuals>;
+
+    /**
+     * Information for business for which the account is being opened and KYB is being run.
+     */
+    business_entity: KYB.BusinessEntity;
+
+    /**
+     * An individual with significant responsibility for managing the legal entity (e.g., a Chief Executive Officer, Chief Financial Officer, Chief Operating Officer, Managing Member, General Partner, President, Vice President, or Treasurer). This can be an executive, or someone who will have program-wide access to the cards that Lithic will provide. In some cases, this individual could also be a beneficial owner listed above. See [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf) (Section II) for more background.
+     */
+    control_person: KYB.ControlPerson;
+
+    /**
+     * Short description of the company's line of business (i.e., what does the company do?).
+     */
+    nature_of_business: string;
+
+    /**
+     * An ISO 8601 timestamp indicating when Lithic's terms of service were accepted by the API customer.
+     */
+    tos_timestamp: string;
+
+    /**
+     * Company website URL.
+     */
+    website_url: string;
+
+    /**
+     * Specifies the type of KYB workflow to run.
+     */
+    workflow: 'KYB_BASIC' | 'KYB_BYO';
+
+    /**
+     * An ISO 8601 timestamp indicating when precomputed KYC was completed on the business with a pass result. This field is required only if workflow type is `KYB_BYO`.
+     */
+    kyb_passed_timestamp?: string;
+  }
+
+  export namespace KYB {
+    export interface BusinessEntity {
+      /**
+       * Business's physical address - PO boxes, UPS drops, and FedEx drops are not acceptable; APO/FPO are acceptable.
+       */
+      address: BusinessEntity.Address;
+
+      /**
+       * Government-issued identification number. US Federal Employer Identification Numbers (EIN) are currently supported, entered as full nine-digits, with or without hyphens.
+       */
+      government_id: string;
+
+      /**
+       * Legal (formal) business name.
+       */
+      legal_business_name: string;
+
+      /**
+       * One or more of the business's phone number(s), entered as a list in E.164 format.
+       */
+      phone_numbers: Array<string>;
+
+      /**
+       * Any name that the business operates under that is not its legal business name (if applicable).
+       */
+      dba_business_name?: string;
+
+      /**
+       * Parent company name (if applicable).
+       */
+      parent_company?: string;
+    }
+
+    export namespace BusinessEntity {
+      export interface Address {
+        /**
+         * Valid deliverable address (no PO boxes).
+         */
+        address1: string;
+
+        /**
+         * Name of city.
+         */
+        city: string;
+
+        /**
+         * Valid country code. Only USA is currently supported, entered in uppercase ISO 3166-1 alpha-3 three-character format.
+         */
+        country: string;
+
+        /**
+         * Valid postal code. Only USA ZIP codes are currently supported, entered as a five-digit ZIP or nine-digit ZIP+4.
+         */
+        postal_code: string;
+
+        /**
+         * Valid state code. Only USA state codes are currently supported, entered in uppercase ISO 3166-2 two-character format.
+         */
+        state: string;
+
+        /**
+         * Unit or apartment number (if applicable).
+         */
+        address2?: string;
+      }
+    }
+
+    export interface BeneficialOwnerEntities {
+      /**
+       * Business's physical address - PO boxes, UPS drops, and FedEx drops are not acceptable; APO/FPO are acceptable.
+       */
+      address: BeneficialOwnerEntities.Address;
+
+      /**
+       * Government-issued identification number. US Federal Employer Identification Numbers (EIN) are currently supported, entered as full nine-digits, with or without hyphens.
+       */
+      government_id: string;
+
+      /**
+       * Legal (formal) business name.
+       */
+      legal_business_name: string;
+
+      /**
+       * One or more of the business's phone number(s), entered as a list in E.164 format.
+       */
+      phone_numbers: Array<string>;
+
+      /**
+       * Any name that the business operates under that is not its legal business name (if applicable).
+       */
+      dba_business_name?: string;
+
+      /**
+       * Parent company name (if applicable).
+       */
+      parent_company?: string;
+    }
+
+    export namespace BeneficialOwnerEntities {
+      export interface Address {
+        /**
+         * Valid deliverable address (no PO boxes).
+         */
+        address1: string;
+
+        /**
+         * Name of city.
+         */
+        city: string;
+
+        /**
+         * Valid country code. Only USA is currently supported, entered in uppercase ISO 3166-1 alpha-3 three-character format.
+         */
+        country: string;
+
+        /**
+         * Valid postal code. Only USA ZIP codes are currently supported, entered as a five-digit ZIP or nine-digit ZIP+4.
+         */
+        postal_code: string;
+
+        /**
+         * Valid state code. Only USA state codes are currently supported, entered in uppercase ISO 3166-2 two-character format.
+         */
+        state: string;
+
+        /**
+         * Unit or apartment number (if applicable).
+         */
+        address2?: string;
+      }
+    }
+
+    export interface BeneficialOwnerIndividuals {
+      /**
+       * Individual's current address - PO boxes, UPS drops, and FedEx drops are not acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+       */
+      address: BeneficialOwnerIndividuals.Address;
+
+      /**
+       * Individual's date of birth, as an ISO 8601 date.
+       */
+      dob: string;
+
+      /**
+       * Individual's email address. If utilizing Lithic for chargeback processing, this customer email address may be used to communicate dispute status and resolution.
+       */
+      email: string;
+
+      /**
+       * Individual's first name, as it appears on government-issued identity documents.
+       */
+      first_name: string;
+
+      /**
+       * Government-issued identification number (required for identity verification and compliance with banking regulations). Social Security Numbers (SSN) and Individual Taxpayer Identification Numbers (ITIN) are currently supported, entered as full nine-digits, with or without hyphens
+       */
+      government_id: string;
+
+      /**
+       * Individual's last name, as it appears on government-issued identity documents.
+       */
+      last_name: string;
+
+      /**
+       * Individual's phone number, entered in E.164 format.
+       */
+      phone_number: string;
+    }
+
+    export namespace BeneficialOwnerIndividuals {
+      export interface Address {
+        /**
+         * Valid deliverable address (no PO boxes).
+         */
+        address1: string;
+
+        /**
+         * Name of city.
+         */
+        city: string;
+
+        /**
+         * Valid country code. Only USA is currently supported, entered in uppercase ISO 3166-1 alpha-3 three-character format.
+         */
+        country: string;
+
+        /**
+         * Valid postal code. Only USA ZIP codes are currently supported, entered as a five-digit ZIP or nine-digit ZIP+4.
+         */
+        postal_code: string;
+
+        /**
+         * Valid state code. Only USA state codes are currently supported, entered in uppercase ISO 3166-2 two-character format.
+         */
+        state: string;
+
+        /**
+         * Unit or apartment number (if applicable).
+         */
+        address2?: string;
+      }
+    }
+
+    export interface ControlPerson {
+      /**
+       * Individual's current address - PO boxes, UPS drops, and FedEx drops are not acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+       */
+      address: ControlPerson.Address;
+
+      /**
+       * Individual's date of birth, as an ISO 8601 date.
+       */
+      dob: string;
+
+      /**
+       * Individual's email address. If utilizing Lithic for chargeback processing, this customer email address may be used to communicate dispute status and resolution.
+       */
+      email: string;
+
+      /**
+       * Individual's first name, as it appears on government-issued identity documents.
+       */
+      first_name: string;
+
+      /**
+       * Government-issued identification number (required for identity verification and compliance with banking regulations). Social Security Numbers (SSN) and Individual Taxpayer Identification Numbers (ITIN) are currently supported, entered as full nine-digits, with or without hyphens
+       */
+      government_id: string;
+
+      /**
+       * Individual's last name, as it appears on government-issued identity documents.
+       */
+      last_name: string;
+
+      /**
+       * Individual's phone number, entered in E.164 format.
+       */
+      phone_number: string;
+    }
+
+    export namespace ControlPerson {
+      export interface Address {
+        /**
+         * Valid deliverable address (no PO boxes).
+         */
+        address1: string;
+
+        /**
+         * Name of city.
+         */
+        city: string;
+
+        /**
+         * Valid country code. Only USA is currently supported, entered in uppercase ISO 3166-1 alpha-3 three-character format.
+         */
+        country: string;
+
+        /**
+         * Valid postal code. Only USA ZIP codes are currently supported, entered as a five-digit ZIP or nine-digit ZIP+4.
+         */
+        postal_code: string;
+
+        /**
+         * Valid state code. Only USA state codes are currently supported, entered in uppercase ISO 3166-2 two-character format.
+         */
+        state: string;
+
+        /**
+         * Unit or apartment number (if applicable).
+         */
+        address2?: string;
+      }
+    }
+  }
+}
 
 export interface AccountHolderCreateWebhookParams {
   /**

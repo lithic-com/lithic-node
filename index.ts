@@ -83,6 +83,7 @@ export namespace Lithic {
   export import AccountHolderDocument = API.AccountHolderDocument;
   export import AccountHolderCreateWebhookResponse = API.AccountHolderCreateWebhookResponse;
   export import AccountHolderListDocumentsResponse = API.AccountHolderListDocumentsResponse;
+  export import AccountHolderCreateParams = API.AccountHolderCreateParams;
   export import AccountHolderCreateWebhookParams = API.AccountHolderCreateWebhookParams;
   export import AccountHolderResubmitParams = API.AccountHolderResubmitParams;
   export import AccountHolderUploadDocumentParams = API.AccountHolderUploadDocumentParams;
@@ -113,6 +114,7 @@ export namespace Lithic {
   export import CardReissueParams = API.CardReissueParams;
 
   export import FundingSource = API.FundingSource;
+  export import FundingSourceCreateParams = API.FundingSourceCreateParams;
   export import FundingSourceUpdateParams = API.FundingSourceUpdateParams;
   export import FundingSourceListParams = API.FundingSourceListParams;
   export import FundingSourceVerifyParams = API.FundingSourceVerifyParams;
