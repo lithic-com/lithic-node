@@ -191,7 +191,7 @@ export namespace Transaction {
     token: string;
 
     /**
-     * Card types: * `DIGITAL_WALLET` - Cards that can be provisioned to a digital wallet like Google Pay or Apple Wallet. * `MERCHANT_LOCKED` - Card is locked to first merchant that successfully authorizes the card. * `PHYSICAL` - Manufactured and sent to the cardholder. We offer white label branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe functionality. Contact [api@lithic.com](mailto:api@lithic.com) for more information. * `SINGLE_USE` - Card will close shortly after the first transaction. * `UNLOCKED` - Card will authorize at any merchant. Creating these cards requires additional privileges.
+     * Card types: * `DIGITAL_WALLET` - Cards that can be provisioned to a digital wallet like Google Pay or Apple Wallet. * `MERCHANT_LOCKED` - Card is locked to first merchant that successfully authorizes the card. * `PHYSICAL` - Manufactured and sent to the cardholder. We offer white label branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe functionality. Reach out at [lithic.com/contact](https://lithic.com/contact) for more information. * `SINGLE_USE` - Card will close shortly after the first transaction. * `UNLOCKED` - Card will authorize at any merchant. Creating these cards requires additional privileges.
      */
     type: 'DIGITAL_WALLET' | 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'UNLOCKED';
 
@@ -476,9 +476,13 @@ export interface TransactionSimulateAuthorizationParams {
   merchant_currency?: string;
 
   /**
-   * Type of event to simulate.
+   * Type of event to simulate. * `CREDIT` indicates funds flow towards the user rather than towards the merchant. * `FINANCIAL` indicates that this is a single message transaction that completes immediately if approved.
    */
-  status?: 'AUTHORIZATION' | 'FINANCIAL_CREDIT_AUTHORIZATION';
+  status?:
+    | 'AUTHORIZATION'
+    | 'CREDIT_AUTHORIZATION'
+    | 'FINANCIAL_AUTHORIZATION'
+    | 'FINANCIAL_CREDIT_AUTHORIZATION';
 }
 
 export interface TransactionSimulateClearingParams {
