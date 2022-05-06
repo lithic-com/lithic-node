@@ -1,4 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
+
 import * as Core from '../core';
 
 export class AccountHolders extends Core.APIResource {
@@ -172,55 +173,6 @@ export namespace AccountHolderCreateWebhookResponse {
 
 export interface AccountHolderListDocumentsResponse {
   data?: Array<AccountHolderDocument>;
-}
-
-export namespace AccountHolderListDocumentsResponse {
-  export interface Data {
-    /**
-     * Globally unique identifier for the account.
-     */
-    account_token?: string;
-
-    /**
-     * Type of documentation to be submitted for verification.
-     */
-    document_type?: 'commercial_license' | 'drivers_license' | 'passport' | 'passport_card' | 'visa';
-
-    required_document_uploads?: Array<Data.RequiredDocumentUploads>;
-
-    /**
-     * Globally unique identifier for the document.
-     */
-    token?: string;
-  }
-
-  export namespace Data {
-    export interface RequiredDocumentUploads {
-      /**
-       * Type of image to upload.
-       */
-      image_type?: 'back' | 'front';
-
-      /**
-       * Status of document image upload.
-       */
-      status?: 'COMPLETED' | 'FAILED' | 'PENDING' | 'UPLOADED';
-
-      status_reasons?: Array<
-        | 'BACK_IMAGE_BLURRY'
-        | 'FILE_SIZE_TOO_LARGE'
-        | 'FRONT_IMAGE_BLURRY'
-        | 'FRONT_IMAGE_GLARE'
-        | 'INVALID_FILE_TYPE'
-        | 'UNKNOWN_ERROR'
-      >;
-
-      /**
-       * URL to upload document image to. Note that the upload URLs expire after 7 days. If an upload URL expires, you can refresh the URLs by retrieving the document upload from `GET /account_holders/{account_holder_token}/documents`.
-       */
-      upload_url?: string;
-    }
-  }
 }
 
 export type AccountHolderCreateParams = AccountHolderCreateParams.KYC | AccountHolderCreateParams.KYB;

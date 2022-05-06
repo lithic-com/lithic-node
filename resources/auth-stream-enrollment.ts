@@ -1,4 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
+
 import * as Core from '../core';
 
 export class AuthStreamEnrollmentResource extends Core.APIResource {
