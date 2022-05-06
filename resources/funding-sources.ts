@@ -1,12 +1,17 @@
 // File generated from our OpenAPI spec by Stainless.
+
 import * as Core from '../core';
+import * as Shared from './shared';
 
 export class FundingSources extends Core.APIResource {
   /**
    * Add a funding source using bank routing and account numbers or via Plaid. In the production environment, funding accounts will be set to `PENDING` state until micro-deposit validation completes while funding accounts in sandbox will be set to `ENABLED` state automatically.
    */
-  create(options?: Core.RequestOptions): Promise<Core.APIResponse<FundingSource>> {
-    return this.post('/funding_sources', options);
+  create(
+    body: FundingSourceCreateParams,
+    options?: Core.RequestOptions,
+  ): Promise<Core.APIResponse<FundingSource>> {
+    return this.post('/funding_sources', { body, ...options });
   }
 
   /**
@@ -14,7 +19,7 @@ export class FundingSources extends Core.APIResource {
    */
   update(
     id: string,
-    body?: FundingSourceUpdateParams | null | undefined,
+    body: FundingSourceUpdateParams,
     options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<FundingSource>> {
     return this.patch(`/funding_sources/${id}`, { body, ...options });
@@ -54,9 +59,9 @@ export interface FundingSource {
   last_four: string;
 
   /**
-   * State of funding source. Funding source states: * `ENABLED` - The funding account is available to use for card creation and transactions. * `PENDING` - The funding account is still being verified e.g. bank micro-deposits verification.
+   * State of funding source. Funding source states: * `ENABLED` - The funding account is available to use for card creation and transactions. * `PENDING` - The funding account is still being verified e.g. bank micro-deposits verification. * `DELETED` - The founding account has been deleted.
    */
-  state: 'ENABLED' | 'PENDING';
+  state: 'ENABLED' | 'PENDING' | 'DELETED';
 
   /**
    * A globally unique identifier for this FundingAccount.
@@ -79,7 +84,47 @@ export interface FundingSource {
   nickname?: string;
 }
 
-export interface FundingSourceCreateParams {}
+export type FundingSourceCreateParams = FundingSourceCreateParams.Bank | FundingSourceCreateParams.Plaid;
+
+export namespace FundingSourceCreateParams {
+  export interface Bank {
+    /**
+     * The account number of the bank account.
+     */
+    account_number: string;
+
+    /**
+     * The routing number of the bank account.
+     */
+    routing_number: string;
+
+    validation_method: 'BANK';
+
+    /**
+     * The name associated with the bank account. This property is only for identification purposes, and has no bearing on the external properties of the bank.
+     */
+    account_name?: string;
+
+    /**
+     * Only required for multi-account users. Token identifying the account that the bank account will be associated with. Only applicable if using account enrollment. See [Managing Accounts](https://docs.lithic.com/docs/managing-accounts) for more information.
+     */
+    account_token?: string;
+  }
+
+  export interface Plaid {
+    /**
+     * The processor token associated with the bank account.
+     */
+    processor_token: string;
+
+    validation_method: 'PLAID';
+
+    /**
+     * Only required for multi-account users. Token identifying the account associated with the bank account. Only applicable if using account creation. See [Managing Accounts](https://docs.lithic.com/docs/managing-accounts) for more information.
+     */
+    account_token?: string;
+  }
+}
 
 export interface FundingSourceUpdateParams {
   /**

@@ -29,9 +29,10 @@ export class Lithic extends Core.APIClient {
   }
 
   accounts: API.Accounts = new API.Accounts(this);
+  accountHolders: API.AccountHolders = new API.AccountHolders(this);
+  authRules: API.AuthRules = new API.AuthRules(this);
   authStreamEnrollment: API.AuthStreamEnrollmentResource = new API.AuthStreamEnrollmentResource(this);
   cards: API.Cards = new API.Cards(this);
-  consumers: API.Consumers = new API.Consumers(this);
   fundingSources: API.FundingSources = new API.FundingSources(this);
   transactions: API.Transactions = new API.Transactions(this);
   status: API.StatusResource = new API.StatusResource(this);
@@ -78,11 +79,33 @@ export namespace Lithic {
   export import AccountUpdateParams = API.AccountUpdateParams;
   export import AccountListParams = API.AccountListParams;
 
+  export import AccountHolder = API.AccountHolder;
+  export import AccountHolderDocument = API.AccountHolderDocument;
+  export import AccountHolderCreateWebhookResponse = API.AccountHolderCreateWebhookResponse;
+  export import AccountHolderListDocumentsResponse = API.AccountHolderListDocumentsResponse;
+  export import AccountHolderCreateParams = API.AccountHolderCreateParams;
+  export import AccountHolderCreateWebhookParams = API.AccountHolderCreateWebhookParams;
+  export import AccountHolderResubmitParams = API.AccountHolderResubmitParams;
+  export import AccountHolderUploadDocumentParams = API.AccountHolderUploadDocumentParams;
+
+  export import AuthRule = API.AuthRule;
+  export import AuthRuleCreateResponse = API.AuthRuleCreateResponse;
+  export import AuthRuleRetrieveResponse = API.AuthRuleRetrieveResponse;
+  export import AuthRuleUpdateResponse = API.AuthRuleUpdateResponse;
+  export import AuthRuleListResponse = API.AuthRuleListResponse;
+  export import AuthRuleApplyResponse = API.AuthRuleApplyResponse;
+  export import AuthRuleRemoveResponse = API.AuthRuleRemoveResponse;
+  export import AuthRuleCreateParams = API.AuthRuleCreateParams;
+  export import AuthRuleUpdateParams = API.AuthRuleUpdateParams;
+  export import AuthRuleListParams = API.AuthRuleListParams;
+  export import AuthRuleApplyParams = API.AuthRuleApplyParams;
+  export import AuthRuleRemoveParams = API.AuthRuleRemoveParams;
+
   export import AuthStreamEnrollment = API.AuthStreamEnrollment;
   export import AuthStreamEnrollmentEnrollParams = API.AuthStreamEnrollmentEnrollParams;
 
   export import Card = API.Card;
-  export import CardsProvisionResponse = API.CardsProvisionResponse;
+  export import CardProvisionResponse = API.CardProvisionResponse;
   export import CardCreateParams = API.CardCreateParams;
   export import CardUpdateParams = API.CardUpdateParams;
   export import CardListParams = API.CardListParams;
@@ -90,19 +113,17 @@ export namespace Lithic {
   export import CardProvisionParams = API.CardProvisionParams;
   export import CardReissueParams = API.CardReissueParams;
 
-  export import ConsumersEnrollResponse = API.ConsumersEnrollResponse;
-  export import ConsumerEnrollParams = API.ConsumerEnrollParams;
-
   export import FundingSource = API.FundingSource;
+  export import FundingSourceCreateParams = API.FundingSourceCreateParams;
   export import FundingSourceUpdateParams = API.FundingSourceUpdateParams;
   export import FundingSourceListParams = API.FundingSourceListParams;
   export import FundingSourceVerifyParams = API.FundingSourceVerifyParams;
 
   export import Transaction = API.Transaction;
-  export import TransactionsSimulateAuthorizationResponse = API.TransactionsSimulateAuthorizationResponse;
-  export import TransactionsSimulateClearingResponse = API.TransactionsSimulateClearingResponse;
-  export import TransactionsSimulateReturnResponse = API.TransactionsSimulateReturnResponse;
-  export import TransactionsSimulateVoidResponse = API.TransactionsSimulateVoidResponse;
+  export import TransactionSimulateAuthorizationResponse = API.TransactionSimulateAuthorizationResponse;
+  export import TransactionSimulateClearingResponse = API.TransactionSimulateClearingResponse;
+  export import TransactionSimulateReturnResponse = API.TransactionSimulateReturnResponse;
+  export import TransactionSimulateVoidResponse = API.TransactionSimulateVoidResponse;
   export import TransactionListParams = API.TransactionListParams;
   export import TransactionSimulateAuthorizationParams = API.TransactionSimulateAuthorizationParams;
   export import TransactionSimulateClearingParams = API.TransactionSimulateClearingParams;

@@ -1,5 +1,7 @@
 // File generated from our OpenAPI spec by Stainless.
+
 import * as Core from '../core';
+import * as Shared from './shared';
 
 export class Accounts extends Core.APIResource {
   /**
@@ -10,18 +12,18 @@ export class Accounts extends Core.APIResource {
   }
 
   /**
-   * Update account configuration such as spend limits. Can only be run on accounts that are part of the program managed by this API key. Accounts that are in the `PAUSED` state will not be able to transact or create new cards.
+   * Update account configuration such as spend limits and verification address. Can only be run on accounts that are part of the program managed by this API key. Accounts that are in the `PAUSED` state will not be able to transact or create new cards.
    */
   update(
     id: string,
-    body?: AccountUpdateParams | null | undefined,
+    body: AccountUpdateParams,
     options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<Account>> {
     return this.patch(`/accounts/${id}`, { body, ...options });
   }
 
   /**
-   * List account configurations. This endpoint can only be used on accounts that are part of the program the calling API key manages.
+   * List account configurations.
    */
   list(
     query?: AccountListParams | null | undefined,
@@ -46,6 +48,11 @@ export interface Account {
    * Globally unique identifier for the account. This is the same as the account_token returned by the enroll endpoint. If using this parameter, do not include pagination.
    */
   token: string;
+
+  /**
+   * List of identifiers for the Auth Rule(s) that are applied on the account.
+   */
+  auth_rule_tokens?: Array<string>;
 }
 
 export namespace Account {
@@ -87,6 +94,27 @@ export interface AccountUpdateParams {
    * Account states.
    */
   state?: 'ACTIVE' | 'PAUSED';
+
+  /**
+   * Address used during Address Verification Service (AVS) checks during transactions if enabled via Auth Rules.
+   */
+  verification_address?: AccountUpdateParams.VerificationAddress;
+}
+
+export namespace AccountUpdateParams {
+  export interface VerificationAddress {
+    address1?: string;
+
+    address2?: string;
+
+    city?: string;
+
+    country?: string;
+
+    postal_code?: string;
+
+    state?: string;
+  }
 }
 
 export interface AccountListParams {

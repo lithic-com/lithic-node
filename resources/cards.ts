@@ -1,5 +1,8 @@
 // File generated from our OpenAPI spec by Stainless.
+
 import * as Core from '../core';
+import * as Shared from './shared';
+import * as FundingSources from './funding-sources';
 
 export class Cards extends Core.APIResource {
   /**
@@ -19,11 +22,7 @@ export class Cards extends Core.APIResource {
   /**
    * Update the specified properties of the card. Unsupplied properties will remain unchanged. `pin` parameter only applies to physical cards. *Note: setting a card to a `CLOSED` state is a final action that cannot be undone.*
    */
-  update(
-    id: string,
-    body?: CardUpdateParams | null | undefined,
-    options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Card>> {
+  update(id: string, body: CardUpdateParams, options?: Core.RequestOptions): Promise<Core.APIResponse<Card>> {
     return this.patch(`/cards/${id}`, { body, ...options });
   }
 
@@ -39,19 +38,20 @@ export class Cards extends Core.APIResource {
    */
   embed(query?: CardEmbedParams | null | undefined, options?: Core.RequestOptions): Promise<string> {
     return this.get('/embed/card', {
-      ...{ query, ...options },
+      query,
+      ...options,
       headers: { Accept: 'text/html', ...options?.headers },
     });
   }
 
   /**
-   * Allow your cardholders to directly add payment cards to the device's digital wallet (e.g. Apple Pay) with one touch from your app. This requires some additional setup and configuration. Please reach out to [api@lithic.com](mailto:api@lithic.com) or your account rep for more information.
+   * Allow your cardholders to directly add payment cards to the device's digital wallet (e.g. Apple Pay) with one touch from your app. This requires some additional setup and configuration. Reach out at [lithic.com/contact](https://lithic.com/contact) or your account rep for more information.
    */
   provision(
     id: string,
-    body?: CardProvisionParams | null | undefined,
+    body: CardProvisionParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<CardsProvisionResponse>> {
+  ): Promise<Core.APIResponse<CardProvisionResponse>> {
     return this.post(`/cards/${id}/provision`, { body, ...options });
   }
 
@@ -60,7 +60,7 @@ export class Cards extends Core.APIResource {
    */
   reissue(
     id: string,
-    body?: CardReissueParams | null | undefined,
+    body: CardReissueParams,
     options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<Card>> {
     return this.post(`/cards/${id}/reissue`, { body, ...options });
@@ -73,7 +73,7 @@ export interface Card {
    */
   created: string;
 
-  funding: Card.Funding;
+  funding: FundingSources.FundingSource;
 
   /**
    * Last four digits of the card number.
@@ -101,9 +101,14 @@ export interface Card {
   token: string;
 
   /**
-   * Card types: * `DIGITAL_WALLET` - Cards that can be provisioned to a digital wallet like Google Pay or Apple Wallet. * `MERCHANT_LOCKED` - Card is locked to first merchant that successfully authorizes the card. * `PHYSICAL` - Manufactured and sent to the cardholder. We offer white label branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe functionality. Contact [api@lithic.com](mailto:api@lithic.com) for more information. * `SINGLE_USE` - Card will close shortly after the first transaction. * `UNLOCKED` - Card will authorize at any merchant. Creating these cards requires additional privileges.
+   * Card types: * `DIGITAL_WALLET` - Cards that can be provisioned to a digital wallet like Google Pay or Apple Wallet. * `MERCHANT_LOCKED` - Card is locked to first merchant that successfully authorizes the card. * `PHYSICAL` - Manufactured and sent to the cardholder. We offer white label branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe functionality. Reach out at [lithic.com/contact](https://lithic.com/contact) for more information. * `SINGLE_USE` - Card will close shortly after the first transaction. * `UNLOCKED` - Card will authorize at any merchant. Creating these cards requires additional privileges.
    */
   type: 'DIGITAL_WALLET' | 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'UNLOCKED';
+
+  /**
+   * List of identifiers for the Auth Rule(s) that are applied on the card.
+   */
+  auth_rule_tokens?: Array<string>;
 
   /**
    * Three digit cvv printed on the back of the card.
@@ -136,52 +141,13 @@ export interface Card {
   pan?: string;
 }
 
-export namespace Card {
-  export interface Funding {
-    /**
-     * An ISO 8601 string representing when this funding source was added to the Lithic account. This may be `null`. UTC time zone.
-     */
-    created: string;
-
-    /**
-     * The last 4 digits of the account (e.g. bank account, debit card) associated with this FundingAccount. This may be null.
-     */
-    last_four: string;
-
-    /**
-     * State of funding source. Funding source states: * `ENABLED` - The funding account is available to use for card creation and transactions. * `PENDING` - The funding account is still being verified e.g. bank micro-deposits verification.
-     */
-    state: 'ENABLED' | 'PENDING';
-
-    /**
-     * A globally unique identifier for this FundingAccount.
-     */
-    token: string;
-
-    /**
-     * Types of funding source: * `DEPOSITORY_CHECKING` - Bank checking account. * `DEPOSITORY_SAVINGS` - Bank savings account.
-     */
-    type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS';
-
-    /**
-     * Account name identifying the funding source. This may be `null`.
-     */
-    account_name?: string;
-
-    /**
-     * The nickname given to the `FundingAccount` or `null` if it has no nickname.
-     */
-    nickname?: string;
-  }
-}
-
-export interface CardsProvisionResponse {
+export interface CardProvisionResponse {
   provisioning_payload?: string;
 }
 
 export interface CardCreateParams {
   /**
-   * Card types: * `DIGITAL_WALLET` - Cards that can be provisioned to a digital wallet like Google Pay or Apple Wallet. * `MERCHANT_LOCKED` - Card is locked to first merchant that successfully authorizes the card. * `PHYSICAL` - Manufactured and sent to the cardholder. We offer white label branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe functionality. Contact api@lithic.com for more information. * `SINGLE_USE` - Card will close shortly after the first transaction. * `UNLOCKED` - Card will authorize at any merchant. Creating these cards requires additional privileges.
+   * Card types: * `DIGITAL_WALLET` - Cards that can be provisioned to a digital wallet like Google Pay or Apple Wallet. * `MERCHANT_LOCKED` - Card is locked to first merchant that successfully authorizes the card. * `PHYSICAL` - Manufactured and sent to the cardholder. We offer white label branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe functionality. Reach out at [lithic.com/contact](https://lithic.com/contact) for more information. * `SINGLE_USE` - Card will close shortly after the first transaction. * `UNLOCKED` - Card will authorize at any merchant. Creating these cards requires additional privileges.
    */
   type: 'DIGITAL_WALLET' | 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'UNLOCKED';
 
@@ -216,7 +182,7 @@ export interface CardCreateParams {
   memo?: string;
 
   /**
-   * Encrypted PIN block (in base64). Only applies to cards of type `PHYSICAL` [beta]. See [Encrypted PIN Block](https://docs.lithic.com/docs/cards#encrypted-pin-block-enterprise).
+   * Encrypted PIN block (in base64). Only applies to cards of type `PHYSICAL` [beta], `UNLOCKED`, and `DIGITAL_WALLET`. See [Encrypted PIN Block](https://docs.lithic.com/docs/cards#encrypted-pin-block-enterprise).
    */
   pin?: string;
 
@@ -225,7 +191,12 @@ export interface CardCreateParams {
    */
   product_id?: string;
 
-  shipping_address?: CardCreateParams.ShippingAddress;
+  shipping_address?: Shared.ShippingAddress;
+
+  /**
+   * Shipping method for the card. Only applies to cards of type PHYSICAL [beta]. Use of options besides `STANDARD` require additional permissions. * `STANDARD` - USPS regular mail or similar international option, with no tracking * `STANDARD_WITH_TRACKING` - USPS regular mail or similar international option, with tracking * `EXPEDITED` - FedEx Standard Overnight or similar international option, with tracking
+   */
+  shipping_method?: 'STANDARD' | 'STANDARD_WITH_TRACKING' | 'EXPEDITED';
 
   /**
    * Amount (in cents) to limit approved authorizations. Transaction requests above the spend limit will be declined.
@@ -243,55 +214,16 @@ export interface CardCreateParams {
   state?: 'OPEN' | 'PAUSED';
 }
 
-export namespace CardCreateParams {
-  export interface ShippingAddress {
-    /**
-     * Valid USPS routable address.
-     */
-    address1: string;
-
-    /**
-     * City
-     */
-    city: string;
-
-    /**
-     * Uppercase ISO 3166-1 alpha-3 three character abbreviation.
-     */
-    country: string;
-
-    /**
-     * Customer's first name. This will be the first name printed on the physical card.
-     */
-    first_name: string;
-
-    /**
-     * Customer's surname (family name). This will be the last name printed on the physical card.
-     */
-    last_name: string;
-
-    /**
-     * Uppercase ISO 3166-2 two character abbreviation for US and CA. Optional with a limit of 24 characters for other countries.
-     */
-    state: string;
-
-    /**
-     * Post code (including five digit zipcode and nine digit "ZIP+4").
-     */
-    zipcode: string;
-
-    /**
-     * Unit number (if applicable).
-     */
-    address2?: string;
-  }
-}
-
 export interface CardUpdateParams {
   /**
    * Only required for multi-account users. Token identifying the account the card will be associated with. Only applicable if using account enrollment. See [Managing Accounts](https://docs.lithic.com/docs/managing-accounts) for more information.
    */
   account_token?: string;
+
+  /**
+   * Identifier for any Auth Rules that will be applied to transactions taking place with the card.
+   */
+  auth_rule_token?: string;
 
   /**
    * The token for the desired `FundingAccount` to use when making transactions with this card.
@@ -304,7 +236,7 @@ export interface CardUpdateParams {
   memo?: string;
 
   /**
-   * Encrypted PIN block (in base64). Only applies to cards of type `PHYSICAL` [beta]. See [Encrypted PIN Block](https://docs.lithic.com/docs/cards#encrypted-pin-block-enterprise).
+   * Encrypted PIN block (in base64). Only applies to cards of type `PHYSICAL` [beta], `UNLOCKED`, and `DIGITAL_WALLET`. See [Encrypted PIN Block](https://docs.lithic.com/docs/cards#encrypted-pin-block-enterprise).
    */
   pin?: string;
 
@@ -399,49 +331,5 @@ export interface CardReissueParams {
   /**
    * If omitted, the previous shipping address will be used.
    */
-  shipping_address?: CardReissueParams.ShippingAddress;
-}
-
-export namespace CardReissueParams {
-  export interface ShippingAddress {
-    /**
-     * Valid USPS routable address.
-     */
-    address1: string;
-
-    /**
-     * City
-     */
-    city: string;
-
-    /**
-     * Uppercase ISO 3166-1 alpha-3 three character abbreviation.
-     */
-    country: string;
-
-    /**
-     * Customer's first name. This will be the first name printed on the physical card.
-     */
-    first_name: string;
-
-    /**
-     * Customer's surname (family name). This will be the last name printed on the physical card.
-     */
-    last_name: string;
-
-    /**
-     * Uppercase ISO 3166-2 two character abbreviation for US and CA. Optional with a limit of 24 characters for other countries.
-     */
-    state: string;
-
-    /**
-     * Post code (including five digit zipcode and nine digit "ZIP+4").
-     */
-    zipcode: string;
-
-    /**
-     * Unit number (if applicable).
-     */
-    address2?: string;
-  }
+  shipping_address?: Shared.ShippingAddress;
 }

@@ -1,9 +1,12 @@
 // File generated from our OpenAPI spec by Stainless.
+
 import * as Core from '../core';
+import * as Shared from './shared';
+import * as Cards from './cards';
 
 export class Transactions extends Core.APIResource {
   /**
-   * List specific transaction.
+   * Get specific transaction.
    */
   retrieve(id: string, options?: Core.RequestOptions): Promise<Core.APIResponse<Transaction>> {
     return this.get(`/transactions/${id}`, options);
@@ -25,7 +28,7 @@ export class Transactions extends Core.APIResource {
   simulateAuthorization(
     body: TransactionSimulateAuthorizationParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<TransactionsSimulateAuthorizationResponse>> {
+  ): Promise<Core.APIResponse<TransactionSimulateAuthorizationResponse>> {
     return this.post('/simulate/authorize', { body, ...options });
   }
 
@@ -35,7 +38,7 @@ export class Transactions extends Core.APIResource {
   simulateClearing(
     body: TransactionSimulateClearingParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<TransactionsSimulateClearingResponse>> {
+  ): Promise<Core.APIResponse<TransactionSimulateClearingResponse>> {
     return this.post('/simulate/clearing', { body, ...options });
   }
 
@@ -45,7 +48,7 @@ export class Transactions extends Core.APIResource {
   simulateReturn(
     body: TransactionSimulateReturnParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<TransactionsSimulateReturnResponse>> {
+  ): Promise<Core.APIResponse<TransactionSimulateReturnResponse>> {
     return this.post('/simulate/return', { body, ...options });
   }
 
@@ -55,7 +58,7 @@ export class Transactions extends Core.APIResource {
   simulateVoid(
     body: TransactionSimulateVoidParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<TransactionsSimulateVoidResponse>> {
+  ): Promise<Core.APIResponse<TransactionSimulateVoidResponse>> {
     return this.post('/simulate/void', { body, ...options });
   }
 }
@@ -76,7 +79,7 @@ export interface Transaction {
    */
   authorization_code?: string;
 
-  card?: Transaction.Card;
+  card?: Cards.Card;
 
   /**
    * Date and time when the transaction first occurred. UTC time zone.
@@ -91,7 +94,7 @@ export interface Transaction {
   /**
    * A list of objects that describe how this transaction was funded, with the `amount` represented in cents. A reference to the funding account for the `card` that made this transaction may appear here and the `token` will match the `token` for the funding account in the `card` field. If any promotional credit was used in paying for this transaction, its `type` will be `PROMO`.
    */
-  funding?: Transaction.Funding;
+  funding?: Array<Transaction.Funding>;
 
   merchant?: Transaction.Merchant;
 
@@ -109,6 +112,11 @@ export interface Transaction {
    * 3-digit alphabetic ISO 4217 code for the local currency of the transaction.
    */
   merchant_currency?: string;
+
+  /**
+   * Card network of the authorization. Can be `INTERLINK`, `MAESTRO`, `MASTERCARD`, `VISA`, or `UNKNOWN`. Value is `UNKNOWN` when Lithic cannot determine the network code from the upstream provider.
+   */
+  network?: 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'VISA' | 'UNKNOWN' | null;
 
   /**
    * `APPROVED` or decline reason. See Event result types
@@ -152,114 +160,6 @@ export interface Transaction {
 }
 
 export namespace Transaction {
-  export interface Card {
-    /**
-     * An ISO 8601 timestamp for when the card was created. UTC time zone.
-     */
-    created: string;
-
-    funding: Card.Funding;
-
-    /**
-     * Last four digits of the card number.
-     */
-    last_four: string;
-
-    /**
-     * Amount (in cents) to limit approved authorizations. Transaction requests above the spend limit will be declined.
-     */
-    spend_limit: number;
-
-    /**
-     * Spend limit duration values: * `ANNUALLY` - Card will authorize transactions up to spend limit in a calendar year. * `FOREVER` - Card will authorize only up to spend limit for the entire lifetime of the card. * `MONTHLY` - Card will authorize transactions up to spend limit for the trailing month. Month is calculated as this calendar date one month prior. * `TRANSACTION` - Card will authorizate multiple transactions if each individual transaction is under the spend limit.
-     */
-    spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION';
-
-    /**
-     * Card state values: * `CLOSED` - Card will no longer approve authorizations. Closing a card cannot be undone. * `OPEN` - Card will approve authorizations (if they match card and account parameters). * `PAUSED` - Card will decline authorizations, but can be resumed at a later time. * `PENDING_FULFILLMENT` - The initial state for cards of type `PHYSICAL`. The card is provisioned pending manufacturing and fulfillment. Cards in this state can accept authorizations for e-commerce purchases, but not for "Card Present" purchases where the physical card itself is present. * `PENDING_ACTIVATION` - Each business day at 2pm Eastern Time Zone (ET), cards of type `PHYSICAL` in state `PENDING_FULFILLMENT` are sent to the card production warehouse and updated to state `PENDING_ACTIVATION` . Similar to `PENDING_FULFILLMENT`, cards in this state can be used for e-commerce transactions. API clients should update the card's state to `OPEN` only after the cardholder confirms receipt of the card. In sandbox, the same daily batch fulfillment occurs, but no cards are actually manufactured.
-     */
-    state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT';
-
-    /**
-     * Globally unique identifier.
-     */
-    token: string;
-
-    /**
-     * Card types: * `DIGITAL_WALLET` - Cards that can be provisioned to a digital wallet like Google Pay or Apple Wallet. * `MERCHANT_LOCKED` - Card is locked to first merchant that successfully authorizes the card. * `PHYSICAL` - Manufactured and sent to the cardholder. We offer white label branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe functionality. Contact [api@lithic.com](mailto:api@lithic.com) for more information. * `SINGLE_USE` - Card will close shortly after the first transaction. * `UNLOCKED` - Card will authorize at any merchant. Creating these cards requires additional privileges.
-     */
-    type: 'DIGITAL_WALLET' | 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'UNLOCKED';
-
-    /**
-     * Three digit cvv printed on the back of the card.
-     */
-    cvv?: string;
-
-    /**
-     * Two digit (MM) expiry month.
-     */
-    exp_month?: string;
-
-    /**
-     * Four digit (yyyy) expiry year.
-     */
-    exp_year?: string;
-
-    /**
-     * Hostname of card’s locked merchant (will be empty if not applicable).
-     */
-    hostname?: string;
-
-    /**
-     * Friendly name to identify the card.
-     */
-    memo?: string;
-
-    /**
-     * Primary Account Number (PAN) (i.e. the card number). Customers must be PCI compliant to have PAN returned as a field in production. Please contact [support@lithic.com](mailto:support@lithic.com) for questions.
-     */
-    pan?: string;
-  }
-
-  export namespace Card {
-    export interface Funding {
-      /**
-       * An ISO 8601 string representing when this funding source was added to the Lithic account. This may be `null`. UTC time zone.
-       */
-      created: string;
-
-      /**
-       * The last 4 digits of the account (e.g. bank account, debit card) associated with this FundingAccount. This may be null.
-       */
-      last_four: string;
-
-      /**
-       * State of funding source. Funding source states: * `ENABLED` - The funding account is available to use for card creation and transactions. * `PENDING` - The funding account is still being verified e.g. bank micro-deposits verification.
-       */
-      state: 'ENABLED' | 'PENDING';
-
-      /**
-       * A globally unique identifier for this FundingAccount.
-       */
-      token: string;
-
-      /**
-       * Types of funding source: * `DEPOSITORY_CHECKING` - Bank checking account. * `DEPOSITORY_SAVINGS` - Bank savings account.
-       */
-      type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS';
-
-      /**
-       * Account name identifying the funding source. This may be `null`.
-       */
-      account_name?: string;
-
-      /**
-       * The nickname given to the `FundingAccount` or `null` if it has no nickname.
-       */
-      nickname?: string;
-    }
-  }
-
   export interface Events {
     /**
      * Amount (in cents) of the transaction event.
@@ -302,9 +202,16 @@ export namespace Transaction {
     token: string;
 
     /**
-     * Event types: * `AUTHORIZATION` - Authorize a transaction. * `AUTHORIZATION_ADVICE` - Advice on a transaction. * `CLEARING` - Transaction is settled. * `RETURN` - A return authorization. * `VOID` - Transaction is voided.
+     * Event types: * `AUTHORIZATION` - Authorize a transaction. * `AUTHORIZATION_ADVICE` - Advice on a transaction. * `CLEARING` - Transaction is settled. * `RETURN` - A return authorization. * `VOID` - Transaction is voided. * `TRANSACTION_CORRECTION_DEBIT` - Manual transaction correction (Debit). * `TRANSACTION_CORRECTION_CREDIT` - Manual transaction correction (Credit).
      */
-    type: 'AUTHORIZATION' | 'AUTHORIZATION_ADVICE' | 'CLEARING' | 'RETURN' | 'VOID';
+    type:
+      | 'AUTHORIZATION'
+      | 'AUTHORIZATION_ADVICE'
+      | 'CLEARING'
+      | 'RETURN'
+      | 'VOID'
+      | 'TRANSACTION_CORRECTION_DEBIT'
+      | 'TRANSACTION_CORRECTION_CREDIT';
   }
 
   export interface Funding {
@@ -319,9 +226,9 @@ export namespace Transaction {
     token?: string;
 
     /**
-     * Types of funding: * `PROMO` - Any promotional credit was used in paying for this transaction.
+     * Types of funding: * `DEPOSITORY_CHECKING` - Bank checking account. * `DEPOSITORY_SAVINGS` - Bank savings account. * `PROMO` - Any promotional credit was used in paying for this transaction.
      */
-    type?: 'PROMO';
+    type?: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS' | 'PROMO';
   }
 
   export interface Merchant {
@@ -357,7 +264,7 @@ export namespace Transaction {
   }
 }
 
-export interface TransactionsSimulateAuthorizationResponse {
+export interface TransactionSimulateAuthorizationResponse {
   /**
    * Debugging request ID to share with Lithic Support team.
    */
@@ -369,14 +276,14 @@ export interface TransactionsSimulateAuthorizationResponse {
   token?: string;
 }
 
-export interface TransactionsSimulateClearingResponse {
+export interface TransactionSimulateClearingResponse {
   /**
    * Debugging request ID to share with Lithic Support team.
    */
   debugging_request_id?: string;
 }
 
-export interface TransactionsSimulateReturnResponse {
+export interface TransactionSimulateReturnResponse {
   /**
    * Debugging request ID to share with Lithic Support team.
    */
@@ -388,7 +295,7 @@ export interface TransactionsSimulateReturnResponse {
   token?: string;
 }
 
-export interface TransactionsSimulateVoidResponse {
+export interface TransactionSimulateVoidResponse {
   /**
    * Debugging request ID to share with Lithic Support team.
    */
@@ -459,9 +366,13 @@ export interface TransactionSimulateAuthorizationParams {
   merchant_currency?: string;
 
   /**
-   * Type of event to simulate.
+   * Type of event to simulate. * `CREDIT` indicates funds flow towards the user rather than towards the merchant. * `FINANCIAL` indicates that this is a single message transaction that completes immediately if approved.
    */
-  status?: 'AUTHORIZATION' | 'FINANCIAL_CREDIT_AUTHORIZATION';
+  status?:
+    | 'AUTHORIZATION'
+    | 'CREDIT_AUTHORIZATION'
+    | 'FINANCIAL_AUTHORIZATION'
+    | 'FINANCIAL_CREDIT_AUTHORIZATION';
 }
 
 export interface TransactionSimulateClearingParams {
