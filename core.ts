@@ -28,7 +28,7 @@ const DEFAULT_MAX_RETRIES = 2;
 const DEFAULT_TIMEOUT = 60 * 1000; // 60s
 
 export abstract class APIClient {
-  apiKey: string;
+  apiKey: string | null;
   baseURL: string;
   maxRetries: number;
   timeout: number;
@@ -43,7 +43,7 @@ export abstract class APIClient {
     timeout = DEFAULT_TIMEOUT,
     httpAgent,
   }: {
-    apiKey: string;
+    apiKey: string | null;
     baseURL: string;
     maxRetries?: number;
     timeout: number | undefined;

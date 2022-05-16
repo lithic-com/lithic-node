@@ -5,26 +5,70 @@ import type { Agent } from 'http';
 
 const environments = { production: 'https://api.lithic.com/v1', sandbox: 'https://sandbox.lithic.com/v1' };
 
+type Config = {
+  /**
+   * Defaults to to process.env["LITHIC_API_KEY"]. Set it to null if you want to send unauthenticated requests.
+   */
+  apiKey?: string | null;
+  environment?: keyof typeof environments;
+  baseURL?: string;
+  timeout?: number;
+  httpAgent?: Agent;
+};
+
 export class Lithic extends Core.APIClient {
-  constructor(
-    apiKey: string,
-    {
-      environment = 'production',
-      baseURL,
-      timeout,
-      httpAgent,
-    }: {
-      environment?: keyof typeof environments;
-      baseURL?: string;
-      timeout?: number;
-      httpAgent?: Agent;
-    } = {},
-  ) {
+  constructor();
+  constructor(options: Config);
+  /**
+   * @deprecated The parameter 'apiKey' will be removed in the near future. Instead use `new Lithic({apiKey: 'my api key'})` or the environment variable `LITHIC_API_KEY`.
+   */
+  constructor(apiKey: string);
+  /**
+   * @deprecated The parameter 'apiKey' will be removed in the near future. Instead use `new Lithic({apiKey: 'my api key'})` or the environment variable `LITHIC_API_KEY`.
+   */
+  constructor(apiKey: string, options: Config);
+  constructor(...args: [] | [string] | [string, Config] | [Config]) {
+    let apiKey: string | null | undefined;
+    let options: Config;
+    if (args.length > 2) {
+      throw new Error('Unexpected parameters passed to the Lithic client constructor');
+    }
+    if (args.length === 0) {
+      apiKey = undefined;
+      options = {};
+    } else if (typeof args[0] === 'string') {
+      console.warn(`We have changed how API Keys are passed to the Lithic client and will remove support for the parameter 'apiKey' in the near future. Please pass it as an option instead, like this:
+      new Lithic({apiKey: 'my api key'})
+      Or, use the environment variable LITHIC_API_KEY="my api key".`);
+      options = args[1] || {};
+      apiKey = options.apiKey || args[0];
+    } else if (typeof args[0] === 'object') {
+      options = args[0] || {};
+      apiKey = options.apiKey;
+    } else {
+      throw new Error('Unexpected parameters passed to the Lithic client constructor');
+    }
+
+    const defaultOptions: Config = {
+      apiKey: process.env['LITHIC_API_KEY'] || '',
+      environment: 'production',
+    };
+    options = { ...defaultOptions, ...options };
+
+    if (!apiKey && apiKey !== null) {
+      apiKey = options.apiKey;
+    }
+    if (!apiKey && apiKey !== null) {
+      throw new Error(
+        "The LITHIC_API_KEY environment variable is missing or empty; either provide it, or instantiate the Lithic client with an apiKey option, like new Lithic({apiKey: 'my api key'}).",
+      );
+    }
+
     super({
       apiKey,
-      baseURL: baseURL || environments[environment],
-      timeout,
-      httpAgent,
+      baseURL: options.baseURL || environments[options.environment || 'production'],
+      timeout: options.timeout,
+      httpAgent: options.httpAgent,
     });
   }
 
@@ -38,10 +82,9 @@ export class Lithic extends Core.APIClient {
   status: API.StatusResource = new API.StatusResource(this);
 
   protected override defaultHeaders(): Core.Headers {
-    const Authorization = `api-key ${this.apiKey}`;
     return {
       ...super.defaultHeaders(),
-      Authorization,
+      Authorization: this.apiKey || '',
     };
   }
 
