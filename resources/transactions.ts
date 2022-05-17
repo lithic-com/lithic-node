@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import * as Core from '../core';
+import { isRequestOptions } from '../core';
 import * as Shared from './shared';
 import * as Cards from './cards';
 
@@ -15,10 +16,17 @@ export class Transactions extends Core.APIResource {
   /**
    * List transactions.
    */
+  list(query?: TransactionListParams, options?: Core.RequestOptions): Core.APIListPromise<Transaction>;
+  list(options?: Core.RequestOptions): Core.APIListPromise<Transaction>;
   list(
-    query?: TransactionListParams | null | undefined,
+    query?: TransactionListParams | Core.RequestOptions | null | undefined,
     options?: Core.RequestOptions,
   ): Core.APIListPromise<Transaction> {
+    if (isRequestOptions(query)) {
+      options = query;
+      query = null;
+    }
+
     return this.getAPIList('/transactions', { query, ...options });
   }
 

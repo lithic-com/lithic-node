@@ -86,6 +86,25 @@ export abstract class APIClient {
     };
   }
 
+  get<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
+    return this.request({ method: 'get', path, ...opts });
+  }
+  post<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
+    return this.request({ method: 'post', path, ...opts });
+  }
+  patch<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
+    return this.request({ method: 'patch', path, ...opts });
+  }
+  put<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
+    return this.request({ method: 'put', path, ...opts });
+  }
+  delete<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
+    return this.request({ method: 'delete', path, ...opts });
+  }
+  getAPIList<Req, Rsp>(path: string, opts?: RequestOptions<Req>): APIListPromise<Rsp> {
+    return this.requestAPIList({ method: 'get', path, ...opts });
+  }
+
   async request<Req, Rsp>(
     options: FinalRequestOptions<Req>,
     retriesRemaining = options.maxRetries ?? this.maxRetries,
@@ -272,32 +291,27 @@ export class APIResource {
   protected client: APIClient;
   constructor(client: APIClient) {
     this.client = client;
+
+    this.get = client.get.bind(client);
+    this.post = client.post.bind(client);
+    this.patch = client.patch.bind(client);
+    this.put = client.put.bind(client);
+    this.delete = client.delete.bind(client);
+    this.getAPIList = client.getAPIList.bind(client);
   }
 
-  protected get<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
-    return this.client.request({ method: 'get', path, ...opts });
-  }
-  protected post<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
-    return this.client.request({ method: 'post', path, ...opts });
-  }
-  protected patch<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
-    return this.client.request({ method: 'patch', path, ...opts });
-  }
-  protected put<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
-    return this.client.request({ method: 'put', path, ...opts });
-  }
-  protected delete<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
-    return this.client.request({ method: 'delete', path, ...opts });
-  }
-
-  protected getAPIList<Req, Rsp>(path: string, opts?: RequestOptions<Req>): APIListPromise<Rsp> {
-    return this.client.requestAPIList({ method: 'get', path, ...opts });
-  }
+  protected get: APIClient['get'];
+  protected post: APIClient['post'];
+  protected patch: APIClient['patch'];
+  protected put: APIClient['put'];
+  protected delete: APIClient['delete'];
+  protected getAPIList: APIClient['getAPIList'];
 }
 
 type HTTPMethod = 'get' | 'post' | 'put' | 'patch' | 'delete';
 
 export type Headers = Record<string, string>;
+export type KeysEnum<T> = { [P in keyof Required<T>]: true };
 
 export type RequestOptions<Req extends {} = Record<string, unknown>> = {
   method?: HTTPMethod;
@@ -309,6 +323,29 @@ export type RequestOptions<Req extends {} = Record<string, unknown>> = {
   maxRetries?: number;
   timeout?: number;
   httpAgent?: Agent;
+};
+
+// This is required so that we can determine if a given object matches the RequestOptions
+// type at runtime. While this requires duplication, it is enforced by the TypeScript
+// compiler such that any missing / extraneous keys will cause an error.
+const requestOptionsKeys: KeysEnum<RequestOptions> = {
+  method: true,
+  path: true,
+  query: true,
+  body: true,
+  headers: true,
+
+  maxRetries: true,
+  timeout: true,
+  httpAgent: true,
+};
+
+export const isRequestOptions = (obj: unknown): obj is RequestOptions => {
+  return (
+    typeof obj === 'object' &&
+    obj !== null &&
+    Object.keys(obj).every((k) => Object.hasOwn(requestOptionsKeys, k))
+  );
 };
 
 export type FinalRequestOptions<Req extends {} = Record<string, unknown>> = RequestOptions<Req> & {

@@ -10,31 +10,38 @@ describe('resource auth_rules', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.authRules.create({
-      allowed_mcc: ['wbusgztwvsjyzlrw', 'jlybdzyqvbvddv', 'haoscaocjfiw'],
-      blocked_mcc: ['jjosoqfzohrgh', 'k', 'laympayxoinqaimxys'],
-      allowed_countries: ['cbsk', 'jowzamxbrnxnppvvij', 'xkktkjk'],
-      blocked_countries: ['cymxq', 'hqxhmfh', 'kikwuvt'],
+      allowed_mcc: ['xkktkjk', 'cymxq', 'hqxhmfh'],
+      blocked_mcc: ['kikwuvt', 'mynkvgsdnhtdic', 'ppjboresrof'],
+      allowed_countries: ['hctpoqipos', 'cxzpdgctnulfev', 'mwutgdie'],
+      blocked_countries: ['oroulrjfnmkvarbadcqj', 'ydmjhujtf', 'k'],
       avs_type: 'ZIP_ONLY',
-      card_tokens: ['mynkvgsdnhtdic', 'ppjboresrof', 'hctpoqipos'],
-      account_tokens: ['cxzpdgctnulfev', 'mwutgdie', 'oroulrjfnmkvarbadcqj'],
+      card_tokens: ['fivzlehfymimxb', '', 'svmllpatbki'],
+      account_tokens: ['yuqujepuf', 'eyjiwhnmh', 'ydvriuzwzckrrpkqgbc'],
       program_level: false,
     });
   });
 
   test('retrieve', async () => {
-    const response = await client.authRules.retrieve('f2754c5b-316b-435d-b724-3e757e108bd7');
+    const response = await client.authRules.retrieve('4b426920-f017-4ad7-a645-fd94101e9dc4');
+  });
+
+  test('retrieve: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.authRules.retrieve('4b426920-f017-4ad7-a645-fd94101e9dc4', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('update: only required params', async () => {
-    const response = await client.authRules.update('6790c065-7fc9-4c52-9c37-2e55d4874ef2', {});
+    const response = await client.authRules.update('2851f1ed-567a-49f0-b10a-02bee677698d', {});
   });
 
   test('update: required and optional params', async () => {
-    const response = await client.authRules.update('6790c065-7fc9-4c52-9c37-2e55d4874ef2', {
-      allowed_mcc: ['riuzwzckrrpkqgbck', 'thdko', 'aya'],
-      blocked_mcc: ['mq', 'lxlhjywphcacxowth', 'nj'],
-      allowed_countries: ['zc', 'vjkmrpyagbaraesxyk', 'mjpovwmqg'],
-      blocked_countries: ['kufd', 'edpzggskjqhpzxby', 'objtqficcqbtx'],
+    const response = await client.authRules.update('2851f1ed-567a-49f0-b10a-02bee677698d', {
+      allowed_mcc: ['mqggkufduedpzggskj', 'hpzxbyqobjtqf', 'ccqbtx'],
+      blocked_mcc: ['nbfholyhgvpdnp', 'z', 'xafeauziwh'],
+      allowed_countries: ['kkotofekcwtduxvmzlu', 'uxwnwu', 'whxzhviu'],
+      blocked_countries: ['rluyiktmdqok', 'ztcvf', 'iq'],
       avs_type: 'ZIP_ONLY',
     });
   });
@@ -44,17 +51,31 @@ describe('resource auth_rules', () => {
   });
 
   test('list: required and optional params', async () => {
-    const response = await client.authRules.list({ page: 14, page_size: 536 });
+    const response = await client.authRules.list({ page: 3, page_size: 448 });
+  });
+
+  test('list: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(client.authRules.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Lithic.NotFoundError,
+    );
+  });
+
+  test('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.authRules.list({ page: 5, page_size: 913 }, { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('apply: only required params', async () => {
-    const response = await client.authRules.apply('03497f43-c928-490f-8e03-20cf5e4e669b', {});
+    const response = await client.authRules.apply('cc850efd-9d0e-4a66-82b9-0b0a0318b8eb', {});
   });
 
   test('apply: required and optional params', async () => {
-    const response = await client.authRules.apply('03497f43-c928-490f-8e03-20cf5e4e669b', {
-      card_tokens: ['fekcwtduxvm', 'luhuxwnwukwhxzhviupr', 'uyiktmdqo'],
-      account_tokens: ['gztcvfci', 'dlhxutnjaxzwq', 'bxrjjhdroasarbgcn'],
+    const response = await client.authRules.apply('cc850efd-9d0e-4a66-82b9-0b0a0318b8eb', {
+      card_tokens: ['jyumqxaforweooehnwtk', 'iv', 'ejnjkugfqyawtjniwd'],
+      account_tokens: ['vahduuhmnl', 'iwhxzjlwwpquwiwdyq', 'fuutlpvsasabbn'],
       program_level: true,
     });
   });
@@ -65,8 +86,8 @@ describe('resource auth_rules', () => {
 
   test('remove: required and optional params', async () => {
     const response = await client.authRules.remove({
-      card_tokens: ['xsyjyumqxaf', 'rweooehnwtk', 'iv'],
-      account_tokens: ['ejnjkugfqyawtjniwd', 'vahduuhmnl', 'iwhxzjlwwpquwiwdyq'],
+      card_tokens: ['tgrmylvksdpnqlsr', 'omalausascyow', 'mdqylufjjt'],
+      account_tokens: ['rr', 'epmezvaxdeh', 'yzxzeuzltdogydw'],
       program_level: true,
     });
   });

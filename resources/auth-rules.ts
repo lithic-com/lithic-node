@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import * as Core from '../core';
+import { isRequestOptions } from '../core';
 import * as Shared from './shared';
 
 export class AuthRules extends Core.APIResource {
@@ -36,9 +37,19 @@ export class AuthRules extends Core.APIResource {
    * Return all of the Auth Rules under the program.
    */
   list(
-    query?: AuthRuleListParams | null | undefined,
+    query?: AuthRuleListParams,
+    options?: Core.RequestOptions,
+  ): Promise<Core.APIResponse<AuthRuleListResponse>>;
+  list(options?: Core.RequestOptions): Promise<Core.APIResponse<AuthRuleListResponse>>;
+  list(
+    query?: AuthRuleListParams | Core.RequestOptions | null | undefined,
     options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<AuthRuleListResponse>> {
+    if (isRequestOptions(query)) {
+      options = query;
+      query = null;
+    }
+
     return this.get('/auth_rules', { query, ...options });
   }
 

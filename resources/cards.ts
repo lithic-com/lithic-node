@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import * as Core from '../core';
+import { isRequestOptions } from '../core';
 import * as Shared from './shared';
 import * as FundingSources from './funding-sources';
 
@@ -29,14 +30,34 @@ export class Cards extends Core.APIResource {
   /**
    * List cards.
    */
-  list(query?: CardListParams | null | undefined, options?: Core.RequestOptions): Core.APIListPromise<Card> {
+  list(query?: CardListParams, options?: Core.RequestOptions): Core.APIListPromise<Card>;
+  list(options?: Core.RequestOptions): Core.APIListPromise<Card>;
+  list(
+    query?: CardListParams | Core.RequestOptions | null | undefined,
+    options?: Core.RequestOptions,
+  ): Core.APIListPromise<Card> {
+    if (isRequestOptions(query)) {
+      options = query;
+      query = null;
+    }
+
     return this.getAPIList('/cards', { query, ...options });
   }
 
   /**
    * Handling full card PANs and CVV codes requires that you comply with the Payment Card Industry Data Security Standards (PCI DSS). Some clients choose to reduce their compliance obligations by leveraging our embedded card UI solution documented below. In this setup, PANs and CVV codes are presented to the end-user via a card UI that we provide, optionally styled in the customer's branding using a specified css stylesheet. A user's browser makes the request directly to api.lithic.com, so card PANs and CVVs never touch the API customer's servers while full card data is displayed to their end-users. The response contains an HTML document. This means that the url for the request can be inserted straight into the `src` attribute of an iframe. ```html ``` You should compute the request payload on the server side. You can render it (or the whole iframe) on the server or make an ajax call from your front end code, but **do not ever embed your API key into front end code, as doing so introduces a serious security vulnerability**.
    */
-  embed(query?: CardEmbedParams | null | undefined, options?: Core.RequestOptions): Promise<string> {
+  embed(query?: CardEmbedParams, options?: Core.RequestOptions): Promise<string>;
+  embed(options?: Core.RequestOptions): Promise<string>;
+  embed(
+    query?: CardEmbedParams | Core.RequestOptions | null | undefined,
+    options?: Core.RequestOptions,
+  ): Promise<string> {
+    if (isRequestOptions(query)) {
+      options = query;
+      query = null;
+    }
+
     return this.get('/embed/card', {
       query,
       ...options,

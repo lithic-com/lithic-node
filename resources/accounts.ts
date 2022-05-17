@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import * as Core from '../core';
+import { isRequestOptions } from '../core';
 import * as Shared from './shared';
 
 export class Accounts extends Core.APIResource {
@@ -25,10 +26,17 @@ export class Accounts extends Core.APIResource {
   /**
    * List account configurations.
    */
+  list(query?: AccountListParams, options?: Core.RequestOptions): Core.APIListPromise<Account>;
+  list(options?: Core.RequestOptions): Core.APIListPromise<Account>;
   list(
-    query?: AccountListParams | null | undefined,
+    query?: AccountListParams | Core.RequestOptions | null | undefined,
     options?: Core.RequestOptions,
   ): Core.APIListPromise<Account> {
+    if (isRequestOptions(query)) {
+      options = query;
+      query = null;
+    }
+
     return this.getAPIList('/accounts', { query, ...options });
   }
 }
