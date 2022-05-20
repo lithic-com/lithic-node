@@ -9,62 +9,62 @@ describe('resource account_holders', () => {
       business_entity: {
         address: {
           address1: '123 Old Forest Way',
-          address2: 'qhrnvecitxgefmofc',
+          address2: 'hdpzomiqchvbwpsxg',
           city: 'Omaha',
           country: 'USA',
           postal_code: '68022',
           state: 'NE',
         },
-        dba_business_name: 'xeqxszampi',
+        dba_business_name: 'eedjdmagwz',
         government_id: '114-123-1513',
         legal_business_name: 'Acme, Inc.',
-        parent_company: 'nehdtscinrx',
+        parent_company: 'tt',
         phone_numbers: ['+12124007676', '+12124007676', '+12124007676'],
       },
       beneficial_owner_entities: [
         {
           address: {
             address1: '123 Old Forest Way',
-            address2: 'fkjywvsjkbg',
+            address2: 'hvvxrrqdowklwmguguk',
             city: 'Omaha',
             country: 'USA',
             postal_code: '68022',
             state: 'NE',
           },
-          dba_business_name: 'jkosoz',
+          dba_business_name: 'yflkifbhnyznel',
           government_id: '114-123-1513',
           legal_business_name: 'Acme, Inc.',
-          parent_company: '',
+          parent_company: 'ybs',
           phone_numbers: ['+12124007676', '+12124007676', '+12124007676'],
         },
         {
           address: {
             address1: '123 Old Forest Way',
-            address2: 'qtbpbrw',
+            address2: 'gxadrnkojw',
             city: 'Omaha',
             country: 'USA',
             postal_code: '68022',
             state: 'NE',
           },
-          dba_business_name: 'hkt',
+          dba_business_name: 'qjps',
           government_id: '114-123-1513',
           legal_business_name: 'Acme, Inc.',
-          parent_company: 'jiwna',
+          parent_company: 'blqymgx',
           phone_numbers: ['+12124007676', '+12124007676', '+12124007676'],
         },
         {
           address: {
             address1: '123 Old Forest Way',
-            address2: 'ocgdxilrfwhov',
+            address2: 'o',
             city: 'Omaha',
             country: 'USA',
             postal_code: '68022',
             state: 'NE',
           },
-          dba_business_name: 'okrivjwekvbimonpp',
+          dba_business_name: 'tyisrfikl',
           government_id: '114-123-1513',
           legal_business_name: 'Acme, Inc.',
-          parent_company: 'iaxzrxjfoh',
+          parent_company: 'mtpsta',
           phone_numbers: ['+12124007676', '+12124007676', '+12124007676'],
         },
       ],
@@ -72,7 +72,7 @@ describe('resource account_holders', () => {
         {
           address: {
             address1: '123 Old Forest Way',
-            address2: 'nhxhzogso',
+            address2: 'nknxdyscp',
             city: 'Omaha',
             country: 'USA',
             postal_code: '68022',
@@ -88,7 +88,7 @@ describe('resource account_holders', () => {
         {
           address: {
             address1: '123 Old Forest Way',
-            address2: 'ujkqtweepz',
+            address2: 'ndixtlzpkfucbm',
             city: 'Omaha',
             country: 'USA',
             postal_code: '68022',
@@ -104,7 +104,7 @@ describe('resource account_holders', () => {
         {
           address: {
             address1: '123 Old Forest Way',
-            address2: 'jzvcblafxlxofcahvy',
+            address2: 'zqtpulcxvqjposbich',
             city: 'Omaha',
             country: 'USA',
             postal_code: '68022',
@@ -121,7 +121,7 @@ describe('resource account_holders', () => {
       control_person: {
         address: {
           address1: '123 Old Forest Way',
-          address2: 'oblbt',
+          address2: 'qsnoxqdejpmmckl',
           city: 'Omaha',
           country: 'USA',
           postal_code: '68022',
@@ -143,122 +143,10 @@ describe('resource account_holders', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.accountHolders.create({
-      business_entity: {
+      individual: {
         address: {
           address1: '123 Old Forest Way',
-          address2: 'bksgvjeuuv',
-          city: 'Omaha',
-          country: 'USA',
-          postal_code: '68022',
-          state: 'NE',
-        },
-        dba_business_name: 'rhzrkc',
-        government_id: '114-123-1513',
-        legal_business_name: 'Acme, Inc.',
-        parent_company: 'rmx',
-        phone_numbers: ['+12124007676', '+12124007676', '+12124007676'],
-      },
-      beneficial_owner_entities: [
-        {
-          address: {
-            address1: '123 Old Forest Way',
-            address2: 'sklelbtpog',
-            city: 'Omaha',
-            country: 'USA',
-            postal_code: '68022',
-            state: 'NE',
-          },
-          dba_business_name: 'w',
-          government_id: '114-123-1513',
-          legal_business_name: 'Acme, Inc.',
-          parent_company: 'pvmieybteoit',
-          phone_numbers: ['+12124007676', '+12124007676', '+12124007676'],
-        },
-        {
-          address: {
-            address1: '123 Old Forest Way',
-            address2: 'crwfvqxyd',
-            city: 'Omaha',
-            country: 'USA',
-            postal_code: '68022',
-            state: 'NE',
-          },
-          dba_business_name: 'c',
-          government_id: '114-123-1513',
-          legal_business_name: 'Acme, Inc.',
-          parent_company: 'dskclwoldm',
-          phone_numbers: ['+12124007676', '+12124007676', '+12124007676'],
-        },
-        {
-          address: {
-            address1: '123 Old Forest Way',
-            address2: 'mvjm',
-            city: 'Omaha',
-            country: 'USA',
-            postal_code: '68022',
-            state: 'NE',
-          },
-          dba_business_name: 'vvaromyoplfhsgjrrva',
-          government_id: '114-123-1513',
-          legal_business_name: 'Acme, Inc.',
-          parent_company: 'qmartkmsdzoc',
-          phone_numbers: ['+12124007676', '+12124007676', '+12124007676'],
-        },
-      ],
-      beneficial_owner_individuals: [
-        {
-          address: {
-            address1: '123 Old Forest Way',
-            address2: 'b',
-            city: 'Omaha',
-            country: 'USA',
-            postal_code: '68022',
-            state: 'NE',
-          },
-          dob: '1991-03-08 08:00:00',
-          email: 'tom@middle-earth.com',
-          first_name: 'Tom',
-          government_id: '111-23-1412',
-          last_name: 'Bombadil',
-          phone_number: '+12124007676',
-        },
-        {
-          address: {
-            address1: '123 Old Forest Way',
-            address2: 'pztunoxchsmrz',
-            city: 'Omaha',
-            country: 'USA',
-            postal_code: '68022',
-            state: 'NE',
-          },
-          dob: '1991-03-08 08:00:00',
-          email: 'tom@middle-earth.com',
-          first_name: 'Tom',
-          government_id: '111-23-1412',
-          last_name: 'Bombadil',
-          phone_number: '+12124007676',
-        },
-        {
-          address: {
-            address1: '123 Old Forest Way',
-            address2: 'i',
-            city: 'Omaha',
-            country: 'USA',
-            postal_code: '68022',
-            state: 'NE',
-          },
-          dob: '1991-03-08 08:00:00',
-          email: 'tom@middle-earth.com',
-          first_name: 'Tom',
-          government_id: '111-23-1412',
-          last_name: 'Bombadil',
-          phone_number: '+12124007676',
-        },
-      ],
-      control_person: {
-        address: {
-          address1: '123 Old Forest Way',
-          address2: 'enhliurkbmuepirv',
+          address2: 'usigzkahthenahl',
           city: 'Omaha',
           country: 'USA',
           postal_code: '68022',
@@ -271,56 +159,54 @@ describe('resource account_holders', () => {
         last_name: 'Bombadil',
         phone_number: '+12124007676',
       },
-      kyb_passed_timestamp: '2022-03-08 08:00:00',
-      nature_of_business: 'Software company selling solutions to the restaurant industry',
+      kyc_passed_timestamp: '2022-03-09 08:00:00',
       tos_timestamp: '2022-03-08 08:00:00',
-      website_url: 'www.mybusiness.com',
-      workflow: 'KYB_BYO',
+      workflow: 'KYC_ADVANCED',
     });
   });
 
   test('retrieve', async () => {
-    const response = await client.accountHolders.retrieve('2861f732-eae8-41a7-9875-d02311730c4e');
+    const response = await client.accountHolders.retrieve('5f435f96-7f21-45c3-8dfc-a7c5c2f38133');
   });
 
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.accountHolders.retrieve('2861f732-eae8-41a7-9875-d02311730c4e', {
+      client.accountHolders.retrieve('5f435f96-7f21-45c3-8dfc-a7c5c2f38133', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('create_webhook: only required params', async () => {
-    const response = await client.accountHolders.createWebhook({ url: 'bjhizvon' });
+    const response = await client.accountHolders.createWebhook({ url: 'zifgnbhwto' });
   });
 
   test('create_webhook: required and optional params', async () => {
-    const response = await client.accountHolders.createWebhook({ url: 'oadmuzljccemn' });
+    const response = await client.accountHolders.createWebhook({ url: 'dpohkexajrrvdtr' });
   });
 
   test('list_documents', async () => {
-    const response = await client.accountHolders.listDocuments('f755c1c9-3379-4b46-a39f-baadf0e40861');
+    const response = await client.accountHolders.listDocuments('09149caf-cc0e-4fc8-b8d0-ea481a3f5b69');
   });
 
   test('list_documents: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.accountHolders.listDocuments('f755c1c9-3379-4b46-a39f-baadf0e40861', {
+      client.accountHolders.listDocuments('09149caf-cc0e-4fc8-b8d0-ea481a3f5b69', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('resubmit: only required params', async () => {
-    const response = await client.accountHolders.resubmit('9f239553-f193-4a46-ab46-5c0f52872896', {
+    const response = await client.accountHolders.resubmit('af3ebee7-08c0-4395-945a-f04f9dff0e37', {
       workflow: 'KYC_ADVANCED',
       tos_timestamp: '2022-03-08 08:00:00',
       individual: {
         address: {
           address1: '123 Old Forest Way',
-          address2: 'hqkavx',
+          address2: 'fmfs',
           city: 'Omaha',
           country: 'USA',
           postal_code: '68022',
@@ -337,13 +223,13 @@ describe('resource account_holders', () => {
   });
 
   test('resubmit: required and optional params', async () => {
-    const response = await client.accountHolders.resubmit('9f239553-f193-4a46-ab46-5c0f52872896', {
+    const response = await client.accountHolders.resubmit('af3ebee7-08c0-4395-945a-f04f9dff0e37', {
       workflow: 'KYC_ADVANCED',
       tos_timestamp: '2022-03-08 08:00:00',
       individual: {
         address: {
           address1: '123 Old Forest Way',
-          address2: 'aydmuwbusgztw',
+          address2: 'lsukupuq',
           city: 'Omaha',
           country: 'USA',
           postal_code: '68022',
@@ -361,8 +247,8 @@ describe('resource account_holders', () => {
 
   test('retrieve_document', async () => {
     const response = await client.accountHolders.retrieveDocument(
-      'db5ff6ad-b57e-412f-bad1-d21d9408b109',
-      '1535ea55-8b9a-43f9-8a34-16e70e790fe8',
+      '1f19525d-9e99-42a1-98bd-b08896878cb7',
+      '7deb730e-5479-4fd2-85ae-c9bf01f3f1d3',
     );
   });
 
@@ -370,21 +256,21 @@ describe('resource account_holders', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.accountHolders.retrieveDocument(
-        'db5ff6ad-b57e-412f-bad1-d21d9408b109',
-        '1535ea55-8b9a-43f9-8a34-16e70e790fe8',
+        '1f19525d-9e99-42a1-98bd-b08896878cb7',
+        '7deb730e-5479-4fd2-85ae-c9bf01f3f1d3',
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('upload_document: only required params', async () => {
-    const response = await client.accountHolders.uploadDocument('58a057ee-b310-4b6e-98df-07e0a8e899cd', {
-      document_type: 'DRIVERS_LICENSE',
+    const response = await client.accountHolders.uploadDocument('b0d74c1f-81ab-4fdb-8260-7e9d1ee75c84', {
+      document_type: 'PASSPORT_CARD',
     });
   });
 
   test('upload_document: required and optional params', async () => {
-    const response = await client.accountHolders.uploadDocument('58a057ee-b310-4b6e-98df-07e0a8e899cd', {
+    const response = await client.accountHolders.uploadDocument('b0d74c1f-81ab-4fdb-8260-7e9d1ee75c84', {
       document_type: 'DRIVERS_LICENSE',
     });
   });

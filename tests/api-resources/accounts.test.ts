@@ -5,34 +5,34 @@ const client = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:
 
 describe('resource accounts', () => {
   test('retrieve', async () => {
-    const response = await client.accounts.retrieve('bb463b8b-b76c-4f6a-9726-65ab5730b69b');
+    const response = await client.accounts.retrieve('72d34485-5cc8-43b7-a77c-0a5799757090');
   });
 
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.accounts.retrieve('bb463b8b-b76c-4f6a-9726-65ab5730b69b', { path: '/_stainless_unknown_path' }),
+      client.accounts.retrieve('72d34485-5cc8-43b7-a77c-0a5799757090', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('update: only required params', async () => {
-    const response = await client.accounts.update('a27218b8-6a4d-47bb-95b6-5a55334fac1c', {});
+    const response = await client.accounts.update('03265f18-c4af-491e-af58-05621adbb8c7', {});
   });
 
   test('update: required and optional params', async () => {
-    const response = await client.accounts.update('a27218b8-6a4d-47bb-95b6-5a55334fac1c', {
-      daily_spend_limit: 9,
-      lifetime_spend_limit: 0,
-      monthly_spend_limit: 9,
+    const response = await client.accounts.update('03265f18-c4af-491e-af58-05621adbb8c7', {
+      daily_spend_limit: 1,
+      lifetime_spend_limit: 14,
+      monthly_spend_limit: 2,
       verification_address: {
-        address1: 'mel',
-        address2: 'i',
-        city: 'ltxsynnmqodhimkrwx',
-        state: 'cmmzg',
-        postal_code: 'lptdmvupho',
-        country: 'iahikrrww',
+        address1: 'gfypqtnlirtbvjvwypj',
+        address2: 'gshee',
+        city: 'gnzqcmqpomaiaa',
+        state: 'eercjysgrlaybfuqmb',
+        postal_code: 'uawxhhbjopmxjxkp',
+        country: 'qxl',
       },
-      state: 'ACTIVE',
+      state: 'PAUSED',
     });
   });
 
@@ -44,8 +44,8 @@ describe('resource accounts', () => {
     const response = await client.accounts.list({
       begin: '2019-12-27T18:11:19.117Z',
       end: '2019-12-27T18:11:19.117Z',
-      page: 10,
-      page_size: 457,
+      page: 5,
+      page_size: 253,
     });
   });
 
@@ -60,7 +60,7 @@ describe('resource accounts', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.accounts.list(
-        { begin: '2019-12-27T18:11:19.117Z', end: '2019-12-27T18:11:19.117Z', page: 14, page_size: 269 },
+        { begin: '2019-12-27T18:11:19.117Z', end: '2019-12-27T18:11:19.117Z', page: 19, page_size: 668 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Lithic.NotFoundError);

@@ -6,7 +6,13 @@ import * as Shared from './shared';
 
 export class AccountHolders extends Core.APIResource {
   /**
-   * Run an individual or business's information through the Customer Identification Program (CIP) and return an `account_token` if the status is accepted or pending (i.e., further action required). All calls to this endpoint will return an immediate response - though in some cases, the response may indicate the workflow is under review or further action will be needed to complete the account creation process. This endpoint can only be used on accounts that are part of the program the calling API key manages.
+   * Run an individual or business's information through the Customer Identification
+   * Program (CIP) and return an `account_token` if the status is accepted or pending
+   * (i.e., further action required). All calls to this endpoint will return an
+   * immediate response - though in some cases, the response may indicate the
+   * workflow is under review or further action will be needed to complete the
+   * account creation process. This endpoint can only be used on accounts that are
+   * part of the program the calling API key manages.
    */
   create(
     body: AccountHolderCreateParams,
@@ -23,7 +29,19 @@ export class AccountHolders extends Core.APIResource {
   }
 
   /**
-   * Create a webhook to receive KYC or KYB evaluation events. There are two types of account holder webhooks: - `verification`: Webhook sent when the status of a KYC or KYB evaluation changes from `PENDING_DOCUMENT` (KYC) or `PENDING` (KYB) to `ACCEPTED` or `REJECTED`. - `document_upload_front`/`document_upload_back`: Webhook sent when a document upload fails. After a webhook has been created, this endpoint can be used to rotate a webhooks HMAC token or modify the registered URL. Only a single webhook is allowed per program.
+   * Create a webhook to receive KYC or KYB evaluation events.
+   *
+   * There are two types of account holder webhooks:
+   *
+   * - `verification`: Webhook sent when the status of a KYC or KYB evaluation
+   *   changes from `PENDING_DOCUMENT` (KYC) or `PENDING` (KYB) to `ACCEPTED` or
+   *   `REJECTED`.
+   * - `document_upload_front`/`document_upload_back`: Webhook sent when a document
+   *   upload fails.
+   *
+   * After a webhook has been created, this endpoint can be used to rotate a webhooks
+   * HMAC token or modify the registered URL. Only a single webhook is allowed per
+   * program.
    */
   createWebhook(
     body: AccountHolderCreateWebhookParams,
@@ -33,7 +51,21 @@ export class AccountHolders extends Core.APIResource {
   }
 
   /**
-   * Retrieve the status of account holder document uploads, or retrieve the upload URLs to process your image uploads. Note that this is not equivalent to checking the status of the KYC evaluation overall (a document may be successfully uploaded but not be sufficient for KYC to pass). In the event your upload URLs have expired, calling this endpoint will refresh them. Similarly, in the event a previous account holder document upload has failed, you can use this endpoint to get a new upload URL for the failed image upload. When a new document upload is generated for a failed attempt, the response will show an additional entry in the `required_document_uploads` list in a `PENDING` state for the corresponding `image_type`.
+   * Retrieve the status of account holder document uploads, or retrieve the upload
+   * URLs to process your image uploads.
+   *
+   * Note that this is not equivalent to checking the status of the KYC evaluation
+   * overall (a document may be successfully uploaded but not be sufficient for KYC
+   * to pass).
+   *
+   * In the event your upload URLs have expired, calling this endpoint will refresh
+   * them. Similarly, in the event a previous account holder document upload has
+   * failed, you can use this endpoint to get a new upload URL for the failed image
+   * upload.
+   *
+   * When a new document upload is generated for a failed attempt, the response will
+   * show an additional entry in the `required_document_uploads` list in a `PENDING`
+   * state for the corresponding `image_type`.
    */
   listDocuments(
     id: string,
@@ -43,7 +75,14 @@ export class AccountHolders extends Core.APIResource {
   }
 
   /**
-   * Resubmit a KYC submission. This endpoint should be used in cases where a KYC submission returned a `PENDING_RESUBMIT` result, meaning one or more critical KYC fields may have been mis-entered and the individual's identity has not yet been successfully verified. This step must be completed in order to proceed with the KYC evaluation. Two resubmission attempts are permitted via this endpoint before a `REJECTED` status is returned and the account creation process is ended.
+   * Resubmit a KYC submission. This endpoint should be used in cases where a KYC
+   * submission returned a `PENDING_RESUBMIT` result, meaning one or more critical
+   * KYC fields may have been mis-entered and the individual's identity has not yet
+   * been successfully verified. This step must be completed in order to proceed with
+   * the KYC evaluation.
+   *
+   * Two resubmission attempts are permitted via this endpoint before a `REJECTED`
+   * status is returned and the account creation process is ended.
    */
   resubmit(
     id: string,
@@ -54,7 +93,20 @@ export class AccountHolders extends Core.APIResource {
   }
 
   /**
-   * Check the status of an account holder document upload, or retrieve the upload URLs to process your image uploads. Note that this is not equivalent to checking the status of the KYC evaluation overall (a document may be successfully uploaded but not be sufficient for KYC to pass). In the event your upload URLs have expired, calling this endpoint will refresh them. Similarly, in the event a document upload has failed, you can use this endpoint to get a new upload URL for the failed image upload. When a new account holder document upload is generated for a failed attempt, the response will show an additional entry in the `required_document_uploads` array in a `PENDING` state for the corresponding `image_type`.
+   * Check the status of an account holder document upload, or retrieve the upload
+   * URLs to process your image uploads.
+   *
+   * Note that this is not equivalent to checking the status of the KYC evaluation
+   * overall (a document may be successfully uploaded but not be sufficient for KYC
+   * to pass).
+   *
+   * In the event your upload URLs have expired, calling this endpoint will refresh
+   * them. Similarly, in the event a document upload has failed, you can use this
+   * endpoint to get a new upload URL for the failed image upload.
+   *
+   * When a new account holder document upload is generated for a failed attempt, the
+   * response will show an additional entry in the `required_document_uploads` array
+   * in a `PENDING` state for the corresponding `image_type`.
    */
   retrieveDocument(
     accountHolderToken: string,
@@ -65,7 +117,24 @@ export class AccountHolders extends Core.APIResource {
   }
 
   /**
-   * Use this endpoint to identify which type of supported government-issued documentation you will upload for further verification. It will return two URLs to upload your document images to - one for the front image and one for the back image. This endpoint is only valid for evaluations in a `PENDING_DOCUMENT` state. Uploaded images must either be a `jpg` or `png` file, and each must be less than 15 MiB. Once both required uploads have been successfully completed, your document will be run through KYC verification. If you have registered a webhook, you will receive evaluation updates for any document submission evaluations, as well as for any failed document uploads. Two document submission attempts are permitted via this endpoint before a `REJECTED` status is returned and the account creation process is ended. Currently only one type of account holder document is supported per KYC verification.
+   * Use this endpoint to identify which type of supported government-issued
+   * documentation you will upload for further verification. It will return two URLs
+   * to upload your document images to - one for the front image and one for the back
+   * image.
+   *
+   * This endpoint is only valid for evaluations in a `PENDING_DOCUMENT` state.
+   *
+   * Uploaded images must either be a `jpg` or `png` file, and each must be less than
+   * 15 MiB. Once both required uploads have been successfully completed, your
+   * document will be run through KYC verification.
+   *
+   * If you have registered a webhook, you will receive evaluation updates for any
+   * document submission evaluations, as well as for any failed document uploads.
+   *
+   * Two document submission attempts are permitted via this endpoint before a
+   * `REJECTED` status is returned and the account creation process is ended.
+   * Currently only one type of account holder document is supported per KYC
+   * verification.
    */
   uploadDocument(
     id: string,
@@ -83,7 +152,10 @@ export interface AccountHolder {
   account_token?: string;
 
   /**
-   * KYC and KYB evaluation states. Note: `PENDING_RESUBMIT` and `PENDING_DOCUMENT` are only applicable for the `ADVANCED` workflow.
+   * KYC and KYB evaluation states.
+   *
+   * Note: `PENDING_RESUBMIT` and `PENDING_DOCUMENT` are only applicable for the
+   * `ADVANCED` workflow.
    */
   status?: 'ACCEPTED' | 'REJECTED' | 'PENDING_RESUBMIT' | 'PENDING_DOCUMENT';
 
@@ -111,7 +183,8 @@ export interface AccountHolder {
 }
 
 /**
- * Describes the document and the required document image uploads required to re-run KYC.
+ * Describes the document and the required document image uploads required to
+ * re-run KYC.
  */
 export interface AccountHolderDocument {
   /**
@@ -154,7 +227,11 @@ export namespace AccountHolderDocument {
     >;
 
     /**
-     * URL to upload document image to. Note that the upload URLs expire after 7 days. If an upload URL expires, you can refresh the URLs by retrieving the document upload from `GET /account_holders/{account_holder_token}/documents`.
+     * URL to upload document image to.
+     *
+     * Note that the upload URLs expire after 7 days. If an upload URL expires, you can
+     * refresh the URLs by retrieving the document upload from
+     * `GET /account_holders/{account_holder_token}/documents`.
      */
     upload_url?: string;
   }
@@ -167,7 +244,8 @@ export interface AccountHolderCreateWebhookResponse {
 export namespace AccountHolderCreateWebhookResponse {
   export interface Data {
     /**
-     * Shared secret which can optionally be used to validate the authenticity of incoming identity webhooks.
+     * Shared secret which can optionally be used to validate the authenticity of
+     * incoming identity webhooks.
      */
     hmac_token?: string;
   }
@@ -182,12 +260,14 @@ export type AccountHolderCreateParams = AccountHolderCreateParams.KYC | AccountH
 export namespace AccountHolderCreateParams {
   export interface KYC {
     /**
-     * Information on individual for whom the account is being opened and KYC is being run.
+     * Information on individual for whom the account is being opened and KYC is being
+     * run.
      */
     individual: KYC.Individual;
 
     /**
-     * An ISO 8601 timestamp indicating when Lithic's terms of service were accepted by the API customer.
+     * An ISO 8601 timestamp indicating when Lithic's terms of service were accepted by
+     * the API customer.
      */
     tos_timestamp: string;
 
@@ -197,7 +277,10 @@ export namespace AccountHolderCreateParams {
     workflow: 'KYC_ADVANCED' | 'KYC_BASIC' | 'KYC_BYO';
 
     /**
-     * An ISO 8601 timestamp indicating when precomputed KYC was completed on the individual with a pass result. This field is required only if workflow type is `KYC_BYO`.
+     * An ISO 8601 timestamp indicating when precomputed KYC was completed on the
+     * individual with a pass result.
+     *
+     * This field is required only if workflow type is `KYC_BYO`.
      */
     kyc_passed_timestamp?: string;
   }
@@ -205,7 +288,8 @@ export namespace AccountHolderCreateParams {
   export namespace KYC {
     export interface Individual {
       /**
-       * Individual's current address - PO boxes, UPS drops, and FedEx drops are not acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+       * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
+       * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
        */
       address: Individual.Address;
 
@@ -215,7 +299,8 @@ export namespace AccountHolderCreateParams {
       dob: string;
 
       /**
-       * Individual's email address. If utilizing Lithic for chargeback processing, this customer email address may be used to communicate dispute status and resolution.
+       * Individual's email address. If utilizing Lithic for chargeback processing, this
+       * customer email address may be used to communicate dispute status and resolution.
        */
       email: string;
 
@@ -225,7 +310,10 @@ export namespace AccountHolderCreateParams {
       first_name: string;
 
       /**
-       * Government-issued identification number (required for identity verification and compliance with banking regulations). Social Security Numbers (SSN) and Individual Taxpayer Identification Numbers (ITIN) are currently supported, entered as full nine-digits, with or without hyphens
+       * Government-issued identification number (required for identity verification and
+       * compliance with banking regulations). Social Security Numbers (SSN) and
+       * Individual Taxpayer Identification Numbers (ITIN) are currently supported,
+       * entered as full nine-digits, with or without hyphens
        */
       government_id: string;
 
@@ -253,17 +341,20 @@ export namespace AccountHolderCreateParams {
         city: string;
 
         /**
-         * Valid country code. Only USA is currently supported, entered in uppercase ISO 3166-1 alpha-3 three-character format.
+         * Valid country code. Only USA is currently supported, entered in uppercase ISO
+         * 3166-1 alpha-3 three-character format.
          */
         country: string;
 
         /**
-         * Valid postal code. Only USA ZIP codes are currently supported, entered as a five-digit ZIP or nine-digit ZIP+4.
+         * Valid postal code. Only USA ZIP codes are currently supported, entered as a
+         * five-digit ZIP or nine-digit ZIP+4.
          */
         postal_code: string;
 
         /**
-         * Valid state code. Only USA state codes are currently supported, entered in uppercase ISO 3166-2 two-character format.
+         * Valid state code. Only USA state codes are currently supported, entered in
+         * uppercase ISO 3166-2 two-character format.
          */
         state: string;
 
@@ -277,32 +368,54 @@ export namespace AccountHolderCreateParams {
 
   export interface KYB {
     /**
-     * List of all entities with >25% ownership in the company. If no entity or individual owns >25% of the company, and the largest shareholder is an entity, please identify them in this field. See [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf) (Section I) for more background. If no business owner is an entity, pass in an empty list. However, either this parameter or `beneficial_owner_individuals` must be populated. on entities that should be included.
+     * List of all entities with >25% ownership in the company. If no entity or
+     * individual owns >25% of the company, and the largest shareholder is an entity,
+     * please identify them in this field. See
+     * [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf)
+     * (Section I) for more background. If no business owner is an entity, pass in an
+     * empty list. However, either this parameter or `beneficial_owner_individuals`
+     * must be populated. on entities that should be included.
      */
     beneficial_owner_entities: Array<KYB.BeneficialOwnerEntities>;
 
     /**
-     * List of all individuals with >25% ownership in the company. If no entity or individual owns >25% of the company, and the largest shareholder is an individual, please identify them in this field. See [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf) (Section I) for more background on individuals that should be included. If no individual is an entity, pass in an empty list. However, either this parameter or `beneficial_owner_entities` must be populated.
+     * List of all individuals with >25% ownership in the company. If no entity or
+     * individual owns >25% of the company, and the largest shareholder is an
+     * individual, please identify them in this field. See
+     * [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf)
+     * (Section I) for more background on individuals that should be included. If no
+     * individual is an entity, pass in an empty list. However, either this parameter
+     * or `beneficial_owner_entities` must be populated.
      */
     beneficial_owner_individuals: Array<KYB.BeneficialOwnerIndividuals>;
 
     /**
-     * Information for business for which the account is being opened and KYB is being run.
+     * Information for business for which the account is being opened and KYB is being
+     * run.
      */
     business_entity: KYB.BusinessEntity;
 
     /**
-     * An individual with significant responsibility for managing the legal entity (e.g., a Chief Executive Officer, Chief Financial Officer, Chief Operating Officer, Managing Member, General Partner, President, Vice President, or Treasurer). This can be an executive, or someone who will have program-wide access to the cards that Lithic will provide. In some cases, this individual could also be a beneficial owner listed above. See [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf) (Section II) for more background.
+     * An individual with significant responsibility for managing the legal entity
+     * (e.g., a Chief Executive Officer, Chief Financial Officer, Chief Operating
+     * Officer, Managing Member, General Partner, President, Vice President, or
+     * Treasurer). This can be an executive, or someone who will have program-wide
+     * access to the cards that Lithic will provide. In some cases, this individual
+     * could also be a beneficial owner listed above. See
+     * [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf)
+     * (Section II) for more background.
      */
     control_person: KYB.ControlPerson;
 
     /**
-     * Short description of the company's line of business (i.e., what does the company do?).
+     * Short description of the company's line of business (i.e., what does the company
+     * do?).
      */
     nature_of_business: string;
 
     /**
-     * An ISO 8601 timestamp indicating when Lithic's terms of service were accepted by the API customer.
+     * An ISO 8601 timestamp indicating when Lithic's terms of service were accepted by
+     * the API customer.
      */
     tos_timestamp: string;
 
@@ -317,7 +430,10 @@ export namespace AccountHolderCreateParams {
     workflow: 'KYB_BASIC' | 'KYB_BYO';
 
     /**
-     * An ISO 8601 timestamp indicating when precomputed KYC was completed on the business with a pass result. This field is required only if workflow type is `KYB_BYO`.
+     * An ISO 8601 timestamp indicating when precomputed KYC was completed on the
+     * business with a pass result.
+     *
+     * This field is required only if workflow type is `KYB_BYO`.
      */
     kyb_passed_timestamp?: string;
   }
@@ -325,12 +441,15 @@ export namespace AccountHolderCreateParams {
   export namespace KYB {
     export interface BusinessEntity {
       /**
-       * Business's physical address - PO boxes, UPS drops, and FedEx drops are not acceptable; APO/FPO are acceptable.
+       * Business's physical address - PO boxes, UPS drops, and FedEx drops are not
+       * acceptable; APO/FPO are acceptable.
        */
       address: BusinessEntity.Address;
 
       /**
-       * Government-issued identification number. US Federal Employer Identification Numbers (EIN) are currently supported, entered as full nine-digits, with or without hyphens.
+       * Government-issued identification number. US Federal Employer Identification
+       * Numbers (EIN) are currently supported, entered as full nine-digits, with or
+       * without hyphens.
        */
       government_id: string;
 
@@ -340,12 +459,14 @@ export namespace AccountHolderCreateParams {
       legal_business_name: string;
 
       /**
-       * One or more of the business's phone number(s), entered as a list in E.164 format.
+       * One or more of the business's phone number(s), entered as a list in E.164
+       * format.
        */
       phone_numbers: Array<string>;
 
       /**
-       * Any name that the business operates under that is not its legal business name (if applicable).
+       * Any name that the business operates under that is not its legal business name
+       * (if applicable).
        */
       dba_business_name?: string;
 
@@ -368,17 +489,20 @@ export namespace AccountHolderCreateParams {
         city: string;
 
         /**
-         * Valid country code. Only USA is currently supported, entered in uppercase ISO 3166-1 alpha-3 three-character format.
+         * Valid country code. Only USA is currently supported, entered in uppercase ISO
+         * 3166-1 alpha-3 three-character format.
          */
         country: string;
 
         /**
-         * Valid postal code. Only USA ZIP codes are currently supported, entered as a five-digit ZIP or nine-digit ZIP+4.
+         * Valid postal code. Only USA ZIP codes are currently supported, entered as a
+         * five-digit ZIP or nine-digit ZIP+4.
          */
         postal_code: string;
 
         /**
-         * Valid state code. Only USA state codes are currently supported, entered in uppercase ISO 3166-2 two-character format.
+         * Valid state code. Only USA state codes are currently supported, entered in
+         * uppercase ISO 3166-2 two-character format.
          */
         state: string;
 
@@ -391,12 +515,15 @@ export namespace AccountHolderCreateParams {
 
     export interface BeneficialOwnerEntities {
       /**
-       * Business's physical address - PO boxes, UPS drops, and FedEx drops are not acceptable; APO/FPO are acceptable.
+       * Business's physical address - PO boxes, UPS drops, and FedEx drops are not
+       * acceptable; APO/FPO are acceptable.
        */
       address: BeneficialOwnerEntities.Address;
 
       /**
-       * Government-issued identification number. US Federal Employer Identification Numbers (EIN) are currently supported, entered as full nine-digits, with or without hyphens.
+       * Government-issued identification number. US Federal Employer Identification
+       * Numbers (EIN) are currently supported, entered as full nine-digits, with or
+       * without hyphens.
        */
       government_id: string;
 
@@ -406,12 +533,14 @@ export namespace AccountHolderCreateParams {
       legal_business_name: string;
 
       /**
-       * One or more of the business's phone number(s), entered as a list in E.164 format.
+       * One or more of the business's phone number(s), entered as a list in E.164
+       * format.
        */
       phone_numbers: Array<string>;
 
       /**
-       * Any name that the business operates under that is not its legal business name (if applicable).
+       * Any name that the business operates under that is not its legal business name
+       * (if applicable).
        */
       dba_business_name?: string;
 
@@ -434,17 +563,20 @@ export namespace AccountHolderCreateParams {
         city: string;
 
         /**
-         * Valid country code. Only USA is currently supported, entered in uppercase ISO 3166-1 alpha-3 three-character format.
+         * Valid country code. Only USA is currently supported, entered in uppercase ISO
+         * 3166-1 alpha-3 three-character format.
          */
         country: string;
 
         /**
-         * Valid postal code. Only USA ZIP codes are currently supported, entered as a five-digit ZIP or nine-digit ZIP+4.
+         * Valid postal code. Only USA ZIP codes are currently supported, entered as a
+         * five-digit ZIP or nine-digit ZIP+4.
          */
         postal_code: string;
 
         /**
-         * Valid state code. Only USA state codes are currently supported, entered in uppercase ISO 3166-2 two-character format.
+         * Valid state code. Only USA state codes are currently supported, entered in
+         * uppercase ISO 3166-2 two-character format.
          */
         state: string;
 
@@ -457,7 +589,8 @@ export namespace AccountHolderCreateParams {
 
     export interface BeneficialOwnerIndividuals {
       /**
-       * Individual's current address - PO boxes, UPS drops, and FedEx drops are not acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+       * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
+       * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
        */
       address: BeneficialOwnerIndividuals.Address;
 
@@ -467,7 +600,8 @@ export namespace AccountHolderCreateParams {
       dob: string;
 
       /**
-       * Individual's email address. If utilizing Lithic for chargeback processing, this customer email address may be used to communicate dispute status and resolution.
+       * Individual's email address. If utilizing Lithic for chargeback processing, this
+       * customer email address may be used to communicate dispute status and resolution.
        */
       email: string;
 
@@ -477,7 +611,10 @@ export namespace AccountHolderCreateParams {
       first_name: string;
 
       /**
-       * Government-issued identification number (required for identity verification and compliance with banking regulations). Social Security Numbers (SSN) and Individual Taxpayer Identification Numbers (ITIN) are currently supported, entered as full nine-digits, with or without hyphens
+       * Government-issued identification number (required for identity verification and
+       * compliance with banking regulations). Social Security Numbers (SSN) and
+       * Individual Taxpayer Identification Numbers (ITIN) are currently supported,
+       * entered as full nine-digits, with or without hyphens
        */
       government_id: string;
 
@@ -505,17 +642,20 @@ export namespace AccountHolderCreateParams {
         city: string;
 
         /**
-         * Valid country code. Only USA is currently supported, entered in uppercase ISO 3166-1 alpha-3 three-character format.
+         * Valid country code. Only USA is currently supported, entered in uppercase ISO
+         * 3166-1 alpha-3 three-character format.
          */
         country: string;
 
         /**
-         * Valid postal code. Only USA ZIP codes are currently supported, entered as a five-digit ZIP or nine-digit ZIP+4.
+         * Valid postal code. Only USA ZIP codes are currently supported, entered as a
+         * five-digit ZIP or nine-digit ZIP+4.
          */
         postal_code: string;
 
         /**
-         * Valid state code. Only USA state codes are currently supported, entered in uppercase ISO 3166-2 two-character format.
+         * Valid state code. Only USA state codes are currently supported, entered in
+         * uppercase ISO 3166-2 two-character format.
          */
         state: string;
 
@@ -528,7 +668,8 @@ export namespace AccountHolderCreateParams {
 
     export interface ControlPerson {
       /**
-       * Individual's current address - PO boxes, UPS drops, and FedEx drops are not acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+       * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
+       * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
        */
       address: ControlPerson.Address;
 
@@ -538,7 +679,8 @@ export namespace AccountHolderCreateParams {
       dob: string;
 
       /**
-       * Individual's email address. If utilizing Lithic for chargeback processing, this customer email address may be used to communicate dispute status and resolution.
+       * Individual's email address. If utilizing Lithic for chargeback processing, this
+       * customer email address may be used to communicate dispute status and resolution.
        */
       email: string;
 
@@ -548,7 +690,10 @@ export namespace AccountHolderCreateParams {
       first_name: string;
 
       /**
-       * Government-issued identification number (required for identity verification and compliance with banking regulations). Social Security Numbers (SSN) and Individual Taxpayer Identification Numbers (ITIN) are currently supported, entered as full nine-digits, with or without hyphens
+       * Government-issued identification number (required for identity verification and
+       * compliance with banking regulations). Social Security Numbers (SSN) and
+       * Individual Taxpayer Identification Numbers (ITIN) are currently supported,
+       * entered as full nine-digits, with or without hyphens
        */
       government_id: string;
 
@@ -576,17 +721,20 @@ export namespace AccountHolderCreateParams {
         city: string;
 
         /**
-         * Valid country code. Only USA is currently supported, entered in uppercase ISO 3166-1 alpha-3 three-character format.
+         * Valid country code. Only USA is currently supported, entered in uppercase ISO
+         * 3166-1 alpha-3 three-character format.
          */
         country: string;
 
         /**
-         * Valid postal code. Only USA ZIP codes are currently supported, entered as a five-digit ZIP or nine-digit ZIP+4.
+         * Valid postal code. Only USA ZIP codes are currently supported, entered as a
+         * five-digit ZIP or nine-digit ZIP+4.
          */
         postal_code: string;
 
         /**
-         * Valid state code. Only USA state codes are currently supported, entered in uppercase ISO 3166-2 two-character format.
+         * Valid state code. Only USA state codes are currently supported, entered in
+         * uppercase ISO 3166-2 two-character format.
          */
         state: string;
 
@@ -608,12 +756,14 @@ export interface AccountHolderCreateWebhookParams {
 
 export interface AccountHolderResubmitParams {
   /**
-   * Information on individual for whom the account is being opened and KYC is being re-run.
+   * Information on individual for whom the account is being opened and KYC is being
+   * re-run.
    */
   individual: AccountHolderResubmitParams.Individual;
 
   /**
-   * An ISO 8601 timestamp indicating when Lithic's terms of service were accepted by the API customer.
+   * An ISO 8601 timestamp indicating when Lithic's terms of service were accepted by
+   * the API customer.
    */
   tos_timestamp: string;
 
@@ -623,7 +773,8 @@ export interface AccountHolderResubmitParams {
 export namespace AccountHolderResubmitParams {
   export interface Individual {
     /**
-     * Individual's current address - PO boxes, UPS drops, and FedEx drops are not acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+     * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
+     * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
      */
     address: Individual.Address;
 
@@ -633,7 +784,8 @@ export namespace AccountHolderResubmitParams {
     dob: string;
 
     /**
-     * Individual's email address. If utilizing Lithic for chargeback processing, this customer email address may be used to communicate dispute status and resolution.
+     * Individual's email address. If utilizing Lithic for chargeback processing, this
+     * customer email address may be used to communicate dispute status and resolution.
      */
     email: string;
 
@@ -643,7 +795,10 @@ export namespace AccountHolderResubmitParams {
     first_name: string;
 
     /**
-     * Government-issued identification number (required for identity verification and compliance with banking regulations). Social Security Numbers (SSN) and Individual Taxpayer Identification Numbers (ITIN) are currently supported, entered as full nine-digits, with or without hyphens
+     * Government-issued identification number (required for identity verification and
+     * compliance with banking regulations). Social Security Numbers (SSN) and
+     * Individual Taxpayer Identification Numbers (ITIN) are currently supported,
+     * entered as full nine-digits, with or without hyphens
      */
     government_id: string;
 
@@ -671,17 +826,20 @@ export namespace AccountHolderResubmitParams {
       city: string;
 
       /**
-       * Valid country code. Only USA is currently supported, entered in uppercase ISO 3166-1 alpha-3 three-character format.
+       * Valid country code. Only USA is currently supported, entered in uppercase ISO
+       * 3166-1 alpha-3 three-character format.
        */
       country: string;
 
       /**
-       * Valid postal code. Only USA ZIP codes are currently supported, entered as a five-digit ZIP or nine-digit ZIP+4.
+       * Valid postal code. Only USA ZIP codes are currently supported, entered as a
+       * five-digit ZIP or nine-digit ZIP+4.
        */
       postal_code: string;
 
       /**
-       * Valid state code. Only USA state codes are currently supported, entered in uppercase ISO 3166-2 two-character format.
+       * Valid state code. Only USA state codes are currently supported, entered in
+       * uppercase ISO 3166-2 two-character format.
        */
       state: string;
 

@@ -13,7 +13,11 @@ export class Accounts extends Core.APIResource {
   }
 
   /**
-   * Update account configuration such as spend limits and verification address. Can only be run on accounts that are part of the program managed by this API key. Accounts that are in the `PAUSED` state will not be able to transact or create new cards.
+   * Update account configuration such as spend limits and verification address. Can
+   * only be run on accounts that are part of the program managed by this API key.
+   *
+   * Accounts that are in the `PAUSED` state will not be able to transact or create
+   * new cards.
    */
   update(
     id: string,
@@ -43,17 +47,26 @@ export class Accounts extends Core.APIResource {
 
 export interface Account {
   /**
-   * Spend limit information for the user containing the daily, monthly, and lifetime spend limit of the account. Any charges to a card owned by this account will be declined once their transaction volume has surpassed the value in the applicable time limit (rolling). A lifetime limit of 0 indicates that the lifetime limit feature is disabled.
+   * Spend limit information for the user containing the daily, monthly, and lifetime
+   * spend limit of the account. Any charges to a card owned by this account will be
+   * declined once their transaction volume has surpassed the value in the applicable
+   * time limit (rolling). A lifetime limit of 0 indicates that the lifetime limit
+   * feature is disabled.
    */
   spend_limit: Account.SpendLimit;
 
   /**
-   * Account state: * `ACTIVE` - Active, account is able to transact and create new cards. * `PAUSED` - Paused, account will not be able to transact or create new cards.
+   * Account state:
+   *
+   * - `ACTIVE` - Active, account is able to transact and create new cards.
+   * - `PAUSED` - Paused, account will not be able to transact or create new cards.
    */
   state: 'ACTIVE' | 'PAUSED';
 
   /**
-   * Globally unique identifier for the account. This is the same as the account_token returned by the enroll endpoint. If using this parameter, do not include pagination.
+   * Globally unique identifier for the account. This is the same as the
+   * account_token returned by the enroll endpoint. If using this parameter, do not
+   * include pagination.
    */
   token: string;
 
@@ -89,7 +102,9 @@ export interface AccountUpdateParams {
   daily_spend_limit?: number;
 
   /**
-   * Amount (in cents) for the account's new lifetime limit. Once this limit is reached, no transactions will be accepted on any card created for this account until the limit is updated.
+   * Amount (in cents) for the account's new lifetime limit. Once this limit is
+   * reached, no transactions will be accepted on any card created for this account
+   * until the limit is updated.
    */
   lifetime_spend_limit?: number;
 
@@ -104,7 +119,8 @@ export interface AccountUpdateParams {
   state?: 'ACTIVE' | 'PAUSED';
 
   /**
-   * Address used during Address Verification Service (AVS) checks during transactions if enabled via Auth Rules.
+   * Address used during Address Verification Service (AVS) checks during
+   * transactions if enabled via Auth Rules.
    */
   verification_address?: AccountUpdateParams.VerificationAddress;
 }
@@ -127,12 +143,14 @@ export namespace AccountUpdateParams {
 
 export interface AccountListParams {
   /**
-   * Date string in 8601 format. Only entries created after the specified date will be included. UTC time zone.
+   * Date string in 8601 format. Only entries created after the specified date will
+   * be included. UTC time zone.
    */
   begin?: string;
 
   /**
-   * Date string in 8601 format. Only entries created before the specified date will be included. UTC time zone.
+   * Date string in 8601 format. Only entries created before the specified date will
+   * be included. UTC time zone.
    */
   end?: string;
 

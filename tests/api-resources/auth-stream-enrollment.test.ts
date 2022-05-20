@@ -33,9 +33,7 @@ describe('resource auth_stream_enrollment', () => {
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
   test.skip('enroll: required and optional params', async () => {
-    const response = await client.authStreamEnrollment.enroll({
-      webhook_url: 'http://mysterious-phrasing.name',
-    });
+    const response = await client.authStreamEnrollment.enroll({ webhook_url: 'http://high-sari.com' });
   });
 
   // skipped: currently no good way to test endpoints defining callbacks, Prism mock server will fail trying to reach the provided callback url
@@ -51,7 +49,7 @@ describe('resource auth_stream_enrollment', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.authStreamEnrollment.enroll(
-        { webhook_url: 'https://hearty-explorer.com' },
+        { webhook_url: 'http://weak-carport.net' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Lithic.NotFoundError);

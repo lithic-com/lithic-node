@@ -6,7 +6,8 @@ import * as Shared from './shared';
 
 export class AuthRules extends Core.APIResource {
   /**
-   * Creates an authorization rule (Auth Rule) and applies it at the program, account, or card level.
+   * Creates an authorization rule (Auth Rule) and applies it at the program,
+   * account, or card level.
    */
   create(
     body: AuthRuleCreateParams,
@@ -16,14 +17,16 @@ export class AuthRules extends Core.APIResource {
   }
 
   /**
-   * Detail the properties and entities (program, accounts, and cards) associated with an existing authorization rule (Auth Rule).
+   * Detail the properties and entities (program, accounts, and cards) associated
+   * with an existing authorization rule (Auth Rule).
    */
   retrieve(id: string, options?: Core.RequestOptions): Promise<Core.APIResponse<AuthRuleRetrieveResponse>> {
     return this.get(`/auth_rules/${id}`, options);
   }
 
   /**
-   * Update the properties associated with an existing authorization rule (Auth Rule).
+   * Update the properties associated with an existing authorization rule (Auth
+   * Rule).
    */
   update(
     id: string,
@@ -54,7 +57,8 @@ export class AuthRules extends Core.APIResource {
   }
 
   /**
-   * Applies an existing authorization rule (Auth Rule) to an program, account, or card level.
+   * Applies an existing authorization rule (Auth Rule) to an program, account, or
+   * card level.
    */
   apply(
     id: string,
@@ -65,7 +69,8 @@ export class AuthRules extends Core.APIResource {
   }
 
   /**
-   * Remove an existing authorization rule (Auth Rule) from an program, account, or card-level.
+   * Remove an existing authorization rule (Auth Rule) from an program, account, or
+   * card-level.
    */
   remove(
     body: AuthRuleRemoveParams,
@@ -77,12 +82,15 @@ export class AuthRules extends Core.APIResource {
 
 export interface AuthRule {
   /**
-   * Array of account_token(s) identifying the accounts that the Auth Rule applies to.
+   * Array of account_token(s) identifying the accounts that the Auth Rule applies
+   * to.
    */
   account_tokens?: Array<string>;
 
   /**
-   * Countries in which the Auth Rule permits transactions. Note that Lithic maintains a list of countries in which all transactions are blocked; "allowing" those countries in an Auth Rule does not override the Lithic-wide restrictions.
+   * Countries in which the Auth Rule permits transactions. Note that Lithic
+   * maintains a list of countries in which all transactions are blocked; "allowing"
+   * those countries in an Auth Rule does not override the Lithic-wide restrictions.
    */
   allowed_countries?: Array<string>;
 
@@ -92,7 +100,14 @@ export interface AuthRule {
   allowed_mcc?: Array<string>;
 
   /**
-   * Address verification to confirm that postal code entered at point of transaction (if applicable) matches the postal code on file for a given card. Since this check is performed against the address submitted via the Enroll Consumer endpoint, it should only be used in cases where card users are enrolled with their own accounts. Available values: * `ZIP_ONLY` - AVS check is performed to confirm ZIP code entered at point of transaction (if applicable) matches address on file.
+   * Address verification to confirm that postal code entered at point of transaction
+   * (if applicable) matches the postal code on file for a given card. Since this
+   * check is performed against the address submitted via the Enroll Consumer
+   * endpoint, it should only be used in cases where card users are enrolled with
+   * their own accounts. Available values:
+   *
+   * - `ZIP_ONLY` - AVS check is performed to confirm ZIP code entered at point of
+   *   transaction (if applicable) matches address on file.
    */
   avs_type?: 'ZIP_ONLY';
 
@@ -102,7 +117,8 @@ export interface AuthRule {
   blocked_countries?: Array<string>;
 
   /**
-   * Merchant category codes for which the Auth Rule automatically declines transactions.
+   * Merchant category codes for which the Auth Rule automatically declines
+   * transactions.
    */
   blocked_mcc?: Array<string>;
 
@@ -112,7 +128,9 @@ export interface AuthRule {
   card_tokens?: Array<string>;
 
   /**
-   * Identifier for the Auth Rule(s) that a new Auth Rule replaced; will be returned only if an Auth Rule is applied to entities that previously already had one applied.
+   * Identifier for the Auth Rule(s) that a new Auth Rule replaced; will be returned
+   * only if an Auth Rule is applied to entities that previously already had one
+   * applied.
    */
   previous_auth_rule_tokens?: Array<string>;
 
@@ -164,37 +182,48 @@ export interface AuthRuleRemoveResponse {
 
 export interface AuthRuleCreateParams {
   /**
-   * Array of account_token(s) identifying the accounts that the Auth Rule applies to. Note that only this field or `card_tokens` can be provided for a given Auth Rule.
+   * Array of account_token(s) identifying the accounts that the Auth Rule applies
+   * to. Note that only this field or `card_tokens` can be provided for a given Auth
+   * Rule.
    */
   account_tokens?: Array<string>;
 
   /**
-   * Array of country codes for which the Auth Rule will permit transactions. Note that only this field or `blocked_countries` can be used for a given Auth Rule.
+   * Array of country codes for which the Auth Rule will permit transactions. Note
+   * that only this field or `blocked_countries` can be used for a given Auth Rule.
    */
   allowed_countries?: Array<string>;
 
   /**
-   * Array of merchant category codes for which the Auth Rule will permit transactions. Note that only this field or `blocked_mcc` can be used for a given Auth Rule.
+   * Array of merchant category codes for which the Auth Rule will permit
+   * transactions. Note that only this field or `blocked_mcc` can be used for a given
+   * Auth Rule.
    */
   allowed_mcc?: Array<string>;
 
   /**
-   * Address verification to confirm that postal code entered at point of transaction (if applicable) matches the postal code on file for a given card.
+   * Address verification to confirm that postal code entered at point of transaction
+   * (if applicable) matches the postal code on file for a given card.
    */
   avs_type?: 'ZIP_ONLY';
 
   /**
-   * Array of country codes for which the Auth Rule will automatically decline transactions. Note that only this field or `allowed_countries` can be used for a given Auth Rule.
+   * Array of country codes for which the Auth Rule will automatically decline
+   * transactions. Note that only this field or `allowed_countries` can be used for a
+   * given Auth Rule.
    */
   blocked_countries?: Array<string>;
 
   /**
-   * Array of merchant category codes for which the Auth Rule will automatically decline transactions. Note that only this field or `allowed_mcc` can be used for a given Auth Rule.
+   * Array of merchant category codes for which the Auth Rule will automatically
+   * decline transactions. Note that only this field or `allowed_mcc` can be used for
+   * a given Auth Rule.
    */
   blocked_mcc?: Array<string>;
 
   /**
-   * Array of card_token(s) identifying the cards that the Auth Rule applies to. Note that only this field or `account_tokens` can be provided for a given Auth Rule.
+   * Array of card_token(s) identifying the cards that the Auth Rule applies to. Note
+   * that only this field or `account_tokens` can be provided for a given Auth Rule.
    */
   card_tokens?: Array<string>;
 
@@ -206,27 +235,35 @@ export interface AuthRuleCreateParams {
 
 export interface AuthRuleUpdateParams {
   /**
-   * Array of country codes for which the Auth Rule will permit transactions. Note that only this field or `blocked_countries` can be used for a given Auth Rule.
+   * Array of country codes for which the Auth Rule will permit transactions. Note
+   * that only this field or `blocked_countries` can be used for a given Auth Rule.
    */
   allowed_countries?: Array<string>;
 
   /**
-   * Array of merchant category codes for which the Auth Rule will permit transactions. Note that only this field or `blocked_mcc` can be used for a given Auth Rule.
+   * Array of merchant category codes for which the Auth Rule will permit
+   * transactions. Note that only this field or `blocked_mcc` can be used for a given
+   * Auth Rule.
    */
   allowed_mcc?: Array<string>;
 
   /**
-   * Address verification to confirm that postal code entered at point of transaction (if applicable) matches the postal code on file for a given card.
+   * Address verification to confirm that postal code entered at point of transaction
+   * (if applicable) matches the postal code on file for a given card.
    */
   avs_type?: 'ZIP_ONLY';
 
   /**
-   * Array of country codes for which the Auth Rule will automatically decline transactions. Note that only this field or `allowed_countries` can be used for a given Auth Rule.
+   * Array of country codes for which the Auth Rule will automatically decline
+   * transactions. Note that only this field or `allowed_countries` can be used for a
+   * given Auth Rule.
    */
   blocked_countries?: Array<string>;
 
   /**
-   * Array of merchant category codes for which the Auth Rule will automatically decline transactions. Note that only this field or `allowed_mcc` can be used for a given Auth Rule.
+   * Array of merchant category codes for which the Auth Rule will automatically
+   * decline transactions. Note that only this field or `allowed_mcc` can be used for
+   * a given Auth Rule.
    */
   blocked_mcc?: Array<string>;
 }
@@ -245,12 +282,15 @@ export interface AuthRuleListParams {
 
 export interface AuthRuleApplyParams {
   /**
-   * Array of account_token(s) identifying the accounts that the Auth Rule applies to. Note that only this field or `card_tokens` can be provided for a given Auth Rule.
+   * Array of account_token(s) identifying the accounts that the Auth Rule applies
+   * to. Note that only this field or `card_tokens` can be provided for a given Auth
+   * Rule.
    */
   account_tokens?: Array<string>;
 
   /**
-   * Array of card_token(s) identifying the cards that the Auth Rule applies to. Note that only this field or `account_tokens` can be provided for a given Auth Rule.
+   * Array of card_token(s) identifying the cards that the Auth Rule applies to. Note
+   * that only this field or `account_tokens` can be provided for a given Auth Rule.
    */
   card_tokens?: Array<string>;
 
@@ -262,12 +302,15 @@ export interface AuthRuleApplyParams {
 
 export interface AuthRuleRemoveParams {
   /**
-   * Array of account_token(s) identifying the accounts that the Auth Rule applies to. Note that only this field or `card_tokens` can be provided for a given Auth Rule.
+   * Array of account_token(s) identifying the accounts that the Auth Rule applies
+   * to. Note that only this field or `card_tokens` can be provided for a given Auth
+   * Rule.
    */
   account_tokens?: Array<string>;
 
   /**
-   * Array of card_token(s) identifying the cards that the Auth Rule applies to. Note that only this field or `account_tokens` can be provided for a given Auth Rule.
+   * Array of card_token(s) identifying the cards that the Auth Rule applies to. Note
+   * that only this field or `account_tokens` can be provided for a given Auth Rule.
    */
   card_tokens?: Array<string>;
 
