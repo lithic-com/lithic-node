@@ -165,7 +165,7 @@ const lithic = new Lithic({
 });
 
 // Override per-request:
-lithic.cards.list({}, {
+lithic.cards.list({
   baseURL: 'http://localhost:8080/test-api',
   httpAgent: new http.Agent({ keepAlive: false }),
 })
