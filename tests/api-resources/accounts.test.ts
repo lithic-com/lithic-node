@@ -1,57 +1,57 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import Lithic from '../../index';
-const client = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:4010' });
+const lithic = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:4010' });
 
 describe('resource accounts', () => {
   test('retrieve', async () => {
-    const response = await client.accounts.retrieve('72d34485-5cc8-43b7-a77c-0a5799757090');
+    const response = await lithic.accounts.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
   });
 
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.accounts.retrieve('72d34485-5cc8-43b7-a77c-0a5799757090', { path: '/_stainless_unknown_path' }),
+      lithic.accounts.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('update: only required params', async () => {
-    const response = await client.accounts.update('03265f18-c4af-491e-af58-05621adbb8c7', {});
+    const response = await lithic.accounts.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
   });
 
   test('update: required and optional params', async () => {
-    const response = await client.accounts.update('03265f18-c4af-491e-af58-05621adbb8c7', {
-      daily_spend_limit: 1,
-      lifetime_spend_limit: 14,
-      monthly_spend_limit: 2,
+    const response = await lithic.accounts.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      daily_spend_limit: 0,
+      lifetime_spend_limit: 0,
+      monthly_spend_limit: 0,
       verification_address: {
-        address1: 'gfypqtnlirtbvjvwypj',
-        address2: 'gshee',
-        city: 'gnzqcmqpomaiaa',
-        state: 'eercjysgrlaybfuqmb',
-        postal_code: 'uawxhhbjopmxjxkp',
-        country: 'qxl',
+        address1: 'string',
+        address2: 'string',
+        city: 'string',
+        state: 'string',
+        postal_code: 'string',
+        country: 'string',
       },
-      state: 'PAUSED',
+      state: 'ACTIVE',
     });
   });
 
   test('list: only required params', async () => {
-    const response = await client.accounts.list();
+    const response = await lithic.accounts.list();
   });
 
   test('list: required and optional params', async () => {
-    const response = await client.accounts.list({
+    const response = await lithic.accounts.list({
       begin: '2019-12-27T18:11:19.117Z',
       end: '2019-12-27T18:11:19.117Z',
-      page: 5,
-      page_size: 253,
+      page: 0,
+      page_size: 1,
     });
   });
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.accounts.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(lithic.accounts.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Lithic.NotFoundError,
     );
   });
@@ -59,8 +59,8 @@ describe('resource accounts', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.accounts.list(
-        { begin: '2019-12-27T18:11:19.117Z', end: '2019-12-27T18:11:19.117Z', page: 19, page_size: 668 },
+      lithic.accounts.list(
+        { begin: '2019-12-27T18:11:19.117Z', end: '2019-12-27T18:11:19.117Z', page: 0, page_size: 1 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Lithic.NotFoundError);

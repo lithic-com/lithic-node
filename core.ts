@@ -5,9 +5,9 @@ import type { Agent } from 'http';
 import type NodeFetch from 'node-fetch';
 import type { RequestInfo, RequestInit, Response } from 'node-fetch';
 import type KeepAliveAgent from 'agentkeepalive';
-import { AbortController, AbortSignal } from 'abort-controller';
+import { AbortController } from 'abort-controller';
 
-import { makeAutoPaginationMethods, AutoPaginationMethods } from './pagination';
+import { makePaginationIterator } from './pagination';
 
 const isNode = typeof process !== 'undefined';
 let nodeFetch: typeof NodeFetch | undefined = undefined;
@@ -181,7 +181,7 @@ export abstract class APIClient {
 
   requestAPIList<Req, Rsp>(options: FinalRequestOptions<Req>): APIListPromise<Rsp> {
     const requestPromise = this.request(options) as Promise<APIList<Rsp>>;
-    const autoPaginationMethods = makeAutoPaginationMethods(this, requestPromise, options);
+    const autoPaginationMethods = makePaginationIterator(this, requestPromise, options);
     return Object.assign(requestPromise, autoPaginationMethods);
   }
 
@@ -310,7 +310,7 @@ export class APIResource {
 
 type HTTPMethod = 'get' | 'post' | 'put' | 'patch' | 'delete';
 
-export type Headers = Record<string, string>;
+export type Headers = Record<string, string | null | undefined>;
 export type KeysEnum<T> = { [P in keyof Required<T>]: true };
 
 export type RequestOptions<Req extends {} = Record<string, unknown>> = {
@@ -364,7 +364,7 @@ export type APIList<Rsp> = APIResponse<{
   total_entries: number;
 }>;
 
-export interface APIListPromise<Rsp> extends Promise<APIResponse<APIList<Rsp>>>, AutoPaginationMethods<Rsp> {}
+export interface APIListPromise<Rsp> extends Promise<APIResponse<APIList<Rsp>>>, AsyncIterableIterator<Rsp> {}
 
 export class APIError extends Error {
   readonly status: number | undefined;

@@ -1,9 +1,13 @@
 // File generated from our OpenAPI spec by Stainless.
 import * as Core from './core';
 import * as API from './resources';
+import { isRequestOptions } from './core';
 import type { Agent } from 'http';
 
-const environments = { production: 'https://api.lithic.com/v1', sandbox: 'https://sandbox.lithic.com/v1' };
+const environments = {
+  production: 'https://api.lithic.com/v1',
+  sandbox: 'https://sandbox.lithic.com/v1',
+};
 
 type Config = {
   /**
@@ -118,6 +122,8 @@ export class Lithic extends Core.APIClient {
 }
 
 export namespace Lithic {
+  export import ShippingAddress = API.ShippingAddress;
+
   export import Account = API.Account;
   export import AccountUpdateParams = API.AccountUpdateParams;
   export import AccountListParams = API.AccountListParams;

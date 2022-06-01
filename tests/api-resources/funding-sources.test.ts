@@ -1,48 +1,51 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import Lithic from '../../index';
-const client = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:4010' });
+const lithic = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:4010' });
 
 describe('resource funding_sources', () => {
   test('create: only required params', async () => {
-    const response = await client.fundingSources.create({
-      validation_method: 'PLAID',
-      processor_token: 'mighmuxoicimans',
+    const response = await lithic.fundingSources.create({
+      validation_method: 'BANK',
+      account_number: '13719713158835300',
+      routing_number: '011103093',
     });
   });
 
   test('create: required and optional params', async () => {
-    const response = await client.fundingSources.create({
-      validation_method: 'PLAID',
-      account_token: '3adb9ab4-d9dc-4efb-851b-af9b327c3bc3',
-      processor_token: 'yirfhdboygaezlrk',
+    const response = await lithic.fundingSources.create({
+      validation_method: 'BANK',
+      account_name: 'Sandbox',
+      account_number: '13719713158835300',
+      account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      routing_number: '011103093',
     });
   });
 
   test('update: only required params', async () => {
-    const response = await client.fundingSources.update('0e32e31d-6a17-4423-9393-cd33b1818319', {});
+    const response = await lithic.fundingSources.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
   });
 
   test('update: required and optional params', async () => {
-    const response = await client.fundingSources.update('0e32e31d-6a17-4423-9393-cd33b1818319', {
-      account_token: '2afd4504-41a7-4b7b-8283-151d279a0b1a',
+    const response = await lithic.fundingSources.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       state: 'DELETED',
     });
   });
 
   test('list: only required params', async () => {
-    const response = await client.fundingSources.list();
+    const response = await lithic.fundingSources.list();
   });
 
   test('list: required and optional params', async () => {
-    const response = await client.fundingSources.list({
-      account_token: '1f937d58-4fc0-41bf-af15-e7c938c8adbd',
+    const response = await lithic.fundingSources.list({
+      account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
   });
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.fundingSources.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(lithic.fundingSources.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Lithic.NotFoundError,
     );
   });
@@ -50,23 +53,23 @@ describe('resource funding_sources', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.fundingSources.list(
-        { account_token: 'fa0f84e0-d765-43c1-9e49-90803a169b65' },
+      lithic.fundingSources.list(
+        { account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('verify: only required params', async () => {
-    const response = await client.fundingSources.verify('32702a58-7d21-4791-8439-5644ec89a69c', {
-      micro_deposits: [0, 7, 7],
+    const response = await lithic.fundingSources.verify('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      micro_deposits: [0, 0, 0],
     });
   });
 
   test('verify: required and optional params', async () => {
-    const response = await client.fundingSources.verify('32702a58-7d21-4791-8439-5644ec89a69c', {
-      account_token: '4a93432b-5efc-4ecf-bcd2-6cf1d26150c9',
-      micro_deposits: [3, 19, 20],
+    const response = await lithic.fundingSources.verify('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      micro_deposits: [0, 0, 0],
     });
   });
 });

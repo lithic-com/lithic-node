@@ -1,23 +1,10 @@
 import { APIList, APIClient, FinalRequestOptions } from './core';
 
-type AutoPagingEachCallback<Rsp> = (item: Rsp) => boolean | void | Promise<boolean | void>;
-
-type AutoPagingEach<Rsp> = (callback: AutoPagingEachCallback<Rsp>) => Promise<void>;
-
-type AutoPagingToArray<Rsp> = (opts: { limit: number }) => Promise<Array<Rsp>>;
-
-export type AutoPaginationMethods<Rsp> = AsyncIterableIterator<Rsp> & {
-  /** @deprecated This method will be removed shortly; please reach out if you need it. */
-  autoPagingEach: AutoPagingEach<Rsp>;
-  /** @deprecated This method will be removed shortly; please reach out if you need it. */
-  autoPagingToArray: AutoPagingToArray<Rsp>;
-};
-
-export const makeAutoPaginationMethods = <Req, Rsp>(
+export const makePaginationIterator = <Req, Rsp>(
   client: APIClient,
   requestPromise: Promise<APIList<Rsp>>, // Mutated.
   options: FinalRequestOptions<Req>, // Mutated.
-): AutoPaginationMethods<Rsp> => {
+): AsyncIterableIterator<Rsp> => {
   const promiseCache: PromiseCache<IteratorResult<Rsp>> = { currentPromise: null };
   let i = 0;
 
@@ -51,22 +38,16 @@ export const makeAutoPaginationMethods = <Req, Rsp>(
     });
   };
 
-  const autoPagingEach = makeAutoPagingEach(asyncIteratorNext);
-  const autoPagingToArray = makeAutoPagingToArray(autoPagingEach);
-
-  const autoPaginationMethods: AutoPaginationMethods<Rsp> = {
-    autoPagingEach,
-    autoPagingToArray,
-
+  const asyncIterable: AsyncIterableIterator<Rsp> = {
     // Async iterator functions:
     next: asyncIteratorNext,
     return: async () => {
       // For when the consumer does 'break' or 'return' early in the loop.
       return { done: true, value: undefined };
     },
-    [getAsyncIteratorSymbol()]: () => autoPaginationMethods,
+    [getAsyncIteratorSymbol()]: () => asyncIterable,
   };
-  return autoPaginationMethods;
+  return asyncIterable;
 };
 
 /**
@@ -104,54 +85,4 @@ function memoizedPromise<T>(
     return ret;
   });
   return promiseCache.currentPromise;
-}
-
-const makeAutoPagingEach =
-  <Rsp>(asyncIteratorNext: () => Promise<IteratorResult<Rsp>>) =>
-  (onItem: AutoPagingEachCallback<Rsp>) =>
-    new Promise<void>((resolve, reject) => {
-      async function handleIteration(iterResult: IteratorResult<Rsp>): Promise<boolean | void> {
-        if (iterResult.done) return resolve();
-
-        const item = iterResult.value;
-
-        const shouldContinue = await onItem(item);
-        if (shouldContinue === false) {
-          return handleIteration({ done: true, value: undefined });
-        }
-
-        return asyncIteratorNext().then(handleIteration);
-      }
-
-      asyncIteratorNext().then(handleIteration).catch(reject);
-    });
-
-function makeAutoPagingToArray<Rsp>(autoPagingEach: AutoPagingEach<Rsp>): AutoPagingToArray<Rsp> {
-  return function autoPagingToArray(opts: { limit: number }): Promise<Rsp[]> {
-    const limit = opts?.limit;
-    if (!limit) {
-      throw Error(
-        'You must pass a `limit` option to autoPagingToArray, e.g., `.autoPagingToArray({limit: 1000});`.',
-      );
-    }
-    if (limit > 100000) {
-      throw Error(
-        'You cannot specify a limit of more than 100,000 items to fetch in `autoPagingToArray`; use `autoPagingEach` to iterate through longer lists.',
-      );
-    }
-    const promise = new Promise<Rsp[]>((resolve, reject) => {
-      const items: Rsp[] = [];
-      autoPagingEach((item) => {
-        items.push(item);
-        if (items.length >= limit) {
-          return false;
-        }
-      })
-        .then(() => {
-          resolve(items);
-        })
-        .catch(reject);
-    });
-    return promise;
-  };
 }
