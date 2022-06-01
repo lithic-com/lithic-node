@@ -1,5 +1,7 @@
 # Lithic Node API Library
 
+[![NPM version](https://img.shields.io/npm/v/lithic.svg)](https://npmjs.org/package/lithic)
+
 The Lithic Node library provides convenient access to the Lithic REST API from applications written in server-side JavaScript.
 It includes TypeScript definitions for all request params and response fields.
 
