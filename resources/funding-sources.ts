@@ -1,7 +1,8 @@
 // File generated from our OpenAPI spec by Stainless.
 
-import * as Core from '../core';
-import { isRequestOptions } from '../core';
+import * as Core from '~/core';
+import { isRequestOptions } from '~/core';
+import { Page, PageParams } from '~/pagination';
 import * as Shared from './shared';
 
 export class FundingSources extends Core.APIResource {
@@ -33,18 +34,18 @@ export class FundingSources extends Core.APIResource {
   /**
    * List all the funding sources associated with the Lithic account.
    */
-  list(query?: FundingSourceListParams, options?: Core.RequestOptions): Core.APIListPromise<FundingSource>;
-  list(options?: Core.RequestOptions): Core.APIListPromise<FundingSource>;
+  list(query?: FundingSourceListParams, options?: Core.RequestOptions): Core.PagePromise<FundingSourcesPage>;
+  list(options?: Core.RequestOptions): Core.PagePromise<FundingSourcesPage>;
   list(
-    query?: FundingSourceListParams | Core.RequestOptions | null | undefined,
+    query?: FundingSourceListParams | Core.RequestOptions | undefined,
     options?: Core.RequestOptions,
-  ): Core.APIListPromise<FundingSource> {
+  ): Core.PagePromise<FundingSourcesPage> {
     if (isRequestOptions(query)) {
       options = query;
-      query = null;
+      query = undefined;
     }
 
-    return this.getAPIList('/funding_sources', { query, ...options });
+    return this.getAPIList('/funding_sources', FundingSourcesPage, { query, ...options });
   }
 
   /**
@@ -59,6 +60,8 @@ export class FundingSources extends Core.APIResource {
     return this.post(`/funding_sources/${id}/verify`, { body, ...options });
   }
 }
+
+export class FundingSourcesPage extends Page<FundingSource> {}
 
 export interface FundingSource {
   /**
@@ -182,7 +185,7 @@ export interface FundingSourceUpdateParams {
   state?: 'DELETED' | 'ENABLED';
 }
 
-export interface FundingSourceListParams {
+export interface FundingSourceListParams extends PageParams {
   account_token?: string;
 }
 

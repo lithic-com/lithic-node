@@ -1,7 +1,8 @@
 // File generated from our OpenAPI spec by Stainless.
 
-import * as Core from '../core';
-import { isRequestOptions } from '../core';
+import * as Core from '~/core';
+import { isRequestOptions } from '~/core';
+import { Page, PageParams } from '~/pagination';
 import * as Shared from './shared';
 import * as FundingSources from './funding-sources';
 
@@ -35,18 +36,18 @@ export class Cards extends Core.APIResource {
   /**
    * List cards.
    */
-  list(query?: CardListParams, options?: Core.RequestOptions): Core.APIListPromise<Card>;
-  list(options?: Core.RequestOptions): Core.APIListPromise<Card>;
+  list(query?: CardListParams, options?: Core.RequestOptions): Core.PagePromise<CardsPage>;
+  list(options?: Core.RequestOptions): Core.PagePromise<CardsPage>;
   list(
-    query?: CardListParams | Core.RequestOptions | null | undefined,
+    query?: CardListParams | Core.RequestOptions | undefined,
     options?: Core.RequestOptions,
-  ): Core.APIListPromise<Card> {
+  ): Core.PagePromise<CardsPage> {
     if (isRequestOptions(query)) {
       options = query;
-      query = null;
+      query = undefined;
     }
 
-    return this.getAPIList('/cards', { query, ...options });
+    return this.getAPIList('/cards', CardsPage, { query, ...options });
   }
 
   /**
@@ -80,12 +81,12 @@ export class Cards extends Core.APIResource {
   embed(query?: CardEmbedParams, options?: Core.RequestOptions): Promise<string>;
   embed(options?: Core.RequestOptions): Promise<string>;
   embed(
-    query?: CardEmbedParams | Core.RequestOptions | null | undefined,
+    query?: CardEmbedParams | Core.RequestOptions | undefined,
     options?: Core.RequestOptions,
   ): Promise<string> {
     if (isRequestOptions(query)) {
       options = query;
-      query = null;
+      query = undefined;
     }
 
     return this.get('/embed/card', {
@@ -124,6 +125,8 @@ export class Cards extends Core.APIResource {
     return this.post(`/cards/${id}/reissue`, { body, ...options });
   }
 }
+
+export class CardsPage extends Page<Card> {}
 
 export interface Card {
   /**
@@ -429,7 +432,7 @@ export interface CardUpdateParams {
   state?: 'CLOSED' | 'OPEN' | 'PAUSED';
 }
 
-export interface CardListParams {
+export interface CardListParams extends PageParams {
   /**
    * Only required for multi-account users. Returns cards associated with this
    * account. Only applicable if using account enrollment. See
@@ -449,16 +452,6 @@ export interface CardListParams {
    * be included. UTC time zone.
    */
   end?: string;
-
-  /**
-   * Page (for pagination).
-   */
-  page?: number;
-
-  /**
-   * Page size (for pagination).
-   */
-  page_size?: number;
 }
 
 export interface CardEmbedParams {

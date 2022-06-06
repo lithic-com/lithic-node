@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-import Lithic from '../../index';
+import Lithic from '~/index';
 const lithic = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:4010' });
 
 describe('resource funding_sources', () => {
@@ -40,6 +40,8 @@ describe('resource funding_sources', () => {
   test('list: required and optional params', async () => {
     const response = await lithic.fundingSources.list({
       account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      page: 0,
+      page_size: 0,
     });
   });
 
@@ -54,7 +56,7 @@ describe('resource funding_sources', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       lithic.fundingSources.list(
-        { account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+        { account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', page: 0, page_size: 0 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Lithic.NotFoundError);

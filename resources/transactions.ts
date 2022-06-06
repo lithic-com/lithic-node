@@ -1,7 +1,8 @@
 // File generated from our OpenAPI spec by Stainless.
 
-import * as Core from '../core';
-import { isRequestOptions } from '../core';
+import * as Core from '~/core';
+import { isRequestOptions } from '~/core';
+import { Page, PageParams } from '~/pagination';
 import * as Shared from './shared';
 import * as Cards from './cards';
 
@@ -16,18 +17,18 @@ export class Transactions extends Core.APIResource {
   /**
    * List transactions.
    */
-  list(query?: TransactionListParams, options?: Core.RequestOptions): Core.APIListPromise<Transaction>;
-  list(options?: Core.RequestOptions): Core.APIListPromise<Transaction>;
+  list(query?: TransactionListParams, options?: Core.RequestOptions): Core.PagePromise<TransactionsPage>;
+  list(options?: Core.RequestOptions): Core.PagePromise<TransactionsPage>;
   list(
-    query?: TransactionListParams | Core.RequestOptions | null | undefined,
+    query?: TransactionListParams | Core.RequestOptions | undefined,
     options?: Core.RequestOptions,
-  ): Core.APIListPromise<Transaction> {
+  ): Core.PagePromise<TransactionsPage> {
     if (isRequestOptions(query)) {
       options = query;
-      query = null;
+      query = undefined;
     }
 
-    return this.getAPIList('/transactions', { query, ...options });
+    return this.getAPIList('/transactions', TransactionsPage, { query, ...options });
   }
 
   /**
@@ -80,6 +81,8 @@ export class Transactions extends Core.APIResource {
     return this.post('/simulate/void', { body, ...options });
   }
 }
+
+export class TransactionsPage extends Page<Transaction> {}
 
 export interface Transaction {
   /**
@@ -278,8 +281,8 @@ export namespace Transaction {
      * - `CLEARING` - Transaction is settled.
      * - `RETURN` - A return authorization.
      * - `VOID` - Transaction is voided.
-     * - `TRANSACTION_CORRECTION_DEBIT` - Manual transaction correction (Debit).
-     * - `TRANSACTION_CORRECTION_CREDIT` - Manual transaction correction (Credit).
+     * - `CORRECTION_DEBIT` - Manual transaction correction (Debit).
+     * - `CORRECTION_CREDIT` - Manual transaction correction (Credit).
      */
     type:
       | 'AUTHORIZATION'
@@ -287,8 +290,8 @@ export namespace Transaction {
       | 'CLEARING'
       | 'RETURN'
       | 'VOID'
-      | 'TRANSACTION_CORRECTION_DEBIT'
-      | 'TRANSACTION_CORRECTION_CREDIT';
+      | 'CORRECTION_DEBIT'
+      | 'CORRECTION_CREDIT';
   }
 
   export interface Funding {
@@ -385,7 +388,7 @@ export interface TransactionSimulateVoidResponse {
   debugging_request_id?: string;
 }
 
-export interface TransactionListParams {
+export interface TransactionListParams extends PageParams {
   /**
    * Only required for multi-account users. Returns transactions associated with this
    * account. Only applicable if using account enrollment. See
@@ -410,16 +413,6 @@ export interface TransactionListParams {
    * be included. UTC time zone.
    */
   end?: string;
-
-  /**
-   * Page (for pagination).
-   */
-  page?: number;
-
-  /**
-   * Page size (for pagination).
-   */
-  page_size?: number;
 
   /**
    * List specific transactions. Filters include `APPROVED`, and `DECLINED`.

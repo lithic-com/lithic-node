@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless.
 
-import * as Core from '../core';
-import { isRequestOptions } from '../core';
+import * as Core from '~/core';
+import { isRequestOptions } from '~/core';
 import * as Shared from './shared';
 
 export class AuthStreamEnrollmentResource extends Core.APIResource {
@@ -37,12 +37,12 @@ export class AuthStreamEnrollmentResource extends Core.APIResource {
   enroll(body?: AuthStreamEnrollmentEnrollParams, options?: Core.RequestOptions): Promise<void>;
   enroll(options?: Core.RequestOptions): Promise<void>;
   enroll(
-    body?: AuthStreamEnrollmentEnrollParams | Core.RequestOptions | null | undefined,
+    body?: AuthStreamEnrollmentEnrollParams | Core.RequestOptions | undefined,
     options?: Core.RequestOptions,
   ): Promise<void> {
     if (isRequestOptions(body)) {
       options = body;
-      body = null;
+      body = undefined;
     }
 
     return this.post('/auth_stream', { body, ...options, headers: { Accept: '', ...options?.headers } });

@@ -5,6 +5,11 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
+    "rootDir": "./",
+    "baseUrl": "./",
+    "paths": {
+      "~/*": ["*"]
+    },
 
     "declaration": true,
     "outDir": "dist",

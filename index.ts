@@ -1,7 +1,8 @@
 // File generated from our OpenAPI spec by Stainless.
 import * as Core from './core';
+import * as Pagination from './pagination';
 import * as API from './resources';
-import { isRequestOptions } from './core';
+
 import type { Agent } from 'http';
 
 const environments = {
@@ -92,18 +93,8 @@ export class Lithic extends Core.APIClient {
     };
   }
 
-  getNextPageQuery(
-    request: Core.FinalRequestOptions<Lithic.PaginationParams>,
-    response: Core.APIList<unknown>,
-  ): Partial<Lithic.PaginationParams> | false {
-    // Do not iterate if we're on the last page.
-    if (response.page >= response.total_pages) return false;
-
-    return { page: response.page + 1 };
-  }
-
-  getPaginatedItems<Rsp>(response: Core.APIList<Rsp>): Rsp[] {
-    return response.data;
+  protected override qsOptions(): qs.IStringifyOptions {
+    return { arrayFormat: 'comma' };
   }
 
   static APIError = Core.APIError;
@@ -122,9 +113,14 @@ export class Lithic extends Core.APIClient {
 }
 
 export namespace Lithic {
+  export import Page = Pagination.Page;
+  export import PageParams = Pagination.PageParams;
+  export import PageResponse = Pagination.PageResponse;
+
   export import ShippingAddress = API.ShippingAddress;
 
   export import Account = API.Account;
+  export import AccountsPage = API.AccountsPage;
   export import AccountUpdateParams = API.AccountUpdateParams;
   export import AccountListParams = API.AccountListParams;
 
@@ -155,6 +151,7 @@ export namespace Lithic {
 
   export import Card = API.Card;
   export import CardProvisionResponse = API.CardProvisionResponse;
+  export import CardsPage = API.CardsPage;
   export import CardCreateParams = API.CardCreateParams;
   export import CardUpdateParams = API.CardUpdateParams;
   export import CardListParams = API.CardListParams;
@@ -163,6 +160,7 @@ export namespace Lithic {
   export import CardReissueParams = API.CardReissueParams;
 
   export import FundingSource = API.FundingSource;
+  export import FundingSourcesPage = API.FundingSourcesPage;
   export import FundingSourceCreateParams = API.FundingSourceCreateParams;
   export import FundingSourceUpdateParams = API.FundingSourceUpdateParams;
   export import FundingSourceListParams = API.FundingSourceListParams;
@@ -173,6 +171,7 @@ export namespace Lithic {
   export import TransactionSimulateClearingResponse = API.TransactionSimulateClearingResponse;
   export import TransactionSimulateReturnResponse = API.TransactionSimulateReturnResponse;
   export import TransactionSimulateVoidResponse = API.TransactionSimulateVoidResponse;
+  export import TransactionsPage = API.TransactionsPage;
   export import TransactionListParams = API.TransactionListParams;
   export import TransactionSimulateAuthorizationParams = API.TransactionSimulateAuthorizationParams;
   export import TransactionSimulateClearingParams = API.TransactionSimulateClearingParams;
@@ -180,11 +179,6 @@ export namespace Lithic {
   export import TransactionSimulateVoidParams = API.TransactionSimulateVoidParams;
 
   export import APIStatus = API.APIStatus;
-
-  export type PaginationParams = {
-    page?: number;
-    page_size?: number;
-  };
 }
 
 exports = module.exports = Lithic;

@@ -5,6 +5,10 @@
 The Lithic Node library provides convenient access to the Lithic REST API from applications written in server-side JavaScript.
 It includes TypeScript definitions for all request params and response fields.
 
+## Documentation
+
+The API documentation can be found [here](https://docs.lithic.com).
+
 ## Installation
 
 ```sh
@@ -20,7 +24,7 @@ import Lithic from 'lithic';
 
 const lithic = new Lithic({
   apiKey: 'my api key', // defaults to process.env["LITHIC_API_KEY"]
-  environment: 'sandbox', // or 'production'
+  environment: 'sandbox', // defaults to 'production'
 });
 
 async function main() {
@@ -43,7 +47,7 @@ import Lithic from 'lithic';
 
 const lithic = new Lithic({
   apiKey: 'my api key', // defaults to process.env["LITHIC_API_KEY"]
-  environment: 'sandbox', // or 'production'
+  environment: 'sandbox', // defaults to 'production'
 });
 
 async function main() {

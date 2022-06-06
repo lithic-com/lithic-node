@@ -6,8 +6,10 @@ import type NodeFetch from 'node-fetch';
 import type { RequestInfo, RequestInit, Response } from 'node-fetch';
 import type KeepAliveAgent from 'agentkeepalive';
 import { AbortController } from 'abort-controller';
+import { FormData, File, Blob } from 'formdata-node';
+import { FormDataEncoder } from 'form-data-encoder';
 
-import { makePaginationIterator } from './pagination';
+import { Readable } from 'stream';
 
 const isNode = typeof process !== 'undefined';
 let nodeFetch: typeof NodeFetch | undefined = undefined;
@@ -86,6 +88,18 @@ export abstract class APIClient {
     };
   }
 
+  /**
+   * Override this to add your own qs.stringify options, for example:
+   *
+   *  {
+   *    ...super.qsOptions(),
+   *    strictNullHandling: true,
+   *  }
+   */
+  protected qsOptions(): qs.IStringifyOptions | undefined {
+    return {};
+  }
+
   get<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
     return this.request({ method: 'get', path, ...opts });
   }
@@ -101,27 +115,36 @@ export abstract class APIClient {
   delete<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
     return this.request({ method: 'delete', path, ...opts });
   }
-  getAPIList<Req, Rsp>(path: string, opts?: RequestOptions<Req>): APIListPromise<Rsp> {
-    return this.requestAPIList({ method: 'get', path, ...opts });
+
+  getAPIList<Item, PageClass extends AbstractPage<Item> = AbstractPage<Item>>(
+    path: string,
+    Page: new (...args: any[]) => PageClass,
+    opts?: RequestOptions<any>,
+  ): PagePromise<PageClass> {
+    return this.requestAPIList(Page, { method: 'get', path, ...opts });
   }
 
   async request<Req, Rsp>(
     options: FinalRequestOptions<Req>,
     retriesRemaining = options.maxRetries ?? this.maxRetries,
   ): Promise<APIResponse<Rsp>> {
-    const { method, path, query, body, headers } = options;
+    const { method, path, query, headers } = options;
+    const body =
+      options.body instanceof Readable
+        ? options.body
+        : options.body
+        ? JSON.stringify(options.body, null, 2)
+        : null;
+    const contentLength = typeof body === 'string' ? body.length.toString() : null;
 
     const url = this.buildURL(path!, query);
-    const jsonBody = body && JSON.stringify(body, null, 2);
-    const contentLength = jsonBody?.length.toString();
-
     const httpAgent = options.httpAgent ?? this.httpAgent ?? getDefaultAgent(url);
     const timeout = options.timeout ?? this.timeout;
     validatePositiveInteger('timeout', timeout);
 
     const req: RequestInit = {
       method,
-      ...(jsonBody && { body: jsonBody }),
+      ...(body && { body }),
       headers: {
         ...(contentLength && { 'Content-Length': contentLength }),
         ...this.defaultHeaders(),
@@ -179,21 +202,19 @@ export abstract class APIClient {
     }
   }
 
-  requestAPIList<Req, Rsp>(options: FinalRequestOptions<Req>): APIListPromise<Rsp> {
-    const requestPromise = this.request(options) as Promise<APIList<Rsp>>;
-    const autoPaginationMethods = makePaginationIterator(this, requestPromise, options);
-    return Object.assign(requestPromise, autoPaginationMethods);
+  requestAPIList<Item = unknown, PageClass extends AbstractPage<Item> = AbstractPage<Item>>(
+    Page: new (...args: ConstructorParameters<typeof AbstractPage>) => PageClass,
+    options: FinalRequestOptions,
+  ): PagePromise<PageClass> {
+    const requestPromise = this.request(options) as Promise<APIResponse<unknown>>;
+    return new PagePromise(this, requestPromise, options, Page);
   }
 
-  abstract getNextPageQuery(request: FinalRequestOptions<Object>, response: APIList<unknown>): Object | false;
-
-  abstract getPaginatedItems<Rsp>(response: APIList<Rsp>): Rsp[];
-
   private buildURL<Req>(path: string, query: Req | undefined): string {
-    const url = new URL(this.baseURL + path);
+    const url = isAbsoluteURL(path) ? new URL(path) : new URL(this.baseURL + path);
 
     if (query) {
-      url.search = qs.stringify(query);
+      url.search = qs.stringify(query, this.qsOptions());
     }
 
     return url.toString();
@@ -308,12 +329,103 @@ export class APIResource {
   protected getAPIList: APIClient['getAPIList'];
 }
 
+export abstract class AbstractPage<Item> implements AsyncIterable<Item> {
+  #client: APIClient;
+  protected options: FinalRequestOptions;
+
+  constructor(client: APIClient, response: APIResponse<unknown>, options: FinalRequestOptions) {
+    this.#client = client;
+    this.options = options;
+  }
+
+  abstract nextPageParams(): Partial<Record<string, unknown>> | null;
+
+  abstract getPaginatedItems(): Item[];
+
+  hasNextPage(): boolean {
+    return this.nextPageParams() != null;
+  }
+
+  async getNextPage(): Promise<AbstractPage<Item>> {
+    const nextQuery = this.nextPageParams();
+    if (!nextQuery) {
+      throw new Error(
+        'No next page expected; please check `.hasNextPage()` before calling `.getNextPage()`.',
+      );
+    }
+    const nextOptions = { ...this.options, query: { ...this.options.query, ...nextQuery } };
+    return await this.#client.requestAPIList(this.constructor as any, nextOptions);
+  }
+
+  async *iterPages() {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    let page: AbstractPage<Item> = this;
+    yield page;
+    while (page.hasNextPage()) {
+      page = await page.getNextPage();
+      yield page;
+    }
+  }
+
+  async *[Symbol.asyncIterator]() {
+    for await (const page of this.iterPages()) {
+      for (const item of page.getPaginatedItems()) {
+        yield item;
+      }
+    }
+  }
+}
+
+export class PagePromise<
+    PageClass extends AbstractPage<Item>,
+    Item = ReturnType<PageClass['getPaginatedItems']>[number],
+  >
+  extends Promise<PageClass>
+  implements AsyncIterable<Item>
+{
+  /**
+   * This subclass of Promise will resolve to an instantiated Page once the request completes.
+   */
+  constructor(
+    client: APIClient,
+    requestPromise: Promise<APIResponse<unknown>>,
+    options: FinalRequestOptions,
+    Page: new (...args: ConstructorParameters<typeof AbstractPage>) => PageClass,
+  ) {
+    super((resolve, reject) =>
+      requestPromise.then((response) => resolve(new Page(client, response, options))).catch(reject),
+    );
+  }
+
+  /**
+   * Enable subclassing Promise.
+   * Ref: https://stackoverflow.com/a/60328122
+   */
+  static get [Symbol.species]() {
+    return Promise;
+  }
+
+  /**
+   * Allow auto-paginating iteration on an unawaited list call, eg:
+   *
+   *    for await (const item of client.items.list()) {
+   *      console.log(item)
+   *    }
+   */
+  async *[Symbol.asyncIterator]() {
+    const page = await this;
+    for await (const item of page) {
+      yield item;
+    }
+  }
+}
+
 type HTTPMethod = 'get' | 'post' | 'put' | 'patch' | 'delete';
 
 export type Headers = Record<string, string | null | undefined>;
 export type KeysEnum<T> = { [P in keyof Required<T>]: true };
 
-export type RequestOptions<Req extends {} = Record<string, unknown>> = {
+export type RequestOptions<Req extends {} = Record<string, unknown> | Readable> = {
   method?: HTTPMethod;
   path?: string;
   query?: Req | undefined;
@@ -348,7 +460,7 @@ export const isRequestOptions = (obj: unknown): obj is RequestOptions => {
   );
 };
 
-export type FinalRequestOptions<Req extends {} = Record<string, unknown>> = RequestOptions<Req> & {
+export type FinalRequestOptions<Req extends {} = Record<string, unknown> | Readable> = RequestOptions<Req> & {
   method: HTTPMethod;
   path: string;
 };
@@ -356,15 +468,6 @@ export type FinalRequestOptions<Req extends {} = Record<string, unknown>> = Requ
 export type APIResponse<T> = T & {
   responseHeaders: Headers;
 };
-
-export type APIList<Rsp> = APIResponse<{
-  data: Rsp[];
-  page: number;
-  total_pages: number;
-  total_entries: number;
-}>;
-
-export interface APIListPromise<Rsp> extends Promise<APIResponse<APIList<Rsp>>>, AsyncIterableIterator<Rsp> {}
 
 export class APIError extends Error {
   readonly status: number | undefined;
@@ -494,6 +597,12 @@ const safeJSON = (text: string) => {
   }
 };
 
+// https://stackoverflow.com/a/19709846
+const startsWithSchemeRegexp = new RegExp('^(?:[a-z]+:)?//', 'i');
+const isAbsoluteURL = (url: string): boolean => {
+  return startsWithSchemeRegexp.test(url);
+};
+
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const validatePositiveInteger = (name: string, n: number) => {
@@ -509,4 +618,41 @@ const validatePositiveInteger = (name: string, n: number) => {
 const castToError = (err: any): Error => {
   if (err instanceof Error) return err;
   return new Error(err);
+};
+
+const validateFormValue = (value: unknown): string | number | boolean | File | Blob => {
+  if (
+    typeof value === 'string' ||
+    typeof value === 'number' ||
+    typeof value === 'boolean' ||
+    value instanceof File ||
+    value instanceof Blob
+  ) {
+    return value;
+  }
+
+  if (value == null) {
+    throw new TypeError(
+      `null is not a valid form data value, if you want to pass null then you need to use the string 'null'`,
+    );
+  }
+
+  throw new TypeError(
+    `Invalid value given to form, expected a string, number, boolean, File or Blob but got ${value} instead`,
+  );
+};
+
+export const multipartFormRequestOptions = <T = Record<string, unknown>>(
+  opts: RequestOptions<T>,
+): RequestOptions<T | Readable> => {
+  const form = new FormData();
+  Object.entries(opts.body || {}).forEach(
+    ([key, value]) => value !== undefined && form.set(key, validateFormValue(value)),
+  );
+  const encoder = new FormDataEncoder(form);
+  return {
+    ...opts,
+    headers: { ...opts.headers, ...encoder.headers, 'Content-Length': encoder.contentLength },
+    body: Readable.from(encoder),
+  };
 };

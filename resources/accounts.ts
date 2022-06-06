@@ -1,7 +1,8 @@
 // File generated from our OpenAPI spec by Stainless.
 
-import * as Core from '../core';
-import { isRequestOptions } from '../core';
+import * as Core from '~/core';
+import { isRequestOptions } from '~/core';
+import { Page, PageParams } from '~/pagination';
 import * as Shared from './shared';
 
 export class Accounts extends Core.APIResource {
@@ -30,20 +31,22 @@ export class Accounts extends Core.APIResource {
   /**
    * List account configurations.
    */
-  list(query?: AccountListParams, options?: Core.RequestOptions): Core.APIListPromise<Account>;
-  list(options?: Core.RequestOptions): Core.APIListPromise<Account>;
+  list(query?: AccountListParams, options?: Core.RequestOptions): Core.PagePromise<AccountsPage>;
+  list(options?: Core.RequestOptions): Core.PagePromise<AccountsPage>;
   list(
-    query?: AccountListParams | Core.RequestOptions | null | undefined,
+    query?: AccountListParams | Core.RequestOptions | undefined,
     options?: Core.RequestOptions,
-  ): Core.APIListPromise<Account> {
+  ): Core.PagePromise<AccountsPage> {
     if (isRequestOptions(query)) {
       options = query;
-      query = null;
+      query = undefined;
     }
 
-    return this.getAPIList('/accounts', { query, ...options });
+    return this.getAPIList('/accounts', AccountsPage, { query, ...options });
   }
 }
+
+export class AccountsPage extends Page<Account> {}
 
 export interface Account {
   /**
@@ -141,7 +144,7 @@ export namespace AccountUpdateParams {
   }
 }
 
-export interface AccountListParams {
+export interface AccountListParams extends PageParams {
   /**
    * Date string in 8601 format. Only entries created after the specified date will
    * be included. UTC time zone.
@@ -153,14 +156,4 @@ export interface AccountListParams {
    * be included. UTC time zone.
    */
   end?: string;
-
-  /**
-   * Page (for pagination).
-   */
-  page?: number;
-
-  /**
-   * Page size (for pagination).
-   */
-  page_size?: number;
 }

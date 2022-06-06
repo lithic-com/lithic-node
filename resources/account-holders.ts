@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless.
 
-import * as Core from '../core';
-import { isRequestOptions } from '../core';
+import * as Core from '~/core';
+import { isRequestOptions } from '~/core';
 import * as Shared from './shared';
 
 export class AccountHolders extends Core.APIResource {
@@ -266,8 +266,9 @@ export namespace AccountHolderCreateParams {
     individual: KYC.Individual;
 
     /**
-     * An ISO 8601 timestamp indicating when Lithic's terms of service were accepted by
-     * the API customer.
+     * An ISO 8601 timestamp indicating when the account holder accepted the applicable
+     * legal agreements (e.g., cardholder terms) as agreed upon during API customer's
+     * implementation with Lithic.
      */
     tos_timestamp: string;
 
@@ -414,8 +415,9 @@ export namespace AccountHolderCreateParams {
     nature_of_business: string;
 
     /**
-     * An ISO 8601 timestamp indicating when Lithic's terms of service were accepted by
-     * the API customer.
+     * An ISO 8601 timestamp indicating when the account holder accepted the applicable
+     * legal agreements (e.g., cardholder terms) as agreed upon during API customer's
+     * implementation with Lithic.
      */
     tos_timestamp: string;
 
@@ -762,8 +764,9 @@ export interface AccountHolderResubmitParams {
   individual: AccountHolderResubmitParams.Individual;
 
   /**
-   * An ISO 8601 timestamp indicating when Lithic's terms of service were accepted by
-   * the API customer.
+   * An ISO 8601 timestamp indicating when the account holder accepted the applicable
+   * legal agreements (e.g., cardholder terms) as agreed upon during API customer's
+   * implementation with Lithic.
    */
   tos_timestamp: string;
 
