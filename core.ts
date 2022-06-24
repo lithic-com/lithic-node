@@ -456,6 +456,7 @@ export const isRequestOptions = (obj: unknown): obj is RequestOptions => {
   return (
     typeof obj === 'object' &&
     obj !== null &&
+    !isEmptyObj(obj) &&
     Object.keys(obj).every((k) => Object.hasOwn(requestOptionsKeys, k))
   );
 };
@@ -656,3 +657,17 @@ export const multipartFormRequestOptions = <T = Record<string, unknown>>(
     body: Readable.from(encoder),
   };
 };
+
+export const coerceInteger = (value: unknown): number => {
+  if (typeof value === 'number') return Math.round(value);
+  if (typeof value === 'string') return parseInt(value);
+
+  throw new Error(`Could not coerce ${value} (type: ${typeof value}) into a number`);
+};
+
+// https://stackoverflow.com/a/34491287
+export function isEmptyObj(obj: Object | null | undefined): boolean {
+  if (!obj) return true;
+  for (const _k in obj) return false;
+  return true;
+}

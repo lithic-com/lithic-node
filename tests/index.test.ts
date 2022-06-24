@@ -16,7 +16,7 @@ describe('instantiate client', () => {
     process.env = env;
   });
 
-  test('with no arguments', () => {
+  test('with minimal arguments', () => {
     // fails if no api key provided
     expect(() => {
       new Lithic();
@@ -31,26 +31,14 @@ describe('instantiate client', () => {
   test('with apiKey argument', () => {
     process.env['LITHIC_API_KEY'] = 'env var api key';
 
-    // only apiKey arg
-    let client = new Lithic('my api key');
-    expect(client.apiKey).toBe('my api key');
-    expect(console.warn).toBeCalled();
-
-    // apiKey and an option object
-    client = new Lithic('my api key', {});
-    expect(client.apiKey).toBe('my api key');
-    expect(console.warn).toBeCalled();
-
-    // apiKey arg and apiKey option
-    client = new Lithic('my api key', { apiKey: 'another api key' });
+    const client = new Lithic({ apiKey: 'another api key' });
     expect(client.apiKey).toBe('another api key');
-    expect(console.warn).toBeCalled();
   });
 
   test('with options argument', () => {
     process.env['LITHIC_API_KEY'] = 'env var api key';
 
-    // apiKey arg and apiKey option
+    // apiKey
     const client = new Lithic({ apiKey: 'my api key' });
     expect(client.apiKey).toBe('my api key');
   });
