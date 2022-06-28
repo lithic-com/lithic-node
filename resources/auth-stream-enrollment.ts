@@ -40,9 +40,10 @@ export class AuthStreamEnrollmentResource extends Core.APIResource {
     body?: AuthStreamEnrollmentEnrollParams | Core.RequestOptions | undefined,
     options?: Core.RequestOptions,
   ): Promise<void> {
-    if (isRequestOptions(body)) {
+    if (body === undefined) body = {};
+    else if (isRequestOptions(body)) {
       options = body;
-      body = undefined;
+      body = {};
     }
 
     return this.post('/auth_stream', { body, ...options, headers: { Accept: '', ...options?.headers } });

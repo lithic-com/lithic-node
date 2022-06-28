@@ -42,9 +42,10 @@ export class Cards extends Core.APIResource {
     query?: CardListParams | Core.RequestOptions | undefined,
     options?: Core.RequestOptions,
   ): Core.PagePromise<CardsPage> {
-    if (isRequestOptions(query)) {
+    if (query === undefined) query = {};
+    else if (isRequestOptions(query)) {
       options = query;
-      query = undefined;
+      query = {};
     }
 
     return this.getAPIList('/cards', CardsPage, { query, ...options });
@@ -84,9 +85,10 @@ export class Cards extends Core.APIResource {
     query?: CardEmbedParams | Core.RequestOptions | undefined,
     options?: Core.RequestOptions,
   ): Promise<string> {
-    if (isRequestOptions(query)) {
+    if (query === undefined) query = {};
+    else if (isRequestOptions(query)) {
       options = query;
-      query = undefined;
+      query = {};
     }
 
     return this.get('/embed/card', {

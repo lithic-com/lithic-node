@@ -40,9 +40,10 @@ export class FundingSources extends Core.APIResource {
     query?: FundingSourceListParams | Core.RequestOptions | undefined,
     options?: Core.RequestOptions,
   ): Core.PagePromise<FundingSourcesPage> {
-    if (isRequestOptions(query)) {
+    if (query === undefined) query = {};
+    else if (isRequestOptions(query)) {
       options = query;
-      query = undefined;
+      query = {};
     }
 
     return this.getAPIList('/funding_sources', FundingSourcesPage, { query, ...options });

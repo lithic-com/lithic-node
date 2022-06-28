@@ -1,5 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
-import { AbstractPage, APIResponse, APIClient, FinalRequestOptions } from './core';
+import { AbstractPage, APIResponse, APIClient, FinalRequestOptions, coerceInteger } from './core';
 
 export interface PageResponse<Item> {
   data: Array<Item>;
