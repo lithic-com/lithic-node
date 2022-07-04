@@ -550,8 +550,13 @@ export class APIConnectionTimeoutError extends APIConnectionError {
 
 let _packageVersion: string;
 const getPackageVersion = (): string => {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  return (_packageVersion ??= require(pkgUp.sync()!).version);
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    return (_packageVersion ??= require(pkgUp.sync()!).version);
+  } catch (e) {
+    console.debug(`Ignoring error while determing package version ${e}`);
+    return (_packageVersion = 'unknown');
+  }
 };
 
 declare const Deno: any;
