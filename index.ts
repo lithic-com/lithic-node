@@ -116,12 +116,15 @@ export namespace Lithic {
   export import AuthStreamEnrollmentEnrollParams = API.AuthStreamEnrollmentEnrollParams;
 
   export import Card = API.Card;
+  export import EmbedRequestParams = API.EmbedRequestParams;
   export import CardProvisionResponse = API.CardProvisionResponse;
   export import CardsPage = API.CardsPage;
   export import CardCreateParams = API.CardCreateParams;
   export import CardUpdateParams = API.CardUpdateParams;
   export import CardListParams = API.CardListParams;
   export import CardEmbedParams = API.CardEmbedParams;
+  export import CardGetEmbedHTMLParams = API.CardGetEmbedHTMLParams;
+  export import CardGetEmbedURLParams = API.CardGetEmbedURLParams;
   export import CardProvisionParams = API.CardProvisionParams;
   export import CardReissueParams = API.CardReissueParams;
 

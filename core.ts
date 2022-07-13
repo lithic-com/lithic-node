@@ -13,7 +13,7 @@ import { Readable } from 'stream';
 
 const isNode = typeof process !== 'undefined';
 let nodeFetch: typeof NodeFetch | undefined = undefined;
-let getDefaultAgent = (url: string): Agent | undefined => undefined;
+let getDefaultAgent = (_url: string): Agent | undefined => undefined;
 if (isNode) {
   /* eslint-disable @typescript-eslint/no-var-requires */
   nodeFetch = require('node-fetch');
@@ -210,7 +210,7 @@ export abstract class APIClient {
     return new PagePromise(this, requestPromise, options, Page);
   }
 
-  private buildURL<Req>(path: string, query: Req | undefined): string {
+  buildURL<Req>(path: string, query: Req | undefined): string {
     const url = isAbsoluteURL(path) ? new URL(path) : new URL(this.baseURL + path);
 
     if (query) {
