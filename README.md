@@ -102,7 +102,6 @@ and >=500 Internal errors will all be retried by default.
 
 You can use the `maxRetries` option to configure or disable this:
 
-<!-- prettier-ignore -->
 ```js
 // Configure the default for all requests:
 const lithic = new Lithic({
@@ -110,16 +109,18 @@ const lithic = new Lithic({
 });
 
 // Or, configure per-request:
-lithic.cards.list({ page_size: 10 }, {
-  maxRetries: 5,
-});
+lithic.cards.list(
+  { page_size: 10 },
+  {
+    maxRetries: 5,
+  },
+);
 ```
 
 ### Timeouts
 
 Requests time out after 60 seconds by default. You can configure this with a `timeout` option:
 
-<!-- prettier-ignore -->
 ```ts
 // Configure the default for all requests:
 const lithic = new Lithic({
@@ -127,9 +128,12 @@ const lithic = new Lithic({
 });
 
 // Override per-request:
-lithic.cards.list({ page_size: 10 }, {
-  timeout: 5 * 1000,
-});
+lithic.cards.list(
+  { page_size: 10 },
+  {
+    timeout: 5 * 1000,
+  },
+);
 ```
 
 On timeout, an `APIConnectionTimeoutError` is thrown.
@@ -158,7 +162,6 @@ By default, this library uses a stable agent for all http/https requests to reus
 
 If you would like to disable or customize this behavior, for example to use the API behind a proxy, you can pass an `httpAgent` which is used for all requests (be they http or https), for example:
 
-<!-- prettier-ignore -->
 ```ts
 import http from 'http';
 import HttpsProxyAgent from 'https-proxy-agent';
@@ -172,7 +175,7 @@ const lithic = new Lithic({
 lithic.cards.list({
   baseURL: 'http://localhost:8080/test-api',
   httpAgent: new http.Agent({ keepAlive: false }),
-})
+});
 ```
 
 ## Status
