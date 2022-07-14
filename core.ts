@@ -13,7 +13,7 @@ import { Readable } from 'stream';
 
 const isNode = typeof process !== 'undefined';
 let nodeFetch: typeof NodeFetch | undefined = undefined;
-let getDefaultAgent = (url: string): Agent | undefined => undefined;
+let getDefaultAgent = (_url: string): Agent | undefined => undefined;
 if (isNode) {
   /* eslint-disable @typescript-eslint/no-var-requires */
   nodeFetch = require('node-fetch');
