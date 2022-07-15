@@ -2,6 +2,7 @@
 
 import * as Core from '~/core';
 import { isRequestOptions } from '~/core';
+import { Page, PageParams } from '~/pagination';
 import * as Shared from './shared';
 
 export class FundingSources extends Core.APIResource {
@@ -33,22 +34,19 @@ export class FundingSources extends Core.APIResource {
   /**
    * List all the funding sources associated with the Lithic account.
    */
-  list(
-    query?: FundingSourceListParams,
-    options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<FundingSourceListResponse>>;
-  list(options?: Core.RequestOptions): Promise<Core.APIResponse<FundingSourceListResponse>>;
+  list(query?: FundingSourceListParams, options?: Core.RequestOptions): Core.PagePromise<FundingSourcesPage>;
+  list(options?: Core.RequestOptions): Core.PagePromise<FundingSourcesPage>;
   list(
     query?: FundingSourceListParams | Core.RequestOptions | undefined,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<FundingSourceListResponse>> {
+  ): Core.PagePromise<FundingSourcesPage> {
     if (query === undefined) query = {};
     else if (isRequestOptions(query)) {
       options = query;
       query = {};
     }
 
-    return this.get('/funding_sources', { query, ...options });
+    return this.getAPIList('/funding_sources', FundingSourcesPage, { query, ...options });
   }
 
   /**
@@ -63,6 +61,8 @@ export class FundingSources extends Core.APIResource {
     return this.post(`/funding_sources/${id}/verify`, { body, ...options });
   }
 }
+
+export class FundingSourcesPage extends Page<FundingSource> {}
 
 export interface FundingSource {
   /**
@@ -112,25 +112,6 @@ export interface FundingSource {
    * The nickname given to the `FundingAccount` or `null` if it has no nickname.
    */
   nickname?: string;
-}
-
-export interface FundingSourceListResponse {
-  data: Array<FundingSource>;
-
-  /**
-   * Page number. Will always be 1.
-   */
-  page: number;
-
-  /**
-   * Total number of entries.
-   */
-  total_entries: number;
-
-  /**
-   * Total number of pages. Will always be 1.
-   */
-  total_pages: number;
 }
 
 export type FundingSourceCreateParams = FundingSourceCreateParams.Bank | FundingSourceCreateParams.Plaid;
@@ -205,7 +186,7 @@ export interface FundingSourceUpdateParams {
   state?: 'DELETED' | 'ENABLED';
 }
 
-export interface FundingSourceListParams {
+export interface FundingSourceListParams extends PageParams {
   account_token?: string;
 }
 

@@ -129,7 +129,7 @@ export namespace Lithic {
   export import CardReissueParams = API.CardReissueParams;
 
   export import FundingSource = API.FundingSource;
-  export import FundingSourceListResponse = API.FundingSourceListResponse;
+  export import FundingSourcesPage = API.FundingSourcesPage;
   export import FundingSourceCreateParams = API.FundingSourceCreateParams;
   export import FundingSourceUpdateParams = API.FundingSourceUpdateParams;
   export import FundingSourceListParams = API.FundingSourceListParams;
