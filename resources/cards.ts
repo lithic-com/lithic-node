@@ -5,6 +5,7 @@ import { isRequestOptions } from '~/core';
 import { Page, PageParams } from '~/pagination';
 import * as Shared from './shared';
 import * as FundingSources from './funding-sources';
+import { createHmac } from 'crypto';
 
 export class Cards extends Core.APIResource {
   /**
@@ -96,6 +97,72 @@ export class Cards extends Core.APIResource {
       ...options,
       headers: { Accept: 'text/html', ...options?.headers },
     });
+  }
+
+  /**
+   * Handling full card PANs and CVV codes requires that you comply with the Payment
+   * Card Industry Data Security Standards (PCI DSS). Some clients choose to reduce
+   * their compliance obligations by leveraging our embedded card UI solution
+   * documented below.
+   *
+   * In this setup, PANs and CVV codes are presented to the end-user via a card UI
+   * that we provide, optionally styled in the customer's branding using a specified
+   * css stylesheet. A user's browser makes the request directly to api.lithic.com,
+   * so card PANs and CVVs never touch the API customer's servers while full card
+   * data is displayed to their end-users. The response contains an HTML document.
+   * This means that the url for the request can be inserted straight into the `src`
+   * attribute of an iframe.
+   *
+   * ```html
+   * <iframe
+   *   id="card-iframe"
+   *   src="https://sandbox.lithic.com/v1/embed/card?embed_request=eyJjc3MiO...;hmac=r8tx1..."
+   *   allow="clipboard-write"
+   *   class="content"
+   * ></iframe>
+   * ```
+   *
+   * You should compute the request payload on the server side. You can render it (or
+   * the whole iframe) on the server or make an ajax call from your front end code,
+   * but **do not ever embed your API key into front end code, as doing so introduces
+   * a serious security vulnerability**.
+   */
+  getEmbedHTML(query: CardGetEmbedHTMLParams, options?: Core.RequestOptions): Promise<string> {
+    return this.get(this.getEmbedURL(query), {
+      ...options,
+      headers: { Accept: 'text/html', ...options?.headers },
+    });
+  }
+
+  /**
+   * Handling full card PANs and CVV codes requires that you comply with the Payment
+   * Card Industry Data Security Standards (PCI DSS). Some clients choose to reduce
+   * their compliance obligations by leveraging our embedded card UI solution
+   * documented below. In this setup, PANs and CVV codes are presented to the
+   * end-user via a card UI that we provide, optionally styled in the customer's
+   * branding using a specified css stylesheet. A user's browser makes the request
+   * directly to api.lithic.com, so card PANs and CVVs never touch the API customer's
+   * servers while full card data is displayed to their end-users. The response
+   * contains an HTML document. This means that the url for the request can be
+   * inserted straight into the `src` attribute of an iframe.
+   * `html <iframe id="card-iframe" src="https://sandbox.lithic.com/v1/embed/card?embed_request=eyJjc3MiO...;hmac=r8tx1..." allow="clipboard-write" class="content" ></iframe> `
+   * You should compute the request payload on the server side. You can render it (or
+   * the whole iframe) on the server or make an ajax call from your front end code,
+   * but **do not ever embed your API key into front end code, as doing so introduces
+   * a serious security vulnerability**.
+   */
+  getEmbedURL(query: CardGetEmbedURLParams): string {
+    // Default expiration of 1 minute from now.
+    if (!query.expiration) {
+      const date = new Date();
+      date.setMinutes(date.getMinutes() + 1);
+      query.expiration = date.toISOString();
+    }
+
+    const serialized = JSON.stringify(query);
+    const hmac = createHmac('sha256', this.client.apiKey!).update(serialized).digest('base64');
+    const embedRequest = Buffer.from(serialized).toString('base64');
+    return this.client.buildURL('/embed/card', { hmac, embed_request: embedRequest });
   }
 
   /**
@@ -246,6 +313,37 @@ export interface Card {
    * [support@lithic.com](mailto:support@lithic.com) for questions.
    */
   pan?: string;
+}
+
+export interface EmbedRequestParams {
+  /**
+   * Globally unique identifier for the card to be displayed.
+   */
+  token: string;
+
+  /**
+   * Only needs to be included if one or more end-users have been enrolled.
+   */
+  account_token?: string;
+
+  /**
+   * A publicly available URI, so the white-labeled card element can be styled with
+   * the client's branding.
+   */
+  css?: string;
+
+  /**
+   * An ISO 8601 timestamp for when the request should expire. UTC time zone.
+   *
+   * If no timezone is specified, UTC will be used. If payload does not contain an
+   * expiration, the request will never expire.
+   *
+   * Using an `expiration` reduces the risk of a
+   * [replay attack](https://en.wikipedia.org/wiki/Replay_attack). Without supplying
+   * the `expiration`, in the event that a malicious user gets a copy of your request
+   * in transit, they will be able to obtain the response data indefinitely.
+   */
+  expiration?: string;
 }
 
 export interface CardProvisionResponse {
@@ -466,6 +564,68 @@ export interface CardEmbedParams {
    * SHA2 HMAC of the embed_request JSON string with base64 digest.
    */
   hmac?: string;
+}
+
+export interface CardGetEmbedHTMLParams {
+  /**
+   * Globally unique identifier for the card to be displayed.
+   */
+  token: string;
+
+  /**
+   * Only needs to be included if one or more end-users have been enrolled.
+   */
+  account_token?: string;
+
+  /**
+   * A publicly available URI, so the white-labeled card element can be styled with
+   * the client's branding.
+   */
+  css?: string;
+
+  /**
+   * An ISO 8601 timestamp for when the request should expire. UTC time zone.
+   *
+   * If no timezone is specified, UTC will be used. If payload does not contain an
+   * expiration, the request will never expire.
+   *
+   * Using an `expiration` reduces the risk of a
+   * [replay attack](https://en.wikipedia.org/wiki/Replay_attack). Without supplying
+   * the `expiration`, in the event that a malicious user gets a copy of your request
+   * in transit, they will be able to obtain the response data indefinitely.
+   */
+  expiration?: string;
+}
+
+export interface CardGetEmbedURLParams {
+  /**
+   * Globally unique identifier for the card to be displayed.
+   */
+  token: string;
+
+  /**
+   * Only needs to be included if one or more end-users have been enrolled.
+   */
+  account_token?: string;
+
+  /**
+   * A publicly available URI, so the white-labeled card element can be styled with
+   * the client's branding.
+   */
+  css?: string;
+
+  /**
+   * An ISO 8601 timestamp for when the request should expire. UTC time zone.
+   *
+   * If no timezone is specified, UTC will be used. If payload does not contain an
+   * expiration, the request will never expire.
+   *
+   * Using an `expiration` reduces the risk of a
+   * [replay attack](https://en.wikipedia.org/wiki/Replay_attack). Without supplying
+   * the `expiration`, in the event that a malicious user gets a copy of your request
+   * in transit, they will be able to obtain the response data indefinitely.
+   */
+  expiration?: string;
 }
 
 export interface CardProvisionParams {

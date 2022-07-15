@@ -210,7 +210,7 @@ export abstract class APIClient {
     return new PagePromise(this, requestPromise, options, Page);
   }
 
-  private buildURL<Req>(path: string, query: Req | undefined): string {
+  buildURL<Req>(path: string, query: Req | undefined): string {
     const url = isAbsoluteURL(path) ? new URL(path) : new URL(this.baseURL + path);
 
     if (query) {
