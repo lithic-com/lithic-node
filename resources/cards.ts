@@ -338,6 +338,14 @@ export interface EmbedRequestParams {
    * in transit, they will be able to obtain the response data indefinitely.
    */
   expiration?: string;
+
+  /**
+   * Required if you want to post the element clicked to the parent iframe.
+   *
+   * If you supply this param, you can also capture click events in the parent iframe
+   * by adding an event listener.
+   */
+  target_origin?: string;
 }
 
 export interface CardProvisionResponse {
@@ -589,6 +597,14 @@ export interface CardGetEmbedHTMLParams {
    * in transit, they will be able to obtain the response data indefinitely.
    */
   expiration?: string;
+
+  /**
+   * Required if you want to post the element clicked to the parent iframe.
+   *
+   * If you supply this param, you can also capture click events in the parent iframe
+   * by adding an event listener.
+   */
+  target_origin?: string;
 }
 
 export interface CardGetEmbedURLParams {
@@ -620,6 +636,14 @@ export interface CardGetEmbedURLParams {
    * in transit, they will be able to obtain the response data indefinitely.
    */
   expiration?: string;
+
+  /**
+   * Required if you want to post the element clicked to the parent iframe.
+   *
+   * If you supply this param, you can also capture click events in the parent iframe
+   * by adding an event listener.
+   */
+  target_origin?: string;
 }
 
 export interface CardProvisionParams {
