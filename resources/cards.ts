@@ -100,6 +100,24 @@ export class Cards extends Core.APIResource {
   }
 
   /**
+   * Generates and executes an embed request, returning html you can serve to the
+   * user.
+   *
+   * Be aware that this html contains sensitive data whose presence on your server
+   * could trigger PCI DSS.
+   *
+   * If your company is not certified PCI compliant, we recommend using
+   * `get_embed_url()` instead. You would then pass that returned URL to the
+   * frontend, where you can load it via an iframe.
+   */
+  getEmbedHTML(query: CardGetEmbedHTMLParams, options?: Core.RequestOptions): Promise<string> {
+    return this.get(this.getEmbedURL(query), {
+      ...options,
+      headers: { Accept: 'text/html', ...options?.headers },
+    });
+  }
+
+  /**
    * Handling full card PANs and CVV codes requires that you comply with the Payment
    * Card Industry Data Security Standards (PCI DSS). Some clients choose to reduce
    * their compliance obligations by leveraging our embedded card UI solution
@@ -122,30 +140,6 @@ export class Cards extends Core.APIResource {
    * ></iframe>
    * ```
    *
-   * You should compute the request payload on the server side. You can render it (or
-   * the whole iframe) on the server or make an ajax call from your front end code,
-   * but **do not ever embed your API key into front end code, as doing so introduces
-   * a serious security vulnerability**.
-   */
-  getEmbedHTML(query: CardGetEmbedHTMLParams, options?: Core.RequestOptions): Promise<string> {
-    return this.get(this.getEmbedURL(query), {
-      ...options,
-      headers: { Accept: 'text/html', ...options?.headers },
-    });
-  }
-
-  /**
-   * Handling full card PANs and CVV codes requires that you comply with the Payment
-   * Card Industry Data Security Standards (PCI DSS). Some clients choose to reduce
-   * their compliance obligations by leveraging our embedded card UI solution
-   * documented below. In this setup, PANs and CVV codes are presented to the
-   * end-user via a card UI that we provide, optionally styled in the customer's
-   * branding using a specified css stylesheet. A user's browser makes the request
-   * directly to api.lithic.com, so card PANs and CVVs never touch the API customer's
-   * servers while full card data is displayed to their end-users. The response
-   * contains an HTML document. This means that the url for the request can be
-   * inserted straight into the `src` attribute of an iframe.
-   * `html <iframe id="card-iframe" src="https://sandbox.lithic.com/v1/embed/card?embed_request=eyJjc3MiO...;hmac=r8tx1..." allow="clipboard-write" class="content" ></iframe> `
    * You should compute the request payload on the server side. You can render it (or
    * the whole iframe) on the server or make an ajax call from your front end code,
    * but **do not ever embed your API key into front end code, as doing so introduces
