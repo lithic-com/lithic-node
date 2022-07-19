@@ -34,13 +34,11 @@ export class Accounts extends Core.APIResource {
   list(query?: AccountListParams, options?: Core.RequestOptions): Core.PagePromise<AccountsPage>;
   list(options?: Core.RequestOptions): Core.PagePromise<AccountsPage>;
   list(
-    query?: AccountListParams | Core.RequestOptions | undefined,
+    query: AccountListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.PagePromise<AccountsPage> {
-    if (query === undefined) query = {};
-    else if (isRequestOptions(query)) {
-      options = query;
-      query = {};
+    if (isRequestOptions(query)) {
+      return this.list({}, query);
     }
 
     return this.getAPIList('/accounts', AccountsPage, { query, ...options });

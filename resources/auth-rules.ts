@@ -45,13 +45,11 @@ export class AuthRules extends Core.APIResource {
   ): Promise<Core.APIResponse<AuthRuleListResponse>>;
   list(options?: Core.RequestOptions): Promise<Core.APIResponse<AuthRuleListResponse>>;
   list(
-    query?: AuthRuleListParams | Core.RequestOptions | undefined,
+    query: AuthRuleListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<AuthRuleListResponse>> {
-    if (query === undefined) query = {};
-    else if (isRequestOptions(query)) {
-      options = query;
-      query = {};
+    if (isRequestOptions(query)) {
+      return this.list({}, query);
     }
 
     return this.get('/auth_rules', { query, ...options });

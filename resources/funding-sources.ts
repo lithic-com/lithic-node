@@ -37,13 +37,11 @@ export class FundingSources extends Core.APIResource {
   list(query?: FundingSourceListParams, options?: Core.RequestOptions): Core.PagePromise<FundingSourcesPage>;
   list(options?: Core.RequestOptions): Core.PagePromise<FundingSourcesPage>;
   list(
-    query?: FundingSourceListParams | Core.RequestOptions | undefined,
+    query: FundingSourceListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.PagePromise<FundingSourcesPage> {
-    if (query === undefined) query = {};
-    else if (isRequestOptions(query)) {
-      options = query;
-      query = {};
+    if (isRequestOptions(query)) {
+      return this.list({}, query);
     }
 
     return this.getAPIList('/funding_sources', FundingSourcesPage, { query, ...options });

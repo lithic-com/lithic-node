@@ -20,13 +20,11 @@ export class Transactions extends Core.APIResource {
   list(query?: TransactionListParams, options?: Core.RequestOptions): Core.PagePromise<TransactionsPage>;
   list(options?: Core.RequestOptions): Core.PagePromise<TransactionsPage>;
   list(
-    query?: TransactionListParams | Core.RequestOptions | undefined,
+    query: TransactionListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.PagePromise<TransactionsPage> {
-    if (query === undefined) query = {};
-    else if (isRequestOptions(query)) {
-      options = query;
-      query = {};
+    if (isRequestOptions(query)) {
+      return this.list({}, query);
     }
 
     return this.getAPIList('/transactions', TransactionsPage, { query, ...options });

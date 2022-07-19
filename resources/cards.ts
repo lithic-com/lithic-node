@@ -40,13 +40,11 @@ export class Cards extends Core.APIResource {
   list(query?: CardListParams, options?: Core.RequestOptions): Core.PagePromise<CardsPage>;
   list(options?: Core.RequestOptions): Core.PagePromise<CardsPage>;
   list(
-    query?: CardListParams | Core.RequestOptions | undefined,
+    query: CardListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.PagePromise<CardsPage> {
-    if (query === undefined) query = {};
-    else if (isRequestOptions(query)) {
-      options = query;
-      query = {};
+    if (isRequestOptions(query)) {
+      return this.list({}, query);
     }
 
     return this.getAPIList('/cards', CardsPage, { query, ...options });
@@ -82,14 +80,9 @@ export class Cards extends Core.APIResource {
    */
   embed(query?: CardEmbedParams, options?: Core.RequestOptions): Promise<string>;
   embed(options?: Core.RequestOptions): Promise<string>;
-  embed(
-    query?: CardEmbedParams | Core.RequestOptions | undefined,
-    options?: Core.RequestOptions,
-  ): Promise<string> {
-    if (query === undefined) query = {};
-    else if (isRequestOptions(query)) {
-      options = query;
-      query = {};
+  embed(query: CardEmbedParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Promise<string> {
+    if (isRequestOptions(query)) {
+      return this.embed({}, query);
     }
 
     return this.get('/embed/card', {
