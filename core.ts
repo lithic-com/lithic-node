@@ -37,6 +37,7 @@ export abstract class APIClient {
   httpAgent: Agent | undefined;
 
   private fetch: typeof NodeFetch;
+  protected idempotencyHeader?: string;
 
   constructor({
     apiKey,
@@ -100,6 +101,10 @@ export abstract class APIClient {
     return {};
   }
 
+  protected defaultIdempotencyKey(): string {
+    return `stainless-node-retry-${uuid4()}`;
+  }
+
   get<Req, Rsp>(path: string, opts?: RequestOptions<Req>): Promise<Rsp> {
     return this.request({ method: 'get', path, ...opts });
   }
@@ -128,7 +133,7 @@ export abstract class APIClient {
     options: FinalRequestOptions<Req>,
     retriesRemaining = options.maxRetries ?? this.maxRetries,
   ): Promise<APIResponse<Rsp>> {
-    const { method, path, query, headers } = options;
+    const { method, path, query, headers: headers = {} } = options;
     const body =
       options.body instanceof Readable
         ? options.body
@@ -141,6 +146,11 @@ export abstract class APIClient {
     const httpAgent = options.httpAgent ?? this.httpAgent ?? getDefaultAgent(url);
     const timeout = options.timeout ?? this.timeout;
     validatePositiveInteger('timeout', timeout);
+
+    if (this.idempotencyHeader && method !== 'get') {
+      if (!options.idempotencyKey) options.idempotencyKey = this.defaultIdempotencyKey();
+      headers[this.idempotencyHeader] = options.idempotencyKey;
+    }
 
     const req: RequestInit = {
       method,
@@ -466,6 +476,7 @@ export const isRequestOptions = (obj: unknown): obj is RequestOptions => {
 export type FinalRequestOptions<Req extends {} = Record<string, unknown> | Readable> = RequestOptions<Req> & {
   method: HTTPMethod;
   path: string;
+  idempotencyKey?: string;
 };
 
 export type APIResponse<T> = T & {
@@ -678,3 +689,14 @@ export function isEmptyObj(obj: Object | null | undefined): boolean {
   for (const _k in obj) return false;
   return true;
 }
+
+/**
+ * https://stackoverflow.com/a/2117523
+ */
+const uuid4 = () => {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+};
