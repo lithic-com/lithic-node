@@ -156,9 +156,9 @@ export class Cards extends Core.APIResource {
    * Allow your cardholders to directly add payment cards to the device's digital
    * wallet (e.g. Apple Pay) with one touch from your app.
    *
-   * This requires some additional setup and configuration. Reach out at
-   * [lithic.com/contact](https://lithic.com/contact) or your account rep for more
-   * information.
+   * This requires some additional setup and configuration. Please
+   * [Contact Us](https://lithic.com/contact) or your Customer Success representative
+   * for more information.
    */
   provision(
     id: string,
@@ -250,8 +250,6 @@ export interface Card {
   /**
    * Card types:
    *
-   * - `DIGITAL_WALLET` - Cards that can be provisioned to a digital wallet like
-   *   Google Pay or Apple Wallet.
    * - `MERCHANT_LOCKED` - Card is locked to first merchant that successfully
    *   authorizes the card.
    * - `PHYSICAL` - Manufactured and sent to the cardholder. We offer white label
@@ -259,10 +257,11 @@ export interface Card {
    *   Reach out at [lithic.com/contact](https://lithic.com/contact) for more
    *   information.
    * - `SINGLE_USE` - Card will close shortly after the first transaction.
-   * - `UNLOCKED` - Card will authorize at any merchant. Creating these cards
-   *   requires additional privileges.
+   * - `VIRTUAL` - Card will authorize at any merchant and can be added to a digital
+   *   wallet like Apple Pay or Google Pay (if the card program is digital
+   *   wallet-enabled).
    */
-  type: 'DIGITAL_WALLET' | 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'UNLOCKED';
+  type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL';
 
   /**
    * List of identifiers for the Auth Rule(s) that are applied on the card.
@@ -349,8 +348,6 @@ export interface CardCreateParams {
   /**
    * Card types:
    *
-   * - `DIGITAL_WALLET` - Cards that can be provisioned to a digital wallet like
-   *   Google Pay or Apple Wallet.
    * - `MERCHANT_LOCKED` - Card is locked to first merchant that successfully
    *   authorizes the card.
    * - `PHYSICAL` - Manufactured and sent to the cardholder. We offer white label
@@ -358,16 +355,17 @@ export interface CardCreateParams {
    *   Reach out at [lithic.com/contact](https://lithic.com/contact) for more
    *   information.
    * - `SINGLE_USE` - Card will close shortly after the first transaction.
-   * - `UNLOCKED` - Card will authorize at any merchant. Creating these cards
-   *   requires additional privileges.
+   * - `VIRTUAL` - Card will authorize at any merchant and can be added to a digital
+   *   wallet like Apple Pay or Google Pay (if the card program is digital
+   *   wallet-enabled).
    */
-  type: 'DIGITAL_WALLET' | 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'UNLOCKED';
+  type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL';
 
   /**
    * Only required for multi-account users. Token identifying the account the card
-   * will be associated with. Only applicable if using account enrollment. See
-   * [Managing Accounts](https://docs.lithic.com/docs/managing-accounts) for more
-   * information.
+   * will be associated with. Only applicable if using account holder enrollment. See
+   * [Managing Your Program](https://docs.lithic.com/docs/managing-your-program) for
+   * more information.
    */
   account_token?: string;
 
@@ -402,8 +400,8 @@ export interface CardCreateParams {
   memo?: string;
 
   /**
-   * Encrypted PIN block (in base64). Only applies to cards of type `PHYSICAL`
-   * [beta], `UNLOCKED`, and `DIGITAL_WALLET`. See
+   * Encrypted PIN block (in base64). Only applies to cards of type `PHYSICAL` and
+   * `VIRTUAL`. See
    * [Encrypted PIN Block](https://docs.lithic.com/docs/cards#encrypted-pin-block-enterprise).
    */
   pin?: string;
@@ -464,9 +462,9 @@ export interface CardCreateParams {
 export interface CardUpdateParams {
   /**
    * Only required for multi-account users. Token identifying the account the card
-   * will be associated with. Only applicable if using account enrollment. See
-   * [Managing Accounts](https://docs.lithic.com/docs/managing-accounts) for more
-   * information.
+   * will be associated with. Only applicable if using account holder enrollment. See
+   * [Managing Your Program](https://docs.lithic.com/docs/managing-your-program) for
+   * more information.
    */
   account_token?: string;
 
@@ -488,8 +486,8 @@ export interface CardUpdateParams {
   memo?: string;
 
   /**
-   * Encrypted PIN block (in base64). Only applies to cards of type `PHYSICAL`
-   * [beta], `UNLOCKED`, and `DIGITAL_WALLET`. See
+   * Encrypted PIN block (in base64). Only applies to cards of type `PHYSICAL` and
+   * `VIRTUAL`. See
    * [Encrypted PIN Block](https://docs.lithic.com/docs/cards#encrypted-pin-block-enterprise).
    */
   pin?: string;
@@ -530,9 +528,9 @@ export interface CardUpdateParams {
 export interface CardListParams extends PageParams {
   /**
    * Only required for multi-account users. Returns cards associated with this
-   * account. Only applicable if using account enrollment. See
-   * [Managing Accounts](https://docs.lithic.com/docs/managing-accounts) for more
-   * information.
+   * account. Only applicable if using account holder enrollment. See
+   * [Managing Your Program](https://docs.lithic.com/docs/managing-your-program) for
+   * more information.
    */
   account_token?: string;
 
@@ -642,9 +640,9 @@ export interface CardGetEmbedURLParams {
 export interface CardProvisionParams {
   /**
    * Only required for multi-account users. Token identifying the account the card
-   * will be associated with. Only applicable if using account enrollment. See
-   * [Managing Accounts](https://docs.lithic.com/docs/managing-accounts) for more
-   * information.
+   * will be associated with. Only applicable if using account holder enrollment. See
+   * [Managing Your Program](https://docs.lithic.com/docs/managing-your-program) for
+   * more information.
    */
   account_token?: string;
 
@@ -656,8 +654,7 @@ export interface CardProvisionParams {
   certificate?: string;
 
   /**
-   * Currently `APPLE_PAY` and `SAMSUNG_PAY` are supported (`GOOGLE_PAY` coming
-   * soon).
+   * Name of digital wallet provider.
    */
   digital_wallet?: 'APPLE_PAY' | 'GOOGLE_PAY' | 'SAMSUNG_PAY';
 
@@ -686,4 +683,17 @@ export interface CardReissueParams {
    * If omitted, the previous shipping address will be used.
    */
   shipping_address?: Shared.ShippingAddress;
+
+  /**
+   * Shipping method for the card. Use of options besides `STANDARD` require
+   * additional permissions.
+   *
+   * - `STANDARD` - USPS regular mail or similar international option, with no
+   *   tracking
+   * - `STANDARD_WITH_TRACKING` - USPS regular mail or similar international option,
+   *   with tracking
+   * - `EXPEDITED` - FedEx Standard Overnight or similar international option, with
+   *   tracking
+   */
+  shipping_method?: 'STANDARD' | 'STANDARD_WITH_TRACKING' | 'EXPEDITED';
 }

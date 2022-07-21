@@ -5,7 +5,7 @@ const lithic = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:
 
 describe('resource cards', () => {
   test('create: only required params', async () => {
-    const response = await lithic.cards.create({ type: 'DIGITAL_WALLET' });
+    const response = await lithic.cards.create({ type: 'MERCHANT_LOCKED' });
   });
 
   test('create: required and optional params', async () => {
@@ -19,7 +19,7 @@ describe('resource cards', () => {
       spend_limit: 0,
       spend_limit_duration: 'ANNUALLY',
       state: 'OPEN',
-      type: 'DIGITAL_WALLET',
+      type: 'MERCHANT_LOCKED',
       pin: 'string',
       product_id: '1',
       shipping_address: {
@@ -169,6 +169,7 @@ describe('resource cards', () => {
         email: 'johnny@appleseed.com',
         phone_number: '+12124007676',
       },
+      shipping_method: 'STANDARD',
       product_id: 'string',
     });
   });

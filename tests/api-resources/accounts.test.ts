@@ -15,11 +15,13 @@ describe('resource accounts', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  test('update: only required params', async () => {
+  // Prism returns invalid data
+  test.skip('update: only required params', async () => {
     const response = await lithic.accounts.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
   });
 
-  test('update: required and optional params', async () => {
+  // Prism returns invalid data
+  test.skip('update: required and optional params', async () => {
     const response = await lithic.accounts.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       daily_spend_limit: 0,
       lifetime_spend_limit: 0,

@@ -255,118 +255,9 @@ export interface AccountHolderListDocumentsResponse {
   data?: Array<AccountHolderDocument>;
 }
 
-export type AccountHolderCreateParams = AccountHolderCreateParams.KYC | AccountHolderCreateParams.KYB;
+export type AccountHolderCreateParams = AccountHolderCreateParams.KYB | AccountHolderCreateParams.KYC;
 
 export namespace AccountHolderCreateParams {
-  export interface KYC {
-    /**
-     * Information on individual for whom the account is being opened and KYC is being
-     * run.
-     */
-    individual: KYC.Individual;
-
-    /**
-     * An ISO 8601 timestamp indicating when the account holder accepted the applicable
-     * legal agreements (e.g., cardholder terms) as agreed upon during API customer's
-     * implementation with Lithic.
-     */
-    tos_timestamp: string;
-
-    /**
-     * Specifies the type of KYC workflow to run.
-     */
-    workflow: 'KYC_ADVANCED' | 'KYC_BASIC' | 'KYC_BYO';
-
-    /**
-     * An ISO 8601 timestamp indicating when precomputed KYC was completed on the
-     * individual with a pass result.
-     *
-     * This field is required only if workflow type is `KYC_BYO`.
-     */
-    kyc_passed_timestamp?: string;
-  }
-
-  export namespace KYC {
-    export interface Individual {
-      /**
-       * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-       * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
-       */
-      address: Individual.Address;
-
-      /**
-       * Individual's date of birth, as an ISO 8601 date.
-       */
-      dob: string;
-
-      /**
-       * Individual's email address. If utilizing Lithic for chargeback processing, this
-       * customer email address may be used to communicate dispute status and resolution.
-       */
-      email: string;
-
-      /**
-       * Individual's first name, as it appears on government-issued identity documents.
-       */
-      first_name: string;
-
-      /**
-       * Government-issued identification number (required for identity verification and
-       * compliance with banking regulations). Social Security Numbers (SSN) and
-       * Individual Taxpayer Identification Numbers (ITIN) are currently supported,
-       * entered as full nine-digits, with or without hyphens
-       */
-      government_id: string;
-
-      /**
-       * Individual's last name, as it appears on government-issued identity documents.
-       */
-      last_name: string;
-
-      /**
-       * Individual's phone number, entered in E.164 format.
-       */
-      phone_number: string;
-    }
-
-    export namespace Individual {
-      export interface Address {
-        /**
-         * Valid deliverable address (no PO boxes).
-         */
-        address1: string;
-
-        /**
-         * Name of city.
-         */
-        city: string;
-
-        /**
-         * Valid country code. Only USA is currently supported, entered in uppercase ISO
-         * 3166-1 alpha-3 three-character format.
-         */
-        country: string;
-
-        /**
-         * Valid postal code. Only USA ZIP codes are currently supported, entered as a
-         * five-digit ZIP or nine-digit ZIP+4.
-         */
-        postal_code: string;
-
-        /**
-         * Valid state code. Only USA state codes are currently supported, entered in
-         * uppercase ISO 3166-2 two-character format.
-         */
-        state: string;
-
-        /**
-         * Unit or apartment number (if applicable).
-         */
-        address2?: string;
-      }
-    }
-  }
-
   export interface KYB {
     /**
      * List of all entities with >25% ownership in the company. If no entity or
@@ -711,6 +602,115 @@ export namespace AccountHolderCreateParams {
     }
 
     export namespace ControlPerson {
+      export interface Address {
+        /**
+         * Valid deliverable address (no PO boxes).
+         */
+        address1: string;
+
+        /**
+         * Name of city.
+         */
+        city: string;
+
+        /**
+         * Valid country code. Only USA is currently supported, entered in uppercase ISO
+         * 3166-1 alpha-3 three-character format.
+         */
+        country: string;
+
+        /**
+         * Valid postal code. Only USA ZIP codes are currently supported, entered as a
+         * five-digit ZIP or nine-digit ZIP+4.
+         */
+        postal_code: string;
+
+        /**
+         * Valid state code. Only USA state codes are currently supported, entered in
+         * uppercase ISO 3166-2 two-character format.
+         */
+        state: string;
+
+        /**
+         * Unit or apartment number (if applicable).
+         */
+        address2?: string;
+      }
+    }
+  }
+
+  export interface KYC {
+    /**
+     * Information on individual for whom the account is being opened and KYC is being
+     * run.
+     */
+    individual: KYC.Individual;
+
+    /**
+     * An ISO 8601 timestamp indicating when the account holder accepted the applicable
+     * legal agreements (e.g., cardholder terms) as agreed upon during API customer's
+     * implementation with Lithic.
+     */
+    tos_timestamp: string;
+
+    /**
+     * Specifies the type of KYC workflow to run.
+     */
+    workflow: 'KYC_ADVANCED' | 'KYC_BASIC' | 'KYC_BYO';
+
+    /**
+     * An ISO 8601 timestamp indicating when precomputed KYC was completed on the
+     * individual with a pass result.
+     *
+     * This field is required only if workflow type is `KYC_BYO`.
+     */
+    kyc_passed_timestamp?: string;
+  }
+
+  export namespace KYC {
+    export interface Individual {
+      /**
+       * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
+       * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+       */
+      address: Individual.Address;
+
+      /**
+       * Individual's date of birth, as an ISO 8601 date.
+       */
+      dob: string;
+
+      /**
+       * Individual's email address. If utilizing Lithic for chargeback processing, this
+       * customer email address may be used to communicate dispute status and resolution.
+       */
+      email: string;
+
+      /**
+       * Individual's first name, as it appears on government-issued identity documents.
+       */
+      first_name: string;
+
+      /**
+       * Government-issued identification number (required for identity verification and
+       * compliance with banking regulations). Social Security Numbers (SSN) and
+       * Individual Taxpayer Identification Numbers (ITIN) are currently supported,
+       * entered as full nine-digits, with or without hyphens
+       */
+      government_id: string;
+
+      /**
+       * Individual's last name, as it appears on government-issued identity documents.
+       */
+      last_name: string;
+
+      /**
+       * Individual's phone number, entered in E.164 format.
+       */
+      phone_number: string;
+    }
+
+    export namespace Individual {
       export interface Address {
         /**
          * Valid deliverable address (no PO boxes).

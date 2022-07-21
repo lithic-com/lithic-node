@@ -390,9 +390,9 @@ export interface TransactionSimulateVoidResponse {
 export interface TransactionListParams extends PageParams {
   /**
    * Only required for multi-account users. Returns transactions associated with this
-   * account. Only applicable if using account enrollment. See
-   * [Managing Accounts](https://docs.lithic.com/docs/managing-accounts) for more
-   * information.
+   * account. Only applicable if using account holder enrollment. See
+   * [Managing Your Program](https://docs.lithic.com/docs/managing-your-program) for
+   * more information.
    */
   account_token?: string;
 

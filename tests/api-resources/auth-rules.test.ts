@@ -15,9 +15,9 @@ describe('resource auth_rules', () => {
       allowed_countries: ['string', 'string', 'string'],
       blocked_countries: ['string', 'string', 'string'],
       avs_type: 'ZIP_ONLY',
-      card_tokens: ['string', 'string', 'string'],
       account_tokens: ['string', 'string', 'string'],
-      program_level: true,
+      card_tokens: ['string', 'string', 'string'],
+      program_level: false,
     });
   });
 

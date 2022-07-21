@@ -103,9 +103,9 @@ export namespace Lithic {
   export import AuthRuleCreateResponse = API.AuthRuleCreateResponse;
   export import AuthRuleRetrieveResponse = API.AuthRuleRetrieveResponse;
   export import AuthRuleUpdateResponse = API.AuthRuleUpdateResponse;
-  export import AuthRuleListResponse = API.AuthRuleListResponse;
   export import AuthRuleApplyResponse = API.AuthRuleApplyResponse;
   export import AuthRuleRemoveResponse = API.AuthRuleRemoveResponse;
+  export import AuthRulesPage = API.AuthRulesPage;
   export import AuthRuleCreateParams = API.AuthRuleCreateParams;
   export import AuthRuleUpdateParams = API.AuthRuleUpdateParams;
   export import AuthRuleListParams = API.AuthRuleListParams;

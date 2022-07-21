@@ -137,10 +137,10 @@ export namespace FundingSourceCreateParams {
 
     /**
      * Only required for multi-account users. Token identifying the account that the
-     * bank account will be associated with. Only applicable if using account
+     * bank account will be associated with. Only applicable if using account holder
      * enrollment. See
-     * [Managing Accounts](https://docs.lithic.com/docs/managing-accounts) for more
-     * information.
+     * [Managing Your Program](https://docs.lithic.com/docs/managing-your-program) for
+     * more information.
      */
     account_token?: string;
   }
@@ -155,9 +155,9 @@ export namespace FundingSourceCreateParams {
 
     /**
      * Only required for multi-account users. Token identifying the account associated
-     * with the bank account. Only applicable if using account creation. See
-     * [Managing Accounts](https://docs.lithic.com/docs/managing-accounts) for more
-     * information.
+     * with the bank account. Only applicable if using account holder enrollment. See
+     * [Managing Your Program](https://docs.lithic.com/docs/managing-your-program) for
+     * more information.
      */
     account_token?: string;
   }
@@ -166,10 +166,10 @@ export namespace FundingSourceCreateParams {
 export interface FundingSourceUpdateParams {
   /**
    * Only required for multi-account users. Token identifying the account that the
-   * bank account will be associated with. Only applicable if using account
+   * bank account will be associated with. Only applicable if using account holder
    * enrollment. See
-   * [Managing Accounts](https://docs.lithic.com/docs/managing-accounts) for more
-   * information.
+   * [Managing Your Program](https://docs.lithic.com/docs/managing-your-program) for
+   * more information.
    */
   account_token?: string;
 
@@ -196,10 +196,10 @@ export interface FundingSourceVerifyParams {
 
   /**
    * Only required for multi-account users. Token identifying the account that the
-   * bank account will be associated with. Only applicable if using account
+   * bank account will be associated with. Only applicable if using account holder
    * enrollment. See
-   * [Managing Accounts](https://docs.lithic.com/docs/managing-accounts) for more
-   * information.
+   * [Managing Your Program](https://docs.lithic.com/docs/managing-your-program) for
+   * more information.
    */
   account_token?: string;
 }
