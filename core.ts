@@ -469,7 +469,7 @@ export const isRequestOptions = (obj: unknown): obj is RequestOptions => {
     typeof obj === 'object' &&
     obj !== null &&
     !isEmptyObj(obj) &&
-    Object.keys(obj).every((k) => k in requestOptionsKeys)
+    Object.keys(obj).every((k) => hasOwn(requestOptionsKeys, k))
   );
 };
 
@@ -690,6 +690,11 @@ export function isEmptyObj(obj: Object | null | undefined): boolean {
   if (!obj) return true;
   for (const _k in obj) return false;
   return true;
+}
+
+// https://eslint.org/docs/latest/rules/no-prototype-builtins
+export function hasOwn(obj: Object, key: string): boolean {
+  return Object.prototype.hasOwnProperty.call(obj, key);
 }
 
 /**
