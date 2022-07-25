@@ -469,7 +469,7 @@ export const isRequestOptions = (obj: unknown): obj is RequestOptions => {
     typeof obj === 'object' &&
     obj !== null &&
     !isEmptyObj(obj) &&
-    Object.keys(obj).every((k) => Object.hasOwn(requestOptionsKeys, k))
+    Object.keys(obj).every((k) => k in requestOptionsKeys)
   );
 };
 
@@ -549,6 +549,8 @@ export class APIConnectionError extends APIError {
 
   constructor({ message, cause }: { message?: string; cause?: Error | undefined }) {
     super(undefined, undefined, message || 'Connection error.', undefined);
+    // eslint-disable-next-line
+    // @ts-ignore
     if (cause) this.cause = cause;
   }
 }

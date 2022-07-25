@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es2016",
-    "lib": ["esnext"],
+    "target": "es2019",
+    "lib": ["es2020"],
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
