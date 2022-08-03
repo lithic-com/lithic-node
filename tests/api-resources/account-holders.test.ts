@@ -379,13 +379,13 @@ describe('resource account_holders', () => {
 
   test('upload_document: only required params', async () => {
     const response = await lithic.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      document_type: 'COMMERCIAL_LICENCE',
+      document_type: 'COMMERCIAL_LICENSE',
     });
   });
 
   test('upload_document: required and optional params', async () => {
     const response = await lithic.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      document_type: 'COMMERCIAL_LICENCE',
+      document_type: 'COMMERCIAL_LICENSE',
     });
   });
 });

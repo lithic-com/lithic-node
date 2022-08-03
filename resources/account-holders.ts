@@ -858,5 +858,5 @@ export interface AccountHolderUploadDocumentParams {
   /**
    * Type of the document to upload.
    */
-  document_type: 'COMMERCIAL_LICENCE' | 'DRIVERS_LICENSE' | 'PASSPORT' | 'PASSPORT_CARD' | 'VISA';
+  document_type: 'COMMERCIAL_LICENSE' | 'DRIVERS_LICENSE' | 'PASSPORT' | 'PASSPORT_CARD' | 'VISA';
 }
