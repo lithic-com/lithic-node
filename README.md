@@ -34,7 +34,7 @@ async function main() {
 
   console.log(card.token);
 }
-main();
+main();;
 ```
 
 ### Usage with TypeScript
@@ -53,9 +53,10 @@ const lithic = new Lithic({
 async function main() {
   const params: Lithic.CardCreateParams = { type: 'SINGLE_USE' };
 
-  const card: Lithic.Card = await lithic.cards.create(params);
+  const card: Lithic.Card = await lithic.cards.create(params)
+
 }
-main();
+main();;
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -68,17 +69,19 @@ a subclass of `APIError` will be thrown:
 
 ```ts
 async function main() {
-  const card = await lithic.cards.create({ type: 'an_incorrect_type' }).catch((err) => {
-    if (err instanceof Lithic.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.error?.message); // Invalid parameter(s): type
-      console.log(err.error?.debugging_request_id); // 94d5e915-xxxx-4cee-a4f5-2xd6ebd279ac
-      console.log(err.headers); // {server: 'nginx', ...}
-    }
-  });
+  const card = await lithic.cards.create({ type: 'an_incorrect_type' })
+    .catch((err) => {
+      if (err instanceof Lithic.APIError) {
+        console.log(err.status); // 400
+        console.log(err.name); // BadRequestError
+        console.log(err.error?.message); // Invalid parameter(s): type
+                    console.log(err.error?.debugging_request_id); // 94d5e915-xxxx-4cee-a4f5-2xd6ebd279ac
+        console.log(err.headers); // {server: 'nginx', ...}
+      }
+    })
+
 }
-main();
+main();;
 ```
 
 Error codes are as followed:
@@ -149,7 +152,7 @@ async function fetchAllCards(params) {
     allCards.push(card);
   }
   return allCards;
-}
+};
 ```
 
 ## Configuring an HTTP(S) Agent (e.g., for proxies)

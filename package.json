@@ -14,9 +14,11 @@
     "build": "bash ./build",
     "prepack": "yarn build",
     "format": "prettier --write .",
-    "tsn": "ts-node -r tsconfig-paths/register"
+    "tsn": "ts-node -r tsconfig-paths/register",
+    "fix": "eslint --fix --ext ts,js ."
   },
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.33.0",
     "abort-controller": "^3.0.0",
     "agentkeepalive": "^4.2.1",
     "form-data-encoder": "1.7.2",
@@ -31,6 +33,9 @@
     "@types/node-fetch": "^2.6.1",
     "@types/qs": "^6.9.7",
     "@types/web": "^0.0.53",
+    "@typescript-eslint/parser": "^5.33.0",
+    "eslint": "^8.22.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
     "jest": "^28.1.0",
     "prettier": "^2.5.1",
     "ts-jest": "^28.0.2",

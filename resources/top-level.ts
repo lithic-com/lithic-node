@@ -1,9 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
 
-import * as Core from '~/core';
-import { isRequestOptions } from '~/core';
-import * as Shared from './shared';
-
 export interface ShippingAddress {
   /**
    * Valid USPS routable address.

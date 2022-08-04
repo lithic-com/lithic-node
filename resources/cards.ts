@@ -4,7 +4,7 @@ import * as Core from '~/core';
 import { isRequestOptions } from '~/core';
 import { Page, PageParams } from '~/pagination';
 import * as Shared from './shared';
-import * as FundingSources from './funding-sources';
+import * as FundingSources from '~/resources/funding-sources';
 import { createHmac } from 'crypto';
 
 export class Cards extends Core.APIResource {

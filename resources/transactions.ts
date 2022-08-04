@@ -3,8 +3,7 @@
 import * as Core from '~/core';
 import { isRequestOptions } from '~/core';
 import { Page, PageParams } from '~/pagination';
-import * as Shared from './shared';
-import * as Cards from './cards';
+import * as Cards from '~/resources/cards';
 
 export class Transactions extends Core.APIResource {
   /**

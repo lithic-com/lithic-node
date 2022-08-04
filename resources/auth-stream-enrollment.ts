@@ -2,7 +2,6 @@
 
 import * as Core from '~/core';
 import { isRequestOptions } from '~/core';
-import * as Shared from './shared';
 
 export class AuthStreamEnrollmentResource extends Core.APIResource {
   /**

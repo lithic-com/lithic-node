@@ -3,7 +3,6 @@
 import * as Core from '~/core';
 import { isRequestOptions } from '~/core';
 import { Page, PageParams } from '~/pagination';
-import * as Shared from './shared';
 
 export class Accounts extends Core.APIResource {
   /**
