@@ -173,7 +173,7 @@ export abstract class APIClient {
       throw new APIConnectionError({ cause: response });
     }
 
-    const responseHeaders = Object.fromEntries(response.headers.entries());
+    const responseHeaders = createResponseHeaders(response.headers);
 
     if (!response.ok) {
       if (retriesRemaining && this.shouldRetry(response)) {
@@ -431,6 +431,17 @@ export class PagePromise<
     }
   }
 }
+
+export const createResponseHeaders = (
+  headers: Awaited<ReturnType<typeof NodeFetch>>['headers'],
+): Record<string, string> => {
+  return new Proxy(Object.fromEntries(headers.entries()), {
+    get(target, name) {
+      const key = name.toString();
+      return target[key.toLowerCase()] || target[key];
+    },
+  });
+};
 
 type HTTPMethod = 'get' | 'post' | 'put' | 'patch' | 'delete';
 
