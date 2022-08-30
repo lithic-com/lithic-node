@@ -657,7 +657,58 @@ const castToError = (err: any): Error => {
   return new Error(err);
 };
 
-const validateFormValue = (value: unknown): string | number | boolean | File | Blob => {
+/**
+ * Returns a multipart/form-data request if any part of the given request body contains a File / Blob value.
+ * Otherwise returns the request as is.
+ */
+export const maybeMultipartFormRequestOptions = <T = Record<string, unknown>>(
+  opts: RequestOptions<T>,
+): RequestOptions<T | Readable> => {
+  // TODO: does this add unreasonable overhead in the case where we shouldn't use multipart/form-data?
+  const form = createForm(opts.body);
+
+  for (const [_, entry] of form.entries()) {
+    const value = entry.valueOf();
+    if (value instanceof File || value instanceof Blob) {
+      return getMultipartRequestOptions(form, opts);
+    }
+  }
+
+  return opts;
+};
+
+export const multipartFormRequestOptions = <T = Record<string, unknown>>(
+  opts: RequestOptions<T>,
+): RequestOptions<T | Readable> => {
+  return getMultipartRequestOptions(createForm(opts.body), opts);
+};
+
+const createForm = <T = Record<string, unknown>>(body: T | undefined): FormData => {
+  const form = new FormData();
+  Object.entries(body || {}).forEach(([key, value]) => addFormValue(form, key, value));
+  return form;
+};
+
+const getMultipartRequestOptions = <T = Record<string, unknown>>(
+  form: FormData,
+  opts: RequestOptions<T>,
+): RequestOptions<T | Readable> => {
+  const encoder = new FormDataEncoder(form);
+  return {
+    ...opts,
+    headers: { ...opts.headers, ...encoder.headers, 'Content-Length': encoder.contentLength },
+    body: Readable.from(encoder),
+  };
+};
+
+const addFormValue = (form: FormData, key: string, value: unknown) => {
+  if (value == null) {
+    throw new TypeError(
+      `null is not a valid form data value, if you want to pass null then you need to use the string 'null'`,
+    );
+  }
+
+  // TODO: make nested formats configurable
   if (
     typeof value === 'string' ||
     typeof value === 'number' ||
@@ -665,33 +716,25 @@ const validateFormValue = (value: unknown): string | number | boolean | File | B
     value instanceof File ||
     value instanceof Blob
   ) {
-    return value;
-  }
-
-  if (value == null) {
+    if (form.has(key)) {
+      throw new Error(
+        `Received multiple values for FormData with the same key: ${key}; This behaviour is not supported.`,
+      );
+    }
+    form.append(key, value);
+  } else if (Array.isArray(value)) {
+    value.forEach((entry) => {
+      addFormValue(form, key + '[]', entry);
+    });
+  } else if (typeof value === 'object') {
+    Object.entries(value).forEach(([name, prop]) => {
+      addFormValue(form, `${key}[${name}]`, prop);
+    });
+  } else {
     throw new TypeError(
-      `null is not a valid form data value, if you want to pass null then you need to use the string 'null'`,
+      `Invalid value given to form, expected a string, number, boolean, object, Array, File or Blob but got ${value} instead`,
     );
   }
-
-  throw new TypeError(
-    `Invalid value given to form, expected a string, number, boolean, File or Blob but got ${value} instead`,
-  );
-};
-
-export const multipartFormRequestOptions = <T = Record<string, unknown>>(
-  opts: RequestOptions<T>,
-): RequestOptions<T | Readable> => {
-  const form = new FormData();
-  Object.entries(opts.body || {}).forEach(
-    ([key, value]) => value !== undefined && form.set(key, validateFormValue(value)),
-  );
-  const encoder = new FormDataEncoder(form);
-  return {
-    ...opts,
-    headers: { ...opts.headers, ...encoder.headers, 'Content-Length': encoder.contentLength },
-    body: Readable.from(encoder),
-  };
 };
 
 export const coerceInteger = (value: unknown): number => {
