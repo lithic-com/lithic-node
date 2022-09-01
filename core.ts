@@ -1,5 +1,4 @@
 import qs from 'qs';
-import pkgUp from 'pkg-up';
 
 import type { Agent } from 'http';
 import type NodeFetch from 'node-fetch';
@@ -8,8 +7,9 @@ import type KeepAliveAgent from 'agentkeepalive';
 import { AbortController } from 'abort-controller';
 import { FormData, File, Blob } from 'formdata-node';
 import { FormDataEncoder } from 'form-data-encoder';
-
 import { Readable } from 'stream';
+
+import { VERSION } from './version';
 
 const isNode = typeof process !== 'undefined';
 let nodeFetch: typeof NodeFetch | undefined = undefined;
@@ -312,8 +312,7 @@ export abstract class APIClient {
   }
 
   private getUserAgent(): string {
-    const packageVersion = getPackageVersion();
-    return `${this.constructor.name}/JS ${packageVersion}`;
+    return `${this.constructor.name}/JS ${VERSION}`;
   }
 
   private debug(action: string, ...args: any[]) {
@@ -577,17 +576,6 @@ export class APIConnectionTimeoutError extends APIConnectionError {
   }
 }
 
-let _packageVersion: string;
-const getPackageVersion = (): string => {
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    return (_packageVersion ??= require(pkgUp.sync()!).version);
-  } catch (e) {
-    console.debug(`Ignoring error while determing package version ${e}`);
-    return (_packageVersion = 'unknown');
-  }
-};
-
 declare const Deno: any;
 type PlatformProperties = {
   lang: 'js';
@@ -601,7 +589,7 @@ const getPlatformProperties = (): PlatformProperties | void => {
   if (typeof process !== 'undefined') {
     return {
       lang: 'js',
-      packageVersion: getPackageVersion(),
+      packageVersion: VERSION,
       os: process.platform,
       arch: process.arch,
       runtime: 'node',
@@ -611,7 +599,7 @@ const getPlatformProperties = (): PlatformProperties | void => {
   if (typeof Deno !== 'undefined') {
     return {
       lang: 'js',
-      packageVersion: getPackageVersion(),
+      packageVersion: VERSION,
       os: Deno.build.os,
       arch: Deno.build.arch,
       runtime: 'deno',
