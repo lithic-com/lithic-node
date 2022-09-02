@@ -89,7 +89,7 @@ export abstract class APIClient {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       'User-Agent': this.getUserAgent(),
-      'X-Stainless-Client-User-Agent': getPlatformPropertiesJSON(),
+      ...getPlatformHeaders(),
       ...this.authHeaders(),
     };
   }
@@ -577,41 +577,97 @@ export class APIConnectionTimeoutError extends APIConnectionError {
 }
 
 declare const Deno: any;
+type Arch = 'x32' | 'x64' | 'arm' | 'arm64' | `other:${string}` | 'unknown';
+type PlatformName =
+  | 'MacOS'
+  | 'Linux'
+  | 'Windows'
+  | 'FreeBSD'
+  | 'OpenBSD'
+  | 'iOS'
+  | 'Android'
+  | `Other:${string}`
+  | 'Unknown';
 type PlatformProperties = {
-  lang: 'js';
-  packageVersion: string;
-  os: string;
-  arch: string;
-  runtime: 'node' | 'deno';
-  runtimeVersion: string;
+  'X-Stainless-Lang': 'js';
+  'X-Stainless-Package-Version': string;
+  'X-Stainless-OS': PlatformName;
+  'X-Stainless-Arch': Arch;
+  'X-Stainless-Runtime': 'node' | 'deno' | 'unknown';
+  'X-Stainless-Runtime-Version': string;
 };
-const getPlatformProperties = (): PlatformProperties | void => {
+const getPlatformProperties = (): PlatformProperties => {
   if (typeof process !== 'undefined') {
     return {
-      lang: 'js',
-      packageVersion: VERSION,
-      os: process.platform,
-      arch: process.arch,
-      runtime: 'node',
-      runtimeVersion: process.version,
+      'X-Stainless-Lang': 'js',
+      'X-Stainless-Package-Version': VERSION,
+      'X-Stainless-OS': normalizePlatform(process.platform),
+      'X-Stainless-Arch': normalizeArch(process.arch),
+      'X-Stainless-Runtime': 'node',
+      'X-Stainless-Runtime-Version': process.version,
     };
   }
   if (typeof Deno !== 'undefined') {
     return {
-      lang: 'js',
-      packageVersion: VERSION,
-      os: Deno.build.os,
-      arch: Deno.build.arch,
-      runtime: 'deno',
-      runtimeVersion: Deno.version,
+      'X-Stainless-Lang': 'js',
+      'X-Stainless-Package-Version': VERSION,
+      'X-Stainless-OS': normalizePlatform(Deno.build.os),
+      'X-Stainless-Arch': normalizeArch(Deno.build.arch),
+      'X-Stainless-Runtime': 'deno',
+      'X-Stainless-Runtime-Version': Deno.version,
     };
   }
   // TODO add support for Cloudflare workers, browsers, etc.
+  return {
+    'X-Stainless-Lang': 'js',
+    'X-Stainless-Package-Version': VERSION,
+    'X-Stainless-OS': 'Unknown',
+    'X-Stainless-Arch': 'unknown',
+    'X-Stainless-Runtime': 'unknown',
+    'X-Stainless-Runtime-Version': 'unknown',
+  };
 };
 
-let _platformPropertiesJSON: string;
-const getPlatformPropertiesJSON = () => {
-  return (_platformPropertiesJSON ??= JSON.stringify(getPlatformProperties())) || '';
+const normalizeArch = (arch: string): Arch => {
+  // Node docs:
+  // - https://nodejs.org/api/process.html#processarch
+  // Deno docs:
+  // - https://doc.deno.land/deno/stable/~/Deno.build
+  if (arch === 'x32') return 'x32';
+  if (arch === 'x86_64' || arch === 'x64') return 'x64';
+  if (arch === 'arm') return 'arm';
+  if (arch === 'aarch64' || arch === 'arm64') return 'arm64';
+  if (arch) return `other:${arch}`;
+  return 'unknown';
+};
+
+const normalizePlatform = (platform: string): PlatformName => {
+  // Node platforms:
+  // - https://nodejs.org/api/process.html#processplatform
+  // Deno platforms:
+  // - https://doc.deno.land/deno/stable/~/Deno.build
+  // - https://github.com/denoland/deno/issues/14799
+
+  platform = platform.toLowerCase();
+
+  // NOTE: this iOS check is untested and may not work
+  // Node does not work natively on IOS, there is a fork at
+  // https://github.com/nodejs-mobile/nodejs-mobile
+  // however it is unknown at the time of writing how to detect if it is running
+  if (platform.includes('ios')) return 'iOS';
+  if (platform === 'android') return 'Android';
+  if (platform === 'darwin') return 'MacOS';
+  if (platform === 'win32') return 'Windows';
+  if (platform === 'freebsd') return 'FreeBSD';
+  if (platform === 'openbsd') return 'OpenBSD';
+  if (platform === 'linux') return 'Linux';
+  if (platform) return `Other:${platform}`;
+  return 'Unknown';
+};
+
+let _platformHeaders: PlatformProperties;
+const getPlatformHeaders = () => {
+  return (_platformHeaders ??= getPlatformProperties());
 };
 
 const safeJSON = (text: string) => {
