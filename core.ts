@@ -29,6 +29,8 @@ if (isNode) {
 const DEFAULT_MAX_RETRIES = 2;
 const DEFAULT_TIMEOUT = 60 * 1000; // 60s
 
+type Fetch = (url: RequestInfo, init?: RequestInit) => Promise<Response>;
+
 export abstract class APIClient {
   apiKey: string | null;
   baseURL: string;
@@ -36,7 +38,7 @@ export abstract class APIClient {
   timeout: number;
   httpAgent: Agent | undefined;
 
-  private fetch: typeof NodeFetch;
+  private fetch: Fetch;
   protected idempotencyHeader?: string;
 
   constructor({
@@ -68,7 +70,7 @@ export abstract class APIClient {
         );
       }
       // For now, we just pretend that Fetch is the same type as NodeFetch.
-      this.fetch = fetch as unknown as typeof NodeFetch;
+      this.fetch = fetch as unknown as Fetch;
     }
   }
 
@@ -241,9 +243,15 @@ export abstract class APIClient {
 
     const timeout = setTimeout(() => controller.abort(), ms);
 
-    return this.fetch(url, { signal: controller.signal as any, ...options }).finally(() => {
-      clearTimeout(timeout);
-    });
+    return this.getRequestClient()
+      .fetch(url, { signal: controller.signal as any, ...options })
+      .finally(() => {
+        clearTimeout(timeout);
+      });
+  }
+
+  protected getRequestClient(): RequestClient {
+    return { fetch: this.fetch };
   }
 
   private shouldRetry(response: Response): boolean {
@@ -437,7 +445,7 @@ export class PagePromise<
 }
 
 export const createResponseHeaders = (
-  headers: Awaited<ReturnType<typeof NodeFetch>>['headers'],
+  headers: Awaited<ReturnType<Fetch>>['headers'],
 ): Record<string, string> => {
   return new Proxy(Object.fromEntries(headers.entries()), {
     get(target, name) {
@@ -449,6 +457,7 @@ export const createResponseHeaders = (
 
 type HTTPMethod = 'get' | 'post' | 'put' | 'patch' | 'delete';
 
+export type RequestClient = { fetch: Fetch };
 export type Headers = Record<string, string | null | undefined>;
 export type KeysEnum<T> = { [P in keyof Required<T>]: true };
 
