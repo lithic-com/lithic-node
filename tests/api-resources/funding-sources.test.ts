@@ -4,7 +4,8 @@ import Lithic from '~/index';
 const lithic = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:4010' });
 
 describe('resource funding_sources', () => {
-  test('create: only required params', async () => {
+  // oneOfs not yet implemented in java
+  test.skip('create: only required params', async () => {
     const response = await lithic.fundingSources.create({
       validation_method: 'BANK',
       account_number: '13719713158835300',
@@ -12,7 +13,8 @@ describe('resource funding_sources', () => {
     });
   });
 
-  test('create: required and optional params', async () => {
+  // oneOfs not yet implemented in java
+  test.skip('create: required and optional params', async () => {
     const response = await lithic.fundingSources.create({
       validation_method: 'BANK',
       account_name: 'Sandbox',

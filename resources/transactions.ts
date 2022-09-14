@@ -101,6 +101,13 @@ export class TransactionsPage extends Page<Transaction> {}
 
 export interface Transaction {
   /**
+   * A fixed-width 23-digit numeric identifier for the Transaction that may be set if
+   * the transaction originated from the Mastercard network. This number may be used
+   * for dispute tracking.
+   */
+  acquirer_reference_number?: string | null;
+
+  /**
    * Authorization amount (in USD cents) of the transaction. This may change over
    * time, and will represent the settled amount once the transaction is settled.
    */

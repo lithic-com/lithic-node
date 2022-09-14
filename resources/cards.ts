@@ -304,7 +304,8 @@ export interface Card {
   hostname?: string;
 
   /**
-   * Friendly name to identify the card.
+   * Friendly name to identify the card. We recommend against using this field to
+   * store JSON data as it can cause unexpected behavior.
    */
   memo?: string;
 
@@ -410,7 +411,8 @@ export interface CardCreateParams {
   funding_token?: string;
 
   /**
-   * Friendly name to identify the card.
+   * Friendly name to identify the card. We recommend against using this field to
+   * store JSON data as it can cause unexpected behavior.
    */
   memo?: string;
 
@@ -509,7 +511,8 @@ export interface CardUpdateParams {
   funding_token?: string;
 
   /**
-   * Friendly name to identify the card.
+   * Friendly name to identify the card. We recommend against using this field to
+   * store JSON data as it can cause unexpected behavior.
    */
   memo?: string;
 

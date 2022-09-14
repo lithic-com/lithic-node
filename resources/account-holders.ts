@@ -198,9 +198,9 @@ export interface AccountHolder {
  */
 export interface AccountHolderDocument {
   /**
-   * Globally unique identifier for the account.
+   * Globally unique identifier for the account holder.
    */
-  account_token?: string;
+  account_holder_token?: string;
 
   /**
    * Type of documentation to be submitted for verification.
