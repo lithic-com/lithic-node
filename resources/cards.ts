@@ -20,8 +20,22 @@ export class Cards extends APIResource {
   /**
    * Get card configuration such as spend limit and state.
    */
-  retrieve(id: string, options?: Core.RequestOptions): Promise<Core.APIResponse<Card>> {
-    return this.get(`/cards/${id}`, options);
+  retrieve(
+    id: string,
+    query?: CardRetrieveParams,
+    options?: Core.RequestOptions,
+  ): Promise<Core.APIResponse<Card>>;
+  retrieve(id: string, options?: Core.RequestOptions): Promise<Core.APIResponse<Card>>;
+  retrieve(
+    id: string,
+    query: CardRetrieveParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Promise<Core.APIResponse<Card>> {
+    if (isRequestOptions(query)) {
+      return this.retrieve(id, {}, query);
+    }
+
+    return this.get(`/cards/${id}`, { query, ...options });
   }
 
   /**
@@ -431,7 +445,10 @@ export interface CardCreateParams {
 
   /**
    * Amount (in cents) to limit approved authorizations. Transaction requests above
-   * the spend limit will be declined.
+   * the spend limit will be declined. Note that a spend limit of 0 is effectively no
+   * limit, and should only be used to reset or remove a prior limit. Only a limit of
+   * 1 or above will result in declined transactions due to checks against the card
+   * limit.
    */
   spend_limit?: number;
 
@@ -458,6 +475,16 @@ export interface CardCreateParams {
    *   time.
    */
   state?: 'OPEN' | 'PAUSED';
+}
+
+export interface CardRetrieveParams {
+  /**
+   * Only required for multi-account users using account holder enrollment. Returns
+   * card associated with this account. See
+   * [Managing Your Program](https://docs.lithic.com/docs/managing-your-program) for
+   * more information.
+   */
+  account_token?: string;
 }
 
 export interface CardUpdateParams {
@@ -495,7 +522,10 @@ export interface CardUpdateParams {
 
   /**
    * Amount (in cents) to limit approved authorizations. Transaction requests above
-   * the spend limit will be declined.
+   * the spend limit will be declined. Note that a spend limit of 0 is effectively no
+   * limit, and should only be used to reset or remove a prior limit. Only a limit of
+   * 1 or above will result in declined transactions due to checks against the card
+   * limit.
    */
   spend_limit?: number;
 

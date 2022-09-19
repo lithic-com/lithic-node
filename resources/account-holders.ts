@@ -28,6 +28,17 @@ export class AccountHolders extends APIResource {
   }
 
   /**
+   * Update the contact information associated with a particular account holder.
+   */
+  update(
+    id: string,
+    body: AccountHolderUpdateParams,
+    options?: Core.RequestOptions,
+  ): Promise<Core.APIResponse<AccountHolderUpdateResponse>> {
+    return this.patch(`/account_holders/${id}`, { body, ...options });
+  }
+
+  /**
    * Create a webhook to receive KYC or KYB evaluation events.
    *
    * There are two types of account holder webhooks:
@@ -234,6 +245,23 @@ export namespace AccountHolderDocument {
      */
     upload_url?: string;
   }
+}
+
+export interface AccountHolderUpdateResponse {
+  /**
+   * The newly updated email for the account holder
+   */
+  email?: string;
+
+  /**
+   * The newly updated phone_number for the account holder
+   */
+  phone_number?: string;
+
+  /**
+   * The token for the account holder that was updated
+   */
+  token?: string;
 }
 
 export interface AccountHolderCreateWebhookResponse {
@@ -746,6 +774,22 @@ export namespace AccountHolderCreateParams {
       }
     }
   }
+}
+
+export interface AccountHolderUpdateParams {
+  /**
+   * Account holder's email address. The primary purpose of this field is for
+   * cardholder identification and verification during the digital wallet
+   * tokenization process.
+   */
+  email?: string;
+
+  /**
+   * Account holder's phone number, entered in E.164 format. The primary purpose of
+   * this field is for cardholder identification and verification during the digital
+   * wallet tokenization process.
+   */
+  phone_number?: string;
 }
 
 export interface AccountHolderCreateWebhookParams {

@@ -9,6 +9,14 @@ import * as Cards from '~/resources/cards';
 export class Transactions extends APIResource {
   /**
    * Get specific transaction.
+   *
+   * _Note that the events.amount field returned via this endpoint is changing and
+   * will become a signed field. Debits will appear as positive amounts and credits
+   * will appear as negative amounts. This is already reflected in Sandbox as of
+   * August 30, 2022 at 17:00 UTC and will be updated in Production on September 27,
+   * 2022 at 17:00 UTC. Please refer to
+   * [this page](https://docs.lithic.com/docs/guide-to-lithic-api-changes-march-2022)
+   * for more information._
    */
   retrieve(id: string, options?: Core.RequestOptions): Promise<Core.APIResponse<Transaction>> {
     return this.get(`/transactions/${id}`, options);
@@ -16,6 +24,14 @@ export class Transactions extends APIResource {
 
   /**
    * List transactions.
+   *
+   * _Note that the events.amount field returned via this endpoint is changing and
+   * will become a signed field. Debits will appear as positive amounts and credits
+   * will appear as negative amounts. This is already reflected in Sandbox as of
+   * August 30, 2022 at 17:00 UTC and will be updated in Production on September 27,
+   * 2022 at 17:00 UTC. Please refer to
+   * [this page](https://docs.lithic.com/docs/guide-to-lithic-api-changes-march-2022)
+   * for more information._
    */
   list(query?: TransactionListParams, options?: Core.RequestOptions): Core.PagePromise<TransactionsPage>;
   list(options?: Core.RequestOptions): Core.PagePromise<TransactionsPage>;
@@ -118,8 +134,7 @@ export interface Transaction {
    * A list of objects that describe how this transaction was funded, with the
    * `amount` represented in cents. A reference to the funding account for the `card`
    * that made this transaction may appear here and the `token` will match the
-   * `token` for the funding account in the `card` field. If any promotional credit
-   * was used in paying for this transaction, its `type` will be `PROMO`.
+   * `token` for the funding account in the `card` field.
    */
   funding?: Array<Transaction.Funding>;
 
@@ -309,9 +324,8 @@ export namespace Transaction {
      *
      * - `DEPOSITORY_CHECKING` - Bank checking account.
      * - `DEPOSITORY_SAVINGS` - Bank savings account.
-     * - `PROMO` - Any promotional credit was used in paying for this transaction.
      */
-    type?: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS' | 'PROMO';
+    type?: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS';
   }
 
   export interface Merchant {
@@ -445,6 +459,13 @@ export interface TransactionSimulateAuthorizationParams {
    * 3-digit alphabetic ISO 4217 currency code.
    */
   merchant_currency?: string;
+
+  /**
+   * Set to true if the terminal is capable of partial approval otherwise false.
+   * Partial approval is when part of a transaction is approved and another payment
+   * must be used for the remainder.
+   */
+  partial_approval_capable?: boolean;
 
   /**
    * Type of event to simulate.

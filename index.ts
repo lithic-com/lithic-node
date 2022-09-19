@@ -2,7 +2,6 @@
 import * as Core from './core';
 import * as Pagination from './pagination';
 import * as API from './resources';
-
 import type { Agent } from 'http';
 
 const environments = {
@@ -50,7 +49,10 @@ export class Lithic extends Core.APIClient {
   cards: API.Cards = new API.Cards(this);
   fundingSources: API.FundingSources = new API.FundingSources(this);
   transactions: API.Transactions = new API.Transactions(this);
-  status: API.StatusResource = new API.StatusResource(this);
+
+  apiStatus(options?: Core.RequestOptions): Promise<Core.APIResponse<Lithic.APIStatus>> {
+    return this.get('/status', options);
+  }
 
   protected override authHeaders(): Core.Headers {
     return { Authorization: this.apiKey || '' };
@@ -80,7 +82,7 @@ export namespace Lithic {
   export import PageParams = Pagination.PageParams;
   export import PageResponse = Pagination.PageResponse;
 
-  export import ShippingAddress = API.ShippingAddress;
+  export import APIStatus = API.APIStatus;
 
   export import Account = API.Account;
   export import AccountsPage = API.AccountsPage;
@@ -89,9 +91,11 @@ export namespace Lithic {
 
   export import AccountHolder = API.AccountHolder;
   export import AccountHolderDocument = API.AccountHolderDocument;
+  export import AccountHolderUpdateResponse = API.AccountHolderUpdateResponse;
   export import AccountHolderCreateWebhookResponse = API.AccountHolderCreateWebhookResponse;
   export import AccountHolderListDocumentsResponse = API.AccountHolderListDocumentsResponse;
   export import AccountHolderCreateParams = API.AccountHolderCreateParams;
+  export import AccountHolderUpdateParams = API.AccountHolderUpdateParams;
   export import AccountHolderCreateWebhookParams = API.AccountHolderCreateWebhookParams;
   export import AccountHolderResubmitParams = API.AccountHolderResubmitParams;
   export import AccountHolderUploadDocumentParams = API.AccountHolderUploadDocumentParams;
@@ -117,6 +121,7 @@ export namespace Lithic {
   export import CardProvisionResponse = API.CardProvisionResponse;
   export import CardsPage = API.CardsPage;
   export import CardCreateParams = API.CardCreateParams;
+  export import CardRetrieveParams = API.CardRetrieveParams;
   export import CardUpdateParams = API.CardUpdateParams;
   export import CardListParams = API.CardListParams;
   export import CardEmbedParams = API.CardEmbedParams;
@@ -143,8 +148,6 @@ export namespace Lithic {
   export import TransactionSimulateClearingParams = API.TransactionSimulateClearingParams;
   export import TransactionSimulateReturnParams = API.TransactionSimulateReturnParams;
   export import TransactionSimulateVoidParams = API.TransactionSimulateVoidParams;
-
-  export import APIStatus = API.APIStatus;
 }
 
 exports = module.exports = Lithic;

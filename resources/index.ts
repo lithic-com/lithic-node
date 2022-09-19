@@ -5,6 +5,6 @@ export * from './auth-rules';
 export * from './auth-stream-enrollment';
 export * from './cards';
 export * from './funding-sources';
-export * from './status';
+export * from './shared';
 export * from './top-level';
 export * from './transactions';

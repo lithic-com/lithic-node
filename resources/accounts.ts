@@ -99,19 +99,28 @@ export namespace Account {
 
 export interface AccountUpdateParams {
   /**
-   * Amount (in cents) for the account's new daily spend limit.
+   * Amount (in cents) for the account's new daily spend limit. Note that a spend
+   * limit of 0 is effectively no limit, and should only be used to reset or remove a
+   * prior limit. Only a limit of 1 or above will result in declined transactions due
+   * to checks against the account limit.
    */
   daily_spend_limit?: number;
 
   /**
    * Amount (in cents) for the account's new lifetime limit. Once this limit is
    * reached, no transactions will be accepted on any card created for this account
-   * until the limit is updated.
+   * until the limit is updated. Note that a spend limit of 0 is effectively no
+   * limit, and should only be used to reset or remove a prior limit. Only a limit of
+   * 1 or above will result in declined transactions due to checks against the
+   * account limit.
    */
   lifetime_spend_limit?: number;
 
   /**
-   * Amount (in cents) for the account's new monthly spend limit.
+   * Amount (in cents) for the account's new monthly spend limit. Note that a spend
+   * limit of 0 is effectively no limit, and should only be used to reset or remove a
+   * prior limit. Only a limit of 1 or above will result in declined transactions due
+   * to checks against the account limit.
    */
   monthly_spend_limit?: number;
 

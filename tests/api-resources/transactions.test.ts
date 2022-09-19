@@ -74,6 +74,7 @@ describe('resource transactions', () => {
       status: 'AUTHORIZATION',
       merchant_currency: 'GBP',
       merchant_amount: 0,
+      partial_approval_capable: true,
     });
   });
 

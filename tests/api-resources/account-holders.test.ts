@@ -292,6 +292,17 @@ describe('resource account_holders', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
+  test('update: only required params', async () => {
+    const response = await lithic.accountHolders.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
+  });
+
+  test('update: required and optional params', async () => {
+    const response = await lithic.accountHolders.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      email: 'string',
+      phone_number: 'string',
+    });
+  });
+
   test('create_webhook: only required params', async () => {
     const response = await lithic.accountHolders.createWebhook({ url: 'string' });
   });
@@ -379,13 +390,13 @@ describe('resource account_holders', () => {
 
   test('upload_document: only required params', async () => {
     const response = await lithic.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      document_type: 'COMMERCIAL_LICENSE',
+      document_type: 'commercial_license',
     });
   });
 
   test('upload_document: required and optional params', async () => {
     const response = await lithic.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      document_type: 'COMMERCIAL_LICENSE',
+      document_type: 'commercial_license',
     });
   });
 });
