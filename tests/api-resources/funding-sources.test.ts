@@ -41,7 +41,7 @@ describe('resource funding_sources', () => {
     const response = await lithic.fundingSources.list({
       account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       page: 0,
-      page_size: 0,
+      page_size: 1,
     });
   });
 
@@ -56,7 +56,7 @@ describe('resource funding_sources', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       lithic.fundingSources.list(
-        { account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', page: 0, page_size: 0 },
+        { account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', page: 0, page_size: 1 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Lithic.NotFoundError);

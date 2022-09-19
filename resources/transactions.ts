@@ -1,11 +1,12 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import * as Core from '~/core';
+import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
 import { Page, PageParams } from '~/pagination';
 import * as Cards from '~/resources/cards';
 
-export class Transactions extends Core.APIResource {
+export class Transactions extends APIResource {
   /**
    * Get specific transaction.
    */

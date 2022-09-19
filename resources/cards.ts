@@ -1,13 +1,14 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import * as Core from '~/core';
+import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
 import { Page, PageParams } from '~/pagination';
-import * as Shared from './shared';
+import * as Shared from '~/resources/shared';
 import * as FundingSources from '~/resources/funding-sources';
 import { createHmac } from 'crypto';
 
-export class Cards extends Core.APIResource {
+export class Cards extends APIResource {
   /**
    * Create a new virtual or physical card. Parameters `pin`, `shipping_address`, and
    * `product_id` only apply to physical cards.
@@ -100,8 +101,8 @@ export class Cards extends Core.APIResource {
    * could trigger PCI DSS.
    *
    * If your company is not certified PCI compliant, we recommend using
-   * `get_embed_url()` instead. You would then pass that returned URL to the
-   * frontend, where you can load it via an iframe.
+   * `getEmbedURL()` instead. You would then pass that returned URL to the frontend,
+   * where you can load it via an iframe.
    */
   getEmbedHTML(query: CardGetEmbedHTMLParams, options?: Core.RequestOptions): Promise<string> {
     return this.get(this.getEmbedURL(query), {

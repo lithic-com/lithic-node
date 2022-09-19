@@ -1,8 +1,9 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import * as Core from '~/core';
+import { APIResource } from '~/resource';
 
-export class AccountHolders extends Core.APIResource {
+export class AccountHolders extends APIResource {
   /**
    * Run an individual or business's information through the Customer Identification
    * Program (CIP) and return an `account_token` if the status is accepted or pending

@@ -1,10 +1,11 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import * as Core from '~/core';
+import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
 import { Page, PageParams } from '~/pagination';
 
-export class FundingSources extends Core.APIResource {
+export class FundingSources extends APIResource {
   /**
    * Add a funding source using bank routing and account numbers or via Plaid.
    *

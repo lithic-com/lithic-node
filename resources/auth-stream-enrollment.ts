@@ -1,9 +1,10 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import * as Core from '~/core';
+import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
 
-export class AuthStreamEnrollmentResource extends Core.APIResource {
+export class AuthStreamEnrollmentResource extends APIResource {
   /**
    * Check status for whether you have enrolled in Authorization Stream Access (ASA)
    * for your program in Sandbox.
