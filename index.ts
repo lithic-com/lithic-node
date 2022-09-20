@@ -2,6 +2,7 @@
 import * as Core from './core';
 import * as Pagination from './pagination';
 import * as API from './resources';
+
 import type { Agent } from 'http';
 
 const environments = {
