@@ -21,8 +21,11 @@ export class AuthRules extends APIResource {
    * Detail the properties and entities (program, accounts, and cards) associated
    * with an existing authorization rule (Auth Rule).
    */
-  retrieve(id: string, options?: Core.RequestOptions): Promise<Core.APIResponse<AuthRuleRetrieveResponse>> {
-    return this.get(`/auth_rules/${id}`, options);
+  retrieve(
+    authRuleToken: string,
+    options?: Core.RequestOptions,
+  ): Promise<Core.APIResponse<AuthRuleRetrieveResponse>> {
+    return this.get(`/auth_rules/${authRuleToken}`, options);
   }
 
   /**
@@ -30,11 +33,11 @@ export class AuthRules extends APIResource {
    * Rule).
    */
   update(
-    id: string,
+    authRuleToken: string,
     body: AuthRuleUpdateParams,
     options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<AuthRuleUpdateResponse>> {
-    return this.put(`/auth_rules/${id}`, { body, ...options });
+    return this.put(`/auth_rules/${authRuleToken}`, { body, ...options });
   }
 
   /**
@@ -58,11 +61,11 @@ export class AuthRules extends APIResource {
    * card level.
    */
   apply(
-    id: string,
+    authRuleToken: string,
     body: AuthRuleApplyParams,
     options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<AuthRuleApplyResponse>> {
-    return this.post(`/auth_rules/${id}/apply`, { body, ...options });
+    return this.post(`/auth_rules/${authRuleToken}/apply`, { body, ...options });
   }
 
   /**

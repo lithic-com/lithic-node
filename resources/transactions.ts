@@ -18,8 +18,8 @@ export class Transactions extends APIResource {
    * [this page](https://docs.lithic.com/docs/guide-to-lithic-api-changes-march-2022)
    * for more information._
    */
-  retrieve(id: string, options?: Core.RequestOptions): Promise<Core.APIResponse<Transaction>> {
-    return this.get(`/transactions/${id}`, options);
+  retrieve(transactionToken: string, options?: Core.RequestOptions): Promise<Core.APIResponse<Transaction>> {
+    return this.get(`/transactions/${transactionToken}`, options);
   }
 
   /**

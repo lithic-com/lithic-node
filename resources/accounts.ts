@@ -9,8 +9,8 @@ export class Accounts extends APIResource {
   /**
    * Get account configuration such as spend limits.
    */
-  retrieve(id: string, options?: Core.RequestOptions): Promise<Core.APIResponse<Account>> {
-    return this.get(`/accounts/${id}`, options);
+  retrieve(accountToken: string, options?: Core.RequestOptions): Promise<Core.APIResponse<Account>> {
+    return this.get(`/accounts/${accountToken}`, options);
   }
 
   /**
@@ -21,11 +21,11 @@ export class Accounts extends APIResource {
    * new cards.
    */
   update(
-    id: string,
+    accountToken: string,
     body: AccountUpdateParams,
     options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<Account>> {
-    return this.patch(`/accounts/${id}`, { body, ...options });
+    return this.patch(`/accounts/${accountToken}`, { body, ...options });
   }
 
   /**

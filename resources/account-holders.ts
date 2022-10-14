@@ -23,19 +23,22 @@ export class AccountHolders extends APIResource {
   /**
    * Check the current status of a KYC or KYB evaluation.
    */
-  retrieve(id: string, options?: Core.RequestOptions): Promise<Core.APIResponse<AccountHolder>> {
-    return this.get(`/account_holders/${id}`, options);
+  retrieve(
+    accountHolderToken: string,
+    options?: Core.RequestOptions,
+  ): Promise<Core.APIResponse<AccountHolder>> {
+    return this.get(`/account_holders/${accountHolderToken}`, options);
   }
 
   /**
    * Update the contact information associated with a particular account holder.
    */
   update(
-    id: string,
+    accountHolderToken: string,
     body: AccountHolderUpdateParams,
     options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<AccountHolderUpdateResponse>> {
-    return this.patch(`/account_holders/${id}`, { body, ...options });
+    return this.patch(`/account_holders/${accountHolderToken}`, { body, ...options });
   }
 
   /**
@@ -78,10 +81,10 @@ export class AccountHolders extends APIResource {
    * state for the corresponding `image_type`.
    */
   listDocuments(
-    id: string,
+    accountHolderToken: string,
     options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<AccountHolderListDocumentsResponse>> {
-    return this.get(`/account_holders/${id}/documents`, options);
+    return this.get(`/account_holders/${accountHolderToken}/documents`, options);
   }
 
   /**
@@ -95,11 +98,11 @@ export class AccountHolders extends APIResource {
    * status is returned and the account creation process is ended.
    */
   resubmit(
-    id: string,
+    accountHolderToken: string,
     body: AccountHolderResubmitParams,
     options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<AccountHolder>> {
-    return this.post(`/account_holders/${id}/resubmit`, { body, ...options });
+    return this.post(`/account_holders/${accountHolderToken}/resubmit`, { body, ...options });
   }
 
   /**
@@ -120,10 +123,10 @@ export class AccountHolders extends APIResource {
    */
   retrieveDocument(
     accountHolderToken: string,
-    id: string,
+    documentToken: string,
     options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<AccountHolderDocument>> {
-    return this.get(`/account_holders/${accountHolderToken}/documents/${id}`, options);
+    return this.get(`/account_holders/${accountHolderToken}/documents/${documentToken}`, options);
   }
 
   /**
@@ -147,11 +150,11 @@ export class AccountHolders extends APIResource {
    * verification.
    */
   uploadDocument(
-    id: string,
+    accountHolderToken: string,
     body: AccountHolderUploadDocumentParams,
     options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<AccountHolderDocument>> {
-    return this.post(`/account_holders/${id}/documents`, { body, ...options });
+    return this.post(`/account_holders/${accountHolderToken}/documents`, { body, ...options });
   }
 }
 

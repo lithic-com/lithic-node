@@ -24,11 +24,11 @@ export class FundingSources extends APIResource {
    * Update a funding source.
    */
   update(
-    id: string,
+    fundingSourceToken: string,
     body: FundingSourceUpdateParams,
     options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<FundingSource>> {
-    return this.patch(`/funding_sources/${id}`, { body, ...options });
+    return this.patch(`/funding_sources/${fundingSourceToken}`, { body, ...options });
   }
 
   /**
@@ -52,11 +52,11 @@ export class FundingSources extends APIResource {
    * amounts.
    */
   verify(
-    id: string,
+    fundingSourceToken: string,
     body: FundingSourceVerifyParams,
     options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<FundingSource>> {
-    return this.post(`/funding_sources/${id}/verify`, { body, ...options });
+    return this.post(`/funding_sources/${fundingSourceToken}/verify`, { body, ...options });
   }
 }
 

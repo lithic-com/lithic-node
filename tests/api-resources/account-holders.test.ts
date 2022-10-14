@@ -4,8 +4,7 @@ import Lithic from '~/index';
 const lithic = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:4010' });
 
 describe('resource account_holders', () => {
-  // oneOfs not yet implemented in java
-  test.skip('create: only required params', async () => {
+  test('create: only required params', async () => {
     const response = await lithic.accountHolders.create({
       business_entity: {
         address: {
@@ -142,8 +141,7 @@ describe('resource account_holders', () => {
     });
   });
 
-  // oneOfs not yet implemented in java
-  test.skip('create: required and optional params', async () => {
+  test('create: required and optional params', async () => {
     const response = await lithic.accountHolders.create({
       business_entity: {
         address: {
