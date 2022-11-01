@@ -10,11 +10,8 @@ export class Transactions extends APIResource {
   /**
    * Get specific transaction.
    *
-   * _Note that the events.amount field returned via this endpoint is changing and
-   * will become a signed field. Debits will appear as positive amounts and credits
-   * will appear as negative amounts. This is already reflected in Sandbox as of
-   * August 30, 2022 at 17:00 UTC and will be updated in Production on September 27,
-   * 2022 at 17:00 UTC. Please refer to
+   * _Note that the events.amount field returned via this endpoint became a signed
+   * field on September 27, 2022. Please refer to
    * [this page](https://docs.lithic.com/docs/guide-to-lithic-api-changes-march-2022)
    * for more information._
    */
@@ -25,11 +22,8 @@ export class Transactions extends APIResource {
   /**
    * List transactions.
    *
-   * _Note that the events.amount field returned via this endpoint is changing and
-   * will become a signed field. Debits will appear as positive amounts and credits
-   * will appear as negative amounts. This is already reflected in Sandbox as of
-   * August 30, 2022 at 17:00 UTC and will be updated in Production on September 27,
-   * 2022 at 17:00 UTC. Please refer to
+   * _Note that the events.amount field returned via this endpoint became a signed
+   * field on September 27, 2022. Please refer to
    * [this page](https://docs.lithic.com/docs/guide-to-lithic-api-changes-march-2022)
    * for more information._
    */
@@ -108,14 +102,16 @@ export interface Transaction {
   acquirer_reference_number?: string | null;
 
   /**
-   * Authorization amount (in USD cents) of the transaction. This may change over
-   * time, and will represent the settled amount once the transaction is settled.
+   * Authorization amount of the transaction (in cents), including any acquirer fees.
+   * This may change over time, and will represent the settled amount once the
+   * transaction is settled.
    */
   amount?: number;
 
   /**
-   * Authorization amount (in USD cents) of the transaction. This amount always
-   * represents the amount authorized for the transaction, unaffected by settlement.
+   * Authorization amount (in cents) of the transaction, including any acquirer fees.
+   * This amount always represents the amount authorized for the transaction,
+   * unaffected by settlement.
    */
   authorization_amount?: number;
 
@@ -126,6 +122,8 @@ export interface Transaction {
   authorization_code?: string;
 
   card?: Cards.Card;
+
+  cardholder_authentication?: Transaction.CardholderAuthentication | null;
 
   /**
    * Date and time when the transaction first occurred. UTC time zone.
@@ -148,14 +146,15 @@ export interface Transaction {
   merchant?: Transaction.Merchant;
 
   /**
-   * Analogous to the "amount" property, but represents the amount in the local
-   * currency at the time of the transaction.
+   * Analogous to the "amount" property, but will represent the amount in the
+   * transaction's local currency (smallest unit), including any acquirer fees.
    */
   merchant_amount?: number;
 
   /**
-   * Analogous to the "authorization_amount" property, but represents the amount in
-   * the local currency at the time of the transaction.
+   * Analogous to the "authorization_amount" property, but will represent the amount
+   * in the transaction's local currency (smallest unit), including any acquirer
+   * fees.
    */
   merchant_authorization_amount?: number;
 
@@ -197,8 +196,8 @@ export interface Transaction {
     | 'USER_TRANSACTION_LIMIT';
 
   /**
-   * Amount (in cents) of the transaction that has been settled. This may change over
-   * time.
+   * Amount of the transaction that has been settled (in cents), including any
+   * acquirer fees. This may change over time.
    */
   settled_amount?: number;
 
@@ -223,9 +222,114 @@ export interface Transaction {
 }
 
 export namespace Transaction {
+  export interface CardholderAuthentication {
+    /**
+     * 3-D Secure Protocol version. Possible values:
+     *
+     * - `1`: 3-D Secure Protocol version 1.x applied to the transaction.
+     * - `2`: 3-D Secure Protocol version 2.x applied to the transaction.
+     * - `null`: 3-D Secure was not used for the transaction
+     */
+    '3ds_version': string | null;
+
+    /**
+     * Exemption applied by the ACS to authenticate the transaction without requesting
+     * a challenge. Possible values:
+     *
+     * - `AUTHENTICATION_OUTAGE_EXCEPTION`: Authentication Outage Exception exemption.
+     * - `LOW_VALUE`: Low Value Payment exemption.
+     * - `MERCHANT_INITIATED_TRANSACTION`: Merchant Initiated Transaction (3RI).
+     * - `NONE`: No exemption applied.
+     * - `RECURRING_PAYMENT`: Recurring Payment exemption.
+     * - `SECURE_CORPORATE_PAYMENT`: Secure Corporate Payment exemption.
+     * - `STRONG_CUSTOMER_AUTHENTICATION_DELEGATION`: Strong Customer Authentication
+     *   Delegation exemption.
+     * - `TRANSACTION_RISK_ANALYSIS`: Acquirer Low-Fraud and Transaction Risk Analysis
+     *   exemption.
+     *
+     * Maps to the 3-D Secure `transChallengeExemption` field.
+     */
+    acquirer_exemption:
+      | 'AUTHENTICATION_OUTAGE_EXCEPTION'
+      | 'LOW_VALUE'
+      | 'MERCHANT_INITIATED_TRANSACTION'
+      | 'NONE'
+      | 'RECURRING_PAYMENT'
+      | 'SECURE_CORPORATE_PAYMENT'
+      | 'STRONG_CUSTOMER_AUTHENTICATION_DELEGATION'
+      | 'TRANSACTION_RISK_ANALYSIS';
+
+    /**
+     * Indicates whether chargeback liability shift applies to the transaction.
+     * Possible values:
+     *
+     * - `3DS_AUTHENTICATED`: The transaction was fully authenticated through a 3-D
+     *   Secure flow, chargeback liability shift applies.
+     * - `ACQUIRER_EXEMPTION`: The acquirer utilised an exemption to bypass Strong
+     *   Customer Authentication (`transStatus = N`, or `transStatus = I`). Liability
+     *   remains with the acquirer and in this case the `acquirer_exemption` field is
+     *   expected to be not `NONE`.
+     * - `NONE`: Chargeback liability shift has not shifted to the issuer, i.e. the
+     *   merchant is liable.
+     * - `TOKEN_AUTHENTICATED`: The transaction was a tokenized payment with validated
+     *   cryptography, possibly recurring. Chargeback liability shift to the issuer
+     *   applies.
+     */
+    liability_shift: '3DS_AUTHENTICATED' | 'ACQUIRER_EXEMPTION' | 'NONE' | 'TOKEN_AUTHENTICATED';
+
+    /**
+     * Verification attempted values:
+     *
+     * - `APP_LOGIN`: Out-of-band login verification was attempted by the ACS.
+     * - `BIOMETRIC`: Out-of-band biometric verification was attempted by the ACS.
+     * - `NONE`: No cardholder verification was attempted by the Access Control Server
+     *   (e.g. frictionless 3-D Secure flow, no 3-D Secure, or stand-in Risk Based
+     *   Analysis).
+     * - `OTHER`: Other method was used by the ACS to verify the cardholder (e.g.
+     *   Mastercard Identity Check Express, recurring transactions, etc.)
+     * - `OTP`: One-time password verification was attempted by the ACS.
+     */
+    verification_attempted: 'APP_LOGIN' | 'BIOMETRIC' | 'NONE' | 'OTHER' | 'OTP';
+
+    /**
+     * This field partially maps to the `transStatus` field in the
+     * [EMVCo 3-D Secure specification](https://www.emvco.com/emv-technologies/3d-secure/)
+     * and Mastercard SPA2 AAV leading indicators.
+     *
+     * Verification result values:
+     *
+     * - `CANCELLED`: Authentication/Account verification could not be performed,
+     *   `transStatus = U`.
+     * - `FAILED`: Transaction was not authenticated. `transStatus = N`, note: the
+     *   utilization of exemptions could also result in `transStatus = N`, inspect the
+     *   `acquirer_exemption` field for more information.
+     * - `FRICTIONLESS`: Attempts processing performed, the transaction was not
+     *   authenticated, but a proof of attempted authentication/verification is
+     *   provided. `transStatus = A` and the leading AAV indicator was one of {`kE`,
+     *   `kF`, `kQ`}.
+     * - `NOT_ATTEMPTED`: A 3-D Secure flow was not applied to this transaction.
+     *   Leading AAV indicator was one of {`kN`, `kX`} or no AAV was provided for the
+     *   transaction.
+     * - `REJECTED`: Authentication/Account Verification rejected; `transStatus = R`.
+     *   Issuer is rejecting authentication/verification and requests that
+     *   authorization not be attempted.
+     * - `SUCCESS`: Authentication verification successful. `transStatus = Y` and
+     *   leading AAV indicator for the transaction was one of {`kA`, `kB`, `kC`, `kD`,
+     *   `kO`, `kP`, `kR`, `kS`}.
+     *
+     * Note that the following `transStatus` values are not represented by this field:
+     *
+     * - `C`: Challenge Required
+     * - `D`: Challenge Required; decoupled authentication confirmed
+     * - `I`: Informational only
+     * - `S`: Challenge using Secure Payment Confirmation (SPC)
+     */
+    verification_result: 'CANCELLED' | 'FAILED' | 'FRICTIONLESS' | 'NOT_ATTEMPTED' | 'REJECTED' | 'SUCCESS';
+  }
+
   export interface Events {
     /**
-     * Amount (in cents) of the transaction event.
+     * Amount of the transaction event (in cents), including any acquirer fees.
      */
     amount: number;
 
@@ -317,7 +421,7 @@ export namespace Transaction {
 
   export interface Funding {
     /**
-     * Funding amount (in cents).
+     * Amount of the transaction event, including any acquirer fees.
      */
     amount?: number;
 
@@ -457,8 +561,8 @@ export interface TransactionSimulateAuthorizationParams {
   pan: string;
 
   /**
-   * Amount of the transaction to be simlated in currency specified in
-   * merchant_currency.
+   * Amount of the transaction to be simulated in currency specified in
+   * merchant_currency, including any acquirer fees.
    */
   merchant_amount?: number;
 

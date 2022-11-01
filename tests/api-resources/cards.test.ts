@@ -5,7 +5,7 @@ const lithic = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:
 
 describe('resource cards', () => {
   test('create: only required params', async () => {
-    const response = await lithic.cards.create({ type: 'MERCHANT_LOCKED' });
+    const response = await lithic.cards.create({ type: 'VIRTUAL' });
   });
 
   test('create: required and optional params', async () => {
@@ -19,7 +19,7 @@ describe('resource cards', () => {
       spend_limit: 0,
       spend_limit_duration: 'ANNUALLY',
       state: 'OPEN',
-      type: 'MERCHANT_LOCKED',
+      type: 'VIRTUAL',
       pin: 'string',
       product_id: '1',
       shipping_address: {

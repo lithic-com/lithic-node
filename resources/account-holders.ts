@@ -54,7 +54,8 @@ export class AccountHolders extends APIResource {
    *
    * After a webhook has been created, this endpoint can be used to rotate a webhooks
    * HMAC token or modify the registered URL. Only a single webhook is allowed per
-   * program.
+   * program. Since HMAC verification is available, the IP addresses from which
+   * KYC/KYB webhooks are sent are subject to change.
    */
   createWebhook(
     body: AccountHolderCreateWebhookParams,
@@ -285,7 +286,10 @@ export interface AccountHolderListDocumentsResponse {
   data?: Array<AccountHolderDocument>;
 }
 
-export type AccountHolderCreateParams = AccountHolderCreateParams.KYB | AccountHolderCreateParams.KYC;
+export type AccountHolderCreateParams =
+  | AccountHolderCreateParams.KYB
+  | AccountHolderCreateParams.KYC
+  | AccountHolderCreateParams.KYCExempt;
 
 export namespace AccountHolderCreateParams {
   export interface KYB {
@@ -775,6 +779,81 @@ export namespace AccountHolderCreateParams {
          */
         address2?: string;
       }
+    }
+  }
+
+  export interface KYCExempt {
+    /**
+     * The KYC Exempt user's email
+     */
+    email: string;
+
+    /**
+     * The KYC Exempt user's first name
+     */
+    first_name: string;
+
+    /**
+     * Specifies the type of KYC Exempt user
+     */
+    kyc_exemption_type: string;
+
+    /**
+     * The KYC Exempt user's last name
+     */
+    last_name: string;
+
+    /**
+     * The KYC Exempt user's phone number
+     */
+    phone_number: string;
+
+    /**
+     * Specifies the workflow type. This must be 'KYC_EXEMPT'
+     */
+    workflow: string;
+
+    /**
+     * KYC Exempt user's current address - PO boxes, UPS drops, and FedEx drops are not
+     * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+     */
+    address?: KYCExempt.Address;
+  }
+
+  export namespace KYCExempt {
+    export interface Address {
+      /**
+       * Valid deliverable address (no PO boxes).
+       */
+      address1: string;
+
+      /**
+       * Name of city.
+       */
+      city: string;
+
+      /**
+       * Valid country code. Only USA is currently supported, entered in uppercase ISO
+       * 3166-1 alpha-3 three-character format.
+       */
+      country: string;
+
+      /**
+       * Valid postal code. Only USA ZIP codes are currently supported, entered as a
+       * five-digit ZIP or nine-digit ZIP+4.
+       */
+      postal_code: string;
+
+      /**
+       * Valid state code. Only USA state codes are currently supported, entered in
+       * uppercase ISO 3166-2 two-character format.
+       */
+      state: string;
+
+      /**
+       * Unit or apartment number (if applicable).
+       */
+      address2?: string;
     }
   }
 }
