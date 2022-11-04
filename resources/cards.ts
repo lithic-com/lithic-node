@@ -294,6 +294,14 @@ export interface Card {
   cvv?: string;
 
   /**
+   * Specifies the digital card art to be displayed in the user’s digital wallet
+   * after tokenization. This artwork must be approved by Mastercard and configured
+   * by Lithic to use. See
+   * [Flexible Card Art Guide](https://docs.lithic.com/docs/about-digital-wallets#flexible-card-art).
+   */
+  digital_card_art_token?: string;
+
+  /**
    * Two digit (MM) expiry month.
    */
   exp_month?: string;
@@ -399,6 +407,14 @@ export interface CardCreateParams {
    * test creating cards on specific card programs.
    */
   card_program_token?: string;
+
+  /**
+   * Specifies the digital card art to be displayed in the user’s digital wallet
+   * after tokenization. This artwork must be approved by Mastercard and configured
+   * by Lithic to use. See
+   * [Flexible Card Art Guide](https://docs.lithic.com/docs/about-digital-wallets#flexible-card-art).
+   */
+  digital_card_art_token?: string;
 
   /**
    * Two digit (MM) expiry month. If neither `exp_month` nor `exp_year` is provided,
@@ -511,6 +527,14 @@ export interface CardUpdateParams {
    * with the card.
    */
   auth_rule_token?: string;
+
+  /**
+   * Specifies the digital card art to be displayed in the user’s digital wallet
+   * after tokenization. This artwork must be approved by Mastercard and configured
+   * by Lithic to use. See
+   * [Flexible Card Art Guide](https://docs.lithic.com/docs/about-digital-wallets#flexible-card-art).
+   */
+  digital_card_art_token?: string;
 
   /**
    * The token for the desired `FundingAccount` to use when making transactions with
