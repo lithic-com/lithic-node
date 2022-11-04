@@ -142,9 +142,11 @@ export abstract class APIClient {
   ): Promise<APIResponse<Rsp>> {
     const { method, path, query, headers: headers = {} } = options;
     const body =
-      options.body instanceof Readable ? options.body
-      : options.body ? JSON.stringify(options.body, null, 2)
-      : null;
+      options.body instanceof Readable
+        ? options.body
+        : options.body
+        ? JSON.stringify(options.body, null, 2)
+        : null;
     const contentLength = typeof body === 'string' ? body.length.toString() : null;
 
     const url = this.buildURL(path!, query);
