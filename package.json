@@ -10,7 +10,7 @@
   "license": "Apache-2.0",
   "private": false,
   "scripts": {
-    "test": "yarn jest",
+    "test": "bin/check-test-server && yarn jest",
     "build": "bash ./build",
     "prepack": "yarn build",
     "format": "prettier --write .",
