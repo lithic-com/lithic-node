@@ -10,9 +10,9 @@ export class Transactions extends APIResource {
   /**
    * Get specific transaction.
    *
-   * _Note that the events.amount field returned via this endpoint became a signed
-   * field on September 27, 2022. Please refer to
-   * [this page](https://docs.lithic.com/docs/guide-to-lithic-api-changes-march-2022)
+   * _Note that the transaction object returned via this endpoint will be changing in
+   * Sandbox on January 4, 2023 and in Production on February 8, 2023. Please refer
+   * to [this page](https://docs.lithic.com/docs/guide-to-q1-2023-lithic-api-changes)
    * for more information._
    */
   retrieve(transactionToken: string, options?: Core.RequestOptions): Promise<Core.APIResponse<Transaction>> {
@@ -22,9 +22,9 @@ export class Transactions extends APIResource {
   /**
    * List transactions.
    *
-   * _Note that the events.amount field returned via this endpoint became a signed
-   * field on September 27, 2022. Please refer to
-   * [this page](https://docs.lithic.com/docs/guide-to-lithic-api-changes-march-2022)
+   * _Note that the transaction object returned via this endpoint will be changing in
+   * Sandbox on January 4, 2023 and in Production on February 8, 2023. Please refer
+   * to [this page](https://docs.lithic.com/docs/guide-to-q1-2023-lithic-api-changes)
    * for more information._
    */
   list(query?: TransactionListParams, options?: Core.RequestOptions): Core.PagePromise<TransactionsPage>;
@@ -44,6 +44,10 @@ export class Transactions extends APIResource {
    * Simulates an authorization request from the payment network as if it came from a
    * merchant acquirer. If you're configured for ASA, simulating auths requires your
    * ASA client to be set up properly (respond with a valid JSON to the ASA request).
+   * For users that are not configured for ASA, a daily transaction limit of $5000
+   * USD is applied by default. This limit can be modified via the
+   * [update account](https://docs.lithic.com/reference/patchaccountbytoken)
+   * endpoint.
    */
   simulateAuthorization(
     body: TransactionSimulateAuthorizationParams,
@@ -514,10 +518,7 @@ export interface TransactionSimulateVoidResponse {
 
 export interface TransactionListParams extends PageParams {
   /**
-   * Only required for multi-account users. Returns transactions associated with this
-   * account. Only applicable if using account holder enrollment. See
-   * [Managing Your Program](https://docs.lithic.com/docs/managing-your-program) for
-   * more information.
+   * Filters for transactions associated with a specific account.
    */
   account_token?: string;
 
@@ -528,7 +529,7 @@ export interface TransactionListParams extends PageParams {
   begin?: string;
 
   /**
-   * Filters transactions associated with a specific card.
+   * Filters for transactions associated with a specific card.
    */
   card_token?: string;
 
@@ -539,14 +540,18 @@ export interface TransactionListParams extends PageParams {
   end?: string;
 
   /**
-   * List specific transactions. Filters include `APPROVED`, and `DECLINED`.
+   * Filters for transactions using transaction result field. Can filter by
+   * `APPROVED`, and `DECLINED`.
    */
   result?: 'APPROVED' | 'DECLINED';
 }
 
 export interface TransactionSimulateAuthorizationParams {
   /**
-   * Amount (in cents) to authorize.
+   * Amount (in cents) to authorize. For credit authorizations and financial credit
+   * authorizations, any value entered will be converted into a negative amount in
+   * the simulated transaction. For example, entering 100 in this field will appear
+   * as a -100 amount in the transaction.
    */
   amount: number;
 
@@ -581,10 +586,17 @@ export interface TransactionSimulateAuthorizationParams {
   /**
    * Type of event to simulate.
    *
-   * - `CREDIT` indicates funds flow towards the user rather than towards the
-   *   merchant.
-   * - `FINANCIAL` indicates that this is a single message transaction that completes
-   *   immediately if approved.
+   * - `AUTHORIZATION` is a dual message purchase authorization, meaning a subsequent
+   *   clearing step is required to settle the transaction.
+   * - `CREDIT_AUTHORIZATION` is a dual message request from a merchant to authorize
+   *   a refund or credit, meaning a subsequent clearing step is required to settle
+   *   the transaction.
+   * - `FINANCIAL_AUTHORIZATION` is a single message request from a merchant to debit
+   *   funds immediately (such as an ATM withdrawal), and no subsequent clearing is
+   *   required to settle the transaction.
+   * - `FINANCIAL_CREDIT_AUTHORIZATION` is a single message request from a merchant
+   *   to credit funds immediately, and no subsequent clearing is required to settle
+   *   the transaction.
    */
   status?:
     | 'AUTHORIZATION'

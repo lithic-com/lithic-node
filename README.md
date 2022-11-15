@@ -141,7 +141,7 @@ Note that requests which time out will be [retried twice by default](#retries).
 List methods in the Lithic API are paginated.
 Use `for await … of` syntax to iterate through items across all pages.
 
-```js
+```ts
 async function fetchAllCards(params) {
   const allCards = [];
   // Automatically fetches more pages as needed.

@@ -188,7 +188,7 @@ export class Cards extends APIResource {
   }
 
   /**
-   * Initiate print and shipment of a duplicate card.
+   * Initiate print and shipment of a duplicate physical card.
    *
    * Only applies to cards of type `PHYSICAL` [beta].
    */
@@ -400,11 +400,12 @@ export interface CardCreateParams {
   account_token?: string;
 
   /**
-   * Identifies the card program under which to create the card. Different card
-   * programs may have their own configurations (e.g., digital wallet card art, BIN
-   * type). This must be configured with Lithic before use. In Sandbox, use
-   * 00000000-0000-0000-1000-000000000000 and 00000000-0000-0000-2000-000000000000 to
-   * test creating cards on specific card programs.
+   * For physical card programs with more than one BIN range. This must be configured
+   * with Lithic before use. Identifies the card program/BIN range under which to
+   * create the card. If omitted, will utilize the program's default
+   * `card_program_token`. In Sandbox, use 00000000-0000-0000-1000-000000000000 and
+   * 00000000-0000-0000-2000-000000000000 to test creating cards on specific card
+   * programs.
    */
   card_program_token?: string;
 
@@ -448,9 +449,9 @@ export interface CardCreateParams {
   pin?: string;
 
   /**
-   * Specifies the configuration (e.g., physical card art) that the card should be
-   * manufactured with, and only applies to cards of type `PHYSICAL` [beta]. This
-   * must be configured with Lithic before use.
+   * Only applicable to cards of type `PHYSICAL`. This must be configured with Lithic
+   * before use. Specifies the configuration (i.e., physical card art) that the card
+   * should be manufactured with.
    */
   product_id?: string;
 
