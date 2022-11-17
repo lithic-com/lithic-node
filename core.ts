@@ -784,11 +784,6 @@ const addFormValue = (form: FormData, key: string, value: unknown) => {
     value instanceof File ||
     value instanceof Blob
   ) {
-    if (form.has(key)) {
-      throw new Error(
-        `Received multiple values for FormData with the same key: ${key}; This behaviour is not supported.`,
-      );
-    }
     form.append(key, value);
   } else if (Array.isArray(value)) {
     value.forEach((entry) => {
