@@ -16,10 +16,6 @@ let nodeFetch: typeof NodeFetch | undefined = undefined;
 let getDefaultAgent = (_url: string): Agent | undefined => undefined;
 if (isNode) {
   /* eslint-disable @typescript-eslint/no-var-requires */
-  // NB: `node-fetch` has both named exports and a default export that is the `fetch` function
-  // we want to use. In most runtime environments, just using `require` gets us the function,
-  // but in some bundling/runtime systems it only gives us the object of named exports.
-  // So we explicitly ask for the `default` export, which works everywhere.
   nodeFetch = require('node-fetch').default;
   const HttpAgent: typeof KeepAliveAgent = require('agentkeepalive');
   const HttpsAgent = HttpAgent.HttpsAgent;
@@ -201,6 +197,7 @@ export abstract class APIClient {
       const json = await response.json();
 
       if (typeof json === 'object' && json != null) {
+        /** @deprecated – we expect to change this interface in the near future. */
         Object.defineProperty(json, 'responseHeaders', {
           enumerable: false,
           writable: false,
@@ -384,10 +381,11 @@ export abstract class AbstractPage<Item> implements AsyncIterable<Item> {
       );
     }
     const nextOptions = { ...this.options };
-    if ('params' in nextInfo) nextOptions.query = { ...nextOptions.query, ...nextInfo.params };
-    else {
-      const qs = [...Object.entries(nextOptions.query || {}), ...nextInfo.url.searchParams.entries()];
-      for (const [key, value] of qs) {
+    if ('params' in nextInfo) {
+      nextOptions.query = { ...nextOptions.query, ...nextInfo.params };
+    } else if ('url' in nextInfo) {
+      const params = [...Object.entries(nextOptions.query || {}), ...nextInfo.url.searchParams.entries()];
+      for (const [key, value] of params) {
         nextInfo.url.searchParams.set(key, value);
       }
       nextOptions.query = undefined;
@@ -486,6 +484,7 @@ export type RequestOptions<Req extends {} = Record<string, unknown> | Readable> 
   maxRetries?: number;
   timeout?: number;
   httpAgent?: Agent;
+  idempotencyKey?: string;
 };
 
 // This is required so that we can determine if a given object matches the RequestOptions
@@ -501,6 +500,7 @@ const requestOptionsKeys: KeysEnum<RequestOptions> = {
   maxRetries: true,
   timeout: true,
   httpAgent: true,
+  idempotencyKey: true,
 };
 
 export const isRequestOptions = (obj: unknown): obj is RequestOptions => {
@@ -515,7 +515,6 @@ export const isRequestOptions = (obj: unknown): obj is RequestOptions => {
 export type FinalRequestOptions<Req extends {} = Record<string, unknown> | Readable> = RequestOptions<Req> & {
   method: HTTPMethod;
   path: string;
-  idempotencyKey?: string;
 };
 
 export type APIResponse<T> = T & {
