@@ -80,6 +80,22 @@ export class Lithic extends Core.APIClient {
   static InternalServerError = Core.InternalServerError;
 }
 
+export const {
+  APIError,
+
+  APIConnectionError,
+  APIConnectionTimeoutError,
+
+  BadRequestError,
+  AuthenticationError,
+  PermissionDeniedError,
+  NotFoundError,
+  ConflictError,
+  UnprocessableEntityError,
+  RateLimitError,
+  InternalServerError,
+} = Lithic;
+
 export namespace Lithic {
   // Helper functions
   export import fileFromPath = FileFromPath.fileFromPath;

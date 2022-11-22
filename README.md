@@ -186,6 +186,9 @@ or open an issue with questions, bugs, or suggestions.
 
 ## Requirements
 
-Node.js version 12 or higher.
+The following runtimes are supported:
+
+- Node.js version 12 or higher.
+- Deno v1.13.0 or higher.
 
 If you are interested in other runtime environments, please open or upvote an issue on Github.
