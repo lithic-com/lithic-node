@@ -91,15 +91,7 @@ describe('resource transactions', () => {
     });
   });
 
-  test('simulate_return: only required params', async () => {
-    const response = await lithic.transactions.simulateReturn({
-      amount: 0,
-      descriptor: 'COFFEE SHOP',
-      pan: '4111111289144142',
-    });
-  });
-
-  test('simulate_return: required and optional params', async () => {
+  test('simulate_return', async () => {
     const response = await lithic.transactions.simulateReturn({
       amount: 0,
       descriptor: 'COFFEE SHOP',

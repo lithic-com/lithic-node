@@ -303,11 +303,7 @@ describe('resource account_holders', () => {
     });
   });
 
-  test('create_webhook: only required params', async () => {
-    const response = await lithic.accountHolders.createWebhook({ url: 'string' });
-  });
-
-  test('create_webhook: required and optional params', async () => {
+  test('create_webhook', async () => {
     const response = await lithic.accountHolders.createWebhook({ url: 'string' });
   });
 
@@ -324,30 +320,7 @@ describe('resource account_holders', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  test('resubmit: only required params', async () => {
-    const response = await lithic.accountHolders.resubmit('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      workflow: 'KYC_ADVANCED',
-      tos_timestamp: '2022-03-08 08:00:00',
-      individual: {
-        address: {
-          address1: '123 Old Forest Way',
-          address2: 'string',
-          city: 'Omaha',
-          country: 'USA',
-          postal_code: '68022',
-          state: 'NE',
-        },
-        dob: '1991-03-08 08:00:00',
-        email: 'tom@middle-earth.com',
-        first_name: 'Tom',
-        government_id: '111-23-1412',
-        last_name: 'Bombadil',
-        phone_number: '+12124007676',
-      },
-    });
-  });
-
-  test('resubmit: required and optional params', async () => {
+  test('resubmit', async () => {
     const response = await lithic.accountHolders.resubmit('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       workflow: 'KYC_ADVANCED',
       tos_timestamp: '2022-03-08 08:00:00',
@@ -388,13 +361,7 @@ describe('resource account_holders', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  test('upload_document: only required params', async () => {
-    const response = await lithic.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      document_type: 'commercial_license',
-    });
-  });
-
-  test('upload_document: required and optional params', async () => {
+  test('upload_document', async () => {
     const response = await lithic.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       document_type: 'commercial_license',
     });
