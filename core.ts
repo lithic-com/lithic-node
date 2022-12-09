@@ -26,11 +26,7 @@ if (isNode) {
   getDefaultAgent = (url: string) => (url.startsWith('https') ? defaultHttpsAgent : defaultHttpAgent);
 }
 
-AbortController ??=
-  global?.AbortController ??
-  globalThis?.AbortController ??
-  window?.AbortController ??
-  AbortControllerPolyfill;
+AbortController ??= AbortControllerPolyfill;
 
 const DEFAULT_MAX_RETRIES = 2;
 const DEFAULT_TIMEOUT = 60 * 1000; // 60s
@@ -626,6 +622,16 @@ type PlatformProperties = {
   'X-Stainless-Runtime-Version': string;
 };
 const getPlatformProperties = (): PlatformProperties => {
+  if (typeof Deno !== 'undefined' && Deno.build != null) {
+    return {
+      'X-Stainless-Lang': 'js',
+      'X-Stainless-Package-Version': VERSION,
+      'X-Stainless-OS': normalizePlatform(Deno.build.os),
+      'X-Stainless-Arch': normalizeArch(Deno.build.arch),
+      'X-Stainless-Runtime': 'deno',
+      'X-Stainless-Runtime-Version': Deno.version,
+    };
+  }
   if (typeof process !== 'undefined') {
     return {
       'X-Stainless-Lang': 'js',
@@ -634,16 +640,6 @@ const getPlatformProperties = (): PlatformProperties => {
       'X-Stainless-Arch': normalizeArch(process.arch),
       'X-Stainless-Runtime': 'node',
       'X-Stainless-Runtime-Version': process.version,
-    };
-  }
-  if (typeof Deno !== 'undefined') {
-    return {
-      'X-Stainless-Lang': 'js',
-      'X-Stainless-Package-Version': VERSION,
-      'X-Stainless-OS': normalizePlatform(Deno.build.os),
-      'X-Stainless-Arch': normalizeArch(Deno.build.arch),
-      'X-Stainless-Runtime': 'deno',
-      'X-Stainless-Runtime-Version': Deno.version,
     };
   }
   // TODO add support for Cloudflare workers, browsers, etc.

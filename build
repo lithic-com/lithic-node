@@ -9,7 +9,4 @@ yarn tsn check-version.ts
 yarn tsc -p tsconfig.cjs.json
 yarn tsc-alias -p tsconfig.cjs.json
 
-# build deno slug:
-yarn rollup -c
-
 yarn prettier --write .

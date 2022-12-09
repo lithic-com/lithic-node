@@ -189,6 +189,7 @@ or open an issue with questions, bugs, or suggestions.
 The following runtimes are supported:
 
 - Node.js version 12 or higher.
-- Deno v1.13.0 or higher.
+- Deno v1.28.0 or higher (experimental).
+  Use `import Lithic from "npm:lithic"`.
 
 If you are interested in other runtime environments, please open or upvote an issue on Github.

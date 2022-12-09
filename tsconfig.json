@@ -33,6 +33,5 @@
     "noPropertyAccessFromIndexSignature": true,
 
     "skipLibCheck": true
-  },
-  "exclude": ["./deno.ts"]
+  }
 }
