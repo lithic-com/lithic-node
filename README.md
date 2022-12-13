@@ -52,7 +52,6 @@ const lithic = new Lithic({
 
 async function main() {
   const params: Lithic.CardCreateParams = { type: 'SINGLE_USE' };
-
   const card: Lithic.Card = await lithic.cards.create(params);
 }
 main().catch(console.error);
