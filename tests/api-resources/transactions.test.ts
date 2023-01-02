@@ -91,11 +91,25 @@ describe('resource transactions', () => {
     });
   });
 
+  test('simulate_credit_authorization', async () => {
+    const response = await lithic.transactions.simulateCreditAuthorization({
+      amount: 0,
+      descriptor: 'COFFEE SHOP',
+      pan: '4111111289144142',
+    });
+  });
+
   test('simulate_return', async () => {
     const response = await lithic.transactions.simulateReturn({
       amount: 0,
       descriptor: 'COFFEE SHOP',
       pan: '4111111289144142',
+    });
+  });
+
+  test('simulate_return_reversal', async () => {
+    const response = await lithic.transactions.simulateReturnReversal({
+      token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
   });
 

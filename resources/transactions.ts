@@ -72,6 +72,18 @@ export class Transactions extends APIResource {
   }
 
   /**
+   * Simulates a credit authorization advice message from the payment network. This
+   * message indicates that a credit authorization was approved on your behalf by the
+   * network.
+   */
+  simulateCreditAuthorization(
+    body: TransactionSimulateCreditAuthorizationParams,
+    options?: Core.RequestOptions,
+  ): Promise<Core.APIResponse<TransactionSimulateCreditAuthorizationResponse>> {
+    return this.post('/simulate/credit_authorization_advice', { body, ...options });
+  }
+
+  /**
    * Returns (aka refunds) an amount back to a card. Returns are cleared immediately
    * and do not spend time in a `PENDING` state.
    */
@@ -80,6 +92,19 @@ export class Transactions extends APIResource {
     options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<TransactionSimulateReturnResponse>> {
     return this.post('/simulate/return', { body, ...options });
+  }
+
+  /**
+   * Voids a settled credit transaction – i.e., a transaction with a negative amount
+   * and `SETTLED` status. These can be credit authorizations that have already
+   * cleared or financial credit authorizations. This endpoint will be available
+   * beginning January 4, 2023.
+   */
+  simulateReturnReversal(
+    body: TransactionSimulateReturnReversalParams,
+    options?: Core.RequestOptions,
+  ): Promise<Core.APIResponse<TransactionSimulateReturnReversalResponse>> {
+    return this.post('/simulate/return_reversal', { body, ...options });
   }
 
   /**
@@ -497,6 +522,18 @@ export interface TransactionSimulateClearingResponse {
   debugging_request_id?: string;
 }
 
+export interface TransactionSimulateCreditAuthorizationResponse {
+  /**
+   * Debugging request ID to share with Lithic Support team.
+   */
+  debugging_request_id?: string;
+
+  /**
+   * A unique token to reference this transaction.
+   */
+  token?: string;
+}
+
 export interface TransactionSimulateReturnResponse {
   /**
    * Debugging request ID to share with Lithic Support team.
@@ -507,6 +544,13 @@ export interface TransactionSimulateReturnResponse {
    * A unique token to reference this transaction.
    */
   token?: string;
+}
+
+export interface TransactionSimulateReturnReversalResponse {
+  /**
+   * Debugging request ID to share with Lithic Support team.
+   */
+  debugging_request_id?: string;
 }
 
 export interface TransactionSimulateVoidResponse {
@@ -622,6 +666,25 @@ export interface TransactionSimulateClearingParams {
   amount?: number;
 }
 
+export interface TransactionSimulateCreditAuthorizationParams {
+  /**
+   * Amount (in cents). Any value entered will be converted into a negative amount in
+   * the simulated transaction. For example, entering 100 in this field will appear
+   * as a -100 amount in the transaction.
+   */
+  amount: number;
+
+  /**
+   * Merchant descriptor.
+   */
+  descriptor: string;
+
+  /**
+   * Sixteen digit card number.
+   */
+  pan: string;
+}
+
 export interface TransactionSimulateReturnParams {
   /**
    * Amount (in cents) to authorize.
@@ -637,6 +700,13 @@ export interface TransactionSimulateReturnParams {
    * Sixteen digit card number.
    */
   pan: string;
+}
+
+export interface TransactionSimulateReturnReversalParams {
+  /**
+   * The transaction token returned from the /v1/simulate/authorize response.
+   */
+  token: string;
 }
 
 export interface TransactionSimulateVoidParams {
