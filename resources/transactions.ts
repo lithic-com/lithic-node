@@ -110,7 +110,9 @@ export class Transactions extends APIResource {
   /**
    * Voids an existing, uncleared (aka pending) authorization. If amount is not sent
    * the full amount will be voided. Cannot be used on partially completed
-   * transactions, but can be used on partially voided transactions.
+   * transactions, but can be used on partially voided transactions. _Note that
+   * simulating an authorization expiry on credit authorizations or credit
+   * authorization advice is not currently supported but will be added soon._
    */
   simulateVoid(
     body: TransactionSimulateVoidParams,
@@ -595,7 +597,8 @@ export interface TransactionSimulateAuthorizationParams {
    * Amount (in cents) to authorize. For credit authorizations and financial credit
    * authorizations, any value entered will be converted into a negative amount in
    * the simulated transaction. For example, entering 100 in this field will appear
-   * as a -100 amount in the transaction.
+   * as a -100 amount in the transaction. For balance inquiries, this field must be
+   * set to 0.
    */
   amount: number;
 
@@ -632,6 +635,9 @@ export interface TransactionSimulateAuthorizationParams {
    *
    * - `AUTHORIZATION` is a dual message purchase authorization, meaning a subsequent
    *   clearing step is required to settle the transaction.
+   * - `BALANCE_INQUIRY` is a $0 authorization that includes a request for the
+   *   balance held on the card, and is most typically seen when a cardholder
+   *   requests to view a card's balance at an ATM.
    * - `CREDIT_AUTHORIZATION` is a dual message request from a merchant to authorize
    *   a refund or credit, meaning a subsequent clearing step is required to settle
    *   the transaction.
@@ -644,6 +650,7 @@ export interface TransactionSimulateAuthorizationParams {
    */
   status?:
     | 'AUTHORIZATION'
+    | 'BALANCE_INQUIRY'
     | 'CREDIT_AUTHORIZATION'
     | 'FINANCIAL_AUTHORIZATION'
     | 'FINANCIAL_CREDIT_AUTHORIZATION';
@@ -720,4 +727,13 @@ export interface TransactionSimulateVoidParams {
    * but may be less.
    */
   amount?: number;
+
+  /**
+   * Type of event to simulate. Defaults to `AUTHORIZATION_REVERSAL`.
+   *
+   * - `AUTHORIZATION_EXPIRY` indicates authorization has expired and been reversed
+   *   by Lithic.
+   * - `AUTHORIZATION_REVERSAL` indicates authorization was reversed by the merchant.
+   */
+  type?: 'AUTHORIZATION_EXPIRY' | 'AUTHORIZATION_REVERSAL';
 }
