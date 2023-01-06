@@ -1,4 +1,5 @@
 // File generated from our OpenAPI spec by Stainless.
+import qs from 'qs';
 import * as Core from './core';
 import * as Pagination from './pagination';
 import * as API from './resources';
@@ -53,6 +54,9 @@ export class Lithic extends Core.APIClient {
   fundingSources: API.FundingSources = new API.FundingSources(this);
   transactions: API.Transactions = new API.Transactions(this);
 
+  /**
+   * API status check
+   */
   apiStatus(options?: Core.RequestOptions): Promise<Core.APIResponse<Lithic.APIStatus>> {
     return this.get('/status', options);
   }
