@@ -369,6 +369,8 @@ export interface EmbedRequestParams {
   target_origin?: string;
 }
 
+export type CardEmbedResponse = string;
+
 export interface CardProvisionResponse {
   provisioning_payload?: string;
 }

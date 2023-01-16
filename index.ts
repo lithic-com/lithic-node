@@ -144,6 +144,7 @@ export namespace Lithic {
 
   export import Card = API.Card;
   export import EmbedRequestParams = API.EmbedRequestParams;
+  export import CardEmbedResponse = API.CardEmbedResponse;
   export import CardProvisionResponse = API.CardProvisionResponse;
   export import CardsPage = API.CardsPage;
   export import CardCreateParams = API.CardCreateParams;

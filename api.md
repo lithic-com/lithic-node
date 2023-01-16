@@ -69,6 +69,7 @@ Models:
 
 - <code><a href="./resources/cards.ts">Card</a></code>
 - <code><a href="./resources/cards.ts">EmbedRequestParams</a></code>
+- <code><a href="./resources/cards.ts">CardEmbedResponse</a></code>
 - <code><a href="./resources/cards.ts">CardProvisionResponse</a></code>
 
 Methods:
