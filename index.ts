@@ -179,6 +179,8 @@ export namespace Lithic {
   export import TransactionSimulateReturnParams = API.TransactionSimulateReturnParams;
   export import TransactionSimulateReturnReversalParams = API.TransactionSimulateReturnReversalParams;
   export import TransactionSimulateVoidParams = API.TransactionSimulateVoidParams;
+
+  export import ShippingAddress = API.ShippingAddress;
 }
 
 exports = module.exports = Lithic;
