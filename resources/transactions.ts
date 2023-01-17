@@ -152,7 +152,19 @@ export interface Transaction {
    */
   authorization_code?: string;
 
+  /**
+   * Note this field will be removed with the
+   * [February API changes](https://docs.lithic.com/docs/guide-to-q1-2023-lithic-api-changes)).
+   * Card used in this transaction.
+   */
   card?: Cards.Card;
+
+  /**
+   * Token for the card used in this transaction. Note this field is not yet
+   * included. It will be added as part of the
+   * [February API changes](https://docs.lithic.com/docs/guide-to-q1-2023-lithic-api-changes)).
+   */
+  card_token?: string;
 
   cardholder_authentication?: Transaction.CardholderAuthentication | null;
 
@@ -167,6 +179,8 @@ export interface Transaction {
   events?: Array<Transaction.Events>;
 
   /**
+   * Note this field will be removed with the
+   * [February API changes](https://docs.lithic.com/docs/guide-to-q1-2023-lithic-api-changes)).
    * A list of objects that describe how this transaction was funded, with the
    * `amount` represented in cents. A reference to the funding account for the `card`
    * that made this transaction may appear here and the `token` will match the
@@ -235,16 +249,20 @@ export interface Transaction {
   /**
    * Status types:
    *
-   * - `BOUNCED` - There was an error settling the transaction against the funding
-   *   source. Your API account may be disabled.
+   * - `BOUNCED` - The transaction was bounced. Note this value will be removed with
+   *   the
+   *   [February API changes](https://docs.lithic.com/docs/guide-to-q1-2023-lithic-api-changes)).
    * - `DECLINED` - The transaction was declined.
+   * - `EXPIRED` - Lithic reversed the authorization as it has passed its expiration
+   *   time.
    * - `PENDING` - Authorization is pending completion from the merchant.
    * - `SETTLED` - The transaction is complete.
    * - `SETTLING` - The merchant has completed the transaction and the funding source
-   *   is being debited.
+   *   is being debited. Note this value will be removed with the
+   *   [February API changes](https://docs.lithic.com/docs/guide-to-q1-2023-lithic-api-changes)).
    * - `VOIDED` - The merchant has voided the previously pending authorization.
    */
-  status?: 'BOUNCED' | 'DECLINED' | 'PENDING' | 'SETTLED' | 'SETTLING' | 'VOIDED';
+  status?: 'BOUNCED' | 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'SETTLING' | 'VOIDED';
 
   /**
    * Globally unique identifier.
@@ -434,20 +452,44 @@ export namespace Transaction {
      *
      * - `AUTHORIZATION` - Authorize a transaction.
      * - `AUTHORIZATION_ADVICE` - Advice on a transaction.
+     * - `AUTHORIZATION_EXPIRY` - Authorization has expired and reversed by Lithic.
+     * - `AUTHORIZATION_REVERSAL` - Authorization was reversed by the merchant.
+     * - `BALANCE_INQUIRY` - A balance inquiry (typically a $0 authorization) has
+     *   occurred on a card.
      * - `CLEARING` - Transaction is settled.
-     * - `RETURN` - A return authorization.
-     * - `VOID` - Transaction is voided.
      * - `CORRECTION_DEBIT` - Manual transaction correction (Debit).
      * - `CORRECTION_CREDIT` - Manual transaction correction (Credit).
+     * - `CREDIT_AUTHORIZATION` - A refund or credit authorization from a merchant.
+     * - `CREDIT_AUTHORIZATION_ADVICE` - A credit authorization was approved on your
+     *   behalf by the network.
+     * - `FINANCIAL_AUTHORIZATION` - A request from a merchant to debit funds without
+     *   additional clearing.
+     * - `FINANCIAL_CREDIT_AUTHORIZATION` - A request from a merchant to refund or
+     *   credit funds without additional clearing.
+     * - `RETURN` - A refund has been processed on the transaction.
+     * - `RETURN_REVERSAL` - A refund has been reversed (e.g., when a merchant reverses
+     *   an incorrect refund).
+     * - `VOID` - (Note this value will be removed with the
+     *   [February API changes](https://docs.lithic.com/docs/guide-to-q1-2023-lithic-api-changes)).
+     *   A transaction has been voided (e.g., when a merchant reverses an incorrect
+     *   authorization).
      */
     type:
       | 'AUTHORIZATION'
       | 'AUTHORIZATION_ADVICE'
+      | 'AUTHORIZATION_EXPIRY'
+      | 'AUTHORIZATION_REVERSAL'
+      | 'BALANCE_INQUIRY'
       | 'CLEARING'
-      | 'RETURN'
-      | 'VOID'
       | 'CORRECTION_DEBIT'
-      | 'CORRECTION_CREDIT';
+      | 'CORRECTION_CREDIT'
+      | 'CREDIT_AUTHORIZATION'
+      | 'CREDIT_AUTHORIZATION_ADVICE'
+      | 'FINANCIAL_AUTHORIZATION'
+      | 'FINANCIAL_CREDIT_AUTHORIZATION'
+      | 'RETURN'
+      | 'RETURN_REVERSAL'
+      | 'VOID';
   }
 
   export interface Funding {
