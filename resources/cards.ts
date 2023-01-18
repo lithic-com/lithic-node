@@ -97,9 +97,12 @@ export class Cards extends APIResource {
    * but **do not ever embed your API key into front end code, as doing so introduces
    * a serious security vulnerability**.
    */
-  embed(query?: CardEmbedParams, options?: Core.RequestOptions): Promise<string>;
-  embed(options?: Core.RequestOptions): Promise<string>;
-  embed(query: CardEmbedParams | Core.RequestOptions = {}, options?: Core.RequestOptions): Promise<string> {
+  embed(query?: CardEmbedParams, options?: Core.RequestOptions): Promise<Core.APIResponse<Promise<string>>>;
+  embed(options?: Core.RequestOptions): Promise<Core.APIResponse<Promise<string>>>;
+  embed(
+    query: CardEmbedParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Promise<Core.APIResponse<Promise<string>>> {
     if (isRequestOptions(query)) {
       return this.embed({}, query);
     }
