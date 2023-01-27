@@ -12,9 +12,7 @@ const environments = {
 };
 
 type Config = {
-  /**
-   * Defaults to to process.env["LITHIC_API_KEY"]. Set it to null if you want to send unauthenticated requests.
-   */
+  /* Defaults to to process.env["LITHIC_API_KEY"].  */
   apiKey?: string;
   environment?: keyof typeof environments;
   baseURL?: string;
@@ -34,7 +32,7 @@ export class Lithic extends Core.APIClient {
 
     if (!options.apiKey && options.apiKey !== null) {
       throw new Error(
-        "The LITHIC_API_KEY environment variable is missing or empty; either provide it, or instantiate the Lithic client with an apiKey option, like new Lithic({apiKey: 'my api key'}).",
+        "The LITHIC_API_KEY environment variable is missing or empty; either provide it, or instantiate the Lithic client with an apiKey option, like new Lithic({ apiKey: 'my api key' }).",
       );
     }
 
