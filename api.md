@@ -17,8 +17,8 @@ Models:
 - <code><a href="./resources/account-holders.ts">AccountHolder</a></code>
 - <code><a href="./resources/account-holders.ts">AccountHolderDocument</a></code>
 - <code><a href="./resources/account-holders.ts">AccountHolderUpdateResponse</a></code>
-- <code><a href="./resources/account-holders.ts">AccountHolderCreateWebhookResponse</a></code>
 - <code><a href="./resources/account-holders.ts">AccountHolderListDocumentsResponse</a></code>
+- <code><a href="./resources/account-holders.ts">AccountHolderCreateWebhookResponse</a></code>
 
 Methods:
 
@@ -69,8 +69,8 @@ Models:
 
 - <code><a href="./resources/cards.ts">Card</a></code>
 - <code><a href="./resources/cards.ts">EmbedRequestParams</a></code>
-- <code><a href="./resources/cards.ts">CardEmbedResponse</a></code>
 - <code><a href="./resources/cards.ts">CardProvisionResponse</a></code>
+- <code><a href="./resources/cards.ts">CardEmbedResponse</a></code>
 
 Methods:
 
@@ -114,10 +114,10 @@ Models:
 - <code><a href="./resources/transactions.ts">Transaction</a></code>
 - <code><a href="./resources/transactions.ts">TransactionSimulateAuthorizationResponse</a></code>
 - <code><a href="./resources/transactions.ts">TransactionSimulateClearingResponse</a></code>
-- <code><a href="./resources/transactions.ts">TransactionSimulateCreditAuthorizationResponse</a></code>
 - <code><a href="./resources/transactions.ts">TransactionSimulateReturnResponse</a></code>
 - <code><a href="./resources/transactions.ts">TransactionSimulateReturnReversalResponse</a></code>
 - <code><a href="./resources/transactions.ts">TransactionSimulateVoidResponse</a></code>
+- <code><a href="./resources/transactions.ts">TransactionSimulateCreditAuthorizationResponse</a></code>
 
 Methods:
 

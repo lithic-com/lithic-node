@@ -566,18 +566,6 @@ export interface TransactionSimulateClearingResponse {
   debugging_request_id?: string;
 }
 
-export interface TransactionSimulateCreditAuthorizationResponse {
-  /**
-   * Debugging request ID to share with Lithic Support team.
-   */
-  debugging_request_id?: string;
-
-  /**
-   * A unique token to reference this transaction.
-   */
-  token?: string;
-}
-
 export interface TransactionSimulateReturnResponse {
   /**
    * Debugging request ID to share with Lithic Support team.
@@ -602,6 +590,18 @@ export interface TransactionSimulateVoidResponse {
    * Debugging request ID to share with Lithic Support team.
    */
   debugging_request_id?: string;
+}
+
+export interface TransactionSimulateCreditAuthorizationResponse {
+  /**
+   * Debugging request ID to share with Lithic Support team.
+   */
+  debugging_request_id?: string;
+
+  /**
+   * A unique token to reference this transaction.
+   */
+  token?: string;
 }
 
 export interface TransactionListParams extends PageParams {

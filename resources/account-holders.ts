@@ -268,6 +268,10 @@ export interface AccountHolderUpdateResponse {
   token?: string;
 }
 
+export interface AccountHolderListDocumentsResponse {
+  data?: Array<AccountHolderDocument>;
+}
+
 export interface AccountHolderCreateWebhookResponse {
   data?: AccountHolderCreateWebhookResponse.Data;
 }
@@ -280,10 +284,6 @@ export namespace AccountHolderCreateWebhookResponse {
      */
     hmac_token?: string;
   }
-}
-
-export interface AccountHolderListDocumentsResponse {
-  data?: Array<AccountHolderDocument>;
 }
 
 export type AccountHolderCreateParams =

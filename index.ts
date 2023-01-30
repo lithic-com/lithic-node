@@ -116,8 +116,8 @@ export namespace Lithic {
   export import AccountHolder = API.AccountHolder;
   export import AccountHolderDocument = API.AccountHolderDocument;
   export import AccountHolderUpdateResponse = API.AccountHolderUpdateResponse;
-  export import AccountHolderCreateWebhookResponse = API.AccountHolderCreateWebhookResponse;
   export import AccountHolderListDocumentsResponse = API.AccountHolderListDocumentsResponse;
+  export import AccountHolderCreateWebhookResponse = API.AccountHolderCreateWebhookResponse;
   export import AccountHolderCreateParams = API.AccountHolderCreateParams;
   export import AccountHolderUpdateParams = API.AccountHolderUpdateParams;
   export import AccountHolderCreateWebhookParams = API.AccountHolderCreateWebhookParams;
@@ -142,8 +142,8 @@ export namespace Lithic {
 
   export import Card = API.Card;
   export import EmbedRequestParams = API.EmbedRequestParams;
-  export import CardEmbedResponse = API.CardEmbedResponse;
   export import CardProvisionResponse = API.CardProvisionResponse;
+  export import CardEmbedResponse = API.CardEmbedResponse;
   export import CardsPage = API.CardsPage;
   export import CardCreateParams = API.CardCreateParams;
   export import CardRetrieveParams = API.CardRetrieveParams;
@@ -165,10 +165,10 @@ export namespace Lithic {
   export import Transaction = API.Transaction;
   export import TransactionSimulateAuthorizationResponse = API.TransactionSimulateAuthorizationResponse;
   export import TransactionSimulateClearingResponse = API.TransactionSimulateClearingResponse;
-  export import TransactionSimulateCreditAuthorizationResponse = API.TransactionSimulateCreditAuthorizationResponse;
   export import TransactionSimulateReturnResponse = API.TransactionSimulateReturnResponse;
   export import TransactionSimulateReturnReversalResponse = API.TransactionSimulateReturnReversalResponse;
   export import TransactionSimulateVoidResponse = API.TransactionSimulateVoidResponse;
+  export import TransactionSimulateCreditAuthorizationResponse = API.TransactionSimulateCreditAuthorizationResponse;
   export import TransactionsPage = API.TransactionsPage;
   export import TransactionListParams = API.TransactionListParams;
   export import TransactionSimulateAuthorizationParams = API.TransactionSimulateAuthorizationParams;
