@@ -237,7 +237,7 @@ export interface Card {
    * - `TRANSACTION` - Card will authorize multiple transactions if each individual
    *   transaction is under the spend limit.
    */
-  spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION';
+  spend_limit_duration: SpendLimitDuration;
 
   /**
    * Card state values:
@@ -372,6 +372,20 @@ export interface EmbedRequestParams {
   target_origin?: string;
 }
 
+/**
+ * Spend limit duration values:
+ *
+ * - `ANNUALLY` - Card will authorize transactions up to spend limit in a calendar
+ *   year.
+ * - `FOREVER` - Card will authorize only up to spend limit for the entire lifetime
+ *   of the card.
+ * - `MONTHLY` - Card will authorize transactions up to spend limit for the
+ *   trailing month. Month is calculated as this calendar date one month prior.
+ * - `TRANSACTION` - Card will authorize multiple transactions if each individual
+ *   transaction is under the spend limit.
+ */
+export type SpendLimitDuration = 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION';
+
 export interface CardProvisionResponse {
   provisioning_payload?: string;
 }
@@ -496,7 +510,7 @@ export interface CardCreateParams {
    * - `TRANSACTION` - Card will authorize multiple transactions if each individual
    *   transaction is under the spend limit.
    */
-  spend_limit_duration?: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION';
+  spend_limit_duration?: SpendLimitDuration;
 
   /**
    * Card state values:
@@ -582,7 +596,7 @@ export interface CardUpdateParams {
    * - `TRANSACTION` - Card will authorize multiple transactions if each individual
    *   transaction is under the spend limit.
    */
-  spend_limit_duration?: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION';
+  spend_limit_duration?: SpendLimitDuration;
 
   /**
    * Card state values:

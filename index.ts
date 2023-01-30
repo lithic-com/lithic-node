@@ -142,6 +142,7 @@ export namespace Lithic {
 
   export import Card = API.Card;
   export import EmbedRequestParams = API.EmbedRequestParams;
+  export import SpendLimitDuration = API.SpendLimitDuration;
   export import CardProvisionResponse = API.CardProvisionResponse;
   export import CardEmbedResponse = API.CardEmbedResponse;
   export import CardsPage = API.CardsPage;
@@ -178,6 +179,7 @@ export namespace Lithic {
   export import TransactionSimulateReturnReversalParams = API.TransactionSimulateReturnReversalParams;
   export import TransactionSimulateVoidParams = API.TransactionSimulateVoidParams;
 
+  export import Address = API.Address;
   export import ShippingAddress = API.ShippingAddress;
 }
 

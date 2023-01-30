@@ -38,6 +38,7 @@ export {
 export {
   Card,
   EmbedRequestParams,
+  SpendLimitDuration,
   CardProvisionResponse,
   CardEmbedResponse,
   CardCreateParams,

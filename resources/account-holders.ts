@@ -2,6 +2,7 @@
 
 import * as Core from '~/core';
 import { APIResource } from '~/resource';
+import * as Shared from '~/resources/shared';
 
 export class AccountHolders extends APIResource {
   /**
@@ -371,7 +372,7 @@ export namespace AccountHolderCreateParams {
        * Business's physical address - PO boxes, UPS drops, and FedEx drops are not
        * acceptable; APO/FPO are acceptable.
        */
-      address: BusinessEntity.Address;
+      address: Shared.Address;
 
       /**
        * Government-issued identification number. US Federal Employer Identification
@@ -401,43 +402,6 @@ export namespace AccountHolderCreateParams {
        * Parent company name (if applicable).
        */
       parent_company?: string;
-    }
-
-    export namespace BusinessEntity {
-      export interface Address {
-        /**
-         * Valid deliverable address (no PO boxes).
-         */
-        address1: string;
-
-        /**
-         * Name of city.
-         */
-        city: string;
-
-        /**
-         * Valid country code. Only USA is currently supported, entered in uppercase ISO
-         * 3166-1 alpha-3 three-character format.
-         */
-        country: string;
-
-        /**
-         * Valid postal code. Only USA ZIP codes are currently supported, entered as a
-         * five-digit ZIP or nine-digit ZIP+4.
-         */
-        postal_code: string;
-
-        /**
-         * Valid state code. Only USA state codes are currently supported, entered in
-         * uppercase ISO 3166-2 two-character format.
-         */
-        state: string;
-
-        /**
-         * Unit or apartment number (if applicable).
-         */
-        address2?: string;
-      }
     }
 
     export interface BeneficialOwnerEntities {
@@ -445,7 +409,7 @@ export namespace AccountHolderCreateParams {
        * Business's physical address - PO boxes, UPS drops, and FedEx drops are not
        * acceptable; APO/FPO are acceptable.
        */
-      address: BeneficialOwnerEntities.Address;
+      address: Shared.Address;
 
       /**
        * Government-issued identification number. US Federal Employer Identification
@@ -477,49 +441,12 @@ export namespace AccountHolderCreateParams {
       parent_company?: string;
     }
 
-    export namespace BeneficialOwnerEntities {
-      export interface Address {
-        /**
-         * Valid deliverable address (no PO boxes).
-         */
-        address1: string;
-
-        /**
-         * Name of city.
-         */
-        city: string;
-
-        /**
-         * Valid country code. Only USA is currently supported, entered in uppercase ISO
-         * 3166-1 alpha-3 three-character format.
-         */
-        country: string;
-
-        /**
-         * Valid postal code. Only USA ZIP codes are currently supported, entered as a
-         * five-digit ZIP or nine-digit ZIP+4.
-         */
-        postal_code: string;
-
-        /**
-         * Valid state code. Only USA state codes are currently supported, entered in
-         * uppercase ISO 3166-2 two-character format.
-         */
-        state: string;
-
-        /**
-         * Unit or apartment number (if applicable).
-         */
-        address2?: string;
-      }
-    }
-
     export interface BeneficialOwnerIndividuals {
       /**
        * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
        * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
        */
-      address: BeneficialOwnerIndividuals.Address;
+      address: Shared.Address;
 
       /**
        * Individual's date of birth, as an ISO 8601 date.
@@ -554,43 +481,6 @@ export namespace AccountHolderCreateParams {
        * Individual's phone number, entered in E.164 format.
        */
       phone_number: string;
-    }
-
-    export namespace BeneficialOwnerIndividuals {
-      export interface Address {
-        /**
-         * Valid deliverable address (no PO boxes).
-         */
-        address1: string;
-
-        /**
-         * Name of city.
-         */
-        city: string;
-
-        /**
-         * Valid country code. Only USA is currently supported, entered in uppercase ISO
-         * 3166-1 alpha-3 three-character format.
-         */
-        country: string;
-
-        /**
-         * Valid postal code. Only USA ZIP codes are currently supported, entered as a
-         * five-digit ZIP or nine-digit ZIP+4.
-         */
-        postal_code: string;
-
-        /**
-         * Valid state code. Only USA state codes are currently supported, entered in
-         * uppercase ISO 3166-2 two-character format.
-         */
-        state: string;
-
-        /**
-         * Unit or apartment number (if applicable).
-         */
-        address2?: string;
-      }
     }
 
     export interface ControlPerson {
@@ -598,7 +488,7 @@ export namespace AccountHolderCreateParams {
        * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
        * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
        */
-      address: ControlPerson.Address;
+      address: Shared.Address;
 
       /**
        * Individual's date of birth, as an ISO 8601 date.
@@ -633,43 +523,6 @@ export namespace AccountHolderCreateParams {
        * Individual's phone number, entered in E.164 format.
        */
       phone_number: string;
-    }
-
-    export namespace ControlPerson {
-      export interface Address {
-        /**
-         * Valid deliverable address (no PO boxes).
-         */
-        address1: string;
-
-        /**
-         * Name of city.
-         */
-        city: string;
-
-        /**
-         * Valid country code. Only USA is currently supported, entered in uppercase ISO
-         * 3166-1 alpha-3 three-character format.
-         */
-        country: string;
-
-        /**
-         * Valid postal code. Only USA ZIP codes are currently supported, entered as a
-         * five-digit ZIP or nine-digit ZIP+4.
-         */
-        postal_code: string;
-
-        /**
-         * Valid state code. Only USA state codes are currently supported, entered in
-         * uppercase ISO 3166-2 two-character format.
-         */
-        state: string;
-
-        /**
-         * Unit or apartment number (if applicable).
-         */
-        address2?: string;
-      }
     }
   }
 
@@ -707,7 +560,7 @@ export namespace AccountHolderCreateParams {
        * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
        * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
        */
-      address: Individual.Address;
+      address: Shared.Address;
 
       /**
        * Individual's date of birth, as an ISO 8601 date.
@@ -742,43 +595,6 @@ export namespace AccountHolderCreateParams {
        * Individual's phone number, entered in E.164 format.
        */
       phone_number: string;
-    }
-
-    export namespace Individual {
-      export interface Address {
-        /**
-         * Valid deliverable address (no PO boxes).
-         */
-        address1: string;
-
-        /**
-         * Name of city.
-         */
-        city: string;
-
-        /**
-         * Valid country code. Only USA is currently supported, entered in uppercase ISO
-         * 3166-1 alpha-3 three-character format.
-         */
-        country: string;
-
-        /**
-         * Valid postal code. Only USA ZIP codes are currently supported, entered as a
-         * five-digit ZIP or nine-digit ZIP+4.
-         */
-        postal_code: string;
-
-        /**
-         * Valid state code. Only USA state codes are currently supported, entered in
-         * uppercase ISO 3166-2 two-character format.
-         */
-        state: string;
-
-        /**
-         * Unit or apartment number (if applicable).
-         */
-        address2?: string;
-      }
     }
   }
 
@@ -817,44 +633,7 @@ export namespace AccountHolderCreateParams {
      * KYC Exempt user's current address - PO boxes, UPS drops, and FedEx drops are not
      * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
      */
-    address?: KYCExempt.Address;
-  }
-
-  export namespace KYCExempt {
-    export interface Address {
-      /**
-       * Valid deliverable address (no PO boxes).
-       */
-      address1: string;
-
-      /**
-       * Name of city.
-       */
-      city: string;
-
-      /**
-       * Valid country code. Only USA is currently supported, entered in uppercase ISO
-       * 3166-1 alpha-3 three-character format.
-       */
-      country: string;
-
-      /**
-       * Valid postal code. Only USA ZIP codes are currently supported, entered as a
-       * five-digit ZIP or nine-digit ZIP+4.
-       */
-      postal_code: string;
-
-      /**
-       * Valid state code. Only USA state codes are currently supported, entered in
-       * uppercase ISO 3166-2 two-character format.
-       */
-      state: string;
-
-      /**
-       * Unit or apartment number (if applicable).
-       */
-      address2?: string;
-    }
+    address?: Shared.Address;
   }
 }
 
@@ -904,7 +683,7 @@ export namespace AccountHolderResubmitParams {
      * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
      * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
      */
-    address: Individual.Address;
+    address: Shared.Address;
 
     /**
      * Individual's date of birth, as an ISO 8601 date.
@@ -939,43 +718,6 @@ export namespace AccountHolderResubmitParams {
      * Individual's phone number, entered in E.164 format.
      */
     phone_number: string;
-  }
-
-  export namespace Individual {
-    export interface Address {
-      /**
-       * Valid deliverable address (no PO boxes).
-       */
-      address1: string;
-
-      /**
-       * Name of city.
-       */
-      city: string;
-
-      /**
-       * Valid country code. Only USA is currently supported, entered in uppercase ISO
-       * 3166-1 alpha-3 three-character format.
-       */
-      country: string;
-
-      /**
-       * Valid postal code. Only USA ZIP codes are currently supported, entered as a
-       * five-digit ZIP or nine-digit ZIP+4.
-       */
-      postal_code: string;
-
-      /**
-       * Valid state code. Only USA state codes are currently supported, entered in
-       * uppercase ISO 3166-2 two-character format.
-       */
-      state: string;
-
-      /**
-       * Unit or apartment number (if applicable).
-       */
-      address2?: string;
-    }
   }
 }
 

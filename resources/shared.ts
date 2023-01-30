@@ -1,5 +1,40 @@
 // File generated from our OpenAPI spec by Stainless.
 
+export interface Address {
+  /**
+   * Valid deliverable address (no PO boxes).
+   */
+  address1: string;
+
+  /**
+   * Name of city.
+   */
+  city: string;
+
+  /**
+   * Valid country code. Only USA is currently supported, entered in uppercase ISO
+   * 3166-1 alpha-3 three-character format.
+   */
+  country: string;
+
+  /**
+   * Valid postal code. Only USA ZIP codes are currently supported, entered as a
+   * five-digit ZIP or nine-digit ZIP+4.
+   */
+  postal_code: string;
+
+  /**
+   * Valid state code. Only USA state codes are currently supported, entered in
+   * uppercase ISO 3166-2 two-character format.
+   */
+  state: string;
+
+  /**
+   * Unit or apartment number (if applicable).
+   */
+  address2?: string;
+}
+
 export interface ShippingAddress {
   /**
    * Valid USPS routable address.
