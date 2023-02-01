@@ -612,7 +612,7 @@ export namespace AccountHolderCreateParams {
     /**
      * Specifies the type of KYC Exempt user
      */
-    kyc_exemption_type: string;
+    kyc_exemption_type: 'AUTHORIZED_USER' | 'PREPAID_CARD_USER';
 
     /**
      * The KYC Exempt user's last name
@@ -627,7 +627,7 @@ export namespace AccountHolderCreateParams {
     /**
      * Specifies the workflow type. This must be 'KYC_EXEMPT'
      */
-    workflow: string;
+    workflow: 'KYC_EXEMPT';
 
     /**
      * KYC Exempt user's current address - PO boxes, UPS drops, and FedEx drops are not

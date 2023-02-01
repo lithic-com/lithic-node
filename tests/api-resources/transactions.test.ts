@@ -72,6 +72,7 @@ describe('resource transactions', () => {
       descriptor: 'COFFEE SHOP',
       pan: '4111111289144142',
       status: 'AUTHORIZATION',
+      merchant_acceptor_id: 'OODKZAPJVN4YS7O',
       merchant_currency: 'GBP',
       merchant_amount: 0,
       partial_approval_capable: true,
@@ -91,11 +92,20 @@ describe('resource transactions', () => {
     });
   });
 
-  test('simulate_credit_authorization', async () => {
+  test('simulate_credit_authorization: only required params', async () => {
     const response = await lithic.transactions.simulateCreditAuthorization({
       amount: 0,
       descriptor: 'COFFEE SHOP',
       pan: '4111111289144142',
+    });
+  });
+
+  test('simulate_credit_authorization: required and optional params', async () => {
+    const response = await lithic.transactions.simulateCreditAuthorization({
+      amount: 0,
+      descriptor: 'COFFEE SHOP',
+      pan: '4111111289144142',
+      merchant_acceptor_id: 'XRKGDPOWEWQRRWU',
     });
   });
 
