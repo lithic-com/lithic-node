@@ -12,7 +12,9 @@ const environments = {
 };
 
 type Config = {
-  /* Defaults to to process.env["LITHIC_API_KEY"].  */
+  /**
+   * Defaults to process.env["LITHIC_API_KEY"].
+   */
   apiKey?: string;
   environment?: keyof typeof environments;
   baseURL?: string;
@@ -20,6 +22,7 @@ type Config = {
   httpAgent?: Agent;
 };
 
+/** Instantiate the API Client. */
 export class Lithic extends Core.APIClient {
   apiKey: string;
 
