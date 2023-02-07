@@ -3,8 +3,8 @@
 import * as Core from '~/core';
 import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
-import { Page, PageParams } from '~/pagination';
 import * as Cards from '~/resources/cards';
+import { Page, PageParams } from '~/pagination';
 
 export class Transactions extends APIResource {
   /**
