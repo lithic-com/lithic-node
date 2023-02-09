@@ -191,4 +191,4 @@ The following runtimes are supported:
 - Deno v1.28.0 or higher (experimental).
   Use `import Lithic from "npm:lithic"`.
 
-If you are interested in other runtime environments, please open or upvote an issue on Github.
+If you are interested in other runtime environments, please open or upvote an issue on GitHub.
