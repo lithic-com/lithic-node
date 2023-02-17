@@ -3,17 +3,11 @@
 import * as Core from '~/core';
 import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
-import * as Cards from '~/resources/cards';
 import { Page, PageParams } from '~/pagination';
 
 export class Transactions extends APIResource {
   /**
    * Get specific transaction.
-   *
-   * _Note that the transaction object returned via this endpoint will be changing in
-   * Sandbox on January 4, 2023 and in Production on February 8, 2023. Please refer
-   * to [this page](https://docs.lithic.com/docs/guide-to-q1-2023-lithic-api-changes)
-   * for more information._
    */
   retrieve(transactionToken: string, options?: Core.RequestOptions): Promise<Core.APIResponse<Transaction>> {
     return this.get(`/transactions/${transactionToken}`, options);
@@ -21,11 +15,6 @@ export class Transactions extends APIResource {
 
   /**
    * List transactions.
-   *
-   * _Note that the transaction object returned via this endpoint will be changing in
-   * Sandbox on January 4, 2023 and in Production on February 8, 2023. Please refer
-   * to [this page](https://docs.lithic.com/docs/guide-to-q1-2023-lithic-api-changes)
-   * for more information._
    */
   list(query?: TransactionListParams, options?: Core.RequestOptions): Core.PagePromise<TransactionsPage>;
   list(options?: Core.RequestOptions): Core.PagePromise<TransactionsPage>;
@@ -97,8 +86,7 @@ export class Transactions extends APIResource {
   /**
    * Voids a settled credit transaction – i.e., a transaction with a negative amount
    * and `SETTLED` status. These can be credit authorizations that have already
-   * cleared or financial credit authorizations. This endpoint will be available
-   * beginning January 4, 2023.
+   * cleared or financial credit authorizations.
    */
   simulateReturnReversal(
     body: TransactionSimulateReturnReversalParams,
@@ -153,16 +141,7 @@ export interface Transaction {
   authorization_code?: string;
 
   /**
-   * Note this field will be removed with the
-   * [February API changes](https://docs.lithic.com/docs/guide-to-q1-2023-lithic-api-changes).
-   * Card used in this transaction.
-   */
-  card?: Cards.Card;
-
-  /**
-   * Token for the card used in this transaction. Note this field is not yet
-   * included. It will be added as part of the
-   * [February API changes](https://docs.lithic.com/docs/guide-to-q1-2023-lithic-api-changes).
+   * Token for the card used in this transaction.
    */
   card_token?: string;
 
@@ -177,16 +156,6 @@ export interface Transaction {
    * A list of all events that have modified this transaction.
    */
   events?: Array<Transaction.Events>;
-
-  /**
-   * Note this field will be removed with the
-   * [February API changes](https://docs.lithic.com/docs/guide-to-q1-2023-lithic-api-changes).
-   * A list of objects that describe how this transaction was funded, with the
-   * `amount` represented in cents. A reference to the funding account for the `card`
-   * that made this transaction may appear here and the `token` will match the
-   * `token` for the funding account in the `card` field.
-   */
-  funding?: Array<Transaction.Funding>;
 
   merchant?: Transaction.Merchant;
 
@@ -249,17 +218,11 @@ export interface Transaction {
   /**
    * Status types:
    *
-   * - `BOUNCED` - The transaction was bounced. Note this value will be removed with
-   *   the
-   *   [February API changes](https://docs.lithic.com/docs/guide-to-q1-2023-lithic-api-changes).
    * - `DECLINED` - The transaction was declined.
    * - `EXPIRED` - Lithic reversed the authorization as it has passed its expiration
    *   time.
    * - `PENDING` - Authorization is pending completion from the merchant.
    * - `SETTLED` - The transaction is complete.
-   * - `SETTLING` - The merchant has completed the transaction and the funding source
-   *   is being debited. Note this value will be removed with the
-   *   [February API changes](https://docs.lithic.com/docs/guide-to-q1-2023-lithic-api-changes).
    * - `VOIDED` - The merchant has voided the previously pending authorization.
    */
   status?: 'BOUNCED' | 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'SETTLING' | 'VOIDED';
@@ -469,10 +432,6 @@ export namespace Transaction {
      * - `RETURN` - A refund has been processed on the transaction.
      * - `RETURN_REVERSAL` - A refund has been reversed (e.g., when a merchant reverses
      *   an incorrect refund).
-     * - `VOID` - Note this value will be removed with the February API changes (see
-     *   https://docs.lithic.com/docs/guide-to-q1-2023-lithic-api-changes). A
-     *   transaction has been voided (e.g., when a merchant reverses an incorrect
-     *   authorization).
      */
     type:
       | 'AUTHORIZATION'
@@ -490,26 +449,6 @@ export namespace Transaction {
       | 'RETURN'
       | 'RETURN_REVERSAL'
       | 'VOID';
-  }
-
-  export interface Funding {
-    /**
-     * Amount of the transaction event, including any acquirer fees.
-     */
-    amount?: number;
-
-    /**
-     * Funding account token.
-     */
-    token?: string;
-
-    /**
-     * Types of funding:
-     *
-     * - `DEPOSITORY_CHECKING` - Bank checking account.
-     * - `DEPOSITORY_SAVINGS` - Bank savings account.
-     */
-    type?: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS';
   }
 
   export interface Merchant {

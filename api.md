@@ -95,6 +95,42 @@ Custom Methods:
 - `provision`
 - `reissue`
 
+# Events
+
+Models:
+
+- <code><a href="./resources/events/events.ts">Event</a></code>
+- <code><a href="./resources/events/events.ts">EventSubscription</a></code>
+
+Methods:
+
+- <code title="get /events/{event_token}">client.events.<a href="./resources/events/events.ts">retrieve</a>(eventToken) -> Event</code>
+- <code title="get /events">client.events.<a href="./resources/events/events.ts">list</a>({ ...params }) -> EventsCursorPage</code>
+
+Custom Methods:
+
+- `retrieve`
+- `list`
+- `resend`
+
+## Subscriptions
+
+Models:
+
+- <code><a href="./resources/events/subscriptions.ts">SubscriptionRetrieveSecretResponse</a></code>
+
+Methods:
+
+- <code title="post /event_subscriptions">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">create</a>({ ...params }) -> EventSubscription</code>
+- <code title="get /event_subscriptions/{event_subscription_token}">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">retrieve</a>(eventSubscriptionToken) -> EventSubscription</code>
+- <code title="patch /event_subscriptions/{event_subscription_token}">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">update</a>(eventSubscriptionToken, { ...params }) -> EventSubscription</code>
+- <code title="get /event_subscriptions">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">list</a>({ ...params }) -> EventSubscriptionsCursorPage</code>
+- <code title="delete /event_subscriptions/{event_subscription_token}">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">del</a>(eventSubscriptionToken) -> Promise<void></code>
+- <code title="post /event_subscriptions/{event_subscription_token}/recover">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">recover</a>(eventSubscriptionToken) -> Promise<void></code>
+- <code title="post /event_subscriptions/{event_subscription_token}/replay_missing">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">replayMissing</a>(eventSubscriptionToken) -> Promise<void></code>
+- <code title="get /event_subscriptions/{event_subscription_token}/secret">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">retrieveSecret</a>(eventSubscriptionToken) -> SubscriptionRetrieveSecretResponse</code>
+- <code title="post /event_subscriptions/{event_subscription_token}/secret/rotate">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">rotateSecret</a>(eventSubscriptionToken) -> Promise<void></code>
+
 # FundingSources
 
 Models:

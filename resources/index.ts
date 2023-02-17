@@ -55,6 +55,14 @@ export {
   Cards,
 } from './cards';
 export {
+  Event,
+  EventSubscription,
+  EventListParams,
+  EventResendParams,
+  EventsCursorPage,
+  Events,
+} from './events/events';
+export {
   FundingSource,
   FundingSourceCreateParams,
   FundingSourceUpdateParams,

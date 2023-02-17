@@ -53,6 +53,7 @@ export class Lithic extends Core.APIClient {
   authRules: API.AuthRules = new API.AuthRules(this);
   authStreamEnrollment: API.AuthStreamEnrollmentResource = new API.AuthStreamEnrollmentResource(this);
   cards: API.Cards = new API.Cards(this);
+  events: API.Events = new API.Events(this);
   fundingSources: API.FundingSources = new API.FundingSources(this);
   transactions: API.Transactions = new API.Transactions(this);
 
@@ -110,6 +111,10 @@ export namespace Lithic {
   export import PageParams = Pagination.PageParams;
   export import PageResponse = Pagination.PageResponse;
 
+  export import CursorPage = Pagination.CursorPage;
+  export import CursorPageParams = Pagination.CursorPageParams;
+  export import CursorPageResponse = Pagination.CursorPageResponse;
+
   export import APIStatus = API.APIStatus;
 
   export import Account = API.Account;
@@ -159,6 +164,12 @@ export namespace Lithic {
   export import CardGetEmbedURLParams = API.CardGetEmbedURLParams;
   export import CardProvisionParams = API.CardProvisionParams;
   export import CardReissueParams = API.CardReissueParams;
+
+  export import Event = API.Event;
+  export import EventSubscription = API.EventSubscription;
+  export import EventsCursorPage = API.EventsCursorPage;
+  export import EventListParams = API.EventListParams;
+  export import EventResendParams = API.EventResendParams;
 
   export import FundingSource = API.FundingSource;
   export import FundingSourcesPage = API.FundingSourcesPage;
