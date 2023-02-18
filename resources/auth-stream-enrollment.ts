@@ -17,7 +17,7 @@ export class AuthStreamEnrollmentResource extends APIResource {
    * Disenroll Authorization Stream Access (ASA) in Sandbox.
    */
   disenroll(options?: Core.RequestOptions): Promise<Core.APIResponse<Promise<void>>> {
-    return this.delete('/auth_stream', { ...options, headers: { Accept: '', ...options?.headers } });
+    return this.delete('/auth_stream', options);
   }
 
   /**
@@ -47,7 +47,7 @@ export class AuthStreamEnrollmentResource extends APIResource {
       return this.enroll({}, body);
     }
 
-    return this.post('/auth_stream', { body, ...options, headers: { Accept: '', ...options?.headers } });
+    return this.post('/auth_stream', { body, ...options });
   }
 }
 
