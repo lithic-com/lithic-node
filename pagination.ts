@@ -141,7 +141,7 @@ export class CursorPage<Item extends { token: string }>
     if (isForwards) {
       const next = this.data[this.data.length - 1]?.token;
       if (!next) return null;
-      return { params: { staring_after: next } };
+      return { params: { starting_after: next } };
     } else {
       const next = this.data[0]?.token;
       if (!next) return null;
