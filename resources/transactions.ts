@@ -594,6 +594,13 @@ export interface TransactionSimulateAuthorizationParams {
   pan: string;
 
   /**
+   * Merchant category code for the transaction to be simulated. A four-digit number
+   * listed in ISO 18245. Supported merchant category codes can be found
+   * [here](https://docs.lithic.com/docs/transactions#merchant-category-codes-mccs).
+   */
+  mcc?: string;
+
+  /**
    * Unique identifier to identify the payment card acceptor.
    */
   merchant_acceptor_id?: string;
@@ -676,6 +683,13 @@ export interface TransactionSimulateCreditAuthorizationParams {
    * Sixteen digit card number.
    */
   pan: string;
+
+  /**
+   * Merchant category code for the transaction to be simulated. A four-digit number
+   * listed in ISO 18245. Supported merchant category codes can be found
+   * [here](https://docs.lithic.com/docs/transactions#merchant-category-codes-mccs).
+   */
+  mcc?: string;
 
   /**
    * Unique identifier to identify the payment card acceptor.

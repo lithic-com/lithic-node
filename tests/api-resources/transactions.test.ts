@@ -75,6 +75,7 @@ describe('resource transactions', () => {
       merchant_acceptor_id: 'OODKZAPJVN4YS7O',
       merchant_currency: 'GBP',
       merchant_amount: 0,
+      mcc: '5812',
       partial_approval_capable: true,
     });
   });
@@ -106,6 +107,7 @@ describe('resource transactions', () => {
       descriptor: 'COFFEE SHOP',
       pan: '4111111289144142',
       merchant_acceptor_id: 'XRKGDPOWEWQRRWU',
+      mcc: '5812',
     });
   });
 
