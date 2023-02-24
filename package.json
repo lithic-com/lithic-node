@@ -1,6 +1,6 @@
 {
   "name": "lithic",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "description": "Client library for the Lithic API",
   "author": "Lithic <sdk-feedback@lithic.com>",
   "types": "dist/cjs/index.d.ts",
@@ -30,13 +30,13 @@
     "qs": "^6.10.3"
   },
   "devDependencies": {
-    "lithic": "link:.",
     "@types/jest": "^27.5.0",
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
     "eslint": "^8.22.0",
     "eslint-plugin-unused-imports": "^2.0.0",
     "jest": "^28.1.0",
+    "lithic": "link:.",
     "prettier": "rattrayalex/prettier#postfix-ternaries",
     "ts-jest": "^28.0.2",
     "ts-node": "^10.5.0",
