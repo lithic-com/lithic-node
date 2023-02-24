@@ -89,3 +89,4 @@ export {
   TransactionsPage,
   Transactions,
 } from './transactions';
+export { Webhooks } from './webhooks';

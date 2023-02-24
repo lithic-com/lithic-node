@@ -21,11 +21,13 @@ type Config = {
   baseURL?: string;
   timeout?: number;
   httpAgent?: Agent;
+  webhookSecret?: string | null;
 };
 
 /** Instantiate the API Client. */
 export class Lithic extends Core.APIClient {
   apiKey: string;
+  webhookSecret?: string | null;
 
   constructor(config?: Config) {
     const options: Config = {
@@ -46,6 +48,8 @@ export class Lithic extends Core.APIClient {
       httpAgent: options.httpAgent,
     });
     this.apiKey = options.apiKey;
+
+    this.webhookSecret = config?.webhookSecret || process.env['LITHIC_WEBHOOK_SECRET'] || null;
   }
 
   accounts: API.Accounts = new API.Accounts(this);
@@ -56,6 +60,7 @@ export class Lithic extends Core.APIClient {
   events: API.Events = new API.Events(this);
   fundingSources: API.FundingSources = new API.FundingSources(this);
   transactions: API.Transactions = new API.Transactions(this);
+  webhooks: API.Webhooks = new API.Webhooks(this);
 
   /**
    * API status check

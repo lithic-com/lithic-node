@@ -166,3 +166,10 @@ Methods:
 - <code title="post /simulate/return">client.transactions.<a href="./resources/transactions.ts">simulateReturn</a>({ ...params }) -> TransactionSimulateReturnResponse</code>
 - <code title="post /simulate/return_reversal">client.transactions.<a href="./resources/transactions.ts">simulateReturnReversal</a>({ ...params }) -> TransactionSimulateReturnReversalResponse</code>
 - <code title="post /simulate/void">client.transactions.<a href="./resources/transactions.ts">simulateVoid</a>({ ...params }) -> TransactionSimulateVoidResponse</code>
+
+# Webhooks
+
+Custom Methods:
+
+- `unwrap`
+- `verifySignature`
