@@ -26,7 +26,6 @@ describe('resource webhooks', () => {
 
   describe('unwrap', () => {
     it('deserializes the event object', () => {
-      // TODO: assert response
       lithic.webhooks.unwrap(payload, headers, secret);
     });
   });
