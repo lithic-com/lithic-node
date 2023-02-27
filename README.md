@@ -151,6 +151,21 @@ async function fetchAllCards(params) {
 }
 ```
 
+## Webhook Verification
+
+We provide helper methods for verifying that a webhook request came from Lithic, and not a malicious third party.
+
+You can use `lithic.webhooks.verifySignature(body, headers, secret?) -> void` or `lithic.webhooks.unwrap(body, headers, secret?) -> Event` like so:
+
+```ts
+export default function handler(req, res) {
+  const event = lithic.webhooks.unwrap(req.body, req.headers, process.env['LITHIC_WEBHOOK_SECRET']); // env var used by default; explicit here.
+  console.log(event.token, event.payload);
+}
+```
+
+This example is written for [Next.js](https://nextjs.org/) but usage is similar no matter what web framework you use.
+
 ## Configuring an HTTP(S) Agent (e.g., for proxies)
 
 By default, this library uses a stable agent for all http/https requests to reuse TCP connections, eliminating many TCP & TLS handshakes and shaving around 100ms off most requests.
