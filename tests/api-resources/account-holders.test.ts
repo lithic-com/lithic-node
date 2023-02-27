@@ -135,7 +135,7 @@ describe('resource account_holders', () => {
         phone_number: '+12124007676',
       },
       nature_of_business: 'Software company selling solutions to the restaurant industry',
-      tos_timestamp: '2022-03-08 08:00:00',
+      tos_timestamp: '2022-03-08T08:00:00Z',
       website_url: 'www.mybusiness.com',
       workflow: 'KYB_BASIC',
     });
@@ -271,9 +271,9 @@ describe('resource account_holders', () => {
         last_name: 'Bombadil',
         phone_number: '+12124007676',
       },
-      kyb_passed_timestamp: '2022-03-08 08:00:00',
+      kyb_passed_timestamp: '2022-03-08T08:00:00Z',
       nature_of_business: 'Software company selling solutions to the restaurant industry',
-      tos_timestamp: '2022-03-08 08:00:00',
+      tos_timestamp: '2022-03-08T08:00:00Z',
       website_url: 'www.mybusiness.com',
       workflow: 'KYB_BASIC',
     });
@@ -323,7 +323,7 @@ describe('resource account_holders', () => {
   test('resubmit', async () => {
     const response = await lithic.accountHolders.resubmit('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       workflow: 'KYC_ADVANCED',
-      tos_timestamp: '2022-03-08 08:00:00',
+      tos_timestamp: '2022-03-08T08:00:00Z',
       individual: {
         address: {
           address1: '123 Old Forest Way',
