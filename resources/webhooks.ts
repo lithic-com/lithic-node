@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import { APIResource } from '~/resource';
-import type { Event } from '~/resources/events';
 import { createHmac } from 'crypto';
 import { getHeader, HeadersLike } from '~/core';
 
@@ -13,9 +12,9 @@ export class Webhooks extends APIResource {
     payload: string,
     headers: HeadersLike,
     secret: string | undefined | null = this.client.webhookSecret,
-  ): Event {
+  ): Object {
     this.verifySignature(payload, headers, secret);
-    return JSON.parse(payload) as Event;
+    return JSON.parse(payload);
   }
 
   private parseSecret(secret: string | null | undefined): Uint8Array {
