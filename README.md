@@ -155,12 +155,12 @@ async function fetchAllCards(params) {
 
 We provide helper methods for verifying that a webhook request came from Lithic, and not a malicious third party.
 
-You can use `lithic.webhooks.verifySignature(body, headers, secret?) -> void` or `lithic.webhooks.unwrap(body, headers, secret?) -> Event` like so:
+You can use `lithic.webhooks.verifySignature(body, headers, secret?) -> void` or `lithic.webhooks.unwrap(body, headers, secret?) -> Payload` like so:
 
 ```ts
 export default function handler(req, res) {
-  const event = lithic.webhooks.unwrap(req.body, req.headers, process.env['LITHIC_WEBHOOK_SECRET']); // env var used by default; explicit here.
-  console.log(event.token, event.payload);
+  const payload = lithic.webhooks.unwrap(req.body, req.headers, process.env['LITHIC_WEBHOOK_SECRET']); // env var used by default; explicit here.
+  console.log(payload);
 }
 ```
 
