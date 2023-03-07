@@ -48,6 +48,7 @@ export class Lithic extends Core.APIClient {
       httpAgent: options.httpAgent,
     });
     this.apiKey = options.apiKey;
+    this.idempotencyHeader = 'Idempotency-Token';
 
     this.webhookSecret = config?.webhookSecret || process.env['LITHIC_WEBHOOK_SECRET'] || null;
   }

@@ -45,3 +45,146 @@ describe('instantiate client', () => {
     }).toThrow();
   });
 });
+
+describe('idempotency', () => {
+  test('key can be set per-request', async () => {
+    const client = new Lithic({ apiKey: 'my api key', baseURL: 'http://127.0.0.1:4010' });
+    await client.accountHolders.create(
+      {
+        business_entity: {
+          address: {
+            address1: '123 Old Forest Way',
+            address2: 'string',
+            city: 'Omaha',
+            country: 'USA',
+            postal_code: '68022',
+            state: 'NE',
+          },
+          dba_business_name: 'string',
+          government_id: '114-123-1513',
+          legal_business_name: 'Acme, Inc.',
+          parent_company: 'string',
+          phone_numbers: ['+12124007676'],
+        },
+        beneficial_owner_entities: [
+          {
+            address: {
+              address1: '123 Old Forest Way',
+              address2: 'string',
+              city: 'Omaha',
+              country: 'USA',
+              postal_code: '68022',
+              state: 'NE',
+            },
+            dba_business_name: 'string',
+            government_id: '114-123-1513',
+            legal_business_name: 'Acme, Inc.',
+            parent_company: 'string',
+            phone_numbers: ['+12124007676'],
+          },
+          {
+            address: {
+              address1: '123 Old Forest Way',
+              address2: 'string',
+              city: 'Omaha',
+              country: 'USA',
+              postal_code: '68022',
+              state: 'NE',
+            },
+            dba_business_name: 'string',
+            government_id: '114-123-1513',
+            legal_business_name: 'Acme, Inc.',
+            parent_company: 'string',
+            phone_numbers: ['+12124007676'],
+          },
+          {
+            address: {
+              address1: '123 Old Forest Way',
+              address2: 'string',
+              city: 'Omaha',
+              country: 'USA',
+              postal_code: '68022',
+              state: 'NE',
+            },
+            dba_business_name: 'string',
+            government_id: '114-123-1513',
+            legal_business_name: 'Acme, Inc.',
+            parent_company: 'string',
+            phone_numbers: ['+12124007676'],
+          },
+        ],
+        beneficial_owner_individuals: [
+          {
+            address: {
+              address1: '123 Old Forest Way',
+              address2: 'string',
+              city: 'Omaha',
+              country: 'USA',
+              postal_code: '68022',
+              state: 'NE',
+            },
+            dob: '1991-03-08 08:00:00',
+            email: 'tom@middle-earth.com',
+            first_name: 'Tom',
+            government_id: '111-23-1412',
+            last_name: 'Bombadil',
+            phone_number: '+12124007676',
+          },
+          {
+            address: {
+              address1: '123 Old Forest Way',
+              address2: 'string',
+              city: 'Omaha',
+              country: 'USA',
+              postal_code: '68022',
+              state: 'NE',
+            },
+            dob: '1991-03-08 08:00:00',
+            email: 'tom@middle-earth.com',
+            first_name: 'Tom',
+            government_id: '111-23-1412',
+            last_name: 'Bombadil',
+            phone_number: '+12124007676',
+          },
+          {
+            address: {
+              address1: '123 Old Forest Way',
+              address2: 'string',
+              city: 'Omaha',
+              country: 'USA',
+              postal_code: '68022',
+              state: 'NE',
+            },
+            dob: '1991-03-08 08:00:00',
+            email: 'tom@middle-earth.com',
+            first_name: 'Tom',
+            government_id: '111-23-1412',
+            last_name: 'Bombadil',
+            phone_number: '+12124007676',
+          },
+        ],
+        control_person: {
+          address: {
+            address1: '123 Old Forest Way',
+            address2: 'string',
+            city: 'Omaha',
+            country: 'USA',
+            postal_code: '68022',
+            state: 'NE',
+          },
+          dob: '1991-03-08 08:00:00',
+          email: 'tom@middle-earth.com',
+          first_name: 'Tom',
+          government_id: '111-23-1412',
+          last_name: 'Bombadil',
+          phone_number: '+12124007676',
+        },
+        nature_of_business: 'Software company selling solutions to the restaurant industry',
+        tos_timestamp: '2022-03-08T08:00:00Z',
+        website_url: 'www.mybusiness.com',
+        workflow: 'KYB_BASIC',
+      },
+      { idempotencyKey: 'my-idempotency-key' },
+    );
+  });
+});
