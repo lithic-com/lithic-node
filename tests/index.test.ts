@@ -54,62 +54,50 @@ describe('idempotency', () => {
         business_entity: {
           address: {
             address1: '123 Old Forest Way',
-            address2: 'string',
             city: 'Omaha',
             country: 'USA',
             postal_code: '68022',
             state: 'NE',
           },
-          dba_business_name: 'string',
           government_id: '114-123-1513',
           legal_business_name: 'Acme, Inc.',
-          parent_company: 'string',
           phone_numbers: ['+12124007676'],
         },
         beneficial_owner_entities: [
           {
             address: {
               address1: '123 Old Forest Way',
-              address2: 'string',
               city: 'Omaha',
               country: 'USA',
               postal_code: '68022',
               state: 'NE',
             },
-            dba_business_name: 'string',
             government_id: '114-123-1513',
             legal_business_name: 'Acme, Inc.',
-            parent_company: 'string',
             phone_numbers: ['+12124007676'],
           },
           {
             address: {
               address1: '123 Old Forest Way',
-              address2: 'string',
               city: 'Omaha',
               country: 'USA',
               postal_code: '68022',
               state: 'NE',
             },
-            dba_business_name: 'string',
             government_id: '114-123-1513',
             legal_business_name: 'Acme, Inc.',
-            parent_company: 'string',
             phone_numbers: ['+12124007676'],
           },
           {
             address: {
               address1: '123 Old Forest Way',
-              address2: 'string',
               city: 'Omaha',
               country: 'USA',
               postal_code: '68022',
               state: 'NE',
             },
-            dba_business_name: 'string',
             government_id: '114-123-1513',
             legal_business_name: 'Acme, Inc.',
-            parent_company: 'string',
             phone_numbers: ['+12124007676'],
           },
         ],
@@ -117,7 +105,6 @@ describe('idempotency', () => {
           {
             address: {
               address1: '123 Old Forest Way',
-              address2: 'string',
               city: 'Omaha',
               country: 'USA',
               postal_code: '68022',
@@ -133,7 +120,6 @@ describe('idempotency', () => {
           {
             address: {
               address1: '123 Old Forest Way',
-              address2: 'string',
               city: 'Omaha',
               country: 'USA',
               postal_code: '68022',
@@ -149,7 +135,6 @@ describe('idempotency', () => {
           {
             address: {
               address1: '123 Old Forest Way',
-              address2: 'string',
               city: 'Omaha',
               country: 'USA',
               postal_code: '68022',
@@ -166,7 +151,6 @@ describe('idempotency', () => {
         control_person: {
           address: {
             address1: '123 Old Forest Way',
-            address2: 'string',
             city: 'Omaha',
             country: 'USA',
             postal_code: '68022',
