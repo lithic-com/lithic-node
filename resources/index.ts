@@ -43,7 +43,6 @@ export {
   CardProvisionResponse,
   CardEmbedResponse,
   CardCreateParams,
-  CardRetrieveParams,
   CardUpdateParams,
   CardListParams,
   CardEmbedParams,
@@ -54,6 +53,18 @@ export {
   CardsPage,
   Cards,
 } from './cards';
+export {
+  Dispute,
+  DisputeEvidence,
+  DisputeInitiateEvidenceUploadResponse,
+  DisputeCreateParams,
+  DisputeUpdateParams,
+  DisputeListParams,
+  DisputeListEvidencesParams,
+  DisputesCursorPage,
+  DisputeEvidencesCursorPage,
+  Disputes,
+} from './disputes';
 export {
   Event,
   EventSubscription,

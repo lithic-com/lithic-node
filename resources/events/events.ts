@@ -54,7 +54,7 @@ export class EventsCursorPage extends CursorPage<Event> {}
  */
 export interface Event {
   /**
-   * An ISO 8601 timestamp for when the event was created. UTC time zone.
+   * An RFC 3339 timestamp for when the event was created. UTC time zone.
    *
    * If no timezone is specified, UTC will be used.
    */
@@ -103,18 +103,18 @@ export interface EventSubscription {
 
 export interface EventListParams extends CursorPageParams {
   /**
-   * Date string in 8601 format. Only entries created after the specified date will
-   * be included. UTC time zone.
+   * Date string in RFC 3339 format. Only entries created after the specified date
+   * will be included. UTC time zone.
    */
   begin?: string;
 
   /**
-   * Date string in 8601 format. Only entries created before the specified date will
-   * be included. UTC time zone.
+   * Date string in RFC 3339 format. Only entries created before the specified date
+   * will be included. UTC time zone.
    */
   end?: string;
 
-  event_types?: Array<'dispute.updated' | 'digital_wallet.token_approval_request'>;
+  'event_types[]'?: Array<'dispute.updated' | 'digital_wallet.token_approval_request'>;
 }
 
 export interface EventResendParams {
@@ -124,18 +124,13 @@ export interface EventResendParams {
   token: string;
 
   /**
-   * Only needs to be included if one or more end-users have been enrolled.
-   */
-  account_token?: string;
-
-  /**
    * A publicly available URI, so the white-labeled card element can be styled with
    * the client's branding.
    */
   css?: string;
 
   /**
-   * An ISO 8601 timestamp for when the request should expire. UTC time zone.
+   * An RFC 3339 timestamp for when the request should expire. UTC time zone.
    *
    * If no timezone is specified, UTC will be used. If payload does not contain an
    * expiration, the request will never expire.

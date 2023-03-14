@@ -76,7 +76,7 @@ Models:
 Methods:
 
 - <code title="post /cards">client.cards.<a href="./resources/cards.ts">create</a>({ ...params }) -> Card</code>
-- <code title="get /cards/{card_token}">client.cards.<a href="./resources/cards.ts">retrieve</a>(cardToken, { ...params }) -> Card</code>
+- <code title="get /cards/{card_token}">client.cards.<a href="./resources/cards.ts">retrieve</a>(cardToken) -> Card</code>
 - <code title="patch /cards/{card_token}">client.cards.<a href="./resources/cards.ts">update</a>(cardToken, { ...params }) -> Card</code>
 - <code title="get /cards">client.cards.<a href="./resources/cards.ts">list</a>({ ...params }) -> CardsPage</code>
 - <code title="get /embed/card">client.cards.<a href="./resources/cards.ts">embed</a>({ ...params }) -> Promise<string></code>
@@ -94,6 +94,26 @@ Custom Methods:
 - `getEmbedURL`
 - `provision`
 - `reissue`
+
+# Disputes
+
+Models:
+
+- <code><a href="./resources/disputes.ts">Dispute</a></code>
+- <code><a href="./resources/disputes.ts">DisputeEvidence</a></code>
+- <code><a href="./resources/disputes.ts">DisputeInitiateEvidenceUploadResponse</a></code>
+
+Methods:
+
+- <code title="post /disputes">client.disputes.<a href="./resources/disputes.ts">create</a>({ ...params }) -> Dispute</code>
+- <code title="get /disputes/{dispute_token}">client.disputes.<a href="./resources/disputes.ts">retrieve</a>(disputeToken) -> Dispute</code>
+- <code title="patch /disputes/{dispute_token}">client.disputes.<a href="./resources/disputes.ts">update</a>(disputeToken, { ...params }) -> Dispute</code>
+- <code title="get /disputes">client.disputes.<a href="./resources/disputes.ts">list</a>({ ...params }) -> DisputesCursorPage</code>
+- <code title="delete /disputes/{dispute_token}">client.disputes.<a href="./resources/disputes.ts">del</a>(disputeToken) -> Dispute</code>
+- <code title="delete /disputes/{dispute_token}/evidences/{evidence_token}">client.disputes.<a href="./resources/disputes.ts">deleteEvidence</a>(disputeToken, evidenceToken) -> DisputeEvidence</code>
+- <code title="post /disputes/{dispute_token}/evidences">client.disputes.<a href="./resources/disputes.ts">initiateEvidenceUpload</a>(disputeToken) -> DisputeInitiateEvidenceUploadResponse</code>
+- <code title="get /disputes/{dispute_token}/evidences">client.disputes.<a href="./resources/disputes.ts">listEvidences</a>(disputeToken, { ...params }) -> DisputeEvidencesCursorPage</code>
+- <code title="get /disputes/{dispute_token}/evidences/{evidence_token}">client.disputes.<a href="./resources/disputes.ts">retrieveEvidence</a>(disputeToken, evidenceToken) -> DisputeEvidence</code>
 
 # Events
 

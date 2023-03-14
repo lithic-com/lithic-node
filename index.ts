@@ -58,6 +58,7 @@ export class Lithic extends Core.APIClient {
   authRules: API.AuthRules = new API.AuthRules(this);
   authStreamEnrollment: API.AuthStreamEnrollmentResource = new API.AuthStreamEnrollmentResource(this);
   cards: API.Cards = new API.Cards(this);
+  disputes: API.Disputes = new API.Disputes(this);
   events: API.Events = new API.Events(this);
   fundingSources: API.FundingSources = new API.FundingSources(this);
   transactions: API.Transactions = new API.Transactions(this);
@@ -162,7 +163,6 @@ export namespace Lithic {
   export import CardEmbedResponse = API.CardEmbedResponse;
   export import CardsPage = API.CardsPage;
   export import CardCreateParams = API.CardCreateParams;
-  export import CardRetrieveParams = API.CardRetrieveParams;
   export import CardUpdateParams = API.CardUpdateParams;
   export import CardListParams = API.CardListParams;
   export import CardEmbedParams = API.CardEmbedParams;
@@ -170,6 +170,16 @@ export namespace Lithic {
   export import CardGetEmbedURLParams = API.CardGetEmbedURLParams;
   export import CardProvisionParams = API.CardProvisionParams;
   export import CardReissueParams = API.CardReissueParams;
+
+  export import Dispute = API.Dispute;
+  export import DisputeEvidence = API.DisputeEvidence;
+  export import DisputeInitiateEvidenceUploadResponse = API.DisputeInitiateEvidenceUploadResponse;
+  export import DisputesCursorPage = API.DisputesCursorPage;
+  export import DisputeEvidencesCursorPage = API.DisputeEvidencesCursorPage;
+  export import DisputeCreateParams = API.DisputeCreateParams;
+  export import DisputeUpdateParams = API.DisputeUpdateParams;
+  export import DisputeListParams = API.DisputeListParams;
+  export import DisputeListEvidencesParams = API.DisputeListEvidencesParams;
 
   export import Event = API.Event;
   export import EventSubscription = API.EventSubscription;

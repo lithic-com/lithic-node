@@ -341,7 +341,7 @@ export namespace AccountHolderCreateParams {
     nature_of_business: string;
 
     /**
-     * An ISO 8601 timestamp indicating when the account holder accepted the applicable
+     * An RFC 3339 timestamp indicating when the account holder accepted the applicable
      * legal agreements (e.g., cardholder terms) as agreed upon during API customer's
      * implementation with Lithic.
      */
@@ -358,7 +358,7 @@ export namespace AccountHolderCreateParams {
     workflow: 'KYB_BASIC' | 'KYB_BYO';
 
     /**
-     * An ISO 8601 timestamp indicating when precomputed KYC was completed on the
+     * An RFC 3339 timestamp indicating when precomputed KYC was completed on the
      * business with a pass result.
      *
      * This field is required only if workflow type is `KYB_BYO`.
@@ -449,7 +449,7 @@ export namespace AccountHolderCreateParams {
       address: Shared.Address;
 
       /**
-       * Individual's date of birth, as an ISO 8601 date.
+       * Individual's date of birth, as an RFC 3339 date.
        */
       dob: string;
 
@@ -491,7 +491,7 @@ export namespace AccountHolderCreateParams {
       address: Shared.Address;
 
       /**
-       * Individual's date of birth, as an ISO 8601 date.
+       * Individual's date of birth, as an RFC 3339 date.
        */
       dob: string;
 
@@ -534,7 +534,7 @@ export namespace AccountHolderCreateParams {
     individual: KYC.Individual;
 
     /**
-     * An ISO 8601 timestamp indicating when the account holder accepted the applicable
+     * An RFC 3339 timestamp indicating when the account holder accepted the applicable
      * legal agreements (e.g., cardholder terms) as agreed upon during API customer's
      * implementation with Lithic.
      */
@@ -546,7 +546,7 @@ export namespace AccountHolderCreateParams {
     workflow: 'KYC_ADVANCED' | 'KYC_BASIC' | 'KYC_BYO';
 
     /**
-     * An ISO 8601 timestamp indicating when precomputed KYC was completed on the
+     * An RFC 3339 timestamp indicating when precomputed KYC was completed on the
      * individual with a pass result.
      *
      * This field is required only if workflow type is `KYC_BYO`.
@@ -563,7 +563,7 @@ export namespace AccountHolderCreateParams {
       address: Shared.Address;
 
       /**
-       * Individual's date of birth, as an ISO 8601 date.
+       * Individual's date of birth, as an RFC 3339 date.
        */
       dob: string;
 
@@ -668,7 +668,7 @@ export interface AccountHolderResubmitParams {
   individual: AccountHolderResubmitParams.Individual;
 
   /**
-   * An ISO 8601 timestamp indicating when the account holder accepted the applicable
+   * An RFC 3339 timestamp indicating when the account holder accepted the applicable
    * legal agreements (e.g., cardholder terms) as agreed upon during API customer's
    * implementation with Lithic.
    */
@@ -686,7 +686,7 @@ export namespace AccountHolderResubmitParams {
     address: Shared.Address;
 
     /**
-     * Individual's date of birth, as an ISO 8601 date.
+     * Individual's date of birth, as an RFC 3339 date.
      */
     dob: string;
 

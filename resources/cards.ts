@@ -20,22 +20,8 @@ export class Cards extends APIResource {
   /**
    * Get card configuration such as spend limit and state.
    */
-  retrieve(
-    cardToken: string,
-    query?: CardRetrieveParams,
-    options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Card>>;
-  retrieve(cardToken: string, options?: Core.RequestOptions): Promise<Core.APIResponse<Card>>;
-  retrieve(
-    cardToken: string,
-    query: CardRetrieveParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Card>> {
-    if (isRequestOptions(query)) {
-      return this.retrieve(cardToken, {}, query);
-    }
-
-    return this.get(`/cards/${cardToken}`, { query, ...options });
+  retrieve(cardToken: string, options?: Core.RequestOptions): Promise<Core.APIResponse<Card>> {
+    return this.get(`/cards/${cardToken}`, options);
   }
 
   /**
@@ -208,7 +194,7 @@ export class CardsPage extends Page<Card> {}
 
 export interface Card {
   /**
-   * An ISO 8601 timestamp for when the card was created. UTC time zone.
+   * An RFC 3339 timestamp for when the card was created. UTC time zone.
    */
   created: string;
 
@@ -340,18 +326,13 @@ export interface EmbedRequestParams {
   token: string;
 
   /**
-   * Only needs to be included if one or more end-users have been enrolled.
-   */
-  account_token?: string;
-
-  /**
    * A publicly available URI, so the white-labeled card element can be styled with
    * the client's branding.
    */
   css?: string;
 
   /**
-   * An ISO 8601 timestamp for when the request should expire. UTC time zone.
+   * An RFC 3339 timestamp for when the request should expire. UTC time zone.
    *
    * If no timezone is specified, UTC will be used. If payload does not contain an
    * expiration, the request will never expire.
@@ -411,10 +392,10 @@ export interface CardCreateParams {
   type: 'VIRTUAL' | 'PHYSICAL' | 'MERCHANT_LOCKED' | 'SINGLE_USE';
 
   /**
-   * Only required for multi-account users. Token identifying the account the card
-   * will be associated with. Only applicable if using account holder enrollment. See
-   * [Managing Your Program](https://docs.lithic.com/docs/managing-your-program) for
-   * more information.
+   * Globally unique identifier for the account that the card will be associated
+   * with. Required for programs enrolling users using the
+   * [/account_holders endpoint](https://docs.lithic.com/docs/account-holders-kyc).
+   * See [Managing Your Program](doc:managing-your-program) for more information.
    */
   account_token?: string;
 
@@ -523,25 +504,7 @@ export interface CardCreateParams {
   state?: 'OPEN' | 'PAUSED';
 }
 
-export interface CardRetrieveParams {
-  /**
-   * Only required for multi-account users using account holder enrollment. Returns
-   * card associated with this account. See
-   * [Managing Your Program](https://docs.lithic.com/docs/managing-your-program) for
-   * more information.
-   */
-  account_token?: string;
-}
-
 export interface CardUpdateParams {
-  /**
-   * Only required for multi-account users. Token identifying the account the card
-   * will be associated with. Only applicable if using account holder enrollment. See
-   * [Managing Your Program](https://docs.lithic.com/docs/managing-your-program) for
-   * more information.
-   */
-  account_token?: string;
-
   /**
    * Identifier for any Auth Rules that will be applied to transactions taking place
    * with the card.
@@ -613,22 +576,19 @@ export interface CardUpdateParams {
 
 export interface CardListParams extends PageParams {
   /**
-   * Only required for multi-account users. Returns cards associated with this
-   * account. Only applicable if using account holder enrollment. See
-   * [Managing Your Program](https://docs.lithic.com/docs/managing-your-program) for
-   * more information.
+   * Returns cards associated with the specified account.
    */
   account_token?: string;
 
   /**
-   * Date string in 8601 format. Only entries created after the specified date will
-   * be included. UTC time zone.
+   * Date string in RFC 3339 format. Only entries created after the specified date
+   * will be included. UTC time zone.
    */
   begin?: string;
 
   /**
-   * Date string in 8601 format. Only entries created before the specified date will
-   * be included. UTC time zone.
+   * Date string in RFC 3339 format. Only entries created before the specified date
+   * will be included. UTC time zone.
    */
   end?: string;
 }
@@ -640,7 +600,7 @@ export interface CardEmbedParams {
   embed_request?: string;
 
   /**
-   * SHA2 HMAC of the embed_request JSON string with base64 digest.
+   * SHA256 HMAC of the embed_request JSON string with base64 digest.
    */
   hmac?: string;
 }
@@ -652,18 +612,13 @@ export interface CardGetEmbedHTMLParams {
   token: string;
 
   /**
-   * Only needs to be included if one or more end-users have been enrolled.
-   */
-  account_token?: string;
-
-  /**
    * A publicly available URI, so the white-labeled card element can be styled with
    * the client's branding.
    */
   css?: string;
 
   /**
-   * An ISO 8601 timestamp for when the request should expire. UTC time zone.
+   * An RFC 3339 timestamp for when the request should expire. UTC time zone.
    *
    * If no timezone is specified, UTC will be used. If payload does not contain an
    * expiration, the request will never expire.
@@ -691,18 +646,13 @@ export interface CardGetEmbedURLParams {
   token: string;
 
   /**
-   * Only needs to be included if one or more end-users have been enrolled.
-   */
-  account_token?: string;
-
-  /**
    * A publicly available URI, so the white-labeled card element can be styled with
    * the client's branding.
    */
   css?: string;
 
   /**
-   * An ISO 8601 timestamp for when the request should expire. UTC time zone.
+   * An RFC 3339 timestamp for when the request should expire. UTC time zone.
    *
    * If no timezone is specified, UTC will be used. If payload does not contain an
    * expiration, the request will never expire.
@@ -724,14 +674,6 @@ export interface CardGetEmbedURLParams {
 }
 
 export interface CardProvisionParams {
-  /**
-   * Only required for multi-account users. Token identifying the account the card
-   * will be associated with. Only applicable if using account holder enrollment. See
-   * [Managing Your Program](https://docs.lithic.com/docs/managing-your-program) for
-   * more information.
-   */
-  account_token?: string;
-
   /**
    * Required for `APPLE_PAY`. Apple's public leaf certificate. Base64 encoded in PEM
    * format with headers `(-----BEGIN CERTIFICATE-----)` and trailers omitted.

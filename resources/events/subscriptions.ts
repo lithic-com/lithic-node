@@ -32,22 +32,9 @@ export class Subscriptions extends APIResource {
    */
   update(
     eventSubscriptionToken: string,
-    body?: SubscriptionUpdateParams,
-    options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Events.EventSubscription>>;
-  update(
-    eventSubscriptionToken: string,
-    options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Events.EventSubscription>>;
-  update(
-    eventSubscriptionToken: string,
-    body: SubscriptionUpdateParams | Core.RequestOptions = {},
+    body: SubscriptionUpdateParams,
     options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<Events.EventSubscription>> {
-    if (isRequestOptions(body)) {
-      return this.update(eventSubscriptionToken, {}, body);
-    }
-
     return this.patch(`/event_subscriptions/${eventSubscriptionToken}`, { body, ...options });
   }
 
@@ -154,6 +141,11 @@ export interface SubscriptionCreateParams {
 
 export interface SubscriptionUpdateParams {
   /**
+   * URL to which event webhooks will be sent. URL must be a valid HTTPS address.
+   */
+  url: string;
+
+  /**
    * Event subscription description.
    */
   description?: string;
@@ -168,11 +160,6 @@ export interface SubscriptionUpdateParams {
    * all types will be sent.
    */
   event_types?: Array<'dispute.updated' | 'digital_wallet.token_approval_request'>;
-
-  /**
-   * URL to which event webhooks will be sent. URL must be a valid HTTPS address.
-   */
-  url?: string;
 }
 
 export interface SubscriptionListParams extends CursorPageParams {}

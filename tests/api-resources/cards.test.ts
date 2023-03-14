@@ -40,14 +40,8 @@ describe('resource cards', () => {
     });
   });
 
-  test('retrieve: only required params', async () => {
+  test('retrieve', async () => {
     const response = await lithic.cards.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
-  });
-
-  test('retrieve: required and optional params', async () => {
-    const response = await lithic.cards.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-    });
   });
 
   test('retrieve: request options instead of params are passed correctly', async () => {
@@ -57,24 +51,12 @@ describe('resource cards', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  test('retrieve: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      lithic.cards.retrieve(
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
-  });
-
   test('update: only required params', async () => {
     const response = await lithic.cards.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
   });
 
   test('update: required and optional params', async () => {
     const response = await lithic.cards.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       funding_token: 'ecbd1d58-0299-48b3-84da-6ed7f5bf9ec1',
       memo: 'New Card',
       spend_limit: 0,
@@ -165,7 +147,6 @@ describe('resource cards', () => {
       nonce: 'U3RhaW5sZXNzIHJvY2tz',
       nonce_signature: 'U3RhaW5sZXNzIHJvY2tz',
       certificate: 'U3RhaW5sZXNzIHJvY2tz',
-      account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
   });
 

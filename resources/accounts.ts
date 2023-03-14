@@ -60,10 +60,13 @@ export interface Account {
   /**
    * Account state:
    *
-   * - `ACTIVE` - Active, account is able to transact and create new cards.
-   * - `PAUSED` - Paused, account will not be able to transact or create new cards.
+   * - `ACTIVE` - Account is able to transact and create new cards.
+   * - `PAUSED` - Account will not be able to transact or create new cards. It can be
+   *   set back to `ACTIVE`.
+   * - `CLOSED` - Account will permanently not be able to transact or create new
+   *   cards.
    */
-  state: 'ACTIVE' | 'PAUSED';
+  state: 'ACTIVE' | 'PAUSED' | 'CLOSED';
 
   /**
    * Globally unique identifier for the account. This is the same as the
@@ -154,14 +157,14 @@ export namespace AccountUpdateParams {
 
 export interface AccountListParams extends PageParams {
   /**
-   * Date string in 8601 format. Only entries created after the specified date will
-   * be included. UTC time zone.
+   * Date string in RFC 3339 format. Only entries created after the specified date
+   * will be included. UTC time zone.
    */
   begin?: string;
 
   /**
-   * Date string in 8601 format. Only entries created before the specified date will
-   * be included. UTC time zone.
+   * Date string in RFC 3339 format. Only entries created before the specified date
+   * will be included. UTC time zone.
    */
   end?: string;
 }

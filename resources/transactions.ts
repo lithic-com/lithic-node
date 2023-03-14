@@ -346,7 +346,7 @@ export namespace Transaction {
     amount: number;
 
     /**
-     * ISO 8601 date and time this event entered the system. UTC time zone.
+     * RFC 3339 date and time this event entered the system. UTC time zone.
      */
     created: string;
 
@@ -550,8 +550,8 @@ export interface TransactionListParams extends PageParams {
   account_token?: string;
 
   /**
-   * Date string in 8601 format. Only entries created after the specified date will
-   * be included. UTC time zone.
+   * Date string in RFC 3339 format. Only entries created after the specified date
+   * will be included. UTC time zone.
    */
   begin?: string;
 
@@ -561,8 +561,8 @@ export interface TransactionListParams extends PageParams {
   card_token?: string;
 
   /**
-   * Date string in 8601 format. Only entries created before the specified date will
-   * be included. UTC time zone.
+   * Date string in RFC 3339 format. Only entries created before the specified date
+   * will be included. UTC time zone.
    */
   end?: string;
 

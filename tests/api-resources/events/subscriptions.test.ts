@@ -29,7 +29,7 @@ describe('resource subscriptions', () => {
   });
 
   test('update: only required params', async () => {
-    const response = await lithic.events.subscriptions.update('string');
+    const response = await lithic.events.subscriptions.update('string', { url: 'https://example.com' });
   });
 
   test('update: required and optional params', async () => {
@@ -39,29 +39,6 @@ describe('resource subscriptions', () => {
       event_types: ['dispute.updated', 'dispute.updated', 'dispute.updated'],
       url: 'https://example.com',
     });
-  });
-
-  test('update: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      lithic.events.subscriptions.update('string', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Lithic.NotFoundError);
-  });
-
-  test('update: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      lithic.events.subscriptions.update(
-        'string',
-        {
-          description: 'string',
-          disabled: true,
-          event_types: ['dispute.updated', 'dispute.updated', 'dispute.updated'],
-          url: 'https://example.com',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('list: only required params', async () => {

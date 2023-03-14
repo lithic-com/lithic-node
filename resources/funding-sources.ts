@@ -64,7 +64,7 @@ export class FundingSourcesPage extends Page<FundingSource> {}
 
 export interface FundingSource {
   /**
-   * An ISO 8601 string representing when this funding source was added to the Lithic
+   * An RFC 3339 string representing when this funding source was added to the Lithic
    * account. This may be `null`. UTC time zone.
    */
   created: string;

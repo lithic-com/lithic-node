@@ -164,7 +164,7 @@ describe('idempotency', () => {
           phone_number: '+12124007676',
         },
         nature_of_business: 'Software company selling solutions to the restaurant industry',
-        tos_timestamp: '2022-03-08T08:00:00Z',
+        tos_timestamp: '2018-05-29T21:16:05Z',
         website_url: 'www.mybusiness.com',
         workflow: 'KYB_BASIC',
       },

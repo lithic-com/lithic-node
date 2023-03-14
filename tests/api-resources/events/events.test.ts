@@ -26,7 +26,7 @@ describe('resource events', () => {
       page_size: 1,
       starting_after: 'string',
       ending_before: 'string',
-      event_types: ['dispute.updated', 'dispute.updated', 'dispute.updated'],
+      'event_types[]': ['dispute.updated', 'dispute.updated', 'dispute.updated'],
     });
   });
 
@@ -47,7 +47,7 @@ describe('resource events', () => {
           page_size: 1,
           starting_after: 'string',
           ending_before: 'string',
-          event_types: ['dispute.updated', 'dispute.updated', 'dispute.updated'],
+          'event_types[]': ['dispute.updated', 'dispute.updated', 'dispute.updated'],
         },
         { path: '/_stainless_unknown_path' },
       ),
