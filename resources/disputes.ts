@@ -4,6 +4,8 @@ import * as Core from '~/core';
 import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
 import { CursorPage, CursorPageParams } from '~/pagination';
+import type * as FormData from 'formdata-node';
+import { maybeMultipartFormRequestOptions } from '~/core';
 
 export class Disputes extends APIResource {
   /**
@@ -116,6 +118,26 @@ export class Disputes extends APIResource {
     options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<DisputeEvidence>> {
     return this.get(`/disputes/${disputeToken}/evidences/${evidenceToken}`, options);
+  }
+
+  /**
+   * Initiates the Dispute Evidence Upload, then uploads the file to the returned
+   * `upload_url`.
+   */
+  uploadEvidence(
+    disputeToken: string,
+    file: FormData.File | FormData.Blob,
+    options?: Core.RequestOptions,
+  ): Promise<void> {
+    return this.client.disputes.initiateEvidenceUpload(disputeToken, options).then((payload) => {
+      if (!payload.upload_url) {
+        return Promise.reject("Missing 'upload_url' from response payload");
+      }
+      return this.put(
+        payload.upload_url,
+        maybeMultipartFormRequestOptions({ body: { file }, headers: { Authorization: null } }),
+      );
+    });
   }
 }
 

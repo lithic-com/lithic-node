@@ -110,6 +110,8 @@ export const {
   InternalServerError,
 } = Lithic;
 
+export import fileFromPath = FileFromPath.fileFromPath;
+
 export namespace Lithic {
   // Helper functions
   export import fileFromPath = FileFromPath.fileFromPath;

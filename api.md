@@ -115,6 +115,19 @@ Methods:
 - <code title="get /disputes/{dispute_token}/evidences">client.disputes.<a href="./resources/disputes.ts">listEvidences</a>(disputeToken, { ...params }) -> DisputeEvidencesCursorPage</code>
 - <code title="get /disputes/{dispute_token}/evidences/{evidence_token}">client.disputes.<a href="./resources/disputes.ts">retrieveEvidence</a>(disputeToken, evidenceToken) -> DisputeEvidence</code>
 
+Custom Methods:
+
+- `create`
+- `retrieve`
+- `update`
+- `list`
+- `del`
+- `deleteEvidence`
+- `initiateEvidenceUpload`
+- `listEvidences`
+- `retrieveEvidence`
+- `uploadEvidence`
+
 # Events
 
 Models:
