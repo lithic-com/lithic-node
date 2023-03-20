@@ -243,7 +243,7 @@ export interface Dispute {
   representment_date: string;
 
   /**
-   * Amount to be credited to/debited from the customer. This is net of fees.
+   * Resolution amount net of network fees.
    */
   resolution_amount: number;
 

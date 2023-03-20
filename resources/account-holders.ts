@@ -22,7 +22,8 @@ export class AccountHolders extends APIResource {
   }
 
   /**
-   * Check the current status of a KYC or KYB evaluation.
+   * Get an Individual or Business Account Holder and/or their KYC or KYB evaluation
+   * status.
    */
   retrieve(
     accountHolderToken: string,
@@ -32,7 +33,7 @@ export class AccountHolders extends APIResource {
   }
 
   /**
-   * Update the contact information associated with a particular account holder.
+   * Update the information associated with a particular account holder.
    */
   update(
     accountHolderToken: string,
@@ -167,6 +168,13 @@ export interface AccountHolder {
   account_token?: string;
 
   /**
+   * Only applicable for customers using the KYC-Exempt workflow to enroll authorized
+   * users of businesses. Pass the account_token of the enrolled business associated
+   * with the AUTHORIZED_USER in this field.
+   */
+  business_account_token?: string;
+
+  /**
    * KYC and KYB evaluation states.
    *
    * Note: `PENDING_RESUBMIT` and `PENDING_DOCUMENT` are only applicable for the
@@ -253,6 +261,13 @@ export namespace AccountHolderDocument {
 }
 
 export interface AccountHolderUpdateResponse {
+  /**
+   * Only applicable for customers using the KYC-Exempt workflow to enroll businesses
+   * with authorized users. Pass the account_token of the enrolled business
+   * associated with the AUTHORIZED_USER in this field.
+   */
+  business_account_token?: string;
+
   /**
    * The newly updated email for the account holder
    */
@@ -634,10 +649,24 @@ export namespace AccountHolderCreateParams {
      * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
      */
     address?: Shared.Address;
+
+    /**
+     * Only applicable for customers using the KYC-Exempt workflow to enroll authorized
+     * users of businesses. Pass the account_token of the enrolled business associated
+     * with the AUTHORIZED_USER in this field.
+     */
+    business_account_token?: string;
   }
 }
 
 export interface AccountHolderUpdateParams {
+  /**
+   * Only applicable for customers using the KYC-Exempt workflow to enroll authorized
+   * users of businesses. Pass the account_token of the enrolled business associated
+   * with the AUTHORIZED_USER in this field.
+   */
+  business_account_token?: string;
+
   /**
    * Account holder's email address. The primary purpose of this field is for
    * cardholder identification and verification during the digital wallet
