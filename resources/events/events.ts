@@ -3,8 +3,8 @@
 import * as Core from '~/core';
 import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
-import { CursorPage, CursorPageParams } from '~/pagination';
 import { Subscriptions } from './subscriptions';
+import { CursorPage, CursorPageParams } from '~/pagination';
 
 export class Events extends APIResource {
   subscriptions: Subscriptions = new Subscriptions(this.client);
@@ -48,6 +48,8 @@ export class Events extends APIResource {
 }
 
 export class EventsCursorPage extends CursorPage<Event> {}
+
+export class EventSubscriptionsCursorPage extends CursorPage<EventSubscription> {}
 
 /**
  * A single event that affects the transaction state and lifecycle.

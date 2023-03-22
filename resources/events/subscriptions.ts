@@ -4,7 +4,8 @@ import * as Core from '~/core';
 import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
 import * as Events from '~/resources/events';
-import { CursorPage, CursorPageParams } from '~/pagination';
+import { EventSubscriptionsCursorPage } from '~/resources/events';
+import { CursorPageParams } from '~/pagination';
 
 export class Subscriptions extends APIResource {
   /**
@@ -110,8 +111,6 @@ export class Subscriptions extends APIResource {
   }
 }
 
-export class EventSubscriptionsCursorPage extends CursorPage<Events.EventSubscription> {}
-
 export interface SubscriptionRetrieveSecretResponse {
   key?: string;
 }
@@ -163,3 +162,5 @@ export interface SubscriptionUpdateParams {
 }
 
 export interface SubscriptionListParams extends CursorPageParams {}
+
+export { EventSubscriptionsCursorPage };

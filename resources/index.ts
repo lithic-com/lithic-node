@@ -70,6 +70,7 @@ export {
   EventSubscription,
   EventListParams,
   EventResendParams,
+  EventSubscriptionsCursorPage,
   EventsCursorPage,
   Events,
 } from './events/events';

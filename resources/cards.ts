@@ -4,9 +4,9 @@ import * as Core from '~/core';
 import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
 import * as FundingSources from '~/resources/funding-sources';
-import { Page, PageParams } from '~/pagination';
 import * as Shared from '~/resources/shared';
 import { createHmac } from 'crypto';
+import { Page, PageParams } from '~/pagination';
 
 export class Cards extends APIResource {
   /**

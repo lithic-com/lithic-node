@@ -3,9 +3,9 @@
 import * as Core from '~/core';
 import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
-import { CursorPage, CursorPageParams } from '~/pagination';
 import type * as FormData from 'formdata-node';
 import { maybeMultipartFormRequestOptions } from '~/core';
+import { CursorPage, CursorPageParams } from '~/pagination';
 
 export class Disputes extends APIResource {
   /**
