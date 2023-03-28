@@ -179,7 +179,7 @@ export class Cards extends APIResource {
   /**
    * Initiate print and shipment of a duplicate physical card.
    *
-   * Only applies to cards of type `PHYSICAL` [beta].
+   * Only applies to cards of type `PHYSICAL`.
    */
   reissue(
     cardToken: string,
@@ -458,8 +458,8 @@ export interface CardCreateParams {
   shipping_address?: Shared.ShippingAddress;
 
   /**
-   * Shipping method for the card. Only applies to cards of type PHYSICAL [beta]. Use
-   * of options besides `STANDARD` require additional permissions.
+   * Shipping method for the card. Only applies to cards of type PHYSICAL. Use of
+   * options besides `STANDARD` require additional permissions.
    *
    * - `STANDARD` - USPS regular mail or similar international option, with no
    *   tracking
@@ -702,8 +702,8 @@ export interface CardProvisionParams {
 export interface CardReissueParams {
   /**
    * Specifies the configuration (e.g. physical card art) that the card should be
-   * manufactured with, and only applies to cards of type `PHYSICAL` [beta]. This
-   * must be configured with Lithic before use.
+   * manufactured with, and only applies to cards of type `PHYSICAL`. This must be
+   * configured with Lithic before use.
    */
   product_id?: string;
 

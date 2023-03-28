@@ -46,6 +46,18 @@ export class Transactions extends APIResource {
   }
 
   /**
+   * Simulates an authorization advice request from the payment network as if it came
+   * from a merchant acquirer. An authorization advice request changes the amount of
+   * the transaction.
+   */
+  simulateAuthorizationAdvice(
+    body: TransactionSimulateAuthorizationAdviceParams,
+    options?: Core.RequestOptions,
+  ): Promise<Core.APIResponse<TransactionSimulateAuthorizationAdviceResponse>> {
+    return this.post('/simulate/authorization_advice', { body, ...options });
+  }
+
+  /**
    * Clears an existing authorization. After this event, the transaction is no longer
    * pending.
    *
@@ -543,6 +555,18 @@ export interface TransactionSimulateCreditAuthorizationResponse {
   token?: string;
 }
 
+export interface TransactionSimulateAuthorizationAdviceResponse {
+  /**
+   * Debugging request ID to share with Lithic Support team.
+   */
+  debugging_request_id?: string;
+
+  /**
+   * A unique token to reference this transaction.
+   */
+  token?: string;
+}
+
 export interface TransactionListParams extends PageParams {
   /**
    * Filters for transactions associated with a specific account.
@@ -647,6 +671,19 @@ export interface TransactionSimulateAuthorizationParams {
     | 'CREDIT_AUTHORIZATION'
     | 'FINANCIAL_AUTHORIZATION'
     | 'FINANCIAL_CREDIT_AUTHORIZATION';
+}
+
+export interface TransactionSimulateAuthorizationAdviceParams {
+  /**
+   * Amount (in cents) to authorize. This amount will override the transaction's
+   * amount that was originally set by /v1/simulate/authorize.
+   */
+  amount: number;
+
+  /**
+   * The transaction token returned from the /v1/simulate/authorize response.
+   */
+  token: string;
 }
 
 export interface TransactionSimulateClearingParams {

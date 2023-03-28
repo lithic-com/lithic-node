@@ -56,12 +56,15 @@ Methods:
 Models:
 
 - <code><a href="./resources/auth-stream-enrollment.ts">AuthStreamEnrollment</a></code>
+- <code><a href="./resources/auth-stream-enrollment.ts">AuthStreamSecret</a></code>
 
 Methods:
 
 - <code title="get /auth_stream">client.authStreamEnrollment.<a href="./resources/auth-stream-enrollment.ts">retrieve</a>() -> AuthStreamEnrollment</code>
 - <code title="delete /auth_stream">client.authStreamEnrollment.<a href="./resources/auth-stream-enrollment.ts">disenroll</a>() -> Promise<void></code>
 - <code title="post /auth_stream">client.authStreamEnrollment.<a href="./resources/auth-stream-enrollment.ts">enroll</a>({ ...params }) -> Promise<void></code>
+- <code title="get /auth_stream/secret">client.authStreamEnrollment.<a href="./resources/auth-stream-enrollment.ts">retrieveSecret</a>() -> AuthStreamSecret</code>
+- <code title="post /auth_stream/secret/rotate">client.authStreamEnrollment.<a href="./resources/auth-stream-enrollment.ts">rotateSecret</a>() -> Promise<void></code>
 
 # Cards
 
@@ -188,12 +191,14 @@ Models:
 - <code><a href="./resources/transactions.ts">TransactionSimulateReturnReversalResponse</a></code>
 - <code><a href="./resources/transactions.ts">TransactionSimulateVoidResponse</a></code>
 - <code><a href="./resources/transactions.ts">TransactionSimulateCreditAuthorizationResponse</a></code>
+- <code><a href="./resources/transactions.ts">TransactionSimulateAuthorizationAdviceResponse</a></code>
 
 Methods:
 
 - <code title="get /transactions/{transaction_token}">client.transactions.<a href="./resources/transactions.ts">retrieve</a>(transactionToken) -> Transaction</code>
 - <code title="get /transactions">client.transactions.<a href="./resources/transactions.ts">list</a>({ ...params }) -> TransactionsPage</code>
 - <code title="post /simulate/authorize">client.transactions.<a href="./resources/transactions.ts">simulateAuthorization</a>({ ...params }) -> TransactionSimulateAuthorizationResponse</code>
+- <code title="post /simulate/authorization_advice">client.transactions.<a href="./resources/transactions.ts">simulateAuthorizationAdvice</a>({ ...params }) -> TransactionSimulateAuthorizationAdviceResponse</code>
 - <code title="post /simulate/clearing">client.transactions.<a href="./resources/transactions.ts">simulateClearing</a>({ ...params }) -> TransactionSimulateClearingResponse</code>
 - <code title="post /simulate/credit_authorization_advice">client.transactions.<a href="./resources/transactions.ts">simulateCreditAuthorization</a>({ ...params }) -> TransactionSimulateCreditAuthorizationResponse</code>
 - <code title="post /simulate/return">client.transactions.<a href="./resources/transactions.ts">simulateReturn</a>({ ...params }) -> TransactionSimulateReturnResponse</code>

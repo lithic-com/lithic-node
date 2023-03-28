@@ -56,4 +56,26 @@ describe('resource auth_stream_enrollment', () => {
       ),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
+
+  test('retrieve_secret', async () => {
+    const response = await lithic.authStreamEnrollment.retrieveSecret();
+  });
+
+  test('retrieve_secret: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      lithic.authStreamEnrollment.retrieveSecret({ path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Lithic.NotFoundError);
+  });
+
+  test('rotate_secret', async () => {
+    const response = await lithic.authStreamEnrollment.rotateSecret();
+  });
+
+  test('rotate_secret: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      lithic.authStreamEnrollment.rotateSecret({ path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Lithic.NotFoundError);
+  });
 });

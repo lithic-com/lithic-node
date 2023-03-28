@@ -135,7 +135,7 @@ export interface SubscriptionCreateParams {
    * Indicates types of events that will be sent to this subscription. If left blank,
    * all types will be sent.
    */
-  event_types?: Array<'dispute.updated' | 'digital_wallet.token_approval_request'>;
+  event_types?: Array<'dispute.updated' | 'digital_wallet.tokenization_approval_request'>;
 }
 
 export interface SubscriptionUpdateParams {
@@ -158,7 +158,7 @@ export interface SubscriptionUpdateParams {
    * Indicates types of events that will be sent to this subscription. If left blank,
    * all types will be sent.
    */
-  event_types?: Array<'dispute.updated' | 'digital_wallet.token_approval_request'>;
+  event_types?: Array<'dispute.updated' | 'digital_wallet.tokenization_approval_request'>;
 }
 
 export interface SubscriptionListParams extends CursorPageParams {}

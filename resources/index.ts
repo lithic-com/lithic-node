@@ -33,6 +33,7 @@ export {
 } from './auth-rules';
 export {
   AuthStreamEnrollment,
+  AuthStreamSecret,
   AuthStreamEnrollmentEnrollParams,
   AuthStreamEnrollmentResource,
 } from './auth-stream-enrollment';
@@ -91,8 +92,10 @@ export {
   TransactionSimulateReturnReversalResponse,
   TransactionSimulateVoidResponse,
   TransactionSimulateCreditAuthorizationResponse,
+  TransactionSimulateAuthorizationAdviceResponse,
   TransactionListParams,
   TransactionSimulateAuthorizationParams,
+  TransactionSimulateAuthorizationAdviceParams,
   TransactionSimulateClearingParams,
   TransactionSimulateCreditAuthorizationParams,
   TransactionSimulateReturnParams,

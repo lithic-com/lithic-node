@@ -49,6 +49,28 @@ export class AuthStreamEnrollmentResource extends APIResource {
 
     return this.post('/auth_stream', { body, ...options });
   }
+
+  /**
+   * Retrieve the ASA HMAC secret key. If one does not exist your program yet,
+   * calling this endpoint will create one for you. The headers (which you can use to
+   * verify webhooks) will begin appearing shortly after calling this endpoint for
+   * the first time. See
+   * [this page](https://docs.lithic.com/docs/auth-stream-access-asa#asa-webhook-verification)
+   * for more detail about verifying ASA webhooks.
+   */
+  retrieveSecret(options?: Core.RequestOptions): Promise<Core.APIResponse<AuthStreamSecret>> {
+    return this.get('/auth_stream/secret', options);
+  }
+
+  /**
+   * Generate a new ASA HMAC secret key. The old ASA HMAC secret key will be
+   * deactivated 24 hours after a successful request to this endpoint. Make a
+   * [`GET /auth_stream/secret`](https://docs.lithic.com/reference/getauthstreamsecret)
+   * request to retrieve the new secret key.
+   */
+  rotateSecret(options?: Core.RequestOptions): Promise<Core.APIResponse<Promise<void>>> {
+    return this.post('/auth_stream/secret/rotate', options);
+  }
 }
 
 export interface AuthStreamEnrollment {
@@ -56,6 +78,13 @@ export interface AuthStreamEnrollment {
    * Whether ASA is enrolled.
    */
   enrolled?: boolean;
+}
+
+export interface AuthStreamSecret {
+  /**
+   * The shared HMAC ASA secret
+   */
+  secret?: string;
 }
 
 export interface AuthStreamEnrollmentEnrollParams {

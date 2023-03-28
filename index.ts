@@ -156,6 +156,7 @@ export namespace Lithic {
   export import AuthRuleRemoveParams = API.AuthRuleRemoveParams;
 
   export import AuthStreamEnrollment = API.AuthStreamEnrollment;
+  export import AuthStreamSecret = API.AuthStreamSecret;
   export import AuthStreamEnrollmentEnrollParams = API.AuthStreamEnrollmentEnrollParams;
 
   export import Card = API.Card;
@@ -203,9 +204,11 @@ export namespace Lithic {
   export import TransactionSimulateReturnReversalResponse = API.TransactionSimulateReturnReversalResponse;
   export import TransactionSimulateVoidResponse = API.TransactionSimulateVoidResponse;
   export import TransactionSimulateCreditAuthorizationResponse = API.TransactionSimulateCreditAuthorizationResponse;
+  export import TransactionSimulateAuthorizationAdviceResponse = API.TransactionSimulateAuthorizationAdviceResponse;
   export import TransactionsPage = API.TransactionsPage;
   export import TransactionListParams = API.TransactionListParams;
   export import TransactionSimulateAuthorizationParams = API.TransactionSimulateAuthorizationParams;
+  export import TransactionSimulateAuthorizationAdviceParams = API.TransactionSimulateAuthorizationAdviceParams;
   export import TransactionSimulateClearingParams = API.TransactionSimulateClearingParams;
   export import TransactionSimulateCreditAuthorizationParams = API.TransactionSimulateCreditAuthorizationParams;
   export import TransactionSimulateReturnParams = API.TransactionSimulateReturnParams;

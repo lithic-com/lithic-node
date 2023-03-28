@@ -80,6 +80,13 @@ describe('resource transactions', () => {
     });
   });
 
+  test('simulate_authorization_advice', async () => {
+    const response = await lithic.transactions.simulateAuthorizationAdvice({
+      amount: 0,
+      token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
+  });
+
   test('simulate_clearing: only required params', async () => {
     const response = await lithic.transactions.simulateClearing({
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',

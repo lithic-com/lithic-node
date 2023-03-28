@@ -75,10 +75,14 @@ export interface Account {
    */
   token: string;
 
+  account_holder?: Account.AccountHolder;
+
   /**
    * List of identifiers for the Auth Rule(s) that are applied on the account.
    */
   auth_rule_tokens?: Array<string>;
+
+  verification_address?: Account.VerificationAddress;
 }
 
 export namespace Account {
@@ -97,6 +101,64 @@ export namespace Account {
      * Monthly spend limit (in cents).
      */
     monthly: number;
+  }
+
+  export interface VerificationAddress {
+    /**
+     * Valid deliverable address (no PO boxes).
+     */
+    address1: string;
+
+    /**
+     * City name.
+     */
+    city: string;
+
+    /**
+     * Country name. Only USA is currently supported.
+     */
+    country: string;
+
+    /**
+     * Valid postal code. Only USA ZIP codes are currently supported, entered as a
+     * five-digit ZIP or nine-digit ZIP+4.
+     */
+    postal_code: string;
+
+    /**
+     * Valid state code. Only USA state codes are currently supported, entered in
+     * uppercase ISO 3166-2 two-character format.
+     */
+    state: string;
+
+    /**
+     * Unit or apartment number (if applicable).
+     */
+    address2?: string;
+  }
+
+  export interface AccountHolder {
+    /**
+     * Only applicable for customers using the KYC-Exempt workflow to enroll authorized
+     * users of businesses. Account_token of the enrolled business associated with an
+     * enrolled AUTHORIZED_USER individual.
+     */
+    business_account_token: string;
+
+    /**
+     * Email address.
+     */
+    email: string;
+
+    /**
+     * Phone number of the individual.
+     */
+    phone_number: string;
+
+    /**
+     * Globally unique identifier for the account holder.
+     */
+    token: string;
   }
 }
 
