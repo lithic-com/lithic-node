@@ -72,7 +72,7 @@ export class Lithic extends Core.APIClient {
   }
 
   protected override authHeaders(): Core.Headers {
-    return { Authorization: this.apiKey || '' };
+    return { Authorization: this.apiKey };
   }
 
   protected override qsOptions(): qs.IStringifyOptions {
