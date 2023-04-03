@@ -13,4 +13,6 @@ export {
   SubscriptionCreateParams,
   SubscriptionUpdateParams,
   SubscriptionListParams,
+  SubscriptionRecoverParams,
+  SubscriptionReplayMissingParams,
 } from './subscriptions';

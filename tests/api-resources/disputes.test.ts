@@ -7,6 +7,8 @@ describe('resource disputes', () => {
   test('create: only required params', async () => {
     const response = await lithic.disputes.create({
       amount: 0,
+      customer_filed_date: '2019-12-27T18:11:19.117Z',
+      customer_note: 'string',
       reason: 'ATM_CASH_MISDISPENSE',
       transaction_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
@@ -16,9 +18,9 @@ describe('resource disputes', () => {
     const response = await lithic.disputes.create({
       amount: 0,
       customer_filed_date: '2019-12-27T18:11:19.117Z',
+      customer_note: 'string',
       reason: 'ATM_CASH_MISDISPENSE',
       transaction_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      customer_note: 'string',
     });
   });
 
@@ -33,11 +35,7 @@ describe('resource disputes', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  test('update: only required params', async () => {
-    const response = await lithic.disputes.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
-  });
-
-  test('update: required and optional params', async () => {
+  test('update', async () => {
     const response = await lithic.disputes.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       amount: 0,
       customer_filed_date: '2019-12-27T18:11:19.117Z',
@@ -46,20 +44,8 @@ describe('resource disputes', () => {
     });
   });
 
-  test('list: only required params', async () => {
+  test('list', async () => {
     const response = await lithic.disputes.list();
-  });
-
-  test('list: required and optional params', async () => {
-    const response = await lithic.disputes.list({
-      transaction_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      status: 'NEW',
-      page_size: 1,
-      begin: '2019-12-27T18:11:19.117Z',
-      end: '2019-12-27T18:11:19.117Z',
-      starting_after: 'string',
-      ending_before: 'string',
-    });
   });
 
   test('list: request options instead of params are passed correctly', async () => {
@@ -74,13 +60,13 @@ describe('resource disputes', () => {
     await expect(
       lithic.disputes.list(
         {
-          transaction_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          status: 'NEW',
-          page_size: 1,
           begin: '2019-12-27T18:11:19.117Z',
           end: '2019-12-27T18:11:19.117Z',
-          starting_after: 'string',
           ending_before: 'string',
+          page_size: 1,
+          starting_after: 'string',
+          status: 'NEW',
+          transaction_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -129,18 +115,8 @@ describe('resource disputes', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  test('list_evidences: only required params', async () => {
+  test('list_evidences', async () => {
     const response = await lithic.disputes.listEvidences('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
-  });
-
-  test('list_evidences: required and optional params', async () => {
-    const response = await lithic.disputes.listEvidences('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      page_size: 1,
-      begin: '2019-12-27T18:11:19.117Z',
-      end: '2019-12-27T18:11:19.117Z',
-      starting_after: 'string',
-      ending_before: 'string',
-    });
   });
 
   test('list_evidences: request options instead of params are passed correctly', async () => {
@@ -158,11 +134,11 @@ describe('resource disputes', () => {
       lithic.disputes.listEvidences(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
-          page_size: 1,
           begin: '2019-12-27T18:11:19.117Z',
           end: '2019-12-27T18:11:19.117Z',
-          starting_after: 'string',
           ending_before: 'string',
+          page_size: 1,
+          starting_after: 'string',
         },
         { path: '/_stainless_unknown_path' },
       ),

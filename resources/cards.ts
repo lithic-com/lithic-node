@@ -51,7 +51,6 @@ export class Cards extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-
     return this.getAPIList('/cards', CardsPage, { query, ...options });
   }
 
@@ -92,7 +91,6 @@ export class Cards extends APIResource {
     if (isRequestOptions(query)) {
       return this.embed({}, query);
     }
-
     return this.get('/embed/card', {
       query,
       ...options,
@@ -375,23 +373,6 @@ export type CardEmbedResponse = string;
 
 export interface CardCreateParams {
   /**
-   * Card types:
-   *
-   * - `VIRTUAL` - Card will authorize at any merchant and can be added to a digital
-   *   wallet like Apple Pay or Google Pay (if the card program is digital
-   *   wallet-enabled).
-   * - `PHYSICAL` - Manufactured and sent to the cardholder. We offer white label
-   *   branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe functionality.
-   *   Reach out at [lithic.com/contact](https://lithic.com/contact) for more
-   *   information.
-   * - `MERCHANT_LOCKED` - _[Deprecated]_ Card is locked to the first merchant that
-   *   successfully authorizes the card.
-   * - `SINGLE_USE` - _[Deprecated]_ Card is closed upon first successful
-   *   authorization.
-   */
-  type: 'VIRTUAL' | 'PHYSICAL' | 'MERCHANT_LOCKED' | 'SINGLE_USE';
-
-  /**
    * Globally unique identifier for the account that the card will be associated
    * with. Required for programs enrolling users using the
    * [/account_holders endpoint](https://docs.lithic.com/docs/account-holders-kyc).
@@ -502,6 +483,23 @@ export interface CardCreateParams {
    *   time.
    */
   state?: 'OPEN' | 'PAUSED';
+
+  /**
+   * Card types:
+   *
+   * - `VIRTUAL` - Card will authorize at any merchant and can be added to a digital
+   *   wallet like Apple Pay or Google Pay (if the card program is digital
+   *   wallet-enabled).
+   * - `PHYSICAL` - Manufactured and sent to the cardholder. We offer white label
+   *   branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe functionality.
+   *   Reach out at [lithic.com/contact](https://lithic.com/contact) for more
+   *   information.
+   * - `MERCHANT_LOCKED` - _[Deprecated]_ Card is locked to the first merchant that
+   *   successfully authorizes the card.
+   * - `SINGLE_USE` - _[Deprecated]_ Card is closed upon first successful
+   *   authorization.
+   */
+  type: 'VIRTUAL' | 'PHYSICAL' | 'MERCHANT_LOCKED' | 'SINGLE_USE';
 }
 
 export interface CardUpdateParams {

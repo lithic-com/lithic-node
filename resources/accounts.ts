@@ -40,7 +40,6 @@ export class Accounts extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-
     return this.getAPIList('/accounts', AccountsPage, { query, ...options });
   }
 }
@@ -202,6 +201,20 @@ export interface AccountUpdateParams {
 }
 
 export namespace AccountUpdateParams {
+  export interface VerificationAddress {
+    address1?: string;
+
+    address2?: string;
+
+    city?: string;
+
+    country?: string;
+
+    postal_code?: string;
+
+    state?: string;
+  }
+
   export interface VerificationAddress {
     address1?: string;
 

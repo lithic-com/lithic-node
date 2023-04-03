@@ -52,7 +52,6 @@ export class AuthRules extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-
     return this.getAPIList('/auth_rules', AuthRulesPage, { query, ...options });
   }
 

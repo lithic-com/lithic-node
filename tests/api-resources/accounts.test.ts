@@ -16,39 +16,18 @@ describe('resource accounts', () => {
   });
 
   // Prism returns invalid data
-  test.skip('update: only required params', async () => {
-    const response = await lithic.accounts.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
-  });
-
-  // Prism returns invalid data
-  test.skip('update: required and optional params', async () => {
+  test.skip('update', async () => {
     const response = await lithic.accounts.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       daily_spend_limit: 0,
       lifetime_spend_limit: 0,
       monthly_spend_limit: 0,
-      verification_address: {
-        address1: 'string',
-        address2: 'string',
-        city: 'string',
-        state: 'string',
-        postal_code: 'string',
-        country: 'string',
-      },
       state: 'ACTIVE',
+      verification_address: {},
     });
   });
 
-  test('list: only required params', async () => {
+  test('list', async () => {
     const response = await lithic.accounts.list();
-  });
-
-  test('list: required and optional params', async () => {
-    const response = await lithic.accounts.list({
-      begin: '2019-12-27T18:11:19.117Z',
-      end: '2019-12-27T18:11:19.117Z',
-      page: 0,
-      page_size: 1,
-    });
   });
 
   test('list: request options instead of params are passed correctly', async () => {

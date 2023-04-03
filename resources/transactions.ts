@@ -25,7 +25,6 @@ export class Transactions extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-
     return this.getAPIList('/transactions', TransactionsPage, { query, ...options });
   }
 
@@ -613,11 +612,6 @@ export interface TransactionSimulateAuthorizationParams {
   descriptor: string;
 
   /**
-   * Sixteen digit card number.
-   */
-  pan: string;
-
-  /**
    * Merchant category code for the transaction to be simulated. A four-digit number
    * listed in ISO 18245. Supported merchant category codes can be found
    * [here](https://docs.lithic.com/docs/transactions#merchant-category-codes-mccs).
@@ -639,6 +633,11 @@ export interface TransactionSimulateAuthorizationParams {
    * 3-digit alphabetic ISO 4217 currency code.
    */
   merchant_currency?: string;
+
+  /**
+   * Sixteen digit card number.
+   */
+  pan: string;
 
   /**
    * Set to true if the terminal is capable of partial approval otherwise false.
@@ -688,11 +687,6 @@ export interface TransactionSimulateAuthorizationAdviceParams {
 
 export interface TransactionSimulateClearingParams {
   /**
-   * The transaction token returned from the /v1/simulate/authorize response.
-   */
-  token: string;
-
-  /**
    * Amount (in cents) to complete. Typically this will match the original
    * authorization, but may be more or less.
    *
@@ -701,6 +695,11 @@ export interface TransactionSimulateClearingParams {
    * access to this behavior.
    */
   amount?: number;
+
+  /**
+   * The transaction token returned from the /v1/simulate/authorize response.
+   */
+  token: string;
 }
 
 export interface TransactionSimulateCreditAuthorizationParams {
@@ -717,11 +716,6 @@ export interface TransactionSimulateCreditAuthorizationParams {
   descriptor: string;
 
   /**
-   * Sixteen digit card number.
-   */
-  pan: string;
-
-  /**
    * Merchant category code for the transaction to be simulated. A four-digit number
    * listed in ISO 18245. Supported merchant category codes can be found
    * [here](https://docs.lithic.com/docs/transactions#merchant-category-codes-mccs).
@@ -732,6 +726,11 @@ export interface TransactionSimulateCreditAuthorizationParams {
    * Unique identifier to identify the payment card acceptor.
    */
   merchant_acceptor_id?: string;
+
+  /**
+   * Sixteen digit card number.
+   */
+  pan: string;
 }
 
 export interface TransactionSimulateReturnParams {
@@ -760,15 +759,15 @@ export interface TransactionSimulateReturnReversalParams {
 
 export interface TransactionSimulateVoidParams {
   /**
-   * The transaction token returned from the /v1/simulate/authorize response.
-   */
-  token: string;
-
-  /**
    * Amount (in cents) to void. Typically this will match the original authorization,
    * but may be less.
    */
   amount?: number;
+
+  /**
+   * The transaction token returned from the /v1/simulate/authorize response.
+   */
+  token: string;
 
   /**
    * Type of event to simulate. Defaults to `AUTHORIZATION_REVERSAL`.

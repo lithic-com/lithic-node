@@ -46,7 +46,6 @@ export class AuthStreamEnrollmentResource extends APIResource {
     if (isRequestOptions(body)) {
       return this.enroll({}, body);
     }
-
     return this.post('/auth_stream', { body, ...options });
   }
 

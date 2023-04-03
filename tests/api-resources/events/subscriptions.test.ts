@@ -5,7 +5,12 @@ const lithic = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:
 
 describe('resource subscriptions', () => {
   test('create: only required params', async () => {
-    const response = await lithic.events.subscriptions.create({ url: 'https://example.com' });
+    const response = await lithic.events.subscriptions.create({
+      description: 'string',
+      disabled: true,
+      event_types: ['dispute.updated', 'dispute.updated', 'dispute.updated'],
+      url: 'https://example.com',
+    });
   });
 
   test('create: required and optional params', async () => {
@@ -29,7 +34,12 @@ describe('resource subscriptions', () => {
   });
 
   test('update: only required params', async () => {
-    const response = await lithic.events.subscriptions.update('string', { url: 'https://example.com' });
+    const response = await lithic.events.subscriptions.update('string', {
+      description: 'string',
+      disabled: true,
+      event_types: ['dispute.updated', 'dispute.updated', 'dispute.updated'],
+      url: 'https://example.com',
+    });
   });
 
   test('update: required and optional params', async () => {
@@ -41,16 +51,8 @@ describe('resource subscriptions', () => {
     });
   });
 
-  test('list: only required params', async () => {
+  test('list', async () => {
     const response = await lithic.events.subscriptions.list();
-  });
-
-  test('list: required and optional params', async () => {
-    const response = await lithic.events.subscriptions.list({
-      page_size: 1,
-      starting_after: 'string',
-      ending_before: 'string',
-    });
   });
 
   test('list: request options instead of params are passed correctly', async () => {
@@ -64,7 +66,7 @@ describe('resource subscriptions', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       lithic.events.subscriptions.list(
-        { page_size: 1, starting_after: 'string', ending_before: 'string' },
+        { ending_before: 'string', page_size: 1, starting_after: 'string' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Lithic.NotFoundError);
@@ -97,6 +99,18 @@ describe('resource subscriptions', () => {
   });
 
   // Prism Mock server doesnt want Accept header, but server requires it.
+  test.skip('recover: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      lithic.events.subscriptions.recover(
+        'string',
+        { begin: '2019-12-27T18:11:19.117Z', end: '2019-12-27T18:11:19.117Z' },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Lithic.NotFoundError);
+  });
+
+  // Prism Mock server doesnt want Accept header, but server requires it.
   test.skip('replay_missing', async () => {
     const response = await lithic.events.subscriptions.replayMissing('string');
   });
@@ -106,6 +120,18 @@ describe('resource subscriptions', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       lithic.events.subscriptions.replayMissing('string', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Lithic.NotFoundError);
+  });
+
+  // Prism Mock server doesnt want Accept header, but server requires it.
+  test.skip('replay_missing: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      lithic.events.subscriptions.replayMissing(
+        'string',
+        { begin: '2019-12-27T18:11:19.117Z', end: '2019-12-27T18:11:19.117Z' },
+        { path: '/_stainless_unknown_path' },
+      ),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 

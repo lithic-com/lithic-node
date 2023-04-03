@@ -29,13 +29,8 @@ describe('resource auth_stream_enrollment', () => {
   });
 
   // Prism Mock server doesnt want Accept header, but server requires it.
-  test.skip('enroll: only required params', async () => {
+  test.skip('enroll', async () => {
     const response = await lithic.authStreamEnrollment.enroll();
-  });
-
-  // Prism Mock server doesnt want Accept header, but server requires it.
-  test.skip('enroll: required and optional params', async () => {
-    const response = await lithic.authStreamEnrollment.enroll({ webhook_url: 'https://example.com' });
   });
 
   // Prism Mock server doesnt want Accept header, but server requires it.

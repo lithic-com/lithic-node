@@ -54,7 +54,6 @@ export class Subscriptions extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-
     return this.getAPIList('/event_subscriptions', EventSubscriptionsCursorPage, { query, ...options });
   }
 
@@ -73,9 +72,26 @@ export class Subscriptions extends APIResource {
    */
   recover(
     eventSubscriptionToken: string,
+    body?: SubscriptionRecoverParams,
+    options?: Core.RequestOptions,
+  ): Promise<Core.APIResponse<Promise<void>>>;
+  recover(
+    eventSubscriptionToken: string,
+    options?: Core.RequestOptions,
+  ): Promise<Core.APIResponse<Promise<void>>>;
+  recover(
+    eventSubscriptionToken: string,
+    body: SubscriptionRecoverParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<Promise<void>>> {
-    return this.post(`/event_subscriptions/${eventSubscriptionToken}/recover`, options);
+    if (isRequestOptions(body)) {
+      return this.recover(eventSubscriptionToken, {}, body);
+    }
+    const { begin, end } = body;
+    return this.post(`/event_subscriptions/${eventSubscriptionToken}/recover`, {
+      query: { begin, end },
+      ...options,
+    });
   }
 
   /**
@@ -84,9 +100,26 @@ export class Subscriptions extends APIResource {
    */
   replayMissing(
     eventSubscriptionToken: string,
+    body?: SubscriptionReplayMissingParams,
+    options?: Core.RequestOptions,
+  ): Promise<Core.APIResponse<Promise<void>>>;
+  replayMissing(
+    eventSubscriptionToken: string,
+    options?: Core.RequestOptions,
+  ): Promise<Core.APIResponse<Promise<void>>>;
+  replayMissing(
+    eventSubscriptionToken: string,
+    body: SubscriptionReplayMissingParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<Promise<void>>> {
-    return this.post(`/event_subscriptions/${eventSubscriptionToken}/replay_missing`, options);
+    if (isRequestOptions(body)) {
+      return this.replayMissing(eventSubscriptionToken, {}, body);
+    }
+    const { begin, end } = body;
+    return this.post(`/event_subscriptions/${eventSubscriptionToken}/replay_missing`, {
+      query: { begin, end },
+      ...options,
+    });
   }
 
   /**
@@ -117,11 +150,6 @@ export interface SubscriptionRetrieveSecretResponse {
 
 export interface SubscriptionCreateParams {
   /**
-   * URL to which event webhooks will be sent. URL must be a valid HTTPS address.
-   */
-  url: string;
-
-  /**
    * Event subscription description.
    */
   description?: string;
@@ -136,15 +164,15 @@ export interface SubscriptionCreateParams {
    * all types will be sent.
    */
   event_types?: Array<'dispute.updated' | 'digital_wallet.tokenization_approval_request'>;
+
+  /**
+   * URL to which event webhooks will be sent. URL must be a valid HTTPS address.
+   */
+  url: string;
 }
 
 export interface SubscriptionUpdateParams {
   /**
-   * URL to which event webhooks will be sent. URL must be a valid HTTPS address.
-   */
-  url: string;
-
-  /**
    * Event subscription description.
    */
   description?: string;
@@ -159,8 +187,41 @@ export interface SubscriptionUpdateParams {
    * all types will be sent.
    */
   event_types?: Array<'dispute.updated' | 'digital_wallet.tokenization_approval_request'>;
+
+  /**
+   * URL to which event webhooks will be sent. URL must be a valid HTTPS address.
+   */
+  url: string;
 }
 
 export interface SubscriptionListParams extends CursorPageParams {}
+
+export interface SubscriptionRecoverParams {
+  /**
+   * Date string in RFC 3339 format. Only entries created after the specified date
+   * will be included. UTC time zone.
+   */
+  begin?: string;
+
+  /**
+   * Date string in RFC 3339 format. Only entries created before the specified date
+   * will be included. UTC time zone.
+   */
+  end?: string;
+}
+
+export interface SubscriptionReplayMissingParams {
+  /**
+   * Date string in RFC 3339 format. Only entries created after the specified date
+   * will be included. UTC time zone.
+   */
+  begin?: string;
+
+  /**
+   * Date string in RFC 3339 format. Only entries created before the specified date
+   * will be included. UTC time zone.
+   */
+  end?: string;
+}
 
 export { EventSubscriptionsCursorPage };

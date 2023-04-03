@@ -28,7 +28,6 @@ export class Events extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-
     return this.getAPIList('/events', EventsCursorPage, { query, ...options });
   }
 

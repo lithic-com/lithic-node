@@ -15,19 +15,8 @@ describe('resource events', () => {
     );
   });
 
-  test('list: only required params', async () => {
+  test('list', async () => {
     const response = await lithic.events.list();
-  });
-
-  test('list: required and optional params', async () => {
-    const response = await lithic.events.list({
-      begin: '2019-12-27T18:11:19.117Z',
-      end: '2019-12-27T18:11:19.117Z',
-      page_size: 1,
-      starting_after: 'string',
-      ending_before: 'string',
-      'event_types[]': ['dispute.updated', 'dispute.updated', 'dispute.updated'],
-    });
   });
 
   test('list: request options instead of params are passed correctly', async () => {
@@ -44,10 +33,10 @@ describe('resource events', () => {
         {
           begin: '2019-12-27T18:11:19.117Z',
           end: '2019-12-27T18:11:19.117Z',
-          page_size: 1,
-          starting_after: 'string',
           ending_before: 'string',
           'event_types[]': ['dispute.updated', 'dispute.updated', 'dispute.updated'],
+          page_size: 1,
+          starting_after: 'string',
         },
         { path: '/_stainless_unknown_path' },
       ),

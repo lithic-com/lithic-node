@@ -22,7 +22,7 @@ Models:
 
 Methods:
 
-- <code title="post /account_holders">client.accountHolders.<a href="./resources/account-holders.ts">create</a>({ ...params }) -> AccountHolder</code>
+- <code title="post /account_holders">client.accountHolders.<a href="./resources/account-holders.ts">create</a>() -> AccountHolder</code>
 - <code title="get /account_holders/{account_holder_token}">client.accountHolders.<a href="./resources/account-holders.ts">retrieve</a>(accountHolderToken) -> AccountHolder</code>
 - <code title="patch /account_holders/{account_holder_token}">client.accountHolders.<a href="./resources/account-holders.ts">update</a>(accountHolderToken, { ...params }) -> AccountHolderUpdateResponse</code>
 - <code title="post /webhooks/account_holders">client.accountHolders.<a href="./resources/account-holders.ts">createWebhook</a>({ ...params }) -> AccountHolderCreateWebhookResponse</code>
@@ -44,7 +44,7 @@ Models:
 
 Methods:
 
-- <code title="post /auth_rules">client.authRules.<a href="./resources/auth-rules.ts">create</a>({ ...params }) -> AuthRuleCreateResponse</code>
+- <code title="post /auth_rules">client.authRules.<a href="./resources/auth-rules.ts">create</a>() -> AuthRuleCreateResponse</code>
 - <code title="get /auth_rules/{auth_rule_token}">client.authRules.<a href="./resources/auth-rules.ts">retrieve</a>(authRuleToken) -> AuthRuleRetrieveResponse</code>
 - <code title="put /auth_rules/{auth_rule_token}">client.authRules.<a href="./resources/auth-rules.ts">update</a>(authRuleToken, { ...params }) -> AuthRuleUpdateResponse</code>
 - <code title="get /auth_rules">client.authRules.<a href="./resources/auth-rules.ts">list</a>({ ...params }) -> AuthRulesPage</code>
@@ -162,8 +162,8 @@ Methods:
 - <code title="patch /event_subscriptions/{event_subscription_token}">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">update</a>(eventSubscriptionToken, { ...params }) -> EventSubscription</code>
 - <code title="get /event_subscriptions">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">list</a>({ ...params }) -> EventSubscriptionsCursorPage</code>
 - <code title="delete /event_subscriptions/{event_subscription_token}">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">del</a>(eventSubscriptionToken) -> Promise<void></code>
-- <code title="post /event_subscriptions/{event_subscription_token}/recover">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">recover</a>(eventSubscriptionToken) -> Promise<void></code>
-- <code title="post /event_subscriptions/{event_subscription_token}/replay_missing">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">replayMissing</a>(eventSubscriptionToken) -> Promise<void></code>
+- <code title="post /event_subscriptions/{event_subscription_token}/recover">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">recover</a>(eventSubscriptionToken, { ...params }) -> Promise<void></code>
+- <code title="post /event_subscriptions/{event_subscription_token}/replay_missing">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">replayMissing</a>(eventSubscriptionToken, { ...params }) -> Promise<void></code>
 - <code title="get /event_subscriptions/{event_subscription_token}/secret">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">retrieveSecret</a>(eventSubscriptionToken) -> SubscriptionRetrieveSecretResponse</code>
 - <code title="post /event_subscriptions/{event_subscription_token}/secret/rotate">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">rotateSecret</a>(eventSubscriptionToken) -> Promise<void></code>
 
@@ -175,7 +175,7 @@ Models:
 
 Methods:
 
-- <code title="post /funding_sources">client.fundingSources.<a href="./resources/funding-sources.ts">create</a>({ ...params }) -> FundingSource</code>
+- <code title="post /funding_sources">client.fundingSources.<a href="./resources/funding-sources.ts">create</a>() -> FundingSource</code>
 - <code title="patch /funding_sources/{funding_source_token}">client.fundingSources.<a href="./resources/funding-sources.ts">update</a>(fundingSourceToken, { ...params }) -> FundingSource</code>
 - <code title="get /funding_sources">client.fundingSources.<a href="./resources/funding-sources.ts">list</a>({ ...params }) -> FundingSourcesPage</code>
 - <code title="post /funding_sources/{funding_source_token}/verify">client.fundingSources.<a href="./resources/funding-sources.ts">verify</a>(fundingSourceToken, { ...params }) -> FundingSource</code>

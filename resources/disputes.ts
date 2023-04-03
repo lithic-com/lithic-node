@@ -45,7 +45,6 @@ export class Disputes extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-
     return this.getAPIList('/disputes', DisputesCursorPage, { query, ...options });
   }
 
@@ -102,7 +101,6 @@ export class Disputes extends APIResource {
     if (isRequestOptions(query)) {
       return this.listEvidences(disputeToken, {}, query);
     }
-
     return this.getAPIList(`/disputes/${disputeToken}/evidences`, DisputeEvidencesCursorPage, {
       query,
       ...options,
@@ -382,6 +380,16 @@ export interface DisputeCreateParams {
   amount: number;
 
   /**
+   * Date the customer filed the dispute
+   */
+  customer_filed_date?: string;
+
+  /**
+   * Customer description of dispute
+   */
+  customer_note?: string;
+
+  /**
    * Reason for dispute
    */
   reason:
@@ -404,16 +412,6 @@ export interface DisputeCreateParams {
    * Transaction to dispute
    */
   transaction_token: string;
-
-  /**
-   * Date the customer filed the dispute
-   */
-  customer_filed_date?: string;
-
-  /**
-   * Customer description of dispute
-   */
-  customer_note?: string;
 }
 
 export interface DisputeUpdateParams {

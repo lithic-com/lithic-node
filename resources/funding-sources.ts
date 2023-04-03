@@ -43,7 +43,6 @@ export class FundingSources extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-
     return this.getAPIList('/funding_sources', FundingSourcesPage, { query, ...options });
   }
 
@@ -190,11 +189,6 @@ export interface FundingSourceListParams extends PageParams {
 
 export interface FundingSourceVerifyParams {
   /**
-   * An array of dollar amounts (in cents) received in two credit transactions.
-   */
-  micro_deposits: Array<number>;
-
-  /**
    * Only required for multi-account users. Token identifying the account that the
    * bank account will be associated with. Only applicable if using account holder
    * enrollment. See
@@ -202,4 +196,9 @@ export interface FundingSourceVerifyParams {
    * more information.
    */
   account_token?: string;
+
+  /**
+   * An array of dollar amounts (in cents) received in two credit transactions.
+   */
+  micro_deposits: Array<number>;
 }
