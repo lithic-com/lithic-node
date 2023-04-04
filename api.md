@@ -66,6 +66,18 @@ Methods:
 - <code title="get /auth_stream/secret">client.authStreamEnrollment.<a href="./resources/auth-stream-enrollment.ts">retrieveSecret</a>() -> AuthStreamSecret</code>
 - <code title="post /auth_stream/secret/rotate">client.authStreamEnrollment.<a href="./resources/auth-stream-enrollment.ts">rotateSecret</a>() -> Promise<void></code>
 
+# TokenizationDecisioning
+
+Models:
+
+- <code><a href="./resources/tokenization-decisioning.ts">TokenizationSecret</a></code>
+- <code><a href="./resources/tokenization-decisioning.ts">TokenizationDecisioningRotateSecretResponse</a></code>
+
+Methods:
+
+- <code title="get /tokenization_decisioning/secret">client.tokenizationDecisioning.<a href="./resources/tokenization-decisioning.ts">retrieveSecret</a>() -> TokenizationSecret</code>
+- <code title="post /tokenization_decisioning/secret/rotate">client.tokenizationDecisioning.<a href="./resources/tokenization-decisioning.ts">rotateSecret</a>() -> TokenizationDecisioningRotateSecretResponse</code>
+
 # Cards
 
 Models:
@@ -166,19 +178,6 @@ Methods:
 - <code title="post /event_subscriptions/{event_subscription_token}/replay_missing">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">replayMissing</a>(eventSubscriptionToken, { ...params }) -> Promise<void></code>
 - <code title="get /event_subscriptions/{event_subscription_token}/secret">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">retrieveSecret</a>(eventSubscriptionToken) -> SubscriptionRetrieveSecretResponse</code>
 - <code title="post /event_subscriptions/{event_subscription_token}/secret/rotate">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">rotateSecret</a>(eventSubscriptionToken) -> Promise<void></code>
-
-# FundingSources
-
-Models:
-
-- <code><a href="./resources/funding-sources.ts">FundingSource</a></code>
-
-Methods:
-
-- <code title="post /funding_sources">client.fundingSources.<a href="./resources/funding-sources.ts">create</a>() -> FundingSource</code>
-- <code title="patch /funding_sources/{funding_source_token}">client.fundingSources.<a href="./resources/funding-sources.ts">update</a>(fundingSourceToken, { ...params }) -> FundingSource</code>
-- <code title="get /funding_sources">client.fundingSources.<a href="./resources/funding-sources.ts">list</a>({ ...params }) -> FundingSourcesPage</code>
-- <code title="post /funding_sources/{funding_source_token}/verify">client.fundingSources.<a href="./resources/funding-sources.ts">verify</a>(fundingSourceToken, { ...params }) -> FundingSource</code>
 
 # Transactions
 

@@ -76,14 +76,10 @@ export {
   Events,
 } from './events/events';
 export {
-  FundingSource,
-  FundingSourceCreateParams,
-  FundingSourceUpdateParams,
-  FundingSourceListParams,
-  FundingSourceVerifyParams,
-  FundingSourcesPage,
-  FundingSources,
-} from './funding-sources';
+  TokenizationSecret,
+  TokenizationDecisioningRotateSecretResponse,
+  TokenizationDecisioning,
+} from './tokenization-decisioning';
 export {
   Transaction,
   TransactionSimulateAuthorizationResponse,

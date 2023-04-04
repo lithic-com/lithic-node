@@ -57,10 +57,10 @@ export class Lithic extends Core.APIClient {
   accountHolders: API.AccountHolders = new API.AccountHolders(this);
   authRules: API.AuthRules = new API.AuthRules(this);
   authStreamEnrollment: API.AuthStreamEnrollmentResource = new API.AuthStreamEnrollmentResource(this);
+  tokenizationDecisioning: API.TokenizationDecisioning = new API.TokenizationDecisioning(this);
   cards: API.Cards = new API.Cards(this);
   disputes: API.Disputes = new API.Disputes(this);
   events: API.Events = new API.Events(this);
-  fundingSources: API.FundingSources = new API.FundingSources(this);
   transactions: API.Transactions = new API.Transactions(this);
   webhooks: API.Webhooks = new API.Webhooks(this);
 
@@ -159,6 +159,9 @@ export namespace Lithic {
   export import AuthStreamSecret = API.AuthStreamSecret;
   export import AuthStreamEnrollmentEnrollParams = API.AuthStreamEnrollmentEnrollParams;
 
+  export import TokenizationSecret = API.TokenizationSecret;
+  export import TokenizationDecisioningRotateSecretResponse = API.TokenizationDecisioningRotateSecretResponse;
+
   export import Card = API.Card;
   export import EmbedRequestParams = API.EmbedRequestParams;
   export import SpendLimitDuration = API.SpendLimitDuration;
@@ -189,13 +192,6 @@ export namespace Lithic {
   export import EventsCursorPage = API.EventsCursorPage;
   export import EventListParams = API.EventListParams;
   export import EventResendParams = API.EventResendParams;
-
-  export import FundingSource = API.FundingSource;
-  export import FundingSourcesPage = API.FundingSourcesPage;
-  export import FundingSourceCreateParams = API.FundingSourceCreateParams;
-  export import FundingSourceUpdateParams = API.FundingSourceUpdateParams;
-  export import FundingSourceListParams = API.FundingSourceListParams;
-  export import FundingSourceVerifyParams = API.FundingSourceVerifyParams;
 
   export import Transaction = API.Transaction;
   export import TransactionSimulateAuthorizationResponse = API.TransactionSimulateAuthorizationResponse;

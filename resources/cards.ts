@@ -3,7 +3,6 @@
 import * as Core from '~/core';
 import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
-import * as FundingSources from '~/resources/funding-sources';
 import * as Shared from '~/resources/shared';
 import { createHmac } from 'crypto';
 import { Page, PageParams } from '~/pagination';
@@ -196,7 +195,7 @@ export interface Card {
    */
   created: string;
 
-  funding: FundingSources.FundingSource;
+  funding: Card.Funding;
 
   /**
    * Last four digits of the card number.
@@ -317,6 +316,58 @@ export interface Card {
   pan?: string;
 }
 
+export namespace Card {
+  export interface Funding {
+    /**
+     * An RFC 3339 string representing when this funding source was added to the Lithic
+     * account. This may be `null`. UTC time zone.
+     */
+    created: string;
+
+    /**
+     * The last 4 digits of the account (e.g. bank account, debit card) associated with
+     * this FundingAccount. This may be null.
+     */
+    last_four: string;
+
+    /**
+     * State of funding source.
+     *
+     * Funding source states:
+     *
+     * - `ENABLED` - The funding account is available to use for card creation and
+     *   transactions.
+     * - `PENDING` - The funding account is still being verified e.g. bank
+     *   micro-deposits verification.
+     * - `DELETED` - The founding account has been deleted.
+     */
+    state: 'ENABLED' | 'PENDING' | 'DELETED';
+
+    /**
+     * A globally unique identifier for this FundingAccount.
+     */
+    token: string;
+
+    /**
+     * Types of funding source:
+     *
+     * - `DEPOSITORY_CHECKING` - Bank checking account.
+     * - `DEPOSITORY_SAVINGS` - Bank savings account.
+     */
+    type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS';
+
+    /**
+     * Account name identifying the funding source. This may be `null`.
+     */
+    account_name?: string;
+
+    /**
+     * The nickname given to the `FundingAccount` or `null` if it has no nickname.
+     */
+    nickname?: string;
+  }
+}
+
 export interface EmbedRequestParams {
   /**
    * Globally unique identifier for the card to be displayed.
@@ -409,12 +460,6 @@ export interface CardCreateParams {
    * provided, an expiration date will be generated.
    */
   exp_year?: string;
-
-  /**
-   * The token for the desired `FundingAccount` to use when making transactions with
-   * this card.
-   */
-  funding_token?: string;
 
   /**
    * Friendly name to identify the card. We recommend against using this field to
@@ -516,12 +561,6 @@ export interface CardUpdateParams {
    * [Flexible Card Art Guide](https://docs.lithic.com/docs/about-digital-wallets#flexible-card-art).
    */
   digital_card_art_token?: string;
-
-  /**
-   * The token for the desired `FundingAccount` to use when making transactions with
-   * this card.
-   */
-  funding_token?: string;
 
   /**
    * Friendly name to identify the card. We recommend against using this field to

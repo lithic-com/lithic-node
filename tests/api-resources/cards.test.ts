@@ -11,7 +11,6 @@ describe('resource cards', () => {
       digital_card_art_token: '00000000-0000-0000-1000-000000000000',
       exp_month: '06',
       exp_year: '2027',
-      funding_token: 'ecbd1d58-0299-48b3-84da-6ed7f5bf9ec1',
       memo: 'New Card',
       pin: 'string',
       product_id: '1',
@@ -39,7 +38,6 @@ describe('resource cards', () => {
       digital_card_art_token: '00000000-0000-0000-1000-000000000000',
       exp_month: '06',
       exp_year: '2027',
-      funding_token: 'ecbd1d58-0299-48b3-84da-6ed7f5bf9ec1',
       memo: 'New Card',
       pin: 'string',
       product_id: '1',
@@ -79,7 +77,6 @@ describe('resource cards', () => {
     const response = await lithic.cards.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       auth_rule_token: 'string',
       digital_card_art_token: '00000000-0000-0000-1000-000000000000',
-      funding_token: 'ecbd1d58-0299-48b3-84da-6ed7f5bf9ec1',
       memo: 'New Card',
       pin: 'string',
       spend_limit: 0,
