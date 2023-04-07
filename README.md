@@ -138,7 +138,7 @@ Note that requests which time out will be [retried twice by default](#retries).
 ## Auto-pagination
 
 List methods in the Lithic API are paginated.
-Use `for await … of` syntax to iterate through items across all pages.
+You can use `for await … of` syntax to iterate through items across all pages:
 
 ```ts
 async function fetchAllCards(params) {
@@ -148,6 +148,21 @@ async function fetchAllCards(params) {
     allCards.push(card);
   }
   return allCards;
+}
+```
+
+Alternatively, you can make request a single page at a time:
+
+```ts
+let page = await lithic.cards.list();
+for (const card of page.data) {
+  console.log(card);
+}
+
+// Convenience methods are provided for manually paginating:
+while (page.hasNextPage()) {
+  page = page.getNextPage();
+  // ...
 }
 ```
 
