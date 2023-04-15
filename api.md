@@ -16,6 +16,9 @@ Models:
 
 - <code><a href="./resources/account-holders.ts">AccountHolder</a></code>
 - <code><a href="./resources/account-holders.ts">AccountHolderDocument</a></code>
+- <code><a href="./resources/account-holders.ts">KYB</a></code>
+- <code><a href="./resources/account-holders.ts">KYC</a></code>
+- <code><a href="./resources/account-holders.ts">KYCExempt</a></code>
 - <code><a href="./resources/account-holders.ts">AccountHolderUpdateResponse</a></code>
 - <code><a href="./resources/account-holders.ts">AccountHolderListDocumentsResponse</a></code>
 - <code><a href="./resources/account-holders.ts">AccountHolderCreateWebhookResponse</a></code>

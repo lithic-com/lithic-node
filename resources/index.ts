@@ -6,6 +6,9 @@ export { Account, AccountUpdateParams, AccountListParams, AccountsPage, Accounts
 export {
   AccountHolder,
   AccountHolderDocument,
+  KYB,
+  KYC,
+  KYCExempt,
   AccountHolderUpdateResponse,
   AccountHolderListDocumentsResponse,
   AccountHolderCreateWebhookResponse,
