@@ -113,6 +113,26 @@ Custom Methods:
 - `provision`
 - `reissue`
 
+# Balances
+
+Models:
+
+- <code><a href="./resources/balances.ts">Balance</a></code>
+
+Methods:
+
+- <code title="get /balances">client.balances.<a href="./resources/balances.ts">list</a>({ ...params }) -> BalancesSinglePage</code>
+
+# AggregateBalances
+
+Models:
+
+- <code><a href="./resources/aggregate-balances.ts">AggregateBalance</a></code>
+
+Methods:
+
+- <code title="get /aggregate_balances">client.aggregateBalances.<a href="./resources/aggregate-balances.ts">list</a>({ ...params }) -> AggregateBalancesSinglePage</code>
+
 # Disputes
 
 Models:
@@ -182,6 +202,41 @@ Methods:
 - <code title="get /event_subscriptions/{event_subscription_token}/secret">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">retrieveSecret</a>(eventSubscriptionToken) -> SubscriptionRetrieveSecretResponse</code>
 - <code title="post /event_subscriptions/{event_subscription_token}/secret/rotate">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">rotateSecret</a>(eventSubscriptionToken) -> Promise<void></code>
 
+# Transfers
+
+Models:
+
+- <code><a href="./resources/transfers.ts">Transfer</a></code>
+- <code><a href="./resources/transfers.ts">TransferCreateResponse</a></code>
+
+Methods:
+
+- <code title="post /transfer">client.transfers.<a href="./resources/transfers.ts">create</a>({ ...params }) -> TransferCreateResponse</code>
+
+# FinancialAccounts
+
+Models:
+
+- <code><a href="./resources/financial-accounts/financial-accounts.ts">FinancialAccount</a></code>
+- <code><a href="./resources/financial-accounts/financial-accounts.ts">FinancialTransaction</a></code>
+
+Methods:
+
+- <code title="get /financial_accounts">client.financialAccounts.<a href="./resources/financial-accounts/financial-accounts.ts">list</a>({ ...params }) -> FinancialAccountsSinglePage</code>
+
+## Balances
+
+Methods:
+
+- <code title="get /financial_accounts/{financial_account_token}/balances">client.financialAccounts.balances.<a href="./resources/financial-accounts/balances.ts">list</a>(financialAccountToken, { ...params }) -> BalancesSinglePage</code>
+
+## FinancialTransactions
+
+Methods:
+
+- <code title="get /financial_accounts/{financial_account_token}/financial_transactions/{financial_transaction_token}">client.financialAccounts.financialTransactions.<a href="./resources/financial-accounts/financial-transactions.ts">retrieve</a>(financialAccountToken, financialTransactionToken) -> FinancialTransaction</code>
+- <code title="get /financial_accounts/{financial_account_token}/financial_transactions">client.financialAccounts.financialTransactions.<a href="./resources/financial-accounts/financial-transactions.ts">list</a>(financialAccountToken, { ...params }) -> FinancialTransactionsSinglePage</code>
+
 # Transactions
 
 Models:
@@ -206,6 +261,19 @@ Methods:
 - <code title="post /simulate/return">client.transactions.<a href="./resources/transactions.ts">simulateReturn</a>({ ...params }) -> TransactionSimulateReturnResponse</code>
 - <code title="post /simulate/return_reversal">client.transactions.<a href="./resources/transactions.ts">simulateReturnReversal</a>({ ...params }) -> TransactionSimulateReturnReversalResponse</code>
 - <code title="post /simulate/void">client.transactions.<a href="./resources/transactions.ts">simulateVoid</a>({ ...params }) -> TransactionSimulateVoidResponse</code>
+
+# ResponderEndpoints
+
+Models:
+
+- <code><a href="./resources/responder-endpoints.ts">ResponderEndpointStatus</a></code>
+- <code><a href="./resources/responder-endpoints.ts">ResponderEndpointCreateResponse</a></code>
+
+Methods:
+
+- <code title="post /responder_endpoints">client.responderEndpoints.<a href="./resources/responder-endpoints.ts">create</a>({ ...params }) -> ResponderEndpointCreateResponse</code>
+- <code title="delete /responder_endpoints">client.responderEndpoints.<a href="./resources/responder-endpoints.ts">del</a>({ ...params }) -> Promise<void></code>
+- <code title="get /responder_endpoints">client.responderEndpoints.<a href="./resources/responder-endpoints.ts">checkStatus</a>({ ...params }) -> ResponderEndpointStatus</code>
 
 # Webhooks
 

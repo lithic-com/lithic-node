@@ -112,22 +112,12 @@ describe('resource cards', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  test('embed', async () => {
-    const response = await lithic.cards.embed();
+  test('embed: only required params', async () => {
+    const response = await lithic.cards.embed({ embed_request: 'string', hmac: 'string' });
   });
 
-  test('embed: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(lithic.cards.embed({ path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Lithic.NotFoundError,
-    );
-  });
-
-  test('embed: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      lithic.cards.embed({ embed_request: 'string', hmac: 'string' }, { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Lithic.NotFoundError);
+  test('embed: required and optional params', async () => {
+    const response = await lithic.cards.embed({ embed_request: 'string', hmac: 'string' });
   });
 
   test('getEmbedHTML', async () => {

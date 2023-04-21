@@ -20,6 +20,12 @@ export {
   AccountHolders,
 } from './account-holders';
 export {
+  AggregateBalance,
+  AggregateBalanceListParams,
+  AggregateBalancesSinglePage,
+  AggregateBalances,
+} from './aggregate-balances';
+export {
   AuthRule,
   AuthRuleCreateResponse,
   AuthRuleRetrieveResponse,
@@ -40,6 +46,7 @@ export {
   AuthStreamEnrollmentEnrollParams,
   AuthStreamEnrollmentResource,
 } from './auth-stream-enrollment';
+export { Balance, BalanceListParams, BalancesSinglePage, Balances } from './balances';
 export {
   Card,
   EmbedRequestParams,
@@ -79,6 +86,22 @@ export {
   Events,
 } from './events/events';
 export {
+  FinancialAccount,
+  FinancialTransaction,
+  FinancialAccountListParams,
+  FinancialTransactionsSinglePage,
+  FinancialAccountsSinglePage,
+  FinancialAccounts,
+} from './financial-accounts/financial-accounts';
+export {
+  ResponderEndpointStatus,
+  ResponderEndpointCreateResponse,
+  ResponderEndpointCreateParams,
+  ResponderEndpointDeleteParams,
+  ResponderEndpointCheckStatusParams,
+  ResponderEndpoints,
+} from './responder-endpoints';
+export {
   TokenizationSecret,
   TokenizationDecisioningRotateSecretResponse,
   TokenizationDecisioning,
@@ -103,4 +126,5 @@ export {
   TransactionsPage,
   Transactions,
 } from './transactions';
+export { Transfer, TransferCreateResponse, TransferCreateParams, Transfers } from './transfers';
 export { Webhooks } from './webhooks';

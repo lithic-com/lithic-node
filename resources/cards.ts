@@ -81,15 +81,7 @@ export class Cards extends APIResource {
    * but **do not ever embed your API key into front end code, as doing so introduces
    * a serious security vulnerability**.
    */
-  embed(query?: CardEmbedParams, options?: Core.RequestOptions): Promise<Core.APIResponse<Promise<string>>>;
-  embed(options?: Core.RequestOptions): Promise<Core.APIResponse<Promise<string>>>;
-  embed(
-    query: CardEmbedParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Promise<string>>> {
-    if (isRequestOptions(query)) {
-      return this.embed({}, query);
-    }
+  embed(query: CardEmbedParams, options?: Core.RequestOptions): Promise<Core.APIResponse<Promise<string>>> {
     return this.get('/embed/card', {
       query,
       ...options,
@@ -432,10 +424,10 @@ export interface CardCreateParams {
   account_token?: string;
 
   /**
-   * For physical card programs with more than one BIN range. This must be configured
-   * with Lithic before use. Identifies the card program/BIN range under which to
-   * create the card. If omitted, will utilize the program's default
-   * `card_program_token`. In Sandbox, use 00000000-0000-0000-1000-000000000000 and
+   * For card programs with more than one BIN range. This must be configured with
+   * Lithic before use. Identifies the card program/BIN range under which to create
+   * the card. If omitted, will utilize the program's default `card_program_token`.
+   * In Sandbox, use 00000000-0000-0000-1000-000000000000 and
    * 00000000-0000-0000-2000-000000000000 to test creating cards on specific card
    * programs.
    */
@@ -634,12 +626,12 @@ export interface CardEmbedParams {
   /**
    * A base64 encoded JSON string of an EmbedRequest to specify which card to load.
    */
-  embed_request?: string;
+  embed_request: string;
 
   /**
    * SHA256 HMAC of the embed_request JSON string with base64 digest.
    */
-  hmac?: string;
+  hmac: string;
 }
 
 export interface CardGetEmbedHTMLParams {

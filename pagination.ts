@@ -149,3 +149,46 @@ export class CursorPage<Item extends { token: string }>
     }
   }
 }
+
+export interface SinglePageResponse<Item> {
+  data: Array<Item>;
+
+  /**
+   * More data exists.
+   */
+  has_more: boolean;
+}
+
+export class SinglePage<Item> extends AbstractPage<Item> implements SinglePageResponse<Item> {
+  data: Array<Item>;
+  /** More data exists. */
+  has_more: boolean;
+
+  constructor(
+    client: APIClient,
+    response: APIResponse<SinglePageResponse<Item>>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, options);
+
+    this.data = response.data;
+    this.has_more = response.has_more;
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.data;
+  }
+
+  // @deprecated Please use `nextPageInfo()` instead
+  /**
+   * This page represents a response that isn't actually paginated at the API level
+   * so there will never be any next page params.
+   */
+  nextPageParams(): null {
+    return null;
+  }
+
+  nextPageInfo(): null {
+    return null;
+  }
+}

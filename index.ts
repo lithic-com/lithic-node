@@ -59,9 +59,14 @@ export class Lithic extends Core.APIClient {
   authStreamEnrollment: API.AuthStreamEnrollmentResource = new API.AuthStreamEnrollmentResource(this);
   tokenizationDecisioning: API.TokenizationDecisioning = new API.TokenizationDecisioning(this);
   cards: API.Cards = new API.Cards(this);
+  balances: API.Balances = new API.Balances(this);
+  aggregateBalances: API.AggregateBalances = new API.AggregateBalances(this);
   disputes: API.Disputes = new API.Disputes(this);
   events: API.Events = new API.Events(this);
+  transfers: API.Transfers = new API.Transfers(this);
+  financialAccounts: API.FinancialAccounts = new API.FinancialAccounts(this);
   transactions: API.Transactions = new API.Transactions(this);
+  responderEndpoints: API.ResponderEndpoints = new API.ResponderEndpoints(this);
   webhooks: API.Webhooks = new API.Webhooks(this);
 
   /**
@@ -124,6 +129,9 @@ export namespace Lithic {
   export import CursorPageParams = Pagination.CursorPageParams;
   export import CursorPageResponse = Pagination.CursorPageResponse;
 
+  export import SinglePage = Pagination.SinglePage;
+  export import SinglePageResponse = Pagination.SinglePageResponse;
+
   export import APIStatus = API.APIStatus;
 
   export import Account = API.Account;
@@ -180,6 +188,14 @@ export namespace Lithic {
   export import CardProvisionParams = API.CardProvisionParams;
   export import CardReissueParams = API.CardReissueParams;
 
+  export import Balance = API.Balance;
+  export import BalancesSinglePage = API.BalancesSinglePage;
+  export import BalanceListParams = API.BalanceListParams;
+
+  export import AggregateBalance = API.AggregateBalance;
+  export import AggregateBalancesSinglePage = API.AggregateBalancesSinglePage;
+  export import AggregateBalanceListParams = API.AggregateBalanceListParams;
+
   export import Dispute = API.Dispute;
   export import DisputeEvidence = API.DisputeEvidence;
   export import DisputeInitiateEvidenceUploadResponse = API.DisputeInitiateEvidenceUploadResponse;
@@ -195,6 +211,15 @@ export namespace Lithic {
   export import EventsCursorPage = API.EventsCursorPage;
   export import EventListParams = API.EventListParams;
   export import EventResendParams = API.EventResendParams;
+
+  export import Transfer = API.Transfer;
+  export import TransferCreateResponse = API.TransferCreateResponse;
+  export import TransferCreateParams = API.TransferCreateParams;
+
+  export import FinancialAccount = API.FinancialAccount;
+  export import FinancialTransaction = API.FinancialTransaction;
+  export import FinancialAccountsSinglePage = API.FinancialAccountsSinglePage;
+  export import FinancialAccountListParams = API.FinancialAccountListParams;
 
   export import Transaction = API.Transaction;
   export import TransactionSimulateAuthorizationResponse = API.TransactionSimulateAuthorizationResponse;
@@ -213,6 +238,12 @@ export namespace Lithic {
   export import TransactionSimulateReturnParams = API.TransactionSimulateReturnParams;
   export import TransactionSimulateReturnReversalParams = API.TransactionSimulateReturnReversalParams;
   export import TransactionSimulateVoidParams = API.TransactionSimulateVoidParams;
+
+  export import ResponderEndpointStatus = API.ResponderEndpointStatus;
+  export import ResponderEndpointCreateResponse = API.ResponderEndpointCreateResponse;
+  export import ResponderEndpointCreateParams = API.ResponderEndpointCreateParams;
+  export import ResponderEndpointDeleteParams = API.ResponderEndpointDeleteParams;
+  export import ResponderEndpointCheckStatusParams = API.ResponderEndpointCheckStatusParams;
 
   export import Address = API.Address;
   export import ShippingAddress = API.ShippingAddress;
