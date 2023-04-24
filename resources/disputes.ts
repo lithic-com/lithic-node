@@ -361,6 +361,11 @@ export interface DisputeEvidence {
   upload_status: 'DELETED' | 'ERROR' | 'PENDING' | 'REJECTED' | 'UPLOADED';
 
   /**
+   * URL to download evidence. Only shown when `upload_status` is `UPLOADED`.
+   */
+  download_url?: string;
+
+  /**
    * URL to upload evidence. Only shown when `upload_status` is `PENDING`.
    */
   upload_url?: string;
