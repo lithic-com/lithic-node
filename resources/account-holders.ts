@@ -229,6 +229,9 @@ export interface AccountHolderDocument {
 }
 
 export namespace AccountHolderDocument {
+  /**
+   * Represents a single image of the document to upload.
+   */
   export interface RequiredDocumentUploads {
     /**
      * Type of image to upload.
@@ -334,6 +337,10 @@ export interface KYB {
 }
 
 export namespace KYB {
+  /**
+   * Information for business for which the account is being opened and KYB is being
+   * run.
+   */
   export interface BusinessEntity {
     /**
      * Business's physical address - PO boxes, UPS drops, and FedEx drops are not
@@ -450,6 +457,16 @@ export namespace KYB {
     phone_number: string;
   }
 
+  /**
+   * An individual with significant responsibility for managing the legal entity
+   * (e.g., a Chief Executive Officer, Chief Financial Officer, Chief Operating
+   * Officer, Managing Member, General Partner, President, Vice President, or
+   * Treasurer). This can be an executive, or someone who will have program-wide
+   * access to the cards that Lithic will provide. In some cases, this individual
+   * could also be a beneficial owner listed above. See
+   * [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf)
+   * (Section II) for more background.
+   */
   export interface ControlPerson {
     /**
      * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
@@ -522,6 +539,10 @@ export interface KYC {
 }
 
 export namespace KYC {
+  /**
+   * Information on individual for whom the account is being opened and KYC is being
+   * run.
+   */
   export interface Individual {
     /**
      * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
@@ -729,6 +750,10 @@ export namespace AccountHolderCreateParams {
   }
 
   export namespace KYB {
+    /**
+     * Information for business for which the account is being opened and KYB is being
+     * run.
+     */
     export interface BusinessEntity {
       /**
        * Business's physical address - PO boxes, UPS drops, and FedEx drops are not
@@ -845,6 +870,16 @@ export namespace AccountHolderCreateParams {
       phone_number: string;
     }
 
+    /**
+     * An individual with significant responsibility for managing the legal entity
+     * (e.g., a Chief Executive Officer, Chief Financial Officer, Chief Operating
+     * Officer, Managing Member, General Partner, President, Vice President, or
+     * Treasurer). This can be an executive, or someone who will have program-wide
+     * access to the cards that Lithic will provide. In some cases, this individual
+     * could also be a beneficial owner listed above. See
+     * [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf)
+     * (Section II) for more background.
+     */
     export interface ControlPerson {
       /**
        * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
@@ -917,6 +952,10 @@ export namespace AccountHolderCreateParams {
   }
 
   export namespace KYC {
+    /**
+     * Information on individual for whom the account is being opened and KYC is being
+     * run.
+     */
     export interface Individual {
       /**
        * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
@@ -1054,6 +1093,10 @@ export interface AccountHolderResubmitParams {
 }
 
 export namespace AccountHolderResubmitParams {
+  /**
+   * Information on individual for whom the account is being opened and KYC is being
+   * re-run.
+   */
   export interface Individual {
     /**
      * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
@@ -1096,6 +1139,10 @@ export namespace AccountHolderResubmitParams {
     phone_number: string;
   }
 
+  /**
+   * Information on individual for whom the account is being opened and KYC is being
+   * re-run.
+   */
   export interface Individual {
     /**
      * Individual's current address - PO boxes, UPS drops, and FedEx drops are not

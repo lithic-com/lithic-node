@@ -350,6 +350,10 @@ export namespace Transaction {
     verification_result: 'CANCELLED' | 'FAILED' | 'FRICTIONLESS' | 'NOT_ATTEMPTED' | 'REJECTED' | 'SUCCESS';
   }
 
+  /**
+   * A single card transaction may include multiple events that affect the
+   * transaction state and lifecycle.
+   */
   export interface Events {
     /**
      * Amount of the transaction event (in cents), including any acquirer fees.

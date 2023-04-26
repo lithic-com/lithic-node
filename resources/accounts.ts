@@ -85,6 +85,13 @@ export interface Account {
 }
 
 export namespace Account {
+  /**
+   * Spend limit information for the user containing the daily, monthly, and lifetime
+   * spend limit of the account. Any charges to a card owned by this account will be
+   * declined once their transaction volume has surpassed the value in the applicable
+   * time limit (rolling). A lifetime limit of 0 indicates that the lifetime limit
+   * feature is disabled.
+   */
   export interface SpendLimit {
     /**
      * Daily spend limit (in cents).
@@ -201,6 +208,10 @@ export interface AccountUpdateParams {
 }
 
 export namespace AccountUpdateParams {
+  /**
+   * Address used during Address Verification Service (AVS) checks during
+   * transactions if enabled via Auth Rules.
+   */
   export interface VerificationAddress {
     address1?: string;
 
@@ -215,6 +226,10 @@ export namespace AccountUpdateParams {
     state?: string;
   }
 
+  /**
+   * Address used during Address Verification Service (AVS) checks during
+   * transactions if enabled via Auth Rules.
+   */
   export interface VerificationAddress {
     address1?: string;
 
