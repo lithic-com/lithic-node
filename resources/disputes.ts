@@ -77,7 +77,7 @@ export class Disputes extends APIResource {
   initiateEvidenceUpload(
     disputeToken: string,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<DisputeInitiateEvidenceUploadResponse>> {
+  ): Promise<Core.APIResponse<DisputeEvidence>> {
     return this.post(`/disputes/${disputeToken}/evidences`, options);
   }
 
@@ -335,7 +335,7 @@ export interface Dispute {
  */
 export interface DisputeEvidence {
   /**
-   * Timestamp of when first Dispute was reported.
+   * Timestamp of when dispute evidence was created.
    */
   created: string;
 
@@ -371,12 +371,7 @@ export interface DisputeEvidence {
   upload_url?: string;
 }
 
-/**
- * URL to upload document image to. The URL will expire in 5 minutes.
- */
-export interface DisputeInitiateEvidenceUploadResponse {
-  upload_url?: string;
-}
+export type DisputeInitiateEvidenceUploadResponse = DisputeEvidence;
 
 export interface DisputeCreateParams {
   /**

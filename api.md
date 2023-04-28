@@ -149,7 +149,7 @@ Methods:
 - <code title="get /disputes">client.disputes.<a href="./resources/disputes.ts">list</a>({ ...params }) -> DisputesCursorPage</code>
 - <code title="delete /disputes/{dispute_token}">client.disputes.<a href="./resources/disputes.ts">del</a>(disputeToken) -> Dispute</code>
 - <code title="delete /disputes/{dispute_token}/evidences/{evidence_token}">client.disputes.<a href="./resources/disputes.ts">deleteEvidence</a>(disputeToken, evidenceToken) -> DisputeEvidence</code>
-- <code title="post /disputes/{dispute_token}/evidences">client.disputes.<a href="./resources/disputes.ts">initiateEvidenceUpload</a>(disputeToken) -> DisputeInitiateEvidenceUploadResponse</code>
+- <code title="post /disputes/{dispute_token}/evidences">client.disputes.<a href="./resources/disputes.ts">initiateEvidenceUpload</a>(disputeToken) -> DisputeEvidence</code>
 - <code title="get /disputes/{dispute_token}/evidences">client.disputes.<a href="./resources/disputes.ts">listEvidences</a>(disputeToken, { ...params }) -> DisputeEvidencesCursorPage</code>
 - <code title="get /disputes/{dispute_token}/evidences/{evidence_token}">client.disputes.<a href="./resources/disputes.ts">retrieveEvidence</a>(disputeToken, evidenceToken) -> DisputeEvidence</code>
 
