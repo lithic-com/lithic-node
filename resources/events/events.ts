@@ -70,7 +70,7 @@ export interface Event {
    */
   event_type: 'dispute.updated' | 'digital_wallet.tokenization_approval_request';
 
-  payload: unknown;
+  payload: Record<string, unknown>;
 
   /**
    * Globally unique identifier.
