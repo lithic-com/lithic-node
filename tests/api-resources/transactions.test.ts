@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import Lithic from '~/index';
+
 const lithic = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:4010' });
 
 describe('resource transactions', () => {
@@ -46,7 +47,7 @@ describe('resource transactions', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  test('simulate_authorization: only required params', async () => {
+  test('simulateAuthorization: only required params', async () => {
     const response = await lithic.transactions.simulateAuthorization({
       amount: 0,
       descriptor: 'COFFEE SHOP',
@@ -60,7 +61,7 @@ describe('resource transactions', () => {
     });
   });
 
-  test('simulate_authorization: required and optional params', async () => {
+  test('simulateAuthorization: required and optional params', async () => {
     const response = await lithic.transactions.simulateAuthorization({
       amount: 0,
       descriptor: 'COFFEE SHOP',
@@ -74,35 +75,35 @@ describe('resource transactions', () => {
     });
   });
 
-  test('simulate_authorization_advice: only required params', async () => {
+  test('simulateAuthorizationAdvice: only required params', async () => {
     const response = await lithic.transactions.simulateAuthorizationAdvice({
       amount: 0,
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
   });
 
-  test('simulate_authorization_advice: required and optional params', async () => {
+  test('simulateAuthorizationAdvice: required and optional params', async () => {
     const response = await lithic.transactions.simulateAuthorizationAdvice({
       amount: 0,
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
   });
 
-  test('simulate_clearing: only required params', async () => {
+  test('simulateClearing: only required params', async () => {
     const response = await lithic.transactions.simulateClearing({
       amount: 0,
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
   });
 
-  test('simulate_clearing: required and optional params', async () => {
+  test('simulateClearing: required and optional params', async () => {
     const response = await lithic.transactions.simulateClearing({
       amount: 0,
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
   });
 
-  test('simulate_credit_authorization: only required params', async () => {
+  test('simulateCreditAuthorization: only required params', async () => {
     const response = await lithic.transactions.simulateCreditAuthorization({
       amount: 0,
       descriptor: 'COFFEE SHOP',
@@ -112,7 +113,7 @@ describe('resource transactions', () => {
     });
   });
 
-  test('simulate_credit_authorization: required and optional params', async () => {
+  test('simulateCreditAuthorization: required and optional params', async () => {
     const response = await lithic.transactions.simulateCreditAuthorization({
       amount: 0,
       descriptor: 'COFFEE SHOP',
@@ -122,7 +123,7 @@ describe('resource transactions', () => {
     });
   });
 
-  test('simulate_return: only required params', async () => {
+  test('simulateReturn: only required params', async () => {
     const response = await lithic.transactions.simulateReturn({
       amount: 0,
       descriptor: 'COFFEE SHOP',
@@ -130,7 +131,7 @@ describe('resource transactions', () => {
     });
   });
 
-  test('simulate_return: required and optional params', async () => {
+  test('simulateReturn: required and optional params', async () => {
     const response = await lithic.transactions.simulateReturn({
       amount: 0,
       descriptor: 'COFFEE SHOP',
@@ -138,19 +139,19 @@ describe('resource transactions', () => {
     });
   });
 
-  test('simulate_return_reversal: only required params', async () => {
+  test('simulateReturnReversal: only required params', async () => {
     const response = await lithic.transactions.simulateReturnReversal({
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
   });
 
-  test('simulate_return_reversal: required and optional params', async () => {
+  test('simulateReturnReversal: required and optional params', async () => {
     const response = await lithic.transactions.simulateReturnReversal({
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
   });
 
-  test('simulate_void: only required params', async () => {
+  test('simulateVoid: only required params', async () => {
     const response = await lithic.transactions.simulateVoid({
       amount: 0,
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -158,7 +159,7 @@ describe('resource transactions', () => {
     });
   });
 
-  test('simulate_void: required and optional params', async () => {
+  test('simulateVoid: required and optional params', async () => {
     const response = await lithic.transactions.simulateVoid({
       amount: 0,
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',

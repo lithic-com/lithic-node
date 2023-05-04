@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import Lithic from '~/index';
+
 const lithic = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:4010' });
 
 describe('resource subscriptions', () => {
@@ -73,12 +74,12 @@ describe('resource subscriptions', () => {
   });
 
   // Prism Mock server doesnt want Accept header, but server requires it.
-  test.skip('delete', async () => {
+  test.skip('del', async () => {
     const response = await lithic.events.subscriptions.del('string');
   });
 
   // Prism Mock server doesnt want Accept header, but server requires it.
-  test.skip('delete: request options instead of params are passed correctly', async () => {
+  test.skip('del: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       lithic.events.subscriptions.del('string', { path: '/_stainless_unknown_path' }),
@@ -111,12 +112,12 @@ describe('resource subscriptions', () => {
   });
 
   // Prism Mock server doesnt want Accept header, but server requires it.
-  test.skip('replay_missing', async () => {
+  test.skip('replayMissing', async () => {
     const response = await lithic.events.subscriptions.replayMissing('string');
   });
 
   // Prism Mock server doesnt want Accept header, but server requires it.
-  test.skip('replay_missing: request options instead of params are passed correctly', async () => {
+  test.skip('replayMissing: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       lithic.events.subscriptions.replayMissing('string', { path: '/_stainless_unknown_path' }),
@@ -124,7 +125,7 @@ describe('resource subscriptions', () => {
   });
 
   // Prism Mock server doesnt want Accept header, but server requires it.
-  test.skip('replay_missing: request options and params are passed correctly', async () => {
+  test.skip('replayMissing: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       lithic.events.subscriptions.replayMissing(
@@ -135,11 +136,11 @@ describe('resource subscriptions', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  test('retrieve_secret', async () => {
+  test('retrieveSecret', async () => {
     const response = await lithic.events.subscriptions.retrieveSecret('string');
   });
 
-  test('retrieve_secret: request options instead of params are passed correctly', async () => {
+  test('retrieveSecret: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       lithic.events.subscriptions.retrieveSecret('string', { path: '/_stainless_unknown_path' }),
@@ -147,12 +148,12 @@ describe('resource subscriptions', () => {
   });
 
   // Prism Mock server doesnt want Accept header, but server requires it.
-  test.skip('rotate_secret', async () => {
+  test.skip('rotateSecret', async () => {
     const response = await lithic.events.subscriptions.rotateSecret('string');
   });
 
   // Prism Mock server doesnt want Accept header, but server requires it.
-  test.skip('rotate_secret: request options instead of params are passed correctly', async () => {
+  test.skip('rotateSecret: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       lithic.events.subscriptions.rotateSecret('string', { path: '/_stainless_unknown_path' }),

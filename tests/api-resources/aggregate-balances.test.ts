@@ -1,9 +1,10 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import Lithic from '~/index';
+
 const lithic = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:4010' });
 
-describe('resource aggregate_balances', () => {
+describe('resource aggregateBalances', () => {
   test('list', async () => {
     const response = await lithic.aggregateBalances.list();
   });

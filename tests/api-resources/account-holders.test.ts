@@ -1,9 +1,10 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import Lithic from '~/index';
+
 const lithic = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:4010' });
 
-describe('resource account_holders', () => {
+describe('resource accountHolders', () => {
   test('create', async () => {
     const response = await lithic.accountHolders.create({
       business_entity: {
@@ -146,19 +147,19 @@ describe('resource account_holders', () => {
     });
   });
 
-  test('create_webhook: only required params', async () => {
+  test('createWebhook: only required params', async () => {
     const response = await lithic.accountHolders.createWebhook({ url: 'string' });
   });
 
-  test('create_webhook: required and optional params', async () => {
+  test('createWebhook: required and optional params', async () => {
     const response = await lithic.accountHolders.createWebhook({ url: 'string' });
   });
 
-  test('list_documents', async () => {
+  test('listDocuments', async () => {
     const response = await lithic.accountHolders.listDocuments('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
   });
 
-  test('list_documents: request options instead of params are passed correctly', async () => {
+  test('listDocuments: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       lithic.accountHolders.listDocuments('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
@@ -212,14 +213,14 @@ describe('resource account_holders', () => {
     });
   });
 
-  test('retrieve_document', async () => {
+  test('retrieveDocument', async () => {
     const response = await lithic.accountHolders.retrieveDocument(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     );
   });
 
-  test('retrieve_document: request options instead of params are passed correctly', async () => {
+  test('retrieveDocument: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       lithic.accountHolders.retrieveDocument(
@@ -230,13 +231,13 @@ describe('resource account_holders', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  test('upload_document: only required params', async () => {
+  test('uploadDocument: only required params', async () => {
     const response = await lithic.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       document_type: 'commercial_license',
     });
   });
 
-  test('upload_document: required and optional params', async () => {
+  test('uploadDocument: required and optional params', async () => {
     const response = await lithic.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       document_type: 'commercial_license',
     });
