@@ -129,76 +129,74 @@ export interface Transaction {
    * the transaction originated from the Mastercard network. This number may be used
    * for dispute tracking.
    */
-  acquirer_reference_number?: string | null;
+  acquirer_reference_number: string | null;
 
   /**
    * Authorization amount of the transaction (in cents), including any acquirer fees.
    * This may change over time, and will represent the settled amount once the
    * transaction is settled.
    */
-  amount?: number;
+  amount: number;
 
   /**
    * Authorization amount (in cents) of the transaction, including any acquirer fees.
    * This amount always represents the amount authorized for the transaction,
    * unaffected by settlement.
    */
-  authorization_amount?: number;
+  authorization_amount: number;
 
   /**
    * A fixed-width 6-digit numeric identifier that can be used to identify a
    * transaction with networks.
    */
-  authorization_code?: string;
+  authorization_code: string;
 
   /**
    * Token for the card used in this transaction.
    */
-  card_token?: string;
-
-  cardholder_authentication?: Transaction.CardholderAuthentication | null;
+  card_token: string;
 
   /**
    * Date and time when the transaction first occurred. UTC time zone.
    */
-  created?: string;
+  created: string;
 
   /**
    * A list of all events that have modified this transaction.
    */
-  events?: Array<Transaction.Events>;
+  events: Array<Transaction.Events>;
 
-  merchant?: Transaction.Merchant;
+  merchant: Transaction.Merchant;
 
   /**
    * Analogous to the "amount" property, but will represent the amount in the
    * transaction's local currency (smallest unit), including any acquirer fees.
    */
-  merchant_amount?: number;
+  merchant_amount: number;
 
   /**
    * Analogous to the "authorization_amount" property, but will represent the amount
    * in the transaction's local currency (smallest unit), including any acquirer
    * fees.
    */
-  merchant_authorization_amount?: number;
+  merchant_authorization_amount: number;
 
   /**
    * 3-digit alphabetic ISO 4217 code for the local currency of the transaction.
    */
-  merchant_currency?: string;
+  merchant_currency: string;
 
   /**
    * Card network of the authorization. Can be `INTERLINK`, `MAESTRO`, `MASTERCARD`,
    * `VISA`, or `UNKNOWN`. Value is `UNKNOWN` when Lithic cannot determine the
    * network code from the upstream provider.
    */
-  network?: 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'VISA' | 'UNKNOWN' | null;
+  network: 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'VISA' | 'UNKNOWN' | null;
 
   /**
    * `APPROVED` or decline reason. See Event result types
    */
-  result?:
+  result:
     | 'ACCOUNT_STATE_TRANSACTION'
     | 'APPROVED'
     | 'BANK_CONNECTION_ERROR'
@@ -224,7 +222,7 @@ export interface Transaction {
    * Amount of the transaction that has been settled (in cents), including any
    * acquirer fees. This may change over time.
    */
-  settled_amount?: number;
+  settled_amount: number;
 
   /**
    * Status types:
@@ -236,12 +234,14 @@ export interface Transaction {
    * - `SETTLED` - The transaction is complete.
    * - `VOIDED` - The merchant has voided the previously pending authorization.
    */
-  status?: 'BOUNCED' | 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'SETTLING' | 'VOIDED';
+  status: 'BOUNCED' | 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'SETTLING' | 'VOIDED';
 
   /**
    * Globally unique identifier.
    */
-  token?: string;
+  token: string;
+
+  cardholder_authentication?: Transaction.CardholderAuthentication | null;
 }
 
 export namespace Transaction {

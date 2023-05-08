@@ -254,10 +254,9 @@ export interface Card {
    *   branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe functionality.
    *   Reach out at [lithic.com/contact](https://lithic.com/contact) for more
    *   information.
+   * - `SINGLE_USE` - Card is closed upon first successful authorization.
    * - `MERCHANT_LOCKED` - _[Deprecated]_ Card is locked to the first merchant that
    *   successfully authorizes the card.
-   * - `SINGLE_USE` - _[Deprecated]_ Card is closed upon first successful
-   *   authorization.
    */
   type: 'VIRTUAL' | 'PHYSICAL' | 'MERCHANT_LOCKED' | 'SINGLE_USE';
 
@@ -531,10 +530,9 @@ export interface CardCreateParams {
    *   branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe functionality.
    *   Reach out at [lithic.com/contact](https://lithic.com/contact) for more
    *   information.
+   * - `SINGLE_USE` - Card is closed upon first successful authorization.
    * - `MERCHANT_LOCKED` - _[Deprecated]_ Card is locked to the first merchant that
    *   successfully authorizes the card.
-   * - `SINGLE_USE` - _[Deprecated]_ Card is closed upon first successful
-   *   authorization.
    */
   type: 'VIRTUAL' | 'PHYSICAL' | 'MERCHANT_LOCKED' | 'SINGLE_USE';
 }
