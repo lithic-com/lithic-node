@@ -68,8 +68,8 @@ export interface FinancialTransactionListParams {
   end?: string;
 
   /**
-   * The unique identifier of the first item in the previous page. Used to retrieve
-   * the previous page.
+   * A cursor representing an item's token before which a page of results should end.
+   * Used to retrieve the previous page of results before this item.
    */
   ending_before?: string;
 
@@ -79,8 +79,8 @@ export interface FinancialTransactionListParams {
   result?: 'APPROVED' | 'DECLINED';
 
   /**
-   * The unique identifier of the last item in the previous page. Used to retrieve
-   * the next page.
+   * A cursor representing an item's token after which a page of results should
+   * begin. Used to retrieve the next page of results after this item.
    */
   starting_after?: string;
 

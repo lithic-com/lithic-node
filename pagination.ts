@@ -81,8 +81,8 @@ export interface CursorPageResponse<Item> {
 
 export interface CursorPageParams {
   /**
-   * The unique identifier of the first item in the previous page. Used to retrieve
-   * the previous page.
+   * A cursor representing an item's token before which a page of results should end.
+   * Used to retrieve the previous page of results before this item.
    */
   ending_before?: string;
 
@@ -92,8 +92,8 @@ export interface CursorPageParams {
   page_size?: number;
 
   /**
-   * The unique identifier of the last item in the previous page. Used to retrieve
-   * the next page.
+   * A cursor representing an item's token after which a page of results should
+   * begin. Used to retrieve the next page of results after this item.
    */
   starting_after?: string;
 }
