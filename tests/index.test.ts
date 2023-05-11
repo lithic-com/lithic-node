@@ -16,6 +16,15 @@ describe('instantiate client', () => {
     process.env = env;
   });
 
+  test('maxRetries option is correctly set', () => {
+    const client = new Lithic({ maxRetries: 1, apiKey: 'my api key' });
+    expect(client.maxRetries).toEqual(1);
+
+    // default
+    const client2 = new Lithic({ apiKey: 'my api key' });
+    expect(client2.maxRetries).toEqual(2);
+  });
+
   test('with minimal arguments', () => {
     // set API Key via env var
     process.env['LITHIC_API_KEY'] = 'env var api key';

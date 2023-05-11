@@ -21,6 +21,7 @@ type Config = {
   baseURL?: string;
   timeout?: number;
   httpAgent?: Agent;
+  maxRetries?: number;
   webhookSecret?: string | null;
 };
 
@@ -46,6 +47,7 @@ export class Lithic extends Core.APIClient {
       baseURL: options.baseURL || environments[options.environment || 'production'],
       timeout: options.timeout,
       httpAgent: options.httpAgent,
+      maxRetries: options.maxRetries,
     });
     this.apiKey = options.apiKey;
     this.idempotencyHeader = 'Idempotency-Token';
