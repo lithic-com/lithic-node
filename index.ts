@@ -83,7 +83,7 @@ export class Lithic extends Core.APIClient {
   }
 
   protected override qsOptions(): qs.IStringifyOptions {
-    return { arrayFormat: 'comma' };
+    return { arrayFormat: 'repeat' };
   }
 
   static APIError = Core.APIError;
