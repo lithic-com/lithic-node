@@ -115,7 +115,7 @@ export interface EventListParams extends CursorPageParams {
    */
   end?: string;
 
-  'event_types[]'?: Array<'dispute.updated' | 'digital_wallet.tokenization_approval_request'>;
+  event_types?: Array<'dispute.updated' | 'digital_wallet.tokenization_approval_request'>;
 }
 
 export interface EventResendParams {
