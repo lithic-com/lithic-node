@@ -9,7 +9,7 @@ describe('resource subscriptions', () => {
     const response = await lithic.events.subscriptions.create({
       description: 'string',
       disabled: true,
-      event_types: ['dispute.updated', 'dispute.updated', 'dispute.updated'],
+      event_types: ['card.created', 'card.created', 'card.created'],
       url: 'https://example.com',
     });
   });
@@ -18,7 +18,7 @@ describe('resource subscriptions', () => {
     const response = await lithic.events.subscriptions.create({
       description: 'string',
       disabled: true,
-      event_types: ['dispute.updated', 'dispute.updated', 'dispute.updated'],
+      event_types: ['card.created', 'card.created', 'card.created'],
       url: 'https://example.com',
     });
   });
@@ -38,7 +38,7 @@ describe('resource subscriptions', () => {
     const response = await lithic.events.subscriptions.update('string', {
       description: 'string',
       disabled: true,
-      event_types: ['dispute.updated', 'dispute.updated', 'dispute.updated'],
+      event_types: ['card.created', 'card.created', 'card.created'],
       url: 'https://example.com',
     });
   });
@@ -47,7 +47,7 @@ describe('resource subscriptions', () => {
     const response = await lithic.events.subscriptions.update('string', {
       description: 'string',
       disabled: true,
-      event_types: ['dispute.updated', 'dispute.updated', 'dispute.updated'],
+      event_types: ['card.created', 'card.created', 'card.created'],
       url: 'https://example.com',
     });
   });

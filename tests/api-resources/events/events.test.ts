@@ -35,7 +35,7 @@ describe('resource events', () => {
           begin: '2019-12-27T18:11:19.117Z',
           end: '2019-12-27T18:11:19.117Z',
           ending_before: 'string',
-          event_types: ['dispute.updated', 'dispute.updated', 'dispute.updated'],
+          event_types: ['card.created', 'card.created', 'card.created'],
           page_size: 1,
           starting_after: 'string',
         },

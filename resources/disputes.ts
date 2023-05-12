@@ -477,9 +477,9 @@ export interface DisputeListParams extends CursorPageParams {
     | 'CASE_CLOSED';
 
   /**
-   * List disputes of a given transaction token.
+   * Transaction tokens to filter by.
    */
-  transaction_token?: string;
+  transaction_tokens?: Array<string>;
 }
 
 export interface DisputeListEvidencesParams extends CursorPageParams {
