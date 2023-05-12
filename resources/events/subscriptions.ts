@@ -163,7 +163,14 @@ export interface SubscriptionCreateParams {
    * Indicates types of events that will be sent to this subscription. If left blank,
    * all types will be sent.
    */
-  event_types?: Array<'dispute.updated' | 'digital_wallet.tokenization_approval_request'>;
+  event_types?: Array<
+    | 'card.created'
+    | 'card.shipped'
+    | 'card_transaction.updated'
+    | 'digital_wallet.tokenization_approval_request'
+    | 'digital_wallet.tokenization_two_factor_authentication_code'
+    | 'dispute.updated'
+  >;
 
   /**
    * URL to which event webhooks will be sent. URL must be a valid HTTPS address.
@@ -186,7 +193,14 @@ export interface SubscriptionUpdateParams {
    * Indicates types of events that will be sent to this subscription. If left blank,
    * all types will be sent.
    */
-  event_types?: Array<'dispute.updated' | 'digital_wallet.tokenization_approval_request'>;
+  event_types?: Array<
+    | 'card.created'
+    | 'card.shipped'
+    | 'card_transaction.updated'
+    | 'digital_wallet.tokenization_approval_request'
+    | 'digital_wallet.tokenization_two_factor_authentication_code'
+    | 'dispute.updated'
+  >;
 
   /**
    * URL to which event webhooks will be sent. URL must be a valid HTTPS address.
