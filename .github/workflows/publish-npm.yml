@@ -1,5 +1,5 @@
 # workflow for re-running publishing to NPM in case it fails for some reason
-# you can run this workflow by navigating to https://www.github.com/lithic-com/lithic-com/lithic-node/actions/workflows/publish-npm.yml
+# you can run this workflow by navigating to https://www.github.com/lithic-com/lithic-node/actions/workflows/publish-npm.yml
 name: Publish NPM
 on:
   workflow_dispatch:
