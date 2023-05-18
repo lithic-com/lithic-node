@@ -16,6 +16,18 @@ describe('instantiate client', () => {
     process.env = env;
   });
 
+  describe('baseUrl', () => {
+    test('trailing slash', () => {
+      const client = new Lithic({ baseURL: 'http://localhost:5000/custom/path/', apiKey: 'my api key' });
+      expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
+    });
+
+    test('no trailing slash', () => {
+      const client = new Lithic({ baseURL: 'http://localhost:5000/custom/path', apiKey: 'my api key' });
+      expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
+    });
+  });
+
   test('maxRetries option is correctly set', () => {
     const client = new Lithic({ maxRetries: 1, apiKey: 'my api key' });
     expect(client.maxRetries).toEqual(1);
