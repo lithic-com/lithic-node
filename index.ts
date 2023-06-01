@@ -22,6 +22,7 @@ type Config = {
   timeout?: number;
   httpAgent?: Agent;
   maxRetries?: number;
+  defaultHeaders?: Core.Headers;
   webhookSecret?: string | null;
 };
 
@@ -29,6 +30,8 @@ type Config = {
 export class Lithic extends Core.APIClient {
   apiKey: string;
   webhookSecret?: string | null;
+
+  private _options: Config;
 
   constructor(config?: Config) {
     const options: Config = {
@@ -50,6 +53,7 @@ export class Lithic extends Core.APIClient {
       maxRetries: options.maxRetries,
     });
     this.apiKey = options.apiKey;
+    this._options = options;
     this.idempotencyHeader = 'Idempotency-Token';
 
     this.webhookSecret = config?.webhookSecret || process.env['LITHIC_WEBHOOK_SECRET'] || null;
@@ -76,6 +80,13 @@ export class Lithic extends Core.APIClient {
    */
   apiStatus(options?: Core.RequestOptions): Promise<Core.APIResponse<Lithic.APIStatus>> {
     return this.get('/status', options);
+  }
+
+  protected override defaultHeaders(): Core.Headers {
+    return {
+      ...super.defaultHeaders(),
+      ...this._options.defaultHeaders,
+    };
   }
 
   protected override authHeaders(): Core.Headers {
