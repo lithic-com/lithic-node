@@ -80,18 +80,6 @@ describe('idempotency', () => {
     const client = new Lithic({ apiKey: 'my api key', baseURL: 'http://127.0.0.1:4010' });
     await client.accountHolders.create(
       {
-        business_entity: {
-          address: {
-            address1: '123 Old Forest Way',
-            city: 'Omaha',
-            country: 'USA',
-            postal_code: '68022',
-            state: 'NE',
-          },
-          government_id: '114-123-1513',
-          legal_business_name: 'Acme, Inc.',
-          phone_numbers: ['+12124007676'],
-        },
         beneficial_owner_entities: [
           {
             address: {
@@ -177,6 +165,18 @@ describe('idempotency', () => {
             phone_number: '+12124007676',
           },
         ],
+        business_entity: {
+          address: {
+            address1: '123 Old Forest Way',
+            city: 'Omaha',
+            country: 'USA',
+            postal_code: '68022',
+            state: 'NE',
+          },
+          government_id: '114-123-1513',
+          legal_business_name: 'Acme, Inc.',
+          phone_numbers: ['+12124007676'],
+        },
         control_person: {
           address: {
             address1: '123 Old Forest Way',

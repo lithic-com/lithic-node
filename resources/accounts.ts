@@ -225,24 +225,6 @@ export namespace AccountUpdateParams {
 
     state?: string;
   }
-
-  /**
-   * Address used during Address Verification Service (AVS) checks during
-   * transactions if enabled via Auth Rules.
-   */
-  export interface VerificationAddress {
-    address1?: string;
-
-    address2?: string;
-
-    city?: string;
-
-    country?: string;
-
-    postal_code?: string;
-
-    state?: string;
-  }
 }
 
 export interface AccountListParams extends PageParams {

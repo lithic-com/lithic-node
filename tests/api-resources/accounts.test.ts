@@ -18,13 +18,7 @@ describe('resource accounts', () => {
 
   // Prism returns invalid data
   test.skip('update', async () => {
-    const response = await lithic.accounts.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      daily_spend_limit: 0,
-      lifetime_spend_limit: 0,
-      monthly_spend_limit: 0,
-      state: 'ACTIVE',
-      verification_address: {},
-    });
+    const response = await lithic.accounts.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
   });
 
   test('list', async () => {

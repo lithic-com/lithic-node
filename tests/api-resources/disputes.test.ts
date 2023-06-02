@@ -8,8 +8,6 @@ describe('resource disputes', () => {
   test('create: only required params', async () => {
     const response = await lithic.disputes.create({
       amount: 0,
-      customer_filed_date: '2019-12-27T18:11:19.117Z',
-      customer_note: 'string',
       reason: 'ATM_CASH_MISDISPENSE',
       transaction_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
@@ -18,10 +16,10 @@ describe('resource disputes', () => {
   test('create: required and optional params', async () => {
     const response = await lithic.disputes.create({
       amount: 0,
-      customer_filed_date: '2019-12-27T18:11:19.117Z',
-      customer_note: 'string',
       reason: 'ATM_CASH_MISDISPENSE',
       transaction_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      customer_filed_date: '2019-12-27T18:11:19.117Z',
+      customer_note: 'string',
     });
   });
 
@@ -37,12 +35,7 @@ describe('resource disputes', () => {
   });
 
   test('update', async () => {
-    const response = await lithic.disputes.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      amount: 0,
-      customer_filed_date: '2019-12-27T18:11:19.117Z',
-      customer_note: 'string',
-      reason: 'ATM_CASH_MISDISPENSE',
-    });
+    const response = await lithic.disputes.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
   });
 
   test('list', async () => {

@@ -6,10 +6,7 @@ const lithic = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:
 
 describe('resource responderEndpoints', () => {
   test('create', async () => {
-    const response = await lithic.responderEndpoints.create({
-      type: 'TOKENIZATION_DECISIONING',
-      url: 'https://example.com',
-    });
+    const response = await lithic.responderEndpoints.create({});
   });
 
   // Prism errors when accept header set but no request body is defined
