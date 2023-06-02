@@ -673,7 +673,10 @@ export namespace AccountHolderCreateWebhookResponse {
   }
 }
 
-export type AccountHolderCreateParams = KYB | KYC | KYCExempt;
+export type AccountHolderCreateParams =
+  | AccountHolderCreateParams.KYB
+  | AccountHolderCreateParams.KYC
+  | AccountHolderCreateParams.KYCExempt;
 
 export namespace AccountHolderCreateParams {
   export interface KYB {
@@ -686,7 +689,7 @@ export namespace AccountHolderCreateParams {
      * empty list. However, either this parameter or `beneficial_owner_individuals`
      * must be populated. on entities that should be included.
      */
-    beneficial_owner_entities: Array<KYB.BeneficialOwnerEntities>;
+    beneficial_owner_entities: Array<AccountHolderCreateParams.KYB.BeneficialOwnerEntities>;
 
     /**
      * List of all individuals with >25% ownership in the company. If no entity or
@@ -697,13 +700,13 @@ export namespace AccountHolderCreateParams {
      * individual is an entity, pass in an empty list. However, either this parameter
      * or `beneficial_owner_entities` must be populated.
      */
-    beneficial_owner_individuals: Array<KYB.BeneficialOwnerIndividuals>;
+    beneficial_owner_individuals: Array<AccountHolderCreateParams.KYB.BeneficialOwnerIndividuals>;
 
     /**
      * Information for business for which the account is being opened and KYB is being
      * run.
      */
-    business_entity: KYB.BusinessEntity;
+    business_entity: AccountHolderCreateParams.KYB.BusinessEntity;
 
     /**
      * An individual with significant responsibility for managing the legal entity
@@ -715,7 +718,7 @@ export namespace AccountHolderCreateParams {
      * [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf)
      * (Section II) for more background.
      */
-    control_person: KYB.ControlPerson;
+    control_person: AccountHolderCreateParams.KYB.ControlPerson;
 
     /**
      * Short description of the company's line of business (i.e., what does the company
@@ -750,47 +753,6 @@ export namespace AccountHolderCreateParams {
   }
 
   export namespace KYB {
-    /**
-     * Information for business for which the account is being opened and KYB is being
-     * run.
-     */
-    export interface BusinessEntity {
-      /**
-       * Business's physical address - PO boxes, UPS drops, and FedEx drops are not
-       * acceptable; APO/FPO are acceptable.
-       */
-      address: Shared.Address;
-
-      /**
-       * Government-issued identification number. US Federal Employer Identification
-       * Numbers (EIN) are currently supported, entered as full nine-digits, with or
-       * without hyphens.
-       */
-      government_id: string;
-
-      /**
-       * Legal (formal) business name.
-       */
-      legal_business_name: string;
-
-      /**
-       * One or more of the business's phone number(s), entered as a list in E.164
-       * format.
-       */
-      phone_numbers: Array<string>;
-
-      /**
-       * Any name that the business operates under that is not its legal business name
-       * (if applicable).
-       */
-      dba_business_name?: string;
-
-      /**
-       * Parent company name (if applicable).
-       */
-      parent_company?: string;
-    }
-
     export interface BeneficialOwnerEntities {
       /**
        * Business's physical address - PO boxes, UPS drops, and FedEx drops are not
@@ -871,6 +833,47 @@ export namespace AccountHolderCreateParams {
     }
 
     /**
+     * Information for business for which the account is being opened and KYB is being
+     * run.
+     */
+    export interface BusinessEntity {
+      /**
+       * Business's physical address - PO boxes, UPS drops, and FedEx drops are not
+       * acceptable; APO/FPO are acceptable.
+       */
+      address: Shared.Address;
+
+      /**
+       * Government-issued identification number. US Federal Employer Identification
+       * Numbers (EIN) are currently supported, entered as full nine-digits, with or
+       * without hyphens.
+       */
+      government_id: string;
+
+      /**
+       * Legal (formal) business name.
+       */
+      legal_business_name: string;
+
+      /**
+       * One or more of the business's phone number(s), entered as a list in E.164
+       * format.
+       */
+      phone_numbers: Array<string>;
+
+      /**
+       * Any name that the business operates under that is not its legal business name
+       * (if applicable).
+       */
+      dba_business_name?: string;
+
+      /**
+       * Parent company name (if applicable).
+       */
+      parent_company?: string;
+    }
+
+    /**
      * An individual with significant responsibility for managing the legal entity
      * (e.g., a Chief Executive Officer, Chief Financial Officer, Chief Operating
      * Officer, Managing Member, General Partner, President, Vice President, or
@@ -928,7 +931,7 @@ export namespace AccountHolderCreateParams {
      * Information on individual for whom the account is being opened and KYC is being
      * run.
      */
-    individual: KYC.Individual;
+    individual: AccountHolderCreateParams.KYC.Individual;
 
     /**
      * An RFC 3339 timestamp indicating when the account holder accepted the applicable
@@ -1093,52 +1096,6 @@ export interface AccountHolderResubmitParams {
 }
 
 export namespace AccountHolderResubmitParams {
-  /**
-   * Information on individual for whom the account is being opened and KYC is being
-   * re-run.
-   */
-  export interface Individual {
-    /**
-     * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-     * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
-     */
-    address: Shared.Address;
-
-    /**
-     * Individual's date of birth, as an RFC 3339 date.
-     */
-    dob: string;
-
-    /**
-     * Individual's email address. If utilizing Lithic for chargeback processing, this
-     * customer email address may be used to communicate dispute status and resolution.
-     */
-    email: string;
-
-    /**
-     * Individual's first name, as it appears on government-issued identity documents.
-     */
-    first_name: string;
-
-    /**
-     * Government-issued identification number (required for identity verification and
-     * compliance with banking regulations). Social Security Numbers (SSN) and
-     * Individual Taxpayer Identification Numbers (ITIN) are currently supported,
-     * entered as full nine-digits, with or without hyphens
-     */
-    government_id: string;
-
-    /**
-     * Individual's last name, as it appears on government-issued identity documents.
-     */
-    last_name: string;
-
-    /**
-     * Individual's phone number, entered in E.164 format.
-     */
-    phone_number: string;
-  }
-
   /**
    * Information on individual for whom the account is being opened and KYC is being
    * re-run.

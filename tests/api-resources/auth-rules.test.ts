@@ -21,13 +21,7 @@ describe('resource authRules', () => {
   });
 
   test('update', async () => {
-    const response = await lithic.authRules.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      allowed_countries: ['string', 'string', 'string'],
-      allowed_mcc: ['string', 'string', 'string'],
-      avs_type: 'ZIP_ONLY',
-      blocked_countries: ['string', 'string', 'string'],
-      blocked_mcc: ['string', 'string', 'string'],
-    });
+    const response = await lithic.authRules.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
   });
 
   test('list', async () => {
@@ -49,18 +43,10 @@ describe('resource authRules', () => {
   });
 
   test('apply', async () => {
-    const response = await lithic.authRules.apply('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      account_tokens: ['string', 'string', 'string'],
-      card_tokens: ['string', 'string', 'string'],
-      program_level: true,
-    });
+    const response = await lithic.authRules.apply('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
   });
 
   test('remove', async () => {
-    const response = await lithic.authRules.remove({
-      account_tokens: ['string', 'string', 'string'],
-      card_tokens: ['string', 'string', 'string'],
-      program_level: true,
-    });
+    const response = await lithic.authRules.remove({});
   });
 });

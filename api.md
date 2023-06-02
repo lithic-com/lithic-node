@@ -25,7 +25,7 @@ Models:
 
 Methods:
 
-- <code title="post /account_holders">client.accountHolders.<a href="./resources/account-holders.ts">create</a>() -> AccountHolder</code>
+- <code title="post /account_holders">client.accountHolders.<a href="./resources/account-holders.ts">create</a>({ ...params }) -> AccountHolder</code>
 - <code title="get /account_holders/{account_holder_token}">client.accountHolders.<a href="./resources/account-holders.ts">retrieve</a>(accountHolderToken) -> AccountHolder</code>
 - <code title="patch /account_holders/{account_holder_token}">client.accountHolders.<a href="./resources/account-holders.ts">update</a>(accountHolderToken, { ...params }) -> AccountHolderUpdateResponse</code>
 - <code title="post /webhooks/account_holders">client.accountHolders.<a href="./resources/account-holders.ts">createWebhook</a>({ ...params }) -> AccountHolderCreateWebhookResponse</code>
@@ -47,7 +47,7 @@ Models:
 
 Methods:
 
-- <code title="post /auth_rules">client.authRules.<a href="./resources/auth-rules.ts">create</a>() -> AuthRuleCreateResponse</code>
+- <code title="post /auth_rules">client.authRules.<a href="./resources/auth-rules.ts">create</a>({ ...params }) -> AuthRuleCreateResponse</code>
 - <code title="get /auth_rules/{auth_rule_token}">client.authRules.<a href="./resources/auth-rules.ts">retrieve</a>(authRuleToken) -> AuthRuleRetrieveResponse</code>
 - <code title="put /auth_rules/{auth_rule_token}">client.authRules.<a href="./resources/auth-rules.ts">update</a>(authRuleToken, { ...params }) -> AuthRuleUpdateResponse</code>
 - <code title="get /auth_rules">client.authRules.<a href="./resources/auth-rules.ts">list</a>({ ...params }) -> AuthRulesPage</code>

@@ -5,20 +5,8 @@ import Lithic from '~/index';
 const lithic = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:4010' });
 
 describe('resource accountHolders', () => {
-  test('create', async () => {
+  test('create: only required params', async () => {
     const response = await lithic.accountHolders.create({
-      business_entity: {
-        address: {
-          address1: '123 Old Forest Way',
-          city: 'Omaha',
-          country: 'USA',
-          postal_code: '68022',
-          state: 'NE',
-        },
-        government_id: '114-123-1513',
-        legal_business_name: 'Acme, Inc.',
-        phone_numbers: ['+12124007676'],
-      },
       beneficial_owner_entities: [
         {
           address: {
@@ -104,6 +92,18 @@ describe('resource accountHolders', () => {
           phone_number: '+12124007676',
         },
       ],
+      business_entity: {
+        address: {
+          address1: '123 Old Forest Way',
+          city: 'Omaha',
+          country: 'USA',
+          postal_code: '68022',
+          state: 'NE',
+        },
+        government_id: '114-123-1513',
+        legal_business_name: 'Acme, Inc.',
+        phone_numbers: ['+12124007676'],
+      },
       control_person: {
         address: {
           address1: '123 Old Forest Way',
@@ -126,6 +126,144 @@ describe('resource accountHolders', () => {
     });
   });
 
+  test('create: required and optional params', async () => {
+    const response = await lithic.accountHolders.create({
+      beneficial_owner_entities: [
+        {
+          address: {
+            address1: '123 Old Forest Way',
+            address2: 'string',
+            city: 'Omaha',
+            country: 'USA',
+            postal_code: '68022',
+            state: 'NE',
+          },
+          dba_business_name: 'string',
+          government_id: '114-123-1513',
+          legal_business_name: 'Acme, Inc.',
+          parent_company: 'string',
+          phone_numbers: ['+12124007676'],
+        },
+        {
+          address: {
+            address1: '123 Old Forest Way',
+            address2: 'string',
+            city: 'Omaha',
+            country: 'USA',
+            postal_code: '68022',
+            state: 'NE',
+          },
+          dba_business_name: 'string',
+          government_id: '114-123-1513',
+          legal_business_name: 'Acme, Inc.',
+          parent_company: 'string',
+          phone_numbers: ['+12124007676'],
+        },
+        {
+          address: {
+            address1: '123 Old Forest Way',
+            address2: 'string',
+            city: 'Omaha',
+            country: 'USA',
+            postal_code: '68022',
+            state: 'NE',
+          },
+          dba_business_name: 'string',
+          government_id: '114-123-1513',
+          legal_business_name: 'Acme, Inc.',
+          parent_company: 'string',
+          phone_numbers: ['+12124007676'],
+        },
+      ],
+      beneficial_owner_individuals: [
+        {
+          address: {
+            address1: '123 Old Forest Way',
+            address2: 'string',
+            city: 'Omaha',
+            country: 'USA',
+            postal_code: '68022',
+            state: 'NE',
+          },
+          dob: '1991-03-08 08:00:00',
+          email: 'tom@middle-earth.com',
+          first_name: 'Tom',
+          government_id: '111-23-1412',
+          last_name: 'Bombadil',
+          phone_number: '+12124007676',
+        },
+        {
+          address: {
+            address1: '123 Old Forest Way',
+            address2: 'string',
+            city: 'Omaha',
+            country: 'USA',
+            postal_code: '68022',
+            state: 'NE',
+          },
+          dob: '1991-03-08 08:00:00',
+          email: 'tom@middle-earth.com',
+          first_name: 'Tom',
+          government_id: '111-23-1412',
+          last_name: 'Bombadil',
+          phone_number: '+12124007676',
+        },
+        {
+          address: {
+            address1: '123 Old Forest Way',
+            address2: 'string',
+            city: 'Omaha',
+            country: 'USA',
+            postal_code: '68022',
+            state: 'NE',
+          },
+          dob: '1991-03-08 08:00:00',
+          email: 'tom@middle-earth.com',
+          first_name: 'Tom',
+          government_id: '111-23-1412',
+          last_name: 'Bombadil',
+          phone_number: '+12124007676',
+        },
+      ],
+      business_entity: {
+        address: {
+          address1: '123 Old Forest Way',
+          address2: 'string',
+          city: 'Omaha',
+          country: 'USA',
+          postal_code: '68022',
+          state: 'NE',
+        },
+        dba_business_name: 'string',
+        government_id: '114-123-1513',
+        legal_business_name: 'Acme, Inc.',
+        parent_company: 'string',
+        phone_numbers: ['+12124007676'],
+      },
+      control_person: {
+        address: {
+          address1: '123 Old Forest Way',
+          address2: 'string',
+          city: 'Omaha',
+          country: 'USA',
+          postal_code: '68022',
+          state: 'NE',
+        },
+        dob: '1991-03-08 08:00:00',
+        email: 'tom@middle-earth.com',
+        first_name: 'Tom',
+        government_id: '111-23-1412',
+        last_name: 'Bombadil',
+        phone_number: '+12124007676',
+      },
+      nature_of_business: 'Software company selling solutions to the restaurant industry',
+      tos_timestamp: '2018-05-29T21:16:05Z',
+      website_url: 'www.mybusiness.com',
+      workflow: 'KYB_BASIC',
+      kyb_passed_timestamp: '2018-05-29T21:16:05Z',
+    });
+  });
+
   test('retrieve', async () => {
     const response = await lithic.accountHolders.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
   });
@@ -140,11 +278,7 @@ describe('resource accountHolders', () => {
   });
 
   test('update', async () => {
-    const response = await lithic.accountHolders.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      business_account_token: 'string',
-      email: 'string',
-      phone_number: 'string',
-    });
+    const response = await lithic.accountHolders.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
   });
 
   test('createWebhook: only required params', async () => {

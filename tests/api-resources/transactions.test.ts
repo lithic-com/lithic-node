@@ -51,13 +51,7 @@ describe('resource transactions', () => {
     const response = await lithic.transactions.simulateAuthorization({
       amount: 0,
       descriptor: 'COFFEE SHOP',
-      mcc: '5812',
-      merchant_acceptor_id: 'OODKZAPJVN4YS7O',
-      merchant_amount: 0,
-      merchant_currency: 'GBP',
       pan: '4111111289144142',
-      partial_approval_capable: true,
-      status: 'AUTHORIZATION',
     });
   });
 
@@ -65,11 +59,11 @@ describe('resource transactions', () => {
     const response = await lithic.transactions.simulateAuthorization({
       amount: 0,
       descriptor: 'COFFEE SHOP',
+      pan: '4111111289144142',
       mcc: '5812',
       merchant_acceptor_id: 'OODKZAPJVN4YS7O',
       merchant_amount: 0,
       merchant_currency: 'GBP',
-      pan: '4111111289144142',
       partial_approval_capable: true,
       status: 'AUTHORIZATION',
     });
@@ -91,15 +85,14 @@ describe('resource transactions', () => {
 
   test('simulateClearing: only required params', async () => {
     const response = await lithic.transactions.simulateClearing({
-      amount: 0,
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
   });
 
   test('simulateClearing: required and optional params', async () => {
     const response = await lithic.transactions.simulateClearing({
-      amount: 0,
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      amount: 0,
     });
   });
 
@@ -107,8 +100,6 @@ describe('resource transactions', () => {
     const response = await lithic.transactions.simulateCreditAuthorization({
       amount: 0,
       descriptor: 'COFFEE SHOP',
-      mcc: '5812',
-      merchant_acceptor_id: 'XRKGDPOWEWQRRWU',
       pan: '4111111289144142',
     });
   });
@@ -117,9 +108,9 @@ describe('resource transactions', () => {
     const response = await lithic.transactions.simulateCreditAuthorization({
       amount: 0,
       descriptor: 'COFFEE SHOP',
+      pan: '4111111289144142',
       mcc: '5812',
       merchant_acceptor_id: 'XRKGDPOWEWQRRWU',
-      pan: '4111111289144142',
     });
   });
 
@@ -153,16 +144,14 @@ describe('resource transactions', () => {
 
   test('simulateVoid: only required params', async () => {
     const response = await lithic.transactions.simulateVoid({
-      amount: 0,
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      type: 'AUTHORIZATION_EXPIRY',
     });
   });
 
   test('simulateVoid: required and optional params', async () => {
     const response = await lithic.transactions.simulateVoid({
-      amount: 0,
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      amount: 0,
       type: 'AUTHORIZATION_EXPIRY',
     });
   });

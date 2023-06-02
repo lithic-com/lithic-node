@@ -380,16 +380,6 @@ export interface DisputeCreateParams {
   amount: number;
 
   /**
-   * Date the customer filed the dispute
-   */
-  customer_filed_date?: string;
-
-  /**
-   * Customer description of dispute
-   */
-  customer_note?: string;
-
-  /**
    * Reason for dispute
    */
   reason:
@@ -412,6 +402,16 @@ export interface DisputeCreateParams {
    * Transaction to dispute
    */
   transaction_token: string;
+
+  /**
+   * Date the customer filed the dispute
+   */
+  customer_filed_date?: string;
+
+  /**
+   * Customer description of dispute
+   */
+  customer_note?: string;
 }
 
 export interface DisputeUpdateParams {
