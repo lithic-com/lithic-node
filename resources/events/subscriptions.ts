@@ -150,6 +150,11 @@ export interface SubscriptionRetrieveSecretResponse {
 
 export interface SubscriptionCreateParams {
   /**
+   * URL to which event webhooks will be sent. URL must be a valid HTTPS address.
+   */
+  url: string;
+
+  /**
    * Event subscription description.
    */
   description?: string;
@@ -171,15 +176,15 @@ export interface SubscriptionCreateParams {
     | 'digital_wallet.tokenization_two_factor_authentication_code'
     | 'dispute.updated'
   >;
-
-  /**
-   * URL to which event webhooks will be sent. URL must be a valid HTTPS address.
-   */
-  url: string;
 }
 
 export interface SubscriptionUpdateParams {
   /**
+   * URL to which event webhooks will be sent. URL must be a valid HTTPS address.
+   */
+  url: string;
+
+  /**
    * Event subscription description.
    */
   description?: string;
@@ -201,11 +206,6 @@ export interface SubscriptionUpdateParams {
     | 'digital_wallet.tokenization_two_factor_authentication_code'
     | 'dispute.updated'
   >;
-
-  /**
-   * URL to which event webhooks will be sent. URL must be a valid HTTPS address.
-   */
-  url: string;
 }
 
 export interface SubscriptionListParams extends CursorPageParams {}

@@ -6,20 +6,15 @@ const lithic = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:
 
 describe('resource subscriptions', () => {
   test('create: only required params', async () => {
-    const response = await lithic.events.subscriptions.create({
-      description: 'string',
-      disabled: true,
-      event_types: ['card.created', 'card.created', 'card.created'],
-      url: 'https://example.com',
-    });
+    const response = await lithic.events.subscriptions.create({ url: 'https://example.com' });
   });
 
   test('create: required and optional params', async () => {
     const response = await lithic.events.subscriptions.create({
+      url: 'https://example.com',
       description: 'string',
       disabled: true,
       event_types: ['card.created', 'card.created', 'card.created'],
-      url: 'https://example.com',
     });
   });
 
@@ -35,20 +30,15 @@ describe('resource subscriptions', () => {
   });
 
   test('update: only required params', async () => {
-    const response = await lithic.events.subscriptions.update('string', {
-      description: 'string',
-      disabled: true,
-      event_types: ['card.created', 'card.created', 'card.created'],
-      url: 'https://example.com',
-    });
+    const response = await lithic.events.subscriptions.update('string', { url: 'https://example.com' });
   });
 
   test('update: required and optional params', async () => {
     const response = await lithic.events.subscriptions.update('string', {
+      url: 'https://example.com',
       description: 'string',
       disabled: true,
       event_types: ['card.created', 'card.created', 'card.created'],
-      url: 'https://example.com',
     });
   });
 

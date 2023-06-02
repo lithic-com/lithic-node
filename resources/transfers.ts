@@ -203,14 +203,14 @@ export interface TransferCreateParams {
   from: FinancialAccounts.FinancialAccount;
 
   /**
-   * Optional descriptor for the transfer.
-   */
-  memo?: string;
-
-  /**
    * Financial Account
    */
   to: FinancialAccounts.FinancialAccount;
+
+  /**
+   * Optional descriptor for the transfer.
+   */
+  memo?: string;
 
   /**
    * Customer-provided transaction_token that will serve as an idempotency token.

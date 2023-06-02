@@ -14,14 +14,12 @@ describe('resource transfers', () => {
         type: 'ISSUING',
         updated: '2019-12-27T18:11:19.117Z',
       },
-      memo: 'string',
       to: {
         created: '2019-12-27T18:11:19.117Z',
         token: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
         type: 'ISSUING',
         updated: '2019-12-27T18:11:19.117Z',
       },
-      transaction_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
   });
 
@@ -36,7 +34,6 @@ describe('resource transfers', () => {
         type: 'ISSUING',
         updated: '2019-12-27T18:11:19.117Z',
       },
-      memo: 'string',
       to: {
         account_number: 'string',
         created: '2019-12-27T18:11:19.117Z',
@@ -45,6 +42,7 @@ describe('resource transfers', () => {
         type: 'ISSUING',
         updated: '2019-12-27T18:11:19.117Z',
       },
+      memo: 'string',
       transaction_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
   });
