@@ -4,6 +4,7 @@
   },
   "$schema": "https://raw.githubusercontent.com/stainless-api/release-please/main/schemas/config.json",
   "include-v-in-tag": true,
+  "include-component-in-tag": false,
   "bump-minor-pre-major": true,
   "bump-patch-for-minor-pre-major": true,
   "pull-request-header": "Automated Release PR",
@@ -26,18 +27,15 @@
     },
     {
       "type": "chore",
-      "section": "Miscellaneous Chores",
-      "hidden": true
+      "section": "Chores"
     },
     {
       "type": "docs",
-      "section": "Documentation",
-      "hidden": true
+      "section": "Documentation"
     },
     {
       "type": "style",
-      "section": "Styles",
-      "hidden": true
+      "section": "Styles"
     },
     {
       "type": "refactor",
@@ -50,8 +48,7 @@
     },
     {
       "type": "build",
-      "section": "Build System",
-      "hidden": true
+      "section": "Build System"
     },
     {
       "type": "ci",
