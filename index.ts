@@ -217,6 +217,7 @@ export namespace Lithic {
   export import DisputeCreateParams = API.DisputeCreateParams;
   export import DisputeUpdateParams = API.DisputeUpdateParams;
   export import DisputeListParams = API.DisputeListParams;
+  export import DisputeInitiateEvidenceUploadParams = API.DisputeInitiateEvidenceUploadParams;
   export import DisputeListEvidencesParams = API.DisputeListEvidencesParams;
 
   export import Event = API.Event;

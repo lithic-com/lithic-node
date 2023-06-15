@@ -160,6 +160,17 @@ describe('resource disputes', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
+  test('initiateEvidenceUpload: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      lithic.disputes.initiateEvidenceUpload(
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        { filename: 'string' },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Lithic.NotFoundError);
+  });
+
   test('listEvidences', async () => {
     const response = await lithic.disputes.listEvidences('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
   });

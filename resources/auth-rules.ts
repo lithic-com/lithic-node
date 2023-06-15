@@ -102,18 +102,6 @@ export interface AuthRule {
   allowed_mcc?: Array<string>;
 
   /**
-   * Address verification to confirm that postal code entered at point of transaction
-   * (if applicable) matches the postal code on file for a given card. Since this
-   * check is performed against the address submitted via the Enroll Consumer
-   * endpoint, it should only be used in cases where card users are enrolled with
-   * their own accounts. Available values:
-   *
-   * - `ZIP_ONLY` - AVS check is performed to confirm ZIP code entered at point of
-   *   transaction (if applicable) matches address on file.
-   */
-  avs_type?: 'ZIP_ONLY';
-
-  /**
    * Countries in which the Auth Rule automatically declines transactions.
    */
   blocked_countries?: Array<string>;
@@ -200,18 +188,6 @@ export interface AuthRuleCreateParams {
   allowed_mcc?: Array<string>;
 
   /**
-   * Address verification to confirm that postal code entered at point of transaction
-   * (if applicable) matches the postal code on file for a given card. Since this
-   * check is performed against the address submitted via the Enroll Consumer
-   * endpoint, it should only be used in cases where card users are enrolled with
-   * their own accounts. Available values:
-   *
-   * - `ZIP_ONLY` - AVS check is performed to confirm ZIP code entered at point of
-   *   transaction (if applicable) matches address on file.
-   */
-  avs_type?: 'ZIP_ONLY';
-
-  /**
    * Countries in which the Auth Rule automatically declines transactions.
    */
   blocked_countries?: Array<string>;
@@ -247,12 +223,6 @@ export interface AuthRuleUpdateParams {
    * Auth Rule.
    */
   allowed_mcc?: Array<string>;
-
-  /**
-   * Address verification to confirm that postal code entered at point of transaction
-   * (if applicable) matches the postal code on file for a given card.
-   */
-  avs_type?: 'ZIP_ONLY';
 
   /**
    * Array of country codes for which the Auth Rule will automatically decline
