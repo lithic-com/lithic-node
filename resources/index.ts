@@ -71,6 +71,7 @@ export {
   DisputeCreateParams,
   DisputeUpdateParams,
   DisputeListParams,
+  DisputeInitiateEvidenceUploadParams,
   DisputeListEvidencesParams,
   DisputesCursorPage,
   DisputeEvidencesCursorPage,

@@ -76,9 +76,22 @@ export class Disputes extends APIResource {
    */
   initiateEvidenceUpload(
     disputeToken: string,
+    body?: DisputeInitiateEvidenceUploadParams,
+    options?: Core.RequestOptions,
+  ): Promise<Core.APIResponse<DisputeEvidence>>;
+  initiateEvidenceUpload(
+    disputeToken: string,
+    options?: Core.RequestOptions,
+  ): Promise<Core.APIResponse<DisputeEvidence>>;
+  initiateEvidenceUpload(
+    disputeToken: string,
+    body: DisputeInitiateEvidenceUploadParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Promise<Core.APIResponse<DisputeEvidence>> {
-    return this.post(`/disputes/${disputeToken}/evidences`, options);
+    if (isRequestOptions(body)) {
+      return this.initiateEvidenceUpload(disputeToken, {}, body);
+    }
+    return this.post(`/disputes/${disputeToken}/evidences`, { body, ...options });
   }
 
   /**
@@ -155,7 +168,7 @@ export interface Dispute {
   /**
    * Date dispute entered arbitration.
    */
-  arbitration_date: string;
+  arbitration_date: string | null;
 
   /**
    * Timestamp of when first Dispute was reported.
@@ -165,38 +178,38 @@ export interface Dispute {
   /**
    * Date that the dispute was filed by the customer making the dispute.
    */
-  customer_filed_date: string;
+  customer_filed_date: string | null;
 
   /**
    * End customer description of the reason for the dispute.
    */
-  customer_note: string;
+  customer_note: string | null;
 
   /**
    * Unique identifiers for the dispute from the network.
    */
-  network_claim_ids: Array<string>;
+  network_claim_ids: Array<string> | null;
 
   /**
    * Date that the dispute was submitted to the network.
    */
-  network_filed_date: string;
+  network_filed_date: string | null;
 
   /**
    * Network reason code used to file the dispute.
    */
-  network_reason_code: string;
+  network_reason_code: string | null;
 
   /**
    * Date dispute entered pre-arbitration.
    */
-  prearbitration_date: string;
+  prearbitration_date: string | null;
 
   /**
    * Unique identifier for the dispute from the network. If there are multiple, this
    * will be the first claim id set by the network
    */
-  primary_claim_id: string;
+  primary_claim_id: string | null;
 
   /**
    * Dispute reason:
@@ -238,22 +251,22 @@ export interface Dispute {
   /**
    * Date the representment was received.
    */
-  representment_date: string;
+  representment_date: string | null;
 
   /**
    * Resolution amount net of network fees.
    */
-  resolution_amount: number;
+  resolution_amount: number | null;
 
   /**
    * Date that the dispute was resolved.
    */
-  resolution_date: string;
+  resolution_date: string | null;
 
   /**
    * Note by Dispute team on the case resolution.
    */
-  resolution_note: string;
+  resolution_note: string | null;
 
   /**
    * Reason for the dispute resolution:
@@ -293,7 +306,8 @@ export interface Dispute {
     | 'WITHDRAWN'
     | 'WON_ARBITRATION'
     | 'WON_FIRST_CHARGEBACK'
-    | 'WON_PREARBITRATION';
+    | 'WON_PREARBITRATION'
+    | null;
 
   /**
    * Status types:
@@ -364,6 +378,11 @@ export interface DisputeEvidence {
    * URL to download evidence. Only shown when `upload_status` is `UPLOADED`.
    */
   download_url?: string;
+
+  /**
+   * File name of evidence.
+   */
+  filename?: string;
 
   /**
    * URL to upload evidence. Only shown when `upload_status` is `PENDING`.
@@ -446,8 +465,8 @@ export interface DisputeUpdateParams {
     | 'MISSING_AUTH'
     | 'OTHER'
     | 'PROCESSING_ERROR'
-    | 'REFUND_NOT_PROCESSED'
-    | 'RECURRING_TRANSACTION_NOT_CANCELLED';
+    | 'RECURRING_TRANSACTION_NOT_CANCELLED'
+    | 'REFUND_NOT_PROCESSED';
 }
 
 export interface DisputeListParams extends CursorPageParams {
@@ -480,6 +499,13 @@ export interface DisputeListParams extends CursorPageParams {
    * Transaction tokens to filter by.
    */
   transaction_tokens?: Array<string>;
+}
+
+export interface DisputeInitiateEvidenceUploadParams {
+  /**
+   * Filename of the evidence.
+   */
+  filename?: string;
 }
 
 export interface DisputeListEvidencesParams extends CursorPageParams {
