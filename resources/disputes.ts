@@ -380,7 +380,8 @@ export interface DisputeEvidence {
   download_url?: string;
 
   /**
-   * File name of evidence.
+   * File name of evidence. Recommended to give the dispute evidence a human-readable
+   * identifier.
    */
   filename?: string;
 
