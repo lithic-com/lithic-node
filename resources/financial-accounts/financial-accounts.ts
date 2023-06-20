@@ -5,6 +5,7 @@ import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
 import { Balances } from './balances';
 import { FinancialTransactions } from './financial-transactions';
+import * as API from './';
 import { SinglePage } from '~/pagination';
 
 export class FinancialAccounts extends APIResource {
@@ -243,4 +244,17 @@ export interface FinancialAccountListParams {
    * List financial accounts of a given type
    */
   type?: 'ISSUING' | 'RESERVE';
+}
+
+export namespace FinancialAccounts {
+  export import FinancialAccount = API.FinancialAccount;
+  export import FinancialTransaction = API.FinancialTransaction;
+  export import FinancialAccountsSinglePage = API.FinancialAccountsSinglePage;
+  export import FinancialAccountListParams = API.FinancialAccountListParams;
+
+  export import Balances = API.Balances;
+  export import BalanceListParams = API.BalanceListParams;
+
+  export import FinancialTransactions = API.FinancialTransactions;
+  export import FinancialTransactionListParams = API.FinancialTransactionListParams;
 }

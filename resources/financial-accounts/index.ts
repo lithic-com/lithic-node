@@ -1,11 +1,12 @@
 // File generated from our OpenAPI spec by Stainless.
 
-export { BalanceListParams } from './balances';
+export { BalanceListParams, Balances } from './balances';
 export {
   FinancialAccount,
   FinancialTransaction,
   FinancialAccountListParams,
   FinancialTransactionsSinglePage,
   FinancialAccountsSinglePage,
+  FinancialAccounts,
 } from './financial-accounts';
-export { FinancialTransactionListParams } from './financial-transactions';
+export { FinancialTransactionListParams, FinancialTransactions } from './financial-transactions';

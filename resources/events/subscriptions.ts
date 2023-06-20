@@ -5,6 +5,7 @@ import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
 import * as Events from '~/resources/events';
 import { EventSubscriptionsCursorPage } from '~/resources/events';
+import * as API from './';
 import { CursorPageParams } from '~/pagination';
 
 export class Subscriptions extends APIResource {
@@ -236,6 +237,15 @@ export interface SubscriptionReplayMissingParams {
    * will be included. UTC time zone.
    */
   end?: string;
+}
+
+export namespace Subscriptions {
+  export import SubscriptionRetrieveSecretResponse = API.SubscriptionRetrieveSecretResponse;
+  export import SubscriptionCreateParams = API.SubscriptionCreateParams;
+  export import SubscriptionUpdateParams = API.SubscriptionUpdateParams;
+  export import SubscriptionListParams = API.SubscriptionListParams;
+  export import SubscriptionRecoverParams = API.SubscriptionRecoverParams;
+  export import SubscriptionReplayMissingParams = API.SubscriptionReplayMissingParams;
 }
 
 export { EventSubscriptionsCursorPage };

@@ -5,6 +5,7 @@ import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
 import * as FinancialAccounts from '~/resources/financial-accounts';
 import { FinancialTransactionsSinglePage } from '~/resources/financial-accounts';
+import * as API from './';
 
 export class FinancialTransactions extends APIResource {
   /**
@@ -88,6 +89,10 @@ export interface FinancialTransactionListParams {
    * Financial Transaction status to be returned.
    */
   status?: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED';
+}
+
+export namespace FinancialTransactions {
+  export import FinancialTransactionListParams = API.FinancialTransactionListParams;
 }
 
 export { FinancialTransactionsSinglePage };
