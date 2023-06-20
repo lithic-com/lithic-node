@@ -3,6 +3,7 @@
 import * as Core from '~/core';
 import { APIResource } from '~/resource';
 import * as Shared from '~/resources/shared';
+import * as API from './';
 
 export class AccountHolders extends APIResource {
   /**
@@ -1148,4 +1149,20 @@ export interface AccountHolderUploadDocumentParams {
    * Type of the document to upload.
    */
   document_type: 'commercial_license' | 'drivers_license' | 'passport' | 'passport_card' | 'visa';
+}
+
+export namespace AccountHolders {
+  export import AccountHolder = API.AccountHolder;
+  export import AccountHolderDocument = API.AccountHolderDocument;
+  export import KYB = API.KYB;
+  export import KYC = API.KYC;
+  export import KYCExempt = API.KYCExempt;
+  export import AccountHolderUpdateResponse = API.AccountHolderUpdateResponse;
+  export import AccountHolderListDocumentsResponse = API.AccountHolderListDocumentsResponse;
+  export import AccountHolderCreateWebhookResponse = API.AccountHolderCreateWebhookResponse;
+  export import AccountHolderCreateParams = API.AccountHolderCreateParams;
+  export import AccountHolderUpdateParams = API.AccountHolderUpdateParams;
+  export import AccountHolderCreateWebhookParams = API.AccountHolderCreateWebhookParams;
+  export import AccountHolderResubmitParams = API.AccountHolderResubmitParams;
+  export import AccountHolderUploadDocumentParams = API.AccountHolderUploadDocumentParams;
 }

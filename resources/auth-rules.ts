@@ -3,6 +3,7 @@
 import * as Core from '~/core';
 import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
+import * as API from './';
 import { Page, PageParams } from '~/pagination';
 
 export class AuthRules extends APIResource {
@@ -279,4 +280,19 @@ export interface AuthRuleRemoveParams {
    * Boolean indicating whether the Auth Rule is applied at the program level.
    */
   program_level?: boolean;
+}
+
+export namespace AuthRules {
+  export import AuthRule = API.AuthRule;
+  export import AuthRuleCreateResponse = API.AuthRuleCreateResponse;
+  export import AuthRuleRetrieveResponse = API.AuthRuleRetrieveResponse;
+  export import AuthRuleUpdateResponse = API.AuthRuleUpdateResponse;
+  export import AuthRuleApplyResponse = API.AuthRuleApplyResponse;
+  export import AuthRuleRemoveResponse = API.AuthRuleRemoveResponse;
+  export import AuthRulesPage = API.AuthRulesPage;
+  export import AuthRuleCreateParams = API.AuthRuleCreateParams;
+  export import AuthRuleUpdateParams = API.AuthRuleUpdateParams;
+  export import AuthRuleListParams = API.AuthRuleListParams;
+  export import AuthRuleApplyParams = API.AuthRuleApplyParams;
+  export import AuthRuleRemoveParams = API.AuthRuleRemoveParams;
 }

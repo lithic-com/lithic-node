@@ -4,6 +4,7 @@ import * as Core from '~/core';
 import { APIResource } from '~/resource';
 import * as Balances from '~/resources/balances';
 import * as FinancialAccounts from '~/resources/financial-accounts';
+import * as API from './';
 
 export class Transfers extends APIResource {
   /**
@@ -216,4 +217,10 @@ export interface TransferCreateParams {
    * Customer-provided transaction_token that will serve as an idempotency token.
    */
   transaction_token?: string;
+}
+
+export namespace Transfers {
+  export import Transfer = API.Transfer;
+  export import TransferCreateResponse = API.TransferCreateResponse;
+  export import TransferCreateParams = API.TransferCreateParams;
 }

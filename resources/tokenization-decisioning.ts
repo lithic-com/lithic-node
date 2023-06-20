@@ -2,6 +2,7 @@
 
 import * as Core from '~/core';
 import { APIResource } from '~/resource';
+import * as API from './';
 
 export class TokenizationDecisioning extends APIResource {
   /**
@@ -40,4 +41,9 @@ export interface TokenizationDecisioningRotateSecretResponse {
    * The new Tokenization Decisioning HMAC secret
    */
   secret?: string;
+}
+
+export namespace TokenizationDecisioning {
+  export import TokenizationSecret = API.TokenizationSecret;
+  export import TokenizationDecisioningRotateSecretResponse = API.TokenizationDecisioningRotateSecretResponse;
 }

@@ -5,6 +5,7 @@ import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
 import * as Shared from '~/resources/shared';
 import { createHmac } from 'crypto';
+import * as API from './';
 import { Page, PageParams } from '~/pagination';
 
 export class Cards extends APIResource {
@@ -754,4 +755,21 @@ export interface CardReissueParams {
    *   tracking
    */
   shipping_method?: 'STANDARD' | 'STANDARD_WITH_TRACKING' | 'EXPEDITED';
+}
+
+export namespace Cards {
+  export import Card = API.Card;
+  export import EmbedRequestParams = API.EmbedRequestParams;
+  export import SpendLimitDuration = API.SpendLimitDuration;
+  export import CardProvisionResponse = API.CardProvisionResponse;
+  export import CardEmbedResponse = API.CardEmbedResponse;
+  export import CardsPage = API.CardsPage;
+  export import CardCreateParams = API.CardCreateParams;
+  export import CardUpdateParams = API.CardUpdateParams;
+  export import CardListParams = API.CardListParams;
+  export import CardEmbedParams = API.CardEmbedParams;
+  export import CardGetEmbedHTMLParams = API.CardGetEmbedHTMLParams;
+  export import CardGetEmbedURLParams = API.CardGetEmbedURLParams;
+  export import CardProvisionParams = API.CardProvisionParams;
+  export import CardReissueParams = API.CardReissueParams;
 }

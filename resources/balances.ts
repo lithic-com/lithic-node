@@ -3,6 +3,7 @@
 import * as Core from '~/core';
 import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
+import * as API from './';
 import { SinglePage } from '~/pagination';
 
 export class Balances extends APIResource {
@@ -99,4 +100,10 @@ export interface BalanceListParams {
    * List balances for a given Financial Account type.
    */
   financial_account_type?: 'ISSUING' | 'RESERVE';
+}
+
+export namespace Balances {
+  export import Balance = API.Balance;
+  export import BalancesSinglePage = API.BalancesSinglePage;
+  export import BalanceListParams = API.BalanceListParams;
 }

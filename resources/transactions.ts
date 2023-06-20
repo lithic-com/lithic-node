@@ -3,6 +3,7 @@
 import * as Core from '~/core';
 import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
+import * as API from './';
 import { Page, PageParams } from '~/pagination';
 
 export class Transactions extends APIResource {
@@ -781,4 +782,24 @@ export interface TransactionSimulateVoidParams {
    * - `AUTHORIZATION_REVERSAL` indicates authorization was reversed by the merchant.
    */
   type?: 'AUTHORIZATION_EXPIRY' | 'AUTHORIZATION_REVERSAL';
+}
+
+export namespace Transactions {
+  export import Transaction = API.Transaction;
+  export import TransactionSimulateAuthorizationResponse = API.TransactionSimulateAuthorizationResponse;
+  export import TransactionSimulateClearingResponse = API.TransactionSimulateClearingResponse;
+  export import TransactionSimulateReturnResponse = API.TransactionSimulateReturnResponse;
+  export import TransactionSimulateReturnReversalResponse = API.TransactionSimulateReturnReversalResponse;
+  export import TransactionSimulateVoidResponse = API.TransactionSimulateVoidResponse;
+  export import TransactionSimulateCreditAuthorizationResponse = API.TransactionSimulateCreditAuthorizationResponse;
+  export import TransactionSimulateAuthorizationAdviceResponse = API.TransactionSimulateAuthorizationAdviceResponse;
+  export import TransactionsPage = API.TransactionsPage;
+  export import TransactionListParams = API.TransactionListParams;
+  export import TransactionSimulateAuthorizationParams = API.TransactionSimulateAuthorizationParams;
+  export import TransactionSimulateAuthorizationAdviceParams = API.TransactionSimulateAuthorizationAdviceParams;
+  export import TransactionSimulateClearingParams = API.TransactionSimulateClearingParams;
+  export import TransactionSimulateCreditAuthorizationParams = API.TransactionSimulateCreditAuthorizationParams;
+  export import TransactionSimulateReturnParams = API.TransactionSimulateReturnParams;
+  export import TransactionSimulateReturnReversalParams = API.TransactionSimulateReturnReversalParams;
+  export import TransactionSimulateVoidParams = API.TransactionSimulateVoidParams;
 }

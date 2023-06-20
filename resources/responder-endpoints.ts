@@ -2,6 +2,7 @@
 
 import * as Core from '~/core';
 import { APIResource } from '~/resource';
+import * as API from './';
 
 export class ResponderEndpoints extends APIResource {
   /**
@@ -79,4 +80,12 @@ export interface ResponderEndpointCheckStatusParams {
    * The type of the endpoint.
    */
   type: 'TOKENIZATION_DECISIONING';
+}
+
+export namespace ResponderEndpoints {
+  export import ResponderEndpointStatus = API.ResponderEndpointStatus;
+  export import ResponderEndpointCreateResponse = API.ResponderEndpointCreateResponse;
+  export import ResponderEndpointCreateParams = API.ResponderEndpointCreateParams;
+  export import ResponderEndpointDeleteParams = API.ResponderEndpointDeleteParams;
+  export import ResponderEndpointCheckStatusParams = API.ResponderEndpointCheckStatusParams;
 }
