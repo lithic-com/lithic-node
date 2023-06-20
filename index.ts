@@ -144,11 +144,13 @@ export namespace Lithic {
 
   export import APIStatus = API.APIStatus;
 
+  export import Accounts = API.Accounts;
   export import Account = API.Account;
   export import AccountsPage = API.AccountsPage;
   export import AccountUpdateParams = API.AccountUpdateParams;
   export import AccountListParams = API.AccountListParams;
 
+  export import AccountHolders = API.AccountHolders;
   export import AccountHolder = API.AccountHolder;
   export import AccountHolderDocument = API.AccountHolderDocument;
   export import KYB = API.KYB;
@@ -163,6 +165,7 @@ export namespace Lithic {
   export import AccountHolderResubmitParams = API.AccountHolderResubmitParams;
   export import AccountHolderUploadDocumentParams = API.AccountHolderUploadDocumentParams;
 
+  export import AuthRules = API.AuthRules;
   export import AuthRule = API.AuthRule;
   export import AuthRuleCreateResponse = API.AuthRuleCreateResponse;
   export import AuthRuleRetrieveResponse = API.AuthRuleRetrieveResponse;
@@ -176,13 +179,16 @@ export namespace Lithic {
   export import AuthRuleApplyParams = API.AuthRuleApplyParams;
   export import AuthRuleRemoveParams = API.AuthRuleRemoveParams;
 
+  export import AuthStreamEnrollmentResource = API.AuthStreamEnrollmentResource;
   export import AuthStreamEnrollment = API.AuthStreamEnrollment;
   export import AuthStreamSecret = API.AuthStreamSecret;
   export import AuthStreamEnrollmentEnrollParams = API.AuthStreamEnrollmentEnrollParams;
 
+  export import TokenizationDecisioning = API.TokenizationDecisioning;
   export import TokenizationSecret = API.TokenizationSecret;
   export import TokenizationDecisioningRotateSecretResponse = API.TokenizationDecisioningRotateSecretResponse;
 
+  export import Cards = API.Cards;
   export import Card = API.Card;
   export import EmbedRequestParams = API.EmbedRequestParams;
   export import SpendLimitDuration = API.SpendLimitDuration;
@@ -198,14 +204,17 @@ export namespace Lithic {
   export import CardProvisionParams = API.CardProvisionParams;
   export import CardReissueParams = API.CardReissueParams;
 
+  export import Balances = API.Balances;
   export import Balance = API.Balance;
   export import BalancesSinglePage = API.BalancesSinglePage;
   export import BalanceListParams = API.BalanceListParams;
 
+  export import AggregateBalances = API.AggregateBalances;
   export import AggregateBalance = API.AggregateBalance;
   export import AggregateBalancesSinglePage = API.AggregateBalancesSinglePage;
   export import AggregateBalanceListParams = API.AggregateBalanceListParams;
 
+  export import Disputes = API.Disputes;
   export import Dispute = API.Dispute;
   export import DisputeEvidence = API.DisputeEvidence;
   export import DisputeInitiateEvidenceUploadResponse = API.DisputeInitiateEvidenceUploadResponse;
@@ -217,21 +226,25 @@ export namespace Lithic {
   export import DisputeInitiateEvidenceUploadParams = API.DisputeInitiateEvidenceUploadParams;
   export import DisputeListEvidencesParams = API.DisputeListEvidencesParams;
 
+  export import Events = API.Events;
   export import Event = API.Event;
   export import EventSubscription = API.EventSubscription;
   export import EventsCursorPage = API.EventsCursorPage;
   export import EventListParams = API.EventListParams;
   export import EventResendParams = API.EventResendParams;
 
+  export import Transfers = API.Transfers;
   export import Transfer = API.Transfer;
   export import TransferCreateResponse = API.TransferCreateResponse;
   export import TransferCreateParams = API.TransferCreateParams;
 
+  export import FinancialAccounts = API.FinancialAccounts;
   export import FinancialAccount = API.FinancialAccount;
   export import FinancialTransaction = API.FinancialTransaction;
   export import FinancialAccountsSinglePage = API.FinancialAccountsSinglePage;
   export import FinancialAccountListParams = API.FinancialAccountListParams;
 
+  export import Transactions = API.Transactions;
   export import Transaction = API.Transaction;
   export import TransactionSimulateAuthorizationResponse = API.TransactionSimulateAuthorizationResponse;
   export import TransactionSimulateClearingResponse = API.TransactionSimulateClearingResponse;
@@ -250,11 +263,14 @@ export namespace Lithic {
   export import TransactionSimulateReturnReversalParams = API.TransactionSimulateReturnReversalParams;
   export import TransactionSimulateVoidParams = API.TransactionSimulateVoidParams;
 
+  export import ResponderEndpoints = API.ResponderEndpoints;
   export import ResponderEndpointStatus = API.ResponderEndpointStatus;
   export import ResponderEndpointCreateResponse = API.ResponderEndpointCreateResponse;
   export import ResponderEndpointCreateParams = API.ResponderEndpointCreateParams;
   export import ResponderEndpointDeleteParams = API.ResponderEndpointDeleteParams;
   export import ResponderEndpointCheckStatusParams = API.ResponderEndpointCheckStatusParams;
+
+  export import Webhooks = API.Webhooks;
 
   export import Address = API.Address;
   export import ShippingAddress = API.ShippingAddress;

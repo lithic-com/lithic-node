@@ -4,6 +4,7 @@ import * as Core from '~/core';
 import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
 import { BalancesSinglePage } from '~/resources/balances';
+import * as API from './';
 
 export class Balances extends APIResource {
   /**
@@ -42,6 +43,10 @@ export interface BalanceListParams {
    * decreased by $5
    */
   last_transaction_event_token?: string;
+}
+
+export namespace Balances {
+  export import BalanceListParams = API.BalanceListParams;
 }
 
 export { BalancesSinglePage };

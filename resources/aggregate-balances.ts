@@ -3,6 +3,7 @@
 import * as Core from '~/core';
 import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
+import * as API from './';
 import { SinglePage } from '~/pagination';
 
 export class AggregateBalances extends APIResource {
@@ -92,4 +93,10 @@ export interface AggregateBalanceListParams {
    * Get the aggregate balance for a given Financial Account type.
    */
   financial_account_type?: 'ISSUING' | 'RESERVE';
+}
+
+export namespace AggregateBalances {
+  export import AggregateBalance = API.AggregateBalance;
+  export import AggregateBalancesSinglePage = API.AggregateBalancesSinglePage;
+  export import AggregateBalanceListParams = API.AggregateBalanceListParams;
 }

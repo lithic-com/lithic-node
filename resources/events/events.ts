@@ -4,6 +4,7 @@ import * as Core from '~/core';
 import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
 import { Subscriptions } from './subscriptions';
+import * as API from './';
 import { CursorPage, CursorPageParams } from '~/pagination';
 
 export class Events extends APIResource {
@@ -181,4 +182,20 @@ export interface EventResendParams {
    * by adding an event listener.
    */
   target_origin?: string;
+}
+
+export namespace Events {
+  export import Event = API.Event;
+  export import EventSubscription = API.EventSubscription;
+  export import EventsCursorPage = API.EventsCursorPage;
+  export import EventListParams = API.EventListParams;
+  export import EventResendParams = API.EventResendParams;
+
+  export import Subscriptions = API.Subscriptions;
+  export import SubscriptionRetrieveSecretResponse = API.SubscriptionRetrieveSecretResponse;
+  export import SubscriptionCreateParams = API.SubscriptionCreateParams;
+  export import SubscriptionUpdateParams = API.SubscriptionUpdateParams;
+  export import SubscriptionListParams = API.SubscriptionListParams;
+  export import SubscriptionRecoverParams = API.SubscriptionRecoverParams;
+  export import SubscriptionReplayMissingParams = API.SubscriptionReplayMissingParams;
 }

@@ -7,6 +7,7 @@ export {
   EventResendParams,
   EventSubscriptionsCursorPage,
   EventsCursorPage,
+  Events,
 } from './events';
 export {
   SubscriptionRetrieveSecretResponse,
@@ -15,4 +16,5 @@ export {
   SubscriptionListParams,
   SubscriptionRecoverParams,
   SubscriptionReplayMissingParams,
+  Subscriptions,
 } from './subscriptions';

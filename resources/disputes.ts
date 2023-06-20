@@ -5,6 +5,7 @@ import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
 import type * as FormData from 'formdata-node';
 import { maybeMultipartFormRequestOptions } from '~/core';
+import * as API from './';
 import { CursorPage, CursorPageParams } from '~/pagination';
 
 export class Disputes extends APIResource {
@@ -521,4 +522,17 @@ export interface DisputeListEvidencesParams extends CursorPageParams {
    * will be included. UTC time zone.
    */
   end?: string;
+}
+
+export namespace Disputes {
+  export import Dispute = API.Dispute;
+  export import DisputeEvidence = API.DisputeEvidence;
+  export import DisputeInitiateEvidenceUploadResponse = API.DisputeInitiateEvidenceUploadResponse;
+  export import DisputesCursorPage = API.DisputesCursorPage;
+  export import DisputeEvidencesCursorPage = API.DisputeEvidencesCursorPage;
+  export import DisputeCreateParams = API.DisputeCreateParams;
+  export import DisputeUpdateParams = API.DisputeUpdateParams;
+  export import DisputeListParams = API.DisputeListParams;
+  export import DisputeInitiateEvidenceUploadParams = API.DisputeInitiateEvidenceUploadParams;
+  export import DisputeListEvidencesParams = API.DisputeListEvidencesParams;
 }

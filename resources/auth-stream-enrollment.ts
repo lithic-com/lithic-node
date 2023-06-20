@@ -3,6 +3,7 @@
 import * as Core from '~/core';
 import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
+import * as API from './';
 
 export class AuthStreamEnrollmentResource extends APIResource {
   /**
@@ -91,4 +92,10 @@ export interface AuthStreamEnrollmentEnrollParams {
    * A user-specified url to receive and respond to ASA request.
    */
   webhook_url?: string;
+}
+
+export namespace AuthStreamEnrollmentResource {
+  export import AuthStreamEnrollment = API.AuthStreamEnrollment;
+  export import AuthStreamSecret = API.AuthStreamSecret;
+  export import AuthStreamEnrollmentEnrollParams = API.AuthStreamEnrollmentEnrollParams;
 }
