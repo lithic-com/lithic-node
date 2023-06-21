@@ -221,7 +221,7 @@ export interface AccountHolderDocument {
    */
   document_type?: 'commercial_license' | 'drivers_license' | 'passport' | 'passport_card' | 'visa';
 
-  required_document_uploads?: Array<AccountHolderDocument.RequiredDocumentUploads>;
+  required_document_uploads?: Array<AccountHolderDocument.RequiredDocumentUpload>;
 
   /**
    * Globally unique identifier for the document.
@@ -233,7 +233,7 @@ export namespace AccountHolderDocument {
   /**
    * Represents a single image of the document to upload.
    */
-  export interface RequiredDocumentUploads {
+  export interface RequiredDocumentUpload {
     /**
      * Type of image to upload.
      */
@@ -274,7 +274,7 @@ export interface KYB {
    * empty list. However, either this parameter or `beneficial_owner_individuals`
    * must be populated. on entities that should be included.
    */
-  beneficial_owner_entities: Array<KYB.BeneficialOwnerEntities>;
+  beneficial_owner_entities: Array<KYB.BeneficialOwnerEntity>;
 
   /**
    * List of all individuals with >25% ownership in the company. If no entity or
@@ -285,7 +285,7 @@ export interface KYB {
    * individual is an entity, pass in an empty list. However, either this parameter
    * or `beneficial_owner_entities` must be populated.
    */
-  beneficial_owner_individuals: Array<KYB.BeneficialOwnerIndividuals>;
+  beneficial_owner_individuals: Array<KYB.BeneficialOwnerIndividual>;
 
   /**
    * Information for business for which the account is being opened and KYB is being
@@ -379,7 +379,7 @@ export namespace KYB {
     parent_company?: string;
   }
 
-  export interface BeneficialOwnerEntities {
+  export interface BeneficialOwnerEntity {
     /**
      * Business's physical address - PO boxes, UPS drops, and FedEx drops are not
      * acceptable; APO/FPO are acceptable.
@@ -416,7 +416,7 @@ export namespace KYB {
     parent_company?: string;
   }
 
-  export interface BeneficialOwnerIndividuals {
+  export interface BeneficialOwnerIndividual {
     /**
      * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
      * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
@@ -690,7 +690,7 @@ export namespace AccountHolderCreateParams {
      * empty list. However, either this parameter or `beneficial_owner_individuals`
      * must be populated. on entities that should be included.
      */
-    beneficial_owner_entities: Array<AccountHolderCreateParams.KYB.BeneficialOwnerEntities>;
+    beneficial_owner_entities: Array<AccountHolderCreateParams.KYB.BeneficialOwnerEntity>;
 
     /**
      * List of all individuals with >25% ownership in the company. If no entity or
@@ -701,7 +701,7 @@ export namespace AccountHolderCreateParams {
      * individual is an entity, pass in an empty list. However, either this parameter
      * or `beneficial_owner_entities` must be populated.
      */
-    beneficial_owner_individuals: Array<AccountHolderCreateParams.KYB.BeneficialOwnerIndividuals>;
+    beneficial_owner_individuals: Array<AccountHolderCreateParams.KYB.BeneficialOwnerIndividual>;
 
     /**
      * Information for business for which the account is being opened and KYB is being
@@ -754,7 +754,7 @@ export namespace AccountHolderCreateParams {
   }
 
   export namespace KYB {
-    export interface BeneficialOwnerEntities {
+    export interface BeneficialOwnerEntity {
       /**
        * Business's physical address - PO boxes, UPS drops, and FedEx drops are not
        * acceptable; APO/FPO are acceptable.
@@ -791,7 +791,7 @@ export namespace AccountHolderCreateParams {
       parent_company?: string;
     }
 
-    export interface BeneficialOwnerIndividuals {
+    export interface BeneficialOwnerIndividual {
       /**
        * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
        * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.

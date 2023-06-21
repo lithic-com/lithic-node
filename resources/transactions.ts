@@ -165,7 +165,7 @@ export interface Transaction {
   /**
    * A list of all events that have modified this transaction.
    */
-  events: Array<Transaction.Events>;
+  events: Array<Transaction.Event>;
 
   merchant: Transaction.Merchant;
 
@@ -355,7 +355,7 @@ export namespace Transaction {
    * A single card transaction may include multiple events that affect the
    * transaction state and lifecycle.
    */
-  export interface Events {
+  export interface Event {
     /**
      * Amount of the transaction event (in cents), including any acquirer fees.
      */
