@@ -35,11 +35,20 @@ export interface PageParams {
 
 export class Page<Item> extends AbstractPage<Item> implements PageResponse<Item> {
   data: Array<Item>;
-  /** Page number. */
+
+  /**
+   * Page number.
+   */
   page: number;
-  /** Total number of entries. */
+
+  /**
+   * Total number of entries.
+   */
   total_entries: number;
-  /** Total number of pages. */
+
+  /**
+   * Total number of pages.
+   */
   total_pages: number;
 
   constructor(client: APIClient, response: APIResponse<PageResponse<Item>>, options: FinalRequestOptions) {
@@ -161,7 +170,10 @@ export interface SinglePageResponse<Item> {
 
 export class SinglePage<Item> extends AbstractPage<Item> implements SinglePageResponse<Item> {
   data: Array<Item>;
-  /** More data exists. */
+
+  /**
+   * More data exists.
+   */
   has_more: boolean;
 
   constructor(
