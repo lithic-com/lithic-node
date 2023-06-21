@@ -46,7 +46,7 @@ export interface Transfer {
   /**
    * A list of all financial events that have modified this trasnfer.
    */
-  events?: Array<Transfer.Events>;
+  events?: Array<Transfer.Event>;
 
   /**
    * The updated balance of the sending financial account.
@@ -100,7 +100,7 @@ export interface Transfer {
 }
 
 export namespace Transfer {
-  export interface Events {
+  export interface Event {
     /**
      * Amount of the financial event that has been settled in the currency's smallest
      * unit (e.g., cents).

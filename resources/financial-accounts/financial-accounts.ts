@@ -101,7 +101,7 @@ export interface FinancialTransaction {
   /**
    * A list of all financial events that have modified this financial transaction.
    */
-  events?: Array<FinancialTransaction.Events>;
+  events?: Array<FinancialTransaction.Event>;
 
   /**
    * Pending amount of the transaction in the currency's smallest unit (e.g., cents),
@@ -147,7 +147,7 @@ export interface FinancialTransaction {
 }
 
 export namespace FinancialTransaction {
-  export interface Events {
+  export interface Event {
     /**
      * Amount of the financial event that has been settled in the currency's smallest
      * unit (e.g., cents).
