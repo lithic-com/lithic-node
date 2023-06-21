@@ -174,7 +174,8 @@ export interface AccountUpdateParams {
    * Amount (in cents) for the account's new daily spend limit. Note that a spend
    * limit of 0 is effectively no limit, and should only be used to reset or remove a
    * prior limit. Only a limit of 1 or above will result in declined transactions due
-   * to checks against the account limit.
+   * to checks against the account limit. By default the daily spend limit is set to
+   * $1,250.00.
    */
   daily_spend_limit?: number;
 
@@ -192,7 +193,8 @@ export interface AccountUpdateParams {
    * Amount (in cents) for the account's new monthly spend limit. Note that a spend
    * limit of 0 is effectively no limit, and should only be used to reset or remove a
    * prior limit. Only a limit of 1 or above will result in declined transactions due
-   * to checks against the account limit.
+   * to checks against the account limit. By default the monthly spend limit is set
+   * to $5,000.00.
    */
   monthly_spend_limit?: number;
 
