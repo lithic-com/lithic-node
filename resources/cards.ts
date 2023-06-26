@@ -408,11 +408,11 @@ export interface EmbedRequestParams {
  */
 export type SpendLimitDuration = 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION';
 
+export type CardEmbedResponse = string;
+
 export interface CardProvisionResponse {
   provisioning_payload?: string;
 }
-
-export type CardEmbedResponse = string;
 
 export interface CardCreateParams {
   /**
@@ -761,8 +761,8 @@ export namespace Cards {
   export import Card = API.Card;
   export import EmbedRequestParams = API.EmbedRequestParams;
   export import SpendLimitDuration = API.SpendLimitDuration;
-  export import CardProvisionResponse = API.CardProvisionResponse;
   export import CardEmbedResponse = API.CardEmbedResponse;
+  export import CardProvisionResponse = API.CardProvisionResponse;
   export import CardsPage = API.CardsPage;
   export import CardCreateParams = API.CardCreateParams;
   export import CardUpdateParams = API.CardUpdateParams;

@@ -157,8 +157,8 @@ export namespace Lithic {
   export import KYC = API.KYC;
   export import KYCExempt = API.KYCExempt;
   export import AccountHolderUpdateResponse = API.AccountHolderUpdateResponse;
-  export import AccountHolderListDocumentsResponse = API.AccountHolderListDocumentsResponse;
   export import AccountHolderCreateWebhookResponse = API.AccountHolderCreateWebhookResponse;
+  export import AccountHolderListDocumentsResponse = API.AccountHolderListDocumentsResponse;
   export import AccountHolderCreateParams = API.AccountHolderCreateParams;
   export import AccountHolderUpdateParams = API.AccountHolderUpdateParams;
   export import AccountHolderCreateWebhookParams = API.AccountHolderCreateWebhookParams;
@@ -192,8 +192,8 @@ export namespace Lithic {
   export import Card = API.Card;
   export import EmbedRequestParams = API.EmbedRequestParams;
   export import SpendLimitDuration = API.SpendLimitDuration;
-  export import CardProvisionResponse = API.CardProvisionResponse;
   export import CardEmbedResponse = API.CardEmbedResponse;
+  export import CardProvisionResponse = API.CardProvisionResponse;
   export import CardsPage = API.CardsPage;
   export import CardCreateParams = API.CardCreateParams;
   export import CardUpdateParams = API.CardUpdateParams;
@@ -247,12 +247,12 @@ export namespace Lithic {
   export import Transactions = API.Transactions;
   export import Transaction = API.Transaction;
   export import TransactionSimulateAuthorizationResponse = API.TransactionSimulateAuthorizationResponse;
+  export import TransactionSimulateAuthorizationAdviceResponse = API.TransactionSimulateAuthorizationAdviceResponse;
   export import TransactionSimulateClearingResponse = API.TransactionSimulateClearingResponse;
+  export import TransactionSimulateCreditAuthorizationResponse = API.TransactionSimulateCreditAuthorizationResponse;
   export import TransactionSimulateReturnResponse = API.TransactionSimulateReturnResponse;
   export import TransactionSimulateReturnReversalResponse = API.TransactionSimulateReturnReversalResponse;
   export import TransactionSimulateVoidResponse = API.TransactionSimulateVoidResponse;
-  export import TransactionSimulateCreditAuthorizationResponse = API.TransactionSimulateCreditAuthorizationResponse;
-  export import TransactionSimulateAuthorizationAdviceResponse = API.TransactionSimulateAuthorizationAdviceResponse;
   export import TransactionsPage = API.TransactionsPage;
   export import TransactionListParams = API.TransactionListParams;
   export import TransactionSimulateAuthorizationParams = API.TransactionSimulateAuthorizationParams;

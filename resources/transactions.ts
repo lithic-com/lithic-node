@@ -514,11 +514,35 @@ export interface TransactionSimulateAuthorizationResponse {
   token?: string;
 }
 
+export interface TransactionSimulateAuthorizationAdviceResponse {
+  /**
+   * Debugging request ID to share with Lithic Support team.
+   */
+  debugging_request_id?: string;
+
+  /**
+   * A unique token to reference this transaction.
+   */
+  token?: string;
+}
+
 export interface TransactionSimulateClearingResponse {
   /**
    * Debugging request ID to share with Lithic Support team.
    */
   debugging_request_id?: string;
+}
+
+export interface TransactionSimulateCreditAuthorizationResponse {
+  /**
+   * Debugging request ID to share with Lithic Support team.
+   */
+  debugging_request_id?: string;
+
+  /**
+   * A unique token to reference this transaction.
+   */
+  token?: string;
 }
 
 export interface TransactionSimulateReturnResponse {
@@ -545,30 +569,6 @@ export interface TransactionSimulateVoidResponse {
    * Debugging request ID to share with Lithic Support team.
    */
   debugging_request_id?: string;
-}
-
-export interface TransactionSimulateCreditAuthorizationResponse {
-  /**
-   * Debugging request ID to share with Lithic Support team.
-   */
-  debugging_request_id?: string;
-
-  /**
-   * A unique token to reference this transaction.
-   */
-  token?: string;
-}
-
-export interface TransactionSimulateAuthorizationAdviceResponse {
-  /**
-   * Debugging request ID to share with Lithic Support team.
-   */
-  debugging_request_id?: string;
-
-  /**
-   * A unique token to reference this transaction.
-   */
-  token?: string;
 }
 
 export interface TransactionListParams extends PageParams {
@@ -787,12 +787,12 @@ export interface TransactionSimulateVoidParams {
 export namespace Transactions {
   export import Transaction = API.Transaction;
   export import TransactionSimulateAuthorizationResponse = API.TransactionSimulateAuthorizationResponse;
+  export import TransactionSimulateAuthorizationAdviceResponse = API.TransactionSimulateAuthorizationAdviceResponse;
   export import TransactionSimulateClearingResponse = API.TransactionSimulateClearingResponse;
+  export import TransactionSimulateCreditAuthorizationResponse = API.TransactionSimulateCreditAuthorizationResponse;
   export import TransactionSimulateReturnResponse = API.TransactionSimulateReturnResponse;
   export import TransactionSimulateReturnReversalResponse = API.TransactionSimulateReturnReversalResponse;
   export import TransactionSimulateVoidResponse = API.TransactionSimulateVoidResponse;
-  export import TransactionSimulateCreditAuthorizationResponse = API.TransactionSimulateCreditAuthorizationResponse;
-  export import TransactionSimulateAuthorizationAdviceResponse = API.TransactionSimulateAuthorizationAdviceResponse;
   export import TransactionsPage = API.TransactionsPage;
   export import TransactionListParams = API.TransactionListParams;
   export import TransactionSimulateAuthorizationParams = API.TransactionSimulateAuthorizationParams;
