@@ -656,10 +656,6 @@ export interface AccountHolderUpdateResponse {
   token?: string;
 }
 
-export interface AccountHolderListDocumentsResponse {
-  data?: Array<AccountHolderDocument>;
-}
-
 export interface AccountHolderCreateWebhookResponse {
   data?: AccountHolderCreateWebhookResponse.Data;
 }
@@ -672,6 +668,10 @@ export namespace AccountHolderCreateWebhookResponse {
      */
     hmac_token?: string;
   }
+}
+
+export interface AccountHolderListDocumentsResponse {
+  data?: Array<AccountHolderDocument>;
 }
 
 export type AccountHolderCreateParams =
@@ -1158,8 +1158,8 @@ export namespace AccountHolders {
   export import KYC = API.KYC;
   export import KYCExempt = API.KYCExempt;
   export import AccountHolderUpdateResponse = API.AccountHolderUpdateResponse;
-  export import AccountHolderListDocumentsResponse = API.AccountHolderListDocumentsResponse;
   export import AccountHolderCreateWebhookResponse = API.AccountHolderCreateWebhookResponse;
+  export import AccountHolderListDocumentsResponse = API.AccountHolderListDocumentsResponse;
   export import AccountHolderCreateParams = API.AccountHolderCreateParams;
   export import AccountHolderUpdateParams = API.AccountHolderUpdateParams;
   export import AccountHolderCreateWebhookParams = API.AccountHolderCreateWebhookParams;
