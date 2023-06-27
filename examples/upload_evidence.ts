@@ -2,8 +2,9 @@
 // Run with: LITHIC_API_KEY=<your_api_key> yarn tsn examples/upload_evidence.ts
 //
 
+import fs from 'fs';
 import assert from 'assert';
-import Lithic, { fileFromPath } from 'lithic';
+import Lithic from 'lithic';
 
 const lithic = new Lithic({ environment: 'sandbox' });
 
@@ -27,7 +28,7 @@ async function main() {
 
   assert(dispute, 'Could not find or create a dispute');
 
-  const file = await fileFromPath('examples/dispute_evidence.txt');
+  const file = fs.createReadStream('examples/dispute_evidence.txt');
   const upload = await lithic.disputes.uploadEvidence(dispute.token, file);
   console.log(upload);
 

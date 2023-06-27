@@ -4,9 +4,9 @@ import qs from 'qs';
 import * as Core from './core';
 import * as Pagination from './pagination';
 import * as API from './resources';
-import * as Errors from '~/error';
+import * as Errors from './error';
 import type { Agent } from 'http';
-import * as FileFromPath from 'formdata-node/file-from-path';
+import * as Uploads from './uploads';
 
 const environments = {
   production: 'https://api.lithic.com/v1',
@@ -36,7 +36,7 @@ export class Lithic extends Core.APIClient {
 
   constructor(config?: Config) {
     const options: Config = {
-      apiKey: process.env['LITHIC_API_KEY'] || '',
+      apiKey: typeof process === 'undefined' ? '' : process.env['LITHIC_API_KEY'] || '',
       environment: 'production',
       ...config,
     };
@@ -125,11 +125,13 @@ export const {
   UnprocessableEntityError,
 } = Errors;
 
-export import fileFromPath = FileFromPath.fileFromPath;
+export import toFile = Uploads.toFile;
+export import fileFromPath = Uploads.fileFromPath;
 
 export namespace Lithic {
   // Helper functions
-  export import fileFromPath = FileFromPath.fileFromPath;
+  export import toFile = Uploads.toFile;
+  export import fileFromPath = Uploads.fileFromPath;
 
   export import Page = Pagination.Page;
   export import PageParams = Pagination.PageParams;
@@ -275,6 +277,4 @@ export namespace Lithic {
   export import Address = API.Address;
   export import ShippingAddress = API.ShippingAddress;
 }
-
-exports = module.exports = Lithic;
 export default Lithic;
