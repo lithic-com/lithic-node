@@ -3,8 +3,7 @@
 import * as Core from '~/core';
 import { APIResource } from '~/resource';
 import { isRequestOptions } from '~/core';
-import type * as FormData from 'formdata-node';
-import { maybeMultipartFormRequestOptions } from '~/core';
+import { maybeMultipartFormRequestOptions, Uploadable } from '~/core';
 import * as API from './';
 import { CursorPage, CursorPageParams } from '~/pagination';
 
@@ -136,18 +135,14 @@ export class Disputes extends APIResource {
    * Initiates the Dispute Evidence Upload, then uploads the file to the returned
    * `upload_url`.
    */
-  uploadEvidence(
-    disputeToken: string,
-    file: FormData.File | FormData.Blob,
-    options?: Core.RequestOptions,
-  ): Promise<void> {
-    return this.client.disputes.initiateEvidenceUpload(disputeToken, options).then((payload) => {
+  uploadEvidence(disputeToken: string, file: Uploadable, options?: Core.RequestOptions): Promise<void> {
+    return this.client.disputes.initiateEvidenceUpload(disputeToken, options).then(async (payload) => {
       if (!payload.upload_url) {
         return Promise.reject("Missing 'upload_url' from response payload");
       }
       return this.put(
         payload.upload_url,
-        maybeMultipartFormRequestOptions({ body: { file }, headers: { Authorization: null } }),
+        await maybeMultipartFormRequestOptions({ body: { file }, headers: { Authorization: null } }),
       );
     });
   }
