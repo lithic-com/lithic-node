@@ -84,6 +84,11 @@ export class AuthRulesPage extends Page<AuthRule> {}
 
 export interface AuthRule {
   /**
+   * Globally unique identifier.
+   */
+  token?: string;
+
+  /**
    * Array of account_token(s) identifying the accounts that the Auth Rule applies
    * to. Note that only this field or `card_tokens` can be provided for a given Auth
    * Rule.
@@ -135,11 +140,6 @@ export interface AuthRule {
    * Indicates whether the Auth Rule is ACTIVE or INACTIVE
    */
   state?: 'ACTIVE' | 'INACTIVE';
-
-  /**
-   * Globally unique identifier.
-   */
-  token?: string;
 }
 
 export interface AuthRuleCreateResponse {

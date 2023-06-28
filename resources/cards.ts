@@ -184,6 +184,11 @@ export class CardsPage extends Page<Card> {}
 
 export interface Card {
   /**
+   * Globally unique identifier.
+   */
+  token: string;
+
+  /**
    * An RFC 3339 timestamp for when the card was created. UTC time zone.
    */
   created: string;
@@ -239,11 +244,6 @@ export interface Card {
    * manufactured.
    */
   state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT';
-
-  /**
-   * Globally unique identifier.
-   */
-  token: string;
 
   /**
    * Card types:
@@ -311,6 +311,11 @@ export interface Card {
 export namespace Card {
   export interface Funding {
     /**
+     * A globally unique identifier for this FundingAccount.
+     */
+    token: string;
+
+    /**
      * An RFC 3339 string representing when this funding source was added to the Lithic
      * account. This may be `null`. UTC time zone.
      */
@@ -334,11 +339,6 @@ export namespace Card {
      * - `DELETED` - The founding account has been deleted.
      */
     state: 'ENABLED' | 'PENDING' | 'DELETED';
-
-    /**
-     * A globally unique identifier for this FundingAccount.
-     */
-    token: string;
 
     /**
      * Types of funding source:

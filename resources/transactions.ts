@@ -126,6 +126,11 @@ export class TransactionsPage extends Page<Transaction> {}
 
 export interface Transaction {
   /**
+   * Globally unique identifier.
+   */
+  token: string;
+
+  /**
    * A fixed-width 23-digit numeric identifier for the Transaction that may be set if
    * the transaction originated from the Mastercard network. This number may be used
    * for dispute tracking.
@@ -237,15 +242,159 @@ export interface Transaction {
    */
   status: 'BOUNCED' | 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'SETTLING' | 'VOIDED';
 
-  /**
-   * Globally unique identifier.
-   */
-  token: string;
-
   cardholder_authentication?: Transaction.CardholderAuthentication | null;
 }
 
 export namespace Transaction {
+  /**
+   * A single card transaction may include multiple events that affect the
+   * transaction state and lifecycle.
+   */
+  export interface Event {
+    /**
+     * Globally unique identifier.
+     */
+    token: string;
+
+    /**
+     * Amount of the transaction event (in cents), including any acquirer fees.
+     */
+    amount: number;
+
+    /**
+     * RFC 3339 date and time this event entered the system. UTC time zone.
+     */
+    created: string;
+
+    /**
+     * `APPROVED` or decline reason.
+     *
+     * Result types:
+     *
+     * - `ACCOUNT_STATE_TRANSACTION_FAIL` - Contact
+     *   [support@lithic.com](mailto:support@lithic.com).
+     * - `APPROVED` - Transaction is approved.
+     * - `BANK_CONNECTION_ERROR` - Please reconnect a funding source.
+     * - `BANK_NOT_VERIFIED` - Please confirm the funding source.
+     * - `CARD_CLOSED` - Card state was closed at the time of authorization.
+     * - `CARD_PAUSED` - Card state was paused at the time of authorization.
+     * - `FRAUD_ADVICE` - Transaction declined due to risk.
+     * - `GLOBAL_TRANSACTION_LIMIT` - Platform spend limit exceeded, contact
+     *   [support@lithic.com](mailto:support@lithic.com).
+     * - `GLOBAL_WEEKLY_LIMIT` - Platform spend limit exceeded, contact
+     *   [support@lithic.com](mailto:support@lithic.com).
+     * - `GLOBAL_MONTHLY_LIMIT` - Platform spend limit exceeded, contact
+     *   [support@lithic.com](mailto:support@lithic.com).
+     * - `INACTIVE_ACCOUNT` - Account is inactive. Contact
+     *   [support@lithic.com](mailto:support@lithic.com).
+     * - `INCORRECT_PIN` - PIN verification failed.
+     * - `INVALID_CARD_DETAILS` - Incorrect CVV or expiry date.
+     * - `INSUFFICIENT_FUNDS` - Please ensure the funding source is connected and up to
+     *   date.
+     * - `MERCHANT_BLACKLIST` - This merchant is disallowed on the platform.
+     * - `SINGLE_USE_RECHARGED` - Single use card attempted multiple times.
+     * - `SWITCH_INOPERATIVE_ADVICE` - Network error, re-attempt the transaction.
+     * - `UNAUTHORIZED_MERCHANT` - Merchant locked card attempted at different
+     *   merchant.
+     * - `UNKNOWN_HOST_TIMEOUT` - Network error, re-attempt the transaction.
+     * - `USER_TRANSACTION_LIMIT` - User-set spend limit exceeded.
+     */
+    result:
+      | 'ACCOUNT_STATE_TRANSACTION'
+      | 'APPROVED'
+      | 'BANK_CONNECTION_ERROR'
+      | 'BANK_NOT_VERIFIED'
+      | 'CARD_CLOSED'
+      | 'CARD_PAUSED'
+      | 'FRAUD_ADVICE'
+      | 'GLOBAL_TRANSACTION_LIMIT'
+      | 'GLOBAL_WEEKLY_LIMIT'
+      | 'GLOBAL_MONTHLY_LIMIT'
+      | 'INACTIVE_ACCOUNT'
+      | 'INCORRECT_PIN'
+      | 'INVALID_CARD_DETAILS'
+      | 'INSUFFICIENT_FUNDS'
+      | 'MERCHANT_BLACKLIST'
+      | 'SINGLE_USE_RECHARGED'
+      | 'SWITCH_INOPERATIVE_ADVICE'
+      | 'UNAUTHORIZED_MERCHANT'
+      | 'UNKNOWN_HOST_TIMEOUT'
+      | 'USER_TRANSACTION_LIMIT';
+
+    /**
+     * Event types:
+     *
+     * - `AUTHORIZATION` - Authorize a transaction.
+     * - `AUTHORIZATION_ADVICE` - Advice on a transaction.
+     * - `AUTHORIZATION_EXPIRY` - Authorization has expired and reversed by Lithic.
+     * - `AUTHORIZATION_REVERSAL` - Authorization was reversed by the merchant.
+     * - `BALANCE_INQUIRY` - A balance inquiry (typically a $0 authorization) has
+     *   occurred on a card.
+     * - `CLEARING` - Transaction is settled.
+     * - `CORRECTION_DEBIT` - Manual transaction correction (Debit).
+     * - `CORRECTION_CREDIT` - Manual transaction correction (Credit).
+     * - `CREDIT_AUTHORIZATION` - A refund or credit authorization from a merchant.
+     * - `CREDIT_AUTHORIZATION_ADVICE` - A credit authorization was approved on your
+     *   behalf by the network.
+     * - `FINANCIAL_AUTHORIZATION` - A request from a merchant to debit funds without
+     *   additional clearing.
+     * - `FINANCIAL_CREDIT_AUTHORIZATION` - A request from a merchant to refund or
+     *   credit funds without additional clearing.
+     * - `RETURN` - A refund has been processed on the transaction.
+     * - `RETURN_REVERSAL` - A refund has been reversed (e.g., when a merchant reverses
+     *   an incorrect refund).
+     */
+    type:
+      | 'AUTHORIZATION'
+      | 'AUTHORIZATION_ADVICE'
+      | 'AUTHORIZATION_EXPIRY'
+      | 'AUTHORIZATION_REVERSAL'
+      | 'BALANCE_INQUIRY'
+      | 'CLEARING'
+      | 'CORRECTION_DEBIT'
+      | 'CORRECTION_CREDIT'
+      | 'CREDIT_AUTHORIZATION'
+      | 'CREDIT_AUTHORIZATION_ADVICE'
+      | 'FINANCIAL_AUTHORIZATION'
+      | 'FINANCIAL_CREDIT_AUTHORIZATION'
+      | 'RETURN'
+      | 'RETURN_REVERSAL'
+      | 'VOID';
+  }
+
+  export interface Merchant {
+    /**
+     * Unique identifier to identify the payment card acceptor.
+     */
+    acceptor_id?: string;
+
+    /**
+     * City of card acceptor.
+     */
+    city?: string;
+
+    /**
+     * Uppercase country of card acceptor (see ISO 8583 specs).
+     */
+    country?: string;
+
+    /**
+     * Short description of card acceptor.
+     */
+    descriptor?: string;
+
+    /**
+     * Merchant category code (MCC). A four-digit number listed in ISO 18245. An MCC is
+     * used to classify a business by the types of goods or services it provides.
+     */
+    mcc?: string;
+
+    /**
+     * Geographic state of card acceptor (see ISO 8583 specs).
+     */
+    state?: string;
+  }
+
   export interface CardholderAuthentication {
     /**
      * 3-D Secure Protocol version. Possible values:
@@ -350,180 +499,31 @@ export namespace Transaction {
      */
     verification_result: 'CANCELLED' | 'FAILED' | 'FRICTIONLESS' | 'NOT_ATTEMPTED' | 'REJECTED' | 'SUCCESS';
   }
-
-  /**
-   * A single card transaction may include multiple events that affect the
-   * transaction state and lifecycle.
-   */
-  export interface Event {
-    /**
-     * Amount of the transaction event (in cents), including any acquirer fees.
-     */
-    amount: number;
-
-    /**
-     * RFC 3339 date and time this event entered the system. UTC time zone.
-     */
-    created: string;
-
-    /**
-     * `APPROVED` or decline reason.
-     *
-     * Result types:
-     *
-     * - `ACCOUNT_STATE_TRANSACTION_FAIL` - Contact
-     *   [support@lithic.com](mailto:support@lithic.com).
-     * - `APPROVED` - Transaction is approved.
-     * - `BANK_CONNECTION_ERROR` - Please reconnect a funding source.
-     * - `BANK_NOT_VERIFIED` - Please confirm the funding source.
-     * - `CARD_CLOSED` - Card state was closed at the time of authorization.
-     * - `CARD_PAUSED` - Card state was paused at the time of authorization.
-     * - `FRAUD_ADVICE` - Transaction declined due to risk.
-     * - `GLOBAL_TRANSACTION_LIMIT` - Platform spend limit exceeded, contact
-     *   [support@lithic.com](mailto:support@lithic.com).
-     * - `GLOBAL_WEEKLY_LIMIT` - Platform spend limit exceeded, contact
-     *   [support@lithic.com](mailto:support@lithic.com).
-     * - `GLOBAL_MONTHLY_LIMIT` - Platform spend limit exceeded, contact
-     *   [support@lithic.com](mailto:support@lithic.com).
-     * - `INACTIVE_ACCOUNT` - Account is inactive. Contact
-     *   [support@lithic.com](mailto:support@lithic.com).
-     * - `INCORRECT_PIN` - PIN verification failed.
-     * - `INVALID_CARD_DETAILS` - Incorrect CVV or expiry date.
-     * - `INSUFFICIENT_FUNDS` - Please ensure the funding source is connected and up to
-     *   date.
-     * - `MERCHANT_BLACKLIST` - This merchant is disallowed on the platform.
-     * - `SINGLE_USE_RECHARGED` - Single use card attempted multiple times.
-     * - `SWITCH_INOPERATIVE_ADVICE` - Network error, re-attempt the transaction.
-     * - `UNAUTHORIZED_MERCHANT` - Merchant locked card attempted at different
-     *   merchant.
-     * - `UNKNOWN_HOST_TIMEOUT` - Network error, re-attempt the transaction.
-     * - `USER_TRANSACTION_LIMIT` - User-set spend limit exceeded.
-     */
-    result:
-      | 'ACCOUNT_STATE_TRANSACTION'
-      | 'APPROVED'
-      | 'BANK_CONNECTION_ERROR'
-      | 'BANK_NOT_VERIFIED'
-      | 'CARD_CLOSED'
-      | 'CARD_PAUSED'
-      | 'FRAUD_ADVICE'
-      | 'GLOBAL_TRANSACTION_LIMIT'
-      | 'GLOBAL_WEEKLY_LIMIT'
-      | 'GLOBAL_MONTHLY_LIMIT'
-      | 'INACTIVE_ACCOUNT'
-      | 'INCORRECT_PIN'
-      | 'INVALID_CARD_DETAILS'
-      | 'INSUFFICIENT_FUNDS'
-      | 'MERCHANT_BLACKLIST'
-      | 'SINGLE_USE_RECHARGED'
-      | 'SWITCH_INOPERATIVE_ADVICE'
-      | 'UNAUTHORIZED_MERCHANT'
-      | 'UNKNOWN_HOST_TIMEOUT'
-      | 'USER_TRANSACTION_LIMIT';
-
-    /**
-     * Globally unique identifier.
-     */
-    token: string;
-
-    /**
-     * Event types:
-     *
-     * - `AUTHORIZATION` - Authorize a transaction.
-     * - `AUTHORIZATION_ADVICE` - Advice on a transaction.
-     * - `AUTHORIZATION_EXPIRY` - Authorization has expired and reversed by Lithic.
-     * - `AUTHORIZATION_REVERSAL` - Authorization was reversed by the merchant.
-     * - `BALANCE_INQUIRY` - A balance inquiry (typically a $0 authorization) has
-     *   occurred on a card.
-     * - `CLEARING` - Transaction is settled.
-     * - `CORRECTION_DEBIT` - Manual transaction correction (Debit).
-     * - `CORRECTION_CREDIT` - Manual transaction correction (Credit).
-     * - `CREDIT_AUTHORIZATION` - A refund or credit authorization from a merchant.
-     * - `CREDIT_AUTHORIZATION_ADVICE` - A credit authorization was approved on your
-     *   behalf by the network.
-     * - `FINANCIAL_AUTHORIZATION` - A request from a merchant to debit funds without
-     *   additional clearing.
-     * - `FINANCIAL_CREDIT_AUTHORIZATION` - A request from a merchant to refund or
-     *   credit funds without additional clearing.
-     * - `RETURN` - A refund has been processed on the transaction.
-     * - `RETURN_REVERSAL` - A refund has been reversed (e.g., when a merchant reverses
-     *   an incorrect refund).
-     */
-    type:
-      | 'AUTHORIZATION'
-      | 'AUTHORIZATION_ADVICE'
-      | 'AUTHORIZATION_EXPIRY'
-      | 'AUTHORIZATION_REVERSAL'
-      | 'BALANCE_INQUIRY'
-      | 'CLEARING'
-      | 'CORRECTION_DEBIT'
-      | 'CORRECTION_CREDIT'
-      | 'CREDIT_AUTHORIZATION'
-      | 'CREDIT_AUTHORIZATION_ADVICE'
-      | 'FINANCIAL_AUTHORIZATION'
-      | 'FINANCIAL_CREDIT_AUTHORIZATION'
-      | 'RETURN'
-      | 'RETURN_REVERSAL'
-      | 'VOID';
-  }
-
-  export interface Merchant {
-    /**
-     * Unique identifier to identify the payment card acceptor.
-     */
-    acceptor_id?: string;
-
-    /**
-     * City of card acceptor.
-     */
-    city?: string;
-
-    /**
-     * Uppercase country of card acceptor (see ISO 8583 specs).
-     */
-    country?: string;
-
-    /**
-     * Short description of card acceptor.
-     */
-    descriptor?: string;
-
-    /**
-     * Merchant category code (MCC). A four-digit number listed in ISO 18245. An MCC is
-     * used to classify a business by the types of goods or services it provides.
-     */
-    mcc?: string;
-
-    /**
-     * Geographic state of card acceptor (see ISO 8583 specs).
-     */
-    state?: string;
-  }
 }
 
 export interface TransactionSimulateAuthorizationResponse {
-  /**
-   * Debugging request ID to share with Lithic Support team.
-   */
-  debugging_request_id?: string;
-
   /**
    * A unique token to reference this transaction with later calls to void or clear
    * the authorization.
    */
   token?: string;
-}
 
-export interface TransactionSimulateAuthorizationAdviceResponse {
   /**
    * Debugging request ID to share with Lithic Support team.
    */
   debugging_request_id?: string;
+}
 
+export interface TransactionSimulateAuthorizationAdviceResponse {
   /**
    * A unique token to reference this transaction.
    */
   token?: string;
+
+  /**
+   * Debugging request ID to share with Lithic Support team.
+   */
+  debugging_request_id?: string;
 }
 
 export interface TransactionSimulateClearingResponse {
@@ -535,26 +535,26 @@ export interface TransactionSimulateClearingResponse {
 
 export interface TransactionSimulateCreditAuthorizationResponse {
   /**
-   * Debugging request ID to share with Lithic Support team.
-   */
-  debugging_request_id?: string;
-
-  /**
    * A unique token to reference this transaction.
    */
   token?: string;
+
+  /**
+   * Debugging request ID to share with Lithic Support team.
+   */
+  debugging_request_id?: string;
 }
 
 export interface TransactionSimulateReturnResponse {
   /**
-   * Debugging request ID to share with Lithic Support team.
-   */
-  debugging_request_id?: string;
-
-  /**
    * A unique token to reference this transaction.
    */
   token?: string;
+
+  /**
+   * Debugging request ID to share with Lithic Support team.
+   */
+  debugging_request_id?: string;
 }
 
 export interface TransactionSimulateReturnReversalResponse {
@@ -679,15 +679,15 @@ export interface TransactionSimulateAuthorizationParams {
 
 export interface TransactionSimulateAuthorizationAdviceParams {
   /**
+   * The transaction token returned from the /v1/simulate/authorize response.
+   */
+  token: string;
+
+  /**
    * Amount (in cents) to authorize. This amount will override the transaction's
    * amount that was originally set by /v1/simulate/authorize.
    */
   amount: number;
-
-  /**
-   * The transaction token returned from the /v1/simulate/authorize response.
-   */
-  token: string;
 }
 
 export interface TransactionSimulateClearingParams {

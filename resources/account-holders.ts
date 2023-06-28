@@ -164,6 +164,11 @@ export class AccountHolders extends APIResource {
 
 export interface AccountHolder {
   /**
+   * Globally unique identifier for the account holder.
+   */
+  token?: string;
+
+  /**
    * Globally unique identifier for the account.
    */
   account_token?: string;
@@ -199,11 +204,6 @@ export interface AccountHolder {
     | 'RISK_THRESHOLD_FAILURE'
     | 'WATCHLIST_ALERT_FAILURE'
   >;
-
-  /**
-   * Globally unique identifier for the account holder.
-   */
-  token?: string;
 }
 
 /**
@@ -211,6 +211,11 @@ export interface AccountHolder {
  * re-run KYC.
  */
 export interface AccountHolderDocument {
+  /**
+   * Globally unique identifier for the document.
+   */
+  token?: string;
+
   /**
    * Globally unique identifier for the account holder.
    */
@@ -222,11 +227,6 @@ export interface AccountHolderDocument {
   document_type?: 'commercial_license' | 'drivers_license' | 'passport' | 'passport_card' | 'visa';
 
   required_document_uploads?: Array<AccountHolderDocument.RequiredDocumentUpload>;
-
-  /**
-   * Globally unique identifier for the document.
-   */
-  token?: string;
 }
 
 export namespace AccountHolderDocument {
@@ -338,47 +338,6 @@ export interface KYB {
 }
 
 export namespace KYB {
-  /**
-   * Information for business for which the account is being opened and KYB is being
-   * run.
-   */
-  export interface BusinessEntity {
-    /**
-     * Business's physical address - PO boxes, UPS drops, and FedEx drops are not
-     * acceptable; APO/FPO are acceptable.
-     */
-    address: Shared.Address;
-
-    /**
-     * Government-issued identification number. US Federal Employer Identification
-     * Numbers (EIN) are currently supported, entered as full nine-digits, with or
-     * without hyphens.
-     */
-    government_id: string;
-
-    /**
-     * Legal (formal) business name.
-     */
-    legal_business_name: string;
-
-    /**
-     * One or more of the business's phone number(s), entered as a list in E.164
-     * format.
-     */
-    phone_numbers: Array<string>;
-
-    /**
-     * Any name that the business operates under that is not its legal business name
-     * (if applicable).
-     */
-    dba_business_name?: string;
-
-    /**
-     * Parent company name (if applicable).
-     */
-    parent_company?: string;
-  }
-
   export interface BeneficialOwnerEntity {
     /**
      * Business's physical address - PO boxes, UPS drops, and FedEx drops are not
@@ -456,6 +415,47 @@ export namespace KYB {
      * Individual's phone number, entered in E.164 format.
      */
     phone_number: string;
+  }
+
+  /**
+   * Information for business for which the account is being opened and KYB is being
+   * run.
+   */
+  export interface BusinessEntity {
+    /**
+     * Business's physical address - PO boxes, UPS drops, and FedEx drops are not
+     * acceptable; APO/FPO are acceptable.
+     */
+    address: Shared.Address;
+
+    /**
+     * Government-issued identification number. US Federal Employer Identification
+     * Numbers (EIN) are currently supported, entered as full nine-digits, with or
+     * without hyphens.
+     */
+    government_id: string;
+
+    /**
+     * Legal (formal) business name.
+     */
+    legal_business_name: string;
+
+    /**
+     * One or more of the business's phone number(s), entered as a list in E.164
+     * format.
+     */
+    phone_numbers: Array<string>;
+
+    /**
+     * Any name that the business operates under that is not its legal business name
+     * (if applicable).
+     */
+    dba_business_name?: string;
+
+    /**
+     * Parent company name (if applicable).
+     */
+    parent_company?: string;
   }
 
   /**
@@ -634,6 +634,11 @@ export interface KYCExempt {
 
 export interface AccountHolderUpdateResponse {
   /**
+   * The token for the account holder that was updated
+   */
+  token?: string;
+
+  /**
    * Only applicable for customers using the KYC-Exempt workflow to enroll businesses
    * with authorized users. Pass the account_token of the enrolled business
    * associated with the AUTHORIZED_USER in this field.
@@ -649,11 +654,6 @@ export interface AccountHolderUpdateResponse {
    * The newly updated phone_number for the account holder
    */
   phone_number?: string;
-
-  /**
-   * The token for the account holder that was updated
-   */
-  token?: string;
 }
 
 export interface AccountHolderCreateWebhookResponse {

@@ -49,6 +49,13 @@ export class AccountsPage extends Page<Account> {}
 
 export interface Account {
   /**
+   * Globally unique identifier for the account. This is the same as the
+   * account_token returned by the enroll endpoint. If using this parameter, do not
+   * include pagination.
+   */
+  token: string;
+
+  /**
    * Spend limit information for the user containing the daily, monthly, and lifetime
    * spend limit of the account. Any charges to a card owned by this account will be
    * declined once their transaction volume has surpassed the value in the applicable
@@ -67,13 +74,6 @@ export interface Account {
    *   cards.
    */
   state: 'ACTIVE' | 'PAUSED' | 'CLOSED';
-
-  /**
-   * Globally unique identifier for the account. This is the same as the
-   * account_token returned by the enroll endpoint. If using this parameter, do not
-   * include pagination.
-   */
-  token: string;
 
   account_holder?: Account.AccountHolder;
 
@@ -110,6 +110,30 @@ export namespace Account {
     monthly: number;
   }
 
+  export interface AccountHolder {
+    /**
+     * Globally unique identifier for the account holder.
+     */
+    token: string;
+
+    /**
+     * Only applicable for customers using the KYC-Exempt workflow to enroll authorized
+     * users of businesses. Account_token of the enrolled business associated with an
+     * enrolled AUTHORIZED_USER individual.
+     */
+    business_account_token: string;
+
+    /**
+     * Email address.
+     */
+    email: string;
+
+    /**
+     * Phone number of the individual.
+     */
+    phone_number: string;
+  }
+
   export interface VerificationAddress {
     /**
      * Valid deliverable address (no PO boxes).
@@ -142,30 +166,6 @@ export namespace Account {
      * Unit or apartment number (if applicable).
      */
     address2?: string;
-  }
-
-  export interface AccountHolder {
-    /**
-     * Only applicable for customers using the KYC-Exempt workflow to enroll authorized
-     * users of businesses. Account_token of the enrolled business associated with an
-     * enrolled AUTHORIZED_USER individual.
-     */
-    business_account_token: string;
-
-    /**
-     * Email address.
-     */
-    email: string;
-
-    /**
-     * Phone number of the individual.
-     */
-    phone_number: string;
-
-    /**
-     * Globally unique identifier for the account holder.
-     */
-    token: string;
   }
 }
 
