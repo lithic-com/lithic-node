@@ -20,6 +20,11 @@ export class Transfers extends APIResource {
 
 export interface Transfer {
   /**
+   * Globally unique identifier for the transfer event.
+   */
+  token?: string;
+
+  /**
    * Status types:
    *
    * - `TRANSFER` - Internal transfer of funds between financial accounts in your
@@ -89,11 +94,6 @@ export interface Transfer {
   to_balance?: Array<Balances.Balance>;
 
   /**
-   * Globally unique identifier for the transfer event.
-   */
-  token?: string;
-
-  /**
    * Date and time when the financial transaction was last updated. UTC time zone.
    */
   updated?: string;
@@ -101,6 +101,11 @@ export interface Transfer {
 
 export namespace Transfer {
   export interface Event {
+    /**
+     * Globally unique identifier.
+     */
+    token?: string;
+
     /**
      * Amount of the financial event that has been settled in the currency's smallest
      * unit (e.g., cents).
@@ -117,11 +122,6 @@ export namespace Transfer {
      * declined by user, Lithic, or the network.
      */
     result?: 'APPROVED' | 'DECLINED';
-
-    /**
-     * Globally unique identifier.
-     */
-    token?: string;
 
     /**
      * Event types:

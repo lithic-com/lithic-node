@@ -157,6 +157,11 @@ export class DisputeEvidencesCursorPage extends CursorPage<DisputeEvidence> {}
  */
 export interface Dispute {
   /**
+   * Globally unique identifier.
+   */
+  token: string;
+
+  /**
    * Amount under dispute. May be different from the original transaction amount.
    */
   amount: number;
@@ -329,11 +334,6 @@ export interface Dispute {
     | 'CASE_CLOSED';
 
   /**
-   * Globally unique identifier.
-   */
-  token: string;
-
-  /**
    * The transaction that is being disputed. A transaction can only be disputed once
    * but may have multiple dispute cases.
    */
@@ -345,6 +345,11 @@ export interface Dispute {
  */
 export interface DisputeEvidence {
   /**
+   * Globally unique identifier.
+   */
+  token: string;
+
+  /**
    * Timestamp of when dispute evidence was created.
    */
   created: string;
@@ -353,11 +358,6 @@ export interface DisputeEvidence {
    * Dispute token evidence is attached to.
    */
   dispute_token: string;
-
-  /**
-   * Globally unique identifier.
-   */
-  token: string;
 
   /**
    * Upload status types:
