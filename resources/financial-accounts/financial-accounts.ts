@@ -41,14 +41,14 @@ export class FinancialTransactionsSinglePage extends SinglePage<FinancialTransac
  */
 export interface FinancialAccount {
   /**
-   * Date and time for when the financial account was first created.
-   */
-  created: string;
-
-  /**
    * Globally unique identifier for the financial account.
    */
   token: string;
+
+  /**
+   * Date and time for when the financial account was first created.
+   */
+  created: string;
 
   /**
    * Type of financial account
@@ -72,6 +72,11 @@ export interface FinancialAccount {
 }
 
 export interface FinancialTransaction {
+  /**
+   * Globally unique identifier.
+   */
+  token?: string;
+
   /**
    * Status types:
    *
@@ -136,11 +141,6 @@ export interface FinancialTransaction {
   status?: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED';
 
   /**
-   * Globally unique identifier.
-   */
-  token?: string;
-
-  /**
    * Date and time when the financial transaction was last updated. UTC time zone.
    */
   updated?: string;
@@ -148,6 +148,11 @@ export interface FinancialTransaction {
 
 export namespace FinancialTransaction {
   export interface Event {
+    /**
+     * Globally unique identifier.
+     */
+    token?: string;
+
     /**
      * Amount of the financial event that has been settled in the currency's smallest
      * unit (e.g., cents).
@@ -164,11 +169,6 @@ export namespace FinancialTransaction {
      * declined by user, Lithic, or the network.
      */
     result?: 'APPROVED' | 'DECLINED';
-
-    /**
-     * Globally unique identifier.
-     */
-    token?: string;
 
     /**
      * Event types:

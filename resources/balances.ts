@@ -30,6 +30,11 @@ export class BalancesSinglePage extends SinglePage<Balance> {}
  */
 export interface Balance {
   /**
+   * Globally unique identifier for the financial account that holds this balance.
+   */
+  token: string;
+
+  /**
    * Funds available for spend in the currency's smallest unit (e.g., cents for USD)
    */
   available_amount: number;
@@ -61,11 +66,6 @@ export interface Balance {
    * Shown in the currency's smallest unit (e.g., cents for USD).
    */
   pending_amount: number;
-
-  /**
-   * Globally unique identifier for the financial account that holds this balance.
-   */
-  token: string;
 
   /**
    * The sum of available and pending balance in the currency's smallest unit (e.g.,

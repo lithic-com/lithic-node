@@ -71,15 +71,15 @@ describe('resource transactions', () => {
 
   test('simulateAuthorizationAdvice: only required params', async () => {
     const response = await lithic.transactions.simulateAuthorizationAdvice({
-      amount: 0,
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      amount: 0,
     });
   });
 
   test('simulateAuthorizationAdvice: required and optional params', async () => {
     const response = await lithic.transactions.simulateAuthorizationAdvice({
-      amount: 0,
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      amount: 0,
     });
   });
 

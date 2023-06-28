@@ -56,6 +56,11 @@ export class EventSubscriptionsCursorPage extends CursorPage<EventSubscription> 
  */
 export interface Event {
   /**
+   * Globally unique identifier.
+   */
+  token: string;
+
+  /**
    * An RFC 3339 timestamp for when the event was created. UTC time zone.
    *
    * If no timezone is specified, UTC will be used.
@@ -86,17 +91,17 @@ export interface Event {
     | 'dispute.updated';
 
   payload: Record<string, unknown>;
-
-  /**
-   * Globally unique identifier.
-   */
-  token: string;
 }
 
 /**
  * A subscription to specific event types.
  */
 export interface EventSubscription {
+  /**
+   * Globally unique identifier.
+   */
+  token: string;
+
   /**
    * A description of the subscription.
    */
@@ -115,11 +120,6 @@ export interface EventSubscription {
     | 'digital_wallet.tokenization_two_factor_authentication_code'
     | 'dispute.updated'
   > | null;
-
-  /**
-   * Globally unique identifier.
-   */
-  token: string;
 
   url: string;
 }
