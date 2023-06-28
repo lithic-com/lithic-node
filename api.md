@@ -1,6 +1,6 @@
 # Accounts
 
-Models:
+Types:
 
 - <code><a href="./resources/accounts.ts">Account</a></code>
 
@@ -12,7 +12,7 @@ Methods:
 
 # AccountHolders
 
-Models:
+Types:
 
 - <code><a href="./resources/account-holders.ts">AccountHolder</a></code>
 - <code><a href="./resources/account-holders.ts">AccountHolderDocument</a></code>
@@ -36,7 +36,7 @@ Methods:
 
 # AuthRules
 
-Models:
+Types:
 
 - <code><a href="./resources/auth-rules.ts">AuthRule</a></code>
 - <code><a href="./resources/auth-rules.ts">AuthRuleCreateResponse</a></code>
@@ -56,7 +56,7 @@ Methods:
 
 # AuthStreamEnrollmentResource
 
-Models:
+Types:
 
 - <code><a href="./resources/auth-stream-enrollment.ts">AuthStreamEnrollment</a></code>
 - <code><a href="./resources/auth-stream-enrollment.ts">AuthStreamSecret</a></code>
@@ -71,7 +71,7 @@ Methods:
 
 # TokenizationDecisioning
 
-Models:
+Types:
 
 - <code><a href="./resources/tokenization-decisioning.ts">TokenizationSecret</a></code>
 - <code><a href="./resources/tokenization-decisioning.ts">TokenizationDecisioningRotateSecretResponse</a></code>
@@ -83,7 +83,7 @@ Methods:
 
 # Cards
 
-Models:
+Types:
 
 - <code><a href="./resources/cards.ts">Card</a></code>
 - <code><a href="./resources/cards.ts">EmbedRequestParams</a></code>
@@ -100,15 +100,12 @@ Methods:
 - <code title="get /embed/card">client.cards.<a href="./resources/cards.ts">embed</a>({ ...params }) -> Promise<string></code>
 - <code title="post /cards/{card_token}/provision">client.cards.<a href="./resources/cards.ts">provision</a>(cardToken, { ...params }) -> CardProvisionResponse</code>
 - <code title="post /cards/{card_token}/reissue">client.cards.<a href="./resources/cards.ts">reissue</a>(cardToken, { ...params }) -> Card</code>
-
-Custom Methods:
-
 - `getEmbedHTML`
 - `getEmbedURL`
 
 # Balances
 
-Models:
+Types:
 
 - <code><a href="./resources/balances.ts">Balance</a></code>
 
@@ -118,7 +115,7 @@ Methods:
 
 # AggregateBalances
 
-Models:
+Types:
 
 - <code><a href="./resources/aggregate-balances.ts">AggregateBalance</a></code>
 
@@ -128,7 +125,7 @@ Methods:
 
 # Disputes
 
-Models:
+Types:
 
 - <code><a href="./resources/disputes.ts">Dispute</a></code>
 - <code><a href="./resources/disputes.ts">DisputeEvidence</a></code>
@@ -145,14 +142,11 @@ Methods:
 - <code title="post /disputes/{dispute_token}/evidences">client.disputes.<a href="./resources/disputes.ts">initiateEvidenceUpload</a>(disputeToken, { ...params }) -> DisputeEvidence</code>
 - <code title="get /disputes/{dispute_token}/evidences">client.disputes.<a href="./resources/disputes.ts">listEvidences</a>(disputeToken, { ...params }) -> DisputeEvidencesCursorPage</code>
 - <code title="get /disputes/{dispute_token}/evidences/{evidence_token}">client.disputes.<a href="./resources/disputes.ts">retrieveEvidence</a>(disputeToken, evidenceToken) -> DisputeEvidence</code>
-
-Custom Methods:
-
 - `uploadEvidence`
 
 # Events
 
-Models:
+Types:
 
 - <code><a href="./resources/events/events.ts">Event</a></code>
 - <code><a href="./resources/events/events.ts">EventSubscription</a></code>
@@ -161,14 +155,11 @@ Methods:
 
 - <code title="get /events/{event_token}">client.events.<a href="./resources/events/events.ts">retrieve</a>(eventToken) -> Event</code>
 - <code title="get /events">client.events.<a href="./resources/events/events.ts">list</a>({ ...params }) -> EventsCursorPage</code>
-
-Custom Methods:
-
 - `resend`
 
 ## Subscriptions
 
-Models:
+Types:
 
 - <code><a href="./resources/events/subscriptions.ts">SubscriptionRetrieveSecretResponse</a></code>
 
@@ -186,7 +177,7 @@ Methods:
 
 # Transfers
 
-Models:
+Types:
 
 - <code><a href="./resources/transfers.ts">Transfer</a></code>
 - <code><a href="./resources/transfers.ts">TransferCreateResponse</a></code>
@@ -197,7 +188,7 @@ Methods:
 
 # FinancialAccounts
 
-Models:
+Types:
 
 - <code><a href="./resources/financial-accounts/financial-accounts.ts">FinancialAccount</a></code>
 - <code><a href="./resources/financial-accounts/financial-accounts.ts">FinancialTransaction</a></code>
@@ -221,7 +212,7 @@ Methods:
 
 # Transactions
 
-Models:
+Types:
 
 - <code><a href="./resources/transactions.ts">Transaction</a></code>
 - <code><a href="./resources/transactions.ts">TransactionSimulateAuthorizationResponse</a></code>
@@ -246,7 +237,7 @@ Methods:
 
 # ResponderEndpoints
 
-Models:
+Types:
 
 - <code><a href="./resources/responder-endpoints.ts">ResponderEndpointStatus</a></code>
 - <code><a href="./resources/responder-endpoints.ts">ResponderEndpointCreateResponse</a></code>
@@ -259,7 +250,7 @@ Methods:
 
 # Webhooks
 
-Custom Methods:
+Methods:
 
 - `unwrap`
 - `verifySignature`
