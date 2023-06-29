@@ -64,10 +64,10 @@ Types:
 Methods:
 
 - <code title="get /auth_stream">client.authStreamEnrollment.<a href="./resources/auth-stream-enrollment.ts">retrieve</a>() -> AuthStreamEnrollment</code>
-- <code title="delete /auth_stream">client.authStreamEnrollment.<a href="./resources/auth-stream-enrollment.ts">disenroll</a>() -> Promise<void></code>
-- <code title="post /auth_stream">client.authStreamEnrollment.<a href="./resources/auth-stream-enrollment.ts">enroll</a>({ ...params }) -> Promise<void></code>
+- <code title="delete /auth_stream">client.authStreamEnrollment.<a href="./resources/auth-stream-enrollment.ts">disenroll</a>() -> void</code>
+- <code title="post /auth_stream">client.authStreamEnrollment.<a href="./resources/auth-stream-enrollment.ts">enroll</a>({ ...params }) -> void</code>
 - <code title="get /auth_stream/secret">client.authStreamEnrollment.<a href="./resources/auth-stream-enrollment.ts">retrieveSecret</a>() -> AuthStreamSecret</code>
-- <code title="post /auth_stream/secret/rotate">client.authStreamEnrollment.<a href="./resources/auth-stream-enrollment.ts">rotateSecret</a>() -> Promise<void></code>
+- <code title="post /auth_stream/secret/rotate">client.authStreamEnrollment.<a href="./resources/auth-stream-enrollment.ts">rotateSecret</a>() -> void</code>
 
 # TokenizationDecisioning
 
@@ -97,7 +97,7 @@ Methods:
 - <code title="get /cards/{card_token}">client.cards.<a href="./resources/cards.ts">retrieve</a>(cardToken) -> Card</code>
 - <code title="patch /cards/{card_token}">client.cards.<a href="./resources/cards.ts">update</a>(cardToken, { ...params }) -> Card</code>
 - <code title="get /cards">client.cards.<a href="./resources/cards.ts">list</a>({ ...params }) -> CardsPage</code>
-- <code title="get /embed/card">client.cards.<a href="./resources/cards.ts">embed</a>({ ...params }) -> Promise<string></code>
+- <code title="get /embed/card">client.cards.<a href="./resources/cards.ts">embed</a>({ ...params }) -> string</code>
 - <code title="post /cards/{card_token}/provision">client.cards.<a href="./resources/cards.ts">provision</a>(cardToken, { ...params }) -> CardProvisionResponse</code>
 - <code title="post /cards/{card_token}/reissue">client.cards.<a href="./resources/cards.ts">reissue</a>(cardToken, { ...params }) -> Card</code>
 - `getEmbedHTML`
@@ -169,11 +169,11 @@ Methods:
 - <code title="get /event_subscriptions/{event_subscription_token}">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">retrieve</a>(eventSubscriptionToken) -> EventSubscription</code>
 - <code title="patch /event_subscriptions/{event_subscription_token}">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">update</a>(eventSubscriptionToken, { ...params }) -> EventSubscription</code>
 - <code title="get /event_subscriptions">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">list</a>({ ...params }) -> EventSubscriptionsCursorPage</code>
-- <code title="delete /event_subscriptions/{event_subscription_token}">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">del</a>(eventSubscriptionToken) -> Promise<void></code>
-- <code title="post /event_subscriptions/{event_subscription_token}/recover">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">recover</a>(eventSubscriptionToken, { ...params }) -> Promise<void></code>
-- <code title="post /event_subscriptions/{event_subscription_token}/replay_missing">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">replayMissing</a>(eventSubscriptionToken, { ...params }) -> Promise<void></code>
+- <code title="delete /event_subscriptions/{event_subscription_token}">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">del</a>(eventSubscriptionToken) -> void</code>
+- <code title="post /event_subscriptions/{event_subscription_token}/recover">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">recover</a>(eventSubscriptionToken, { ...params }) -> void</code>
+- <code title="post /event_subscriptions/{event_subscription_token}/replay_missing">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">replayMissing</a>(eventSubscriptionToken, { ...params }) -> void</code>
 - <code title="get /event_subscriptions/{event_subscription_token}/secret">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">retrieveSecret</a>(eventSubscriptionToken) -> SubscriptionRetrieveSecretResponse</code>
-- <code title="post /event_subscriptions/{event_subscription_token}/secret/rotate">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">rotateSecret</a>(eventSubscriptionToken) -> Promise<void></code>
+- <code title="post /event_subscriptions/{event_subscription_token}/secret/rotate">client.events.subscriptions.<a href="./resources/events/subscriptions.ts">rotateSecret</a>(eventSubscriptionToken) -> void</code>
 
 # Transfers
 
@@ -245,7 +245,7 @@ Types:
 Methods:
 
 - <code title="post /responder_endpoints">client.responderEndpoints.<a href="./resources/responder-endpoints.ts">create</a>({ ...params }) -> ResponderEndpointCreateResponse</code>
-- <code title="delete /responder_endpoints">client.responderEndpoints.<a href="./resources/responder-endpoints.ts">del</a>({ ...params }) -> Promise<void></code>
+- <code title="delete /responder_endpoints">client.responderEndpoints.<a href="./resources/responder-endpoints.ts">del</a>({ ...params }) -> void</code>
 - <code title="get /responder_endpoints">client.responderEndpoints.<a href="./resources/responder-endpoints.ts">checkStatus</a>({ ...params }) -> ResponderEndpointStatus</code>
 
 # Webhooks

@@ -17,7 +17,7 @@ export class AuthStreamEnrollmentResource extends APIResource {
   /**
    * Disenroll Authorization Stream Access (ASA) in Sandbox.
    */
-  disenroll(options?: Core.RequestOptions): Promise<Core.APIResponse<Promise<void>>> {
+  disenroll(options?: Core.RequestOptions): Promise<Core.APIResponse<void>> {
     return this.delete('/auth_stream', options);
   }
 
@@ -38,12 +38,12 @@ export class AuthStreamEnrollmentResource extends APIResource {
   enroll(
     body?: AuthStreamEnrollmentEnrollParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Promise<void>>>;
-  enroll(options?: Core.RequestOptions): Promise<Core.APIResponse<Promise<void>>>;
+  ): Promise<Core.APIResponse<void>>;
+  enroll(options?: Core.RequestOptions): Promise<Core.APIResponse<void>>;
   enroll(
     body: AuthStreamEnrollmentEnrollParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Promise<void>>> {
+  ): Promise<Core.APIResponse<void>> {
     if (isRequestOptions(body)) {
       return this.enroll({}, body);
     }
@@ -68,7 +68,7 @@ export class AuthStreamEnrollmentResource extends APIResource {
    * [`GET /auth_stream/secret`](https://docs.lithic.com/reference/getauthstreamsecret)
    * request to retrieve the new secret key.
    */
-  rotateSecret(options?: Core.RequestOptions): Promise<Core.APIResponse<Promise<void>>> {
+  rotateSecret(options?: Core.RequestOptions): Promise<Core.APIResponse<void>> {
     return this.post('/auth_stream/secret/rotate', options);
   }
 }

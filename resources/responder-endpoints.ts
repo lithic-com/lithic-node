@@ -18,10 +18,7 @@ export class ResponderEndpoints extends APIResource {
   /**
    * Disenroll a responder endpoint
    */
-  del(
-    body: ResponderEndpointDeleteParams,
-    options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Promise<void>>> {
+  del(body: ResponderEndpointDeleteParams, options?: Core.RequestOptions): Promise<Core.APIResponse<void>> {
     const { type } = body;
     return this.delete('/responder_endpoints', { query: { type }, ...options });
   }
