@@ -61,10 +61,7 @@ export class Subscriptions extends APIResource {
   /**
    * Delete an event subscription.
    */
-  del(
-    eventSubscriptionToken: string,
-    options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Promise<void>>> {
+  del(eventSubscriptionToken: string, options?: Core.RequestOptions): Promise<Core.APIResponse<void>> {
     return this.delete(`/event_subscriptions/${eventSubscriptionToken}`, options);
   }
 
@@ -75,16 +72,13 @@ export class Subscriptions extends APIResource {
     eventSubscriptionToken: string,
     body?: SubscriptionRecoverParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Promise<void>>>;
-  recover(
-    eventSubscriptionToken: string,
-    options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Promise<void>>>;
+  ): Promise<Core.APIResponse<void>>;
+  recover(eventSubscriptionToken: string, options?: Core.RequestOptions): Promise<Core.APIResponse<void>>;
   recover(
     eventSubscriptionToken: string,
     body: SubscriptionRecoverParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Promise<void>>> {
+  ): Promise<Core.APIResponse<void>> {
     if (isRequestOptions(body)) {
       return this.recover(eventSubscriptionToken, {}, body);
     }
@@ -103,16 +97,16 @@ export class Subscriptions extends APIResource {
     eventSubscriptionToken: string,
     body?: SubscriptionReplayMissingParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Promise<void>>>;
+  ): Promise<Core.APIResponse<void>>;
   replayMissing(
     eventSubscriptionToken: string,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Promise<void>>>;
+  ): Promise<Core.APIResponse<void>>;
   replayMissing(
     eventSubscriptionToken: string,
     body: SubscriptionReplayMissingParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Promise<void>>> {
+  ): Promise<Core.APIResponse<void>> {
     if (isRequestOptions(body)) {
       return this.replayMissing(eventSubscriptionToken, {}, body);
     }
@@ -140,7 +134,7 @@ export class Subscriptions extends APIResource {
   rotateSecret(
     eventSubscriptionToken: string,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Promise<void>>> {
+  ): Promise<Core.APIResponse<void>> {
     return this.post(`/event_subscriptions/${eventSubscriptionToken}/secret/rotate`, options);
   }
 }
