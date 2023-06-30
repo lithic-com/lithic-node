@@ -3,4 +3,7 @@
 set -eux
 
 npm config set //registry.npmjs.org/:_authToken $NPM_TOKEN
-yarn publish --build --access public
+
+yarn build
+cd dist
+yarn publish --access public

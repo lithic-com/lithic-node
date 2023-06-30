@@ -1,4 +1,4 @@
-import { createResponseHeaders } from '../core';
+import { createResponseHeaders } from 'lithic/core';
 import { Headers } from 'lithic/_shims/fetch';
 
 describe('response parsing', () => {

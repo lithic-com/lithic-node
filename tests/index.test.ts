@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless.
 
-import { Headers } from '~/core';
-import Lithic from '../index';
+import { Headers } from 'lithic/core';
+import Lithic from 'lithic';
 
 describe('instantiate client', () => {
   const env = process.env;
