@@ -1,4 +1,4 @@
-import { multipartFormRequestOptions, createForm } from '../core';
+import { multipartFormRequestOptions, createForm } from 'lithic/core';
 import { Blob } from 'lithic/_shims/formdata';
 import { toFile } from 'lithic';
 

@@ -3,8 +3,9 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   moduleNameMapper: {
-    '^~/(.*)$': '<rootDir>/$1',
-    '^lithic/_shims/(.*)$': '<rootDir>/_shims/$1.node',
+    '^lithic$': '<rootDir>/src/index.ts',
+    '^lithic/_shims/(.*)$': '<rootDir>/src/_shims/$1.node',
+    '^lithic/(.*)$': '<rootDir>/src/$1',
   },
-  modulePathIgnorePatterns: ['<rootDir>/ecosystem-tests/'],
+  modulePathIgnorePatterns: ['<rootDir>/ecosystem-tests/', '<rootDir>/dist/'],
 };
