@@ -1,6 +1,5 @@
 import fs from 'fs';
-import { toFile } from '~/uploads';
-import { ResponseLike } from 'lithic/_shims/uploadable';
+import { toFile, type ResponseLike } from 'lithic/uploads';
 import { File } from 'lithic/_shims/formdata';
 
 class MyClass {
