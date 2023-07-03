@@ -181,6 +181,8 @@ export class Cards extends APIResource {
 }
 
 export class CardsPage extends Page<Card> {}
+// alias so we can export it in the namespace
+type _CardsPage = CardsPage;
 
 export interface Card {
   /**
@@ -763,7 +765,7 @@ export namespace Cards {
   export import SpendLimitDuration = API.SpendLimitDuration;
   export import CardEmbedResponse = API.CardEmbedResponse;
   export import CardProvisionResponse = API.CardProvisionResponse;
-  export import CardsPage = API.CardsPage;
+  export type CardsPage = _CardsPage;
   export import CardCreateParams = API.CardCreateParams;
   export import CardUpdateParams = API.CardUpdateParams;
   export import CardListParams = API.CardListParams;
