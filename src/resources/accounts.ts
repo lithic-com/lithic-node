@@ -46,6 +46,8 @@ export class Accounts extends APIResource {
 }
 
 export class AccountsPage extends Page<Account> {}
+// alias so we can export it in the namespace
+type _AccountsPage = AccountsPage;
 
 export interface Account {
   /**
@@ -241,7 +243,7 @@ export interface AccountListParams extends PageParams {
 
 export namespace Accounts {
   export import Account = API.Account;
-  export import AccountsPage = API.AccountsPage;
+  export type AccountsPage = _AccountsPage;
   export import AccountUpdateParams = API.AccountUpdateParams;
   export import AccountListParams = API.AccountListParams;
 }

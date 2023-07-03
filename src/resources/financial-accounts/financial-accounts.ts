@@ -33,8 +33,12 @@ export class FinancialAccounts extends APIResource {
 }
 
 export class FinancialAccountsSinglePage extends SinglePage<FinancialAccount> {}
+// alias so we can export it in the namespace
+type _FinancialAccountsSinglePage = FinancialAccountsSinglePage;
 
 export class FinancialTransactionsSinglePage extends SinglePage<FinancialTransaction> {}
+// alias so we can export it in the namespace
+type _FinancialTransactionsSinglePage = FinancialTransactionsSinglePage;
 
 /**
  * Financial Account
@@ -249,7 +253,7 @@ export interface FinancialAccountListParams {
 export namespace FinancialAccounts {
   export import FinancialAccount = API.FinancialAccount;
   export import FinancialTransaction = API.FinancialTransaction;
-  export import FinancialAccountsSinglePage = API.FinancialAccountsSinglePage;
+  export type FinancialAccountsSinglePage = _FinancialAccountsSinglePage;
   export import FinancialAccountListParams = API.FinancialAccountListParams;
 
   export import Balances = API.Balances;

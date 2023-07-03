@@ -24,6 +24,8 @@ export class Balances extends APIResource {
 }
 
 export class BalancesSinglePage extends SinglePage<Balance> {}
+// alias so we can export it in the namespace
+type _BalancesSinglePage = BalancesSinglePage;
 
 /**
  * Balance of a Financial Account
@@ -104,6 +106,6 @@ export interface BalanceListParams {
 
 export namespace Balances {
   export import Balance = API.Balance;
-  export import BalancesSinglePage = API.BalancesSinglePage;
+  export type BalancesSinglePage = _BalancesSinglePage;
   export import BalanceListParams = API.BalanceListParams;
 }

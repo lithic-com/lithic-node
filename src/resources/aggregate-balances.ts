@@ -28,6 +28,8 @@ export class AggregateBalances extends APIResource {
 }
 
 export class AggregateBalancesSinglePage extends SinglePage<AggregateBalance> {}
+// alias so we can export it in the namespace
+type _AggregateBalancesSinglePage = AggregateBalancesSinglePage;
 
 /**
  * Aggregate Balance across all end-user accounts
@@ -97,6 +99,6 @@ export interface AggregateBalanceListParams {
 
 export namespace AggregateBalances {
   export import AggregateBalance = API.AggregateBalance;
-  export import AggregateBalancesSinglePage = API.AggregateBalancesSinglePage;
+  export type AggregateBalancesSinglePage = _AggregateBalancesSinglePage;
   export import AggregateBalanceListParams = API.AggregateBalanceListParams;
 }
