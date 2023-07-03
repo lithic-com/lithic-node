@@ -149,8 +149,12 @@ export class Disputes extends APIResource {
 }
 
 export class DisputesCursorPage extends CursorPage<Dispute> {}
+// alias so we can export it in the namespace
+type _DisputesCursorPage = DisputesCursorPage;
 
 export class DisputeEvidencesCursorPage extends CursorPage<DisputeEvidence> {}
+// alias so we can export it in the namespace
+type _DisputeEvidencesCursorPage = DisputeEvidencesCursorPage;
 
 /**
  * Dispute.
@@ -523,8 +527,8 @@ export namespace Disputes {
   export import Dispute = API.Dispute;
   export import DisputeEvidence = API.DisputeEvidence;
   export import DisputeInitiateEvidenceUploadResponse = API.DisputeInitiateEvidenceUploadResponse;
-  export import DisputesCursorPage = API.DisputesCursorPage;
-  export import DisputeEvidencesCursorPage = API.DisputeEvidencesCursorPage;
+  export type DisputesCursorPage = _DisputesCursorPage;
+  export type DisputeEvidencesCursorPage = _DisputeEvidencesCursorPage;
   export import DisputeCreateParams = API.DisputeCreateParams;
   export import DisputeUpdateParams = API.DisputeUpdateParams;
   export import DisputeListParams = API.DisputeListParams;

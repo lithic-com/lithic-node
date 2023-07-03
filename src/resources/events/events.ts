@@ -48,8 +48,12 @@ export class Events extends APIResource {
 }
 
 export class EventsCursorPage extends CursorPage<Event> {}
+// alias so we can export it in the namespace
+type _EventsCursorPage = EventsCursorPage;
 
 export class EventSubscriptionsCursorPage extends CursorPage<EventSubscription> {}
+// alias so we can export it in the namespace
+type _EventSubscriptionsCursorPage = EventSubscriptionsCursorPage;
 
 /**
  * A single event that affects the transaction state and lifecycle.
@@ -187,7 +191,7 @@ export interface EventResendParams {
 export namespace Events {
   export import Event = API.Event;
   export import EventSubscription = API.EventSubscription;
-  export import EventsCursorPage = API.EventsCursorPage;
+  export type EventsCursorPage = _EventsCursorPage;
   export import EventListParams = API.EventListParams;
   export import EventResendParams = API.EventResendParams;
 

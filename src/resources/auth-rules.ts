@@ -81,6 +81,8 @@ export class AuthRules extends APIResource {
 }
 
 export class AuthRulesPage extends Page<AuthRule> {}
+// alias so we can export it in the namespace
+type _AuthRulesPage = AuthRulesPage;
 
 export interface AuthRule {
   /**
@@ -289,7 +291,7 @@ export namespace AuthRules {
   export import AuthRuleUpdateResponse = API.AuthRuleUpdateResponse;
   export import AuthRuleApplyResponse = API.AuthRuleApplyResponse;
   export import AuthRuleRemoveResponse = API.AuthRuleRemoveResponse;
-  export import AuthRulesPage = API.AuthRulesPage;
+  export type AuthRulesPage = _AuthRulesPage;
   export import AuthRuleCreateParams = API.AuthRuleCreateParams;
   export import AuthRuleUpdateParams = API.AuthRuleUpdateParams;
   export import AuthRuleListParams = API.AuthRuleListParams;

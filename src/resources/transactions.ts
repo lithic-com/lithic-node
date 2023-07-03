@@ -123,6 +123,8 @@ export class Transactions extends APIResource {
 }
 
 export class TransactionsPage extends Page<Transaction> {}
+// alias so we can export it in the namespace
+type _TransactionsPage = TransactionsPage;
 
 export interface Transaction {
   /**
@@ -793,7 +795,7 @@ export namespace Transactions {
   export import TransactionSimulateReturnResponse = API.TransactionSimulateReturnResponse;
   export import TransactionSimulateReturnReversalResponse = API.TransactionSimulateReturnReversalResponse;
   export import TransactionSimulateVoidResponse = API.TransactionSimulateVoidResponse;
-  export import TransactionsPage = API.TransactionsPage;
+  export type TransactionsPage = _TransactionsPage;
   export import TransactionListParams = API.TransactionListParams;
   export import TransactionSimulateAuthorizationParams = API.TransactionSimulateAuthorizationParams;
   export import TransactionSimulateAuthorizationAdviceParams = API.TransactionSimulateAuthorizationAdviceParams;
