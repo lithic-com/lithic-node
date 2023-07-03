@@ -24,6 +24,7 @@ type Config = {
   httpAgent?: Agent;
   maxRetries?: number;
   defaultHeaders?: Core.Headers;
+  defaultQuery?: Core.DefaultQuery;
   webhookSecret?: string | null;
 };
 
@@ -81,6 +82,10 @@ export class Lithic extends Core.APIClient {
    */
   apiStatus(options?: Core.RequestOptions): Promise<Core.APIResponse<Lithic.APIStatus>> {
     return this.get('/status', options);
+  }
+
+  protected override defaultQuery(): Core.DefaultQuery | undefined {
+    return this._options.defaultQuery;
   }
 
   protected override defaultHeaders(): Core.Headers {
