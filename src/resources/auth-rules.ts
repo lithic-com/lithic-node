@@ -127,13 +127,6 @@ export interface AuthRule {
   card_tokens?: Array<string>;
 
   /**
-   * Identifier for the Auth Rule(s) that a new Auth Rule replaced; will be returned
-   * only if an Auth Rule is applied to entities that previously already had one
-   * applied.
-   */
-  previous_auth_rule_tokens?: Array<string>;
-
-  /**
    * Boolean indicating whether the Auth Rule is applied at the program level.
    */
   program_level?: boolean;
@@ -164,8 +157,6 @@ export interface AuthRuleRemoveResponse {
   account_tokens?: Array<string>;
 
   card_tokens?: Array<string>;
-
-  previous_auth_rule_tokens?: Array<string>;
 
   program_level?: boolean;
 }
