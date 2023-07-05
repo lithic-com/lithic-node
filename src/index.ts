@@ -18,13 +18,62 @@ type Config = {
    * Defaults to process.env["LITHIC_API_KEY"].
    */
   apiKey?: string;
+
+  /**
+   * Specifies the environment to use for the API.
+   *
+   * Each environment maps to a different base URL:
+   * - `production` corresponds to `https://api.lithic.com/v1`
+   * - `sandbox` corresponds to `https://sandbox.lithic.com/v1`
+   */
   environment?: keyof typeof environments;
+
+  /**
+   * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
+   */
   baseURL?: string;
+
+  /**
+   * The maximum amount of time (in milliseconds) that the client should wait for a response
+   * from the server before timing out a single request.
+   *
+   * Note that request timeouts are retried by default, so in a worst-case scenario you may wait
+   * much longer than this timeout before the promise succeeds or fails.
+   */
   timeout?: number;
+
+  /**
+   * An HTTP agent used to manage HTTP(S) connections.
+   *
+   * If not provided, an agent will be constructed by default in the Node.js environment,
+   * otherwise no agent is used.
+   */
   httpAgent?: Agent;
+
+  /**
+   * The maximum number of times that the client will retry a request in case of a
+   * temporary failure, like a network error or a 5XX error from the server.
+   *
+   * @default 2
+   */
   maxRetries?: number;
+
+  /**
+   * Default headers to include with every request to the API.
+   *
+   * These can be removed in individual requests by explicitly setting the
+   * header to `undefined` or `null` in request options.
+   */
   defaultHeaders?: Core.Headers;
+
+  /**
+   * Default query parameters to include with every request to the API.
+   *
+   * These can be removed in individual requests by explicitly setting the
+   * param to `undefined` in request options.
+   */
   defaultQuery?: Core.DefaultQuery;
+
   webhookSecret?: string | null;
 };
 
