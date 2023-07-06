@@ -89,7 +89,7 @@ export class Webhooks extends APIResource {
    * An error will be raised if the webhook payload was not sent by Lithic.
    */
   verifySignature(
-    payload: string,
+    body: string,
     headers: HeadersLike,
     secret: string | undefined | null = this.client.webhookSecret,
   ): void {
@@ -124,9 +124,15 @@ export class Webhooks extends APIResource {
       throw new Error('Webhook timestamp is too new');
     }
 
+    if (typeof body !== 'string') {
+      throw new Error(
+        'Webhook body must be passed as the raw JSON string sent from the server (do not parse it first).',
+      );
+    }
+
     const timestamp = new Date(timestampSeconds * 1000);
 
-    const computedSignature = this.signPayload(payload, { msgId, timestamp, secret: whsecret });
+    const computedSignature = this.signPayload(body, { msgId, timestamp, secret: whsecret });
     const expectedSignature = computedSignature.split(',')[1];
 
     const passedSignatures = msgSignature.split(' ');
