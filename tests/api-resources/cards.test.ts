@@ -76,6 +76,7 @@ describe('resource cards', () => {
           end: '2019-12-27T18:11:19.117Z',
           page: 0,
           page_size: 1,
+          state: 'OPEN',
         },
         { path: '/_stainless_unknown_path' },
       ),
