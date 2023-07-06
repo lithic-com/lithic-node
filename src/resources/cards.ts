@@ -621,6 +621,11 @@ export interface CardListParams extends PageParams {
    * will be included. UTC time zone.
    */
   end?: string;
+
+  /**
+   * Returns cards with the specified state.
+   */
+  state?: 'OPEN' | 'PAUSED' | 'CLOSED' | 'PENDING_FULFILLMENT' | 'PENDING_ACTIVATION';
 }
 
 export interface CardEmbedParams {
