@@ -48,7 +48,7 @@ describe('resource webhooks', () => {
       ).toThrowErrorMatchingInlineSnapshot(`"Webhook timestamp is too new"`);
     });
 
-    it.only('should throw an error for invalid secret format', () => {
+    it('should throw an error for invalid secret format', () => {
       expect(() => {
         lithic.webhooks.verifySignature(payload, headers, 'invalid secret');
       }).toThrowErrorMatchingInlineSnapshot(`"Given secret is not valid"`);
@@ -114,6 +114,14 @@ describe('resource webhooks', () => {
         ),
       ).toThrowErrorMatchingInlineSnapshot(
         `"None of the given webhook signatures match the expected signature"`,
+      );
+    });
+
+    it('should throw if payload is not a string', () => {
+      expect(() =>
+        lithic.webhooks.verifySignature({ payload: 'not a string' } as any, headers, secret),
+      ).toThrowErrorMatchingInlineSnapshot(
+        `"Webhook body must be passed as the raw JSON string sent from the server (do not parse it first)."`,
       );
     });
   });
