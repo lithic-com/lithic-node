@@ -101,8 +101,8 @@ export class Cards extends APIResource {
    * `getEmbedURL()` instead. You would then pass that returned URL to the frontend,
    * where you can load it via an iframe.
    */
-  getEmbedHTML(query: CardGetEmbedHTMLParams, options?: Core.RequestOptions): Promise<string> {
-    return this.get(this.getEmbedURL(query), {
+  getEmbedHTML(params: CardGetEmbedHTMLParams, options?: Core.RequestOptions): Promise<string> {
+    return this.get(this.getEmbedURL(params), {
       ...options,
       headers: { Accept: 'text/html', ...options?.headers },
     });
@@ -136,15 +136,15 @@ export class Cards extends APIResource {
    * but **do not ever embed your API key into front end code, as doing so introduces
    * a serious security vulnerability**.
    */
-  getEmbedURL(query: CardGetEmbedURLParams): string {
+  getEmbedURL(params: CardGetEmbedURLParams): string {
     // Default expiration of 1 minute from now.
-    if (!query.expiration) {
+    if (!params.expiration) {
       const date = new Date();
       date.setMinutes(date.getMinutes() + 1);
-      query.expiration = date.toISOString();
+      params.expiration = date.toISOString();
     }
 
-    const serialized = JSON.stringify(query);
+    const serialized = JSON.stringify(params);
     const hmac = createHmac('sha256', this.client.apiKey!).update(serialized).digest('base64');
     const embedRequest = Buffer.from(serialized).toString('base64');
     return this.client.buildURL('/embed/card', { hmac, embed_request: embedRequest });

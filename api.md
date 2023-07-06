@@ -175,9 +175,9 @@ Types:
 
 Methods:
 
-- <code title="post /event_subscriptions">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">create</a>({ ...params }) -> EventSubscription</code>
-- <code title="get /event_subscriptions/{event_subscription_token}">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">retrieve</a>(eventSubscriptionToken) -> EventSubscription</code>
-- <code title="patch /event_subscriptions/{event_subscription_token}">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">update</a>(eventSubscriptionToken, { ...params }) -> EventSubscription</code>
+- <code title="post /event_subscriptions">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">create</a>({ ...params }) -> Events.EventSubscription</code>
+- <code title="get /event_subscriptions/{event_subscription_token}">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">retrieve</a>(eventSubscriptionToken) -> Events.EventSubscription</code>
+- <code title="patch /event_subscriptions/{event_subscription_token}">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">update</a>(eventSubscriptionToken, { ...params }) -> Events.EventSubscription</code>
 - <code title="get /event_subscriptions">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">list</a>({ ...params }) -> EventSubscriptionsCursorPage</code>
 - <code title="delete /event_subscriptions/{event_subscription_token}">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">del</a>(eventSubscriptionToken) -> void</code>
 - <code title="post /event_subscriptions/{event_subscription_token}/recover">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">recover</a>(eventSubscriptionToken, { ...params }) -> void</code>
@@ -217,7 +217,7 @@ Methods:
 
 Methods:
 
-- <code title="get /financial_accounts/{financial_account_token}/financial_transactions/{financial_transaction_token}">client.financialAccounts.financialTransactions.<a href="./src/resources/financial-accounts/financial-transactions.ts">retrieve</a>(financialAccountToken, financialTransactionToken) -> FinancialTransaction</code>
+- <code title="get /financial_accounts/{financial_account_token}/financial_transactions/{financial_transaction_token}">client.financialAccounts.financialTransactions.<a href="./src/resources/financial-accounts/financial-transactions.ts">retrieve</a>(financialAccountToken, financialTransactionToken) -> FinancialAccounts.FinancialTransaction</code>
 - <code title="get /financial_accounts/{financial_account_token}/financial_transactions">client.financialAccounts.financialTransactions.<a href="./src/resources/financial-accounts/financial-transactions.ts">list</a>(financialAccountToken, { ...params }) -> FinancialTransactionsSinglePage</code>
 
 # Transactions
