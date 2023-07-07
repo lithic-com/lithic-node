@@ -82,6 +82,8 @@ export interface Event {
    * - `dispute.updated` - A dispute has been updated.
    * - `digital_wallet.tokenization_approval_request` - Card network's request to
    *   Lithic to activate a digital wallet token.
+   * - `digital_wallet.tokenization_result` - Notification of the end result of a
+   *   tokenization, whether successful or failed.
    * - `digital_wallet.tokenization_two_factor_authentication_code` - A code to be
    *   passed to an end user to complete digital wallet authentication. See
    *   https://docs.lithic.com/docs/tokenization-control#digital-wallet-tokenization-auth-code.
@@ -91,6 +93,7 @@ export interface Event {
     | 'card.shipped'
     | 'card_transaction.updated'
     | 'digital_wallet.tokenization_approval_request'
+    | 'digital_wallet.tokenization_result'
     | 'digital_wallet.tokenization_two_factor_authentication_code'
     | 'dispute.updated';
 
@@ -121,6 +124,7 @@ export interface EventSubscription {
     | 'card.shipped'
     | 'card_transaction.updated'
     | 'digital_wallet.tokenization_approval_request'
+    | 'digital_wallet.tokenization_result'
     | 'digital_wallet.tokenization_two_factor_authentication_code'
     | 'dispute.updated'
   > | null;
@@ -149,6 +153,7 @@ export interface EventListParams extends CursorPageParams {
     | 'card.shipped'
     | 'card_transaction.updated'
     | 'digital_wallet.tokenization_approval_request'
+    | 'digital_wallet.tokenization_result'
     | 'digital_wallet.tokenization_two_factor_authentication_code'
     | 'dispute.updated'
   >;
