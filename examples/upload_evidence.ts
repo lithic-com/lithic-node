@@ -10,7 +10,10 @@ const lithic = new Lithic({ environment: 'sandbox' });
 
 async function main() {
   const transactionsPage = await lithic.transactions.list();
-  assert(transactionsPage.data.length > 0, 'No transactions found');
+  if (transactionsPage.data.length === 0) {
+    console.log('No transactions found');
+    return;
+  }
 
   const transaction = transactionsPage.data[0]!;
   assert(transaction.token, 'Transaction must have a token');
@@ -35,4 +38,7 @@ async function main() {
   console.log('Done!');
 }
 
-main().catch(console.error);
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
