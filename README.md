@@ -34,7 +34,8 @@ async function main() {
 
   console.log(card.token);
 }
-main().catch(console.error);
+
+main();
 ```
 
 ### Usage with TypeScript
@@ -54,7 +55,8 @@ async function main() {
   const params: Lithic.CardCreateParams = { type: 'SINGLE_USE' };
   const card: Lithic.Card = await lithic.cards.create(params);
 }
-main().catch(console.error);
+
+main();
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -74,10 +76,13 @@ async function main() {
       console.log(err.error?.message); // Invalid parameter(s): type
       console.log(err.error?.debugging_request_id); // 94d5e915-xxxx-4cee-a4f5-2xd6ebd279ac
       console.log(err.headers); // {server: 'nginx', ...}
+    } else {
+      throw err;
     }
   });
 }
-main().catch(console.error);
+
+main();
 ```
 
 Error codes are as followed:
@@ -109,7 +114,7 @@ const lithic = new Lithic({
 });
 
 // Or, configure per-request:
-lithic.cards.list({ page_size: 10 }, {
+await lithic.cards.list({ page_size: 10 }, {
   maxRetries: 5,
 });
 ```
@@ -126,7 +131,7 @@ const lithic = new Lithic({
 });
 
 // Override per-request:
-lithic.cards.list({ page_size: 10 }, {
+await lithic.cards.list({ page_size: 10 }, {
   timeout: 5 * 1000,
 });
 ```
@@ -212,7 +217,7 @@ const lithic = new Lithic({
 });
 
 // Override per-request:
-lithic.cards.list({
+await lithic.cards.list({
   baseURL: 'http://localhost:8080/test-api',
   httpAgent: new http.Agent({ keepAlive: false }),
 })
