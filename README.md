@@ -28,9 +28,7 @@ const lithic = new Lithic({
 });
 
 async function main() {
-  const card = await lithic.cards.create({
-    type: 'SINGLE_USE',
-  });
+  const card = await lithic.cards.create({ type: 'SINGLE_USE' });
 
   console.log(card.token);
 }
