@@ -95,7 +95,10 @@ export interface Event {
     | 'digital_wallet.tokenization_approval_request'
     | 'digital_wallet.tokenization_result'
     | 'digital_wallet.tokenization_two_factor_authentication_code'
-    | 'dispute.updated';
+    | 'dispute.updated'
+    | 'payment_transaction.created'
+    | 'payment_transaction.updated'
+    | 'transfer_transaction.created';
 
   payload: Record<string, unknown>;
 }
@@ -127,6 +130,9 @@ export interface EventSubscription {
     | 'digital_wallet.tokenization_result'
     | 'digital_wallet.tokenization_two_factor_authentication_code'
     | 'dispute.updated'
+    | 'payment_transaction.created'
+    | 'payment_transaction.updated'
+    | 'transfer_transaction.created'
   > | null;
 
   url: string;
@@ -156,6 +162,9 @@ export interface EventListParams extends CursorPageParams {
     | 'digital_wallet.tokenization_result'
     | 'digital_wallet.tokenization_two_factor_authentication_code'
     | 'dispute.updated'
+    | 'payment_transaction.created'
+    | 'payment_transaction.updated'
+    | 'transfer_transaction.created'
   >;
 }
 
