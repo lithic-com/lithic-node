@@ -161,6 +161,8 @@ export class Lithic extends Core.APIClient {
     return { arrayFormat: 'comma' };
   }
 
+  static Lithic = this;
+
   static APIError = Errors.APIError;
   static APIConnectionError = Errors.APIConnectionError;
   static APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
