@@ -292,7 +292,6 @@ describe('idempotency', () => {
         },
         nature_of_business: 'Software company selling solutions to the restaurant industry',
         tos_timestamp: '2018-05-29T21:16:05Z',
-        website_url: 'www.mybusiness.com',
         workflow: 'KYB_BASIC',
       },
       { idempotencyKey: 'my-idempotency-key' },

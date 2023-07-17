@@ -121,7 +121,6 @@ describe('resource accountHolders', () => {
       },
       nature_of_business: 'Software company selling solutions to the restaurant industry',
       tos_timestamp: '2018-05-29T21:16:05Z',
-      website_url: 'www.mybusiness.com',
       workflow: 'KYB_BASIC',
     });
   });
@@ -258,9 +257,9 @@ describe('resource accountHolders', () => {
       },
       nature_of_business: 'Software company selling solutions to the restaurant industry',
       tos_timestamp: '2018-05-29T21:16:05Z',
-      website_url: 'www.mybusiness.com',
       workflow: 'KYB_BASIC',
       kyb_passed_timestamp: '2018-05-29T21:16:05Z',
+      website_url: 'www.mybusiness.com',
     });
   });
 
