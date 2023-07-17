@@ -319,11 +319,6 @@ export interface KYB {
   tos_timestamp: string;
 
   /**
-   * Company website URL.
-   */
-  website_url: string;
-
-  /**
    * Specifies the type of KYB workflow to run.
    */
   workflow: 'KYB_BASIC' | 'KYB_BYO';
@@ -335,6 +330,11 @@ export interface KYB {
    * This field is required only if workflow type is `KYB_BYO`.
    */
   kyb_passed_timestamp?: string;
+
+  /**
+   * Company website URL.
+   */
+  website_url?: string;
 }
 
 export namespace KYB {
@@ -735,11 +735,6 @@ export namespace AccountHolderCreateParams {
     tos_timestamp: string;
 
     /**
-     * Company website URL.
-     */
-    website_url: string;
-
-    /**
      * Specifies the type of KYB workflow to run.
      */
     workflow: 'KYB_BASIC' | 'KYB_BYO';
@@ -751,6 +746,11 @@ export namespace AccountHolderCreateParams {
      * This field is required only if workflow type is `KYB_BYO`.
      */
     kyb_passed_timestamp?: string;
+
+    /**
+     * Company website URL.
+     */
+    website_url?: string;
   }
 
   export namespace KYB {
