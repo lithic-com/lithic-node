@@ -13,7 +13,7 @@ const environments = {
   sandbox: 'https://sandbox.lithic.com/v1',
 };
 
-type Config = {
+export interface ClientOptions {
   /**
    * Defaults to process.env["LITHIC_API_KEY"].
    */
@@ -83,20 +83,20 @@ type Config = {
   defaultQuery?: Core.DefaultQuery;
 
   webhookSecret?: string | null;
-};
+}
 
 /** Instantiate the API Client. */
 export class Lithic extends Core.APIClient {
   apiKey: string;
   webhookSecret?: string | null;
 
-  private _options: Config;
+  private _options: ClientOptions;
 
-  constructor(config?: Config) {
-    const options: Config = {
+  constructor(opts?: ClientOptions) {
+    const options: ClientOptions = {
       apiKey: typeof process === 'undefined' ? '' : process.env['LITHIC_API_KEY'] || '',
       environment: 'production',
-      ...config,
+      ...opts,
     };
 
     if (!options.apiKey && options.apiKey !== null) {
@@ -116,7 +116,7 @@ export class Lithic extends Core.APIClient {
     this._options = options;
     this.idempotencyHeader = 'Idempotency-Token';
 
-    this.webhookSecret = config?.webhookSecret || process.env['LITHIC_WEBHOOK_SECRET'] || null;
+    this.webhookSecret = opts?.webhookSecret || process.env['LITHIC_WEBHOOK_SECRET'] || null;
   }
 
   accounts: API.Accounts = new API.Accounts(this);
