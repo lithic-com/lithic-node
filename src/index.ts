@@ -298,8 +298,11 @@ export namespace Lithic {
   export import Events = API.Events;
   export import Event = API.Event;
   export import EventSubscription = API.EventSubscription;
+  export import MessageAttempt = API.MessageAttempt;
   export import EventsCursorPage = API.EventsCursorPage;
+  export import MessageAttemptsCursorPage = API.MessageAttemptsCursorPage;
   export import EventListParams = API.EventListParams;
+  export import EventListAttemptsParams = API.EventListAttemptsParams;
   export import EventResendParams = API.EventResendParams;
 
   export import Transfers = API.Transfers;

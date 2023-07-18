@@ -3,9 +3,12 @@
 export {
   Event,
   EventSubscription,
+  MessageAttempt,
   EventListParams,
+  EventListAttemptsParams,
   EventResendParams,
   EventSubscriptionsCursorPage,
+  MessageAttemptsCursorPage,
   EventsCursorPage,
   Events,
 } from './events';
@@ -14,6 +17,7 @@ export {
   SubscriptionCreateParams,
   SubscriptionUpdateParams,
   SubscriptionListParams,
+  SubscriptionListAttemptsParams,
   SubscriptionRecoverParams,
   SubscriptionReplayMissingParams,
   Subscriptions,

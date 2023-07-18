@@ -33,6 +33,32 @@ export class Events extends APIResource {
   }
 
   /**
+   * List all the message attempts for a given event.
+   */
+  listAttempts(
+    eventToken: string,
+    query?: EventListAttemptsParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<MessageAttemptsCursorPage>;
+  listAttempts(
+    eventToken: string,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<MessageAttemptsCursorPage>;
+  listAttempts(
+    eventToken: string,
+    query: EventListAttemptsParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<MessageAttemptsCursorPage> {
+    if (isRequestOptions(query)) {
+      return this.listAttempts(eventToken, {}, query);
+    }
+    return this.getAPIList(`/events/${eventToken}/attempts`, MessageAttemptsCursorPage, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Resend an event to an event subscription.
    */
   resend(
@@ -50,6 +76,10 @@ export class Events extends APIResource {
 export class EventsCursorPage extends CursorPage<Event> {}
 // alias so we can export it in the namespace
 type _EventsCursorPage = EventsCursorPage;
+
+export class MessageAttemptsCursorPage extends CursorPage<MessageAttempt> {}
+// alias so we can export it in the namespace
+type _MessageAttemptsCursorPage = MessageAttemptsCursorPage;
 
 export class EventSubscriptionsCursorPage extends CursorPage<EventSubscription> {}
 // alias so we can export it in the namespace
@@ -138,6 +168,50 @@ export interface EventSubscription {
   url: string;
 }
 
+/**
+ * A subscription to specific event types.
+ */
+export interface MessageAttempt {
+  /**
+   * Globally unique identifier.
+   */
+  token: string;
+
+  /**
+   * An RFC 3339 timestamp for when the event was created. UTC time zone.
+   *
+   * If no timezone is specified, UTC will be used.
+   */
+  created: string;
+
+  /**
+   * Globally unique identifier.
+   */
+  event_subscription_token: string;
+
+  /**
+   * Globally unique identifier.
+   */
+  event_token: string;
+
+  /**
+   * The response body from the event subscription's URL.
+   */
+  response: string;
+
+  /**
+   * The response status code from the event subscription's URL.
+   */
+  response_status_code: number;
+
+  /**
+   * The status of the event attempt.
+   */
+  status: 'FAILED' | 'PENDING' | 'SENDING' | 'SUCCESS';
+
+  url: string;
+}
+
 export interface EventListParams extends CursorPageParams {
   /**
    * Date string in RFC 3339 format. Only entries created after the specified date
@@ -166,6 +240,22 @@ export interface EventListParams extends CursorPageParams {
     | 'payment_transaction.updated'
     | 'transfer_transaction.created'
   >;
+}
+
+export interface EventListAttemptsParams extends CursorPageParams {
+  /**
+   * Date string in RFC 3339 format. Only entries created after the specified date
+   * will be included. UTC time zone.
+   */
+  begin?: string;
+
+  /**
+   * Date string in RFC 3339 format. Only entries created before the specified date
+   * will be included. UTC time zone.
+   */
+  end?: string;
+
+  status?: 'FAILED' | 'PENDING' | 'SENDING' | 'SUCCESS';
 }
 
 export interface EventResendParams {
@@ -205,8 +295,11 @@ export interface EventResendParams {
 export namespace Events {
   export import Event = API.Event;
   export import EventSubscription = API.EventSubscription;
+  export import MessageAttempt = API.MessageAttempt;
   export type EventsCursorPage = _EventsCursorPage;
+  export type MessageAttemptsCursorPage = _MessageAttemptsCursorPage;
   export import EventListParams = API.EventListParams;
+  export import EventListAttemptsParams = API.EventListAttemptsParams;
   export import EventResendParams = API.EventResendParams;
 
   export import Subscriptions = API.Subscriptions;
@@ -214,6 +307,7 @@ export namespace Events {
   export import SubscriptionCreateParams = API.SubscriptionCreateParams;
   export import SubscriptionUpdateParams = API.SubscriptionUpdateParams;
   export import SubscriptionListParams = API.SubscriptionListParams;
+  export import SubscriptionListAttemptsParams = API.SubscriptionListAttemptsParams;
   export import SubscriptionRecoverParams = API.SubscriptionRecoverParams;
   export import SubscriptionReplayMissingParams = API.SubscriptionReplayMissingParams;
 }
