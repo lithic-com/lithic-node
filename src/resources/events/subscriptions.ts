@@ -5,6 +5,7 @@ import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
 import * as Events from 'lithic/resources/events/index';
 import { EventSubscriptionsCursorPage } from 'lithic/resources/events/index';
+import { MessageAttemptsCursorPage } from 'lithic/resources/events/index';
 import * as API from './';
 import { CursorPageParams } from 'lithic/pagination';
 
@@ -63,6 +64,33 @@ export class Subscriptions extends APIResource {
    */
   del(eventSubscriptionToken: string, options?: Core.RequestOptions): Promise<Core.APIResponse<void>> {
     return this.delete(`/event_subscriptions/${eventSubscriptionToken}`, options);
+  }
+
+  /**
+   * List all the message attempts for a given event subscription.
+   */
+  listAttempts(
+    eventSubscriptionToken: string,
+    query?: SubscriptionListAttemptsParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<MessageAttemptsCursorPage>;
+  listAttempts(
+    eventSubscriptionToken: string,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<MessageAttemptsCursorPage>;
+  listAttempts(
+    eventSubscriptionToken: string,
+    query: SubscriptionListAttemptsParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<MessageAttemptsCursorPage> {
+    if (isRequestOptions(query)) {
+      return this.listAttempts(eventSubscriptionToken, {}, query);
+    }
+    return this.getAPIList(
+      `/event_subscriptions/${eventSubscriptionToken}/attempts`,
+      MessageAttemptsCursorPage,
+      { query, ...options },
+    );
   }
 
   /**
@@ -213,6 +241,22 @@ export interface SubscriptionUpdateParams {
 
 export interface SubscriptionListParams extends CursorPageParams {}
 
+export interface SubscriptionListAttemptsParams extends CursorPageParams {
+  /**
+   * Date string in RFC 3339 format. Only entries created after the specified date
+   * will be included. UTC time zone.
+   */
+  begin?: string;
+
+  /**
+   * Date string in RFC 3339 format. Only entries created before the specified date
+   * will be included. UTC time zone.
+   */
+  end?: string;
+
+  status?: 'FAILED' | 'PENDING' | 'SENDING' | 'SUCCESS';
+}
+
 export interface SubscriptionRecoverParams {
   /**
    * Date string in RFC 3339 format. Only entries created after the specified date
@@ -246,8 +290,9 @@ export namespace Subscriptions {
   export import SubscriptionCreateParams = API.SubscriptionCreateParams;
   export import SubscriptionUpdateParams = API.SubscriptionUpdateParams;
   export import SubscriptionListParams = API.SubscriptionListParams;
+  export import SubscriptionListAttemptsParams = API.SubscriptionListAttemptsParams;
   export import SubscriptionRecoverParams = API.SubscriptionRecoverParams;
   export import SubscriptionReplayMissingParams = API.SubscriptionReplayMissingParams;
 }
 
-export { EventSubscriptionsCursorPage };
+export { EventSubscriptionsCursorPage, MessageAttemptsCursorPage };
