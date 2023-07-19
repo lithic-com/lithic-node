@@ -240,6 +240,11 @@ export interface EventListParams extends CursorPageParams {
     | 'payment_transaction.updated'
     | 'transfer_transaction.created'
   >;
+
+  /**
+   * Whether to include the event payload content in the response.
+   */
+  with_content?: boolean;
 }
 
 export interface EventListAttemptsParams extends CursorPageParams {
