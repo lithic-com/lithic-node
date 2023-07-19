@@ -38,6 +38,7 @@ describe('resource events', () => {
           event_types: ['card.created', 'card.created', 'card.created'],
           page_size: 1,
           starting_after: 'string',
+          with_content: true,
         },
         { path: '/_stainless_unknown_path' },
       ),
