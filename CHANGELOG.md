@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.24.3](https://github.com/lithic-com/lithic-node/compare/v0.24.2...v0.24.3) (2023-07-21)
+
+
+### Features
+
+* **api:** add `with_content` param ([#112](https://github.com/lithic-com/lithic-node/issues/112)) ([ba96fbc](https://github.com/lithic-com/lithic-node/commit/ba96fbcc68f5ef843a88c193e12911c399bcc10b))
+* **streaming:** make requests immediately throw an error if an aborted signal is passed in ([#113](https://github.com/lithic-com/lithic-node/issues/113)) ([954d123](https://github.com/lithic-com/lithic-node/commit/954d12398d7e20fa7dab8ab23da5cddd14071443))
+
+
+### Bug Fixes
+
+* **client:** fix errors with file uploads in the browser ([#110](https://github.com/lithic-com/lithic-node/issues/110)) ([9ec8513](https://github.com/lithic-com/lithic-node/commit/9ec8513c597391917abf90443e78f2a1b8fce37c))
+
 ## [0.24.2](https://github.com/lithic-com/lithic-node/compare/v0.24.1...v0.24.2) (2023-07-18)
 
 
