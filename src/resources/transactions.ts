@@ -242,7 +242,7 @@ export interface Transaction {
    * - `SETTLED` - The transaction is complete.
    * - `VOIDED` - The merchant has voided the previously pending authorization.
    */
-  status: 'BOUNCED' | 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'SETTLING' | 'VOIDED';
+  status: 'BOUNCED' | 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED';
 
   cardholder_authentication?: Transaction.CardholderAuthentication | null;
 }
