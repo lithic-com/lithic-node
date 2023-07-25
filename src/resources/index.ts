@@ -90,6 +90,20 @@ export {
   Events,
 } from './events/events';
 export {
+  ExternalBankAccountAddress,
+  OwnerType,
+  VerificationMethod,
+  ExternalBankAccountCreateResponse,
+  ExternalBankAccountRetrieveResponse,
+  ExternalBankAccountUpdateResponse,
+  ExternalBankAccountListResponse,
+  ExternalBankAccountCreateParams,
+  ExternalBankAccountUpdateParams,
+  ExternalBankAccountListParams,
+  ExternalBankAccountListResponsesCursorPage,
+  ExternalBankAccounts,
+} from './external-bank-accounts/external-bank-accounts';
+export {
   FinancialAccount,
   FinancialTransaction,
   FinancialAccountListParams,
@@ -97,6 +111,16 @@ export {
   FinancialAccountsSinglePage,
   FinancialAccounts,
 } from './financial-accounts/financial-accounts';
+export {
+  Payment,
+  PaymentCreateResponse,
+  PaymentSimulateReleaseResponse,
+  PaymentCreateParams,
+  PaymentListParams,
+  PaymentSimulateReleaseParams,
+  PaymentsCursorPage,
+  Payments,
+} from './payments';
 export {
   ResponderEndpointStatus,
   ResponderEndpointCreateResponse,

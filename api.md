@@ -267,3 +267,47 @@ Methods:
 
 - <code>client.webhooks.<a href="./src/resources/webhooks.ts">unwrap</a>(...args) -> Object</code>
 - <code>client.webhooks.<a href="./src/resources/webhooks.ts">verifySignature</a>(...args) -> void</code>
+
+# ExternalBankAccounts
+
+Types:
+
+- <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">ExternalBankAccountAddress</a></code>
+- <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">OwnerType</a></code>
+- <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">VerificationMethod</a></code>
+- <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">ExternalBankAccountCreateResponse</a></code>
+- <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">ExternalBankAccountRetrieveResponse</a></code>
+- <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">ExternalBankAccountUpdateResponse</a></code>
+- <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">ExternalBankAccountListResponse</a></code>
+
+Methods:
+
+- <code title="post /external_bank_accounts">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">create</a>({ ...params }) -> ExternalBankAccountCreateResponse</code>
+- <code title="get /external_bank_accounts/{external_bank_account_token}">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">retrieve</a>(externalBankAccountToken) -> ExternalBankAccountRetrieveResponse</code>
+- <code title="patch /external_bank_accounts/{external_bank_account_token}">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">update</a>(externalBankAccountToken, { ...params }) -> ExternalBankAccountUpdateResponse</code>
+- <code title="get /external_bank_accounts">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">list</a>({ ...params }) -> ExternalBankAccountListResponsesCursorPage</code>
+
+## MicroDeposits
+
+Types:
+
+- <code><a href="./src/resources/external-bank-accounts/micro-deposits.ts">MicroDepositCreateResponse</a></code>
+
+Methods:
+
+- <code title="post /external_bank_accounts/{external_bank_account_token}/micro_deposits">client.externalBankAccounts.microDeposits.<a href="./src/resources/external-bank-accounts/micro-deposits.ts">create</a>(externalBankAccountToken, { ...params }) -> MicroDepositCreateResponse</code>
+
+# Payments
+
+Types:
+
+- <code><a href="./src/resources/payments.ts">Payment</a></code>
+- <code><a href="./src/resources/payments.ts">PaymentCreateResponse</a></code>
+- <code><a href="./src/resources/payments.ts">PaymentSimulateReleaseResponse</a></code>
+
+Methods:
+
+- <code title="post /payments">client.payments.<a href="./src/resources/payments.ts">create</a>({ ...params }) -> PaymentCreateResponse</code>
+- <code title="get /payments/{payment_token}">client.payments.<a href="./src/resources/payments.ts">retrieve</a>(paymentToken) -> Payment</code>
+- <code title="get /payments">client.payments.<a href="./src/resources/payments.ts">list</a>({ ...params }) -> PaymentsCursorPage</code>
+- <code title="post /simulate/payments/release">client.payments.<a href="./src/resources/payments.ts">simulateRelease</a>({ ...params }) -> PaymentSimulateReleaseResponse</code>

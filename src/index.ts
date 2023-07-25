@@ -134,6 +134,8 @@ export class Lithic extends Core.APIClient {
   transactions: API.Transactions = new API.Transactions(this);
   responderEndpoints: API.ResponderEndpoints = new API.ResponderEndpoints(this);
   webhooks: API.Webhooks = new API.Webhooks(this);
+  externalBankAccounts: API.ExternalBankAccounts = new API.ExternalBankAccounts(this);
+  payments: API.Payments = new API.Payments(this);
 
   /**
    * API status check
@@ -343,6 +345,28 @@ export namespace Lithic {
   export import ResponderEndpointCheckStatusParams = API.ResponderEndpointCheckStatusParams;
 
   export import Webhooks = API.Webhooks;
+
+  export import ExternalBankAccounts = API.ExternalBankAccounts;
+  export import ExternalBankAccountAddress = API.ExternalBankAccountAddress;
+  export import OwnerType = API.OwnerType;
+  export import VerificationMethod = API.VerificationMethod;
+  export import ExternalBankAccountCreateResponse = API.ExternalBankAccountCreateResponse;
+  export import ExternalBankAccountRetrieveResponse = API.ExternalBankAccountRetrieveResponse;
+  export import ExternalBankAccountUpdateResponse = API.ExternalBankAccountUpdateResponse;
+  export import ExternalBankAccountListResponse = API.ExternalBankAccountListResponse;
+  export import ExternalBankAccountListResponsesCursorPage = API.ExternalBankAccountListResponsesCursorPage;
+  export import ExternalBankAccountCreateParams = API.ExternalBankAccountCreateParams;
+  export import ExternalBankAccountUpdateParams = API.ExternalBankAccountUpdateParams;
+  export import ExternalBankAccountListParams = API.ExternalBankAccountListParams;
+
+  export import Payments = API.Payments;
+  export import Payment = API.Payment;
+  export import PaymentCreateResponse = API.PaymentCreateResponse;
+  export import PaymentSimulateReleaseResponse = API.PaymentSimulateReleaseResponse;
+  export import PaymentsCursorPage = API.PaymentsCursorPage;
+  export import PaymentCreateParams = API.PaymentCreateParams;
+  export import PaymentListParams = API.PaymentListParams;
+  export import PaymentSimulateReleaseParams = API.PaymentSimulateReleaseParams;
 
   export import Address = API.Address;
   export import ShippingAddress = API.ShippingAddress;
