@@ -79,7 +79,7 @@ export interface FinancialTransaction {
   /**
    * Globally unique identifier.
    */
-  token?: string;
+  token: string;
 
   /**
    * Status types:
@@ -89,47 +89,47 @@ export interface FinancialTransaction {
    * - `TRANSFER` - Internal transfer of funds between financial accounts in your
    *   program.
    */
-  category?: 'CARD' | 'ACH' | 'TRANSFER';
+  category: 'CARD' | 'ACH' | 'TRANSFER';
 
   /**
    * Date and time when the financial transaction first occurred. UTC time zone.
    */
-  created?: string;
+  created: string;
 
   /**
    * 3-digit alphabetic ISO 4217 code for the settling currency of the transaction.
    */
-  currency?: string;
+  currency: string;
 
   /**
    * A string that provides a description of the financial transaction; may be useful
    * to display to users.
    */
-  descriptor?: string;
+  descriptor: string;
 
   /**
    * A list of all financial events that have modified this financial transaction.
    */
-  events?: Array<FinancialTransaction.Event>;
+  events: Array<FinancialTransaction.Event>;
 
   /**
    * Pending amount of the transaction in the currency's smallest unit (e.g., cents),
    * including any acquirer fees. The value of this field will go to zero over time
    * once the financial transaction is settled.
    */
-  pending_amount?: number;
+  pending_amount: number;
 
   /**
    * APPROVED transactions were successful while DECLINED transactions were declined
    * by user, Lithic, or the network.
    */
-  result?: 'APPROVED' | 'DECLINED';
+  result: 'APPROVED' | 'DECLINED';
 
   /**
    * Amount of the transaction that has been settled in the currency's smallest unit
    * (e.g., cents), including any acquirer fees. This may change over time.
    */
-  settled_amount?: number;
+  settled_amount: number;
 
   /**
    * Status types:
@@ -142,12 +142,12 @@ export interface FinancialTransaction {
    * - `SETTLED` - The financial transaction is completed.
    * - `VOIDED` - The merchant has voided the previously pending card authorization.
    */
-  status?: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED';
+  status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED';
 
   /**
    * Date and time when the financial transaction was last updated. UTC time zone.
    */
-  updated?: string;
+  updated: string;
 }
 
 export namespace FinancialTransaction {
