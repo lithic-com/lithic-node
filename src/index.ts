@@ -116,7 +116,7 @@ export class Lithic extends Core.APIClient {
     this._options = options;
     this.idempotencyHeader = 'Idempotency-Token';
 
-    this.webhookSecret = opts?.webhookSecret || process.env['LITHIC_WEBHOOK_SECRET'] || null;
+    this.webhookSecret = options.webhookSecret || Core.readEnv('LITHIC_WEBHOOK_SECRET') || null;
   }
 
   accounts: API.Accounts = new API.Accounts(this);
