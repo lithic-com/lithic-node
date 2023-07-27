@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.24.4](https://github.com/lithic-com/lithic-node/compare/v0.24.3...v0.24.4) (2023-07-27)
+
+
+### Features
+
+* **api:** add payment and external bank accounts resource ([#115](https://github.com/lithic-com/lithic-node/issues/115)) ([5e05974](https://github.com/lithic-com/lithic-node/commit/5e05974b8dd129ac703af0d26178593e55298458))
+
 ## [0.24.3](https://github.com/lithic-com/lithic-node/compare/v0.24.2...v0.24.3) (2023-07-21)
 
 
