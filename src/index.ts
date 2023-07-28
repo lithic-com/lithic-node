@@ -92,11 +92,14 @@ export class Lithic extends Core.APIClient {
 
   private _options: ClientOptions;
 
-  constructor(opts?: ClientOptions) {
+  constructor(opts: ClientOptions = {}) {
+    const webhookSecret = opts.webhookSecret || Core.readEnv('LITHIC_WEBHOOK_SECRET') || null;
+
     const options: ClientOptions = {
       apiKey: typeof process === 'undefined' ? '' : process.env['LITHIC_API_KEY'] || '',
       environment: 'production',
       ...opts,
+      webhookSecret,
     };
 
     if (!options.apiKey && options.apiKey !== null) {
@@ -116,7 +119,7 @@ export class Lithic extends Core.APIClient {
     this._options = options;
     this.idempotencyHeader = 'Idempotency-Token';
 
-    this.webhookSecret = options.webhookSecret || Core.readEnv('LITHIC_WEBHOOK_SECRET') || null;
+    this.webhookSecret = webhookSecret;
   }
 
   accounts: API.Accounts = new API.Accounts(this);
