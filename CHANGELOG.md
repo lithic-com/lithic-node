@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.24.5](https://github.com/lithic-com/lithic-node/compare/v0.24.4...v0.24.5) (2023-07-29)
+
+
+### Bug Fixes
+
+* **client:** handle undefined process in more places ([#120](https://github.com/lithic-com/lithic-node/issues/120)) ([b7db3b0](https://github.com/lithic-com/lithic-node/commit/b7db3b0397992ef1027858254d879c49095d4afa))
+* fix undefined message in errors ([#118](https://github.com/lithic-com/lithic-node/issues/118)) ([dbf75e1](https://github.com/lithic-com/lithic-node/commit/dbf75e16ae9351093cff9ee3d0e35480baf4d990))
+
+
+### Chores
+
+* **internal:** minor refactoring of client instantiation ([#121](https://github.com/lithic-com/lithic-node/issues/121)) ([295ce37](https://github.com/lithic-com/lithic-node/commit/295ce37d0c2703ef71cde77440f70682c1be9d22))
+
+
+### Refactors
+
+* use destructuring arguments in client constructor and respect false values ([#122](https://github.com/lithic-com/lithic-node/issues/122)) ([7541c30](https://github.com/lithic-com/lithic-node/commit/7541c3040af5b0a78b7f81b57f97fdb9dba129cd))
+
 ## [0.24.4](https://github.com/lithic-com/lithic-node/compare/v0.24.3...v0.24.4) (2023-07-27)
 
 
