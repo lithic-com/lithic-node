@@ -92,21 +92,23 @@ export class Lithic extends Core.APIClient {
 
   private _options: ClientOptions;
 
-  constructor(opts: ClientOptions = {}) {
-    const webhookSecret = opts.webhookSecret || Core.readEnv('LITHIC_WEBHOOK_SECRET') || null;
-
-    const options: ClientOptions = {
-      apiKey: typeof process === 'undefined' ? '' : process.env['LITHIC_API_KEY'] || '',
-      environment: 'production',
-      ...opts,
-      webhookSecret,
-    };
-
-    if (!options.apiKey && options.apiKey !== null) {
+  constructor({
+    apiKey = Core.readEnv('LITHIC_API_KEY'),
+    webhookSecret = Core.readEnv('LITHIC_WEBHOOK_SECRET') ?? null,
+    ...opts
+  }: ClientOptions = {}) {
+    if (apiKey === undefined) {
       throw new Error(
-        "The LITHIC_API_KEY environment variable is missing or empty; either provide it, or instantiate the Lithic client with an apiKey option, like new Lithic({ apiKey: 'my api key' }).",
+        'The LITHIC_API_KEY environment variable is missing or empty; either provide it, or instantiate the Lithic client with an apiKey option, like new Lithic({ apiKey: undefined }).',
       );
     }
+
+    const options: ClientOptions = {
+      apiKey,
+      webhookSecret,
+      environment: 'production',
+      ...opts,
+    };
 
     super({
       baseURL: options.baseURL || environments[options.environment || 'production'],
@@ -115,10 +117,10 @@ export class Lithic extends Core.APIClient {
       maxRetries: options.maxRetries,
       fetch: options.fetch,
     });
-    this.apiKey = options.apiKey;
     this._options = options;
     this.idempotencyHeader = 'Idempotency-Token';
 
+    this.apiKey = apiKey;
     this.webhookSecret = webhookSecret;
   }
 
