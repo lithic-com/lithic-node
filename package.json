@@ -1,6 +1,6 @@
 {
   "name": "lithic",
-  "version": "0.24.4",
+  "version": "0.24.5",
   "description": "Client library for the Lithic API",
   "author": "Lithic <sdk-feedback@lithic.com>",
   "types": "dist/index.d.ts",
