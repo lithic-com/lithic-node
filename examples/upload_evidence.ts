@@ -1,3 +1,5 @@
+#!/usr/bin/env -S npm run tsn -T
+
 //
 // Run with: LITHIC_API_KEY=<your_api_key> yarn tsn examples/upload_evidence.ts
 //
