@@ -311,3 +311,26 @@ Methods:
 - <code title="get /payments/{payment_token}">client.payments.<a href="./src/resources/payments.ts">retrieve</a>(paymentToken) -> Payment</code>
 - <code title="get /payments">client.payments.<a href="./src/resources/payments.ts">list</a>({ ...params }) -> PaymentsCursorPage</code>
 - <code title="post /simulate/payments/release">client.payments.<a href="./src/resources/payments.ts">simulateRelease</a>({ ...params }) -> PaymentSimulateReleaseResponse</code>
+
+# ThreeDS
+
+## Authentication
+
+Types:
+
+- <code><a href="./src/resources/three-ds/authentication.ts">AuthenticationRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="get /three_ds_authentication/{three_ds_authentication_token}">client.threeDS.authentication.<a href="./src/resources/three-ds/authentication.ts">retrieve</a>(threeDSAuthenticationToken) -> AuthenticationRetrieveResponse</code>
+
+## Descisioning
+
+Types:
+
+- <code><a href="./src/resources/three-ds/descisioning.ts">DescisioningRetrieveSecretResponse</a></code>
+
+Methods:
+
+- <code title="get /three_ds_decisioning/secret">client.threeDS.descisioning.<a href="./src/resources/three-ds/descisioning.ts">retrieveSecret</a>() -> DescisioningRetrieveSecretResponse</code>
+- <code title="post /three_ds_decisioning/secret/rotate">client.threeDS.descisioning.<a href="./src/resources/three-ds/descisioning.ts">rotateSecret</a>() -> void</code>

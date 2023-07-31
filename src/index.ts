@@ -141,6 +141,7 @@ export class Lithic extends Core.APIClient {
   webhooks: API.Webhooks = new API.Webhooks(this);
   externalBankAccounts: API.ExternalBankAccounts = new API.ExternalBankAccounts(this);
   payments: API.Payments = new API.Payments(this);
+  threeDS: API.ThreeDS = new API.ThreeDS(this);
 
   /**
    * API status check
@@ -372,6 +373,8 @@ export namespace Lithic {
   export import PaymentCreateParams = API.PaymentCreateParams;
   export import PaymentListParams = API.PaymentListParams;
   export import PaymentSimulateReleaseParams = API.PaymentSimulateReleaseParams;
+
+  export import ThreeDS = API.ThreeDS;
 
   export import Address = API.Address;
   export import ShippingAddress = API.ShippingAddress;

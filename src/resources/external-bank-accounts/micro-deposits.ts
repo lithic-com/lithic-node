@@ -32,7 +32,7 @@ export interface MicroDepositCreateResponse {
 
   /**
    * The country that the bank account is located in using ISO 3166-1. We will only
-   * accept US bank accounts e.g., US
+   * accept USA bank accounts e.g., USA
    */
   country: string;
 
