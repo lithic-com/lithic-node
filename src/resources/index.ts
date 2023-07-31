@@ -129,6 +129,7 @@ export {
   ResponderEndpointCheckStatusParams,
   ResponderEndpoints,
 } from './responder-endpoints';
+export { ThreeDS } from './three-ds/three-ds';
 export {
   TokenizationSecret,
   TokenizationDecisioningRotateSecretResponse,
