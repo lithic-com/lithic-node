@@ -100,7 +100,7 @@ export interface ExternalBankAccountCreateResponse {
 
   /**
    * The country that the bank account is located in using ISO 3166-1. We will only
-   * accept US bank accounts e.g., US
+   * accept USA bank accounts e.g., USA
    */
   country: string;
 
@@ -181,7 +181,7 @@ export interface ExternalBankAccountRetrieveResponse {
 
   /**
    * The country that the bank account is located in using ISO 3166-1. We will only
-   * accept US bank accounts e.g., US
+   * accept USA bank accounts e.g., USA
    */
   country: string;
 
@@ -262,7 +262,7 @@ export interface ExternalBankAccountUpdateResponse {
 
   /**
    * The country that the bank account is located in using ISO 3166-1. We will only
-   * accept US bank accounts e.g., US
+   * accept USA bank accounts e.g., USA
    */
   country: string;
 
@@ -343,7 +343,7 @@ export interface ExternalBankAccountListResponse {
 
   /**
    * The country that the bank account is located in using ISO 3166-1. We will only
-   * accept US bank accounts e.g., US
+   * accept USA bank accounts e.g., USA
    */
   country: string;
 
