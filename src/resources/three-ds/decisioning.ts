@@ -4,7 +4,7 @@ import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import * as API from './';
 
-export class Descisioning extends APIResource {
+export class Decisioning extends APIResource {
   /**
    * Retrieve the 3DS Decisioning HMAC secret key. If one does not exist for your
    * program yet, calling this endpoint will create one for you. The headers (which
@@ -15,7 +15,7 @@ export class Descisioning extends APIResource {
    */
   retrieveSecret(
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<DescisioningRetrieveSecretResponse>> {
+  ): Promise<Core.APIResponse<DecisioningRetrieveSecretResponse>> {
     return this.get('/three_ds_decisioning/secret', options);
   }
 
@@ -30,13 +30,13 @@ export class Descisioning extends APIResource {
   }
 }
 
-export interface DescisioningRetrieveSecretResponse {
+export interface DecisioningRetrieveSecretResponse {
   /**
    * The 3DS Decisioning HMAC secret
    */
   secret?: string;
 }
 
-export namespace Descisioning {
-  export import DescisioningRetrieveSecretResponse = API.DescisioningRetrieveSecretResponse;
+export namespace Decisioning {
+  export import DecisioningRetrieveSecretResponse = API.DecisioningRetrieveSecretResponse;
 }

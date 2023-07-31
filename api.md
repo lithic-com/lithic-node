@@ -324,13 +324,13 @@ Methods:
 
 - <code title="get /three_ds_authentication/{three_ds_authentication_token}">client.threeDS.authentication.<a href="./src/resources/three-ds/authentication.ts">retrieve</a>(threeDSAuthenticationToken) -> AuthenticationRetrieveResponse</code>
 
-## Descisioning
+## Decisioning
 
 Types:
 
-- <code><a href="./src/resources/three-ds/descisioning.ts">DescisioningRetrieveSecretResponse</a></code>
+- <code><a href="./src/resources/three-ds/decisioning.ts">DecisioningRetrieveSecretResponse</a></code>
 
 Methods:
 
-- <code title="get /three_ds_decisioning/secret">client.threeDS.descisioning.<a href="./src/resources/three-ds/descisioning.ts">retrieveSecret</a>() -> DescisioningRetrieveSecretResponse</code>
-- <code title="post /three_ds_decisioning/secret/rotate">client.threeDS.descisioning.<a href="./src/resources/three-ds/descisioning.ts">rotateSecret</a>() -> void</code>
+- <code title="get /three_ds_decisioning/secret">client.threeDS.decisioning.<a href="./src/resources/three-ds/decisioning.ts">retrieveSecret</a>() -> DecisioningRetrieveSecretResponse</code>
+- <code title="post /three_ds_decisioning/secret/rotate">client.threeDS.decisioning.<a href="./src/resources/three-ds/decisioning.ts">rotateSecret</a>() -> void</code>
