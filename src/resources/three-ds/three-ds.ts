@@ -2,18 +2,18 @@
 
 import { APIResource } from 'lithic/resource';
 import { Authentication } from './authentication';
-import { Descisioning } from './descisioning';
+import { Decisioning } from './decisioning';
 import * as API from './';
 
 export class ThreeDS extends APIResource {
   authentication: Authentication = new Authentication(this.client);
-  descisioning: Descisioning = new Descisioning(this.client);
+  decisioning: Decisioning = new Decisioning(this.client);
 }
 
 export namespace ThreeDS {
   export import Authentication = API.Authentication;
   export import AuthenticationRetrieveResponse = API.AuthenticationRetrieveResponse;
 
-  export import Descisioning = API.Descisioning;
-  export import DescisioningRetrieveSecretResponse = API.DescisioningRetrieveSecretResponse;
+  export import Decisioning = API.Decisioning;
+  export import DecisioningRetrieveSecretResponse = API.DecisioningRetrieveSecretResponse;
 }
