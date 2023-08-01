@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.24.6](https://github.com/lithic-com/lithic-node/compare/v0.24.5...v0.24.6) (2023-08-01)
+
+
+### Features
+
+* **api:** updates ([#126](https://github.com/lithic-com/lithic-node/issues/126)) ([c3577a8](https://github.com/lithic-com/lithic-node/commit/c3577a8b6027462cad47ee3a5a0cf76ca8f0b8a5))
+
+
+### Bug Fixes
+
+* adjust typo of 'descisioning' to 'decisioning' ([#127](https://github.com/lithic-com/lithic-node/issues/127)) ([96dace8](https://github.com/lithic-com/lithic-node/commit/96dace804788f23c9703d40aa4de6304c7433e37))
+
+
+### Chores
+
+* **internal:** allow the build script to be run without yarn installed ([#124](https://github.com/lithic-com/lithic-node/issues/124)) ([6dfd64a](https://github.com/lithic-com/lithic-node/commit/6dfd64add41a376a54f973d26bc63cd87d3e9723))
+
+
+### Refactors
+
+* create build for deno.land ([#128](https://github.com/lithic-com/lithic-node/issues/128)) ([bb328f1](https://github.com/lithic-com/lithic-node/commit/bb328f1c4c1b98591b671bff98640e0b311163eb))
+
 ## [0.24.5](https://github.com/lithic-com/lithic-node/compare/v0.24.4...v0.24.5) (2023-07-29)
 
 
