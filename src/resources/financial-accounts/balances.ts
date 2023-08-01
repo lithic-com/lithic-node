@@ -4,7 +4,7 @@ import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
 import { BalancesSinglePage } from 'lithic/resources/balances';
-import * as API from './';
+import * as API from './index';
 
 export class Balances extends APIResource {
   /**

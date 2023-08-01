@@ -4,7 +4,7 @@ import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
 import { MicroDeposits } from './micro-deposits';
-import * as API from './';
+import * as API from './index';
 import { CursorPage, CursorPageParams } from 'lithic/pagination';
 
 export class ExternalBankAccounts extends APIResource {

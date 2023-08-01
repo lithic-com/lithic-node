@@ -5,7 +5,7 @@ import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
 import * as Shared from 'lithic/resources/shared';
 import { createHmac } from 'crypto';
-import * as API from './';
+import * as API from './index';
 import { Page, PageParams } from 'lithic/pagination';
 
 export class Cards extends APIResource {

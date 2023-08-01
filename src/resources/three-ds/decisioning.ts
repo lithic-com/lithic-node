@@ -2,7 +2,7 @@
 
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
-import * as API from './';
+import * as API from './index';
 
 export class Decisioning extends APIResource {
   /**

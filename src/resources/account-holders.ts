@@ -3,7 +3,7 @@
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import * as Shared from 'lithic/resources/shared';
-import * as API from './';
+import * as API from './index';
 
 export class AccountHolders extends APIResource {
   /**
