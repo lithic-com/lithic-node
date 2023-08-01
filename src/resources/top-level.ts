@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-import * as API from './';
+import * as API from './index';
 
 export interface APIStatus {
   message?: string;

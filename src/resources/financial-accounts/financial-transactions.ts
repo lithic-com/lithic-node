@@ -5,7 +5,7 @@ import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
 import * as FinancialAccounts from 'lithic/resources/financial-accounts/index';
 import { FinancialTransactionsSinglePage } from 'lithic/resources/financial-accounts/index';
-import * as API from './';
+import * as API from './index';
 
 export class FinancialTransactions extends APIResource {
   /**

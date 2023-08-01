@@ -3,7 +3,7 @@
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
-import * as API from './';
+import * as API from './index';
 import { SinglePage } from 'lithic/pagination';
 
 export class Balances extends APIResource {

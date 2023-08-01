@@ -3,7 +3,7 @@
 import { APIResource } from 'lithic/resource';
 import { Authentication } from './authentication';
 import { Decisioning } from './decisioning';
-import * as API from './';
+import * as API from './index';
 
 export class ThreeDS extends APIResource {
   authentication: Authentication = new Authentication(this.client);

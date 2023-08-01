@@ -4,7 +4,7 @@ import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import * as Balances from 'lithic/resources/balances';
 import * as FinancialAccounts from 'lithic/resources/financial-accounts/index';
-import * as API from './';
+import * as API from './index';
 
 export class Transfers extends APIResource {
   /**
