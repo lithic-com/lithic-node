@@ -5,7 +5,7 @@ import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
 import * as FinancialAccounts from 'lithic/resources/financial-accounts/index';
 import * as Balances from 'lithic/resources/balances';
-import * as API from './';
+import * as API from './index';
 import { CursorPage, CursorPageParams } from 'lithic/pagination';
 
 export class Payments extends APIResource {

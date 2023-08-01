@@ -6,7 +6,7 @@ import { isRequestOptions } from 'lithic/core';
 import * as Events from 'lithic/resources/events/index';
 import { EventSubscriptionsCursorPage } from 'lithic/resources/events/index';
 import { MessageAttemptsCursorPage } from 'lithic/resources/events/index';
-import * as API from './';
+import * as API from './index';
 import { CursorPageParams } from 'lithic/pagination';
 
 export class Subscriptions extends APIResource {
