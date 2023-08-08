@@ -16,7 +16,7 @@ export class Subscriptions extends APIResource {
   create(
     body: SubscriptionCreateParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Events.EventSubscription>> {
+  ): Core.APIPromise<Events.EventSubscription> {
     return this.post('/event_subscriptions', { body, ...options });
   }
 
@@ -26,7 +26,7 @@ export class Subscriptions extends APIResource {
   retrieve(
     eventSubscriptionToken: string,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Events.EventSubscription>> {
+  ): Core.APIPromise<Events.EventSubscription> {
     return this.get(`/event_subscriptions/${eventSubscriptionToken}`, options);
   }
 
@@ -37,7 +37,7 @@ export class Subscriptions extends APIResource {
     eventSubscriptionToken: string,
     body: SubscriptionUpdateParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Events.EventSubscription>> {
+  ): Core.APIPromise<Events.EventSubscription> {
     return this.patch(`/event_subscriptions/${eventSubscriptionToken}`, { body, ...options });
   }
 
@@ -47,12 +47,14 @@ export class Subscriptions extends APIResource {
   list(
     query?: SubscriptionListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<EventSubscriptionsCursorPage>;
-  list(options?: Core.RequestOptions): Core.PagePromise<EventSubscriptionsCursorPage>;
+  ): Core.PagePromise<EventSubscriptionsCursorPage, Events.EventSubscription>;
+  list(
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<EventSubscriptionsCursorPage, Events.EventSubscription>;
   list(
     query: SubscriptionListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<EventSubscriptionsCursorPage> {
+  ): Core.PagePromise<EventSubscriptionsCursorPage, Events.EventSubscription> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -62,7 +64,7 @@ export class Subscriptions extends APIResource {
   /**
    * Delete an event subscription.
    */
-  del(eventSubscriptionToken: string, options?: Core.RequestOptions): Promise<Core.APIResponse<void>> {
+  del(eventSubscriptionToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
     return this.delete(`/event_subscriptions/${eventSubscriptionToken}`, options);
   }
 
@@ -73,16 +75,16 @@ export class Subscriptions extends APIResource {
     eventSubscriptionToken: string,
     query?: SubscriptionListAttemptsParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<MessageAttemptsCursorPage>;
+  ): Core.PagePromise<MessageAttemptsCursorPage, Events.MessageAttempt>;
   listAttempts(
     eventSubscriptionToken: string,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<MessageAttemptsCursorPage>;
+  ): Core.PagePromise<MessageAttemptsCursorPage, Events.MessageAttempt>;
   listAttempts(
     eventSubscriptionToken: string,
     query: SubscriptionListAttemptsParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<MessageAttemptsCursorPage> {
+  ): Core.PagePromise<MessageAttemptsCursorPage, Events.MessageAttempt> {
     if (isRequestOptions(query)) {
       return this.listAttempts(eventSubscriptionToken, {}, query);
     }
@@ -100,13 +102,13 @@ export class Subscriptions extends APIResource {
     eventSubscriptionToken: string,
     body?: SubscriptionRecoverParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<void>>;
-  recover(eventSubscriptionToken: string, options?: Core.RequestOptions): Promise<Core.APIResponse<void>>;
+  ): Core.APIPromise<void>;
+  recover(eventSubscriptionToken: string, options?: Core.RequestOptions): Core.APIPromise<void>;
   recover(
     eventSubscriptionToken: string,
     body: SubscriptionRecoverParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<void>> {
+  ): Core.APIPromise<void> {
     if (isRequestOptions(body)) {
       return this.recover(eventSubscriptionToken, {}, body);
     }
@@ -125,16 +127,13 @@ export class Subscriptions extends APIResource {
     eventSubscriptionToken: string,
     body?: SubscriptionReplayMissingParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<void>>;
-  replayMissing(
-    eventSubscriptionToken: string,
-    options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<void>>;
+  ): Core.APIPromise<void>;
+  replayMissing(eventSubscriptionToken: string, options?: Core.RequestOptions): Core.APIPromise<void>;
   replayMissing(
     eventSubscriptionToken: string,
     body: SubscriptionReplayMissingParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<void>> {
+  ): Core.APIPromise<void> {
     if (isRequestOptions(body)) {
       return this.replayMissing(eventSubscriptionToken, {}, body);
     }
@@ -151,7 +150,7 @@ export class Subscriptions extends APIResource {
   retrieveSecret(
     eventSubscriptionToken: string,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<SubscriptionRetrieveSecretResponse>> {
+  ): Core.APIPromise<SubscriptionRetrieveSecretResponse> {
     return this.get(`/event_subscriptions/${eventSubscriptionToken}/secret`, options);
   }
 
@@ -159,10 +158,7 @@ export class Subscriptions extends APIResource {
    * Rotate the secret for an event subscription. The previous secret will be valid
    * for the next 24 hours.
    */
-  rotateSecret(
-    eventSubscriptionToken: string,
-    options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<void>> {
+  rotateSecret(eventSubscriptionToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
     return this.post(`/event_subscriptions/${eventSubscriptionToken}/secret/rotate`, options);
   }
 }

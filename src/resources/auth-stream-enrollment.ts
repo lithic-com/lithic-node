@@ -10,14 +10,14 @@ export class AuthStreamEnrollmentResource extends APIResource {
    * Check status for whether you have enrolled in Authorization Stream Access (ASA)
    * for your program in Sandbox.
    */
-  retrieve(options?: Core.RequestOptions): Promise<Core.APIResponse<AuthStreamEnrollment>> {
+  retrieve(options?: Core.RequestOptions): Core.APIPromise<AuthStreamEnrollment> {
     return this.get('/auth_stream', options);
   }
 
   /**
    * Disenroll Authorization Stream Access (ASA) in Sandbox.
    */
-  disenroll(options?: Core.RequestOptions): Promise<Core.APIResponse<void>> {
+  disenroll(options?: Core.RequestOptions): Core.APIPromise<void> {
     return this.delete('/auth_stream', options);
   }
 
@@ -35,15 +35,12 @@ export class AuthStreamEnrollmentResource extends APIResource {
    * In Sandbox, users can self-enroll and disenroll in ASA. In production,
    * onboarding requires manual approval and setup.
    */
-  enroll(
-    body?: AuthStreamEnrollmentEnrollParams,
-    options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<void>>;
-  enroll(options?: Core.RequestOptions): Promise<Core.APIResponse<void>>;
+  enroll(body?: AuthStreamEnrollmentEnrollParams, options?: Core.RequestOptions): Core.APIPromise<void>;
+  enroll(options?: Core.RequestOptions): Core.APIPromise<void>;
   enroll(
     body: AuthStreamEnrollmentEnrollParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<void>> {
+  ): Core.APIPromise<void> {
     if (isRequestOptions(body)) {
       return this.enroll({}, body);
     }
@@ -58,7 +55,7 @@ export class AuthStreamEnrollmentResource extends APIResource {
    * [this page](https://docs.lithic.com/docs/auth-stream-access-asa#asa-webhook-verification)
    * for more detail about verifying ASA webhooks.
    */
-  retrieveSecret(options?: Core.RequestOptions): Promise<Core.APIResponse<AuthStreamSecret>> {
+  retrieveSecret(options?: Core.RequestOptions): Core.APIPromise<AuthStreamSecret> {
     return this.get('/auth_stream/secret', options);
   }
 
@@ -68,7 +65,7 @@ export class AuthStreamEnrollmentResource extends APIResource {
    * [`GET /auth_stream/secret`](https://docs.lithic.com/reference/getauthstreamsecret)
    * request to retrieve the new secret key.
    */
-  rotateSecret(options?: Core.RequestOptions): Promise<Core.APIResponse<void>> {
+  rotateSecret(options?: Core.RequestOptions): Core.APIPromise<void> {
     return this.post('/auth_stream/secret/rotate', options);
   }
 }

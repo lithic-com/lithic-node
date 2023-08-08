@@ -13,7 +13,7 @@ export class TokenizationDecisioning extends APIResource {
    * [this page](https://docs.lithic.com/docs/events-api#verifying-webhooks) for more
    * detail about verifying Tokenization Decisioning requests.
    */
-  retrieveSecret(options?: Core.RequestOptions): Promise<Core.APIResponse<TokenizationSecret>> {
+  retrieveSecret(options?: Core.RequestOptions): Core.APIPromise<TokenizationSecret> {
     return this.get('/tokenization_decisioning/secret', options);
   }
 
@@ -22,9 +22,7 @@ export class TokenizationDecisioning extends APIResource {
    * Decisioning secret key will be deactivated 24 hours after a successful request
    * to this endpoint.
    */
-  rotateSecret(
-    options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<TokenizationDecisioningRotateSecretResponse>> {
+  rotateSecret(options?: Core.RequestOptions): Core.APIPromise<TokenizationDecisioningRotateSecretResponse> {
     return this.post('/tokenization_decisioning/secret/rotate', options);
   }
 }

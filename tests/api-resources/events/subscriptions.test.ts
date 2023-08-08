@@ -1,12 +1,20 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import Lithic from 'lithic';
+import { Response } from 'node-fetch';
 
 const lithic = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:4010' });
 
 describe('resource subscriptions', () => {
   test('create: only required params', async () => {
-    const response = await lithic.events.subscriptions.create({ url: 'https://example.com' });
+    const responsePromise = lithic.events.subscriptions.create({ url: 'https://example.com' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('create: required and optional params', async () => {
@@ -19,7 +27,14 @@ describe('resource subscriptions', () => {
   });
 
   test('retrieve', async () => {
-    const response = await lithic.events.subscriptions.retrieve('string');
+    const responsePromise = lithic.events.subscriptions.retrieve('string');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('retrieve: request options instead of params are passed correctly', async () => {
@@ -30,7 +45,14 @@ describe('resource subscriptions', () => {
   });
 
   test('update: only required params', async () => {
-    const response = await lithic.events.subscriptions.update('string', { url: 'https://example.com' });
+    const responsePromise = lithic.events.subscriptions.update('string', { url: 'https://example.com' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('update: required and optional params', async () => {
@@ -43,7 +65,14 @@ describe('resource subscriptions', () => {
   });
 
   test('list', async () => {
-    const response = await lithic.events.subscriptions.list();
+    const responsePromise = lithic.events.subscriptions.list();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('list: request options instead of params are passed correctly', async () => {
@@ -65,7 +94,14 @@ describe('resource subscriptions', () => {
 
   // Prism Mock server doesnt want Accept header, but server requires it.
   test.skip('del', async () => {
-    const response = await lithic.events.subscriptions.del('string');
+    const responsePromise = lithic.events.subscriptions.del('string');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   // Prism Mock server doesnt want Accept header, but server requires it.
@@ -77,7 +113,14 @@ describe('resource subscriptions', () => {
   });
 
   test('listAttempts', async () => {
-    const response = await lithic.events.subscriptions.listAttempts('string');
+    const responsePromise = lithic.events.subscriptions.listAttempts('string');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('listAttempts: request options instead of params are passed correctly', async () => {
@@ -107,7 +150,14 @@ describe('resource subscriptions', () => {
 
   // Prism Mock server doesnt want Accept header, but server requires it.
   test.skip('recover', async () => {
-    const response = await lithic.events.subscriptions.recover('string');
+    const responsePromise = lithic.events.subscriptions.recover('string');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   // Prism Mock server doesnt want Accept header, but server requires it.
@@ -132,7 +182,14 @@ describe('resource subscriptions', () => {
 
   // Prism Mock server doesnt want Accept header, but server requires it.
   test.skip('replayMissing', async () => {
-    const response = await lithic.events.subscriptions.replayMissing('string');
+    const responsePromise = lithic.events.subscriptions.replayMissing('string');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   // Prism Mock server doesnt want Accept header, but server requires it.
@@ -156,7 +213,14 @@ describe('resource subscriptions', () => {
   });
 
   test('retrieveSecret', async () => {
-    const response = await lithic.events.subscriptions.retrieveSecret('string');
+    const responsePromise = lithic.events.subscriptions.retrieveSecret('string');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('retrieveSecret: request options instead of params are passed correctly', async () => {
@@ -168,7 +232,14 @@ describe('resource subscriptions', () => {
 
   // Prism Mock server doesnt want Accept header, but server requires it.
   test.skip('rotateSecret', async () => {
-    const response = await lithic.events.subscriptions.rotateSecret('string');
+    const responsePromise = lithic.events.subscriptions.rotateSecret('string');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   // Prism Mock server doesnt want Accept header, but server requires it.

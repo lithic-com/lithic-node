@@ -11,7 +11,7 @@ export class Authentication extends APIResource {
   retrieve(
     threeDSAuthenticationToken: string,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<AuthenticationRetrieveResponse>> {
+  ): Core.APIPromise<AuthenticationRetrieveResponse> {
     return this.get(`/three_ds_authentication/${threeDSAuthenticationToken}`, options);
   }
 }

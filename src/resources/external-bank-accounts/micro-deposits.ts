@@ -13,7 +13,7 @@ export class MicroDeposits extends APIResource {
     externalBankAccountToken: string,
     body: MicroDepositCreateParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<MicroDepositCreateResponse>> {
+  ): Core.APIPromise<MicroDepositCreateResponse> {
     return this.post(`/external_bank_accounts/${externalBankAccountToken}/micro_deposits`, {
       body,
       ...options,

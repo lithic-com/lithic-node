@@ -10,12 +10,15 @@ export class Balances extends APIResource {
   /**
    * Get the balances for a program or a given end-user account
    */
-  list(query?: BalanceListParams, options?: Core.RequestOptions): Core.PagePromise<BalancesSinglePage>;
-  list(options?: Core.RequestOptions): Core.PagePromise<BalancesSinglePage>;
+  list(
+    query?: BalanceListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<BalancesSinglePage, Balance>;
+  list(options?: Core.RequestOptions): Core.PagePromise<BalancesSinglePage, Balance>;
   list(
     query: BalanceListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<BalancesSinglePage> {
+  ): Core.PagePromise<BalancesSinglePage, Balance> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }

@@ -14,12 +14,12 @@ export class AggregateBalances extends APIResource {
   list(
     query?: AggregateBalanceListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<AggregateBalancesSinglePage>;
-  list(options?: Core.RequestOptions): Core.PagePromise<AggregateBalancesSinglePage>;
+  ): Core.PagePromise<AggregateBalancesSinglePage, AggregateBalance>;
+  list(options?: Core.RequestOptions): Core.PagePromise<AggregateBalancesSinglePage, AggregateBalance>;
   list(
     query: AggregateBalanceListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<AggregateBalancesSinglePage> {
+  ): Core.PagePromise<AggregateBalancesSinglePage, AggregateBalance> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }

@@ -15,7 +15,7 @@ export class FinancialTransactions extends APIResource {
     financialAccountToken: string,
     financialTransactionToken: string,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<FinancialAccounts.FinancialTransaction>> {
+  ): Core.APIPromise<FinancialAccounts.FinancialTransaction> {
     return this.get(
       `/financial_accounts/${financialAccountToken}/financial_transactions/${financialTransactionToken}`,
       options,
@@ -29,16 +29,16 @@ export class FinancialTransactions extends APIResource {
     financialAccountToken: string,
     query?: FinancialTransactionListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<FinancialTransactionsSinglePage>;
+  ): Core.PagePromise<FinancialTransactionsSinglePage, FinancialAccounts.FinancialTransaction>;
   list(
     financialAccountToken: string,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<FinancialTransactionsSinglePage>;
+  ): Core.PagePromise<FinancialTransactionsSinglePage, FinancialAccounts.FinancialTransaction>;
   list(
     financialAccountToken: string,
     query: FinancialTransactionListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<FinancialTransactionsSinglePage> {
+  ): Core.PagePromise<FinancialTransactionsSinglePage, FinancialAccounts.FinancialTransaction> {
     if (isRequestOptions(query)) {
       return this.list(financialAccountToken, {}, query);
     }

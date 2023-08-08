@@ -19,12 +19,12 @@ export class FinancialAccounts extends APIResource {
   list(
     query?: FinancialAccountListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<FinancialAccountsSinglePage>;
-  list(options?: Core.RequestOptions): Core.PagePromise<FinancialAccountsSinglePage>;
+  ): Core.PagePromise<FinancialAccountsSinglePage, FinancialAccount>;
+  list(options?: Core.RequestOptions): Core.PagePromise<FinancialAccountsSinglePage, FinancialAccount>;
   list(
     query: FinancialAccountListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<FinancialAccountsSinglePage> {
+  ): Core.PagePromise<FinancialAccountsSinglePage, FinancialAccount> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }

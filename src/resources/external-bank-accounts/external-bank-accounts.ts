@@ -16,7 +16,7 @@ export class ExternalBankAccounts extends APIResource {
   create(
     body: ExternalBankAccountCreateParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<ExternalBankAccountCreateResponse>> {
+  ): Core.APIPromise<ExternalBankAccountCreateResponse> {
     return this.post('/external_bank_accounts', { body, ...options });
   }
 
@@ -26,7 +26,7 @@ export class ExternalBankAccounts extends APIResource {
   retrieve(
     externalBankAccountToken: string,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<ExternalBankAccountRetrieveResponse>> {
+  ): Core.APIPromise<ExternalBankAccountRetrieveResponse> {
     return this.get(`/external_bank_accounts/${externalBankAccountToken}`, options);
   }
 
@@ -37,7 +37,7 @@ export class ExternalBankAccounts extends APIResource {
     externalBankAccountToken: string,
     body: ExternalBankAccountUpdateParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<ExternalBankAccountUpdateResponse>> {
+  ): Core.APIPromise<ExternalBankAccountUpdateResponse> {
     return this.patch(`/external_bank_accounts/${externalBankAccountToken}`, { body, ...options });
   }
 
@@ -47,12 +47,14 @@ export class ExternalBankAccounts extends APIResource {
   list(
     query?: ExternalBankAccountListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<ExternalBankAccountListResponsesCursorPage>;
-  list(options?: Core.RequestOptions): Core.PagePromise<ExternalBankAccountListResponsesCursorPage>;
+  ): Core.PagePromise<ExternalBankAccountListResponsesCursorPage, ExternalBankAccountListResponse>;
+  list(
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<ExternalBankAccountListResponsesCursorPage, ExternalBankAccountListResponse>;
   list(
     query: ExternalBankAccountListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<ExternalBankAccountListResponsesCursorPage> {
+  ): Core.PagePromise<ExternalBankAccountListResponsesCursorPage, ExternalBankAccountListResponse> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }

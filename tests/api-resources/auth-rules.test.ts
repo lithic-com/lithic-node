@@ -1,16 +1,31 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import Lithic from 'lithic';
+import { Response } from 'node-fetch';
 
 const lithic = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:4010' });
 
 describe('resource authRules', () => {
   test('create', async () => {
-    const response = await lithic.authRules.create({});
+    const responsePromise = lithic.authRules.create({});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('retrieve', async () => {
-    const response = await lithic.authRules.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = lithic.authRules.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('retrieve: request options instead of params are passed correctly', async () => {
@@ -21,11 +36,25 @@ describe('resource authRules', () => {
   });
 
   test('update', async () => {
-    const response = await lithic.authRules.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
+    const responsePromise = lithic.authRules.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('list', async () => {
-    const response = await lithic.authRules.list();
+    const responsePromise = lithic.authRules.list();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('list: request options instead of params are passed correctly', async () => {
@@ -43,10 +72,24 @@ describe('resource authRules', () => {
   });
 
   test('apply', async () => {
-    const response = await lithic.authRules.apply('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
+    const responsePromise = lithic.authRules.apply('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('remove', async () => {
-    const response = await lithic.authRules.remove({});
+    const responsePromise = lithic.authRules.remove({});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 });
