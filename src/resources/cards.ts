@@ -451,6 +451,8 @@ export interface CardCreateParams {
    */
   card_program_token?: string;
 
+  carrier?: Shared.Carrier;
+
   /**
    * Specifies the digital card art to be displayed in the user’s digital wallet
    * after tokenization. This artwork must be approved by Mastercard and configured
@@ -738,6 +740,11 @@ export interface CardProvisionParams {
 }
 
 export interface CardReissueParams {
+  /**
+   * If omitted, the previous carrier will be used.
+   */
+  carrier?: Shared.Carrier;
+
   /**
    * Specifies the configuration (e.g. physical card art) that the card should be
    * manufactured with, and only applies to cards of type `PHYSICAL`. This must be

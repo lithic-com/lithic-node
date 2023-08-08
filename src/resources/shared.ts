@@ -35,6 +35,13 @@ export interface Address {
   address2?: string;
 }
 
+export interface Carrier {
+  /**
+   * QR code url to display on the card carrier
+   */
+  qr_code_url?: string;
+}
+
 export interface ShippingAddress {
   /**
    * Valid USPS routable address.
