@@ -1,5 +1,31 @@
 # Changelog
 
+## [0.24.7](https://github.com/lithic-com/lithic-node/compare/v0.24.6...v0.24.7) (2023-08-08)
+
+
+### Features
+
+* **api:** add carrier property to card create and reissue params ([#142](https://github.com/lithic-com/lithic-node/issues/142)) ([e4c2f80](https://github.com/lithic-com/lithic-node/commit/e4c2f80bc1ac9189d16e91ece605a3a2d0b7e2fc))
+* **client:** detect browser usage ([#134](https://github.com/lithic-com/lithic-node/issues/134)) ([435048b](https://github.com/lithic-com/lithic-node/commit/435048b45406c186bd72335a0d915061c2d75212))
+* **streaming:** add `.toReadableStream()` method ([#137](https://github.com/lithic-com/lithic-node/issues/137)) ([ef39493](https://github.com/lithic-com/lithic-node/commit/ef394938acfb064ab37d9cde87e27a846c9e9170))
+
+
+### Documentation
+
+* **api:** improve custom method arguments ([#136](https://github.com/lithic-com/lithic-node/issues/136)) ([4aac347](https://github.com/lithic-com/lithic-node/commit/4aac3476e39a399d50ed6b5362ecea29565b037a))
+* **readme:** remove beta status + document versioning policy ([#133](https://github.com/lithic-com/lithic-node/issues/133)) ([025b4da](https://github.com/lithic-com/lithic-node/commit/025b4da0474f56f393c54a85ae56f28ad4d362c9))
+
+
+### Chores
+
+* **internal:** change jest exclude patterns ([#141](https://github.com/lithic-com/lithic-node/issues/141)) ([a05b1f5](https://github.com/lithic-com/lithic-node/commit/a05b1f531b570da0d5cd7b721625cb01b83c2449))
+* **internal:** fix deno build ([#130](https://github.com/lithic-com/lithic-node/issues/130)) ([4c3f0ec](https://github.com/lithic-com/lithic-node/commit/4c3f0ec594f2a801817c7528fd61185fa7ecc102))
+* **internal:** fix deno build ([#132](https://github.com/lithic-com/lithic-node/issues/132)) ([577285e](https://github.com/lithic-com/lithic-node/commit/577285efc167fd57168a8088c78410344330e94d))
+* **internal:** remove deno build ([#135](https://github.com/lithic-com/lithic-node/issues/135)) ([0adca64](https://github.com/lithic-com/lithic-node/commit/0adca64e93ab0761720c165a0bfd7236b5e8bb91))
+* **internal:** update eslint ([#139](https://github.com/lithic-com/lithic-node/issues/139)) ([f7f3958](https://github.com/lithic-com/lithic-node/commit/f7f3958985eaadf4f7b46ec16f0e96cba8e03ba1))
+* **internal:** update tsconfig-paths dep ([#140](https://github.com/lithic-com/lithic-node/issues/140)) ([6a74bb0](https://github.com/lithic-com/lithic-node/commit/6a74bb0dd6891849c4d95a1758798bab0c52263c))
+* **internal:** update typescript ([#138](https://github.com/lithic-com/lithic-node/issues/138)) ([f835405](https://github.com/lithic-com/lithic-node/commit/f8354056956cf8c58525307de363bcf09aa9ff55))
+
 ## [0.24.6](https://github.com/lithic-com/lithic-node/compare/v0.24.5...v0.24.6) (2023-08-01)
 
 
