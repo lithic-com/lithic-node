@@ -14,6 +14,7 @@ describe('resource cards', () => {
       type: 'VIRTUAL',
       account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       card_program_token: '00000000-0000-0000-1000-000000000000',
+      carrier: { qr_code_url: 'string' },
       digital_card_art_token: '00000000-0000-0000-1000-000000000000',
       exp_month: '06',
       exp_year: '2027',

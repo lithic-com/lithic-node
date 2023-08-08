@@ -377,6 +377,7 @@ export namespace Lithic {
   export import ThreeDS = API.ThreeDS;
 
   export import Address = API.Address;
+  export import Carrier = API.Carrier;
   export import ShippingAddress = API.ShippingAddress;
 }
 
