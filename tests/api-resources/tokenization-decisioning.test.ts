@@ -1,12 +1,20 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import Lithic from 'lithic';
+import { Response } from 'node-fetch';
 
 const lithic = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:4010' });
 
 describe('resource tokenizationDecisioning', () => {
   test('retrieveSecret', async () => {
-    const response = await lithic.tokenizationDecisioning.retrieveSecret();
+    const responsePromise = lithic.tokenizationDecisioning.retrieveSecret();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('retrieveSecret: request options instead of params are passed correctly', async () => {
@@ -17,7 +25,14 @@ describe('resource tokenizationDecisioning', () => {
   });
 
   test('rotateSecret', async () => {
-    const response = await lithic.tokenizationDecisioning.rotateSecret();
+    const responsePromise = lithic.tokenizationDecisioning.rotateSecret();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('rotateSecret: request options instead of params are passed correctly', async () => {

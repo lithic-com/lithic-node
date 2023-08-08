@@ -1,12 +1,20 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import Lithic from 'lithic';
+import { Response } from 'node-fetch';
 
 const lithic = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:4010' });
 
 describe('resource authStreamEnrollment', () => {
   test('retrieve', async () => {
-    const response = await lithic.authStreamEnrollment.retrieve();
+    const responsePromise = lithic.authStreamEnrollment.retrieve();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('retrieve: request options instead of params are passed correctly', async () => {
@@ -18,7 +26,14 @@ describe('resource authStreamEnrollment', () => {
 
   // Prism Mock server doesnt want Accept header, but server requires it.
   test.skip('disenroll', async () => {
-    const response = await lithic.authStreamEnrollment.disenroll();
+    const responsePromise = lithic.authStreamEnrollment.disenroll();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   // Prism Mock server doesnt want Accept header, but server requires it.
@@ -31,7 +46,14 @@ describe('resource authStreamEnrollment', () => {
 
   // Prism Mock server doesnt want Accept header, but server requires it.
   test.skip('enroll', async () => {
-    const response = await lithic.authStreamEnrollment.enroll();
+    const responsePromise = lithic.authStreamEnrollment.enroll();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   // Prism Mock server doesnt want Accept header, but server requires it.
@@ -54,7 +76,14 @@ describe('resource authStreamEnrollment', () => {
   });
 
   test('retrieveSecret', async () => {
-    const response = await lithic.authStreamEnrollment.retrieveSecret();
+    const responsePromise = lithic.authStreamEnrollment.retrieveSecret();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('retrieveSecret: request options instead of params are passed correctly', async () => {
@@ -65,7 +94,14 @@ describe('resource authStreamEnrollment', () => {
   });
 
   test('rotateSecret', async () => {
-    const response = await lithic.authStreamEnrollment.rotateSecret();
+    const responsePromise = lithic.authStreamEnrollment.rotateSecret();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('rotateSecret: request options instead of params are passed correctly', async () => {

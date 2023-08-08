@@ -10,10 +10,7 @@ export class Transfers extends APIResource {
   /**
    * Transfer funds between two financial accounts
    */
-  create(
-    body: TransferCreateParams,
-    options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<TransferCreateResponse>> {
+  create(body: TransferCreateParams, options?: Core.RequestOptions): Core.APIPromise<TransferCreateResponse> {
     return this.post('/transfer', { body, ...options });
   }
 }

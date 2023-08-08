@@ -11,14 +11,14 @@ export class Disputes extends APIResource {
   /**
    * Initiate a dispute.
    */
-  create(body: DisputeCreateParams, options?: Core.RequestOptions): Promise<Core.APIResponse<Dispute>> {
+  create(body: DisputeCreateParams, options?: Core.RequestOptions): Core.APIPromise<Dispute> {
     return this.post('/disputes', { body, ...options });
   }
 
   /**
    * Get dispute.
    */
-  retrieve(disputeToken: string, options?: Core.RequestOptions): Promise<Core.APIResponse<Dispute>> {
+  retrieve(disputeToken: string, options?: Core.RequestOptions): Core.APIPromise<Dispute> {
     return this.get(`/disputes/${disputeToken}`, options);
   }
 
@@ -29,19 +29,22 @@ export class Disputes extends APIResource {
     disputeToken: string,
     body: DisputeUpdateParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Dispute>> {
+  ): Core.APIPromise<Dispute> {
     return this.patch(`/disputes/${disputeToken}`, { body, ...options });
   }
 
   /**
    * List disputes.
    */
-  list(query?: DisputeListParams, options?: Core.RequestOptions): Core.PagePromise<DisputesCursorPage>;
-  list(options?: Core.RequestOptions): Core.PagePromise<DisputesCursorPage>;
+  list(
+    query?: DisputeListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<DisputesCursorPage, Dispute>;
+  list(options?: Core.RequestOptions): Core.PagePromise<DisputesCursorPage, Dispute>;
   list(
     query: DisputeListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<DisputesCursorPage> {
+  ): Core.PagePromise<DisputesCursorPage, Dispute> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -51,7 +54,7 @@ export class Disputes extends APIResource {
   /**
    * Withdraw dispute.
    */
-  del(disputeToken: string, options?: Core.RequestOptions): Promise<Core.APIResponse<Dispute>> {
+  del(disputeToken: string, options?: Core.RequestOptions): Core.APIPromise<Dispute> {
     return this.delete(`/disputes/${disputeToken}`, options);
   }
 
@@ -63,7 +66,7 @@ export class Disputes extends APIResource {
     disputeToken: string,
     evidenceToken: string,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<DisputeEvidence>> {
+  ): Core.APIPromise<DisputeEvidence> {
     return this.delete(`/disputes/${disputeToken}/evidences/${evidenceToken}`, options);
   }
 
@@ -78,16 +81,16 @@ export class Disputes extends APIResource {
     disputeToken: string,
     body?: DisputeInitiateEvidenceUploadParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<DisputeEvidence>>;
+  ): Core.APIPromise<DisputeEvidence>;
   initiateEvidenceUpload(
     disputeToken: string,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<DisputeEvidence>>;
+  ): Core.APIPromise<DisputeEvidence>;
   initiateEvidenceUpload(
     disputeToken: string,
     body: DisputeInitiateEvidenceUploadParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<DisputeEvidence>> {
+  ): Core.APIPromise<DisputeEvidence> {
     if (isRequestOptions(body)) {
       return this.initiateEvidenceUpload(disputeToken, {}, body);
     }
@@ -101,16 +104,16 @@ export class Disputes extends APIResource {
     disputeToken: string,
     query?: DisputeListEvidencesParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<DisputeEvidencesCursorPage>;
+  ): Core.PagePromise<DisputeEvidencesCursorPage, DisputeEvidence>;
   listEvidences(
     disputeToken: string,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<DisputeEvidencesCursorPage>;
+  ): Core.PagePromise<DisputeEvidencesCursorPage, DisputeEvidence>;
   listEvidences(
     disputeToken: string,
     query: DisputeListEvidencesParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<DisputeEvidencesCursorPage> {
+  ): Core.PagePromise<DisputeEvidencesCursorPage, DisputeEvidence> {
     if (isRequestOptions(query)) {
       return this.listEvidences(disputeToken, {}, query);
     }
@@ -127,7 +130,7 @@ export class Disputes extends APIResource {
     disputeToken: string,
     evidenceToken: string,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<DisputeEvidence>> {
+  ): Core.APIPromise<DisputeEvidence> {
     return this.get(`/disputes/${disputeToken}/evidences/${evidenceToken}`, options);
   }
 

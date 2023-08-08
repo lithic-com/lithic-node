@@ -1,12 +1,20 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import Lithic from 'lithic';
+import { Response } from 'node-fetch';
 
 const lithic = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:4010' });
 
 describe('resource transactions', () => {
   test('retrieve', async () => {
-    const response = await lithic.transactions.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = lithic.transactions.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('retrieve: request options instead of params are passed correctly', async () => {
@@ -19,7 +27,14 @@ describe('resource transactions', () => {
   });
 
   test('list', async () => {
-    const response = await lithic.transactions.list();
+    const responsePromise = lithic.transactions.list();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('list: request options instead of params are passed correctly', async () => {
@@ -48,11 +63,18 @@ describe('resource transactions', () => {
   });
 
   test('simulateAuthorization: only required params', async () => {
-    const response = await lithic.transactions.simulateAuthorization({
+    const responsePromise = lithic.transactions.simulateAuthorization({
       amount: 0,
       descriptor: 'COFFEE SHOP',
       pan: '4111111289144142',
     });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('simulateAuthorization: required and optional params', async () => {
@@ -70,10 +92,17 @@ describe('resource transactions', () => {
   });
 
   test('simulateAuthorizationAdvice: only required params', async () => {
-    const response = await lithic.transactions.simulateAuthorizationAdvice({
+    const responsePromise = lithic.transactions.simulateAuthorizationAdvice({
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       amount: 0,
     });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('simulateAuthorizationAdvice: required and optional params', async () => {
@@ -84,9 +113,16 @@ describe('resource transactions', () => {
   });
 
   test('simulateClearing: only required params', async () => {
-    const response = await lithic.transactions.simulateClearing({
+    const responsePromise = lithic.transactions.simulateClearing({
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('simulateClearing: required and optional params', async () => {
@@ -97,11 +133,18 @@ describe('resource transactions', () => {
   });
 
   test('simulateCreditAuthorization: only required params', async () => {
-    const response = await lithic.transactions.simulateCreditAuthorization({
+    const responsePromise = lithic.transactions.simulateCreditAuthorization({
       amount: 0,
       descriptor: 'COFFEE SHOP',
       pan: '4111111289144142',
     });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('simulateCreditAuthorization: required and optional params', async () => {
@@ -115,11 +158,18 @@ describe('resource transactions', () => {
   });
 
   test('simulateReturn: only required params', async () => {
-    const response = await lithic.transactions.simulateReturn({
+    const responsePromise = lithic.transactions.simulateReturn({
       amount: 0,
       descriptor: 'COFFEE SHOP',
       pan: '4111111289144142',
     });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('simulateReturn: required and optional params', async () => {
@@ -131,9 +181,16 @@ describe('resource transactions', () => {
   });
 
   test('simulateReturnReversal: only required params', async () => {
-    const response = await lithic.transactions.simulateReturnReversal({
+    const responsePromise = lithic.transactions.simulateReturnReversal({
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('simulateReturnReversal: required and optional params', async () => {
@@ -143,9 +200,16 @@ describe('resource transactions', () => {
   });
 
   test('simulateVoid: only required params', async () => {
-    const response = await lithic.transactions.simulateVoid({
+    const responsePromise = lithic.transactions.simulateVoid({
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('simulateVoid: required and optional params', async () => {

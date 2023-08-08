@@ -3,6 +3,7 @@
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
+import * as Balances_ from 'lithic/resources/balances';
 import { BalancesSinglePage } from 'lithic/resources/balances';
 import * as API from './index';
 
@@ -14,13 +15,16 @@ export class Balances extends APIResource {
     financialAccountToken: string,
     query?: BalanceListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<BalancesSinglePage>;
-  list(financialAccountToken: string, options?: Core.RequestOptions): Core.PagePromise<BalancesSinglePage>;
+  ): Core.PagePromise<BalancesSinglePage, Balances_.Balance>;
+  list(
+    financialAccountToken: string,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<BalancesSinglePage, Balances_.Balance>;
   list(
     financialAccountToken: string,
     query: BalanceListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<BalancesSinglePage> {
+  ): Core.PagePromise<BalancesSinglePage, Balances_.Balance> {
     if (isRequestOptions(query)) {
       return this.list(financialAccountToken, {}, query);
     }

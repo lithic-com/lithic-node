@@ -10,7 +10,7 @@ export class Accounts extends APIResource {
   /**
    * Get account configuration such as spend limits.
    */
-  retrieve(accountToken: string, options?: Core.RequestOptions): Promise<Core.APIResponse<Account>> {
+  retrieve(accountToken: string, options?: Core.RequestOptions): Core.APIPromise<Account> {
     return this.get(`/accounts/${accountToken}`, options);
   }
 
@@ -25,19 +25,19 @@ export class Accounts extends APIResource {
     accountToken: string,
     body: AccountUpdateParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Account>> {
+  ): Core.APIPromise<Account> {
     return this.patch(`/accounts/${accountToken}`, { body, ...options });
   }
 
   /**
    * List account configurations.
    */
-  list(query?: AccountListParams, options?: Core.RequestOptions): Core.PagePromise<AccountsPage>;
-  list(options?: Core.RequestOptions): Core.PagePromise<AccountsPage>;
+  list(query?: AccountListParams, options?: Core.RequestOptions): Core.PagePromise<AccountsPage, Account>;
+  list(options?: Core.RequestOptions): Core.PagePromise<AccountsPage, Account>;
   list(
     query: AccountListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<AccountsPage> {
+  ): Core.PagePromise<AccountsPage, Account> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }

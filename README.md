@@ -198,6 +198,26 @@ export default async function POST(req) {
 }
 ```
 
+## Advanced Usage
+
+### Accessing raw Response data (e.g., headers)
+
+The "raw" `Response` returned by `fetch()` can be accessed through the `.asResponse()` method on the `APIPromise` type that all methods return.
+
+You can also use the `.withResponse()` method to get the raw `Response` along with the parsed data.
+
+```ts
+const lithic = new Lithic();
+
+const response = await lithic.cards.create({ type: 'SINGLE_USE' }).asResponse();
+console.log(response.headers.get('X-My-Header'));
+console.log(response.statusText); // access the underlying Response object
+
+const { data: cards, response: raw } = await lithic.cards.create({ type: 'SINGLE_USE' }).withResponse();
+console.log(raw.headers.get('X-My-Header'));
+console.log(cards.token);
+```
+
 ## Configuring an HTTP(S) Agent (e.g., for proxies)
 
 By default, this library uses a stable agent for all http/https requests to reuse TCP connections, eliminating many TCP & TLS handshakes and shaving around 100ms off most requests.
