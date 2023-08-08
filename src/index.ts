@@ -146,7 +146,7 @@ export class Lithic extends Core.APIClient {
   /**
    * API status check
    */
-  apiStatus(options?: Core.RequestOptions): Promise<Core.APIResponse<Lithic.APIStatus>> {
+  apiStatus(options?: Core.RequestOptions): Core.APIPromise<Lithic.APIStatus> {
     return this.get('/status', options);
   }
 

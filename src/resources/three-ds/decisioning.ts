@@ -13,9 +13,7 @@ export class Decisioning extends APIResource {
    * [this page](https://docs.lithic.com/docs/3ds-decisioning#3ds-decisioning-hmac-secrets)
    * for more detail about verifying 3DS Decisioning requests.
    */
-  retrieveSecret(
-    options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<DecisioningRetrieveSecretResponse>> {
+  retrieveSecret(options?: Core.RequestOptions): Core.APIPromise<DecisioningRetrieveSecretResponse> {
     return this.get('/three_ds_decisioning/secret', options);
   }
 
@@ -25,7 +23,7 @@ export class Decisioning extends APIResource {
    * [`GET /three_ds_decisioning/secret`](https://docs.lithic.com/reference/getthreedsdecisioningsecret)
    * request to retrieve the new secret key.
    */
-  rotateSecret(options?: Core.RequestOptions): Promise<Core.APIResponse<void>> {
+  rotateSecret(options?: Core.RequestOptions): Core.APIPromise<void> {
     return this.post('/three_ds_decisioning/secret/rotate', options);
   }
 }

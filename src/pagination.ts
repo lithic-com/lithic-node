@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-import { AbstractPage, APIResponse, APIClient, FinalRequestOptions, PageInfo } from './core';
+import { AbstractPage, Response, APIClient, FinalRequestOptions, PageInfo } from './core';
 
 export interface PageResponse<Item> {
   data: Array<Item>;
@@ -51,13 +51,13 @@ export class Page<Item> extends AbstractPage<Item> implements PageResponse<Item>
    */
   total_pages: number;
 
-  constructor(client: APIClient, response: APIResponse<PageResponse<Item>>, options: FinalRequestOptions) {
-    super(client, response, options);
+  constructor(client: APIClient, response: Response, body: PageResponse<Item>, options: FinalRequestOptions) {
+    super(client, response, body, options);
 
-    this.data = response.data;
-    this.page = response.page;
-    this.total_entries = response.total_entries;
-    this.total_pages = response.total_pages;
+    this.data = body.data;
+    this.page = body.page;
+    this.total_entries = body.total_entries;
+    this.total_pages = body.total_pages;
   }
 
   getPaginatedItems(): Item[] {
@@ -117,13 +117,14 @@ export class CursorPage<Item extends { token: string }>
 
   constructor(
     client: APIClient,
-    response: APIResponse<CursorPageResponse<Item>>,
+    response: Response,
+    body: CursorPageResponse<Item>,
     options: FinalRequestOptions,
   ) {
-    super(client, response, options);
+    super(client, response, body, options);
 
-    this.data = response.data;
-    this.has_more = response.has_more;
+    this.data = body.data;
+    this.has_more = body.has_more;
   }
 
   getPaginatedItems(): Item[] {
@@ -178,13 +179,14 @@ export class SinglePage<Item> extends AbstractPage<Item> implements SinglePageRe
 
   constructor(
     client: APIClient,
-    response: APIResponse<SinglePageResponse<Item>>,
+    response: Response,
+    body: SinglePageResponse<Item>,
     options: FinalRequestOptions,
   ) {
-    super(client, response, options);
+    super(client, response, body, options);
 
-    this.data = response.data;
-    this.has_more = response.has_more;
+    this.data = body.data;
+    this.has_more = body.has_more;
   }
 
   getPaginatedItems(): Item[] {

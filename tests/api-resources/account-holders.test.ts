@@ -1,12 +1,13 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import Lithic from 'lithic';
+import { Response } from 'node-fetch';
 
 const lithic = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:4010' });
 
 describe('resource accountHolders', () => {
   test('create: only required params', async () => {
-    const response = await lithic.accountHolders.create({
+    const responsePromise = lithic.accountHolders.create({
       beneficial_owner_entities: [
         {
           address: {
@@ -123,6 +124,13 @@ describe('resource accountHolders', () => {
       tos_timestamp: '2018-05-29T21:16:05Z',
       workflow: 'KYB_BASIC',
     });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('create: required and optional params', async () => {
@@ -264,7 +272,14 @@ describe('resource accountHolders', () => {
   });
 
   test('retrieve', async () => {
-    const response = await lithic.accountHolders.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = lithic.accountHolders.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('retrieve: request options instead of params are passed correctly', async () => {
@@ -277,11 +292,25 @@ describe('resource accountHolders', () => {
   });
 
   test('update', async () => {
-    const response = await lithic.accountHolders.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
+    const responsePromise = lithic.accountHolders.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('createWebhook: only required params', async () => {
-    const response = await lithic.accountHolders.createWebhook({ url: 'string' });
+    const responsePromise = lithic.accountHolders.createWebhook({ url: 'string' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('createWebhook: required and optional params', async () => {
@@ -289,7 +318,14 @@ describe('resource accountHolders', () => {
   });
 
   test('listDocuments', async () => {
-    const response = await lithic.accountHolders.listDocuments('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = lithic.accountHolders.listDocuments('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('listDocuments: request options instead of params are passed correctly', async () => {
@@ -302,7 +338,7 @@ describe('resource accountHolders', () => {
   });
 
   test('resubmit: only required params', async () => {
-    const response = await lithic.accountHolders.resubmit('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const responsePromise = lithic.accountHolders.resubmit('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       individual: {
         address: {
           address1: '123 Old Forest Way',
@@ -321,6 +357,13 @@ describe('resource accountHolders', () => {
       tos_timestamp: '2018-05-29T21:16:05Z',
       workflow: 'KYC_ADVANCED',
     });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('resubmit: required and optional params', async () => {
@@ -347,10 +390,17 @@ describe('resource accountHolders', () => {
   });
 
   test('retrieveDocument', async () => {
-    const response = await lithic.accountHolders.retrieveDocument(
+    const responsePromise = lithic.accountHolders.retrieveDocument(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     );
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('retrieveDocument: request options instead of params are passed correctly', async () => {
@@ -365,9 +415,16 @@ describe('resource accountHolders', () => {
   });
 
   test('uploadDocument: only required params', async () => {
-    const response = await lithic.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const responsePromise = lithic.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       document_type: 'commercial_license',
     });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('uploadDocument: required and optional params', async () => {

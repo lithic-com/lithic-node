@@ -12,29 +12,29 @@ export class Payments extends APIResource {
   /**
    * Initiates a payment between a financial account and an external bank account.
    */
-  create(
-    body: PaymentCreateParams,
-    options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<PaymentCreateResponse>> {
+  create(body: PaymentCreateParams, options?: Core.RequestOptions): Core.APIPromise<PaymentCreateResponse> {
     return this.post('/payments', { body, ...options });
   }
 
   /**
    * Get the payment by token.
    */
-  retrieve(paymentToken: string, options?: Core.RequestOptions): Promise<Core.APIResponse<Payment>> {
+  retrieve(paymentToken: string, options?: Core.RequestOptions): Core.APIPromise<Payment> {
     return this.get(`/payments/${paymentToken}`, options);
   }
 
   /**
    * List all the payments for the provided search criteria.
    */
-  list(query?: PaymentListParams, options?: Core.RequestOptions): Core.PagePromise<PaymentsCursorPage>;
-  list(options?: Core.RequestOptions): Core.PagePromise<PaymentsCursorPage>;
+  list(
+    query?: PaymentListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<PaymentsCursorPage, Payment>;
+  list(options?: Core.RequestOptions): Core.PagePromise<PaymentsCursorPage, Payment>;
   list(
     query: PaymentListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<PaymentsCursorPage> {
+  ): Core.PagePromise<PaymentsCursorPage, Payment> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -47,7 +47,7 @@ export class Payments extends APIResource {
   simulateRelease(
     body: PaymentSimulateReleaseParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<PaymentSimulateReleaseResponse>> {
+  ): Core.APIPromise<PaymentSimulateReleaseResponse> {
     return this.post('/simulate/payments/release', { body, ...options });
   }
 }

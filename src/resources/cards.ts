@@ -13,14 +13,14 @@ export class Cards extends APIResource {
    * Create a new virtual or physical card. Parameters `pin`, `shipping_address`, and
    * `product_id` only apply to physical cards.
    */
-  create(body: CardCreateParams, options?: Core.RequestOptions): Promise<Core.APIResponse<Card>> {
+  create(body: CardCreateParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
     return this.post('/cards', { body, ...options });
   }
 
   /**
    * Get card configuration such as spend limit and state.
    */
-  retrieve(cardToken: string, options?: Core.RequestOptions): Promise<Core.APIResponse<Card>> {
+  retrieve(cardToken: string, options?: Core.RequestOptions): Core.APIPromise<Card> {
     return this.get(`/cards/${cardToken}`, options);
   }
 
@@ -31,23 +31,19 @@ export class Cards extends APIResource {
    * _Note: setting a card to a `CLOSED` state is a final action that cannot be
    * undone._
    */
-  update(
-    cardToken: string,
-    body: CardUpdateParams,
-    options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Card>> {
+  update(cardToken: string, body: CardUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
     return this.patch(`/cards/${cardToken}`, { body, ...options });
   }
 
   /**
    * List cards.
    */
-  list(query?: CardListParams, options?: Core.RequestOptions): Core.PagePromise<CardsPage>;
-  list(options?: Core.RequestOptions): Core.PagePromise<CardsPage>;
+  list(query?: CardListParams, options?: Core.RequestOptions): Core.PagePromise<CardsPage, Card>;
+  list(options?: Core.RequestOptions): Core.PagePromise<CardsPage, Card>;
   list(
     query: CardListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CardsPage> {
+  ): Core.PagePromise<CardsPage, Card> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -82,7 +78,7 @@ export class Cards extends APIResource {
    * but **do not ever embed your API key into front end code, as doing so introduces
    * a serious security vulnerability**.
    */
-  embed(query: CardEmbedParams, options?: Core.RequestOptions): Promise<Core.APIResponse<string>> {
+  embed(query: CardEmbedParams, options?: Core.RequestOptions): Core.APIPromise<string> {
     return this.get('/embed/card', {
       query,
       ...options,
@@ -162,7 +158,7 @@ export class Cards extends APIResource {
     cardToken: string,
     body: CardProvisionParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<CardProvisionResponse>> {
+  ): Core.APIPromise<CardProvisionResponse> {
     return this.post(`/cards/${cardToken}/provision`, { body, ...options });
   }
 
@@ -171,11 +167,7 @@ export class Cards extends APIResource {
    *
    * Only applies to cards of type `PHYSICAL`.
    */
-  reissue(
-    cardToken: string,
-    body: CardReissueParams,
-    options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<Card>> {
+  reissue(cardToken: string, body: CardReissueParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
     return this.post(`/cards/${cardToken}/reissue`, { body, ...options });
   }
 }

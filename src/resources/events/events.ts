@@ -13,19 +13,19 @@ export class Events extends APIResource {
   /**
    * Get an event.
    */
-  retrieve(eventToken: string, options?: Core.RequestOptions): Promise<Core.APIResponse<Event>> {
+  retrieve(eventToken: string, options?: Core.RequestOptions): Core.APIPromise<Event> {
     return this.get(`/events/${eventToken}`, options);
   }
 
   /**
    * List all events.
    */
-  list(query?: EventListParams, options?: Core.RequestOptions): Core.PagePromise<EventsCursorPage>;
-  list(options?: Core.RequestOptions): Core.PagePromise<EventsCursorPage>;
+  list(query?: EventListParams, options?: Core.RequestOptions): Core.PagePromise<EventsCursorPage, Event>;
+  list(options?: Core.RequestOptions): Core.PagePromise<EventsCursorPage, Event>;
   list(
     query: EventListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<EventsCursorPage> {
+  ): Core.PagePromise<EventsCursorPage, Event> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -39,16 +39,16 @@ export class Events extends APIResource {
     eventToken: string,
     query?: EventListAttemptsParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<MessageAttemptsCursorPage>;
+  ): Core.PagePromise<MessageAttemptsCursorPage, MessageAttempt>;
   listAttempts(
     eventToken: string,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<MessageAttemptsCursorPage>;
+  ): Core.PagePromise<MessageAttemptsCursorPage, MessageAttempt>;
   listAttempts(
     eventToken: string,
     query: EventListAttemptsParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<MessageAttemptsCursorPage> {
+  ): Core.PagePromise<MessageAttemptsCursorPage, MessageAttempt> {
     if (isRequestOptions(query)) {
       return this.listAttempts(eventToken, {}, query);
     }

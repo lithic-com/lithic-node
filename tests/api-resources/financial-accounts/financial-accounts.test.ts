@@ -1,12 +1,20 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import Lithic from 'lithic';
+import { Response } from 'node-fetch';
 
 const lithic = new Lithic({ apiKey: 'something1234', baseURL: 'http://127.0.0.1:4010' });
 
 describe('resource financialAccounts', () => {
   test('list', async () => {
-    const response = await lithic.financialAccounts.list();
+    const responsePromise = lithic.financialAccounts.list();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('list: request options instead of params are passed correctly', async () => {

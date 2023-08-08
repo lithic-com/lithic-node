@@ -11,14 +11,14 @@ export class ResponderEndpoints extends APIResource {
   create(
     body: ResponderEndpointCreateParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<ResponderEndpointCreateResponse>> {
+  ): Core.APIPromise<ResponderEndpointCreateResponse> {
     return this.post('/responder_endpoints', { body, ...options });
   }
 
   /**
    * Disenroll a responder endpoint
    */
-  del(body: ResponderEndpointDeleteParams, options?: Core.RequestOptions): Promise<Core.APIResponse<void>> {
+  del(body: ResponderEndpointDeleteParams, options?: Core.RequestOptions): Core.APIPromise<void> {
     const { type } = body;
     return this.delete('/responder_endpoints', { query: { type }, ...options });
   }
@@ -29,7 +29,7 @@ export class ResponderEndpoints extends APIResource {
   checkStatus(
     query: ResponderEndpointCheckStatusParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<ResponderEndpointStatus>> {
+  ): Core.APIPromise<ResponderEndpointStatus> {
     return this.get('/responder_endpoints', { query, ...options });
   }
 }

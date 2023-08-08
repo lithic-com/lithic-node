@@ -11,10 +11,7 @@ export class AuthRules extends APIResource {
    * Creates an authorization rule (Auth Rule) and applies it at the program,
    * account, or card level.
    */
-  create(
-    body: AuthRuleCreateParams,
-    options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<AuthRuleCreateResponse>> {
+  create(body: AuthRuleCreateParams, options?: Core.RequestOptions): Core.APIPromise<AuthRuleCreateResponse> {
     return this.post('/auth_rules', { body, ...options });
   }
 
@@ -22,10 +19,7 @@ export class AuthRules extends APIResource {
    * Detail the properties and entities (program, accounts, and cards) associated
    * with an existing authorization rule (Auth Rule).
    */
-  retrieve(
-    authRuleToken: string,
-    options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<AuthRuleRetrieveResponse>> {
+  retrieve(authRuleToken: string, options?: Core.RequestOptions): Core.APIPromise<AuthRuleRetrieveResponse> {
     return this.get(`/auth_rules/${authRuleToken}`, options);
   }
 
@@ -37,19 +31,19 @@ export class AuthRules extends APIResource {
     authRuleToken: string,
     body: AuthRuleUpdateParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<AuthRuleUpdateResponse>> {
+  ): Core.APIPromise<AuthRuleUpdateResponse> {
     return this.put(`/auth_rules/${authRuleToken}`, { body, ...options });
   }
 
   /**
    * Return all of the Auth Rules under the program.
    */
-  list(query?: AuthRuleListParams, options?: Core.RequestOptions): Core.PagePromise<AuthRulesPage>;
-  list(options?: Core.RequestOptions): Core.PagePromise<AuthRulesPage>;
+  list(query?: AuthRuleListParams, options?: Core.RequestOptions): Core.PagePromise<AuthRulesPage, AuthRule>;
+  list(options?: Core.RequestOptions): Core.PagePromise<AuthRulesPage, AuthRule>;
   list(
     query: AuthRuleListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<AuthRulesPage> {
+  ): Core.PagePromise<AuthRulesPage, AuthRule> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -64,7 +58,7 @@ export class AuthRules extends APIResource {
     authRuleToken: string,
     body: AuthRuleApplyParams,
     options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<AuthRuleApplyResponse>> {
+  ): Core.APIPromise<AuthRuleApplyResponse> {
     return this.post(`/auth_rules/${authRuleToken}/apply`, { body, ...options });
   }
 
@@ -72,10 +66,7 @@ export class AuthRules extends APIResource {
    * Remove an existing authorization rule (Auth Rule) from an program, account, or
    * card-level.
    */
-  remove(
-    body: AuthRuleRemoveParams,
-    options?: Core.RequestOptions,
-  ): Promise<Core.APIResponse<AuthRuleRemoveResponse>> {
+  remove(body: AuthRuleRemoveParams, options?: Core.RequestOptions): Core.APIPromise<AuthRuleRemoveResponse> {
     return this.delete('/auth_rules/remove', { body, ...options });
   }
 }
