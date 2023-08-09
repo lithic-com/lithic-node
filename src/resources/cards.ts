@@ -495,10 +495,13 @@ export interface CardCreateParams {
    *   tracking
    * - `STANDARD_WITH_TRACKING` - USPS regular mail or similar international option,
    *   with tracking
+   * - `PRIORITY` - USPS Priority, 1-3 day shipping, with tracking
+   * - `EXPRESS` - FedEx Express, 3-day shipping, with tracking
+   * - `2_DAY` - FedEx 2-day shipping, with tracking
    * - `EXPEDITED` - FedEx Standard Overnight or similar international option, with
    *   tracking
    */
-  shipping_method?: 'STANDARD' | 'STANDARD_WITH_TRACKING' | 'EXPEDITED';
+  shipping_method?: 'STANDARD' | 'STANDARD_WITH_TRACKING' | 'PRIORITY' | 'EXPRESS' | '2_DAY' | 'EXPEDITED';
 
   /**
    * Amount (in cents) to limit approved authorizations. Transaction requests above
@@ -757,10 +760,13 @@ export interface CardReissueParams {
    *   tracking
    * - `STANDARD_WITH_TRACKING` - USPS regular mail or similar international option,
    *   with tracking
+   * - `PRIORITY` - USPS Priority, 1-3 day shipping, with tracking
+   * - `EXPRESS` - FedEx Express, 3-day shipping, with tracking
+   * - `2_DAY` - FedEx 2-day shipping, with tracking
    * - `EXPEDITED` - FedEx Standard Overnight or similar international option, with
    *   tracking
    */
-  shipping_method?: 'STANDARD' | 'STANDARD_WITH_TRACKING' | 'EXPEDITED';
+  shipping_method?: 'STANDARD' | 'STANDARD_WITH_TRACKING' | 'PRIORITY' | 'EXPRESS' | '2-DAY' | 'EXPEDITED';
 }
 
 export namespace Cards {
