@@ -76,29 +76,11 @@ export namespace Payment {
   }
 }
 
-export interface PaymentCreateResponse extends FinancialAccounts.FinancialTransaction {
-  direction: 'CREDIT' | 'DEBIT';
-
-  method: 'ACH_NEXT_DAY' | 'ACH_SAME_DAY';
-
-  method_attributes: PaymentCreateResponse.MethodAttributes;
-
-  source: 'LITHIC' | 'CUSTOMER';
-
+export interface PaymentCreateResponse extends Payment {
   /**
    * Balance of a Financial Account
    */
   balance?: Balances.Balance;
-
-  external_bank_account_token?: string;
-
-  user_defined_id?: string;
-}
-
-export namespace PaymentCreateResponse {
-  export interface MethodAttributes {
-    sec_code: 'PPD' | 'CCD' | 'WEB';
-  }
 }
 
 export interface PaymentSimulateReleaseResponse {
