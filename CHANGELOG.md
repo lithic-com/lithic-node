@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.25.0](https://github.com/lithic-com/lithic-node/compare/v0.24.7...v0.25.0) (2023-08-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **client:** support accessing raw response + remove deprecated features ([#144](https://github.com/lithic-com/lithic-node/issues/144))
+
+### Features
+
+* allOf models now have toXxx methods to access the separate allOf models ([#147](https://github.com/lithic-com/lithic-node/issues/147)) ([0894926](https://github.com/lithic-com/lithic-node/commit/0894926d88998603601d3a6be48224c8e039237d))
+* **api:** add card reissue shipping options ([#146](https://github.com/lithic-com/lithic-node/issues/146)) ([6994187](https://github.com/lithic-com/lithic-node/commit/6994187c7b7f0c0d01974b9847cb8e934a5bbbe5))
+* **client:** support accessing raw response + remove deprecated features ([#144](https://github.com/lithic-com/lithic-node/issues/144)) ([e878150](https://github.com/lithic-com/lithic-node/commit/e87815013b4ad52e1679a6eee5b5646602cc0616))
+
+
+### Documentation
+
+* **readme:** minor updates ([#148](https://github.com/lithic-com/lithic-node/issues/148)) ([f8cb722](https://github.com/lithic-com/lithic-node/commit/f8cb722626e6bfa4d12ff43f09b9c8357365d132))
+
+
+### Chores
+
+* **internal:** conditionally include bin during build output ([#149](https://github.com/lithic-com/lithic-node/issues/149)) ([f40814b](https://github.com/lithic-com/lithic-node/commit/f40814b88c3b33895d136573b3935318f1a1edae))
+
 ## [0.24.7](https://github.com/lithic-com/lithic-node/compare/v0.24.6...v0.24.7) (2023-08-08)
 
 
