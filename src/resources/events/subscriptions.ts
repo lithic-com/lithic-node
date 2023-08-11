@@ -164,7 +164,10 @@ export class Subscriptions extends APIResource {
 }
 
 export interface SubscriptionRetrieveSecretResponse {
-  key?: string;
+  /**
+   * The secret for the event subscription.
+   */
+  secret?: string;
 }
 
 export interface SubscriptionCreateParams {
