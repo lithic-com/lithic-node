@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.26.0](https://github.com/lithic-com/lithic-node/compare/v0.25.0...v0.26.0) (2023-08-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** change `key` to `secret` ([#151](https://github.com/lithic-com/lithic-node/issues/151))
+
+### Features
+
+* allow a default timeout to be set for clients ([#153](https://github.com/lithic-com/lithic-node/issues/153)) ([cfcf540](https://github.com/lithic-com/lithic-node/commit/cfcf540c9aa2469db86d4d2955e572fa4077bc46))
+* **api:** change `key` to `secret` ([#151](https://github.com/lithic-com/lithic-node/issues/151)) ([cbdf6ff](https://github.com/lithic-com/lithic-node/commit/cbdf6ff24b7dac25c7adda0fc052b3621667a995))
+
+
+### Chores
+
+* assign default reviewers to release PRs ([#154](https://github.com/lithic-com/lithic-node/issues/154)) ([6f2d47c](https://github.com/lithic-com/lithic-node/commit/6f2d47c0a6a1fd8a1f599fc464e1b9b53987847d))
+* **client:** send Idempotency-Key header ([#157](https://github.com/lithic-com/lithic-node/issues/157)) ([c4cc591](https://github.com/lithic-com/lithic-node/commit/c4cc591b9936f348d528cc3ae202f340e08555d2))
+* **internal:** fix error happening in CloudFlare pages ([#155](https://github.com/lithic-com/lithic-node/issues/155)) ([e92275b](https://github.com/lithic-com/lithic-node/commit/e92275b077d6fe2d3c5b2112ac4fe12b40d95260))
+* **internal:** improve error message when option is missing ([#156](https://github.com/lithic-com/lithic-node/issues/156)) ([2b611e1](https://github.com/lithic-com/lithic-node/commit/2b611e107b4da4207c43dc0c53a8a64e6530d1ca))
+
 ## [0.25.0](https://github.com/lithic-com/lithic-node/compare/v0.24.7...v0.25.0) (2023-08-11)
 
 
