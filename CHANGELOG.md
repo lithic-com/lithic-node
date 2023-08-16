@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.26.1](https://github.com/lithic-com/lithic-node/compare/v0.26.0...v0.26.1) (2023-08-16)
+
+
+### Bug Fixes
+
+* **client:** fix TypeError when a request gets retried ([#159](https://github.com/lithic-com/lithic-node/issues/159)) ([2479a1d](https://github.com/lithic-com/lithic-node/commit/2479a1deca834002d8a1a23af1ef9abeb6ffd00b))
+
 ## [0.26.0](https://github.com/lithic-com/lithic-node/compare/v0.25.0...v0.26.0) (2023-08-15)
 
 
