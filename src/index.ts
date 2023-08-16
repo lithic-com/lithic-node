@@ -12,6 +12,7 @@ const environments = {
   production: 'https://api.lithic.com/v1',
   sandbox: 'https://sandbox.lithic.com/v1',
 };
+type Environment = keyof typeof environments;
 
 export interface ClientOptions {
   /**
@@ -26,7 +27,7 @@ export interface ClientOptions {
    * - `production` corresponds to `https://api.lithic.com/v1`
    * - `sandbox` corresponds to `https://sandbox.lithic.com/v1`
    */
-  environment?: keyof typeof environments;
+  environment?: Environment;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
@@ -85,13 +86,27 @@ export interface ClientOptions {
   webhookSecret?: string | null;
 }
 
-/** Instantiate the API Client. */
+/** API Client for interfacing with the Lithic API. */
 export class Lithic extends Core.APIClient {
   apiKey: string;
   webhookSecret?: string | null;
 
   private _options: ClientOptions;
 
+  /**
+   * API Client for interfacing with the Lithic API.
+   *
+   * @param {string} [opts.apiKey=process.env['LITHIC_API_KEY']] - The API Key to send to the API.
+   * @param {Environment} [opts.environment=production] - Specifies the environment URL to use for the API.
+   * @param {string} [opts.baseURL] - Override the default base URL for the API.
+   * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
+   * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
+   * @param {Core.Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
+   * @param {number} [opts.maxRetries=2] - The maximum number of times the client will retry a request.
+   * @param {Core.Headers} opts.defaultHeaders - Default headers to include with every request to the API.
+   * @param {Core.DefaultQuery} opts.defaultQuery - Default query parameters to include with every request to the API.
+   * @param {string | null} [opts.webhookSecret]
+   */
   constructor({
     apiKey = Core.readEnv('LITHIC_API_KEY'),
     webhookSecret = Core.readEnv('LITHIC_WEBHOOK_SECRET') ?? null,
