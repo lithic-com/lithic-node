@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.26.2](https://github.com/lithic-com/lithic-node/compare/v0.26.1...v0.26.2) (2023-08-17)
+
+
+### Features
+
+* **client:** improve compatibility with Bun ([#164](https://github.com/lithic-com/lithic-node/issues/164)) ([83be353](https://github.com/lithic-com/lithic-node/commit/83be353583a543e86ecec579d0cbdb6062a526ab))
+* **docs:** add documentation to the client constructor ([#162](https://github.com/lithic-com/lithic-node/issues/162)) ([085b3ce](https://github.com/lithic-com/lithic-node/commit/085b3ce5342f8cb96543902eafe8c673eb8df477))
+
 ## [0.26.1](https://github.com/lithic-com/lithic-node/compare/v0.26.0...v0.26.1) (2023-08-16)
 
 
