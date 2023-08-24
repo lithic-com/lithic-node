@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.26.3](https://github.com/lithic-com/lithic-node/compare/v0.26.2...v0.26.3) (2023-08-24)
+
+
+### Features
+
+* **types:** export RequestOptions type ([#171](https://github.com/lithic-com/lithic-node/issues/171)) ([23b17a5](https://github.com/lithic-com/lithic-node/commit/23b17a58c897b5cd4fed93bb1de346442ed8f94b))
+
+
+### Bug Fixes
+
+* **core:** fix navigator check for strange environments ([#169](https://github.com/lithic-com/lithic-node/issues/169)) ([2effb1e](https://github.com/lithic-com/lithic-node/commit/2effb1eacb6c83497f1c17c39d68e0bc3aa9bc85))
+
+
+### Chores
+
+* **internal:** add missing eslint-plugin-prettier ([#168](https://github.com/lithic-com/lithic-node/issues/168)) ([f633bec](https://github.com/lithic-com/lithic-node/commit/f633bec5e82a6096b4de9d6c11c4f47e6766b4fe))
+* **internal:** export HeadersInit type shim ([#172](https://github.com/lithic-com/lithic-node/issues/172)) ([7087a5e](https://github.com/lithic-com/lithic-node/commit/7087a5e1e7f2746da3e66385a70b09d7e5163f80))
+* **internal:** minor reformatting of code ([#166](https://github.com/lithic-com/lithic-node/issues/166)) ([4fe0f2e](https://github.com/lithic-com/lithic-node/commit/4fe0f2ee4d86cf3152b5bec1e3779902d9140f5b))
+
 ## [0.26.2](https://github.com/lithic-com/lithic-node/compare/v0.26.1...v0.26.2) (2023-08-17)
 
 
