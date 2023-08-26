@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.26.4](https://github.com/lithic-com/lithic-node/compare/v0.26.3...v0.26.4) (2023-08-26)
+
+
+### Chores
+
+* **internal:** add helper method ([#174](https://github.com/lithic-com/lithic-node/issues/174)) ([25c194d](https://github.com/lithic-com/lithic-node/commit/25c194d7fe600f4b96914b13b67f9db3b1c70ee4))
+
 ## [0.26.3](https://github.com/lithic-com/lithic-node/compare/v0.26.2...v0.26.3) (2023-08-24)
 
 
