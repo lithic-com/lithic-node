@@ -64,7 +64,7 @@ Methods:
 - <code title="post /auth_rules/{auth_rule_token}/apply">client.authRules.<a href="./src/resources/auth-rules.ts">apply</a>(authRuleToken, { ...params }) -> AuthRuleApplyResponse</code>
 - <code title="delete /auth_rules/remove">client.authRules.<a href="./src/resources/auth-rules.ts">remove</a>({ ...params }) -> AuthRuleRemoveResponse</code>
 
-# AuthStreamEnrollmentResource
+# AuthStreamEnrollment
 
 Types:
 
