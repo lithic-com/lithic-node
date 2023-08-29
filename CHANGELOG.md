@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.26.5 (2023-08-29)
+
+Full Changelog: [v0.26.4...v0.26.5](https://github.com/lithic-com/lithic-node/compare/v0.26.4...v0.26.5)
+
+### Bug Fixes
+
+* **types:** improve getNextPage() return type ([#180](https://github.com/lithic-com/lithic-node/issues/180)) ([4b62f59](https://github.com/lithic-com/lithic-node/commit/4b62f59005e623d6620e11ad0e65d4f94dadb1f7))
+
+
+### Chores
+
+* **ci:** setup workflows to create releases and release PRs ([#177](https://github.com/lithic-com/lithic-node/issues/177)) ([34892ee](https://github.com/lithic-com/lithic-node/commit/34892ee60338e1c941310bbb4917eae4d673cc98))
+
+
+### Documentation
+
+* **api.md:** improve names ([#181](https://github.com/lithic-com/lithic-node/issues/181)) ([b999542](https://github.com/lithic-com/lithic-node/commit/b999542a85f8d8684ccde9d464c645a8d6a9da0f))
+
 ## [0.26.4](https://github.com/lithic-com/lithic-node/compare/v0.26.3...v0.26.4) (2023-08-26)
 
 
