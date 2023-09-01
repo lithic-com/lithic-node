@@ -8,14 +8,14 @@ import { Page, PageParams } from 'lithic/pagination';
 
 export class Transactions extends APIResource {
   /**
-   * Get specific transaction.
+   * Get specific card transaction.
    */
   retrieve(transactionToken: string, options?: Core.RequestOptions): Core.APIPromise<Transaction> {
     return this.get(`/transactions/${transactionToken}`, options);
   }
 
   /**
-   * List transactions.
+   * List card transactions.
    */
   list(
     query?: TransactionListParams,

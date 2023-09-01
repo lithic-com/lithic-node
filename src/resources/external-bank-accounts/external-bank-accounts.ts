@@ -170,6 +170,8 @@ export interface ExternalBankAccountCreateResponse {
    * The nickname given to this record of External Bank Account
    */
   name?: string;
+
+  user_defined_id?: string;
 }
 
 export interface ExternalBankAccountRetrieveResponse {
@@ -251,6 +253,8 @@ export interface ExternalBankAccountRetrieveResponse {
    * The nickname given to this record of External Bank Account
    */
   name?: string;
+
+  user_defined_id?: string;
 }
 
 export interface ExternalBankAccountUpdateResponse {
@@ -332,6 +336,8 @@ export interface ExternalBankAccountUpdateResponse {
    * The nickname given to this record of External Bank Account
    */
   name?: string;
+
+  user_defined_id?: string;
 }
 
 export interface ExternalBankAccountListResponse {
@@ -413,6 +419,8 @@ export interface ExternalBankAccountListResponse {
    * The nickname given to this record of External Bank Account
    */
   name?: string;
+
+  user_defined_id?: string;
 }
 
 export type ExternalBankAccountCreateParams =
@@ -439,6 +447,8 @@ export namespace ExternalBankAccountCreateParams {
     dob?: string;
 
     doing_business_as?: string;
+
+    user_defined_id?: string;
   }
 
   export interface BankVerifiedCreateBankAccountAPIRequest {
@@ -477,6 +487,8 @@ export namespace ExternalBankAccountCreateParams {
 
     name?: string;
 
+    user_defined_id?: string;
+
     /**
      * Indicates whether verification was enforced for a given association record. For
      * MICRO_DEPOSIT, option to disable verification if the external bank account has
@@ -508,6 +520,8 @@ export interface ExternalBankAccountUpdateParams {
   owner?: string;
 
   owner_type?: OwnerType;
+
+  user_defined_id?: string;
 }
 
 export interface ExternalBankAccountListParams extends CursorPageParams {
