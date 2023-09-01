@@ -100,6 +100,8 @@ export interface MicroDepositCreateResponse {
    * The nickname given to this record of External Bank Account
    */
   name?: string;
+
+  user_defined_id?: string;
 }
 
 export interface MicroDepositCreateParams {

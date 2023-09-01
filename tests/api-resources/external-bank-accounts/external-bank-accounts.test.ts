@@ -32,6 +32,7 @@ describe('resource externalBankAccounts', () => {
       company_id: 'x',
       dob: '2019-12-27',
       doing_business_as: 'string',
+      user_defined_id: 'string',
     });
   });
 
