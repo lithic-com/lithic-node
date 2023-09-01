@@ -1,5 +1,5 @@
 import { multipartFormRequestOptions, createForm } from 'lithic/core';
-import { Blob } from 'lithic/_shims/formdata';
+import { Blob } from 'lithic/_shims/form-data';
 import { toFile } from 'lithic';
 
 describe('form data validation', () => {

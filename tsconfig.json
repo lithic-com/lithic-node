@@ -9,7 +9,7 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "lithic/_shims/*": ["src/_shims/*.node"],
+      "lithic/_shims/*": ["src/_shims/*-node"],
       "lithic": ["src/index.ts"],
       "lithic/*": ["src/*"],
       "digest-fetch": ["./typings/digest-fetch"]
