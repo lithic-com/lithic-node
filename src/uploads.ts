@@ -1,7 +1,7 @@
 import { type RequestOptions } from './core';
 import { type Readable } from 'lithic/_shims/node-readable';
 import { type BodyInit } from 'lithic/_shims/fetch';
-import { FormData, File, type Blob, type FilePropertyBag } from 'lithic/_shims/formdata';
+import { FormData, File, type Blob, type FilePropertyBag } from 'lithic/_shims/form-data';
 import { getMultipartRequestOptions } from 'lithic/_shims/getMultipartRequestOptions';
 import { fileFromPath } from 'lithic/_shims/fileFromPath';
 import { type FsReadStream, isFsReadStream } from 'lithic/_shims/node-readable';
