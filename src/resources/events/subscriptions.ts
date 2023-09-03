@@ -100,19 +100,19 @@ export class Subscriptions extends APIResource {
    */
   recover(
     eventSubscriptionToken: string,
-    body?: SubscriptionRecoverParams,
+    params?: SubscriptionRecoverParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<void>;
   recover(eventSubscriptionToken: string, options?: Core.RequestOptions): Core.APIPromise<void>;
   recover(
     eventSubscriptionToken: string,
-    body: SubscriptionRecoverParams | Core.RequestOptions = {},
+    params: SubscriptionRecoverParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<void> {
-    if (isRequestOptions(body)) {
-      return this.recover(eventSubscriptionToken, {}, body);
+    if (isRequestOptions(params)) {
+      return this.recover(eventSubscriptionToken, {}, params);
     }
-    const { begin, end } = body;
+    const { begin, end } = params;
     return this.post(`/event_subscriptions/${eventSubscriptionToken}/recover`, {
       query: { begin, end },
       ...options,
@@ -125,19 +125,19 @@ export class Subscriptions extends APIResource {
    */
   replayMissing(
     eventSubscriptionToken: string,
-    body?: SubscriptionReplayMissingParams,
+    params?: SubscriptionReplayMissingParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<void>;
   replayMissing(eventSubscriptionToken: string, options?: Core.RequestOptions): Core.APIPromise<void>;
   replayMissing(
     eventSubscriptionToken: string,
-    body: SubscriptionReplayMissingParams | Core.RequestOptions = {},
+    params: SubscriptionReplayMissingParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<void> {
-    if (isRequestOptions(body)) {
-      return this.replayMissing(eventSubscriptionToken, {}, body);
+    if (isRequestOptions(params)) {
+      return this.replayMissing(eventSubscriptionToken, {}, params);
     }
-    const { begin, end } = body;
+    const { begin, end } = params;
     return this.post(`/event_subscriptions/${eventSubscriptionToken}/replay_missing`, {
       query: { begin, end },
       ...options,
