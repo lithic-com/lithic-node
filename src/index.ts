@@ -121,8 +121,8 @@ export class Lithic extends Core.APIClient {
     const options: ClientOptions = {
       apiKey,
       webhookSecret,
-      environment: 'production',
       ...opts,
+      environment: opts.environment ?? 'production',
     };
 
     super({
