@@ -16,7 +16,7 @@ yarn add lithic
 
 ## Usage
 
-The full API of this library can be found in [api.md](https://www.github.com/lithic-com/lithic-node/blob/master/api.md).
+The full API of this library can be found in [api.md](https://www.github.com/lithic-com/lithic-node/blob/main/api.md).
 
 ```js
 import Lithic from 'lithic';
