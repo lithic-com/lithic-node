@@ -91,14 +91,14 @@ describe('resource externalBankAccounts', () => {
       lithic.externalBankAccounts.list(
         {
           account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          account_types: ['CHECKING', 'CHECKING', 'CHECKING'],
+          account_types: ['CHECKING', 'SAVINGS'],
           countries: ['string', 'string', 'string'],
           ending_before: 'string',
-          owner_types: ['INDIVIDUAL', 'INDIVIDUAL', 'INDIVIDUAL'],
+          owner_types: ['INDIVIDUAL', 'BUSINESS'],
           page_size: 1,
           starting_after: 'string',
-          states: ['ENABLED', 'ENABLED', 'ENABLED'],
-          verification_states: ['PENDING', 'PENDING', 'PENDING'],
+          states: ['ENABLED', 'CLOSED', 'PAUSED'],
+          verification_states: ['PENDING', 'ENABLED', 'FAILED_VERIFICATION'],
         },
         { path: '/_stainless_unknown_path' },
       ),
