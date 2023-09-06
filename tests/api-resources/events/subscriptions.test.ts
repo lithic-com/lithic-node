@@ -22,7 +22,7 @@ describe('resource subscriptions', () => {
       url: 'https://example.com',
       description: 'string',
       disabled: true,
-      event_types: ['card.created', 'card.created', 'card.created'],
+      event_types: ['card.created', 'card.shipped', 'card_transaction.updated'],
     });
   });
 
@@ -60,7 +60,7 @@ describe('resource subscriptions', () => {
       url: 'https://example.com',
       description: 'string',
       disabled: true,
-      event_types: ['card.created', 'card.created', 'card.created'],
+      event_types: ['card.created', 'card.shipped', 'card_transaction.updated'],
     });
   });
 
