@@ -60,7 +60,7 @@ export interface AuthenticationRetrieveResponse {
   /**
    * Channel in which the authentication occurs. Maps to EMV 3DS field deviceChannel.
    */
-  channel: 'APP_BASED' | 'BROWSER' | 'THREE_RI_REQUESTER_INITIATED';
+  channel: 'APP_BASED' | 'BROWSER' | 'THREE_DS_REQUESTOR_INITIATED';
 
   /**
    * Date and time when the authentication was created in Lithic's system.
