@@ -91,6 +91,17 @@ Methods:
 - <code title="get /tokenization_decisioning/secret">client.tokenizationDecisioning.<a href="./src/resources/tokenization-decisioning.ts">retrieveSecret</a>() -> TokenizationSecret</code>
 - <code title="post /tokenization_decisioning/secret/rotate">client.tokenizationDecisioning.<a href="./src/resources/tokenization-decisioning.ts">rotateSecret</a>() -> TokenizationDecisioningRotateSecretResponse</code>
 
+# Tokenizations
+
+Types:
+
+- <code><a href="./src/resources/tokenizations.ts">Tokenization</a></code>
+- <code><a href="./src/resources/tokenizations.ts">TokenizationSimulateResponse</a></code>
+
+Methods:
+
+- <code title="post /simulate/tokenizations">client.tokenizations.<a href="./src/resources/tokenizations.ts">simulate</a>({ ...params }) -> TokenizationSimulateResponse</code>
+
 # Cards
 
 Types:
