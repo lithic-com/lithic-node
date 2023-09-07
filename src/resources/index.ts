@@ -131,6 +131,12 @@ export {
 } from './responder-endpoints';
 export { ThreeDS } from './three-ds/three-ds';
 export {
+  Tokenization,
+  TokenizationSimulateResponse,
+  TokenizationSimulateParams,
+  Tokenizations,
+} from './tokenizations';
+export {
   TokenizationSecret,
   TokenizationDecisioningRotateSecretResponse,
   TokenizationDecisioning,

@@ -144,6 +144,7 @@ export class Lithic extends Core.APIClient {
   authRules: API.AuthRules = new API.AuthRules(this);
   authStreamEnrollment: API.AuthStreamEnrollmentResource = new API.AuthStreamEnrollmentResource(this);
   tokenizationDecisioning: API.TokenizationDecisioning = new API.TokenizationDecisioning(this);
+  tokenizations: API.Tokenizations = new API.Tokenizations(this);
   cards: API.Cards = new API.Cards(this);
   balances: API.Balances = new API.Balances(this);
   aggregateBalances: API.AggregateBalances = new API.AggregateBalances(this);
@@ -281,6 +282,11 @@ export namespace Lithic {
   export import TokenizationDecisioning = API.TokenizationDecisioning;
   export import TokenizationSecret = API.TokenizationSecret;
   export import TokenizationDecisioningRotateSecretResponse = API.TokenizationDecisioningRotateSecretResponse;
+
+  export import Tokenizations = API.Tokenizations;
+  export import Tokenization = API.Tokenization;
+  export import TokenizationSimulateResponse = API.TokenizationSimulateResponse;
+  export import TokenizationSimulateParams = API.TokenizationSimulateParams;
 
   export import Cards = API.Cards;
   export import Card = API.Card;
