@@ -392,10 +392,12 @@ export namespace Lithic {
   export import Payment = API.Payment;
   export import PaymentCreateResponse = API.PaymentCreateResponse;
   export import PaymentSimulateReleaseResponse = API.PaymentSimulateReleaseResponse;
+  export import PaymentSimulateReturnResponse = API.PaymentSimulateReturnResponse;
   export import PaymentsCursorPage = API.PaymentsCursorPage;
   export import PaymentCreateParams = API.PaymentCreateParams;
   export import PaymentListParams = API.PaymentListParams;
   export import PaymentSimulateReleaseParams = API.PaymentSimulateReleaseParams;
+  export import PaymentSimulateReturnParams = API.PaymentSimulateReturnParams;
 
   export import ThreeDS = API.ThreeDS;
 
