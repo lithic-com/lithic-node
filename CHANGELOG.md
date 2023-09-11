@@ -1,5 +1,38 @@
 # Changelog
 
+## 0.26.6 (2023-09-11)
+
+Full Changelog: [v0.26.5...v0.26.6](https://github.com/lithic-com/lithic-node/compare/v0.26.5...v0.26.6)
+
+### Features
+
+* **api:** add Simulate Return Payment endpoint ([#197](https://github.com/lithic-com/lithic-node/issues/197)) ([aa14a06](https://github.com/lithic-com/lithic-node/commit/aa14a06ba6120b4396873ed725e37bbf5ea08d44))
+* **api:** add tokenizations.simulate and correct typo'd enum  ([#194](https://github.com/lithic-com/lithic-node/issues/194)) ([f1dbedd](https://github.com/lithic-com/lithic-node/commit/f1dbedd8e578aa30c41f38ef4ee5c372784ce938))
+* **api:** add user defined id ([#186](https://github.com/lithic-com/lithic-node/issues/186)) ([8c481b0](https://github.com/lithic-com/lithic-node/commit/8c481b0d6b7c3370f71016340a87cbdbcd16e5ac))
+* fixes tests where an array has to have unique enum values ([#190](https://github.com/lithic-com/lithic-node/issues/190)) ([e01263e](https://github.com/lithic-com/lithic-node/commit/e01263e9226dcae3475a50871318a4bf7356be19))
+* **package:** add Bun export map ([#182](https://github.com/lithic-com/lithic-node/issues/182)) ([ef48557](https://github.com/lithic-com/lithic-node/commit/ef48557a10349db5742c867f11e0c6b5f1b6f716))
+
+
+### Bug Fixes
+
+* **client:** fix TS errors that appear when users Go to Source in VSCode ([#188](https://github.com/lithic-com/lithic-node/issues/188)) ([6e8ac02](https://github.com/lithic-com/lithic-node/commit/6e8ac02e4128696e866b0745cf702301f904f283))
+* **client:** handle case where the client is instantiated with a undefined baseURL ([#189](https://github.com/lithic-com/lithic-node/issues/189)) ([c212d5c](https://github.com/lithic-com/lithic-node/commit/c212d5c7158dd93ab5b959771e56bc34209bc056))
+* **client:** use explicit file extensions in _shims imports ([#185](https://github.com/lithic-com/lithic-node/issues/185)) ([9b4ef88](https://github.com/lithic-com/lithic-node/commit/9b4ef885e7694fe5146401f7d97afdfbabab9e34))
+* fix module not found errors in Vercel edge ([#196](https://github.com/lithic-com/lithic-node/issues/196)) ([404400c](https://github.com/lithic-com/lithic-node/commit/404400c50def4dd357cd93b36abc12e31e9e4b8a))
+* **readme:** update link to api.md to use the correct branch ([#192](https://github.com/lithic-com/lithic-node/issues/192)) ([d6e4a79](https://github.com/lithic-com/lithic-node/commit/d6e4a79d441f8cdbd2caca949086cddfdca77577))
+
+
+### Chores
+
+* **internal:** export helper from core ([#193](https://github.com/lithic-com/lithic-node/issues/193)) ([b50dc2f](https://github.com/lithic-com/lithic-node/commit/b50dc2fb29ed49349d75efb59c714116be009706))
+* **internal:** fix the names of method param objects ([#187](https://github.com/lithic-com/lithic-node/issues/187)) ([058538e](https://github.com/lithic-com/lithic-node/commit/058538e1ad8c9283063925a3f6a7324076c4eccc))
+* **internal:** minor formatting changes ([#195](https://github.com/lithic-com/lithic-node/issues/195)) ([4e26640](https://github.com/lithic-com/lithic-node/commit/4e26640dda01497aeeef2be354b7943ad54a55c7))
+
+
+### Documentation
+
+* **readme:** add link to api.md ([#191](https://github.com/lithic-com/lithic-node/issues/191)) ([8810055](https://github.com/lithic-com/lithic-node/commit/88100551fd10dd9361cb94681c9bef412226ef51))
+
 ## 0.26.5 (2023-08-29)
 
 Full Changelog: [v0.26.4...v0.26.5](https://github.com/lithic-com/lithic-node/compare/v0.26.4...v0.26.5)
