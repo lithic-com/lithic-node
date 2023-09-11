@@ -115,9 +115,11 @@ export {
   Payment,
   PaymentCreateResponse,
   PaymentSimulateReleaseResponse,
+  PaymentSimulateReturnResponse,
   PaymentCreateParams,
   PaymentListParams,
   PaymentSimulateReleaseParams,
+  PaymentSimulateReturnParams,
   PaymentsCursorPage,
   Payments,
 } from './payments';
