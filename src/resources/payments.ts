@@ -50,6 +50,16 @@ export class Payments extends APIResource {
   ): Core.APIPromise<PaymentSimulateReleaseResponse> {
     return this.post('/simulate/payments/release', { body, ...options });
   }
+
+  /**
+   * Simulates a return of a Payment.
+   */
+  simulateReturn(
+    body: PaymentSimulateReturnParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<PaymentSimulateReturnResponse> {
+    return this.post('/simulate/payments/return', { body, ...options });
+  }
 }
 
 export class PaymentsCursorPage extends CursorPage<Payment> {}
@@ -84,6 +94,14 @@ export interface PaymentCreateResponse extends Payment {
 }
 
 export interface PaymentSimulateReleaseResponse {
+  debugging_request_id?: string;
+
+  result?: 'APPROVED' | 'DECLINED';
+
+  transaction_event_token?: string;
+}
+
+export interface PaymentSimulateReturnResponse {
   debugging_request_id?: string;
 
   result?: 'APPROVED' | 'DECLINED';
@@ -129,12 +147,20 @@ export interface PaymentSimulateReleaseParams {
   payment_token: string;
 }
 
+export interface PaymentSimulateReturnParams {
+  payment_token: string;
+
+  return_reason_code?: string;
+}
+
 export namespace Payments {
   export import Payment = API.Payment;
   export import PaymentCreateResponse = API.PaymentCreateResponse;
   export import PaymentSimulateReleaseResponse = API.PaymentSimulateReleaseResponse;
+  export import PaymentSimulateReturnResponse = API.PaymentSimulateReturnResponse;
   export type PaymentsCursorPage = _PaymentsCursorPage;
   export import PaymentCreateParams = API.PaymentCreateParams;
   export import PaymentListParams = API.PaymentListParams;
   export import PaymentSimulateReleaseParams = API.PaymentSimulateReleaseParams;
+  export import PaymentSimulateReturnParams = API.PaymentSimulateReturnParams;
 }
