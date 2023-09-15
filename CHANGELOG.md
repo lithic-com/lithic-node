@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.26.7 (2023-09-15)
+
+Full Changelog: [v0.26.6...v0.26.7](https://github.com/lithic-com/lithic-node/compare/v0.26.6...v0.26.7)
+
+### Features
+
+* **client:** retry on 408 Request Timeout ([#200](https://github.com/lithic-com/lithic-node/issues/200)) ([177aac2](https://github.com/lithic-com/lithic-node/commit/177aac2041d2991fd2feaaa2a72ab1a3ac95fcfa))
+* **errors:** add status code to error message ([#204](https://github.com/lithic-com/lithic-node/issues/204)) ([161bac0](https://github.com/lithic-com/lithic-node/commit/161bac0176d76b057c21bc70744941d6c13d520f))
+
+
+### Documentation
+
+* declare Bun 1.0 officially supported ([#203](https://github.com/lithic-com/lithic-node/issues/203)) ([8c0bd7b](https://github.com/lithic-com/lithic-node/commit/8c0bd7be188d2fd44360192b21eed1db0c47d859))
+
 ## 0.26.6 (2023-09-11)
 
 Full Changelog: [v0.26.5...v0.26.6](https://github.com/lithic-com/lithic-node/compare/v0.26.5...v0.26.6)
