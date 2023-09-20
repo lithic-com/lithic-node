@@ -2,7 +2,7 @@
 
 [![NPM version](https://img.shields.io/npm/v/lithic.svg)](https://npmjs.org/package/lithic)
 
-This library provides convenient access to the Lithic Node REST API from server-side TypeScript or JavaScript.
+This library provides convenient access to the Lithic REST API from server-side TypeScript or JavaScript.
 
 The API documentation can be found [here](https://docs.lithic.com).
 
