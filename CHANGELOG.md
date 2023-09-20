@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.26.8 (2023-09-20)
+
+Full Changelog: [v0.26.7...v0.26.8](https://github.com/lithic-com/lithic-node/compare/v0.26.7...v0.26.8)
+
+### Features
+
+* **api:** add simulation endpoints, event types, fix transfer request AuthRule ([#208](https://github.com/lithic-com/lithic-node/issues/208)) ([871707e](https://github.com/lithic-com/lithic-node/commit/871707e4fc158019a835c253a8a0ea1eea17ed57))
+* **client:** support importing node or web shims manually ([#207](https://github.com/lithic-com/lithic-node/issues/207)) ([0f6a2c5](https://github.com/lithic-com/lithic-node/commit/0f6a2c509a92054cafb44c8eec00ff43906930be))
+
+
+### Documentation
+
+* **readme:** remove incorrect wording in opening ([#205](https://github.com/lithic-com/lithic-node/issues/205)) ([c51c676](https://github.com/lithic-com/lithic-node/commit/c51c676ac098525164719c71bcc4247b5af57627))
+
 ## 0.26.7 (2023-09-15)
 
 Full Changelog: [v0.26.6...v0.26.7](https://github.com/lithic-com/lithic-node/compare/v0.26.6...v0.26.7)
