@@ -3,7 +3,6 @@
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import * as Balances from 'lithic/resources/balances';
-import * as FinancialAccounts from 'lithic/resources/financial-accounts/index';
 import * as API from './index';
 
 export class Transfers extends APIResource {
@@ -196,14 +195,15 @@ export interface TransferCreateParams {
   amount: number;
 
   /**
-   * Financial Account
+   * Globally unique identifier for the financial account that will send the funds.
    */
-  from: FinancialAccounts.FinancialAccount;
+  from: string;
 
   /**
-   * Financial Account
+   * Globally unique identifier for the financial account that will receive the
+   * funds.
    */
-  to: FinancialAccounts.FinancialAccount;
+  to: string;
 
   /**
    * Optional descriptor for the transfer.

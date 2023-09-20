@@ -49,19 +49,16 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/auth-rules.ts">AuthRule</a></code>
-- <code><a href="./src/resources/auth-rules.ts">AuthRuleCreateResponse</a></code>
 - <code><a href="./src/resources/auth-rules.ts">AuthRuleRetrieveResponse</a></code>
-- <code><a href="./src/resources/auth-rules.ts">AuthRuleUpdateResponse</a></code>
-- <code><a href="./src/resources/auth-rules.ts">AuthRuleApplyResponse</a></code>
 - <code><a href="./src/resources/auth-rules.ts">AuthRuleRemoveResponse</a></code>
 
 Methods:
 
-- <code title="post /auth_rules">client.authRules.<a href="./src/resources/auth-rules.ts">create</a>({ ...params }) -> AuthRuleCreateResponse</code>
+- <code title="post /auth_rules">client.authRules.<a href="./src/resources/auth-rules.ts">create</a>({ ...params }) -> AuthRule</code>
 - <code title="get /auth_rules/{auth_rule_token}">client.authRules.<a href="./src/resources/auth-rules.ts">retrieve</a>(authRuleToken) -> AuthRuleRetrieveResponse</code>
-- <code title="put /auth_rules/{auth_rule_token}">client.authRules.<a href="./src/resources/auth-rules.ts">update</a>(authRuleToken, { ...params }) -> AuthRuleUpdateResponse</code>
+- <code title="put /auth_rules/{auth_rule_token}">client.authRules.<a href="./src/resources/auth-rules.ts">update</a>(authRuleToken, { ...params }) -> AuthRule</code>
 - <code title="get /auth_rules">client.authRules.<a href="./src/resources/auth-rules.ts">list</a>({ ...params }) -> AuthRulesPage</code>
-- <code title="post /auth_rules/{auth_rule_token}/apply">client.authRules.<a href="./src/resources/auth-rules.ts">apply</a>(authRuleToken, { ...params }) -> AuthRuleApplyResponse</code>
+- <code title="post /auth_rules/{auth_rule_token}/apply">client.authRules.<a href="./src/resources/auth-rules.ts">apply</a>(authRuleToken, { ...params }) -> AuthRule</code>
 - <code title="delete /auth_rules/remove">client.authRules.<a href="./src/resources/auth-rules.ts">remove</a>({ ...params }) -> AuthRuleRemoveResponse</code>
 
 # AuthStreamEnrollment
@@ -198,6 +195,7 @@ Methods:
 - <code title="post /event_subscriptions/{event_subscription_token}/replay_missing">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">replayMissing</a>(eventSubscriptionToken, { ...params }) -> void</code>
 - <code title="get /event_subscriptions/{event_subscription_token}/secret">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">retrieveSecret</a>(eventSubscriptionToken) -> SubscriptionRetrieveSecretResponse</code>
 - <code title="post /event_subscriptions/{event_subscription_token}/secret/rotate">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">rotateSecret</a>(eventSubscriptionToken) -> void</code>
+- <code title="post /simulate/event_subscriptions/{event_subscription_token}/send_example">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">sendSimulatedExample</a>(eventSubscriptionToken, { ...params }) -> void</code>
 
 # Transfers
 
@@ -332,10 +330,12 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/three-ds/authentication.ts">AuthenticationRetrieveResponse</a></code>
+- <code><a href="./src/resources/three-ds/authentication.ts">AuthenticationSimulateResponse</a></code>
 
 Methods:
 
 - <code title="get /three_ds_authentication/{three_ds_authentication_token}">client.threeDS.authentication.<a href="./src/resources/three-ds/authentication.ts">retrieve</a>(threeDSAuthenticationToken) -> AuthenticationRetrieveResponse</code>
+- <code title="post /three_ds_authentication/simulate">client.threeDS.authentication.<a href="./src/resources/three-ds/authentication.ts">simulate</a>({ ...params }) -> AuthenticationSimulateResponse</code>
 
 ## Decisioning
 

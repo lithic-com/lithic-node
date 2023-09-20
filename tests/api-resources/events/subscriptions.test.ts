@@ -249,4 +249,33 @@ describe('resource subscriptions', () => {
       lithic.events.subscriptions.rotateSecret('string', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
+
+  test('sendSimulatedExample', async () => {
+    const responsePromise = lithic.events.subscriptions.sendSimulatedExample('string');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('sendSimulatedExample: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      lithic.events.subscriptions.sendSimulatedExample('string', { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Lithic.NotFoundError);
+  });
+
+  test('sendSimulatedExample: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      lithic.events.subscriptions.sendSimulatedExample(
+        'string',
+        { event_type: 'card.created' },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Lithic.NotFoundError);
+  });
 });
