@@ -3,7 +3,7 @@
 import Lithic from 'lithic';
 import { APIUserAbortError } from 'lithic';
 import { Headers } from 'lithic/core';
-import { Response, fetch as defaultFetch, type RequestInit, type RequestInfo } from 'lithic/_shims/fetch';
+import defaultFetch, { Response, type RequestInit, type RequestInfo } from 'node-fetch';
 
 describe('instantiate client', () => {
   const env = process.env;

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { toFile, type ResponseLike } from 'lithic/uploads';
-import { File } from 'lithic/_shims/form-data';
+import { File } from 'lithic/_shims/index';
 
 class MyClass {
   name: string = 'foo';
