@@ -25,4 +25,27 @@ describe('resource authentication', () => {
       }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
+
+  test('simulate: only required params', async () => {
+    const responsePromise = lithic.threeDS.authentication.simulate({
+      merchant: { country: 'USA', mcc: '5812', id: 'OODKZAPJVN4YS7O', name: 'COFFEE SHOP' },
+      pan: '4111111289144142',
+      transaction: { amount: 0, currency: 'GBP' },
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('simulate: required and optional params', async () => {
+    const response = await lithic.threeDS.authentication.simulate({
+      merchant: { country: 'USA', mcc: '5812', id: 'OODKZAPJVN4YS7O', name: 'COFFEE SHOP' },
+      pan: '4111111289144142',
+      transaction: { amount: 0, currency: 'GBP' },
+    });
+  });
 });

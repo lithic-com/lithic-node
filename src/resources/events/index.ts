@@ -20,5 +20,6 @@ export {
   SubscriptionListAttemptsParams,
   SubscriptionRecoverParams,
   SubscriptionReplayMissingParams,
+  SubscriptionSendSimulatedExampleParams,
   Subscriptions,
 } from './subscriptions';

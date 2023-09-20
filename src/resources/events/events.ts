@@ -126,6 +126,8 @@ export interface Event {
     | 'digital_wallet.tokenization_result'
     | 'digital_wallet.tokenization_two_factor_authentication_code'
     | 'dispute.updated'
+    | 'dispute_evidence.upload_failed'
+    | 'three_ds_authentication.created'
     | 'payment_transaction.created'
     | 'payment_transaction.updated'
     | 'transfer_transaction.created';
@@ -160,6 +162,8 @@ export interface EventSubscription {
     | 'digital_wallet.tokenization_result'
     | 'digital_wallet.tokenization_two_factor_authentication_code'
     | 'dispute.updated'
+    | 'dispute_evidence.upload_failed'
+    | 'three_ds_authentication.created'
     | 'payment_transaction.created'
     | 'payment_transaction.updated'
     | 'transfer_transaction.created'
@@ -236,6 +240,8 @@ export interface EventListParams extends CursorPageParams {
     | 'digital_wallet.tokenization_result'
     | 'digital_wallet.tokenization_two_factor_authentication_code'
     | 'dispute.updated'
+    | 'dispute_evidence.upload_failed'
+    | 'three_ds_authentication.created'
     | 'payment_transaction.created'
     | 'payment_transaction.updated'
     | 'transfer_transaction.created'
@@ -315,4 +321,5 @@ export namespace Events {
   export import SubscriptionListAttemptsParams = API.SubscriptionListAttemptsParams;
   export import SubscriptionRecoverParams = API.SubscriptionRecoverParams;
   export import SubscriptionReplayMissingParams = API.SubscriptionReplayMissingParams;
+  export import SubscriptionSendSimulatedExampleParams = API.SubscriptionSendSimulatedExampleParams;
 }
