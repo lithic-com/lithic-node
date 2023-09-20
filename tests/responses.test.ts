@@ -1,5 +1,5 @@
 import { createResponseHeaders } from 'lithic/core';
-import { Headers } from 'lithic/_shims/fetch';
+import { Headers } from 'lithic/_shims/index';
 
 describe('response parsing', () => {
   // TODO: test unicode characters

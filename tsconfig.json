@@ -1,6 +1,6 @@
 {
   "include": ["src", "tests", "examples"],
-  "exclude": ["src/_shims/*.deno.ts"],
+  "exclude": ["src/_shims/**/*-deno.ts"],
   "compilerOptions": {
     "target": "es2019",
     "lib": ["es2020"],
@@ -9,9 +9,9 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "lithic/_shims/*": ["src/_shims/*-node"],
-      "lithic": ["src/index.ts"],
+      "lithic/_shims/auto/*": ["src/_shims/auto/*-node"],
       "lithic/*": ["src/*"],
+      "lithic": ["src/index.ts"],
       "digest-fetch": ["./typings/digest-fetch"]
     },
     "noEmit": true,
