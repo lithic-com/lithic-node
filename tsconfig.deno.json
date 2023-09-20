@@ -6,9 +6,9 @@
     "rootDir": "./deno",
     "lib": ["es2020", "DOM"],
     "paths": {
-      "lithic/_shims/*": ["deno/_shims/*"],
-      "lithic": ["deno/index.ts"],
+      "lithic/_shims/auto/*": ["deno/_shims/auto/*-deno"],
       "lithic/*": ["deno/*"],
+      "lithic": ["deno/index.ts"],
       "digest-fetch": ["./typings/digest-fetch"]
     },
     "noEmit": true,
