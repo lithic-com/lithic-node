@@ -262,10 +262,7 @@ export namespace Lithic {
 
   export import AuthRules = API.AuthRules;
   export import AuthRule = API.AuthRule;
-  export import AuthRuleCreateResponse = API.AuthRuleCreateResponse;
   export import AuthRuleRetrieveResponse = API.AuthRuleRetrieveResponse;
-  export import AuthRuleUpdateResponse = API.AuthRuleUpdateResponse;
-  export import AuthRuleApplyResponse = API.AuthRuleApplyResponse;
   export import AuthRuleRemoveResponse = API.AuthRuleRemoveResponse;
   export import AuthRulesPage = API.AuthRulesPage;
   export import AuthRuleCreateParams = API.AuthRuleCreateParams;

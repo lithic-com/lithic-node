@@ -161,6 +161,29 @@ export class Subscriptions extends APIResource {
   rotateSecret(eventSubscriptionToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
     return this.post(`/event_subscriptions/${eventSubscriptionToken}/secret/rotate`, options);
   }
+
+  /**
+   * Send an example message for event.
+   */
+  sendSimulatedExample(
+    eventSubscriptionToken: string,
+    body?: SubscriptionSendSimulatedExampleParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<void>;
+  sendSimulatedExample(eventSubscriptionToken: string, options?: Core.RequestOptions): Core.APIPromise<void>;
+  sendSimulatedExample(
+    eventSubscriptionToken: string,
+    body: SubscriptionSendSimulatedExampleParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<void> {
+    if (isRequestOptions(body)) {
+      return this.sendSimulatedExample(eventSubscriptionToken, {}, body);
+    }
+    return this.post(`/simulate/event_subscriptions/${eventSubscriptionToken}/send_example`, {
+      body,
+      ...options,
+    });
+  }
 }
 
 export interface SubscriptionRetrieveSecretResponse {
@@ -198,6 +221,8 @@ export interface SubscriptionCreateParams {
     | 'digital_wallet.tokenization_result'
     | 'digital_wallet.tokenization_two_factor_authentication_code'
     | 'dispute.updated'
+    | 'dispute_evidence.upload_failed'
+    | 'three_ds_authentication.created'
     | 'payment_transaction.created'
     | 'payment_transaction.updated'
     | 'transfer_transaction.created'
@@ -232,6 +257,8 @@ export interface SubscriptionUpdateParams {
     | 'digital_wallet.tokenization_result'
     | 'digital_wallet.tokenization_two_factor_authentication_code'
     | 'dispute.updated'
+    | 'dispute_evidence.upload_failed'
+    | 'three_ds_authentication.created'
     | 'payment_transaction.created'
     | 'payment_transaction.updated'
     | 'transfer_transaction.created'
@@ -284,6 +311,25 @@ export interface SubscriptionReplayMissingParams {
   end?: string;
 }
 
+export interface SubscriptionSendSimulatedExampleParams {
+  /**
+   * Event type to send example message for.
+   */
+  event_type?:
+    | 'card.created'
+    | 'card.shipped'
+    | 'card_transaction.updated'
+    | 'digital_wallet.tokenization_approval_request'
+    | 'digital_wallet.tokenization_result'
+    | 'digital_wallet.tokenization_two_factor_authentication_code'
+    | 'dispute.updated'
+    | 'dispute_evidence.upload_failed'
+    | 'three_ds_authentication.created'
+    | 'payment_transaction.created'
+    | 'payment_transaction.updated'
+    | 'transfer_transaction.created';
+}
+
 export namespace Subscriptions {
   export import SubscriptionRetrieveSecretResponse = API.SubscriptionRetrieveSecretResponse;
   export import SubscriptionCreateParams = API.SubscriptionCreateParams;
@@ -292,6 +338,7 @@ export namespace Subscriptions {
   export import SubscriptionListAttemptsParams = API.SubscriptionListAttemptsParams;
   export import SubscriptionRecoverParams = API.SubscriptionRecoverParams;
   export import SubscriptionReplayMissingParams = API.SubscriptionReplayMissingParams;
+  export import SubscriptionSendSimulatedExampleParams = API.SubscriptionSendSimulatedExampleParams;
 }
 
 export { EventSubscriptionsCursorPage, MessageAttemptsCursorPage };

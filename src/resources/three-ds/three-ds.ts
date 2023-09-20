@@ -13,6 +13,8 @@ export class ThreeDS extends APIResource {
 export namespace ThreeDS {
   export import Authentication = API.Authentication;
   export import AuthenticationRetrieveResponse = API.AuthenticationRetrieveResponse;
+  export import AuthenticationSimulateResponse = API.AuthenticationSimulateResponse;
+  export import AuthenticationSimulateParams = API.AuthenticationSimulateParams;
 
   export import Decisioning = API.Decisioning;
   export import DecisioningRetrieveSecretResponse = API.DecisioningRetrieveSecretResponse;

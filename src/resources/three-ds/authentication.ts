@@ -14,6 +14,19 @@ export class Authentication extends APIResource {
   ): Core.APIPromise<AuthenticationRetrieveResponse> {
     return this.get(`/three_ds_authentication/${threeDSAuthenticationToken}`, options);
   }
+
+  /**
+   * Simulates a 3DS authentication request from the payment network as if it came
+   * from an ACS. If you're configured for 3DS Customer Decisioning, simulating
+   * authentications requires your customer decisioning endpoint to be set up
+   * properly (respond with a valid JSON).
+   */
+  simulate(
+    body: AuthenticationSimulateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<AuthenticationSimulateResponse> {
+    return this.post('/three_ds_authentication/simulate', { body, ...options });
+  }
 }
 
 export interface AuthenticationRetrieveResponse {
@@ -504,6 +517,72 @@ export namespace AuthenticationRetrieveResponse {
   }
 }
 
+export interface AuthenticationSimulateResponse {
+  /**
+   * A unique token to reference this transaction with later calls to void or clear
+   * the authorization.
+   */
+  token?: string;
+
+  /**
+   * Debugging request ID to share with Lithic Support team.
+   */
+  debugging_request_id?: string;
+}
+
+export interface AuthenticationSimulateParams {
+  merchant: AuthenticationSimulateParams.Merchant;
+
+  /**
+   * Sixteen digit card number.
+   */
+  pan: string;
+
+  transaction: AuthenticationSimulateParams.Transaction;
+}
+
+export namespace AuthenticationSimulateParams {
+  export interface Merchant {
+    /**
+     * Unique identifier to identify the payment card acceptor. Corresponds to
+     * `merchant_acceptor_id` in authorization.
+     */
+    id: string;
+
+    /**
+     * Country of the address provided by the cardholder in ISO 3166-1 alpha-3 format
+     * (e.g. USA)
+     */
+    country: string;
+
+    /**
+     * Merchant category code for the transaction to be simulated. A four-digit number
+     * listed in ISO 18245. Supported merchant category codes can be found
+     * [here](https://docs.lithic.com/docs/transactions#merchant-category-codes-mccs).
+     */
+    mcc: string;
+
+    /**
+     * Merchant descriptor, corresponds to `descriptor` in authorization.
+     */
+    name: string;
+  }
+
+  export interface Transaction {
+    /**
+     * Amount (in cents) to authenticate.
+     */
+    amount: number;
+
+    /**
+     * 3-digit alphabetic ISO 4217 currency code.
+     */
+    currency: string;
+  }
+}
+
 export namespace Authentication {
   export import AuthenticationRetrieveResponse = API.AuthenticationRetrieveResponse;
+  export import AuthenticationSimulateResponse = API.AuthenticationSimulateResponse;
+  export import AuthenticationSimulateParams = API.AuthenticationSimulateParams;
 }

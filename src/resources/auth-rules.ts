@@ -11,7 +11,7 @@ export class AuthRules extends APIResource {
    * Creates an authorization rule (Auth Rule) and applies it at the program,
    * account, or card level.
    */
-  create(body: AuthRuleCreateParams, options?: Core.RequestOptions): Core.APIPromise<AuthRuleCreateResponse> {
+  create(body: AuthRuleCreateParams, options?: Core.RequestOptions): Core.APIPromise<AuthRule> {
     return this.post('/auth_rules', { body, ...options });
   }
 
@@ -31,7 +31,7 @@ export class AuthRules extends APIResource {
     authRuleToken: string,
     body: AuthRuleUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<AuthRuleUpdateResponse> {
+  ): Core.APIPromise<AuthRule> {
     return this.put(`/auth_rules/${authRuleToken}`, { body, ...options });
   }
 
@@ -58,7 +58,7 @@ export class AuthRules extends APIResource {
     authRuleToken: string,
     body: AuthRuleApplyParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<AuthRuleApplyResponse> {
+  ): Core.APIPromise<AuthRule> {
     return this.post(`/auth_rules/${authRuleToken}/apply`, { body, ...options });
   }
 
@@ -128,20 +128,8 @@ export interface AuthRule {
   state?: 'ACTIVE' | 'INACTIVE';
 }
 
-export interface AuthRuleCreateResponse {
-  data?: AuthRule;
-}
-
 export interface AuthRuleRetrieveResponse {
   data?: Array<AuthRule>;
-}
-
-export interface AuthRuleUpdateResponse {
-  data?: AuthRule;
-}
-
-export interface AuthRuleApplyResponse {
-  data?: AuthRule;
 }
 
 export interface AuthRuleRemoveResponse {
@@ -268,10 +256,7 @@ export interface AuthRuleRemoveParams {
 
 export namespace AuthRules {
   export import AuthRule = API.AuthRule;
-  export import AuthRuleCreateResponse = API.AuthRuleCreateResponse;
   export import AuthRuleRetrieveResponse = API.AuthRuleRetrieveResponse;
-  export import AuthRuleUpdateResponse = API.AuthRuleUpdateResponse;
-  export import AuthRuleApplyResponse = API.AuthRuleApplyResponse;
   export import AuthRuleRemoveResponse = API.AuthRuleRemoveResponse;
   export type AuthRulesPage = _AuthRulesPage;
   export import AuthRuleCreateParams = API.AuthRuleCreateParams;
