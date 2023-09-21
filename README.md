@@ -211,9 +211,9 @@ const response = await lithic.cards.create({ type: 'SINGLE_USE' }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: cards, response: raw } = await lithic.cards.create({ type: 'SINGLE_USE' }).withResponse();
+const { data: card, response: raw } = await lithic.cards.create({ type: 'SINGLE_USE' }).withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(cards.token);
+console.log(card.token);
 ```
 
 ## Configuring an HTTP(S) Agent (e.g., for proxies)
