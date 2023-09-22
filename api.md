@@ -8,6 +8,14 @@ Methods:
 
 - <code title="get /status">client.<a href="./src/index.ts">apiStatus</a>() -> APIStatus</code>
 
+# Shared
+
+Types:
+
+- <code><a href="./src/resources/shared.ts">Address</a></code>
+- <code><a href="./src/resources/shared.ts">Carrier</a></code>
+- <code><a href="./src/resources/shared.ts">ShippingAddress</a></code>
+
 # Accounts
 
 Types:
