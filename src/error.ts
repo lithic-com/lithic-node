@@ -2,7 +2,9 @@
 
 import { castToError, Headers } from './core';
 
-export class APIError extends Error {
+export class LithicError extends Error {}
+
+export class APIError extends LithicError {
   readonly status: number | undefined;
   readonly headers: Headers | undefined;
   readonly error: Object | undefined;

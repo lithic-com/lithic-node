@@ -113,7 +113,7 @@ export class Lithic extends Core.APIClient {
     ...opts
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
-      throw new Error(
+      throw new Errors.LithicError(
         "The LITHIC_API_KEY environment variable is missing or empty; either provide it, or instantiate the Lithic client with an apiKey option, like new Lithic({ apiKey: 'my apiKey' }).",
       );
     }
@@ -187,6 +187,7 @@ export class Lithic extends Core.APIClient {
 
   static Lithic = this;
 
+  static LithicError = Errors.LithicError;
   static APIError = Errors.APIError;
   static APIConnectionError = Errors.APIConnectionError;
   static APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
@@ -202,6 +203,7 @@ export class Lithic extends Core.APIClient {
 }
 
 export const {
+  LithicError,
   APIError,
   APIConnectionError,
   APIConnectionTimeoutError,
