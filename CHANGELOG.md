@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.26.9 (2023-09-25)
+
+Full Changelog: [v0.26.8...v0.26.9](https://github.com/lithic-com/lithic-node/compare/v0.26.8...v0.26.9)
+
+### Features
+
+* **client:** handle retry-after with a date ([#213](https://github.com/lithic-com/lithic-node/issues/213)) ([53eb832](https://github.com/lithic-com/lithic-node/commit/53eb832e403bcd6ccf1820f66ecd47b44b8aad3f))
+* **package:** export a root error type ([#212](https://github.com/lithic-com/lithic-node/issues/212)) ([78f89c1](https://github.com/lithic-com/lithic-node/commit/78f89c1b8ff5bf7e521c178da7af8abb2b466963))
+
+
+### Documentation
+
+* **api.md:** add shared models ([#211](https://github.com/lithic-com/lithic-node/issues/211)) ([bd02f27](https://github.com/lithic-com/lithic-node/commit/bd02f27a3126ffa6ccaee90b71c7c0a5b3301af5))
+* **README:** fix variable names in some examples ([#209](https://github.com/lithic-com/lithic-node/issues/209)) ([4b28d0d](https://github.com/lithic-com/lithic-node/commit/4b28d0dcac8ab512eaff022608da00bdb74459d3))
+
 ## 0.26.8 (2023-09-20)
 
 Full Changelog: [v0.26.7...v0.26.8](https://github.com/lithic-com/lithic-node/compare/v0.26.7...v0.26.8)
