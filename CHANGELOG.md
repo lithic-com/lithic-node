@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.27.0 (2023-09-29)
+
+Full Changelog: [v0.26.9...v0.27.0](https://github.com/lithic-com/lithic-node/compare/v0.26.9...v0.27.0)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** remove `post /webhooks/account_holders` endpoint ([#214](https://github.com/lithic-com/lithic-node/issues/214))
+
+### Refactors
+
+* **api:** remove `post /webhooks/account_holders` endpoint ([#214](https://github.com/lithic-com/lithic-node/issues/214)) ([b9191ae](https://github.com/lithic-com/lithic-node/commit/b9191aec3803ba64c7787a1486926502d03b3f45))
+
 ## 0.26.9 (2023-09-25)
 
 Full Changelog: [v0.26.8...v0.26.9](https://github.com/lithic-com/lithic-node/compare/v0.26.8...v0.26.9)
