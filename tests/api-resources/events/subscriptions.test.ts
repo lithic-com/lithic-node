@@ -22,7 +22,7 @@ describe('resource subscriptions', () => {
       url: 'https://example.com',
       description: 'string',
       disabled: true,
-      event_types: ['card.created', 'card.shipped', 'card_transaction.updated'],
+      event_types: ['account_holder.created', 'account_holder.updated', 'account_holder.verification'],
     });
   });
 
@@ -60,7 +60,7 @@ describe('resource subscriptions', () => {
       url: 'https://example.com',
       description: 'string',
       disabled: true,
-      event_types: ['card.created', 'card.shipped', 'card_transaction.updated'],
+      event_types: ['account_holder.created', 'account_holder.updated', 'account_holder.verification'],
     });
   });
 
@@ -273,7 +273,7 @@ describe('resource subscriptions', () => {
     await expect(
       lithic.events.subscriptions.sendSimulatedExample(
         'string',
-        { event_type: 'card.created' },
+        { event_type: 'account_holder.created' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Lithic.NotFoundError);

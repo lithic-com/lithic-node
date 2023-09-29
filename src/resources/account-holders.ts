@@ -39,29 +39,6 @@ export class AccountHolders extends APIResource {
   }
 
   /**
-   * Create a webhook to receive KYC or KYB evaluation events.
-   *
-   * There are two types of account holder webhooks:
-   *
-   * - `verification`: Webhook sent when the status of a KYC or KYB evaluation
-   *   changes from `PENDING_DOCUMENT` (KYC) or `PENDING` (KYB) to `ACCEPTED` or
-   *   `REJECTED`.
-   * - `document_upload_front`/`document_upload_back`: Webhook sent when a document
-   *   upload fails.
-   *
-   * After a webhook has been created, this endpoint can be used to rotate a webhooks
-   * HMAC token or modify the registered URL. Only a single webhook is allowed per
-   * program. Since HMAC verification is available, the IP addresses from which
-   * KYC/KYB webhooks are sent are subject to change.
-   */
-  createWebhook(
-    body: AccountHolderCreateWebhookParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<AccountHolderCreateWebhookResponse> {
-    return this.post('/webhooks/account_holders', { body, ...options });
-  }
-
-  /**
    * Retrieve the status of account holder document uploads, or retrieve the upload
    * URLs to process your image uploads.
    *
@@ -168,6 +145,18 @@ export interface AccountHolder {
   account_token?: string;
 
   /**
+   * Only present when user_type == "BUSINESS". List of all entities with >25%
+   * ownership in the company.
+   */
+  beneficial_owner_entities?: Array<AccountHolder.BeneficialOwnerEntity>;
+
+  /**
+   * Only present when user_type == "BUSINESS". List of all individuals with >25%
+   * ownership in the company.
+   */
+  beneficial_owner_individuals?: Array<AccountHolder.BeneficialOwnerIndividual>;
+
+  /**
    * Only applicable for customers using the KYC-Exempt workflow to enroll authorized
    * users of businesses. Pass the account_token of the enrolled business associated
    * with the AUTHORIZED_USER in this field.
@@ -175,15 +164,72 @@ export interface AccountHolder {
   business_account_token?: string;
 
   /**
-   * KYC and KYB evaluation states.
+   * Only present when user_type == "BUSINESS". Information about the business for
+   * which the account is being opened and KYB is being run.
+   */
+  business_entity?: AccountHolder.BusinessEntity;
+
+  /**
+   * Information about an individual associated with an account holder. A subset of
+   * the information provided via KYC. For example, we do not return the government
+   * id.
+   */
+  control_person?: AccountHolder.ControlPerson;
+
+  /**
+   * Timestamp of when the account holder was created.
+   */
+  created?: string;
+
+  /**
+   * < Deprecated. Use control_person.email when user_type == "BUSINESS". Use
+   * individual.phone_number when user_type == "INDIVIDUAL".
    *
-   * Note: `PENDING_RESUBMIT` and `PENDING_DOCUMENT` are only applicable for the
-   * `ADVANCED` workflow.
+   * > Primary email of Account Holder.
+   */
+  email?: string;
+
+  /**
+   * The type of KYC exemption for a KYC-Exempt Account Holder.
+   */
+  exemption_type?: 'AUTHORIZED_USER' | 'PREPAID_CARD_USER';
+
+  /**
+   * Customer-provided token that indicates a relationship with an object outside of
+   * the Lithic ecosystem.
+   */
+  external_id?: string;
+
+  /**
+   * Only present when user_type == "INDIVIDUAL". Information about the individual
+   * for which the account is being opened and KYC is being run.
+   */
+  individual?: AccountHolder.Individual;
+
+  /**
+   * Only present when user_type == "BUSINESS". User-submitted description of the
+   * business.
+   */
+  nature_of_business?: string;
+
+  /**
+   * < Deprecated. Use control_person.phone_number when user_type == "BUSINESS". Use
+   * individual.phone_number when user_type == "INDIVIDUAL".
+   *
+   * > Primary phone of Account Holder, entered in E.164 format.
+   */
+  phone_number?: string;
+
+  /**
+   * <Deprecated. Use verification_application.status instead> KYC and KYB evaluation
+   * states. Note: `PENDING_RESUBMIT` and `PENDING_DOCUMENT` are only applicable for
+   * the `ADVANCED` workflow.
    */
   status?: 'ACCEPTED' | 'REJECTED' | 'PENDING_RESUBMIT' | 'PENDING_DOCUMENT';
 
   /**
-   * Reason for the evaluation status.
+   * <Deprecated. Use verification_application.status_reasons> Reason for the
+   * evaluation status.
    */
   status_reasons?: Array<
     | 'ADDRESS_VERIFICATION_FAILURE'
@@ -198,6 +244,252 @@ export interface AccountHolder {
     | 'RISK_THRESHOLD_FAILURE'
     | 'WATCHLIST_ALERT_FAILURE'
   >;
+
+  /**
+   * The type of Account Holder. If the type is "INDIVIDUAL", the "individual"
+   * attribute will be present. If the type is "BUSINESS" then the "business_entity",
+   * "control_person", "beneficial_owner_individuals", "beneficial_owner_entities",
+   * "nature_of_business", and "website_url" attributes will be present.
+   */
+  user_type?: 'BUSINESS' | 'INDIVIDUAL';
+
+  /**
+   * Information about the most recent identity verification attempt
+   */
+  verification_application?: AccountHolder.VerificationApplication;
+
+  /**
+   * Only present when user_type == "BUSINESS". Business's primary website.
+   */
+  website_url?: string;
+}
+
+export namespace AccountHolder {
+  export interface BeneficialOwnerEntity {
+    /**
+     * Business's physical address - PO boxes, UPS drops, and FedEx drops are not
+     * acceptable; APO/FPO are acceptable.
+     */
+    address: Shared.Address;
+
+    /**
+     * Government-issued identification number. US Federal Employer Identification
+     * Numbers (EIN) are currently supported, entered as full nine-digits, with or
+     * without hyphens.
+     */
+    government_id: string;
+
+    /**
+     * Legal (formal) business name.
+     */
+    legal_business_name: string;
+
+    /**
+     * One or more of the business's phone number(s), entered as a list in E.164
+     * format.
+     */
+    phone_numbers: Array<string>;
+
+    /**
+     * Any name that the business operates under that is not its legal business name
+     * (if applicable).
+     */
+    dba_business_name?: string;
+
+    /**
+     * Parent company name (if applicable).
+     */
+    parent_company?: string;
+  }
+
+  /**
+   * Information about an individual associated with an account holder. A subset of
+   * the information provided via KYC. For example, we do not return the government
+   * id.
+   */
+  export interface BeneficialOwnerIndividual {
+    /**
+     * Individual's current address
+     */
+    address?: Shared.Address;
+
+    /**
+     * Individual's date of birth, as an RFC 3339 date.
+     */
+    dob?: string;
+
+    /**
+     * Individual's email address.
+     */
+    email?: string;
+
+    /**
+     * Individual's first name, as it appears on government-issued identity documents.
+     */
+    first_name?: string;
+
+    /**
+     * Individual's last name, as it appears on government-issued identity documents.
+     */
+    last_name?: string;
+
+    /**
+     * Individual's phone number, entered in E.164 format.
+     */
+    phone_number?: string;
+  }
+
+  /**
+   * Only present when user_type == "BUSINESS". Information about the business for
+   * which the account is being opened and KYB is being run.
+   */
+  export interface BusinessEntity {
+    /**
+     * Business's physical address - PO boxes, UPS drops, and FedEx drops are not
+     * acceptable; APO/FPO are acceptable.
+     */
+    address: Shared.Address;
+
+    /**
+     * Government-issued identification number. US Federal Employer Identification
+     * Numbers (EIN) are currently supported, entered as full nine-digits, with or
+     * without hyphens.
+     */
+    government_id: string;
+
+    /**
+     * Legal (formal) business name.
+     */
+    legal_business_name: string;
+
+    /**
+     * One or more of the business's phone number(s), entered as a list in E.164
+     * format.
+     */
+    phone_numbers: Array<string>;
+
+    /**
+     * Any name that the business operates under that is not its legal business name
+     * (if applicable).
+     */
+    dba_business_name?: string;
+
+    /**
+     * Parent company name (if applicable).
+     */
+    parent_company?: string;
+  }
+
+  /**
+   * Information about an individual associated with an account holder. A subset of
+   * the information provided via KYC. For example, we do not return the government
+   * id.
+   */
+  export interface ControlPerson {
+    /**
+     * Individual's current address
+     */
+    address?: Shared.Address;
+
+    /**
+     * Individual's date of birth, as an RFC 3339 date.
+     */
+    dob?: string;
+
+    /**
+     * Individual's email address.
+     */
+    email?: string;
+
+    /**
+     * Individual's first name, as it appears on government-issued identity documents.
+     */
+    first_name?: string;
+
+    /**
+     * Individual's last name, as it appears on government-issued identity documents.
+     */
+    last_name?: string;
+
+    /**
+     * Individual's phone number, entered in E.164 format.
+     */
+    phone_number?: string;
+  }
+
+  /**
+   * Only present when user_type == "INDIVIDUAL". Information about the individual
+   * for which the account is being opened and KYC is being run.
+   */
+  export interface Individual {
+    /**
+     * Individual's current address
+     */
+    address?: Shared.Address;
+
+    /**
+     * Individual's date of birth, as an RFC 3339 date.
+     */
+    dob?: string;
+
+    /**
+     * Individual's email address.
+     */
+    email?: string;
+
+    /**
+     * Individual's first name, as it appears on government-issued identity documents.
+     */
+    first_name?: string;
+
+    /**
+     * Individual's last name, as it appears on government-issued identity documents.
+     */
+    last_name?: string;
+
+    /**
+     * Individual's phone number, entered in E.164 format.
+     */
+    phone_number?: string;
+  }
+
+  /**
+   * Information about the most recent identity verification attempt
+   */
+  export interface VerificationApplication {
+    /**
+     * Timestamp of when the application was created.
+     */
+    created?: string;
+
+    /**
+     * KYC and KYB evaluation states. Note: `PENDING_RESUBMIT` and `PENDING_DOCUMENT`
+     * are only applicable for the `ADVANCED` workflow.
+     */
+    status?: 'ACCEPTED' | 'REJECTED' | 'PENDING_RESUBMIT' | 'PENDING_DOCUMENT';
+
+    /**
+     * Reason for the evaluation status.
+     */
+    status_reasons?: Array<
+      | 'ADDRESS_VERIFICATION_FAILURE'
+      | 'AGE_THRESHOLD_FAILURE'
+      | 'COMPLETE_VERIFICATION_FAILURE'
+      | 'DOB_VERIFICATION_FAILURE'
+      | 'ID_VERIFICATION_FAILURE'
+      | 'MAX_DOCUMENT_ATTEMPTS'
+      | 'MAX_RESUBMISSION_ATTEMPTS'
+      | 'NAME_VERIFICATION_FAILURE'
+      | 'OTHER_VERIFICATION_FAILURE'
+      | 'RISK_THRESHOLD_FAILURE'
+      | 'WATCHLIST_ALERT_FAILURE'
+    >;
+
+    /**
+     * Timestamp of when the application was last updated.
+     */
+    updated?: string;
+  }
 }
 
 /**
@@ -650,20 +942,6 @@ export interface AccountHolderUpdateResponse {
   phone_number?: string;
 }
 
-export interface AccountHolderCreateWebhookResponse {
-  data?: AccountHolderCreateWebhookResponse.Data;
-}
-
-export namespace AccountHolderCreateWebhookResponse {
-  export interface Data {
-    /**
-     * Shared secret which can optionally be used to validate the authenticity of
-     * incoming identity webhooks.
-     */
-    hmac_token?: string;
-  }
-}
-
 export interface AccountHolderListDocumentsResponse {
   data?: Array<AccountHolderDocument>;
 }
@@ -1066,13 +1344,6 @@ export interface AccountHolderUpdateParams {
   phone_number?: string;
 }
 
-export interface AccountHolderCreateWebhookParams {
-  /**
-   * URL to receive webhook requests. Must be a valid HTTPS address.
-   */
-  url: string;
-}
-
 export interface AccountHolderResubmitParams {
   /**
    * Information on individual for whom the account is being opened and KYC is being
@@ -1152,11 +1423,9 @@ export namespace AccountHolders {
   export import KYC = API.KYC;
   export import KYCExempt = API.KYCExempt;
   export import AccountHolderUpdateResponse = API.AccountHolderUpdateResponse;
-  export import AccountHolderCreateWebhookResponse = API.AccountHolderCreateWebhookResponse;
   export import AccountHolderListDocumentsResponse = API.AccountHolderListDocumentsResponse;
   export import AccountHolderCreateParams = API.AccountHolderCreateParams;
   export import AccountHolderUpdateParams = API.AccountHolderUpdateParams;
-  export import AccountHolderCreateWebhookParams = API.AccountHolderCreateWebhookParams;
   export import AccountHolderResubmitParams = API.AccountHolderResubmitParams;
   export import AccountHolderUploadDocumentParams = API.AccountHolderUploadDocumentParams;
 }

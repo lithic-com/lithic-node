@@ -302,21 +302,6 @@ describe('resource accountHolders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('createWebhook: only required params', async () => {
-    const responsePromise = lithic.accountHolders.createWebhook({ url: 'string' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('createWebhook: required and optional params', async () => {
-    const response = await lithic.accountHolders.createWebhook({ url: 'string' });
-  });
-
   test('listDocuments', async () => {
     const responsePromise = lithic.accountHolders.listDocuments('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
