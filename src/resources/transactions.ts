@@ -136,9 +136,15 @@ export interface Transaction {
   token: string;
 
   /**
-   * A fixed-width 23-digit numeric identifier for the Transaction that may be set if
-   * the transaction originated from the Mastercard network. This number may be used
-   * for dispute tracking.
+   * Fee assessed by the merchant and paid for by the cardholder in the smallest unit
+   * of the currency. Will be zero if no fee is assessed. Rebates may be transmitted
+   * as a negative value to indicate credited fees.
+   */
+  acquirer_fee: number;
+
+  /**
+   * Unique identifier assigned to a transaction by the acquirer that can be used in
+   * dispute and chargeback filing.
    */
   acquirer_reference_number: string | null;
 
@@ -402,7 +408,7 @@ export namespace Transaction {
 
   export interface CardholderAuthentication {
     /**
-     * 3-D Secure Protocol version. Possible values:
+     * 3-D Secure Protocol version. Possible enum values:
      *
      * - `1`: 3-D Secure Protocol version 1.x applied to the transaction.
      * - `2`: 3-D Secure Protocol version 2.x applied to the transaction.
@@ -412,7 +418,7 @@ export namespace Transaction {
 
     /**
      * Exemption applied by the ACS to authenticate the transaction without requesting
-     * a challenge. Possible values:
+     * a challenge. Possible enum values:
      *
      * - `AUTHENTICATION_OUTAGE_EXCEPTION`: Authentication Outage Exception exemption.
      * - `LOW_VALUE`: Low Value Payment exemption.
@@ -438,8 +444,41 @@ export namespace Transaction {
       | 'TRANSACTION_RISK_ANALYSIS';
 
     /**
+     * Outcome of the 3DS authentication process. Possible enum values:
+     *
+     * - `SUCCESS`: 3DS authentication was successful and the transaction is considered
+     *   authenticated.
+     * - `DECLINE`: 3DS authentication was attempted but was unsuccessful — i.e., the
+     *   issuer declined to authenticate the cardholder; note that Lithic populates
+     *   this value on a best-effort basis based on common data across the 3DS
+     *   authentication and ASA data elements.
+     * - `ATTEMPTS`: 3DS authentication was attempted but full authentication did not
+     *   occur. A proof of attempted authenticated is provided by the merchant.
+     * - `NONE`: 3DS authentication was not performed on the transaction.
+     */
+    authentication_result: 'SUCCESS' | 'DECLINE' | 'ATTEMPTS' | 'NONE';
+
+    /**
+     * Indicator for which party made the 3DS authentication decision. Possible enum
+     * values:
+     *
+     * - `NETWORK`: A networks tand-in service decided on the outcome; for token
+     *   authentications (as indicated in the `liability_shift` attribute), this is the
+     *   default value
+     * - `LITHIC_DEFAULT`: A default decision was made by Lithic, without running a
+     *   rules-based authentication; this value will be set on card programs that do
+     *   not participate in one of our two 3DS product tiers
+     * - `LITHIC_RULES`: A rules-based authentication was conducted by Lithic and
+     *   Lithic decided on the outcome
+     * - `CUSTOMER_ENDPOINT`: Lithic customer decided on the outcome based on a
+     *   real-time request sent to a configured endpoint
+     * - `UNKNOWN`: Data on which party decided is unavailable
+     */
+    decision_made_by: 'NETWORK' | 'LITHIC_DEFAULT' | 'LITHIC_RULES' | 'CUSTOMER_ENDPOINT' | 'UNKNOWN';
+
+    /**
      * Indicates whether chargeback liability shift applies to the transaction.
-     * Possible values:
+     * Possible enum values:
      *
      * - `3DS_AUTHENTICATED`: The transaction was fully authenticated through a 3-D
      *   Secure flow, chargeback liability shift applies.
@@ -454,6 +493,13 @@ export namespace Transaction {
      *   applies.
      */
     liability_shift: '3DS_AUTHENTICATED' | 'ACQUIRER_EXEMPTION' | 'NONE' | 'TOKEN_AUTHENTICATED';
+
+    /**
+     * Unique identifier you can use to match a given 3DS authentication and the
+     * transaction. Note that in cases where liability shift does not occur, this token
+     * is matched to the transaction on a best-effort basis.
+     */
+    three_ds_authentication_token: string;
 
     /**
      * Verification attempted values:
