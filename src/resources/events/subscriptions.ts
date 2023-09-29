@@ -214,6 +214,9 @@ export interface SubscriptionCreateParams {
    * all types will be sent.
    */
   event_types?: Array<
+    | 'account_holder.created'
+    | 'account_holder.updated'
+    | 'account_holder.verification'
     | 'card.created'
     | 'card.shipped'
     | 'card_transaction.updated'
@@ -250,6 +253,9 @@ export interface SubscriptionUpdateParams {
    * all types will be sent.
    */
   event_types?: Array<
+    | 'account_holder.created'
+    | 'account_holder.updated'
+    | 'account_holder.verification'
     | 'card.created'
     | 'card.shipped'
     | 'card_transaction.updated'
@@ -316,6 +322,9 @@ export interface SubscriptionSendSimulatedExampleParams {
    * Event type to send example message for.
    */
   event_type?:
+    | 'account_holder.created'
+    | 'account_holder.updated'
+    | 'account_holder.verification'
     | 'card.created'
     | 'card.shipped'
     | 'card_transaction.updated'

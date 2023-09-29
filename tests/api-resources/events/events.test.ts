@@ -50,7 +50,7 @@ describe('resource events', () => {
           begin: '2019-12-27T18:11:19.117Z',
           end: '2019-12-27T18:11:19.117Z',
           ending_before: 'string',
-          event_types: ['card.created', 'card.shipped', 'card_transaction.updated'],
+          event_types: ['account_holder.created', 'account_holder.updated', 'account_holder.verification'],
           page_size: 1,
           starting_after: 'string',
           with_content: true,

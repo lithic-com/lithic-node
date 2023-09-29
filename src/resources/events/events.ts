@@ -104,6 +104,11 @@ export interface Event {
   /**
    * Event types:
    *
+   * - `account_holder.created` - Notification that a new account holder has been
+   *   created and was not rejected.
+   * - `account_holder.updated` - Notification that an account holder was updated.
+   * - `account_holder.verification` - Notification than an account holder's identity
+   *   verification is complete.
    * - `card.created` - Notification that a card has been created.
    * - `card.shipped` - Physical card shipment notification. See
    *   https://docs.lithic.com/docs/cards#physical-card-shipped-webhook.
@@ -119,6 +124,9 @@ export interface Event {
    *   https://docs.lithic.com/docs/tokenization-control#digital-wallet-tokenization-auth-code.
    */
   event_type:
+    | 'account_holder.created'
+    | 'account_holder.updated'
+    | 'account_holder.verification'
     | 'card.created'
     | 'card.shipped'
     | 'card_transaction.updated'
@@ -155,6 +163,9 @@ export interface EventSubscription {
   disabled: boolean;
 
   event_types: Array<
+    | 'account_holder.created'
+    | 'account_holder.updated'
+    | 'account_holder.verification'
     | 'card.created'
     | 'card.shipped'
     | 'card_transaction.updated'
@@ -233,6 +244,9 @@ export interface EventListParams extends CursorPageParams {
    * Event types to filter events by.
    */
   event_types?: Array<
+    | 'account_holder.created'
+    | 'account_holder.updated'
+    | 'account_holder.verification'
     | 'card.created'
     | 'card.shipped'
     | 'card_transaction.updated'
