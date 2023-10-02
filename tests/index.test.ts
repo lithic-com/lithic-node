@@ -98,7 +98,7 @@ describe('instantiate client', () => {
 
   test('custom signal', async () => {
     const client = new Lithic({
-      baseURL: 'http://127.0.0.1:4010',
+      baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
       apiKey: 'my api key',
       fetch: (...args) => {
         return new Promise((resolve, reject) =>
@@ -175,7 +175,10 @@ describe('instantiate client', () => {
 
 describe('idempotency', () => {
   test('key can be set per-request', async () => {
-    const client = new Lithic({ apiKey: 'my api key', baseURL: 'http://127.0.0.1:4010' });
+    const client = new Lithic({
+      apiKey: 'my api key',
+      baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
+    });
     await client.accountHolders.create(
       {
         beneficial_owner_entities: [
