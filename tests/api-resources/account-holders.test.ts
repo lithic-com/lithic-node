@@ -404,7 +404,7 @@ describe('resource accountHolders', () => {
 
   test('uploadDocument: only required params', async () => {
     const responsePromise = lithic.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      document_type: 'commercial_license',
+      document_type: 'drivers_license',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -417,7 +417,7 @@ describe('resource accountHolders', () => {
 
   test('uploadDocument: required and optional params', async () => {
     const response = await lithic.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      document_type: 'commercial_license',
+      document_type: 'drivers_license',
     });
   });
 });

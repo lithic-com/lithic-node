@@ -67,7 +67,7 @@ describe('resource transactions', () => {
 
   test('simulateAuthorization: only required params', async () => {
     const responsePromise = lithic.transactions.simulateAuthorization({
-      amount: 0,
+      amount: 3831,
       descriptor: 'COFFEE SHOP',
       pan: '4111111289144142',
     });
@@ -82,7 +82,7 @@ describe('resource transactions', () => {
 
   test('simulateAuthorization: required and optional params', async () => {
     const response = await lithic.transactions.simulateAuthorization({
-      amount: 0,
+      amount: 3831,
       descriptor: 'COFFEE SHOP',
       pan: '4111111289144142',
       mcc: '5812',
@@ -96,8 +96,8 @@ describe('resource transactions', () => {
 
   test('simulateAuthorizationAdvice: only required params', async () => {
     const responsePromise = lithic.transactions.simulateAuthorizationAdvice({
-      token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      amount: 0,
+      token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac',
+      amount: 3831,
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -110,8 +110,8 @@ describe('resource transactions', () => {
 
   test('simulateAuthorizationAdvice: required and optional params', async () => {
     const response = await lithic.transactions.simulateAuthorizationAdvice({
-      token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      amount: 0,
+      token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac',
+      amount: 3831,
     });
   });
 
@@ -137,7 +137,7 @@ describe('resource transactions', () => {
 
   test('simulateCreditAuthorization: only required params', async () => {
     const responsePromise = lithic.transactions.simulateCreditAuthorization({
-      amount: 0,
+      amount: 3831,
       descriptor: 'COFFEE SHOP',
       pan: '4111111289144142',
     });
@@ -152,7 +152,7 @@ describe('resource transactions', () => {
 
   test('simulateCreditAuthorization: required and optional params', async () => {
     const response = await lithic.transactions.simulateCreditAuthorization({
-      amount: 0,
+      amount: 3831,
       descriptor: 'COFFEE SHOP',
       pan: '4111111289144142',
       mcc: '5812',
@@ -162,7 +162,7 @@ describe('resource transactions', () => {
 
   test('simulateReturn: only required params', async () => {
     const responsePromise = lithic.transactions.simulateReturn({
-      amount: 0,
+      amount: 3831,
       descriptor: 'COFFEE SHOP',
       pan: '4111111289144142',
     });
@@ -177,7 +177,7 @@ describe('resource transactions', () => {
 
   test('simulateReturn: required and optional params', async () => {
     const response = await lithic.transactions.simulateReturn({
-      amount: 0,
+      amount: 3831,
       descriptor: 'COFFEE SHOP',
       pan: '4111111289144142',
     });
@@ -185,7 +185,7 @@ describe('resource transactions', () => {
 
   test('simulateReturnReversal: only required params', async () => {
     const responsePromise = lithic.transactions.simulateReturnReversal({
-      token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -198,13 +198,13 @@ describe('resource transactions', () => {
 
   test('simulateReturnReversal: required and optional params', async () => {
     const response = await lithic.transactions.simulateReturnReversal({
-      token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac',
     });
   });
 
   test('simulateVoid: only required params', async () => {
     const responsePromise = lithic.transactions.simulateVoid({
-      token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -217,8 +217,8 @@ describe('resource transactions', () => {
 
   test('simulateVoid: required and optional params', async () => {
     const response = await lithic.transactions.simulateVoid({
-      token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      amount: 0,
+      token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac',
+      amount: 100,
       type: 'AUTHORIZATION_EXPIRY',
     });
   });
