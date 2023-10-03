@@ -46,8 +46,8 @@ describe('resource cards', () => {
         phone_number: '+12124007676',
       },
       shipping_method: 'STANDARD',
-      spend_limit: 0,
-      spend_limit_duration: 'ANNUALLY',
+      spend_limit: 1000,
+      spend_limit_duration: 'TRANSACTION',
       state: 'OPEN',
     });
   });
