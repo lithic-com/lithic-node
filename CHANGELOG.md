@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.27.1 (2023-10-03)
+
+Full Changelog: [v0.27.0...v0.27.1](https://github.com/lithic-com/lithic-node/compare/v0.27.0...v0.27.1)
+
+### Chores
+
+* **ci:** remove reviewer ([#219](https://github.com/lithic-com/lithic-node/issues/219)) ([a8b6fa2](https://github.com/lithic-com/lithic-node/commit/a8b6fa2371328d217690d8c9127803abcbdbcdc6))
+* **internal:** update lock file ([#217](https://github.com/lithic-com/lithic-node/issues/217)) ([63ffd1e](https://github.com/lithic-com/lithic-node/commit/63ffd1ecce1446d4156c265547297e2ccdd93946))
+* **tests:** update test examples ([#221](https://github.com/lithic-com/lithic-node/issues/221)) ([1b85ec7](https://github.com/lithic-com/lithic-node/commit/1b85ec75ab03aca5f0ba6df0b6fb46c30b2ee6fc))
+
 ## 0.27.0 (2023-09-29)
 
 Full Changelog: [v0.26.9...v0.27.0](https://github.com/lithic-com/lithic-node/compare/v0.26.9...v0.27.0)
