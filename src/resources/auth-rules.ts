@@ -4,7 +4,7 @@ import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
 import * as API from './index';
-import { Page, PageParams } from 'lithic/pagination';
+import { CursorPage, CursorPageParams } from 'lithic/pagination';
 
 export class AuthRules extends APIResource {
   /**
@@ -38,16 +38,19 @@ export class AuthRules extends APIResource {
   /**
    * Return all of the Auth Rules under the program.
    */
-  list(query?: AuthRuleListParams, options?: Core.RequestOptions): Core.PagePromise<AuthRulesPage, AuthRule>;
-  list(options?: Core.RequestOptions): Core.PagePromise<AuthRulesPage, AuthRule>;
+  list(
+    query?: AuthRuleListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<AuthRulesCursorPage, AuthRule>;
+  list(options?: Core.RequestOptions): Core.PagePromise<AuthRulesCursorPage, AuthRule>;
   list(
     query: AuthRuleListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<AuthRulesPage, AuthRule> {
+  ): Core.PagePromise<AuthRulesCursorPage, AuthRule> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/auth_rules', AuthRulesPage, { query, ...options });
+    return this.getAPIList('/auth_rules', AuthRulesCursorPage, { query, ...options });
   }
 
   /**
@@ -71,15 +74,20 @@ export class AuthRules extends APIResource {
   }
 }
 
-export class AuthRulesPage extends Page<AuthRule> {}
+export class AuthRulesCursorPage extends CursorPage<AuthRule> {}
 // alias so we can export it in the namespace
-type _AuthRulesPage = AuthRulesPage;
+type _AuthRulesCursorPage = AuthRulesCursorPage;
 
 export interface AuthRule {
   /**
    * Globally unique identifier.
    */
-  token?: string;
+  token: string;
+
+  /**
+   * Indicates whether the Auth Rule is ACTIVE or INACTIVE
+   */
+  state: 'ACTIVE' | 'INACTIVE';
 
   /**
    * Array of account_token(s) identifying the accounts that the Auth Rule applies
@@ -121,11 +129,6 @@ export interface AuthRule {
    * Boolean indicating whether the Auth Rule is applied at the program level.
    */
   program_level?: boolean;
-
-  /**
-   * Indicates whether the Auth Rule is ACTIVE or INACTIVE
-   */
-  state?: 'ACTIVE' | 'INACTIVE';
 }
 
 export interface AuthRuleRetrieveResponse {
@@ -212,7 +215,7 @@ export interface AuthRuleUpdateParams {
   blocked_mcc?: Array<string>;
 }
 
-export interface AuthRuleListParams extends PageParams {}
+export interface AuthRuleListParams extends CursorPageParams {}
 
 export interface AuthRuleApplyParams {
   /**
@@ -258,7 +261,7 @@ export namespace AuthRules {
   export import AuthRule = API.AuthRule;
   export import AuthRuleRetrieveResponse = API.AuthRuleRetrieveResponse;
   export import AuthRuleRemoveResponse = API.AuthRuleRemoveResponse;
-  export type AuthRulesPage = _AuthRulesPage;
+  export type AuthRulesCursorPage = _AuthRulesCursorPage;
   export import AuthRuleCreateParams = API.AuthRuleCreateParams;
   export import AuthRuleUpdateParams = API.AuthRuleUpdateParams;
   export import AuthRuleListParams = API.AuthRuleListParams;

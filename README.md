@@ -167,6 +167,23 @@ while (page.hasNextPage()) {
 }
 ```
 
+## Default Headers
+
+We automatically send the `X-Lithic-Pagination` header set to `cursor`.
+
+If you need to, you can override it by setting default headers on a per-request basis.
+
+```ts
+import Lithic from 'lithic';
+
+const lithic = new Lithic();
+
+const card = await lithic.cards.create(
+  { type: 'SINGLE_USE' },
+  { headers: { 'X-Lithic-Pagination': 'My-Custom-Value' } },
+);
+```
+
 ## Webhook Verification
 
 We provide helper methods for verifying that a webhook request came from Lithic, and not a malicious third party.

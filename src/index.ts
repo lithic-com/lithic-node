@@ -173,6 +173,7 @@ export class Lithic extends Core.APIClient {
   protected override defaultHeaders(opts: Core.FinalRequestOptions): Core.Headers {
     return {
       ...super.defaultHeaders(opts),
+      'X-Lithic-Pagination': 'cursor',
       ...this._options.defaultHeaders,
     };
   }
@@ -228,10 +229,6 @@ export namespace Lithic {
 
   export import RequestOptions = Core.RequestOptions;
 
-  export import Page = Pagination.Page;
-  export import PageParams = Pagination.PageParams;
-  export import PageResponse = Pagination.PageResponse;
-
   export import CursorPage = Pagination.CursorPage;
   export import CursorPageParams = Pagination.CursorPageParams;
   export import CursorPageResponse = Pagination.CursorPageResponse;
@@ -243,7 +240,7 @@ export namespace Lithic {
 
   export import Accounts = API.Accounts;
   export import Account = API.Account;
-  export import AccountsPage = API.AccountsPage;
+  export import AccountsCursorPage = API.AccountsCursorPage;
   export import AccountUpdateParams = API.AccountUpdateParams;
   export import AccountListParams = API.AccountListParams;
 
@@ -264,7 +261,7 @@ export namespace Lithic {
   export import AuthRule = API.AuthRule;
   export import AuthRuleRetrieveResponse = API.AuthRuleRetrieveResponse;
   export import AuthRuleRemoveResponse = API.AuthRuleRemoveResponse;
-  export import AuthRulesPage = API.AuthRulesPage;
+  export import AuthRulesCursorPage = API.AuthRulesCursorPage;
   export import AuthRuleCreateParams = API.AuthRuleCreateParams;
   export import AuthRuleUpdateParams = API.AuthRuleUpdateParams;
   export import AuthRuleListParams = API.AuthRuleListParams;
@@ -291,7 +288,7 @@ export namespace Lithic {
   export import SpendLimitDuration = API.SpendLimitDuration;
   export import CardEmbedResponse = API.CardEmbedResponse;
   export import CardProvisionResponse = API.CardProvisionResponse;
-  export import CardsPage = API.CardsPage;
+  export import CardsCursorPage = API.CardsCursorPage;
   export import CardCreateParams = API.CardCreateParams;
   export import CardUpdateParams = API.CardUpdateParams;
   export import CardListParams = API.CardListParams;
@@ -353,7 +350,7 @@ export namespace Lithic {
   export import TransactionSimulateReturnResponse = API.TransactionSimulateReturnResponse;
   export import TransactionSimulateReturnReversalResponse = API.TransactionSimulateReturnReversalResponse;
   export import TransactionSimulateVoidResponse = API.TransactionSimulateVoidResponse;
-  export import TransactionsPage = API.TransactionsPage;
+  export import TransactionsCursorPage = API.TransactionsCursorPage;
   export import TransactionListParams = API.TransactionListParams;
   export import TransactionSimulateAuthorizationParams = API.TransactionSimulateAuthorizationParams;
   export import TransactionSimulateAuthorizationAdviceParams = API.TransactionSimulateAuthorizationAdviceParams;

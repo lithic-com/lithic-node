@@ -4,7 +4,7 @@ import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
 import * as API from './index';
-import { Page, PageParams } from 'lithic/pagination';
+import { CursorPage, CursorPageParams } from 'lithic/pagination';
 
 export class Transactions extends APIResource {
   /**
@@ -20,16 +20,16 @@ export class Transactions extends APIResource {
   list(
     query?: TransactionListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<TransactionsPage, Transaction>;
-  list(options?: Core.RequestOptions): Core.PagePromise<TransactionsPage, Transaction>;
+  ): Core.PagePromise<TransactionsCursorPage, Transaction>;
+  list(options?: Core.RequestOptions): Core.PagePromise<TransactionsCursorPage, Transaction>;
   list(
     query: TransactionListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<TransactionsPage, Transaction> {
+  ): Core.PagePromise<TransactionsCursorPage, Transaction> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/transactions', TransactionsPage, { query, ...options });
+    return this.getAPIList('/transactions', TransactionsCursorPage, { query, ...options });
   }
 
   /**
@@ -125,9 +125,9 @@ export class Transactions extends APIResource {
   }
 }
 
-export class TransactionsPage extends Page<Transaction> {}
+export class TransactionsCursorPage extends CursorPage<Transaction> {}
 // alias so we can export it in the namespace
-type _TransactionsPage = TransactionsPage;
+type _TransactionsCursorPage = TransactionsCursorPage;
 
 export interface Transaction {
   /**
@@ -622,7 +622,7 @@ export interface TransactionSimulateVoidResponse {
   debugging_request_id?: string;
 }
 
-export interface TransactionListParams extends PageParams {
+export interface TransactionListParams extends CursorPageParams {
   /**
    * Filters for transactions associated with a specific account.
    */
@@ -844,7 +844,7 @@ export namespace Transactions {
   export import TransactionSimulateReturnResponse = API.TransactionSimulateReturnResponse;
   export import TransactionSimulateReturnReversalResponse = API.TransactionSimulateReturnReversalResponse;
   export import TransactionSimulateVoidResponse = API.TransactionSimulateVoidResponse;
-  export type TransactionsPage = _TransactionsPage;
+  export type TransactionsCursorPage = _TransactionsCursorPage;
   export import TransactionListParams = API.TransactionListParams;
   export import TransactionSimulateAuthorizationParams = API.TransactionSimulateAuthorizationParams;
   export import TransactionSimulateAuthorizationAdviceParams = API.TransactionSimulateAuthorizationAdviceParams;

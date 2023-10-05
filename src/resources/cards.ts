@@ -6,7 +6,7 @@ import { isRequestOptions } from 'lithic/core';
 import * as Shared from 'lithic/resources/shared';
 import { createHmac } from 'crypto';
 import * as API from './index';
-import { Page, PageParams } from 'lithic/pagination';
+import { CursorPage, CursorPageParams } from 'lithic/pagination';
 
 export class Cards extends APIResource {
   /**
@@ -38,16 +38,16 @@ export class Cards extends APIResource {
   /**
    * List cards.
    */
-  list(query?: CardListParams, options?: Core.RequestOptions): Core.PagePromise<CardsPage, Card>;
-  list(options?: Core.RequestOptions): Core.PagePromise<CardsPage, Card>;
+  list(query?: CardListParams, options?: Core.RequestOptions): Core.PagePromise<CardsCursorPage, Card>;
+  list(options?: Core.RequestOptions): Core.PagePromise<CardsCursorPage, Card>;
   list(
     query: CardListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CardsPage, Card> {
+  ): Core.PagePromise<CardsCursorPage, Card> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/cards', CardsPage, { query, ...options });
+    return this.getAPIList('/cards', CardsCursorPage, { query, ...options });
   }
 
   /**
@@ -172,9 +172,9 @@ export class Cards extends APIResource {
   }
 }
 
-export class CardsPage extends Page<Card> {}
+export class CardsCursorPage extends CursorPage<Card> {}
 // alias so we can export it in the namespace
-type _CardsPage = CardsPage;
+type _CardsCursorPage = CardsCursorPage;
 
 export interface Card {
   /**
@@ -601,7 +601,7 @@ export interface CardUpdateParams {
   state?: 'CLOSED' | 'OPEN' | 'PAUSED';
 }
 
-export interface CardListParams extends PageParams {
+export interface CardListParams extends CursorPageParams {
   /**
    * Returns cards associated with the specified account.
    */
@@ -775,7 +775,7 @@ export namespace Cards {
   export import SpendLimitDuration = API.SpendLimitDuration;
   export import CardEmbedResponse = API.CardEmbedResponse;
   export import CardProvisionResponse = API.CardProvisionResponse;
-  export type CardsPage = _CardsPage;
+  export type CardsCursorPage = _CardsCursorPage;
   export import CardCreateParams = API.CardCreateParams;
   export import CardUpdateParams = API.CardUpdateParams;
   export import CardListParams = API.CardListParams;

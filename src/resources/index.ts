@@ -2,7 +2,7 @@
 
 export * from './shared';
 export { APIStatus } from './top-level';
-export { Account, AccountUpdateParams, AccountListParams, AccountsPage, Accounts } from './accounts';
+export { Account, AccountUpdateParams, AccountListParams, AccountsCursorPage, Accounts } from './accounts';
 export {
   AccountHolder,
   AccountHolderDocument,
@@ -32,7 +32,7 @@ export {
   AuthRuleListParams,
   AuthRuleApplyParams,
   AuthRuleRemoveParams,
-  AuthRulesPage,
+  AuthRulesCursorPage,
   AuthRules,
 } from './auth-rules';
 export {
@@ -56,7 +56,7 @@ export {
   CardGetEmbedURLParams,
   CardProvisionParams,
   CardReissueParams,
-  CardsPage,
+  CardsCursorPage,
   Cards,
 } from './cards';
 export {
@@ -155,7 +155,7 @@ export {
   TransactionSimulateReturnParams,
   TransactionSimulateReturnReversalParams,
   TransactionSimulateVoidParams,
-  TransactionsPage,
+  TransactionsCursorPage,
   Transactions,
 } from './transactions';
 export { Transfer, TransferCreateResponse, TransferCreateParams, Transfers } from './transfers';
