@@ -26,7 +26,7 @@ Methods:
 
 - <code title="get /accounts/{account_token}">client.accounts.<a href="./src/resources/accounts.ts">retrieve</a>(accountToken) -> Account</code>
 - <code title="patch /accounts/{account_token}">client.accounts.<a href="./src/resources/accounts.ts">update</a>(accountToken, { ...params }) -> Account</code>
-- <code title="get /accounts">client.accounts.<a href="./src/resources/accounts.ts">list</a>({ ...params }) -> AccountsPage</code>
+- <code title="get /accounts">client.accounts.<a href="./src/resources/accounts.ts">list</a>({ ...params }) -> AccountsCursorPage</code>
 
 # AccountHolders
 
@@ -63,7 +63,7 @@ Methods:
 - <code title="post /auth_rules">client.authRules.<a href="./src/resources/auth-rules.ts">create</a>({ ...params }) -> AuthRule</code>
 - <code title="get /auth_rules/{auth_rule_token}">client.authRules.<a href="./src/resources/auth-rules.ts">retrieve</a>(authRuleToken) -> AuthRuleRetrieveResponse</code>
 - <code title="put /auth_rules/{auth_rule_token}">client.authRules.<a href="./src/resources/auth-rules.ts">update</a>(authRuleToken, { ...params }) -> AuthRule</code>
-- <code title="get /auth_rules">client.authRules.<a href="./src/resources/auth-rules.ts">list</a>({ ...params }) -> AuthRulesPage</code>
+- <code title="get /auth_rules">client.authRules.<a href="./src/resources/auth-rules.ts">list</a>({ ...params }) -> AuthRulesCursorPage</code>
 - <code title="post /auth_rules/{auth_rule_token}/apply">client.authRules.<a href="./src/resources/auth-rules.ts">apply</a>(authRuleToken, { ...params }) -> AuthRule</code>
 - <code title="delete /auth_rules/remove">client.authRules.<a href="./src/resources/auth-rules.ts">remove</a>({ ...params }) -> AuthRuleRemoveResponse</code>
 
@@ -120,7 +120,7 @@ Methods:
 - <code title="post /cards">client.cards.<a href="./src/resources/cards.ts">create</a>({ ...params }) -> Card</code>
 - <code title="get /cards/{card_token}">client.cards.<a href="./src/resources/cards.ts">retrieve</a>(cardToken) -> Card</code>
 - <code title="patch /cards/{card_token}">client.cards.<a href="./src/resources/cards.ts">update</a>(cardToken, { ...params }) -> Card</code>
-- <code title="get /cards">client.cards.<a href="./src/resources/cards.ts">list</a>({ ...params }) -> CardsPage</code>
+- <code title="get /cards">client.cards.<a href="./src/resources/cards.ts">list</a>({ ...params }) -> CardsCursorPage</code>
 - <code title="get /embed/card">client.cards.<a href="./src/resources/cards.ts">embed</a>({ ...params }) -> string</code>
 - <code title="post /cards/{card_token}/provision">client.cards.<a href="./src/resources/cards.ts">provision</a>(cardToken, { ...params }) -> CardProvisionResponse</code>
 - <code title="post /cards/{card_token}/reissue">client.cards.<a href="./src/resources/cards.ts">reissue</a>(cardToken, { ...params }) -> Card</code>
@@ -254,7 +254,7 @@ Types:
 Methods:
 
 - <code title="get /transactions/{transaction_token}">client.transactions.<a href="./src/resources/transactions.ts">retrieve</a>(transactionToken) -> Transaction</code>
-- <code title="get /transactions">client.transactions.<a href="./src/resources/transactions.ts">list</a>({ ...params }) -> TransactionsPage</code>
+- <code title="get /transactions">client.transactions.<a href="./src/resources/transactions.ts">list</a>({ ...params }) -> TransactionsCursorPage</code>
 - <code title="post /simulate/authorize">client.transactions.<a href="./src/resources/transactions.ts">simulateAuthorization</a>({ ...params }) -> TransactionSimulateAuthorizationResponse</code>
 - <code title="post /simulate/authorization_advice">client.transactions.<a href="./src/resources/transactions.ts">simulateAuthorizationAdvice</a>({ ...params }) -> TransactionSimulateAuthorizationAdviceResponse</code>
 - <code title="post /simulate/clearing">client.transactions.<a href="./src/resources/transactions.ts">simulateClearing</a>({ ...params }) -> TransactionSimulateClearingResponse</code>

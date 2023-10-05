@@ -4,7 +4,7 @@ import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
 import * as API from './index';
-import { Page, PageParams } from 'lithic/pagination';
+import { CursorPage, CursorPageParams } from 'lithic/pagination';
 
 export class Accounts extends APIResource {
   /**
@@ -32,22 +32,25 @@ export class Accounts extends APIResource {
   /**
    * List account configurations.
    */
-  list(query?: AccountListParams, options?: Core.RequestOptions): Core.PagePromise<AccountsPage, Account>;
-  list(options?: Core.RequestOptions): Core.PagePromise<AccountsPage, Account>;
+  list(
+    query?: AccountListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<AccountsCursorPage, Account>;
+  list(options?: Core.RequestOptions): Core.PagePromise<AccountsCursorPage, Account>;
   list(
     query: AccountListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<AccountsPage, Account> {
+  ): Core.PagePromise<AccountsCursorPage, Account> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/accounts', AccountsPage, { query, ...options });
+    return this.getAPIList('/accounts', AccountsCursorPage, { query, ...options });
   }
 }
 
-export class AccountsPage extends Page<Account> {}
+export class AccountsCursorPage extends CursorPage<Account> {}
 // alias so we can export it in the namespace
-type _AccountsPage = AccountsPage;
+type _AccountsCursorPage = AccountsCursorPage;
 
 export interface Account {
   /**
@@ -227,7 +230,7 @@ export namespace AccountUpdateParams {
   }
 }
 
-export interface AccountListParams extends PageParams {
+export interface AccountListParams extends CursorPageParams {
   /**
    * Date string in RFC 3339 format. Only entries created after the specified date
    * will be included. UTC time zone.
@@ -243,7 +246,7 @@ export interface AccountListParams extends PageParams {
 
 export namespace Accounts {
   export import Account = API.Account;
-  export type AccountsPage = _AccountsPage;
+  export type AccountsCursorPage = _AccountsCursorPage;
   export import AccountUpdateParams = API.AccountUpdateParams;
   export import AccountListParams = API.AccountListParams;
 }
