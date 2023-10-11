@@ -390,6 +390,9 @@ export interface DisputeEvidence {
   upload_url?: string;
 }
 
+/**
+ * @deprecated use `DisputeEvidence` instead
+ */
 export type DisputeInitiateEvidenceUploadResponse = DisputeEvidence;
 
 export interface DisputeCreateParams {
@@ -525,6 +528,9 @@ export interface DisputeListEvidencesParams extends CursorPageParams {
 export namespace Disputes {
   export import Dispute = DisputesAPI.Dispute;
   export import DisputeEvidence = DisputesAPI.DisputeEvidence;
+  /**
+   * @deprecated use `DisputeEvidence` instead
+   */
   export import DisputeInitiateEvidenceUploadResponse = DisputesAPI.DisputeInitiateEvidenceUploadResponse;
   export import DisputesCursorPage = DisputesAPI.DisputesCursorPage;
   export import DisputeEvidencesCursorPage = DisputesAPI.DisputeEvidencesCursorPage;
