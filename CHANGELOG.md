@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.27.3 (2023-10-11)
+
+Full Changelog: [v0.27.2...v0.27.3](https://github.com/lithic-com/lithic-node/compare/v0.27.2...v0.27.3)
+
+### Bug Fixes
+
+* **client:** eliminate circular imports, which cause runtime errors in webpack dev bundles ([#226](https://github.com/lithic-com/lithic-node/issues/226)) ([9c58051](https://github.com/lithic-com/lithic-node/commit/9c58051e7c1d7d4269bad070fef4cecb0d813b2e))
+* prevent ReferenceError, update compatibility to ES2020 and Node 18+ ([#224](https://github.com/lithic-com/lithic-node/issues/224)) ([add547a](https://github.com/lithic-com/lithic-node/commit/add547a09ac41f28653719366bb528efe5441c12))
+
+
+### Chores
+
+* bump ([2f7e59f](https://github.com/lithic-com/lithic-node/commit/2f7e59fb18c8475b72afa4487047672ea077e600))
+
 ## 0.27.2 (2023-10-05)
 
 Full Changelog: [v0.27.1...v0.27.2](https://github.com/lithic-com/lithic-node/compare/v0.27.1...v0.27.2)
