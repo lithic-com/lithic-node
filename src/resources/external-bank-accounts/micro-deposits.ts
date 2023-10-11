@@ -2,8 +2,8 @@
 
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
-import * as ExternalBankAccounts from 'lithic/resources/external-bank-accounts/index';
-import * as API from './index';
+import * as MicroDepositsAPI from 'lithic/resources/external-bank-accounts/micro-deposits';
+import * as ExternalBankAccountsAPI from 'lithic/resources/external-bank-accounts/external-bank-accounts';
 
 export class MicroDeposits extends APIResource {
   /**
@@ -82,7 +82,7 @@ export interface MicroDepositCreateResponse {
    * Address used during Address Verification Service (AVS) checks during
    * transactions if enabled via Auth Rules.
    */
-  address?: ExternalBankAccounts.ExternalBankAccountAddress;
+  address?: ExternalBankAccountsAPI.ExternalBankAccountAddress;
 
   /**
    * Optional field that helps identify bank accounts in receipts
@@ -109,6 +109,6 @@ export interface MicroDepositCreateParams {
 }
 
 export namespace MicroDeposits {
-  export import MicroDepositCreateResponse = API.MicroDepositCreateResponse;
-  export import MicroDepositCreateParams = API.MicroDepositCreateParams;
+  export type MicroDepositCreateResponse = MicroDepositsAPI.MicroDepositCreateResponse;
+  export type MicroDepositCreateParams = MicroDepositsAPI.MicroDepositCreateParams;
 }

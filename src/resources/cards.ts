@@ -3,10 +3,10 @@
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
-import * as Shared from 'lithic/resources/shared';
 import { createHmac } from 'crypto';
-import * as API from './index';
-import { CursorPage, CursorPageParams } from 'lithic/pagination';
+import * as CardsAPI from 'lithic/resources/cards';
+import * as Shared from 'lithic/resources/shared';
+import { CursorPage, type CursorPageParams } from 'lithic/pagination';
 
 export class Cards extends APIResource {
   /**
@@ -173,8 +173,6 @@ export class Cards extends APIResource {
 }
 
 export class CardsCursorPage extends CursorPage<Card> {}
-// alias so we can export it in the namespace
-type _CardsCursorPage = CardsCursorPage;
 
 export interface Card {
   /**
@@ -770,18 +768,18 @@ export interface CardReissueParams {
 }
 
 export namespace Cards {
-  export import Card = API.Card;
-  export import EmbedRequestParams = API.EmbedRequestParams;
-  export import SpendLimitDuration = API.SpendLimitDuration;
-  export import CardEmbedResponse = API.CardEmbedResponse;
-  export import CardProvisionResponse = API.CardProvisionResponse;
-  export type CardsCursorPage = _CardsCursorPage;
-  export import CardCreateParams = API.CardCreateParams;
-  export import CardUpdateParams = API.CardUpdateParams;
-  export import CardListParams = API.CardListParams;
-  export import CardEmbedParams = API.CardEmbedParams;
-  export import CardGetEmbedHTMLParams = API.CardGetEmbedHTMLParams;
-  export import CardGetEmbedURLParams = API.CardGetEmbedURLParams;
-  export import CardProvisionParams = API.CardProvisionParams;
-  export import CardReissueParams = API.CardReissueParams;
+  export type Card = CardsAPI.Card;
+  export type EmbedRequestParams = CardsAPI.EmbedRequestParams;
+  export type SpendLimitDuration = CardsAPI.SpendLimitDuration;
+  export type CardEmbedResponse = CardsAPI.CardEmbedResponse;
+  export type CardProvisionResponse = CardsAPI.CardProvisionResponse;
+  export import CardsCursorPage = CardsAPI.CardsCursorPage;
+  export type CardCreateParams = CardsAPI.CardCreateParams;
+  export type CardUpdateParams = CardsAPI.CardUpdateParams;
+  export type CardListParams = CardsAPI.CardListParams;
+  export type CardEmbedParams = CardsAPI.CardEmbedParams;
+  export type CardGetEmbedHTMLParams = CardsAPI.CardGetEmbedHTMLParams;
+  export type CardGetEmbedURLParams = CardsAPI.CardGetEmbedURLParams;
+  export type CardProvisionParams = CardsAPI.CardProvisionParams;
+  export type CardReissueParams = CardsAPI.CardReissueParams;
 }

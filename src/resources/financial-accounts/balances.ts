@@ -3,9 +3,9 @@
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
-import * as Balances_ from 'lithic/resources/balances';
+import * as FinancialAccountsBalancesAPI from 'lithic/resources/financial-accounts/balances';
+import * as BalancesAPI from 'lithic/resources/balances';
 import { BalancesSinglePage } from 'lithic/resources/balances';
-import * as API from './index';
 
 export class Balances extends APIResource {
   /**
@@ -15,16 +15,16 @@ export class Balances extends APIResource {
     financialAccountToken: string,
     query?: BalanceListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<BalancesSinglePage, Balances_.Balance>;
+  ): Core.PagePromise<BalancesSinglePage, BalancesAPI.Balance>;
   list(
     financialAccountToken: string,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<BalancesSinglePage, Balances_.Balance>;
+  ): Core.PagePromise<BalancesSinglePage, BalancesAPI.Balance>;
   list(
     financialAccountToken: string,
     query: BalanceListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<BalancesSinglePage, Balances_.Balance> {
+  ): Core.PagePromise<BalancesSinglePage, BalancesAPI.Balance> {
     if (isRequestOptions(query)) {
       return this.list(financialAccountToken, {}, query);
     }
@@ -50,7 +50,7 @@ export interface BalanceListParams {
 }
 
 export namespace Balances {
-  export import BalanceListParams = API.BalanceListParams;
+  export type BalanceListParams = FinancialAccountsBalancesAPI.BalanceListParams;
 }
 
 export { BalancesSinglePage };

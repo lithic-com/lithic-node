@@ -3,7 +3,7 @@
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
-import * as API from './index';
+import * as BalancesAPI from 'lithic/resources/balances';
 import { SinglePage } from 'lithic/pagination';
 
 export class Balances extends APIResource {
@@ -27,8 +27,6 @@ export class Balances extends APIResource {
 }
 
 export class BalancesSinglePage extends SinglePage<Balance> {}
-// alias so we can export it in the namespace
-type _BalancesSinglePage = BalancesSinglePage;
 
 /**
  * Balance of a Financial Account
@@ -108,7 +106,7 @@ export interface BalanceListParams {
 }
 
 export namespace Balances {
-  export import Balance = API.Balance;
-  export type BalancesSinglePage = _BalancesSinglePage;
-  export import BalanceListParams = API.BalanceListParams;
+  export type Balance = BalancesAPI.Balance;
+  export import BalancesSinglePage = BalancesAPI.BalancesSinglePage;
+  export type BalanceListParams = BalancesAPI.BalanceListParams;
 }

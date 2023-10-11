@@ -3,7 +3,7 @@
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
-import * as API from './index';
+import * as AuthStreamEnrollmentAPI from 'lithic/resources/auth-stream-enrollment';
 
 export class AuthStreamEnrollmentResource extends APIResource {
   /**
@@ -92,7 +92,7 @@ export interface AuthStreamEnrollmentEnrollParams {
 }
 
 export namespace AuthStreamEnrollmentResource {
-  export import AuthStreamEnrollment = API.AuthStreamEnrollment;
-  export import AuthStreamSecret = API.AuthStreamSecret;
-  export import AuthStreamEnrollmentEnrollParams = API.AuthStreamEnrollmentEnrollParams;
+  export type AuthStreamEnrollment = AuthStreamEnrollmentAPI.AuthStreamEnrollment;
+  export type AuthStreamSecret = AuthStreamEnrollmentAPI.AuthStreamSecret;
+  export type AuthStreamEnrollmentEnrollParams = AuthStreamEnrollmentAPI.AuthStreamEnrollmentEnrollParams;
 }

@@ -3,8 +3,8 @@
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
-import * as API from './index';
-import { CursorPage, CursorPageParams } from 'lithic/pagination';
+import * as AccountsAPI from 'lithic/resources/accounts';
+import { CursorPage, type CursorPageParams } from 'lithic/pagination';
 
 export class Accounts extends APIResource {
   /**
@@ -49,8 +49,6 @@ export class Accounts extends APIResource {
 }
 
 export class AccountsCursorPage extends CursorPage<Account> {}
-// alias so we can export it in the namespace
-type _AccountsCursorPage = AccountsCursorPage;
 
 export interface Account {
   /**
@@ -245,8 +243,8 @@ export interface AccountListParams extends CursorPageParams {
 }
 
 export namespace Accounts {
-  export import Account = API.Account;
-  export type AccountsCursorPage = _AccountsCursorPage;
-  export import AccountUpdateParams = API.AccountUpdateParams;
-  export import AccountListParams = API.AccountListParams;
+  export type Account = AccountsAPI.Account;
+  export import AccountsCursorPage = AccountsAPI.AccountsCursorPage;
+  export type AccountUpdateParams = AccountsAPI.AccountUpdateParams;
+  export type AccountListParams = AccountsAPI.AccountListParams;
 }

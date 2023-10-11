@@ -3,11 +3,10 @@
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
-import * as Events from 'lithic/resources/events/index';
-import { EventSubscriptionsCursorPage } from 'lithic/resources/events/index';
-import { MessageAttemptsCursorPage } from 'lithic/resources/events/index';
-import * as API from './index';
-import { CursorPageParams } from 'lithic/pagination';
+import * as SubscriptionsAPI from 'lithic/resources/events/subscriptions';
+import * as EventsAPI from 'lithic/resources/events/events';
+import { EventSubscriptionsCursorPage, MessageAttemptsCursorPage } from 'lithic/resources/events/events';
+import { type CursorPageParams } from 'lithic/pagination';
 
 export class Subscriptions extends APIResource {
   /**
@@ -16,7 +15,7 @@ export class Subscriptions extends APIResource {
   create(
     body: SubscriptionCreateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Events.EventSubscription> {
+  ): Core.APIPromise<EventsAPI.EventSubscription> {
     return this.post('/event_subscriptions', { body, ...options });
   }
 
@@ -26,7 +25,7 @@ export class Subscriptions extends APIResource {
   retrieve(
     eventSubscriptionToken: string,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Events.EventSubscription> {
+  ): Core.APIPromise<EventsAPI.EventSubscription> {
     return this.get(`/event_subscriptions/${eventSubscriptionToken}`, options);
   }
 
@@ -37,7 +36,7 @@ export class Subscriptions extends APIResource {
     eventSubscriptionToken: string,
     body: SubscriptionUpdateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<Events.EventSubscription> {
+  ): Core.APIPromise<EventsAPI.EventSubscription> {
     return this.patch(`/event_subscriptions/${eventSubscriptionToken}`, { body, ...options });
   }
 
@@ -47,14 +46,14 @@ export class Subscriptions extends APIResource {
   list(
     query?: SubscriptionListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<EventSubscriptionsCursorPage, Events.EventSubscription>;
+  ): Core.PagePromise<EventSubscriptionsCursorPage, EventsAPI.EventSubscription>;
   list(
     options?: Core.RequestOptions,
-  ): Core.PagePromise<EventSubscriptionsCursorPage, Events.EventSubscription>;
+  ): Core.PagePromise<EventSubscriptionsCursorPage, EventsAPI.EventSubscription>;
   list(
     query: SubscriptionListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<EventSubscriptionsCursorPage, Events.EventSubscription> {
+  ): Core.PagePromise<EventSubscriptionsCursorPage, EventsAPI.EventSubscription> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
@@ -75,16 +74,16 @@ export class Subscriptions extends APIResource {
     eventSubscriptionToken: string,
     query?: SubscriptionListAttemptsParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<MessageAttemptsCursorPage, Events.MessageAttempt>;
+  ): Core.PagePromise<MessageAttemptsCursorPage, EventsAPI.MessageAttempt>;
   listAttempts(
     eventSubscriptionToken: string,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<MessageAttemptsCursorPage, Events.MessageAttempt>;
+  ): Core.PagePromise<MessageAttemptsCursorPage, EventsAPI.MessageAttempt>;
   listAttempts(
     eventSubscriptionToken: string,
     query: SubscriptionListAttemptsParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<MessageAttemptsCursorPage, Events.MessageAttempt> {
+  ): Core.PagePromise<MessageAttemptsCursorPage, EventsAPI.MessageAttempt> {
     if (isRequestOptions(query)) {
       return this.listAttempts(eventSubscriptionToken, {}, query);
     }
@@ -343,14 +342,15 @@ export interface SubscriptionSendSimulatedExampleParams {
 }
 
 export namespace Subscriptions {
-  export import SubscriptionRetrieveSecretResponse = API.SubscriptionRetrieveSecretResponse;
-  export import SubscriptionCreateParams = API.SubscriptionCreateParams;
-  export import SubscriptionUpdateParams = API.SubscriptionUpdateParams;
-  export import SubscriptionListParams = API.SubscriptionListParams;
-  export import SubscriptionListAttemptsParams = API.SubscriptionListAttemptsParams;
-  export import SubscriptionRecoverParams = API.SubscriptionRecoverParams;
-  export import SubscriptionReplayMissingParams = API.SubscriptionReplayMissingParams;
-  export import SubscriptionSendSimulatedExampleParams = API.SubscriptionSendSimulatedExampleParams;
+  export type SubscriptionRetrieveSecretResponse = SubscriptionsAPI.SubscriptionRetrieveSecretResponse;
+  export type SubscriptionCreateParams = SubscriptionsAPI.SubscriptionCreateParams;
+  export type SubscriptionUpdateParams = SubscriptionsAPI.SubscriptionUpdateParams;
+  export type SubscriptionListParams = SubscriptionsAPI.SubscriptionListParams;
+  export type SubscriptionListAttemptsParams = SubscriptionsAPI.SubscriptionListAttemptsParams;
+  export type SubscriptionRecoverParams = SubscriptionsAPI.SubscriptionRecoverParams;
+  export type SubscriptionReplayMissingParams = SubscriptionsAPI.SubscriptionReplayMissingParams;
+  export type SubscriptionSendSimulatedExampleParams =
+    SubscriptionsAPI.SubscriptionSendSimulatedExampleParams;
 }
 
 export { EventSubscriptionsCursorPage, MessageAttemptsCursorPage };

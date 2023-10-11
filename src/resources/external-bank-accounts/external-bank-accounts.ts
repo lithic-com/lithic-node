@@ -3,12 +3,12 @@
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
-import { MicroDeposits } from './micro-deposits';
-import * as API from './index';
-import { CursorPage, CursorPageParams } from 'lithic/pagination';
+import * as ExternalBankAccountsAPI from 'lithic/resources/external-bank-accounts/external-bank-accounts';
+import * as MicroDepositsAPI from 'lithic/resources/external-bank-accounts/micro-deposits';
+import { CursorPage, type CursorPageParams } from 'lithic/pagination';
 
 export class ExternalBankAccounts extends APIResource {
-  microDeposits: MicroDeposits = new MicroDeposits(this.client);
+  microDeposits: MicroDepositsAPI.MicroDeposits = new MicroDepositsAPI.MicroDeposits(this.client);
 
   /**
    * Creates an external bank account within a program or Lithic account.
@@ -66,8 +66,6 @@ export class ExternalBankAccounts extends APIResource {
 }
 
 export class ExternalBankAccountListResponsesCursorPage extends CursorPage<ExternalBankAccountListResponse> {}
-// alias so we can export it in the namespace
-type _ExternalBankAccountListResponsesCursorPage = ExternalBankAccountListResponsesCursorPage;
 
 /**
  * Address used during Address Verification Service (AVS) checks during
@@ -539,19 +537,19 @@ export interface ExternalBankAccountListParams extends CursorPageParams {
 }
 
 export namespace ExternalBankAccounts {
-  export import ExternalBankAccountAddress = API.ExternalBankAccountAddress;
-  export import OwnerType = API.OwnerType;
-  export import VerificationMethod = API.VerificationMethod;
-  export import ExternalBankAccountCreateResponse = API.ExternalBankAccountCreateResponse;
-  export import ExternalBankAccountRetrieveResponse = API.ExternalBankAccountRetrieveResponse;
-  export import ExternalBankAccountUpdateResponse = API.ExternalBankAccountUpdateResponse;
-  export import ExternalBankAccountListResponse = API.ExternalBankAccountListResponse;
-  export type ExternalBankAccountListResponsesCursorPage = _ExternalBankAccountListResponsesCursorPage;
-  export import ExternalBankAccountCreateParams = API.ExternalBankAccountCreateParams;
-  export import ExternalBankAccountUpdateParams = API.ExternalBankAccountUpdateParams;
-  export import ExternalBankAccountListParams = API.ExternalBankAccountListParams;
-
-  export import MicroDeposits = API.MicroDeposits;
-  export import MicroDepositCreateResponse = API.MicroDepositCreateResponse;
-  export import MicroDepositCreateParams = API.MicroDepositCreateParams;
+  export type ExternalBankAccountAddress = ExternalBankAccountsAPI.ExternalBankAccountAddress;
+  export type OwnerType = ExternalBankAccountsAPI.OwnerType;
+  export type VerificationMethod = ExternalBankAccountsAPI.VerificationMethod;
+  export type ExternalBankAccountCreateResponse = ExternalBankAccountsAPI.ExternalBankAccountCreateResponse;
+  export type ExternalBankAccountRetrieveResponse =
+    ExternalBankAccountsAPI.ExternalBankAccountRetrieveResponse;
+  export type ExternalBankAccountUpdateResponse = ExternalBankAccountsAPI.ExternalBankAccountUpdateResponse;
+  export type ExternalBankAccountListResponse = ExternalBankAccountsAPI.ExternalBankAccountListResponse;
+  export import ExternalBankAccountListResponsesCursorPage = ExternalBankAccountsAPI.ExternalBankAccountListResponsesCursorPage;
+  export type ExternalBankAccountCreateParams = ExternalBankAccountsAPI.ExternalBankAccountCreateParams;
+  export type ExternalBankAccountUpdateParams = ExternalBankAccountsAPI.ExternalBankAccountUpdateParams;
+  export type ExternalBankAccountListParams = ExternalBankAccountsAPI.ExternalBankAccountListParams;
+  export import MicroDeposits = MicroDepositsAPI.MicroDeposits;
+  export type MicroDepositCreateResponse = MicroDepositsAPI.MicroDepositCreateResponse;
+  export type MicroDepositCreateParams = MicroDepositsAPI.MicroDepositCreateParams;
 }
