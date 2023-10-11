@@ -217,7 +217,7 @@ export interface TransferCreateParams {
 }
 
 export namespace Transfers {
-  export type Transfer = TransfersAPI.Transfer;
-  export type TransferCreateResponse = TransfersAPI.TransferCreateResponse;
-  export type TransferCreateParams = TransfersAPI.TransferCreateParams;
+  export import Transfer = TransfersAPI.Transfer;
+  export import TransferCreateResponse = TransfersAPI.TransferCreateResponse;
+  export import TransferCreateParams = TransfersAPI.TransferCreateParams;
 }

@@ -36,5 +36,5 @@ export interface DecisioningRetrieveSecretResponse {
 }
 
 export namespace Decisioning {
-  export type DecisioningRetrieveSecretResponse = DecisioningAPI.DecisioningRetrieveSecretResponse;
+  export import DecisioningRetrieveSecretResponse = DecisioningAPI.DecisioningRetrieveSecretResponse;
 }

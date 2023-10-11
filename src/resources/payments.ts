@@ -152,13 +152,13 @@ export interface PaymentSimulateReturnParams {
 }
 
 export namespace Payments {
-  export type Payment = PaymentsAPI.Payment;
-  export type PaymentCreateResponse = PaymentsAPI.PaymentCreateResponse;
-  export type PaymentSimulateReleaseResponse = PaymentsAPI.PaymentSimulateReleaseResponse;
-  export type PaymentSimulateReturnResponse = PaymentsAPI.PaymentSimulateReturnResponse;
+  export import Payment = PaymentsAPI.Payment;
+  export import PaymentCreateResponse = PaymentsAPI.PaymentCreateResponse;
+  export import PaymentSimulateReleaseResponse = PaymentsAPI.PaymentSimulateReleaseResponse;
+  export import PaymentSimulateReturnResponse = PaymentsAPI.PaymentSimulateReturnResponse;
   export import PaymentsCursorPage = PaymentsAPI.PaymentsCursorPage;
-  export type PaymentCreateParams = PaymentsAPI.PaymentCreateParams;
-  export type PaymentListParams = PaymentsAPI.PaymentListParams;
-  export type PaymentSimulateReleaseParams = PaymentsAPI.PaymentSimulateReleaseParams;
-  export type PaymentSimulateReturnParams = PaymentsAPI.PaymentSimulateReturnParams;
+  export import PaymentCreateParams = PaymentsAPI.PaymentCreateParams;
+  export import PaymentListParams = PaymentsAPI.PaymentListParams;
+  export import PaymentSimulateReleaseParams = PaymentsAPI.PaymentSimulateReleaseParams;
+  export import PaymentSimulateReturnParams = PaymentsAPI.PaymentSimulateReturnParams;
 }

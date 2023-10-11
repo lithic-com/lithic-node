@@ -256,13 +256,13 @@ export interface AuthRuleRemoveParams {
 }
 
 export namespace AuthRules {
-  export type AuthRule = AuthRulesAPI.AuthRule;
-  export type AuthRuleRetrieveResponse = AuthRulesAPI.AuthRuleRetrieveResponse;
-  export type AuthRuleRemoveResponse = AuthRulesAPI.AuthRuleRemoveResponse;
+  export import AuthRule = AuthRulesAPI.AuthRule;
+  export import AuthRuleRetrieveResponse = AuthRulesAPI.AuthRuleRetrieveResponse;
+  export import AuthRuleRemoveResponse = AuthRulesAPI.AuthRuleRemoveResponse;
   export import AuthRulesCursorPage = AuthRulesAPI.AuthRulesCursorPage;
-  export type AuthRuleCreateParams = AuthRulesAPI.AuthRuleCreateParams;
-  export type AuthRuleUpdateParams = AuthRulesAPI.AuthRuleUpdateParams;
-  export type AuthRuleListParams = AuthRulesAPI.AuthRuleListParams;
-  export type AuthRuleApplyParams = AuthRulesAPI.AuthRuleApplyParams;
-  export type AuthRuleRemoveParams = AuthRulesAPI.AuthRuleRemoveParams;
+  export import AuthRuleCreateParams = AuthRulesAPI.AuthRuleCreateParams;
+  export import AuthRuleUpdateParams = AuthRulesAPI.AuthRuleUpdateParams;
+  export import AuthRuleListParams = AuthRulesAPI.AuthRuleListParams;
+  export import AuthRuleApplyParams = AuthRulesAPI.AuthRuleApplyParams;
+  export import AuthRuleRemoveParams = AuthRulesAPI.AuthRuleRemoveParams;
 }

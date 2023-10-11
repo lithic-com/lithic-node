@@ -768,18 +768,18 @@ export interface CardReissueParams {
 }
 
 export namespace Cards {
-  export type Card = CardsAPI.Card;
-  export type EmbedRequestParams = CardsAPI.EmbedRequestParams;
-  export type SpendLimitDuration = CardsAPI.SpendLimitDuration;
-  export type CardEmbedResponse = CardsAPI.CardEmbedResponse;
-  export type CardProvisionResponse = CardsAPI.CardProvisionResponse;
+  export import Card = CardsAPI.Card;
+  export import EmbedRequestParams = CardsAPI.EmbedRequestParams;
+  export import SpendLimitDuration = CardsAPI.SpendLimitDuration;
+  export import CardEmbedResponse = CardsAPI.CardEmbedResponse;
+  export import CardProvisionResponse = CardsAPI.CardProvisionResponse;
   export import CardsCursorPage = CardsAPI.CardsCursorPage;
-  export type CardCreateParams = CardsAPI.CardCreateParams;
-  export type CardUpdateParams = CardsAPI.CardUpdateParams;
-  export type CardListParams = CardsAPI.CardListParams;
-  export type CardEmbedParams = CardsAPI.CardEmbedParams;
-  export type CardGetEmbedHTMLParams = CardsAPI.CardGetEmbedHTMLParams;
-  export type CardGetEmbedURLParams = CardsAPI.CardGetEmbedURLParams;
-  export type CardProvisionParams = CardsAPI.CardProvisionParams;
-  export type CardReissueParams = CardsAPI.CardReissueParams;
+  export import CardCreateParams = CardsAPI.CardCreateParams;
+  export import CardUpdateParams = CardsAPI.CardUpdateParams;
+  export import CardListParams = CardsAPI.CardListParams;
+  export import CardEmbedParams = CardsAPI.CardEmbedParams;
+  export import CardGetEmbedHTMLParams = CardsAPI.CardGetEmbedHTMLParams;
+  export import CardGetEmbedURLParams = CardsAPI.CardGetEmbedURLParams;
+  export import CardProvisionParams = CardsAPI.CardProvisionParams;
+  export import CardReissueParams = CardsAPI.CardReissueParams;
 }
