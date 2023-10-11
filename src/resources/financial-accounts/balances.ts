@@ -50,7 +50,7 @@ export interface BalanceListParams {
 }
 
 export namespace Balances {
-  export type BalanceListParams = FinancialAccountsBalancesAPI.BalanceListParams;
+  export import BalanceListParams = FinancialAccountsBalancesAPI.BalanceListParams;
 }
 
 export { BalancesSinglePage };

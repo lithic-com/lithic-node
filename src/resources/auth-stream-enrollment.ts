@@ -92,7 +92,7 @@ export interface AuthStreamEnrollmentEnrollParams {
 }
 
 export namespace AuthStreamEnrollmentResource {
-  export type AuthStreamEnrollment = AuthStreamEnrollmentAPI.AuthStreamEnrollment;
-  export type AuthStreamSecret = AuthStreamEnrollmentAPI.AuthStreamSecret;
-  export type AuthStreamEnrollmentEnrollParams = AuthStreamEnrollmentAPI.AuthStreamEnrollmentEnrollParams;
+  export import AuthStreamEnrollment = AuthStreamEnrollmentAPI.AuthStreamEnrollment;
+  export import AuthStreamSecret = AuthStreamEnrollmentAPI.AuthStreamSecret;
+  export import AuthStreamEnrollmentEnrollParams = AuthStreamEnrollmentAPI.AuthStreamEnrollmentEnrollParams;
 }

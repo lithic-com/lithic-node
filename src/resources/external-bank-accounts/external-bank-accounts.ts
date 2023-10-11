@@ -537,19 +537,18 @@ export interface ExternalBankAccountListParams extends CursorPageParams {
 }
 
 export namespace ExternalBankAccounts {
-  export type ExternalBankAccountAddress = ExternalBankAccountsAPI.ExternalBankAccountAddress;
-  export type OwnerType = ExternalBankAccountsAPI.OwnerType;
-  export type VerificationMethod = ExternalBankAccountsAPI.VerificationMethod;
-  export type ExternalBankAccountCreateResponse = ExternalBankAccountsAPI.ExternalBankAccountCreateResponse;
-  export type ExternalBankAccountRetrieveResponse =
-    ExternalBankAccountsAPI.ExternalBankAccountRetrieveResponse;
-  export type ExternalBankAccountUpdateResponse = ExternalBankAccountsAPI.ExternalBankAccountUpdateResponse;
-  export type ExternalBankAccountListResponse = ExternalBankAccountsAPI.ExternalBankAccountListResponse;
+  export import ExternalBankAccountAddress = ExternalBankAccountsAPI.ExternalBankAccountAddress;
+  export import OwnerType = ExternalBankAccountsAPI.OwnerType;
+  export import VerificationMethod = ExternalBankAccountsAPI.VerificationMethod;
+  export import ExternalBankAccountCreateResponse = ExternalBankAccountsAPI.ExternalBankAccountCreateResponse;
+  export import ExternalBankAccountRetrieveResponse = ExternalBankAccountsAPI.ExternalBankAccountRetrieveResponse;
+  export import ExternalBankAccountUpdateResponse = ExternalBankAccountsAPI.ExternalBankAccountUpdateResponse;
+  export import ExternalBankAccountListResponse = ExternalBankAccountsAPI.ExternalBankAccountListResponse;
   export import ExternalBankAccountListResponsesCursorPage = ExternalBankAccountsAPI.ExternalBankAccountListResponsesCursorPage;
-  export type ExternalBankAccountCreateParams = ExternalBankAccountsAPI.ExternalBankAccountCreateParams;
-  export type ExternalBankAccountUpdateParams = ExternalBankAccountsAPI.ExternalBankAccountUpdateParams;
-  export type ExternalBankAccountListParams = ExternalBankAccountsAPI.ExternalBankAccountListParams;
+  export import ExternalBankAccountCreateParams = ExternalBankAccountsAPI.ExternalBankAccountCreateParams;
+  export import ExternalBankAccountUpdateParams = ExternalBankAccountsAPI.ExternalBankAccountUpdateParams;
+  export import ExternalBankAccountListParams = ExternalBankAccountsAPI.ExternalBankAccountListParams;
   export import MicroDeposits = MicroDepositsAPI.MicroDeposits;
-  export type MicroDepositCreateResponse = MicroDepositsAPI.MicroDepositCreateResponse;
-  export type MicroDepositCreateParams = MicroDepositsAPI.MicroDepositCreateParams;
+  export import MicroDepositCreateResponse = MicroDepositsAPI.MicroDepositCreateResponse;
+  export import MicroDepositCreateParams = MicroDepositsAPI.MicroDepositCreateParams;
 }

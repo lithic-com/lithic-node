@@ -523,14 +523,14 @@ export interface DisputeListEvidencesParams extends CursorPageParams {
 }
 
 export namespace Disputes {
-  export type Dispute = DisputesAPI.Dispute;
-  export type DisputeEvidence = DisputesAPI.DisputeEvidence;
-  export type DisputeInitiateEvidenceUploadResponse = DisputesAPI.DisputeInitiateEvidenceUploadResponse;
+  export import Dispute = DisputesAPI.Dispute;
+  export import DisputeEvidence = DisputesAPI.DisputeEvidence;
+  export import DisputeInitiateEvidenceUploadResponse = DisputesAPI.DisputeInitiateEvidenceUploadResponse;
   export import DisputesCursorPage = DisputesAPI.DisputesCursorPage;
   export import DisputeEvidencesCursorPage = DisputesAPI.DisputeEvidencesCursorPage;
-  export type DisputeCreateParams = DisputesAPI.DisputeCreateParams;
-  export type DisputeUpdateParams = DisputesAPI.DisputeUpdateParams;
-  export type DisputeListParams = DisputesAPI.DisputeListParams;
-  export type DisputeInitiateEvidenceUploadParams = DisputesAPI.DisputeInitiateEvidenceUploadParams;
-  export type DisputeListEvidencesParams = DisputesAPI.DisputeListEvidencesParams;
+  export import DisputeCreateParams = DisputesAPI.DisputeCreateParams;
+  export import DisputeUpdateParams = DisputesAPI.DisputeUpdateParams;
+  export import DisputeListParams = DisputesAPI.DisputeListParams;
+  export import DisputeInitiateEvidenceUploadParams = DisputesAPI.DisputeInitiateEvidenceUploadParams;
+  export import DisputeListEvidencesParams = DisputesAPI.DisputeListEvidencesParams;
 }

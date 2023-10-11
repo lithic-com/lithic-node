@@ -248,12 +248,12 @@ export interface FinancialAccountListParams {
 }
 
 export namespace FinancialAccounts {
-  export type FinancialAccount = FinancialAccountsAPI.FinancialAccount;
-  export type FinancialTransaction = FinancialAccountsAPI.FinancialTransaction;
+  export import FinancialAccount = FinancialAccountsAPI.FinancialAccount;
+  export import FinancialTransaction = FinancialAccountsAPI.FinancialTransaction;
   export import FinancialAccountsSinglePage = FinancialAccountsAPI.FinancialAccountsSinglePage;
-  export type FinancialAccountListParams = FinancialAccountsAPI.FinancialAccountListParams;
+  export import FinancialAccountListParams = FinancialAccountsAPI.FinancialAccountListParams;
   export import Balances = BalancesAPI.Balances;
-  export type BalanceListParams = BalancesAPI.BalanceListParams;
+  export import BalanceListParams = BalancesAPI.BalanceListParams;
   export import FinancialTransactions = FinancialTransactionsAPI.FinancialTransactions;
-  export type FinancialTransactionListParams = FinancialTransactionsAPI.FinancialTransactionListParams;
+  export import FinancialTransactionListParams = FinancialTransactionsAPI.FinancialTransactionListParams;
 }
