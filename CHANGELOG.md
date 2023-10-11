@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.27.4 (2023-10-11)
+
+Full Changelog: [v0.27.3...v0.27.4](https://github.com/lithic-com/lithic-node/compare/v0.27.3...v0.27.4)
+
+### Bug Fixes
+
+* fix namespace exports regression ([#227](https://github.com/lithic-com/lithic-node/issues/227)) ([2741a5e](https://github.com/lithic-com/lithic-node/commit/2741a5e7cfa3dae1169ac2f95bce69cda669bfbf))
+
 ## 0.27.3 (2023-10-11)
 
 Full Changelog: [v0.27.2...v0.27.3](https://github.com/lithic-com/lithic-node/compare/v0.27.2...v0.27.3)
