@@ -312,6 +312,9 @@ export namespace Lithic {
   export import Disputes = API.Disputes;
   export import Dispute = API.Dispute;
   export import DisputeEvidence = API.DisputeEvidence;
+  /**
+   * @deprecated use `DisputeEvidence` instead
+   */
   export import DisputeInitiateEvidenceUploadResponse = API.DisputeInitiateEvidenceUploadResponse;
   export import DisputesCursorPage = API.DisputesCursorPage;
   export import DisputeEvidencesCursorPage = API.DisputeEvidencesCursorPage;
