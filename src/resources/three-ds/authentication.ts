@@ -2,7 +2,7 @@
 
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
-import * as API from './index';
+import * as AuthenticationAPI from 'lithic/resources/three-ds/authentication';
 
 export class Authentication extends APIResource {
   /**
@@ -582,7 +582,7 @@ export namespace AuthenticationSimulateParams {
 }
 
 export namespace Authentication {
-  export import AuthenticationRetrieveResponse = API.AuthenticationRetrieveResponse;
-  export import AuthenticationSimulateResponse = API.AuthenticationSimulateResponse;
-  export import AuthenticationSimulateParams = API.AuthenticationSimulateParams;
+  export type AuthenticationRetrieveResponse = AuthenticationAPI.AuthenticationRetrieveResponse;
+  export type AuthenticationSimulateResponse = AuthenticationAPI.AuthenticationSimulateResponse;
+  export type AuthenticationSimulateParams = AuthenticationAPI.AuthenticationSimulateParams;
 }

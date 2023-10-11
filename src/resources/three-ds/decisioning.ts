@@ -2,7 +2,7 @@
 
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
-import * as API from './index';
+import * as DecisioningAPI from 'lithic/resources/three-ds/decisioning';
 
 export class Decisioning extends APIResource {
   /**
@@ -36,5 +36,5 @@ export interface DecisioningRetrieveSecretResponse {
 }
 
 export namespace Decisioning {
-  export import DecisioningRetrieveSecretResponse = API.DecisioningRetrieveSecretResponse;
+  export type DecisioningRetrieveSecretResponse = DecisioningAPI.DecisioningRetrieveSecretResponse;
 }

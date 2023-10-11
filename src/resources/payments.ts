@@ -3,10 +3,10 @@
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
-import * as FinancialAccounts from 'lithic/resources/financial-accounts/index';
-import * as Balances from 'lithic/resources/balances';
-import * as API from './index';
-import { CursorPage, CursorPageParams } from 'lithic/pagination';
+import * as PaymentsAPI from 'lithic/resources/payments';
+import * as BalancesAPI from 'lithic/resources/balances';
+import * as FinancialAccountsAPI from 'lithic/resources/financial-accounts/financial-accounts';
+import { CursorPage, type CursorPageParams } from 'lithic/pagination';
 
 export class Payments extends APIResource {
   /**
@@ -63,10 +63,8 @@ export class Payments extends APIResource {
 }
 
 export class PaymentsCursorPage extends CursorPage<Payment> {}
-// alias so we can export it in the namespace
-type _PaymentsCursorPage = PaymentsCursorPage;
 
-export interface Payment extends FinancialAccounts.FinancialTransaction {
+export interface Payment extends FinancialAccountsAPI.FinancialTransaction {
   direction: 'CREDIT' | 'DEBIT';
 
   method: 'ACH_NEXT_DAY' | 'ACH_SAME_DAY';
@@ -90,7 +88,7 @@ export interface PaymentCreateResponse extends Payment {
   /**
    * Balance of a Financial Account
    */
-  balance?: Balances.Balance;
+  balance?: BalancesAPI.Balance;
 }
 
 export interface PaymentSimulateReleaseResponse {
@@ -154,13 +152,13 @@ export interface PaymentSimulateReturnParams {
 }
 
 export namespace Payments {
-  export import Payment = API.Payment;
-  export import PaymentCreateResponse = API.PaymentCreateResponse;
-  export import PaymentSimulateReleaseResponse = API.PaymentSimulateReleaseResponse;
-  export import PaymentSimulateReturnResponse = API.PaymentSimulateReturnResponse;
-  export type PaymentsCursorPage = _PaymentsCursorPage;
-  export import PaymentCreateParams = API.PaymentCreateParams;
-  export import PaymentListParams = API.PaymentListParams;
-  export import PaymentSimulateReleaseParams = API.PaymentSimulateReleaseParams;
-  export import PaymentSimulateReturnParams = API.PaymentSimulateReturnParams;
+  export type Payment = PaymentsAPI.Payment;
+  export type PaymentCreateResponse = PaymentsAPI.PaymentCreateResponse;
+  export type PaymentSimulateReleaseResponse = PaymentsAPI.PaymentSimulateReleaseResponse;
+  export type PaymentSimulateReturnResponse = PaymentsAPI.PaymentSimulateReturnResponse;
+  export import PaymentsCursorPage = PaymentsAPI.PaymentsCursorPage;
+  export type PaymentCreateParams = PaymentsAPI.PaymentCreateParams;
+  export type PaymentListParams = PaymentsAPI.PaymentListParams;
+  export type PaymentSimulateReleaseParams = PaymentsAPI.PaymentSimulateReleaseParams;
+  export type PaymentSimulateReturnParams = PaymentsAPI.PaymentSimulateReturnParams;
 }

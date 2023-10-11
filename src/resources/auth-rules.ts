@@ -3,8 +3,8 @@
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
-import * as API from './index';
-import { CursorPage, CursorPageParams } from 'lithic/pagination';
+import * as AuthRulesAPI from 'lithic/resources/auth-rules';
+import { CursorPage, type CursorPageParams } from 'lithic/pagination';
 
 export class AuthRules extends APIResource {
   /**
@@ -75,8 +75,6 @@ export class AuthRules extends APIResource {
 }
 
 export class AuthRulesCursorPage extends CursorPage<AuthRule> {}
-// alias so we can export it in the namespace
-type _AuthRulesCursorPage = AuthRulesCursorPage;
 
 export interface AuthRule {
   /**
@@ -258,13 +256,13 @@ export interface AuthRuleRemoveParams {
 }
 
 export namespace AuthRules {
-  export import AuthRule = API.AuthRule;
-  export import AuthRuleRetrieveResponse = API.AuthRuleRetrieveResponse;
-  export import AuthRuleRemoveResponse = API.AuthRuleRemoveResponse;
-  export type AuthRulesCursorPage = _AuthRulesCursorPage;
-  export import AuthRuleCreateParams = API.AuthRuleCreateParams;
-  export import AuthRuleUpdateParams = API.AuthRuleUpdateParams;
-  export import AuthRuleListParams = API.AuthRuleListParams;
-  export import AuthRuleApplyParams = API.AuthRuleApplyParams;
-  export import AuthRuleRemoveParams = API.AuthRuleRemoveParams;
+  export type AuthRule = AuthRulesAPI.AuthRule;
+  export type AuthRuleRetrieveResponse = AuthRulesAPI.AuthRuleRetrieveResponse;
+  export type AuthRuleRemoveResponse = AuthRulesAPI.AuthRuleRemoveResponse;
+  export import AuthRulesCursorPage = AuthRulesAPI.AuthRulesCursorPage;
+  export type AuthRuleCreateParams = AuthRulesAPI.AuthRuleCreateParams;
+  export type AuthRuleUpdateParams = AuthRulesAPI.AuthRuleUpdateParams;
+  export type AuthRuleListParams = AuthRulesAPI.AuthRuleListParams;
+  export type AuthRuleApplyParams = AuthRulesAPI.AuthRuleApplyParams;
+  export type AuthRuleRemoveParams = AuthRulesAPI.AuthRuleRemoveParams;
 }

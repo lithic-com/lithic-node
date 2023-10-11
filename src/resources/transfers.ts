@@ -2,8 +2,8 @@
 
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
-import * as Balances from 'lithic/resources/balances';
-import * as API from './index';
+import * as TransfersAPI from 'lithic/resources/transfers';
+import * as BalancesAPI from 'lithic/resources/balances';
 
 export class Transfers extends APIResource {
   /**
@@ -52,7 +52,7 @@ export interface Transfer {
   /**
    * The updated balance of the sending financial account.
    */
-  from_balance?: Array<Balances.Balance>;
+  from_balance?: Array<BalancesAPI.Balance>;
 
   /**
    * Pending amount of the transaction in the currency's smallest unit (e.g., cents),
@@ -87,7 +87,7 @@ export interface Transfer {
   /**
    * The updated balance of the receiving financial account.
    */
-  to_balance?: Array<Balances.Balance>;
+  to_balance?: Array<BalancesAPI.Balance>;
 
   /**
    * Date and time when the financial transaction was last updated. UTC time zone.
@@ -217,7 +217,7 @@ export interface TransferCreateParams {
 }
 
 export namespace Transfers {
-  export import Transfer = API.Transfer;
-  export import TransferCreateResponse = API.TransferCreateResponse;
-  export import TransferCreateParams = API.TransferCreateParams;
+  export type Transfer = TransfersAPI.Transfer;
+  export type TransferCreateResponse = TransfersAPI.TransferCreateResponse;
+  export type TransferCreateParams = TransfersAPI.TransferCreateParams;
 }

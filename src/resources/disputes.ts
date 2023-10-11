@@ -4,8 +4,8 @@ import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
 import { maybeMultipartFormRequestOptions, Uploadable } from 'lithic/core';
-import * as API from './index';
-import { CursorPage, CursorPageParams } from 'lithic/pagination';
+import * as DisputesAPI from 'lithic/resources/disputes';
+import { CursorPage, type CursorPageParams } from 'lithic/pagination';
 
 export class Disputes extends APIResource {
   /**
@@ -152,12 +152,8 @@ export class Disputes extends APIResource {
 }
 
 export class DisputesCursorPage extends CursorPage<Dispute> {}
-// alias so we can export it in the namespace
-type _DisputesCursorPage = DisputesCursorPage;
 
 export class DisputeEvidencesCursorPage extends CursorPage<DisputeEvidence> {}
-// alias so we can export it in the namespace
-type _DisputeEvidencesCursorPage = DisputeEvidencesCursorPage;
 
 /**
  * Dispute.
@@ -527,14 +523,14 @@ export interface DisputeListEvidencesParams extends CursorPageParams {
 }
 
 export namespace Disputes {
-  export import Dispute = API.Dispute;
-  export import DisputeEvidence = API.DisputeEvidence;
-  export import DisputeInitiateEvidenceUploadResponse = API.DisputeInitiateEvidenceUploadResponse;
-  export type DisputesCursorPage = _DisputesCursorPage;
-  export type DisputeEvidencesCursorPage = _DisputeEvidencesCursorPage;
-  export import DisputeCreateParams = API.DisputeCreateParams;
-  export import DisputeUpdateParams = API.DisputeUpdateParams;
-  export import DisputeListParams = API.DisputeListParams;
-  export import DisputeInitiateEvidenceUploadParams = API.DisputeInitiateEvidenceUploadParams;
-  export import DisputeListEvidencesParams = API.DisputeListEvidencesParams;
+  export type Dispute = DisputesAPI.Dispute;
+  export type DisputeEvidence = DisputesAPI.DisputeEvidence;
+  export type DisputeInitiateEvidenceUploadResponse = DisputesAPI.DisputeInitiateEvidenceUploadResponse;
+  export import DisputesCursorPage = DisputesAPI.DisputesCursorPage;
+  export import DisputeEvidencesCursorPage = DisputesAPI.DisputeEvidencesCursorPage;
+  export type DisputeCreateParams = DisputesAPI.DisputeCreateParams;
+  export type DisputeUpdateParams = DisputesAPI.DisputeUpdateParams;
+  export type DisputeListParams = DisputesAPI.DisputeListParams;
+  export type DisputeInitiateEvidenceUploadParams = DisputesAPI.DisputeInitiateEvidenceUploadParams;
+  export type DisputeListEvidencesParams = DisputesAPI.DisputeListEvidencesParams;
 }

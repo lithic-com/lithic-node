@@ -3,8 +3,8 @@
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
-import * as API from './index';
-import { CursorPage, CursorPageParams } from 'lithic/pagination';
+import * as TransactionsAPI from 'lithic/resources/transactions';
+import { CursorPage, type CursorPageParams } from 'lithic/pagination';
 
 export class Transactions extends APIResource {
   /**
@@ -126,8 +126,6 @@ export class Transactions extends APIResource {
 }
 
 export class TransactionsCursorPage extends CursorPage<Transaction> {}
-// alias so we can export it in the namespace
-type _TransactionsCursorPage = TransactionsCursorPage;
 
 export interface Transaction {
   /**
@@ -836,21 +834,28 @@ export interface TransactionSimulateVoidParams {
 }
 
 export namespace Transactions {
-  export import Transaction = API.Transaction;
-  export import TransactionSimulateAuthorizationResponse = API.TransactionSimulateAuthorizationResponse;
-  export import TransactionSimulateAuthorizationAdviceResponse = API.TransactionSimulateAuthorizationAdviceResponse;
-  export import TransactionSimulateClearingResponse = API.TransactionSimulateClearingResponse;
-  export import TransactionSimulateCreditAuthorizationResponse = API.TransactionSimulateCreditAuthorizationResponse;
-  export import TransactionSimulateReturnResponse = API.TransactionSimulateReturnResponse;
-  export import TransactionSimulateReturnReversalResponse = API.TransactionSimulateReturnReversalResponse;
-  export import TransactionSimulateVoidResponse = API.TransactionSimulateVoidResponse;
-  export type TransactionsCursorPage = _TransactionsCursorPage;
-  export import TransactionListParams = API.TransactionListParams;
-  export import TransactionSimulateAuthorizationParams = API.TransactionSimulateAuthorizationParams;
-  export import TransactionSimulateAuthorizationAdviceParams = API.TransactionSimulateAuthorizationAdviceParams;
-  export import TransactionSimulateClearingParams = API.TransactionSimulateClearingParams;
-  export import TransactionSimulateCreditAuthorizationParams = API.TransactionSimulateCreditAuthorizationParams;
-  export import TransactionSimulateReturnParams = API.TransactionSimulateReturnParams;
-  export import TransactionSimulateReturnReversalParams = API.TransactionSimulateReturnReversalParams;
-  export import TransactionSimulateVoidParams = API.TransactionSimulateVoidParams;
+  export type Transaction = TransactionsAPI.Transaction;
+  export type TransactionSimulateAuthorizationResponse =
+    TransactionsAPI.TransactionSimulateAuthorizationResponse;
+  export type TransactionSimulateAuthorizationAdviceResponse =
+    TransactionsAPI.TransactionSimulateAuthorizationAdviceResponse;
+  export type TransactionSimulateClearingResponse = TransactionsAPI.TransactionSimulateClearingResponse;
+  export type TransactionSimulateCreditAuthorizationResponse =
+    TransactionsAPI.TransactionSimulateCreditAuthorizationResponse;
+  export type TransactionSimulateReturnResponse = TransactionsAPI.TransactionSimulateReturnResponse;
+  export type TransactionSimulateReturnReversalResponse =
+    TransactionsAPI.TransactionSimulateReturnReversalResponse;
+  export type TransactionSimulateVoidResponse = TransactionsAPI.TransactionSimulateVoidResponse;
+  export import TransactionsCursorPage = TransactionsAPI.TransactionsCursorPage;
+  export type TransactionListParams = TransactionsAPI.TransactionListParams;
+  export type TransactionSimulateAuthorizationParams = TransactionsAPI.TransactionSimulateAuthorizationParams;
+  export type TransactionSimulateAuthorizationAdviceParams =
+    TransactionsAPI.TransactionSimulateAuthorizationAdviceParams;
+  export type TransactionSimulateClearingParams = TransactionsAPI.TransactionSimulateClearingParams;
+  export type TransactionSimulateCreditAuthorizationParams =
+    TransactionsAPI.TransactionSimulateCreditAuthorizationParams;
+  export type TransactionSimulateReturnParams = TransactionsAPI.TransactionSimulateReturnParams;
+  export type TransactionSimulateReturnReversalParams =
+    TransactionsAPI.TransactionSimulateReturnReversalParams;
+  export type TransactionSimulateVoidParams = TransactionsAPI.TransactionSimulateVoidParams;
 }

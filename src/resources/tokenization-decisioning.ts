@@ -2,7 +2,7 @@
 
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
-import * as API from './index';
+import * as TokenizationDecisioningAPI from 'lithic/resources/tokenization-decisioning';
 
 export class TokenizationDecisioning extends APIResource {
   /**
@@ -42,6 +42,7 @@ export interface TokenizationDecisioningRotateSecretResponse {
 }
 
 export namespace TokenizationDecisioning {
-  export import TokenizationSecret = API.TokenizationSecret;
-  export import TokenizationDecisioningRotateSecretResponse = API.TokenizationDecisioningRotateSecretResponse;
+  export type TokenizationSecret = TokenizationDecisioningAPI.TokenizationSecret;
+  export type TokenizationDecisioningRotateSecretResponse =
+    TokenizationDecisioningAPI.TokenizationDecisioningRotateSecretResponse;
 }
