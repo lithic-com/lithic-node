@@ -106,7 +106,7 @@ export interface BalanceListParams {
 }
 
 export namespace Balances {
-  export type Balance = BalancesAPI.Balance;
+  export import Balance = BalancesAPI.Balance;
   export import BalancesSinglePage = BalancesAPI.BalancesSinglePage;
-  export type BalanceListParams = BalancesAPI.BalanceListParams;
+  export import BalanceListParams = BalancesAPI.BalanceListParams;
 }

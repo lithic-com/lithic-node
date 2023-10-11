@@ -105,7 +105,7 @@ export interface TokenizationSimulateParams {
 }
 
 export namespace Tokenizations {
-  export type Tokenization = TokenizationsAPI.Tokenization;
-  export type TokenizationSimulateResponse = TokenizationsAPI.TokenizationSimulateResponse;
-  export type TokenizationSimulateParams = TokenizationsAPI.TokenizationSimulateParams;
+  export import Tokenization = TokenizationsAPI.Tokenization;
+  export import TokenizationSimulateResponse = TokenizationsAPI.TokenizationSimulateResponse;
+  export import TokenizationSimulateParams = TokenizationsAPI.TokenizationSimulateParams;
 }

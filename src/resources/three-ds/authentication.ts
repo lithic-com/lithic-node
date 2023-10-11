@@ -582,7 +582,7 @@ export namespace AuthenticationSimulateParams {
 }
 
 export namespace Authentication {
-  export type AuthenticationRetrieveResponse = AuthenticationAPI.AuthenticationRetrieveResponse;
-  export type AuthenticationSimulateResponse = AuthenticationAPI.AuthenticationSimulateResponse;
-  export type AuthenticationSimulateParams = AuthenticationAPI.AuthenticationSimulateParams;
+  export import AuthenticationRetrieveResponse = AuthenticationAPI.AuthenticationRetrieveResponse;
+  export import AuthenticationSimulateResponse = AuthenticationAPI.AuthenticationSimulateResponse;
+  export import AuthenticationSimulateParams = AuthenticationAPI.AuthenticationSimulateParams;
 }

@@ -1417,15 +1417,15 @@ export interface AccountHolderUploadDocumentParams {
 }
 
 export namespace AccountHolders {
-  export type AccountHolder = AccountHoldersAPI.AccountHolder;
-  export type AccountHolderDocument = AccountHoldersAPI.AccountHolderDocument;
-  export type KYB = AccountHoldersAPI.KYB;
-  export type KYC = AccountHoldersAPI.KYC;
-  export type KYCExempt = AccountHoldersAPI.KYCExempt;
-  export type AccountHolderUpdateResponse = AccountHoldersAPI.AccountHolderUpdateResponse;
-  export type AccountHolderListDocumentsResponse = AccountHoldersAPI.AccountHolderListDocumentsResponse;
-  export type AccountHolderCreateParams = AccountHoldersAPI.AccountHolderCreateParams;
-  export type AccountHolderUpdateParams = AccountHoldersAPI.AccountHolderUpdateParams;
-  export type AccountHolderResubmitParams = AccountHoldersAPI.AccountHolderResubmitParams;
-  export type AccountHolderUploadDocumentParams = AccountHoldersAPI.AccountHolderUploadDocumentParams;
+  export import AccountHolder = AccountHoldersAPI.AccountHolder;
+  export import AccountHolderDocument = AccountHoldersAPI.AccountHolderDocument;
+  export import KYB = AccountHoldersAPI.KYB;
+  export import KYC = AccountHoldersAPI.KYC;
+  export import KYCExempt = AccountHoldersAPI.KYCExempt;
+  export import AccountHolderUpdateResponse = AccountHoldersAPI.AccountHolderUpdateResponse;
+  export import AccountHolderListDocumentsResponse = AccountHoldersAPI.AccountHolderListDocumentsResponse;
+  export import AccountHolderCreateParams = AccountHoldersAPI.AccountHolderCreateParams;
+  export import AccountHolderUpdateParams = AccountHoldersAPI.AccountHolderUpdateParams;
+  export import AccountHolderResubmitParams = AccountHoldersAPI.AccountHolderResubmitParams;
+  export import AccountHolderUploadDocumentParams = AccountHoldersAPI.AccountHolderUploadDocumentParams;
 }
