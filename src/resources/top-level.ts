@@ -1,11 +1,11 @@
 // File generated from our OpenAPI spec by Stainless.
 
-import * as API from './index';
+import * as TopLevelAPI from 'lithic/resources/top-level';
 
 export interface APIStatus {
   message?: string;
 }
 
 export namespace TopLevel {
-  export import APIStatus = API.APIStatus;
+  export type APIStatus = TopLevelAPI.APIStatus;
 }

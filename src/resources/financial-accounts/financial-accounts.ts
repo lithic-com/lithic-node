@@ -3,14 +3,15 @@
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
-import { Balances } from './balances';
-import { FinancialTransactions } from './financial-transactions';
-import * as API from './index';
+import * as FinancialAccountsAPI from 'lithic/resources/financial-accounts/financial-accounts';
+import * as BalancesAPI from 'lithic/resources/financial-accounts/balances';
+import * as FinancialTransactionsAPI from 'lithic/resources/financial-accounts/financial-transactions';
 import { SinglePage } from 'lithic/pagination';
 
 export class FinancialAccounts extends APIResource {
-  balances: Balances = new Balances(this.client);
-  financialTransactions: FinancialTransactions = new FinancialTransactions(this.client);
+  balances: BalancesAPI.Balances = new BalancesAPI.Balances(this.client);
+  financialTransactions: FinancialTransactionsAPI.FinancialTransactions =
+    new FinancialTransactionsAPI.FinancialTransactions(this.client);
 
   /**
    * Retrieve information on your financial accounts including routing and account
@@ -33,12 +34,8 @@ export class FinancialAccounts extends APIResource {
 }
 
 export class FinancialAccountsSinglePage extends SinglePage<FinancialAccount> {}
-// alias so we can export it in the namespace
-type _FinancialAccountsSinglePage = FinancialAccountsSinglePage;
 
 export class FinancialTransactionsSinglePage extends SinglePage<FinancialTransaction> {}
-// alias so we can export it in the namespace
-type _FinancialTransactionsSinglePage = FinancialTransactionsSinglePage;
 
 /**
  * Financial Account
@@ -251,14 +248,12 @@ export interface FinancialAccountListParams {
 }
 
 export namespace FinancialAccounts {
-  export import FinancialAccount = API.FinancialAccount;
-  export import FinancialTransaction = API.FinancialTransaction;
-  export type FinancialAccountsSinglePage = _FinancialAccountsSinglePage;
-  export import FinancialAccountListParams = API.FinancialAccountListParams;
-
-  export import Balances = API.Balances;
-  export import BalanceListParams = API.BalanceListParams;
-
-  export import FinancialTransactions = API.FinancialTransactions;
-  export import FinancialTransactionListParams = API.FinancialTransactionListParams;
+  export type FinancialAccount = FinancialAccountsAPI.FinancialAccount;
+  export type FinancialTransaction = FinancialAccountsAPI.FinancialTransaction;
+  export import FinancialAccountsSinglePage = FinancialAccountsAPI.FinancialAccountsSinglePage;
+  export type FinancialAccountListParams = FinancialAccountsAPI.FinancialAccountListParams;
+  export import Balances = BalancesAPI.Balances;
+  export type BalanceListParams = BalancesAPI.BalanceListParams;
+  export import FinancialTransactions = FinancialTransactionsAPI.FinancialTransactions;
+  export type FinancialTransactionListParams = FinancialTransactionsAPI.FinancialTransactionListParams;
 }

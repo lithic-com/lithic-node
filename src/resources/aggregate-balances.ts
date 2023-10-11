@@ -3,7 +3,7 @@
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
-import * as API from './index';
+import * as AggregateBalancesAPI from 'lithic/resources/aggregate-balances';
 import { SinglePage } from 'lithic/pagination';
 
 export class AggregateBalances extends APIResource {
@@ -28,8 +28,6 @@ export class AggregateBalances extends APIResource {
 }
 
 export class AggregateBalancesSinglePage extends SinglePage<AggregateBalance> {}
-// alias so we can export it in the namespace
-type _AggregateBalancesSinglePage = AggregateBalancesSinglePage;
 
 /**
  * Aggregate Balance across all end-user accounts
@@ -98,7 +96,7 @@ export interface AggregateBalanceListParams {
 }
 
 export namespace AggregateBalances {
-  export import AggregateBalance = API.AggregateBalance;
-  export type AggregateBalancesSinglePage = _AggregateBalancesSinglePage;
-  export import AggregateBalanceListParams = API.AggregateBalanceListParams;
+  export type AggregateBalance = AggregateBalancesAPI.AggregateBalance;
+  export import AggregateBalancesSinglePage = AggregateBalancesAPI.AggregateBalancesSinglePage;
+  export type AggregateBalanceListParams = AggregateBalancesAPI.AggregateBalanceListParams;
 }

@@ -2,7 +2,7 @@
 
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
-import * as API from './index';
+import * as TokenizationsAPI from 'lithic/resources/tokenizations';
 
 export class Tokenizations extends APIResource {
   /**
@@ -105,7 +105,7 @@ export interface TokenizationSimulateParams {
 }
 
 export namespace Tokenizations {
-  export import Tokenization = API.Tokenization;
-  export import TokenizationSimulateResponse = API.TokenizationSimulateResponse;
-  export import TokenizationSimulateParams = API.TokenizationSimulateParams;
+  export type Tokenization = TokenizationsAPI.Tokenization;
+  export type TokenizationSimulateResponse = TokenizationsAPI.TokenizationSimulateResponse;
+  export type TokenizationSimulateParams = TokenizationsAPI.TokenizationSimulateParams;
 }

@@ -3,12 +3,12 @@
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
-import { Subscriptions } from './subscriptions';
-import * as API from './index';
-import { CursorPage, CursorPageParams } from 'lithic/pagination';
+import * as EventsAPI from 'lithic/resources/events/events';
+import * as SubscriptionsAPI from 'lithic/resources/events/subscriptions';
+import { CursorPage, type CursorPageParams } from 'lithic/pagination';
 
 export class Events extends APIResource {
-  subscriptions: Subscriptions = new Subscriptions(this.client);
+  subscriptions: SubscriptionsAPI.Subscriptions = new SubscriptionsAPI.Subscriptions(this.client);
 
   /**
    * Get an event.
@@ -74,16 +74,10 @@ export class Events extends APIResource {
 }
 
 export class EventsCursorPage extends CursorPage<Event> {}
-// alias so we can export it in the namespace
-type _EventsCursorPage = EventsCursorPage;
 
 export class MessageAttemptsCursorPage extends CursorPage<MessageAttempt> {}
-// alias so we can export it in the namespace
-type _MessageAttemptsCursorPage = MessageAttemptsCursorPage;
 
 export class EventSubscriptionsCursorPage extends CursorPage<EventSubscription> {}
-// alias so we can export it in the namespace
-type _EventSubscriptionsCursorPage = EventSubscriptionsCursorPage;
 
 /**
  * A single event that affects the transaction state and lifecycle.
@@ -318,22 +312,22 @@ export interface EventResendParams {
 }
 
 export namespace Events {
-  export import Event = API.Event;
-  export import EventSubscription = API.EventSubscription;
-  export import MessageAttempt = API.MessageAttempt;
-  export type EventsCursorPage = _EventsCursorPage;
-  export type MessageAttemptsCursorPage = _MessageAttemptsCursorPage;
-  export import EventListParams = API.EventListParams;
-  export import EventListAttemptsParams = API.EventListAttemptsParams;
-  export import EventResendParams = API.EventResendParams;
-
-  export import Subscriptions = API.Subscriptions;
-  export import SubscriptionRetrieveSecretResponse = API.SubscriptionRetrieveSecretResponse;
-  export import SubscriptionCreateParams = API.SubscriptionCreateParams;
-  export import SubscriptionUpdateParams = API.SubscriptionUpdateParams;
-  export import SubscriptionListParams = API.SubscriptionListParams;
-  export import SubscriptionListAttemptsParams = API.SubscriptionListAttemptsParams;
-  export import SubscriptionRecoverParams = API.SubscriptionRecoverParams;
-  export import SubscriptionReplayMissingParams = API.SubscriptionReplayMissingParams;
-  export import SubscriptionSendSimulatedExampleParams = API.SubscriptionSendSimulatedExampleParams;
+  export type Event = EventsAPI.Event;
+  export type EventSubscription = EventsAPI.EventSubscription;
+  export type MessageAttempt = EventsAPI.MessageAttempt;
+  export import EventsCursorPage = EventsAPI.EventsCursorPage;
+  export import MessageAttemptsCursorPage = EventsAPI.MessageAttemptsCursorPage;
+  export type EventListParams = EventsAPI.EventListParams;
+  export type EventListAttemptsParams = EventsAPI.EventListAttemptsParams;
+  export type EventResendParams = EventsAPI.EventResendParams;
+  export import Subscriptions = SubscriptionsAPI.Subscriptions;
+  export type SubscriptionRetrieveSecretResponse = SubscriptionsAPI.SubscriptionRetrieveSecretResponse;
+  export type SubscriptionCreateParams = SubscriptionsAPI.SubscriptionCreateParams;
+  export type SubscriptionUpdateParams = SubscriptionsAPI.SubscriptionUpdateParams;
+  export type SubscriptionListParams = SubscriptionsAPI.SubscriptionListParams;
+  export type SubscriptionListAttemptsParams = SubscriptionsAPI.SubscriptionListAttemptsParams;
+  export type SubscriptionRecoverParams = SubscriptionsAPI.SubscriptionRecoverParams;
+  export type SubscriptionReplayMissingParams = SubscriptionsAPI.SubscriptionReplayMissingParams;
+  export type SubscriptionSendSimulatedExampleParams =
+    SubscriptionsAPI.SubscriptionSendSimulatedExampleParams;
 }

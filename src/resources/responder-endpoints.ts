@@ -2,7 +2,7 @@
 
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
-import * as API from './index';
+import * as ResponderEndpointsAPI from 'lithic/resources/responder-endpoints';
 
 export class ResponderEndpoints extends APIResource {
   /**
@@ -80,9 +80,9 @@ export interface ResponderEndpointCheckStatusParams {
 }
 
 export namespace ResponderEndpoints {
-  export import ResponderEndpointStatus = API.ResponderEndpointStatus;
-  export import ResponderEndpointCreateResponse = API.ResponderEndpointCreateResponse;
-  export import ResponderEndpointCreateParams = API.ResponderEndpointCreateParams;
-  export import ResponderEndpointDeleteParams = API.ResponderEndpointDeleteParams;
-  export import ResponderEndpointCheckStatusParams = API.ResponderEndpointCheckStatusParams;
+  export type ResponderEndpointStatus = ResponderEndpointsAPI.ResponderEndpointStatus;
+  export type ResponderEndpointCreateResponse = ResponderEndpointsAPI.ResponderEndpointCreateResponse;
+  export type ResponderEndpointCreateParams = ResponderEndpointsAPI.ResponderEndpointCreateParams;
+  export type ResponderEndpointDeleteParams = ResponderEndpointsAPI.ResponderEndpointDeleteParams;
+  export type ResponderEndpointCheckStatusParams = ResponderEndpointsAPI.ResponderEndpointCheckStatusParams;
 }

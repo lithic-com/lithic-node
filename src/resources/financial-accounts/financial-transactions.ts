@@ -3,9 +3,9 @@
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
-import * as FinancialAccounts from 'lithic/resources/financial-accounts/index';
-import { FinancialTransactionsSinglePage } from 'lithic/resources/financial-accounts/index';
-import * as API from './index';
+import * as FinancialTransactionsAPI from 'lithic/resources/financial-accounts/financial-transactions';
+import * as FinancialAccountsAPI from 'lithic/resources/financial-accounts/financial-accounts';
+import { FinancialTransactionsSinglePage } from 'lithic/resources/financial-accounts/financial-accounts';
 
 export class FinancialTransactions extends APIResource {
   /**
@@ -15,7 +15,7 @@ export class FinancialTransactions extends APIResource {
     financialAccountToken: string,
     financialTransactionToken: string,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<FinancialAccounts.FinancialTransaction> {
+  ): Core.APIPromise<FinancialAccountsAPI.FinancialTransaction> {
     return this.get(
       `/financial_accounts/${financialAccountToken}/financial_transactions/${financialTransactionToken}`,
       options,
@@ -29,16 +29,16 @@ export class FinancialTransactions extends APIResource {
     financialAccountToken: string,
     query?: FinancialTransactionListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<FinancialTransactionsSinglePage, FinancialAccounts.FinancialTransaction>;
+  ): Core.PagePromise<FinancialTransactionsSinglePage, FinancialAccountsAPI.FinancialTransaction>;
   list(
     financialAccountToken: string,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<FinancialTransactionsSinglePage, FinancialAccounts.FinancialTransaction>;
+  ): Core.PagePromise<FinancialTransactionsSinglePage, FinancialAccountsAPI.FinancialTransaction>;
   list(
     financialAccountToken: string,
     query: FinancialTransactionListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<FinancialTransactionsSinglePage, FinancialAccounts.FinancialTransaction> {
+  ): Core.PagePromise<FinancialTransactionsSinglePage, FinancialAccountsAPI.FinancialTransaction> {
     if (isRequestOptions(query)) {
       return this.list(financialAccountToken, {}, query);
     }
@@ -92,7 +92,7 @@ export interface FinancialTransactionListParams {
 }
 
 export namespace FinancialTransactions {
-  export import FinancialTransactionListParams = API.FinancialTransactionListParams;
+  export type FinancialTransactionListParams = FinancialTransactionsAPI.FinancialTransactionListParams;
 }
 
 export { FinancialTransactionsSinglePage };
