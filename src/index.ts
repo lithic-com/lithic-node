@@ -17,9 +17,14 @@ type Environment = keyof typeof environments;
 
 export interface ClientOptions {
   /**
-   * Defaults to process.env["LITHIC_API_KEY"].
+   * Defaults to process.env['LITHIC_API_KEY'].
    */
   apiKey?: string;
+
+  /**
+   * Defaults to process.env['LITHIC_WEBHOOK_SECRET'].
+   */
+  webhookSecret?: string | null;
 
   /**
    * Specifies the environment to use for the API.
@@ -83,21 +88,20 @@ export interface ClientOptions {
    * param to `undefined` in request options.
    */
   defaultQuery?: Core.DefaultQuery;
-
-  webhookSecret?: string | null;
 }
 
 /** API Client for interfacing with the Lithic API. */
 export class Lithic extends Core.APIClient {
   apiKey: string;
-  webhookSecret?: string | null;
+  webhookSecret: string | null;
 
   private _options: ClientOptions;
 
   /**
    * API Client for interfacing with the Lithic API.
    *
-   * @param {string} [opts.apiKey=process.env['LITHIC_API_KEY']] - The API Key to send to the API.
+   * @param {string} [opts.apiKey==process.env['LITHIC_API_KEY'] ?? undefined]
+   * @param {string | null} [opts.webhookSecret==process.env['LITHIC_WEBHOOK_SECRET'] ?? null]
    * @param {Environment} [opts.environment=production] - Specifies the environment URL to use for the API.
    * @param {string} [opts.baseURL] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
@@ -106,7 +110,6 @@ export class Lithic extends Core.APIClient {
    * @param {number} [opts.maxRetries=2] - The maximum number of times the client will retry a request.
    * @param {Core.Headers} opts.defaultHeaders - Default headers to include with every request to the API.
    * @param {Core.DefaultQuery} opts.defaultQuery - Default query parameters to include with every request to the API.
-   * @param {string | null} [opts.webhookSecret]
    */
   constructor({
     apiKey = Core.readEnv('LITHIC_API_KEY'),
@@ -115,7 +118,7 @@ export class Lithic extends Core.APIClient {
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
       throw new Errors.LithicError(
-        "The LITHIC_API_KEY environment variable is missing or empty; either provide it, or instantiate the Lithic client with an apiKey option, like new Lithic({ apiKey: 'my apiKey' }).",
+        "The LITHIC_API_KEY environment variable is missing or empty; either provide it, or instantiate the Lithic client with an apiKey option, like new Lithic({ apiKey: 'My Lithic API Key' }).",
       );
     }
 
