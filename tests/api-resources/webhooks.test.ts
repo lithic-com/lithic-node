@@ -3,7 +3,7 @@
 import Lithic from 'lithic';
 
 const lithic = new Lithic({
-  apiKey: 'something1234',
+  apiKey: 'My Lithic API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 

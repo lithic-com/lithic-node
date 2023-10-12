@@ -22,7 +22,7 @@ The full API of this library can be found in [api.md](https://www.github.com/lit
 import Lithic from 'lithic';
 
 const lithic = new Lithic({
-  apiKey: 'my api key', // defaults to process.env["LITHIC_API_KEY"]
+  apiKey: 'My Lithic API Key', // defaults to process.env["LITHIC_API_KEY"]
   environment: 'sandbox', // defaults to 'production'
 });
 
@@ -43,7 +43,7 @@ This library includes TypeScript definitions for all request params and response
 import Lithic from 'lithic';
 
 const lithic = new Lithic({
-  apiKey: 'my api key', // defaults to process.env["LITHIC_API_KEY"]
+  apiKey: 'My Lithic API Key', // defaults to process.env["LITHIC_API_KEY"]
   environment: 'sandbox', // defaults to 'production'
 });
 
