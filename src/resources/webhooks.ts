@@ -2,7 +2,7 @@
 
 import { APIResource } from 'lithic/resource';
 import { createHmac } from 'crypto';
-import { getHeader, HeadersLike } from 'lithic/core';
+import { getRequiredHeader, HeadersLike } from 'lithic/core';
 
 export class Webhooks extends APIResource {
   /**
@@ -94,20 +94,10 @@ export class Webhooks extends APIResource {
     secret: string | undefined | null = this.client.webhookSecret,
   ): void {
     const whsecret = this.parseSecret(secret);
-    const msgId = getHeader(headers, 'webhook-id');
-    if (!msgId) {
-      throw new Error('Could not find webhook-id header');
-    }
 
-    const msgTimestamp = getHeader(headers, 'webhook-timestamp');
-    if (!msgTimestamp) {
-      throw new Error('Could not find webhook-timestamp header');
-    }
-
-    const msgSignature = getHeader(headers, 'webhook-signature');
-    if (!msgSignature) {
-      throw new Error('Could not find webhook-signature header');
-    }
+    const msgId = getRequiredHeader(headers, 'webhook-id');
+    const msgTimestamp = getRequiredHeader(headers, 'webhook-timestamp');
+    const msgSignature = getRequiredHeader(headers, 'webhook-signature');
 
     const now = Math.floor(Date.now() / 1000);
     const timestampSeconds = parseInt(msgTimestamp, 10);
