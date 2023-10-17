@@ -4,11 +4,21 @@ import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
 import { createHmac } from 'crypto';
-import * as CardsAPI from 'lithic/resources/cards';
+import * as CardsAPI from 'lithic/resources/cards/cards';
 import * as Shared from 'lithic/resources/shared';
+import * as AggregateBalancesAPI from 'lithic/resources/cards/aggregate-balances';
+import * as BalancesAPI from 'lithic/resources/cards/balances';
+import * as FinancialTransactionsAPI from 'lithic/resources/cards/financial-transactions';
 import { CursorPage, type CursorPageParams } from 'lithic/pagination';
 
 export class Cards extends APIResource {
+  aggregateBalances: AggregateBalancesAPI.AggregateBalances = new AggregateBalancesAPI.AggregateBalances(
+    this.client,
+  );
+  balances: BalancesAPI.Balances = new BalancesAPI.Balances(this.client);
+  financialTransactions: FinancialTransactionsAPI.FinancialTransactions =
+    new FinancialTransactionsAPI.FinancialTransactions(this.client);
+
   /**
    * Create a new virtual or physical card. Parameters `pin`, `shipping_address`, and
    * `product_id` only apply to physical cards.
@@ -606,13 +616,13 @@ export interface CardListParams extends CursorPageParams {
   account_token?: string;
 
   /**
-   * Date string in RFC 3339 format. Only entries created after the specified date
+   * Date string in RFC 3339 format. Only entries created after the specified time
    * will be included. UTC time zone.
    */
   begin?: string;
 
   /**
-   * Date string in RFC 3339 format. Only entries created before the specified date
+   * Date string in RFC 3339 format. Only entries created before the specified time
    * will be included. UTC time zone.
    */
   end?: string;
@@ -782,4 +792,12 @@ export namespace Cards {
   export import CardGetEmbedURLParams = CardsAPI.CardGetEmbedURLParams;
   export import CardProvisionParams = CardsAPI.CardProvisionParams;
   export import CardReissueParams = CardsAPI.CardReissueParams;
+  export import AggregateBalances = AggregateBalancesAPI.AggregateBalances;
+  export import AggregateBalanceListResponse = AggregateBalancesAPI.AggregateBalanceListResponse;
+  export import AggregateBalanceListResponsesSinglePage = AggregateBalancesAPI.AggregateBalanceListResponsesSinglePage;
+  export import AggregateBalanceListParams = AggregateBalancesAPI.AggregateBalanceListParams;
+  export import Balances = BalancesAPI.Balances;
+  export import BalanceListParams = BalancesAPI.BalanceListParams;
+  export import FinancialTransactions = FinancialTransactionsAPI.FinancialTransactions;
+  export import FinancialTransactionListParams = FinancialTransactionsAPI.FinancialTransactionListParams;
 }

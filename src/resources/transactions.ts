@@ -627,7 +627,7 @@ export interface TransactionListParams extends CursorPageParams {
   account_token?: string;
 
   /**
-   * Date string in RFC 3339 format. Only entries created after the specified date
+   * Date string in RFC 3339 format. Only entries created after the specified time
    * will be included. UTC time zone.
    */
   begin?: string;
@@ -638,7 +638,7 @@ export interface TransactionListParams extends CursorPageParams {
   card_token?: string;
 
   /**
-   * Date string in RFC 3339 format. Only entries created before the specified date
+   * Date string in RFC 3339 format. Only entries created before the specified time
    * will be included. UTC time zone.
    */
   end?: string;

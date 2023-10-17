@@ -3,10 +3,14 @@
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
-import * as AccountsAPI from 'lithic/resources/accounts';
+import * as AccountsAPI from 'lithic/resources/accounts/accounts';
+import * as CreditConfigurationsAPI from 'lithic/resources/accounts/credit-configurations';
 import { CursorPage, type CursorPageParams } from 'lithic/pagination';
 
 export class Accounts extends APIResource {
+  creditConfigurations: CreditConfigurationsAPI.CreditConfigurations =
+    new CreditConfigurationsAPI.CreditConfigurations(this.client);
+
   /**
    * Get account configuration such as spend limits.
    */
@@ -172,6 +176,39 @@ export namespace Account {
   }
 }
 
+export interface BusinessAccount {
+  /**
+   * Account token
+   */
+  token: string;
+
+  collections_configuration?: BusinessAccount.CollectionsConfiguration;
+
+  /**
+   * Credit limit extended to the Account
+   */
+  credit_limit?: number;
+}
+
+export namespace BusinessAccount {
+  export interface CollectionsConfiguration {
+    /**
+     * Number of days within the billing period
+     */
+    billing_period: number;
+
+    /**
+     * Number of days after the billing period ends that a payment is required
+     */
+    payment_period: number;
+
+    /**
+     * The external bank account token to use for auto-collections
+     */
+    external_bank_account_token?: string;
+  }
+}
+
 export interface AccountUpdateParams {
   /**
    * Amount (in cents) for the account's daily spend limit. By default the daily
@@ -230,13 +267,13 @@ export namespace AccountUpdateParams {
 
 export interface AccountListParams extends CursorPageParams {
   /**
-   * Date string in RFC 3339 format. Only entries created after the specified date
+   * Date string in RFC 3339 format. Only entries created after the specified time
    * will be included. UTC time zone.
    */
   begin?: string;
 
   /**
-   * Date string in RFC 3339 format. Only entries created before the specified date
+   * Date string in RFC 3339 format. Only entries created before the specified time
    * will be included. UTC time zone.
    */
   end?: string;
@@ -244,7 +281,10 @@ export interface AccountListParams extends CursorPageParams {
 
 export namespace Accounts {
   export import Account = AccountsAPI.Account;
+  export import BusinessAccount = AccountsAPI.BusinessAccount;
   export import AccountsCursorPage = AccountsAPI.AccountsCursorPage;
   export import AccountUpdateParams = AccountsAPI.AccountUpdateParams;
   export import AccountListParams = AccountsAPI.AccountListParams;
+  export import CreditConfigurations = CreditConfigurationsAPI.CreditConfigurations;
+  export import CreditConfigurationUpdateParams = CreditConfigurationsAPI.CreditConfigurationUpdateParams;
 }

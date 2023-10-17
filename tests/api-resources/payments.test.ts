@@ -33,7 +33,7 @@ describe('resource payments', () => {
       external_bank_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       method: 'ACH_NEXT_DAY',
-      method_attributes: { sec_code: 'PPD' },
+      method_attributes: { retries: 0, return_reason_code: 'string', sec_code: 'PPD' },
       type: 'PAYMENT',
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       memo: 'string',
@@ -91,6 +91,24 @@ describe('resource payments', () => {
         },
         { path: '/_stainless_unknown_path' },
       ),
+    ).rejects.toThrow(Lithic.NotFoundError);
+  });
+
+  test('retry', async () => {
+    const responsePromise = lithic.payments.retry('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('retry: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      lithic.payments.retry('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 

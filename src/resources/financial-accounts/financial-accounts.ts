@@ -6,12 +6,14 @@ import { isRequestOptions } from 'lithic/core';
 import * as FinancialAccountsAPI from 'lithic/resources/financial-accounts/financial-accounts';
 import * as BalancesAPI from 'lithic/resources/financial-accounts/balances';
 import * as FinancialTransactionsAPI from 'lithic/resources/financial-accounts/financial-transactions';
+import * as StatementsAPI from 'lithic/resources/financial-accounts/statements/statements';
 import { SinglePage } from 'lithic/pagination';
 
 export class FinancialAccounts extends APIResource {
   balances: BalancesAPI.Balances = new BalancesAPI.Balances(this.client);
   financialTransactions: FinancialTransactionsAPI.FinancialTransactions =
     new FinancialTransactionsAPI.FinancialTransactions(this.client);
+  statements: StatementsAPI.Statements = new StatementsAPI.Statements(this.client);
 
   /**
    * Retrieve information on your financial accounts including routing and account
@@ -256,4 +258,8 @@ export namespace FinancialAccounts {
   export import BalanceListParams = BalancesAPI.BalanceListParams;
   export import FinancialTransactions = FinancialTransactionsAPI.FinancialTransactions;
   export import FinancialTransactionListParams = FinancialTransactionsAPI.FinancialTransactionListParams;
+  export import Statements = StatementsAPI.Statements;
+  export import Statement = StatementsAPI.Statement;
+  export import StatementsCursorPage = StatementsAPI.StatementsCursorPage;
+  export import StatementListParams = StatementsAPI.StatementListParams;
 }

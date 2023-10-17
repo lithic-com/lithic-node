@@ -42,6 +42,13 @@ export class Payments extends APIResource {
   }
 
   /**
+   * Retry an origination which has been returned.
+   */
+  retry(paymentToken: string, options?: Core.RequestOptions): Core.APIPromise<PaymentRetryResponse> {
+    return this.post(`/payments/${paymentToken}/retry`, options);
+  }
+
+  /**
    * Simulates a release of a Payment.
    */
   simulateRelease(
@@ -81,10 +88,21 @@ export interface Payment extends FinancialAccountsAPI.FinancialTransaction {
 export namespace Payment {
   export interface MethodAttributes {
     sec_code: 'PPD' | 'CCD' | 'WEB';
+
+    retries?: number;
+
+    return_reason_code?: string;
   }
 }
 
 export interface PaymentCreateResponse extends Payment {
+  /**
+   * Balance of a Financial Account
+   */
+  balance?: BalancesAPI.Balance;
+}
+
+export interface PaymentRetryResponse extends Payment {
   /**
    * Balance of a Financial Account
    */
@@ -130,6 +148,10 @@ export interface PaymentCreateParams {
 export namespace PaymentCreateParams {
   export interface MethodAttributes {
     sec_code: 'PPD' | 'CCD' | 'WEB';
+
+    retries?: number;
+
+    return_reason_code?: string;
   }
 }
 
@@ -154,6 +176,7 @@ export interface PaymentSimulateReturnParams {
 export namespace Payments {
   export import Payment = PaymentsAPI.Payment;
   export import PaymentCreateResponse = PaymentsAPI.PaymentCreateResponse;
+  export import PaymentRetryResponse = PaymentsAPI.PaymentRetryResponse;
   export import PaymentSimulateReleaseResponse = PaymentsAPI.PaymentSimulateReleaseResponse;
   export import PaymentSimulateReturnResponse = PaymentsAPI.PaymentSimulateReturnResponse;
   export import PaymentsCursorPage = PaymentsAPI.PaymentsCursorPage;
