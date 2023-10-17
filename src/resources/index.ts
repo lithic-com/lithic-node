@@ -2,7 +2,14 @@
 
 export * from './shared';
 export { APIStatus } from './top-level';
-export { Account, AccountUpdateParams, AccountListParams, AccountsCursorPage, Accounts } from './accounts';
+export {
+  Account,
+  BusinessAccount,
+  AccountUpdateParams,
+  AccountListParams,
+  AccountsCursorPage,
+  Accounts,
+} from './accounts/accounts';
 export {
   AccountHolder,
   AccountHolderDocument,
@@ -58,7 +65,8 @@ export {
   CardReissueParams,
   CardsCursorPage,
   Cards,
-} from './cards';
+} from './cards/cards';
+export { CardProductCreditDetailResponse, CardProduct } from './card-product';
 export {
   Dispute,
   DisputeEvidence,
@@ -109,6 +117,7 @@ export {
 export {
   Payment,
   PaymentCreateResponse,
+  PaymentRetryResponse,
   PaymentSimulateReleaseResponse,
   PaymentSimulateReturnResponse,
   PaymentCreateParams,
@@ -126,6 +135,13 @@ export {
   ResponderEndpointCheckStatusParams,
   ResponderEndpoints,
 } from './responder-endpoints';
+export {
+  SettlementDetail,
+  SettlementReport,
+  SettlementSummaryDetails,
+  SettlementDetailsCursorPage,
+  Reports,
+} from './reports/reports';
 export { ThreeDS } from './three-ds/three-ds';
 export {
   Tokenization,
