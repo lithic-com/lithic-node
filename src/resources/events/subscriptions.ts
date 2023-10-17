@@ -277,13 +277,13 @@ export interface SubscriptionListParams extends CursorPageParams {}
 
 export interface SubscriptionListAttemptsParams extends CursorPageParams {
   /**
-   * Date string in RFC 3339 format. Only entries created after the specified date
+   * Date string in RFC 3339 format. Only entries created after the specified time
    * will be included. UTC time zone.
    */
   begin?: string;
 
   /**
-   * Date string in RFC 3339 format. Only entries created before the specified date
+   * Date string in RFC 3339 format. Only entries created before the specified time
    * will be included. UTC time zone.
    */
   end?: string;
@@ -293,13 +293,13 @@ export interface SubscriptionListAttemptsParams extends CursorPageParams {
 
 export interface SubscriptionRecoverParams {
   /**
-   * Date string in RFC 3339 format. Only entries created after the specified date
+   * Date string in RFC 3339 format. Only entries created after the specified time
    * will be included. UTC time zone.
    */
   begin?: string;
 
   /**
-   * Date string in RFC 3339 format. Only entries created before the specified date
+   * Date string in RFC 3339 format. Only entries created before the specified time
    * will be included. UTC time zone.
    */
   end?: string;
@@ -307,13 +307,13 @@ export interface SubscriptionRecoverParams {
 
 export interface SubscriptionReplayMissingParams {
   /**
-   * Date string in RFC 3339 format. Only entries created after the specified date
+   * Date string in RFC 3339 format. Only entries created after the specified time
    * will be included. UTC time zone.
    */
   begin?: string;
 
   /**
-   * Date string in RFC 3339 format. Only entries created before the specified date
+   * Date string in RFC 3339 format. Only entries created before the specified time
    * will be included. UTC time zone.
    */
   end?: string;

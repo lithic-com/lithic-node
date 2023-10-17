@@ -20,13 +20,21 @@ Types:
 
 Types:
 
-- <code><a href="./src/resources/accounts.ts">Account</a></code>
+- <code><a href="./src/resources/accounts/accounts.ts">Account</a></code>
+- <code><a href="./src/resources/accounts/accounts.ts">BusinessAccount</a></code>
 
 Methods:
 
-- <code title="get /accounts/{account_token}">client.accounts.<a href="./src/resources/accounts.ts">retrieve</a>(accountToken) -> Account</code>
-- <code title="patch /accounts/{account_token}">client.accounts.<a href="./src/resources/accounts.ts">update</a>(accountToken, { ...params }) -> Account</code>
-- <code title="get /accounts">client.accounts.<a href="./src/resources/accounts.ts">list</a>({ ...params }) -> AccountsCursorPage</code>
+- <code title="get /accounts/{account_token}">client.accounts.<a href="./src/resources/accounts/accounts.ts">retrieve</a>(accountToken) -> Account</code>
+- <code title="patch /accounts/{account_token}">client.accounts.<a href="./src/resources/accounts/accounts.ts">update</a>(accountToken, { ...params }) -> Account</code>
+- <code title="get /accounts">client.accounts.<a href="./src/resources/accounts/accounts.ts">list</a>({ ...params }) -> AccountsCursorPage</code>
+
+## CreditConfigurations
+
+Methods:
+
+- <code title="get /accounts/{account_token}/credit_configuration">client.accounts.creditConfigurations.<a href="./src/resources/accounts/credit-configurations.ts">retrieve</a>(accountToken) -> BusinessAccount</code>
+- <code title="patch /accounts/{account_token}/credit_configuration">client.accounts.creditConfigurations.<a href="./src/resources/accounts/credit-configurations.ts">update</a>(accountToken, { ...params }) -> BusinessAccount</code>
 
 # AccountHolders
 
@@ -109,23 +117,46 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/cards.ts">Card</a></code>
-- <code><a href="./src/resources/cards.ts">EmbedRequestParams</a></code>
-- <code><a href="./src/resources/cards.ts">SpendLimitDuration</a></code>
-- <code><a href="./src/resources/cards.ts">CardEmbedResponse</a></code>
-- <code><a href="./src/resources/cards.ts">CardProvisionResponse</a></code>
+- <code><a href="./src/resources/cards/cards.ts">Card</a></code>
+- <code><a href="./src/resources/cards/cards.ts">EmbedRequestParams</a></code>
+- <code><a href="./src/resources/cards/cards.ts">SpendLimitDuration</a></code>
+- <code><a href="./src/resources/cards/cards.ts">CardEmbedResponse</a></code>
+- <code><a href="./src/resources/cards/cards.ts">CardProvisionResponse</a></code>
 
 Methods:
 
-- <code title="post /cards">client.cards.<a href="./src/resources/cards.ts">create</a>({ ...params }) -> Card</code>
-- <code title="get /cards/{card_token}">client.cards.<a href="./src/resources/cards.ts">retrieve</a>(cardToken) -> Card</code>
-- <code title="patch /cards/{card_token}">client.cards.<a href="./src/resources/cards.ts">update</a>(cardToken, { ...params }) -> Card</code>
-- <code title="get /cards">client.cards.<a href="./src/resources/cards.ts">list</a>({ ...params }) -> CardsCursorPage</code>
-- <code title="get /embed/card">client.cards.<a href="./src/resources/cards.ts">embed</a>({ ...params }) -> string</code>
-- <code title="post /cards/{card_token}/provision">client.cards.<a href="./src/resources/cards.ts">provision</a>(cardToken, { ...params }) -> CardProvisionResponse</code>
-- <code title="post /cards/{card_token}/reissue">client.cards.<a href="./src/resources/cards.ts">reissue</a>(cardToken, { ...params }) -> Card</code>
-- <code>client.cards.<a href="./src/resources/cards.ts">getEmbedHTML</a>(...args) -> Promise&lt;string&gt;</code>
-- <code>client.cards.<a href="./src/resources/cards.ts">getEmbedURL</a>(...args) -> string</code>
+- <code title="post /cards">client.cards.<a href="./src/resources/cards/cards.ts">create</a>({ ...params }) -> Card</code>
+- <code title="get /cards/{card_token}">client.cards.<a href="./src/resources/cards/cards.ts">retrieve</a>(cardToken) -> Card</code>
+- <code title="patch /cards/{card_token}">client.cards.<a href="./src/resources/cards/cards.ts">update</a>(cardToken, { ...params }) -> Card</code>
+- <code title="get /cards">client.cards.<a href="./src/resources/cards/cards.ts">list</a>({ ...params }) -> CardsCursorPage</code>
+- <code title="get /embed/card">client.cards.<a href="./src/resources/cards/cards.ts">embed</a>({ ...params }) -> string</code>
+- <code title="post /cards/{card_token}/provision">client.cards.<a href="./src/resources/cards/cards.ts">provision</a>(cardToken, { ...params }) -> CardProvisionResponse</code>
+- <code title="post /cards/{card_token}/reissue">client.cards.<a href="./src/resources/cards/cards.ts">reissue</a>(cardToken, { ...params }) -> Card</code>
+- <code>client.cards.<a href="./src/resources/cards/cards.ts">getEmbedHTML</a>(...args) -> Promise&lt;string&gt;</code>
+- <code>client.cards.<a href="./src/resources/cards/cards.ts">getEmbedURL</a>(...args) -> string</code>
+
+## AggregateBalances
+
+Types:
+
+- <code><a href="./src/resources/cards/aggregate-balances.ts">AggregateBalanceListResponse</a></code>
+
+Methods:
+
+- <code title="get /cards/aggregate_balances">client.cards.aggregateBalances.<a href="./src/resources/cards/aggregate-balances.ts">list</a>({ ...params }) -> AggregateBalanceListResponsesSinglePage</code>
+
+## Balances
+
+Methods:
+
+- <code title="get /cards/{card_token}/balances">client.cards.balances.<a href="./src/resources/cards/balances.ts">list</a>(cardToken, { ...params }) -> BalancesSinglePage</code>
+
+## FinancialTransactions
+
+Methods:
+
+- <code title="get /cards/{card_token}/financial_transactions/{financial_transaction_token}">client.cards.financialTransactions.<a href="./src/resources/cards/financial-transactions.ts">retrieve</a>(cardToken, financialTransactionToken) -> FinancialTransaction</code>
+- <code title="get /cards/{card_token}/financial_transactions">client.cards.financialTransactions.<a href="./src/resources/cards/financial-transactions.ts">list</a>(cardToken, { ...params }) -> FinancialTransactionsSinglePage</code>
 
 # Balances
 
@@ -238,6 +269,27 @@ Methods:
 - <code title="get /financial_accounts/{financial_account_token}/financial_transactions/{financial_transaction_token}">client.financialAccounts.financialTransactions.<a href="./src/resources/financial-accounts/financial-transactions.ts">retrieve</a>(financialAccountToken, financialTransactionToken) -> FinancialTransaction</code>
 - <code title="get /financial_accounts/{financial_account_token}/financial_transactions">client.financialAccounts.financialTransactions.<a href="./src/resources/financial-accounts/financial-transactions.ts">list</a>(financialAccountToken, { ...params }) -> FinancialTransactionsSinglePage</code>
 
+## Statements
+
+Types:
+
+- <code><a href="./src/resources/financial-accounts/statements/statements.ts">Statement</a></code>
+
+Methods:
+
+- <code title="get /financial_accounts/{financial_account_token}/statements/{statement_token}">client.financialAccounts.statements.<a href="./src/resources/financial-accounts/statements/statements.ts">retrieve</a>(financialAccountToken, statementToken) -> Statement</code>
+- <code title="get /financial_accounts/{financial_account_token}/statements">client.financialAccounts.statements.<a href="./src/resources/financial-accounts/statements/statements.ts">list</a>(financialAccountToken, { ...params }) -> StatementsCursorPage</code>
+
+### LineItems
+
+Types:
+
+- <code><a href="./src/resources/financial-accounts/statements/line-items.ts">LineItemListResponse</a></code>
+
+Methods:
+
+- <code title="get /financial_accounts/{financial_account_token}/statements/{statement_token}/line_items">client.financialAccounts.statements.lineItems.<a href="./src/resources/financial-accounts/statements/line-items.ts">list</a>(financialAccountToken, statementToken, { ...params }) -> LineItemListResponsesCursorPage</code>
+
 # Transactions
 
 Types:
@@ -318,6 +370,7 @@ Types:
 
 - <code><a href="./src/resources/payments.ts">Payment</a></code>
 - <code><a href="./src/resources/payments.ts">PaymentCreateResponse</a></code>
+- <code><a href="./src/resources/payments.ts">PaymentRetryResponse</a></code>
 - <code><a href="./src/resources/payments.ts">PaymentSimulateReleaseResponse</a></code>
 - <code><a href="./src/resources/payments.ts">PaymentSimulateReturnResponse</a></code>
 
@@ -326,6 +379,7 @@ Methods:
 - <code title="post /payments">client.payments.<a href="./src/resources/payments.ts">create</a>({ ...params }) -> PaymentCreateResponse</code>
 - <code title="get /payments/{payment_token}">client.payments.<a href="./src/resources/payments.ts">retrieve</a>(paymentToken) -> Payment</code>
 - <code title="get /payments">client.payments.<a href="./src/resources/payments.ts">list</a>({ ...params }) -> PaymentsCursorPage</code>
+- <code title="post /payments/{payment_token}/retry">client.payments.<a href="./src/resources/payments.ts">retry</a>(paymentToken) -> PaymentRetryResponse</code>
 - <code title="post /simulate/payments/release">client.payments.<a href="./src/resources/payments.ts">simulateRelease</a>({ ...params }) -> PaymentSimulateReleaseResponse</code>
 - <code title="post /simulate/payments/return">client.payments.<a href="./src/resources/payments.ts">simulateReturn</a>({ ...params }) -> PaymentSimulateReturnResponse</code>
 
@@ -353,3 +407,32 @@ Methods:
 
 - <code title="get /three_ds_decisioning/secret">client.threeDS.decisioning.<a href="./src/resources/three-ds/decisioning.ts">retrieveSecret</a>() -> DecisioningRetrieveSecretResponse</code>
 - <code title="post /three_ds_decisioning/secret/rotate">client.threeDS.decisioning.<a href="./src/resources/three-ds/decisioning.ts">rotateSecret</a>() -> void</code>
+
+# Reports
+
+Types:
+
+- <code><a href="./src/resources/reports/reports.ts">SettlementDetail</a></code>
+- <code><a href="./src/resources/reports/reports.ts">SettlementReport</a></code>
+- <code><a href="./src/resources/reports/reports.ts">SettlementSummaryDetails</a></code>
+
+## Settlement
+
+Types:
+
+- <code><a href="./src/resources/reports/settlement.ts">SettlementSummaryResponse</a></code>
+
+Methods:
+
+- <code title="get /reports/settlement/details/{report_date}">client.reports.settlement.<a href="./src/resources/reports/settlement.ts">listDetails</a>(reportDate, { ...params }) -> SettlementDetailsCursorPage</code>
+- <code title="get /reports/settlement/summary/{report_date}">client.reports.settlement.<a href="./src/resources/reports/settlement.ts">summary</a>(reportDate) -> SettlementSummaryResponse</code>
+
+# CardProduct
+
+Types:
+
+- <code><a href="./src/resources/card-product.ts">CardProductCreditDetailResponse</a></code>
+
+Methods:
+
+- <code title="get /card_product/credit_detail">client.cardProduct.<a href="./src/resources/card-product.ts">creditDetail</a>() -> CardProductCreditDetailResponse</code>

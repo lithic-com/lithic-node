@@ -162,6 +162,8 @@ export class Lithic extends Core.APIClient {
   externalBankAccounts: API.ExternalBankAccounts = new API.ExternalBankAccounts(this);
   payments: API.Payments = new API.Payments(this);
   threeDS: API.ThreeDS = new API.ThreeDS(this);
+  reports: API.Reports = new API.Reports(this);
+  cardProduct: API.CardProduct = new API.CardProduct(this);
 
   /**
    * API status check
@@ -244,6 +246,7 @@ export namespace Lithic {
 
   export import Accounts = API.Accounts;
   export import Account = API.Account;
+  export import BusinessAccount = API.BusinessAccount;
   export import AccountsCursorPage = API.AccountsCursorPage;
   export import AccountUpdateParams = API.AccountUpdateParams;
   export import AccountListParams = API.AccountListParams;
@@ -392,6 +395,7 @@ export namespace Lithic {
   export import Payments = API.Payments;
   export import Payment = API.Payment;
   export import PaymentCreateResponse = API.PaymentCreateResponse;
+  export import PaymentRetryResponse = API.PaymentRetryResponse;
   export import PaymentSimulateReleaseResponse = API.PaymentSimulateReleaseResponse;
   export import PaymentSimulateReturnResponse = API.PaymentSimulateReturnResponse;
   export import PaymentsCursorPage = API.PaymentsCursorPage;
@@ -401,6 +405,14 @@ export namespace Lithic {
   export import PaymentSimulateReturnParams = API.PaymentSimulateReturnParams;
 
   export import ThreeDS = API.ThreeDS;
+
+  export import Reports = API.Reports;
+  export import SettlementDetail = API.SettlementDetail;
+  export import SettlementReport = API.SettlementReport;
+  export import SettlementSummaryDetails = API.SettlementSummaryDetails;
+
+  export import CardProduct = API.CardProduct;
+  export import CardProductCreditDetailResponse = API.CardProductCreditDetailResponse;
 
   export import Address = API.Address;
   export import Carrier = API.Carrier;

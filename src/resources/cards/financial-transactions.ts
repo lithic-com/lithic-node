@@ -3,50 +3,46 @@
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
-import * as FinancialTransactionsAPI from 'lithic/resources/financial-accounts/financial-transactions';
+import * as FinancialTransactionsAPI from 'lithic/resources/cards/financial-transactions';
 import * as FinancialAccountsAPI from 'lithic/resources/financial-accounts/financial-accounts';
 import { FinancialTransactionsSinglePage } from 'lithic/resources/financial-accounts/financial-accounts';
 
 export class FinancialTransactions extends APIResource {
   /**
-   * Get the financial transaction for the provided token.
+   * Get the card financial transaction for the provided token.
    */
   retrieve(
-    financialAccountToken: string,
+    cardToken: string,
     financialTransactionToken: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<FinancialAccountsAPI.FinancialTransaction> {
-    return this.get(
-      `/financial_accounts/${financialAccountToken}/financial_transactions/${financialTransactionToken}`,
-      options,
-    );
+    return this.get(`/cards/${cardToken}/financial_transactions/${financialTransactionToken}`, options);
   }
 
   /**
-   * List the financial transactions for a given financial account.
+   * List the financial transactions for a given card.
    */
   list(
-    financialAccountToken: string,
+    cardToken: string,
     query?: FinancialTransactionListParams,
     options?: Core.RequestOptions,
   ): Core.PagePromise<FinancialTransactionsSinglePage, FinancialAccountsAPI.FinancialTransaction>;
   list(
-    financialAccountToken: string,
+    cardToken: string,
     options?: Core.RequestOptions,
   ): Core.PagePromise<FinancialTransactionsSinglePage, FinancialAccountsAPI.FinancialTransaction>;
   list(
-    financialAccountToken: string,
+    cardToken: string,
     query: FinancialTransactionListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.PagePromise<FinancialTransactionsSinglePage, FinancialAccountsAPI.FinancialTransaction> {
     if (isRequestOptions(query)) {
-      return this.list(financialAccountToken, {}, query);
+      return this.list(cardToken, {}, query);
     }
-    return this.getAPIList(
-      `/financial_accounts/${financialAccountToken}/financial_transactions`,
-      FinancialTransactionsSinglePage,
-      { query, ...options },
-    );
+    return this.getAPIList(`/cards/${cardToken}/financial_transactions`, FinancialTransactionsSinglePage, {
+      query,
+      ...options,
+    });
   }
 }
 
@@ -60,7 +56,7 @@ export interface FinancialTransactionListParams {
   /**
    * Financial Transaction category to be returned.
    */
-  category?: 'ACH' | 'CARD' | 'TRANSFER';
+  category?: 'CARD' | 'TRANSFER';
 
   /**
    * Date string in RFC 3339 format. Only entries created before the specified time
