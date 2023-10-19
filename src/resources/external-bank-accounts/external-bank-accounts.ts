@@ -170,6 +170,13 @@ export interface ExternalBankAccountCreateResponse {
   name?: string;
 
   user_defined_id?: string;
+
+  /**
+   * Optional free text description of the reason for the failed verification. For
+   * ACH micro-deposits returned, this field will display the reason return code sent
+   * by the ACH network
+   */
+  verification_failed_reason?: string;
 }
 
 export interface ExternalBankAccountRetrieveResponse {
@@ -253,6 +260,13 @@ export interface ExternalBankAccountRetrieveResponse {
   name?: string;
 
   user_defined_id?: string;
+
+  /**
+   * Optional free text description of the reason for the failed verification. For
+   * ACH micro-deposits returned, this field will display the reason return code sent
+   * by the ACH network
+   */
+  verification_failed_reason?: string;
 }
 
 export interface ExternalBankAccountUpdateResponse {
@@ -336,6 +350,13 @@ export interface ExternalBankAccountUpdateResponse {
   name?: string;
 
   user_defined_id?: string;
+
+  /**
+   * Optional free text description of the reason for the failed verification. For
+   * ACH micro-deposits returned, this field will display the reason return code sent
+   * by the ACH network
+   */
+  verification_failed_reason?: string;
 }
 
 export interface ExternalBankAccountListResponse {
@@ -419,6 +440,13 @@ export interface ExternalBankAccountListResponse {
   name?: string;
 
   user_defined_id?: string;
+
+  /**
+   * Optional free text description of the reason for the failed verification. For
+   * ACH micro-deposits returned, this field will display the reason return code sent
+   * by the ACH network
+   */
+  verification_failed_reason?: string;
 }
 
 export type ExternalBankAccountCreateParams =
