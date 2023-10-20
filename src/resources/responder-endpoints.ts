@@ -57,7 +57,7 @@ export interface ResponderEndpointCreateParams {
   /**
    * The type of the endpoint.
    */
-  type?: 'TOKENIZATION_DECISIONING' | 'THREE_DS_DECISIONING';
+  type?: 'AUTH_STREAM_ACCESS' | 'TOKENIZATION_DECISIONING' | 'THREE_DS_DECISIONING';
 
   /**
    * The URL for the responder endpoint (must be http(s)).
@@ -69,14 +69,14 @@ export interface ResponderEndpointDeleteParams {
   /**
    * The type of the endpoint.
    */
-  type: 'TOKENIZATION_DECISIONING' | 'THREE_DS_DECISIONING';
+  type: 'AUTH_STREAM_ACCESS' | 'TOKENIZATION_DECISIONING' | 'THREE_DS_DECISIONING';
 }
 
 export interface ResponderEndpointCheckStatusParams {
   /**
    * The type of the endpoint.
    */
-  type: 'TOKENIZATION_DECISIONING' | 'THREE_DS_DECISIONING';
+  type: 'AUTH_STREAM_ACCESS' | 'TOKENIZATION_DECISIONING' | 'THREE_DS_DECISIONING';
 }
 
 export namespace ResponderEndpoints {

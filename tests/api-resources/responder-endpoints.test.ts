@@ -22,7 +22,7 @@ describe('resource responderEndpoints', () => {
 
   // Prism errors when accept header set but no request body is defined
   test.skip('del: only required params', async () => {
-    const responsePromise = lithic.responderEndpoints.del({ type: 'TOKENIZATION_DECISIONING' });
+    const responsePromise = lithic.responderEndpoints.del({ type: 'AUTH_STREAM_ACCESS' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -34,11 +34,11 @@ describe('resource responderEndpoints', () => {
 
   // Prism errors when accept header set but no request body is defined
   test.skip('del: required and optional params', async () => {
-    const response = await lithic.responderEndpoints.del({ type: 'TOKENIZATION_DECISIONING' });
+    const response = await lithic.responderEndpoints.del({ type: 'AUTH_STREAM_ACCESS' });
   });
 
   test('checkStatus: only required params', async () => {
-    const responsePromise = lithic.responderEndpoints.checkStatus({ type: 'TOKENIZATION_DECISIONING' });
+    const responsePromise = lithic.responderEndpoints.checkStatus({ type: 'AUTH_STREAM_ACCESS' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -49,6 +49,6 @@ describe('resource responderEndpoints', () => {
   });
 
   test('checkStatus: required and optional params', async () => {
-    const response = await lithic.responderEndpoints.checkStatus({ type: 'TOKENIZATION_DECISIONING' });
+    const response = await lithic.responderEndpoints.checkStatus({ type: 'AUTH_STREAM_ACCESS' });
   });
 });
