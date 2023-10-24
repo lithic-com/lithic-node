@@ -1,5 +1,41 @@
 # Changelog
 
+## 0.28.0 (2023-10-24)
+
+Full Changelog: [v0.27.4...v0.28.0](https://github.com/lithic-com/lithic-node/compare/v0.27.4...v0.28.0)
+
+### Features
+
+* **api:** add AUTH_STREAM_ACCESS to responder endpoints ([#243](https://github.com/lithic-com/lithic-node/issues/243)) ([d1570e4](https://github.com/lithic-com/lithic-node/commit/d1570e46a8208a5ca427dcb87915af1a38f2aba2))
+* **api:** add verification_failed_reason ([#240](https://github.com/lithic-com/lithic-node/issues/240)) ([479105b](https://github.com/lithic-com/lithic-node/commit/479105b8b1abd7772e92b9346dd0f94932edb960))
+* **api:** updates ([#238](https://github.com/lithic-com/lithic-node/issues/238)) ([ad1a63d](https://github.com/lithic-com/lithic-node/commit/ad1a63d9bb86ca5d34eb314a46908d1568e6d1dd))
+* **client:** adjust retry behavior to be exponential backoff ([#244](https://github.com/lithic-com/lithic-node/issues/244)) ([c0ef94a](https://github.com/lithic-com/lithic-node/commit/c0ef94ad094ca3bf8dd60dfe010aa7ff2978655f))
+* handle 204 No Content gracefully ([#242](https://github.com/lithic-com/lithic-node/issues/242)) ([ebfe705](https://github.com/lithic-com/lithic-node/commit/ebfe705d95a737d4650013448cc53a0ab6f8f9bc))
+* make webhook headers case insensitive ([#234](https://github.com/lithic-com/lithic-node/issues/234)) ([5afd7d6](https://github.com/lithic-com/lithic-node/commit/5afd7d673a5751fde8003ed54563e3e006b589fc))
+
+
+### Bug Fixes
+
+* import web-streams-polyfill without overriding globals ([#239](https://github.com/lithic-com/lithic-node/issues/239)) ([c617c1d](https://github.com/lithic-com/lithic-node/commit/c617c1d5755bb1ef586ad12a0baca549ffcf396b))
+* improve status code in error messages ([#236](https://github.com/lithic-com/lithic-node/issues/236)) ([adc5e38](https://github.com/lithic-com/lithic-node/commit/adc5e384e03dc7ae1674fcf267faa0b1a13b83fa))
+
+
+### Chores
+
+* **internal:** refactor status code printing in error ([#231](https://github.com/lithic-com/lithic-node/issues/231)) ([216d5e8](https://github.com/lithic-com/lithic-node/commit/216d5e809fcf6c8d80b2ca19ecd4a0ea58584e21))
+* show deprecation notice on re-export ([#229](https://github.com/lithic-com/lithic-node/issues/229)) ([788052d](https://github.com/lithic-com/lithic-node/commit/788052dbac6dde9d779c5218f5b8710873fb386c))
+* update comment ([#235](https://github.com/lithic-com/lithic-node/issues/235)) ([0344965](https://github.com/lithic-com/lithic-node/commit/03449651df36c56289be10177dcaeb915d5ddb2d))
+
+
+### Documentation
+
+* organisation -&gt; organization (UK to US English) ([#237](https://github.com/lithic-com/lithic-node/issues/237)) ([106fc60](https://github.com/lithic-com/lithic-node/commit/106fc601f4675ca304d2b81f90c99e52fd26fc2c))
+
+
+### Refactors
+
+* **test:** refactor authentication tests ([#232](https://github.com/lithic-com/lithic-node/issues/232)) ([bb38ca7](https://github.com/lithic-com/lithic-node/commit/bb38ca72597b990f60f45248c31b5ced436dbc7e))
+
 ## 0.27.4 (2023-10-11)
 
 Full Changelog: [v0.27.3...v0.27.4](https://github.com/lithic-com/lithic-node/compare/v0.27.3...v0.27.4)
