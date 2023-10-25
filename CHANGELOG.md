@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.28.1 (2023-10-25)
+
+Full Changelog: [v0.28.0...v0.28.1](https://github.com/lithic-com/lithic-node/compare/v0.28.0...v0.28.1)
+
+### Bug Fixes
+
+* typo in build script ([#247](https://github.com/lithic-com/lithic-node/issues/247)) ([8d76631](https://github.com/lithic-com/lithic-node/commit/8d76631f29965a04ee9583e957c024a4c537ab32))
+
 ## 0.28.0 (2023-10-24)
 
 Full Changelog: [v0.27.4...v0.28.0](https://github.com/lithic-com/lithic-node/compare/v0.27.4...v0.28.0)
