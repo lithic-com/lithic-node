@@ -67,6 +67,13 @@ export {
   Cards,
 } from './cards/cards';
 export { CardProductCreditDetailResponse, CardProduct } from './card-product';
+export { CardProgram, CardProgramListParams, CardProgramsCursorPage, CardPrograms } from './card-programs';
+export {
+  DigitalCardArt,
+  DigitalCardArtListParams,
+  DigitalCardArtsCursorPage,
+  DigitalCardArtResource,
+} from './digital-card-art';
 export {
   Dispute,
   DisputeEvidence,
