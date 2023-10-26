@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.29.0 (2023-10-26)
+
+Full Changelog: [v0.28.1...v0.29.0](https://github.com/lithic-com/lithic-node/compare/v0.28.1...v0.29.0)
+
+### Features
+
+* **api:** add CardProgram and DigitalCardArt resources ([#248](https://github.com/lithic-com/lithic-node/issues/248)) ([f25fbcd](https://github.com/lithic-com/lithic-node/commit/f25fbcdb5a454f10754dfc02de62350d8bd67d74))
+
 ## 0.28.1 (2023-10-25)
 
 Full Changelog: [v0.28.0...v0.28.1](https://github.com/lithic-com/lithic-node/compare/v0.28.0...v0.28.1)
