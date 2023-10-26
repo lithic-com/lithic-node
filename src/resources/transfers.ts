@@ -7,7 +7,8 @@ import * as BalancesAPI from 'lithic/resources/balances';
 
 export class Transfers extends APIResource {
   /**
-   * Transfer funds between two financial accounts
+   * ransfer funds between two financial accounts or between a financial account and
+   * card
    */
   create(body: TransferCreateParams, options?: Core.RequestOptions): Core.APIPromise<TransferCreateResponse> {
     return this.post('/transfer', { body, ...options });
@@ -195,13 +196,14 @@ export interface TransferCreateParams {
   amount: number;
 
   /**
-   * Globally unique identifier for the financial account that will send the funds.
+   * Globally unique identifier for the financial account or card that will send the
+   * funds. Accepted type dependent on the program's use case.
    */
   from: string;
 
   /**
-   * Globally unique identifier for the financial account that will receive the
-   * funds.
+   * Globally unique identifier for the financial account or card that will receive
+   * the funds. Accepted type dependent on the program's use case.
    */
   to: string;
 

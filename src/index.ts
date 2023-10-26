@@ -164,6 +164,8 @@ export class Lithic extends Core.APIClient {
   threeDS: API.ThreeDS = new API.ThreeDS(this);
   reports: API.Reports = new API.Reports(this);
   cardProduct: API.CardProduct = new API.CardProduct(this);
+  cardPrograms: API.CardPrograms = new API.CardPrograms(this);
+  digitalCardArt: API.DigitalCardArtResource = new API.DigitalCardArtResource(this);
 
   /**
    * API status check
@@ -413,6 +415,16 @@ export namespace Lithic {
 
   export import CardProduct = API.CardProduct;
   export import CardProductCreditDetailResponse = API.CardProductCreditDetailResponse;
+
+  export import CardPrograms = API.CardPrograms;
+  export import CardProgram = API.CardProgram;
+  export import CardProgramsCursorPage = API.CardProgramsCursorPage;
+  export import CardProgramListParams = API.CardProgramListParams;
+
+  export import DigitalCardArtResource = API.DigitalCardArtResource;
+  export import DigitalCardArt = API.DigitalCardArt;
+  export import DigitalCardArtsCursorPage = API.DigitalCardArtsCursorPage;
+  export import DigitalCardArtListParams = API.DigitalCardArtListParams;
 
   export import Address = API.Address;
   export import Carrier = API.Carrier;
