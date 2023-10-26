@@ -436,3 +436,24 @@ Types:
 Methods:
 
 - <code title="get /card_product/credit_detail">client.cardProduct.<a href="./src/resources/card-product.ts">creditDetail</a>() -> CardProductCreditDetailResponse</code>
+
+# CardPrograms
+
+Types:
+
+- <code><a href="./src/resources/card-programs.ts">CardProgram</a></code>
+
+Methods:
+
+- <code title="get /card_programs/{card_program_token}">client.cardPrograms.<a href="./src/resources/card-programs.ts">retrieve</a>(cardProgramToken) -> CardProgram</code>
+- <code title="get /card_programs">client.cardPrograms.<a href="./src/resources/card-programs.ts">list</a>({ ...params }) -> CardProgramsCursorPage</code>
+
+# DigitalCardArt
+
+Types:
+
+- <code><a href="./src/resources/digital-card-art.ts">DigitalCardArt</a></code>
+
+Methods:
+
+- <code title="get /digital_card_art">client.digitalCardArt.<a href="./src/resources/digital-card-art.ts">list</a>({ ...params }) -> DigitalCardArtsCursorPage</code>
