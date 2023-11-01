@@ -67,6 +67,11 @@ export interface MicroDepositCreateResponse {
 
   type: 'CHECKING' | 'SAVINGS';
 
+  /**
+   * The number of attempts at verification
+   */
+  verification_attempts: number;
+
   verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID';
 
   verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION';
