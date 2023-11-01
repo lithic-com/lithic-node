@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.30.0 (2023-11-01)
+
+Full Changelog: [v0.29.0...v0.30.0](https://github.com/lithic-com/lithic-node/compare/v0.29.0...v0.30.0)
+
+### Features
+
+* **api:** add verification_attempts response property ([#253](https://github.com/lithic-com/lithic-node/issues/253)) ([6789b54](https://github.com/lithic-com/lithic-node/commit/6789b543bb0b97bde269d70ef58f293ce2e88189))
+* **github:** include a devcontainer setup ([#252](https://github.com/lithic-com/lithic-node/issues/252)) ([72f981e](https://github.com/lithic-com/lithic-node/commit/72f981ed2b7fa79aad2d37532721d6628d10972e))
+
+
+### Chores
+
+* **internal:** update gitignore ([#250](https://github.com/lithic-com/lithic-node/issues/250)) ([8cbcaf7](https://github.com/lithic-com/lithic-node/commit/8cbcaf7e6f68a862b7a926769cae3b4835312326))
+
 ## 0.29.0 (2023-10-26)
 
 Full Changelog: [v0.28.1...v0.29.0](https://github.com/lithic-com/lithic-node/compare/v0.28.1...v0.29.0)
