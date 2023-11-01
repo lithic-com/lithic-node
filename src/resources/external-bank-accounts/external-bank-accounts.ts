@@ -135,6 +135,11 @@ export interface ExternalBankAccountCreateResponse {
 
   type: 'CHECKING' | 'SAVINGS';
 
+  /**
+   * The number of attempts at verification
+   */
+  verification_attempts: number;
+
   verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID';
 
   verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION';
@@ -224,6 +229,11 @@ export interface ExternalBankAccountRetrieveResponse {
   state: 'ENABLED' | 'CLOSED' | 'PAUSED';
 
   type: 'CHECKING' | 'SAVINGS';
+
+  /**
+   * The number of attempts at verification
+   */
+  verification_attempts: number;
 
   verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID';
 
@@ -315,6 +325,11 @@ export interface ExternalBankAccountUpdateResponse {
 
   type: 'CHECKING' | 'SAVINGS';
 
+  /**
+   * The number of attempts at verification
+   */
+  verification_attempts: number;
+
   verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID';
 
   verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION';
@@ -404,6 +419,11 @@ export interface ExternalBankAccountListResponse {
   state: 'ENABLED' | 'CLOSED' | 'PAUSED';
 
   type: 'CHECKING' | 'SAVINGS';
+
+  /**
+   * The number of attempts at verification
+   */
+  verification_attempts: number;
 
   verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID';
 
