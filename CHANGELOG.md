@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.31.0 (2023-11-08)
+
+Full Changelog: [v0.30.0...v0.31.0](https://github.com/lithic-com/lithic-node/compare/v0.30.0...v0.31.0)
+
+### Features
+
+* **client:** allow binary returns ([#254](https://github.com/lithic-com/lithic-node/issues/254)) ([81e167f](https://github.com/lithic-com/lithic-node/commit/81e167f2ef0ca6d1f8608b71e5939b4caaba592b))
+
+
+### Bug Fixes
+
+* **api:** correct type for other fees details ([#261](https://github.com/lithic-com/lithic-node/issues/261)) ([f1712b7](https://github.com/lithic-com/lithic-node/commit/f1712b71dfdece83545ca4418fd65f13a7b50818))
+
+
+### Chores
+
+* **ci:** update release-please config ([#258](https://github.com/lithic-com/lithic-node/issues/258)) ([7287470](https://github.com/lithic-com/lithic-node/commit/7287470b448057ea3f22784afc44f201316606ed))
+* **docs:** fix github links ([#259](https://github.com/lithic-com/lithic-node/issues/259)) ([0536726](https://github.com/lithic-com/lithic-node/commit/0536726cac6c0d5fbe817bcc03294bb8b8337f29))
+* **internal:** update tsconfig ([#260](https://github.com/lithic-com/lithic-node/issues/260)) ([3d54a22](https://github.com/lithic-com/lithic-node/commit/3d54a22856d0b2bd2c2598f322b308d61f8f5a49))
+
+
+### Documentation
+
+* document customizing fetch ([#257](https://github.com/lithic-com/lithic-node/issues/257)) ([79cc0c4](https://github.com/lithic-com/lithic-node/commit/79cc0c49d68063352478aba7f8379bd27c474080))
+* improve account holder control person documentation ([#256](https://github.com/lithic-com/lithic-node/issues/256)) ([7d86876](https://github.com/lithic-com/lithic-node/commit/7d868765109f5adf4de1d845d8ee27ee60728214))
+
 ## 0.30.0 (2023-11-01)
 
 Full Changelog: [v0.29.0...v0.30.0](https://github.com/lithic-com/lithic-node/compare/v0.29.0...v0.30.0)
