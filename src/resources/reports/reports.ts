@@ -53,7 +53,7 @@ export interface SettlementDetail {
   /**
    * Globally unique identifiers denoting the Events associated with this settlement.
    */
-  event_tokens: Array<unknown>;
+  event_tokens: Array<string>;
 
   /**
    * The most granular ID the network settles with (e.g., ICA for Mastercard, FTSRE
@@ -113,9 +113,7 @@ export namespace SettlementDetail {
    * The total gross amount of other fees by type.
    */
   export interface OtherFeesDetails {
-    title?: unknown;
-
-    type?: unknown;
+    ISA?: number;
   }
 }
 
