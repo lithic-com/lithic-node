@@ -89,6 +89,10 @@ export namespace Payment {
   export interface MethodAttributes {
     sec_code: 'PPD' | 'CCD' | 'WEB';
 
+    company_id?: string;
+
+    receipt_routing_number?: string;
+
     retries?: number;
 
     return_reason_code?: string;
@@ -148,6 +152,10 @@ export interface PaymentCreateParams {
 export namespace PaymentCreateParams {
   export interface MethodAttributes {
     sec_code: 'PPD' | 'CCD' | 'WEB';
+
+    company_id?: string;
+
+    receipt_routing_number?: string;
 
     retries?: number;
 
