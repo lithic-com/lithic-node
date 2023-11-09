@@ -76,7 +76,7 @@ export interface AuthenticationRetrieveResponse {
   /**
    * Entity that made the authentication decision.
    */
-  decision_made_by: 'LITHIC_DEFAULT' | 'LITHIC_RULES' | 'CUSTOMER_ENDPOINT' | null;
+  decision_made_by: 'NETWORK' | 'LITHIC_DEFAULT' | 'LITHIC_RULES' | 'CUSTOMER_ENDPOINT' | 'UNKNOWN' | null;
 
   /**
    * Object containing data about the merchant involved in the e-commerce
