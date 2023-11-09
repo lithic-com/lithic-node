@@ -118,7 +118,7 @@ describe('resource transactions', () => {
 
   test('simulateClearing: only required params', async () => {
     const responsePromise = lithic.transactions.simulateClearing({
-      token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -131,7 +131,7 @@ describe('resource transactions', () => {
 
   test('simulateClearing: required and optional params', async () => {
     const response = await lithic.transactions.simulateClearing({
-      token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac',
       amount: 0,
     });
   });

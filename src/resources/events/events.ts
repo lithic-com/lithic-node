@@ -156,7 +156,9 @@ export interface EventSubscription {
    */
   disabled: boolean;
 
-  event_types: Array<
+  url: string;
+
+  event_types?: Array<
     | 'account_holder.created'
     | 'account_holder.updated'
     | 'account_holder.verification'
@@ -173,8 +175,6 @@ export interface EventSubscription {
     | 'payment_transaction.updated'
     | 'transfer_transaction.created'
   > | null;
-
-  url: string;
 }
 
 /**
