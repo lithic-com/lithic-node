@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.32.0 (2023-11-09)
+
+Full Changelog: [v0.31.0...v0.32.0](https://github.com/lithic-com/lithic-node/compare/v0.31.0...v0.32.0)
+
+### Features
+
+* **api:** updates ([#262](https://github.com/lithic-com/lithic-node/issues/262)) ([e1a8210](https://github.com/lithic-com/lithic-node/commit/e1a82105853f56414520c1cd388b5d19238a424e))
+
 ## 0.31.0 (2023-11-08)
 
 Full Changelog: [v0.30.0...v0.31.0](https://github.com/lithic-com/lithic-node/compare/v0.30.0...v0.31.0)
