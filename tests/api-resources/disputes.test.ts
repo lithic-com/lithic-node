@@ -11,9 +11,9 @@ const lithic = new Lithic({
 describe('resource disputes', () => {
   test('create: only required params', async () => {
     const responsePromise = lithic.disputes.create({
-      amount: 0,
-      reason: 'ATM_CASH_MISDISPENSE',
-      transaction_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      amount: 10000,
+      reason: 'FRAUD_CARD_PRESENT',
+      transaction_token: '12345624-aa69-4cbc-a946-30d90181b621',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -26,10 +26,10 @@ describe('resource disputes', () => {
 
   test('create: required and optional params', async () => {
     const response = await lithic.disputes.create({
-      amount: 0,
-      reason: 'ATM_CASH_MISDISPENSE',
-      transaction_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      customer_filed_date: '2019-12-27T18:11:19.117Z',
+      amount: 10000,
+      reason: 'FRAUD_CARD_PRESENT',
+      transaction_token: '12345624-aa69-4cbc-a946-30d90181b621',
+      customer_filed_date: '2021-06-28T22:53:15Z',
       customer_note: 'string',
     });
   });

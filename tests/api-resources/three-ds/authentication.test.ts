@@ -33,7 +33,7 @@ describe('resource authentication', () => {
     const responsePromise = lithic.threeDS.authentication.simulate({
       merchant: { country: 'USA', mcc: '5812', id: 'OODKZAPJVN4YS7O', name: 'COFFEE SHOP' },
       pan: '4111111289144142',
-      transaction: { amount: 0, currency: 'GBP' },
+      transaction: { amount: 100, currency: 'USD' },
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -48,7 +48,7 @@ describe('resource authentication', () => {
     const response = await lithic.threeDS.authentication.simulate({
       merchant: { country: 'USA', mcc: '5812', id: 'OODKZAPJVN4YS7O', name: 'COFFEE SHOP' },
       pan: '4111111289144142',
-      transaction: { amount: 0, currency: 'GBP' },
+      transaction: { amount: 100, currency: 'USD' },
     });
   });
 });
