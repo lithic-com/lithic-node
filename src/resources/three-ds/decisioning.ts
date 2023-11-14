@@ -14,7 +14,7 @@ export class Decisioning extends APIResource {
    * for more detail about verifying 3DS Decisioning requests.
    */
   retrieveSecret(options?: Core.RequestOptions): Core.APIPromise<DecisioningRetrieveSecretResponse> {
-    return this.get('/three_ds_decisioning/secret', options);
+    return this._client.get('/three_ds_decisioning/secret', options);
   }
 
   /**
@@ -24,7 +24,7 @@ export class Decisioning extends APIResource {
    * request to retrieve the new secret key.
    */
   rotateSecret(options?: Core.RequestOptions): Core.APIPromise<void> {
-    return this.post('/three_ds_decisioning/secret/rotate', options);
+    return this._client.post('/three_ds_decisioning/secret/rotate', options);
   }
 }
 

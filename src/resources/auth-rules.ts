@@ -12,7 +12,7 @@ export class AuthRules extends APIResource {
    * account, or card level.
    */
   create(body: AuthRuleCreateParams, options?: Core.RequestOptions): Core.APIPromise<AuthRule> {
-    return this.post('/auth_rules', { body, ...options });
+    return this._client.post('/auth_rules', { body, ...options });
   }
 
   /**
@@ -20,7 +20,7 @@ export class AuthRules extends APIResource {
    * with an existing authorization rule (Auth Rule).
    */
   retrieve(authRuleToken: string, options?: Core.RequestOptions): Core.APIPromise<AuthRuleRetrieveResponse> {
-    return this.get(`/auth_rules/${authRuleToken}`, options);
+    return this._client.get(`/auth_rules/${authRuleToken}`, options);
   }
 
   /**
@@ -32,7 +32,7 @@ export class AuthRules extends APIResource {
     body: AuthRuleUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<AuthRule> {
-    return this.put(`/auth_rules/${authRuleToken}`, { body, ...options });
+    return this._client.put(`/auth_rules/${authRuleToken}`, { body, ...options });
   }
 
   /**
@@ -50,7 +50,7 @@ export class AuthRules extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/auth_rules', AuthRulesCursorPage, { query, ...options });
+    return this._client.getAPIList('/auth_rules', AuthRulesCursorPage, { query, ...options });
   }
 
   /**
@@ -62,7 +62,7 @@ export class AuthRules extends APIResource {
     body: AuthRuleApplyParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<AuthRule> {
-    return this.post(`/auth_rules/${authRuleToken}/apply`, { body, ...options });
+    return this._client.post(`/auth_rules/${authRuleToken}/apply`, { body, ...options });
   }
 
   /**
@@ -70,7 +70,7 @@ export class AuthRules extends APIResource {
    * card-level.
    */
   remove(body: AuthRuleRemoveParams, options?: Core.RequestOptions): Core.APIPromise<AuthRuleRemoveResponse> {
-    return this.delete('/auth_rules/remove', { body, ...options });
+    return this._client.delete('/auth_rules/remove', { body, ...options });
   }
 }
 

@@ -6,7 +6,7 @@ import * as SettlementAPI from 'lithic/resources/reports/settlement';
 import { CursorPage } from 'lithic/pagination';
 
 export class Reports extends APIResource {
-  settlement: SettlementAPI.Settlement = new SettlementAPI.Settlement(this.client);
+  settlement: SettlementAPI.Settlement = new SettlementAPI.Settlement(this._client);
 }
 
 export class SettlementDetailsCursorPage extends CursorPage<SettlementDetail> {}

@@ -16,7 +16,7 @@ export class AccountHolders extends APIResource {
    * part of the program the calling API key manages.
    */
   create(body: AccountHolderCreateParams, options?: Core.RequestOptions): Core.APIPromise<AccountHolder> {
-    return this.post('/account_holders', { body, timeout: 300000, ...options });
+    return this._client.post('/account_holders', { body, timeout: 300000, ...options });
   }
 
   /**
@@ -24,7 +24,7 @@ export class AccountHolders extends APIResource {
    * status.
    */
   retrieve(accountHolderToken: string, options?: Core.RequestOptions): Core.APIPromise<AccountHolder> {
-    return this.get(`/account_holders/${accountHolderToken}`, options);
+    return this._client.get(`/account_holders/${accountHolderToken}`, options);
   }
 
   /**
@@ -35,7 +35,7 @@ export class AccountHolders extends APIResource {
     body: AccountHolderUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<AccountHolderUpdateResponse> {
-    return this.patch(`/account_holders/${accountHolderToken}`, { body, ...options });
+    return this._client.patch(`/account_holders/${accountHolderToken}`, { body, ...options });
   }
 
   /**
@@ -59,7 +59,7 @@ export class AccountHolders extends APIResource {
     accountHolderToken: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<AccountHolderListDocumentsResponse> {
-    return this.get(`/account_holders/${accountHolderToken}/documents`, options);
+    return this._client.get(`/account_holders/${accountHolderToken}/documents`, options);
   }
 
   /**
@@ -77,7 +77,7 @@ export class AccountHolders extends APIResource {
     body: AccountHolderResubmitParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<AccountHolder> {
-    return this.post(`/account_holders/${accountHolderToken}/resubmit`, { body, ...options });
+    return this._client.post(`/account_holders/${accountHolderToken}/resubmit`, { body, ...options });
   }
 
   /**
@@ -101,7 +101,7 @@ export class AccountHolders extends APIResource {
     documentToken: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<AccountHolderDocument> {
-    return this.get(`/account_holders/${accountHolderToken}/documents/${documentToken}`, options);
+    return this._client.get(`/account_holders/${accountHolderToken}/documents/${documentToken}`, options);
   }
 
   /**
@@ -129,7 +129,7 @@ export class AccountHolders extends APIResource {
     body: AccountHolderUploadDocumentParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<AccountHolderDocument> {
-    return this.post(`/account_holders/${accountHolderToken}/documents`, { body, ...options });
+    return this._client.post(`/account_holders/${accountHolderToken}/documents`, { body, ...options });
   }
 }
 
