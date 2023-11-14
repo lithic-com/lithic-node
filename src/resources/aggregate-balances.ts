@@ -23,7 +23,7 @@ export class AggregateBalances extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/aggregate_balances', AggregateBalancesSinglePage, { query, ...options });
+    return this._client.getAPIList('/aggregate_balances', AggregateBalancesSinglePage, { query, ...options });
   }
 }
 

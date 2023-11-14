@@ -9,7 +9,7 @@ export class CardProduct extends APIResource {
    * Get the Credit Detail for the card product
    */
   creditDetail(options?: Core.RequestOptions): Core.APIPromise<CardProductCreditDetailResponse> {
-    return this.get('/card_product/credit_detail', options);
+    return this._client.get('/card_product/credit_detail', options);
   }
 }
 

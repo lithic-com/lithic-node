@@ -30,7 +30,7 @@ export class LineItems extends APIResource {
     if (isRequestOptions(query)) {
       return this.list(financialAccountToken, statementToken, {}, query);
     }
-    return this.getAPIList(
+    return this._client.getAPIList(
       `/financial_accounts/${financialAccountToken}/statements/${statementToken}/line_items`,
       LineItemListResponsesCursorPage,
       { query, ...options },

@@ -14,7 +14,7 @@ export class CreditConfigurations extends APIResource {
     accountToken: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<AccountsAPI.BusinessAccount> {
-    return this.get(`/accounts/${accountToken}/credit_configuration`, options);
+    return this._client.get(`/accounts/${accountToken}/credit_configuration`, options);
   }
 
   /**
@@ -34,7 +34,7 @@ export class CreditConfigurations extends APIResource {
     if (isRequestOptions(body)) {
       return this.update(accountToken, {}, body);
     }
-    return this.patch(`/accounts/${accountToken}/credit_configuration`, { body, ...options });
+    return this._client.patch(`/accounts/${accountToken}/credit_configuration`, { body, ...options });
   }
 }
 

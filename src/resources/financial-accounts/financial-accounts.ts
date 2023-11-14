@@ -10,10 +10,10 @@ import * as StatementsAPI from 'lithic/resources/financial-accounts/statements/s
 import { SinglePage } from 'lithic/pagination';
 
 export class FinancialAccounts extends APIResource {
-  balances: BalancesAPI.Balances = new BalancesAPI.Balances(this.client);
+  balances: BalancesAPI.Balances = new BalancesAPI.Balances(this._client);
   financialTransactions: FinancialTransactionsAPI.FinancialTransactions =
-    new FinancialTransactionsAPI.FinancialTransactions(this.client);
-  statements: StatementsAPI.Statements = new StatementsAPI.Statements(this.client);
+    new FinancialTransactionsAPI.FinancialTransactions(this._client);
+  statements: StatementsAPI.Statements = new StatementsAPI.Statements(this._client);
 
   /**
    * Retrieve information on your financial accounts including routing and account
@@ -31,7 +31,7 @@ export class FinancialAccounts extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/financial_accounts', FinancialAccountsSinglePage, { query, ...options });
+    return this._client.getAPIList('/financial_accounts', FinancialAccountsSinglePage, { query, ...options });
   }
 }
 

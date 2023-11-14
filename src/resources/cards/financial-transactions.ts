@@ -16,7 +16,10 @@ export class FinancialTransactions extends APIResource {
     financialTransactionToken: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<FinancialAccountsAPI.FinancialTransaction> {
-    return this.get(`/cards/${cardToken}/financial_transactions/${financialTransactionToken}`, options);
+    return this._client.get(
+      `/cards/${cardToken}/financial_transactions/${financialTransactionToken}`,
+      options,
+    );
   }
 
   /**
@@ -39,10 +42,11 @@ export class FinancialTransactions extends APIResource {
     if (isRequestOptions(query)) {
       return this.list(cardToken, {}, query);
     }
-    return this.getAPIList(`/cards/${cardToken}/financial_transactions`, FinancialTransactionsSinglePage, {
-      query,
-      ...options,
-    });
+    return this._client.getAPIList(
+      `/cards/${cardToken}/financial_transactions`,
+      FinancialTransactionsSinglePage,
+      { query, ...options },
+    );
   }
 }
 

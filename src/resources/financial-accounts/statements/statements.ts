@@ -8,7 +8,7 @@ import * as LineItemsAPI from 'lithic/resources/financial-accounts/statements/li
 import { CursorPage, type CursorPageParams } from 'lithic/pagination';
 
 export class Statements extends APIResource {
-  lineItems: LineItemsAPI.LineItems = new LineItemsAPI.LineItems(this.client);
+  lineItems: LineItemsAPI.LineItems = new LineItemsAPI.LineItems(this._client);
 
   /**
    * Get a specific statement for a given financial account.
@@ -18,7 +18,10 @@ export class Statements extends APIResource {
     statementToken: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Statement> {
-    return this.get(`/financial_accounts/${financialAccountToken}/statements/${statementToken}`, options);
+    return this._client.get(
+      `/financial_accounts/${financialAccountToken}/statements/${statementToken}`,
+      options,
+    );
   }
 
   /**
@@ -41,10 +44,11 @@ export class Statements extends APIResource {
     if (isRequestOptions(query)) {
       return this.list(financialAccountToken, {}, query);
     }
-    return this.getAPIList(`/financial_accounts/${financialAccountToken}/statements`, StatementsCursorPage, {
-      query,
-      ...options,
-    });
+    return this._client.getAPIList(
+      `/financial_accounts/${financialAccountToken}/statements`,
+      StatementsCursorPage,
+      { query, ...options },
+    );
   }
 }
 

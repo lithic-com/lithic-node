@@ -14,7 +14,7 @@ export class MicroDeposits extends APIResource {
     body: MicroDepositCreateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<MicroDepositCreateResponse> {
-    return this.post(`/external_bank_accounts/${externalBankAccountToken}/micro_deposits`, {
+    return this._client.post(`/external_bank_accounts/${externalBankAccountToken}/micro_deposits`, {
       body,
       ...options,
     });

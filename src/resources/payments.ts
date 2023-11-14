@@ -13,14 +13,14 @@ export class Payments extends APIResource {
    * Initiates a payment between a financial account and an external bank account.
    */
   create(body: PaymentCreateParams, options?: Core.RequestOptions): Core.APIPromise<PaymentCreateResponse> {
-    return this.post('/payments', { body, ...options });
+    return this._client.post('/payments', { body, ...options });
   }
 
   /**
    * Get the payment by token.
    */
   retrieve(paymentToken: string, options?: Core.RequestOptions): Core.APIPromise<Payment> {
-    return this.get(`/payments/${paymentToken}`, options);
+    return this._client.get(`/payments/${paymentToken}`, options);
   }
 
   /**
@@ -38,14 +38,14 @@ export class Payments extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/payments', PaymentsCursorPage, { query, ...options });
+    return this._client.getAPIList('/payments', PaymentsCursorPage, { query, ...options });
   }
 
   /**
    * Retry an origination which has been returned.
    */
   retry(paymentToken: string, options?: Core.RequestOptions): Core.APIPromise<PaymentRetryResponse> {
-    return this.post(`/payments/${paymentToken}/retry`, options);
+    return this._client.post(`/payments/${paymentToken}/retry`, options);
   }
 
   /**
@@ -55,7 +55,7 @@ export class Payments extends APIResource {
     body: PaymentSimulateReleaseParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<PaymentSimulateReleaseResponse> {
-    return this.post('/simulate/payments/release', { body, ...options });
+    return this._client.post('/simulate/payments/release', { body, ...options });
   }
 
   /**
@@ -65,7 +65,7 @@ export class Payments extends APIResource {
     body: PaymentSimulateReturnParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<PaymentSimulateReturnResponse> {
-    return this.post('/simulate/payments/return', { body, ...options });
+    return this._client.post('/simulate/payments/return', { body, ...options });
   }
 }
 

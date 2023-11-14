@@ -29,7 +29,7 @@ export class Settlement extends APIResource {
     if (isRequestOptions(query)) {
       return this.listDetails(reportDate, {}, query);
     }
-    return this.getAPIList(`/reports/settlement/details/${reportDate}`, SettlementDetailsCursorPage, {
+    return this._client.getAPIList(`/reports/settlement/details/${reportDate}`, SettlementDetailsCursorPage, {
       query,
       ...options,
     });
@@ -39,7 +39,7 @@ export class Settlement extends APIResource {
    * Get the settlement report for a specified report date.
    */
   summary(reportDate: string, options?: Core.RequestOptions): Core.APIPromise<SettlementSummaryResponse> {
-    return this.get(`/reports/settlement/summary/${reportDate}`, options);
+    return this._client.get(`/reports/settlement/summary/${reportDate}`, options);
   }
 }
 

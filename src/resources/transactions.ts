@@ -11,7 +11,7 @@ export class Transactions extends APIResource {
    * Get specific card transaction.
    */
   retrieve(transactionToken: string, options?: Core.RequestOptions): Core.APIPromise<Transaction> {
-    return this.get(`/transactions/${transactionToken}`, options);
+    return this._client.get(`/transactions/${transactionToken}`, options);
   }
 
   /**
@@ -29,7 +29,7 @@ export class Transactions extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/transactions', TransactionsCursorPage, { query, ...options });
+    return this._client.getAPIList('/transactions', TransactionsCursorPage, { query, ...options });
   }
 
   /**
@@ -45,7 +45,7 @@ export class Transactions extends APIResource {
     body: TransactionSimulateAuthorizationParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<TransactionSimulateAuthorizationResponse> {
-    return this.post('/simulate/authorize', { body, ...options });
+    return this._client.post('/simulate/authorize', { body, ...options });
   }
 
   /**
@@ -57,7 +57,7 @@ export class Transactions extends APIResource {
     body: TransactionSimulateAuthorizationAdviceParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<TransactionSimulateAuthorizationAdviceResponse> {
-    return this.post('/simulate/authorization_advice', { body, ...options });
+    return this._client.post('/simulate/authorization_advice', { body, ...options });
   }
 
   /**
@@ -72,7 +72,7 @@ export class Transactions extends APIResource {
     body: TransactionSimulateClearingParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<TransactionSimulateClearingResponse> {
-    return this.post('/simulate/clearing', { body, ...options });
+    return this._client.post('/simulate/clearing', { body, ...options });
   }
 
   /**
@@ -84,7 +84,7 @@ export class Transactions extends APIResource {
     body: TransactionSimulateCreditAuthorizationParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<TransactionSimulateCreditAuthorizationResponse> {
-    return this.post('/simulate/credit_authorization_advice', { body, ...options });
+    return this._client.post('/simulate/credit_authorization_advice', { body, ...options });
   }
 
   /**
@@ -95,7 +95,7 @@ export class Transactions extends APIResource {
     body: TransactionSimulateReturnParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<TransactionSimulateReturnResponse> {
-    return this.post('/simulate/return', { body, ...options });
+    return this._client.post('/simulate/return', { body, ...options });
   }
 
   /**
@@ -107,7 +107,7 @@ export class Transactions extends APIResource {
     body: TransactionSimulateReturnReversalParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<TransactionSimulateReturnReversalResponse> {
-    return this.post('/simulate/return_reversal', { body, ...options });
+    return this._client.post('/simulate/return_reversal', { body, ...options });
   }
 
   /**
@@ -121,7 +121,7 @@ export class Transactions extends APIResource {
     body: TransactionSimulateVoidParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<TransactionSimulateVoidResponse> {
-    return this.post('/simulate/void', { body, ...options });
+    return this._client.post('/simulate/void', { body, ...options });
   }
 }
 

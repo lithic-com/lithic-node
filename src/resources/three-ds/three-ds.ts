@@ -5,8 +5,8 @@ import * as AuthenticationAPI from 'lithic/resources/three-ds/authentication';
 import * as DecisioningAPI from 'lithic/resources/three-ds/decisioning';
 
 export class ThreeDS extends APIResource {
-  authentication: AuthenticationAPI.Authentication = new AuthenticationAPI.Authentication(this.client);
-  decisioning: DecisioningAPI.Decisioning = new DecisioningAPI.Decisioning(this.client);
+  authentication: AuthenticationAPI.Authentication = new AuthenticationAPI.Authentication(this._client);
+  decisioning: DecisioningAPI.Decisioning = new DecisioningAPI.Decisioning(this._client);
 }
 
 export namespace ThreeDS {
