@@ -13,25 +13,25 @@ import { CursorPage, type CursorPageParams } from 'lithic/pagination';
 
 export class Cards extends APIResource {
   aggregateBalances: AggregateBalancesAPI.AggregateBalances = new AggregateBalancesAPI.AggregateBalances(
-    this.client,
+    this._client,
   );
-  balances: BalancesAPI.Balances = new BalancesAPI.Balances(this.client);
+  balances: BalancesAPI.Balances = new BalancesAPI.Balances(this._client);
   financialTransactions: FinancialTransactionsAPI.FinancialTransactions =
-    new FinancialTransactionsAPI.FinancialTransactions(this.client);
+    new FinancialTransactionsAPI.FinancialTransactions(this._client);
 
   /**
    * Create a new virtual or physical card. Parameters `pin`, `shipping_address`, and
    * `product_id` only apply to physical cards.
    */
   create(body: CardCreateParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
-    return this.post('/cards', { body, ...options });
+    return this._client.post('/cards', { body, ...options });
   }
 
   /**
    * Get card configuration such as spend limit and state.
    */
   retrieve(cardToken: string, options?: Core.RequestOptions): Core.APIPromise<Card> {
-    return this.get(`/cards/${cardToken}`, options);
+    return this._client.get(`/cards/${cardToken}`, options);
   }
 
   /**
@@ -42,7 +42,7 @@ export class Cards extends APIResource {
    * undone._
    */
   update(cardToken: string, body: CardUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
-    return this.patch(`/cards/${cardToken}`, { body, ...options });
+    return this._client.patch(`/cards/${cardToken}`, { body, ...options });
   }
 
   /**
@@ -57,7 +57,7 @@ export class Cards extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/cards', CardsCursorPage, { query, ...options });
+    return this._client.getAPIList('/cards', CardsCursorPage, { query, ...options });
   }
 
   /**
@@ -89,7 +89,7 @@ export class Cards extends APIResource {
    * a serious security vulnerability**.
    */
   embed(query: CardEmbedParams, options?: Core.RequestOptions): Core.APIPromise<string> {
-    return this.get('/embed/card', {
+    return this._client.get('/embed/card', {
       query,
       ...options,
       headers: { Accept: 'text/html', ...options?.headers },
@@ -108,7 +108,7 @@ export class Cards extends APIResource {
    * where you can load it via an iframe.
    */
   getEmbedHTML(params: CardGetEmbedHTMLParams, options?: Core.RequestOptions): Promise<string> {
-    return this.get(this.getEmbedURL(params), {
+    return this._client.get(this.getEmbedURL(params), {
       ...options,
       headers: { Accept: 'text/html', ...options?.headers },
     });
@@ -151,9 +151,9 @@ export class Cards extends APIResource {
     }
 
     const serialized = JSON.stringify(params);
-    const hmac = createHmac('sha256', this.client.apiKey!).update(serialized).digest('base64');
+    const hmac = createHmac('sha256', this._client.apiKey!).update(serialized).digest('base64');
     const embedRequest = Buffer.from(serialized).toString('base64');
-    return this.client.buildURL('/embed/card', { hmac, embed_request: embedRequest });
+    return this._client.buildURL('/embed/card', { hmac, embed_request: embedRequest });
   }
 
   /**
@@ -169,7 +169,7 @@ export class Cards extends APIResource {
     body: CardProvisionParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<CardProvisionResponse> {
-    return this.post(`/cards/${cardToken}/provision`, { body, ...options });
+    return this._client.post(`/cards/${cardToken}/provision`, { body, ...options });
   }
 
   /**
@@ -178,7 +178,7 @@ export class Cards extends APIResource {
    * Only applies to cards of type `PHYSICAL`.
    */
   reissue(cardToken: string, body: CardReissueParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
-    return this.post(`/cards/${cardToken}/reissue`, { body, ...options });
+    return this._client.post(`/cards/${cardToken}/reissue`, { body, ...options });
   }
 }
 

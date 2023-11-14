@@ -22,7 +22,7 @@ export class DigitalCardArtResource extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/digital_card_art', DigitalCardArtsCursorPage, { query, ...options });
+    return this._client.getAPIList('/digital_card_art', DigitalCardArtsCursorPage, { query, ...options });
   }
 }
 

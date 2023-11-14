@@ -12,14 +12,14 @@ export class Disputes extends APIResource {
    * Initiate a dispute.
    */
   create(body: DisputeCreateParams, options?: Core.RequestOptions): Core.APIPromise<Dispute> {
-    return this.post('/disputes', { body, ...options });
+    return this._client.post('/disputes', { body, ...options });
   }
 
   /**
    * Get dispute.
    */
   retrieve(disputeToken: string, options?: Core.RequestOptions): Core.APIPromise<Dispute> {
-    return this.get(`/disputes/${disputeToken}`, options);
+    return this._client.get(`/disputes/${disputeToken}`, options);
   }
 
   /**
@@ -30,7 +30,7 @@ export class Disputes extends APIResource {
     body: DisputeUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Dispute> {
-    return this.patch(`/disputes/${disputeToken}`, { body, ...options });
+    return this._client.patch(`/disputes/${disputeToken}`, { body, ...options });
   }
 
   /**
@@ -48,14 +48,14 @@ export class Disputes extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/disputes', DisputesCursorPage, { query, ...options });
+    return this._client.getAPIList('/disputes', DisputesCursorPage, { query, ...options });
   }
 
   /**
    * Withdraw dispute.
    */
   del(disputeToken: string, options?: Core.RequestOptions): Core.APIPromise<Dispute> {
-    return this.delete(`/disputes/${disputeToken}`, options);
+    return this._client.delete(`/disputes/${disputeToken}`, options);
   }
 
   /**
@@ -67,7 +67,7 @@ export class Disputes extends APIResource {
     evidenceToken: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<DisputeEvidence> {
-    return this.delete(`/disputes/${disputeToken}/evidences/${evidenceToken}`, options);
+    return this._client.delete(`/disputes/${disputeToken}/evidences/${evidenceToken}`, options);
   }
 
   /**
@@ -94,7 +94,7 @@ export class Disputes extends APIResource {
     if (isRequestOptions(body)) {
       return this.initiateEvidenceUpload(disputeToken, {}, body);
     }
-    return this.post(`/disputes/${disputeToken}/evidences`, { body, ...options });
+    return this._client.post(`/disputes/${disputeToken}/evidences`, { body, ...options });
   }
 
   /**
@@ -117,7 +117,7 @@ export class Disputes extends APIResource {
     if (isRequestOptions(query)) {
       return this.listEvidences(disputeToken, {}, query);
     }
-    return this.getAPIList(`/disputes/${disputeToken}/evidences`, DisputeEvidencesCursorPage, {
+    return this._client.getAPIList(`/disputes/${disputeToken}/evidences`, DisputeEvidencesCursorPage, {
       query,
       ...options,
     });
@@ -131,7 +131,7 @@ export class Disputes extends APIResource {
     evidenceToken: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<DisputeEvidence> {
-    return this.get(`/disputes/${disputeToken}/evidences/${evidenceToken}`, options);
+    return this._client.get(`/disputes/${disputeToken}/evidences/${evidenceToken}`, options);
   }
 
   /**
@@ -139,11 +139,11 @@ export class Disputes extends APIResource {
    * `upload_url`.
    */
   uploadEvidence(disputeToken: string, file: Uploadable, options?: Core.RequestOptions): Promise<void> {
-    return this.client.disputes.initiateEvidenceUpload(disputeToken, options).then(async (payload) => {
+    return this._client.disputes.initiateEvidenceUpload(disputeToken, options).then(async (payload) => {
       if (!payload.upload_url) {
         return Promise.reject("Missing 'upload_url' from response payload");
       }
-      return this.put(
+      return this._client.put(
         payload.upload_url,
         await maybeMultipartFormRequestOptions({ body: { file }, headers: { Authorization: null } }),
       );

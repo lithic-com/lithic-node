@@ -16,7 +16,7 @@ export class Subscriptions extends APIResource {
     body: SubscriptionCreateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<EventsAPI.EventSubscription> {
-    return this.post('/event_subscriptions', { body, ...options });
+    return this._client.post('/event_subscriptions', { body, ...options });
   }
 
   /**
@@ -26,7 +26,7 @@ export class Subscriptions extends APIResource {
     eventSubscriptionToken: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<EventsAPI.EventSubscription> {
-    return this.get(`/event_subscriptions/${eventSubscriptionToken}`, options);
+    return this._client.get(`/event_subscriptions/${eventSubscriptionToken}`, options);
   }
 
   /**
@@ -37,7 +37,7 @@ export class Subscriptions extends APIResource {
     body: SubscriptionUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<EventsAPI.EventSubscription> {
-    return this.patch(`/event_subscriptions/${eventSubscriptionToken}`, { body, ...options });
+    return this._client.patch(`/event_subscriptions/${eventSubscriptionToken}`, { body, ...options });
   }
 
   /**
@@ -57,14 +57,17 @@ export class Subscriptions extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/event_subscriptions', EventSubscriptionsCursorPage, { query, ...options });
+    return this._client.getAPIList('/event_subscriptions', EventSubscriptionsCursorPage, {
+      query,
+      ...options,
+    });
   }
 
   /**
    * Delete an event subscription.
    */
   del(eventSubscriptionToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
-    return this.delete(`/event_subscriptions/${eventSubscriptionToken}`, options);
+    return this._client.delete(`/event_subscriptions/${eventSubscriptionToken}`, options);
   }
 
   /**
@@ -87,7 +90,7 @@ export class Subscriptions extends APIResource {
     if (isRequestOptions(query)) {
       return this.listAttempts(eventSubscriptionToken, {}, query);
     }
-    return this.getAPIList(
+    return this._client.getAPIList(
       `/event_subscriptions/${eventSubscriptionToken}/attempts`,
       MessageAttemptsCursorPage,
       { query, ...options },
@@ -112,7 +115,7 @@ export class Subscriptions extends APIResource {
       return this.recover(eventSubscriptionToken, {}, params);
     }
     const { begin, end } = params;
-    return this.post(`/event_subscriptions/${eventSubscriptionToken}/recover`, {
+    return this._client.post(`/event_subscriptions/${eventSubscriptionToken}/recover`, {
       query: { begin, end },
       ...options,
     });
@@ -140,7 +143,7 @@ export class Subscriptions extends APIResource {
       return this.replayMissing(eventSubscriptionToken, {}, params);
     }
     const { begin, end } = params;
-    return this.post(`/event_subscriptions/${eventSubscriptionToken}/replay_missing`, {
+    return this._client.post(`/event_subscriptions/${eventSubscriptionToken}/replay_missing`, {
       query: { begin, end },
       ...options,
     });
@@ -153,7 +156,7 @@ export class Subscriptions extends APIResource {
     eventSubscriptionToken: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<SubscriptionRetrieveSecretResponse> {
-    return this.get(`/event_subscriptions/${eventSubscriptionToken}/secret`, options);
+    return this._client.get(`/event_subscriptions/${eventSubscriptionToken}/secret`, options);
   }
 
   /**
@@ -161,7 +164,7 @@ export class Subscriptions extends APIResource {
    * for the next 24 hours.
    */
   rotateSecret(eventSubscriptionToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
-    return this.post(`/event_subscriptions/${eventSubscriptionToken}/secret/rotate`, options);
+    return this._client.post(`/event_subscriptions/${eventSubscriptionToken}/secret/rotate`, options);
   }
 
   /**
@@ -181,7 +184,7 @@ export class Subscriptions extends APIResource {
     if (isRequestOptions(body)) {
       return this.sendSimulatedExample(eventSubscriptionToken, {}, body);
     }
-    return this.post(`/simulate/event_subscriptions/${eventSubscriptionToken}/send_example`, {
+    return this._client.post(`/simulate/event_subscriptions/${eventSubscriptionToken}/send_example`, {
       body,
       ...options,
     });

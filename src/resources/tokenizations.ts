@@ -13,7 +13,7 @@ export class Tokenizations extends APIResource {
     body: TokenizationSimulateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<TokenizationSimulateResponse> {
-    return this.post('/simulate/tokenizations', { body, ...options });
+    return this._client.post('/simulate/tokenizations', { body, ...options });
   }
 }
 

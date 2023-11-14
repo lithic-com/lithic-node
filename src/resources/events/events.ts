@@ -8,13 +8,13 @@ import * as SubscriptionsAPI from 'lithic/resources/events/subscriptions';
 import { CursorPage, type CursorPageParams } from 'lithic/pagination';
 
 export class Events extends APIResource {
-  subscriptions: SubscriptionsAPI.Subscriptions = new SubscriptionsAPI.Subscriptions(this.client);
+  subscriptions: SubscriptionsAPI.Subscriptions = new SubscriptionsAPI.Subscriptions(this._client);
 
   /**
    * Get an event.
    */
   retrieve(eventToken: string, options?: Core.RequestOptions): Core.APIPromise<Event> {
-    return this.get(`/events/${eventToken}`, options);
+    return this._client.get(`/events/${eventToken}`, options);
   }
 
   /**
@@ -29,7 +29,7 @@ export class Events extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/events', EventsCursorPage, { query, ...options });
+    return this._client.getAPIList('/events', EventsCursorPage, { query, ...options });
   }
 
   /**
@@ -52,7 +52,7 @@ export class Events extends APIResource {
     if (isRequestOptions(query)) {
       return this.listAttempts(eventToken, {}, query);
     }
-    return this.getAPIList(`/events/${eventToken}/attempts`, MessageAttemptsCursorPage, {
+    return this._client.getAPIList(`/events/${eventToken}/attempts`, MessageAttemptsCursorPage, {
       query,
       ...options,
     });
@@ -66,7 +66,7 @@ export class Events extends APIResource {
     params: { eventSubscriptionToken: string },
     options?: Core.RequestOptions,
   ): Promise<void> {
-    return this.post(
+    return this._client.post(
       `/events/${eventToken}/event_subscriptions/${params.eventSubscriptionToken}/resend`,
       options,
     );

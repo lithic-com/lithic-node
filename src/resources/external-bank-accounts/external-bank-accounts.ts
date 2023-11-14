@@ -8,7 +8,7 @@ import * as MicroDepositsAPI from 'lithic/resources/external-bank-accounts/micro
 import { CursorPage, type CursorPageParams } from 'lithic/pagination';
 
 export class ExternalBankAccounts extends APIResource {
-  microDeposits: MicroDepositsAPI.MicroDeposits = new MicroDepositsAPI.MicroDeposits(this.client);
+  microDeposits: MicroDepositsAPI.MicroDeposits = new MicroDepositsAPI.MicroDeposits(this._client);
 
   /**
    * Creates an external bank account within a program or Lithic account.
@@ -17,7 +17,7 @@ export class ExternalBankAccounts extends APIResource {
     body: ExternalBankAccountCreateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<ExternalBankAccountCreateResponse> {
-    return this.post('/external_bank_accounts', { body, ...options });
+    return this._client.post('/external_bank_accounts', { body, ...options });
   }
 
   /**
@@ -27,7 +27,7 @@ export class ExternalBankAccounts extends APIResource {
     externalBankAccountToken: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<ExternalBankAccountRetrieveResponse> {
-    return this.get(`/external_bank_accounts/${externalBankAccountToken}`, options);
+    return this._client.get(`/external_bank_accounts/${externalBankAccountToken}`, options);
   }
 
   /**
@@ -38,7 +38,7 @@ export class ExternalBankAccounts extends APIResource {
     body: ExternalBankAccountUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<ExternalBankAccountUpdateResponse> {
-    return this.patch(`/external_bank_accounts/${externalBankAccountToken}`, { body, ...options });
+    return this._client.patch(`/external_bank_accounts/${externalBankAccountToken}`, { body, ...options });
   }
 
   /**
@@ -58,7 +58,7 @@ export class ExternalBankAccounts extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/external_bank_accounts', ExternalBankAccountListResponsesCursorPage, {
+    return this._client.getAPIList('/external_bank_accounts', ExternalBankAccountListResponsesCursorPage, {
       query,
       ...options,
     });

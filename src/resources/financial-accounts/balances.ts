@@ -28,10 +28,11 @@ export class Balances extends APIResource {
     if (isRequestOptions(query)) {
       return this.list(financialAccountToken, {}, query);
     }
-    return this.getAPIList(`/financial_accounts/${financialAccountToken}/balances`, BalancesSinglePage, {
-      query,
-      ...options,
-    });
+    return this._client.getAPIList(
+      `/financial_accounts/${financialAccountToken}/balances`,
+      BalancesSinglePage,
+      { query, ...options },
+    );
   }
 }
 

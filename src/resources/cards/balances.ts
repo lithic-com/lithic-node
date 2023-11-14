@@ -28,7 +28,7 @@ export class Balances extends APIResource {
     if (isRequestOptions(query)) {
       return this.list(cardToken, {}, query);
     }
-    return this.getAPIList(`/cards/${cardToken}/balances`, BalancesSinglePage, { query, ...options });
+    return this._client.getAPIList(`/cards/${cardToken}/balances`, BalancesSinglePage, { query, ...options });
   }
 }
 

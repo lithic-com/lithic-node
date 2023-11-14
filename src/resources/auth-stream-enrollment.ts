@@ -11,14 +11,14 @@ export class AuthStreamEnrollmentResource extends APIResource {
    * for your program in Sandbox.
    */
   retrieve(options?: Core.RequestOptions): Core.APIPromise<AuthStreamEnrollment> {
-    return this.get('/auth_stream', options);
+    return this._client.get('/auth_stream', options);
   }
 
   /**
    * Disenroll Authorization Stream Access (ASA) in Sandbox.
    */
   disenroll(options?: Core.RequestOptions): Core.APIPromise<void> {
-    return this.delete('/auth_stream', options);
+    return this._client.delete('/auth_stream', options);
   }
 
   /**
@@ -44,7 +44,7 @@ export class AuthStreamEnrollmentResource extends APIResource {
     if (isRequestOptions(body)) {
       return this.enroll({}, body);
     }
-    return this.post('/auth_stream', { body, ...options });
+    return this._client.post('/auth_stream', { body, ...options });
   }
 
   /**
@@ -56,7 +56,7 @@ export class AuthStreamEnrollmentResource extends APIResource {
    * for more detail about verifying ASA webhooks.
    */
   retrieveSecret(options?: Core.RequestOptions): Core.APIPromise<AuthStreamSecret> {
-    return this.get('/auth_stream/secret', options);
+    return this._client.get('/auth_stream/secret', options);
   }
 
   /**
@@ -66,7 +66,7 @@ export class AuthStreamEnrollmentResource extends APIResource {
    * request to retrieve the new secret key.
    */
   rotateSecret(options?: Core.RequestOptions): Core.APIPromise<void> {
-    return this.post('/auth_stream/secret/rotate', options);
+    return this._client.post('/auth_stream/secret/rotate', options);
   }
 }
 

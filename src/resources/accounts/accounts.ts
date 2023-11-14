@@ -9,13 +9,13 @@ import { CursorPage, type CursorPageParams } from 'lithic/pagination';
 
 export class Accounts extends APIResource {
   creditConfigurations: CreditConfigurationsAPI.CreditConfigurations =
-    new CreditConfigurationsAPI.CreditConfigurations(this.client);
+    new CreditConfigurationsAPI.CreditConfigurations(this._client);
 
   /**
    * Get account configuration such as spend limits.
    */
   retrieve(accountToken: string, options?: Core.RequestOptions): Core.APIPromise<Account> {
-    return this.get(`/accounts/${accountToken}`, options);
+    return this._client.get(`/accounts/${accountToken}`, options);
   }
 
   /**
@@ -30,7 +30,7 @@ export class Accounts extends APIResource {
     body: AccountUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Account> {
-    return this.patch(`/accounts/${accountToken}`, { body, ...options });
+    return this._client.patch(`/accounts/${accountToken}`, { body, ...options });
   }
 
   /**
@@ -48,7 +48,7 @@ export class Accounts extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this.getAPIList('/accounts', AccountsCursorPage, { query, ...options });
+    return this._client.getAPIList('/accounts', AccountsCursorPage, { query, ...options });
   }
 }
 
