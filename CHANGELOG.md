@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.33.0 (2023-11-16)
+
+Full Changelog: [v0.32.0...v0.33.0](https://github.com/lithic-com/lithic-node/compare/v0.32.0...v0.33.0)
+
+### Features
+
+* **api:** updates ([#267](https://github.com/lithic-com/lithic-node/issues/267)) ([0dcdd40](https://github.com/lithic-com/lithic-node/commit/0dcdd40c11c82efda40baead1089ababc886fb66))
+
+
+### Chores
+
+* **internal:** update APIResource structure ([#266](https://github.com/lithic-com/lithic-node/issues/266)) ([d34c847](https://github.com/lithic-com/lithic-node/commit/d34c8473d516e7beee540a869de50936dbbd0631))
+* **internal:** update jest config ([#264](https://github.com/lithic-com/lithic-node/issues/264)) ([5118b1c](https://github.com/lithic-com/lithic-node/commit/5118b1c06f22aeab66650329aa6e5765008247c6))
+
 ## 0.32.0 (2023-11-09)
 
 Full Changelog: [v0.31.0...v0.32.0](https://github.com/lithic-com/lithic-node/compare/v0.31.0...v0.32.0)
