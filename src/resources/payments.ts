@@ -164,11 +164,23 @@ export namespace PaymentCreateParams {
 }
 
 export interface PaymentListParams extends CursorPageParams {
+  /**
+   * Date string in RFC 3339 format. Only entries created after the specified time
+   * will be included. UTC time zone.
+   */
+  begin?: string;
+
+  /**
+   * Date string in RFC 3339 format. Only entries created before the specified time
+   * will be included. UTC time zone.
+   */
+  end?: string;
+
   financial_account_token?: string;
 
   result?: 'APPROVED' | 'DECLINED';
 
-  status?: 'PENDING' | 'VOIDED' | 'SETTLED' | 'DECLINED' | 'EXPIRED';
+  status?: 'DECLINED' | 'PENDING' | 'RETURNED' | 'SETTLED';
 }
 
 export interface PaymentSimulateReleaseParams {

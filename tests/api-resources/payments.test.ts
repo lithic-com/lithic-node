@@ -88,12 +88,14 @@ describe('resource payments', () => {
     await expect(
       lithic.payments.list(
         {
+          begin: '2019-12-27T18:11:19.117Z',
+          end: '2019-12-27T18:11:19.117Z',
           ending_before: 'string',
           financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           page_size: 1,
           result: 'APPROVED',
           starting_after: 'string',
-          status: 'PENDING',
+          status: 'DECLINED',
         },
         { path: '/_stainless_unknown_path' },
       ),
