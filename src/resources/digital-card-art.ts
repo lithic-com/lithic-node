@@ -58,6 +58,11 @@ export interface DigitalCardArt {
    * Card network.
    */
   network: 'MASTERCARD' | 'VISA';
+
+  /**
+   * Whether the card art is the default card art to be added upon tokenization.
+   */
+  is_card_program_default?: boolean;
 }
 
 export interface DigitalCardArtListParams extends CursorPageParams {}
