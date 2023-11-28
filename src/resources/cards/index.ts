@@ -9,6 +9,7 @@ export {
 export { BalanceListParams, Balances } from './balances';
 export {
   Card,
+  CardSpendLimits,
   EmbedRequestParams,
   SpendLimitDuration,
   CardEmbedResponse,

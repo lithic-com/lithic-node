@@ -21,6 +21,7 @@ Types:
 Types:
 
 - <code><a href="./src/resources/accounts/accounts.ts">Account</a></code>
+- <code><a href="./src/resources/accounts/accounts.ts">AccountSpendLimits</a></code>
 - <code><a href="./src/resources/accounts/accounts.ts">BusinessAccount</a></code>
 
 Methods:
@@ -28,6 +29,7 @@ Methods:
 - <code title="get /accounts/{account_token}">client.accounts.<a href="./src/resources/accounts/accounts.ts">retrieve</a>(accountToken) -> Account</code>
 - <code title="patch /accounts/{account_token}">client.accounts.<a href="./src/resources/accounts/accounts.ts">update</a>(accountToken, { ...params }) -> Account</code>
 - <code title="get /accounts">client.accounts.<a href="./src/resources/accounts/accounts.ts">list</a>({ ...params }) -> AccountsCursorPage</code>
+- <code title="get /accounts/{account_token}/spend_limits">client.accounts.<a href="./src/resources/accounts/accounts.ts">retrieveSpendLimits</a>(accountToken) -> AccountSpendLimits</code>
 
 ## CreditConfigurations
 
@@ -118,6 +120,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/cards/cards.ts">Card</a></code>
+- <code><a href="./src/resources/cards/cards.ts">CardSpendLimits</a></code>
 - <code><a href="./src/resources/cards/cards.ts">EmbedRequestParams</a></code>
 - <code><a href="./src/resources/cards/cards.ts">SpendLimitDuration</a></code>
 - <code><a href="./src/resources/cards/cards.ts">CardEmbedResponse</a></code>
@@ -132,6 +135,7 @@ Methods:
 - <code title="get /embed/card">client.cards.<a href="./src/resources/cards/cards.ts">embed</a>({ ...params }) -> string</code>
 - <code title="post /cards/{card_token}/provision">client.cards.<a href="./src/resources/cards/cards.ts">provision</a>(cardToken, { ...params }) -> CardProvisionResponse</code>
 - <code title="post /cards/{card_token}/reissue">client.cards.<a href="./src/resources/cards/cards.ts">reissue</a>(cardToken, { ...params }) -> Card</code>
+- <code title="get /cards/{card_token}/spend_limits">client.cards.<a href="./src/resources/cards/cards.ts">retrieveSpendLimits</a>(cardToken) -> CardSpendLimits</code>
 - <code>client.cards.<a href="./src/resources/cards/cards.ts">getEmbedHTML</a>(...args) -> Promise&lt;string&gt;</code>
 - <code>client.cards.<a href="./src/resources/cards/cards.ts">getEmbedURL</a>(...args) -> string</code>
 
