@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.34.0 (2023-11-28)
+
+Full Changelog: [v0.33.0...v0.34.0](https://github.com/lithic-com/lithic-node/compare/v0.33.0...v0.34.0)
+
+### Features
+
+* allow installing package directly from github ([#270](https://github.com/lithic-com/lithic-node/issues/270)) ([555692a](https://github.com/lithic-com/lithic-node/commit/555692ac90c11178eb7dd6e411270b5f2218f469))
+* **api:** add `get spend_limits` endpoints to `cards` and `accounts` ([#274](https://github.com/lithic-com/lithic-node/issues/274)) ([5d33f20](https://github.com/lithic-com/lithic-node/commit/5d33f202966e92f5e7b9c80172ca07083742e34c))
+
+
+### Chores
+
+* **internal:** don't call prepare in dist ([#271](https://github.com/lithic-com/lithic-node/issues/271)) ([5420731](https://github.com/lithic-com/lithic-node/commit/54207317048e73e68571ad96a4be4b908d0cb29d))
+* **internal:** remove file import and conditionally run prepare ([#272](https://github.com/lithic-com/lithic-node/issues/272)) ([cb40535](https://github.com/lithic-com/lithic-node/commit/cb40535f39f7ee6bc0d80e82b818fdfcceb9cfa0))
+* **internal:** update stats file ([#268](https://github.com/lithic-com/lithic-node/issues/268)) ([67a820a](https://github.com/lithic-com/lithic-node/commit/67a820aeadb9d4070e7c1ca319f8c0d73f8a99ea))
+
 ## 0.33.0 (2023-11-16)
 
 Full Changelog: [v0.32.0...v0.33.0](https://github.com/lithic-com/lithic-node/compare/v0.32.0...v0.33.0)
