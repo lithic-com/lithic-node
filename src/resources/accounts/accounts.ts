@@ -50,6 +50,20 @@ export class Accounts extends APIResource {
     }
     return this._client.getAPIList('/accounts', AccountsCursorPage, { query, ...options });
   }
+
+  /**
+   * Get an Account's available spend limits, which is based on the spend limit
+   * configured on the Account and the amount already spent over the spend limit's
+   * duration. For example, if the Account has a daily spend limit of $1000
+   * configured, and has spent $600 in the last 24 hours, the available spend limit
+   * returned would be $400.
+   */
+  retrieveSpendLimits(
+    accountToken: string,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<AccountSpendLimits> {
+    return this._client.get(`/accounts/${accountToken}/spend_limits`, options);
+  }
 }
 
 export class AccountsCursorPage extends CursorPage<Account> {}
@@ -176,6 +190,33 @@ export namespace Account {
   }
 }
 
+export interface AccountSpendLimits {
+  available_spend_limit?: AccountSpendLimits.AvailableSpendLimit;
+
+  required?: unknown;
+}
+
+export namespace AccountSpendLimits {
+  export interface AvailableSpendLimit {
+    /**
+     * The available spend limit relative to the daily limit configured on the Account.
+     */
+    daily?: number;
+
+    /**
+     * The available spend limit relative to the lifetime limit configured on the
+     * Account.
+     */
+    lifetime?: number;
+
+    /**
+     * The available spend limit relative to the monthly limit configured on the
+     * Account.
+     */
+    monthly?: number;
+  }
+}
+
 export interface BusinessAccount {
   /**
    * Account token
@@ -281,6 +322,7 @@ export interface AccountListParams extends CursorPageParams {
 
 export namespace Accounts {
   export import Account = AccountsAPI.Account;
+  export import AccountSpendLimits = AccountsAPI.AccountSpendLimits;
   export import BusinessAccount = AccountsAPI.BusinessAccount;
   export import AccountsCursorPage = AccountsAPI.AccountsCursorPage;
   export import AccountUpdateParams = AccountsAPI.AccountUpdateParams;

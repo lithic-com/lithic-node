@@ -2,6 +2,7 @@
 
 export {
   Account,
+  AccountSpendLimits,
   BusinessAccount,
   AccountUpdateParams,
   AccountListParams,

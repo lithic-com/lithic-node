@@ -180,6 +180,16 @@ export class Cards extends APIResource {
   reissue(cardToken: string, body: CardReissueParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
     return this._client.post(`/cards/${cardToken}/reissue`, { body, ...options });
   }
+
+  /**
+   * Get a Card's available spend limit, which is based on the spend limit configured
+   * on the Card and the amount already spent over the spend limit's duration. For
+   * example, if the Card has a monthly spend limit of $1000 configured, and has
+   * spent $600 in the last month, the available spend limit returned would be $400.
+   */
+  retrieveSpendLimits(cardToken: string, options?: Core.RequestOptions): Core.APIPromise<CardSpendLimits> {
+    return this._client.get(`/cards/${cardToken}/spend_limits`, options);
+  }
 }
 
 export class CardsCursorPage extends CursorPage<Card> {}
@@ -359,6 +369,31 @@ export namespace Card {
      * The nickname given to the `FundingAccount` or `null` if it has no nickname.
      */
     nickname?: string;
+  }
+}
+
+export interface CardSpendLimits {
+  available_spend_limit?: CardSpendLimits.AvailableSpendLimit;
+
+  required?: unknown;
+}
+
+export namespace CardSpendLimits {
+  export interface AvailableSpendLimit {
+    /**
+     * The available spend limit relative to the annual limit configured on the Card.
+     */
+    annually?: number;
+
+    /**
+     * The available spend limit relative to the forever limit configured on the Card.
+     */
+    forever?: number;
+
+    /**
+     * The available spend limit relative to the monthly limit configured on the Card.
+     */
+    monthly?: number;
   }
 }
 
@@ -779,6 +814,7 @@ export interface CardReissueParams {
 
 export namespace Cards {
   export import Card = CardsAPI.Card;
+  export import CardSpendLimits = CardsAPI.CardSpendLimits;
   export import EmbedRequestParams = CardsAPI.EmbedRequestParams;
   export import SpendLimitDuration = CardsAPI.SpendLimitDuration;
   export import CardEmbedResponse = CardsAPI.CardEmbedResponse;

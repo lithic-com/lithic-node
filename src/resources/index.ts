@@ -4,6 +4,7 @@ export * from './shared';
 export { APIStatus } from './top-level';
 export {
   Account,
+  AccountSpendLimits,
   BusinessAccount,
   AccountUpdateParams,
   AccountListParams,
@@ -51,6 +52,7 @@ export {
 export { Balance, BalanceListParams, BalancesSinglePage, Balances } from './balances';
 export {
   Card,
+  CardSpendLimits,
   EmbedRequestParams,
   SpendLimitDuration,
   CardEmbedResponse,
