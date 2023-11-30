@@ -37,8 +37,10 @@ export interface ClientOptions {
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
+   *
+   * Defaults to process.env['LITHIC_BASE_URL'].
    */
-  baseURL?: string;
+  baseURL?: string | null | undefined;
 
   /**
    * The maximum amount of time (in milliseconds) that the client should wait for a response
@@ -100,10 +102,10 @@ export class Lithic extends Core.APIClient {
   /**
    * API Client for interfacing with the Lithic API.
    *
-   * @param {string} [opts.apiKey==process.env['LITHIC_API_KEY'] ?? undefined]
-   * @param {string | null} [opts.webhookSecret==process.env['LITHIC_WEBHOOK_SECRET'] ?? null]
+   * @param {string} [opts.apiKey=process.env['LITHIC_API_KEY'] ?? undefined]
+   * @param {string | null} [opts.webhookSecret=process.env['LITHIC_WEBHOOK_SECRET'] ?? null]
    * @param {Environment} [opts.environment=production] - Specifies the environment URL to use for the API.
-   * @param {string} [opts.baseURL] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['LITHIC_BASE_URL'] ?? https://api.lithic.com/v1] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
    * @param {Core.Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -112,6 +114,7 @@ export class Lithic extends Core.APIClient {
    * @param {Core.DefaultQuery} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
   constructor({
+    baseURL = Core.readEnv('LITHIC_BASE_URL'),
     apiKey = Core.readEnv('LITHIC_API_KEY'),
     webhookSecret = Core.readEnv('LITHIC_WEBHOOK_SECRET') ?? null,
     ...opts
@@ -126,8 +129,15 @@ export class Lithic extends Core.APIClient {
       apiKey,
       webhookSecret,
       ...opts,
+      baseURL,
       environment: opts.environment ?? 'production',
     };
+
+    if (baseURL && opts.environment) {
+      throw new Errors.LithicError(
+        'Ambiguous URL; The `baseURL` option (or LITHIC_BASE_URL env var) and the `environment` option are given. If you want to use the environment you must pass baseURL: null',
+      );
+    }
 
     super({
       baseURL: options.baseURL || environments[options.environment || 'production'],
