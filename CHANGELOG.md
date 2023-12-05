@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.35.0 (2023-12-05)
+
+Full Changelog: [v0.34.0...v0.35.0](https://github.com/lithic-com/lithic-node/compare/v0.34.0...v0.35.0)
+
+### Features
+
+* **api:** remove `CLOSED` account enum and update docstrings ([#279](https://github.com/lithic-com/lithic-node/issues/279)) ([2b80c73](https://github.com/lithic-com/lithic-node/commit/2b80c73adc9e886805b15657be4a0e8f196a2968))
+* **client:** support reading the base url from an env variable ([#277](https://github.com/lithic-com/lithic-node/issues/277)) ([b14eb4e](https://github.com/lithic-com/lithic-node/commit/b14eb4e2fffd6d0f1586e13fff18c72b3f070ca4))
+
+
+### Documentation
+
+* **readme:** update example snippets ([#275](https://github.com/lithic-com/lithic-node/issues/275)) ([a576c08](https://github.com/lithic-com/lithic-node/commit/a576c08f0189151ec01cfbffe7e919dfe57d396e))
+
 ## 0.34.0 (2023-11-28)
 
 Full Changelog: [v0.33.0...v0.34.0](https://github.com/lithic-com/lithic-node/compare/v0.33.0...v0.34.0)
