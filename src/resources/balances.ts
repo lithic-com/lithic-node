@@ -33,11 +33,6 @@ export class BalancesSinglePage extends SinglePage<Balance> {}
  */
 export interface Balance {
   /**
-   * Globally unique identifier for the financial account that holds this balance.
-   */
-  token: string;
-
-  /**
    * Funds available for spend in the currency's smallest unit (e.g., cents for USD)
    */
   available_amount: number;
@@ -51,6 +46,16 @@ export interface Balance {
    * 3-digit alphabetic ISO 4217 code for the local currency of the balance.
    */
   currency: string;
+
+  /**
+   * Globally unique identifier for the financial account that holds this balance.
+   */
+  financial_account_token: string;
+
+  /**
+   * Type of financial account.
+   */
+  financial_account_type: 'ISSUING' | 'RESERVE';
 
   /**
    * Globally unique identifier for the last financial transaction event that
@@ -75,11 +80,6 @@ export interface Balance {
    * cents for USD).
    */
   total_amount: number;
-
-  /**
-   * Type of financial account.
-   */
-  type: 'ISSUING' | 'RESERVE';
 
   /**
    * Date and time for when the balance was last updated.
