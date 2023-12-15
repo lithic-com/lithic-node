@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.36.0 (2023-12-15)
+
+Full Changelog: [v0.35.0...v0.36.0](https://github.com/lithic-com/lithic-node/compare/v0.35.0...v0.36.0)
+
+### Features
+
+* **api:** rename `token` and `type` to `financial_account_token` and `financial_account_type` ([#284](https://github.com/lithic-com/lithic-node/issues/284)) ([b1a5ca3](https://github.com/lithic-com/lithic-node/commit/b1a5ca3f412f75f8b91331a4b3e4a896b348b2eb))
+
+
+### Chores
+
+* update prettier ([#283](https://github.com/lithic-com/lithic-node/issues/283)) ([d93b312](https://github.com/lithic-com/lithic-node/commit/d93b312003324eb6a8c5b7751b3de45901ac7e1a))
+
+
+### Build System
+
+* specify `packageManager: yarn` ([#282](https://github.com/lithic-com/lithic-node/issues/282)) ([272aa2f](https://github.com/lithic-com/lithic-node/commit/272aa2f537722f469ed936ee376ca3ef25c1f8c4))
+
 ## 0.35.0 (2023-12-05)
 
 Full Changelog: [v0.34.0...v0.35.0](https://github.com/lithic-com/lithic-node/compare/v0.34.0...v0.35.0)
