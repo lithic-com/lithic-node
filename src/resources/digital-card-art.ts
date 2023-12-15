@@ -8,6 +8,13 @@ import { CursorPage, type CursorPageParams } from 'lithic/pagination';
 
 export class DigitalCardArtResource extends APIResource {
   /**
+   * Get digital card art by token.
+   */
+  retrieve(digitalCardArtToken: string, options?: Core.RequestOptions): Core.APIPromise<DigitalCardArt> {
+    return this._client.get(`/digital_card_art/${digitalCardArtToken}`, options);
+  }
+
+  /**
    * List digital card art.
    */
   list(
