@@ -81,14 +81,10 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/auth-stream-enrollment.ts">AuthStreamEnrollment</a></code>
 - <code><a href="./src/resources/auth-stream-enrollment.ts">AuthStreamSecret</a></code>
 
 Methods:
 
-- <code title="get /auth_stream">client.authStreamEnrollment.<a href="./src/resources/auth-stream-enrollment.ts">retrieve</a>() -> AuthStreamEnrollment</code>
-- <code title="delete /auth_stream">client.authStreamEnrollment.<a href="./src/resources/auth-stream-enrollment.ts">disenroll</a>() -> void</code>
-- <code title="post /auth_stream">client.authStreamEnrollment.<a href="./src/resources/auth-stream-enrollment.ts">enroll</a>({ ...params }) -> void</code>
 - <code title="get /auth_stream/secret">client.authStreamEnrollment.<a href="./src/resources/auth-stream-enrollment.ts">retrieveSecret</a>() -> AuthStreamSecret</code>
 - <code title="post /auth_stream/secret/rotate">client.authStreamEnrollment.<a href="./src/resources/auth-stream-enrollment.ts">rotateSecret</a>() -> void</code>
 
