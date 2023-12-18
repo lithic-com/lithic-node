@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.37.0 (2023-12-18)
+
+Full Changelog: [v0.36.0...v0.37.0](https://github.com/lithic-com/lithic-node/compare/v0.36.0...v0.37.0)
+
+### Features
+
+* **api:** remove /auth_stream enrollment endpoints ([#289](https://github.com/lithic-com/lithic-node/issues/289)) ([6bd65c2](https://github.com/lithic-com/lithic-node/commit/6bd65c243a1528347d728ef6c797f2601173c0f9))
+
+
+### Chores
+
+* **ci:** run release workflow once per day ([#287](https://github.com/lithic-com/lithic-node/issues/287)) ([4b0d12b](https://github.com/lithic-com/lithic-node/commit/4b0d12bdedfcd423b8d13fa520d16881fc67adb3))
+* **deps:** update dependency ts-jest to v29.1.1 ([#288](https://github.com/lithic-com/lithic-node/issues/288)) ([91d0bf5](https://github.com/lithic-com/lithic-node/commit/91d0bf5d5cc24f29dbb7f175baf0d5a5fe40b93d))
+* update dependencies ([#285](https://github.com/lithic-com/lithic-node/issues/285)) ([682fe93](https://github.com/lithic-com/lithic-node/commit/682fe93cd2e31f78b38b8addb3c858ea72061ed7))
+
 ## 0.36.0 (2023-12-15)
 
 Full Changelog: [v0.35.0...v0.36.0](https://github.com/lithic-com/lithic-node/compare/v0.35.0...v0.36.0)
