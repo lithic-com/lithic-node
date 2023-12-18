@@ -43,12 +43,7 @@ export {
   AuthRulesCursorPage,
   AuthRules,
 } from './auth-rules';
-export {
-  AuthStreamEnrollment,
-  AuthStreamSecret,
-  AuthStreamEnrollmentEnrollParams,
-  AuthStreamEnrollmentResource,
-} from './auth-stream-enrollment';
+export { AuthStreamSecret, AuthStreamEnrollment } from './auth-stream-enrollment';
 export { Balance, BalanceListParams, BalancesSinglePage, Balances } from './balances';
 export {
   Card,
