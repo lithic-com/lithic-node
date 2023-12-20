@@ -9,15 +9,6 @@ export interface CursorPageResponse<Item> {
 }
 
 export interface CursorPageParams {
-  /**
-   * A cursor representing an item's token before which a page of results should end.
-   * Used to retrieve the previous page of results before this item.
-   */
-  ending_before?: string;
-
-  /**
-   * Page size (for pagination).
-   */
   page_size?: number;
 
   /**
@@ -25,6 +16,12 @@ export interface CursorPageParams {
    * begin. Used to retrieve the next page of results after this item.
    */
   starting_after?: string;
+
+  /**
+   * A cursor representing an item's token before which a page of results should end.
+   * Used to retrieve the previous page of results before this item.
+   */
+  ending_before?: string;
 }
 
 export class CursorPage<Item extends { token: string }>
@@ -43,12 +40,12 @@ export class CursorPage<Item extends { token: string }>
   ) {
     super(client, response, body, options);
 
-    this.data = body.data;
+    this.data = body.data || [];
     this.has_more = body.has_more;
   }
 
   getPaginatedItems(): Item[] {
-    return this.data;
+    return this.data ?? [];
   }
 
   // @deprecated Please use `nextPageInfo()` instead
@@ -62,39 +59,39 @@ export class CursorPage<Item extends { token: string }>
   }
 
   nextPageInfo(): PageInfo | null {
-    const isForwards = !('ending_before' in (this.options.query || {}));
-
-    if (!this.data?.length) {
+    const data = this.getPaginatedItems();
+    if (!data.length) {
       return null;
     }
 
+    const isForwards = !('ending_before' in (this.options.query || {}));
     if (isForwards) {
-      const next = this.data[this.data.length - 1]?.token;
-      if (!next) return null;
-      return { params: { starting_after: next } };
-    } else {
-      const next = this.data[0]?.token;
-      if (!next) return null;
-      return { params: { ending_before: next } };
+      const token = data[data.length - 1]?.token;
+      if (!token) {
+        return null;
+      }
+
+      return { params: { ending_before: token } };
     }
+
+    const token = data[0]?.token;
+    if (!token) {
+      return null;
+    }
+
+    return { params: { ending_before: token } };
   }
 }
 
 export interface SinglePageResponse<Item> {
   data: Array<Item>;
 
-  /**
-   * More data exists.
-   */
   has_more: boolean;
 }
 
 export class SinglePage<Item> extends AbstractPage<Item> implements SinglePageResponse<Item> {
   data: Array<Item>;
 
-  /**
-   * More data exists.
-   */
   has_more: boolean;
 
   constructor(
@@ -105,12 +102,12 @@ export class SinglePage<Item> extends AbstractPage<Item> implements SinglePageRe
   ) {
     super(client, response, body, options);
 
-    this.data = body.data;
+    this.data = body.data || [];
     this.has_more = body.has_more;
   }
 
   getPaginatedItems(): Item[] {
-    return this.data;
+    return this.data ?? [];
   }
 
   // @deprecated Please use `nextPageInfo()` instead
