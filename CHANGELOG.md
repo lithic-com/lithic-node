@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.37.1 (2024-01-04)
+
+Full Changelog: [v0.37.0...v0.37.1](https://github.com/lithic-com/lithic-node/compare/v0.37.0...v0.37.1)
+
+### Bug Fixes
+
+* **headers:** always send lowercase headers and strip undefined (BREAKING in rare cases) ([#296](https://github.com/lithic-com/lithic-node/issues/296)) ([8043177](https://github.com/lithic-com/lithic-node/commit/8043177b64bff647735a90c08ef161b17e25683a))
+
+
+### Chores
+
+* **deps:** update jest ([#290](https://github.com/lithic-com/lithic-node/issues/290)) ([2d4c21a](https://github.com/lithic-com/lithic-node/commit/2d4c21a8b363a8d56fe14d3ec0f1092156aebd26))
+* **internal:** bump license ([#295](https://github.com/lithic-com/lithic-node/issues/295)) ([1da8c05](https://github.com/lithic-com/lithic-node/commit/1da8c05575322011ea04b58ffa2c99bf3da94df0))
+* **internal:** minor updates to pagination ([#293](https://github.com/lithic-com/lithic-node/issues/293)) ([af09ce3](https://github.com/lithic-com/lithic-node/commit/af09ce37fa59f7ccdb68d3bd38aa0617a5b98639))
+
+
+### Documentation
+
+* reformat README.md ([#294](https://github.com/lithic-com/lithic-node/issues/294)) ([5d6ac23](https://github.com/lithic-com/lithic-node/commit/5d6ac236bdce41de15dc6166f26761267d54a7db))
+
+
+### Refactors
+
+* write jest config in typescript ([#292](https://github.com/lithic-com/lithic-node/issues/292)) ([d33f6a9](https://github.com/lithic-com/lithic-node/commit/d33f6a99a80b01fd7760c9cb7bce64dfbc59abed))
+
 ## 0.37.0 (2023-12-18)
 
 Full Changelog: [v0.36.0...v0.37.0](https://github.com/lithic-com/lithic-node/compare/v0.36.0...v0.37.0)
