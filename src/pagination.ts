@@ -64,7 +64,9 @@ export class CursorPage<Item extends { token: string }>
       return null;
     }
 
-    const isForwards = !('ending_before' in (this.options.query || {}));
+    const isForwards = !(
+      typeof this.options.query === 'object' && 'ending_before' in (this.options.query || {})
+    );
     if (isForwards) {
       const token = data[data.length - 1]?.token;
       if (!token) {
