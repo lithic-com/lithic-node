@@ -60,6 +60,7 @@ export {
   CardGetEmbedURLParams,
   CardProvisionParams,
   CardReissueParams,
+  CardRenewParams,
   CardsCursorPage,
   Cards,
 } from './cards/cards';

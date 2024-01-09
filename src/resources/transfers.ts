@@ -171,8 +171,8 @@ export namespace Transfer {
       | 'AUTHORIZATION_REVERSAL'
       | 'BALANCE_INQUIRY'
       | 'CLEARING'
-      | 'CORRECTION_DEBIT'
       | 'CORRECTION_CREDIT'
+      | 'CORRECTION_DEBIT'
       | 'CREDIT_AUTHORIZATION'
       | 'CREDIT_AUTHORIZATION_ADVICE'
       | 'FINANCIAL_AUTHORIZATION'
@@ -208,14 +208,15 @@ export interface TransferCreateParams {
   to: string;
 
   /**
+   * Customer-provided token that will serve as an idempotency token. This token will
+   * become the transaction token.
+   */
+  token?: string;
+
+  /**
    * Optional descriptor for the transfer.
    */
   memo?: string;
-
-  /**
-   * Customer-provided transaction_token that will serve as an idempotency token.
-   */
-  transaction_token?: string;
 }
 
 export namespace Transfers {

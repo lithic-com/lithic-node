@@ -85,7 +85,7 @@ export interface ExternalBankAccountAddress {
   address2?: string;
 }
 
-export type OwnerType = 'INDIVIDUAL' | 'BUSINESS';
+export type OwnerType = 'BUSINESS' | 'INDIVIDUAL';
 
 export type VerificationMethod = 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID';
 
@@ -127,11 +127,11 @@ export interface ExternalBankAccountCreateResponse {
    */
   owner: string;
 
-  owner_type: 'INDIVIDUAL' | 'BUSINESS';
+  owner_type: 'BUSINESS' | 'INDIVIDUAL';
 
   routing_number: string;
 
-  state: 'ENABLED' | 'CLOSED' | 'PAUSED';
+  state: 'CLOSED' | 'ENABLED' | 'PAUSED';
 
   type: 'CHECKING' | 'SAVINGS';
 
@@ -142,7 +142,7 @@ export interface ExternalBankAccountCreateResponse {
 
   verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID';
 
-  verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION';
+  verification_state: 'ENABLED' | 'FAILED_VERIFICATION' | 'PENDING';
 
   /**
    * Indicates which Lithic account the external account is associated with. For
@@ -222,11 +222,11 @@ export interface ExternalBankAccountRetrieveResponse {
    */
   owner: string;
 
-  owner_type: 'INDIVIDUAL' | 'BUSINESS';
+  owner_type: 'BUSINESS' | 'INDIVIDUAL';
 
   routing_number: string;
 
-  state: 'ENABLED' | 'CLOSED' | 'PAUSED';
+  state: 'CLOSED' | 'ENABLED' | 'PAUSED';
 
   type: 'CHECKING' | 'SAVINGS';
 
@@ -237,7 +237,7 @@ export interface ExternalBankAccountRetrieveResponse {
 
   verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID';
 
-  verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION';
+  verification_state: 'ENABLED' | 'FAILED_VERIFICATION' | 'PENDING';
 
   /**
    * Indicates which Lithic account the external account is associated with. For
@@ -317,11 +317,11 @@ export interface ExternalBankAccountUpdateResponse {
    */
   owner: string;
 
-  owner_type: 'INDIVIDUAL' | 'BUSINESS';
+  owner_type: 'BUSINESS' | 'INDIVIDUAL';
 
   routing_number: string;
 
-  state: 'ENABLED' | 'CLOSED' | 'PAUSED';
+  state: 'CLOSED' | 'ENABLED' | 'PAUSED';
 
   type: 'CHECKING' | 'SAVINGS';
 
@@ -332,7 +332,7 @@ export interface ExternalBankAccountUpdateResponse {
 
   verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID';
 
-  verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION';
+  verification_state: 'ENABLED' | 'FAILED_VERIFICATION' | 'PENDING';
 
   /**
    * Indicates which Lithic account the external account is associated with. For
@@ -412,11 +412,11 @@ export interface ExternalBankAccountListResponse {
    */
   owner: string;
 
-  owner_type: 'INDIVIDUAL' | 'BUSINESS';
+  owner_type: 'BUSINESS' | 'INDIVIDUAL';
 
   routing_number: string;
 
-  state: 'ENABLED' | 'CLOSED' | 'PAUSED';
+  state: 'CLOSED' | 'ENABLED' | 'PAUSED';
 
   type: 'CHECKING' | 'SAVINGS';
 
@@ -427,7 +427,7 @@ export interface ExternalBankAccountListResponse {
 
   verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID';
 
-  verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION';
+  verification_state: 'ENABLED' | 'FAILED_VERIFICATION' | 'PENDING';
 
   /**
    * Indicates which Lithic account the external account is associated with. For
@@ -470,33 +470,10 @@ export interface ExternalBankAccountListResponse {
 }
 
 export type ExternalBankAccountCreateParams =
-  | ExternalBankAccountCreateParams.PlaidCreateBankAccountAPIRequest
-  | ExternalBankAccountCreateParams.BankVerifiedCreateBankAccountAPIRequest;
+  | ExternalBankAccountCreateParams.BankVerifiedCreateBankAccountAPIRequest
+  | ExternalBankAccountCreateParams.PlaidCreateBankAccountAPIRequest;
 
 export namespace ExternalBankAccountCreateParams {
-  export interface PlaidCreateBankAccountAPIRequest {
-    owner: string;
-
-    owner_type: OwnerType;
-
-    processor_token: string;
-
-    verification_method: VerificationMethod;
-
-    account_token?: string;
-
-    company_id?: string;
-
-    /**
-     * Date of Birth of the Individual that owns the external bank account
-     */
-    dob?: string;
-
-    doing_business_as?: string;
-
-    user_defined_id?: string;
-  }
-
   export interface BankVerifiedCreateBankAccountAPIRequest {
     account_number: string;
 
@@ -543,6 +520,29 @@ export namespace ExternalBankAccountCreateParams {
      */
     verification_enforcement?: boolean;
   }
+
+  export interface PlaidCreateBankAccountAPIRequest {
+    owner: string;
+
+    owner_type: OwnerType;
+
+    processor_token: string;
+
+    verification_method: VerificationMethod;
+
+    account_token?: string;
+
+    company_id?: string;
+
+    /**
+     * Date of Birth of the Individual that owns the external bank account
+     */
+    dob?: string;
+
+    doing_business_as?: string;
+
+    user_defined_id?: string;
+  }
 }
 
 export interface ExternalBankAccountUpdateParams {
@@ -579,9 +579,9 @@ export interface ExternalBankAccountListParams extends CursorPageParams {
 
   owner_types?: Array<OwnerType>;
 
-  states?: Array<'ENABLED' | 'CLOSED' | 'PAUSED'>;
+  states?: Array<'CLOSED' | 'ENABLED' | 'PAUSED'>;
 
-  verification_states?: Array<'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION'>;
+  verification_states?: Array<'ENABLED' | 'FAILED_VERIFICATION' | 'PENDING'>;
 }
 
 export namespace ExternalBankAccounts {

@@ -39,12 +39,12 @@ export interface AuthenticationRetrieveResponse {
    * Type of account/card that is being used for the transaction. Maps to EMV 3DS
    * field acctType.
    */
-  account_type: 'NOT_APPLICABLE' | 'CREDIT' | 'DEBIT' | null;
+  account_type: 'CREDIT' | 'DEBIT' | 'NOT_APPLICABLE' | null;
 
   /**
    * Indicates the outcome of the 3DS authentication process.
    */
-  authentication_result: 'SUCCESS' | 'DECLINE' | null;
+  authentication_result: 'DECLINE' | 'SUCCESS' | null;
 
   /**
    * Indicates whether the expiration date provided by the cardholder during checkout
@@ -76,7 +76,7 @@ export interface AuthenticationRetrieveResponse {
   /**
    * Entity that made the authentication decision.
    */
-  decision_made_by: 'NETWORK' | 'LITHIC_DEFAULT' | 'LITHIC_RULES' | 'CUSTOMER_ENDPOINT' | 'UNKNOWN' | null;
+  decision_made_by: 'CUSTOMER_ENDPOINT' | 'LITHIC_DEFAULT' | 'LITHIC_RULES' | 'NETWORK' | 'UNKNOWN' | null;
 
   /**
    * Object containing data about the merchant involved in the e-commerce
@@ -89,7 +89,7 @@ export interface AuthenticationRetrieveResponse {
    * NON_PAYMENT_AUTHENTICATION, additional_data and transaction fields are not
    * populated.
    */
-  message_category: 'PAYMENT_AUTHENTICATION' | 'NON_PAYMENT_AUTHENTICATION';
+  message_category: 'NON_PAYMENT_AUTHENTICATION' | 'PAYMENT_AUTHENTICATION';
 
   /**
    * Object containing additional data about the 3DS request that is beyond the EMV
@@ -110,16 +110,16 @@ export interface AuthenticationRetrieveResponse {
    * threeDSRequestorAuthenticationInd.
    */
   authentication_request_type?:
+    | 'ADD_CARD'
+    | 'BILLING_AGREEMENT'
+    | 'DELAYED_SHIPMENT'
+    | 'EMV_TOKEN_CARDHOLDER_VERIFICATION'
+    | 'INSTALLMENT_TRANSACTION'
+    | 'MAINTAIN_CARD'
     | 'PAYMENT_TRANSACTION'
     | 'RECURRING_TRANSACTION'
-    | 'INSTALLMENT_TRANSACTION'
-    | 'ADD_CARD'
-    | 'MAINTAIN_CARD'
-    | 'EMV_TOKEN_CARDHOLDER_VERIFICATION'
-    | 'BILLING_AGREEMENT'
-    | 'SPLIT_SHIPMENT'
-    | 'DELAYED_SHIPMENT'
     | 'SPLIT_PAYMENT'
+    | 'SPLIT_SHIPMENT'
     | null;
 
   /**
@@ -136,22 +136,22 @@ export interface AuthenticationRetrieveResponse {
    * Maps to EMV 3DS field threeRIInd.
    */
   three_ri_request_type?:
-    | 'RECURRING_TRANSACTION'
-    | 'INSTALLMENT_TRANSACTION'
-    | 'ADD_CARD'
-    | 'MAINTAIN_CARD_INFO'
     | 'ACCOUNT_VERIFICATION'
-    | 'SPLIT_SHIPMENT'
-    | 'TOP_UP'
-    | 'MAIL_ORDER'
-    | 'TELEPHONE_ORDER'
-    | 'TRUST_LIST_STATUS_CHECK'
-    | 'OTHER_PAYMENT'
+    | 'ADD_CARD'
     | 'BILLING_AGREEMENT'
-    | 'DEVICE_BINDING_STATUS_CHECK'
     | 'CARD_SECURITY_CODE_STATUS_CHECK'
     | 'DELAYED_SHIPMENT'
+    | 'DEVICE_BINDING_STATUS_CHECK'
+    | 'INSTALLMENT_TRANSACTION'
+    | 'MAIL_ORDER'
+    | 'MAINTAIN_CARD_INFO'
+    | 'OTHER_PAYMENT'
+    | 'RECURRING_TRANSACTION'
     | 'SPLIT_PAYMENT'
+    | 'SPLIT_SHIPMENT'
+    | 'TELEPHONE_ORDER'
+    | 'TOP_UP'
+    | 'TRUST_LIST_STATUS_CHECK'
     | null;
 
   /**
@@ -341,8 +341,8 @@ export namespace AuthenticationRetrieveResponse {
        */
       delivery_time_frame?:
         | 'ELECTRONIC_DELIVERY'
-        | 'SAME_DAY_SHIPPING'
         | 'OVERNIGHT_SHIPPING'
+        | 'SAME_DAY_SHIPPING'
         | 'TWO_DAY_OR_MORE_SHIPPING'
         | null;
 
@@ -369,7 +369,7 @@ export namespace AuthenticationRetrieveResponse {
        * Indicates whether the purchase is for merchandise that is available now or at a
        * future date. Maps to EMV 3DS field preOrderPurchaseInd.
        */
-      order_availability?: 'MERCHANDISE_AVAILABLE' | 'FUTURE_AVAILABILITY' | null;
+      order_availability?: 'FUTURE_AVAILABILITY' | 'MERCHANDISE_AVAILABLE' | null;
 
       /**
        * In pre-order purchase transactions, the expected date that the merchandise will
@@ -390,15 +390,15 @@ export namespace AuthenticationRetrieveResponse {
        * most expensive item purchased. Maps to EMV 3DS field shipIndicator.
        */
       shipping_method?:
-        | 'SHIP_TO_BILLING_ADDRESS'
-        | 'SHIP_TO_OTHER_VERIFIED_ADDRESS'
-        | 'SHIP_TO_NON_BILLING_ADDRESS'
-        | 'SHIP_TO_STORE'
         | 'DIGITAL_GOODS'
-        | 'TRAVEL_AND_EVENT_TICKETS'
+        | 'LOCKER_DELIVERY'
         | 'OTHER'
         | 'PICK_UP_AND_GO_DELIVERY'
-        | 'LOCKER_DELIVERY'
+        | 'SHIP_TO_BILLING_ADDRESS'
+        | 'SHIP_TO_NON_BILLING_ADDRESS'
+        | 'SHIP_TO_OTHER_VERIFIED_ADDRESS'
+        | 'SHIP_TO_STORE'
+        | 'TRAVEL_AND_EVENT_TICKETS'
         | null;
     }
   }
@@ -515,11 +515,11 @@ export namespace AuthenticationRetrieveResponse {
      * Maps to EMV 3DS field transType.
      */
     type:
-      | 'GOODS_SERVICE_PURCHASE'
-      | 'CHECK_ACCEPTANCE'
       | 'ACCOUNT_FUNDING'
-      | 'QUASI_CASH_TRANSACTION'
+      | 'CHECK_ACCEPTANCE'
+      | 'GOODS_SERVICE_PURCHASE'
       | 'PREPAID_ACTIVATION_AND_LOAD'
+      | 'QUASI_CASH_TRANSACTION'
       | null;
   }
 }

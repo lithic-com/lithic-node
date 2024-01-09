@@ -252,7 +252,6 @@ describe('idempotency', () => {
             first_name: 'Tom',
             government_id: '111-23-1412',
             last_name: 'Bombadil',
-            phone_number: '+12124007676',
           },
           {
             address: {
@@ -267,7 +266,6 @@ describe('idempotency', () => {
             first_name: 'Tom',
             government_id: '111-23-1412',
             last_name: 'Bombadil',
-            phone_number: '+12124007676',
           },
           {
             address: {
@@ -282,7 +280,6 @@ describe('idempotency', () => {
             first_name: 'Tom',
             government_id: '111-23-1412',
             last_name: 'Bombadil',
-            phone_number: '+12124007676',
           },
         ],
         business_entity: {
@@ -310,7 +307,6 @@ describe('idempotency', () => {
           first_name: 'Tom',
           government_id: '111-23-1412',
           last_name: 'Bombadil',
-          phone_number: '+12124007676',
         },
         nature_of_business: 'Software company selling solutions to the restaurant industry',
         tos_timestamp: '2018-05-29T21:16:05Z',

@@ -189,9 +189,7 @@ export namespace Account {
 }
 
 export interface AccountSpendLimits {
-  available_spend_limit?: AccountSpendLimits.AvailableSpendLimit;
-
-  required?: unknown;
+  available_spend_limit: AccountSpendLimits.AvailableSpendLimit;
 }
 
 export namespace AccountSpendLimits {

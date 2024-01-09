@@ -48,7 +48,7 @@ export interface LineItemListResponse {
 
   amount: number;
 
-  category: 'CARD' | 'ACH' | 'TRANSFER';
+  category: 'ACH' | 'CARD' | 'TRANSFER';
 
   /**
    * Timestamp of when the line item was generated
@@ -111,8 +111,8 @@ export interface LineItemListResponse {
     | 'AUTHORIZATION_REVERSAL'
     | 'BALANCE_INQUIRY'
     | 'CLEARING'
-    | 'CORRECTION_DEBIT'
     | 'CORRECTION_CREDIT'
+    | 'CORRECTION_DEBIT'
     | 'CREDIT_AUTHORIZATION'
     | 'CREDIT_AUTHORIZATION_ADVICE'
     | 'FINANCIAL_AUTHORIZATION'

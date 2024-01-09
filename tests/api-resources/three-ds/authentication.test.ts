@@ -31,7 +31,7 @@ describe('resource authentication', () => {
 
   test('simulate: only required params', async () => {
     const responsePromise = lithic.threeDS.authentication.simulate({
-      merchant: { country: 'USA', mcc: '5812', id: 'OODKZAPJVN4YS7O', name: 'COFFEE SHOP' },
+      merchant: { country: 'USA', id: 'OODKZAPJVN4YS7O', mcc: '5812', name: 'COFFEE SHOP' },
       pan: '4111111289144142',
       transaction: { amount: 100, currency: 'USD' },
     });
@@ -46,7 +46,7 @@ describe('resource authentication', () => {
 
   test('simulate: required and optional params', async () => {
     const response = await lithic.threeDS.authentication.simulate({
-      merchant: { country: 'USA', mcc: '5812', id: 'OODKZAPJVN4YS7O', name: 'COFFEE SHOP' },
+      merchant: { country: 'USA', id: 'OODKZAPJVN4YS7O', mcc: '5812', name: 'COFFEE SHOP' },
       pan: '4111111289144142',
       transaction: { amount: 100, currency: 'USD' },
     });

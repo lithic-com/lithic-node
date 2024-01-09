@@ -249,8 +249,8 @@ export interface Dispute {
     | 'MISSING_AUTH'
     | 'OTHER'
     | 'PROCESSING_ERROR'
-    | 'REFUND_NOT_PROCESSED'
-    | 'RECURRING_TRANSACTION_NOT_CANCELLED';
+    | 'RECURRING_TRANSACTION_NOT_CANCELLED'
+    | 'REFUND_NOT_PROCESSED';
 
   /**
    * Date the representment was received.
@@ -327,14 +327,14 @@ export interface Dispute {
    * - `CASE_CLOSED` - Case was lost or withdrawn.
    */
   status:
+    | 'ARBITRATION'
+    | 'CASE_CLOSED'
+    | 'CASE_WON'
     | 'NEW'
     | 'PENDING_CUSTOMER'
-    | 'SUBMITTED'
-    | 'REPRESENTMENT'
     | 'PREARBITRATION'
-    | 'ARBITRATION'
-    | 'CASE_WON'
-    | 'CASE_CLOSED';
+    | 'REPRESENTMENT'
+    | 'SUBMITTED';
 
   /**
    * The transaction that is being disputed. A transaction can only be disputed once
@@ -417,8 +417,8 @@ export interface DisputeCreateParams {
     | 'MISSING_AUTH'
     | 'OTHER'
     | 'PROCESSING_ERROR'
-    | 'REFUND_NOT_PROCESSED'
-    | 'RECURRING_TRANSACTION_NOT_CANCELLED';
+    | 'RECURRING_TRANSACTION_NOT_CANCELLED'
+    | 'REFUND_NOT_PROCESSED';
 
   /**
    * Transaction to dispute
@@ -489,14 +489,14 @@ export interface DisputeListParams extends CursorPageParams {
    * List disputes of a specific status.
    */
   status?:
+    | 'ARBITRATION'
+    | 'CASE_CLOSED'
+    | 'CASE_WON'
     | 'NEW'
     | 'PENDING_CUSTOMER'
-    | 'SUBMITTED'
-    | 'REPRESENTMENT'
     | 'PREARBITRATION'
-    | 'ARBITRATION'
-    | 'CASE_WON'
-    | 'CASE_CLOSED';
+    | 'REPRESENTMENT'
+    | 'SUBMITTED';
 
   /**
    * Transaction tokens to filter by.

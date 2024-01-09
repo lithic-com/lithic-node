@@ -59,11 +59,11 @@ export interface MicroDepositCreateResponse {
    */
   owner: string;
 
-  owner_type: 'INDIVIDUAL' | 'BUSINESS';
+  owner_type: 'BUSINESS' | 'INDIVIDUAL';
 
   routing_number: string;
 
-  state: 'ENABLED' | 'CLOSED' | 'PAUSED';
+  state: 'CLOSED' | 'ENABLED' | 'PAUSED';
 
   type: 'CHECKING' | 'SAVINGS';
 
@@ -74,7 +74,7 @@ export interface MicroDepositCreateResponse {
 
   verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID';
 
-  verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION';
+  verification_state: 'ENABLED' | 'FAILED_VERIFICATION' | 'PENDING';
 
   /**
    * Indicates which Lithic account the external account is associated with. For
