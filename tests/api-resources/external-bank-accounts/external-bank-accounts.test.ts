@@ -11,9 +11,13 @@ const lithic = new Lithic({
 describe('resource externalBankAccounts', () => {
   test('create: only required params', async () => {
     const responsePromise = lithic.externalBankAccounts.create({
+      account_number: 'string',
+      country: 'USD',
+      currency: 'USD',
       owner: 'x',
-      owner_type: 'INDIVIDUAL',
-      processor_token: 'x',
+      owner_type: 'BUSINESS',
+      routing_number: '123456789',
+      type: 'CHECKING',
       verification_method: 'MANUAL',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -27,15 +31,22 @@ describe('resource externalBankAccounts', () => {
 
   test('create: required and optional params', async () => {
     const response = await lithic.externalBankAccounts.create({
+      account_number: 'string',
+      country: 'USD',
+      currency: 'USD',
       owner: 'x',
-      owner_type: 'INDIVIDUAL',
-      processor_token: 'x',
+      owner_type: 'BUSINESS',
+      routing_number: '123456789',
+      type: 'CHECKING',
       verification_method: 'MANUAL',
       account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      address: { address1: 'x', address2: 'x', city: 'x', country: 'USD', postal_code: '11201', state: 'xx' },
       company_id: 'x',
       dob: '2019-12-27',
       doing_business_as: 'string',
+      name: 'x',
       user_defined_id: 'string',
+      verification_enforcement: true,
     });
   });
 
@@ -97,11 +108,11 @@ describe('resource externalBankAccounts', () => {
           account_types: ['CHECKING', 'SAVINGS'],
           countries: ['string', 'string', 'string'],
           ending_before: 'string',
-          owner_types: ['INDIVIDUAL', 'BUSINESS'],
+          owner_types: ['BUSINESS', 'INDIVIDUAL'],
           page_size: 1,
           starting_after: 'string',
-          states: ['ENABLED', 'CLOSED', 'PAUSED'],
-          verification_states: ['PENDING', 'ENABLED', 'FAILED_VERIFICATION'],
+          states: ['CLOSED', 'ENABLED', 'PAUSED'],
+          verification_states: ['ENABLED', 'FAILED_VERIFICATION', 'PENDING'],
         },
         { path: '/_stainless_unknown_path' },
       ),

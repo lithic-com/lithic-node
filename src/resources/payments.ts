@@ -78,7 +78,7 @@ export interface Payment extends FinancialAccountsAPI.FinancialTransaction {
 
   method_attributes: Payment.MethodAttributes;
 
-  source: 'LITHIC' | 'CUSTOMER';
+  source: 'CUSTOMER' | 'LITHIC';
 
   external_bank_account_token?: string;
 
@@ -87,7 +87,7 @@ export interface Payment extends FinancialAccountsAPI.FinancialTransaction {
 
 export namespace Payment {
   export interface MethodAttributes {
-    sec_code: 'PPD' | 'CCD' | 'WEB';
+    sec_code: 'CCD' | 'PPD' | 'WEB';
 
     company_id?: string;
 
@@ -140,8 +140,12 @@ export interface PaymentCreateParams {
 
   method_attributes: PaymentCreateParams.MethodAttributes;
 
-  type: 'PAYMENT' | 'COLLECTION';
+  type: 'COLLECTION' | 'PAYMENT';
 
+  /**
+   * Customer-provided token that will serve as an idempotency token. This token will
+   * become the transaction token.
+   */
   token?: string;
 
   memo?: string;
@@ -151,7 +155,7 @@ export interface PaymentCreateParams {
 
 export namespace PaymentCreateParams {
   export interface MethodAttributes {
-    sec_code: 'PPD' | 'CCD' | 'WEB';
+    sec_code: 'CCD' | 'PPD' | 'WEB';
 
     company_id?: string;
 

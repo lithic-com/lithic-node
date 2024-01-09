@@ -228,7 +228,7 @@ export interface AccountHolder {
    * states. Note: `PENDING_RESUBMIT` and `PENDING_DOCUMENT` are only applicable for
    * the `ADVANCED` workflow.
    */
-  status?: 'ACCEPTED' | 'REJECTED' | 'PENDING_RESUBMIT' | 'PENDING_DOCUMENT';
+  status?: 'ACCEPTED' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED';
 
   /**
    * <Deprecated. Use verification_application.status_reasons> Reason for the
@@ -472,7 +472,7 @@ export namespace AccountHolder {
      * KYC and KYB evaluation states. Note: `PENDING_RESUBMIT` and `PENDING_DOCUMENT`
      * are only applicable for the `ADVANCED` workflow.
      */
-    status?: 'ACCEPTED' | 'REJECTED' | 'PENDING_RESUBMIT' | 'PENDING_DOCUMENT';
+    status?: 'ACCEPTED' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED';
 
     /**
      * Reason for the evaluation status.
@@ -667,6 +667,9 @@ export namespace KYB {
     parent_company?: string;
   }
 
+  /**
+   * Individuals associated with a KYB application. Phone number is optional.
+   */
   export interface BeneficialOwnerIndividual {
     /**
      * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
@@ -706,7 +709,7 @@ export namespace KYB {
     /**
      * Individual's phone number, entered in E.164 format.
      */
-    phone_number: string;
+    phone_number?: string;
   }
 
   /**
@@ -799,7 +802,7 @@ export namespace KYB {
     /**
      * Individual's phone number, entered in E.164 format.
      */
-    phone_number: string;
+    phone_number?: string;
   }
 }
 
@@ -1069,6 +1072,9 @@ export namespace AccountHolderCreateParams {
       parent_company?: string;
     }
 
+    /**
+     * Individuals associated with a KYB application. Phone number is optional.
+     */
     export interface BeneficialOwnerIndividual {
       /**
        * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
@@ -1108,7 +1114,7 @@ export namespace AccountHolderCreateParams {
       /**
        * Individual's phone number, entered in E.164 format.
        */
-      phone_number: string;
+      phone_number?: string;
     }
 
     /**
@@ -1201,7 +1207,7 @@ export namespace AccountHolderCreateParams {
       /**
        * Individual's phone number, entered in E.164 format.
        */
-      phone_number: string;
+      phone_number?: string;
     }
   }
 

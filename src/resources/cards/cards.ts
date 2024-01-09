@@ -182,6 +182,15 @@ export class Cards extends APIResource {
   }
 
   /**
+   * Initiate print and shipment of a renewed physical card.
+   *
+   * Only applies to cards of type `PHYSICAL`.
+   */
+  renew(cardToken: string, body: CardRenewParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
+    return this._client.post(`/cards/${cardToken}/renew`, { body, ...options });
+  }
+
+  /**
    * Get a Card's available spend limit, which is based on the spend limit configured
    * on the Card and the amount already spent over the spend limit's duration. For
    * example, if the Card has a monthly spend limit of $1000 configured, and has
@@ -271,7 +280,7 @@ export interface Card {
    * - `MERCHANT_LOCKED` - _[Deprecated]_ Card is locked to the first merchant that
    *   successfully authorizes the card.
    */
-  type: 'VIRTUAL' | 'PHYSICAL' | 'MERCHANT_LOCKED' | 'SINGLE_USE';
+  type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL';
 
   /**
    * List of identifiers for the Auth Rule(s) that are applied on the card.
@@ -350,7 +359,7 @@ export namespace Card {
      *   micro-deposits verification.
      * - `DELETED` - The founding account has been deleted.
      */
-    state: 'ENABLED' | 'PENDING' | 'DELETED';
+    state: 'DELETED' | 'ENABLED' | 'PENDING';
 
     /**
      * Types of funding source:
@@ -373,9 +382,7 @@ export namespace Card {
 }
 
 export interface CardSpendLimits {
-  available_spend_limit?: CardSpendLimits.AvailableSpendLimit;
-
-  required?: unknown;
+  available_spend_limit: CardSpendLimits.AvailableSpendLimit;
 }
 
 export namespace CardSpendLimits {
@@ -466,7 +473,7 @@ export interface CardCreateParams {
    * - `MERCHANT_LOCKED` - _[Deprecated]_ Card is locked to the first merchant that
    *   successfully authorizes the card.
    */
-  type: 'VIRTUAL' | 'PHYSICAL' | 'MERCHANT_LOCKED' | 'SINGLE_USE';
+  type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL';
 
   /**
    * Globally unique identifier for the account that the card will be associated
@@ -528,6 +535,12 @@ export interface CardCreateParams {
    */
   product_id?: string;
 
+  /**
+   * Only applicable to cards of type `PHYSICAL`. Globally unique identifier for the
+   * card that this physical card will replace.
+   */
+  replacement_for?: string;
+
   shipping_address?: Shared.ShippingAddress;
 
   /**
@@ -544,7 +557,7 @@ export interface CardCreateParams {
    * - `EXPEDITED` - FedEx Standard Overnight or similar international option, with
    *   tracking
    */
-  shipping_method?: 'STANDARD' | 'STANDARD_WITH_TRACKING' | 'PRIORITY' | 'EXPRESS' | '2_DAY' | 'EXPEDITED';
+  shipping_method?: '2_DAY' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING';
 
   /**
    * Amount (in cents) to limit approved authorizations. Transaction requests above
@@ -665,7 +678,7 @@ export interface CardListParams extends CursorPageParams {
   /**
    * Returns cards with the specified state.
    */
-  state?: 'OPEN' | 'PAUSED' | 'CLOSED' | 'PENDING_FULFILLMENT' | 'PENDING_ACTIVATION';
+  state?: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT';
 }
 
 export interface CardEmbedParams {
@@ -809,7 +822,54 @@ export interface CardReissueParams {
    * - `EXPEDITED` - FedEx Standard Overnight or similar international option, with
    *   tracking
    */
-  shipping_method?: 'STANDARD' | 'STANDARD_WITH_TRACKING' | 'PRIORITY' | 'EXPRESS' | '2-DAY' | 'EXPEDITED';
+  shipping_method?: '2-DAY' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING';
+}
+
+export interface CardRenewParams {
+  /**
+   * The shipping address this card will be sent to.
+   */
+  shipping_address: Shared.ShippingAddress;
+
+  /**
+   * If omitted, the previous carrier will be used.
+   */
+  carrier?: Shared.Carrier;
+
+  /**
+   * Two digit (MM) expiry month. If neither `exp_month` nor `exp_year` is provided,
+   * an expiration date six years in the future will be generated.
+   */
+  exp_month?: string;
+
+  /**
+   * Four digit (yyyy) expiry year. If neither `exp_month` nor `exp_year` is
+   * provided, an expiration date six years in the future will be generated.
+   */
+  exp_year?: string;
+
+  /**
+   * Specifies the configuration (e.g. physical card art) that the card should be
+   * manufactured with, and only applies to cards of type `PHYSICAL`. This must be
+   * configured with Lithic before use.
+   */
+  product_id?: string;
+
+  /**
+   * Shipping method for the card. Use of options besides `STANDARD` require
+   * additional permissions.
+   *
+   * - `STANDARD` - USPS regular mail or similar international option, with no
+   *   tracking
+   * - `STANDARD_WITH_TRACKING` - USPS regular mail or similar international option,
+   *   with tracking
+   * - `PRIORITY` - USPS Priority, 1-3 day shipping, with tracking
+   * - `EXPRESS` - FedEx Express, 3-day shipping, with tracking
+   * - `2_DAY` - FedEx 2-day shipping, with tracking
+   * - `EXPEDITED` - FedEx Standard Overnight or similar international option, with
+   *   tracking
+   */
+  shipping_method?: '2-DAY' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING';
 }
 
 export namespace Cards {
@@ -828,6 +888,7 @@ export namespace Cards {
   export import CardGetEmbedURLParams = CardsAPI.CardGetEmbedURLParams;
   export import CardProvisionParams = CardsAPI.CardProvisionParams;
   export import CardReissueParams = CardsAPI.CardReissueParams;
+  export import CardRenewParams = CardsAPI.CardRenewParams;
   export import AggregateBalances = AggregateBalancesAPI.AggregateBalances;
   export import AggregateBalanceListResponse = AggregateBalancesAPI.AggregateBalanceListResponse;
   export import AggregateBalanceListResponsesSinglePage = AggregateBalancesAPI.AggregateBalanceListResponsesSinglePage;

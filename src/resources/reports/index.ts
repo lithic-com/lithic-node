@@ -7,4 +7,4 @@ export {
   SettlementDetailsCursorPage,
   Reports,
 } from './reports';
-export { SettlementSummaryResponse, SettlementListDetailsParams, Settlement } from './settlement';
+export { SettlementListDetailsParams, Settlement } from './settlement';

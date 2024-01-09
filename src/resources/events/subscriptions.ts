@@ -222,7 +222,9 @@ export interface SubscriptionCreateParams {
     | 'account_holder.created'
     | 'account_holder.updated'
     | 'account_holder.verification'
+    | 'balance.updated'
     | 'card.created'
+    | 'card.renewed'
     | 'card.shipped'
     | 'card_transaction.updated'
     | 'digital_wallet.tokenization_approval_request'
@@ -230,9 +232,9 @@ export interface SubscriptionCreateParams {
     | 'digital_wallet.tokenization_two_factor_authentication_code'
     | 'dispute.updated'
     | 'dispute_evidence.upload_failed'
-    | 'three_ds_authentication.created'
     | 'payment_transaction.created'
     | 'payment_transaction.updated'
+    | 'three_ds_authentication.created'
     | 'transfer_transaction.created'
   >;
 }
@@ -261,7 +263,9 @@ export interface SubscriptionUpdateParams {
     | 'account_holder.created'
     | 'account_holder.updated'
     | 'account_holder.verification'
+    | 'balance.updated'
     | 'card.created'
+    | 'card.renewed'
     | 'card.shipped'
     | 'card_transaction.updated'
     | 'digital_wallet.tokenization_approval_request'
@@ -269,9 +273,9 @@ export interface SubscriptionUpdateParams {
     | 'digital_wallet.tokenization_two_factor_authentication_code'
     | 'dispute.updated'
     | 'dispute_evidence.upload_failed'
-    | 'three_ds_authentication.created'
     | 'payment_transaction.created'
     | 'payment_transaction.updated'
+    | 'three_ds_authentication.created'
     | 'transfer_transaction.created'
   >;
 }
@@ -330,7 +334,9 @@ export interface SubscriptionSendSimulatedExampleParams {
     | 'account_holder.created'
     | 'account_holder.updated'
     | 'account_holder.verification'
+    | 'balance.updated'
     | 'card.created'
+    | 'card.renewed'
     | 'card.shipped'
     | 'card_transaction.updated'
     | 'digital_wallet.tokenization_approval_request'
@@ -338,9 +344,9 @@ export interface SubscriptionSendSimulatedExampleParams {
     | 'digital_wallet.tokenization_two_factor_authentication_code'
     | 'dispute.updated'
     | 'dispute_evidence.upload_failed'
-    | 'three_ds_authentication.created'
     | 'payment_transaction.created'
     | 'payment_transaction.updated'
+    | 'three_ds_authentication.created'
     | 'transfer_transaction.created';
 }
 

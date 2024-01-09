@@ -88,7 +88,7 @@ export interface FinancialTransaction {
    * - `TRANSFER` - Internal transfer of funds between financial accounts in your
    *   program.
    */
-  category: 'CARD' | 'ACH' | 'TRANSFER';
+  category: 'ACH' | 'CARD' | 'TRANSFER';
 
   /**
    * Date and time when the financial transaction first occurred. UTC time zone.
@@ -224,8 +224,8 @@ export namespace FinancialTransaction {
       | 'AUTHORIZATION_REVERSAL'
       | 'BALANCE_INQUIRY'
       | 'CLEARING'
-      | 'CORRECTION_DEBIT'
       | 'CORRECTION_CREDIT'
+      | 'CORRECTION_DEBIT'
       | 'CREDIT_AUTHORIZATION'
       | 'CREDIT_AUTHORIZATION_ADVICE'
       | 'FINANCIAL_AUTHORIZATION'
