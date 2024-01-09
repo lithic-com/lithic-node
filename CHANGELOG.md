@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.38.0 (2024-01-09)
+
+Full Changelog: [v0.37.1...v0.38.0](https://github.com/lithic-com/lithic-node/compare/v0.37.1...v0.38.0)
+
+### Features
+
+* **api:** add card renew endpoint ([#300](https://github.com/lithic-com/lithic-node/issues/300)) ([70e0a62](https://github.com/lithic-com/lithic-node/commit/70e0a62450325abe4d212aa427e2609ba72b7082))
+
+
+### Chores
+
+* add .keep files for examples and custom code directories ([#299](https://github.com/lithic-com/lithic-node/issues/299)) ([3005a13](https://github.com/lithic-com/lithic-node/commit/3005a13fe201bdf8e3e8766b8e28a191cde0fdb5))
+* **internal:** improve type signatures ([#297](https://github.com/lithic-com/lithic-node/issues/297)) ([001e3d6](https://github.com/lithic-com/lithic-node/commit/001e3d6b9958fa88f3cad8337894cb7d3d966d15))
+
 ## 0.37.1 (2024-01-04)
 
 Full Changelog: [v0.37.0...v0.37.1](https://github.com/lithic-com/lithic-node/compare/v0.37.0...v0.37.1)
