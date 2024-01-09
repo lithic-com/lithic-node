@@ -32,20 +32,21 @@ describe('resource cards', () => {
       memo: 'New Card',
       pin: 'string',
       product_id: '1',
+      replacement_for: '00000000-0000-0000-1000-000000000000',
       shipping_address: {
-        first_name: 'Michael',
-        last_name: 'Bluth',
-        line2_text: 'The Bluth Company',
         address1: '5 Broad Street',
         address2: 'Unit 25A',
         city: 'NEW YORK',
-        state: 'NY',
-        postal_code: '10001-1809',
         country: 'USA',
         email: 'johnny@appleseed.com',
+        first_name: 'Michael',
+        last_name: 'Bluth',
+        line2_text: 'The Bluth Company',
         phone_number: '+12124007676',
+        postal_code: '10001-1809',
+        state: 'NY',
       },
-      shipping_method: 'STANDARD',
+      shipping_method: '2_DAY',
       spend_limit: 1000,
       spend_limit_duration: 'TRANSACTION',
       state: 'OPEN',
@@ -110,7 +111,7 @@ describe('resource cards', () => {
           ending_before: 'string',
           page_size: 1,
           starting_after: 'string',
-          state: 'OPEN',
+          state: 'CLOSED',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -162,6 +163,50 @@ describe('resource cards', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('renew: only required params', async () => {
+    const responsePromise = lithic.cards.renew('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      shipping_address: {
+        address1: '5 Broad Street',
+        city: 'NEW YORK',
+        country: 'USA',
+        first_name: 'Janet',
+        last_name: 'Yellen',
+        postal_code: '10001',
+        state: 'NY',
+      },
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('renew: required and optional params', async () => {
+    const response = await lithic.cards.renew('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      shipping_address: {
+        address1: '5 Broad Street',
+        address2: 'Unit 5A',
+        city: 'NEW YORK',
+        country: 'USA',
+        email: 'johnny@appleseed.com',
+        first_name: 'Janet',
+        last_name: 'Yellen',
+        line2_text: 'The Bluth Company',
+        phone_number: '+12124007676',
+        postal_code: '10001',
+        state: 'NY',
+      },
+      carrier: { qr_code_url: 'https://lithic.com/activate-card/1' },
+      exp_month: '06',
+      exp_year: '2027',
+      product_id: '100',
+      shipping_method: 'STANDARD',
+    });
   });
 
   test('retrieveSpendLimits', async () => {

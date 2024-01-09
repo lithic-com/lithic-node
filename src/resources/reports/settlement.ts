@@ -38,19 +38,14 @@ export class Settlement extends APIResource {
   /**
    * Get the settlement report for a specified report date.
    */
-  summary(reportDate: string, options?: Core.RequestOptions): Core.APIPromise<SettlementSummaryResponse> {
+  summary(reportDate: string, options?: Core.RequestOptions): Core.APIPromise<ReportsAPI.SettlementReport> {
     return this._client.get(`/reports/settlement/summary/${reportDate}`, options);
   }
-}
-
-export interface SettlementSummaryResponse {
-  data: Array<ReportsAPI.SettlementReport>;
 }
 
 export interface SettlementListDetailsParams extends CursorPageParams {}
 
 export namespace Settlement {
-  export import SettlementSummaryResponse = SettlementAPI.SettlementSummaryResponse;
   export import SettlementListDetailsParams = SettlementAPI.SettlementListDetailsParams;
 }
 

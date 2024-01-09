@@ -69,7 +69,7 @@ export interface SettlementDetail {
   /**
    * Card network where the transaction took place.
    */
-  network: 'MASTERCARD' | 'VISA' | 'INTERLINK' | 'MAESTRO' | 'UNKNOWN';
+  network: 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA';
 
   /**
    * The total gross amount of other fees by type.
@@ -188,7 +188,7 @@ export interface SettlementSummaryDetails {
   /**
    * Card network where the transaction took place
    */
-  network?: 'MASTERCARD' | 'VISA' | 'INTERLINK' | 'MAESTRO' | 'UNKNOWN';
+  network?: 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA';
 
   /**
    * Total amount of gross other fees outside of interchange.
@@ -213,6 +213,5 @@ export namespace Reports {
   export import SettlementReport = ReportsAPI.SettlementReport;
   export import SettlementSummaryDetails = ReportsAPI.SettlementSummaryDetails;
   export import Settlement = SettlementAPI.Settlement;
-  export import SettlementSummaryResponse = SettlementAPI.SettlementSummaryResponse;
   export import SettlementListDetailsParams = SettlementAPI.SettlementListDetailsParams;
 }

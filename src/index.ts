@@ -178,7 +178,7 @@ export class Lithic extends Core.APIClient {
   digitalCardArt: API.DigitalCardArtResource = new API.DigitalCardArtResource(this);
 
   /**
-   * API status check
+   * Status of api
    */
   apiStatus(options?: Core.RequestOptions): Core.APIPromise<TopLevelAPI.APIStatus> {
     return this.get('/status', options);
@@ -316,6 +316,7 @@ export namespace Lithic {
   export import CardGetEmbedURLParams = API.CardGetEmbedURLParams;
   export import CardProvisionParams = API.CardProvisionParams;
   export import CardReissueParams = API.CardReissueParams;
+  export import CardRenewParams = API.CardRenewParams;
 
   export import Balances = API.Balances;
   export import Balance = API.Balance;

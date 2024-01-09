@@ -104,6 +104,7 @@ export interface Event {
    * - `account_holder.verification` - Notification than an account holder's identity
    *   verification is complete.
    * - `card.created` - Notification that a card has been created.
+   * - `card.renewed` - Notification that a card has been renewed.
    * - `card.shipped` - Physical card shipment notification. See
    *   https://docs.lithic.com/docs/cards#physical-card-shipped-webhook.
    * - `card_transaction.updated` - Transaction Lifecycle webhook. See
@@ -121,7 +122,9 @@ export interface Event {
     | 'account_holder.created'
     | 'account_holder.updated'
     | 'account_holder.verification'
+    | 'balance.updated'
     | 'card.created'
+    | 'card.renewed'
     | 'card.shipped'
     | 'card_transaction.updated'
     | 'digital_wallet.tokenization_approval_request'
@@ -129,9 +132,9 @@ export interface Event {
     | 'digital_wallet.tokenization_two_factor_authentication_code'
     | 'dispute.updated'
     | 'dispute_evidence.upload_failed'
-    | 'three_ds_authentication.created'
     | 'payment_transaction.created'
     | 'payment_transaction.updated'
+    | 'three_ds_authentication.created'
     | 'transfer_transaction.created';
 
   payload: Record<string, unknown>;
@@ -162,7 +165,9 @@ export interface EventSubscription {
     | 'account_holder.created'
     | 'account_holder.updated'
     | 'account_holder.verification'
+    | 'balance.updated'
     | 'card.created'
+    | 'card.renewed'
     | 'card.shipped'
     | 'card_transaction.updated'
     | 'digital_wallet.tokenization_approval_request'
@@ -170,9 +175,9 @@ export interface EventSubscription {
     | 'digital_wallet.tokenization_two_factor_authentication_code'
     | 'dispute.updated'
     | 'dispute_evidence.upload_failed'
-    | 'three_ds_authentication.created'
     | 'payment_transaction.created'
     | 'payment_transaction.updated'
+    | 'three_ds_authentication.created'
     | 'transfer_transaction.created'
   > | null;
 }
@@ -241,7 +246,9 @@ export interface EventListParams extends CursorPageParams {
     | 'account_holder.created'
     | 'account_holder.updated'
     | 'account_holder.verification'
+    | 'balance.updated'
     | 'card.created'
+    | 'card.renewed'
     | 'card.shipped'
     | 'card_transaction.updated'
     | 'digital_wallet.tokenization_approval_request'
@@ -249,9 +256,9 @@ export interface EventListParams extends CursorPageParams {
     | 'digital_wallet.tokenization_two_factor_authentication_code'
     | 'dispute.updated'
     | 'dispute_evidence.upload_failed'
-    | 'three_ds_authentication.created'
     | 'payment_transaction.created'
     | 'payment_transaction.updated'
+    | 'three_ds_authentication.created'
     | 'transfer_transaction.created'
   >;
 

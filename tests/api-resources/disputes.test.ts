@@ -91,7 +91,7 @@ describe('resource disputes', () => {
           ending_before: 'string',
           page_size: 1,
           starting_after: 'string',
-          status: 'NEW',
+          status: 'ARBITRATION',
           transaction_tokens: [
             '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
             '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',

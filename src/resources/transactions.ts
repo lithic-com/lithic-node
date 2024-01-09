@@ -206,7 +206,7 @@ export interface Transaction {
    * `VISA`, or `UNKNOWN`. Value is `UNKNOWN` when Lithic cannot determine the
    * network code from the upstream provider.
    */
-  network: 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'VISA' | 'UNKNOWN' | null;
+  network: 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA' | null;
 
   /**
    * `APPROVED` or decline reason. See Event result types
@@ -219,13 +219,13 @@ export interface Transaction {
     | 'CARD_CLOSED'
     | 'CARD_PAUSED'
     | 'FRAUD_ADVICE'
+    | 'GLOBAL_MONTHLY_LIMIT'
     | 'GLOBAL_TRANSACTION_LIMIT'
     | 'GLOBAL_WEEKLY_LIMIT'
-    | 'GLOBAL_MONTHLY_LIMIT'
     | 'INACTIVE_ACCOUNT'
     | 'INCORRECT_PIN'
-    | 'INVALID_CARD_DETAILS'
     | 'INSUFFICIENT_FUNDS'
+    | 'INVALID_CARD_DETAILS'
     | 'MERCHANT_BLACKLIST'
     | 'SINGLE_USE_RECHARGED'
     | 'SWITCH_INOPERATIVE_ADVICE'
@@ -275,6 +275,56 @@ export namespace Transaction {
      */
     created: string;
 
+    detailed_results: Array<
+      | 'ACCOUNT_DAILY_SPEND_LIMIT_EXCEEDED'
+      | 'ACCOUNT_INACTIVE'
+      | 'ACCOUNT_LIFETIME_SPEND_LIMIT_EXCEEDED'
+      | 'ACCOUNT_MONTHLY_SPEND_LIMIT_EXCEEDED'
+      | 'ACCOUNT_UNDER_REVIEW'
+      | 'ADDRESS_INCORRECT'
+      | 'APPROVED'
+      | 'AUTH_RULE_ALLOWED_COUNTRY'
+      | 'AUTH_RULE_ALLOWED_MCC'
+      | 'AUTH_RULE_BLOCKED_COUNTRY'
+      | 'AUTH_RULE_BLOCKED_MCC'
+      | 'CARD_CLOSED'
+      | 'CARD_CRYPTOGRAM_VALIDATION_FAILURE'
+      | 'CARD_EXPIRED'
+      | 'CARD_EXPIRY_DATE_INCORRECT'
+      | 'CARD_INVALID'
+      | 'CARD_PAUSED'
+      | 'CARD_PIN_INCORRECT'
+      | 'CARD_RESTRICTED'
+      | 'CARD_SECURITY_CODE_INCORRECT'
+      | 'CARD_SPEND_LIMIT_EXCEEDED'
+      | 'CONTACT_CARD_ISSUER'
+      | 'CUSTOMER_ASA_TIMEOUT'
+      | 'CUSTOM_ASA_RESULT'
+      | 'DECLINED'
+      | 'DO_NOT_HONOR'
+      | 'FORMAT_ERROR'
+      | 'INSUFFICIENT_FUNDING_SOURCE_BALANCE'
+      | 'INSUFFICIENT_FUNDS'
+      | 'LITHIC_SYSTEM_ERROR'
+      | 'LITHIC_SYSTEM_RATE_LIMIT'
+      | 'MALFORMED_ASA_RESPONSE'
+      | 'MERCHANT_INVALID'
+      | 'MERCHANT_LOCKED_CARD_ATTEMPTED_ELSEWHERE'
+      | 'MERCHANT_NOT_PERMITTED'
+      | 'OVER_REVERSAL_ATTEMPTED'
+      | 'PROGRAM_CARD_SPEND_LIMIT_EXCEEDED'
+      | 'PROGRAM_SUSPENDED'
+      | 'PROGRAM_USAGE_RESTRICTION'
+      | 'REVERSAL_UNMATCHED'
+      | 'SECURITY_VIOLATION'
+      | 'SINGLE_USE_CARD_REATTEMPTED'
+      | 'TRANSACTION_INVALID'
+      | 'TRANSACTION_NOT_PERMITTED_TO_ACQUIRER_OR_TERMINAL'
+      | 'TRANSACTION_NOT_PERMITTED_TO_ISSUER_OR_CARDHOLDER'
+      | 'TRANSACTION_PREVIOUSLY_COMPLETED'
+      | 'UNAUTHORIZED_MERCHANT'
+    >;
+
     /**
      * `APPROVED` or decline reason.
      *
@@ -316,13 +366,13 @@ export namespace Transaction {
       | 'CARD_CLOSED'
       | 'CARD_PAUSED'
       | 'FRAUD_ADVICE'
+      | 'GLOBAL_MONTHLY_LIMIT'
       | 'GLOBAL_TRANSACTION_LIMIT'
       | 'GLOBAL_WEEKLY_LIMIT'
-      | 'GLOBAL_MONTHLY_LIMIT'
       | 'INACTIVE_ACCOUNT'
       | 'INCORRECT_PIN'
-      | 'INVALID_CARD_DETAILS'
       | 'INSUFFICIENT_FUNDS'
+      | 'INVALID_CARD_DETAILS'
       | 'MERCHANT_BLACKLIST'
       | 'SINGLE_USE_RECHARGED'
       | 'SWITCH_INOPERATIVE_ADVICE'
@@ -360,8 +410,8 @@ export namespace Transaction {
       | 'AUTHORIZATION_REVERSAL'
       | 'BALANCE_INQUIRY'
       | 'CLEARING'
-      | 'CORRECTION_DEBIT'
       | 'CORRECTION_CREDIT'
+      | 'CORRECTION_DEBIT'
       | 'CREDIT_AUTHORIZATION'
       | 'CREDIT_AUTHORIZATION_ADVICE'
       | 'FINANCIAL_AUTHORIZATION'
@@ -454,7 +504,7 @@ export namespace Transaction {
      *   occur. A proof of attempted authenticated is provided by the merchant.
      * - `NONE`: 3DS authentication was not performed on the transaction.
      */
-    authentication_result: 'SUCCESS' | 'DECLINE' | 'ATTEMPTS' | 'NONE';
+    authentication_result: 'ATTEMPTS' | 'DECLINE' | 'NONE' | 'SUCCESS';
 
     /**
      * Indicator for which party made the 3DS authentication decision. Possible enum
@@ -472,7 +522,7 @@ export namespace Transaction {
      *   real-time request sent to a configured endpoint
      * - `UNKNOWN`: Data on which party decided is unavailable
      */
-    decision_made_by: 'NETWORK' | 'LITHIC_DEFAULT' | 'LITHIC_RULES' | 'CUSTOMER_ENDPOINT' | 'UNKNOWN';
+    decision_made_by: 'CUSTOMER_ENDPOINT' | 'LITHIC_DEFAULT' | 'LITHIC_RULES' | 'NETWORK' | 'UNKNOWN';
 
     /**
      * Indicates whether chargeback liability shift applies to the transaction.
