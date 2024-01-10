@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.38.1 (2024-01-10)
+
+Full Changelog: [v0.38.0...v0.38.1](https://github.com/lithic-com/lithic-node/compare/v0.38.0...v0.38.1)
+
+### Bug Fixes
+
+* use default base url if BASE_URL env var is blank ([#301](https://github.com/lithic-com/lithic-node/issues/301)) ([d3e8c86](https://github.com/lithic-com/lithic-node/commit/d3e8c861c9315dfc2aae8c4b42e6bf7ac6f35ed3))
+
 ## 0.38.0 (2024-01-09)
 
 Full Changelog: [v0.37.1...v0.38.0](https://github.com/lithic-com/lithic-node/compare/v0.37.1...v0.38.0)
