@@ -4,7 +4,7 @@
 
 This library provides convenient access to the Lithic REST API from server-side TypeScript or JavaScript.
 
-The API documentation can be found [here](https://docs.lithic.com).
+The REST API documentation can be found [on docs.lithic.com](https://docs.lithic.com). The full API of this library can be found in [api.md](https://www.github.com/lithic-com/lithic-node/blob/main/api.md).
 
 ## Installation
 
