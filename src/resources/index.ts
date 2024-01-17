@@ -21,8 +21,10 @@ export {
   AccountHolderListDocumentsResponse,
   AccountHolderCreateParams,
   AccountHolderUpdateParams,
+  AccountHolderListParams,
   AccountHolderResubmitParams,
   AccountHolderUploadDocumentParams,
+  AccountHoldersSinglePage,
   AccountHolders,
 } from './account-holders';
 export {
