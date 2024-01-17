@@ -272,8 +272,10 @@ export namespace Lithic {
   export import KYCExempt = API.KYCExempt;
   export import AccountHolderUpdateResponse = API.AccountHolderUpdateResponse;
   export import AccountHolderListDocumentsResponse = API.AccountHolderListDocumentsResponse;
+  export import AccountHoldersSinglePage = API.AccountHoldersSinglePage;
   export import AccountHolderCreateParams = API.AccountHolderCreateParams;
   export import AccountHolderUpdateParams = API.AccountHolderUpdateParams;
+  export import AccountHolderListParams = API.AccountHolderListParams;
   export import AccountHolderResubmitParams = API.AccountHolderResubmitParams;
   export import AccountHolderUploadDocumentParams = API.AccountHolderUploadDocumentParams;
 
