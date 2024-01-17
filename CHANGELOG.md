@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.38.2 (2024-01-17)
+
+Full Changelog: [v0.38.1...v0.38.2](https://github.com/lithic-com/lithic-node/compare/v0.38.1...v0.38.2)
+
+### Features
+
+* **api:** updates ([#307](https://github.com/lithic-com/lithic-node/issues/307)) ([5e96e05](https://github.com/lithic-com/lithic-node/commit/5e96e053dd8bba20680d8033bd135d70ab67a01f))
+
+
+### Chores
+
+* **internal:** narrow type into stringifyQuery ([#303](https://github.com/lithic-com/lithic-node/issues/303)) ([d7ae5fa](https://github.com/lithic-com/lithic-node/commit/d7ae5faa5e2c6b013ed20b46256887c36b449866))
+
+
+### Documentation
+
+* fix missing async in readme code sample ([#306](https://github.com/lithic-com/lithic-node/issues/306)) ([b5fb8e6](https://github.com/lithic-com/lithic-node/commit/b5fb8e6761d1d0c9292a03271ccf5e051c52241a))
+* **readme:** improve api reference ([#305](https://github.com/lithic-com/lithic-node/issues/305)) ([9522c00](https://github.com/lithic-com/lithic-node/commit/9522c006e3992a48451a0b1322c260e04d25b33b))
+
 ## 0.38.1 (2024-01-10)
 
 Full Changelog: [v0.38.0...v0.38.1](https://github.com/lithic-com/lithic-node/compare/v0.38.0...v0.38.1)
