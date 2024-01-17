@@ -2,8 +2,10 @@
 
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
+import { isRequestOptions } from 'lithic/core';
 import * as AccountHoldersAPI from 'lithic/resources/account-holders';
 import * as Shared from 'lithic/resources/shared';
+import { SinglePage } from 'lithic/pagination';
 
 export class AccountHolders extends APIResource {
   /**
@@ -36,6 +38,25 @@ export class AccountHolders extends APIResource {
     options?: Core.RequestOptions,
   ): Core.APIPromise<AccountHolderUpdateResponse> {
     return this._client.patch(`/account_holders/${accountHolderToken}`, { body, ...options });
+  }
+
+  /**
+   * Get a list of individual or business account holders and their KYC or KYB
+   * evaluation status.
+   */
+  list(
+    query?: AccountHolderListParams,
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<AccountHoldersSinglePage, AccountHolder>;
+  list(options?: Core.RequestOptions): Core.PagePromise<AccountHoldersSinglePage, AccountHolder>;
+  list(
+    query: AccountHolderListParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.PagePromise<AccountHoldersSinglePage, AccountHolder> {
+    if (isRequestOptions(query)) {
+      return this.list({}, query);
+    }
+    return this._client.getAPIList('/account_holders', AccountHoldersSinglePage, { query, ...options });
   }
 
   /**
@@ -133,11 +154,13 @@ export class AccountHolders extends APIResource {
   }
 }
 
+export class AccountHoldersSinglePage extends SinglePage<AccountHolder> {}
+
 export interface AccountHolder {
   /**
    * Globally unique identifier for the account holder.
    */
-  token?: string;
+  token: string;
 
   /**
    * Globally unique identifier for the account.
@@ -1356,6 +1379,30 @@ export interface AccountHolderUpdateParams {
   phone_number?: string;
 }
 
+export interface AccountHolderListParams {
+  /**
+   * A cursor representing an item's token before which a page of results should end.
+   * Used to retrieve the previous page of results before this item.
+   */
+  ending_before?: string;
+
+  /**
+   * If applicable, represents the external_id associated with the account_holder.
+   */
+  external_id?: string;
+
+  /**
+   * The number of account_holders to limit the response to.
+   */
+  limit?: number;
+
+  /**
+   * A cursor representing an item's token after which a page of results should
+   * begin. Used to retrieve the next page of results after this item.
+   */
+  starting_after?: string;
+}
+
 export interface AccountHolderResubmitParams {
   /**
    * Information on individual for whom the account is being opened and KYC is being
@@ -1436,8 +1483,10 @@ export namespace AccountHolders {
   export import KYCExempt = AccountHoldersAPI.KYCExempt;
   export import AccountHolderUpdateResponse = AccountHoldersAPI.AccountHolderUpdateResponse;
   export import AccountHolderListDocumentsResponse = AccountHoldersAPI.AccountHolderListDocumentsResponse;
+  export import AccountHoldersSinglePage = AccountHoldersAPI.AccountHoldersSinglePage;
   export import AccountHolderCreateParams = AccountHoldersAPI.AccountHolderCreateParams;
   export import AccountHolderUpdateParams = AccountHoldersAPI.AccountHolderUpdateParams;
+  export import AccountHolderListParams = AccountHoldersAPI.AccountHolderListParams;
   export import AccountHolderResubmitParams = AccountHoldersAPI.AccountHolderResubmitParams;
   export import AccountHolderUploadDocumentParams = AccountHoldersAPI.AccountHolderUploadDocumentParams;
 }
