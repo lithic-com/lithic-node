@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.38.3 (2024-01-18)
+
+Full Changelog: [v0.38.2...v0.38.3](https://github.com/lithic-com/lithic-node/compare/v0.38.2...v0.38.3)
+
+### Bug Fixes
+
+* allow body type in RequestOptions to be null ([#313](https://github.com/lithic-com/lithic-node/issues/313)) ([ebdbd9b](https://github.com/lithic-com/lithic-node/commit/ebdbd9bdad7b1b096ed03ef2498ab724100dc313))
+
+
+### Chores
+
+* **ci:** rely on Stainless GitHub App for releases ([#311](https://github.com/lithic-com/lithic-node/issues/311)) ([f477c92](https://github.com/lithic-com/lithic-node/commit/f477c92bb51d6d4f855807d95fd3a8a900cd325c))
+
 ## 0.38.2 (2024-01-17)
 
 Full Changelog: [v0.38.1...v0.38.2](https://github.com/lithic-com/lithic-node/compare/v0.38.1...v0.38.2)
