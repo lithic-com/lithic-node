@@ -17,6 +17,7 @@ export {
   KYB,
   KYC,
   KYCExempt,
+  AccountHolderCreateResponse,
   AccountHolderUpdateResponse,
   AccountHolderListDocumentsResponse,
   AccountHolderCreateParams,
