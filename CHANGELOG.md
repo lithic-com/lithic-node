@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.39.0 (2024-01-23)
+
+Full Changelog: [v0.38.3...v0.39.0](https://github.com/lithic-com/lithic-node/compare/v0.38.3...v0.39.0)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** change account holder creation response, new settlement detail type ([#316](https://github.com/lithic-com/lithic-node/issues/316))
+
+### Features
+
+* **api:** change account holder creation response, new settlement detail type ([#316](https://github.com/lithic-com/lithic-node/issues/316)) ([fe91c2c](https://github.com/lithic-com/lithic-node/commit/fe91c2ca5bae3390807959a143366b970301363f))
+
+
+### Chores
+
+* **internal:** add internal helpers & improve build scripts ([#314](https://github.com/lithic-com/lithic-node/issues/314)) ([6053728](https://github.com/lithic-com/lithic-node/commit/605372816a51451a707c672089d6366a19724907))
+
 ## 0.38.3 (2024-01-18)
 
 Full Changelog: [v0.38.2...v0.38.3](https://github.com/lithic-com/lithic-node/compare/v0.38.2...v0.38.3)
