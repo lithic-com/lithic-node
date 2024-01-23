@@ -47,12 +47,13 @@ Types:
 - <code><a href="./src/resources/account-holders.ts">KYB</a></code>
 - <code><a href="./src/resources/account-holders.ts">KYC</a></code>
 - <code><a href="./src/resources/account-holders.ts">KYCExempt</a></code>
+- <code><a href="./src/resources/account-holders.ts">AccountHolderCreateResponse</a></code>
 - <code><a href="./src/resources/account-holders.ts">AccountHolderUpdateResponse</a></code>
 - <code><a href="./src/resources/account-holders.ts">AccountHolderListDocumentsResponse</a></code>
 
 Methods:
 
-- <code title="post /account_holders">client.accountHolders.<a href="./src/resources/account-holders.ts">create</a>({ ...params }) -> AccountHolder</code>
+- <code title="post /account_holders">client.accountHolders.<a href="./src/resources/account-holders.ts">create</a>({ ...params }) -> AccountHolderCreateResponse</code>
 - <code title="get /account_holders/{account_holder_token}">client.accountHolders.<a href="./src/resources/account-holders.ts">retrieve</a>(accountHolderToken) -> AccountHolder</code>
 - <code title="patch /account_holders/{account_holder_token}">client.accountHolders.<a href="./src/resources/account-holders.ts">update</a>(accountHolderToken, { ...params }) -> AccountHolderUpdateResponse</code>
 - <code title="get /account_holders">client.accountHolders.<a href="./src/resources/account-holders.ts">list</a>({ ...params }) -> AccountHoldersSinglePage</code>

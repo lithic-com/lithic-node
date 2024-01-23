@@ -270,6 +270,7 @@ export namespace Lithic {
   export import KYB = API.KYB;
   export import KYC = API.KYC;
   export import KYCExempt = API.KYCExempt;
+  export import AccountHolderCreateResponse = API.AccountHolderCreateResponse;
   export import AccountHolderUpdateResponse = API.AccountHolderUpdateResponse;
   export import AccountHolderListDocumentsResponse = API.AccountHolderListDocumentsResponse;
   export import AccountHoldersSinglePage = API.AccountHoldersSinglePage;
