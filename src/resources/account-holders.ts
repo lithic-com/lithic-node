@@ -15,9 +15,12 @@ export class AccountHolders extends APIResource {
    * immediate response - though in some cases, the response may indicate the
    * workflow is under review or further action will be needed to complete the
    * account creation process. This endpoint can only be used on accounts that are
-   * part of the program the calling API key manages.
+   * part of the program that the calling API key manages.
    */
-  create(body: AccountHolderCreateParams, options?: Core.RequestOptions): Core.APIPromise<AccountHolder> {
+  create(
+    body: AccountHolderCreateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<AccountHolderCreateResponse> {
     return this._client.post('/account_holders', { body, timeout: 300000, ...options });
   }
 
@@ -639,6 +642,12 @@ export interface KYB {
   workflow: 'KYB_BASIC' | 'KYB_BYO';
 
   /**
+   * A user provided id that can be used to link an account holder with an external
+   * system
+   */
+  external_id?: string;
+
+  /**
    * An RFC 3339 timestamp indicating when precomputed KYC was completed on the
    * business with a pass result.
    *
@@ -849,6 +858,12 @@ export interface KYC {
   workflow: 'KYC_ADVANCED' | 'KYC_BASIC' | 'KYC_BYO';
 
   /**
+   * A user provided id that can be used to link an account holder with an external
+   * system
+   */
+  external_id?: string;
+
+  /**
    * An RFC 3339 timestamp indicating when precomputed KYC was completed on the
    * individual with a pass result.
    *
@@ -948,6 +963,58 @@ export interface KYCExempt {
    * with the AUTHORIZED_USER in this field.
    */
   business_account_token?: string;
+
+  /**
+   * A user provided id that can be used to link an account holder with an external
+   * system
+   */
+  external_id?: string;
+}
+
+export interface AccountHolderCreateResponse {
+  /**
+   * Globally unique identifier for the account holder.
+   */
+  token: string;
+
+  /**
+   * Globally unique identifier for the account.
+   */
+  account_token: string;
+
+  /**
+   * KYC and KYB evaluation states. Note: `PENDING_RESUBMIT` and `PENDING_DOCUMENT`
+   * are only applicable for the `ADVANCED` workflow.
+   */
+  status: 'ACCEPTED' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED';
+
+  /**
+   * Reason for the evaluation status.
+   */
+  status_reasons: Array<
+    | 'ADDRESS_VERIFICATION_FAILURE'
+    | 'AGE_THRESHOLD_FAILURE'
+    | 'COMPLETE_VERIFICATION_FAILURE'
+    | 'DOB_VERIFICATION_FAILURE'
+    | 'ID_VERIFICATION_FAILURE'
+    | 'MAX_DOCUMENT_ATTEMPTS'
+    | 'MAX_RESUBMISSION_ATTEMPTS'
+    | 'NAME_VERIFICATION_FAILURE'
+    | 'OTHER_VERIFICATION_FAILURE'
+    | 'RISK_THRESHOLD_FAILURE'
+    | 'WATCHLIST_ALERT_FAILURE'
+  >;
+
+  /**
+   * Timestamp of when the account holder was created.
+   */
+  created?: string;
+
+  /**
+   * Customer-provided token that indicates a relationship with an object outside of
+   * the Lithic ecosystem.
+   */
+  external_id?: string;
 }
 
 export interface AccountHolderUpdateResponse {
@@ -1042,6 +1109,12 @@ export namespace AccountHolderCreateParams {
      * Specifies the type of KYB workflow to run.
      */
     workflow: 'KYB_BASIC' | 'KYB_BYO';
+
+    /**
+     * A user provided id that can be used to link an account holder with an external
+     * system
+     */
+    external_id?: string;
 
     /**
      * An RFC 3339 timestamp indicating when precomputed KYC was completed on the
@@ -1254,6 +1327,12 @@ export namespace AccountHolderCreateParams {
     workflow: 'KYC_ADVANCED' | 'KYC_BASIC' | 'KYC_BYO';
 
     /**
+     * A user provided id that can be used to link an account holder with an external
+     * system
+     */
+    external_id?: string;
+
+    /**
      * An RFC 3339 timestamp indicating when precomputed KYC was completed on the
      * individual with a pass result.
      *
@@ -1353,6 +1432,12 @@ export namespace AccountHolderCreateParams {
      * with the AUTHORIZED_USER in this field.
      */
     business_account_token?: string;
+
+    /**
+     * A user provided id that can be used to link an account holder with an external
+     * system
+     */
+    external_id?: string;
   }
 }
 
@@ -1481,6 +1566,7 @@ export namespace AccountHolders {
   export import KYB = AccountHoldersAPI.KYB;
   export import KYC = AccountHoldersAPI.KYC;
   export import KYCExempt = AccountHoldersAPI.KYCExempt;
+  export import AccountHolderCreateResponse = AccountHoldersAPI.AccountHolderCreateResponse;
   export import AccountHolderUpdateResponse = AccountHoldersAPI.AccountHolderUpdateResponse;
   export import AccountHolderListDocumentsResponse = AccountHoldersAPI.AccountHolderListDocumentsResponse;
   export import AccountHoldersSinglePage = AccountHoldersAPI.AccountHoldersSinglePage;

@@ -62,6 +62,11 @@ export interface SettlementDetail {
   institution: string;
 
   /**
+   * The total amount of interchange in six-digit extended precision.
+   */
+  interchange_fee_extended_precision: number;
+
+  /**
    * The total amount of interchange.
    */
   interchange_gross_amount: number;
@@ -101,6 +106,20 @@ export interface SettlementDetail {
    * fees, and disputes).
    */
   transactions_gross_amount: number;
+
+  /**
+   * The type of settlement record.
+   */
+  type:
+    | 'CLEARING'
+    | 'FINANCIAL'
+    | 'NON-FINANCIAL'
+    | 'ADJUSTMENT'
+    | 'CHARGEBACK'
+    | 'REPRESENTMENT'
+    | 'PREARBITRATION'
+    | 'ARBITRATION'
+    | 'FEE';
 
   /**
    * Date and time when the transaction first occurred. UTC time zone.
