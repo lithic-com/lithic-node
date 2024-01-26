@@ -199,6 +199,17 @@ export class Cards extends APIResource {
   retrieveSpendLimits(cardToken: string, options?: Core.RequestOptions): Core.APIPromise<CardSpendLimits> {
     return this._client.get(`/cards/${cardToken}/spend_limits`, options);
   }
+
+  /**
+   * Get card configuration such as spend limit and state. Customers must be PCI
+   * compliant to use this endpoint. Please contact
+   * [support@lithic.com](mailto:support@lithic.com) for questions. _Note: this is a
+   * `POST` endpoint because it is more secure to send sensitive data in a request
+   * body than in a URL._
+   */
+  searchByPan(body: CardSearchByPanParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
+    return this._client.post('/cards/search_by_pan', { body, ...options });
+  }
 }
 
 export class CardsCursorPage extends CursorPage<Card> {}
@@ -872,6 +883,13 @@ export interface CardRenewParams {
   shipping_method?: '2-DAY' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING';
 }
 
+export interface CardSearchByPanParams {
+  /**
+   * The PAN for the card being retrieved.
+   */
+  pan: string;
+}
+
 export namespace Cards {
   export import Card = CardsAPI.Card;
   export import CardSpendLimits = CardsAPI.CardSpendLimits;
@@ -889,6 +907,7 @@ export namespace Cards {
   export import CardProvisionParams = CardsAPI.CardProvisionParams;
   export import CardReissueParams = CardsAPI.CardReissueParams;
   export import CardRenewParams = CardsAPI.CardRenewParams;
+  export import CardSearchByPanParams = CardsAPI.CardSearchByPanParams;
   export import AggregateBalances = AggregateBalancesAPI.AggregateBalances;
   export import AggregateBalanceListResponse = AggregateBalancesAPI.AggregateBalanceListResponse;
   export import AggregateBalanceListResponsesSinglePage = AggregateBalancesAPI.AggregateBalanceListResponsesSinglePage;
