@@ -64,6 +64,7 @@ export {
   CardProvisionParams,
   CardReissueParams,
   CardRenewParams,
+  CardSearchByPanParams,
   CardsCursorPage,
   Cards,
 } from './cards/cards';

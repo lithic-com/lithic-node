@@ -228,4 +228,19 @@ describe('resource cards', () => {
       }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
+
+  test('searchByPan: only required params', async () => {
+    const responsePromise = lithic.cards.searchByPan({ pan: '4111111289144142' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('searchByPan: required and optional params', async () => {
+    const response = await lithic.cards.searchByPan({ pan: '4111111289144142' });
+  });
 });

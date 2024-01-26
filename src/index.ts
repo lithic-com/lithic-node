@@ -320,6 +320,7 @@ export namespace Lithic {
   export import CardProvisionParams = API.CardProvisionParams;
   export import CardReissueParams = API.CardReissueParams;
   export import CardRenewParams = API.CardRenewParams;
+  export import CardSearchByPanParams = API.CardSearchByPanParams;
 
   export import Balances = API.Balances;
   export import Balance = API.Balance;
