@@ -73,7 +73,7 @@ export class CursorPage<Item extends { token: string }>
         return null;
       }
 
-      return { params: { ending_before: token } };
+      return { params: { starting_after: token } };
     }
 
     const token = data[0]?.token;
