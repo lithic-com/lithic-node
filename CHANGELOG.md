@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.40.0 (2024-01-30)
+
+Full Changelog: [v0.39.0...v0.40.0](https://github.com/lithic-com/lithic-node/compare/v0.39.0...v0.40.0)
+
+### Features
+
+* **api:** add search_by_pan endpoint ([#317](https://github.com/lithic-com/lithic-node/issues/317)) ([8d91e10](https://github.com/lithic-com/lithic-node/commit/8d91e101282b57362ecc68602a5932fd1adcfc43))
+
+
+### Bug Fixes
+
+* **pagination:** send correct request param ([#319](https://github.com/lithic-com/lithic-node/issues/319)) ([525bb09](https://github.com/lithic-com/lithic-node/commit/525bb09548977025c7cef3e564f9fafeef773f67))
+
 ## 0.39.0 (2024-01-23)
 
 Full Changelog: [v0.38.3...v0.39.0](https://github.com/lithic-com/lithic-node/compare/v0.38.3...v0.39.0)
