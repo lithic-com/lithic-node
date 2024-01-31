@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.41.0 (2024-01-31)
+
+Full Changelog: [v0.40.0...v0.41.0](https://github.com/lithic-com/lithic-node/compare/v0.40.0...v0.41.0)
+
+### Features
+
+* remove idempotency headers ([#322](https://github.com/lithic-com/lithic-node/issues/322)) ([05dc237](https://github.com/lithic-com/lithic-node/commit/05dc237aa646abbdecbf3c5431b3d53ccf302039))
+
+
+### Chores
+
+* **internal:** support pre-release versioning ([#320](https://github.com/lithic-com/lithic-node/issues/320)) ([4798a86](https://github.com/lithic-com/lithic-node/commit/4798a86bf3f2652304bd999813d960acd836546b))
+
 ## 0.40.0 (2024-01-30)
 
 Full Changelog: [v0.39.0...v0.40.0](https://github.com/lithic-com/lithic-node/compare/v0.39.0...v0.40.0)
