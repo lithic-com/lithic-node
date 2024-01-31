@@ -221,6 +221,16 @@ export interface Card {
   token: string;
 
   /**
+   * Globally unique identifier for the account to which the card belongs.
+   */
+  account_token: string;
+
+  /**
+   * Globally unique identifier for the card program on which the card exists.
+   */
+  card_program_token: string;
+
+  /**
    * An RFC 3339 timestamp for when the card was created. UTC time zone.
    */
   created: string;
