@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.42.0 (2024-01-31)
+
+Full Changelog: [v0.41.0...v0.42.0](https://github.com/lithic-com/lithic-node/compare/v0.41.0...v0.42.0)
+
+### Features
+
+* **api:** add `account_token` and `card_program_token` to `Card` ([#323](https://github.com/lithic-com/lithic-node/issues/323)) ([8ba732b](https://github.com/lithic-com/lithic-node/commit/8ba732b03a17d4e9b4f8db0ae60abe3321ab768d))
+
 ## 0.41.0 (2024-01-31)
 
 Full Changelog: [v0.40.0...v0.41.0](https://github.com/lithic-com/lithic-node/compare/v0.40.0...v0.41.0)
