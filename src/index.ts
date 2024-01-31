@@ -147,7 +147,6 @@ export class Lithic extends Core.APIClient {
       fetch: options.fetch,
     });
     this._options = options;
-    this.idempotencyHeader = 'Idempotency-Key';
 
     this.apiKey = apiKey;
     this.webhookSecret = webhookSecret;
