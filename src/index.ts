@@ -1,11 +1,11 @@
 // File generated from our OpenAPI spec by Stainless.
 
 import * as Core from './core';
-import * as Pagination from './pagination';
 import * as Errors from './error';
 import { type Agent } from './_shims/index';
 import * as Uploads from './uploads';
 import * as qs from 'qs';
+import * as Pagination from 'lithic/pagination';
 import * as API from 'lithic/resources/index';
 import * as TopLevelAPI from 'lithic/resources/top-level';
 
