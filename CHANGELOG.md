@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.43.0 (2024-02-07)
+
+Full Changelog: [v0.42.0...v0.43.0](https://github.com/lithic-com/lithic-node/compare/v0.42.0...v0.43.0)
+
+### Features
+
+* **api:** updates ([#331](https://github.com/lithic-com/lithic-node/issues/331)) ([902f5ce](https://github.com/lithic-com/lithic-node/commit/902f5ce31886d0603ff86e883edf9dd732ebfbf8))
+
+
+### Chores
+
+* **interal:** make link to api.md relative ([#325](https://github.com/lithic-com/lithic-node/issues/325)) ([3f8d597](https://github.com/lithic-com/lithic-node/commit/3f8d5972962834ae59fe972604c7761f849adb43))
+* **internal:** enable building when git installed ([#328](https://github.com/lithic-com/lithic-node/issues/328)) ([7de9cb7](https://github.com/lithic-com/lithic-node/commit/7de9cb7247bcd6bce237ae5fde3dddcd6afdce12))
+* **internal:** re-order pagination import ([#327](https://github.com/lithic-com/lithic-node/issues/327)) ([8cad9e1](https://github.com/lithic-com/lithic-node/commit/8cad9e1fb81710aeabc71003d3eed60b8ad95564))
+* respect `application/vnd.api+json` content-type header ([#330](https://github.com/lithic-com/lithic-node/issues/330)) ([f52310a](https://github.com/lithic-com/lithic-node/commit/f52310aff80839bfd0638afd712ec56ed8551c01))
+
+
+### Documentation
+
+* add a CONTRIBUTING.md ([#329](https://github.com/lithic-com/lithic-node/issues/329)) ([c4131e8](https://github.com/lithic-com/lithic-node/commit/c4131e8a631e0e605135a75db4663e6832544d50))
+
 ## 0.42.0 (2024-01-31)
 
 Full Changelog: [v0.41.0...v0.42.0](https://github.com/lithic-com/lithic-node/compare/v0.41.0...v0.42.0)
