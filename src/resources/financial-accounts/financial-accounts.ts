@@ -16,6 +16,33 @@ export class FinancialAccounts extends APIResource {
   statements: StatementsAPI.Statements = new StatementsAPI.Statements(this._client);
 
   /**
+   * Get a financial account
+   */
+  retrieve(financialAccountToken: string, options?: Core.RequestOptions): Core.APIPromise<FinancialAccount> {
+    return this._client.get(`/financial_accounts/${financialAccountToken}`, options);
+  }
+
+  /**
+   * Update a financial account
+   */
+  update(
+    financialAccountToken: string,
+    body?: FinancialAccountUpdateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<FinancialAccount>;
+  update(financialAccountToken: string, options?: Core.RequestOptions): Core.APIPromise<FinancialAccount>;
+  update(
+    financialAccountToken: string,
+    body: FinancialAccountUpdateParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<FinancialAccount> {
+    if (isRequestOptions(body)) {
+      return this.update(financialAccountToken, {}, body);
+    }
+    return this._client.patch(`/financial_accounts/${financialAccountToken}`, { body, ...options });
+  }
+
+  /**
    * Retrieve information on your financial accounts including routing and account
    * number.
    */
@@ -56,7 +83,7 @@ export interface FinancialAccount {
   /**
    * Type of financial account
    */
-  type: 'ISSUING' | 'RESERVE';
+  type: 'ISSUING' | 'RESERVE' | 'OPERATING';
 
   /**
    * Date and time for when the financial account was last updated.
@@ -67,6 +94,11 @@ export interface FinancialAccount {
    * Account number for your Lithic-assigned bank account number, if applicable.
    */
   account_number?: string;
+
+  /**
+   * User-defined nickname for the financial account.
+   */
+  nickname?: string;
 
   /**
    * Routing number for your Lithic-assigned bank account number, if applicable.
@@ -237,22 +269,32 @@ export namespace FinancialTransaction {
   }
 }
 
+export interface FinancialAccountUpdateParams {
+  nickname?: string;
+}
+
 export interface FinancialAccountListParams {
   /**
-   * List financial accounts for a given account_token
+   * List financial accounts for a given account_token or business_account_token
    */
   account_token?: string;
 
   /**
+   * List financial accounts for a given business_account_token
+   */
+  business_account_token?: string;
+
+  /**
    * List financial accounts of a given type
    */
-  type?: 'ISSUING' | 'RESERVE';
+  type?: 'ISSUING' | 'RESERVE' | 'OPERATING';
 }
 
 export namespace FinancialAccounts {
   export import FinancialAccount = FinancialAccountsAPI.FinancialAccount;
   export import FinancialTransaction = FinancialAccountsAPI.FinancialTransaction;
   export import FinancialAccountsSinglePage = FinancialAccountsAPI.FinancialAccountsSinglePage;
+  export import FinancialAccountUpdateParams = FinancialAccountsAPI.FinancialAccountUpdateParams;
   export import FinancialAccountListParams = FinancialAccountsAPI.FinancialAccountListParams;
   export import Balances = BalancesAPI.Balances;
   export import BalanceListParams = BalancesAPI.BalanceListParams;

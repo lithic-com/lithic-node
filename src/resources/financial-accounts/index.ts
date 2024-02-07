@@ -4,6 +4,7 @@ export { BalanceListParams, Balances } from './balances';
 export {
   FinancialAccount,
   FinancialTransaction,
+  FinancialAccountUpdateParams,
   FinancialAccountListParams,
   FinancialTransactionsSinglePage,
   FinancialAccountsSinglePage,

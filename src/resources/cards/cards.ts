@@ -348,6 +348,13 @@ export interface Card {
    * [support@lithic.com](mailto:support@lithic.com) for questions.
    */
   pan?: string;
+
+  /**
+   * Only applicable to cards of type `PHYSICAL`. This must be configured with Lithic
+   * before use. Specifies the configuration (i.e., physical card art) that the card
+   * should be manufactured with.
+   */
+  product_id?: string;
 }
 
 export namespace Card {

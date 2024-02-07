@@ -9,6 +9,57 @@ const lithic = new Lithic({
 });
 
 describe('resource financialAccounts', () => {
+  test('retrieve', async () => {
+    const responsePromise = lithic.financialAccounts.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('retrieve: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      lithic.financialAccounts.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+        path: '/_stainless_unknown_path',
+      }),
+    ).rejects.toThrow(Lithic.NotFoundError);
+  });
+
+  test('update', async () => {
+    const responsePromise = lithic.financialAccounts.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('update: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      lithic.financialAccounts.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+        path: '/_stainless_unknown_path',
+      }),
+    ).rejects.toThrow(Lithic.NotFoundError);
+  });
+
+  test('update: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      lithic.financialAccounts.update(
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        { nickname: 'string' },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Lithic.NotFoundError);
+  });
+
   test('list', async () => {
     const responsePromise = lithic.financialAccounts.list();
     const rawResponse = await responsePromise.asResponse();
@@ -31,7 +82,11 @@ describe('resource financialAccounts', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       lithic.financialAccounts.list(
-        { account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', type: 'ISSUING' },
+        {
+          account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          business_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          type: 'ISSUING',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Lithic.NotFoundError);

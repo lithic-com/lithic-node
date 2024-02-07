@@ -55,7 +55,7 @@ export interface Balance {
   /**
    * Type of financial account.
    */
-  financial_account_type: 'ISSUING' | 'RESERVE';
+  financial_account_type: 'ISSUING' | 'RESERVE' | 'OPERATING';
 
   /**
    * Globally unique identifier for the last financial transaction event that
