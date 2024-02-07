@@ -118,6 +118,7 @@ export {
 export {
   FinancialAccount,
   FinancialTransaction,
+  FinancialAccountUpdateParams,
   FinancialAccountListParams,
   FinancialTransactionsSinglePage,
   FinancialAccountsSinglePage,
