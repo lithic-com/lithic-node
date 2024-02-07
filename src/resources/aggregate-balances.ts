@@ -51,7 +51,7 @@ export interface AggregateBalance {
   /**
    * Type of financial account
    */
-  financial_account_type: 'ISSUING' | 'RESERVE';
+  financial_account_type: 'ISSUING' | 'RESERVE' | 'OPERATING';
 
   /**
    * Globally unique identifier for the financial account that had its balance
