@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.44.0 (2024-02-19)
+
+Full Changelog: [v0.43.0...v0.44.0](https://github.com/lithic-com/lithic-node/compare/v0.43.0...v0.44.0)
+
+### Features
+
+* **api:** update financial_account_type and documentation ([#336](https://github.com/lithic-com/lithic-node/issues/336)) ([98ce85e](https://github.com/lithic-com/lithic-node/commit/98ce85e4dfe5e8598bcd3c22a7921818737db140))
+
+
+### Chores
+
+* **internal:** refactor release environment script ([#334](https://github.com/lithic-com/lithic-node/issues/334)) ([20478c1](https://github.com/lithic-com/lithic-node/commit/20478c1723839df06c05ce2a7117d8cac7805949))
+* **tests:** add integration test for pagination ([#332](https://github.com/lithic-com/lithic-node/issues/332)) ([a9ebd05](https://github.com/lithic-com/lithic-node/commit/a9ebd05610384dadaed346997b61a76b0f7dcb54))
+
 ## 0.43.0 (2024-02-07)
 
 Full Changelog: [v0.42.0...v0.43.0](https://github.com/lithic-com/lithic-node/compare/v0.42.0...v0.43.0)
