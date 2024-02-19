@@ -111,15 +111,15 @@ export interface SettlementDetail {
    * The type of settlement record.
    */
   type:
+    | 'ADJUSTMENT'
+    | 'ARBITRATION'
+    | 'CHARGEBACK'
     | 'CLEARING'
+    | 'FEE'
     | 'FINANCIAL'
     | 'NON-FINANCIAL'
-    | 'ADJUSTMENT'
-    | 'CHARGEBACK'
-    | 'REPRESENTMENT'
     | 'PREARBITRATION'
-    | 'ARBITRATION'
-    | 'FEE';
+    | 'REPRESENTMENT';
 
   /**
    * Date and time when the transaction first occurred. UTC time zone.

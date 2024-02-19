@@ -51,7 +51,7 @@ export interface AggregateBalance {
   /**
    * Type of financial account
    */
-  financial_account_type: 'ISSUING' | 'RESERVE' | 'OPERATING';
+  financial_account_type: 'ISSUING' | 'OPERATING' | 'RESERVE';
 
   /**
    * Globally unique identifier for the financial account that had its balance
@@ -92,7 +92,7 @@ export interface AggregateBalanceListParams {
   /**
    * Get the aggregate balance for a given Financial Account type.
    */
-  financial_account_type?: 'ISSUING' | 'RESERVE';
+  financial_account_type?: 'ISSUING' | 'OPERATING' | 'RESERVE';
 }
 
 export namespace AggregateBalances {
