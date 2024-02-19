@@ -83,7 +83,7 @@ export interface FinancialAccount {
   /**
    * Type of financial account
    */
-  type: 'ISSUING' | 'RESERVE' | 'OPERATING';
+  type: 'ISSUING' | 'OPERATING' | 'RESERVE';
 
   /**
    * Date and time for when the financial account was last updated.
@@ -287,7 +287,7 @@ export interface FinancialAccountListParams {
   /**
    * List financial accounts of a given type
    */
-  type?: 'ISSUING' | 'RESERVE' | 'OPERATING';
+  type?: 'ISSUING' | 'OPERATING' | 'RESERVE';
 }
 
 export namespace FinancialAccounts {
