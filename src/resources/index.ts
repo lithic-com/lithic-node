@@ -109,6 +109,7 @@ export {
   ExternalBankAccountRetrieveResponse,
   ExternalBankAccountUpdateResponse,
   ExternalBankAccountListResponse,
+  ExternalBankAccountRetryMicroDepositsResponse,
   ExternalBankAccountCreateParams,
   ExternalBankAccountUpdateParams,
   ExternalBankAccountListParams,
@@ -118,6 +119,7 @@ export {
 export {
   FinancialAccount,
   FinancialTransaction,
+  FinancialAccountCreateParams,
   FinancialAccountUpdateParams,
   FinancialAccountListParams,
   FinancialTransactionsSinglePage,

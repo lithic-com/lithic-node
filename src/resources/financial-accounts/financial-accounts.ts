@@ -16,6 +16,21 @@ export class FinancialAccounts extends APIResource {
   statements: StatementsAPI.Statements = new StatementsAPI.Statements(this._client);
 
   /**
+   * Create a new financial account
+   */
+  create(
+    params: FinancialAccountCreateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<FinancialAccount> {
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/financial_accounts', {
+      body,
+      ...options,
+      headers: { 'Idempotency-Key': idempotencyKey || '', ...options?.headers },
+    });
+  }
+
+  /**
    * Get a financial account
    */
   retrieve(financialAccountToken: string, options?: Core.RequestOptions): Core.APIPromise<FinancialAccount> {
@@ -269,6 +284,28 @@ export namespace FinancialTransaction {
   }
 }
 
+export interface FinancialAccountCreateParams {
+  /**
+   * Body param:
+   */
+  nickname: string;
+
+  /**
+   * Body param:
+   */
+  type: 'OPERATING';
+
+  /**
+   * Body param:
+   */
+  account_token?: string;
+
+  /**
+   * Header param:
+   */
+  'Idempotency-Key'?: string;
+}
+
 export interface FinancialAccountUpdateParams {
   nickname?: string;
 }
@@ -294,6 +331,7 @@ export namespace FinancialAccounts {
   export import FinancialAccount = FinancialAccountsAPI.FinancialAccount;
   export import FinancialTransaction = FinancialAccountsAPI.FinancialTransaction;
   export import FinancialAccountsSinglePage = FinancialAccountsAPI.FinancialAccountsSinglePage;
+  export import FinancialAccountCreateParams = FinancialAccountsAPI.FinancialAccountCreateParams;
   export import FinancialAccountUpdateParams = FinancialAccountsAPI.FinancialAccountUpdateParams;
   export import FinancialAccountListParams = FinancialAccountsAPI.FinancialAccountListParams;
   export import Balances = BalancesAPI.Balances;

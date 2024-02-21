@@ -365,6 +365,7 @@ export namespace Lithic {
   export import FinancialAccount = API.FinancialAccount;
   export import FinancialTransaction = API.FinancialTransaction;
   export import FinancialAccountsSinglePage = API.FinancialAccountsSinglePage;
+  export import FinancialAccountCreateParams = API.FinancialAccountCreateParams;
   export import FinancialAccountUpdateParams = API.FinancialAccountUpdateParams;
   export import FinancialAccountListParams = API.FinancialAccountListParams;
 
@@ -404,6 +405,7 @@ export namespace Lithic {
   export import ExternalBankAccountRetrieveResponse = API.ExternalBankAccountRetrieveResponse;
   export import ExternalBankAccountUpdateResponse = API.ExternalBankAccountUpdateResponse;
   export import ExternalBankAccountListResponse = API.ExternalBankAccountListResponse;
+  export import ExternalBankAccountRetryMicroDepositsResponse = API.ExternalBankAccountRetryMicroDepositsResponse;
   export import ExternalBankAccountListResponsesCursorPage = API.ExternalBankAccountListResponsesCursorPage;
   export import ExternalBankAccountCreateParams = API.ExternalBankAccountCreateParams;
   export import ExternalBankAccountUpdateParams = API.ExternalBankAccountUpdateParams;
