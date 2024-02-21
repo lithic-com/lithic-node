@@ -8,6 +8,7 @@ export {
   ExternalBankAccountRetrieveResponse,
   ExternalBankAccountUpdateResponse,
   ExternalBankAccountListResponse,
+  ExternalBankAccountRetryMicroDepositsResponse,
   ExternalBankAccountCreateParams,
   ExternalBankAccountUpdateParams,
   ExternalBankAccountListParams,
