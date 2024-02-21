@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.45.0 (2024-02-21)
+
+Full Changelog: [v0.44.0...v0.45.0](https://github.com/lithic-com/lithic-node/compare/v0.44.0...v0.45.0)
+
+### Features
+
+* **api:** create financial account and retry microdeposits endpoints ([#337](https://github.com/lithic-com/lithic-node/issues/337)) ([dff7d2e](https://github.com/lithic-com/lithic-node/commit/dff7d2e5d85ff03651d40f9156ac62b79903ce5f))
+
 ## 0.44.0 (2024-02-19)
 
 Full Changelog: [v0.43.0...v0.44.0](https://github.com/lithic-com/lithic-node/compare/v0.43.0...v0.44.0)
