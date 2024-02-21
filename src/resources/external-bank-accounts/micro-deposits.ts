@@ -72,9 +72,9 @@ export interface MicroDepositCreateResponse {
    */
   verification_attempts: number;
 
-  verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID';
+  verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE';
 
-  verification_state: 'ENABLED' | 'FAILED_VERIFICATION' | 'PENDING';
+  verification_state: 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS' | 'PENDING';
 
   /**
    * Indicates which Lithic account the external account is associated with. For
