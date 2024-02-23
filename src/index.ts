@@ -299,7 +299,10 @@ export namespace Lithic {
 
   export import Tokenizations = API.Tokenizations;
   export import Tokenization = API.Tokenization;
+  export import TokenizationRetrieveResponse = API.TokenizationRetrieveResponse;
   export import TokenizationSimulateResponse = API.TokenizationSimulateResponse;
+  export import TokenizationsCursorPage = API.TokenizationsCursorPage;
+  export import TokenizationListParams = API.TokenizationListParams;
   export import TokenizationSimulateParams = API.TokenizationSimulateParams;
 
   export import Cards = API.Cards;

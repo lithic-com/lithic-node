@@ -157,8 +157,11 @@ export {
 export { ThreeDS } from './three-ds/three-ds';
 export {
   Tokenization,
+  TokenizationRetrieveResponse,
   TokenizationSimulateResponse,
+  TokenizationListParams,
   TokenizationSimulateParams,
+  TokenizationsCursorPage,
   Tokenizations,
 } from './tokenizations';
 export {

@@ -9,6 +9,62 @@ const lithic = new Lithic({
 });
 
 describe('resource tokenizations', () => {
+  test('retrieve', async () => {
+    const responsePromise = lithic.tokenizations.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('retrieve: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      lithic.tokenizations.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+        path: '/_stainless_unknown_path',
+      }),
+    ).rejects.toThrow(Lithic.NotFoundError);
+  });
+
+  test('list', async () => {
+    const responsePromise = lithic.tokenizations.list();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('list: request options instead of params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(lithic.tokenizations.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+      Lithic.NotFoundError,
+    );
+  });
+
+  test('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      lithic.tokenizations.list(
+        {
+          account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          begin: '2019-12-27',
+          card_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          end: '2019-12-27',
+          ending_before: 'string',
+          page_size: 1,
+          starting_after: 'string',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Lithic.NotFoundError);
+  });
+
   test('simulate: only required params', async () => {
     const responsePromise = lithic.tokenizations.simulate({
       cvv: '776',
