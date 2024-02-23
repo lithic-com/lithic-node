@@ -107,10 +107,13 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/tokenizations.ts">Tokenization</a></code>
+- <code><a href="./src/resources/tokenizations.ts">TokenizationRetrieveResponse</a></code>
 - <code><a href="./src/resources/tokenizations.ts">TokenizationSimulateResponse</a></code>
 
 Methods:
 
+- <code title="get /tokenizations/{tokenization_token}">client.tokenizations.<a href="./src/resources/tokenizations.ts">retrieve</a>(tokenizationToken) -> TokenizationRetrieveResponse</code>
+- <code title="get /tokenizations">client.tokenizations.<a href="./src/resources/tokenizations.ts">list</a>({ ...params }) -> TokenizationsCursorPage</code>
 - <code title="post /simulate/tokenizations">client.tokenizations.<a href="./src/resources/tokenizations.ts">simulate</a>({ ...params }) -> TokenizationSimulateResponse</code>
 
 # Cards
