@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.46.0 (2024-02-23)
+
+Full Changelog: [v0.45.0...v0.46.0](https://github.com/lithic-com/lithic-node/compare/v0.45.0...v0.46.0)
+
+### Features
+
+* **api:** tokenizations ([#341](https://github.com/lithic-com/lithic-node/issues/341)) ([d2c7eca](https://github.com/lithic-com/lithic-node/commit/d2c7ecad30e54d78b6a591fb77c17d01d46a5d52))
+
+
+### Chores
+
+* **internal:** update deps ([#339](https://github.com/lithic-com/lithic-node/issues/339)) ([0732da4](https://github.com/lithic-com/lithic-node/commit/0732da4b0042b186f4f980e58a924fc795ec7b2b))
+
 ## 0.45.0 (2024-02-21)
 
 Full Changelog: [v0.44.0...v0.45.0](https://github.com/lithic-com/lithic-node/compare/v0.44.0...v0.45.0)
