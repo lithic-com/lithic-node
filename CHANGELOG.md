@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.47.0 (2024-02-27)
+
+Full Changelog: [v0.46.0...v0.47.0](https://github.com/lithic-com/lithic-node/compare/v0.46.0...v0.47.0)
+
+### Features
+
+* **api:** updates ([#342](https://github.com/lithic-com/lithic-node/issues/342)) ([d926ea3](https://github.com/lithic-com/lithic-node/commit/d926ea3f8d53ad618ab567bf7da40925ca3362d7))
+
 ## 0.46.0 (2024-02-23)
 
 Full Changelog: [v0.45.0...v0.46.0](https://github.com/lithic-com/lithic-node/compare/v0.45.0...v0.46.0)
