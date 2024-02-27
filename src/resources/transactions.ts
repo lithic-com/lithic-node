@@ -166,6 +166,8 @@ export interface Transaction {
    */
   authorization_code: string;
 
+  avs: Transaction.Avs;
+
   /**
    * Token for the card used in this transaction.
    */
@@ -209,19 +211,30 @@ export interface Transaction {
   network: 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA' | null;
 
   /**
+   * Network-provided score assessing risk level associated with a given
+   * authorization. Scores are on a range of 0-999, with 0 representing the lowest
+   * risk and 999 representing the highest risk. For Visa transactions, where the raw
+   * score has a range of 0-99, Lithic will normalize the score by multiplying the
+   * raw score by 10x.
+   *
+   * A score may not be available for all authorizations, and where it is not, this
+   * field will be set to null.
+   */
+  network_risk_score: number;
+
+  pos: Transaction.Pos;
+
+  /**
    * `APPROVED` or decline reason. See Event result types
    */
   result:
-    | 'ACCOUNT_STATE_TRANSACTION'
     | 'APPROVED'
     | 'BANK_CONNECTION_ERROR'
     | 'BANK_NOT_VERIFIED'
     | 'CARD_CLOSED'
     | 'CARD_PAUSED'
+    | 'DECLINED'
     | 'FRAUD_ADVICE'
-    | 'GLOBAL_MONTHLY_LIMIT'
-    | 'GLOBAL_TRANSACTION_LIMIT'
-    | 'GLOBAL_WEEKLY_LIMIT'
     | 'INACTIVE_ACCOUNT'
     | 'INCORRECT_PIN'
     | 'INSUFFICIENT_FUNDS'
@@ -249,12 +262,26 @@ export interface Transaction {
    * - `SETTLED` - The transaction is complete.
    * - `VOIDED` - The merchant has voided the previously pending authorization.
    */
-  status: 'BOUNCED' | 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED';
+  status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED';
+
+  token_info: Transaction.TokenInfo;
 
   cardholder_authentication?: Transaction.CardholderAuthentication | null;
 }
 
 export namespace Transaction {
+  export interface Avs {
+    /**
+     * Cardholder address
+     */
+    address?: string;
+
+    /**
+     * Cardholder ZIP code
+     */
+    zipcode?: string;
+  }
+
   /**
    * A single card transaction may include multiple events that affect the
    * transaction state and lifecycle.
@@ -338,12 +365,6 @@ export namespace Transaction {
      * - `CARD_CLOSED` - Card state was closed at the time of authorization.
      * - `CARD_PAUSED` - Card state was paused at the time of authorization.
      * - `FRAUD_ADVICE` - Transaction declined due to risk.
-     * - `GLOBAL_TRANSACTION_LIMIT` - Platform spend limit exceeded, contact
-     *   [support@lithic.com](mailto:support@lithic.com).
-     * - `GLOBAL_WEEKLY_LIMIT` - Platform spend limit exceeded, contact
-     *   [support@lithic.com](mailto:support@lithic.com).
-     * - `GLOBAL_MONTHLY_LIMIT` - Platform spend limit exceeded, contact
-     *   [support@lithic.com](mailto:support@lithic.com).
      * - `INACTIVE_ACCOUNT` - Account is inactive. Contact
      *   [support@lithic.com](mailto:support@lithic.com).
      * - `INCORRECT_PIN` - PIN verification failed.
@@ -359,16 +380,13 @@ export namespace Transaction {
      * - `USER_TRANSACTION_LIMIT` - User-set spend limit exceeded.
      */
     result:
-      | 'ACCOUNT_STATE_TRANSACTION'
       | 'APPROVED'
       | 'BANK_CONNECTION_ERROR'
       | 'BANK_NOT_VERIFIED'
       | 'CARD_CLOSED'
       | 'CARD_PAUSED'
+      | 'DECLINED'
       | 'FRAUD_ADVICE'
-      | 'GLOBAL_MONTHLY_LIMIT'
-      | 'GLOBAL_TRANSACTION_LIMIT'
-      | 'GLOBAL_WEEKLY_LIMIT'
       | 'INACTIVE_ACCOUNT'
       | 'INCORRECT_PIN'
       | 'INSUFFICIENT_FUNDS'
@@ -452,6 +470,128 @@ export namespace Transaction {
      * Geographic state of card acceptor (see ISO 8583 specs).
      */
     state?: string;
+  }
+
+  export interface Pos {
+    entry_mode: Pos.EntryMode;
+
+    terminal: Pos.Terminal;
+  }
+
+  export namespace Pos {
+    export interface EntryMode {
+      /**
+       * Card status
+       */
+      card: 'NOT_PRESENT' | 'PREAUTHORIZED' | 'PRESENT' | 'UNKNOWN';
+
+      /**
+       * Cardholder Presence status
+       */
+      cardholder:
+        | 'DEFERRED_BILLING'
+        | 'ELECTRONIC_ORDER'
+        | 'INSTALLMENT'
+        | 'MAIL_ORDER'
+        | 'NOT_PRESENT'
+        | 'PREAUTHORIZED'
+        | 'PRESENT'
+        | 'REOCCURRING'
+        | 'TELEPHONE_ORDER'
+        | 'UNKNOWN';
+
+      /**
+       * Method of entry for the PAN
+       */
+      pan:
+        | 'AUTO_ENTRY'
+        | 'BAR_CODE'
+        | 'CONTACTLESS'
+        | 'CREDENTIAL_ON_FILE'
+        | 'ECOMMERCE'
+        | 'ERROR_KEYED'
+        | 'ERROR_MAGNETIC_STRIPE'
+        | 'ICC'
+        | 'KEY_ENTERED'
+        | 'MAGNETIC_STRIPE'
+        | 'MANUAL'
+        | 'OCR'
+        | 'SECURE_CARDLESS'
+        | 'UNKNOWN'
+        | 'UNSPECIFIED';
+
+      /**
+       * True if the PIN was entered
+       */
+      pin_entered: boolean;
+    }
+
+    export interface Terminal {
+      /**
+       * True if a clerk is present at the sale.
+       */
+      attended: boolean;
+
+      /**
+       * True if the terminal is capable of partial approval. Partial approval is when
+       * part of a transaction is approved and another payment must be used for the
+       * remainder. Example scenario: A $40 transaction is attempted on a prepaid card
+       * with a $25 balance. If partial approval is enabled, $25 can be authorized, at
+       * which point the POS will prompt the user for an additional payment of $15.
+       */
+      card_retention_capable: boolean;
+
+      /**
+       * True if the sale was made at the place of business (vs. mobile).
+       */
+      on_premise: boolean;
+
+      /**
+       * The person that is designed to swipe the card
+       */
+      operator: 'ADMINISTRATIVE' | 'CARDHOLDER' | 'CARD_ACCEPTOR' | 'UNKNOWN';
+
+      /**
+       * Status of whether the POS is able to accept PINs
+       */
+      pin_capability: 'CAPABLE' | 'INOPERATIVE' | 'NOT_CAPABLE' | 'UNSPECIFIED';
+
+      /**
+       * POS Type
+       */
+      type:
+        | 'ADMINISTRATIVE'
+        | 'ATM'
+        | 'AUTHORIZATION'
+        | 'COUPON_MACHINE'
+        | 'DIAL_TERMINAL'
+        | 'ECOMMERCE'
+        | 'ECR'
+        | 'FUEL_MACHINE'
+        | 'HOME_TERMINAL'
+        | 'MICR'
+        | 'OFF_PREMISE'
+        | 'PAYMENT'
+        | 'PDA'
+        | 'PHONE'
+        | 'POINT'
+        | 'POS_TERMINAL'
+        | 'PUBLIC_UTILITY'
+        | 'SELF_SERVICE'
+        | 'TELEVISION'
+        | 'TELLER'
+        | 'TRAVELERS_CHECK_MACHINE'
+        | 'UNKNOWN'
+        | 'VENDING'
+        | 'VOICE';
+    }
+  }
+
+  export interface TokenInfo {
+    /**
+     * Source of the token
+     */
+    wallet_type?: 'APPLE_PAY' | 'GOOGLE_PAY' | 'MASTERPASS' | 'MERCHANT' | 'OTHER' | 'SAMSUNG_PAY';
   }
 
   export interface CardholderAuthentication {
