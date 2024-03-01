@@ -9,6 +9,7 @@ The REST API documentation can be found [on docs.lithic.com](https://docs.lithic
 ## Installation
 
 ```sh
+# install from NPM
 npm install --save lithic
 # or
 yarn add lithic
