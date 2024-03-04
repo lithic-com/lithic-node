@@ -69,7 +69,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const card = await lithic.cards.create({ type: 'an_incorrect_type' }).catch((err) => {
+  const card = await lithic.cards.create({ type: 'an_incorrect_type' }).catch(async (err) => {
     if (err instanceof Lithic.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
