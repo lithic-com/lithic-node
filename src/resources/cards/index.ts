@@ -18,8 +18,6 @@ export {
   CardUpdateParams,
   CardListParams,
   CardEmbedParams,
-  CardGetEmbedHTMLParams,
-  CardGetEmbedURLParams,
   CardProvisionParams,
   CardReissueParams,
   CardRenewParams,
