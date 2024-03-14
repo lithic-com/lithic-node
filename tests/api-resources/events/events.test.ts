@@ -98,4 +98,9 @@ describe('resource events', () => {
       ),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
+
+  // TODO: fix mock server when Accept header is not set to empty
+  test.skip('resend: works', async () => {
+    const response = await lithic.events.resend('string', { eventSubscriptionToken: 'foo' });
+  });
 });
