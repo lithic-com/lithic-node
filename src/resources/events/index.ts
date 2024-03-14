@@ -6,6 +6,7 @@ export {
   MessageAttempt,
   EventListParams,
   EventListAttemptsParams,
+  EventResendParams,
   EventSubscriptionsCursorPage,
   MessageAttemptsCursorPage,
   EventsCursorPage,
