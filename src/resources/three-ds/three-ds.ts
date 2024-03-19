@@ -1,4 +1,4 @@
-// File generated from our OpenAPI spec by Stainless.
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from 'lithic/resource';
 import * as AuthenticationAPI from 'lithic/resources/three-ds/authentication';
