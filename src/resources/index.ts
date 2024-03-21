@@ -59,6 +59,8 @@ export {
   CardUpdateParams,
   CardListParams,
   CardEmbedParams,
+  CardGetEmbedHTMLParams,
+  CardGetEmbedURLParams,
   CardProvisionParams,
   CardReissueParams,
   CardRenewParams,
@@ -93,6 +95,7 @@ export {
   MessageAttempt,
   EventListParams,
   EventListAttemptsParams,
+  EventResendParams,
   EventSubscriptionsCursorPage,
   MessageAttemptsCursorPage,
   EventsCursorPage,
@@ -187,3 +190,4 @@ export {
   Transactions,
 } from './transactions';
 export { Transfer, TransferCreateResponse, TransferCreateParams, Transfers } from './transfers';
+export { Webhooks } from './webhooks';

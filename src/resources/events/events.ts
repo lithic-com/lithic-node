@@ -57,6 +57,20 @@ export class Events extends APIResource {
       ...options,
     });
   }
+
+  /**
+   * Resend an event to an event subscription.
+   */
+  resend(
+    eventToken: string,
+    params: { eventSubscriptionToken: string },
+    options?: Core.RequestOptions,
+  ): Promise<void> {
+    return this._client.post(
+      `/events/${eventToken}/event_subscriptions/${params.eventSubscriptionToken}/resend`,
+      options,
+    );
+  }
 }
 
 export class EventsCursorPage extends CursorPage<Event> {}
@@ -270,6 +284,40 @@ export interface EventListAttemptsParams extends CursorPageParams {
   status?: 'FAILED' | 'PENDING' | 'SENDING' | 'SUCCESS';
 }
 
+export interface EventResendParams {
+  /**
+   * Globally unique identifier for the card to be displayed.
+   */
+  token: string;
+
+  /**
+   * A publicly available URI, so the white-labeled card element can be styled with
+   * the client's branding.
+   */
+  css?: string;
+
+  /**
+   * An RFC 3339 timestamp for when the request should expire. UTC time zone.
+   *
+   * If no timezone is specified, UTC will be used. If payload does not contain an
+   * expiration, the request will never expire.
+   *
+   * Using an `expiration` reduces the risk of a
+   * [replay attack](https://en.wikipedia.org/wiki/Replay_attack). Without supplying
+   * the `expiration`, in the event that a malicious user gets a copy of your request
+   * in transit, they will be able to obtain the response data indefinitely.
+   */
+  expiration?: string;
+
+  /**
+   * Required if you want to post the element clicked to the parent iframe.
+   *
+   * If you supply this param, you can also capture click events in the parent iframe
+   * by adding an event listener.
+   */
+  target_origin?: string;
+}
+
 export namespace Events {
   export import Event = EventsAPI.Event;
   export import EventSubscription = EventsAPI.EventSubscription;
@@ -278,6 +326,7 @@ export namespace Events {
   export import MessageAttemptsCursorPage = EventsAPI.MessageAttemptsCursorPage;
   export import EventListParams = EventsAPI.EventListParams;
   export import EventListAttemptsParams = EventsAPI.EventListAttemptsParams;
+  export import EventResendParams = EventsAPI.EventResendParams;
   export import Subscriptions = SubscriptionsAPI.Subscriptions;
   export import SubscriptionRetrieveSecretResponse = SubscriptionsAPI.SubscriptionRetrieveSecretResponse;
   export import SubscriptionCreateParams = SubscriptionsAPI.SubscriptionCreateParams;

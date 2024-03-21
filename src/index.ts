@@ -167,6 +167,7 @@ export class Lithic extends Core.APIClient {
   financialAccounts: API.FinancialAccounts = new API.FinancialAccounts(this);
   transactions: API.Transactions = new API.Transactions(this);
   responderEndpoints: API.ResponderEndpoints = new API.ResponderEndpoints(this);
+  webhooks: API.Webhooks = new API.Webhooks(this);
   externalBankAccounts: API.ExternalBankAccounts = new API.ExternalBankAccounts(this);
   payments: API.Payments = new API.Payments(this);
   threeDS: API.ThreeDS = new API.ThreeDS(this);
@@ -316,6 +317,8 @@ export namespace Lithic {
   export import CardUpdateParams = API.CardUpdateParams;
   export import CardListParams = API.CardListParams;
   export import CardEmbedParams = API.CardEmbedParams;
+  export import CardGetEmbedHTMLParams = API.CardGetEmbedHTMLParams;
+  export import CardGetEmbedURLParams = API.CardGetEmbedURLParams;
   export import CardProvisionParams = API.CardProvisionParams;
   export import CardReissueParams = API.CardReissueParams;
   export import CardRenewParams = API.CardRenewParams;
@@ -354,6 +357,7 @@ export namespace Lithic {
   export import MessageAttemptsCursorPage = API.MessageAttemptsCursorPage;
   export import EventListParams = API.EventListParams;
   export import EventListAttemptsParams = API.EventListAttemptsParams;
+  export import EventResendParams = API.EventResendParams;
 
   export import Transfers = API.Transfers;
   export import Transfer = API.Transfer;
@@ -393,6 +397,8 @@ export namespace Lithic {
   export import ResponderEndpointCreateParams = API.ResponderEndpointCreateParams;
   export import ResponderEndpointDeleteParams = API.ResponderEndpointDeleteParams;
   export import ResponderEndpointCheckStatusParams = API.ResponderEndpointCheckStatusParams;
+
+  export import Webhooks = API.Webhooks;
 
   export import ExternalBankAccounts = API.ExternalBankAccounts;
   export import ExternalBankAccountAddress = API.ExternalBankAccountAddress;
