@@ -3,6 +3,7 @@
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
+import { createHmac } from 'crypto';
 import * as CardsAPI from 'lithic/resources/cards/cards';
 import * as Shared from 'lithic/resources/shared';
 import * as AggregateBalancesAPI from 'lithic/resources/cards/aggregate-balances';
@@ -93,6 +94,66 @@ export class Cards extends APIResource {
       ...options,
       headers: { Accept: 'text/html', ...options?.headers },
     });
+  }
+
+  /**
+   * Generates and executes an embed request, returning html you can serve to the
+   * user.
+   *
+   * Be aware that this html contains sensitive data whose presence on your server
+   * could trigger PCI DSS.
+   *
+   * If your company is not certified PCI compliant, we recommend using
+   * `getEmbedURL()` instead. You would then pass that returned URL to the frontend,
+   * where you can load it via an iframe.
+   */
+  getEmbedHTML(params: CardGetEmbedHTMLParams, options?: Core.RequestOptions): Promise<string> {
+    return this._client.get(this.getEmbedURL(params), {
+      ...options,
+      headers: { Accept: 'text/html', ...options?.headers },
+    });
+  }
+
+  /**
+   * Handling full card PANs and CVV codes requires that you comply with the Payment
+   * Card Industry Data Security Standards (PCI DSS). Some clients choose to reduce
+   * their compliance obligations by leveraging our embedded card UI solution
+   * documented below.
+   *
+   * In this setup, PANs and CVV codes are presented to the end-user via a card UI
+   * that we provide, optionally styled in the customer's branding using a specified
+   * css stylesheet. A user's browser makes the request directly to api.lithic.com,
+   * so card PANs and CVVs never touch the API customer's servers while full card
+   * data is displayed to their end-users. The response contains an HTML document.
+   * This means that the url for the request can be inserted straight into the `src`
+   * attribute of an iframe.
+   *
+   * ```html
+   * <iframe
+   *   id="card-iframe"
+   *   src="https://sandbox.lithic.com/v1/embed/card?embed_request=eyJjc3MiO...;hmac=r8tx1..."
+   *   allow="clipboard-write"
+   *   class="content"
+   * ></iframe>
+   * ```
+   *
+   * You should compute the request payload on the server side. You can render it (or
+   * the whole iframe) on the server or make an ajax call from your front end code,
+   * but **do not ever embed your API key into front end code, as doing so introduces
+   * a serious security vulnerability**.
+   */
+  getEmbedURL(params: CardGetEmbedURLParams): string {
+    // Default expiration of 1 minute from now.
+    if (!params.expiration) {
+      const date = new Date();
+      date.setMinutes(date.getMinutes() + 1);
+      params.expiration = date.toISOString();
+    }
+
+    const serialized = JSON.stringify(params);
+    const hmac = createHmac('sha256', this._client.apiKey!).update(serialized).digest('base64');
+    const embedRequest = Buffer.from(serialized).toString('base64');
+    return this._client.buildURL('/embed/card', { hmac, embed_request: embedRequest });
   }
 
   /**
@@ -668,6 +729,74 @@ export interface CardEmbedParams {
   hmac: string;
 }
 
+export interface CardGetEmbedHTMLParams {
+  /**
+   * Globally unique identifier for the card to be displayed.
+   */
+  token: string;
+
+  /**
+   * A publicly available URI, so the white-labeled card element can be styled with
+   * the client's branding.
+   */
+  css?: string;
+
+  /**
+   * An RFC 3339 timestamp for when the request should expire. UTC time zone.
+   *
+   * If no timezone is specified, UTC will be used. If payload does not contain an
+   * expiration, the request will never expire.
+   *
+   * Using an `expiration` reduces the risk of a
+   * [replay attack](https://en.wikipedia.org/wiki/Replay_attack). Without supplying
+   * the `expiration`, in the event that a malicious user gets a copy of your request
+   * in transit, they will be able to obtain the response data indefinitely.
+   */
+  expiration?: string;
+
+  /**
+   * Required if you want to post the element clicked to the parent iframe.
+   *
+   * If you supply this param, you can also capture click events in the parent iframe
+   * by adding an event listener.
+   */
+  target_origin?: string;
+}
+
+export interface CardGetEmbedURLParams {
+  /**
+   * Globally unique identifier for the card to be displayed.
+   */
+  token: string;
+
+  /**
+   * A publicly available URI, so the white-labeled card element can be styled with
+   * the client's branding.
+   */
+  css?: string;
+
+  /**
+   * An RFC 3339 timestamp for when the request should expire. UTC time zone.
+   *
+   * If no timezone is specified, UTC will be used. If payload does not contain an
+   * expiration, the request will never expire.
+   *
+   * Using an `expiration` reduces the risk of a
+   * [replay attack](https://en.wikipedia.org/wiki/Replay_attack). Without supplying
+   * the `expiration`, in the event that a malicious user gets a copy of your request
+   * in transit, they will be able to obtain the response data indefinitely.
+   */
+  expiration?: string;
+
+  /**
+   * Required if you want to post the element clicked to the parent iframe.
+   *
+   * If you supply this param, you can also capture click events in the parent iframe
+   * by adding an event listener.
+   */
+  target_origin?: string;
+}
+
 export interface CardProvisionParams {
   /**
    * Only applicable if `digital_wallet` is `APPLE_PAY`. Omit to receive only
@@ -812,6 +941,8 @@ export namespace Cards {
   export import CardUpdateParams = CardsAPI.CardUpdateParams;
   export import CardListParams = CardsAPI.CardListParams;
   export import CardEmbedParams = CardsAPI.CardEmbedParams;
+  export import CardGetEmbedHTMLParams = CardsAPI.CardGetEmbedHTMLParams;
+  export import CardGetEmbedURLParams = CardsAPI.CardGetEmbedURLParams;
   export import CardProvisionParams = CardsAPI.CardProvisionParams;
   export import CardReissueParams = CardsAPI.CardReissueParams;
   export import CardRenewParams = CardsAPI.CardRenewParams;

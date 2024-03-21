@@ -3,6 +3,7 @@
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
+import { maybeMultipartFormRequestOptions, Uploadable } from 'lithic/core';
 import * as DisputesAPI from 'lithic/resources/disputes';
 import { CursorPage, type CursorPageParams } from 'lithic/pagination';
 
@@ -131,6 +132,22 @@ export class Disputes extends APIResource {
     options?: Core.RequestOptions,
   ): Core.APIPromise<DisputeEvidence> {
     return this._client.get(`/disputes/${disputeToken}/evidences/${evidenceToken}`, options);
+  }
+
+  /**
+   * Initiates the Dispute Evidence Upload, then uploads the file to the returned
+   * `upload_url`.
+   */
+  uploadEvidence(disputeToken: string, file: Uploadable, options?: Core.RequestOptions): Promise<void> {
+    return this._client.disputes.initiateEvidenceUpload(disputeToken, options).then(async (payload) => {
+      if (!payload.upload_url) {
+        return Promise.reject("Missing 'upload_url' from response payload");
+      }
+      return this._client.put(
+        payload.upload_url,
+        await maybeMultipartFormRequestOptions({ body: { file }, headers: { Authorization: null } }),
+      );
+    });
   }
 }
 
