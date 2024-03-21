@@ -186,4 +186,4 @@ export {
   TransactionsCursorPage,
   Transactions,
 } from './transactions';
-export { Transfer, TransferCreateResponse, TransferCreateParams, Transfers } from './transfers';
+export { Transfer, TransferCreateParams, Transfers } from './transfers';
