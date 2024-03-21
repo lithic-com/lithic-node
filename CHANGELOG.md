@@ -1,5 +1,44 @@
 # Changelog
 
+## 0.48.0 (2024-03-21)
+
+Full Changelog: [v0.47.0...v0.48.0](https://github.com/lithic-com/lithic-node/compare/v0.47.0...v0.48.0)
+
+### Features
+
+* **api:** adds closed state ([#363](https://github.com/lithic-com/lithic-node/issues/363)) ([06ad4b4](https://github.com/lithic-com/lithic-node/commit/06ad4b46652a7c41e95902d2fea05f441538b4de))
+* **api:** updates ([#361](https://github.com/lithic-com/lithic-node/issues/361)) ([d6a20b2](https://github.com/lithic-com/lithic-node/commit/d6a20b29013f0a6fffbfc2d21c51ad5fd83479c0))
+
+
+### Bug Fixes
+
+* handle process.env being undefined in debug func ([#360](https://github.com/lithic-com/lithic-node/issues/360)) ([a110110](https://github.com/lithic-com/lithic-node/commit/a110110e2430c3a33d6b11a2b0b857b0d6fb3271))
+* **internal:** make toFile use input file's options ([#357](https://github.com/lithic-com/lithic-node/issues/357)) ([7596a98](https://github.com/lithic-com/lithic-node/commit/7596a985951d02aae200f6fc2ebb4f042e8d9545))
+
+
+### Chores
+
+* add back examples ([d7d0cd7](https://github.com/lithic-com/lithic-node/commit/d7d0cd70b908c87c87030b39b2fb70e65e140972))
+* add back removed code ([2805043](https://github.com/lithic-com/lithic-node/commit/2805043c47bbb9e622c140f6e73370813b6cd0e0))
+* **docs:** add back custom readme code ([006ea15](https://github.com/lithic-com/lithic-node/commit/006ea15cf2ccda27733994b3f17374a6efa22438))
+* **docs:** mention install from git repo ([#347](https://github.com/lithic-com/lithic-node/issues/347)) ([15d85c7](https://github.com/lithic-com/lithic-node/commit/15d85c74fec7b174f1a0521765a6fae766e9a715))
+* **docs:** temporarily remove custom readme code ([#352](https://github.com/lithic-com/lithic-node/issues/352)) ([91afcaf](https://github.com/lithic-com/lithic-node/commit/91afcafebf688df3f7d96f6f3dd47e01c1133c4d))
+* fix error handler in readme ([#348](https://github.com/lithic-com/lithic-node/issues/348)) ([cd14271](https://github.com/lithic-com/lithic-node/commit/cd142718a2c330b35dd817098c0686d935898e39))
+* **internal:** update generated pragma comment ([#356](https://github.com/lithic-com/lithic-node/issues/356)) ([63c0e2e](https://github.com/lithic-com/lithic-node/commit/63c0e2eeb50584ebd50b013eef7a6931c51856f0))
+* temporarily remove examples for migration ([0ed20a4](https://github.com/lithic-com/lithic-node/commit/0ed20a4f0dc63b1585d5d4c968f975804afa6b43))
+* temporarily remove various code as part of refactor ([#354](https://github.com/lithic-com/lithic-node/issues/354)) ([69e70c5](https://github.com/lithic-com/lithic-node/commit/69e70c5a4a6a9691131b7de4a7b443c529ea218b))
+
+
+### Documentation
+
+* **contributing:** improve wording ([#344](https://github.com/lithic-com/lithic-node/issues/344)) ([37ece41](https://github.com/lithic-com/lithic-node/commit/37ece41dfdc9030aecb5064f7108a8fcbcf39d67))
+* fix typo in CONTRIBUTING.md ([#355](https://github.com/lithic-com/lithic-node/issues/355)) ([f8f02cc](https://github.com/lithic-com/lithic-node/commit/f8f02cc06092c9ed04303968a070ef8b502cec05))
+* **readme:** consistent use of sentence case in headings ([#358](https://github.com/lithic-com/lithic-node/issues/358)) ([ea571c3](https://github.com/lithic-com/lithic-node/commit/ea571c3a182725878bab7530d012898d454f722b))
+* **readme:** document how to make undocumented requests ([#359](https://github.com/lithic-com/lithic-node/issues/359)) ([c218930](https://github.com/lithic-com/lithic-node/commit/c218930006576317a84a5fc6973e01fe21ee5f5e))
+* **readme:** fix https proxy example ([#349](https://github.com/lithic-com/lithic-node/issues/349)) ([e40c8a8](https://github.com/lithic-com/lithic-node/commit/e40c8a8aa4302a32447af40e10faeeddea1dbcd9))
+* **readme:** fix typo in custom fetch implementation ([#346](https://github.com/lithic-com/lithic-node/issues/346)) ([aedf750](https://github.com/lithic-com/lithic-node/commit/aedf7508a1afa9384d8bb9f0b33bb2327ed43866))
+* remove extraneous --save and yarn install instructions ([#350](https://github.com/lithic-com/lithic-node/issues/350)) ([22d7f05](https://github.com/lithic-com/lithic-node/commit/22d7f057644060ad145b24ac90147a833c976021))
+
 ## 0.47.0 (2024-02-27)
 
 Full Changelog: [v0.46.0...v0.47.0](https://github.com/lithic-com/lithic-node/compare/v0.46.0...v0.47.0)
