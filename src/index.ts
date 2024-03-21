@@ -361,7 +361,6 @@ export namespace Lithic {
 
   export import Transfers = API.Transfers;
   export import Transfer = API.Transfer;
-  export import TransferCreateResponse = API.TransferCreateResponse;
   export import TransferCreateParams = API.TransferCreateParams;
 
   export import FinancialAccounts = API.FinancialAccounts;

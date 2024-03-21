@@ -102,6 +102,11 @@ export interface MicroDepositCreateResponse {
   doing_business_as?: string;
 
   /**
+   * The financial account token of the operating account used to verify the account
+   */
+  financial_account_token?: string;
+
+  /**
    * The nickname given to this record of External Bank Account
    */
   name?: string;

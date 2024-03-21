@@ -10,7 +10,7 @@ export class Transfers extends APIResource {
    * Transfer funds between two financial accounts or between a financial account and
    * card
    */
-  create(body: TransferCreateParams, options?: Core.RequestOptions): Core.APIPromise<TransferCreateResponse> {
+  create(body: TransferCreateParams, options?: Core.RequestOptions): Core.APIPromise<Transfer> {
     return this._client.post('/transfer', { body, ...options });
   }
 }
@@ -159,12 +159,16 @@ export namespace Transfer {
      *   insufficient balance of the sender.
      */
     type?:
+      | 'ACH_EXCEEDED_THRESHOLD'
       | 'ACH_INSUFFICIENT_FUNDS'
+      | 'ACH_INVALID_ACCOUNT'
       | 'ACH_ORIGINATION_PENDING'
+      | 'ACH_ORIGINATION_PROCESSED'
       | 'ACH_ORIGINATION_RELEASED'
       | 'ACH_RECEIPT_PENDING'
       | 'ACH_RECEIPT_RELEASED'
       | 'ACH_RETURN'
+      | 'ACH_RETURN_PENDING'
       | 'AUTHORIZATION'
       | 'AUTHORIZATION_ADVICE'
       | 'AUTHORIZATION_EXPIRY'
@@ -182,10 +186,6 @@ export namespace Transfer {
       | 'TRANSFER'
       | 'TRANSFER_INSUFFICIENT_FUNDS';
   }
-}
-
-export interface TransferCreateResponse {
-  data?: Transfer;
 }
 
 export interface TransferCreateParams {
@@ -221,6 +221,5 @@ export interface TransferCreateParams {
 
 export namespace Transfers {
   export import Transfer = TransfersAPI.Transfer;
-  export import TransferCreateResponse = TransfersAPI.TransferCreateResponse;
   export import TransferCreateParams = TransfersAPI.TransferCreateParams;
 }
