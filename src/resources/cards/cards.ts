@@ -678,6 +678,20 @@ export interface CardProvisionParams {
   certificate?: string;
 
   /**
+   * Only applicable if `digital_wallet` is `GOOGLE_PAY` or `SAMSUNG_PAY` and the
+   * card is on the Visa network. Stable device identification set by the wallet
+   * provider.
+   */
+  client_device_id?: string;
+
+  /**
+   * Only applicable if `digital_wallet` is `GOOGLE_PAY` or `SAMSUNG_PAY` and the
+   * card is on the Visa network. Consumer ID that identifies the wallet account
+   * holder entity.
+   */
+  client_wallet_account_id?: string;
+
+  /**
    * Name of digital wallet provider.
    */
   digital_wallet?: 'APPLE_PAY' | 'GOOGLE_PAY' | 'SAMSUNG_PAY';
