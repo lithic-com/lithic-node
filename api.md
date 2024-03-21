@@ -246,11 +246,10 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/transfers.ts">Transfer</a></code>
-- <code><a href="./src/resources/transfers.ts">TransferCreateResponse</a></code>
 
 Methods:
 
-- <code title="post /transfer">client.transfers.<a href="./src/resources/transfers.ts">create</a>({ ...params }) -> TransferCreateResponse</code>
+- <code title="post /transfer">client.transfers.<a href="./src/resources/transfers.ts">create</a>({ ...params }) -> Transfer</code>
 
 # FinancialAccounts
 

@@ -183,6 +183,11 @@ export interface ExternalBankAccountCreateResponse {
   doing_business_as?: string;
 
   /**
+   * The financial account token of the operating account used to verify the account
+   */
+  financial_account_token?: string;
+
+  /**
    * The nickname given to this record of External Bank Account
    */
   name?: string;
@@ -276,6 +281,11 @@ export interface ExternalBankAccountRetrieveResponse {
   dob?: string;
 
   doing_business_as?: string;
+
+  /**
+   * The financial account token of the operating account used to verify the account
+   */
+  financial_account_token?: string;
 
   /**
    * The nickname given to this record of External Bank Account
@@ -373,6 +383,11 @@ export interface ExternalBankAccountUpdateResponse {
   doing_business_as?: string;
 
   /**
+   * The financial account token of the operating account used to verify the account
+   */
+  financial_account_token?: string;
+
+  /**
    * The nickname given to this record of External Bank Account
    */
   name?: string;
@@ -466,6 +481,11 @@ export interface ExternalBankAccountListResponse {
   dob?: string;
 
   doing_business_as?: string;
+
+  /**
+   * The financial account token of the operating account used to verify the account
+   */
+  financial_account_token?: string;
 
   /**
    * The nickname given to this record of External Bank Account
@@ -563,6 +583,11 @@ export interface ExternalBankAccountRetryMicroDepositsResponse {
   doing_business_as?: string;
 
   /**
+   * The financial account token of the operating account used to verify the account
+   */
+  financial_account_token?: string;
+
+  /**
    * The nickname given to this record of External Bank Account
    */
   name?: string;
@@ -615,6 +640,11 @@ export namespace ExternalBankAccountCreateParams {
     dob?: string;
 
     doing_business_as?: string;
+
+    /**
+     * The financial account token of the operating account used to verify the account
+     */
+    financial_account_token?: string;
 
     name?: string;
 
