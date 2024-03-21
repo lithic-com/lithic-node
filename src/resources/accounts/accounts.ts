@@ -90,9 +90,11 @@ export interface Account {
    *
    * - `ACTIVE` - Account is able to transact and create new cards.
    * - `PAUSED` - Account will not be able to transact or create new cards. It can be
-   *   set back to `ACTIVE`.
+   *   set back to `ACTIVE`. `CLOSED` - Account will not be able to transact or
+   *   create new cards. `CLOSED` cards are also unable to be transitioned to
+   *   `ACTIVE` or `PAUSED` states.
    */
-  state: 'ACTIVE' | 'PAUSED';
+  state: 'ACTIVE' | 'PAUSED' | 'CLOSED';
 
   account_holder?: Account.AccountHolder;
 
