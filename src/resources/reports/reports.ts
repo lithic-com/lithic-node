@@ -147,7 +147,7 @@ export interface SettlementReport {
    */
   currency: string;
 
-  details: Array<SettlementSummaryDetails | null>;
+  details: Array<SettlementSummaryDetails>;
 
   /**
    * The total gross amount of disputes settlements.
