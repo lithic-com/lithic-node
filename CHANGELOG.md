@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.49.0 (2024-03-27)
+
+Full Changelog: [v0.48.0...v0.49.0](https://github.com/lithic-com/lithic-node/compare/v0.48.0...v0.49.0)
+
+### Features
+
+* **api:** add settlement_report.updated enum ([#366](https://github.com/lithic-com/lithic-node/issues/366)) ([6cc2baf](https://github.com/lithic-com/lithic-node/commit/6cc2baf8b9f49f393063f413c5b64aff0bf3a04c))
+* **api:** updates ([#367](https://github.com/lithic-com/lithic-node/issues/367)) ([e14bf71](https://github.com/lithic-com/lithic-node/commit/e14bf7138ee3c76ce6e114b7225dfd3d79c449fe))
+
+
+### Bug Fixes
+
+* **client:** correctly send deno version header ([#364](https://github.com/lithic-com/lithic-node/issues/364)) ([573421e](https://github.com/lithic-com/lithic-node/commit/573421ec3ae4d992120fac2f5cadb9ae7a046022))
+
 ## 0.48.0 (2024-03-21)
 
 Full Changelog: [v0.47.0...v0.48.0](https://github.com/lithic-com/lithic-node/compare/v0.47.0...v0.48.0)
