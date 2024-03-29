@@ -190,10 +190,11 @@ export interface FinancialTransaction {
    *   expiration time.
    * - `PENDING` - Authorization is pending completion from the merchant or pending
    *   release from ACH hold period
+   * - `RETURNED` - The financial transaction has been returned.
    * - `SETTLED` - The financial transaction is completed.
    * - `VOIDED` - The merchant has voided the previously pending card authorization.
    */
-  status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED';
+  status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'RETURNED' | 'SETTLED' | 'VOIDED';
 
   /**
    * Date and time when the financial transaction was last updated. UTC time zone.
