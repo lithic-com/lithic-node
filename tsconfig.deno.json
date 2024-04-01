@@ -9,7 +9,6 @@
       "lithic/_shims/auto/*": ["deno/_shims/auto/*-deno"],
       "lithic/*": ["deno/*"],
       "lithic": ["deno/index.ts"],
-      "digest-fetch": ["./typings/digest-fetch"]
     },
     "noEmit": true,
     "declaration": true,
