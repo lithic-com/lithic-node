@@ -12,7 +12,6 @@
       "lithic/_shims/auto/*": ["src/_shims/auto/*-node"],
       "lithic/*": ["src/*"],
       "lithic": ["src/index.ts"],
-      "digest-fetch": ["./typings/digest-fetch"]
     },
     "noEmit": true,
 
