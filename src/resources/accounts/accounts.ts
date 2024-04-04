@@ -192,24 +192,66 @@ export namespace Account {
 
 export interface AccountSpendLimits {
   available_spend_limit: AccountSpendLimits.AvailableSpendLimit;
+
+  spend_limit?: AccountSpendLimits.SpendLimit;
+
+  spend_velocity?: AccountSpendLimits.SpendVelocity;
 }
 
 export namespace AccountSpendLimits {
   export interface AvailableSpendLimit {
     /**
-     * The available spend limit relative to the daily limit configured on the Account.
+     * The available spend limit (in cents) relative to the daily limit configured on
+     * the Account.
      */
     daily?: number;
 
     /**
-     * The available spend limit relative to the lifetime limit configured on the
-     * Account.
+     * The available spend limit (in cents) relative to the lifetime limit configured
+     * on the Account.
      */
     lifetime?: number;
 
     /**
-     * The available spend limit relative to the monthly limit configured on the
-     * Account.
+     * The available spend limit (in cents) relative to the monthly limit configured on
+     * the Account.
+     */
+    monthly?: number;
+  }
+
+  export interface SpendLimit {
+    /**
+     * The configured daily spend limit (in cents) on the Account.
+     */
+    daily?: number;
+
+    /**
+     * The configured lifetime spend limit (in cents) on the Account.
+     */
+    lifetime?: number;
+
+    /**
+     * The configured monthly spend limit (in cents) on the Account.
+     */
+    monthly?: number;
+  }
+
+  export interface SpendVelocity {
+    /**
+     * Current daily spend velocity (in cents) on the Account. Present if daily spend
+     * limit is set.
+     */
+    daily?: number;
+
+    /**
+     * Current lifetime spend velocity (in cents) on the Account. Present if lifetime
+     * spend limit is set.
+     */
+    lifetime?: number;
+
+    /**
+     * Current monthly spend velocity (in cents) on the Account. Present if monthly
+     * spend limit is set.
      */
     monthly?: number;
   }
