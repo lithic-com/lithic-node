@@ -138,7 +138,7 @@ export interface Transaction {
    * of the currency. Will be zero if no fee is assessed. Rebates may be transmitted
    * as a negative value to indicate credited fees.
    */
-  acquirer_fee: number;
+  acquirer_fee: number | null;
 
   /**
    * Unique identifier assigned to a transaction by the acquirer that can be used in
@@ -158,15 +158,15 @@ export interface Transaction {
    * This amount always represents the amount authorized for the transaction,
    * unaffected by settlement.
    */
-  authorization_amount: number;
+  authorization_amount: number | null;
 
   /**
    * A fixed-width 6-digit numeric identifier that can be used to identify a
    * transaction with networks.
    */
-  authorization_code: string;
+  authorization_code: string | null;
 
-  avs: Transaction.Avs;
+  avs: Transaction.Avs | null;
 
   /**
    * Token for the card used in this transaction.
@@ -189,14 +189,14 @@ export interface Transaction {
    * Analogous to the "amount" property, but will represent the amount in the
    * transaction's local currency (smallest unit), including any acquirer fees.
    */
-  merchant_amount: number;
+  merchant_amount: number | null;
 
   /**
    * Analogous to the "authorization_amount" property, but will represent the amount
    * in the transaction's local currency (smallest unit), including any acquirer
    * fees.
    */
-  merchant_authorization_amount: number;
+  merchant_authorization_amount: number | null;
 
   /**
    * 3-digit alphabetic ISO 4217 code for the local currency of the transaction.
@@ -220,9 +220,9 @@ export interface Transaction {
    * A score may not be available for all authorizations, and where it is not, this
    * field will be set to null.
    */
-  network_risk_score: number;
+  network_risk_score: number | null;
 
-  pos: Transaction.Pos;
+  pos: Transaction.Pos | null;
 
   /**
    * `APPROVED` or decline reason. See Event result types
@@ -264,7 +264,7 @@ export interface Transaction {
    */
   status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED';
 
-  token_info: Transaction.TokenInfo;
+  token_info: Transaction.TokenInfo | null;
 
   cardholder_authentication?: Transaction.CardholderAuthentication | null;
 }

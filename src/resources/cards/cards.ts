@@ -352,22 +352,66 @@ export namespace Card {
 
 export interface CardSpendLimits {
   available_spend_limit: CardSpendLimits.AvailableSpendLimit;
+
+  spend_limit?: CardSpendLimits.SpendLimit;
+
+  spend_velocity?: CardSpendLimits.SpendVelocity;
 }
 
 export namespace CardSpendLimits {
   export interface AvailableSpendLimit {
     /**
-     * The available spend limit relative to the annual limit configured on the Card.
+     * The available spend limit (in cents) relative to the annual limit configured on
+     * the Card.
      */
     annually?: number;
 
     /**
-     * The available spend limit relative to the forever limit configured on the Card.
+     * The available spend limit (in cents) relative to the forever limit configured on
+     * the Card.
      */
     forever?: number;
 
     /**
-     * The available spend limit relative to the monthly limit configured on the Card.
+     * The available spend limit (in cents) relative to the monthly limit configured on
+     * the Card.
+     */
+    monthly?: number;
+  }
+
+  export interface SpendLimit {
+    /**
+     * The configured annual spend limit (in cents) on the Card.
+     */
+    annually?: number;
+
+    /**
+     * The configured forever spend limit (in cents) on the Card.
+     */
+    forever?: number;
+
+    /**
+     * The configured monthly spend limit (in cents) on the Card.
+     */
+    monthly?: number;
+  }
+
+  export interface SpendVelocity {
+    /**
+     * Current annual spend velocity (in cents) on the Card. Present if annual spend
+     * limit is set.
+     */
+    annually?: number;
+
+    /**
+     * Current forever spend velocity (in cents) on the Card. Present if forever spend
+     * limit is set.
+     */
+    forever?: number;
+
+    /**
+     * Current monthly spend velocity (in cents) on the Card. Present if monthly spend
+     * limit is set.
      */
     monthly?: number;
   }
