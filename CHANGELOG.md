@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.49.0 (2024-04-05)
+
+Full Changelog: [v0.48.0...v0.49.0](https://github.com/lithic-com/lithic-node/compare/v0.48.0...v0.49.0)
+
+### Features
+
+* **api:** add detailed result CARD_NOT_ACTIVATED ([#375](https://github.com/lithic-com/lithic-node/issues/375)) ([602f79f](https://github.com/lithic-com/lithic-node/commit/602f79f7392726bef8dab1306d1d00c61cea6ba4))
+* **api:** add event type digital_wallet.tokenization_two_factor_authentication_code_sent ([#371](https://github.com/lithic-com/lithic-node/issues/371)) ([7fd4853](https://github.com/lithic-com/lithic-node/commit/7fd48530e1b01d5417b309bca8af102a084c7707))
+* **api:** add params spend_limit and spend_velocity ([#374](https://github.com/lithic-com/lithic-node/issues/374)) ([8abb9f9](https://github.com/lithic-com/lithic-node/commit/8abb9f906b25f09d4ce6747fd60cd2bf90ca76c9))
+* **api:** add settlement_report.updated enum ([#366](https://github.com/lithic-com/lithic-node/issues/366)) ([6cc2baf](https://github.com/lithic-com/lithic-node/commit/6cc2baf8b9f49f393063f413c5b64aff0bf3a04c))
+* **api:** update financial transaction status enum ([#369](https://github.com/lithic-com/lithic-node/issues/369)) ([7cdb881](https://github.com/lithic-com/lithic-node/commit/7cdb8818e2c4851a39c818341ab475d56139e4f9))
+* **api:** update link to encrypted PIN block docs ([#376](https://github.com/lithic-com/lithic-node/issues/376)) ([7a9616e](https://github.com/lithic-com/lithic-node/commit/7a9616e23d396646985adfd409a0fa171d015dbf))
+* **api:** updates ([#367](https://github.com/lithic-com/lithic-node/issues/367)) ([e14bf71](https://github.com/lithic-com/lithic-node/commit/e14bf7138ee3c76ce6e114b7225dfd3d79c449fe))
+
+
+### Bug Fixes
+
+* **client:** correctly send deno version header ([#364](https://github.com/lithic-com/lithic-node/issues/364)) ([573421e](https://github.com/lithic-com/lithic-node/commit/573421ec3ae4d992120fac2f5cadb9ae7a046022))
+
+
+### Chores
+
+* **deps:** bump yarn to v1.22.22 ([#373](https://github.com/lithic-com/lithic-node/issues/373)) ([a430c64](https://github.com/lithic-com/lithic-node/commit/a430c640862d7927ac0f57a02ee6e076e39c1ded))
+* **deps:** remove unused dependency digest-fetch ([#372](https://github.com/lithic-com/lithic-node/issues/372)) ([66415bf](https://github.com/lithic-com/lithic-node/commit/66415bf4e18b8df1600d0087c4084e6c1a35da5b))
+* **internal:** bump dependencies ([#368](https://github.com/lithic-com/lithic-node/issues/368)) ([94f8f5a](https://github.com/lithic-com/lithic-node/commit/94f8f5aa5d58d6f2f9e18cd4ad3da530e489b472))
+
 ## 0.48.0 (2024-03-21)
 
 Full Changelog: [v0.47.0...v0.48.0](https://github.com/lithic-com/lithic-node/compare/v0.47.0...v0.48.0)
