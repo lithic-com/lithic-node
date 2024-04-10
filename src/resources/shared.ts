@@ -60,12 +60,15 @@ export interface ShippingAddress {
 
   /**
    * Customer's first name. This will be the first name printed on the physical card.
+   * The combined length of `first_name` and `last_name` may not exceed 25
+   * characters.
    */
   first_name: string;
 
   /**
    * Customer's surname (family name). This will be the last name printed on the
-   * physical card.
+   * physical card. The combined length of `first_name` and `last_name` may not
+   * exceed 25 characters.
    */
   last_name: string;
 
