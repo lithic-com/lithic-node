@@ -74,28 +74,30 @@ export class PaymentsCursorPage extends CursorPage<Payment> {}
 export interface Payment extends FinancialAccountsAPI.FinancialTransaction {
   direction: 'CREDIT' | 'DEBIT';
 
+  external_bank_account_token: string | null;
+
+  financial_account_token: string;
+
   method: 'ACH_NEXT_DAY' | 'ACH_SAME_DAY';
 
   method_attributes: Payment.MethodAttributes;
 
   source: 'CUSTOMER' | 'LITHIC';
 
-  external_bank_account_token?: string;
-
-  user_defined_id?: string;
+  user_defined_id: string | null;
 }
 
 export namespace Payment {
   export interface MethodAttributes {
+    company_id: string | null;
+
+    receipt_routing_number: string | null;
+
+    retries: number | null;
+
+    return_reason_code: string | null;
+
     sec_code: 'CCD' | 'PPD' | 'WEB';
-
-    company_id?: string;
-
-    receipt_routing_number?: string;
-
-    retries?: number;
-
-    return_reason_code?: string;
   }
 }
 
@@ -155,15 +157,15 @@ export interface PaymentCreateParams {
 
 export namespace PaymentCreateParams {
   export interface MethodAttributes {
+    company_id: string | null;
+
+    receipt_routing_number: string | null;
+
+    retries: number | null;
+
+    return_reason_code: string | null;
+
     sec_code: 'CCD' | 'PPD' | 'WEB';
-
-    company_id?: string;
-
-    receipt_routing_number?: string;
-
-    retries?: number;
-
-    return_reason_code?: string;
   }
 }
 
