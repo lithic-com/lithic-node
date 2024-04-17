@@ -125,7 +125,14 @@ export namespace Transfer {
      *
      * - `ACH_INSUFFICIENT_FUNDS` - Attempted ACH origination declined due to
      *   insufficient balance.
-     * - `ACH_ORIGINATION_PENDING` - ACH origination pending release from an ACH hold.
+     * - `ACH_ORIGINATION_PENDING` - ACH origination received and pending
+     *   approval/release from an ACH hold.
+     * - `ACH_ORIGINATION_APPROVED` - ACH origination has been approved and pending
+     *   processing.
+     * - `ACH_ORIGINATION_DECLINED` - ACH origination has been declined.
+     * - `ACH_ORIGINATION_CANCELLED` - ACH origination has been cancelled.
+     * - `ACH_ORIGINATION_PROCESSED` - ACH origination has been processed.
+     * - `ACH_ORIGINATION_SETTLED` - ACH origination has settled.
      * - `ACH_ORIGINATION_RELEASED` - ACH origination released from pending to
      *   available balance.
      * - `ACH_RECEIPT_PENDING` - ACH receipt pending release from an ACH holder.
@@ -163,7 +170,11 @@ export namespace Transfer {
       | 'ACH_INSUFFICIENT_FUNDS'
       | 'ACH_INVALID_ACCOUNT'
       | 'ACH_ORIGINATION_PENDING'
+      | 'ACH_ORIGINATION_APPROVED'
+      | 'ACH_ORIGINATION_DECLINED'
+      | 'ACH_ORIGINATION_CANCELLED'
       | 'ACH_ORIGINATION_PROCESSED'
+      | 'ACH_ORIGINATION_SETTLED'
       | 'ACH_ORIGINATION_RELEASED'
       | 'ACH_RECEIPT_PENDING'
       | 'ACH_RECEIPT_RELEASED'
