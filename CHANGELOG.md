@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.50.0 (2024-04-17)
+
+Full Changelog: [v0.49.0...v0.50.0](https://github.com/lithic-com/lithic-node/compare/v0.49.0...v0.50.0)
+
+### Features
+
+* **api:** updates ([#377](https://github.com/lithic-com/lithic-node/issues/377)) ([2147eef](https://github.com/lithic-com/lithic-node/commit/2147eef48118e990aa026d1ea309fad05df9b268))
+* **api:** updates ([#382](https://github.com/lithic-com/lithic-node/issues/382)) ([45b94f0](https://github.com/lithic-com/lithic-node/commit/45b94f02ac5f079710f416f2a0c313eb04562ee6))
+
+
+### Chores
+
+* **internal:** formatting ([#380](https://github.com/lithic-com/lithic-node/issues/380)) ([7fad7aa](https://github.com/lithic-com/lithic-node/commit/7fad7aa0c5742cad52dae8532741504c14b5aaf1))
+* **internal:** update gitignore ([#379](https://github.com/lithic-com/lithic-node/issues/379)) ([458e748](https://github.com/lithic-com/lithic-node/commit/458e748194c9a54f746fe5d8f90152233d03a449))
+
+
+### Build System
+
+* configure UTF-8 locale in devcontainer ([#381](https://github.com/lithic-com/lithic-node/issues/381)) ([8ee3b5a](https://github.com/lithic-com/lithic-node/commit/8ee3b5ad7f8fa131ba865bc41b00d854ddbd4edc))
+
 ## 0.49.0 (2024-04-05)
 
 Full Changelog: [v0.48.0...v0.49.0](https://github.com/lithic-com/lithic-node/compare/v0.48.0...v0.49.0)
