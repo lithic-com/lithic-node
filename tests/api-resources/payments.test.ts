@@ -15,7 +15,13 @@ describe('resource payments', () => {
       external_bank_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       method: 'ACH_NEXT_DAY',
-      method_attributes: { sec_code: 'CCD' },
+      method_attributes: {
+        company_id: 'string',
+        receipt_routing_number: 'string',
+        retries: 0,
+        return_reason_code: 'string',
+        sec_code: 'CCD',
+      },
       type: 'COLLECTION',
     });
     const rawResponse = await responsePromise.asResponse();
