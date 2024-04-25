@@ -14,6 +14,7 @@ describe('resource externalBankAccounts', () => {
       account_number: '12345678901234567',
       country: 'USD',
       currency: 'USD',
+      financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       owner: 'x',
       owner_type: 'BUSINESS',
       routing_number: '123456789',
@@ -34,6 +35,7 @@ describe('resource externalBankAccounts', () => {
       account_number: '12345678901234567',
       country: 'USD',
       currency: 'USD',
+      financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       owner: 'x',
       owner_type: 'BUSINESS',
       routing_number: '123456789',
@@ -44,7 +46,6 @@ describe('resource externalBankAccounts', () => {
       company_id: 'x',
       dob: '2019-12-27',
       doing_business_as: 'string',
-      financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       name: 'x',
       user_defined_id: 'string',
       verification_enforcement: true,
@@ -139,6 +140,17 @@ describe('resource externalBankAccounts', () => {
       lithic.externalBankAccounts.retryMicroDeposits('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
+    ).rejects.toThrow(Lithic.NotFoundError);
+  });
+
+  test('retryMicroDeposits: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      lithic.externalBankAccounts.retryMicroDeposits(
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        { financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+        { path: '/_stainless_unknown_path' },
+      ),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 });

@@ -3,9 +3,8 @@
 import * as Core from 'lithic/core';
 import { APIResource } from 'lithic/resource';
 import { isRequestOptions } from 'lithic/core';
-import * as FinancialAccountsBalancesAPI from 'lithic/resources/financial-accounts/balances';
-import * as BalancesAPI from 'lithic/resources/balances';
-import { BalancesSinglePage } from 'lithic/resources/balances';
+import * as BalancesAPI from 'lithic/resources/financial-accounts/balances';
+import { SinglePage } from 'lithic/pagination';
 
 export class Balances extends APIResource {
   /**
@@ -15,25 +14,86 @@ export class Balances extends APIResource {
     financialAccountToken: string,
     query?: BalanceListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<BalancesSinglePage, BalancesAPI.Balance>;
+  ): Core.PagePromise<BalanceListResponsesSinglePage, BalanceListResponse>;
   list(
     financialAccountToken: string,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<BalancesSinglePage, BalancesAPI.Balance>;
+  ): Core.PagePromise<BalanceListResponsesSinglePage, BalanceListResponse>;
   list(
     financialAccountToken: string,
     query: BalanceListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<BalancesSinglePage, BalancesAPI.Balance> {
+  ): Core.PagePromise<BalanceListResponsesSinglePage, BalanceListResponse> {
     if (isRequestOptions(query)) {
       return this.list(financialAccountToken, {}, query);
     }
     return this._client.getAPIList(
       `/financial_accounts/${financialAccountToken}/balances`,
-      BalancesSinglePage,
+      BalanceListResponsesSinglePage,
       { query, ...options },
     );
   }
+}
+
+export class BalanceListResponsesSinglePage extends SinglePage<BalanceListResponse> {}
+
+/**
+ * Balance of a Financial Account
+ */
+export interface BalanceListResponse {
+  /**
+   * Globally unique identifier for the financial account that holds this balance.
+   */
+  token: string;
+
+  /**
+   * Funds available for spend in the currency's smallest unit (e.g., cents for USD)
+   */
+  available_amount: number;
+
+  /**
+   * Date and time for when the balance was first created.
+   */
+  created: string;
+
+  /**
+   * 3-digit alphabetic ISO 4217 code for the local currency of the balance.
+   */
+  currency: string;
+
+  /**
+   * Globally unique identifier for the last financial transaction event that
+   * impacted this balance.
+   */
+  last_transaction_event_token: string;
+
+  /**
+   * Globally unique identifier for the last financial transaction that impacted this
+   * balance.
+   */
+  last_transaction_token: string;
+
+  /**
+   * Funds not available for spend due to card authorizations or pending ACH release.
+   * Shown in the currency's smallest unit (e.g., cents for USD).
+   */
+  pending_amount: number;
+
+  /**
+   * The sum of available and pending balance in the currency's smallest unit (e.g.,
+   * cents for USD).
+   */
+  total_amount: number;
+
+  /**
+   * Type of financial account.
+   */
+  type: 'ISSUING' | 'OPERATING' | 'RESERVE';
+
+  /**
+   * Date and time for when the balance was last updated.
+   */
+  updated: string;
 }
 
 export interface BalanceListParams {
@@ -51,7 +111,7 @@ export interface BalanceListParams {
 }
 
 export namespace Balances {
-  export import BalanceListParams = FinancialAccountsBalancesAPI.BalanceListParams;
+  export import BalanceListResponse = BalancesAPI.BalanceListResponse;
+  export import BalanceListResponsesSinglePage = BalancesAPI.BalanceListResponsesSinglePage;
+  export import BalanceListParams = BalancesAPI.BalanceListParams;
 }
-
-export { BalancesSinglePage };

@@ -110,6 +110,7 @@ export {
   ExternalBankAccountCreateParams,
   ExternalBankAccountUpdateParams,
   ExternalBankAccountListParams,
+  ExternalBankAccountRetryMicroDepositsParams,
   ExternalBankAccountListResponsesCursorPage,
   ExternalBankAccounts,
 } from './external-bank-accounts/external-bank-accounts';

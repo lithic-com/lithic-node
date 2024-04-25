@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { BalanceListParams, Balances } from './balances';
+export { BalanceListResponse, BalanceListParams, BalanceListResponsesSinglePage, Balances } from './balances';
 export {
   FinancialAccount,
   FinancialTransaction,
