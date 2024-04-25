@@ -69,12 +69,25 @@ export class ExternalBankAccounts extends APIResource {
    */
   retryMicroDeposits(
     externalBankAccountToken: string,
+    body?: ExternalBankAccountRetryMicroDepositsParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ExternalBankAccountRetryMicroDepositsResponse>;
+  retryMicroDeposits(
+    externalBankAccountToken: string,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ExternalBankAccountRetryMicroDepositsResponse>;
+  retryMicroDeposits(
+    externalBankAccountToken: string,
+    body: ExternalBankAccountRetryMicroDepositsParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
   ): Core.APIPromise<ExternalBankAccountRetryMicroDepositsResponse> {
-    return this._client.post(
-      `/external_bank_accounts/${externalBankAccountToken}/retry_micro_deposits`,
-      options,
-    );
+    if (isRequestOptions(body)) {
+      return this.retryMicroDeposits(externalBankAccountToken, {}, body);
+    }
+    return this._client.post(`/external_bank_accounts/${externalBankAccountToken}/retry_micro_deposits`, {
+      body,
+      ...options,
+    });
   }
 }
 
@@ -183,7 +196,8 @@ export interface ExternalBankAccountCreateResponse {
   doing_business_as?: string;
 
   /**
-   * The financial account token of the operating account used to verify the account
+   * The financial account token of the operating account, which will provide the
+   * funds for micro deposits used to verify the account
    */
   financial_account_token?: string;
 
@@ -283,7 +297,8 @@ export interface ExternalBankAccountRetrieveResponse {
   doing_business_as?: string;
 
   /**
-   * The financial account token of the operating account used to verify the account
+   * The financial account token of the operating account, which will provide the
+   * funds for micro deposits used to verify the account
    */
   financial_account_token?: string;
 
@@ -383,7 +398,8 @@ export interface ExternalBankAccountUpdateResponse {
   doing_business_as?: string;
 
   /**
-   * The financial account token of the operating account used to verify the account
+   * The financial account token of the operating account, which will provide the
+   * funds for micro deposits used to verify the account
    */
   financial_account_token?: string;
 
@@ -483,7 +499,8 @@ export interface ExternalBankAccountListResponse {
   doing_business_as?: string;
 
   /**
-   * The financial account token of the operating account used to verify the account
+   * The financial account token of the operating account, which will provide the
+   * funds for micro deposits used to verify the account
    */
   financial_account_token?: string;
 
@@ -583,7 +600,8 @@ export interface ExternalBankAccountRetryMicroDepositsResponse {
   doing_business_as?: string;
 
   /**
-   * The financial account token of the operating account used to verify the account
+   * The financial account token of the operating account, which will provide the
+   * funds for micro deposits used to verify the account
    */
   financial_account_token?: string;
 
@@ -614,6 +632,12 @@ export namespace ExternalBankAccountCreateParams {
 
     currency: string;
 
+    /**
+     * The financial account token of the operating account, which will provide the
+     * funds for micro deposits used to verify the account
+     */
+    financial_account_token: string;
+
     owner: string;
 
     owner_type: OwnerType;
@@ -640,11 +664,6 @@ export namespace ExternalBankAccountCreateParams {
     dob?: string;
 
     doing_business_as?: string;
-
-    /**
-     * The financial account token of the operating account used to verify the account
-     */
-    financial_account_token?: string;
 
     name?: string;
 
@@ -722,6 +741,14 @@ export interface ExternalBankAccountListParams extends CursorPageParams {
   verification_states?: Array<'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS' | 'PENDING'>;
 }
 
+export interface ExternalBankAccountRetryMicroDepositsParams {
+  /**
+   * The financial account token of the operating account, which will provide the
+   * funds for micro deposits used to verify the account
+   */
+  financial_account_token?: string;
+}
+
 export namespace ExternalBankAccounts {
   export import ExternalBankAccountAddress = ExternalBankAccountsAPI.ExternalBankAccountAddress;
   export import OwnerType = ExternalBankAccountsAPI.OwnerType;
@@ -735,6 +762,7 @@ export namespace ExternalBankAccounts {
   export import ExternalBankAccountCreateParams = ExternalBankAccountsAPI.ExternalBankAccountCreateParams;
   export import ExternalBankAccountUpdateParams = ExternalBankAccountsAPI.ExternalBankAccountUpdateParams;
   export import ExternalBankAccountListParams = ExternalBankAccountsAPI.ExternalBankAccountListParams;
+  export import ExternalBankAccountRetryMicroDepositsParams = ExternalBankAccountsAPI.ExternalBankAccountRetryMicroDepositsParams;
   export import MicroDeposits = MicroDepositsAPI.MicroDeposits;
   export import MicroDepositCreateResponse = MicroDepositsAPI.MicroDepositCreateResponse;
   export import MicroDepositCreateParams = MicroDepositsAPI.MicroDepositCreateParams;

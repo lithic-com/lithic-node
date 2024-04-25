@@ -235,6 +235,9 @@ export interface Card {
    */
   created: string;
 
+  /**
+   * Deprecated: Funding account for the card.
+   */
   funding: Card.Funding;
 
   /**
@@ -360,6 +363,9 @@ export interface Card {
 }
 
 export namespace Card {
+  /**
+   * Deprecated: Funding account for the card.
+   */
   export interface Funding {
     /**
      * A globally unique identifier for this FundingAccount.
@@ -996,6 +1002,8 @@ export namespace Cards {
   export import AggregateBalanceListResponsesSinglePage = AggregateBalancesAPI.AggregateBalanceListResponsesSinglePage;
   export import AggregateBalanceListParams = AggregateBalancesAPI.AggregateBalanceListParams;
   export import Balances = BalancesAPI.Balances;
+  export import BalanceListResponse = BalancesAPI.BalanceListResponse;
+  export import BalanceListResponsesSinglePage = BalancesAPI.BalanceListResponsesSinglePage;
   export import BalanceListParams = BalancesAPI.BalanceListParams;
   export import FinancialTransactions = FinancialTransactionsAPI.FinancialTransactions;
   export import FinancialTransactionListParams = FinancialTransactionsAPI.FinancialTransactionListParams;
