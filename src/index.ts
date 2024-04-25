@@ -405,6 +405,7 @@ export namespace Lithic {
   export import ExternalBankAccountCreateParams = API.ExternalBankAccountCreateParams;
   export import ExternalBankAccountUpdateParams = API.ExternalBankAccountUpdateParams;
   export import ExternalBankAccountListParams = API.ExternalBankAccountListParams;
+  export import ExternalBankAccountRetryMicroDepositsParams = API.ExternalBankAccountRetryMicroDepositsParams;
 
   export import Payments = API.Payments;
   export import Payment = API.Payment;

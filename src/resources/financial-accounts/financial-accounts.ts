@@ -356,6 +356,8 @@ export namespace FinancialAccounts {
   export import FinancialAccountUpdateParams = FinancialAccountsAPI.FinancialAccountUpdateParams;
   export import FinancialAccountListParams = FinancialAccountsAPI.FinancialAccountListParams;
   export import Balances = BalancesAPI.Balances;
+  export import BalanceListResponse = BalancesAPI.BalanceListResponse;
+  export import BalanceListResponsesSinglePage = BalancesAPI.BalanceListResponsesSinglePage;
   export import BalanceListParams = BalancesAPI.BalanceListParams;
   export import FinancialTransactions = FinancialTransactionsAPI.FinancialTransactions;
   export import FinancialTransactionListParams = FinancialTransactionsAPI.FinancialTransactionListParams;
