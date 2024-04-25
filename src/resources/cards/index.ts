@@ -6,7 +6,7 @@ export {
   AggregateBalanceListResponsesSinglePage,
   AggregateBalances,
 } from './aggregate-balances';
-export { BalanceListParams, Balances } from './balances';
+export { BalanceListResponse, BalanceListParams, BalanceListResponsesSinglePage, Balances } from './balances';
 export {
   Card,
   CardSpendLimits,

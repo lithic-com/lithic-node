@@ -102,7 +102,8 @@ export interface MicroDepositCreateResponse {
   doing_business_as?: string;
 
   /**
-   * The financial account token of the operating account used to verify the account
+   * The financial account token of the operating account, which will provide the
+   * funds for micro deposits used to verify the account
    */
   financial_account_token?: string;
 

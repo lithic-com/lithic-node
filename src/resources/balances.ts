@@ -29,7 +29,7 @@ export class Balances extends APIResource {
 export class BalancesSinglePage extends SinglePage<Balance> {}
 
 /**
- * Balance of a Financial Account
+ * Balance
  */
 export interface Balance {
   /**

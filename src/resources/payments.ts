@@ -103,14 +103,14 @@ export namespace Payment {
 
 export interface PaymentCreateResponse extends Payment {
   /**
-   * Balance of a Financial Account
+   * Balance
    */
   balance?: BalancesAPI.Balance;
 }
 
 export interface PaymentRetryResponse extends Payment {
   /**
-   * Balance of a Financial Account
+   * Balance
    */
   balance?: BalancesAPI.Balance;
 }

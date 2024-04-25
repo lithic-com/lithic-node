@@ -154,9 +154,13 @@ Methods:
 
 ## Balances
 
+Types:
+
+- <code><a href="./src/resources/cards/balances.ts">BalanceListResponse</a></code>
+
 Methods:
 
-- <code title="get /cards/{card_token}/balances">client.cards.balances.<a href="./src/resources/cards/balances.ts">list</a>(cardToken, { ...params }) -> BalancesSinglePage</code>
+- <code title="get /cards/{card_token}/balances">client.cards.balances.<a href="./src/resources/cards/balances.ts">list</a>(cardToken, { ...params }) -> BalanceListResponsesSinglePage</code>
 
 ## FinancialTransactions
 
@@ -267,9 +271,13 @@ Methods:
 
 ## Balances
 
+Types:
+
+- <code><a href="./src/resources/financial-accounts/balances.ts">BalanceListResponse</a></code>
+
 Methods:
 
-- <code title="get /financial_accounts/{financial_account_token}/balances">client.financialAccounts.balances.<a href="./src/resources/financial-accounts/balances.ts">list</a>(financialAccountToken, { ...params }) -> BalancesSinglePage</code>
+- <code title="get /financial_accounts/{financial_account_token}/balances">client.financialAccounts.balances.<a href="./src/resources/financial-accounts/balances.ts">list</a>(financialAccountToken, { ...params }) -> BalanceListResponsesSinglePage</code>
 
 ## FinancialTransactions
 
@@ -363,7 +371,7 @@ Methods:
 - <code title="get /external_bank_accounts/{external_bank_account_token}">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">retrieve</a>(externalBankAccountToken) -> ExternalBankAccountRetrieveResponse</code>
 - <code title="patch /external_bank_accounts/{external_bank_account_token}">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">update</a>(externalBankAccountToken, { ...params }) -> ExternalBankAccountUpdateResponse</code>
 - <code title="get /external_bank_accounts">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">list</a>({ ...params }) -> ExternalBankAccountListResponsesCursorPage</code>
-- <code title="post /external_bank_accounts/{external_bank_account_token}/retry_micro_deposits">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">retryMicroDeposits</a>(externalBankAccountToken) -> ExternalBankAccountRetryMicroDepositsResponse</code>
+- <code title="post /external_bank_accounts/{external_bank_account_token}/retry_micro_deposits">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">retryMicroDeposits</a>(externalBankAccountToken, { ...params }) -> ExternalBankAccountRetryMicroDepositsResponse</code>
 
 ## MicroDeposits
 
