@@ -922,6 +922,12 @@ export namespace KYC {
 
 export interface KYCExempt {
   /**
+   * KYC Exempt user's current address - PO boxes, UPS drops, and FedEx drops are not
+   * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+   */
+  address: Shared.Address;
+
+  /**
    * The KYC Exempt user's email
    */
   email: string;
@@ -950,12 +956,6 @@ export interface KYCExempt {
    * Specifies the workflow type. This must be 'KYC_EXEMPT'
    */
   workflow: 'KYC_EXEMPT';
-
-  /**
-   * KYC Exempt user's current address - PO boxes, UPS drops, and FedEx drops are not
-   * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
-   */
-  address?: Shared.Address;
 
   /**
    * Only applicable for customers using the KYC-Exempt workflow to enroll authorized
@@ -1391,6 +1391,12 @@ export namespace AccountHolderCreateParams {
 
   export interface KYCExempt {
     /**
+     * KYC Exempt user's current address - PO boxes, UPS drops, and FedEx drops are not
+     * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+     */
+    address: Shared.Address;
+
+    /**
      * The KYC Exempt user's email
      */
     email: string;
@@ -1419,12 +1425,6 @@ export namespace AccountHolderCreateParams {
      * Specifies the workflow type. This must be 'KYC_EXEMPT'
      */
     workflow: 'KYC_EXEMPT';
-
-    /**
-     * KYC Exempt user's current address - PO boxes, UPS drops, and FedEx drops are not
-     * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
-     */
-    address?: Shared.Address;
 
     /**
      * Only applicable for customers using the KYC-Exempt workflow to enroll authorized
