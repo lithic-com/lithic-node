@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.51.0 (2024-05-02)
+
+Full Changelog: [v0.50.0...v0.51.0](https://github.com/lithic-com/lithic-node/compare/v0.50.0...v0.51.0)
+
+### Features
+
+* **api:** changes to balance-related return types and other API changes ([#386](https://github.com/lithic-com/lithic-node/issues/386)) ([7d8bf1a](https://github.com/lithic-com/lithic-node/commit/7d8bf1a6241c884aea9ee9dddf7f1299788ea381))
+* **api:** updates ([#391](https://github.com/lithic-com/lithic-node/issues/391)) ([c964452](https://github.com/lithic-com/lithic-node/commit/c964452dd3c339e9bf88d3be4f3ba8045146c8eb))
+
+
+### Chores
+
+* **internal:** add scripts/test and scripts/mock ([#387](https://github.com/lithic-com/lithic-node/issues/387)) ([98ca806](https://github.com/lithic-com/lithic-node/commit/98ca8066f1d3f22f504fbc1e842e69b87c2aa529))
+* **internal:** add scripts/test, scripts/mock and add ci job ([#389](https://github.com/lithic-com/lithic-node/issues/389)) ([15735d8](https://github.com/lithic-com/lithic-node/commit/15735d82426a265d01a4a56c7bfb17f2b306a74f))
+* **internal:** forward arguments in scripts/test ([#390](https://github.com/lithic-com/lithic-node/issues/390)) ([56e734f](https://github.com/lithic-com/lithic-node/commit/56e734f1257ad806ba755208b3bb3fab02ebfb54))
+* **internal:** move client class to separate file ([#392](https://github.com/lithic-com/lithic-node/issues/392)) ([0f48e7f](https://github.com/lithic-com/lithic-node/commit/0f48e7f557a8bee54e3ae8016cde8062ec1d1a33))
+* **internal:** refactor scripts ([#388](https://github.com/lithic-com/lithic-node/issues/388)) ([2c5a367](https://github.com/lithic-com/lithic-node/commit/2c5a3679b0d746a0b3a3361810f4cd53a98ba3de))
+* **internal:** use actions/checkout@v4 for codeflow ([#384](https://github.com/lithic-com/lithic-node/issues/384)) ([c40b31d](https://github.com/lithic-com/lithic-node/commit/c40b31d999f7a97b4c0f4326042d1a5a4728b86e))
+
 ## 0.50.0 (2024-04-17)
 
 Full Changelog: [v0.49.0...v0.50.0](https://github.com/lithic-com/lithic-node/compare/v0.49.0...v0.50.0)
