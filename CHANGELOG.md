@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.51.1 (2024-05-03)
+
+Full Changelog: [v0.51.0...v0.51.1](https://github.com/lithic-com/lithic-node/compare/v0.51.0...v0.51.1)
+
+### Bug Fixes
+
+* **package:** revert recent client file change ([#394](https://github.com/lithic-com/lithic-node/issues/394)) ([824bf8d](https://github.com/lithic-com/lithic-node/commit/824bf8d6fb2768c539f47ec953743d0538b5d5c3))
+
 ## 0.51.0 (2024-05-02)
 
 Full Changelog: [v0.50.0...v0.51.0](https://github.com/lithic-com/lithic-node/compare/v0.50.0...v0.51.0)
