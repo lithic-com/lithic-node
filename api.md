@@ -139,6 +139,8 @@ Methods:
 - <code title="post /cards/{card_token}/renew">client.cards.<a href="./src/resources/cards/cards.ts">renew</a>(cardToken, { ...params }) -> Card</code>
 - <code title="get /cards/{card_token}/spend_limits">client.cards.<a href="./src/resources/cards/cards.ts">retrieveSpendLimits</a>(cardToken) -> CardSpendLimits</code>
 - <code title="post /cards/search_by_pan">client.cards.<a href="./src/resources/cards/cards.ts">searchByPan</a>({ ...params }) -> Card</code>
+- <code>client.cards.<a href="./src/resources/cards/cards.ts">getEmbedHTML</a>(...args) -> Promise&lt;string&gt;</code>
+- <code>client.cards.<a href="./src/resources/cards/cards.ts">getEmbedURL</a>(...args) -> string</code>
 
 ## AggregateBalances
 
@@ -206,6 +208,7 @@ Methods:
 - <code title="post /disputes/{dispute_token}/evidences">client.disputes.<a href="./src/resources/disputes.ts">initiateEvidenceUpload</a>(disputeToken, { ...params }) -> DisputeEvidence</code>
 - <code title="get /disputes/{dispute_token}/evidences">client.disputes.<a href="./src/resources/disputes.ts">listEvidences</a>(disputeToken, { ...params }) -> DisputeEvidencesCursorPage</code>
 - <code title="get /disputes/{dispute_token}/evidences/{evidence_token}">client.disputes.<a href="./src/resources/disputes.ts">retrieveEvidence</a>(disputeToken, evidenceToken) -> DisputeEvidence</code>
+- <code>client.disputes.<a href="./src/resources/disputes.ts">uploadEvidence</a>(disputeToken, file, options?) -> Promise&lt;void&gt;</code>
 
 # Events
 
@@ -220,6 +223,7 @@ Methods:
 - <code title="get /events/{event_token}">client.events.<a href="./src/resources/events/events.ts">retrieve</a>(eventToken) -> Event</code>
 - <code title="get /events">client.events.<a href="./src/resources/events/events.ts">list</a>({ ...params }) -> EventsCursorPage</code>
 - <code title="get /events/{event_token}/attempts">client.events.<a href="./src/resources/events/events.ts">listAttempts</a>(eventToken, { ...params }) -> MessageAttemptsCursorPage</code>
+- <code>client.events.<a href="./src/resources/events/events.ts">resend</a>(eventToken, params, options?) -> Promise&lt;void&gt;</code>
 
 ## Subscriptions
 
@@ -340,6 +344,13 @@ Methods:
 - <code title="post /responder_endpoints">client.responderEndpoints.<a href="./src/resources/responder-endpoints.ts">create</a>({ ...params }) -> ResponderEndpointCreateResponse</code>
 - <code title="delete /responder_endpoints">client.responderEndpoints.<a href="./src/resources/responder-endpoints.ts">del</a>({ ...params }) -> void</code>
 - <code title="get /responder_endpoints">client.responderEndpoints.<a href="./src/resources/responder-endpoints.ts">checkStatus</a>({ ...params }) -> ResponderEndpointStatus</code>
+
+# Webhooks
+
+Methods:
+
+- <code>client.webhooks.<a href="./src/resources/webhooks.ts">unwrap</a>(payload, headers, secret) -> Object</code>
+- <code>client.webhooks.<a href="./src/resources/webhooks.ts">verifySignature</a>(body, headers, secret) -> void</code>
 
 # ExternalBankAccounts
 

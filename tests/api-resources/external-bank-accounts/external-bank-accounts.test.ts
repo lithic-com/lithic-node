@@ -11,7 +11,7 @@ const lithic = new Lithic({
 describe('resource externalBankAccounts', () => {
   test('create: only required params', async () => {
     const responsePromise = lithic.externalBankAccounts.create({
-      account_number: '12345678901234567',
+      account_number: 'x',
       country: 'USD',
       currency: 'USD',
       financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -32,7 +32,7 @@ describe('resource externalBankAccounts', () => {
 
   test('create: required and optional params', async () => {
     const response = await lithic.externalBankAccounts.create({
-      account_number: '12345678901234567',
+      account_number: 'x',
       country: 'USD',
       currency: 'USD',
       financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
