@@ -449,7 +449,7 @@ export namespace AuthenticationRetrieveResponse {
      * IP address of the browser as returned by the HTTP headers to the 3DS requestor
      * (e.g., merchant or digital wallet). Maps to EMV 3DS field browserIP.
      */
-    ip?: string | null;
+    ip?: string;
 
     /**
      * Indicates whether the cardholder's browser has the ability to execute Java. Maps

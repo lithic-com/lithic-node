@@ -133,6 +133,16 @@ describe('resource cards', () => {
     const response = await lithic.cards.embed({ embed_request: 'string', hmac: 'string' });
   });
 
+  test('getEmbedHTML', async () => {
+    const html = await lithic.cards.getEmbedHTML({ token: 'foo' });
+    expect(html).toContain('<html>');
+  });
+
+  test('getEmbedURL', async () => {
+    const url = lithic.cards.getEmbedURL({ token: 'foo' });
+    expect(url).toContain('hmac');
+  });
+
   test('provision', async () => {
     const responsePromise = lithic.cards.provision('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
     const rawResponse = await responsePromise.asResponse();

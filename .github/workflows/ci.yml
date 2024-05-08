@@ -11,7 +11,7 @@ jobs:
   lint:
     name: lint
     runs-on: ubuntu-latest
-    if: github.repository == 'lithic-com/lithic-node'
+    
 
     steps:
       - uses: actions/checkout@v4
@@ -28,5 +28,37 @@ jobs:
       - name: Check types
         run: |
           yarn build
+  test:
+    name: test
+    runs-on: ubuntu-latest
 
+    steps:
+      - uses: actions/checkout@v4
 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Bootstrap
+        run: ./scripts/bootstrap
+
+      - name: Run tests
+        run: ./scripts/test
+  examples:
+    name: examples
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        run: |
+          yarn install
+
+      - run: |
+            yarn tsn integrations/pagination.ts
