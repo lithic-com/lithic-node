@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.51.2 (2024-05-10)
+
+Full Changelog: [v0.51.1...v0.51.2](https://github.com/lithic-com/lithic-node/compare/v0.51.1...v0.51.2)
+
+### Bug Fixes
+
+* remove lingering file ([83456da](https://github.com/lithic-com/lithic-node/commit/83456da9127e920b97a3b1648618e4e71017c44e))
+
+
+### Chores
+
+* **docs:** add SECURITY.md ([#400](https://github.com/lithic-com/lithic-node/issues/400)) ([3118c71](https://github.com/lithic-com/lithic-node/commit/3118c71109325a141966c6699f109455592f3237))
+
 ## 0.51.1 (2024-05-03)
 
 Full Changelog: [v0.51.0...v0.51.1](https://github.com/lithic-com/lithic-node/compare/v0.51.0...v0.51.1)
