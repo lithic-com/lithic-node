@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'lithic/core';
-import { APIResource } from 'lithic/resource';
-import * as TokenizationDecisioningAPI from 'lithic/resources/tokenization-decisioning';
+import * as Core from '../core';
+import { APIResource } from '../resource';
+import * as TokenizationDecisioningAPI from './tokenization-decisioning';
 
 export class TokenizationDecisioning extends APIResource {
   /**

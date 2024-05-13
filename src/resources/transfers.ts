@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'lithic/core';
-import { APIResource } from 'lithic/resource';
-import * as TransfersAPI from 'lithic/resources/transfers';
-import * as BalancesAPI from 'lithic/resources/balances';
+import * as Core from '../core';
+import { APIResource } from '../resource';
+import * as TransfersAPI from './transfers';
+import * as BalancesAPI from './balances';
 
 export class Transfers extends APIResource {
   /**
