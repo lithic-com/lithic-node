@@ -1,13 +1,13 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'lithic/core';
-import { APIResource } from 'lithic/resource';
-import { isRequestOptions } from 'lithic/core';
-import * as FinancialAccountsAPI from 'lithic/resources/financial-accounts/financial-accounts';
-import * as BalancesAPI from 'lithic/resources/financial-accounts/balances';
-import * as FinancialTransactionsAPI from 'lithic/resources/financial-accounts/financial-transactions';
-import * as StatementsAPI from 'lithic/resources/financial-accounts/statements/statements';
-import { SinglePage } from 'lithic/pagination';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import * as FinancialAccountsAPI from './financial-accounts';
+import * as BalancesAPI from './balances';
+import * as FinancialTransactionsAPI from './financial-transactions';
+import * as StatementsAPI from './statements/statements';
+import { SinglePage } from '../../pagination';
 
 export class FinancialAccounts extends APIResource {
   balances: BalancesAPI.Balances = new BalancesAPI.Balances(this._client);

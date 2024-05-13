@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'lithic/core';
-import { APIResource } from 'lithic/resource';
-import { isRequestOptions } from 'lithic/core';
-import * as AggregateBalancesAPI from 'lithic/resources/aggregate-balances';
-import { SinglePage } from 'lithic/pagination';
+import * as Core from '../core';
+import { APIResource } from '../resource';
+import { isRequestOptions } from '../core';
+import * as AggregateBalancesAPI from './aggregate-balances';
+import { SinglePage } from '../pagination';
 
 export class AggregateBalances extends APIResource {
   /**

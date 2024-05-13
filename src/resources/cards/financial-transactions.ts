@@ -1,11 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'lithic/core';
-import { APIResource } from 'lithic/resource';
-import { isRequestOptions } from 'lithic/core';
-import * as FinancialTransactionsAPI from 'lithic/resources/cards/financial-transactions';
-import * as FinancialAccountsAPI from 'lithic/resources/financial-accounts/financial-accounts';
-import { FinancialTransactionsSinglePage } from 'lithic/resources/financial-accounts/financial-accounts';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import * as FinancialTransactionsAPI from './financial-transactions';
+import * as FinancialAccountsAPI from '../financial-accounts/financial-accounts';
+import { FinancialTransactionsSinglePage } from '../financial-accounts/financial-accounts';
 
 export class FinancialTransactions extends APIResource {
   /**

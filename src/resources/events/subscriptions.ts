@@ -1,12 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'lithic/core';
-import { APIResource } from 'lithic/resource';
-import { isRequestOptions } from 'lithic/core';
-import * as SubscriptionsAPI from 'lithic/resources/events/subscriptions';
-import * as EventsAPI from 'lithic/resources/events/events';
-import { EventSubscriptionsCursorPage, MessageAttemptsCursorPage } from 'lithic/resources/events/events';
-import { type CursorPageParams } from 'lithic/pagination';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import * as SubscriptionsAPI from './subscriptions';
+import * as EventsAPI from './events';
+import { EventSubscriptionsCursorPage, MessageAttemptsCursorPage } from './events';
+import { type CursorPageParams } from '../../pagination';
 
 export class Subscriptions extends APIResource {
   /**

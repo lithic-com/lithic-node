@@ -1,11 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'lithic/core';
-import { APIResource } from 'lithic/resource';
-import { isRequestOptions } from 'lithic/core';
-import * as AccountHoldersAPI from 'lithic/resources/account-holders';
-import * as Shared from 'lithic/resources/shared';
-import { SinglePage } from 'lithic/pagination';
+import * as Core from '../core';
+import { APIResource } from '../resource';
+import { isRequestOptions } from '../core';
+import * as AccountHoldersAPI from './account-holders';
+import * as Shared from './shared';
+import { SinglePage } from '../pagination';
 
 export class AccountHolders extends APIResource {
   /**

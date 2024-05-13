@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'lithic/core';
-import { APIResource } from 'lithic/resource';
-import * as DecisioningAPI from 'lithic/resources/three-ds/decisioning';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import * as DecisioningAPI from './decisioning';
 
 export class Decisioning extends APIResource {
   /**
