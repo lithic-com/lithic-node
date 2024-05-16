@@ -1,11 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'lithic/core';
-import { APIResource } from 'lithic/resource';
-import { isRequestOptions } from 'lithic/core';
-import * as ExternalBankAccountsAPI from 'lithic/resources/external-bank-accounts/external-bank-accounts';
-import * as MicroDepositsAPI from 'lithic/resources/external-bank-accounts/micro-deposits';
-import { CursorPage, type CursorPageParams } from 'lithic/pagination';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import * as ExternalBankAccountsAPI from './external-bank-accounts';
+import * as MicroDepositsAPI from './micro-deposits';
+import { CursorPage, type CursorPageParams } from '../../pagination';
 
 export class ExternalBankAccounts extends APIResource {
   microDeposits: MicroDepositsAPI.MicroDeposits = new MicroDepositsAPI.MicroDeposits(this._client);

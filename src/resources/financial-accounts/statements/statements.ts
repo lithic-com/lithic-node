@@ -1,11 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'lithic/core';
-import { APIResource } from 'lithic/resource';
-import { isRequestOptions } from 'lithic/core';
-import * as StatementsAPI from 'lithic/resources/financial-accounts/statements/statements';
-import * as LineItemsAPI from 'lithic/resources/financial-accounts/statements/line-items';
-import { CursorPage, type CursorPageParams } from 'lithic/pagination';
+import * as Core from '../../../core';
+import { APIResource } from '../../../resource';
+import { isRequestOptions } from '../../../core';
+import * as StatementsAPI from './statements';
+import * as LineItemsAPI from './line-items';
+import { CursorPage, type CursorPageParams } from '../../../pagination';
 
 export class Statements extends APIResource {
   lineItems: LineItemsAPI.LineItems = new LineItemsAPI.LineItems(this._client);

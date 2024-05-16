@@ -1,15 +1,15 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'lithic/core';
-import { APIResource } from 'lithic/resource';
-import { isRequestOptions } from 'lithic/core';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
 import { createHmac } from 'crypto';
-import * as CardsAPI from 'lithic/resources/cards/cards';
-import * as Shared from 'lithic/resources/shared';
-import * as AggregateBalancesAPI from 'lithic/resources/cards/aggregate-balances';
-import * as BalancesAPI from 'lithic/resources/cards/balances';
-import * as FinancialTransactionsAPI from 'lithic/resources/cards/financial-transactions';
-import { CursorPage, type CursorPageParams } from 'lithic/pagination';
+import * as CardsAPI from './cards';
+import * as Shared from '../shared';
+import * as AggregateBalancesAPI from './aggregate-balances';
+import * as BalancesAPI from './balances';
+import * as FinancialTransactionsAPI from './financial-transactions';
+import { CursorPage, type CursorPageParams } from '../../pagination';
 
 export class Cards extends APIResource {
   aggregateBalances: AggregateBalancesAPI.AggregateBalances = new AggregateBalancesAPI.AggregateBalances(

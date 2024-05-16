@@ -1,12 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'lithic/core';
-import { APIResource } from 'lithic/resource';
-import { isRequestOptions } from 'lithic/core';
-import * as SettlementAPI from 'lithic/resources/reports/settlement';
-import * as ReportsAPI from 'lithic/resources/reports/reports';
-import { SettlementDetailsCursorPage } from 'lithic/resources/reports/reports';
-import { type CursorPageParams } from 'lithic/pagination';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import * as SettlementAPI from './settlement';
+import * as ReportsAPI from './reports';
+import { SettlementDetailsCursorPage } from './reports';
+import { type CursorPageParams } from '../../pagination';
 
 export class Settlement extends APIResource {
   /**
