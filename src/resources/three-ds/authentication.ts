@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'lithic/core';
-import { APIResource } from 'lithic/resource';
-import * as AuthenticationAPI from 'lithic/resources/three-ds/authentication';
+import * as Core from '../../core';
+import { APIResource } from '../../resource';
+import * as AuthenticationAPI from './authentication';
 
 export class Authentication extends APIResource {
   /**

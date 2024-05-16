@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from 'lithic/core';
-import { APIResource } from 'lithic/resource';
-import * as AuthStreamEnrollmentAPI from 'lithic/resources/auth-stream-enrollment';
+import * as Core from '../core';
+import { APIResource } from '../resource';
+import * as AuthStreamEnrollmentAPI from './auth-stream-enrollment';
 
 export class AuthStreamEnrollment extends APIResource {
   /**

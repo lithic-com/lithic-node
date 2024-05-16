@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from 'lithic/resource';
-import * as AuthenticationAPI from 'lithic/resources/three-ds/authentication';
-import * as DecisioningAPI from 'lithic/resources/three-ds/decisioning';
+import { APIResource } from '../../resource';
+import * as AuthenticationAPI from './authentication';
+import * as DecisioningAPI from './decisioning';
 
 export class ThreeDS extends APIResource {
   authentication: AuthenticationAPI.Authentication = new AuthenticationAPI.Authentication(this._client);
