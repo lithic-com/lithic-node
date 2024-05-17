@@ -24,15 +24,15 @@ describe('resource cards', () => {
     const response = await lithic.cards.create({
       type: 'VIRTUAL',
       account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      card_program_token: '00000000-0000-0000-1000-000000000000',
+      card_program_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       carrier: { qr_code_url: 'string' },
-      digital_card_art_token: '00000000-0000-0000-1000-000000000000',
+      digital_card_art_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       exp_month: '06',
       exp_year: '2027',
       memo: 'New Card',
       pin: 'string',
       product_id: '1',
-      replacement_for: '00000000-0000-0000-1000-000000000000',
+      replacement_for: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       shipping_address: {
         address1: '5 Broad Street',
         address2: 'Unit 25A',
