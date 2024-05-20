@@ -26,7 +26,10 @@ export class FinancialAccounts extends APIResource {
     return this._client.post('/financial_accounts', {
       body,
       ...options,
-      headers: { 'Idempotency-Key': idempotencyKey || '', ...options?.headers },
+      headers: {
+        ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined),
+        ...options?.headers,
+      },
     });
   }
 
