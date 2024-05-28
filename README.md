@@ -1,6 +1,6 @@
 # Lithic Node API Library
 
-[![NPM version](https://img.shields.io/npm/v/lithic.svg)](https://npmjs.org/package/lithic)
+[![NPM version](https://img.shields.io/npm/v/lithic.svg)](https://npmjs.org/package/lithic) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/lithic)
 
 This library provides convenient access to the Lithic REST API from server-side TypeScript or JavaScript.
 
