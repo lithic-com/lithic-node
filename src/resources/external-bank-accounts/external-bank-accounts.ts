@@ -93,10 +93,6 @@ export class ExternalBankAccounts extends APIResource {
 
 export class ExternalBankAccountListResponsesCursorPage extends CursorPage<ExternalBankAccountListResponse> {}
 
-/**
- * Address used during Address Verification Service (AVS) checks during
- * transactions if enabled via Auth Rules.
- */
 export interface ExternalBankAccountAddress {
   address1: string;
 
@@ -111,7 +107,7 @@ export interface ExternalBankAccountAddress {
   address2?: string;
 }
 
-export type OwnerType = 'BUSINESS' | 'INDIVIDUAL';
+export type OwnerType = 'INDIVIDUAL' | 'BUSINESS';
 
 export type VerificationMethod = 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE';
 
@@ -153,12 +149,24 @@ export interface ExternalBankAccountCreateResponse {
    */
   owner: string;
 
+  /**
+   * Owner Type
+   */
   owner_type: 'BUSINESS' | 'INDIVIDUAL';
 
+  /**
+   * Routing Number
+   */
   routing_number: string;
 
-  state: 'CLOSED' | 'ENABLED' | 'PAUSED';
+  /**
+   * Account State
+   */
+  state: 'ENABLED' | 'CLOSED' | 'PAUSED';
 
+  /**
+   * Account Type
+   */
   type: 'CHECKING' | 'SAVINGS';
 
   /**
@@ -166,9 +174,15 @@ export interface ExternalBankAccountCreateResponse {
    */
   verification_attempts: number;
 
+  /**
+   * Verification Method
+   */
   verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE';
 
-  verification_state: 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS' | 'PENDING';
+  /**
+   * Verification State
+   */
+  verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS';
 
   /**
    * Indicates which Lithic account the external account is associated with. For
@@ -178,8 +192,7 @@ export interface ExternalBankAccountCreateResponse {
   account_token?: string;
 
   /**
-   * Address used during Address Verification Service (AVS) checks during
-   * transactions if enabled via Auth Rules.
+   * Address
    */
   address?: ExternalBankAccountAddress;
 
@@ -193,11 +206,13 @@ export interface ExternalBankAccountCreateResponse {
    */
   dob?: string;
 
+  /**
+   * Doing Business As
+   */
   doing_business_as?: string;
 
   /**
-   * The financial account token of the operating account, which will provide the
-   * funds for micro deposits used to verify the account
+   * The financial account token of the operating account to fund the micro deposits
    */
   financial_account_token?: string;
 
@@ -206,6 +221,9 @@ export interface ExternalBankAccountCreateResponse {
    */
   name?: string;
 
+  /**
+   * User Defined ID
+   */
   user_defined_id?: string;
 
   /**
@@ -254,12 +272,24 @@ export interface ExternalBankAccountRetrieveResponse {
    */
   owner: string;
 
+  /**
+   * Owner Type
+   */
   owner_type: 'BUSINESS' | 'INDIVIDUAL';
 
+  /**
+   * Routing Number
+   */
   routing_number: string;
 
-  state: 'CLOSED' | 'ENABLED' | 'PAUSED';
+  /**
+   * Account State
+   */
+  state: 'ENABLED' | 'CLOSED' | 'PAUSED';
 
+  /**
+   * Account Type
+   */
   type: 'CHECKING' | 'SAVINGS';
 
   /**
@@ -267,9 +297,15 @@ export interface ExternalBankAccountRetrieveResponse {
    */
   verification_attempts: number;
 
+  /**
+   * Verification Method
+   */
   verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE';
 
-  verification_state: 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS' | 'PENDING';
+  /**
+   * Verification State
+   */
+  verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS';
 
   /**
    * Indicates which Lithic account the external account is associated with. For
@@ -279,8 +315,7 @@ export interface ExternalBankAccountRetrieveResponse {
   account_token?: string;
 
   /**
-   * Address used during Address Verification Service (AVS) checks during
-   * transactions if enabled via Auth Rules.
+   * Address
    */
   address?: ExternalBankAccountAddress;
 
@@ -294,11 +329,13 @@ export interface ExternalBankAccountRetrieveResponse {
    */
   dob?: string;
 
+  /**
+   * Doing Business As
+   */
   doing_business_as?: string;
 
   /**
-   * The financial account token of the operating account, which will provide the
-   * funds for micro deposits used to verify the account
+   * The financial account token of the operating account to fund the micro deposits
    */
   financial_account_token?: string;
 
@@ -307,6 +344,9 @@ export interface ExternalBankAccountRetrieveResponse {
    */
   name?: string;
 
+  /**
+   * User Defined ID
+   */
   user_defined_id?: string;
 
   /**
@@ -355,12 +395,24 @@ export interface ExternalBankAccountUpdateResponse {
    */
   owner: string;
 
+  /**
+   * Owner Type
+   */
   owner_type: 'BUSINESS' | 'INDIVIDUAL';
 
+  /**
+   * Routing Number
+   */
   routing_number: string;
 
-  state: 'CLOSED' | 'ENABLED' | 'PAUSED';
+  /**
+   * Account State
+   */
+  state: 'ENABLED' | 'CLOSED' | 'PAUSED';
 
+  /**
+   * Account Type
+   */
   type: 'CHECKING' | 'SAVINGS';
 
   /**
@@ -368,9 +420,15 @@ export interface ExternalBankAccountUpdateResponse {
    */
   verification_attempts: number;
 
+  /**
+   * Verification Method
+   */
   verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE';
 
-  verification_state: 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS' | 'PENDING';
+  /**
+   * Verification State
+   */
+  verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS';
 
   /**
    * Indicates which Lithic account the external account is associated with. For
@@ -380,8 +438,7 @@ export interface ExternalBankAccountUpdateResponse {
   account_token?: string;
 
   /**
-   * Address used during Address Verification Service (AVS) checks during
-   * transactions if enabled via Auth Rules.
+   * Address
    */
   address?: ExternalBankAccountAddress;
 
@@ -395,11 +452,13 @@ export interface ExternalBankAccountUpdateResponse {
    */
   dob?: string;
 
+  /**
+   * Doing Business As
+   */
   doing_business_as?: string;
 
   /**
-   * The financial account token of the operating account, which will provide the
-   * funds for micro deposits used to verify the account
+   * The financial account token of the operating account to fund the micro deposits
    */
   financial_account_token?: string;
 
@@ -408,6 +467,9 @@ export interface ExternalBankAccountUpdateResponse {
    */
   name?: string;
 
+  /**
+   * User Defined ID
+   */
   user_defined_id?: string;
 
   /**
@@ -456,12 +518,24 @@ export interface ExternalBankAccountListResponse {
    */
   owner: string;
 
+  /**
+   * Owner Type
+   */
   owner_type: 'BUSINESS' | 'INDIVIDUAL';
 
+  /**
+   * Routing Number
+   */
   routing_number: string;
 
-  state: 'CLOSED' | 'ENABLED' | 'PAUSED';
+  /**
+   * Account State
+   */
+  state: 'ENABLED' | 'CLOSED' | 'PAUSED';
 
+  /**
+   * Account Type
+   */
   type: 'CHECKING' | 'SAVINGS';
 
   /**
@@ -469,9 +543,15 @@ export interface ExternalBankAccountListResponse {
    */
   verification_attempts: number;
 
+  /**
+   * Verification Method
+   */
   verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE';
 
-  verification_state: 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS' | 'PENDING';
+  /**
+   * Verification State
+   */
+  verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS';
 
   /**
    * Indicates which Lithic account the external account is associated with. For
@@ -481,8 +561,7 @@ export interface ExternalBankAccountListResponse {
   account_token?: string;
 
   /**
-   * Address used during Address Verification Service (AVS) checks during
-   * transactions if enabled via Auth Rules.
+   * Address
    */
   address?: ExternalBankAccountAddress;
 
@@ -496,11 +575,13 @@ export interface ExternalBankAccountListResponse {
    */
   dob?: string;
 
+  /**
+   * Doing Business As
+   */
   doing_business_as?: string;
 
   /**
-   * The financial account token of the operating account, which will provide the
-   * funds for micro deposits used to verify the account
+   * The financial account token of the operating account to fund the micro deposits
    */
   financial_account_token?: string;
 
@@ -509,6 +590,9 @@ export interface ExternalBankAccountListResponse {
    */
   name?: string;
 
+  /**
+   * User Defined ID
+   */
   user_defined_id?: string;
 
   /**
@@ -557,12 +641,24 @@ export interface ExternalBankAccountRetryMicroDepositsResponse {
    */
   owner: string;
 
+  /**
+   * Owner Type
+   */
   owner_type: 'BUSINESS' | 'INDIVIDUAL';
 
+  /**
+   * Routing Number
+   */
   routing_number: string;
 
-  state: 'CLOSED' | 'ENABLED' | 'PAUSED';
+  /**
+   * Account State
+   */
+  state: 'ENABLED' | 'CLOSED' | 'PAUSED';
 
+  /**
+   * Account Type
+   */
   type: 'CHECKING' | 'SAVINGS';
 
   /**
@@ -570,9 +666,15 @@ export interface ExternalBankAccountRetryMicroDepositsResponse {
    */
   verification_attempts: number;
 
+  /**
+   * Verification Method
+   */
   verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE';
 
-  verification_state: 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS' | 'PENDING';
+  /**
+   * Verification State
+   */
+  verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS';
 
   /**
    * Indicates which Lithic account the external account is associated with. For
@@ -582,8 +684,7 @@ export interface ExternalBankAccountRetryMicroDepositsResponse {
   account_token?: string;
 
   /**
-   * Address used during Address Verification Service (AVS) checks during
-   * transactions if enabled via Auth Rules.
+   * Address
    */
   address?: ExternalBankAccountAddress;
 
@@ -597,11 +698,13 @@ export interface ExternalBankAccountRetryMicroDepositsResponse {
    */
   dob?: string;
 
+  /**
+   * Doing Business As
+   */
   doing_business_as?: string;
 
   /**
-   * The financial account token of the operating account, which will provide the
-   * funds for micro deposits used to verify the account
+   * The financial account token of the operating account to fund the micro deposits
    */
   financial_account_token?: string;
 
@@ -610,6 +713,9 @@ export interface ExternalBankAccountRetryMicroDepositsResponse {
    */
   name?: string;
 
+  /**
+   * User Defined ID
+   */
   user_defined_id?: string;
 
   /**
@@ -626,36 +732,63 @@ export type ExternalBankAccountCreateParams =
 
 export namespace ExternalBankAccountCreateParams {
   export interface BankVerifiedCreateBankAccountAPIRequest {
+    /**
+     * Routing Number
+     */
     account_number: string;
 
+    /**
+     * The country that the bank account is located in using ISO 3166-1. We will only
+     * accept USA bank accounts e.g., USA
+     */
     country: string;
 
+    /**
+     * currency of the external account 3-digit alphabetic ISO 4217 code
+     */
     currency: string;
 
     /**
-     * The financial account token of the operating account, which will provide the
-     * funds for micro deposits used to verify the account
+     * Legal Name of the business or individual who owns the external account. This
+     * will appear in statements
      */
-    financial_account_token: string;
-
     owner: string;
 
+    /**
+     * Owner Type
+     */
     owner_type: OwnerType;
 
+    /**
+     * Routing Number
+     */
     routing_number: string;
 
+    /**
+     * Account Type
+     */
     type: 'CHECKING' | 'SAVINGS';
 
+    /**
+     * Verification Method
+     */
     verification_method: VerificationMethod;
 
+    /**
+     * Indicates which Lithic account the external account is associated with. For
+     * external accounts that are associated with the program, account_token field
+     * returned will be null
+     */
     account_token?: string;
 
     /**
-     * Address used during Address Verification Service (AVS) checks during
-     * transactions if enabled via Auth Rules.
+     * Address
      */
     address?: ExternalBankAccountAddress;
 
+    /**
+     * Optional field that helps identify bank accounts in receipts
+     */
     company_id?: string;
 
     /**
@@ -663,32 +796,58 @@ export namespace ExternalBankAccountCreateParams {
      */
     dob?: string;
 
+    /**
+     * Doing Business As
+     */
     doing_business_as?: string;
 
-    name?: string;
-
-    user_defined_id?: string;
+    /**
+     * The financial account token of the operating account to fund the micro deposits
+     */
+    financial_account_token?: string;
 
     /**
-     * Indicates whether verification was enforced for a given association record. For
-     * MICRO_DEPOSIT, option to disable verification if the external bank account has
-     * already been verified before. By default, verification will be required unless
-     * users pass in a value of false
+     * The nickname given to this record of External Bank Account
      */
+    name?: string;
+
+    /**
+     * User Defined ID
+     */
+    user_defined_id?: string;
+
     verification_enforcement?: boolean;
   }
 
   export interface PlaidCreateBankAccountAPIRequest {
+    /**
+     * Legal Name of the business or individual who owns the external account. This
+     * will appear in statements
+     */
     owner: string;
 
+    /**
+     * Owner Type
+     */
     owner_type: OwnerType;
 
     processor_token: string;
 
+    /**
+     * Verification Method
+     */
     verification_method: VerificationMethod;
 
+    /**
+     * Indicates which Lithic account the external account is associated with. For
+     * external accounts that are associated with the program, account_token field
+     * returned will be null
+     */
     account_token?: string;
 
+    /**
+     * Optional field that helps identify bank accounts in receipts
+     */
     company_id?: string;
 
     /**
@@ -696,19 +855,27 @@ export namespace ExternalBankAccountCreateParams {
      */
     dob?: string;
 
+    /**
+     * Doing Business As
+     */
     doing_business_as?: string;
 
+    /**
+     * User Defined ID
+     */
     user_defined_id?: string;
   }
 }
 
 export interface ExternalBankAccountUpdateParams {
   /**
-   * Address used during Address Verification Service (AVS) checks during
-   * transactions if enabled via Auth Rules.
+   * Address
    */
   address?: ExternalBankAccountAddress;
 
+  /**
+   * Optional field that helps identify bank accounts in receipts
+   */
   company_id?: string;
 
   /**
@@ -716,14 +883,30 @@ export interface ExternalBankAccountUpdateParams {
    */
   dob?: string;
 
+  /**
+   * Doing Business As
+   */
   doing_business_as?: string;
 
+  /**
+   * The nickname given to this record of External Bank Account
+   */
   name?: string;
 
+  /**
+   * Legal Name of the business or individual who owns the external account. This
+   * will appear in statements
+   */
   owner?: string;
 
+  /**
+   * Owner Type
+   */
   owner_type?: OwnerType;
 
+  /**
+   * User Defined ID
+   */
   user_defined_id?: string;
 }
 
@@ -736,16 +919,12 @@ export interface ExternalBankAccountListParams extends CursorPageParams {
 
   owner_types?: Array<OwnerType>;
 
-  states?: Array<'CLOSED' | 'ENABLED' | 'PAUSED'>;
+  states?: Array<'ENABLED' | 'CLOSED' | 'PAUSED'>;
 
-  verification_states?: Array<'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS' | 'PENDING'>;
+  verification_states?: Array<'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'>;
 }
 
 export interface ExternalBankAccountRetryMicroDepositsParams {
-  /**
-   * The financial account token of the operating account, which will provide the
-   * funds for micro deposits used to verify the account
-   */
   financial_account_token?: string;
 }
 
