@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.52.0 (2024-05-29)
+
+Full Changelog: [v0.51.2...v0.52.0](https://github.com/lithic-com/lithic-node/compare/v0.51.2...v0.52.0)
+
+### Features
+
+* **api:** updates ([#409](https://github.com/lithic-com/lithic-node/issues/409)) ([c64e290](https://github.com/lithic-com/lithic-node/commit/c64e290623a68474a8a6cec7e9f10c5536237170))
+
+
+### Chores
+
+* **client:** update unset params headers handling ([#407](https://github.com/lithic-com/lithic-node/issues/407)) ([76d6a54](https://github.com/lithic-com/lithic-node/commit/76d6a547106fe01c10d3d4a66efb4665c2aa89ee))
+* **internal:** add slightly better logging to scripts ([#404](https://github.com/lithic-com/lithic-node/issues/404)) ([6248367](https://github.com/lithic-com/lithic-node/commit/6248367255670d47247334e0ae81303a4542b6df))
+* **tests:** update some example values ([#406](https://github.com/lithic-com/lithic-node/issues/406)) ([d636a76](https://github.com/lithic-com/lithic-node/commit/d636a7646d4a0c0d58bd4d2f47fa3dad08ef6a76))
+
+
+### Documentation
+
+* **readme:** add bundle size badge ([#408](https://github.com/lithic-com/lithic-node/issues/408)) ([4838c01](https://github.com/lithic-com/lithic-node/commit/4838c018a772ee0d7bc9a105a2cc29468c77403c))
+
+
+### Refactors
+
+* change import paths to be relative ([#402](https://github.com/lithic-com/lithic-node/issues/402)) ([d36de3d](https://github.com/lithic-com/lithic-node/commit/d36de3d99c628269897d735d90db6e9c5d4c8483))
+
 ## 0.51.2 (2024-05-10)
 
 Full Changelog: [v0.51.1...v0.51.2](https://github.com/lithic-com/lithic-node/compare/v0.51.1...v0.51.2)
