@@ -390,6 +390,8 @@ Types:
 - <code><a href="./src/resources/payments.ts">Payment</a></code>
 - <code><a href="./src/resources/payments.ts">PaymentCreateResponse</a></code>
 - <code><a href="./src/resources/payments.ts">PaymentRetryResponse</a></code>
+- <code><a href="./src/resources/payments.ts">PaymentSimulateActionResponse</a></code>
+- <code><a href="./src/resources/payments.ts">PaymentSimulateReceiptResponse</a></code>
 - <code><a href="./src/resources/payments.ts">PaymentSimulateReleaseResponse</a></code>
 - <code><a href="./src/resources/payments.ts">PaymentSimulateReturnResponse</a></code>
 
@@ -399,6 +401,8 @@ Methods:
 - <code title="get /payments/{payment_token}">client.payments.<a href="./src/resources/payments.ts">retrieve</a>(paymentToken) -> Payment</code>
 - <code title="get /payments">client.payments.<a href="./src/resources/payments.ts">list</a>({ ...params }) -> PaymentsCursorPage</code>
 - <code title="post /payments/{payment_token}/retry">client.payments.<a href="./src/resources/payments.ts">retry</a>(paymentToken) -> PaymentRetryResponse</code>
+- <code title="post /simulate/payments/{payment_token}/action">client.payments.<a href="./src/resources/payments.ts">simulateAction</a>(paymentToken, { ...params }) -> PaymentSimulateActionResponse</code>
+- <code title="post /simulate/payments/receipt">client.payments.<a href="./src/resources/payments.ts">simulateReceipt</a>({ ...params }) -> PaymentSimulateReceiptResponse</code>
 - <code title="post /simulate/payments/release">client.payments.<a href="./src/resources/payments.ts">simulateRelease</a>({ ...params }) -> PaymentSimulateReleaseResponse</code>
 - <code title="post /simulate/payments/return">client.payments.<a href="./src/resources/payments.ts">simulateReturn</a>({ ...params }) -> PaymentSimulateReturnResponse</code>
 

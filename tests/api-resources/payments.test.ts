@@ -126,6 +126,53 @@ describe('resource payments', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
+  test('simulateAction: only required params', async () => {
+    const responsePromise = lithic.payments.simulateAction('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      event_type: 'ACH_ORIGINATION_REVIEWED',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('simulateAction: required and optional params', async () => {
+    const response = await lithic.payments.simulateAction('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      event_type: 'ACH_ORIGINATION_REVIEWED',
+      decline_reason: 'PROGRAM_TRANSACTION_LIMITS_EXCEEDED',
+      return_reason_code: 'string',
+    });
+  });
+
+  test('simulateReceipt: only required params', async () => {
+    const responsePromise = lithic.payments.simulateReceipt({
+      token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      amount: 0,
+      financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      receipt_type: 'RECEIPT_CREDIT',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('simulateReceipt: required and optional params', async () => {
+    const response = await lithic.payments.simulateReceipt({
+      token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      amount: 0,
+      financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      receipt_type: 'RECEIPT_CREDIT',
+      memo: 'string',
+    });
+  });
+
   test('simulateRelease: only required params', async () => {
     const responsePromise = lithic.payments.simulateRelease({
       payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -161,7 +208,7 @@ describe('resource payments', () => {
   test('simulateReturn: required and optional params', async () => {
     const response = await lithic.payments.simulateReturn({
       payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      return_reason_code: 'string',
+      return_reason_code: 'R12',
     });
   });
 });
