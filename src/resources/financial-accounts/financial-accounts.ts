@@ -224,6 +224,18 @@ export namespace FinancialTransaction {
     created?: string;
 
     /**
+     * More detailed reasons for the event
+     */
+    detailed_results?: Array<
+      | 'APPROVED'
+      | 'INSUFFICIENT_FUNDS'
+      | 'INVALID_ACCOUNT'
+      | 'PROGRAM_TRANSACTION_LIMITS_EXCEEDED'
+      | 'PROGRAM_DAILY_LIMITS_EXCEEDED'
+      | 'PROGRAM_MONTHLY_LIMITS_EXCEEDED'
+    >;
+
+    /**
      * APPROVED financial events were successful while DECLINED financial events were
      * declined by user, Lithic, or the network.
      */
@@ -232,23 +244,22 @@ export namespace FinancialTransaction {
     /**
      * Event types:
      *
-     * - `ACH_INSUFFICIENT_FUNDS` - Attempted ACH origination declined due to
-     *   insufficient balance.
-     * - `ACH_ORIGINATION_PENDING` - ACH origination received and pending
+     * - `ACH_ORIGINATION_INITIATED` - ACH origination received and pending
      *   approval/release from an ACH hold.
-     * - `ACH_ORIGINATION_APPROVED` - ACH origination has been approved and pending
-     *   processing.
-     * - `ACH_ORIGINATION_DECLINED` - ACH origination has been declined.
+     * - `ACH_ORIGINATION_REVIEWED` - ACH origination has completed the review process.
      * - `ACH_ORIGINATION_CANCELLED` - ACH origination has been cancelled.
-     * - `ACH_ORIGINATION_PROCESSED` - ACH origination has been processed.
+     * - `ACH_ORIGINATION_PROCESSED` - ACH origination has been processed and sent to
+     *   the fed.
      * - `ACH_ORIGINATION_SETTLED` - ACH origination has settled.
      * - `ACH_ORIGINATION_RELEASED` - ACH origination released from pending to
      *   available balance.
-     * - `ACH_RECEIPT_PENDING` - ACH receipt pending release from an ACH holder.
+     * - `ACH_RETURN_PROCESSED` - ACH origination returned by the Receiving Depository
+     *   Financial Institution.
+     * - `ACH_RECEIPT_PROCESSED` - ACH receipt pending release from an ACH holder.
+     * - `ACH_RETURN_INITIATED` - ACH initiated return for a ACH receipt.
+     * - `ACH_RECEIPT_SETTLED` - ACH receipt funds have settled.
      * - `ACH_RECEIPT_RELEASED` - ACH receipt released from pending to available
      *   balance.
-     * - `ACH_RETURN` - ACH origination returned by the Receiving Depository Financial
-     *   Institution.
      * - `AUTHORIZATION` - Authorize a card transaction.
      * - `AUTHORIZATION_ADVICE` - Advice on a card transaction.
      * - `AUTHORIZATION_EXPIRY` - Card Authorization has expired and reversed by
@@ -275,20 +286,16 @@ export namespace FinancialTransaction {
      *   insufficient balance of the sender.
      */
     type?:
-      | 'ACH_EXCEEDED_THRESHOLD'
-      | 'ACH_INSUFFICIENT_FUNDS'
-      | 'ACH_INVALID_ACCOUNT'
-      | 'ACH_ORIGINATION_PENDING'
-      | 'ACH_ORIGINATION_APPROVED'
-      | 'ACH_ORIGINATION_DECLINED'
       | 'ACH_ORIGINATION_CANCELLED'
+      | 'ACH_ORIGINATION_INITIATED'
       | 'ACH_ORIGINATION_PROCESSED'
       | 'ACH_ORIGINATION_SETTLED'
       | 'ACH_ORIGINATION_RELEASED'
-      | 'ACH_RECEIPT_PENDING'
-      | 'ACH_RECEIPT_RELEASED'
-      | 'ACH_RETURN'
-      | 'ACH_RETURN_PENDING'
+      | 'ACH_ORIGINATION_REVIEWED'
+      | 'ACH_RECEIPT_PROCESSED'
+      | 'ACH_RECEIPT_SETTLED'
+      | 'ACH_RETURN_INITIATED'
+      | 'ACH_RETURN_PROCESSED'
       | 'AUTHORIZATION'
       | 'AUTHORIZATION_ADVICE'
       | 'AUTHORIZATION_EXPIRY'

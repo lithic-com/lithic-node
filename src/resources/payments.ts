@@ -49,6 +49,27 @@ export class Payments extends APIResource {
   }
 
   /**
+   * Simulate payment lifecycle event
+   */
+  simulateAction(
+    paymentToken: string,
+    body: PaymentSimulateActionParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<PaymentSimulateActionResponse> {
+    return this._client.post(`/simulate/payments/${paymentToken}/action`, { body, ...options });
+  }
+
+  /**
+   * Simulates a receipt of a Payment.
+   */
+  simulateReceipt(
+    body: PaymentSimulateReceiptParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<PaymentSimulateReceiptResponse> {
+    return this._client.post('/simulate/payments/receipt', { body, ...options });
+  }
+
+  /**
    * Simulates a release of a Payment.
    */
   simulateRelease(
@@ -115,20 +136,72 @@ export interface PaymentRetryResponse extends Payment {
   balance?: BalancesAPI.Balance;
 }
 
+export interface PaymentSimulateActionResponse {
+  /**
+   * Debugging Request Id
+   */
+  debugging_request_id: string;
+
+  /**
+   * Request Result
+   */
+  result: 'APPROVED' | 'DECLINED';
+
+  /**
+   * Transaction Event Token
+   */
+  transaction_event_token: string;
+}
+
+export interface PaymentSimulateReceiptResponse {
+  /**
+   * Debugging Request Id
+   */
+  debugging_request_id: string;
+
+  /**
+   * Request Result
+   */
+  result: 'APPROVED' | 'DECLINED';
+
+  /**
+   * Transaction Event Token
+   */
+  transaction_event_token: string;
+}
+
 export interface PaymentSimulateReleaseResponse {
-  debugging_request_id?: string;
+  /**
+   * Debugging Request Id
+   */
+  debugging_request_id: string;
 
-  result?: 'APPROVED' | 'DECLINED';
+  /**
+   * Request Result
+   */
+  result: 'APPROVED' | 'DECLINED';
 
-  transaction_event_token?: string;
+  /**
+   * Transaction Event Token
+   */
+  transaction_event_token: string;
 }
 
 export interface PaymentSimulateReturnResponse {
-  debugging_request_id?: string;
+  /**
+   * Debugging Request Id
+   */
+  debugging_request_id: string;
 
-  result?: 'APPROVED' | 'DECLINED';
+  /**
+   * Request Result
+   */
+  result: 'APPROVED' | 'DECLINED';
 
-  transaction_event_token?: string;
+  /**
+   * Transaction Event Token
+   */
+  transaction_event_token: string;
 }
 
 export interface PaymentCreateParams {
@@ -189,13 +262,76 @@ export interface PaymentListParams extends CursorPageParams {
   status?: 'DECLINED' | 'PENDING' | 'RETURNED' | 'SETTLED';
 }
 
+export interface PaymentSimulateActionParams {
+  /**
+   * Event Type
+   */
+  event_type:
+    | 'ACH_ORIGINATION_REVIEWED'
+    | 'ACH_ORIGINATION_RELEASED'
+    | 'ACH_ORIGINATION_PROCESSED'
+    | 'ACH_ORIGINATION_SETTLED'
+    | 'ACH_RECEIPT_SETTLED'
+    | 'ACH_RETURN_INITIATED'
+    | 'ACH_RETURN_PROCESSED';
+
+  /**
+   * Decline reason
+   */
+  decline_reason?:
+    | 'PROGRAM_TRANSACTION_LIMITS_EXCEEDED'
+    | 'PROGRAM_DAILY_LIMITS_EXCEEDED'
+    | 'PROGRAM_MONTHLY_LIMITS_EXCEEDED';
+
+  /**
+   * Return Reason Code
+   */
+  return_reason_code?: string;
+}
+
+export interface PaymentSimulateReceiptParams {
+  /**
+   * Payment token
+   */
+  token: string;
+
+  /**
+   * Amount
+   */
+  amount: number;
+
+  /**
+   * Financial Account Token
+   */
+  financial_account_token: string;
+
+  /**
+   * Receipt Type
+   */
+  receipt_type: 'RECEIPT_CREDIT' | 'RECEIPT_DEBIT';
+
+  /**
+   * Memo
+   */
+  memo?: string;
+}
+
 export interface PaymentSimulateReleaseParams {
+  /**
+   * Payment Token
+   */
   payment_token: string;
 }
 
 export interface PaymentSimulateReturnParams {
+  /**
+   * Payment Token
+   */
   payment_token: string;
 
+  /**
+   * Return Reason Code
+   */
   return_reason_code?: string;
 }
 
@@ -203,11 +339,15 @@ export namespace Payments {
   export import Payment = PaymentsAPI.Payment;
   export import PaymentCreateResponse = PaymentsAPI.PaymentCreateResponse;
   export import PaymentRetryResponse = PaymentsAPI.PaymentRetryResponse;
+  export import PaymentSimulateActionResponse = PaymentsAPI.PaymentSimulateActionResponse;
+  export import PaymentSimulateReceiptResponse = PaymentsAPI.PaymentSimulateReceiptResponse;
   export import PaymentSimulateReleaseResponse = PaymentsAPI.PaymentSimulateReleaseResponse;
   export import PaymentSimulateReturnResponse = PaymentsAPI.PaymentSimulateReturnResponse;
   export import PaymentsCursorPage = PaymentsAPI.PaymentsCursorPage;
   export import PaymentCreateParams = PaymentsAPI.PaymentCreateParams;
   export import PaymentListParams = PaymentsAPI.PaymentListParams;
+  export import PaymentSimulateActionParams = PaymentsAPI.PaymentSimulateActionParams;
+  export import PaymentSimulateReceiptParams = PaymentsAPI.PaymentSimulateReceiptParams;
   export import PaymentSimulateReleaseParams = PaymentsAPI.PaymentSimulateReleaseParams;
   export import PaymentSimulateReturnParams = PaymentsAPI.PaymentSimulateReturnParams;
 }
