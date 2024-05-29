@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.53.0 (2024-05-29)
+
+Full Changelog: [v0.52.0...v0.53.0](https://github.com/lithic-com/lithic-node/compare/v0.52.0...v0.53.0)
+
+### Features
+
+* **api:** add simulate_receipt and simulate_action endpoints ([#410](https://github.com/lithic-com/lithic-node/issues/410)) ([80cf1d6](https://github.com/lithic-com/lithic-node/commit/80cf1d6b1c940690af18d6060998d74534baf0e7))
+
 ## 0.52.0 (2024-05-29)
 
 Full Changelog: [v0.51.2...v0.52.0](https://github.com/lithic-com/lithic-node/compare/v0.51.2...v0.52.0)
