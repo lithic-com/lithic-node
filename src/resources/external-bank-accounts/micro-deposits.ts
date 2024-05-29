@@ -59,12 +59,24 @@ export interface MicroDepositCreateResponse {
    */
   owner: string;
 
+  /**
+   * Owner Type
+   */
   owner_type: 'BUSINESS' | 'INDIVIDUAL';
 
+  /**
+   * Routing Number
+   */
   routing_number: string;
 
-  state: 'CLOSED' | 'ENABLED' | 'PAUSED';
+  /**
+   * Account State
+   */
+  state: 'ENABLED' | 'CLOSED' | 'PAUSED';
 
+  /**
+   * Account Type
+   */
   type: 'CHECKING' | 'SAVINGS';
 
   /**
@@ -72,9 +84,15 @@ export interface MicroDepositCreateResponse {
    */
   verification_attempts: number;
 
+  /**
+   * Verification Method
+   */
   verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE';
 
-  verification_state: 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS' | 'PENDING';
+  /**
+   * Verification State
+   */
+  verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS';
 
   /**
    * Indicates which Lithic account the external account is associated with. For
@@ -84,8 +102,7 @@ export interface MicroDepositCreateResponse {
   account_token?: string;
 
   /**
-   * Address used during Address Verification Service (AVS) checks during
-   * transactions if enabled via Auth Rules.
+   * Address
    */
   address?: ExternalBankAccountsAPI.ExternalBankAccountAddress;
 
@@ -99,11 +116,13 @@ export interface MicroDepositCreateResponse {
    */
   dob?: string;
 
+  /**
+   * Doing Business As
+   */
   doing_business_as?: string;
 
   /**
-   * The financial account token of the operating account, which will provide the
-   * funds for micro deposits used to verify the account
+   * The financial account token of the operating account to fund the micro deposits
    */
   financial_account_token?: string;
 
@@ -112,6 +131,9 @@ export interface MicroDepositCreateResponse {
    */
   name?: string;
 
+  /**
+   * User Defined ID
+   */
   user_defined_id?: string;
 
   /**
