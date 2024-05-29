@@ -595,9 +595,9 @@ export interface KYB {
   beneficial_owner_entities: Array<KYB.BeneficialOwnerEntity>;
 
   /**
-   * List of all individuals with >25% ownership in the company. If no entity or
-   * individual owns >25% of the company, and the largest shareholder is an
-   * individual, please identify them in this field. See
+   * List of all direct and indirect individuals with >25% ownership in the company.
+   * If no entity or individual owns >25% of the company, and the largest shareholder
+   * is an individual, please identify them in this field. See
    * [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf)
    * (Section I) for more background on individuals that should be included. If no
    * individual is an entity, pass in an empty list. However, either this parameter
@@ -1064,9 +1064,9 @@ export namespace AccountHolderCreateParams {
     beneficial_owner_entities: Array<AccountHolderCreateParams.KYB.BeneficialOwnerEntity>;
 
     /**
-     * List of all individuals with >25% ownership in the company. If no entity or
-     * individual owns >25% of the company, and the largest shareholder is an
-     * individual, please identify them in this field. See
+     * List of all direct and indirect individuals with >25% ownership in the company.
+     * If no entity or individual owns >25% of the company, and the largest shareholder
+     * is an individual, please identify them in this field. See
      * [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf)
      * (Section I) for more background on individuals that should be included. If no
      * individual is an entity, pass in an empty list. However, either this parameter
