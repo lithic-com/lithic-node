@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.54.0 (2024-05-30)
+
+Full Changelog: [v0.53.0...v0.54.0](https://github.com/lithic-com/lithic-node/compare/v0.53.0...v0.54.0)
+
+### Features
+
+* **api:** update detailed_results enum values ([#412](https://github.com/lithic-com/lithic-node/issues/412)) ([80f89e0](https://github.com/lithic-com/lithic-node/commit/80f89e054d1573bc20595f986dc765a32220aab1))
+
 ## 0.53.0 (2024-05-29)
 
 Full Changelog: [v0.52.0...v0.53.0](https://github.com/lithic-com/lithic-node/compare/v0.52.0...v0.53.0)
