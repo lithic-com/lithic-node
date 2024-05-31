@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.54.1 (2024-05-31)
+
+Full Changelog: [v0.54.0...v0.54.1](https://github.com/lithic-com/lithic-node/compare/v0.54.0...v0.54.1)
+
+### Bug Fixes
+
+* allow git imports for pnpm ([#414](https://github.com/lithic-com/lithic-node/issues/414)) ([0676f77](https://github.com/lithic-com/lithic-node/commit/0676f77d8f7cf8a084790ba08e7c8be770a9a38f))
+
 ## 0.54.0 (2024-05-30)
 
 Full Changelog: [v0.53.0...v0.54.0](https://github.com/lithic-com/lithic-node/compare/v0.53.0...v0.54.0)
