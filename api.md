@@ -20,23 +20,16 @@ Types:
 
 Types:
 
-- <code><a href="./src/resources/accounts/accounts.ts">Account</a></code>
-- <code><a href="./src/resources/accounts/accounts.ts">AccountSpendLimits</a></code>
-- <code><a href="./src/resources/accounts/accounts.ts">BusinessAccount</a></code>
+- <code><a href="./src/resources/accounts.ts">Account</a></code>
+- <code><a href="./src/resources/accounts.ts">AccountSpendLimits</a></code>
+- <code><a href="./src/resources/accounts.ts">BusinessAccount</a></code>
 
 Methods:
 
-- <code title="get /accounts/{account_token}">client.accounts.<a href="./src/resources/accounts/accounts.ts">retrieve</a>(accountToken) -> Account</code>
-- <code title="patch /accounts/{account_token}">client.accounts.<a href="./src/resources/accounts/accounts.ts">update</a>(accountToken, { ...params }) -> Account</code>
-- <code title="get /accounts">client.accounts.<a href="./src/resources/accounts/accounts.ts">list</a>({ ...params }) -> AccountsCursorPage</code>
-- <code title="get /accounts/{account_token}/spend_limits">client.accounts.<a href="./src/resources/accounts/accounts.ts">retrieveSpendLimits</a>(accountToken) -> AccountSpendLimits</code>
-
-## CreditConfigurations
-
-Methods:
-
-- <code title="get /accounts/{account_token}/credit_configuration">client.accounts.creditConfigurations.<a href="./src/resources/accounts/credit-configurations.ts">retrieve</a>(accountToken) -> BusinessAccount</code>
-- <code title="patch /accounts/{account_token}/credit_configuration">client.accounts.creditConfigurations.<a href="./src/resources/accounts/credit-configurations.ts">update</a>(accountToken, { ...params }) -> BusinessAccount</code>
+- <code title="get /accounts/{account_token}">client.accounts.<a href="./src/resources/accounts.ts">retrieve</a>(accountToken) -> Account</code>
+- <code title="patch /accounts/{account_token}">client.accounts.<a href="./src/resources/accounts.ts">update</a>(accountToken, { ...params }) -> Account</code>
+- <code title="get /accounts">client.accounts.<a href="./src/resources/accounts.ts">list</a>({ ...params }) -> AccountsCursorPage</code>
+- <code title="get /accounts/{account_token}/spend_limits">client.accounts.<a href="./src/resources/accounts.ts">retrieveSpendLimits</a>(accountToken) -> AccountSpendLimits</code>
 
 # AccountHolders
 
@@ -282,27 +275,6 @@ Methods:
 - <code title="get /financial_accounts/{financial_account_token}/financial_transactions/{financial_transaction_token}">client.financialAccounts.financialTransactions.<a href="./src/resources/financial-accounts/financial-transactions.ts">retrieve</a>(financialAccountToken, financialTransactionToken) -> FinancialTransaction</code>
 - <code title="get /financial_accounts/{financial_account_token}/financial_transactions">client.financialAccounts.financialTransactions.<a href="./src/resources/financial-accounts/financial-transactions.ts">list</a>(financialAccountToken, { ...params }) -> FinancialTransactionsSinglePage</code>
 
-## Statements
-
-Types:
-
-- <code><a href="./src/resources/financial-accounts/statements/statements.ts">Statement</a></code>
-
-Methods:
-
-- <code title="get /financial_accounts/{financial_account_token}/statements/{statement_token}">client.financialAccounts.statements.<a href="./src/resources/financial-accounts/statements/statements.ts">retrieve</a>(financialAccountToken, statementToken) -> Statement</code>
-- <code title="get /financial_accounts/{financial_account_token}/statements">client.financialAccounts.statements.<a href="./src/resources/financial-accounts/statements/statements.ts">list</a>(financialAccountToken, { ...params }) -> StatementsCursorPage</code>
-
-### LineItems
-
-Types:
-
-- <code><a href="./src/resources/financial-accounts/statements/line-items.ts">LineItemListResponse</a></code>
-
-Methods:
-
-- <code title="get /financial_accounts/{financial_account_token}/statements/{statement_token}/line_items">client.financialAccounts.statements.lineItems.<a href="./src/resources/financial-accounts/statements/line-items.ts">list</a>(financialAccountToken, statementToken, { ...params }) -> LineItemListResponsesCursorPage</code>
-
 # Transactions
 
 Types:
@@ -353,6 +325,7 @@ Types:
 - <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">ExternalBankAccountUpdateResponse</a></code>
 - <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">ExternalBankAccountListResponse</a></code>
 - <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">ExternalBankAccountRetryMicroDepositsResponse</a></code>
+- <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">ExternalBankAccountRetryPrenoteResponse</a></code>
 
 Methods:
 
@@ -361,6 +334,7 @@ Methods:
 - <code title="patch /external_bank_accounts/{external_bank_account_token}">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">update</a>(externalBankAccountToken, { ...params }) -> ExternalBankAccountUpdateResponse</code>
 - <code title="get /external_bank_accounts">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">list</a>({ ...params }) -> ExternalBankAccountListResponsesCursorPage</code>
 - <code title="post /external_bank_accounts/{external_bank_account_token}/retry_micro_deposits">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">retryMicroDeposits</a>(externalBankAccountToken, { ...params }) -> ExternalBankAccountRetryMicroDepositsResponse</code>
+- <code title="post /external_bank_accounts/{external_bank_account_token}/retry_prenote">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">retryPrenote</a>(externalBankAccountToken, { ...params }) -> ExternalBankAccountRetryPrenoteResponse</code>
 
 ## MicroDeposits
 
@@ -434,16 +408,6 @@ Methods:
 
 - <code title="get /reports/settlement/details/{report_date}">client.reports.settlement.<a href="./src/resources/reports/settlement.ts">listDetails</a>(reportDate, { ...params }) -> SettlementDetailsCursorPage</code>
 - <code title="get /reports/settlement/summary/{report_date}">client.reports.settlement.<a href="./src/resources/reports/settlement.ts">summary</a>(reportDate) -> SettlementReport</code>
-
-# CardProduct
-
-Types:
-
-- <code><a href="./src/resources/card-product.ts">CardProductCreditDetailResponse</a></code>
-
-Methods:
-
-- <code title="get /card_product/credit_detail">client.cardProduct.<a href="./src/resources/card-product.ts">creditDetail</a>() -> CardProductCreditDetailResponse</code>
 
 # CardPrograms
 

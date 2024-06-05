@@ -1,16 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from '../../core';
-import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
+import * as Core from '../core';
+import { APIResource } from '../resource';
+import { isRequestOptions } from '../core';
 import * as AccountsAPI from './accounts';
-import * as CreditConfigurationsAPI from './credit-configurations';
-import { CursorPage, type CursorPageParams } from '../../pagination';
+import { CursorPage, type CursorPageParams } from '../pagination';
 
 export class Accounts extends APIResource {
-  creditConfigurations: CreditConfigurationsAPI.CreditConfigurations =
-    new CreditConfigurationsAPI.CreditConfigurations(this._client);
-
   /**
    * Get account configuration such as spend limits.
    */
@@ -75,6 +71,12 @@ export interface Account {
    * include pagination.
    */
   token: string;
+
+  /**
+   * Timestamp of when the account was created. For accounts created before
+   * 2023-05-11, this field will be null.
+   */
+  created: string | null;
 
   /**
    * Spend limit information for the user containing the daily, monthly, and lifetime
@@ -371,6 +373,4 @@ export namespace Accounts {
   export import AccountsCursorPage = AccountsAPI.AccountsCursorPage;
   export import AccountUpdateParams = AccountsAPI.AccountUpdateParams;
   export import AccountListParams = AccountsAPI.AccountListParams;
-  export import CreditConfigurations = CreditConfigurationsAPI.CreditConfigurations;
-  export import CreditConfigurationUpdateParams = CreditConfigurationsAPI.CreditConfigurationUpdateParams;
 }
