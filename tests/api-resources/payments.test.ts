@@ -15,13 +15,7 @@ describe('resource payments', () => {
       external_bank_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       method: 'ACH_NEXT_DAY',
-      method_attributes: {
-        company_id: 'string',
-        receipt_routing_number: 'string',
-        retries: 0,
-        return_reason_code: 'string',
-        sec_code: 'CCD',
-      },
+      method_attributes: { sec_code: 'CCD' },
       type: 'COLLECTION',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -39,13 +33,7 @@ describe('resource payments', () => {
       external_bank_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       method: 'ACH_NEXT_DAY',
-      method_attributes: {
-        company_id: 'string',
-        receipt_routing_number: 'string',
-        retries: 0,
-        return_reason_code: 'string',
-        sec_code: 'CCD',
-      },
+      method_attributes: { sec_code: 'CCD' },
       type: 'COLLECTION',
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       memo: 'string',
@@ -142,7 +130,7 @@ describe('resource payments', () => {
   test('simulateAction: required and optional params', async () => {
     const response = await lithic.payments.simulateAction('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       event_type: 'ACH_ORIGINATION_REVIEWED',
-      decline_reason: 'PROGRAM_TRANSACTION_LIMITS_EXCEEDED',
+      decline_reason: 'PROGRAM_TRANSACTION_LIMIT_EXCEEDED',
       return_reason_code: 'string',
     });
   });

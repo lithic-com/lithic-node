@@ -10,7 +10,7 @@ export {
   AccountListParams,
   AccountsCursorPage,
   Accounts,
-} from './accounts/accounts';
+} from './accounts';
 export {
   AccountHolder,
   AccountHolderDocument,
@@ -68,7 +68,6 @@ export {
   CardsCursorPage,
   Cards,
 } from './cards/cards';
-export { CardProductCreditDetailResponse, CardProduct } from './card-product';
 export { CardProgram, CardProgramListParams, CardProgramsCursorPage, CardPrograms } from './card-programs';
 export {
   DigitalCardArt,
@@ -110,10 +109,12 @@ export {
   ExternalBankAccountUpdateResponse,
   ExternalBankAccountListResponse,
   ExternalBankAccountRetryMicroDepositsResponse,
+  ExternalBankAccountRetryPrenoteResponse,
   ExternalBankAccountCreateParams,
   ExternalBankAccountUpdateParams,
   ExternalBankAccountListParams,
   ExternalBankAccountRetryMicroDepositsParams,
+  ExternalBankAccountRetryPrenoteParams,
   ExternalBankAccountListResponsesCursorPage,
   ExternalBankAccounts,
 } from './external-bank-accounts/external-bank-accounts';

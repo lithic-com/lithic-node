@@ -250,11 +250,17 @@ export interface AccountHolder {
   phone_number?: string;
 
   /**
-   * <Deprecated. Use verification_application.status instead> KYC and KYB evaluation
-   * states. Note: `PENDING_RESUBMIT` and `PENDING_DOCUMENT` are only applicable for
-   * the `ADVANCED` workflow.
+   * <Deprecated. Use verification_application.status instead>
+   *
+   * KYC and KYB evaluation states.
+   *
+   * Note:
+   *
+   * - `PENDING_RESUBMIT` and `PENDING_DOCUMENT` are only applicable for the
+   *   `KYC_ADVANCED` workflow.
+   * - `PENDING_REVIEW` is only applicable for the `KYB_BASIC` workflow.
    */
-  status?: 'ACCEPTED' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED';
+  status?: 'ACCEPTED' | 'PENDING_REVIEW' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED';
 
   /**
    * <Deprecated. Use verification_application.status_reasons> Reason for the
@@ -495,10 +501,15 @@ export namespace AccountHolder {
     created?: string;
 
     /**
-     * KYC and KYB evaluation states. Note: `PENDING_RESUBMIT` and `PENDING_DOCUMENT`
-     * are only applicable for the `ADVANCED` workflow.
+     * KYC and KYB evaluation states.
+     *
+     * Note:
+     *
+     * - `PENDING_RESUBMIT` and `PENDING_DOCUMENT` are only applicable for the
+     *   `KYC_ADVANCED` workflow.
+     * - `PENDING_REVIEW` is only applicable for the `KYB_BASIC` workflow.
      */
-    status?: 'ACCEPTED' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED';
+    status?: 'ACCEPTED' | 'PENDING_REVIEW' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED';
 
     /**
      * Reason for the evaluation status.
@@ -983,10 +994,15 @@ export interface AccountHolderCreateResponse {
   account_token: string;
 
   /**
-   * KYC and KYB evaluation states. Note: `PENDING_RESUBMIT` and `PENDING_DOCUMENT`
-   * are only applicable for the `ADVANCED` workflow.
+   * KYC and KYB evaluation states.
+   *
+   * Note:
+   *
+   * - `PENDING_RESUBMIT` and `PENDING_DOCUMENT` are only applicable for the
+   *   `KYC_ADVANCED` workflow.
+   * - `PENDING_REVIEW` is only applicable for the `KYB_BASIC` workflow.
    */
-  status: 'ACCEPTED' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED';
+  status: 'ACCEPTED' | 'PENDING_REVIEW' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED';
 
   /**
    * Reason for the evaluation status.

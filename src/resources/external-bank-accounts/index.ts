@@ -9,10 +9,12 @@ export {
   ExternalBankAccountUpdateResponse,
   ExternalBankAccountListResponse,
   ExternalBankAccountRetryMicroDepositsResponse,
+  ExternalBankAccountRetryPrenoteResponse,
   ExternalBankAccountCreateParams,
   ExternalBankAccountUpdateParams,
   ExternalBankAccountListParams,
   ExternalBankAccountRetryMicroDepositsParams,
+  ExternalBankAccountRetryPrenoteParams,
   ExternalBankAccountListResponsesCursorPage,
   ExternalBankAccounts,
 } from './external-bank-accounts';

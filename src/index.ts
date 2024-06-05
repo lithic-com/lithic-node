@@ -172,7 +172,6 @@ export class Lithic extends Core.APIClient {
   payments: API.Payments = new API.Payments(this);
   threeDS: API.ThreeDS = new API.ThreeDS(this);
   reports: API.Reports = new API.Reports(this);
-  cardProduct: API.CardProduct = new API.CardProduct(this);
   cardPrograms: API.CardPrograms = new API.CardPrograms(this);
   digitalCardArt: API.DigitalCardArtResource = new API.DigitalCardArtResource(this);
 
@@ -407,11 +406,13 @@ export namespace Lithic {
   export import ExternalBankAccountUpdateResponse = API.ExternalBankAccountUpdateResponse;
   export import ExternalBankAccountListResponse = API.ExternalBankAccountListResponse;
   export import ExternalBankAccountRetryMicroDepositsResponse = API.ExternalBankAccountRetryMicroDepositsResponse;
+  export import ExternalBankAccountRetryPrenoteResponse = API.ExternalBankAccountRetryPrenoteResponse;
   export import ExternalBankAccountListResponsesCursorPage = API.ExternalBankAccountListResponsesCursorPage;
   export import ExternalBankAccountCreateParams = API.ExternalBankAccountCreateParams;
   export import ExternalBankAccountUpdateParams = API.ExternalBankAccountUpdateParams;
   export import ExternalBankAccountListParams = API.ExternalBankAccountListParams;
   export import ExternalBankAccountRetryMicroDepositsParams = API.ExternalBankAccountRetryMicroDepositsParams;
+  export import ExternalBankAccountRetryPrenoteParams = API.ExternalBankAccountRetryPrenoteParams;
 
   export import Payments = API.Payments;
   export import Payment = API.Payment;
@@ -435,9 +436,6 @@ export namespace Lithic {
   export import SettlementDetail = API.SettlementDetail;
   export import SettlementReport = API.SettlementReport;
   export import SettlementSummaryDetails = API.SettlementSummaryDetails;
-
-  export import CardProduct = API.CardProduct;
-  export import CardProductCreditDetailResponse = API.CardProductCreditDetailResponse;
 
   export import CardPrograms = API.CardPrograms;
   export import CardProgram = API.CardProgram;
