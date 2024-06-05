@@ -89,6 +89,32 @@ export class ExternalBankAccounts extends APIResource {
       ...options,
     });
   }
+
+  /**
+   * Retry external bank account prenote verification.
+   */
+  retryPrenote(
+    externalBankAccountToken: string,
+    body?: ExternalBankAccountRetryPrenoteParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ExternalBankAccountRetryPrenoteResponse>;
+  retryPrenote(
+    externalBankAccountToken: string,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ExternalBankAccountRetryPrenoteResponse>;
+  retryPrenote(
+    externalBankAccountToken: string,
+    body: ExternalBankAccountRetryPrenoteParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ExternalBankAccountRetryPrenoteResponse> {
+    if (isRequestOptions(body)) {
+      return this.retryPrenote(externalBankAccountToken, {}, body);
+    }
+    return this._client.post(`/external_bank_accounts/${externalBankAccountToken}/retry_prenote`, {
+      body,
+      ...options,
+    });
+  }
 }
 
 export class ExternalBankAccountListResponsesCursorPage extends CursorPage<ExternalBankAccountListResponse> {}
@@ -726,6 +752,129 @@ export interface ExternalBankAccountRetryMicroDepositsResponse {
   verification_failed_reason?: string;
 }
 
+export interface ExternalBankAccountRetryPrenoteResponse {
+  /**
+   * A globally unique identifier for this record of an external bank account
+   * association. If a program links an external bank account to more than one
+   * end-user or to both the program and the end-user, then Lithic will return each
+   * record of the association
+   */
+  token: string;
+
+  /**
+   * The country that the bank account is located in using ISO 3166-1. We will only
+   * accept USA bank accounts e.g., USA
+   */
+  country: string;
+
+  /**
+   * An ISO 8601 string representing when this funding source was added to the Lithic
+   * account.
+   */
+  created: string;
+
+  /**
+   * currency of the external account 3-digit alphabetic ISO 4217 code
+   */
+  currency: string;
+
+  /**
+   * The last 4 digits of the bank account. Derived by Lithic from the account number
+   * passed
+   */
+  last_four: string;
+
+  /**
+   * Legal Name of the business or individual who owns the external account. This
+   * will appear in statements
+   */
+  owner: string;
+
+  /**
+   * Owner Type
+   */
+  owner_type: OwnerType;
+
+  /**
+   * Routing Number
+   */
+  routing_number: string;
+
+  /**
+   * Account State
+   */
+  state: 'ENABLED' | 'CLOSED' | 'PAUSED';
+
+  /**
+   * Account Type
+   */
+  type: 'CHECKING' | 'SAVINGS';
+
+  /**
+   * The number of attempts at verification
+   */
+  verification_attempts: number;
+
+  /**
+   * Verification Method
+   */
+  verification_method: VerificationMethod;
+
+  /**
+   * Verification State
+   */
+  verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS';
+
+  /**
+   * Indicates which Lithic account the external account is associated with. For
+   * external accounts that are associated with the program, account_token field
+   * returned will be null
+   */
+  account_token?: string;
+
+  /**
+   * Address
+   */
+  address?: ExternalBankAccountAddress;
+
+  /**
+   * Optional field that helps identify bank accounts in receipts
+   */
+  company_id?: string;
+
+  /**
+   * Date of Birth of the Individual that owns the external bank account
+   */
+  dob?: string;
+
+  /**
+   * Doing Business As
+   */
+  doing_business_as?: string;
+
+  /**
+   * The financial account token of the operating account to fund the micro deposits
+   */
+  financial_account_token?: string;
+
+  /**
+   * The nickname given to this record of External Bank Account
+   */
+  name?: string;
+
+  /**
+   * User Defined ID
+   */
+  user_defined_id?: string;
+
+  /**
+   * Optional free text description of the reason for the failed verification. For
+   * ACH micro-deposits returned, this field will display the reason return code sent
+   * by the ACH network
+   */
+  verification_failed_reason?: string;
+}
+
 export type ExternalBankAccountCreateParams =
   | ExternalBankAccountCreateParams.BankVerifiedCreateBankAccountAPIRequest
   | ExternalBankAccountCreateParams.PlaidCreateBankAccountAPIRequest;
@@ -928,6 +1077,10 @@ export interface ExternalBankAccountRetryMicroDepositsParams {
   financial_account_token?: string;
 }
 
+export interface ExternalBankAccountRetryPrenoteParams {
+  financial_account_token?: string;
+}
+
 export namespace ExternalBankAccounts {
   export import ExternalBankAccountAddress = ExternalBankAccountsAPI.ExternalBankAccountAddress;
   export import OwnerType = ExternalBankAccountsAPI.OwnerType;
@@ -937,11 +1090,13 @@ export namespace ExternalBankAccounts {
   export import ExternalBankAccountUpdateResponse = ExternalBankAccountsAPI.ExternalBankAccountUpdateResponse;
   export import ExternalBankAccountListResponse = ExternalBankAccountsAPI.ExternalBankAccountListResponse;
   export import ExternalBankAccountRetryMicroDepositsResponse = ExternalBankAccountsAPI.ExternalBankAccountRetryMicroDepositsResponse;
+  export import ExternalBankAccountRetryPrenoteResponse = ExternalBankAccountsAPI.ExternalBankAccountRetryPrenoteResponse;
   export import ExternalBankAccountListResponsesCursorPage = ExternalBankAccountsAPI.ExternalBankAccountListResponsesCursorPage;
   export import ExternalBankAccountCreateParams = ExternalBankAccountsAPI.ExternalBankAccountCreateParams;
   export import ExternalBankAccountUpdateParams = ExternalBankAccountsAPI.ExternalBankAccountUpdateParams;
   export import ExternalBankAccountListParams = ExternalBankAccountsAPI.ExternalBankAccountListParams;
   export import ExternalBankAccountRetryMicroDepositsParams = ExternalBankAccountsAPI.ExternalBankAccountRetryMicroDepositsParams;
+  export import ExternalBankAccountRetryPrenoteParams = ExternalBankAccountsAPI.ExternalBankAccountRetryPrenoteParams;
   export import MicroDeposits = MicroDepositsAPI.MicroDeposits;
   export import MicroDepositCreateResponse = MicroDepositsAPI.MicroDepositCreateResponse;
   export import MicroDepositCreateParams = MicroDepositsAPI.MicroDepositCreateParams;
