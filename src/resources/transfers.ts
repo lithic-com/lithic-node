@@ -115,18 +115,6 @@ export namespace Transfer {
     created?: string;
 
     /**
-     * More detailed reasons for the event
-     */
-    detailed_results?: Array<
-      | 'APPROVED'
-      | 'FUNDS_INSUFFICIENT'
-      | 'ACCOUNT_INVALID'
-      | 'PROGRAM_TRANSACTION_LIMITS_EXCEEDED'
-      | 'PROGRAM_DAILY_LIMITS_EXCEEDED'
-      | 'PROGRAM_MONTHLY_LIMITS_EXCEEDED'
-    >;
-
-    /**
      * APPROVED financial events were successful while DECLINED financial events were
      * declined by user, Lithic, or the network.
      */

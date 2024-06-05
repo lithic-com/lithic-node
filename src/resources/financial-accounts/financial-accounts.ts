@@ -6,14 +6,12 @@ import { isRequestOptions } from '../../core';
 import * as FinancialAccountsAPI from './financial-accounts';
 import * as BalancesAPI from './balances';
 import * as FinancialTransactionsAPI from './financial-transactions';
-import * as StatementsAPI from './statements/statements';
 import { SinglePage } from '../../pagination';
 
 export class FinancialAccounts extends APIResource {
   balances: BalancesAPI.Balances = new BalancesAPI.Balances(this._client);
   financialTransactions: FinancialTransactionsAPI.FinancialTransactions =
     new FinancialTransactionsAPI.FinancialTransactions(this._client);
-  statements: StatementsAPI.Statements = new StatementsAPI.Statements(this._client);
 
   /**
    * Create a new financial account
@@ -188,14 +186,13 @@ export interface FinancialTransaction {
   /**
    * Status types:
    *
-   * - `DECLINED` - The card transaction was declined.
-   * - `EXPIRED` - Lithic reversed the card authorization as it has passed its
-   *   expiration time.
-   * - `PENDING` - Authorization is pending completion from the merchant or pending
-   *   release from ACH hold period
-   * - `RETURNED` - The financial transaction has been returned.
-   * - `SETTLED` - The financial transaction is completed.
-   * - `VOIDED` - The merchant has voided the previously pending card authorization.
+   * - `DECLINED` - The transaction was declined.
+   * - `EXPIRED` - The authorization as it has passed its expiration time. Card
+   *   transaction only.
+   * - `PENDING` - The transaction is expected to settle.
+   * - `RETURNED` - The transaction has been returned.
+   * - `SETTLED` - The transaction is completed.
+   * - `VOIDED` - The transaction was voided. Card transaction only.
    */
   status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'RETURNED' | 'SETTLED' | 'VOIDED';
 
@@ -222,18 +219,6 @@ export namespace FinancialTransaction {
      * Date and time when the financial event occurred. UTC time zone.
      */
     created?: string;
-
-    /**
-     * More detailed reasons for the event
-     */
-    detailed_results?: Array<
-      | 'APPROVED'
-      | 'FUNDS_INSUFFICIENT'
-      | 'ACCOUNT_INVALID'
-      | 'PROGRAM_TRANSACTION_LIMITS_EXCEEDED'
-      | 'PROGRAM_DAILY_LIMITS_EXCEEDED'
-      | 'PROGRAM_MONTHLY_LIMITS_EXCEEDED'
-    >;
 
     /**
      * APPROVED financial events were successful while DECLINED financial events were
@@ -371,8 +356,4 @@ export namespace FinancialAccounts {
   export import BalanceListParams = BalancesAPI.BalanceListParams;
   export import FinancialTransactions = FinancialTransactionsAPI.FinancialTransactions;
   export import FinancialTransactionListParams = FinancialTransactionsAPI.FinancialTransactionListParams;
-  export import Statements = StatementsAPI.Statements;
-  export import Statement = StatementsAPI.Statement;
-  export import StatementsCursorPage = StatementsAPI.StatementsCursorPage;
-  export import StatementListParams = StatementsAPI.StatementListParams;
 }
