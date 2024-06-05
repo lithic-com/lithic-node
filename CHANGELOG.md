@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.55.0 (2024-06-05)
+
+Full Changelog: [v0.54.1...v0.55.0](https://github.com/lithic-com/lithic-node/compare/v0.54.1...v0.55.0)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** remove some endpoints and other API updates ([#416](https://github.com/lithic-com/lithic-node/issues/416))
+
+### Features
+
+* **api:** remove some endpoints and other API updates ([#416](https://github.com/lithic-com/lithic-node/issues/416)) ([9d0c5ef](https://github.com/lithic-com/lithic-node/commit/9d0c5efa3852fa189d3de49d12e5a812bed712ac))
+
 ## 0.54.1 (2024-05-31)
 
 Full Changelog: [v0.54.0...v0.54.1](https://github.com/lithic-com/lithic-node/compare/v0.54.0...v0.54.1)
