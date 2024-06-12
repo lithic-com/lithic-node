@@ -882,7 +882,8 @@ export interface TransactionSimulateAuthorizationParams {
   merchant_amount?: number;
 
   /**
-   * 3-digit alphabetic ISO 4217 currency code.
+   * 3-digit alphabetic ISO 4217 currency code. Note: Simulator only accepts USD,
+   * GBP, EUR and defaults to GBP if another ISO 4217 code is provided
    */
   merchant_currency?: string;
 
