@@ -135,7 +135,7 @@ export interface ExternalBankAccountAddress {
 
 export type OwnerType = 'INDIVIDUAL' | 'BUSINESS';
 
-export type VerificationMethod = 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE';
+export type VerificationMethod = 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE' | 'EXTERNALLY_VERIFIED';
 
 export interface ExternalBankAccountCreateResponse {
   /**
@@ -243,7 +243,7 @@ export interface ExternalBankAccountCreateResponse {
   financial_account_token?: string;
 
   /**
-   * The nickname given to this record of External Bank Account
+   * The nickname for this External Bank Account
    */
   name?: string;
 
@@ -366,7 +366,7 @@ export interface ExternalBankAccountRetrieveResponse {
   financial_account_token?: string;
 
   /**
-   * The nickname given to this record of External Bank Account
+   * The nickname for this External Bank Account
    */
   name?: string;
 
@@ -489,7 +489,7 @@ export interface ExternalBankAccountUpdateResponse {
   financial_account_token?: string;
 
   /**
-   * The nickname given to this record of External Bank Account
+   * The nickname for this External Bank Account
    */
   name?: string;
 
@@ -612,7 +612,7 @@ export interface ExternalBankAccountListResponse {
   financial_account_token?: string;
 
   /**
-   * The nickname given to this record of External Bank Account
+   * The nickname for this External Bank Account
    */
   name?: string;
 
@@ -735,7 +735,7 @@ export interface ExternalBankAccountRetryMicroDepositsResponse {
   financial_account_token?: string;
 
   /**
-   * The nickname given to this record of External Bank Account
+   * The nickname for this External Bank Account
    */
   name?: string;
 
@@ -858,7 +858,7 @@ export interface ExternalBankAccountRetryPrenoteResponse {
   financial_account_token?: string;
 
   /**
-   * The nickname given to this record of External Bank Account
+   * The nickname for this External Bank Account
    */
   name?: string;
 
@@ -877,12 +877,13 @@ export interface ExternalBankAccountRetryPrenoteResponse {
 
 export type ExternalBankAccountCreateParams =
   | ExternalBankAccountCreateParams.BankVerifiedCreateBankAccountAPIRequest
-  | ExternalBankAccountCreateParams.PlaidCreateBankAccountAPIRequest;
+  | ExternalBankAccountCreateParams.PlaidCreateBankAccountAPIRequest
+  | ExternalBankAccountCreateParams.ExternallyVerifiedCreateBankAccountAPIRequest;
 
 export namespace ExternalBankAccountCreateParams {
   export interface BankVerifiedCreateBankAccountAPIRequest {
     /**
-     * Routing Number
+     * Account Number
      */
     account_number: string;
 
@@ -956,7 +957,7 @@ export namespace ExternalBankAccountCreateParams {
     financial_account_token?: string;
 
     /**
-     * The nickname given to this record of External Bank Account
+     * The nickname for this External Bank Account
      */
     name?: string;
 
@@ -1014,6 +1015,87 @@ export namespace ExternalBankAccountCreateParams {
      */
     user_defined_id?: string;
   }
+
+  export interface ExternallyVerifiedCreateBankAccountAPIRequest {
+    /**
+     * Account Number
+     */
+    account_number: string;
+
+    /**
+     * The country that the bank account is located in using ISO 3166-1. We will only
+     * accept USA bank accounts e.g., USA
+     */
+    country: string;
+
+    /**
+     * currency of the external account 3-digit alphabetic ISO 4217 code
+     */
+    currency: string;
+
+    /**
+     * Legal Name of the business or individual who owns the external account. This
+     * will appear in statements
+     */
+    owner: string;
+
+    /**
+     * Owner Type
+     */
+    owner_type: OwnerType;
+
+    /**
+     * Routing Number
+     */
+    routing_number: string;
+
+    /**
+     * Account Type
+     */
+    type: 'CHECKING' | 'SAVINGS';
+
+    /**
+     * Verification Method
+     */
+    verification_method: 'EXTERNALLY_VERIFIED';
+
+    /**
+     * Indicates which Lithic account the external account is associated with. For
+     * external accounts that are associated with the program, account_token field
+     * returned will be null
+     */
+    account_token?: string;
+
+    /**
+     * Address
+     */
+    address?: ExternalBankAccountAddress;
+
+    /**
+     * Optional field that helps identify bank accounts in receipts
+     */
+    company_id?: string;
+
+    /**
+     * Date of Birth of the Individual that owns the external bank account
+     */
+    dob?: string;
+
+    /**
+     * Doing Business As
+     */
+    doing_business_as?: string;
+
+    /**
+     * The nickname for this External Bank Account
+     */
+    name?: string;
+
+    /**
+     * User Defined ID
+     */
+    user_defined_id?: string;
+  }
 }
 
 export interface ExternalBankAccountUpdateParams {
@@ -1038,7 +1120,7 @@ export interface ExternalBankAccountUpdateParams {
   doing_business_as?: string;
 
   /**
-   * The nickname given to this record of External Bank Account
+   * The nickname for this External Bank Account
    */
   name?: string;
 

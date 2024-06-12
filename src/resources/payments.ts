@@ -373,6 +373,8 @@ export interface PaymentListParams extends CursorPageParams {
    */
   begin?: string;
 
+  category?: 'ACH';
+
   /**
    * Date string in RFC 3339 format. Only entries created before the specified time
    * will be included. UTC time zone.

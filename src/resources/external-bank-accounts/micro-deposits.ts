@@ -127,7 +127,7 @@ export interface MicroDepositCreateResponse {
   financial_account_token?: string;
 
   /**
-   * The nickname given to this record of External Bank Account
+   * The nickname for this External Bank Account
    */
   name?: string;
 
