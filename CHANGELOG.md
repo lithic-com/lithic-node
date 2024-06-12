@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.56.0 (2024-06-12)
+
+Full Changelog: [v0.55.0...v0.56.0](https://github.com/lithic-com/lithic-node/compare/v0.55.0...v0.56.0)
+
+### Features
+
+* **api:** updates ([#420](https://github.com/lithic-com/lithic-node/issues/420)) ([4fc3a79](https://github.com/lithic-com/lithic-node/commit/4fc3a79f0cfb3db0ba95bbfc4d928ab2254c9cc1))
+* support `application/octet-stream` request bodies ([#418](https://github.com/lithic-com/lithic-node/issues/418)) ([2bde2bf](https://github.com/lithic-com/lithic-node/commit/2bde2bf1ddf281354af4b9440cd60efefeba19b0))
+
 ## 0.55.0 (2024-06-05)
 
 Full Changelog: [v0.54.1...v0.55.0](https://github.com/lithic-com/lithic-node/compare/v0.54.1...v0.55.0)
