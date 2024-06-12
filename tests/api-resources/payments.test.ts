@@ -83,6 +83,7 @@ describe('resource payments', () => {
       lithic.payments.list(
         {
           begin: '2019-12-27T18:11:19.117Z',
+          category: 'ACH',
           end: '2019-12-27T18:11:19.117Z',
           ending_before: 'string',
           financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
