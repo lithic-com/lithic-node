@@ -49,6 +49,13 @@ export {
 export { AuthStreamSecret, AuthStreamEnrollment } from './auth-stream-enrollment';
 export { Balance, BalanceListParams, BalancesSinglePage, Balances } from './balances';
 export {
+  BookTransferResponse,
+  BookTransferCreateParams,
+  BookTransferListParams,
+  BookTransferResponsesCursorPage,
+  BookTransfers,
+} from './book-transfers';
+export {
   Card,
   CardSpendLimits,
   EmbedRequestParams,
