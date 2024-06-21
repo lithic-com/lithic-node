@@ -145,7 +145,6 @@ export interface Event {
     | 'payment_transaction.created'
     | 'payment_transaction.updated'
     | 'settlement_report.updated'
-    | 'statements.created'
     | 'three_ds_authentication.created'
     | 'transfer_transaction.created';
 
@@ -195,7 +194,6 @@ export interface EventSubscription {
     | 'payment_transaction.created'
     | 'payment_transaction.updated'
     | 'settlement_report.updated'
-    | 'statements.created'
     | 'three_ds_authentication.created'
     | 'transfer_transaction.created'
   > | null;
@@ -283,7 +281,6 @@ export interface EventListParams extends CursorPageParams {
     | 'payment_transaction.created'
     | 'payment_transaction.updated'
     | 'settlement_report.updated'
-    | 'statements.created'
     | 'three_ds_authentication.created'
     | 'transfer_transaction.created'
   >;

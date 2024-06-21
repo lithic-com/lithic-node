@@ -22,7 +22,6 @@ Types:
 
 - <code><a href="./src/resources/accounts.ts">Account</a></code>
 - <code><a href="./src/resources/accounts.ts">AccountSpendLimits</a></code>
-- <code><a href="./src/resources/accounts.ts">BusinessAccount</a></code>
 
 Methods:
 
@@ -115,7 +114,6 @@ Types:
 
 - <code><a href="./src/resources/cards/cards.ts">Card</a></code>
 - <code><a href="./src/resources/cards/cards.ts">CardSpendLimits</a></code>
-- <code><a href="./src/resources/cards/cards.ts">EmbedRequestParams</a></code>
 - <code><a href="./src/resources/cards/cards.ts">SpendLimitDuration</a></code>
 - <code><a href="./src/resources/cards/cards.ts">CardEmbedResponse</a></code>
 - <code><a href="./src/resources/cards/cards.ts">CardProvisionResponse</a></code>
@@ -453,3 +451,4 @@ Methods:
 - <code title="post /book_transfers">client.bookTransfers.<a href="./src/resources/book-transfers.ts">create</a>({ ...params }) -> BookTransferResponse</code>
 - <code title="get /book_transfers/{book_transfer_token}">client.bookTransfers.<a href="./src/resources/book-transfers.ts">retrieve</a>(bookTransferToken) -> BookTransferResponse</code>
 - <code title="get /book_transfers">client.bookTransfers.<a href="./src/resources/book-transfers.ts">list</a>({ ...params }) -> BookTransferResponsesCursorPage</code>
+- <code title="post /book_transfers/{book_transfer_token}/reverse">client.bookTransfers.<a href="./src/resources/book-transfers.ts">reverse</a>(bookTransferToken, { ...params }) -> BookTransferResponse</code>

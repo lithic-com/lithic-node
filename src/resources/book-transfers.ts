@@ -44,6 +44,17 @@ export class BookTransfers extends APIResource {
     }
     return this._client.getAPIList('/book_transfers', BookTransferResponsesCursorPage, { query, ...options });
   }
+
+  /**
+   * Reverse a book transfer
+   */
+  reverse(
+    bookTransferToken: string,
+    body: BookTransferReverseParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<BookTransferResponse> {
+    return this._client.post(`/book_transfers/${bookTransferToken}/reverse`, { body, ...options });
+  }
 }
 
 export class BookTransferResponsesCursorPage extends CursorPage<BookTransferResponse> {}
@@ -285,9 +296,17 @@ export interface BookTransferListParams extends CursorPageParams {
   status?: 'DECLINED' | 'SETTLED';
 }
 
+export interface BookTransferReverseParams {
+  /**
+   * Optional descriptor for the reversal.
+   */
+  memo?: string;
+}
+
 export namespace BookTransfers {
   export import BookTransferResponse = BookTransfersAPI.BookTransferResponse;
   export import BookTransferResponsesCursorPage = BookTransfersAPI.BookTransferResponsesCursorPage;
   export import BookTransferCreateParams = BookTransfersAPI.BookTransferCreateParams;
   export import BookTransferListParams = BookTransfersAPI.BookTransferListParams;
+  export import BookTransferReverseParams = BookTransfersAPI.BookTransferReverseParams;
 }
