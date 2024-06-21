@@ -10,7 +10,6 @@ export { BalanceListResponse, BalanceListParams, BalanceListResponsesSinglePage,
 export {
   Card,
   CardSpendLimits,
-  EmbedRequestParams,
   SpendLimitDuration,
   CardEmbedResponse,
   CardProvisionResponse,

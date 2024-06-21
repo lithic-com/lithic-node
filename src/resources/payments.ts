@@ -251,6 +251,8 @@ export namespace Payment {
     return_reason_code: string | null;
 
     sec_code: 'CCD' | 'PPD' | 'WEB';
+
+    trace_numbers: Array<string | null>;
   }
 }
 

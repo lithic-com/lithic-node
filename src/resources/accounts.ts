@@ -263,39 +263,6 @@ export namespace AccountSpendLimits {
   }
 }
 
-export interface BusinessAccount {
-  /**
-   * Account token
-   */
-  token: string;
-
-  collections_configuration?: BusinessAccount.CollectionsConfiguration;
-
-  /**
-   * Credit limit extended to the Account
-   */
-  credit_limit?: number;
-}
-
-export namespace BusinessAccount {
-  export interface CollectionsConfiguration {
-    /**
-     * Number of days within the billing period
-     */
-    billing_period: number;
-
-    /**
-     * Number of days after the billing period ends that a payment is required
-     */
-    payment_period: number;
-
-    /**
-     * The external bank account token to use for auto-collections
-     */
-    external_bank_account_token?: string;
-  }
-}
-
 export interface AccountUpdateParams {
   /**
    * Amount (in cents) for the account's daily spend limit. By default the daily
@@ -369,7 +336,6 @@ export interface AccountListParams extends CursorPageParams {
 export namespace Accounts {
   export import Account = AccountsAPI.Account;
   export import AccountSpendLimits = AccountsAPI.AccountSpendLimits;
-  export import BusinessAccount = AccountsAPI.BusinessAccount;
   export import AccountsCursorPage = AccountsAPI.AccountsCursorPage;
   export import AccountUpdateParams = AccountsAPI.AccountUpdateParams;
   export import AccountListParams = AccountsAPI.AccountListParams;
