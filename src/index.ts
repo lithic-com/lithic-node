@@ -256,7 +256,6 @@ export namespace Lithic {
   export import Accounts = API.Accounts;
   export import Account = API.Account;
   export import AccountSpendLimits = API.AccountSpendLimits;
-  export import BusinessAccount = API.BusinessAccount;
   export import AccountsCursorPage = API.AccountsCursorPage;
   export import AccountUpdateParams = API.AccountUpdateParams;
   export import AccountListParams = API.AccountListParams;
@@ -306,7 +305,6 @@ export namespace Lithic {
   export import Cards = API.Cards;
   export import Card = API.Card;
   export import CardSpendLimits = API.CardSpendLimits;
-  export import EmbedRequestParams = API.EmbedRequestParams;
   export import SpendLimitDuration = API.SpendLimitDuration;
   export import CardEmbedResponse = API.CardEmbedResponse;
   export import CardProvisionResponse = API.CardProvisionResponse;
@@ -447,6 +445,7 @@ export namespace Lithic {
   export import BookTransferResponsesCursorPage = API.BookTransferResponsesCursorPage;
   export import BookTransferCreateParams = API.BookTransferCreateParams;
   export import BookTransferListParams = API.BookTransferListParams;
+  export import BookTransferReverseParams = API.BookTransferReverseParams;
 
   export import Address = API.Address;
   export import Carrier = API.Carrier;

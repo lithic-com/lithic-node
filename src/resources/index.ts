@@ -5,7 +5,6 @@ export { APIStatus } from './top-level';
 export {
   Account,
   AccountSpendLimits,
-  BusinessAccount,
   AccountUpdateParams,
   AccountListParams,
   AccountsCursorPage,
@@ -52,13 +51,13 @@ export {
   BookTransferResponse,
   BookTransferCreateParams,
   BookTransferListParams,
+  BookTransferReverseParams,
   BookTransferResponsesCursorPage,
   BookTransfers,
 } from './book-transfers';
 export {
   Card,
   CardSpendLimits,
-  EmbedRequestParams,
   SpendLimitDuration,
   CardEmbedResponse,
   CardProvisionResponse,
