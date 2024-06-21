@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.57.0 (2024-06-21)
+
+Full Changelog: [v0.56.0...v0.57.0](https://github.com/lithic-com/lithic-node/compare/v0.56.0...v0.57.0)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** remove unused event type 'statement.created'
+* **api:** remove unused business account type
+* **api:** remove unused embed request params type
+* **api:** updates ([#421](https://github.com/lithic-com/lithic-node/issues/421))
+
+### Features
+
+* **api:** add 'reverse' method for book transfers ([7be7b26](https://github.com/lithic-com/lithic-node/commit/7be7b2643916c2802e4a50152001689bc6399eac))
+* **api:** add field 'trace numbers' to payment method attribute model ([7be7b26](https://github.com/lithic-com/lithic-node/commit/7be7b2643916c2802e4a50152001689bc6399eac))
+* **api:** remove unused business account type ([7be7b26](https://github.com/lithic-com/lithic-node/commit/7be7b2643916c2802e4a50152001689bc6399eac))
+* **api:** remove unused embed request params type ([7be7b26](https://github.com/lithic-com/lithic-node/commit/7be7b2643916c2802e4a50152001689bc6399eac))
+* **api:** remove unused event type 'statement.created' ([7be7b26](https://github.com/lithic-com/lithic-node/commit/7be7b2643916c2802e4a50152001689bc6399eac))
+* **api:** updates ([#421](https://github.com/lithic-com/lithic-node/issues/421)) ([7be7b26](https://github.com/lithic-com/lithic-node/commit/7be7b2643916c2802e4a50152001689bc6399eac))
+
 ## 0.56.0 (2024-06-12)
 
 Full Changelog: [v0.55.0...v0.56.0](https://github.com/lithic-com/lithic-node/compare/v0.55.0...v0.56.0)
