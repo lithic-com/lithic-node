@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from '../../core';
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import { createHmac } from 'crypto';
+import * as Core from '../../core';
 import * as CardsAPI from './cards';
 import * as Shared from '../shared';
 import * as AggregateBalancesAPI from './aggregate-balances';
