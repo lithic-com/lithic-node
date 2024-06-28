@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.57.1 (2024-06-28)
+
+Full Changelog: [v0.57.0...v0.57.1](https://github.com/lithic-com/lithic-node/compare/v0.57.0...v0.57.1)
+
+### Chores
+
+* gitignore test server logs ([#426](https://github.com/lithic-com/lithic-node/issues/426)) ([d26c312](https://github.com/lithic-com/lithic-node/commit/d26c3121f3189567c74729db09ebf162d6451c2f))
+* **internal:** minor reformatting ([#423](https://github.com/lithic-com/lithic-node/issues/423)) ([54710b1](https://github.com/lithic-com/lithic-node/commit/54710b10678613d60584c8918bc16e78afa61ed9))
+
 ## 0.57.0 (2024-06-21)
 
 Full Changelog: [v0.56.0...v0.57.0](https://github.com/lithic-com/lithic-node/compare/v0.56.0...v0.57.0)
