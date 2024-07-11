@@ -36,8 +36,8 @@ describe('resource payments', () => {
       method_attributes: { sec_code: 'CCD' },
       type: 'COLLECTION',
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      memo: 'string',
-      user_defined_id: 'string',
+      memo: 'memo',
+      user_defined_id: 'user_defined_id',
     });
   });
 
@@ -85,11 +85,11 @@ describe('resource payments', () => {
           begin: '2019-12-27T18:11:19.117Z',
           category: 'ACH',
           end: '2019-12-27T18:11:19.117Z',
-          ending_before: 'string',
+          ending_before: 'ending_before',
           financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           page_size: 1,
           result: 'APPROVED',
-          starting_after: 'string',
+          starting_after: 'starting_after',
           status: 'DECLINED',
         },
         { path: '/_stainless_unknown_path' },
@@ -132,7 +132,7 @@ describe('resource payments', () => {
     const response = await lithic.payments.simulateAction('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       event_type: 'ACH_ORIGINATION_REVIEWED',
       decline_reason: 'PROGRAM_TRANSACTION_LIMIT_EXCEEDED',
-      return_reason_code: 'string',
+      return_reason_code: 'return_reason_code',
     });
   });
 
@@ -158,7 +158,7 @@ describe('resource payments', () => {
       amount: 0,
       financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       receipt_type: 'RECEIPT_CREDIT',
-      memo: 'string',
+      memo: 'memo',
     });
   });
 

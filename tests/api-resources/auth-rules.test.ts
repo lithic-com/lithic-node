@@ -71,7 +71,7 @@ describe('resource authRules', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       lithic.authRules.list(
-        { ending_before: 'string', page_size: 1, starting_after: 'string' },
+        { ending_before: 'ending_before', page_size: 1, starting_after: 'starting_after' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Lithic.NotFoundError);

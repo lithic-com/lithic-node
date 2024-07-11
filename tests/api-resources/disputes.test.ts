@@ -30,7 +30,7 @@ describe('resource disputes', () => {
       reason: 'FRAUD_CARD_PRESENT',
       transaction_token: '12345624-aa69-4cbc-a946-30d90181b621',
       customer_filed_date: '2021-06-28T22:53:15Z',
-      customer_note: 'string',
+      customer_note: 'customer_note',
     });
   });
 
@@ -88,9 +88,9 @@ describe('resource disputes', () => {
         {
           begin: '2019-12-27T18:11:19.117Z',
           end: '2019-12-27T18:11:19.117Z',
-          ending_before: 'string',
+          ending_before: 'ending_before',
           page_size: 1,
-          starting_after: 'string',
+          starting_after: 'starting_after',
           status: 'ARBITRATION',
           transaction_tokens: [
             '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -171,7 +171,7 @@ describe('resource disputes', () => {
     await expect(
       lithic.disputes.initiateEvidenceUpload(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { filename: 'string' },
+        { filename: 'filename' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Lithic.NotFoundError);
@@ -205,9 +205,9 @@ describe('resource disputes', () => {
         {
           begin: '2019-12-27T18:11:19.117Z',
           end: '2019-12-27T18:11:19.117Z',
-          ending_before: 'string',
+          ending_before: 'ending_before',
           page_size: 1,
-          starting_after: 'string',
+          starting_after: 'starting_after',
         },
         { path: '/_stainless_unknown_path' },
       ),
