@@ -302,9 +302,12 @@ export namespace Lithic {
   export import Tokenization = API.Tokenization;
   export import TokenizationRetrieveResponse = API.TokenizationRetrieveResponse;
   export import TokenizationSimulateResponse = API.TokenizationSimulateResponse;
+  export import TokenizationUpdateDigitalCardArtResponse = API.TokenizationUpdateDigitalCardArtResponse;
   export import TokenizationsCursorPage = API.TokenizationsCursorPage;
   export import TokenizationListParams = API.TokenizationListParams;
+  export import TokenizationResendActivationCodeParams = API.TokenizationResendActivationCodeParams;
   export import TokenizationSimulateParams = API.TokenizationSimulateParams;
+  export import TokenizationUpdateDigitalCardArtParams = API.TokenizationUpdateDigitalCardArtParams;
 
   export import Cards = API.Cards;
   export import Card = API.Card;
