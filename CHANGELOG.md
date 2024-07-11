@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.58.0 (2024-07-11)
+
+Full Changelog: [v0.57.1...v0.58.0](https://github.com/lithic-com/lithic-node/compare/v0.57.1...v0.58.0)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** param 'financial_account_token' for 'externalBankAccounts.create()' is now required ([#429](https://github.com/lithic-com/lithic-node/issues/429))
+
+### Features
+
+* **api:** param 'financial_account_token' for 'externalBankAccounts.create()' is now required ([#429](https://github.com/lithic-com/lithic-node/issues/429)) ([6e6d493](https://github.com/lithic-com/lithic-node/commit/6e6d493d43f412cb2c781e71e7b3ac7d0ffcbbb8))
+
 ## 0.57.1 (2024-07-11)
 
 Full Changelog: [v0.57.0...v0.57.1](https://github.com/lithic-com/lithic-node/compare/v0.57.0...v0.57.1)
