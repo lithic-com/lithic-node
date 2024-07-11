@@ -899,6 +899,11 @@ export namespace ExternalBankAccountCreateParams {
     currency: string;
 
     /**
+     * The financial account token of the operating account to fund the micro deposits
+     */
+    financial_account_token: string;
+
+    /**
      * Legal Name of the business or individual who owns the external account. This
      * will appear in statements
      */
@@ -950,11 +955,6 @@ export namespace ExternalBankAccountCreateParams {
      * Doing Business As
      */
     doing_business_as?: string;
-
-    /**
-     * The financial account token of the operating account to fund the micro deposits
-     */
-    financial_account_token?: string;
 
     /**
      * The nickname for this External Bank Account
