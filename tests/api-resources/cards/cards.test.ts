@@ -25,12 +25,12 @@ describe('resource cards', () => {
       type: 'VIRTUAL',
       account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       card_program_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      carrier: { qr_code_url: 'string' },
+      carrier: { qr_code_url: 'qr_code_url' },
       digital_card_art_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       exp_month: '06',
       exp_year: '2027',
       memo: 'New Card',
-      pin: 'string',
+      pin: 'pin',
       product_id: '1',
       replacement_for: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       shipping_address: {
@@ -108,9 +108,9 @@ describe('resource cards', () => {
           account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           begin: '2019-12-27T18:11:19.117Z',
           end: '2019-12-27T18:11:19.117Z',
-          ending_before: 'string',
+          ending_before: 'ending_before',
           page_size: 1,
-          starting_after: 'string',
+          starting_after: 'starting_after',
           state: 'CLOSED',
         },
         { path: '/_stainless_unknown_path' },
@@ -119,7 +119,7 @@ describe('resource cards', () => {
   });
 
   test('embed: only required params', async () => {
-    const responsePromise = lithic.cards.embed({ embed_request: 'string', hmac: 'string' });
+    const responsePromise = lithic.cards.embed({ embed_request: 'embed_request', hmac: 'hmac' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -130,7 +130,7 @@ describe('resource cards', () => {
   });
 
   test('embed: required and optional params', async () => {
-    const response = await lithic.cards.embed({ embed_request: 'string', hmac: 'string' });
+    const response = await lithic.cards.embed({ embed_request: 'embed_request', hmac: 'hmac' });
   });
 
   test('getEmbedHTML', async () => {
