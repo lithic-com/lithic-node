@@ -171,8 +171,11 @@ export {
   Tokenization,
   TokenizationRetrieveResponse,
   TokenizationSimulateResponse,
+  TokenizationUpdateDigitalCardArtResponse,
   TokenizationListParams,
+  TokenizationResendActivationCodeParams,
   TokenizationSimulateParams,
+  TokenizationUpdateDigitalCardArtParams,
   TokenizationsCursorPage,
   Tokenizations,
 } from './tokenizations';
