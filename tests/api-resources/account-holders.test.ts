@@ -138,46 +138,46 @@ describe('resource accountHolders', () => {
         {
           address: {
             address1: '123 Old Forest Way',
-            address2: 'string',
+            address2: 'address2',
             city: 'Omaha',
             country: 'USA',
             postal_code: '68022',
             state: 'NE',
           },
-          dba_business_name: 'string',
+          dba_business_name: 'dba_business_name',
           government_id: '114-123-1513',
           legal_business_name: 'Acme, Inc.',
-          parent_company: 'string',
+          parent_company: 'parent_company',
           phone_numbers: ['+12124007676'],
         },
         {
           address: {
             address1: '123 Old Forest Way',
-            address2: 'string',
+            address2: 'address2',
             city: 'Omaha',
             country: 'USA',
             postal_code: '68022',
             state: 'NE',
           },
-          dba_business_name: 'string',
+          dba_business_name: 'dba_business_name',
           government_id: '114-123-1513',
           legal_business_name: 'Acme, Inc.',
-          parent_company: 'string',
+          parent_company: 'parent_company',
           phone_numbers: ['+12124007676'],
         },
         {
           address: {
             address1: '123 Old Forest Way',
-            address2: 'string',
+            address2: 'address2',
             city: 'Omaha',
             country: 'USA',
             postal_code: '68022',
             state: 'NE',
           },
-          dba_business_name: 'string',
+          dba_business_name: 'dba_business_name',
           government_id: '114-123-1513',
           legal_business_name: 'Acme, Inc.',
-          parent_company: 'string',
+          parent_company: 'parent_company',
           phone_numbers: ['+12124007676'],
         },
       ],
@@ -185,7 +185,7 @@ describe('resource accountHolders', () => {
         {
           address: {
             address1: '123 Old Forest Way',
-            address2: 'string',
+            address2: 'address2',
             city: 'Omaha',
             country: 'USA',
             postal_code: '68022',
@@ -201,7 +201,7 @@ describe('resource accountHolders', () => {
         {
           address: {
             address1: '123 Old Forest Way',
-            address2: 'string',
+            address2: 'address2',
             city: 'Omaha',
             country: 'USA',
             postal_code: '68022',
@@ -217,7 +217,7 @@ describe('resource accountHolders', () => {
         {
           address: {
             address1: '123 Old Forest Way',
-            address2: 'string',
+            address2: 'address2',
             city: 'Omaha',
             country: 'USA',
             postal_code: '68022',
@@ -234,22 +234,22 @@ describe('resource accountHolders', () => {
       business_entity: {
         address: {
           address1: '123 Old Forest Way',
-          address2: 'string',
+          address2: 'address2',
           city: 'Omaha',
           country: 'USA',
           postal_code: '68022',
           state: 'NE',
         },
-        dba_business_name: 'string',
+        dba_business_name: 'dba_business_name',
         government_id: '114-123-1513',
         legal_business_name: 'Acme, Inc.',
-        parent_company: 'string',
+        parent_company: 'parent_company',
         phone_numbers: ['+12124007676'],
       },
       control_person: {
         address: {
           address1: '123 Old Forest Way',
-          address2: 'string',
+          address2: 'address2',
           city: 'Omaha',
           country: 'USA',
           postal_code: '68022',
@@ -265,7 +265,7 @@ describe('resource accountHolders', () => {
       nature_of_business: 'Software company selling solutions to the restaurant industry',
       tos_timestamp: '2018-05-29T21:16:05Z',
       workflow: 'KYB_BASIC',
-      external_id: 'string',
+      external_id: 'external_id',
       kyb_passed_timestamp: '2018-05-29T21:16:05Z',
       website_url: 'www.mybusiness.com',
     });
@@ -325,10 +325,10 @@ describe('resource accountHolders', () => {
     await expect(
       lithic.accountHolders.list(
         {
-          ending_before: 'string',
+          ending_before: 'ending_before',
           external_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           limit: 0,
-          starting_after: 'string',
+          starting_after: 'starting_after',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -389,7 +389,7 @@ describe('resource accountHolders', () => {
       individual: {
         address: {
           address1: '123 Old Forest Way',
-          address2: 'string',
+          address2: 'address2',
           city: 'Omaha',
           country: 'USA',
           postal_code: '68022',
