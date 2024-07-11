@@ -101,12 +101,19 @@ Types:
 - <code><a href="./src/resources/tokenizations.ts">Tokenization</a></code>
 - <code><a href="./src/resources/tokenizations.ts">TokenizationRetrieveResponse</a></code>
 - <code><a href="./src/resources/tokenizations.ts">TokenizationSimulateResponse</a></code>
+- <code><a href="./src/resources/tokenizations.ts">TokenizationUpdateDigitalCardArtResponse</a></code>
 
 Methods:
 
 - <code title="get /tokenizations/{tokenization_token}">client.tokenizations.<a href="./src/resources/tokenizations.ts">retrieve</a>(tokenizationToken) -> TokenizationRetrieveResponse</code>
 - <code title="get /tokenizations">client.tokenizations.<a href="./src/resources/tokenizations.ts">list</a>({ ...params }) -> TokenizationsCursorPage</code>
+- <code title="post /tokenizations/{tokenization_token}/activate">client.tokenizations.<a href="./src/resources/tokenizations.ts">activate</a>(tokenizationToken) -> void</code>
+- <code title="post /tokenizations/{tokenization_token}/deactivate">client.tokenizations.<a href="./src/resources/tokenizations.ts">deactivate</a>(tokenizationToken) -> void</code>
+- <code title="post /tokenizations/{tokenization_token}/pause">client.tokenizations.<a href="./src/resources/tokenizations.ts">pause</a>(tokenizationToken) -> void</code>
+- <code title="post /tokenizations/{tokenization_token}/resend_activation_code">client.tokenizations.<a href="./src/resources/tokenizations.ts">resendActivationCode</a>(tokenizationToken, { ...params }) -> void</code>
 - <code title="post /simulate/tokenizations">client.tokenizations.<a href="./src/resources/tokenizations.ts">simulate</a>({ ...params }) -> TokenizationSimulateResponse</code>
+- <code title="post /tokenizations/{tokenization_token}/unpause">client.tokenizations.<a href="./src/resources/tokenizations.ts">unpause</a>(tokenizationToken) -> void</code>
+- <code title="post /tokenizations/{tokenization_token}/update_digital_card_art">client.tokenizations.<a href="./src/resources/tokenizations.ts">updateDigitalCardArt</a>(tokenizationToken, { ...params }) -> TokenizationUpdateDigitalCardArtResponse</code>
 
 # Cards
 
