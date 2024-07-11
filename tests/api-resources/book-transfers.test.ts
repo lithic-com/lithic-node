@@ -14,7 +14,7 @@ describe('resource bookTransfers', () => {
       amount: 1,
       category: 'ADJUSTMENT',
       from_financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      subtype: 'string',
+      subtype: 'subtype',
       to_financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       type: 'ATM_WITHDRAWAL',
     });
@@ -32,11 +32,11 @@ describe('resource bookTransfers', () => {
       amount: 1,
       category: 'ADJUSTMENT',
       from_financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      subtype: 'string',
+      subtype: 'subtype',
       to_financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       type: 'ATM_WITHDRAWAL',
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      memo: 'string',
+      memo: 'memo',
     });
   });
 
@@ -86,11 +86,11 @@ describe('resource bookTransfers', () => {
           begin: '2019-12-27T18:11:19.117Z',
           category: 'BALANCE_OR_FUNDING',
           end: '2019-12-27T18:11:19.117Z',
-          ending_before: 'string',
+          ending_before: 'ending_before',
           financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           page_size: 1,
           result: 'APPROVED',
-          starting_after: 'string',
+          starting_after: 'starting_after',
           status: 'DECLINED',
         },
         { path: '/_stainless_unknown_path' },

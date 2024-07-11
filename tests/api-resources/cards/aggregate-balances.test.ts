@@ -31,7 +31,7 @@ describe('resource aggregateBalances', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       lithic.cards.aggregateBalances.list(
-        { account_token: 'string', business_account_token: 'string' },
+        { account_token: 'account_token', business_account_token: 'business_account_token' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Lithic.NotFoundError);

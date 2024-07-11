@@ -30,7 +30,7 @@ describe('resource transfers', () => {
       from: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       to: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      memo: 'string',
+      memo: 'memo',
     });
   });
 });
