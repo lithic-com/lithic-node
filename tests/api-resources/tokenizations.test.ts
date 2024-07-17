@@ -59,6 +59,7 @@ describe('resource tokenizations', () => {
           ending_before: 'ending_before',
           page_size: 1,
           starting_after: 'starting_after',
+          tokenization_channel: 'DIGITAL_WALLET',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -180,6 +181,7 @@ describe('resource tokenizations', () => {
       tokenization_source: 'APPLE_PAY',
       account_score: 5,
       device_score: 5,
+      entity: 'entity',
       wallet_recommended_decision: 'APPROVED',
     });
   });
