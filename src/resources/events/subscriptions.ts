@@ -242,6 +242,11 @@ export interface SubscriptionCreateParams {
     | 'settlement_report.updated'
     | 'three_ds_authentication.created'
     | 'transfer_transaction.created'
+    | 'tokenization.approval_request'
+    | 'tokenization.result'
+    | 'tokenization.two_factor_authentication_code'
+    | 'tokenization.two_factor_authentication_code_sent'
+    | 'tokenization.updated'
   >;
 }
 
@@ -289,6 +294,11 @@ export interface SubscriptionUpdateParams {
     | 'settlement_report.updated'
     | 'three_ds_authentication.created'
     | 'transfer_transaction.created'
+    | 'tokenization.approval_request'
+    | 'tokenization.result'
+    | 'tokenization.two_factor_authentication_code'
+    | 'tokenization.two_factor_authentication_code_sent'
+    | 'tokenization.updated'
   >;
 }
 
@@ -365,7 +375,12 @@ export interface SubscriptionSendSimulatedExampleParams {
     | 'payment_transaction.updated'
     | 'settlement_report.updated'
     | 'three_ds_authentication.created'
-    | 'transfer_transaction.created';
+    | 'transfer_transaction.created'
+    | 'tokenization.approval_request'
+    | 'tokenization.result'
+    | 'tokenization.two_factor_authentication_code'
+    | 'tokenization.two_factor_authentication_code_sent'
+    | 'tokenization.updated';
 }
 
 export namespace Subscriptions {

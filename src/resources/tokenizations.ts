@@ -194,15 +194,18 @@ export interface Tokenization {
   status: 'ACTIVE' | 'DEACTIVATED' | 'INACTIVE' | 'PAUSED' | 'PENDING_2FA' | 'PENDING_ACTIVATION' | 'UNKNOWN';
 
   /**
-   * The entity that is requested the tokenization. Represents a Digital Wallet.
+   * The entity that requested the tokenization. Represents a Digital Wallet or
+   * merchant.
    */
   token_requestor_name:
     | 'AMAZON_ONE'
     | 'ANDROID_PAY'
     | 'APPLE_PAY'
+    | 'FACEBOOK'
     | 'FITBIT_PAY'
     | 'GARMIN_PAY'
     | 'MICROSOFT_PAY'
+    | 'NETFLIX'
     | 'SAMSUNG_PAY'
     | 'UNKNOWN'
     | 'VISA_CHECKOUT';
@@ -211,6 +214,11 @@ export interface Tokenization {
    * The network's unique reference for the tokenization.
    */
   token_unique_reference: string;
+
+  /**
+   * The channel through which the tokenization was made.
+   */
+  tokenization_channel: 'DIGITAL_WALLET' | 'MERCHANT';
 
   /**
    * Latest date and time when the tokenization was updated. UTC time zone.
@@ -303,6 +311,12 @@ export interface TokenizationListParams extends CursorPageParams {
    * Filter for tokenizations created before this date.
    */
   end?: string;
+
+  /**
+   * Filter for tokenizations by tokenization channel. If this is not specified, only
+   * DIGITAL_WALLET tokenizations will be returned.
+   */
+  tokenization_channel?: 'DIGITAL_WALLET' | 'MERCHANT';
 }
 
 export interface TokenizationResendActivationCodeParams {
@@ -333,7 +347,7 @@ export interface TokenizationSimulateParams {
   /**
    * The source of the tokenization request.
    */
-  tokenization_source: 'APPLE_PAY' | 'GOOGLE' | 'SAMSUNG_PAY';
+  tokenization_source: 'APPLE_PAY' | 'GOOGLE' | 'SAMSUNG_PAY' | 'MERCHANT';
 
   /**
    * The account score (1-5) that represents how the Digital Wallet's view on how
@@ -346,6 +360,12 @@ export interface TokenizationSimulateParams {
    * reputable an end user's device is.
    */
   device_score?: number;
+
+  /**
+   * Optional field to specify the token requestor name for a merchant token
+   * simulation. Ignored when tokenization_source is not MERCHANT.
+   */
+  entity?: string;
 
   /**
    * The decision that the Digital Wallet's recommend
