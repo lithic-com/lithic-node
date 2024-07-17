@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.59.0 (2024-07-17)
+
+Full Changelog: [v0.58.0...v0.59.0](https://github.com/lithic-com/lithic-node/compare/v0.58.0...v0.59.0)
+
+### Features
+
+* **api:** updates ([#434](https://github.com/lithic-com/lithic-node/issues/434)) ([c4a84f5](https://github.com/lithic-com/lithic-node/commit/c4a84f50ea520b8ae0badaf4e0484ce81020136c))
+
+
+### Chores
+
+* **docs:** mention support of web browser runtimes ([#433](https://github.com/lithic-com/lithic-node/issues/433)) ([9066fb8](https://github.com/lithic-com/lithic-node/commit/9066fb820b43c91b81e52dc450d87f9a37f8486b))
+* **docs:** minor update to formatting of API link in README ([#431](https://github.com/lithic-com/lithic-node/issues/431)) ([e29b335](https://github.com/lithic-com/lithic-node/commit/e29b3351bed33faf5ea2428a1da7968e3e1fcecd))
+
 ## 0.58.0 (2024-07-11)
 
 Full Changelog: [v0.57.1...v0.58.0](https://github.com/lithic-com/lithic-node/compare/v0.57.1...v0.58.0)
