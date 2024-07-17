@@ -132,7 +132,12 @@ export interface Event {
     | 'payment_transaction.updated'
     | 'settlement_report.updated'
     | 'three_ds_authentication.created'
-    | 'transfer_transaction.created';
+    | 'transfer_transaction.created'
+    | 'tokenization.approval_request'
+    | 'tokenization.result'
+    | 'tokenization.two_factor_authentication_code'
+    | 'tokenization.two_factor_authentication_code_sent'
+    | 'tokenization.updated';
 
   payload: Record<string, unknown>;
 }
@@ -182,6 +187,11 @@ export interface EventSubscription {
     | 'settlement_report.updated'
     | 'three_ds_authentication.created'
     | 'transfer_transaction.created'
+    | 'tokenization.approval_request'
+    | 'tokenization.result'
+    | 'tokenization.two_factor_authentication_code'
+    | 'tokenization.two_factor_authentication_code_sent'
+    | 'tokenization.updated'
   > | null;
 }
 
@@ -269,6 +279,11 @@ export interface EventListParams extends CursorPageParams {
     | 'settlement_report.updated'
     | 'three_ds_authentication.created'
     | 'transfer_transaction.created'
+    | 'tokenization.approval_request'
+    | 'tokenization.result'
+    | 'tokenization.two_factor_authentication_code'
+    | 'tokenization.two_factor_authentication_code_sent'
+    | 'tokenization.updated'
   >;
 
   /**
