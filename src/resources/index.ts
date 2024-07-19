@@ -200,5 +200,5 @@ export {
   TransactionSimulateVoidParams,
   TransactionsCursorPage,
   Transactions,
-} from './transactions';
+} from './transactions/transactions';
 export { Transfer, TransferCreateParams, Transfers } from './transfers';

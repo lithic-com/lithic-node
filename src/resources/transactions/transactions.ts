@@ -1,12 +1,18 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import { isRequestOptions } from '../core';
-import * as Core from '../core';
+import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import * as Core from '../../core';
 import * as TransactionsAPI from './transactions';
-import { CursorPage, type CursorPageParams } from '../pagination';
+import * as EnhancedCommercialDataAPI from './enhanced-commercial-data';
+import * as EventsAPI from './events/events';
+import { CursorPage, type CursorPageParams } from '../../pagination';
 
 export class Transactions extends APIResource {
+  enhancedCommercialData: EnhancedCommercialDataAPI.EnhancedCommercialData =
+    new EnhancedCommercialDataAPI.EnhancedCommercialData(this._client);
+  events: EventsAPI.Events = new EventsAPI.Events(this._client);
+
   /**
    * Get specific card transaction.
    */
@@ -1045,4 +1051,7 @@ export namespace Transactions {
   export import TransactionSimulateReturnParams = TransactionsAPI.TransactionSimulateReturnParams;
   export import TransactionSimulateReturnReversalParams = TransactionsAPI.TransactionSimulateReturnReversalParams;
   export import TransactionSimulateVoidParams = TransactionsAPI.TransactionSimulateVoidParams;
+  export import EnhancedCommercialData = EnhancedCommercialDataAPI.EnhancedCommercialData;
+  export import EnhancedCommercialDataRetrieveResponse = EnhancedCommercialDataAPI.EnhancedCommercialDataRetrieveResponse;
+  export import Events = EventsAPI.Events;
 }
