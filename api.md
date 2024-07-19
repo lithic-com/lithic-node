@@ -288,26 +288,48 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/transactions.ts">Transaction</a></code>
-- <code><a href="./src/resources/transactions.ts">TransactionSimulateAuthorizationResponse</a></code>
-- <code><a href="./src/resources/transactions.ts">TransactionSimulateAuthorizationAdviceResponse</a></code>
-- <code><a href="./src/resources/transactions.ts">TransactionSimulateClearingResponse</a></code>
-- <code><a href="./src/resources/transactions.ts">TransactionSimulateCreditAuthorizationResponse</a></code>
-- <code><a href="./src/resources/transactions.ts">TransactionSimulateReturnResponse</a></code>
-- <code><a href="./src/resources/transactions.ts">TransactionSimulateReturnReversalResponse</a></code>
-- <code><a href="./src/resources/transactions.ts">TransactionSimulateVoidResponse</a></code>
+- <code><a href="./src/resources/transactions/transactions.ts">Transaction</a></code>
+- <code><a href="./src/resources/transactions/transactions.ts">TransactionSimulateAuthorizationResponse</a></code>
+- <code><a href="./src/resources/transactions/transactions.ts">TransactionSimulateAuthorizationAdviceResponse</a></code>
+- <code><a href="./src/resources/transactions/transactions.ts">TransactionSimulateClearingResponse</a></code>
+- <code><a href="./src/resources/transactions/transactions.ts">TransactionSimulateCreditAuthorizationResponse</a></code>
+- <code><a href="./src/resources/transactions/transactions.ts">TransactionSimulateReturnResponse</a></code>
+- <code><a href="./src/resources/transactions/transactions.ts">TransactionSimulateReturnReversalResponse</a></code>
+- <code><a href="./src/resources/transactions/transactions.ts">TransactionSimulateVoidResponse</a></code>
 
 Methods:
 
-- <code title="get /transactions/{transaction_token}">client.transactions.<a href="./src/resources/transactions.ts">retrieve</a>(transactionToken) -> Transaction</code>
-- <code title="get /transactions">client.transactions.<a href="./src/resources/transactions.ts">list</a>({ ...params }) -> TransactionsCursorPage</code>
-- <code title="post /simulate/authorize">client.transactions.<a href="./src/resources/transactions.ts">simulateAuthorization</a>({ ...params }) -> TransactionSimulateAuthorizationResponse</code>
-- <code title="post /simulate/authorization_advice">client.transactions.<a href="./src/resources/transactions.ts">simulateAuthorizationAdvice</a>({ ...params }) -> TransactionSimulateAuthorizationAdviceResponse</code>
-- <code title="post /simulate/clearing">client.transactions.<a href="./src/resources/transactions.ts">simulateClearing</a>({ ...params }) -> TransactionSimulateClearingResponse</code>
-- <code title="post /simulate/credit_authorization_advice">client.transactions.<a href="./src/resources/transactions.ts">simulateCreditAuthorization</a>({ ...params }) -> TransactionSimulateCreditAuthorizationResponse</code>
-- <code title="post /simulate/return">client.transactions.<a href="./src/resources/transactions.ts">simulateReturn</a>({ ...params }) -> TransactionSimulateReturnResponse</code>
-- <code title="post /simulate/return_reversal">client.transactions.<a href="./src/resources/transactions.ts">simulateReturnReversal</a>({ ...params }) -> TransactionSimulateReturnReversalResponse</code>
-- <code title="post /simulate/void">client.transactions.<a href="./src/resources/transactions.ts">simulateVoid</a>({ ...params }) -> TransactionSimulateVoidResponse</code>
+- <code title="get /transactions/{transaction_token}">client.transactions.<a href="./src/resources/transactions/transactions.ts">retrieve</a>(transactionToken) -> Transaction</code>
+- <code title="get /transactions">client.transactions.<a href="./src/resources/transactions/transactions.ts">list</a>({ ...params }) -> TransactionsCursorPage</code>
+- <code title="post /simulate/authorize">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateAuthorization</a>({ ...params }) -> TransactionSimulateAuthorizationResponse</code>
+- <code title="post /simulate/authorization_advice">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateAuthorizationAdvice</a>({ ...params }) -> TransactionSimulateAuthorizationAdviceResponse</code>
+- <code title="post /simulate/clearing">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateClearing</a>({ ...params }) -> TransactionSimulateClearingResponse</code>
+- <code title="post /simulate/credit_authorization_advice">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateCreditAuthorization</a>({ ...params }) -> TransactionSimulateCreditAuthorizationResponse</code>
+- <code title="post /simulate/return">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateReturn</a>({ ...params }) -> TransactionSimulateReturnResponse</code>
+- <code title="post /simulate/return_reversal">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateReturnReversal</a>({ ...params }) -> TransactionSimulateReturnReversalResponse</code>
+- <code title="post /simulate/void">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateVoid</a>({ ...params }) -> TransactionSimulateVoidResponse</code>
+
+## EnhancedCommercialData
+
+Types:
+
+- <code><a href="./src/resources/transactions/enhanced-commercial-data.ts">EnhancedCommercialDataRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="get /transactions/{transaction_token}/enhanced_commercial_data">client.transactions.enhancedCommercialData.<a href="./src/resources/transactions/enhanced-commercial-data.ts">retrieve</a>(transactionToken) -> EnhancedCommercialDataRetrieveResponse</code>
+
+## Events
+
+### EnhancedCommercialData
+
+Types:
+
+- <code><a href="./src/resources/transactions/events/enhanced-commercial-data.ts">EnhancedData</a></code>
+
+Methods:
+
+- <code title="get /transactions/events/{event_token}/enhanced_commercial_data">client.transactions.events.enhancedCommercialData.<a href="./src/resources/transactions/events/enhanced-commercial-data.ts">retrieve</a>(eventToken) -> EnhancedData</code>
 
 # ResponderEndpoints
 
