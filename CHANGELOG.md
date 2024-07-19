@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.60.0 (2024-07-19)
+
+Full Changelog: [v0.59.0...v0.60.0](https://github.com/lithic-com/lithic-node/compare/v0.59.0...v0.60.0)
+
+### Features
+
+* **api:** add method to retrieve a transaction's enhanced commercial data ([#438](https://github.com/lithic-com/lithic-node/issues/438)) ([17f3900](https://github.com/lithic-com/lithic-node/commit/17f39000b7c42b6efa2aeed4bfecdc17d39e349e))
+
+
+### Chores
+
+* **ci:** limit release doctor target branches ([#437](https://github.com/lithic-com/lithic-node/issues/437)) ([668b387](https://github.com/lithic-com/lithic-node/commit/668b387bc45cb129baa8fcf954216f2c1a6b3e35))
+* **docs:** use client instead of package name in Node examples ([#435](https://github.com/lithic-com/lithic-node/issues/435)) ([8b79aa7](https://github.com/lithic-com/lithic-node/commit/8b79aa79a93f85892391044a7edc55176fa6a02a))
+
 ## 0.59.0 (2024-07-17)
 
 Full Changelog: [v0.58.0...v0.59.0](https://github.com/lithic-com/lithic-node/compare/v0.58.0...v0.59.0)
