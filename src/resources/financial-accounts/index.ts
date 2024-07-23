@@ -11,4 +11,10 @@ export {
   FinancialAccountsSinglePage,
   FinancialAccounts,
 } from './financial-accounts';
+export {
+  FinancialAccountCreditConfig,
+  CreditConfigurationUpdateParams,
+  CreditConfiguration,
+} from './credit-configuration';
 export { FinancialTransactionListParams, FinancialTransactions } from './financial-transactions';
+export { Statement, Statements, StatementListParams, StatementsCursorPage } from './statements/index';

@@ -5,13 +5,18 @@ import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as FinancialAccountsAPI from './financial-accounts';
 import * as BalancesAPI from './balances';
+import * as CreditConfigurationAPI from './credit-configuration';
 import * as FinancialTransactionsAPI from './financial-transactions';
+import * as StatementsAPI from './statements/statements';
 import { SinglePage } from '../../pagination';
 
 export class FinancialAccounts extends APIResource {
   balances: BalancesAPI.Balances = new BalancesAPI.Balances(this._client);
   financialTransactions: FinancialTransactionsAPI.FinancialTransactions =
     new FinancialTransactionsAPI.FinancialTransactions(this._client);
+  creditConfiguration: CreditConfigurationAPI.CreditConfiguration =
+    new CreditConfigurationAPI.CreditConfiguration(this._client);
+  statements: StatementsAPI.Statements = new StatementsAPI.Statements(this._client);
 
   /**
    * Create a new financial account
@@ -355,4 +360,11 @@ export namespace FinancialAccounts {
   export import BalanceListParams = BalancesAPI.BalanceListParams;
   export import FinancialTransactions = FinancialTransactionsAPI.FinancialTransactions;
   export import FinancialTransactionListParams = FinancialTransactionsAPI.FinancialTransactionListParams;
+  export import CreditConfiguration = CreditConfigurationAPI.CreditConfiguration;
+  export import FinancialAccountCreditConfig = CreditConfigurationAPI.FinancialAccountCreditConfig;
+  export import CreditConfigurationUpdateParams = CreditConfigurationAPI.CreditConfigurationUpdateParams;
+  export import Statements = StatementsAPI.Statements;
+  export import Statement = StatementsAPI.Statement;
+  export import StatementsCursorPage = StatementsAPI.StatementsCursorPage;
+  export import StatementListParams = StatementsAPI.StatementListParams;
 }
