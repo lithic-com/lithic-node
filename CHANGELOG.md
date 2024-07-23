@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.61.0 (2024-07-23)
+
+Full Changelog: [v0.60.0...v0.61.0](https://github.com/lithic-com/lithic-node/compare/v0.60.0...v0.61.0)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** deprecate 'auth rule token' in 'card' and 'account holder' models ([#441](https://github.com/lithic-com/lithic-node/issues/441))
+
+### Features
+
+* **api:** deprecate 'auth rule token' in 'card' and 'account holder' models ([#441](https://github.com/lithic-com/lithic-node/issues/441)) ([9691937](https://github.com/lithic-com/lithic-node/commit/9691937282109dbd4dbd139d749c343343463b84))
+
+
+### Chores
+
+* **tests:** update prism version ([#439](https://github.com/lithic-com/lithic-node/issues/439)) ([7f7e93f](https://github.com/lithic-com/lithic-node/commit/7f7e93f4bdb026a5051e6ee4d15c03ef77a941f0))
+
 ## 0.60.0 (2024-07-19)
 
 Full Changelog: [v0.59.0...v0.60.0](https://github.com/lithic-com/lithic-node/compare/v0.59.0...v0.60.0)
