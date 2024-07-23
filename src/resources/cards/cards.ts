@@ -309,7 +309,10 @@ export interface Card {
   type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL';
 
   /**
-   * List of identifiers for the Auth Rule(s) that are applied on the card.
+   * @deprecated: List of identifiers for the Auth Rule(s) that are applied on the
+   * card. This field is deprecated and will no longer be populated in the `Card`
+   * object. The key will be removed from the schema in a future release. Use the
+   * `/auth_rules` endpoints to fetch Auth Rule information instead.
    */
   auth_rule_tokens?: Array<string>;
 
@@ -644,12 +647,6 @@ export interface CardCreateParams {
 }
 
 export interface CardUpdateParams {
-  /**
-   * Identifier for any Auth Rules that will be applied to transactions taking place
-   * with the card.
-   */
-  auth_rule_token?: string;
-
   /**
    * Specifies the digital card art to be displayed in the user’s digital wallet
    * after tokenization. This artwork must be approved by Mastercard and configured

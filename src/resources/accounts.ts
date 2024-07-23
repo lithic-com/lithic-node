@@ -105,7 +105,10 @@ export interface Account {
   account_holder?: Account.AccountHolder;
 
   /**
-   * List of identifiers for the Auth Rule(s) that are applied on the account.
+   * @deprecated: List of identifiers for the Auth Rule(s) that are applied on the
+   * account. This field is deprecated and will no longer be populated in the
+   * `account_holder` object. The key will be removed from the schema in a future
+   * release. Use the `/auth_rules` endpoints to fetch Auth Rule information instead.
    */
   auth_rule_tokens?: Array<string>;
 
