@@ -280,6 +280,40 @@ Methods:
 - <code title="get /financial_accounts/{financial_account_token}/financial_transactions/{financial_transaction_token}">client.financialAccounts.financialTransactions.<a href="./src/resources/financial-accounts/financial-transactions.ts">retrieve</a>(financialAccountToken, financialTransactionToken) -> FinancialTransaction</code>
 - <code title="get /financial_accounts/{financial_account_token}/financial_transactions">client.financialAccounts.financialTransactions.<a href="./src/resources/financial-accounts/financial-transactions.ts">list</a>(financialAccountToken, { ...params }) -> FinancialTransactionsSinglePage</code>
 
+## CreditConfiguration
+
+Types:
+
+- <code><a href="./src/resources/financial-accounts/credit-configuration.ts">FinancialAccountCreditConfig</a></code>
+
+Methods:
+
+- <code title="get /financial_accounts/{financial_account_token}/credit_configuration">client.financialAccounts.creditConfiguration.<a href="./src/resources/financial-accounts/credit-configuration.ts">retrieve</a>(financialAccountToken) -> FinancialAccountCreditConfig</code>
+- <code title="patch /financial_accounts/{financial_account_token}/credit_configuration">client.financialAccounts.creditConfiguration.<a href="./src/resources/financial-accounts/credit-configuration.ts">update</a>(financialAccountToken, { ...params }) -> FinancialAccountCreditConfig</code>
+
+## Statements
+
+Types:
+
+- <code><a href="./src/resources/financial-accounts/statements/statements.ts">Statement</a></code>
+- <code><a href="./src/resources/financial-accounts/statements/statements.ts">Statements</a></code>
+
+Methods:
+
+- <code title="get /financial_accounts/{financial_account_token}/statements/{statement_token}">client.financialAccounts.statements.<a href="./src/resources/financial-accounts/statements/statements.ts">retrieve</a>(financialAccountToken, statementToken) -> Statement</code>
+- <code title="get /financial_accounts/{financial_account_token}/statements">client.financialAccounts.statements.<a href="./src/resources/financial-accounts/statements/statements.ts">list</a>(financialAccountToken, { ...params }) -> StatementsCursorPage</code>
+
+### LineItems
+
+Types:
+
+- <code><a href="./src/resources/financial-accounts/statements/line-items.ts">StatementLineItems</a></code>
+- <code><a href="./src/resources/financial-accounts/statements/line-items.ts">LineItemListResponse</a></code>
+
+Methods:
+
+- <code title="get /financial_accounts/{financial_account_token}/statements/{statement_token}/line_items">client.financialAccounts.statements.lineItems.<a href="./src/resources/financial-accounts/statements/line-items.ts">list</a>(financialAccountToken, statementToken, { ...params }) -> LineItemListResponsesCursorPage</code>
+
 # Transactions
 
 Types:
