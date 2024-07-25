@@ -6,7 +6,8 @@ import * as EnhancedCommercialDataAPI from './enhanced-commercial-data';
 
 export class EnhancedCommercialData extends APIResource {
   /**
-   * Get L2/L3 enhanced commercial data associated with a transaction event.
+   * Get L2/L3 enhanced commercial data associated with a transaction event. Not
+   * available in sandbox.
    */
   retrieve(eventToken: string, options?: Core.RequestOptions): Core.APIPromise<EnhancedData> {
     return this._client.get(`/transactions/events/${eventToken}/enhanced_commercial_data`, options);
@@ -41,12 +42,12 @@ export namespace EnhancedData {
     tax: Common.Tax;
 
     /**
-     * An optional customer identifier.
+     * A customer identifier.
      */
     customer_reference_number?: string;
 
     /**
-     * An optional merchant identifier.
+     * A merchant identifier.
      */
     merchant_reference_number?: string;
 
@@ -106,13 +107,13 @@ export namespace EnhancedData {
     fuel: Fleet.Fuel;
 
     /**
-     * The driver number entered into at the terminal at the time of sale, with leading
-     * zeroes stripped.
+     * The driver number entered into the terminal at the time of sale, with leading
+     * zeros stripped.
      */
     driver_number?: string;
 
     /**
-     * The odometer reading entered into at the terminal at the time of sale.
+     * The odometer reading entered into the terminal at the time of sale.
      */
     odometer?: number;
 
@@ -122,8 +123,8 @@ export namespace EnhancedData {
     service_type?: 'UNKNOWN' | 'UNDEFINED' | 'SELF_SERVICE' | 'FULL_SERVICE' | 'NON_FUEL_ONLY';
 
     /**
-     * The vehicle number entered into at the terminal at the time of sale, with
-     * leading zeroes stripped.
+     * The vehicle number entered into the terminal at the time of sale, with leading
+     * zeros stripped.
      */
     vehicle_number?: string;
   }

@@ -113,11 +113,6 @@ export interface Statement {
   financial_account_token: string;
 
   /**
-   * Date of when the next statement will be created
-   */
-  next_statement_date: string;
-
-  /**
    * Date when the payment is due
    */
   payment_due_date: string;
