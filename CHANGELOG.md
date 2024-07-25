@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.61.1 (2024-07-25)
+
+Full Changelog: [v0.61.0...v0.61.1](https://github.com/lithic-com/lithic-node/compare/v0.61.0...v0.61.1)
+
+### Bug Fixes
+
+* **compat:** remove ReadableStream polyfill redundant since node v16 ([#442](https://github.com/lithic-com/lithic-node/issues/442)) ([e09eb97](https://github.com/lithic-com/lithic-node/commit/e09eb97a7c24814aa883ac8b758bb1c3e36d4a21))
+
 ## 0.61.0 (2024-07-23)
 
 Full Changelog: [v0.60.0...v0.61.0](https://github.com/lithic-com/lithic-node/compare/v0.60.0...v0.61.0)
