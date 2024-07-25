@@ -7,7 +7,8 @@ import * as EventsEnhancedCommercialDataAPI from './events/enhanced-commercial-d
 
 export class EnhancedCommercialData extends APIResource {
   /**
-   * Get all L2/L3 enhanced commercial data associated with a transaction.
+   * Get all L2/L3 enhanced commercial data associated with a transaction. Not
+   * available in sandbox.
    */
   retrieve(
     transactionToken: string,

@@ -36,7 +36,7 @@ export class Settlement extends APIResource {
   }
 
   /**
-   * Get the settlement report for a specified report date.
+   * Get the settlement report for a specified report date. Not available in sandbox.
    */
   summary(reportDate: string, options?: Core.RequestOptions): Core.APIPromise<ReportsAPI.SettlementReport> {
     return this._client.get(`/reports/settlement/summary/${reportDate}`, options);
