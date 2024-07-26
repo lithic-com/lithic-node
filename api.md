@@ -504,3 +504,15 @@ Methods:
 - <code title="get /book_transfers/{book_transfer_token}">client.bookTransfers.<a href="./src/resources/book-transfers.ts">retrieve</a>(bookTransferToken) -> BookTransferResponse</code>
 - <code title="get /book_transfers">client.bookTransfers.<a href="./src/resources/book-transfers.ts">list</a>({ ...params }) -> BookTransferResponsesCursorPage</code>
 - <code title="post /book_transfers/{book_transfer_token}/reverse">client.bookTransfers.<a href="./src/resources/book-transfers.ts">reverse</a>(bookTransferToken, { ...params }) -> BookTransferResponse</code>
+
+# CreditProducts
+
+## ExtendedCredit
+
+Types:
+
+- <code><a href="./src/resources/credit-products/extended-credit.ts">ExtendedCredit</a></code>
+
+Methods:
+
+- <code title="get /credit_products/{credit_product_id}/extended_credit">client.creditProducts.extendedCredit.<a href="./src/resources/credit-products/extended-credit.ts">retrieve</a>(creditProductId) -> ExtendedCredit</code>

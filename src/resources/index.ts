@@ -73,6 +73,7 @@ export {
   Cards,
 } from './cards/cards';
 export { CardProgram, CardProgramListParams, CardProgramsCursorPage, CardPrograms } from './card-programs';
+export { CreditProducts } from './credit-products/credit-products';
 export {
   DigitalCardArt,
   DigitalCardArtListParams,
