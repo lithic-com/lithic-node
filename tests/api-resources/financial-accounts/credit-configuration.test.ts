@@ -3,14 +3,14 @@
 import Lithic from 'lithic';
 import { Response } from 'node-fetch';
 
-const lithic = new Lithic({
+const client = new Lithic({
   apiKey: 'My Lithic API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource creditConfiguration', () => {
   test('retrieve', async () => {
-    const responsePromise = lithic.financialAccounts.creditConfiguration.retrieve(
+    const responsePromise = client.financialAccounts.creditConfiguration.retrieve(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     );
     const rawResponse = await responsePromise.asResponse();
@@ -25,14 +25,14 @@ describe('resource creditConfiguration', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.financialAccounts.creditConfiguration.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      client.financialAccounts.creditConfiguration.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('update', async () => {
-    const responsePromise = lithic.financialAccounts.creditConfiguration.update(
+    const responsePromise = client.financialAccounts.creditConfiguration.update(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     );
     const rawResponse = await responsePromise.asResponse();
@@ -47,7 +47,7 @@ describe('resource creditConfiguration', () => {
   test('update: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.financialAccounts.creditConfiguration.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      client.financialAccounts.creditConfiguration.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Lithic.NotFoundError);
@@ -56,7 +56,7 @@ describe('resource creditConfiguration', () => {
   test('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.financialAccounts.creditConfiguration.update(
+      client.financialAccounts.creditConfiguration.update(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
           credit_limit: 0,

@@ -3,14 +3,14 @@
 import Lithic from 'lithic';
 import { Response } from 'node-fetch';
 
-const lithic = new Lithic({
+const client = new Lithic({
   apiKey: 'My Lithic API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource tokenizations', () => {
   test('retrieve', async () => {
-    const responsePromise = lithic.tokenizations.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.tokenizations.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,14 +23,14 @@ describe('resource tokenizations', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.tokenizations.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      client.tokenizations.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('list', async () => {
-    const responsePromise = lithic.tokenizations.list();
+    const responsePromise = client.tokenizations.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -42,7 +42,7 @@ describe('resource tokenizations', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(lithic.tokenizations.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.tokenizations.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Lithic.NotFoundError,
     );
   });
@@ -50,7 +50,7 @@ describe('resource tokenizations', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.tokenizations.list(
+      client.tokenizations.list(
         {
           account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           begin: '2019-12-27',
@@ -67,7 +67,7 @@ describe('resource tokenizations', () => {
   });
 
   test('activate', async () => {
-    const responsePromise = lithic.tokenizations.activate('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.tokenizations.activate('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -80,14 +80,14 @@ describe('resource tokenizations', () => {
   test('activate: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.tokenizations.activate('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      client.tokenizations.activate('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('deactivate', async () => {
-    const responsePromise = lithic.tokenizations.deactivate('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.tokenizations.deactivate('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -100,14 +100,14 @@ describe('resource tokenizations', () => {
   test('deactivate: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.tokenizations.deactivate('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      client.tokenizations.deactivate('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('pause', async () => {
-    const responsePromise = lithic.tokenizations.pause('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.tokenizations.pause('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -120,14 +120,14 @@ describe('resource tokenizations', () => {
   test('pause: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.tokenizations.pause('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      client.tokenizations.pause('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('resendActivationCode', async () => {
-    const responsePromise = lithic.tokenizations.resendActivationCode('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.tokenizations.resendActivationCode('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -140,7 +140,7 @@ describe('resource tokenizations', () => {
   test('resendActivationCode: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.tokenizations.resendActivationCode('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      client.tokenizations.resendActivationCode('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Lithic.NotFoundError);
@@ -149,7 +149,7 @@ describe('resource tokenizations', () => {
   test('resendActivationCode: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.tokenizations.resendActivationCode(
+      client.tokenizations.resendActivationCode(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         { activation_method_type: 'TEXT_TO_CARDHOLDER_NUMBER' },
         { path: '/_stainless_unknown_path' },
@@ -158,7 +158,7 @@ describe('resource tokenizations', () => {
   });
 
   test('simulate: only required params', async () => {
-    const responsePromise = lithic.tokenizations.simulate({
+    const responsePromise = client.tokenizations.simulate({
       cvv: '776',
       expiration_date: '08/29',
       pan: '4111111289144142',
@@ -174,7 +174,7 @@ describe('resource tokenizations', () => {
   });
 
   test('simulate: required and optional params', async () => {
-    const response = await lithic.tokenizations.simulate({
+    const response = await client.tokenizations.simulate({
       cvv: '776',
       expiration_date: '08/29',
       pan: '4111111289144142',
@@ -187,7 +187,7 @@ describe('resource tokenizations', () => {
   });
 
   test('unpause', async () => {
-    const responsePromise = lithic.tokenizations.unpause('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.tokenizations.unpause('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -200,14 +200,14 @@ describe('resource tokenizations', () => {
   test('unpause: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.tokenizations.unpause('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      client.tokenizations.unpause('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('updateDigitalCardArt', async () => {
-    const responsePromise = lithic.tokenizations.updateDigitalCardArt('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.tokenizations.updateDigitalCardArt('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -220,7 +220,7 @@ describe('resource tokenizations', () => {
   test('updateDigitalCardArt: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.tokenizations.updateDigitalCardArt('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      client.tokenizations.updateDigitalCardArt('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Lithic.NotFoundError);
@@ -229,7 +229,7 @@ describe('resource tokenizations', () => {
   test('updateDigitalCardArt: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.tokenizations.updateDigitalCardArt(
+      client.tokenizations.updateDigitalCardArt(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         { digital_card_art_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
         { path: '/_stainless_unknown_path' },

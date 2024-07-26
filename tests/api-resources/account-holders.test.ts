@@ -3,14 +3,14 @@
 import Lithic from 'lithic';
 import { Response } from 'node-fetch';
 
-const lithic = new Lithic({
+const client = new Lithic({
   apiKey: 'My Lithic API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource accountHolders', () => {
   test('create: only required params', async () => {
-    const responsePromise = lithic.accountHolders.create({
+    const responsePromise = client.accountHolders.create({
       beneficial_owner_entities: [
         {
           address: {
@@ -133,7 +133,7 @@ describe('resource accountHolders', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await lithic.accountHolders.create({
+    const response = await client.accountHolders.create({
       beneficial_owner_entities: [
         {
           address: {
@@ -272,7 +272,7 @@ describe('resource accountHolders', () => {
   });
 
   test('retrieve', async () => {
-    const responsePromise = lithic.accountHolders.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.accountHolders.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -285,14 +285,14 @@ describe('resource accountHolders', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.accountHolders.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      client.accountHolders.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('update', async () => {
-    const responsePromise = lithic.accountHolders.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
+    const responsePromise = client.accountHolders.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -303,7 +303,7 @@ describe('resource accountHolders', () => {
   });
 
   test('list', async () => {
-    const responsePromise = lithic.accountHolders.list();
+    const responsePromise = client.accountHolders.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -315,7 +315,7 @@ describe('resource accountHolders', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(lithic.accountHolders.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.accountHolders.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Lithic.NotFoundError,
     );
   });
@@ -323,7 +323,7 @@ describe('resource accountHolders', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.accountHolders.list(
+      client.accountHolders.list(
         {
           ending_before: 'ending_before',
           external_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -336,7 +336,7 @@ describe('resource accountHolders', () => {
   });
 
   test('listDocuments', async () => {
-    const responsePromise = lithic.accountHolders.listDocuments('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.accountHolders.listDocuments('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -349,14 +349,14 @@ describe('resource accountHolders', () => {
   test('listDocuments: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.accountHolders.listDocuments('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      client.accountHolders.listDocuments('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('resubmit: only required params', async () => {
-    const responsePromise = lithic.accountHolders.resubmit('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const responsePromise = client.accountHolders.resubmit('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       individual: {
         address: {
           address1: '123 Old Forest Way',
@@ -385,7 +385,7 @@ describe('resource accountHolders', () => {
   });
 
   test('resubmit: required and optional params', async () => {
-    const response = await lithic.accountHolders.resubmit('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const response = await client.accountHolders.resubmit('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       individual: {
         address: {
           address1: '123 Old Forest Way',
@@ -408,7 +408,7 @@ describe('resource accountHolders', () => {
   });
 
   test('retrieveDocument', async () => {
-    const responsePromise = lithic.accountHolders.retrieveDocument(
+    const responsePromise = client.accountHolders.retrieveDocument(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     );
@@ -424,7 +424,7 @@ describe('resource accountHolders', () => {
   test('retrieveDocument: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.accountHolders.retrieveDocument(
+      client.accountHolders.retrieveDocument(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         { path: '/_stainless_unknown_path' },
@@ -433,7 +433,7 @@ describe('resource accountHolders', () => {
   });
 
   test('uploadDocument: only required params', async () => {
-    const responsePromise = lithic.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const responsePromise = client.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       document_type: 'drivers_license',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -446,7 +446,7 @@ describe('resource accountHolders', () => {
   });
 
   test('uploadDocument: required and optional params', async () => {
-    const response = await lithic.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const response = await client.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       document_type: 'drivers_license',
     });
   });

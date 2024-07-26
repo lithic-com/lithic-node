@@ -3,14 +3,14 @@
 import Lithic from 'lithic';
 import { Response } from 'node-fetch';
 
-const lithic = new Lithic({
+const client = new Lithic({
   apiKey: 'My Lithic API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource authStreamEnrollment', () => {
   test('retrieveSecret', async () => {
-    const responsePromise = lithic.authStreamEnrollment.retrieveSecret();
+    const responsePromise = client.authStreamEnrollment.retrieveSecret();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,12 +23,12 @@ describe('resource authStreamEnrollment', () => {
   test('retrieveSecret: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.authStreamEnrollment.retrieveSecret({ path: '/_stainless_unknown_path' }),
+      client.authStreamEnrollment.retrieveSecret({ path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('rotateSecret', async () => {
-    const responsePromise = lithic.authStreamEnrollment.rotateSecret();
+    const responsePromise = client.authStreamEnrollment.rotateSecret();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -41,7 +41,7 @@ describe('resource authStreamEnrollment', () => {
   test('rotateSecret: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.authStreamEnrollment.rotateSecret({ path: '/_stainless_unknown_path' }),
+      client.authStreamEnrollment.rotateSecret({ path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 });
