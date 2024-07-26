@@ -3,14 +3,14 @@
 import Lithic from 'lithic';
 import { Response } from 'node-fetch';
 
-const lithic = new Lithic({
+const client = new Lithic({
   apiKey: 'My Lithic API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource cardPrograms', () => {
   test('retrieve', async () => {
-    const responsePromise = lithic.cardPrograms.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.cardPrograms.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,14 +23,14 @@ describe('resource cardPrograms', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.cardPrograms.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      client.cardPrograms.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('list', async () => {
-    const responsePromise = lithic.cardPrograms.list();
+    const responsePromise = client.cardPrograms.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -42,7 +42,7 @@ describe('resource cardPrograms', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(lithic.cardPrograms.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.cardPrograms.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Lithic.NotFoundError,
     );
   });
@@ -50,7 +50,7 @@ describe('resource cardPrograms', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.cardPrograms.list(
+      client.cardPrograms.list(
         { ending_before: 'ending_before', page_size: 1, starting_after: 'starting_after' },
         { path: '/_stainless_unknown_path' },
       ),

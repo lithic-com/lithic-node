@@ -3,14 +3,14 @@
 import Lithic from 'lithic';
 import { Response } from 'node-fetch';
 
-const lithic = new Lithic({
+const client = new Lithic({
   apiKey: 'My Lithic API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource events', () => {
   test('retrieve', async () => {
-    const responsePromise = lithic.events.retrieve('event_token');
+    const responsePromise = client.events.retrieve('event_token');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,13 +22,13 @@ describe('resource events', () => {
 
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(lithic.events.retrieve('event_token', { path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.events.retrieve('event_token', { path: '/_stainless_unknown_path' })).rejects.toThrow(
       Lithic.NotFoundError,
     );
   });
 
   test('list', async () => {
-    const responsePromise = lithic.events.list();
+    const responsePromise = client.events.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -40,7 +40,7 @@ describe('resource events', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(lithic.events.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.events.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Lithic.NotFoundError,
     );
   });
@@ -48,7 +48,7 @@ describe('resource events', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.events.list(
+      client.events.list(
         {
           begin: '2019-12-27T18:11:19.117Z',
           end: '2019-12-27T18:11:19.117Z',
@@ -64,7 +64,7 @@ describe('resource events', () => {
   });
 
   test('listAttempts', async () => {
-    const responsePromise = lithic.events.listAttempts('event_token');
+    const responsePromise = client.events.listAttempts('event_token');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -77,14 +77,14 @@ describe('resource events', () => {
   test('listAttempts: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.events.listAttempts('event_token', { path: '/_stainless_unknown_path' }),
+      client.events.listAttempts('event_token', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('listAttempts: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.events.listAttempts(
+      client.events.listAttempts(
         'event_token',
         {
           begin: '2019-12-27T18:11:19.117Z',
@@ -101,6 +101,6 @@ describe('resource events', () => {
 
   // TODO: fix mock server when Accept header is not set to empty
   test.skip('resend: works', async () => {
-    const response = await lithic.events.resend('string', { eventSubscriptionToken: 'foo' });
+    const response = await client.events.resend('string', { eventSubscriptionToken: 'foo' });
   });
 });

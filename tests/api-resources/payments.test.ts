@@ -3,14 +3,14 @@
 import Lithic from 'lithic';
 import { Response } from 'node-fetch';
 
-const lithic = new Lithic({
+const client = new Lithic({
   apiKey: 'My Lithic API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource payments', () => {
   test('create: only required params', async () => {
-    const responsePromise = lithic.payments.create({
+    const responsePromise = client.payments.create({
       amount: 1,
       external_bank_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -28,7 +28,7 @@ describe('resource payments', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await lithic.payments.create({
+    const response = await client.payments.create({
       amount: 1,
       external_bank_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -42,7 +42,7 @@ describe('resource payments', () => {
   });
 
   test('retrieve', async () => {
-    const responsePromise = lithic.payments.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.payments.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -55,12 +55,12 @@ describe('resource payments', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.payments.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
+      client.payments.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('list', async () => {
-    const responsePromise = lithic.payments.list();
+    const responsePromise = client.payments.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -72,7 +72,7 @@ describe('resource payments', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(lithic.payments.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.payments.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Lithic.NotFoundError,
     );
   });
@@ -80,7 +80,7 @@ describe('resource payments', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.payments.list(
+      client.payments.list(
         {
           begin: '2019-12-27T18:11:19.117Z',
           category: 'ACH',
@@ -98,7 +98,7 @@ describe('resource payments', () => {
   });
 
   test('retry', async () => {
-    const responsePromise = lithic.payments.retry('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.payments.retry('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -111,12 +111,12 @@ describe('resource payments', () => {
   test('retry: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.payments.retry('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
+      client.payments.retry('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('simulateAction: only required params', async () => {
-    const responsePromise = lithic.payments.simulateAction('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const responsePromise = client.payments.simulateAction('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       event_type: 'ACH_ORIGINATION_REVIEWED',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -129,7 +129,7 @@ describe('resource payments', () => {
   });
 
   test('simulateAction: required and optional params', async () => {
-    const response = await lithic.payments.simulateAction('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const response = await client.payments.simulateAction('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       event_type: 'ACH_ORIGINATION_REVIEWED',
       decline_reason: 'PROGRAM_TRANSACTION_LIMIT_EXCEEDED',
       return_reason_code: 'return_reason_code',
@@ -137,7 +137,7 @@ describe('resource payments', () => {
   });
 
   test('simulateReceipt: only required params', async () => {
-    const responsePromise = lithic.payments.simulateReceipt({
+    const responsePromise = client.payments.simulateReceipt({
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       amount: 0,
       financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -153,7 +153,7 @@ describe('resource payments', () => {
   });
 
   test('simulateReceipt: required and optional params', async () => {
-    const response = await lithic.payments.simulateReceipt({
+    const response = await client.payments.simulateReceipt({
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       amount: 0,
       financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -163,7 +163,7 @@ describe('resource payments', () => {
   });
 
   test('simulateRelease: only required params', async () => {
-    const responsePromise = lithic.payments.simulateRelease({
+    const responsePromise = client.payments.simulateRelease({
       payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -176,13 +176,13 @@ describe('resource payments', () => {
   });
 
   test('simulateRelease: required and optional params', async () => {
-    const response = await lithic.payments.simulateRelease({
+    const response = await client.payments.simulateRelease({
       payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
   });
 
   test('simulateReturn: only required params', async () => {
-    const responsePromise = lithic.payments.simulateReturn({
+    const responsePromise = client.payments.simulateReturn({
       payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -195,7 +195,7 @@ describe('resource payments', () => {
   });
 
   test('simulateReturn: required and optional params', async () => {
-    const response = await lithic.payments.simulateReturn({
+    const response = await client.payments.simulateReturn({
       payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       return_reason_code: 'R12',
     });
