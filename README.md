@@ -26,7 +26,7 @@ const client = new Lithic({
 });
 
 async function main() {
-  const card = await lithic.cards.create({ type: 'SINGLE_USE' });
+  const card = await client.cards.create({ type: 'SINGLE_USE' });
 
   console.log(card.token);
 }
@@ -49,7 +49,7 @@ const client = new Lithic({
 
 async function main() {
   const params: Lithic.CardCreateParams = { type: 'SINGLE_USE' };
-  const card: Lithic.Card = await lithic.cards.create(params);
+  const card: Lithic.Card = await client.cards.create(params);
 }
 
 main();
@@ -66,7 +66,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const card = await lithic.cards.create({ type: 'an_incorrect_type' }).catch(async (err) => {
+  const card = await client.cards.create({ type: 'an_incorrect_type' }).catch(async (err) => {
     if (err instanceof Lithic.APIError) {
       console.log(err.status); // 400
       console.log(err.name); // BadRequestError
@@ -111,7 +111,7 @@ const client = new Lithic({
 });
 
 // Or, configure per-request:
-await lithic.cards.list({ page_size: 10 }, {
+await client.cards.list({ page_size: 10 }, {
   maxRetries: 5,
 });
 ```
@@ -128,7 +128,7 @@ const client = new Lithic({
 });
 
 // Override per-request:
-await lithic.cards.list({ page_size: 10 }, {
+await client.cards.list({ page_size: 10 }, {
   timeout: 5 * 1000,
 });
 ```
@@ -146,7 +146,7 @@ You can use `for await … of` syntax to iterate through items across all pages:
 async function fetchAllCards(params) {
   const allCards = [];
   // Automatically fetches more pages as needed.
-  for await (const card of lithic.cards.list()) {
+  for await (const card of client.cards.list()) {
     allCards.push(card);
   }
   return allCards;
@@ -156,7 +156,7 @@ async function fetchAllCards(params) {
 Alternatively, you can make request a single page at a time:
 
 ```ts
-let page = await lithic.cards.list();
+let page = await client.cards.list();
 for (const card of page.data) {
   console.log(card);
 }
@@ -179,7 +179,7 @@ import Lithic from 'lithic';
 
 const client = new Lithic();
 
-const card = await lithic.cards.create(
+const card = await client.cards.create(
   { type: 'SINGLE_USE' },
   { headers: { 'X-Lithic-Pagination': 'My-Custom-Value' } },
 );
@@ -197,11 +197,11 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new Lithic();
 
-const response = await lithic.cards.create({ type: 'SINGLE_USE' }).asResponse();
+const response = await client.cards.create({ type: 'SINGLE_USE' }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: card, response: raw } = await lithic.cards.create({ type: 'SINGLE_USE' }).withResponse();
+const { data: card, response: raw } = await client.cards.create({ type: 'SINGLE_USE' }).withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(card.token);
 ```
@@ -307,7 +307,7 @@ const client = new Lithic({
 });
 
 // Override per-request:
-await lithic.cards.list({
+await client.cards.list({
   httpAgent: new http.Agent({ keepAlive: false }),
 });
 ```

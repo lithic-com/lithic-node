@@ -3,14 +3,14 @@
 import Lithic from 'lithic';
 import { Response } from 'node-fetch';
 
-const lithic = new Lithic({
+const client = new Lithic({
   apiKey: 'My Lithic API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource bookTransfers', () => {
   test('create: only required params', async () => {
-    const responsePromise = lithic.bookTransfers.create({
+    const responsePromise = client.bookTransfers.create({
       amount: 1,
       category: 'ADJUSTMENT',
       from_financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -28,7 +28,7 @@ describe('resource bookTransfers', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await lithic.bookTransfers.create({
+    const response = await client.bookTransfers.create({
       amount: 1,
       category: 'ADJUSTMENT',
       from_financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -41,7 +41,7 @@ describe('resource bookTransfers', () => {
   });
 
   test('retrieve', async () => {
-    const responsePromise = lithic.bookTransfers.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.bookTransfers.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -54,14 +54,14 @@ describe('resource bookTransfers', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.bookTransfers.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      client.bookTransfers.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('list', async () => {
-    const responsePromise = lithic.bookTransfers.list();
+    const responsePromise = client.bookTransfers.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -73,7 +73,7 @@ describe('resource bookTransfers', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(lithic.bookTransfers.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.bookTransfers.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Lithic.NotFoundError,
     );
   });
@@ -81,7 +81,7 @@ describe('resource bookTransfers', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.bookTransfers.list(
+      client.bookTransfers.list(
         {
           begin: '2019-12-27T18:11:19.117Z',
           category: 'BALANCE_OR_FUNDING',
@@ -99,7 +99,7 @@ describe('resource bookTransfers', () => {
   });
 
   test('reverse', async () => {
-    const responsePromise = lithic.bookTransfers.reverse('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
+    const responsePromise = client.bookTransfers.reverse('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

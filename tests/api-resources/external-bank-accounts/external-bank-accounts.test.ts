@@ -3,14 +3,14 @@
 import Lithic from 'lithic';
 import { Response } from 'node-fetch';
 
-const lithic = new Lithic({
+const client = new Lithic({
   apiKey: 'My Lithic API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource externalBankAccounts', () => {
   test('create: only required params', async () => {
-    const responsePromise = lithic.externalBankAccounts.create({
+    const responsePromise = client.externalBankAccounts.create({
       account_number: '12345678901234567',
       country: 'USD',
       currency: 'USD',
@@ -31,7 +31,7 @@ describe('resource externalBankAccounts', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await lithic.externalBankAccounts.create({
+    const response = await client.externalBankAccounts.create({
       account_number: '12345678901234567',
       country: 'USD',
       currency: 'USD',
@@ -53,7 +53,7 @@ describe('resource externalBankAccounts', () => {
   });
 
   test('retrieve', async () => {
-    const responsePromise = lithic.externalBankAccounts.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.externalBankAccounts.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -66,14 +66,14 @@ describe('resource externalBankAccounts', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.externalBankAccounts.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      client.externalBankAccounts.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('update', async () => {
-    const responsePromise = lithic.externalBankAccounts.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
+    const responsePromise = client.externalBankAccounts.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -84,7 +84,7 @@ describe('resource externalBankAccounts', () => {
   });
 
   test('list', async () => {
-    const responsePromise = lithic.externalBankAccounts.list();
+    const responsePromise = client.externalBankAccounts.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -96,7 +96,7 @@ describe('resource externalBankAccounts', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(lithic.externalBankAccounts.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.externalBankAccounts.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Lithic.NotFoundError,
     );
   });
@@ -104,7 +104,7 @@ describe('resource externalBankAccounts', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.externalBankAccounts.list(
+      client.externalBankAccounts.list(
         {
           account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           account_types: ['CHECKING', 'SAVINGS'],
@@ -122,7 +122,7 @@ describe('resource externalBankAccounts', () => {
   });
 
   test('retryMicroDeposits', async () => {
-    const responsePromise = lithic.externalBankAccounts.retryMicroDeposits(
+    const responsePromise = client.externalBankAccounts.retryMicroDeposits(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     );
     const rawResponse = await responsePromise.asResponse();
@@ -137,7 +137,7 @@ describe('resource externalBankAccounts', () => {
   test('retryMicroDeposits: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.externalBankAccounts.retryMicroDeposits('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      client.externalBankAccounts.retryMicroDeposits('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Lithic.NotFoundError);
@@ -146,7 +146,7 @@ describe('resource externalBankAccounts', () => {
   test('retryMicroDeposits: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.externalBankAccounts.retryMicroDeposits(
+      client.externalBankAccounts.retryMicroDeposits(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         { financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
         { path: '/_stainless_unknown_path' },
@@ -155,7 +155,7 @@ describe('resource externalBankAccounts', () => {
   });
 
   test('retryPrenote', async () => {
-    const responsePromise = lithic.externalBankAccounts.retryPrenote('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.externalBankAccounts.retryPrenote('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -168,7 +168,7 @@ describe('resource externalBankAccounts', () => {
   test('retryPrenote: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.externalBankAccounts.retryPrenote('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      client.externalBankAccounts.retryPrenote('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Lithic.NotFoundError);
@@ -177,7 +177,7 @@ describe('resource externalBankAccounts', () => {
   test('retryPrenote: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.externalBankAccounts.retryPrenote(
+      client.externalBankAccounts.retryPrenote(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         { financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
         { path: '/_stainless_unknown_path' },
