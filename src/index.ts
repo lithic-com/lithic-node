@@ -207,6 +207,7 @@ export class Lithic extends Core.APIClient {
   }
 
   static Lithic = this;
+  static DEFAULT_TIMEOUT = 60000; // 1 minute
 
   static LithicError = Errors.LithicError;
   static APIError = Errors.APIError;
