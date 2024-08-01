@@ -3,14 +3,14 @@
 import Lithic from 'lithic';
 import { Response } from 'node-fetch';
 
-const lithic = new Lithic({
+const client = new Lithic({
   apiKey: 'My Lithic API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource statements', () => {
   test('retrieve', async () => {
-    const responsePromise = lithic.financialAccounts.statements.retrieve(
+    const responsePromise = client.financialAccounts.statements.retrieve(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       'statement_token',
     );
@@ -26,7 +26,7 @@ describe('resource statements', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.financialAccounts.statements.retrieve(
+      client.financialAccounts.statements.retrieve(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         'statement_token',
         { path: '/_stainless_unknown_path' },
@@ -35,7 +35,7 @@ describe('resource statements', () => {
   });
 
   test('list', async () => {
-    const responsePromise = lithic.financialAccounts.statements.list('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.financialAccounts.statements.list('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -48,7 +48,7 @@ describe('resource statements', () => {
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.financialAccounts.statements.list('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      client.financialAccounts.statements.list('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Lithic.NotFoundError);
@@ -57,7 +57,7 @@ describe('resource statements', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.financialAccounts.statements.list(
+      client.financialAccounts.statements.list(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
           begin: '2019-12-27',

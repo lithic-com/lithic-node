@@ -3,14 +3,14 @@
 import Lithic from 'lithic';
 import { Response } from 'node-fetch';
 
-const lithic = new Lithic({
+const client = new Lithic({
   apiKey: 'My Lithic API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource enhancedCommercialData', () => {
   test('retrieve', async () => {
-    const responsePromise = lithic.transactions.events.enhancedCommercialData.retrieve(
+    const responsePromise = client.transactions.events.enhancedCommercialData.retrieve(
       '00000000-0000-0000-0000-000000000000',
     );
     const rawResponse = await responsePromise.asResponse();
@@ -25,7 +25,7 @@ describe('resource enhancedCommercialData', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.transactions.events.enhancedCommercialData.retrieve('00000000-0000-0000-0000-000000000000', {
+      client.transactions.events.enhancedCommercialData.retrieve('00000000-0000-0000-0000-000000000000', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Lithic.NotFoundError);

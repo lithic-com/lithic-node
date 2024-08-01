@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.61.2 (2024-07-31)
+
+Full Changelog: [v0.61.1...v0.61.2](https://github.com/lithic-com/lithic-node/compare/v0.61.1...v0.61.2)
+
+### Chores
+
+* **ci:** correctly tag pre-release npm packages ([#450](https://github.com/lithic-com/lithic-node/issues/450)) ([065ff64](https://github.com/lithic-com/lithic-node/commit/065ff64dff498208492894b2039e2bce593a4fa4))
+* **docs:** fix incorrect client var names ([ebd3519](https://github.com/lithic-com/lithic-node/commit/ebd351992a98ee693b9d1de26c27e94f45bf9676))
+* **internal:** add constant for default timeout ([#449](https://github.com/lithic-com/lithic-node/issues/449)) ([140a01e](https://github.com/lithic-com/lithic-node/commit/140a01ec7636b017dac39e4f90c45c490fb2dec1))
+
 ## 0.61.1 (2024-07-25)
 
 Full Changelog: [v0.61.0...v0.61.1](https://github.com/lithic-com/lithic-node/compare/v0.61.0...v0.61.1)

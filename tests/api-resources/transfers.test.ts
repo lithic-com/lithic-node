@@ -3,14 +3,14 @@
 import Lithic from 'lithic';
 import { Response } from 'node-fetch';
 
-const lithic = new Lithic({
+const client = new Lithic({
   apiKey: 'My Lithic API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource transfers', () => {
   test('create: only required params', async () => {
-    const responsePromise = lithic.transfers.create({
+    const responsePromise = client.transfers.create({
       amount: 0,
       from: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       to: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -25,7 +25,7 @@ describe('resource transfers', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await lithic.transfers.create({
+    const response = await client.transfers.create({
       amount: 0,
       from: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       to: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',

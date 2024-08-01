@@ -20,7 +20,11 @@ export class AccountHolders extends APIResource {
     body: AccountHolderCreateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<AccountHolderCreateResponse> {
-    return this._client.post('/account_holders', { body, timeout: 300000, ...options });
+    return this._client.post('/account_holders', {
+      body,
+      timeout: (this._client as any)._options.timeout ?? 300000,
+      ...options,
+    });
   }
 
   /**

@@ -3,14 +3,14 @@
 import Lithic from 'lithic';
 import { Response } from 'node-fetch';
 
-const lithic = new Lithic({
+const client = new Lithic({
   apiKey: 'My Lithic API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource cards', () => {
   test('create: only required params', async () => {
-    const responsePromise = lithic.cards.create({ type: 'VIRTUAL' });
+    const responsePromise = client.cards.create({ type: 'VIRTUAL' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,7 +21,7 @@ describe('resource cards', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await lithic.cards.create({
+    const response = await client.cards.create({
       type: 'VIRTUAL',
       account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       card_program_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -54,7 +54,7 @@ describe('resource cards', () => {
   });
 
   test('retrieve', async () => {
-    const responsePromise = lithic.cards.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.cards.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -67,12 +67,12 @@ describe('resource cards', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.cards.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
+      client.cards.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('update', async () => {
-    const responsePromise = lithic.cards.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
+    const responsePromise = client.cards.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -83,7 +83,7 @@ describe('resource cards', () => {
   });
 
   test('list', async () => {
-    const responsePromise = lithic.cards.list();
+    const responsePromise = client.cards.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -95,7 +95,7 @@ describe('resource cards', () => {
 
   test('list: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(lithic.cards.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
+    await expect(client.cards.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
       Lithic.NotFoundError,
     );
   });
@@ -103,7 +103,7 @@ describe('resource cards', () => {
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.cards.list(
+      client.cards.list(
         {
           account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           begin: '2019-12-27T18:11:19.117Z',
@@ -119,7 +119,7 @@ describe('resource cards', () => {
   });
 
   test('embed: only required params', async () => {
-    const responsePromise = lithic.cards.embed({ embed_request: 'embed_request', hmac: 'hmac' });
+    const responsePromise = client.cards.embed({ embed_request: 'embed_request', hmac: 'hmac' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -130,21 +130,21 @@ describe('resource cards', () => {
   });
 
   test('embed: required and optional params', async () => {
-    const response = await lithic.cards.embed({ embed_request: 'embed_request', hmac: 'hmac' });
+    const response = await client.cards.embed({ embed_request: 'embed_request', hmac: 'hmac' });
   });
 
   test('getEmbedHTML', async () => {
-    const html = await lithic.cards.getEmbedHTML({ token: 'foo' });
+    const html = await client.cards.getEmbedHTML({ token: 'foo' });
     expect(html).toContain('<html>');
   });
 
   test('getEmbedURL', async () => {
-    const url = lithic.cards.getEmbedURL({ token: 'foo' });
+    const url = client.cards.getEmbedURL({ token: 'foo' });
     expect(url).toContain('hmac');
   });
 
   test('provision', async () => {
-    const responsePromise = lithic.cards.provision('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
+    const responsePromise = client.cards.provision('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -155,7 +155,7 @@ describe('resource cards', () => {
   });
 
   test('reissue', async () => {
-    const responsePromise = lithic.cards.reissue('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
+    const responsePromise = client.cards.reissue('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -166,7 +166,7 @@ describe('resource cards', () => {
   });
 
   test('renew: only required params', async () => {
-    const responsePromise = lithic.cards.renew('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const responsePromise = client.cards.renew('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       shipping_address: {
         address1: '5 Broad Street',
         city: 'NEW YORK',
@@ -187,7 +187,7 @@ describe('resource cards', () => {
   });
 
   test('renew: required and optional params', async () => {
-    const response = await lithic.cards.renew('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    const response = await client.cards.renew('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       shipping_address: {
         address1: '5 Broad Street',
         address2: 'Unit 5A',
@@ -210,7 +210,7 @@ describe('resource cards', () => {
   });
 
   test('retrieveSpendLimits', async () => {
-    const responsePromise = lithic.cards.retrieveSpendLimits('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const responsePromise = client.cards.retrieveSpendLimits('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -223,14 +223,14 @@ describe('resource cards', () => {
   test('retrieveSpendLimits: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.cards.retrieveSpendLimits('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      client.cards.retrieveSpendLimits('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('searchByPan: only required params', async () => {
-    const responsePromise = lithic.cards.searchByPan({ pan: '4111111289144142' });
+    const responsePromise = client.cards.searchByPan({ pan: '4111111289144142' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -241,6 +241,6 @@ describe('resource cards', () => {
   });
 
   test('searchByPan: required and optional params', async () => {
-    const response = await lithic.cards.searchByPan({ pan: '4111111289144142' });
+    const response = await client.cards.searchByPan({ pan: '4111111289144142' });
   });
 });

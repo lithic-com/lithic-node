@@ -3,14 +3,14 @@
 import Lithic from 'lithic';
 import { Response } from 'node-fetch';
 
-const lithic = new Lithic({
+const client = new Lithic({
   apiKey: 'My Lithic API Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource tokenizationDecisioning', () => {
   test('retrieveSecret', async () => {
-    const responsePromise = lithic.tokenizationDecisioning.retrieveSecret();
+    const responsePromise = client.tokenizationDecisioning.retrieveSecret();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,12 +23,12 @@ describe('resource tokenizationDecisioning', () => {
   test('retrieveSecret: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.tokenizationDecisioning.retrieveSecret({ path: '/_stainless_unknown_path' }),
+      client.tokenizationDecisioning.retrieveSecret({ path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('rotateSecret', async () => {
-    const responsePromise = lithic.tokenizationDecisioning.rotateSecret();
+    const responsePromise = client.tokenizationDecisioning.rotateSecret();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -41,7 +41,7 @@ describe('resource tokenizationDecisioning', () => {
   test('rotateSecret: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      lithic.tokenizationDecisioning.rotateSecret({ path: '/_stainless_unknown_path' }),
+      client.tokenizationDecisioning.rotateSecret({ path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 });
