@@ -1,12 +1,12 @@
 #!/usr/bin/env -S npm run tsn -T
 
 //
-// Run with: LITHIC_API_KEY=<your_api_key> yarn tsn examples/upload_evidence.ts
+// Run with: LITHIC_API_KEY=<your_api_key> ./examples/upload_evidence.ts
 //
 
 import fs from 'fs';
 import assert from 'assert';
-import Lithic from 'lithic';
+import Lithic from '../src';
 
 const lithic = new Lithic({ environment: 'sandbox' });
 
