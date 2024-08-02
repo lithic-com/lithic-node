@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.61.3 (2024-08-02)
+
+Full Changelog: [v0.61.2...v0.61.3](https://github.com/lithic-com/lithic-node/compare/v0.61.2...v0.61.3)
+
+### Chores
+
+* **ci:** run transactions example ([#452](https://github.com/lithic-com/lithic-node/issues/452)) ([f6e89ab](https://github.com/lithic-com/lithic-node/commit/f6e89aba187c1325d336f08c72e67bca99419bce))
+
 ## 0.61.2 (2024-07-31)
 
 Full Changelog: [v0.61.1...v0.61.2](https://github.com/lithic-com/lithic-node/compare/v0.61.1...v0.61.2)
