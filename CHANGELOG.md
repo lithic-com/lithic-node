@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.62.0 (2024-08-05)
+
+Full Changelog: [v0.61.3...v0.62.0](https://github.com/lithic-com/lithic-node/compare/v0.61.3...v0.62.0)
+
+### Features
+
+* **api:** add event type 'statements.created' ([#454](https://github.com/lithic-com/lithic-node/issues/454)) ([43b66a1](https://github.com/lithic-com/lithic-node/commit/43b66a145e2309d5f90885217d6ce4794728f7a0))
+
 ## 0.61.3 (2024-08-02)
 
 Full Changelog: [v0.61.2...v0.61.3](https://github.com/lithic-com/lithic-node/compare/v0.61.2...v0.61.3)
