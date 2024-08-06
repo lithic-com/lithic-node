@@ -91,6 +91,7 @@ export interface Event {
    *   verification is complete.
    * - `card.created` - Notification that a card has been created.
    * - `card.renewed` - Notification that a card has been renewed.
+   * - `card.reissued` - Notification that a card has been reissued.
    * - `card.shipped` - Physical card shipment notification. See
    *   https://docs.lithic.com/docs/cards#physical-card-shipped-webhook.
    * - `card_transaction.updated` - Transaction Lifecycle webhook. See
@@ -116,6 +117,7 @@ export interface Event {
     | 'balance.updated'
     | 'card.created'
     | 'card.renewed'
+    | 'card.reissued'
     | 'card.shipped'
     | 'card_transaction.updated'
     | 'digital_wallet.tokenization_approval_request'
@@ -171,6 +173,7 @@ export interface EventSubscription {
     | 'balance.updated'
     | 'card.created'
     | 'card.renewed'
+    | 'card.reissued'
     | 'card.shipped'
     | 'card_transaction.updated'
     | 'digital_wallet.tokenization_approval_request'
@@ -264,6 +267,7 @@ export interface EventListParams extends CursorPageParams {
     | 'balance.updated'
     | 'card.created'
     | 'card.renewed'
+    | 'card.reissued'
     | 'card.shipped'
     | 'card_transaction.updated'
     | 'digital_wallet.tokenization_approval_request'
