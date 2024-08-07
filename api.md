@@ -42,6 +42,8 @@ Types:
 - <code><a href="./src/resources/account-holders.ts">AccountHolderCreateResponse</a></code>
 - <code><a href="./src/resources/account-holders.ts">AccountHolderUpdateResponse</a></code>
 - <code><a href="./src/resources/account-holders.ts">AccountHolderListDocumentsResponse</a></code>
+- <code><a href="./src/resources/account-holders.ts">AccountHolderSimulateEnrollmentDocumentReviewResponse</a></code>
+- <code><a href="./src/resources/account-holders.ts">AccountHolderSimulateEnrollmentReviewResponse</a></code>
 
 Methods:
 
@@ -52,6 +54,8 @@ Methods:
 - <code title="get /account_holders/{account_holder_token}/documents">client.accountHolders.<a href="./src/resources/account-holders.ts">listDocuments</a>(accountHolderToken) -> AccountHolderListDocumentsResponse</code>
 - <code title="post /account_holders/{account_holder_token}/resubmit">client.accountHolders.<a href="./src/resources/account-holders.ts">resubmit</a>(accountHolderToken, { ...params }) -> AccountHolder</code>
 - <code title="get /account_holders/{account_holder_token}/documents/{document_token}">client.accountHolders.<a href="./src/resources/account-holders.ts">retrieveDocument</a>(accountHolderToken, documentToken) -> AccountHolderDocument</code>
+- <code title="post /simulate/account_holders/enrollment_document_review">client.accountHolders.<a href="./src/resources/account-holders.ts">simulateEnrollmentDocumentReview</a>({ ...params }) -> AccountHolderSimulateEnrollmentDocumentReviewResponse</code>
+- <code title="post /simulate/account_holders/enrollment_review">client.accountHolders.<a href="./src/resources/account-holders.ts">simulateEnrollmentReview</a>({ ...params }) -> AccountHolderSimulateEnrollmentReviewResponse</code>
 - <code title="post /account_holders/{account_holder_token}/documents">client.accountHolders.<a href="./src/resources/account-holders.ts">uploadDocument</a>(accountHolderToken, { ...params }) -> AccountHolderDocument</code>
 
 # AuthRules
