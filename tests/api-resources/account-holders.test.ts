@@ -149,6 +149,7 @@ describe('resource accountHolders', () => {
           legal_business_name: 'Acme, Inc.',
           parent_company: 'parent_company',
           phone_numbers: ['+12124007676'],
+          entity_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         },
         {
           address: {
@@ -164,6 +165,7 @@ describe('resource accountHolders', () => {
           legal_business_name: 'Acme, Inc.',
           parent_company: 'parent_company',
           phone_numbers: ['+12124007676'],
+          entity_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         },
         {
           address: {
@@ -179,6 +181,7 @@ describe('resource accountHolders', () => {
           legal_business_name: 'Acme, Inc.',
           parent_company: 'parent_company',
           phone_numbers: ['+12124007676'],
+          entity_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         },
       ],
       beneficial_owner_individuals: [
@@ -245,6 +248,7 @@ describe('resource accountHolders', () => {
         legal_business_name: 'Acme, Inc.',
         parent_company: 'parent_company',
         phone_numbers: ['+12124007676'],
+        entity_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       },
       control_person: {
         address: {
@@ -432,10 +436,8 @@ describe('resource accountHolders', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  test('uploadDocument: only required params', async () => {
-    const responsePromise = client.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      document_type: 'drivers_license',
-    });
+  test('simulateEnrollmentDocumentReview', async () => {
+    const responsePromise = client.accountHolders.simulateEnrollmentDocumentReview({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -445,9 +447,25 @@ describe('resource accountHolders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('uploadDocument: required and optional params', async () => {
-    const response = await client.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      document_type: 'drivers_license',
-    });
+  test('simulateEnrollmentReview', async () => {
+    const responsePromise = client.accountHolders.simulateEnrollmentReview({});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('uploadDocument', async () => {
+    const responsePromise = client.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 });

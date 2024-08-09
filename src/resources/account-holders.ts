@@ -132,6 +132,28 @@ export class AccountHolders extends APIResource {
   }
 
   /**
+   * Simulates a review for an account holder document upload.
+   */
+  simulateEnrollmentDocumentReview(
+    body: AccountHolderSimulateEnrollmentDocumentReviewParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<AccountHolderSimulateEnrollmentDocumentReviewResponse> {
+    return this._client.post('/simulate/account_holders/enrollment_document_review', { body, ...options });
+  }
+
+  /**
+   * Simulates an enrollment review for an account holder. This endpoint is only
+   * applicable for workflows that may required intervention such as `KYB_BASIC` or
+   * `KYC_ADVANCED`.
+   */
+  simulateEnrollmentReview(
+    body: AccountHolderSimulateEnrollmentReviewParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<AccountHolderSimulateEnrollmentReviewResponse> {
+    return this._client.post('/simulate/account_holders/enrollment_review', { body, ...options });
+  }
+
+  /**
    * Use this endpoint to identify which type of supported government-issued
    * documentation you will upload for further verification. It will return two URLs
    * to upload your document images to - one for the front image and one for the back
@@ -253,6 +275,12 @@ export interface AccountHolder {
   phone_number?: string;
 
   /**
+   * Only present for "KYB_BASIC" and "KYC_ADVANCED" workflows. A list of documents
+   * required for the account holder to be approved.
+   */
+  required_documents?: Array<AccountHolder.RequiredDocument>;
+
+  /**
    * <Deprecated. Use verification_application.status instead>
    *
    * KYC and KYB evaluation states.
@@ -335,6 +363,11 @@ export namespace AccountHolder {
     dba_business_name?: string;
 
     /**
+     * Globally unique identifier for the entity.
+     */
+    entity_token?: string;
+
+    /**
      * Parent company name (if applicable).
      */
     parent_company?: string;
@@ -360,6 +393,11 @@ export namespace AccountHolder {
      * Individual's email address.
      */
     email?: string;
+
+    /**
+     * Globally unique identifier for the entity.
+     */
+    entity_token?: string;
 
     /**
      * Individual's first name, as it appears on government-issued identity documents.
@@ -413,6 +451,11 @@ export namespace AccountHolder {
     dba_business_name?: string;
 
     /**
+     * Globally unique identifier for the entity.
+     */
+    entity_token?: string;
+
+    /**
      * Parent company name (if applicable).
      */
     parent_company?: string;
@@ -441,6 +484,11 @@ export namespace AccountHolder {
      * Individual's email address.
      */
     email?: string;
+
+    /**
+     * Globally unique identifier for the entity.
+     */
+    entity_token?: string;
 
     /**
      * Individual's first name, as it appears on government-issued identity documents.
@@ -479,6 +527,11 @@ export namespace AccountHolder {
     email?: string;
 
     /**
+     * Globally unique identifier for the entity.
+     */
+    entity_token?: string;
+
+    /**
      * Individual's first name, as it appears on government-issued identity documents.
      */
     first_name?: string;
@@ -492,6 +545,25 @@ export namespace AccountHolder {
      * Individual's phone number, entered in E.164 format.
      */
     phone_number?: string;
+  }
+
+  export interface RequiredDocument {
+    /**
+     * Globally unique identifier for an entity.
+     */
+    entity_token: string;
+
+    /**
+     * rovides the status reasons that will be satisfied by providing one of the valid
+     * documents.
+     */
+    status_reasons: Array<string>;
+
+    /**
+     * A list of valid documents that will satisfy the KYC requirements for the
+     * specified entity.
+     */
+    valid_documents: Array<string>;
   }
 
   /**
@@ -556,7 +628,30 @@ export interface AccountHolderDocument {
   /**
    * Type of documentation to be submitted for verification.
    */
-  document_type?: 'commercial_license' | 'drivers_license' | 'passport' | 'passport_card' | 'visa';
+  document_type?:
+    | 'EIN_LETTER'
+    | 'TAX_RETURN'
+    | 'OPERATING_AGREEMENT'
+    | 'CERTIFICATE_OF_FORMATION'
+    | 'DRIVERS_LICENSE'
+    | 'PASSPORT'
+    | 'PASSPORT_CARD'
+    | 'CERTIFICATE_OF_GOOD_STANDING'
+    | 'ARTICLES_OF_INCORPORATION'
+    | 'ARTICLES_OF_ORGANIZATION'
+    | 'BYLAWS'
+    | 'GOVERNMENT_BUSINESS_LICENSE'
+    | 'PARTNERSHIP_AGREEMENT'
+    | 'SS4_FORM'
+    | 'BANK_STATEMENT'
+    | 'UTILITY_BILL_STATEMENT'
+    | 'SSN_CARD'
+    | 'ITIN_LETTER';
+
+  /**
+   * Globally unique identifier for the entity.
+   */
+  entity_token?: string;
 
   required_document_uploads?: Array<AccountHolderDocument.RequiredDocumentUpload>;
 }
@@ -567,6 +662,11 @@ export namespace AccountHolderDocument {
    */
   export interface RequiredDocumentUpload {
     /**
+     * Globally unique identifier for the document upload.
+     */
+    token?: string;
+
+    /**
      * Type of image to upload.
      */
     image_type?: 'back' | 'front';
@@ -574,7 +674,7 @@ export namespace AccountHolderDocument {
     /**
      * Status of document image upload.
      */
-    status?: 'COMPLETED' | 'FAILED' | 'PENDING' | 'UPLOADED';
+    status?: 'COMPLETED' | 'FAILED' | 'PENDING_UPLOAD' | 'UPLOADED';
 
     status_reasons?: Array<
       | 'BACK_IMAGE_BLURRY'
@@ -708,6 +808,11 @@ export namespace KYB {
     dba_business_name?: string;
 
     /**
+     * Globally unique identifier for the entity.
+     */
+    entity_token?: string;
+
+    /**
      * Parent company name (if applicable).
      */
     parent_company?: string;
@@ -792,6 +897,11 @@ export namespace KYB {
      * (if applicable).
      */
     dba_business_name?: string;
+
+    /**
+     * Globally unique identifier for the entity.
+     */
+    entity_token?: string;
 
     /**
      * Parent company name (if applicable).
@@ -1064,6 +1174,684 @@ export interface AccountHolderListDocumentsResponse {
   data?: Array<AccountHolderDocument>;
 }
 
+/**
+ * A document to be submitted for account holder verification.
+ */
+export interface AccountHolderSimulateEnrollmentDocumentReviewResponse {
+  /**
+   * Globally unique identifier for the document.
+   */
+  token?: string;
+
+  /**
+   * Globally unique identifier for the account holder.
+   */
+  account_holder_token?: string;
+
+  /**
+   * Type of documentation to be submitted for verification.
+   */
+  document_type?: 'commercial_license' | 'drivers_license' | 'passport' | 'passport_card' | 'visa';
+
+  /**
+   * List of required document images to upload.
+   */
+  required_document_uploads?: Array<AccountHolderSimulateEnrollmentDocumentReviewResponse.RequiredDocumentUpload>;
+}
+
+export namespace AccountHolderSimulateEnrollmentDocumentReviewResponse {
+  /**
+   * Represents a single image of the document to upload.
+   */
+  export interface RequiredDocumentUpload {
+    /**
+     * Type of image to upload.
+     */
+    image_type?: 'back' | 'front';
+
+    /**
+     * Status of document image upload.
+     */
+    status?: 'COMPLETED' | 'FAILED' | 'PENDING' | 'UPLOADED';
+
+    /**
+     * Reasons for document image upload status.
+     */
+    status_reasons?: Array<
+      | 'BACK_IMAGE_BLURRY'
+      | 'FILE_SIZE_TOO_LARGE'
+      | 'FRONT_IMAGE_BLURRY'
+      | 'FRONT_IMAGE_GLARE'
+      | 'INVALID_FILE_TYPE'
+      | 'UNKNOWN_ERROR'
+    >;
+
+    /**
+     * URL to upload document image to.
+     *
+     * Note that the upload URLs expire after 7 days. If an upload URL expires, you can
+     * refresh the URLs by retrieving the document upload from
+     * `GET /account_holders/{account_holder_token}/documents`.
+     */
+    upload_url?: string;
+  }
+}
+
+export interface AccountHolderSimulateEnrollmentReviewResponse {
+  /**
+   * Globally unique identifier for the account holder.
+   */
+  token?: string;
+
+  /**
+   * Globally unique identifier for the account.
+   */
+  account_token?: string;
+
+  /**
+   * Only present when user_type == "BUSINESS". List of all entities with >25%
+   * ownership in the company.
+   */
+  beneficial_owner_entities?: Array<AccountHolderSimulateEnrollmentReviewResponse.BeneficialOwnerEntity>;
+
+  /**
+   * Only present when user_type == "BUSINESS". List of all individuals with >25%
+   * ownership in the company.
+   */
+  beneficial_owner_individuals?: Array<AccountHolderSimulateEnrollmentReviewResponse.BeneficialOwnerIndividual>;
+
+  /**
+   * Only applicable for customers using the KYC-Exempt workflow to enroll authorized
+   * users of businesses. Pass the account_token of the enrolled business associated
+   * with the AUTHORIZED_USER in this field.
+   */
+  business_account_token?: string;
+
+  /**
+   * Only present when user_type == "BUSINESS". Information about the business for
+   * which the account is being opened and KYB is being run.
+   */
+  business_entity?: AccountHolderSimulateEnrollmentReviewResponse.BusinessEntity;
+
+  /**
+   * Only present when user_type == "BUSINESS".
+   *
+   * An individual with significant responsibility for managing the legal entity
+   * (e.g., a Chief Executive Officer, Chief Financial Officer, Chief Operating
+   * Officer,
+   *
+   * Managing Member, General Partner, President, Vice President, or Treasurer). This
+   * can be an executive, or someone who will have program-wide access
+   *
+   * to the cards that Lithic will provide. In some cases, this individual could also
+   * be a beneficial owner listed above.
+   */
+  control_person?: AccountHolderSimulateEnrollmentReviewResponse.ControlPerson;
+
+  /**
+   * Timestamp of when the account holder was created.
+   */
+  created?: string;
+
+  /**
+   * < Deprecated. Use control_person.email when user_type == "BUSINESS". Use
+   * individual.phone_number when user_type == "INDIVIDUAL".
+   *
+   * > Primary email of Account Holder.
+   */
+  email?: string;
+
+  /**
+   * The type of KYC exemption for a KYC-Exempt Account Holder. "None" if the account
+   * holder is not KYC-Exempt.
+   */
+  exemption_type?: 'AUTHORIZED_USER' | 'PREPAID_CARD_USER';
+
+  /**
+   * Customer-provided token that indicates a relationship with an object outside of
+   * the Lithic ecosystem.
+   */
+  external_id?: string;
+
+  /**
+   * Only present when user_type == "INDIVIDUAL". Information about the individual
+   * for which the account is being opened and KYC is being run.
+   */
+  individual?: AccountHolderSimulateEnrollmentReviewResponse.Individual;
+
+  /**
+   * Only present when user_type == "BUSINESS". User-submitted description of the
+   * business.
+   */
+  nature_of_business?: string;
+
+  /**
+   * < Deprecated. Use control_person.phone_number when user_type == "BUSINESS". Use
+   * individual.phone_number when user_type == "INDIVIDUAL".
+   *
+   * > Primary phone of Account Holder, entered in E.164 format.
+   */
+  phone_number?: string;
+
+  /**
+   * Only present for "KYB_BASIC" and "KYC_ADVANCED" workflows. A list of documents
+   * required for the account holder to be approved.
+   */
+  required_documents?: Array<AccountHolderSimulateEnrollmentReviewResponse.RequiredDocument>;
+
+  /**
+   * <Deprecated. Use verification_application.status instead>
+   *
+   * KYC and KYB evaluation states.
+   *
+   * Note: `PENDING_RESUBMIT` and `PENDING_DOCUMENT` are only applicable for the
+   * `ADVANCED` workflow.
+   */
+  status?: 'ACCEPTED' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED';
+
+  /**
+   * <Deprecated. Use verification_application.status_reasons> Reason for the
+   * evaluation status.
+   */
+  status_reasons?: Array<
+    | 'ADDRESS_VERIFICATION_FAILURE'
+    | 'AGE_THRESHOLD_FAILURE'
+    | 'COMPLETE_VERIFICATION_FAILURE'
+    | 'DOB_VERIFICATION_FAILURE'
+    | 'ID_VERIFICATION_FAILURE'
+    | 'MAX_DOCUMENT_ATTEMPTS'
+    | 'MAX_RESUBMISSION_ATTEMPTS'
+    | 'NAME_VERIFICATION_FAILURE'
+    | 'OTHER_VERIFICATION_FAILURE'
+    | 'RISK_THRESHOLD_FAILURE'
+    | 'WATCHLIST_ALERT_FAILURE'
+  >;
+
+  /**
+   * The type of Account Holder. If the type is "INDIVIDUAL", the "individual"
+   * attribute will be present.
+   *
+   * If the type is "BUSINESS" then the "business_entity", "control_person",
+   * "beneficial_owner_individuals", "beneficial_owner_entities",
+   *
+   * "nature_of_business", and "website_url" attributes will be present.
+   */
+  user_type?: 'BUSINESS' | 'INDIVIDUAL';
+
+  /**
+   * Information about the most recent identity verification attempt
+   */
+  verification_application?: AccountHolderSimulateEnrollmentReviewResponse.VerificationApplication;
+
+  /**
+   * Only present when user_type == "BUSINESS". Business's primary website.
+   */
+  website_url?: string;
+}
+
+export namespace AccountHolderSimulateEnrollmentReviewResponse {
+  export interface BeneficialOwnerEntity {
+    /**
+     * Business''s physical address - PO boxes, UPS drops, and FedEx drops are not
+     * acceptable; APO/FPO are acceptable.
+     */
+    address: BeneficialOwnerEntity.Address;
+
+    /**
+     * Government-issued identification number. US Federal Employer Identification
+     * Numbers (EIN) are currently supported, entered as full nine-digits, with or
+     * without hyphens.
+     */
+    government_id: string;
+
+    /**
+     * Legal (formal) business name.
+     */
+    legal_business_name: string;
+
+    /**
+     * One or more of the business's phone number(s), entered as a list in E.164
+     * format.
+     */
+    phone_numbers: Array<string>;
+
+    /**
+     * Any name that the business operates under that is not its legal business name
+     * (if applicable).
+     */
+    dba_business_name?: string;
+
+    /**
+     * Parent company name (if applicable).
+     */
+    parent_company?: string;
+  }
+
+  export namespace BeneficialOwnerEntity {
+    /**
+     * Business''s physical address - PO boxes, UPS drops, and FedEx drops are not
+     * acceptable; APO/FPO are acceptable.
+     */
+    export interface Address {
+      /**
+       * Valid deliverable address (no PO boxes).
+       */
+      address1: string;
+
+      /**
+       * Name of city.
+       */
+      city: string;
+
+      /**
+       * Valid country code. Only USA is currently supported, entered in uppercase ISO
+       * 3166-1 alpha-3 three-character format.
+       */
+      country: string;
+
+      /**
+       * Valid postal code. Only USA ZIP codes are currently supported, entered as a
+       * five-digit ZIP or nine-digit ZIP+4.
+       */
+      postal_code: string;
+
+      /**
+       * Valid state code. Only USA state codes are currently supported, entered in
+       * uppercase ISO 3166-2 two-character format.
+       */
+      state: string;
+
+      /**
+       * Unit or apartment number (if applicable).
+       */
+      address2?: string;
+    }
+  }
+
+  export interface BeneficialOwnerIndividual {
+    /**
+     * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
+     * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+     */
+    address?: BeneficialOwnerIndividual.Address;
+
+    /**
+     * Individual's date of birth, as an RFC 3339 date.
+     */
+    dob?: string;
+
+    /**
+     * Individual's email address. If utilizing Lithic for chargeback processing, this
+     * customer email address may be used to communicate dispute status and resolution.
+     */
+    email?: string;
+
+    /**
+     * Individual's first name, as it appears on government-issued identity documents.
+     */
+    first_name?: string;
+
+    /**
+     * Individual's last name, as it appears on government-issued identity documents.
+     */
+    last_name?: string;
+
+    /**
+     * Individual's phone number, entered in E.164 format.
+     */
+    phone_number?: string;
+  }
+
+  export namespace BeneficialOwnerIndividual {
+    /**
+     * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
+     * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+     */
+    export interface Address {
+      /**
+       * Valid deliverable address (no PO boxes).
+       */
+      address1: string;
+
+      /**
+       * Name of city.
+       */
+      city: string;
+
+      /**
+       * Valid country code. Only USA is currently supported, entered in uppercase ISO
+       * 3166-1 alpha-3 three-character format.
+       */
+      country: string;
+
+      /**
+       * Valid postal code. Only USA ZIP codes are currently supported, entered as a
+       * five-digit ZIP or nine-digit ZIP+4.
+       */
+      postal_code: string;
+
+      /**
+       * Valid state code. Only USA state codes are currently supported, entered in
+       * uppercase ISO 3166-2 two-character format.
+       */
+      state: string;
+
+      /**
+       * Unit or apartment number (if applicable).
+       */
+      address2?: string;
+    }
+  }
+
+  /**
+   * Only present when user_type == "BUSINESS". Information about the business for
+   * which the account is being opened and KYB is being run.
+   */
+  export interface BusinessEntity {
+    /**
+     * Business''s physical address - PO boxes, UPS drops, and FedEx drops are not
+     * acceptable; APO/FPO are acceptable.
+     */
+    address: BusinessEntity.Address;
+
+    /**
+     * Government-issued identification number. US Federal Employer Identification
+     * Numbers (EIN) are currently supported, entered as full nine-digits, with or
+     * without hyphens.
+     */
+    government_id: string;
+
+    /**
+     * Legal (formal) business name.
+     */
+    legal_business_name: string;
+
+    /**
+     * One or more of the business's phone number(s), entered as a list in E.164
+     * format.
+     */
+    phone_numbers: Array<string>;
+
+    /**
+     * Any name that the business operates under that is not its legal business name
+     * (if applicable).
+     */
+    dba_business_name?: string;
+
+    /**
+     * Parent company name (if applicable).
+     */
+    parent_company?: string;
+  }
+
+  export namespace BusinessEntity {
+    /**
+     * Business''s physical address - PO boxes, UPS drops, and FedEx drops are not
+     * acceptable; APO/FPO are acceptable.
+     */
+    export interface Address {
+      /**
+       * Valid deliverable address (no PO boxes).
+       */
+      address1: string;
+
+      /**
+       * Name of city.
+       */
+      city: string;
+
+      /**
+       * Valid country code. Only USA is currently supported, entered in uppercase ISO
+       * 3166-1 alpha-3 three-character format.
+       */
+      country: string;
+
+      /**
+       * Valid postal code. Only USA ZIP codes are currently supported, entered as a
+       * five-digit ZIP or nine-digit ZIP+4.
+       */
+      postal_code: string;
+
+      /**
+       * Valid state code. Only USA state codes are currently supported, entered in
+       * uppercase ISO 3166-2 two-character format.
+       */
+      state: string;
+
+      /**
+       * Unit or apartment number (if applicable).
+       */
+      address2?: string;
+    }
+  }
+
+  /**
+   * Only present when user_type == "BUSINESS".
+   *
+   * An individual with significant responsibility for managing the legal entity
+   * (e.g., a Chief Executive Officer, Chief Financial Officer, Chief Operating
+   * Officer,
+   *
+   * Managing Member, General Partner, President, Vice President, or Treasurer). This
+   * can be an executive, or someone who will have program-wide access
+   *
+   * to the cards that Lithic will provide. In some cases, this individual could also
+   * be a beneficial owner listed above.
+   */
+  export interface ControlPerson {
+    /**
+     * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
+     * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+     */
+    address?: ControlPerson.Address;
+
+    /**
+     * Individual's date of birth, as an RFC 3339 date.
+     */
+    dob?: string;
+
+    /**
+     * Individual's email address. If utilizing Lithic for chargeback processing, this
+     * customer email address may be used to communicate dispute status and resolution.
+     */
+    email?: string;
+
+    /**
+     * Individual's first name, as it appears on government-issued identity documents.
+     */
+    first_name?: string;
+
+    /**
+     * Individual's last name, as it appears on government-issued identity documents.
+     */
+    last_name?: string;
+
+    /**
+     * Individual's phone number, entered in E.164 format.
+     */
+    phone_number?: string;
+  }
+
+  export namespace ControlPerson {
+    /**
+     * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
+     * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+     */
+    export interface Address {
+      /**
+       * Valid deliverable address (no PO boxes).
+       */
+      address1: string;
+
+      /**
+       * Name of city.
+       */
+      city: string;
+
+      /**
+       * Valid country code. Only USA is currently supported, entered in uppercase ISO
+       * 3166-1 alpha-3 three-character format.
+       */
+      country: string;
+
+      /**
+       * Valid postal code. Only USA ZIP codes are currently supported, entered as a
+       * five-digit ZIP or nine-digit ZIP+4.
+       */
+      postal_code: string;
+
+      /**
+       * Valid state code. Only USA state codes are currently supported, entered in
+       * uppercase ISO 3166-2 two-character format.
+       */
+      state: string;
+
+      /**
+       * Unit or apartment number (if applicable).
+       */
+      address2?: string;
+    }
+  }
+
+  /**
+   * Only present when user_type == "INDIVIDUAL". Information about the individual
+   * for which the account is being opened and KYC is being run.
+   */
+  export interface Individual {
+    /**
+     * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
+     * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+     */
+    address?: Individual.Address;
+
+    /**
+     * Individual's date of birth, as an RFC 3339 date.
+     */
+    dob?: string;
+
+    /**
+     * Individual's email address. If utilizing Lithic for chargeback processing, this
+     * customer email address may be used to communicate dispute status and resolution.
+     */
+    email?: string;
+
+    /**
+     * Individual's first name, as it appears on government-issued identity documents.
+     */
+    first_name?: string;
+
+    /**
+     * Individual's last name, as it appears on government-issued identity documents.
+     */
+    last_name?: string;
+
+    /**
+     * Individual's phone number, entered in E.164 format.
+     */
+    phone_number?: string;
+  }
+
+  export namespace Individual {
+    /**
+     * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
+     * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+     */
+    export interface Address {
+      /**
+       * Valid deliverable address (no PO boxes).
+       */
+      address1: string;
+
+      /**
+       * Name of city.
+       */
+      city: string;
+
+      /**
+       * Valid country code. Only USA is currently supported, entered in uppercase ISO
+       * 3166-1 alpha-3 three-character format.
+       */
+      country: string;
+
+      /**
+       * Valid postal code. Only USA ZIP codes are currently supported, entered as a
+       * five-digit ZIP or nine-digit ZIP+4.
+       */
+      postal_code: string;
+
+      /**
+       * Valid state code. Only USA state codes are currently supported, entered in
+       * uppercase ISO 3166-2 two-character format.
+       */
+      state: string;
+
+      /**
+       * Unit or apartment number (if applicable).
+       */
+      address2?: string;
+    }
+  }
+
+  export interface RequiredDocument {
+    /**
+     * Globally unique identifier for an entity.
+     */
+    entity_token: string;
+
+    /**
+     * rovides the status reasons that will be satisfied by providing one of the valid
+     * documents.
+     */
+    status_reasons: Array<string>;
+
+    /**
+     * A list of valid documents that will satisfy the KYC requirements for the
+     * specified entity.
+     */
+    valid_documents: Array<string>;
+  }
+
+  /**
+   * Information about the most recent identity verification attempt
+   */
+  export interface VerificationApplication {
+    /**
+     * Timestamp of when the application was created.
+     */
+    created?: string;
+
+    /**
+     * KYC and KYB evaluation states.
+     *
+     * Note: `PENDING_RESUBMIT` and `PENDING_DOCUMENT` are only applicable for the
+     * `ADVANCED` workflow.
+     */
+    status?: 'ACCEPTED' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED';
+
+    /**
+     * Reason for the evaluation status.
+     */
+    status_reasons?: Array<
+      | 'ADDRESS_VERIFICATION_FAILURE'
+      | 'AGE_THRESHOLD_FAILURE'
+      | 'COMPLETE_VERIFICATION_FAILURE'
+      | 'DOB_VERIFICATION_FAILURE'
+      | 'ID_VERIFICATION_FAILURE'
+      | 'MAX_DOCUMENT_ATTEMPTS'
+      | 'MAX_RESUBMISSION_ATTEMPTS'
+      | 'NAME_VERIFICATION_FAILURE'
+      | 'OTHER_VERIFICATION_FAILURE'
+      | 'RISK_THRESHOLD_FAILURE'
+      | 'WATCHLIST_ALERT_FAILURE'
+    >;
+
+    /**
+     * Timestamp of when the application was last updated.
+     */
+    updated?: string;
+  }
+}
+
 export type AccountHolderCreateParams =
   | AccountHolderCreateParams.KYB
   | AccountHolderCreateParams.KYC
@@ -1182,6 +1970,11 @@ export namespace AccountHolderCreateParams {
       dba_business_name?: string;
 
       /**
+       * Globally unique identifier for the entity.
+       */
+      entity_token?: string;
+
+      /**
        * Parent company name (if applicable).
        */
       parent_company?: string;
@@ -1266,6 +2059,11 @@ export namespace AccountHolderCreateParams {
        * (if applicable).
        */
       dba_business_name?: string;
+
+      /**
+       * Globally unique identifier for the entity.
+       */
+      entity_token?: string;
 
       /**
        * Parent company name (if applicable).
@@ -1572,11 +2370,84 @@ export namespace AccountHolderResubmitParams {
   }
 }
 
+export interface AccountHolderSimulateEnrollmentDocumentReviewParams {
+  /**
+   * The account holder document upload which to perform the simulation upon.
+   */
+  document_upload_token?: string;
+
+  /**
+   * An account holder document's upload status for use within the simulation.
+   */
+  status?: 'UPLOADED' | 'ACCEPTED' | 'REJECTED';
+
+  /**
+   * Status reason that will be associated with the simulated account holder status.
+   * Only required for a `REJECTED` status.
+   */
+  status_reasons?: Array<
+    'DOCUMENT_MISSING_REQUIRED_DATA' | 'DOCUMENT_UPLOAD_TOO_BLURRY' | 'INVALID_DOCUMENT_TYPE'
+  >;
+}
+
+export interface AccountHolderSimulateEnrollmentReviewParams {
+  /**
+   * The account holder which to perform the simulation upon.
+   */
+  account_holder_token?: string;
+
+  /**
+   * An account holder's status for use within the simulation.
+   */
+  status?: 'ACCEPTED' | 'REJECTED';
+
+  /**
+   * Status reason that will be associated with the simulated account holder status.
+   * Only required for a `REJECTED` status.
+   */
+  status_reasons?: Array<
+    | 'PRIMARY_BUSINESS_ENTITY_ID_VERIFICATION_FAILURE'
+    | 'PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE'
+    | 'PRIMARY_BUSINESS_ENTITY_NAME_VERIFICATION_FAILURE'
+    | 'CONTROL_PERSON_BLOCKLIST_ALERT_FAILURE'
+    | 'CONTROL_PERSON_ID_VERIFICATION_FAILURE'
+    | 'CONTROL_PERSON_DOB_VERIFICATION_FAILURE'
+    | 'CONTROL_PERSON_NAME_VERIFICATION_FAILURE'
+    | 'BENEFICIAL_OWNER_INDIVIDUAL_DOB_VERIFICATION_FAILURE'
+    | 'BENEFICIAL_OWNER_INDIVIDUAL_BLOCKLIST_ALERT_FAILURE'
+    | 'BENEFICIAL_OWNER_INDIVIDUAL_ID_VERIFICATION_FAILURE'
+    | 'BENEFICIAL_OWNER_INDIVIDUAL_NAME_VERIFICATION_FAILURE'
+  >;
+}
+
 export interface AccountHolderUploadDocumentParams {
   /**
-   * Type of the document to upload.
+   * The type of document to upload
    */
-  document_type: 'commercial_license' | 'drivers_license' | 'passport' | 'passport_card' | 'visa';
+  document_type?:
+    | 'EIN_LETTER'
+    | 'TAX_RETURN'
+    | 'OPERATING_AGREEMENT'
+    | 'CERTIFICATE_OF_FORMATION'
+    | 'DRIVERS_LICENSE'
+    | 'PASSPORT'
+    | 'PASSPORT_CARD'
+    | 'CERTIFICATE_OF_GOOD_STANDING'
+    | 'ARTICLES_OF_INCORPORATION'
+    | 'ARTICLES_OF_ORGANIZATION'
+    | 'BYLAWS'
+    | 'GOVERNMENT_BUSINESS_LICENSE'
+    | 'PARTNERSHIP_AGREEMENT'
+    | 'SS4_FORM'
+    | 'BANK_STATEMENT'
+    | 'UTILITY_BILL_STATEMENT'
+    | 'SSN_CARD'
+    | 'ITIN_LETTER';
+
+  /**
+   * Globally unique identifier for the entity.
+   */
+  entity_token?: string;
 }
 
 export namespace AccountHolders {
@@ -1588,10 +2459,14 @@ export namespace AccountHolders {
   export import AccountHolderCreateResponse = AccountHoldersAPI.AccountHolderCreateResponse;
   export import AccountHolderUpdateResponse = AccountHoldersAPI.AccountHolderUpdateResponse;
   export import AccountHolderListDocumentsResponse = AccountHoldersAPI.AccountHolderListDocumentsResponse;
+  export import AccountHolderSimulateEnrollmentDocumentReviewResponse = AccountHoldersAPI.AccountHolderSimulateEnrollmentDocumentReviewResponse;
+  export import AccountHolderSimulateEnrollmentReviewResponse = AccountHoldersAPI.AccountHolderSimulateEnrollmentReviewResponse;
   export import AccountHoldersSinglePage = AccountHoldersAPI.AccountHoldersSinglePage;
   export import AccountHolderCreateParams = AccountHoldersAPI.AccountHolderCreateParams;
   export import AccountHolderUpdateParams = AccountHoldersAPI.AccountHolderUpdateParams;
   export import AccountHolderListParams = AccountHoldersAPI.AccountHolderListParams;
   export import AccountHolderResubmitParams = AccountHoldersAPI.AccountHolderResubmitParams;
+  export import AccountHolderSimulateEnrollmentDocumentReviewParams = AccountHoldersAPI.AccountHolderSimulateEnrollmentDocumentReviewParams;
+  export import AccountHolderSimulateEnrollmentReviewParams = AccountHoldersAPI.AccountHolderSimulateEnrollmentReviewParams;
   export import AccountHolderUploadDocumentParams = AccountHoldersAPI.AccountHolderUploadDocumentParams;
 }

@@ -154,7 +154,7 @@ export namespace Statement {
      */
     period_number: number;
 
-    state: 'STANDARD' | 'PROMO' | 'PENALTY';
+    period_state: 'STANDARD' | 'PROMO' | 'PENALTY';
   }
 
   export interface PeriodTotals {

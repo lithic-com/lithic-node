@@ -274,11 +274,15 @@ export namespace Lithic {
   export import AccountHolderCreateResponse = API.AccountHolderCreateResponse;
   export import AccountHolderUpdateResponse = API.AccountHolderUpdateResponse;
   export import AccountHolderListDocumentsResponse = API.AccountHolderListDocumentsResponse;
+  export import AccountHolderSimulateEnrollmentDocumentReviewResponse = API.AccountHolderSimulateEnrollmentDocumentReviewResponse;
+  export import AccountHolderSimulateEnrollmentReviewResponse = API.AccountHolderSimulateEnrollmentReviewResponse;
   export import AccountHoldersSinglePage = API.AccountHoldersSinglePage;
   export import AccountHolderCreateParams = API.AccountHolderCreateParams;
   export import AccountHolderUpdateParams = API.AccountHolderUpdateParams;
   export import AccountHolderListParams = API.AccountHolderListParams;
   export import AccountHolderResubmitParams = API.AccountHolderResubmitParams;
+  export import AccountHolderSimulateEnrollmentDocumentReviewParams = API.AccountHolderSimulateEnrollmentDocumentReviewParams;
+  export import AccountHolderSimulateEnrollmentReviewParams = API.AccountHolderSimulateEnrollmentReviewParams;
   export import AccountHolderUploadDocumentParams = API.AccountHolderUploadDocumentParams;
 
   export import AuthRules = API.AuthRules;
