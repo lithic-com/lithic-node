@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.63.0 (2024-08-09)
+
+Full Changelog: [v0.62.0...v0.63.0](https://github.com/lithic-com/lithic-node/compare/v0.62.0...v0.63.0)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** rename property 'FinancialAccounts.Statement.AccountStanding.state' to 'period_state' ([#461](https://github.com/lithic-com/lithic-node/issues/461))
+
+### Features
+
+* **api:** add event type 'card.reissued' ([#456](https://github.com/lithic-com/lithic-node/issues/456)) ([171491e](https://github.com/lithic-com/lithic-node/commit/171491e5361fe889769f4ccd5cc93d6fd5fdcfdb))
+* **api:** add methods to simulate enrollment review and enrollment document review ([#458](https://github.com/lithic-com/lithic-node/issues/458)) ([a944668](https://github.com/lithic-com/lithic-node/commit/a9446682d3deec78bb8116fff4a2de3c2785fb03))
+* **api:** rename property 'FinancialAccounts.Statement.AccountStanding.state' to 'period_state' ([#461](https://github.com/lithic-com/lithic-node/issues/461)) ([216cd59](https://github.com/lithic-com/lithic-node/commit/216cd59cfa4535d17d6af77309b142cac1e24126))
+
+
+### Chores
+
+* **internal:** updates ([#460](https://github.com/lithic-com/lithic-node/issues/460)) ([55b045d](https://github.com/lithic-com/lithic-node/commit/55b045d64eda14e2dee2b9f1b527e2af23bceea2))
+
 ## 0.62.0 (2024-08-05)
 
 Full Changelog: [v0.61.3...v0.62.0](https://github.com/lithic-com/lithic-node/compare/v0.61.3...v0.62.0)
