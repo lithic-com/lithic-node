@@ -60,6 +60,17 @@ export interface CardProgram {
    * The first digits of the card number that this card program starts with.
    */
   pan_range_start: string;
+
+  /**
+   * 3-digit alphabetic ISO 4217 code for the currency of the cardholder.
+   */
+  cardholder_currency?: string;
+
+  /**
+   * List of 3-digit alphabetic ISO 4217 codes for the currencies that the card
+   * program supports for settlement.
+   */
+  settlement_currencies?: Array<string>;
 }
 
 export interface CardProgramListParams extends CursorPageParams {}
