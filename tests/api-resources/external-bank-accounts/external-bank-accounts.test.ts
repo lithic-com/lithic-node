@@ -42,7 +42,7 @@ describe('resource externalBankAccounts', () => {
       type: 'CHECKING',
       verification_method: 'MANUAL',
       account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      address: { address1: 'x', address2: 'x', city: 'x', state: 'xx', postal_code: '11201', country: 'USD' },
+      address: { address1: 'x', city: 'x', country: 'USD', postal_code: '11201', state: 'xx', address2: 'x' },
       company_id: 'x',
       dob: '2019-12-27',
       doing_business_as: 'x',
