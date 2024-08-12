@@ -112,6 +112,11 @@ export interface Account {
    */
   auth_rule_tokens?: Array<string>;
 
+  /**
+   * 3-digit alphabetic ISO 4217 code for the currency of the cardholder.
+   */
+  cardholder_currency?: string;
+
   verification_address?: Account.VerificationAddress;
 }
 
