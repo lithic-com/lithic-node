@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.64.0 (2024-08-12)
+
+Full Changelog: [v0.63.0...v0.64.0](https://github.com/lithic-com/lithic-node/compare/v0.63.0...v0.64.0)
+
+### Features
+
+* **api:** add property `Account.cardholder_currency` ([#465](https://github.com/lithic-com/lithic-node/issues/465)) ([efca457](https://github.com/lithic-com/lithic-node/commit/efca45758dd739e5b40586ca11642988127d774e))
+* **api:** add property `Card.cardholder_currency` ([efca457](https://github.com/lithic-com/lithic-node/commit/efca45758dd739e5b40586ca11642988127d774e))
+* **api:** add property `CardProgram.cardholder_currency` ([efca457](https://github.com/lithic-com/lithic-node/commit/efca45758dd739e5b40586ca11642988127d774e))
+* **api:** add property `CardProgram.settlement_currencies` ([efca457](https://github.com/lithic-com/lithic-node/commit/efca45758dd739e5b40586ca11642988127d774e))
+
+
+### Chores
+
+* **ci:** bump prism mock server version ([#463](https://github.com/lithic-com/lithic-node/issues/463)) ([8cea176](https://github.com/lithic-com/lithic-node/commit/8cea1761f31fa71fd661f295a119b5ff9730d68f))
+
 ## 0.63.0 (2024-08-09)
 
 Full Changelog: [v0.62.0...v0.63.0](https://github.com/lithic-com/lithic-node/compare/v0.62.0...v0.63.0)
