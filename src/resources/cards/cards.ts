@@ -256,6 +256,11 @@ export interface Card {
   auth_rule_tokens?: Array<string>;
 
   /**
+   * 3-digit alphabetic ISO 4217 code for the currency of the cardholder.
+   */
+  cardholder_currency?: string;
+
+  /**
    * Three digit cvv printed on the back of the card.
    */
   cvv?: string;
