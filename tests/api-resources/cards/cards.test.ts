@@ -10,7 +10,7 @@ const client = new Lithic({
 
 describe('resource cards', () => {
   test('create: only required params', async () => {
-    const responsePromise = client.cards.create({ type: 'VIRTUAL' });
+    const responsePromise = client.cards.create({ type: 'MERCHANT_LOCKED' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,7 +22,7 @@ describe('resource cards', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.cards.create({
-      type: 'VIRTUAL',
+      type: 'MERCHANT_LOCKED',
       account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       card_program_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       carrier: { qr_code_url: 'qr_code_url' },
@@ -35,20 +35,20 @@ describe('resource cards', () => {
       replacement_for: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       shipping_address: {
         address1: '5 Broad Street',
-        address2: 'Unit 25A',
         city: 'NEW YORK',
         country: 'USA',
-        email: 'johnny@appleseed.com',
         first_name: 'Michael',
         last_name: 'Bluth',
-        line2_text: 'The Bluth Company',
-        phone_number: '+12124007676',
         postal_code: '10001-1809',
         state: 'NY',
+        address2: 'Unit 25A',
+        email: 'johnny@appleseed.com',
+        line2_text: 'The Bluth Company',
+        phone_number: '+12124007676',
       },
       shipping_method: '2_DAY',
       spend_limit: 1000,
-      spend_limit_duration: 'TRANSACTION',
+      spend_limit_duration: 'ANNUALLY',
       state: 'OPEN',
     });
   });
@@ -190,22 +190,22 @@ describe('resource cards', () => {
     const response = await client.cards.renew('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       shipping_address: {
         address1: '5 Broad Street',
-        address2: 'Unit 5A',
         city: 'NEW YORK',
         country: 'USA',
-        email: 'johnny@appleseed.com',
         first_name: 'Janet',
         last_name: 'Yellen',
-        line2_text: 'The Bluth Company',
-        phone_number: '+12124007676',
         postal_code: '10001',
         state: 'NY',
+        address2: 'Unit 5A',
+        email: 'johnny@appleseed.com',
+        line2_text: 'The Bluth Company',
+        phone_number: '+12124007676',
       },
       carrier: { qr_code_url: 'https://lithic.com/activate-card/1' },
       exp_month: '06',
       exp_year: '2027',
       product_id: '100',
-      shipping_method: 'STANDARD',
+      shipping_method: '2-DAY',
     });
   });
 
