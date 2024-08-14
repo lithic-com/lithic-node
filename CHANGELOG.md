@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.65.0 (2024-08-14)
+
+Full Changelog: [v0.64.0...v0.65.0](https://github.com/lithic-com/lithic-node/compare/v0.64.0...v0.65.0)
+
+### Features
+
+* **api:** add SettlementReport property `is_complete` ([#468](https://github.com/lithic-com/lithic-node/issues/468)) ([ca467da](https://github.com/lithic-com/lithic-node/commit/ca467da7ddeb4cd77bfff7b1d8ae207774f1ea12))
+
+
+### Chores
+
+* **examples:** minor formatting changes ([#466](https://github.com/lithic-com/lithic-node/issues/466)) ([670627c](https://github.com/lithic-com/lithic-node/commit/670627c376aaa46f6ae89598ed6586c90f1dd71f))
+
 ## 0.64.0 (2024-08-12)
 
 Full Changelog: [v0.63.0...v0.64.0](https://github.com/lithic-com/lithic-node/compare/v0.63.0...v0.64.0)
