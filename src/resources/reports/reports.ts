@@ -185,6 +185,11 @@ export interface SettlementReport {
    * Date and time when the transaction first occurred. UTC time zone.
    */
   updated: string;
+
+  /**
+   * Indicates that all data expected on the given report date is available.
+   */
+  is_complete?: boolean;
 }
 
 export interface SettlementSummaryDetails {
