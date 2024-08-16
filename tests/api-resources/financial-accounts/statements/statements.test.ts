@@ -63,6 +63,7 @@ describe('resource statements', () => {
           begin: '2019-12-27',
           end: '2019-12-27',
           ending_before: 'ending_before',
+          include_initial_statements: true,
           page_size: 1,
           starting_after: 'starting_after',
         },
