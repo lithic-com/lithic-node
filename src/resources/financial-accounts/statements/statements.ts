@@ -203,6 +203,11 @@ export interface StatementListParams extends CursorPageParams {
    * will be included.
    */
   end?: string;
+
+  /**
+   * Whether to include the initial statement. It is not included by default.
+   */
+  include_initial_statements?: boolean;
 }
 
 export namespace Statements {
