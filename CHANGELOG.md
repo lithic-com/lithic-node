@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.66.0 (2024-08-16)
+
+Full Changelog: [v0.65.0...v0.66.0](https://github.com/lithic-com/lithic-node/compare/v0.65.0...v0.66.0)
+
+### Features
+
+* **api:** add StatementListParams property include_initial_statements ([#469](https://github.com/lithic-com/lithic-node/issues/469)) ([baed4f7](https://github.com/lithic-com/lithic-node/commit/baed4f7e9537e6aa2e576140d5fd1efd1b58fef0))
+
 ## 0.65.0 (2024-08-14)
 
 Full Changelog: [v0.64.0...v0.65.0](https://github.com/lithic-com/lithic-node/compare/v0.64.0...v0.65.0)
