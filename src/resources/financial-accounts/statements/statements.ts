@@ -140,6 +140,16 @@ export interface Statement {
   updated: string;
 
   ytd_totals: Statement.YtdTotals;
+
+  /**
+   * Date when the next payment is due
+   */
+  next_payment_due_date?: string;
+
+  /**
+   * Date when the next billing period will end
+   */
+  next_statement_end_date?: string;
 }
 
 export namespace Statement {
