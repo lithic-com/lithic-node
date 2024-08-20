@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.67.0 (2024-08-20)
+
+Full Changelog: [v0.66.0...v0.67.0](https://github.com/lithic-com/lithic-node/compare/v0.66.0...v0.67.0)
+
+### Features
+
+* **api:** add property `next_payment_end_date` and `next_payment_due_date` to Statement model ([#473](https://github.com/lithic-com/lithic-node/issues/473)) ([26e6d5c](https://github.com/lithic-com/lithic-node/commit/26e6d5cc2728a57afab2135bec1723868d46e4d6))
+
+
+### Chores
+
+* **docs:** update state description on Card ([#471](https://github.com/lithic-com/lithic-node/issues/471)) ([f83f736](https://github.com/lithic-com/lithic-node/commit/f83f736797c4ab7ade13fc616ff3cb18fb9c0c57))
+
 ## 0.66.0 (2024-08-16)
 
 Full Changelog: [v0.65.0...v0.66.0](https://github.com/lithic-com/lithic-node/compare/v0.65.0...v0.66.0)
