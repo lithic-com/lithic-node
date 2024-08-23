@@ -6,5 +6,9 @@ export {
   AuthenticationSimulateParams,
   Authentication,
 } from './authentication';
-export { DecisioningRetrieveSecretResponse, Decisioning } from './decisioning';
+export {
+  DecisioningRetrieveSecretResponse,
+  DecisioningChallengeResponseParams,
+  Decisioning,
+} from './decisioning';
 export { ThreeDS } from './three-ds';
