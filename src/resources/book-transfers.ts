@@ -149,6 +149,11 @@ export namespace BookTransferResponse {
     created: string;
 
     /**
+     * Detailed Results
+     */
+    detailed_results: Array<'APPROVED' | 'FUNDS_INSUFFICIENT'>;
+
+    /**
      * Memo for the transfer.
      */
     memo: string;
@@ -165,14 +170,9 @@ export namespace BookTransferResponse {
     subtype: string;
 
     /**
-     * Subtype of the book transfer
+     * Type of the book transfer
      */
     type: string;
-
-    /**
-     * Detailed Results
-     */
-    detailed_results?: Array<'APPROVED' | 'FUNDS_INSUFFICIENT'>;
   }
 }
 
