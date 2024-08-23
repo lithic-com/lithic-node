@@ -9,6 +9,27 @@ const client = new Lithic({
 });
 
 describe('resource decisioning', () => {
+  test('challengeResponse: only required params', async () => {
+    const responsePromise = client.threeDS.decisioning.challengeResponse({
+      token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      challenge_response: 'APPROVE',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('challengeResponse: required and optional params', async () => {
+    const response = await client.threeDS.decisioning.challengeResponse({
+      token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      challenge_response: 'APPROVE',
+    });
+  });
+
   test('retrieveSecret', async () => {
     const responsePromise = client.threeDS.decisioning.retrieveSecret();
     const rawResponse = await responsePromise.asResponse();
