@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.68.0 (2024-08-23)
+
+Full Changelog: [v0.67.0...v0.68.0](https://github.com/lithic-com/lithic-node/compare/v0.67.0...v0.68.0)
+
+### Features
+
+* **api:** new book_transfer_transaction events and Settlement Report field deprecations ([#476](https://github.com/lithic-com/lithic-node/issues/476)) ([59433ae](https://github.com/lithic-com/lithic-node/commit/59433aefe8fc6456594d340e3fdb4555af416dbe))
+
+
+### Chores
+
+* minor dependency version bump ([#474](https://github.com/lithic-com/lithic-node/issues/474)) ([88b82ff](https://github.com/lithic-com/lithic-node/commit/88b82ffcc2738c5d79a6aa44a7073b5061a9a8be))
+
 ## 0.67.0 (2024-08-20)
 
 Full Changelog: [v0.66.0...v0.67.0](https://github.com/lithic-com/lithic-node/compare/v0.66.0...v0.67.0)
