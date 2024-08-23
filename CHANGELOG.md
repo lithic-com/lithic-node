@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.69.0 (2024-08-23)
+
+Full Changelog: [v0.68.0...v0.69.0](https://github.com/lithic-com/lithic-node/compare/v0.68.0...v0.69.0)
+
+### Features
+
+* **api:** add endpoints and webhooks for 3DS challenge decisions and challenges ([#477](https://github.com/lithic-com/lithic-node/issues/477)) ([63acaa2](https://github.com/lithic-com/lithic-node/commit/63acaa28d36340184aabfe1ff7fb8ec427c69360))
+
 ## 0.68.0 (2024-08-23)
 
 Full Changelog: [v0.67.0...v0.68.0](https://github.com/lithic-com/lithic-node/compare/v0.67.0...v0.68.0)
