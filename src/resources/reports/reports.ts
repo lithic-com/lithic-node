@@ -143,24 +143,39 @@ export interface SettlementReport {
   created: string;
 
   /**
-   * Three-digit alphabetic ISO 4217 code.
+   * @deprecated: Three-digit alphabetic ISO 4217 code. (This field is deprecated and
+   * will be removed in a future version of the API.)
    */
   currency: string;
 
   details: Array<SettlementSummaryDetails>;
 
   /**
-   * The total gross amount of disputes settlements.
+   * @deprecated: The total gross amount of disputes settlements. (This field is
+   * deprecated and will be removed in a future version of the API. To compute total
+   * amounts, Lithic recommends that customers sum the relevant settlement amounts
+   * found within `details`.)
    */
   disputes_gross_amount: number;
 
   /**
-   * The total amount of interchange.
+   * @deprecated: The total amount of interchange. (This field is deprecated and will
+   * be removed in a future version of the API. To compute total amounts, Lithic
+   * recommends that customers sum the relevant settlement amounts found within
+   * `details`.)
    */
   interchange_gross_amount: number;
 
   /**
-   * Total amount of gross other fees outside of interchange.
+   * Indicates that all data expected on the given report date is available.
+   */
+  is_complete: boolean;
+
+  /**
+   * @deprecated: Total amount of gross other fees outside of interchange. (This
+   * field is deprecated and will be removed in a future version of the API. To
+   * compute total amounts, Lithic recommends that customers sum the relevant
+   * settlement amounts found within `details`.)
    */
   other_fees_gross_amount: number;
 
@@ -170,14 +185,19 @@ export interface SettlementReport {
   report_date: string;
 
   /**
-   * The total net amount of cash moved. (net value of settled_gross_amount,
-   * interchange, fees).
+   * @deprecated: The total net amount of cash moved. (net value of
+   * settled_gross_amount, interchange, fees). (This field is deprecated and will be
+   * removed in a future version of the API. To compute total amounts, Lithic
+   * recommends that customers sum the relevant settlement amounts found within
+   * `details`.)
    */
   settled_net_amount: number;
 
   /**
-   * The total amount of settlement impacting transactions (excluding interchange,
-   * fees, and disputes).
+   * @deprecated: The total amount of settlement impacting transactions (excluding
+   * interchange, fees, and disputes). (This field is deprecated and will be removed
+   * in a future version of the API. To compute total amounts, Lithic recommends that
+   * customers sum the relevant settlement amounts found within `details`.)
    */
   transactions_gross_amount: number;
 
@@ -185,14 +205,14 @@ export interface SettlementReport {
    * Date and time when the transaction first occurred. UTC time zone.
    */
   updated: string;
-
-  /**
-   * Indicates that all data expected on the given report date is available.
-   */
-  is_complete?: boolean;
 }
 
 export interface SettlementSummaryDetails {
+  /**
+   * ISO 4217 alpha 3 code.
+   */
+  currency?: string;
+
   /**
    * The total gross amount of disputes settlements.
    */

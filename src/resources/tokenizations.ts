@@ -319,7 +319,7 @@ export interface TokenizationListParams extends CursorPageParams {
    * Filter for tokenizations by tokenization channel. If this is not specified, only
    * DIGITAL_WALLET tokenizations will be returned.
    */
-  tokenization_channel?: 'DIGITAL_WALLET' | 'MERCHANT';
+  tokenization_channel?: 'DIGITAL_WALLET' | 'MERCHANT' | 'ALL';
 }
 
 export interface TokenizationResendActivationCodeParams {
