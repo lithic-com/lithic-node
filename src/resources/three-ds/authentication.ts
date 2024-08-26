@@ -37,7 +37,7 @@ export interface AuthenticationRetrieveResponse {
 
   /**
    * Type of account/card that is being used for the transaction. Maps to EMV 3DS
-   * field acctType.
+   * field `acctType`.
    */
   account_type: 'CREDIT' | 'DEBIT' | 'NOT_APPLICABLE' | null;
 
