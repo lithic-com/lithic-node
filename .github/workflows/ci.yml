@@ -28,6 +28,25 @@ jobs:
       - name: Check types
         run: ./scripts/lint
 
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    if: github.repository == 'lithic-com/lithic-node'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Check build
+        run: ./scripts/build
+
   examples:
     name: examples
     runs-on: ubuntu-latest
