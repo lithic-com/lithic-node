@@ -246,6 +246,12 @@ export interface Card {
   last_four: string;
 
   /**
+   * Indicates if a card is blocked due a PIN status issue (e.g. excessive incorrect
+   * attempts).
+   */
+  pin_status: 'OK' | 'BLOCKED' | 'NOT_SET';
+
+  /**
    * Amount (in cents) to limit approved authorizations. Transaction requests above
    * the spend limit will be declined.
    */
@@ -360,6 +366,13 @@ export interface Card {
    * [support@lithic.com](mailto:support@lithic.com) for questions.
    */
   pan?: string;
+
+  /**
+   * Indicates if there are offline PIN changes pending card interaction with an
+   * offline PIN terminal. Possible commands are: CHANGE_PIN, UNBLOCK_PIN. Applicable
+   * only to cards issued in markets supporting offline PINs.
+   */
+  pending_commands?: Array<string>;
 
   /**
    * Only applicable to cards of type `PHYSICAL`. This must be configured with Lithic
@@ -667,10 +680,16 @@ export interface CardUpdateParams {
 
   /**
    * Encrypted PIN block (in base64). Only applies to cards of type `PHYSICAL` and
-   * `VIRTUAL`. See
-   * [Encrypted PIN Block](https://docs.lithic.com/docs/cards#encrypted-pin-block-enterprise).
+   * `VIRTUAL`. Changing PIN also resets PIN status to `OK`. See
+   * [Encrypted PIN Block](https://docs.lithic.com/docs/cards#encrypted-pin-block).
    */
   pin?: string;
+
+  /**
+   * Indicates if a card is blocked due a PIN status issue (e.g. excessive incorrect
+   * attempts). Can only be set to `OK` to unblock a card.
+   */
+  pin_status?: 'OK';
 
   /**
    * Amount (in cents) to limit approved authorizations. Transaction requests above
