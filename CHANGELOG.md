@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.70.0 (2024-08-28)
+
+Full Changelog: [v0.69.0...v0.70.0](https://github.com/lithic-com/lithic-node/compare/v0.69.0...v0.70.0)
+
+### Features
+
+* **api:** add 'pin status' and 'pending_commands' to Card model ([#482](https://github.com/lithic-com/lithic-node/issues/482)) ([8282171](https://github.com/lithic-com/lithic-node/commit/82821719251b1ffe7942076238e0e5d799bae934))
+
+
+### Chores
+
+* **ci:** check for build errors ([#481](https://github.com/lithic-com/lithic-node/issues/481)) ([66376d3](https://github.com/lithic-com/lithic-node/commit/66376d3c0b6fced8c1ffa1cb89981562ea5f357f))
+* **docs:** minor edits ([#479](https://github.com/lithic-com/lithic-node/issues/479)) ([caa24b7](https://github.com/lithic-com/lithic-node/commit/caa24b79acc744edfdcc767618fa685ab475f773))
+
 ## 0.69.0 (2024-08-23)
 
 Full Changelog: [v0.68.0...v0.69.0](https://github.com/lithic-com/lithic-node/compare/v0.68.0...v0.69.0)
