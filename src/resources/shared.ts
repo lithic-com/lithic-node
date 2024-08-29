@@ -42,6 +42,88 @@ export interface Carrier {
   qr_code_url?: string;
 }
 
+/**
+ * Describes the document and the required document image uploads required to
+ * re-run KYC
+ */
+export interface Document {
+  /**
+   * Globally unique identifier for the document.
+   */
+  token: string;
+
+  /**
+   * Globally unique identifier for the account holder.
+   */
+  account_holder_token: string;
+
+  /**
+   * Type of documentation to be submitted for verification.
+   */
+  document_type:
+    | 'DRIVERS_LICENSE'
+    | 'PASSPORT'
+    | 'PASSPORT_CARD'
+    | 'EIN_LETTER'
+    | 'TAX_RETURN'
+    | 'OPERATING_AGREEMENT'
+    | 'CERTIFICATE_OF_FORMATION'
+    | 'CERTIFICATE_OF_GOOD_STANDING'
+    | 'ARTICLES_OF_INCORPORATION'
+    | 'ARTICLES_OF_ORGANIZATION'
+    | 'BYLAWS'
+    | 'GOVERNMENT_BUSINESS_LICENSE'
+    | 'PARTNERSHIP_AGREEMENT'
+    | 'SS4_FORM'
+    | 'BANK_STATEMENT'
+    | 'UTILITY_BILL_STATEMENT'
+    | 'SSN_CARD'
+    | 'ITIN_LETTER';
+
+  /**
+   * Represents a single image of the document to upload.
+   */
+  required_document_uploads: Array<Document.RequiredDocumentUpload>;
+}
+
+export namespace Document {
+  /**
+   * Represents a single image of the document to upload.
+   */
+  export interface RequiredDocumentUpload {
+    /**
+     * Type of image to upload.
+     */
+    image_type: 'FRONT' | 'BACK';
+
+    /**
+     * Status of document image upload.
+     */
+    status: 'ACCEPTED' | 'REJECTED' | 'PENDING_UPLOAD' | 'UPLOADED';
+
+    /**
+     * Reasons for document image upload status.
+     */
+    status_reasons: Array<
+      | 'DOCUMENT_MISSING_REQUIRED_DATA'
+      | 'DOCUMENT_UPLOAD_TOO_BLURRY'
+      | 'FILE_SIZE_TOO_LARGE'
+      | 'INVALID_DOCUMENT_TYPE'
+      | 'INVALID_DOCUMENT_UPLOAD'
+      | 'UNKNOWN_ERROR'
+    >;
+
+    /**
+     * URL to upload document image to.
+     *
+     * Note that the upload URLs expire after 7 days. If an upload URL expires, you can
+     * refresh the URLs by retrieving the document upload from
+     * `GET /account_holders/{account_holder_token}/documents`.
+     */
+    upload_url: string;
+  }
+}
+
 export interface ShippingAddress {
   /**
    * Valid USPS routable address.

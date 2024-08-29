@@ -14,6 +14,7 @@ Types:
 
 - <code><a href="./src/resources/shared.ts">Address</a></code>
 - <code><a href="./src/resources/shared.ts">Carrier</a></code>
+- <code><a href="./src/resources/shared.ts">Document</a></code>
 - <code><a href="./src/resources/shared.ts">ShippingAddress</a></code>
 
 # Accounts
@@ -35,14 +36,12 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/account-holders.ts">AccountHolder</a></code>
-- <code><a href="./src/resources/account-holders.ts">AccountHolderDocument</a></code>
 - <code><a href="./src/resources/account-holders.ts">KYB</a></code>
 - <code><a href="./src/resources/account-holders.ts">KYC</a></code>
 - <code><a href="./src/resources/account-holders.ts">KYCExempt</a></code>
 - <code><a href="./src/resources/account-holders.ts">AccountHolderCreateResponse</a></code>
 - <code><a href="./src/resources/account-holders.ts">AccountHolderUpdateResponse</a></code>
 - <code><a href="./src/resources/account-holders.ts">AccountHolderListDocumentsResponse</a></code>
-- <code><a href="./src/resources/account-holders.ts">AccountHolderSimulateEnrollmentDocumentReviewResponse</a></code>
 - <code><a href="./src/resources/account-holders.ts">AccountHolderSimulateEnrollmentReviewResponse</a></code>
 
 Methods:
@@ -53,10 +52,10 @@ Methods:
 - <code title="get /account_holders">client.accountHolders.<a href="./src/resources/account-holders.ts">list</a>({ ...params }) -> AccountHoldersSinglePage</code>
 - <code title="get /account_holders/{account_holder_token}/documents">client.accountHolders.<a href="./src/resources/account-holders.ts">listDocuments</a>(accountHolderToken) -> AccountHolderListDocumentsResponse</code>
 - <code title="post /account_holders/{account_holder_token}/resubmit">client.accountHolders.<a href="./src/resources/account-holders.ts">resubmit</a>(accountHolderToken, { ...params }) -> AccountHolder</code>
-- <code title="get /account_holders/{account_holder_token}/documents/{document_token}">client.accountHolders.<a href="./src/resources/account-holders.ts">retrieveDocument</a>(accountHolderToken, documentToken) -> AccountHolderDocument</code>
-- <code title="post /simulate/account_holders/enrollment_document_review">client.accountHolders.<a href="./src/resources/account-holders.ts">simulateEnrollmentDocumentReview</a>({ ...params }) -> AccountHolderSimulateEnrollmentDocumentReviewResponse</code>
+- <code title="get /account_holders/{account_holder_token}/documents/{document_token}">client.accountHolders.<a href="./src/resources/account-holders.ts">retrieveDocument</a>(accountHolderToken, documentToken) -> Document</code>
+- <code title="post /simulate/account_holders/enrollment_document_review">client.accountHolders.<a href="./src/resources/account-holders.ts">simulateEnrollmentDocumentReview</a>({ ...params }) -> Document</code>
 - <code title="post /simulate/account_holders/enrollment_review">client.accountHolders.<a href="./src/resources/account-holders.ts">simulateEnrollmentReview</a>({ ...params }) -> AccountHolderSimulateEnrollmentReviewResponse</code>
-- <code title="post /account_holders/{account_holder_token}/documents">client.accountHolders.<a href="./src/resources/account-holders.ts">uploadDocument</a>(accountHolderToken, { ...params }) -> AccountHolderDocument</code>
+- <code title="post /account_holders/{account_holder_token}/documents">client.accountHolders.<a href="./src/resources/account-holders.ts">uploadDocument</a>(accountHolderToken, { ...params }) -> Document</code>
 
 # AuthRules
 
