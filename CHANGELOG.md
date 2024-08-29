@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.71.0 (2024-08-29)
+
+Full Changelog: [v0.70.0...v0.71.0](https://github.com/lithic-com/lithic-node/compare/v0.70.0...v0.71.0)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** add shared model Document ([#485](https://github.com/lithic-com/lithic-node/issues/485))
+
+### Features
+
+* **api:** add shared model Document ([#485](https://github.com/lithic-com/lithic-node/issues/485)) ([0d0bc29](https://github.com/lithic-com/lithic-node/commit/0d0bc2931e056fad4fe558d462849fb31a633931))
+
+
+### Chores
+
+* run tsc as part of lint script ([#483](https://github.com/lithic-com/lithic-node/issues/483)) ([fd80a03](https://github.com/lithic-com/lithic-node/commit/fd80a039eb8f219e3dd78fba28c5f916231d3009))
+
 ## 0.70.0 (2024-08-28)
 
 Full Changelog: [v0.69.0...v0.70.0](https://github.com/lithic-com/lithic-node/compare/v0.69.0...v0.70.0)
