@@ -12,14 +12,12 @@ export {
 } from './accounts';
 export {
   AccountHolder,
-  AccountHolderDocument,
   KYB,
   KYC,
   KYCExempt,
   AccountHolderCreateResponse,
   AccountHolderUpdateResponse,
   AccountHolderListDocumentsResponse,
-  AccountHolderSimulateEnrollmentDocumentReviewResponse,
   AccountHolderSimulateEnrollmentReviewResponse,
   AccountHolderCreateParams,
   AccountHolderUpdateParams,

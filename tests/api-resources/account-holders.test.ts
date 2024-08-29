@@ -20,6 +20,7 @@ describe('resource accountHolders', () => {
             postal_code: '68022',
             state: 'NE',
           },
+          entity_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           government_id: '114-123-1513',
           legal_business_name: 'Acme, Inc.',
           phone_numbers: ['+12124007676'],
@@ -32,6 +33,7 @@ describe('resource accountHolders', () => {
             postal_code: '68022',
             state: 'NE',
           },
+          entity_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           government_id: '114-123-1513',
           legal_business_name: 'Acme, Inc.',
           phone_numbers: ['+12124007676'],
@@ -44,6 +46,7 @@ describe('resource accountHolders', () => {
             postal_code: '68022',
             state: 'NE',
           },
+          entity_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           government_id: '114-123-1513',
           legal_business_name: 'Acme, Inc.',
           phone_numbers: ['+12124007676'],
@@ -101,6 +104,7 @@ describe('resource accountHolders', () => {
           postal_code: '68022',
           state: 'NE',
         },
+        entity_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         government_id: '114-123-1513',
         legal_business_name: 'Acme, Inc.',
         phone_numbers: ['+12124007676'],
@@ -144,11 +148,11 @@ describe('resource accountHolders', () => {
             state: 'NE',
             address2: 'address2',
           },
+          entity_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           government_id: '114-123-1513',
           legal_business_name: 'Acme, Inc.',
           phone_numbers: ['+12124007676'],
           dba_business_name: 'dba_business_name',
-          entity_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           parent_company: 'parent_company',
         },
         {
@@ -160,11 +164,11 @@ describe('resource accountHolders', () => {
             state: 'NE',
             address2: 'address2',
           },
+          entity_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           government_id: '114-123-1513',
           legal_business_name: 'Acme, Inc.',
           phone_numbers: ['+12124007676'],
           dba_business_name: 'dba_business_name',
-          entity_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           parent_company: 'parent_company',
         },
         {
@@ -176,11 +180,11 @@ describe('resource accountHolders', () => {
             state: 'NE',
             address2: 'address2',
           },
+          entity_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           government_id: '114-123-1513',
           legal_business_name: 'Acme, Inc.',
           phone_numbers: ['+12124007676'],
           dba_business_name: 'dba_business_name',
-          entity_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           parent_company: 'parent_company',
         },
       ],
@@ -243,11 +247,11 @@ describe('resource accountHolders', () => {
           state: 'NE',
           address2: 'address2',
         },
+        entity_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         government_id: '114-123-1513',
         legal_business_name: 'Acme, Inc.',
         phone_numbers: ['+12124007676'],
         dba_business_name: 'dba_business_name',
-        entity_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         parent_company: 'parent_company',
       },
       control_person: {
@@ -458,8 +462,11 @@ describe('resource accountHolders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('uploadDocument', async () => {
-    const responsePromise = client.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
+  test('uploadDocument: only required params', async () => {
+    const responsePromise = client.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      document_type: 'EIN_LETTER',
+      entity_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -467,5 +474,12 @@ describe('resource accountHolders', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('uploadDocument: required and optional params', async () => {
+    const response = await client.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      document_type: 'EIN_LETTER',
+      entity_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
   });
 });

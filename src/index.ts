@@ -267,14 +267,12 @@ export namespace Lithic {
 
   export import AccountHolders = API.AccountHolders;
   export import AccountHolder = API.AccountHolder;
-  export import AccountHolderDocument = API.AccountHolderDocument;
   export import KYB = API.KYB;
   export import KYC = API.KYC;
   export import KYCExempt = API.KYCExempt;
   export import AccountHolderCreateResponse = API.AccountHolderCreateResponse;
   export import AccountHolderUpdateResponse = API.AccountHolderUpdateResponse;
   export import AccountHolderListDocumentsResponse = API.AccountHolderListDocumentsResponse;
-  export import AccountHolderSimulateEnrollmentDocumentReviewResponse = API.AccountHolderSimulateEnrollmentDocumentReviewResponse;
   export import AccountHolderSimulateEnrollmentReviewResponse = API.AccountHolderSimulateEnrollmentReviewResponse;
   export import AccountHoldersSinglePage = API.AccountHoldersSinglePage;
   export import AccountHolderCreateParams = API.AccountHolderCreateParams;
@@ -466,6 +464,7 @@ export namespace Lithic {
 
   export import Address = API.Address;
   export import Carrier = API.Carrier;
+  export import Document = API.Document;
   export import ShippingAddress = API.ShippingAddress;
 }
 

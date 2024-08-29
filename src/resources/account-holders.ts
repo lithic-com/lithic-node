@@ -127,7 +127,7 @@ export class AccountHolders extends APIResource {
     accountHolderToken: string,
     documentToken: string,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<AccountHolderDocument> {
+  ): Core.APIPromise<Shared.Document> {
     return this._client.get(`/account_holders/${accountHolderToken}/documents/${documentToken}`, options);
   }
 
@@ -137,7 +137,7 @@ export class AccountHolders extends APIResource {
   simulateEnrollmentDocumentReview(
     body: AccountHolderSimulateEnrollmentDocumentReviewParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<AccountHolderSimulateEnrollmentDocumentReviewResponse> {
+  ): Core.APIPromise<Shared.Document> {
     return this._client.post('/simulate/account_holders/enrollment_document_review', { body, ...options });
   }
 
@@ -177,7 +177,7 @@ export class AccountHolders extends APIResource {
     accountHolderToken: string,
     body: AccountHolderUploadDocumentParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<AccountHolderDocument> {
+  ): Core.APIPromise<Shared.Document> {
     return this._client.post(`/account_holders/${accountHolderToken}/documents`, { body, ...options });
   }
 }
@@ -189,6 +189,11 @@ export interface AccountHolder {
    * Globally unique identifier for the account holder.
    */
   token: string;
+
+  /**
+   * Timestamp of when the account holder was created.
+   */
+  created: string;
 
   /**
    * Globally unique identifier for the account.
@@ -229,11 +234,6 @@ export interface AccountHolder {
    * In some cases, this individual could also be a beneficial owner listed above.
    */
   control_person?: AccountHolder.ControlPerson;
-
-  /**
-   * Timestamp of when the account holder was created.
-   */
-  created?: string;
 
   /**
    * < Deprecated. Use control_person.email when user_type == "BUSINESS". Use
@@ -339,6 +339,11 @@ export namespace AccountHolder {
     address: Shared.Address;
 
     /**
+     * Globally unique identifier for the entity.
+     */
+    entity_token: string;
+
+    /**
      * Government-issued identification number. US Federal Employer Identification
      * Numbers (EIN) are currently supported, entered as full nine-digits, with or
      * without hyphens.
@@ -361,11 +366,6 @@ export namespace AccountHolder {
      * (if applicable).
      */
     dba_business_name?: string;
-
-    /**
-     * Globally unique identifier for the entity.
-     */
-    entity_token?: string;
 
     /**
      * Parent company name (if applicable).
@@ -382,37 +382,37 @@ export namespace AccountHolder {
     /**
      * Individual's current address
      */
-    address?: Shared.Address;
+    address: Shared.Address;
 
     /**
      * Individual's date of birth, as an RFC 3339 date.
      */
-    dob?: string;
+    dob: string;
 
     /**
      * Individual's email address.
      */
-    email?: string;
+    email: string;
 
     /**
      * Globally unique identifier for the entity.
      */
-    entity_token?: string;
+    entity_token: string;
 
     /**
      * Individual's first name, as it appears on government-issued identity documents.
      */
-    first_name?: string;
+    first_name: string;
 
     /**
      * Individual's last name, as it appears on government-issued identity documents.
      */
-    last_name?: string;
+    last_name: string;
 
     /**
      * Individual's phone number, entered in E.164 format.
      */
-    phone_number?: string;
+    phone_number: string;
   }
 
   /**
@@ -425,6 +425,11 @@ export namespace AccountHolder {
      * acceptable; APO/FPO are acceptable.
      */
     address: Shared.Address;
+
+    /**
+     * Globally unique identifier for the entity.
+     */
+    entity_token: string;
 
     /**
      * Government-issued identification number. US Federal Employer Identification
@@ -449,11 +454,6 @@ export namespace AccountHolder {
      * (if applicable).
      */
     dba_business_name?: string;
-
-    /**
-     * Globally unique identifier for the entity.
-     */
-    entity_token?: string;
 
     /**
      * Parent company name (if applicable).
@@ -473,37 +473,37 @@ export namespace AccountHolder {
     /**
      * Individual's current address
      */
-    address?: Shared.Address;
+    address: Shared.Address;
 
     /**
      * Individual's date of birth, as an RFC 3339 date.
      */
-    dob?: string;
+    dob: string;
 
     /**
      * Individual's email address.
      */
-    email?: string;
+    email: string;
 
     /**
      * Globally unique identifier for the entity.
      */
-    entity_token?: string;
+    entity_token: string;
 
     /**
      * Individual's first name, as it appears on government-issued identity documents.
      */
-    first_name?: string;
+    first_name: string;
 
     /**
      * Individual's last name, as it appears on government-issued identity documents.
      */
-    last_name?: string;
+    last_name: string;
 
     /**
      * Individual's phone number, entered in E.164 format.
      */
-    phone_number?: string;
+    phone_number: string;
   }
 
   /**
@@ -514,37 +514,37 @@ export namespace AccountHolder {
     /**
      * Individual's current address
      */
-    address?: Shared.Address;
+    address: Shared.Address;
 
     /**
      * Individual's date of birth, as an RFC 3339 date.
      */
-    dob?: string;
+    dob: string;
 
     /**
      * Individual's email address.
      */
-    email?: string;
+    email: string;
 
     /**
      * Globally unique identifier for the entity.
      */
-    entity_token?: string;
+    entity_token: string;
 
     /**
      * Individual's first name, as it appears on government-issued identity documents.
      */
-    first_name?: string;
+    first_name: string;
 
     /**
      * Individual's last name, as it appears on government-issued identity documents.
      */
-    last_name?: string;
+    last_name: string;
 
     /**
      * Individual's phone number, entered in E.164 format.
      */
-    phone_number?: string;
+    phone_number: string;
   }
 
   export interface RequiredDocument {
@@ -607,92 +607,6 @@ export namespace AccountHolder {
      * Timestamp of when the application was last updated.
      */
     updated?: string;
-  }
-}
-
-/**
- * Describes the document and the required document image uploads required to
- * re-run KYC.
- */
-export interface AccountHolderDocument {
-  /**
-   * Globally unique identifier for the document.
-   */
-  token?: string;
-
-  /**
-   * Globally unique identifier for the account holder.
-   */
-  account_holder_token?: string;
-
-  /**
-   * Type of documentation to be submitted for verification.
-   */
-  document_type?:
-    | 'EIN_LETTER'
-    | 'TAX_RETURN'
-    | 'OPERATING_AGREEMENT'
-    | 'CERTIFICATE_OF_FORMATION'
-    | 'DRIVERS_LICENSE'
-    | 'PASSPORT'
-    | 'PASSPORT_CARD'
-    | 'CERTIFICATE_OF_GOOD_STANDING'
-    | 'ARTICLES_OF_INCORPORATION'
-    | 'ARTICLES_OF_ORGANIZATION'
-    | 'BYLAWS'
-    | 'GOVERNMENT_BUSINESS_LICENSE'
-    | 'PARTNERSHIP_AGREEMENT'
-    | 'SS4_FORM'
-    | 'BANK_STATEMENT'
-    | 'UTILITY_BILL_STATEMENT'
-    | 'SSN_CARD'
-    | 'ITIN_LETTER';
-
-  /**
-   * Globally unique identifier for the entity.
-   */
-  entity_token?: string;
-
-  required_document_uploads?: Array<AccountHolderDocument.RequiredDocumentUpload>;
-}
-
-export namespace AccountHolderDocument {
-  /**
-   * Represents a single image of the document to upload.
-   */
-  export interface RequiredDocumentUpload {
-    /**
-     * Globally unique identifier for the document upload.
-     */
-    token?: string;
-
-    /**
-     * Type of image to upload.
-     */
-    image_type?: 'back' | 'front';
-
-    /**
-     * Status of document image upload.
-     */
-    status?: 'COMPLETED' | 'FAILED' | 'PENDING_UPLOAD' | 'UPLOADED';
-
-    status_reasons?: Array<
-      | 'BACK_IMAGE_BLURRY'
-      | 'FILE_SIZE_TOO_LARGE'
-      | 'FRONT_IMAGE_BLURRY'
-      | 'FRONT_IMAGE_GLARE'
-      | 'INVALID_FILE_TYPE'
-      | 'UNKNOWN_ERROR'
-    >;
-
-    /**
-     * URL to upload document image to.
-     *
-     * Note that the upload URLs expire after 7 days. If an upload URL expires, you can
-     * refresh the URLs by retrieving the document upload from
-     * `GET /account_holders/{account_holder_token}/documents`.
-     */
-    upload_url?: string;
   }
 }
 
@@ -784,6 +698,11 @@ export namespace KYB {
     address: Shared.Address;
 
     /**
+     * Globally unique identifier for the entity.
+     */
+    entity_token: string;
+
+    /**
      * Government-issued identification number. US Federal Employer Identification
      * Numbers (EIN) are currently supported, entered as full nine-digits, with or
      * without hyphens.
@@ -806,11 +725,6 @@ export namespace KYB {
      * (if applicable).
      */
     dba_business_name?: string;
-
-    /**
-     * Globally unique identifier for the entity.
-     */
-    entity_token?: string;
 
     /**
      * Parent company name (if applicable).
@@ -875,6 +789,11 @@ export namespace KYB {
     address: Shared.Address;
 
     /**
+     * Globally unique identifier for the entity.
+     */
+    entity_token: string;
+
+    /**
      * Government-issued identification number. US Federal Employer Identification
      * Numbers (EIN) are currently supported, entered as full nine-digits, with or
      * without hyphens.
@@ -897,11 +816,6 @@ export namespace KYB {
      * (if applicable).
      */
     dba_business_name?: string;
-
-    /**
-     * Globally unique identifier for the entity.
-     */
-    entity_token?: string;
 
     /**
      * Parent company name (if applicable).
@@ -1171,70 +1085,7 @@ export interface AccountHolderUpdateResponse {
 }
 
 export interface AccountHolderListDocumentsResponse {
-  data?: Array<AccountHolderDocument>;
-}
-
-/**
- * A document to be submitted for account holder verification.
- */
-export interface AccountHolderSimulateEnrollmentDocumentReviewResponse {
-  /**
-   * Globally unique identifier for the document.
-   */
-  token?: string;
-
-  /**
-   * Globally unique identifier for the account holder.
-   */
-  account_holder_token?: string;
-
-  /**
-   * Type of documentation to be submitted for verification.
-   */
-  document_type?: 'commercial_license' | 'drivers_license' | 'passport' | 'passport_card' | 'visa';
-
-  /**
-   * List of required document images to upload.
-   */
-  required_document_uploads?: Array<AccountHolderSimulateEnrollmentDocumentReviewResponse.RequiredDocumentUpload>;
-}
-
-export namespace AccountHolderSimulateEnrollmentDocumentReviewResponse {
-  /**
-   * Represents a single image of the document to upload.
-   */
-  export interface RequiredDocumentUpload {
-    /**
-     * Type of image to upload.
-     */
-    image_type?: 'back' | 'front';
-
-    /**
-     * Status of document image upload.
-     */
-    status?: 'COMPLETED' | 'FAILED' | 'PENDING' | 'UPLOADED';
-
-    /**
-     * Reasons for document image upload status.
-     */
-    status_reasons?: Array<
-      | 'BACK_IMAGE_BLURRY'
-      | 'FILE_SIZE_TOO_LARGE'
-      | 'FRONT_IMAGE_BLURRY'
-      | 'FRONT_IMAGE_GLARE'
-      | 'INVALID_FILE_TYPE'
-      | 'UNKNOWN_ERROR'
-    >;
-
-    /**
-     * URL to upload document image to.
-     *
-     * Note that the upload URLs expire after 7 days. If an upload URL expires, you can
-     * refresh the URLs by retrieving the document upload from
-     * `GET /account_holders/{account_holder_token}/documents`.
-     */
-    upload_url?: string;
-  }
+  data?: Array<Shared.Document>;
 }
 
 export interface AccountHolderSimulateEnrollmentReviewResponse {
@@ -1946,6 +1797,11 @@ export namespace AccountHolderCreateParams {
       address: Shared.Address;
 
       /**
+       * Globally unique identifier for the entity.
+       */
+      entity_token: string;
+
+      /**
        * Government-issued identification number. US Federal Employer Identification
        * Numbers (EIN) are currently supported, entered as full nine-digits, with or
        * without hyphens.
@@ -1968,11 +1824,6 @@ export namespace AccountHolderCreateParams {
        * (if applicable).
        */
       dba_business_name?: string;
-
-      /**
-       * Globally unique identifier for the entity.
-       */
-      entity_token?: string;
 
       /**
        * Parent company name (if applicable).
@@ -2037,6 +1888,11 @@ export namespace AccountHolderCreateParams {
       address: Shared.Address;
 
       /**
+       * Globally unique identifier for the entity.
+       */
+      entity_token: string;
+
+      /**
        * Government-issued identification number. US Federal Employer Identification
        * Numbers (EIN) are currently supported, entered as full nine-digits, with or
        * without hyphens.
@@ -2059,11 +1915,6 @@ export namespace AccountHolderCreateParams {
        * (if applicable).
        */
       dba_business_name?: string;
-
-      /**
-       * Globally unique identifier for the entity.
-       */
-      entity_token?: string;
 
       /**
        * Parent company name (if applicable).
@@ -2424,7 +2275,7 @@ export interface AccountHolderUploadDocumentParams {
   /**
    * The type of document to upload
    */
-  document_type?:
+  document_type:
     | 'EIN_LETTER'
     | 'TAX_RETURN'
     | 'OPERATING_AGREEMENT'
@@ -2447,19 +2298,17 @@ export interface AccountHolderUploadDocumentParams {
   /**
    * Globally unique identifier for the entity.
    */
-  entity_token?: string;
+  entity_token: string;
 }
 
 export namespace AccountHolders {
   export import AccountHolder = AccountHoldersAPI.AccountHolder;
-  export import AccountHolderDocument = AccountHoldersAPI.AccountHolderDocument;
   export import KYB = AccountHoldersAPI.KYB;
   export import KYC = AccountHoldersAPI.KYC;
   export import KYCExempt = AccountHoldersAPI.KYCExempt;
   export import AccountHolderCreateResponse = AccountHoldersAPI.AccountHolderCreateResponse;
   export import AccountHolderUpdateResponse = AccountHoldersAPI.AccountHolderUpdateResponse;
   export import AccountHolderListDocumentsResponse = AccountHoldersAPI.AccountHolderListDocumentsResponse;
-  export import AccountHolderSimulateEnrollmentDocumentReviewResponse = AccountHoldersAPI.AccountHolderSimulateEnrollmentDocumentReviewResponse;
   export import AccountHolderSimulateEnrollmentReviewResponse = AccountHoldersAPI.AccountHolderSimulateEnrollmentReviewResponse;
   export import AccountHoldersSinglePage = AccountHoldersAPI.AccountHoldersSinglePage;
   export import AccountHolderCreateParams = AccountHoldersAPI.AccountHolderCreateParams;
