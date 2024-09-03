@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.71.1 (2024-09-03)
+
+Full Changelog: [v0.71.0...v0.71.1](https://github.com/lithic-com/lithic-node/compare/v0.71.0...v0.71.1)
+
+### Bug Fixes
+
+* **client:** correct File construction from node-fetch Responses ([#488](https://github.com/lithic-com/lithic-node/issues/488)) ([0163389](https://github.com/lithic-com/lithic-node/commit/01633897b76b795b17e9bde96d6979298c50fe45))
+
+
+### Chores
+
+* **ci:** install deps via ./script/bootstrap ([#486](https://github.com/lithic-com/lithic-node/issues/486)) ([1f4f01b](https://github.com/lithic-com/lithic-node/commit/1f4f01b202baf0167ed57065996fc9c65c47c5ac))
+
 ## 0.71.0 (2024-08-29)
 
 Full Changelog: [v0.70.0...v0.71.0](https://github.com/lithic-com/lithic-node/compare/v0.70.0...v0.71.0)
