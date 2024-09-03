@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.72.0 (2024-09-03)
+
+Full Changelog: [v0.71.1...v0.72.0](https://github.com/lithic-com/lithic-node/compare/v0.71.1...v0.72.0)
+
+### Features
+
+* **api:** declare AccountHolderBusinessResponse and remove entity_token from BusinessEntity ([#489](https://github.com/lithic-com/lithic-node/issues/489)) ([765f3b6](https://github.com/lithic-com/lithic-node/commit/765f3b68a7e4430316780fd283c7453e5e591774))
+
 ## 0.71.1 (2024-09-03)
 
 Full Changelog: [v0.71.0...v0.71.1](https://github.com/lithic-com/lithic-node/compare/v0.71.0...v0.71.1)
