@@ -339,6 +339,12 @@ export namespace AccountHolder {
     address: Shared.Address;
 
     /**
+     * Any name that the business operates under that is not its legal business name
+     * (if applicable).
+     */
+    dba_business_name: string;
+
+    /**
      * Globally unique identifier for the entity.
      */
     entity_token: string;
@@ -360,12 +366,6 @@ export namespace AccountHolder {
      * format.
      */
     phone_numbers: Array<string>;
-
-    /**
-     * Any name that the business operates under that is not its legal business name
-     * (if applicable).
-     */
-    dba_business_name?: string;
 
     /**
      * Parent company name (if applicable).
@@ -427,6 +427,12 @@ export namespace AccountHolder {
     address: Shared.Address;
 
     /**
+     * Any name that the business operates under that is not its legal business name
+     * (if applicable).
+     */
+    dba_business_name: string;
+
+    /**
      * Globally unique identifier for the entity.
      */
     entity_token: string;
@@ -448,12 +454,6 @@ export namespace AccountHolder {
      * format.
      */
     phone_numbers: Array<string>;
-
-    /**
-     * Any name that the business operates under that is not its legal business name
-     * (if applicable).
-     */
-    dba_business_name?: string;
 
     /**
      * Parent company name (if applicable).
@@ -698,11 +698,6 @@ export namespace KYB {
     address: Shared.Address;
 
     /**
-     * Globally unique identifier for the entity.
-     */
-    entity_token: string;
-
-    /**
      * Government-issued identification number. US Federal Employer Identification
      * Numbers (EIN) are currently supported, entered as full nine-digits, with or
      * without hyphens.
@@ -787,11 +782,6 @@ export namespace KYB {
      * acceptable; APO/FPO are acceptable.
      */
     address: Shared.Address;
-
-    /**
-     * Globally unique identifier for the entity.
-     */
-    entity_token: string;
 
     /**
      * Government-issued identification number. US Federal Employer Identification
@@ -1797,11 +1787,6 @@ export namespace AccountHolderCreateParams {
       address: Shared.Address;
 
       /**
-       * Globally unique identifier for the entity.
-       */
-      entity_token: string;
-
-      /**
        * Government-issued identification number. US Federal Employer Identification
        * Numbers (EIN) are currently supported, entered as full nine-digits, with or
        * without hyphens.
@@ -1886,11 +1871,6 @@ export namespace AccountHolderCreateParams {
        * acceptable; APO/FPO are acceptable.
        */
       address: Shared.Address;
-
-      /**
-       * Globally unique identifier for the entity.
-       */
-      entity_token: string;
 
       /**
        * Government-issued identification number. US Federal Employer Identification
@@ -2134,6 +2114,24 @@ export interface AccountHolderUpdateParams {
 
 export interface AccountHolderListParams {
   /**
+   * Date string in RFC 3339 format. Only entries created after the specified time
+   * will be included. UTC time zone.
+   */
+  begin?: string;
+
+  /**
+   * Email address of the account holder. The query must be an exact match, case
+   * insensitive.
+   */
+  email?: string;
+
+  /**
+   * Date string in RFC 3339 format. Only entries created before the specified time
+   * will be included. UTC time zone.
+   */
+  end?: string;
+
+  /**
    * A cursor representing an item's token before which a page of results should end.
    * Used to retrieve the previous page of results before this item.
    */
@@ -2145,9 +2143,32 @@ export interface AccountHolderListParams {
   external_id?: string;
 
   /**
+   * (Individual Account Holders only) The first name of the account holder. The
+   * query is case insensitive and supports partial matches.
+   */
+  first_name?: string;
+
+  /**
+   * (Individual Account Holders only) The last name of the account holder. The query
+   * is case insensitive and supports partial matches.
+   */
+  last_name?: string;
+
+  /**
+   * (Business Account Holders only) The legal business name of the account holder.
+   * The query is case insensitive and supports partial matches.
+   */
+  legal_business_name?: string;
+
+  /**
    * The number of account_holders to limit the response to.
    */
   limit?: number;
+
+  /**
+   * Phone number of the account holder. The query must be an exact match.
+   */
+  phone_number?: string;
 
   /**
    * A cursor representing an item's token after which a page of results should
