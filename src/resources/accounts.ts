@@ -186,8 +186,9 @@ export namespace Account {
     country: string;
 
     /**
-     * Valid postal code. Only USA ZIP codes are currently supported, entered as a
-     * five-digit ZIP or nine-digit ZIP+4.
+     * Valid postal code. Only USA postal codes (ZIP codes) are currently supported,
+     * entered as a five-digit postal code or nine-digit postal code (ZIP+4) using the
+     * format 12345-1234.
      */
     postal_code: string;
 
