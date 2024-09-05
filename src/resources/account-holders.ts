@@ -951,7 +951,7 @@ export namespace KYC {
 export interface KYCExempt {
   /**
    * KYC Exempt user's current address - PO boxes, UPS drops, and FedEx drops are not
-   * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+   * acceptable; APO/FPO are acceptable.
    */
   address: Shared.Address;
 
@@ -2040,7 +2040,7 @@ export namespace AccountHolderCreateParams {
   export interface KYCExempt {
     /**
      * KYC Exempt user's current address - PO boxes, UPS drops, and FedEx drops are not
-     * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+     * acceptable; APO/FPO are acceptable.
      */
     address: Shared.Address;
 
