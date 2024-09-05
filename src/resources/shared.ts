@@ -18,8 +18,9 @@ export interface Address {
   country: string;
 
   /**
-   * Valid postal code. Only USA ZIP codes are currently supported, entered as a
-   * five-digit ZIP or nine-digit ZIP+4.
+   * Valid postal code. Only USA postal codes (ZIP codes) are currently supported,
+   * entered as a five-digit postal code or nine-digit postal code (ZIP+4) using the
+   * format 12345-1234.
    */
   postal_code: string;
 
@@ -155,8 +156,8 @@ export interface ShippingAddress {
   last_name: string;
 
   /**
-   * Postal code (formerly zipcode). For US addresses, either five-digit zipcode or
-   * nine-digit "ZIP+4".
+   * Postal code (formerly zipcode). For US addresses, either five-digit postal code
+   * or nine-digit postal code (ZIP+4) using the format 12345-1234.
    */
   postal_code: string;
 
