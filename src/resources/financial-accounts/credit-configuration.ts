@@ -57,6 +57,16 @@ export interface FinancialAccountCreditConfig {
   credit_product_token: string | null;
 
   external_bank_account_token: string | null;
+
+  /**
+   * State of the financial account
+   */
+  financial_account_state: string | null;
+
+  /**
+   * Tier assigned to the financial account
+   */
+  tier: string | null;
 }
 
 export interface CreditConfigurationUpdateParams {
@@ -68,6 +78,11 @@ export interface CreditConfigurationUpdateParams {
   credit_product_token?: string;
 
   external_bank_account_token?: string;
+
+  /**
+   * Tier to assign to a financial account
+   */
+  tier?: string;
 }
 
 export namespace CreditConfiguration {
