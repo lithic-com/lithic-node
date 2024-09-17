@@ -4,6 +4,7 @@ import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as TransactionsAPI from './transactions';
+import * as Shared from '../shared';
 import * as EnhancedCommercialDataAPI from './enhanced-commercial-data';
 import * as EventsAPI from './events/events';
 import { CursorPage, type CursorPageParams } from '../../pagination';
@@ -159,6 +160,8 @@ export interface Transaction {
    */
   amount: number;
 
+  amounts: Transaction.Amounts;
+
   /**
    * Authorization amount (in cents) of the transaction, including any acquirer fees.
    * This amount always represents the amount authorized for the transaction,
@@ -272,10 +275,73 @@ export interface Transaction {
 
   token_info: Transaction.TokenInfo | null;
 
+  /**
+   * Date and time when the transaction last updated. UTC time zone.
+   */
+  updated: string;
+
   cardholder_authentication?: Transaction.CardholderAuthentication | null;
 }
 
 export namespace Transaction {
+  export interface Amounts {
+    cardholder: Amounts.Cardholder;
+
+    hold: Amounts.Hold;
+
+    merchant: Amounts.Merchant;
+
+    settlement: Amounts.Settlement;
+  }
+
+  export namespace Amounts {
+    export interface Cardholder {
+      amount: number;
+
+      conversion_rate: string;
+
+      /**
+       * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
+       * special currencies like ``XXX`. Enumerants names are lowercase cureency code
+       * e.g. :attr:`Currency.eur`, :attr:`Currency.usd`.
+       */
+      currency: Shared.Currency;
+    }
+
+    export interface Hold {
+      amount: number;
+
+      /**
+       * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
+       * special currencies like ``XXX`. Enumerants names are lowercase cureency code
+       * e.g. :attr:`Currency.eur`, :attr:`Currency.usd`.
+       */
+      currency: Shared.Currency;
+    }
+
+    export interface Merchant {
+      amount: number;
+
+      /**
+       * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
+       * special currencies like ``XXX`. Enumerants names are lowercase cureency code
+       * e.g. :attr:`Currency.eur`, :attr:`Currency.usd`.
+       */
+      currency: Shared.Currency;
+    }
+
+    export interface Settlement {
+      amount: number;
+
+      /**
+       * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
+       * special currencies like ``XXX`. Enumerants names are lowercase cureency code
+       * e.g. :attr:`Currency.eur`, :attr:`Currency.usd`.
+       */
+      currency: Shared.Currency;
+    }
+  }
+
   export interface Avs {
     /**
      * Cardholder address
@@ -302,6 +368,8 @@ export namespace Transaction {
      * Amount of the transaction event (in cents), including any acquirer fees.
      */
     amount: number;
+
+    amounts: Event.Amounts;
 
     /**
      * RFC 3339 date and time this event entered the system. UTC time zone.
@@ -446,6 +514,55 @@ export namespace Transaction {
       | 'RETURN'
       | 'RETURN_REVERSAL'
       | 'VOID';
+  }
+
+  export namespace Event {
+    export interface Amounts {
+      cardholder: Amounts.Cardholder;
+
+      merchant: Amounts.Merchant;
+
+      settlement?: Amounts.Settlement;
+    }
+
+    export namespace Amounts {
+      export interface Cardholder {
+        amount: number;
+
+        conversion_rate: string;
+
+        /**
+         * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
+         * special currencies like ``XXX`. Enumerants names are lowercase cureency code
+         * e.g. :attr:`Currency.eur`, :attr:`Currency.usd`.
+         */
+        currency: Shared.Currency;
+      }
+
+      export interface Merchant {
+        amount: number;
+
+        /**
+         * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
+         * special currencies like ``XXX`. Enumerants names are lowercase cureency code
+         * e.g. :attr:`Currency.eur`, :attr:`Currency.usd`.
+         */
+        currency: Shared.Currency;
+      }
+
+      export interface Settlement {
+        amount: number;
+
+        conversion_rate: string;
+
+        /**
+         * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
+         * special currencies like ``XXX`. Enumerants names are lowercase cureency code
+         * e.g. :attr:`Currency.eur`, :attr:`Currency.usd`.
+         */
+        currency: Shared.Currency;
+      }
+    }
   }
 
   export interface Merchant {

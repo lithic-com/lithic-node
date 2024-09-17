@@ -112,11 +112,10 @@ export interface BookTransferResponse {
   settled_amount: number;
 
   /**
-   * Status types: _ `DECLINED` - The transfer was declined. _ `PENDING` - The
-   * transfer is pending release from a hold. \* `SETTLED` - The transfer is
-   * completed.
+   * Status types: _ `DECLINED` - The transfer was declined. _ `REVERSED` - The
+   * transfer was reversed \* `SETTLED` - The transfer is completed.
    */
-  status: 'DECLINED' | 'PENDING' | 'SETTLED';
+  status: 'DECLINED' | 'REVERSED' | 'SETTLED';
 
   /**
    * Globally unique identifier for the financial account or card that will receive

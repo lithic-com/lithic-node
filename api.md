@@ -14,6 +14,7 @@ Types:
 
 - <code><a href="./src/resources/shared.ts">Address</a></code>
 - <code><a href="./src/resources/shared.ts">Carrier</a></code>
+- <code><a href="./src/resources/shared.ts">Currency</a></code>
 - <code><a href="./src/resources/shared.ts">Document</a></code>
 - <code><a href="./src/resources/shared.ts">ShippingAddress</a></code>
 
