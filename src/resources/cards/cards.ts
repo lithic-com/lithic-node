@@ -24,14 +24,14 @@ export class Cards extends APIResource {
    * `product_id` only apply to physical cards.
    */
   create(body: CardCreateParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
-    return this._client.post('/cards', { body, ...options });
+    return this._client.post('/v1/cards', { body, ...options });
   }
 
   /**
    * Get card configuration such as spend limit and state.
    */
   retrieve(cardToken: string, options?: Core.RequestOptions): Core.APIPromise<Card> {
-    return this._client.get(`/cards/${cardToken}`, options);
+    return this._client.get(`/v1/cards/${cardToken}`, options);
   }
 
   /**
@@ -42,7 +42,7 @@ export class Cards extends APIResource {
    * undone._
    */
   update(cardToken: string, body: CardUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
-    return this._client.patch(`/cards/${cardToken}`, { body, ...options });
+    return this._client.patch(`/v1/cards/${cardToken}`, { body, ...options });
   }
 
   /**
@@ -57,7 +57,7 @@ export class Cards extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/cards', CardsCursorPage, { query, ...options });
+    return this._client.getAPIList('/v1/cards', CardsCursorPage, { query, ...options });
   }
 
   /**
@@ -89,7 +89,7 @@ export class Cards extends APIResource {
    * a serious security vulnerability**.
    */
   embed(query: CardEmbedParams, options?: Core.RequestOptions): Core.APIPromise<string> {
-    return this._client.get('/embed/card', {
+    return this._client.get('/v1/embed/card', {
       query,
       ...options,
       headers: { Accept: 'text/html', ...options?.headers },
@@ -169,7 +169,7 @@ export class Cards extends APIResource {
     body: CardProvisionParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<CardProvisionResponse> {
-    return this._client.post(`/cards/${cardToken}/provision`, { body, ...options });
+    return this._client.post(`/v1/cards/${cardToken}/provision`, { body, ...options });
   }
 
   /**
@@ -178,7 +178,7 @@ export class Cards extends APIResource {
    * Only applies to cards of type `PHYSICAL`.
    */
   reissue(cardToken: string, body: CardReissueParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
-    return this._client.post(`/cards/${cardToken}/reissue`, { body, ...options });
+    return this._client.post(`/v1/cards/${cardToken}/reissue`, { body, ...options });
   }
 
   /**
@@ -187,7 +187,7 @@ export class Cards extends APIResource {
    * Only applies to cards of type `PHYSICAL`.
    */
   renew(cardToken: string, body: CardRenewParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
-    return this._client.post(`/cards/${cardToken}/renew`, { body, ...options });
+    return this._client.post(`/v1/cards/${cardToken}/renew`, { body, ...options });
   }
 
   /**
@@ -197,7 +197,7 @@ export class Cards extends APIResource {
    * spent $600 in the last month, the available spend limit returned would be $400.
    */
   retrieveSpendLimits(cardToken: string, options?: Core.RequestOptions): Core.APIPromise<CardSpendLimits> {
-    return this._client.get(`/cards/${cardToken}/spend_limits`, options);
+    return this._client.get(`/v1/cards/${cardToken}/spend_limits`, options);
   }
 
   /**
@@ -208,7 +208,7 @@ export class Cards extends APIResource {
    * body than in a URL._
    */
   searchByPan(body: CardSearchByPanParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
-    return this._client.post('/cards/search_by_pan', { body, ...options });
+    return this._client.post('/v1/cards/search_by_pan', { body, ...options });
   }
 }
 
@@ -284,7 +284,7 @@ export interface Card {
    *   time.
    * - `PENDING_FULFILLMENT` - The initial state for cards of type `PHYSICAL`. The
    *   card is provisioned pending manufacturing and fulfillment. Cards in this state
-   *   can accept authorizations for e-commerce purchases, but not for "Card Present"
+   *   can accept authorizations for e-commerce purchases, but not for 'Card Present'
    *   purchases where the physical card itself is present.
    * - `PENDING_ACTIVATION` - At regular intervals, cards of type `PHYSICAL` in state
    *   `PENDING_FULFILLMENT` are sent to the card production warehouse and updated to

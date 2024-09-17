@@ -12,7 +12,7 @@ export class AuthRules extends APIResource {
    * account, or card level.
    */
   create(body: AuthRuleCreateParams, options?: Core.RequestOptions): Core.APIPromise<AuthRule> {
-    return this._client.post('/auth_rules', { body, ...options });
+    return this._client.post('/v1/auth_rules', { body, ...options });
   }
 
   /**
@@ -20,7 +20,7 @@ export class AuthRules extends APIResource {
    * with an existing authorization rule (Auth Rule).
    */
   retrieve(authRuleToken: string, options?: Core.RequestOptions): Core.APIPromise<AuthRuleRetrieveResponse> {
-    return this._client.get(`/auth_rules/${authRuleToken}`, options);
+    return this._client.get(`/v1/auth_rules/${authRuleToken}`, options);
   }
 
   /**
@@ -32,7 +32,7 @@ export class AuthRules extends APIResource {
     body: AuthRuleUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<AuthRule> {
-    return this._client.put(`/auth_rules/${authRuleToken}`, { body, ...options });
+    return this._client.put(`/v1/auth_rules/${authRuleToken}`, { body, ...options });
   }
 
   /**
@@ -50,7 +50,7 @@ export class AuthRules extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/auth_rules', AuthRulesCursorPage, { query, ...options });
+    return this._client.getAPIList('/v1/auth_rules', AuthRulesCursorPage, { query, ...options });
   }
 
   /**
@@ -62,7 +62,7 @@ export class AuthRules extends APIResource {
     body: AuthRuleApplyParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<AuthRule> {
-    return this._client.post(`/auth_rules/${authRuleToken}/apply`, { body, ...options });
+    return this._client.post(`/v1/auth_rules/${authRuleToken}/apply`, { body, ...options });
   }
 
   /**
@@ -70,7 +70,7 @@ export class AuthRules extends APIResource {
    * card-level.
    */
   remove(body: AuthRuleRemoveParams, options?: Core.RequestOptions): Core.APIPromise<AuthRuleRemoveResponse> {
-    return this._client.delete('/auth_rules/remove', { body, ...options });
+    return this._client.delete('/v1/auth_rules/remove', { body, ...options });
   }
 }
 
@@ -96,7 +96,7 @@ export interface AuthRule {
 
   /**
    * Countries in which the Auth Rule permits transactions. Note that Lithic
-   * maintains a list of countries in which all transactions are blocked; "allowing"
+   * maintains a list of countries in which all transactions are blocked; 'allowing'
    * those countries in an Auth Rule does not override the Lithic-wide restrictions.
    */
   allowed_countries?: Array<string>;
@@ -151,7 +151,7 @@ export interface AuthRuleCreateParams {
 
   /**
    * Countries in which the Auth Rule permits transactions. Note that Lithic
-   * maintains a list of countries in which all transactions are blocked; "allowing"
+   * maintains a list of countries in which all transactions are blocked; 'allowing'
    * those countries in an Auth Rule does not override the Lithic-wide restrictions.
    */
   allowed_countries?: Array<string>;

@@ -11,14 +11,14 @@ export class Disputes extends APIResource {
    * Initiate a dispute.
    */
   create(body: DisputeCreateParams, options?: Core.RequestOptions): Core.APIPromise<Dispute> {
-    return this._client.post('/disputes', { body, ...options });
+    return this._client.post('/v1/disputes', { body, ...options });
   }
 
   /**
    * Get dispute.
    */
   retrieve(disputeToken: string, options?: Core.RequestOptions): Core.APIPromise<Dispute> {
-    return this._client.get(`/disputes/${disputeToken}`, options);
+    return this._client.get(`/v1/disputes/${disputeToken}`, options);
   }
 
   /**
@@ -29,7 +29,7 @@ export class Disputes extends APIResource {
     body: DisputeUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Dispute> {
-    return this._client.patch(`/disputes/${disputeToken}`, { body, ...options });
+    return this._client.patch(`/v1/disputes/${disputeToken}`, { body, ...options });
   }
 
   /**
@@ -47,14 +47,14 @@ export class Disputes extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/disputes', DisputesCursorPage, { query, ...options });
+    return this._client.getAPIList('/v1/disputes', DisputesCursorPage, { query, ...options });
   }
 
   /**
    * Withdraw dispute.
    */
   del(disputeToken: string, options?: Core.RequestOptions): Core.APIPromise<Dispute> {
-    return this._client.delete(`/disputes/${disputeToken}`, options);
+    return this._client.delete(`/v1/disputes/${disputeToken}`, options);
   }
 
   /**
@@ -66,7 +66,7 @@ export class Disputes extends APIResource {
     evidenceToken: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<DisputeEvidence> {
-    return this._client.delete(`/disputes/${disputeToken}/evidences/${evidenceToken}`, options);
+    return this._client.delete(`/v1/disputes/${disputeToken}/evidences/${evidenceToken}`, options);
   }
 
   /**
@@ -93,7 +93,7 @@ export class Disputes extends APIResource {
     if (isRequestOptions(body)) {
       return this.initiateEvidenceUpload(disputeToken, {}, body);
     }
-    return this._client.post(`/disputes/${disputeToken}/evidences`, { body, ...options });
+    return this._client.post(`/v1/disputes/${disputeToken}/evidences`, { body, ...options });
   }
 
   /**
@@ -116,7 +116,7 @@ export class Disputes extends APIResource {
     if (isRequestOptions(query)) {
       return this.listEvidences(disputeToken, {}, query);
     }
-    return this._client.getAPIList(`/disputes/${disputeToken}/evidences`, DisputeEvidencesCursorPage, {
+    return this._client.getAPIList(`/v1/disputes/${disputeToken}/evidences`, DisputeEvidencesCursorPage, {
       query,
       ...options,
     });
@@ -130,7 +130,7 @@ export class Disputes extends APIResource {
     evidenceToken: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<DisputeEvidence> {
-    return this._client.get(`/disputes/${disputeToken}/evidences/${evidenceToken}`, options);
+    return this._client.get(`/v1/disputes/${disputeToken}/evidences/${evidenceToken}`, options);
   }
 
   /**

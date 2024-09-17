@@ -12,7 +12,7 @@ export class ResponderEndpoints extends APIResource {
     body: ResponderEndpointCreateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<ResponderEndpointCreateResponse> {
-    return this._client.post('/responder_endpoints', { body, ...options });
+    return this._client.post('/v1/responder_endpoints', { body, ...options });
   }
 
   /**
@@ -20,7 +20,7 @@ export class ResponderEndpoints extends APIResource {
    */
   del(params: ResponderEndpointDeleteParams, options?: Core.RequestOptions): Core.APIPromise<void> {
     const { type } = params;
-    return this._client.delete('/responder_endpoints', { query: { type }, ...options });
+    return this._client.delete('/v1/responder_endpoints', { query: { type }, ...options });
   }
 
   /**
@@ -30,7 +30,7 @@ export class ResponderEndpoints extends APIResource {
     query: ResponderEndpointCheckStatusParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<ResponderEndpointStatus> {
-    return this._client.get('/responder_endpoints', { query, ...options });
+    return this._client.get('/v1/responder_endpoints', { query, ...options });
   }
 }
 

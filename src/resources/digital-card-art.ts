@@ -11,7 +11,7 @@ export class DigitalCardArtResource extends APIResource {
    * Get digital card art by token.
    */
   retrieve(digitalCardArtToken: string, options?: Core.RequestOptions): Core.APIPromise<DigitalCardArt> {
-    return this._client.get(`/digital_card_art/${digitalCardArtToken}`, options);
+    return this._client.get(`/v1/digital_card_art/${digitalCardArtToken}`, options);
   }
 
   /**
@@ -29,7 +29,7 @@ export class DigitalCardArtResource extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/digital_card_art', DigitalCardArtsCursorPage, { query, ...options });
+    return this._client.getAPIList('/v1/digital_card_art', DigitalCardArtsCursorPage, { query, ...options });
   }
 }
 

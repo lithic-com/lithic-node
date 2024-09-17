@@ -29,17 +29,18 @@ export class Settlement extends APIResource {
     if (isRequestOptions(query)) {
       return this.listDetails(reportDate, {}, query);
     }
-    return this._client.getAPIList(`/reports/settlement/details/${reportDate}`, SettlementDetailsCursorPage, {
-      query,
-      ...options,
-    });
+    return this._client.getAPIList(
+      `/v1/reports/settlement/details/${reportDate}`,
+      SettlementDetailsCursorPage,
+      { query, ...options },
+    );
   }
 
   /**
    * Get the settlement report for a specified report date.
    */
   summary(reportDate: string, options?: Core.RequestOptions): Core.APIPromise<ReportsAPI.SettlementReport> {
-    return this._client.get(`/reports/settlement/summary/${reportDate}`, options);
+    return this._client.get(`/v1/reports/settlement/summary/${reportDate}`, options);
   }
 }
 
