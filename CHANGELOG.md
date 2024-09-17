@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.74.0 (2024-09-17)
+
+Full Changelog: [v0.73.0...v0.74.0](https://github.com/lithic-com/lithic-node/compare/v0.73.0...v0.74.0)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** updates book transfer status, updates to transactions, add currency model ([#503](https://github.com/lithic-com/lithic-node/issues/503))
+
+### Features
+
+* **api:** updates book transfer status, updates to transactions, add currency model ([#503](https://github.com/lithic-com/lithic-node/issues/503)) ([522d456](https://github.com/lithic-com/lithic-node/commit/522d456fe36e981f0f450b32fb377edbb522c2fe))
+
 ## 0.73.0 (2024-09-17)
 
 Full Changelog: [v0.72.0...v0.73.0](https://github.com/lithic-com/lithic-node/compare/v0.72.0...v0.73.0)
