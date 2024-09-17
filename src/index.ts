@@ -10,8 +10,8 @@ import * as API from './resources/index';
 import * as TopLevelAPI from './resources/top-level';
 
 const environments = {
-  production: 'https://api.lithic.com/v1',
-  sandbox: 'https://sandbox.lithic.com/v1',
+  production: 'https://api.lithic.com',
+  sandbox: 'https://sandbox.lithic.com',
 };
 type Environment = keyof typeof environments;
 
@@ -30,8 +30,8 @@ export interface ClientOptions {
    * Specifies the environment to use for the API.
    *
    * Each environment maps to a different base URL:
-   * - `production` corresponds to `https://api.lithic.com/v1`
-   * - `sandbox` corresponds to `https://sandbox.lithic.com/v1`
+   * - `production` corresponds to `https://api.lithic.com`
+   * - `sandbox` corresponds to `https://sandbox.lithic.com`
    */
   environment?: Environment;
 
@@ -107,7 +107,7 @@ export class Lithic extends Core.APIClient {
    * @param {string | undefined} [opts.apiKey=process.env['LITHIC_API_KEY'] ?? undefined]
    * @param {string | null | undefined} [opts.webhookSecret=process.env['LITHIC_WEBHOOK_SECRET'] ?? null]
    * @param {Environment} [opts.environment=production] - Specifies the environment URL to use for the API.
-   * @param {string} [opts.baseURL=process.env['LITHIC_BASE_URL'] ?? https://api.lithic.com/v1] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['LITHIC_BASE_URL'] ?? https://api.lithic.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
    * @param {Core.Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -183,7 +183,7 @@ export class Lithic extends Core.APIClient {
    * Status of api
    */
   apiStatus(options?: Core.RequestOptions): Core.APIPromise<TopLevelAPI.APIStatus> {
-    return this.get('/status', options);
+    return this.get('/v1/status', options);
   }
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {

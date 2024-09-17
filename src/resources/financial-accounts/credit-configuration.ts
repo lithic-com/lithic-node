@@ -13,7 +13,7 @@ export class CreditConfiguration extends APIResource {
     financialAccountToken: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<FinancialAccountCreditConfig> {
-    return this._client.get(`/financial_accounts/${financialAccountToken}/credit_configuration`, options);
+    return this._client.get(`/v1/financial_accounts/${financialAccountToken}/credit_configuration`, options);
   }
 
   /**
@@ -36,7 +36,7 @@ export class CreditConfiguration extends APIResource {
     if (isRequestOptions(body)) {
       return this.update(financialAccountToken, {}, body);
     }
-    return this._client.patch(`/financial_accounts/${financialAccountToken}/credit_configuration`, {
+    return this._client.patch(`/v1/financial_accounts/${financialAccountToken}/credit_configuration`, {
       body,
       ...options,
     });

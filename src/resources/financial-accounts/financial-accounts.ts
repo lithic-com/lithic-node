@@ -26,7 +26,7 @@ export class FinancialAccounts extends APIResource {
     options?: Core.RequestOptions,
   ): Core.APIPromise<FinancialAccount> {
     const { 'Idempotency-Key': idempotencyKey, ...body } = params;
-    return this._client.post('/financial_accounts', {
+    return this._client.post('/v1/financial_accounts', {
       body,
       ...options,
       headers: {
@@ -40,7 +40,7 @@ export class FinancialAccounts extends APIResource {
    * Get a financial account
    */
   retrieve(financialAccountToken: string, options?: Core.RequestOptions): Core.APIPromise<FinancialAccount> {
-    return this._client.get(`/financial_accounts/${financialAccountToken}`, options);
+    return this._client.get(`/v1/financial_accounts/${financialAccountToken}`, options);
   }
 
   /**
@@ -60,7 +60,7 @@ export class FinancialAccounts extends APIResource {
     if (isRequestOptions(body)) {
       return this.update(financialAccountToken, {}, body);
     }
-    return this._client.patch(`/financial_accounts/${financialAccountToken}`, { body, ...options });
+    return this._client.patch(`/v1/financial_accounts/${financialAccountToken}`, { body, ...options });
   }
 
   /**
@@ -79,7 +79,10 @@ export class FinancialAccounts extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/financial_accounts', FinancialAccountsSinglePage, { query, ...options });
+    return this._client.getAPIList('/v1/financial_accounts', FinancialAccountsSinglePage, {
+      query,
+      ...options,
+    });
   }
 }
 

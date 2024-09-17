@@ -157,13 +157,13 @@ describe('instantiate client', () => {
     test('empty env variable', () => {
       process.env['LITHIC_BASE_URL'] = ''; // empty
       const client = new Lithic({ apiKey: 'My Lithic API Key' });
-      expect(client.baseURL).toEqual('https://api.lithic.com/v1');
+      expect(client.baseURL).toEqual('https://api.lithic.com');
     });
 
     test('blank env variable', () => {
       process.env['LITHIC_BASE_URL'] = '  '; // blank
       const client = new Lithic({ apiKey: 'My Lithic API Key' });
-      expect(client.baseURL).toEqual('https://api.lithic.com/v1');
+      expect(client.baseURL).toEqual('https://api.lithic.com');
     });
 
     test('env variable with environment', () => {
@@ -176,7 +176,7 @@ describe('instantiate client', () => {
       );
 
       const client = new Lithic({ apiKey: 'My Lithic API Key', baseURL: null, environment: 'production' });
-      expect(client.baseURL).toEqual('https://api.lithic.com/v1');
+      expect(client.baseURL).toEqual('https://api.lithic.com');
     });
   });
 

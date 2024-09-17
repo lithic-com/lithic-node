@@ -11,7 +11,7 @@ export class Transfers extends APIResource {
    * card
    */
   create(body: TransferCreateParams, options?: Core.RequestOptions): Core.APIPromise<Transfer> {
-    return this._client.post('/transfer', { body, ...options });
+    return this._client.post('/v1/transfer', { body, ...options });
   }
 }
 

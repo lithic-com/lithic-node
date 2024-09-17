@@ -11,7 +11,7 @@ export class CardPrograms extends APIResource {
    * Get card program.
    */
   retrieve(cardProgramToken: string, options?: Core.RequestOptions): Core.APIPromise<CardProgram> {
-    return this._client.get(`/card_programs/${cardProgramToken}`, options);
+    return this._client.get(`/v1/card_programs/${cardProgramToken}`, options);
   }
 
   /**
@@ -29,7 +29,7 @@ export class CardPrograms extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/card_programs', CardProgramsCursorPage, { query, ...options });
+    return this._client.getAPIList('/v1/card_programs', CardProgramsCursorPage, { query, ...options });
   }
 }
 
