@@ -461,6 +461,7 @@ export namespace Lithic {
 
   export import Address = API.Address;
   export import Carrier = API.Carrier;
+  export import Currency = API.Currency;
   export import Document = API.Document;
   export import ShippingAddress = API.ShippingAddress;
 }
