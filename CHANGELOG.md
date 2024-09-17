@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.73.0 (2024-09-17)
+
+Full Changelog: [v0.72.0...v0.73.0](https://github.com/lithic-com/lithic-node/compare/v0.72.0...v0.73.0)
+
+### Features
+
+* **api:** add tier and state to financial_accounts ([#497](https://github.com/lithic-com/lithic-node/issues/497)) ([29d5618](https://github.com/lithic-com/lithic-node/commit/29d5618234c2cf297ec391459afa3c0262cd27fe))
+
+
+### Bug Fixes
+
+* **errors:** pass message through to APIConnectionError ([#498](https://github.com/lithic-com/lithic-node/issues/498)) ([812b111](https://github.com/lithic-com/lithic-node/commit/812b111bcd0986ee17ebc5a5cde3ba0f6e9223cd))
+* **uploads:** avoid making redundant memory copies ([#496](https://github.com/lithic-com/lithic-node/issues/496)) ([e0ec98a](https://github.com/lithic-com/lithic-node/commit/e0ec98a5bc6b487d40bf78eb036dca08172d9101))
+
+
+### Chores
+
+* better object fallback behaviour for casting errors ([#499](https://github.com/lithic-com/lithic-node/issues/499)) ([8867602](https://github.com/lithic-com/lithic-node/commit/8867602fc4f3f819eb81557f11a046db0a03b65e))
+* **docs:** update description for postal codes ([#495](https://github.com/lithic-com/lithic-node/issues/495)) ([2bbbe34](https://github.com/lithic-com/lithic-node/commit/2bbbe340a103d69b046f20b9998f864a7ea75ae2))
+* **internal:** dependency updates ([#491](https://github.com/lithic-com/lithic-node/issues/491)) ([eb7a0f8](https://github.com/lithic-com/lithic-node/commit/eb7a0f8767733aa1aa962734c87da77498d82b99))
+* **internal:** minor bump qs version ([#493](https://github.com/lithic-com/lithic-node/issues/493)) ([511d105](https://github.com/lithic-com/lithic-node/commit/511d1059eb28106306d9cfe6dd224278ae78d97b))
+
+
+### Documentation
+
+* update CONTRIBUTING.md ([#500](https://github.com/lithic-com/lithic-node/issues/500)) ([f90fce5](https://github.com/lithic-com/lithic-node/commit/f90fce5c3fba1ddf83bbdf3a70db5ba9348556f5))
+
 ## 0.72.0 (2024-09-03)
 
 Full Changelog: [v0.71.1...v0.72.0](https://github.com/lithic-com/lithic-node/compare/v0.71.1...v0.72.0)
