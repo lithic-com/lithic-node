@@ -28,7 +28,7 @@ export class Balances extends APIResource {
       return this.list(financialAccountToken, {}, query);
     }
     return this._client.getAPIList(
-      `/financial_accounts/${financialAccountToken}/balances`,
+      `/v1/financial_accounts/${financialAccountToken}/balances`,
       BalanceListResponsesSinglePage,
       { query, ...options },
     );

@@ -14,7 +14,7 @@ export class Events extends APIResource {
    * Get an event.
    */
   retrieve(eventToken: string, options?: Core.RequestOptions): Core.APIPromise<Event> {
-    return this._client.get(`/events/${eventToken}`, options);
+    return this._client.get(`/v1/events/${eventToken}`, options);
   }
 
   /**
@@ -29,7 +29,7 @@ export class Events extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/events', EventsCursorPage, { query, ...options });
+    return this._client.getAPIList('/v1/events', EventsCursorPage, { query, ...options });
   }
 
   /**
@@ -52,7 +52,7 @@ export class Events extends APIResource {
     if (isRequestOptions(query)) {
       return this.listAttempts(eventToken, {}, query);
     }
-    return this._client.getAPIList(`/events/${eventToken}/attempts`, MessageAttemptsCursorPage, {
+    return this._client.getAPIList(`/v1/events/${eventToken}/attempts`, MessageAttemptsCursorPage, {
       query,
       ...options,
     });

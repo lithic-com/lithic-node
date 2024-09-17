@@ -11,7 +11,7 @@ export class Accounts extends APIResource {
    * Get account configuration such as spend limits.
    */
   retrieve(accountToken: string, options?: Core.RequestOptions): Core.APIPromise<Account> {
-    return this._client.get(`/accounts/${accountToken}`, options);
+    return this._client.get(`/v1/accounts/${accountToken}`, options);
   }
 
   /**
@@ -26,7 +26,7 @@ export class Accounts extends APIResource {
     body: AccountUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Account> {
-    return this._client.patch(`/accounts/${accountToken}`, { body, ...options });
+    return this._client.patch(`/v1/accounts/${accountToken}`, { body, ...options });
   }
 
   /**
@@ -44,7 +44,7 @@ export class Accounts extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/accounts', AccountsCursorPage, { query, ...options });
+    return this._client.getAPIList('/v1/accounts', AccountsCursorPage, { query, ...options });
   }
 
   /**
@@ -58,7 +58,7 @@ export class Accounts extends APIResource {
     accountToken: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<AccountSpendLimits> {
-    return this._client.get(`/accounts/${accountToken}/spend_limits`, options);
+    return this._client.get(`/v1/accounts/${accountToken}/spend_limits`, options);
   }
 }
 

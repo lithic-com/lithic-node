@@ -15,14 +15,14 @@ export class BookTransfers extends APIResource {
     body: BookTransferCreateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<BookTransferResponse> {
-    return this._client.post('/book_transfers', { body, ...options });
+    return this._client.post('/v1/book_transfers', { body, ...options });
   }
 
   /**
    * Get book transfer by token
    */
   retrieve(bookTransferToken: string, options?: Core.RequestOptions): Core.APIPromise<BookTransferResponse> {
-    return this._client.get(`/book_transfers/${bookTransferToken}`, options);
+    return this._client.get(`/v1/book_transfers/${bookTransferToken}`, options);
   }
 
   /**
@@ -42,7 +42,10 @@ export class BookTransfers extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/book_transfers', BookTransferResponsesCursorPage, { query, ...options });
+    return this._client.getAPIList('/v1/book_transfers', BookTransferResponsesCursorPage, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -53,7 +56,7 @@ export class BookTransfers extends APIResource {
     body: BookTransferReverseParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<BookTransferResponse> {
-    return this._client.post(`/book_transfers/${bookTransferToken}/reverse`, { body, ...options });
+    return this._client.post(`/v1/book_transfers/${bookTransferToken}/reverse`, { body, ...options });
   }
 }
 

@@ -22,7 +22,7 @@ export class Balances extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/balances', BalancesSinglePage, { query, ...options });
+    return this._client.getAPIList('/v1/balances', BalancesSinglePage, { query, ...options });
   }
 }
 
