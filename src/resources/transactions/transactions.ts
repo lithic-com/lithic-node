@@ -18,7 +18,7 @@ export class Transactions extends APIResource {
    * Get specific card transaction.
    */
   retrieve(transactionToken: string, options?: Core.RequestOptions): Core.APIPromise<Transaction> {
-    return this._client.get(`/transactions/${transactionToken}`, options);
+    return this._client.get(`/v1/transactions/${transactionToken}`, options);
   }
 
   /**
@@ -36,7 +36,7 @@ export class Transactions extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/transactions', TransactionsCursorPage, { query, ...options });
+    return this._client.getAPIList('/v1/transactions', TransactionsCursorPage, { query, ...options });
   }
 
   /**
@@ -52,7 +52,7 @@ export class Transactions extends APIResource {
     body: TransactionSimulateAuthorizationParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<TransactionSimulateAuthorizationResponse> {
-    return this._client.post('/simulate/authorize', { body, ...options });
+    return this._client.post('/v1/simulate/authorize', { body, ...options });
   }
 
   /**
@@ -64,7 +64,7 @@ export class Transactions extends APIResource {
     body: TransactionSimulateAuthorizationAdviceParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<TransactionSimulateAuthorizationAdviceResponse> {
-    return this._client.post('/simulate/authorization_advice', { body, ...options });
+    return this._client.post('/v1/simulate/authorization_advice', { body, ...options });
   }
 
   /**
@@ -79,7 +79,7 @@ export class Transactions extends APIResource {
     body: TransactionSimulateClearingParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<TransactionSimulateClearingResponse> {
-    return this._client.post('/simulate/clearing', { body, ...options });
+    return this._client.post('/v1/simulate/clearing', { body, ...options });
   }
 
   /**
@@ -91,7 +91,7 @@ export class Transactions extends APIResource {
     body: TransactionSimulateCreditAuthorizationParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<TransactionSimulateCreditAuthorizationResponse> {
-    return this._client.post('/simulate/credit_authorization_advice', { body, ...options });
+    return this._client.post('/v1/simulate/credit_authorization_advice', { body, ...options });
   }
 
   /**
@@ -102,7 +102,7 @@ export class Transactions extends APIResource {
     body: TransactionSimulateReturnParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<TransactionSimulateReturnResponse> {
-    return this._client.post('/simulate/return', { body, ...options });
+    return this._client.post('/v1/simulate/return', { body, ...options });
   }
 
   /**
@@ -114,7 +114,7 @@ export class Transactions extends APIResource {
     body: TransactionSimulateReturnReversalParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<TransactionSimulateReturnReversalResponse> {
-    return this._client.post('/simulate/return_reversal', { body, ...options });
+    return this._client.post('/v1/simulate/return_reversal', { body, ...options });
   }
 
   /**
@@ -128,7 +128,7 @@ export class Transactions extends APIResource {
     body: TransactionSimulateVoidParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<TransactionSimulateVoidResponse> {
-    return this._client.post('/simulate/void', { body, ...options });
+    return this._client.post('/v1/simulate/void', { body, ...options });
   }
 }
 
@@ -195,13 +195,13 @@ export interface Transaction {
   merchant: Transaction.Merchant;
 
   /**
-   * Analogous to the "amount" property, but will represent the amount in the
+   * Analogous to the 'amount' property, but will represent the amount in the
    * transaction's local currency (smallest unit), including any acquirer fees.
    */
   merchant_amount: number | null;
 
   /**
-   * Analogous to the "authorization_amount" property, but will represent the amount
+   * Analogous to the 'authorization_amount' property, but will represent the amount
    * in the transaction's local currency (smallest unit), including any acquirer
    * fees.
    */

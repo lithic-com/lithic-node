@@ -24,7 +24,7 @@ export class AggregateBalances extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/cards/aggregate_balances', AggregateBalanceListResponsesSinglePage, {
+    return this._client.getAPIList('/v1/cards/aggregate_balances', AggregateBalanceListResponsesSinglePage, {
       query,
       ...options,
     });

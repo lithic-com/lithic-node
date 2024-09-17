@@ -14,7 +14,7 @@ export class TokenizationDecisioning extends APIResource {
    * detail about verifying Tokenization Decisioning requests.
    */
   retrieveSecret(options?: Core.RequestOptions): Core.APIPromise<TokenizationSecret> {
-    return this._client.get('/tokenization_decisioning/secret', options);
+    return this._client.get('/v1/tokenization_decisioning/secret', options);
   }
 
   /**
@@ -23,7 +23,7 @@ export class TokenizationDecisioning extends APIResource {
    * to this endpoint.
    */
   rotateSecret(options?: Core.RequestOptions): Core.APIPromise<TokenizationDecisioningRotateSecretResponse> {
-    return this._client.post('/tokenization_decisioning/secret/rotate', options);
+    return this._client.post('/v1/tokenization_decisioning/secret/rotate', options);
   }
 }
 

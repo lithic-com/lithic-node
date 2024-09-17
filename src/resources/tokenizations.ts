@@ -14,7 +14,7 @@ export class Tokenizations extends APIResource {
     tokenizationToken: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<TokenizationRetrieveResponse> {
-    return this._client.get(`/tokenizations/${tokenizationToken}`, options);
+    return this._client.get(`/v1/tokenizations/${tokenizationToken}`, options);
   }
 
   /**
@@ -32,7 +32,7 @@ export class Tokenizations extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/tokenizations', TokenizationsCursorPage, { query, ...options });
+    return this._client.getAPIList('/v1/tokenizations', TokenizationsCursorPage, { query, ...options });
   }
 
   /**
@@ -46,7 +46,7 @@ export class Tokenizations extends APIResource {
    * [lithic.com/contact](https://lithic.com/contact) for more information.
    */
   activate(tokenizationToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
-    return this._client.post(`/tokenizations/${tokenizationToken}/activate`, options);
+    return this._client.post(`/v1/tokenizations/${tokenizationToken}/activate`, options);
   }
 
   /**
@@ -61,7 +61,7 @@ export class Tokenizations extends APIResource {
    * for more information.
    */
   deactivate(tokenizationToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
-    return this._client.post(`/tokenizations/${tokenizationToken}/deactivate`, options);
+    return this._client.post(`/v1/tokenizations/${tokenizationToken}/deactivate`, options);
   }
 
   /**
@@ -75,7 +75,7 @@ export class Tokenizations extends APIResource {
    * information.
    */
   pause(tokenizationToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
-    return this._client.post(`/tokenizations/${tokenizationToken}/pause`, options);
+    return this._client.post(`/v1/tokenizations/${tokenizationToken}/pause`, options);
   }
 
   /**
@@ -104,7 +104,7 @@ export class Tokenizations extends APIResource {
     if (isRequestOptions(body)) {
       return this.resendActivationCode(tokenizationToken, {}, body);
     }
-    return this._client.post(`/tokenizations/${tokenizationToken}/resend_activation_code`, {
+    return this._client.post(`/v1/tokenizations/${tokenizationToken}/resend_activation_code`, {
       body,
       ...options,
     });
@@ -118,7 +118,7 @@ export class Tokenizations extends APIResource {
     body: TokenizationSimulateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<TokenizationSimulateResponse> {
-    return this._client.post('/simulate/tokenizations', { body, ...options });
+    return this._client.post('/v1/simulate/tokenizations', { body, ...options });
   }
 
   /**
@@ -131,7 +131,7 @@ export class Tokenizations extends APIResource {
    * [lithic.com/contact](https://lithic.com/contact) for more information.
    */
   unpause(tokenizationToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
-    return this._client.post(`/tokenizations/${tokenizationToken}/unpause`, options);
+    return this._client.post(`/v1/tokenizations/${tokenizationToken}/unpause`, options);
   }
 
   /**
@@ -161,7 +161,7 @@ export class Tokenizations extends APIResource {
     if (isRequestOptions(body)) {
       return this.updateDigitalCardArt(tokenizationToken, {}, body);
     }
-    return this._client.post(`/tokenizations/${tokenizationToken}/update_digital_card_art`, {
+    return this._client.post(`/v1/tokenizations/${tokenizationToken}/update_digital_card_art`, {
       body,
       ...options,
     });
@@ -325,8 +325,8 @@ export interface TokenizationListParams extends CursorPageParams {
 export interface TokenizationResendActivationCodeParams {
   /**
    * The communication method that the user has selected to use to receive the
-   * authentication code. Supported Values: Sms = "TEXT_TO_CARDHOLDER_NUMBER". Email
-   * = "EMAIL_TO_CARDHOLDER_ADDRESS"
+   * authentication code. Supported Values: Sms = 'TEXT_TO_CARDHOLDER_NUMBER'. Email
+   * = 'EMAIL_TO_CARDHOLDER_ADDRESS'
    */
   activation_method_type?: 'EMAIL_TO_CARDHOLDER_ADDRESS' | 'TEXT_TO_CARDHOLDER_NUMBER';
 }

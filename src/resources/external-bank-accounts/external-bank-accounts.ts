@@ -17,7 +17,7 @@ export class ExternalBankAccounts extends APIResource {
     body: ExternalBankAccountCreateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<ExternalBankAccountCreateResponse> {
-    return this._client.post('/external_bank_accounts', { body, ...options });
+    return this._client.post('/v1/external_bank_accounts', { body, ...options });
   }
 
   /**
@@ -27,7 +27,7 @@ export class ExternalBankAccounts extends APIResource {
     externalBankAccountToken: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<ExternalBankAccountRetrieveResponse> {
-    return this._client.get(`/external_bank_accounts/${externalBankAccountToken}`, options);
+    return this._client.get(`/v1/external_bank_accounts/${externalBankAccountToken}`, options);
   }
 
   /**
@@ -38,7 +38,7 @@ export class ExternalBankAccounts extends APIResource {
     body: ExternalBankAccountUpdateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<ExternalBankAccountUpdateResponse> {
-    return this._client.patch(`/external_bank_accounts/${externalBankAccountToken}`, { body, ...options });
+    return this._client.patch(`/v1/external_bank_accounts/${externalBankAccountToken}`, { body, ...options });
   }
 
   /**
@@ -58,7 +58,7 @@ export class ExternalBankAccounts extends APIResource {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/external_bank_accounts', ExternalBankAccountListResponsesCursorPage, {
+    return this._client.getAPIList('/v1/external_bank_accounts', ExternalBankAccountListResponsesCursorPage, {
       query,
       ...options,
     });
@@ -84,7 +84,7 @@ export class ExternalBankAccounts extends APIResource {
     if (isRequestOptions(body)) {
       return this.retryMicroDeposits(externalBankAccountToken, {}, body);
     }
-    return this._client.post(`/external_bank_accounts/${externalBankAccountToken}/retry_micro_deposits`, {
+    return this._client.post(`/v1/external_bank_accounts/${externalBankAccountToken}/retry_micro_deposits`, {
       body,
       ...options,
     });
@@ -110,7 +110,7 @@ export class ExternalBankAccounts extends APIResource {
     if (isRequestOptions(body)) {
       return this.retryPrenote(externalBankAccountToken, {}, body);
     }
-    return this._client.post(`/external_bank_accounts/${externalBankAccountToken}/retry_prenote`, {
+    return this._client.post(`/v1/external_bank_accounts/${externalBankAccountToken}/retry_prenote`, {
       body,
       ...options,
     });

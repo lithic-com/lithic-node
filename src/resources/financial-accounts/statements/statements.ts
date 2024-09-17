@@ -19,7 +19,7 @@ export class Statements extends APIResource {
     options?: Core.RequestOptions,
   ): Core.APIPromise<Statement> {
     return this._client.get(
-      `/financial_accounts/${financialAccountToken}/statements/${statementToken}`,
+      `/v1/financial_accounts/${financialAccountToken}/statements/${statementToken}`,
       options,
     );
   }
@@ -45,7 +45,7 @@ export class Statements extends APIResource {
       return this.list(financialAccountToken, {}, query);
     }
     return this._client.getAPIList(
-      `/financial_accounts/${financialAccountToken}/statements`,
+      `/v1/financial_accounts/${financialAccountToken}/statements`,
       StatementsCursorPage,
       { query, ...options },
     );

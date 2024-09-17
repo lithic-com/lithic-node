@@ -14,7 +14,7 @@ export class AuthStreamEnrollment extends APIResource {
    * for more detail about verifying ASA webhooks.
    */
   retrieveSecret(options?: Core.RequestOptions): Core.APIPromise<AuthStreamSecret> {
-    return this._client.get('/auth_stream/secret', options);
+    return this._client.get('/v1/auth_stream/secret', options);
   }
 
   /**
@@ -24,7 +24,7 @@ export class AuthStreamEnrollment extends APIResource {
    * request to retrieve the new secret key.
    */
   rotateSecret(options?: Core.RequestOptions): Core.APIPromise<void> {
-    return this._client.post('/auth_stream/secret/rotate', options);
+    return this._client.post('/v1/auth_stream/secret/rotate', options);
   }
 }
 

@@ -12,7 +12,7 @@ export class Authentication extends APIResource {
     threeDSAuthenticationToken: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<AuthenticationRetrieveResponse> {
-    return this._client.get(`/three_ds_authentication/${threeDSAuthenticationToken}`, options);
+    return this._client.get(`/v1/three_ds_authentication/${threeDSAuthenticationToken}`, options);
   }
 
   /**
@@ -25,7 +25,7 @@ export class Authentication extends APIResource {
     body: AuthenticationSimulateParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<AuthenticationSimulateResponse> {
-    return this._client.post('/three_ds_authentication/simulate', { body, ...options });
+    return this._client.post('/v1/three_ds_authentication/simulate', { body, ...options });
   }
 }
 

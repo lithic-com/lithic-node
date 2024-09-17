@@ -10,7 +10,7 @@ export class EnhancedCommercialData extends APIResource {
    * available in sandbox.
    */
   retrieve(eventToken: string, options?: Core.RequestOptions): Core.APIPromise<EnhancedData> {
-    return this._client.get(`/transactions/events/${eventToken}/enhanced_commercial_data`, options);
+    return this._client.get(`/v1/transactions/events/${eventToken}/enhanced_commercial_data`, options);
   }
 }
 
