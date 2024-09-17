@@ -12,21 +12,18 @@ export interface Address {
   city: string;
 
   /**
-   * Valid country code. Only USA is currently supported, entered in uppercase ISO
-   * 3166-1 alpha-3 three-character format.
+   * Valid country code. USA and CAN are supported, entered in uppercase ISO 3166-1
+   * alpha-3 three-character format.
    */
   country: string;
 
   /**
-   * Valid postal code. Only USA postal codes (ZIP codes) are currently supported,
-   * entered as a five-digit postal code or nine-digit postal code (ZIP+4) using the
-   * format 12345-1234.
+   * Valid postal code.
    */
   postal_code: string;
 
   /**
-   * Valid state code. Only USA state codes are currently supported, entered in
-   * uppercase ISO 3166-2 two-character format.
+   * Valid state code.
    */
   state: string;
 
@@ -42,6 +39,194 @@ export interface Carrier {
    */
   qr_code_url?: string;
 }
+
+/**
+ * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
+ * special currencies like ``XXX`. Enumerants names are lowercase cureency code
+ * e.g. :attr:`Currency.eur`, :attr:`Currency.usd`.
+ */
+export type Currency =
+  | 'AED'
+  | 'AFN'
+  | 'ALL'
+  | 'AMD'
+  | 'ANG'
+  | 'AOA'
+  | 'ARS'
+  | 'AUD'
+  | 'AWG'
+  | 'AZN'
+  | 'BAM'
+  | 'BBD'
+  | 'BDT'
+  | 'BGN'
+  | 'BHD'
+  | 'BIF'
+  | 'BMD'
+  | 'BND'
+  | 'BOB'
+  | 'BOV'
+  | 'BRL'
+  | 'BSD'
+  | 'BTN'
+  | 'BWP'
+  | 'BYN'
+  | 'BZD'
+  | 'CAD'
+  | 'CDF'
+  | 'CHE'
+  | 'CHF'
+  | 'CHW'
+  | 'CLF'
+  | 'CLP'
+  | 'CNY'
+  | 'COP'
+  | 'COU'
+  | 'CRC'
+  | 'CUC'
+  | 'CUP'
+  | 'CVE'
+  | 'CZK'
+  | 'DJF'
+  | 'DKK'
+  | 'DOP'
+  | 'DZD'
+  | 'EGP'
+  | 'ERN'
+  | 'ETB'
+  | 'EUR'
+  | 'FJD'
+  | 'FKP'
+  | 'GBP'
+  | 'GEL'
+  | 'GHS'
+  | 'GIP'
+  | 'GMD'
+  | 'GNF'
+  | 'GTQ'
+  | 'GYD'
+  | 'HKD'
+  | 'HNL'
+  | 'HRK'
+  | 'HTG'
+  | 'HUF'
+  | 'IDR'
+  | 'ILS'
+  | 'INR'
+  | 'IQD'
+  | 'IRR'
+  | 'ISK'
+  | 'JMD'
+  | 'JOD'
+  | 'JPY'
+  | 'KES'
+  | 'KGS'
+  | 'KHR'
+  | 'KMF'
+  | 'KPW'
+  | 'KRW'
+  | 'KWD'
+  | 'KYD'
+  | 'KZT'
+  | 'LAK'
+  | 'LBP'
+  | 'LKR'
+  | 'LRD'
+  | 'LSL'
+  | 'LYD'
+  | 'MAD'
+  | 'MDL'
+  | 'MGA'
+  | 'MKD'
+  | 'MMK'
+  | 'MNT'
+  | 'MOP'
+  | 'MRU'
+  | 'MUR'
+  | 'MVR'
+  | 'MWK'
+  | 'MXN'
+  | 'MXV'
+  | 'MYR'
+  | 'MZN'
+  | 'NAD'
+  | 'NGN'
+  | 'NIO'
+  | 'NOK'
+  | 'NPR'
+  | 'NZD'
+  | 'OMR'
+  | 'PAB'
+  | 'PEN'
+  | 'PGK'
+  | 'PHP'
+  | 'PKR'
+  | 'PLN'
+  | 'PYG'
+  | 'QAR'
+  | 'RON'
+  | 'RSD'
+  | 'RUB'
+  | 'RWF'
+  | 'SAR'
+  | 'SBD'
+  | 'SCR'
+  | 'SDG'
+  | 'SEK'
+  | 'SGD'
+  | 'SHP'
+  | 'SLE'
+  | 'SLL'
+  | 'SOS'
+  | 'SRD'
+  | 'SSP'
+  | 'STN'
+  | 'SVC'
+  | 'SYP'
+  | 'SZL'
+  | 'THB'
+  | 'TJS'
+  | 'TMT'
+  | 'TND'
+  | 'TOP'
+  | 'TRY'
+  | 'TTD'
+  | 'TWD'
+  | 'TZS'
+  | 'UAH'
+  | 'UGX'
+  | 'USD'
+  | 'USN'
+  | 'UYI'
+  | 'UYU'
+  | 'UYW'
+  | 'UZS'
+  | 'VED'
+  | 'VES'
+  | 'VND'
+  | 'VUV'
+  | 'WST'
+  | 'XAF'
+  | 'XAG'
+  | 'XAU'
+  | 'XBA'
+  | 'XBB'
+  | 'XBC'
+  | 'XBD'
+  | 'XCD'
+  | 'XDR'
+  | 'XOF'
+  | 'XPD'
+  | 'XPF'
+  | 'XPT'
+  | 'XSU'
+  | 'XTS'
+  | 'XUA'
+  | 'XXX'
+  | 'YER'
+  | 'ZAR'
+  | 'ZMW'
+  | 'ZWL';
 
 /**
  * Describes the document and the required document image uploads required to
@@ -82,6 +267,11 @@ export interface Document {
     | 'ITIN_LETTER';
 
   /**
+   * Globally unique identifier for an entity.
+   */
+  entity_token: string;
+
+  /**
    * Represents a single image of the document to upload.
    */
   required_document_uploads: Array<Document.RequiredDocumentUpload>;
@@ -92,6 +282,11 @@ export namespace Document {
    * Represents a single image of the document to upload.
    */
   export interface RequiredDocumentUpload {
+    /**
+     * Globally unique identifier for the document upload.
+     */
+    token: string;
+
     /**
      * Type of image to upload.
      */
