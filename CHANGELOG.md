@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.74.2 (2024-09-18)
+
+Full Changelog: [v0.74.1...v0.74.2](https://github.com/lithic-com/lithic-node/compare/v0.74.1...v0.74.2)
+
+### Chores
+
+* **format:** run formatter ([ef238ee](https://github.com/lithic-com/lithic-node/commit/ef238eeadcfc609b5f8db4c6e9f34bc90c1cf1b9))
+* **internal:** specify API version for each endpoints instead of hardcoded in base URLs ([#505](https://github.com/lithic-com/lithic-node/issues/505)) ([5d80552](https://github.com/lithic-com/lithic-node/commit/5d805529f2e7f1088f5d11063c1680fec42ec169))
+* **tests:** fix getEmbedURL to specify /v1/ prefix ([67316ad](https://github.com/lithic-com/lithic-node/commit/67316adbc8d64ab686599ef7686423ca405fef94))
+
 ## 0.74.1 (2024-09-18)
 
 Full Changelog: [v0.74.0...v0.74.1](https://github.com/lithic-com/lithic-node/compare/v0.74.0...v0.74.1)
