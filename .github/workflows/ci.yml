@@ -62,7 +62,7 @@ jobs:
         run: |
           yarn install
 
-      - env: 
+      - env:
           LITHIC_API_KEY: ${{ secrets.LITHIC_API_KEY }}
         run: |
-            yarn tsn ./examples/transactions.ts
+          yarn tsn ./examples/transactions.ts
