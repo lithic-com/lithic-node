@@ -153,7 +153,7 @@ export class Cards extends APIResource {
     const serialized = JSON.stringify(params);
     const hmac = createHmac('sha256', this._client.apiKey!).update(serialized).digest('base64');
     const embedRequest = Buffer.from(serialized).toString('base64');
-    return this._client.buildURL('/embed/card', { hmac, embed_request: embedRequest });
+    return this._client.buildURL('/v1/embed/card', { hmac, embed_request: embedRequest });
   }
 
   /**
