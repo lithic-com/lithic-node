@@ -6,7 +6,7 @@
     "rootDir": "./dist/src",
     "paths": {
       "lithic/*": ["dist/src/*"],
-      "lithic": ["dist/src/index.ts"],
+      "lithic": ["dist/src/index.ts"]
     },
     "noEmit": false,
     "declaration": true,
