@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.74.1 (2024-09-18)
+
+Full Changelog: [v0.74.0...v0.74.1](https://github.com/lithic-com/lithic-node/compare/v0.74.0...v0.74.1)
+
+### Bug Fixes
+
+* **types:** remove leftover polyfill usage ([#506](https://github.com/lithic-com/lithic-node/issues/506)) ([b6d4ce1](https://github.com/lithic-com/lithic-node/commit/b6d4ce13b364344ff7878d33a74bd3af5a6eca74))
+
 ## 0.74.0 (2024-09-17)
 
 Full Changelog: [v0.73.0...v0.74.0](https://github.com/lithic-com/lithic-node/compare/v0.73.0...v0.74.0)
