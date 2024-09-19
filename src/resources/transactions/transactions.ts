@@ -195,13 +195,13 @@ export interface Transaction {
   merchant: Transaction.Merchant;
 
   /**
-   * Analogous to the 'amount' property, but will represent the amount in the
+   * Analogous to the "amount" property, but will represent the amount in the
    * transaction's local currency (smallest unit), including any acquirer fees.
    */
   merchant_amount: number | null;
 
   /**
-   * Analogous to the 'authorization_amount' property, but will represent the amount
+   * Analogous to the "authorization_amount" property, but will represent the amount
    * in the transaction's local currency (smallest unit), including any acquirer
    * fees.
    */

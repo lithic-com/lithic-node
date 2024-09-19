@@ -178,6 +178,7 @@ export class Lithic extends Core.APIClient {
   digitalCardArt: API.DigitalCardArtResource = new API.DigitalCardArtResource(this);
   bookTransfers: API.BookTransfers = new API.BookTransfers(this);
   creditProducts: API.CreditProducts = new API.CreditProducts(this);
+  externalPayments: API.ExternalPayments = new API.ExternalPayments(this);
 
   /**
    * Status of api
@@ -270,6 +271,7 @@ export namespace Lithic {
   export import KYB = API.KYB;
   export import KYC = API.KYC;
   export import KYCExempt = API.KYCExempt;
+  export import RequiredDocument = API.RequiredDocument;
   export import AccountHolderCreateResponse = API.AccountHolderCreateResponse;
   export import AccountHolderUpdateResponse = API.AccountHolderUpdateResponse;
   export import AccountHolderListDocumentsResponse = API.AccountHolderListDocumentsResponse;
@@ -284,10 +286,8 @@ export namespace Lithic {
   export import AccountHolderUploadDocumentParams = API.AccountHolderUploadDocumentParams;
 
   export import AuthRules = API.AuthRules;
-  export import AuthRule = API.AuthRule;
   export import AuthRuleRetrieveResponse = API.AuthRuleRetrieveResponse;
   export import AuthRuleRemoveResponse = API.AuthRuleRemoveResponse;
-  export import AuthRulesCursorPage = API.AuthRulesCursorPage;
   export import AuthRuleCreateParams = API.AuthRuleCreateParams;
   export import AuthRuleUpdateParams = API.AuthRuleUpdateParams;
   export import AuthRuleListParams = API.AuthRuleListParams;
@@ -459,11 +459,26 @@ export namespace Lithic {
 
   export import CreditProducts = API.CreditProducts;
 
+  export import ExternalPayments = API.ExternalPayments;
+  export import ExternalPayment = API.ExternalPayment;
+  export import ExternalPaymentsCursorPage = API.ExternalPaymentsCursorPage;
+  export import ExternalPaymentCreateParams = API.ExternalPaymentCreateParams;
+  export import ExternalPaymentListParams = API.ExternalPaymentListParams;
+  export import ExternalPaymentCancelParams = API.ExternalPaymentCancelParams;
+  export import ExternalPaymentReleaseParams = API.ExternalPaymentReleaseParams;
+  export import ExternalPaymentReverseParams = API.ExternalPaymentReverseParams;
+  export import ExternalPaymentSettleParams = API.ExternalPaymentSettleParams;
+
+  export import AccountFinancialAccountType = API.AccountFinancialAccountType;
   export import Address = API.Address;
+  export import AuthRule = API.AuthRule;
   export import Carrier = API.Carrier;
   export import Currency = API.Currency;
   export import Document = API.Document;
+  export import InstanceFinancialAccountType = API.InstanceFinancialAccountType;
   export import ShippingAddress = API.ShippingAddress;
+  export import VelocityLimitParams = API.VelocityLimitParams;
+  export import VelocityLimitParamsPeriodWindow = API.VelocityLimitParamsPeriodWindow;
 }
 
 export default Lithic;
