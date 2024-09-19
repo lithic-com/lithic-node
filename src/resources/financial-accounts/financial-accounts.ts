@@ -90,54 +90,55 @@ export class FinancialAccountsSinglePage extends SinglePage<FinancialAccount> {}
 
 export class FinancialTransactionsSinglePage extends SinglePage<FinancialTransaction> {}
 
-/**
- * Financial Account
- */
 export interface FinancialAccount {
   /**
-   * Globally unique identifier for the financial account.
+   * Globally unique identifier for the account
    */
   token: string;
 
-  /**
-   * Date and time for when the financial account was first created.
-   */
+  account_token: string | null;
+
   created: string;
 
+  credit_configuration: FinancialAccount.CreditConfiguration | null;
+
   /**
-   * Whether the financial account holds funds for benefit of another party.
+   * Whether financial account is for the benefit of another entity
    */
   is_for_benefit_of: boolean;
 
-  /**
-   * Type of financial account
-   */
-  type: 'ISSUING' | 'OPERATING' | 'RESERVE';
+  nickname: string | null;
 
-  /**
-   * Date and time for when the financial account was last updated.
-   */
+  type: 'ISSUING' | 'RESERVE' | 'OPERATING';
+
   updated: string;
 
-  /**
-   * Account number for your Lithic-assigned bank account number, if applicable.
-   */
-  account_number?: string;
+  account_number?: string | null;
 
-  /**
-   * Account token of the financial account if applicable.
-   */
-  account_token?: string;
+  routing_number?: string | null;
+}
 
-  /**
-   * User-defined nickname for the financial account.
-   */
-  nickname?: string;
+export namespace FinancialAccount {
+  export interface CreditConfiguration {
+    credit_limit: number | null;
 
-  /**
-   * Routing number for your Lithic-assigned bank account number, if applicable.
-   */
-  routing_number?: string;
+    /**
+     * Globally unique identifier for the credit product
+     */
+    credit_product_token: string | null;
+
+    external_bank_account_token: string | null;
+
+    /**
+     * Tier assigned to the financial account
+     */
+    tier: string | null;
+
+    /**
+     * State of the financial account
+     */
+    financial_account_state?: 'PENDING' | 'CURRENT' | 'DELINQUENT';
+  }
 }
 
 export interface FinancialTransaction {

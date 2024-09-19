@@ -201,13 +201,13 @@ export interface AccountHolder {
   account_token?: string;
 
   /**
-   * Only present when user_type == 'BUSINESS'. List of all entities with >25%
+   * Only present when user_type == "BUSINESS". List of all entities with >25%
    * ownership in the company.
    */
   beneficial_owner_entities?: Array<AccountHolder.BeneficialOwnerEntity>;
 
   /**
-   * Only present when user_type == 'BUSINESS'. List of all individuals with >25%
+   * Only present when user_type == "BUSINESS". List of all individuals with >25%
    * ownership in the company.
    */
   beneficial_owner_individuals?: Array<AccountHolder.BeneficialOwnerIndividual>;
@@ -220,13 +220,13 @@ export interface AccountHolder {
   business_account_token?: string;
 
   /**
-   * Only present when user_type == 'BUSINESS'. Information about the business for
+   * Only present when user_type == "BUSINESS". Information about the business for
    * which the account is being opened and KYB is being run.
    */
   business_entity?: AccountHolder.BusinessEntity;
 
   /**
-   * Only present when user_type == 'BUSINESS'. An individual with significant
+   * Only present when user_type == "BUSINESS". An individual with significant
    * responsibility for managing the legal entity (e.g., a Chief Executive Officer,
    * Chief Financial Officer, Chief Operating Officer, Managing Member, General
    * Partner, President, Vice President, or Treasurer). This can be an executive, or
@@ -236,8 +236,8 @@ export interface AccountHolder {
   control_person?: AccountHolder.ControlPerson;
 
   /**
-   * < Deprecated. Use control_person.email when user_type == 'BUSINESS'. Use
-   * individual.phone_number when user_type == 'INDIVIDUAL'.
+   * < Deprecated. Use control_person.email when user_type == "BUSINESS". Use
+   * individual.phone_number when user_type == "INDIVIDUAL".
    *
    * > Primary email of Account Holder.
    */
@@ -255,30 +255,30 @@ export interface AccountHolder {
   external_id?: string;
 
   /**
-   * Only present when user_type == 'INDIVIDUAL'. Information about the individual
+   * Only present when user_type == "INDIVIDUAL". Information about the individual
    * for which the account is being opened and KYC is being run.
    */
   individual?: AccountHolder.Individual;
 
   /**
-   * Only present when user_type == 'BUSINESS'. User-submitted description of the
+   * Only present when user_type == "BUSINESS". User-submitted description of the
    * business.
    */
   nature_of_business?: string;
 
   /**
-   * < Deprecated. Use control_person.phone_number when user_type == 'BUSINESS'. Use
-   * individual.phone_number when user_type == 'INDIVIDUAL'.
+   * < Deprecated. Use control_person.phone_number when user_type == "BUSINESS". Use
+   * individual.phone_number when user_type == "INDIVIDUAL".
    *
    * > Primary phone of Account Holder, entered in E.164 format.
    */
   phone_number?: string;
 
   /**
-   * Only present for 'KYB_BASIC' and 'KYC_ADVANCED' workflows. A list of documents
+   * Only present for "KYB_BASIC" and "KYC_ADVANCED" workflows. A list of documents
    * required for the account holder to be approved.
    */
-  required_documents?: Array<AccountHolder.RequiredDocument>;
+  required_documents?: Array<RequiredDocument>;
 
   /**
    * <Deprecated. Use verification_application.status instead>
@@ -312,10 +312,10 @@ export interface AccountHolder {
   >;
 
   /**
-   * The type of Account Holder. If the type is 'INDIVIDUAL', the 'individual'
-   * attribute will be present. If the type is 'BUSINESS' then the 'business_entity',
-   * 'control_person', 'beneficial_owner_individuals', 'beneficial_owner_entities',
-   * 'nature_of_business', and 'website_url' attributes will be present.
+   * The type of Account Holder. If the type is "INDIVIDUAL", the "individual"
+   * attribute will be present. If the type is "BUSINESS" then the "business_entity",
+   * "control_person", "beneficial_owner_individuals", "beneficial_owner_entities",
+   * "nature_of_business", and "website_url" attributes will be present.
    */
   user_type?: 'BUSINESS' | 'INDIVIDUAL';
 
@@ -325,7 +325,7 @@ export interface AccountHolder {
   verification_application?: AccountHolder.VerificationApplication;
 
   /**
-   * Only present when user_type == 'BUSINESS'. Business's primary website.
+   * Only present when user_type == "BUSINESS". Business's primary website.
    */
   website_url?: string;
 }
@@ -416,7 +416,7 @@ export namespace AccountHolder {
   }
 
   /**
-   * Only present when user_type == 'BUSINESS'. Information about the business for
+   * Only present when user_type == "BUSINESS". Information about the business for
    * which the account is being opened and KYB is being run.
    */
   export interface BusinessEntity {
@@ -462,7 +462,7 @@ export namespace AccountHolder {
   }
 
   /**
-   * Only present when user_type == 'BUSINESS'. An individual with significant
+   * Only present when user_type == "BUSINESS". An individual with significant
    * responsibility for managing the legal entity (e.g., a Chief Executive Officer,
    * Chief Financial Officer, Chief Operating Officer, Managing Member, General
    * Partner, President, Vice President, or Treasurer). This can be an executive, or
@@ -507,7 +507,7 @@ export namespace AccountHolder {
   }
 
   /**
-   * Only present when user_type == 'INDIVIDUAL'. Information about the individual
+   * Only present when user_type == "INDIVIDUAL". Information about the individual
    * for which the account is being opened and KYC is being run.
    */
   export interface Individual {
@@ -545,25 +545,6 @@ export namespace AccountHolder {
      * Individual's phone number, entered in E.164 format.
      */
     phone_number: string;
-  }
-
-  export interface RequiredDocument {
-    /**
-     * Globally unique identifier for an entity.
-     */
-    entity_token: string;
-
-    /**
-     * rovides the status reasons that will be satisfied by providing one of the valid
-     * documents.
-     */
-    status_reasons: Array<string>;
-
-    /**
-     * A list of valid documents that will satisfy the KYC requirements for the
-     * specified entity.
-     */
-    valid_documents: Array<string>;
   }
 
   /**
@@ -999,6 +980,25 @@ export interface KYCExempt {
   external_id?: string;
 }
 
+export interface RequiredDocument {
+  /**
+   * Globally unique identifier for an entity.
+   */
+  entity_token: string;
+
+  /**
+   * rovides the status reasons that will be satisfied by providing one of the valid
+   * documents.
+   */
+  status_reasons: Array<string>;
+
+  /**
+   * A list of valid documents that will satisfy the KYC requirements for the
+   * specified entity.
+   */
+  valid_documents: Array<string>;
+}
+
 export interface AccountHolderCreateResponse {
   /**
    * Globally unique identifier for the account holder.
@@ -1048,6 +1048,12 @@ export interface AccountHolderCreateResponse {
    * the Lithic ecosystem.
    */
   external_id?: string;
+
+  /**
+   * Only present for "KYB_BASIC" and "KYC_ADVANCED" workflows. A list of documents
+   * required for the account holder to be approved.
+   */
+  required_documents?: Array<RequiredDocument>;
 }
 
 export interface AccountHolderUpdateResponse {
@@ -1090,13 +1096,13 @@ export interface AccountHolderSimulateEnrollmentReviewResponse {
   account_token?: string;
 
   /**
-   * Only present when user_type == 'BUSINESS'. List of all entities with >25%
+   * Only present when user_type == "BUSINESS". List of all entities with >25%
    * ownership in the company.
    */
   beneficial_owner_entities?: Array<AccountHolderSimulateEnrollmentReviewResponse.BeneficialOwnerEntity>;
 
   /**
-   * Only present when user_type == 'BUSINESS'. List of all individuals with >25%
+   * Only present when user_type == "BUSINESS". List of all individuals with >25%
    * ownership in the company.
    */
   beneficial_owner_individuals?: Array<AccountHolderSimulateEnrollmentReviewResponse.BeneficialOwnerIndividual>;
@@ -1109,13 +1115,13 @@ export interface AccountHolderSimulateEnrollmentReviewResponse {
   business_account_token?: string;
 
   /**
-   * Only present when user_type == 'BUSINESS'. Information about the business for
+   * Only present when user_type == "BUSINESS". Information about the business for
    * which the account is being opened and KYB is being run.
    */
   business_entity?: AccountHolderSimulateEnrollmentReviewResponse.BusinessEntity;
 
   /**
-   * Only present when user_type == 'BUSINESS'.
+   * Only present when user_type == "BUSINESS".
    *
    * An individual with significant responsibility for managing the legal entity
    * (e.g., a Chief Executive Officer, Chief Financial Officer, Chief Operating
@@ -1135,15 +1141,15 @@ export interface AccountHolderSimulateEnrollmentReviewResponse {
   created?: string;
 
   /**
-   * < Deprecated. Use control_person.email when user_type == 'BUSINESS'. Use
-   * individual.phone_number when user_type == 'INDIVIDUAL'.
+   * < Deprecated. Use control_person.email when user_type == "BUSINESS". Use
+   * individual.phone_number when user_type == "INDIVIDUAL".
    *
    * > Primary email of Account Holder.
    */
   email?: string;
 
   /**
-   * The type of KYC exemption for a KYC-Exempt Account Holder. 'None' if the account
+   * The type of KYC exemption for a KYC-Exempt Account Holder. "None" if the account
    * holder is not KYC-Exempt.
    */
   exemption_type?: 'AUTHORIZED_USER' | 'PREPAID_CARD_USER';
@@ -1155,30 +1161,30 @@ export interface AccountHolderSimulateEnrollmentReviewResponse {
   external_id?: string;
 
   /**
-   * Only present when user_type == 'INDIVIDUAL'. Information about the individual
+   * Only present when user_type == "INDIVIDUAL". Information about the individual
    * for which the account is being opened and KYC is being run.
    */
   individual?: AccountHolderSimulateEnrollmentReviewResponse.Individual;
 
   /**
-   * Only present when user_type == 'BUSINESS'. User-submitted description of the
+   * Only present when user_type == "BUSINESS". User-submitted description of the
    * business.
    */
   nature_of_business?: string;
 
   /**
-   * < Deprecated. Use control_person.phone_number when user_type == 'BUSINESS'. Use
-   * individual.phone_number when user_type == 'INDIVIDUAL'.
+   * < Deprecated. Use control_person.phone_number when user_type == "BUSINESS". Use
+   * individual.phone_number when user_type == "INDIVIDUAL".
    *
    * > Primary phone of Account Holder, entered in E.164 format.
    */
   phone_number?: string;
 
   /**
-   * Only present for 'KYB_BASIC' and 'KYC_ADVANCED' workflows. A list of documents
+   * Only present for "KYB_BASIC" and "KYC_ADVANCED" workflows. A list of documents
    * required for the account holder to be approved.
    */
-  required_documents?: Array<AccountHolderSimulateEnrollmentReviewResponse.RequiredDocument>;
+  required_documents?: Array<RequiredDocument>;
 
   /**
    * <Deprecated. Use verification_application.status instead>
@@ -1209,13 +1215,13 @@ export interface AccountHolderSimulateEnrollmentReviewResponse {
   >;
 
   /**
-   * The type of Account Holder. If the type is 'INDIVIDUAL', the 'individual'
+   * The type of Account Holder. If the type is "INDIVIDUAL", the "individual"
    * attribute will be present.
    *
-   * If the type is 'BUSINESS' then the 'business_entity', 'control_person',
-   * 'beneficial_owner_individuals', 'beneficial_owner_entities',
+   * If the type is "BUSINESS" then the "business_entity", "control_person",
+   * "beneficial_owner_individuals", "beneficial_owner_entities",
    *
-   * 'nature_of_business', and 'website_url' attributes will be present.
+   * "nature_of_business", and "website_url" attributes will be present.
    */
   user_type?: 'BUSINESS' | 'INDIVIDUAL';
 
@@ -1225,7 +1231,7 @@ export interface AccountHolderSimulateEnrollmentReviewResponse {
   verification_application?: AccountHolderSimulateEnrollmentReviewResponse.VerificationApplication;
 
   /**
-   * Only present when user_type == 'BUSINESS'. Business's primary website.
+   * Only present when user_type == "BUSINESS". Business's primary website.
    */
   website_url?: string;
 }
@@ -1385,7 +1391,7 @@ export namespace AccountHolderSimulateEnrollmentReviewResponse {
   }
 
   /**
-   * Only present when user_type == 'BUSINESS'. Information about the business for
+   * Only present when user_type == "BUSINESS". Information about the business for
    * which the account is being opened and KYB is being run.
    */
   export interface BusinessEntity {
@@ -1467,7 +1473,7 @@ export namespace AccountHolderSimulateEnrollmentReviewResponse {
   }
 
   /**
-   * Only present when user_type == 'BUSINESS'.
+   * Only present when user_type == "BUSINESS".
    *
    * An individual with significant responsibility for managing the legal entity
    * (e.g., a Chief Executive Officer, Chief Financial Officer, Chief Operating
@@ -1555,7 +1561,7 @@ export namespace AccountHolderSimulateEnrollmentReviewResponse {
   }
 
   /**
-   * Only present when user_type == 'INDIVIDUAL'. Information about the individual
+   * Only present when user_type == "INDIVIDUAL". Information about the individual
    * for which the account is being opened and KYC is being run.
    */
   export interface Individual {
@@ -1631,25 +1637,6 @@ export namespace AccountHolderSimulateEnrollmentReviewResponse {
        */
       address2?: string;
     }
-  }
-
-  export interface RequiredDocument {
-    /**
-     * Globally unique identifier for an entity.
-     */
-    entity_token: string;
-
-    /**
-     * rovides the status reasons that will be satisfied by providing one of the valid
-     * documents.
-     */
-    status_reasons: Array<string>;
-
-    /**
-     * A list of valid documents that will satisfy the KYC requirements for the
-     * specified entity.
-     */
-    valid_documents: Array<string>;
   }
 
   /**
@@ -2327,6 +2314,7 @@ export namespace AccountHolders {
   export import KYB = AccountHoldersAPI.KYB;
   export import KYC = AccountHoldersAPI.KYC;
   export import KYCExempt = AccountHoldersAPI.KYCExempt;
+  export import RequiredDocument = AccountHoldersAPI.RequiredDocument;
   export import AccountHolderCreateResponse = AccountHoldersAPI.AccountHolderCreateResponse;
   export import AccountHolderUpdateResponse = AccountHoldersAPI.AccountHolderUpdateResponse;
   export import AccountHolderListDocumentsResponse = AccountHoldersAPI.AccountHolderListDocumentsResponse;
