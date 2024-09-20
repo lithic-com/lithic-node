@@ -12,11 +12,16 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/shared.ts">AccountFinancialAccountType</a></code>
 - <code><a href="./src/resources/shared.ts">Address</a></code>
+- <code><a href="./src/resources/shared.ts">AuthRule</a></code>
 - <code><a href="./src/resources/shared.ts">Carrier</a></code>
 - <code><a href="./src/resources/shared.ts">Currency</a></code>
 - <code><a href="./src/resources/shared.ts">Document</a></code>
+- <code><a href="./src/resources/shared.ts">InstanceFinancialAccountType</a></code>
 - <code><a href="./src/resources/shared.ts">ShippingAddress</a></code>
+- <code><a href="./src/resources/shared.ts">VelocityLimitParams</a></code>
+- <code><a href="./src/resources/shared.ts">VelocityLimitParamsPeriodWindow</a></code>
 
 # Accounts
 
@@ -40,6 +45,7 @@ Types:
 - <code><a href="./src/resources/account-holders.ts">KYB</a></code>
 - <code><a href="./src/resources/account-holders.ts">KYC</a></code>
 - <code><a href="./src/resources/account-holders.ts">KYCExempt</a></code>
+- <code><a href="./src/resources/account-holders.ts">RequiredDocument</a></code>
 - <code><a href="./src/resources/account-holders.ts">AccountHolderCreateResponse</a></code>
 - <code><a href="./src/resources/account-holders.ts">AccountHolderUpdateResponse</a></code>
 - <code><a href="./src/resources/account-holders.ts">AccountHolderListDocumentsResponse</a></code>
@@ -62,18 +68,41 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/auth-rules.ts">AuthRule</a></code>
-- <code><a href="./src/resources/auth-rules.ts">AuthRuleRetrieveResponse</a></code>
-- <code><a href="./src/resources/auth-rules.ts">AuthRuleRemoveResponse</a></code>
+- <code><a href="./src/resources/auth-rules/auth-rules.ts">AuthRuleRetrieveResponse</a></code>
+- <code><a href="./src/resources/auth-rules/auth-rules.ts">AuthRuleRemoveResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/auth_rules">client.authRules.<a href="./src/resources/auth-rules.ts">create</a>({ ...params }) -> AuthRule</code>
-- <code title="get /v1/auth_rules/{auth_rule_token}">client.authRules.<a href="./src/resources/auth-rules.ts">retrieve</a>(authRuleToken) -> AuthRuleRetrieveResponse</code>
-- <code title="put /v1/auth_rules/{auth_rule_token}">client.authRules.<a href="./src/resources/auth-rules.ts">update</a>(authRuleToken, { ...params }) -> AuthRule</code>
-- <code title="get /v1/auth_rules">client.authRules.<a href="./src/resources/auth-rules.ts">list</a>({ ...params }) -> AuthRulesCursorPage</code>
-- <code title="post /v1/auth_rules/{auth_rule_token}/apply">client.authRules.<a href="./src/resources/auth-rules.ts">apply</a>(authRuleToken, { ...params }) -> AuthRule</code>
-- <code title="delete /v1/auth_rules/remove">client.authRules.<a href="./src/resources/auth-rules.ts">remove</a>({ ...params }) -> AuthRuleRemoveResponse</code>
+- <code title="post /v1/auth_rules">client.authRules.<a href="./src/resources/auth-rules/auth-rules.ts">create</a>({ ...params }) -> AuthRule</code>
+- <code title="get /v1/auth_rules/{auth_rule_token}">client.authRules.<a href="./src/resources/auth-rules/auth-rules.ts">retrieve</a>(authRuleToken) -> AuthRuleRetrieveResponse</code>
+- <code title="put /v1/auth_rules/{auth_rule_token}">client.authRules.<a href="./src/resources/auth-rules/auth-rules.ts">update</a>(authRuleToken, { ...params }) -> AuthRule</code>
+- <code title="get /v1/auth_rules">client.authRules.<a href="./src/resources/auth-rules/auth-rules.ts">list</a>({ ...params }) -> AuthRulesCursorPage</code>
+- <code title="post /v1/auth_rules/{auth_rule_token}/apply">client.authRules.<a href="./src/resources/auth-rules/auth-rules.ts">apply</a>(authRuleToken, { ...params }) -> AuthRule</code>
+- <code title="delete /v1/auth_rules/remove">client.authRules.<a href="./src/resources/auth-rules/auth-rules.ts">remove</a>({ ...params }) -> AuthRuleRemoveResponse</code>
+
+## V2
+
+Types:
+
+- <code><a href="./src/resources/auth-rules/v2.ts">V2CreateResponse</a></code>
+- <code><a href="./src/resources/auth-rules/v2.ts">V2RetrieveResponse</a></code>
+- <code><a href="./src/resources/auth-rules/v2.ts">V2UpdateResponse</a></code>
+- <code><a href="./src/resources/auth-rules/v2.ts">V2ListResponse</a></code>
+- <code><a href="./src/resources/auth-rules/v2.ts">V2ApplyResponse</a></code>
+- <code><a href="./src/resources/auth-rules/v2.ts">V2DraftResponse</a></code>
+- <code><a href="./src/resources/auth-rules/v2.ts">V2PromoteResponse</a></code>
+- <code><a href="./src/resources/auth-rules/v2.ts">V2ReportResponse</a></code>
+
+Methods:
+
+- <code title="post /v2/auth_rules">client.authRules.v2.<a href="./src/resources/auth-rules/v2.ts">create</a>({ ...params }) -> V2CreateResponse</code>
+- <code title="get /v2/auth_rules/{auth_rule_token}">client.authRules.v2.<a href="./src/resources/auth-rules/v2.ts">retrieve</a>(authRuleToken) -> V2RetrieveResponse</code>
+- <code title="patch /v2/auth_rules/{auth_rule_token}">client.authRules.v2.<a href="./src/resources/auth-rules/v2.ts">update</a>(authRuleToken, { ...params }) -> V2UpdateResponse</code>
+- <code title="get /v2/auth_rules">client.authRules.v2.<a href="./src/resources/auth-rules/v2.ts">list</a>({ ...params }) -> V2ListResponsesCursorPage</code>
+- <code title="post /v2/auth_rules/{auth_rule_token}/apply">client.authRules.v2.<a href="./src/resources/auth-rules/v2.ts">apply</a>(authRuleToken, { ...params }) -> V2ApplyResponse</code>
+- <code title="post /v2/auth_rules/{auth_rule_token}/draft">client.authRules.v2.<a href="./src/resources/auth-rules/v2.ts">draft</a>(authRuleToken, { ...params }) -> V2DraftResponse</code>
+- <code title="post /v2/auth_rules/{auth_rule_token}/promote">client.authRules.v2.<a href="./src/resources/auth-rules/v2.ts">promote</a>(authRuleToken) -> V2PromoteResponse</code>
+- <code title="post /v2/auth_rules/{auth_rule_token}/report">client.authRules.v2.<a href="./src/resources/auth-rules/v2.ts">report</a>(authRuleToken) -> V2ReportResponse</code>
 
 # AuthStreamEnrollment
 
@@ -520,3 +549,19 @@ Methods:
 - <code title="get /v1/book_transfers/{book_transfer_token}">client.bookTransfers.<a href="./src/resources/book-transfers.ts">retrieve</a>(bookTransferToken) -> BookTransferResponse</code>
 - <code title="get /v1/book_transfers">client.bookTransfers.<a href="./src/resources/book-transfers.ts">list</a>({ ...params }) -> BookTransferResponsesCursorPage</code>
 - <code title="post /v1/book_transfers/{book_transfer_token}/reverse">client.bookTransfers.<a href="./src/resources/book-transfers.ts">reverse</a>(bookTransferToken, { ...params }) -> BookTransferResponse</code>
+
+# ExternalPayments
+
+Types:
+
+- <code><a href="./src/resources/external-payments.ts">ExternalPayment</a></code>
+
+Methods:
+
+- <code title="post /v1/external_payments">client.externalPayments.<a href="./src/resources/external-payments.ts">create</a>({ ...params }) -> ExternalPayment</code>
+- <code title="get /v1/external_payments/{external_payment_token}">client.externalPayments.<a href="./src/resources/external-payments.ts">retrieve</a>(externalPaymentToken) -> ExternalPayment</code>
+- <code title="get /v1/external_payments">client.externalPayments.<a href="./src/resources/external-payments.ts">list</a>({ ...params }) -> ExternalPaymentsCursorPage</code>
+- <code title="post /v1/external_payments/{external_payment_token}/cancel">client.externalPayments.<a href="./src/resources/external-payments.ts">cancel</a>(externalPaymentToken, { ...params }) -> ExternalPayment</code>
+- <code title="post /v1/external_payments/{external_payment_token}/release">client.externalPayments.<a href="./src/resources/external-payments.ts">release</a>(externalPaymentToken, { ...params }) -> ExternalPayment</code>
+- <code title="post /v1/external_payments/{external_payment_token}/reverse">client.externalPayments.<a href="./src/resources/external-payments.ts">reverse</a>(externalPaymentToken, { ...params }) -> ExternalPayment</code>
+- <code title="post /v1/external_payments/{external_payment_token}/settle">client.externalPayments.<a href="./src/resources/external-payments.ts">settle</a>(externalPaymentToken, { ...params }) -> ExternalPayment</code>

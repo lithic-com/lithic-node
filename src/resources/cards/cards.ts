@@ -284,7 +284,7 @@ export interface Card {
    *   time.
    * - `PENDING_FULFILLMENT` - The initial state for cards of type `PHYSICAL`. The
    *   card is provisioned pending manufacturing and fulfillment. Cards in this state
-   *   can accept authorizations for e-commerce purchases, but not for 'Card Present'
+   *   can accept authorizations for e-commerce purchases, but not for "Card Present"
    *   purchases where the physical card itself is present.
    * - `PENDING_ACTIVATION` - At regular intervals, cards of type `PHYSICAL` in state
    *   `PENDING_FULFILLMENT` are sent to the card production warehouse and updated to

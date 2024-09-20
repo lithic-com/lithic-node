@@ -1,5 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+import { CursorPage } from '../pagination';
+
+/**
+ * Type of account financial account
+ */
+export type AccountFinancialAccountType = 'ISSUING' | 'OPERATING';
+
 export interface Address {
   /**
    * Valid deliverable address (no PO boxes).
@@ -12,18 +19,22 @@ export interface Address {
   city: string;
 
   /**
-   * Valid country code. USA and CAN are supported, entered in uppercase ISO 3166-1
-   * alpha-3 three-character format.
+   * Valid country code, entered in uppercase ISO 3166-1 alpha-3 three-character
+   * format. Only USA is currently supported for all workflows. KYC_EXEMPT supports
+   * CAN additionally.
    */
   country: string;
 
   /**
-   * Valid postal code.
+   * Valid postal code. USA postal codes (ZIP codes) are supported, entered as a
+   * five-digit postal code or nine-digit postal code (ZIP+4) using the format
+   * 12345-1234. KYC_EXEMPT supports Canadian postal codes.
    */
   postal_code: string;
 
   /**
-   * Valid state code.
+   * Valid state code. USA state codes are supported, entered in uppercase ISO 3166-2
+   * two-character format. KYC_EXEMPT supports Canadian province codes.
    */
   state: string;
 
@@ -31,6 +42,59 @@ export interface Address {
    * Unit or apartment number (if applicable).
    */
   address2?: string;
+}
+
+export interface AuthRule {
+  /**
+   * Globally unique identifier.
+   */
+  token: string;
+
+  /**
+   * Indicates whether the Auth Rule is ACTIVE or INACTIVE
+   */
+  state: 'ACTIVE' | 'INACTIVE';
+
+  /**
+   * Array of account_token(s) identifying the accounts that the Auth Rule applies
+   * to. Note that only this field or `card_tokens` can be provided for a given Auth
+   * Rule.
+   */
+  account_tokens?: Array<string>;
+
+  /**
+   * Countries in which the Auth Rule permits transactions. Note that Lithic
+   * maintains a list of countries in which all transactions are blocked; "allowing"
+   * those countries in an Auth Rule does not override the Lithic-wide restrictions.
+   */
+  allowed_countries?: Array<string>;
+
+  /**
+   * Merchant category codes for which the Auth Rule permits transactions.
+   */
+  allowed_mcc?: Array<string>;
+
+  /**
+   * Countries in which the Auth Rule automatically declines transactions.
+   */
+  blocked_countries?: Array<string>;
+
+  /**
+   * Merchant category codes for which the Auth Rule automatically declines
+   * transactions.
+   */
+  blocked_mcc?: Array<string>;
+
+  /**
+   * Array of card_token(s) identifying the cards that the Auth Rule applies to. Note
+   * that only this field or `account_tokens` can be provided for a given Auth Rule.
+   */
+  card_tokens?: Array<string>;
+
+  /**
+   * Boolean indicating whether the Auth Rule is applied at the program level.
+   */
+  program_level?: boolean;
 }
 
 export interface Carrier {
@@ -320,6 +384,11 @@ export namespace Document {
   }
 }
 
+/**
+ * Type of instance financial account
+ */
+export type InstanceFinancialAccountType = 'ISSUING' | 'RESERVE' | 'OPERATING';
+
 export interface ShippingAddress {
   /**
    * Valid USPS routable address.
@@ -385,3 +454,58 @@ export interface ShippingAddress {
    */
   phone_number?: string;
 }
+
+export interface VelocityLimitParams {
+  filters: VelocityLimitParams.Filters;
+
+  /**
+   * The size of the trailing window to calculate Spend Velocity over in seconds.
+   */
+  period: number | VelocityLimitParamsPeriodWindow;
+
+  scope: 'CARD' | 'ACCOUNT';
+
+  /**
+   * The maximum amount of spend velocity allowed in the period in minor units (the
+   * smallest unit of a currency, e.g. cents for USD). Transactions exceeding this
+   * limit will be declined.
+   */
+  limit_amount?: number | null;
+
+  /**
+   * The number of spend velocity impacting transactions may not exceed this limit in
+   * the period. Transactions exceeding this limit will be declined. A spend velocity
+   * impacting transaction is a transaction that has been authorized, and optionally
+   * settled, or a force post (a transaction that settled without prior
+   * authorization).
+   */
+  limit_count?: number | null;
+}
+
+export namespace VelocityLimitParams {
+  export interface Filters {
+    /**
+     * ISO-3166-1 alpha-3 Country Codes to include in the velocity calculation.
+     * Transactions not matching any of the provided will not be included in the
+     * calculated velocity.
+     */
+    include_countries?: Array<string> | null;
+
+    /**
+     * Merchant Category Codes to include in the velocity calculation. Transactions not
+     * matching this MCC will not be included in the calculated velocity.
+     */
+    include_mccs?: Array<string> | null;
+  }
+}
+
+/**
+ * The window of time to calculate Spend Velocity over.
+ *
+ * - `DAY`: Velocity over the current day since midnight Eastern Time.
+ * - `MONTH`: Velocity over the current month since 00:00 / 12 AM on the first of
+ *   the month in Eastern Time.
+ */
+export type VelocityLimitParamsPeriodWindow = 'DAY' | 'MONTH';
+
+export class AuthRulesCursorPage extends CursorPage<AuthRule> {}

@@ -59,14 +59,14 @@ export interface FinancialAccountCreditConfig {
   external_bank_account_token: string | null;
 
   /**
-   * State of the financial account
-   */
-  financial_account_state: string | null;
-
-  /**
    * Tier assigned to the financial account
    */
   tier: string | null;
+
+  /**
+   * State of the financial account
+   */
+  financial_account_state?: 'PENDING' | 'CURRENT' | 'DELINQUENT';
 }
 
 export interface CreditConfigurationUpdateParams {

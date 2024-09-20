@@ -15,6 +15,7 @@ export {
   KYB,
   KYC,
   KYCExempt,
+  RequiredDocument,
   AccountHolderCreateResponse,
   AccountHolderUpdateResponse,
   AccountHolderListDocumentsResponse,
@@ -36,7 +37,6 @@ export {
   AggregateBalances,
 } from './aggregate-balances';
 export {
-  AuthRule,
   AuthRuleRetrieveResponse,
   AuthRuleRemoveResponse,
   AuthRuleCreateParams,
@@ -44,9 +44,8 @@ export {
   AuthRuleListParams,
   AuthRuleApplyParams,
   AuthRuleRemoveParams,
-  AuthRulesCursorPage,
   AuthRules,
-} from './auth-rules';
+} from './auth-rules/auth-rules';
 export { AuthStreamSecret, AuthStreamEnrollment } from './auth-stream-enrollment';
 export { Balance, BalanceListParams, BalancesSinglePage, Balances } from './balances';
 export {
@@ -126,6 +125,17 @@ export {
   ExternalBankAccountListResponsesCursorPage,
   ExternalBankAccounts,
 } from './external-bank-accounts/external-bank-accounts';
+export {
+  ExternalPayment,
+  ExternalPaymentCreateParams,
+  ExternalPaymentListParams,
+  ExternalPaymentCancelParams,
+  ExternalPaymentReleaseParams,
+  ExternalPaymentReverseParams,
+  ExternalPaymentSettleParams,
+  ExternalPaymentsCursorPage,
+  ExternalPayments,
+} from './external-payments';
 export {
   FinancialAccount,
   FinancialTransaction,
