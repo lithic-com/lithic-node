@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.75.0 (2024-09-20)
+
+Full Changelog: [v0.74.2...v0.75.0](https://github.com/lithic-com/lithic-node/compare/v0.74.2...v0.75.0)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** update model `FinancialAccount` ([#511](https://github.com/lithic-com/lithic-node/issues/511))
+
+### Features
+
+* **api:** update model `FinancialAccount` ([#511](https://github.com/lithic-com/lithic-node/issues/511)) ([ffac436](https://github.com/lithic-com/lithic-node/commit/ffac436038b29454a7b5991dc5eb4ad2c0d1e778))
+* **client:** send retry count header ([#509](https://github.com/lithic-com/lithic-node/issues/509)) ([bdb0030](https://github.com/lithic-com/lithic-node/commit/bdb0030a01b3b7a4a879a9287c1c374f86f35528))
+
 ## 0.74.2 (2024-09-18)
 
 Full Changelog: [v0.74.1...v0.74.2](https://github.com/lithic-com/lithic-node/compare/v0.74.1...v0.74.2)
