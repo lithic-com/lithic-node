@@ -106,7 +106,7 @@ export interface Carrier {
 
 /**
  * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
- * special currencies like ``XXX`. Enumerants names are lowercase cureency code
+ * special currencies like ``XXX`. Enumerants names are lowercase currency code
  * e.g. :attr:`Currency.eur`, :attr:`Currency.usd`.
  */
 export type Currency =
