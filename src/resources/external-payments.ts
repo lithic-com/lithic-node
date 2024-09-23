@@ -110,7 +110,7 @@ export interface ExternalPayment {
 
   settled_amount: number;
 
-  status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED';
+  status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED';
 
   updated: string;
 
@@ -209,7 +209,7 @@ export interface ExternalPaymentListParams extends CursorPageParams {
   /**
    * Book transfer status to be returned.
    */
-  status?: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED';
+  status?: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED';
 }
 
 export interface ExternalPaymentCancelParams {
