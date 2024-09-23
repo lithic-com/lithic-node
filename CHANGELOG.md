@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.76.0 (2024-09-23)
+
+Full Changelog: [v0.75.0...v0.76.0](https://github.com/lithic-com/lithic-node/compare/v0.75.0...v0.76.0)
+
+### Features
+
+* **api:** add `canceled` to `transaction_status` enum values ([#513](https://github.com/lithic-com/lithic-node/issues/513)) ([9539406](https://github.com/lithic-com/lithic-node/commit/9539406b2b515a9cfd0560be7c418bd6b5dc07a1))
+
 ## 0.75.0 (2024-09-20)
 
 Full Changelog: [v0.74.2...v0.75.0](https://github.com/lithic-com/lithic-node/compare/v0.74.2...v0.75.0)
