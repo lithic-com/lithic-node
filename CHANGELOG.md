@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.77.0 (2024-09-24)
+
+Full Changelog: [v0.76.0...v0.77.0](https://github.com/lithic-com/lithic-node/compare/v0.76.0...v0.77.0)
+
+### Features
+
+* **api:** add `ACCOUNT_DELINQUENT` to `detailed_results` enum ([#515](https://github.com/lithic-com/lithic-node/issues/515)) ([1400f1f](https://github.com/lithic-com/lithic-node/commit/1400f1feac8ece0760b455aad86171b3bc2d73b6))
+
 ## 0.76.0 (2024-09-23)
 
 Full Changelog: [v0.75.0...v0.76.0](https://github.com/lithic-com/lithic-node/compare/v0.75.0...v0.76.0)
