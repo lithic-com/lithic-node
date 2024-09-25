@@ -71,6 +71,23 @@ export class AuthRules extends APIResource {
   }
 
   /**
+   * Migrates an existing V1 authorization rule to a V2 authorization rule. This will
+   * alter the internal structure of the Auth Rule such that it becomes a V2
+   * Authorization Rule that can be operated on through the /v2/auth_rules endpoints.
+   *
+   * After a V1 Auth Rule has been migrated, it can no longer be operated on through
+   * the /v1/auth_rules/\* endpoints. Eventually, Lithic will deprecate the
+   * /v1/auth_rules endpoints and migrate all existing V1 Auth Rules to V2 Auth
+   * Rules.
+   */
+  migrateV1ToV2(
+    authRuleToken: string,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<AuthRuleMigrateV1ToV2Response> {
+    return this._client.post(`/v1/auth_rules/${authRuleToken}/migrate`, options);
+  }
+
+  /**
    * Remove an existing authorization rule (Auth Rule) from an program, account, or
    * card-level.
    */
@@ -81,6 +98,147 @@ export class AuthRules extends APIResource {
 
 export interface AuthRuleRetrieveResponse {
   data?: Array<Shared.AuthRule>;
+}
+
+export interface AuthRuleMigrateV1ToV2Response {
+  token: string;
+
+  /**
+   * Account tokens to which the Auth Rule applies.
+   */
+  account_tokens: Array<string>;
+
+  /**
+   * Card tokens to which the Auth Rule applies.
+   */
+  card_tokens: Array<string>;
+
+  current_version: AuthRuleMigrateV1ToV2Response.CurrentVersion | null;
+
+  draft_version: AuthRuleMigrateV1ToV2Response.DraftVersion | null;
+
+  /**
+   * Whether the Auth Rule applies to all authorizations on the card program.
+   */
+  program_level: boolean;
+
+  /**
+   * The state of the Auth Rule
+   */
+  state: 'ACTIVE' | 'INACTIVE';
+
+  /**
+   * The type of Auth Rule
+   */
+  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT';
+}
+
+export namespace AuthRuleMigrateV1ToV2Response {
+  export interface CurrentVersion {
+    /**
+     * Parameters for the current version of the Auth Rule
+     */
+    parameters: CurrentVersion.ConditionalBlockParameters | Shared.VelocityLimitParams;
+
+    /**
+     * The version of the rule, this is incremented whenever the rule's parameters
+     * change.
+     */
+    version: number;
+  }
+
+  export namespace CurrentVersion {
+    export interface ConditionalBlockParameters {
+      conditions: Array<ConditionalBlockParameters.Condition>;
+    }
+
+    export namespace ConditionalBlockParameters {
+      export interface Condition {
+        /**
+         * The attribute to target
+         */
+        attribute?:
+          | 'MCC'
+          | 'COUNTRY'
+          | 'CURRENCY'
+          | 'MERCHANT_ID'
+          | 'DESCRIPTOR'
+          | 'LIABILITY_SHIFT'
+          | 'PAN_ENTRY_MODE'
+          | 'TRANSACTION_AMOUNT'
+          | 'RISK_SCORE';
+
+        /**
+         * The operation to apply to the attribute
+         */
+        operation?:
+          | 'IS_ONE_OF'
+          | 'IS_NOT_ONE_OF'
+          | 'MATCHES'
+          | 'DOES_NOT_MATCH'
+          | 'IS_GREATER_THAN'
+          | 'IS_LESS_THAN';
+
+        /**
+         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+         */
+        value?: string | number | Array<string>;
+      }
+    }
+  }
+
+  export interface DraftVersion {
+    /**
+     * Parameters for the current version of the Auth Rule
+     */
+    parameters: DraftVersion.ConditionalBlockParameters | Shared.VelocityLimitParams;
+
+    /**
+     * The version of the rule, this is incremented whenever the rule's parameters
+     * change.
+     */
+    version: number;
+  }
+
+  export namespace DraftVersion {
+    export interface ConditionalBlockParameters {
+      conditions: Array<ConditionalBlockParameters.Condition>;
+    }
+
+    export namespace ConditionalBlockParameters {
+      export interface Condition {
+        /**
+         * The attribute to target
+         */
+        attribute?:
+          | 'MCC'
+          | 'COUNTRY'
+          | 'CURRENCY'
+          | 'MERCHANT_ID'
+          | 'DESCRIPTOR'
+          | 'LIABILITY_SHIFT'
+          | 'PAN_ENTRY_MODE'
+          | 'TRANSACTION_AMOUNT'
+          | 'RISK_SCORE';
+
+        /**
+         * The operation to apply to the attribute
+         */
+        operation?:
+          | 'IS_ONE_OF'
+          | 'IS_NOT_ONE_OF'
+          | 'MATCHES'
+          | 'DOES_NOT_MATCH'
+          | 'IS_GREATER_THAN'
+          | 'IS_LESS_THAN';
+
+        /**
+         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+         */
+        value?: string | number | Array<string>;
+      }
+    }
+  }
 }
 
 export interface AuthRuleRemoveResponse {
@@ -207,6 +365,7 @@ export interface AuthRuleRemoveParams {
 
 export namespace AuthRules {
   export import AuthRuleRetrieveResponse = AuthRulesAPI.AuthRuleRetrieveResponse;
+  export import AuthRuleMigrateV1ToV2Response = AuthRulesAPI.AuthRuleMigrateV1ToV2Response;
   export import AuthRuleRemoveResponse = AuthRulesAPI.AuthRuleRemoveResponse;
   export import AuthRuleCreateParams = AuthRulesAPI.AuthRuleCreateParams;
   export import AuthRuleUpdateParams = AuthRulesAPI.AuthRuleUpdateParams;

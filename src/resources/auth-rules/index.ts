@@ -2,6 +2,7 @@
 
 export {
   AuthRuleRetrieveResponse,
+  AuthRuleMigrateV1ToV2Response,
   AuthRuleRemoveResponse,
   AuthRuleCreateParams,
   AuthRuleUpdateParams,
