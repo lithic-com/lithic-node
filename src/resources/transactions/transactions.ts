@@ -303,7 +303,7 @@ export namespace Transaction {
       /**
        * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
        * special currencies like ``XXX`. Enumerants names are lowercase currency code
-       * e.g. :attr:`Currency.eur`, :attr:`Currency.usd`.
+       * e.g. :attr:`EUR`, :attr:`USD`.
        */
       currency: Shared.Currency;
     }
@@ -314,7 +314,7 @@ export namespace Transaction {
       /**
        * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
        * special currencies like ``XXX`. Enumerants names are lowercase currency code
-       * e.g. :attr:`Currency.eur`, :attr:`Currency.usd`.
+       * e.g. :attr:`EUR`, :attr:`USD`.
        */
       currency: Shared.Currency;
     }
@@ -325,7 +325,7 @@ export namespace Transaction {
       /**
        * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
        * special currencies like ``XXX`. Enumerants names are lowercase currency code
-       * e.g. :attr:`Currency.eur`, :attr:`Currency.usd`.
+       * e.g. :attr:`EUR`, :attr:`USD`.
        */
       currency: Shared.Currency;
     }
@@ -336,7 +336,7 @@ export namespace Transaction {
       /**
        * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
        * special currencies like ``XXX`. Enumerants names are lowercase currency code
-       * e.g. :attr:`Currency.eur`, :attr:`Currency.usd`.
+       * e.g. :attr:`EUR`, :attr:`USD`.
        */
       currency: Shared.Currency;
     }
@@ -515,6 +515,11 @@ export namespace Transaction {
       | 'RETURN'
       | 'RETURN_REVERSAL'
       | 'VOID';
+
+    /**
+     * Indicates whether the transaction event is a credit or debit to the account.
+     */
+    effective_polarity?: 'CREDIT' | 'DEBIT';
   }
 
   export namespace Event {
@@ -535,7 +540,7 @@ export namespace Transaction {
         /**
          * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
          * special currencies like ``XXX`. Enumerants names are lowercase currency code
-         * e.g. :attr:`Currency.eur`, :attr:`Currency.usd`.
+         * e.g. :attr:`EUR`, :attr:`USD`.
          */
         currency: Shared.Currency;
       }
@@ -546,7 +551,7 @@ export namespace Transaction {
         /**
          * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
          * special currencies like ``XXX`. Enumerants names are lowercase currency code
-         * e.g. :attr:`Currency.eur`, :attr:`Currency.usd`.
+         * e.g. :attr:`EUR`, :attr:`USD`.
          */
         currency: Shared.Currency;
       }
@@ -559,7 +564,7 @@ export namespace Transaction {
         /**
          * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
          * special currencies like ``XXX`. Enumerants names are lowercase currency code
-         * e.g. :attr:`Currency.eur`, :attr:`Currency.usd`.
+         * e.g. :attr:`EUR`, :attr:`USD`.
          */
         currency: Shared.Currency;
       }
