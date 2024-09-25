@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.78.0 (2024-09-25)
+
+Full Changelog: [v0.77.0...v0.78.0](https://github.com/lithic-com/lithic-node/compare/v0.77.0...v0.78.0)
+
+### Features
+
+* **api:** adds endpoint for migrating auth rules from v1 to V2. marks v1 auth rules as deprecated ([#519](https://github.com/lithic-com/lithic-node/issues/519)) ([8a95ae6](https://github.com/lithic-com/lithic-node/commit/8a95ae6d2d600ffcac4dc9e98fa9ef25b1af3aa0))
+* **client:** allow overriding retry count header ([#517](https://github.com/lithic-com/lithic-node/issues/517)) ([4e7a73e](https://github.com/lithic-com/lithic-node/commit/4e7a73ecda93ecc0f0ddbf2fb788e4b1b1ca3f7a))
+
 ## 0.77.0 (2024-09-24)
 
 Full Changelog: [v0.76.0...v0.77.0](https://github.com/lithic-com/lithic-node/compare/v0.76.0...v0.77.0)
