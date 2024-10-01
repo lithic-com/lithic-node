@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.80.0 (2024-10-01)
+
+Full Changelog: [v0.79.0...v0.80.0](https://github.com/lithic-com/lithic-node/compare/v0.79.0...v0.80.0)
+
+### Features
+
+* **api:** rename `loan_tape_response.statement_balance` to `previous_statement_balance` ([#524](https://github.com/lithic-com/lithic-node/issues/524)) ([650551b](https://github.com/lithic-com/lithic-node/commit/650551b429bed76f82bbdef4aacb37303ae70025))
+
+
+### Documentation
+
+* improve and reference contributing documentation ([#522](https://github.com/lithic-com/lithic-node/issues/522)) ([43e48d4](https://github.com/lithic-com/lithic-node/commit/43e48d4a7283a015cb192c1452ac720f820a187c))
+
 ## 0.79.0 (2024-10-01)
 
 Full Changelog: [v0.78.0...v0.79.0](https://github.com/lithic-com/lithic-node/compare/v0.78.0...v0.79.0)
