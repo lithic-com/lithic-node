@@ -17,4 +17,5 @@ export {
   CreditConfiguration,
 } from './credit-configuration';
 export { FinancialTransactionListParams, FinancialTransactions } from './financial-transactions';
+export { LoanTape, LoanTapeListParams, LoanTapesCursorPage, LoanTapes } from './loan-tapes';
 export { Statement, Statements, StatementListParams, StatementsCursorPage } from './statements/index';

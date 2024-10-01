@@ -184,6 +184,8 @@ export interface ExternalPaymentListParams extends CursorPageParams {
    */
   begin?: string;
 
+  business_account_token?: string;
+
   /**
    * External Payment category to be returned.
    */
