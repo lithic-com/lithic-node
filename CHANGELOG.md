@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.79.0 (2024-10-01)
+
+Full Changelog: [v0.78.0...v0.79.0](https://github.com/lithic-com/lithic-node/compare/v0.78.0...v0.79.0)
+
+### Features
+
+* **api:** add Management Operations and Loan Tapes API ([#520](https://github.com/lithic-com/lithic-node/issues/520)) ([3b580ca](https://github.com/lithic-com/lithic-node/commit/3b580ca2453b928b5a1b5192699f73b2cfad2f4f))
+
 ## 0.78.0 (2024-09-25)
 
 Full Changelog: [v0.77.0...v0.78.0](https://github.com/lithic-com/lithic-node/compare/v0.77.0...v0.78.0)
