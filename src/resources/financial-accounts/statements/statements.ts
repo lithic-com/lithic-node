@@ -62,20 +62,10 @@ export interface Statement {
 
   account_standing: Statement.AccountStanding;
 
-  /**
-   * Payment due at the end of the billing period. Negative amount indicates
-   * something is owed. If the amount owed is positive (e.g., there was a net
-   * credit), then payment should be returned to the cardholder via ACH.
-   */
-  amount_due: number;
+  amount_due: Statement.AmountDue;
 
   /**
-   * Payment past due at the end of the billing period.
-   */
-  amount_past_due: number;
-
-  /**
-   * Amount of credit available to spend
+   * Amount of credit available to spend in cents
    */
   available_credit: number;
 
@@ -85,9 +75,7 @@ export interface Statement {
   created: string;
 
   /**
-   * For prepay accounts, this is the minimum prepay balance that must be maintained.
-   * For charge card accounts, this is the maximum credit balance extended by a
-   * lender.
+   * This is the maximum credit balance extended by the lender in cents
    */
   credit_limit: number;
 
@@ -103,7 +91,7 @@ export interface Statement {
 
   /**
    * Balance at the end of the billing period. For charge cards, this should be the
-   * same at the statement amount due.
+   * same at the statement amount due in cents
    */
   ending_balance: number;
 
@@ -146,6 +134,8 @@ export interface Statement {
 
   ytd_totals: Statement.YtdTotals;
 
+  interest_details?: Statement.InterestDetails;
+
   /**
    * Date when the next payment is due
    */
@@ -160,6 +150,31 @@ export interface Statement {
 export namespace Statement {
   export interface AccountStanding {
     /**
+     * Number of consecutive full payments made
+     */
+    consecutive_full_payments_made: number;
+
+    /**
+     * Number of consecutive minimum payments made
+     */
+    consecutive_minimum_payments_made: number;
+
+    /**
+     * Number of consecutive minimum payments missed
+     */
+    consecutive_minimum_payments_missed: number;
+
+    /**
+     * Number of days past due
+     */
+    days_past_due: number;
+
+    /**
+     * Whether the account currently has grace or not
+     */
+    has_grace: boolean;
+
+    /**
      * Current overall period number
      */
     period_number: number;
@@ -167,36 +182,137 @@ export namespace Statement {
     period_state: 'STANDARD' | 'PROMO' | 'PENALTY';
   }
 
+  export interface AmountDue {
+    /**
+     * Payment due at the end of the billing period in cents. Negative amount indicates
+     * something is owed. If the amount owed is positive there was a net credit. If
+     * auto-collections are enabled this is the amount that will be requested on the
+     * payment due date
+     */
+    amount: number;
+
+    /**
+     * Amount past due for statement in cents
+     */
+    past_due: number;
+  }
+
   export interface PeriodTotals {
+    /**
+     * Opening balance transferred from previous account in cents
+     */
     balance_transfers: number;
 
+    /**
+     * ATM and cashback transactions in cents
+     */
     cash_advances: number;
 
+    /**
+     * Volume of credit management operation transactions less any balance transfers in
+     * cents
+     */
     credits: number;
 
+    /**
+     * Volume of debit management operation transactions less any interest in cents
+     */
     fees: number;
 
+    /**
+     * Interest accrued in cents
+     */
     interest: number;
 
+    /**
+     * Any funds transfers which affective the balance in cents
+     */
     payments: number;
 
+    /**
+     * Net card transaction volume less any cash advances in cents
+     */
     purchases: number;
   }
 
   export interface YtdTotals {
+    /**
+     * Opening balance transferred from previous account in cents
+     */
     balance_transfers: number;
 
+    /**
+     * ATM and cashback transactions in cents
+     */
     cash_advances: number;
 
+    /**
+     * Volume of credit management operation transactions less any balance transfers in
+     * cents
+     */
     credits: number;
 
+    /**
+     * Volume of debit management operation transactions less any interest in cents
+     */
     fees: number;
 
+    /**
+     * Interest accrued in cents
+     */
     interest: number;
 
+    /**
+     * Any funds transfers which affective the balance in cents
+     */
     payments: number;
 
+    /**
+     * Net card transaction volume less any cash advances in cents
+     */
     purchases: number;
+  }
+
+  export interface InterestDetails {
+    actual_interest_charged: number;
+
+    daily_balance_amounts: InterestDetails.DailyBalanceAmounts;
+
+    effective_apr: InterestDetails.EffectiveApr;
+
+    interest_calculation_method: 'DAILY' | 'AVERAGE_DAILY';
+
+    interest_for_period: InterestDetails.InterestForPeriod;
+
+    minimum_interest_charged?: number;
+
+    prime_rate?: string;
+  }
+
+  export namespace InterestDetails {
+    export interface DailyBalanceAmounts {
+      balance_transfers: string;
+
+      cash_advances: string;
+
+      purchases: string;
+    }
+
+    export interface EffectiveApr {
+      balance_transfers: string;
+
+      cash_advances: string;
+
+      purchases: string;
+    }
+
+    export interface InterestForPeriod {
+      balance_transfers: string;
+
+      cash_advances: string;
+
+      purchases: string;
+    }
   }
 }
 
