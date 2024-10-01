@@ -179,6 +179,7 @@ export class Lithic extends Core.APIClient {
   bookTransfers: API.BookTransfers = new API.BookTransfers(this);
   creditProducts: API.CreditProducts = new API.CreditProducts(this);
   externalPayments: API.ExternalPayments = new API.ExternalPayments(this);
+  managementOperations: API.ManagementOperations = new API.ManagementOperations(this);
 
   /**
    * Status of api
@@ -469,6 +470,13 @@ export namespace Lithic {
   export import ExternalPaymentReleaseParams = API.ExternalPaymentReleaseParams;
   export import ExternalPaymentReverseParams = API.ExternalPaymentReverseParams;
   export import ExternalPaymentSettleParams = API.ExternalPaymentSettleParams;
+
+  export import ManagementOperations = API.ManagementOperations;
+  export import ManagementOperationTransaction = API.ManagementOperationTransaction;
+  export import ManagementOperationTransactionsCursorPage = API.ManagementOperationTransactionsCursorPage;
+  export import ManagementOperationCreateParams = API.ManagementOperationCreateParams;
+  export import ManagementOperationListParams = API.ManagementOperationListParams;
+  export import ManagementOperationReverseParams = API.ManagementOperationReverseParams;
 
   export import AccountFinancialAccountType = API.AccountFinancialAccountType;
   export import Address = API.Address;

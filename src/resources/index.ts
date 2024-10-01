@@ -146,6 +146,14 @@ export {
   FinancialAccounts,
 } from './financial-accounts/financial-accounts';
 export {
+  ManagementOperationTransaction,
+  ManagementOperationCreateParams,
+  ManagementOperationListParams,
+  ManagementOperationReverseParams,
+  ManagementOperationTransactionsCursorPage,
+  ManagementOperations,
+} from './management-operations';
+export {
   Payment,
   PaymentCreateResponse,
   PaymentRetryResponse,

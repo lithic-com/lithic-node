@@ -349,6 +349,17 @@ Methods:
 
 - <code title="get /v1/financial_accounts/{financial_account_token}/statements/{statement_token}/line_items">client.financialAccounts.statements.lineItems.<a href="./src/resources/financial-accounts/statements/line-items.ts">list</a>(financialAccountToken, statementToken, { ...params }) -> LineItemListResponsesCursorPage</code>
 
+## LoanTapes
+
+Types:
+
+- <code><a href="./src/resources/financial-accounts/loan-tapes.ts">LoanTape</a></code>
+
+Methods:
+
+- <code title="get /v1/financial_accounts/{financial_account_token}/loan_tapes/{loan_tape_token}">client.financialAccounts.loanTapes.<a href="./src/resources/financial-accounts/loan-tapes.ts">retrieve</a>(financialAccountToken, loanTapeToken) -> LoanTape</code>
+- <code title="get /v1/financial_accounts/{financial_account_token}/loan_tapes">client.financialAccounts.loanTapes.<a href="./src/resources/financial-accounts/loan-tapes.ts">list</a>(financialAccountToken, { ...params }) -> LoanTapesCursorPage</code>
+
 # Transactions
 
 Types:
@@ -568,3 +579,16 @@ Methods:
 - <code title="post /v1/external_payments/{external_payment_token}/release">client.externalPayments.<a href="./src/resources/external-payments.ts">release</a>(externalPaymentToken, { ...params }) -> ExternalPayment</code>
 - <code title="post /v1/external_payments/{external_payment_token}/reverse">client.externalPayments.<a href="./src/resources/external-payments.ts">reverse</a>(externalPaymentToken, { ...params }) -> ExternalPayment</code>
 - <code title="post /v1/external_payments/{external_payment_token}/settle">client.externalPayments.<a href="./src/resources/external-payments.ts">settle</a>(externalPaymentToken, { ...params }) -> ExternalPayment</code>
+
+# ManagementOperations
+
+Types:
+
+- <code><a href="./src/resources/management-operations.ts">ManagementOperationTransaction</a></code>
+
+Methods:
+
+- <code title="post /v1/management_operations">client.managementOperations.<a href="./src/resources/management-operations.ts">create</a>({ ...params }) -> ManagementOperationTransaction</code>
+- <code title="get /v1/management_operations/{management_operation_token}">client.managementOperations.<a href="./src/resources/management-operations.ts">retrieve</a>(managementOperationToken) -> ManagementOperationTransaction</code>
+- <code title="get /v1/management_operations">client.managementOperations.<a href="./src/resources/management-operations.ts">list</a>({ ...params }) -> ManagementOperationTransactionsCursorPage</code>
+- <code title="post /v1/management_operations/{management_operation_token}/reverse">client.managementOperations.<a href="./src/resources/management-operations.ts">reverse</a>(managementOperationToken, { ...params }) -> ManagementOperationTransaction</code>
