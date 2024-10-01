@@ -119,7 +119,7 @@ export interface LoanTape {
 
   period_totals: LoanTape.PeriodTotals;
 
-  statement_balance: LoanTape.StatementBalance;
+  previous_statement_balance: LoanTape.PreviousStatementBalance;
 
   /**
    * Timestamp of when the loan tape was updated
@@ -300,7 +300,7 @@ export namespace LoanTape {
     purchases: number;
   }
 
-  export interface StatementBalance {
+  export interface PreviousStatementBalance {
     amount: number;
 
     remaining: number;
