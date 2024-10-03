@@ -15,11 +15,9 @@ export class Accounts extends APIResource {
   }
 
   /**
-   * Update account configuration such as spend limits and verification address. Can
-   * only be run on accounts that are part of the program managed by this API key.
-   *
-   * Accounts that are in the `PAUSED` state will not be able to transact or create
-   * new cards.
+   * Update account configuration such as state or spend limits. Can only be run on
+   * accounts that are part of the program managed by this API key. Accounts that are
+   * in the `PAUSED` state will not be able to transact or create new cards.
    */
   update(
     accountToken: string,
@@ -117,6 +115,9 @@ export interface Account {
    */
   cardholder_currency?: string;
 
+  /**
+   * @deprecated
+   */
   verification_address?: Account.VerificationAddress;
 }
 
@@ -169,6 +170,9 @@ export namespace Account {
     phone_number: string;
   }
 
+  /**
+   * @deprecated
+   */
   export interface VerificationAddress {
     /**
      * Valid deliverable address (no PO boxes).
@@ -303,15 +307,19 @@ export interface AccountUpdateParams {
 
   /**
    * Address used during Address Verification Service (AVS) checks during
-   * transactions if enabled via Auth Rules.
+   * transactions if enabled via Auth Rules. This field is deprecated as AVS checks
+   * are no longer supported by Authorization Rules. The field will be removed from
+   * the schema in a future release.
    */
   verification_address?: AccountUpdateParams.VerificationAddress;
 }
 
 export namespace AccountUpdateParams {
   /**
-   * Address used during Address Verification Service (AVS) checks during
-   * transactions if enabled via Auth Rules.
+   * @deprecated: Address used during Address Verification Service (AVS) checks
+   * during transactions if enabled via Auth Rules. This field is deprecated as AVS
+   * checks are no longer supported by Authorization Rules. The field will be removed
+   * from the schema in a future release.
    */
   export interface VerificationAddress {
     address1?: string;

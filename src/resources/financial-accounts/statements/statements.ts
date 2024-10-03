@@ -127,6 +127,8 @@ export interface Statement {
    */
   statement_start_date: string;
 
+  statement_type: 'INITIAL' | 'PERIOD_END';
+
   /**
    * Timestamp of when the statement was updated
    */

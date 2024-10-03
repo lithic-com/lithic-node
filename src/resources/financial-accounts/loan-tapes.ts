@@ -60,6 +60,11 @@ export interface LoanTape {
   account_standing: LoanTape.AccountStanding;
 
   /**
+   * Amount of credit available to spend in cents
+   */
+  available_credit: number;
+
+  /**
    * Amount due for the prior billing cycle. Any amounts not fully paid off on this
    * due date will be considered past due the next day
    */
@@ -100,6 +105,11 @@ export interface LoanTape {
   date: string;
 
   day_totals: LoanTape.DayTotals;
+
+  /**
+   * Balance at the end of the day
+   */
+  ending_balance: number;
 
   /**
    * Excess credits in the form of provisional credits, payments, or purchase
