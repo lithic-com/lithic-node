@@ -132,6 +132,11 @@ export interface LoanTape {
   previous_statement_balance: LoanTape.PreviousStatementBalance;
 
   /**
+   * Balance at the start of the day
+   */
+  starting_balance: number;
+
+  /**
    * Timestamp of when the loan tape was updated
    */
   updated: string;
