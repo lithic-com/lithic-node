@@ -67,6 +67,8 @@ export interface FinancialAccountCreditConfig {
    * State of the financial account
    */
   financial_account_state?: 'PENDING' | 'CURRENT' | 'DELINQUENT';
+
+  is_spend_blocked?: boolean;
 }
 
 export interface CreditConfigurationUpdateParams {
