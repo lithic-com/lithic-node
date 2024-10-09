@@ -439,8 +439,11 @@ describe('resource accountHolders', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  test('simulateEnrollmentDocumentReview', async () => {
-    const responsePromise = client.accountHolders.simulateEnrollmentDocumentReview({});
+  test('simulateEnrollmentDocumentReview: only required params', async () => {
+    const responsePromise = client.accountHolders.simulateEnrollmentDocumentReview({
+      document_upload_token: 'b11cd67b-0a52-4180-8365-314f3def5426',
+      status: 'UPLOADED',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -448,6 +451,15 @@ describe('resource accountHolders', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('simulateEnrollmentDocumentReview: required and optional params', async () => {
+    const response = await client.accountHolders.simulateEnrollmentDocumentReview({
+      document_upload_token: 'b11cd67b-0a52-4180-8365-314f3def5426',
+      status: 'UPLOADED',
+      accepted_entity_status_reasons: ['string', 'string', 'string'],
+      status_reason: 'DOCUMENT_MISSING_REQUIRED_DATA',
+    });
   });
 
   test('simulateEnrollmentReview', async () => {
