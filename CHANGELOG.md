@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.81.0 (2024-10-09)
+
+Full Changelog: [v0.80.0...v0.81.0](https://github.com/lithic-com/lithic-node/compare/v0.80.0...v0.81.0)
+
+### Features
+
+* **api:** small updates to Documents, AccountHolders and LoanTapes ([#528](https://github.com/lithic-com/lithic-node/issues/528)) ([f06f232](https://github.com/lithic-com/lithic-node/commit/f06f2323a3b988aea43c60302267ffcfb7c58e3b))
+
+
+### Chores
+
+* **api:** small updates to verification addresses and Statement and LoanTape fields ([#525](https://github.com/lithic-com/lithic-node/issues/525)) ([d57c1c0](https://github.com/lithic-com/lithic-node/commit/d57c1c0e50ce7cbdc2c1916b4a897bdbb8776d79))
+* **internal:** pass props through internal parser ([#527](https://github.com/lithic-com/lithic-node/issues/527)) ([fdd8e77](https://github.com/lithic-com/lithic-node/commit/fdd8e77bc9e70c5c6a8598551fe67f33ade290bf))
+
 ## 0.80.0 (2024-10-01)
 
 Full Changelog: [v0.79.0...v0.80.0](https://github.com/lithic-com/lithic-node/compare/v0.79.0...v0.80.0)
