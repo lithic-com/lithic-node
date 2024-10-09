@@ -308,7 +308,7 @@ export interface Document {
   account_holder_token: string;
 
   /**
-   * Type of documentation to be submitted for verification.
+   * Type of documentation to be submitted for verification of an account holder
    */
   document_type:
     | 'DRIVERS_LICENSE'
@@ -352,14 +352,31 @@ export namespace Document {
     token: string;
 
     /**
+     * A list of status reasons associated with a KYB account holder that have been
+     * satisfied by the document upload
+     */
+    accepted_entity_status_reasons: Array<string>;
+
+    /**
+     * When the document upload was created
+     */
+    created: string;
+
+    /**
      * Type of image to upload.
      */
     image_type: 'FRONT' | 'BACK';
 
     /**
-     * Status of document image upload.
+     * A list of status reasons associated with a KYB account holder that have not been
+     * satisfied by the document upload
      */
-    status: 'ACCEPTED' | 'REJECTED' | 'PENDING_UPLOAD' | 'UPLOADED';
+    rejected_entity_status_reasons: Array<string>;
+
+    /**
+     * Status of an account holder's document upload.
+     */
+    status: 'ACCEPTED' | 'REJECTED' | 'PENDING_UPLOAD' | 'UPLOADED' | 'PARTIAL_APPROVAL';
 
     /**
      * Reasons for document image upload status.
@@ -370,8 +387,18 @@ export namespace Document {
       | 'FILE_SIZE_TOO_LARGE'
       | 'INVALID_DOCUMENT_TYPE'
       | 'INVALID_DOCUMENT_UPLOAD'
+      | 'INVALID_ENTITY'
+      | 'DOCUMENT_EXPIRED'
+      | 'DOCUMENT_ISSUED_GREATER_THAN_30_DAYS'
+      | 'DOCUMENT_TYPE_NOT_SUPPORTED'
+      | 'UNKNOWN_FAILURE_REASON'
       | 'UNKNOWN_ERROR'
     >;
+
+    /**
+     * When the document upload was last updated
+     */
+    updated: string;
 
     /**
      * URL to upload document image to.
