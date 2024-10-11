@@ -7,8 +7,13 @@ export {
   Authentication,
 } from './authentication';
 export {
+  ChallengeResponse,
+  ChallengeResult,
   DecisioningRetrieveSecretResponse,
+  DecisioningSimulateChallengeResponse,
   DecisioningChallengeResponseParams,
+  DecisioningSimulateChallengeParams,
+  DecisioningSimulateChallengeResponseParams,
   Decisioning,
 } from './decisioning';
 export { ThreeDS } from './three-ds';
