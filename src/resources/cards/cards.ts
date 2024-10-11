@@ -355,8 +355,7 @@ export interface Card {
   hostname?: string;
 
   /**
-   * Friendly name to identify the card. We recommend against using this field to
-   * store JSON data as it can cause unexpected behavior.
+   * Friendly name to identify the card.
    */
   memo?: string;
 
@@ -584,8 +583,7 @@ export interface CardCreateParams {
   exp_year?: string;
 
   /**
-   * Friendly name to identify the card. We recommend against using this field to
-   * store JSON data as it can cause unexpected behavior.
+   * Friendly name to identify the card.
    */
   memo?: string;
 
@@ -673,8 +671,7 @@ export interface CardUpdateParams {
   digital_card_art_token?: string;
 
   /**
-   * Friendly name to identify the card. We recommend against using this field to
-   * store JSON data as it can cause unexpected behavior.
+   * Friendly name to identify the card.
    */
   memo?: string;
 

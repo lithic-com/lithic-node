@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 import * as DecisioningAPI from './decisioning';
 
@@ -36,13 +37,74 @@ export class Decisioning extends APIResource {
   rotateSecret(options?: Core.RequestOptions): Core.APIPromise<void> {
     return this._client.post('/v1/three_ds_decisioning/secret/rotate', options);
   }
+
+  /**
+   * Simulates a 3DS authentication challenge request from the payment network as if
+   * it came from an ACS. Requires being configured for 3DS Customer Decisioning, and
+   * enrolled with Lithic's Challenge solution.
+   */
+  simulateChallenge(
+    body?: DecisioningSimulateChallengeParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<DecisioningSimulateChallengeResponse>;
+  simulateChallenge(options?: Core.RequestOptions): Core.APIPromise<DecisioningSimulateChallengeResponse>;
+  simulateChallenge(
+    body: DecisioningSimulateChallengeParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<DecisioningSimulateChallengeResponse> {
+    if (isRequestOptions(body)) {
+      return this.simulateChallenge({}, body);
+    }
+    return this._client.post('/v1/three_ds_decisioning/simulate/challenge', { body, ...options });
+  }
+
+  /**
+   * Endpoint for responding to a 3DS Challenge initiated by a call to
+   * /v1/three_ds_decisioning/simulate/challenge
+   */
+  simulateChallengeResponse(
+    body: DecisioningSimulateChallengeResponseParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<void> {
+    return this._client.post('/v1/three_ds_decisioning/simulate/challenge_response', { body, ...options });
+  }
 }
+
+export interface ChallengeResponse {
+  /**
+   * Globally unique identifier for the 3DS authentication. This token is sent as
+   * part of the initial 3DS Decisioning Request and as part of the 3DS Challenge
+   * Event in the [ThreeDSAuthentication](#/components/schemas/ThreeDSAuthentication)
+   * object
+   */
+  token: string;
+
+  /**
+   * Whether the Cardholder has Approved or Declined the issued Challenge
+   */
+  challenge_response: ChallengeResult;
+}
+
+/**
+ * Whether the Cardholder has Approved or Declined the issued Challenge
+ */
+export type ChallengeResult = 'APPROVE' | 'DECLINE_BY_CUSTOMER';
 
 export interface DecisioningRetrieveSecretResponse {
   /**
    * The 3DS Decisioning HMAC secret
    */
   secret?: string;
+}
+
+export interface DecisioningSimulateChallengeResponse {
+  /**
+   * A unique token to reference this transaction with later calls to void or clear
+   * the authorization. This token is used in
+   * /v1/three_ds_decisioning/simulate/challenge_response to Approve or Decline the
+   * authentication
+   */
+  token?: string;
 }
 
 export interface DecisioningChallengeResponseParams {
@@ -57,10 +119,38 @@ export interface DecisioningChallengeResponseParams {
   /**
    * Whether the Cardholder has Approved or Declined the issued Challenge
    */
-  challenge_response: 'APPROVE' | 'DECLINE_BY_CUSTOMER';
+  challenge_response: ChallengeResult;
+}
+
+export interface DecisioningSimulateChallengeParams {
+  /**
+   * A unique token returned as part of a /v1/three_ds_authentication/simulate call
+   * that responded with a CHALLENGE_REQUESTED status.
+   */
+  token?: string;
+}
+
+export interface DecisioningSimulateChallengeResponseParams {
+  /**
+   * Globally unique identifier for the 3DS authentication. This token is sent as
+   * part of the initial 3DS Decisioning Request and as part of the 3DS Challenge
+   * Event in the [ThreeDSAuthentication](#/components/schemas/ThreeDSAuthentication)
+   * object
+   */
+  token: string;
+
+  /**
+   * Whether the Cardholder has Approved or Declined the issued Challenge
+   */
+  challenge_response: ChallengeResult;
 }
 
 export namespace Decisioning {
+  export import ChallengeResponse = DecisioningAPI.ChallengeResponse;
+  export import ChallengeResult = DecisioningAPI.ChallengeResult;
   export import DecisioningRetrieveSecretResponse = DecisioningAPI.DecisioningRetrieveSecretResponse;
+  export import DecisioningSimulateChallengeResponse = DecisioningAPI.DecisioningSimulateChallengeResponse;
   export import DecisioningChallengeResponseParams = DecisioningAPI.DecisioningChallengeResponseParams;
+  export import DecisioningSimulateChallengeParams = DecisioningAPI.DecisioningSimulateChallengeParams;
+  export import DecisioningSimulateChallengeResponseParams = DecisioningAPI.DecisioningSimulateChallengeResponseParams;
 }

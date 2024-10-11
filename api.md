@@ -505,13 +505,18 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/three-ds/decisioning.ts">ChallengeResponse</a></code>
+- <code><a href="./src/resources/three-ds/decisioning.ts">ChallengeResult</a></code>
 - <code><a href="./src/resources/three-ds/decisioning.ts">DecisioningRetrieveSecretResponse</a></code>
+- <code><a href="./src/resources/three-ds/decisioning.ts">DecisioningSimulateChallengeResponse</a></code>
 
 Methods:
 
 - <code title="post /v1/three_ds_decisioning/challenge_response">client.threeDS.decisioning.<a href="./src/resources/three-ds/decisioning.ts">challengeResponse</a>({ ...params }) -> void</code>
 - <code title="get /v1/three_ds_decisioning/secret">client.threeDS.decisioning.<a href="./src/resources/three-ds/decisioning.ts">retrieveSecret</a>() -> DecisioningRetrieveSecretResponse</code>
 - <code title="post /v1/three_ds_decisioning/secret/rotate">client.threeDS.decisioning.<a href="./src/resources/three-ds/decisioning.ts">rotateSecret</a>() -> void</code>
+- <code title="post /v1/three_ds_decisioning/simulate/challenge">client.threeDS.decisioning.<a href="./src/resources/three-ds/decisioning.ts">simulateChallenge</a>({ ...params }) -> DecisioningSimulateChallengeResponse</code>
+- <code title="post /v1/three_ds_decisioning/simulate/challenge_response">client.threeDS.decisioning.<a href="./src/resources/three-ds/decisioning.ts">simulateChallengeResponse</a>({ ...params }) -> void</code>
 
 # Reports
 

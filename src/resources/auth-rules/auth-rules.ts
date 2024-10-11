@@ -71,9 +71,11 @@ export class AuthRules extends APIResource {
   }
 
   /**
-   * Migrates an existing V1 authorization rule to a V2 authorization rule. This will
-   * alter the internal structure of the Auth Rule such that it becomes a V2
-   * Authorization Rule that can be operated on through the /v2/auth_rules endpoints.
+   * Migrates an existing V1 authorization rule to a V2 authorization rule. Depending
+   * on the configuration of the V1 Auth Rule, this will yield one or two V2
+   * authorization rules. This endpoint will alter the internal structure of the Auth
+   * Rule such that the resulting rules become a V2 Authorization Rule that can be
+   * operated on through the /v2/auth_rules endpoints.
    *
    * After a V1 Auth Rule has been migrated, it can no longer be operated on through
    * the /v1/auth_rules/\* endpoints. Eventually, Lithic will deprecate the
@@ -100,142 +102,147 @@ export interface AuthRuleRetrieveResponse {
   data?: Array<Shared.AuthRule>;
 }
 
-export interface AuthRuleMigrateV1ToV2Response {
-  token: string;
-
-  /**
-   * Account tokens to which the Auth Rule applies.
-   */
-  account_tokens: Array<string>;
-
-  /**
-   * Card tokens to which the Auth Rule applies.
-   */
-  card_tokens: Array<string>;
-
-  current_version: AuthRuleMigrateV1ToV2Response.CurrentVersion | null;
-
-  draft_version: AuthRuleMigrateV1ToV2Response.DraftVersion | null;
-
-  /**
-   * Whether the Auth Rule applies to all authorizations on the card program.
-   */
-  program_level: boolean;
-
-  /**
-   * The state of the Auth Rule
-   */
-  state: 'ACTIVE' | 'INACTIVE';
-
-  /**
-   * The type of Auth Rule
-   */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT';
-}
+export type AuthRuleMigrateV1ToV2Response =
+  Array<AuthRuleMigrateV1ToV2Response.AuthRuleMigrateV1ToV2ResponseItem>;
 
 export namespace AuthRuleMigrateV1ToV2Response {
-  export interface CurrentVersion {
-    /**
-     * Parameters for the current version of the Auth Rule
-     */
-    parameters: CurrentVersion.ConditionalBlockParameters | Shared.VelocityLimitParams;
+  export interface AuthRuleMigrateV1ToV2ResponseItem {
+    token: string;
 
     /**
-     * The version of the rule, this is incremented whenever the rule's parameters
-     * change.
+     * Account tokens to which the Auth Rule applies.
      */
-    version: number;
+    account_tokens: Array<string>;
+
+    /**
+     * Card tokens to which the Auth Rule applies.
+     */
+    card_tokens: Array<string>;
+
+    current_version: AuthRuleMigrateV1ToV2ResponseItem.CurrentVersion | null;
+
+    draft_version: AuthRuleMigrateV1ToV2ResponseItem.DraftVersion | null;
+
+    /**
+     * Whether the Auth Rule applies to all authorizations on the card program.
+     */
+    program_level: boolean;
+
+    /**
+     * The state of the Auth Rule
+     */
+    state: 'ACTIVE' | 'INACTIVE';
+
+    /**
+     * The type of Auth Rule
+     */
+    type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT';
   }
 
-  export namespace CurrentVersion {
-    export interface ConditionalBlockParameters {
-      conditions: Array<ConditionalBlockParameters.Condition>;
+  export namespace AuthRuleMigrateV1ToV2ResponseItem {
+    export interface CurrentVersion {
+      /**
+       * Parameters for the current version of the Auth Rule
+       */
+      parameters: CurrentVersion.ConditionalBlockParameters | Shared.VelocityLimitParams;
+
+      /**
+       * The version of the rule, this is incremented whenever the rule's parameters
+       * change.
+       */
+      version: number;
     }
 
-    export namespace ConditionalBlockParameters {
-      export interface Condition {
-        /**
-         * The attribute to target
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'LIABILITY_SHIFT'
-          | 'PAN_ENTRY_MODE'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE';
+    export namespace CurrentVersion {
+      export interface ConditionalBlockParameters {
+        conditions: Array<ConditionalBlockParameters.Condition>;
+      }
 
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
+      export namespace ConditionalBlockParameters {
+        export interface Condition {
+          /**
+           * The attribute to target
+           */
+          attribute?:
+            | 'MCC'
+            | 'COUNTRY'
+            | 'CURRENCY'
+            | 'MERCHANT_ID'
+            | 'DESCRIPTOR'
+            | 'LIABILITY_SHIFT'
+            | 'PAN_ENTRY_MODE'
+            | 'TRANSACTION_AMOUNT'
+            | 'RISK_SCORE';
 
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
+          /**
+           * The operation to apply to the attribute
+           */
+          operation?:
+            | 'IS_ONE_OF'
+            | 'IS_NOT_ONE_OF'
+            | 'MATCHES'
+            | 'DOES_NOT_MATCH'
+            | 'IS_GREATER_THAN'
+            | 'IS_LESS_THAN';
+
+          /**
+           * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+           */
+          value?: string | number | Array<string>;
+        }
       }
     }
-  }
 
-  export interface DraftVersion {
-    /**
-     * Parameters for the current version of the Auth Rule
-     */
-    parameters: DraftVersion.ConditionalBlockParameters | Shared.VelocityLimitParams;
+    export interface DraftVersion {
+      /**
+       * Parameters for the current version of the Auth Rule
+       */
+      parameters: DraftVersion.ConditionalBlockParameters | Shared.VelocityLimitParams;
 
-    /**
-     * The version of the rule, this is incremented whenever the rule's parameters
-     * change.
-     */
-    version: number;
-  }
-
-  export namespace DraftVersion {
-    export interface ConditionalBlockParameters {
-      conditions: Array<ConditionalBlockParameters.Condition>;
+      /**
+       * The version of the rule, this is incremented whenever the rule's parameters
+       * change.
+       */
+      version: number;
     }
 
-    export namespace ConditionalBlockParameters {
-      export interface Condition {
-        /**
-         * The attribute to target
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'LIABILITY_SHIFT'
-          | 'PAN_ENTRY_MODE'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE';
+    export namespace DraftVersion {
+      export interface ConditionalBlockParameters {
+        conditions: Array<ConditionalBlockParameters.Condition>;
+      }
 
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
+      export namespace ConditionalBlockParameters {
+        export interface Condition {
+          /**
+           * The attribute to target
+           */
+          attribute?:
+            | 'MCC'
+            | 'COUNTRY'
+            | 'CURRENCY'
+            | 'MERCHANT_ID'
+            | 'DESCRIPTOR'
+            | 'LIABILITY_SHIFT'
+            | 'PAN_ENTRY_MODE'
+            | 'TRANSACTION_AMOUNT'
+            | 'RISK_SCORE';
 
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
+          /**
+           * The operation to apply to the attribute
+           */
+          operation?:
+            | 'IS_ONE_OF'
+            | 'IS_NOT_ONE_OF'
+            | 'MATCHES'
+            | 'DOES_NOT_MATCH'
+            | 'IS_GREATER_THAN'
+            | 'IS_LESS_THAN';
+
+          /**
+           * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+           */
+          value?: string | number | Array<string>;
+        }
       }
     }
   }

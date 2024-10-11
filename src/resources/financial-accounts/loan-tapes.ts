@@ -64,23 +64,7 @@ export interface LoanTape {
    */
   available_credit: number;
 
-  /**
-   * Amount due for the prior billing cycle. Any amounts not fully paid off on this
-   * due date will be considered past due the next day
-   */
-  balance_due: LoanTape.BalanceDue;
-
-  /**
-   * Amount due for the current billing cycle. Any amounts not paid off by early
-   * payments or credits will be considered due at the end of the current billing
-   * period
-   */
-  balance_next_due: LoanTape.BalanceNextDue;
-
-  /**
-   * Amount not paid off on previous due dates
-   */
-  balance_past_due: LoanTape.BalancePastDue;
+  balances: LoanTape.Balances;
 
   /**
    * Timestamp of when the loan tape was created
@@ -189,40 +173,78 @@ export namespace LoanTape {
     period_state: 'STANDARD' | 'PROMO' | 'PENALTY';
   }
 
-  /**
-   * Amount due for the prior billing cycle. Any amounts not fully paid off on this
-   * due date will be considered past due the next day
-   */
-  export interface BalanceDue {
-    fees: number;
+  export interface Balances {
+    /**
+     * Amount due for the prior billing cycle. Any amounts not fully paid off on this
+     * due date will be considered past due the next day
+     */
+    due: Balances.Due;
 
-    interest: number;
+    /**
+     * Amount due for the current billing cycle. Any amounts not paid off by early
+     * payments or credits will be considered due at the end of the current billing
+     * period
+     */
+    next_statement_due: Balances.NextStatementDue;
 
-    principal: number;
+    /**
+     * Amount not paid off on previous due dates
+     */
+    past_due: Balances.PastDue;
+
+    /**
+     * Amount due for the past billing cycles.
+     */
+    past_statements_due: Balances.PastStatementsDue;
   }
 
-  /**
-   * Amount due for the current billing cycle. Any amounts not paid off by early
-   * payments or credits will be considered due at the end of the current billing
-   * period
-   */
-  export interface BalanceNextDue {
-    fees: number;
+  export namespace Balances {
+    /**
+     * Amount due for the prior billing cycle. Any amounts not fully paid off on this
+     * due date will be considered past due the next day
+     */
+    export interface Due {
+      fees: number;
 
-    interest: number;
+      interest: number;
 
-    principal: number;
-  }
+      principal: number;
+    }
 
-  /**
-   * Amount not paid off on previous due dates
-   */
-  export interface BalancePastDue {
-    fees: number;
+    /**
+     * Amount due for the current billing cycle. Any amounts not paid off by early
+     * payments or credits will be considered due at the end of the current billing
+     * period
+     */
+    export interface NextStatementDue {
+      fees: number;
 
-    interest: number;
+      interest: number;
 
-    principal: number;
+      principal: number;
+    }
+
+    /**
+     * Amount not paid off on previous due dates
+     */
+    export interface PastDue {
+      fees: number;
+
+      interest: number;
+
+      principal: number;
+    }
+
+    /**
+     * Amount due for the past billing cycles.
+     */
+    export interface PastStatementsDue {
+      fees: number;
+
+      interest: number;
+
+      principal: number;
+    }
   }
 
   export interface DayTotals {
