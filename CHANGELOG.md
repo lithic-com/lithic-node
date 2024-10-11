@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.82.0 (2024-10-11)
+
+Full Changelog: [v0.81.0...v0.82.0](https://github.com/lithic-com/lithic-node/compare/v0.81.0...v0.82.0)
+
+### Features
+
+* **api:** updates to documentation and addition of new 3DS simulation methods ([#529](https://github.com/lithic-com/lithic-node/issues/529)) ([055cc6b](https://github.com/lithic-com/lithic-node/commit/055cc6b27804631bd433cff8d2d9be4066710e52))
+
 ## 0.81.0 (2024-10-09)
 
 Full Changelog: [v0.80.0...v0.81.0](https://github.com/lithic-com/lithic-node/compare/v0.80.0...v0.81.0)
