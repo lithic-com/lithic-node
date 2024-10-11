@@ -15,6 +15,11 @@ export namespace ThreeDS {
   export import AuthenticationSimulateResponse = AuthenticationAPI.AuthenticationSimulateResponse;
   export import AuthenticationSimulateParams = AuthenticationAPI.AuthenticationSimulateParams;
   export import Decisioning = DecisioningAPI.Decisioning;
+  export import ChallengeResponse = DecisioningAPI.ChallengeResponse;
+  export import ChallengeResult = DecisioningAPI.ChallengeResult;
   export import DecisioningRetrieveSecretResponse = DecisioningAPI.DecisioningRetrieveSecretResponse;
+  export import DecisioningSimulateChallengeResponse = DecisioningAPI.DecisioningSimulateChallengeResponse;
   export import DecisioningChallengeResponseParams = DecisioningAPI.DecisioningChallengeResponseParams;
+  export import DecisioningSimulateChallengeParams = DecisioningAPI.DecisioningSimulateChallengeParams;
+  export import DecisioningSimulateChallengeResponseParams = DecisioningAPI.DecisioningSimulateChallengeResponseParams;
 }

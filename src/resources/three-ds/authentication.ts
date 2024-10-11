@@ -530,11 +530,6 @@ export interface AuthenticationSimulateResponse {
    * the authorization.
    */
   token?: string;
-
-  /**
-   * Debugging request ID to share with Lithic Support team.
-   */
-  debugging_request_id?: string;
 }
 
 export interface AuthenticationSimulateParams {
@@ -546,6 +541,12 @@ export interface AuthenticationSimulateParams {
   pan: string;
 
   transaction: AuthenticationSimulateParams.Transaction;
+
+  /**
+   * When set will use the following values as part of the Simulated Authentication.
+   * When not set defaults to MATCH
+   */
+  card_expiry_check?: 'MATCH' | 'MISMATCH' | 'NOT_PRESENT';
 }
 
 export namespace AuthenticationSimulateParams {
