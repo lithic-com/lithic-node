@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.82.1 (2024-10-18)
+
+Full Changelog: [v0.82.0...v0.82.1](https://github.com/lithic-com/lithic-node/compare/v0.82.0...v0.82.1)
+
+### Bug Fixes
+
+* **client:** respect x-stainless-retry-count default headers ([#531](https://github.com/lithic-com/lithic-node/issues/531)) ([03da719](https://github.com/lithic-com/lithic-node/commit/03da719c5161cf9eb2e5ff221550bef9ad7c872f))
+
 ## 0.82.0 (2024-10-11)
 
 Full Changelog: [v0.81.0...v0.82.0](https://github.com/lithic-com/lithic-node/compare/v0.81.0...v0.82.0)
