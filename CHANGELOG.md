@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.83.0 (2024-10-22)
+
+Full Changelog: [v0.82.1...v0.83.0](https://github.com/lithic-com/lithic-node/compare/v0.82.1...v0.83.0)
+
+### Features
+
+* **api:** removes `transfer_transaction.created` webhook and updates to VerificationApplication ([#533](https://github.com/lithic-com/lithic-node/issues/533)) ([3309d40](https://github.com/lithic-com/lithic-node/commit/3309d4068eb5df876887488a776f4e844c371c8a))
+
 ## 0.82.1 (2024-10-18)
 
 Full Changelog: [v0.82.0...v0.82.1](https://github.com/lithic-com/lithic-node/compare/v0.82.0...v0.82.1)
