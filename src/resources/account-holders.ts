@@ -1672,7 +1672,7 @@ export namespace AccountHolderSimulateEnrollmentReviewResponse {
     /**
      * Timestamp of when the application was created.
      */
-    created?: string;
+    created: string;
 
     /**
      * KYC and KYB evaluation states.
@@ -1680,12 +1680,12 @@ export namespace AccountHolderSimulateEnrollmentReviewResponse {
      * Note: `PENDING_RESUBMIT` and `PENDING_DOCUMENT` are only applicable for the
      * `ADVANCED` workflow.
      */
-    status?: 'ACCEPTED' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED';
+    status: 'ACCEPTED' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED';
 
     /**
      * Reason for the evaluation status.
      */
-    status_reasons?: Array<
+    status_reasons: Array<
       | 'ADDRESS_VERIFICATION_FAILURE'
       | 'AGE_THRESHOLD_FAILURE'
       | 'COMPLETE_VERIFICATION_FAILURE'
@@ -1715,7 +1715,7 @@ export namespace AccountHolderSimulateEnrollmentReviewResponse {
     /**
      * Timestamp of when the application was last updated.
      */
-    updated?: string;
+    updated: string;
   }
 }
 
