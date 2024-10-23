@@ -136,7 +136,7 @@ export interface Statement {
 
   ytd_totals: Statement.YtdTotals;
 
-  interest_details?: Statement.InterestDetails;
+  interest_details?: Statement.InterestDetails | null;
 
   /**
    * Date when the next payment is due
@@ -276,7 +276,7 @@ export namespace Statement {
   }
 
   export interface InterestDetails {
-    actual_interest_charged: number;
+    actual_interest_charged: number | null;
 
     daily_balance_amounts: InterestDetails.DailyBalanceAmounts;
 
@@ -286,9 +286,9 @@ export namespace Statement {
 
     interest_for_period: InterestDetails.InterestForPeriod;
 
-    minimum_interest_charged?: number;
+    prime_rate: string | null;
 
-    prime_rate?: string;
+    minimum_interest_charged?: number | null;
   }
 
   export namespace InterestDetails {

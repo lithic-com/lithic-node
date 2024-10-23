@@ -107,6 +107,8 @@ export interface LoanTape {
    */
   financial_account_token: string;
 
+  interest_details: LoanTape.InterestDetails | null;
+
   minimum_payment_balance: LoanTape.MinimumPaymentBalance;
 
   payment_allocation: LoanTape.PaymentAllocation;
@@ -283,6 +285,48 @@ export namespace LoanTape {
      * Net card transaction volume less any cash advances in cents
      */
     purchases: number;
+  }
+
+  export interface InterestDetails {
+    actual_interest_charged: number | null;
+
+    daily_balance_amounts: InterestDetails.DailyBalanceAmounts;
+
+    effective_apr: InterestDetails.EffectiveApr;
+
+    interest_calculation_method: 'DAILY' | 'AVERAGE_DAILY';
+
+    interest_for_period: InterestDetails.InterestForPeriod;
+
+    prime_rate: string | null;
+
+    minimum_interest_charged?: number | null;
+  }
+
+  export namespace InterestDetails {
+    export interface DailyBalanceAmounts {
+      balance_transfers: string;
+
+      cash_advances: string;
+
+      purchases: string;
+    }
+
+    export interface EffectiveApr {
+      balance_transfers: string;
+
+      cash_advances: string;
+
+      purchases: string;
+    }
+
+    export interface InterestForPeriod {
+      balance_transfers: string;
+
+      cash_advances: string;
+
+      purchases: string;
+    }
   }
 
   export interface MinimumPaymentBalance {
