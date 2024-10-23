@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.84.0 (2024-10-23)
+
+Full Changelog: [v0.83.0...v0.84.0](https://github.com/lithic-com/lithic-node/compare/v0.83.0...v0.84.0)
+
+### Features
+
+* **api:** add `interest_details` properties to LoanTapes ([#537](https://github.com/lithic-com/lithic-node/issues/537)) ([b88c87b](https://github.com/lithic-com/lithic-node/commit/b88c87bf19e70efbbb732861bc920caffb712f2c))
+
+
+### Chores
+
+* **internal:** bumps eslint and related dependencies ([#535](https://github.com/lithic-com/lithic-node/issues/535)) ([10697ee](https://github.com/lithic-com/lithic-node/commit/10697ee8de07de203d58d1e22f891fdce53ae361))
+
 ## 0.83.0 (2024-10-22)
 
 Full Changelog: [v0.82.1...v0.83.0](https://github.com/lithic-com/lithic-node/compare/v0.82.1...v0.83.0)
