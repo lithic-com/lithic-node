@@ -232,10 +232,8 @@ export interface Transaction {
 
   pos: Transaction.Pos;
 
-  /**
-   * `APPROVED` or decline reason. See Event result types
-   */
   result:
+    | 'ACCOUNT_STATE_TRANSACTION_FAIL'
     | 'APPROVED'
     | 'BANK_CONNECTION_ERROR'
     | 'BANK_NOT_VERIFIED'
@@ -243,11 +241,16 @@ export interface Transaction {
     | 'CARD_PAUSED'
     | 'DECLINED'
     | 'FRAUD_ADVICE'
+    | 'IGNORED_TTL_EXPIRY'
     | 'INACTIVE_ACCOUNT'
     | 'INCORRECT_PIN'
-    | 'INSUFFICIENT_FUNDS'
     | 'INVALID_CARD_DETAILS'
+    | 'INSUFFICIENT_FUNDS'
+    | 'INSUFFICIENT_FUNDS_PRELOAD'
+    | 'INVALID_TRANSACTION'
     | 'MERCHANT_BLACKLIST'
+    | 'ORIGINAL_NOT_FOUND'
+    | 'PREVIOUSLY_COMPLETED'
     | 'SINGLE_USE_RECHARGED'
     | 'SWITCH_INOPERATIVE_ADVICE'
     | 'UNAUTHORIZED_MERCHANT'
@@ -676,9 +679,6 @@ export namespace Transaction {
      */
     effective_polarity: 'CREDIT' | 'DEBIT';
 
-    /**
-     * Result of the transaction.
-     */
     result:
       | 'ACCOUNT_STATE_TRANSACTION_FAIL'
       | 'APPROVED'
@@ -686,12 +686,18 @@ export namespace Transaction {
       | 'BANK_NOT_VERIFIED'
       | 'CARD_CLOSED'
       | 'CARD_PAUSED'
+      | 'DECLINED'
       | 'FRAUD_ADVICE'
+      | 'IGNORED_TTL_EXPIRY'
       | 'INACTIVE_ACCOUNT'
       | 'INCORRECT_PIN'
       | 'INVALID_CARD_DETAILS'
       | 'INSUFFICIENT_FUNDS'
+      | 'INSUFFICIENT_FUNDS_PRELOAD'
+      | 'INVALID_TRANSACTION'
       | 'MERCHANT_BLACKLIST'
+      | 'ORIGINAL_NOT_FOUND'
+      | 'PREVIOUSLY_COMPLETED'
       | 'SINGLE_USE_RECHARGED'
       | 'SWITCH_INOPERATIVE_ADVICE'
       | 'UNAUTHORIZED_MERCHANT'
