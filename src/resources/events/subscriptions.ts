@@ -414,15 +414,14 @@ export interface SubscriptionSendSimulatedExampleParams {
 }
 
 export namespace Subscriptions {
-  export type SubscriptionRetrieveSecretResponse = SubscriptionsAPI.SubscriptionRetrieveSecretResponse;
-  export type SubscriptionCreateParams = SubscriptionsAPI.SubscriptionCreateParams;
-  export type SubscriptionUpdateParams = SubscriptionsAPI.SubscriptionUpdateParams;
-  export type SubscriptionListParams = SubscriptionsAPI.SubscriptionListParams;
-  export type SubscriptionListAttemptsParams = SubscriptionsAPI.SubscriptionListAttemptsParams;
-  export type SubscriptionRecoverParams = SubscriptionsAPI.SubscriptionRecoverParams;
-  export type SubscriptionReplayMissingParams = SubscriptionsAPI.SubscriptionReplayMissingParams;
-  export type SubscriptionSendSimulatedExampleParams =
-    SubscriptionsAPI.SubscriptionSendSimulatedExampleParams;
+  export import SubscriptionRetrieveSecretResponse = SubscriptionsAPI.SubscriptionRetrieveSecretResponse;
+  export import SubscriptionCreateParams = SubscriptionsAPI.SubscriptionCreateParams;
+  export import SubscriptionUpdateParams = SubscriptionsAPI.SubscriptionUpdateParams;
+  export import SubscriptionListParams = SubscriptionsAPI.SubscriptionListParams;
+  export import SubscriptionListAttemptsParams = SubscriptionsAPI.SubscriptionListAttemptsParams;
+  export import SubscriptionRecoverParams = SubscriptionsAPI.SubscriptionRecoverParams;
+  export import SubscriptionReplayMissingParams = SubscriptionsAPI.SubscriptionReplayMissingParams;
+  export import SubscriptionSendSimulatedExampleParams = SubscriptionsAPI.SubscriptionSendSimulatedExampleParams;
 }
 
 export { EventSubscriptionsCursorPage, MessageAttemptsCursorPage };

@@ -249,250 +249,245 @@ export import toFile = Uploads.toFile;
 export import fileFromPath = Uploads.fileFromPath;
 
 export namespace Lithic {
-  export type RequestOptions = Core.RequestOptions;
+  export import RequestOptions = Core.RequestOptions;
 
   export import CursorPage = Pagination.CursorPage;
-  export type CursorPageParams = Pagination.CursorPageParams;
-  export type CursorPageResponse<T> = Pagination.CursorPageResponse<T>;
+  export import CursorPageParams = Pagination.CursorPageParams;
+  export import CursorPageResponse = Pagination.CursorPageResponse;
 
   export import SinglePage = Pagination.SinglePage;
-  export type SinglePageResponse<T> = Pagination.SinglePageResponse<T>;
+  export import SinglePageResponse = Pagination.SinglePageResponse;
 
-  export type APIStatus = API.APIStatus;
+  export import APIStatus = API.APIStatus;
 
   export import Accounts = API.Accounts;
-  export type Account = API.Account;
-  export type AccountSpendLimits = API.AccountSpendLimits;
+  export import Account = API.Account;
+  export import AccountSpendLimits = API.AccountSpendLimits;
   export import AccountsCursorPage = API.AccountsCursorPage;
-  export type AccountUpdateParams = API.AccountUpdateParams;
-  export type AccountListParams = API.AccountListParams;
+  export import AccountUpdateParams = API.AccountUpdateParams;
+  export import AccountListParams = API.AccountListParams;
 
   export import AccountHolders = API.AccountHolders;
-  export type AccountHolder = API.AccountHolder;
-  export type KYB = API.KYB;
-  export type KYC = API.KYC;
-  export type KYCExempt = API.KYCExempt;
-  export type RequiredDocument = API.RequiredDocument;
-  export type AccountHolderCreateResponse = API.AccountHolderCreateResponse;
-  export type AccountHolderUpdateResponse = API.AccountHolderUpdateResponse;
-  export type AccountHolderListDocumentsResponse = API.AccountHolderListDocumentsResponse;
-  export type AccountHolderSimulateEnrollmentReviewResponse =
-    API.AccountHolderSimulateEnrollmentReviewResponse;
+  export import AccountHolder = API.AccountHolder;
+  export import KYB = API.KYB;
+  export import KYC = API.KYC;
+  export import KYCExempt = API.KYCExempt;
+  export import RequiredDocument = API.RequiredDocument;
+  export import AccountHolderCreateResponse = API.AccountHolderCreateResponse;
+  export import AccountHolderUpdateResponse = API.AccountHolderUpdateResponse;
+  export import AccountHolderListDocumentsResponse = API.AccountHolderListDocumentsResponse;
+  export import AccountHolderSimulateEnrollmentReviewResponse = API.AccountHolderSimulateEnrollmentReviewResponse;
   export import AccountHoldersSinglePage = API.AccountHoldersSinglePage;
-  export type AccountHolderCreateParams = API.AccountHolderCreateParams;
-  export type AccountHolderUpdateParams = API.AccountHolderUpdateParams;
-  export type AccountHolderListParams = API.AccountHolderListParams;
-  export type AccountHolderResubmitParams = API.AccountHolderResubmitParams;
-  export type AccountHolderSimulateEnrollmentDocumentReviewParams =
-    API.AccountHolderSimulateEnrollmentDocumentReviewParams;
-  export type AccountHolderSimulateEnrollmentReviewParams = API.AccountHolderSimulateEnrollmentReviewParams;
-  export type AccountHolderUploadDocumentParams = API.AccountHolderUploadDocumentParams;
+  export import AccountHolderCreateParams = API.AccountHolderCreateParams;
+  export import AccountHolderUpdateParams = API.AccountHolderUpdateParams;
+  export import AccountHolderListParams = API.AccountHolderListParams;
+  export import AccountHolderResubmitParams = API.AccountHolderResubmitParams;
+  export import AccountHolderSimulateEnrollmentDocumentReviewParams = API.AccountHolderSimulateEnrollmentDocumentReviewParams;
+  export import AccountHolderSimulateEnrollmentReviewParams = API.AccountHolderSimulateEnrollmentReviewParams;
+  export import AccountHolderUploadDocumentParams = API.AccountHolderUploadDocumentParams;
 
   export import AuthRules = API.AuthRules;
-  export type AuthRuleRetrieveResponse = API.AuthRuleRetrieveResponse;
-  export type AuthRuleMigrateV1ToV2Response = API.AuthRuleMigrateV1ToV2Response;
-  export type AuthRuleRemoveResponse = API.AuthRuleRemoveResponse;
-  export type AuthRuleCreateParams = API.AuthRuleCreateParams;
-  export type AuthRuleUpdateParams = API.AuthRuleUpdateParams;
-  export type AuthRuleListParams = API.AuthRuleListParams;
-  export type AuthRuleApplyParams = API.AuthRuleApplyParams;
-  export type AuthRuleRemoveParams = API.AuthRuleRemoveParams;
+  export import AuthRuleRetrieveResponse = API.AuthRuleRetrieveResponse;
+  export import AuthRuleMigrateV1ToV2Response = API.AuthRuleMigrateV1ToV2Response;
+  export import AuthRuleRemoveResponse = API.AuthRuleRemoveResponse;
+  export import AuthRuleCreateParams = API.AuthRuleCreateParams;
+  export import AuthRuleUpdateParams = API.AuthRuleUpdateParams;
+  export import AuthRuleListParams = API.AuthRuleListParams;
+  export import AuthRuleApplyParams = API.AuthRuleApplyParams;
+  export import AuthRuleRemoveParams = API.AuthRuleRemoveParams;
 
   export import AuthStreamEnrollment = API.AuthStreamEnrollment;
-  export type AuthStreamSecret = API.AuthStreamSecret;
+  export import AuthStreamSecret = API.AuthStreamSecret;
 
   export import TokenizationDecisioning = API.TokenizationDecisioning;
-  export type TokenizationSecret = API.TokenizationSecret;
-  export type TokenizationDecisioningRotateSecretResponse = API.TokenizationDecisioningRotateSecretResponse;
+  export import TokenizationSecret = API.TokenizationSecret;
+  export import TokenizationDecisioningRotateSecretResponse = API.TokenizationDecisioningRotateSecretResponse;
 
   export import Tokenizations = API.Tokenizations;
-  export type Tokenization = API.Tokenization;
-  export type TokenizationRetrieveResponse = API.TokenizationRetrieveResponse;
-  export type TokenizationSimulateResponse = API.TokenizationSimulateResponse;
-  export type TokenizationUpdateDigitalCardArtResponse = API.TokenizationUpdateDigitalCardArtResponse;
+  export import Tokenization = API.Tokenization;
+  export import TokenizationRetrieveResponse = API.TokenizationRetrieveResponse;
+  export import TokenizationSimulateResponse = API.TokenizationSimulateResponse;
+  export import TokenizationUpdateDigitalCardArtResponse = API.TokenizationUpdateDigitalCardArtResponse;
   export import TokenizationsCursorPage = API.TokenizationsCursorPage;
-  export type TokenizationListParams = API.TokenizationListParams;
-  export type TokenizationResendActivationCodeParams = API.TokenizationResendActivationCodeParams;
-  export type TokenizationSimulateParams = API.TokenizationSimulateParams;
-  export type TokenizationUpdateDigitalCardArtParams = API.TokenizationUpdateDigitalCardArtParams;
+  export import TokenizationListParams = API.TokenizationListParams;
+  export import TokenizationResendActivationCodeParams = API.TokenizationResendActivationCodeParams;
+  export import TokenizationSimulateParams = API.TokenizationSimulateParams;
+  export import TokenizationUpdateDigitalCardArtParams = API.TokenizationUpdateDigitalCardArtParams;
 
   export import Cards = API.Cards;
-  export type Card = API.Card;
-  export type CardSpendLimits = API.CardSpendLimits;
-  export type SpendLimitDuration = API.SpendLimitDuration;
-  export type CardEmbedResponse = API.CardEmbedResponse;
-  export type CardProvisionResponse = API.CardProvisionResponse;
+  export import Card = API.Card;
+  export import CardSpendLimits = API.CardSpendLimits;
+  export import SpendLimitDuration = API.SpendLimitDuration;
+  export import CardEmbedResponse = API.CardEmbedResponse;
+  export import CardProvisionResponse = API.CardProvisionResponse;
   export import CardsCursorPage = API.CardsCursorPage;
-  export type CardCreateParams = API.CardCreateParams;
-  export type CardUpdateParams = API.CardUpdateParams;
-  export type CardListParams = API.CardListParams;
-  export type CardEmbedParams = API.CardEmbedParams;
-  export type CardProvisionParams = API.CardProvisionParams;
-  export type CardReissueParams = API.CardReissueParams;
-  export type CardRenewParams = API.CardRenewParams;
-  export type CardSearchByPanParams = API.CardSearchByPanParams;
+  export import CardCreateParams = API.CardCreateParams;
+  export import CardUpdateParams = API.CardUpdateParams;
+  export import CardListParams = API.CardListParams;
+  export import CardEmbedParams = API.CardEmbedParams;
+  export import CardProvisionParams = API.CardProvisionParams;
+  export import CardReissueParams = API.CardReissueParams;
+  export import CardRenewParams = API.CardRenewParams;
+  export import CardSearchByPanParams = API.CardSearchByPanParams;
 
   export import Balances = API.Balances;
-  export type Balance = API.Balance;
+  export import Balance = API.Balance;
   export import BalancesSinglePage = API.BalancesSinglePage;
-  export type BalanceListParams = API.BalanceListParams;
+  export import BalanceListParams = API.BalanceListParams;
 
   export import AggregateBalances = API.AggregateBalances;
-  export type AggregateBalance = API.AggregateBalance;
+  export import AggregateBalance = API.AggregateBalance;
   export import AggregateBalancesSinglePage = API.AggregateBalancesSinglePage;
-  export type AggregateBalanceListParams = API.AggregateBalanceListParams;
+  export import AggregateBalanceListParams = API.AggregateBalanceListParams;
 
   export import Disputes = API.Disputes;
-  export type Dispute = API.Dispute;
-  export type DisputeEvidence = API.DisputeEvidence;
+  export import Dispute = API.Dispute;
+  export import DisputeEvidence = API.DisputeEvidence;
   /**
    * @deprecated use `DisputeEvidence` instead
    */
-  export type DisputeInitiateEvidenceUploadResponse = API.DisputeInitiateEvidenceUploadResponse;
+  export import DisputeInitiateEvidenceUploadResponse = API.DisputeInitiateEvidenceUploadResponse;
   export import DisputesCursorPage = API.DisputesCursorPage;
   export import DisputeEvidencesCursorPage = API.DisputeEvidencesCursorPage;
-  export type DisputeCreateParams = API.DisputeCreateParams;
-  export type DisputeUpdateParams = API.DisputeUpdateParams;
-  export type DisputeListParams = API.DisputeListParams;
-  export type DisputeInitiateEvidenceUploadParams = API.DisputeInitiateEvidenceUploadParams;
-  export type DisputeListEvidencesParams = API.DisputeListEvidencesParams;
+  export import DisputeCreateParams = API.DisputeCreateParams;
+  export import DisputeUpdateParams = API.DisputeUpdateParams;
+  export import DisputeListParams = API.DisputeListParams;
+  export import DisputeInitiateEvidenceUploadParams = API.DisputeInitiateEvidenceUploadParams;
+  export import DisputeListEvidencesParams = API.DisputeListEvidencesParams;
 
   export import Events = API.Events;
-  export type Event = API.Event;
-  export type EventSubscription = API.EventSubscription;
-  export type MessageAttempt = API.MessageAttempt;
+  export import Event = API.Event;
+  export import EventSubscription = API.EventSubscription;
+  export import MessageAttempt = API.MessageAttempt;
   export import EventsCursorPage = API.EventsCursorPage;
   export import MessageAttemptsCursorPage = API.MessageAttemptsCursorPage;
-  export type EventListParams = API.EventListParams;
-  export type EventListAttemptsParams = API.EventListAttemptsParams;
+  export import EventListParams = API.EventListParams;
+  export import EventListAttemptsParams = API.EventListAttemptsParams;
 
   export import Transfers = API.Transfers;
-  export type Transfer = API.Transfer;
-  export type TransferCreateParams = API.TransferCreateParams;
+  export import Transfer = API.Transfer;
+  export import TransferCreateParams = API.TransferCreateParams;
 
   export import FinancialAccounts = API.FinancialAccounts;
-  export type FinancialAccount = API.FinancialAccount;
-  export type FinancialTransaction = API.FinancialTransaction;
+  export import FinancialAccount = API.FinancialAccount;
+  export import FinancialTransaction = API.FinancialTransaction;
   export import FinancialAccountsSinglePage = API.FinancialAccountsSinglePage;
-  export type FinancialAccountCreateParams = API.FinancialAccountCreateParams;
-  export type FinancialAccountUpdateParams = API.FinancialAccountUpdateParams;
-  export type FinancialAccountListParams = API.FinancialAccountListParams;
+  export import FinancialAccountCreateParams = API.FinancialAccountCreateParams;
+  export import FinancialAccountUpdateParams = API.FinancialAccountUpdateParams;
+  export import FinancialAccountListParams = API.FinancialAccountListParams;
 
   export import Transactions = API.Transactions;
-  export type Transaction = API.Transaction;
-  export type TransactionSimulateAuthorizationResponse = API.TransactionSimulateAuthorizationResponse;
-  export type TransactionSimulateAuthorizationAdviceResponse =
-    API.TransactionSimulateAuthorizationAdviceResponse;
-  export type TransactionSimulateClearingResponse = API.TransactionSimulateClearingResponse;
-  export type TransactionSimulateCreditAuthorizationResponse =
-    API.TransactionSimulateCreditAuthorizationResponse;
-  export type TransactionSimulateReturnResponse = API.TransactionSimulateReturnResponse;
-  export type TransactionSimulateReturnReversalResponse = API.TransactionSimulateReturnReversalResponse;
-  export type TransactionSimulateVoidResponse = API.TransactionSimulateVoidResponse;
+  export import Transaction = API.Transaction;
+  export import TransactionSimulateAuthorizationResponse = API.TransactionSimulateAuthorizationResponse;
+  export import TransactionSimulateAuthorizationAdviceResponse = API.TransactionSimulateAuthorizationAdviceResponse;
+  export import TransactionSimulateClearingResponse = API.TransactionSimulateClearingResponse;
+  export import TransactionSimulateCreditAuthorizationResponse = API.TransactionSimulateCreditAuthorizationResponse;
+  export import TransactionSimulateReturnResponse = API.TransactionSimulateReturnResponse;
+  export import TransactionSimulateReturnReversalResponse = API.TransactionSimulateReturnReversalResponse;
+  export import TransactionSimulateVoidResponse = API.TransactionSimulateVoidResponse;
   export import TransactionsCursorPage = API.TransactionsCursorPage;
-  export type TransactionListParams = API.TransactionListParams;
-  export type TransactionSimulateAuthorizationParams = API.TransactionSimulateAuthorizationParams;
-  export type TransactionSimulateAuthorizationAdviceParams = API.TransactionSimulateAuthorizationAdviceParams;
-  export type TransactionSimulateClearingParams = API.TransactionSimulateClearingParams;
-  export type TransactionSimulateCreditAuthorizationParams = API.TransactionSimulateCreditAuthorizationParams;
-  export type TransactionSimulateReturnParams = API.TransactionSimulateReturnParams;
-  export type TransactionSimulateReturnReversalParams = API.TransactionSimulateReturnReversalParams;
-  export type TransactionSimulateVoidParams = API.TransactionSimulateVoidParams;
+  export import TransactionListParams = API.TransactionListParams;
+  export import TransactionSimulateAuthorizationParams = API.TransactionSimulateAuthorizationParams;
+  export import TransactionSimulateAuthorizationAdviceParams = API.TransactionSimulateAuthorizationAdviceParams;
+  export import TransactionSimulateClearingParams = API.TransactionSimulateClearingParams;
+  export import TransactionSimulateCreditAuthorizationParams = API.TransactionSimulateCreditAuthorizationParams;
+  export import TransactionSimulateReturnParams = API.TransactionSimulateReturnParams;
+  export import TransactionSimulateReturnReversalParams = API.TransactionSimulateReturnReversalParams;
+  export import TransactionSimulateVoidParams = API.TransactionSimulateVoidParams;
 
   export import ResponderEndpoints = API.ResponderEndpoints;
-  export type ResponderEndpointStatus = API.ResponderEndpointStatus;
-  export type ResponderEndpointCreateResponse = API.ResponderEndpointCreateResponse;
-  export type ResponderEndpointCreateParams = API.ResponderEndpointCreateParams;
-  export type ResponderEndpointDeleteParams = API.ResponderEndpointDeleteParams;
-  export type ResponderEndpointCheckStatusParams = API.ResponderEndpointCheckStatusParams;
+  export import ResponderEndpointStatus = API.ResponderEndpointStatus;
+  export import ResponderEndpointCreateResponse = API.ResponderEndpointCreateResponse;
+  export import ResponderEndpointCreateParams = API.ResponderEndpointCreateParams;
+  export import ResponderEndpointDeleteParams = API.ResponderEndpointDeleteParams;
+  export import ResponderEndpointCheckStatusParams = API.ResponderEndpointCheckStatusParams;
 
   export import ExternalBankAccounts = API.ExternalBankAccounts;
-  export type ExternalBankAccountAddress = API.ExternalBankAccountAddress;
-  export type OwnerType = API.OwnerType;
-  export type VerificationMethod = API.VerificationMethod;
-  export type ExternalBankAccountCreateResponse = API.ExternalBankAccountCreateResponse;
-  export type ExternalBankAccountRetrieveResponse = API.ExternalBankAccountRetrieveResponse;
-  export type ExternalBankAccountUpdateResponse = API.ExternalBankAccountUpdateResponse;
-  export type ExternalBankAccountListResponse = API.ExternalBankAccountListResponse;
-  export type ExternalBankAccountRetryMicroDepositsResponse =
-    API.ExternalBankAccountRetryMicroDepositsResponse;
-  export type ExternalBankAccountRetryPrenoteResponse = API.ExternalBankAccountRetryPrenoteResponse;
+  export import ExternalBankAccountAddress = API.ExternalBankAccountAddress;
+  export import OwnerType = API.OwnerType;
+  export import VerificationMethod = API.VerificationMethod;
+  export import ExternalBankAccountCreateResponse = API.ExternalBankAccountCreateResponse;
+  export import ExternalBankAccountRetrieveResponse = API.ExternalBankAccountRetrieveResponse;
+  export import ExternalBankAccountUpdateResponse = API.ExternalBankAccountUpdateResponse;
+  export import ExternalBankAccountListResponse = API.ExternalBankAccountListResponse;
+  export import ExternalBankAccountRetryMicroDepositsResponse = API.ExternalBankAccountRetryMicroDepositsResponse;
+  export import ExternalBankAccountRetryPrenoteResponse = API.ExternalBankAccountRetryPrenoteResponse;
   export import ExternalBankAccountListResponsesCursorPage = API.ExternalBankAccountListResponsesCursorPage;
-  export type ExternalBankAccountCreateParams = API.ExternalBankAccountCreateParams;
-  export type ExternalBankAccountUpdateParams = API.ExternalBankAccountUpdateParams;
-  export type ExternalBankAccountListParams = API.ExternalBankAccountListParams;
-  export type ExternalBankAccountRetryMicroDepositsParams = API.ExternalBankAccountRetryMicroDepositsParams;
-  export type ExternalBankAccountRetryPrenoteParams = API.ExternalBankAccountRetryPrenoteParams;
+  export import ExternalBankAccountCreateParams = API.ExternalBankAccountCreateParams;
+  export import ExternalBankAccountUpdateParams = API.ExternalBankAccountUpdateParams;
+  export import ExternalBankAccountListParams = API.ExternalBankAccountListParams;
+  export import ExternalBankAccountRetryMicroDepositsParams = API.ExternalBankAccountRetryMicroDepositsParams;
+  export import ExternalBankAccountRetryPrenoteParams = API.ExternalBankAccountRetryPrenoteParams;
 
   export import Payments = API.Payments;
-  export type Payment = API.Payment;
-  export type PaymentCreateResponse = API.PaymentCreateResponse;
-  export type PaymentRetryResponse = API.PaymentRetryResponse;
-  export type PaymentSimulateActionResponse = API.PaymentSimulateActionResponse;
-  export type PaymentSimulateReceiptResponse = API.PaymentSimulateReceiptResponse;
-  export type PaymentSimulateReleaseResponse = API.PaymentSimulateReleaseResponse;
-  export type PaymentSimulateReturnResponse = API.PaymentSimulateReturnResponse;
+  export import Payment = API.Payment;
+  export import PaymentCreateResponse = API.PaymentCreateResponse;
+  export import PaymentRetryResponse = API.PaymentRetryResponse;
+  export import PaymentSimulateActionResponse = API.PaymentSimulateActionResponse;
+  export import PaymentSimulateReceiptResponse = API.PaymentSimulateReceiptResponse;
+  export import PaymentSimulateReleaseResponse = API.PaymentSimulateReleaseResponse;
+  export import PaymentSimulateReturnResponse = API.PaymentSimulateReturnResponse;
   export import PaymentsCursorPage = API.PaymentsCursorPage;
-  export type PaymentCreateParams = API.PaymentCreateParams;
-  export type PaymentListParams = API.PaymentListParams;
-  export type PaymentSimulateActionParams = API.PaymentSimulateActionParams;
-  export type PaymentSimulateReceiptParams = API.PaymentSimulateReceiptParams;
-  export type PaymentSimulateReleaseParams = API.PaymentSimulateReleaseParams;
-  export type PaymentSimulateReturnParams = API.PaymentSimulateReturnParams;
+  export import PaymentCreateParams = API.PaymentCreateParams;
+  export import PaymentListParams = API.PaymentListParams;
+  export import PaymentSimulateActionParams = API.PaymentSimulateActionParams;
+  export import PaymentSimulateReceiptParams = API.PaymentSimulateReceiptParams;
+  export import PaymentSimulateReleaseParams = API.PaymentSimulateReleaseParams;
+  export import PaymentSimulateReturnParams = API.PaymentSimulateReturnParams;
 
   export import ThreeDS = API.ThreeDS;
 
   export import Reports = API.Reports;
-  export type SettlementDetail = API.SettlementDetail;
-  export type SettlementReport = API.SettlementReport;
-  export type SettlementSummaryDetails = API.SettlementSummaryDetails;
+  export import SettlementDetail = API.SettlementDetail;
+  export import SettlementReport = API.SettlementReport;
+  export import SettlementSummaryDetails = API.SettlementSummaryDetails;
 
   export import CardPrograms = API.CardPrograms;
-  export type CardProgram = API.CardProgram;
+  export import CardProgram = API.CardProgram;
   export import CardProgramsCursorPage = API.CardProgramsCursorPage;
-  export type CardProgramListParams = API.CardProgramListParams;
+  export import CardProgramListParams = API.CardProgramListParams;
 
   export import DigitalCardArtResource = API.DigitalCardArtResource;
-  export type DigitalCardArt = API.DigitalCardArt;
+  export import DigitalCardArt = API.DigitalCardArt;
   export import DigitalCardArtsCursorPage = API.DigitalCardArtsCursorPage;
-  export type DigitalCardArtListParams = API.DigitalCardArtListParams;
+  export import DigitalCardArtListParams = API.DigitalCardArtListParams;
 
   export import BookTransfers = API.BookTransfers;
-  export type BookTransferResponse = API.BookTransferResponse;
+  export import BookTransferResponse = API.BookTransferResponse;
   export import BookTransferResponsesCursorPage = API.BookTransferResponsesCursorPage;
-  export type BookTransferCreateParams = API.BookTransferCreateParams;
-  export type BookTransferListParams = API.BookTransferListParams;
-  export type BookTransferReverseParams = API.BookTransferReverseParams;
+  export import BookTransferCreateParams = API.BookTransferCreateParams;
+  export import BookTransferListParams = API.BookTransferListParams;
+  export import BookTransferReverseParams = API.BookTransferReverseParams;
 
   export import CreditProducts = API.CreditProducts;
 
   export import ExternalPayments = API.ExternalPayments;
-  export type ExternalPayment = API.ExternalPayment;
+  export import ExternalPayment = API.ExternalPayment;
   export import ExternalPaymentsCursorPage = API.ExternalPaymentsCursorPage;
-  export type ExternalPaymentCreateParams = API.ExternalPaymentCreateParams;
-  export type ExternalPaymentListParams = API.ExternalPaymentListParams;
-  export type ExternalPaymentCancelParams = API.ExternalPaymentCancelParams;
-  export type ExternalPaymentReleaseParams = API.ExternalPaymentReleaseParams;
-  export type ExternalPaymentReverseParams = API.ExternalPaymentReverseParams;
-  export type ExternalPaymentSettleParams = API.ExternalPaymentSettleParams;
+  export import ExternalPaymentCreateParams = API.ExternalPaymentCreateParams;
+  export import ExternalPaymentListParams = API.ExternalPaymentListParams;
+  export import ExternalPaymentCancelParams = API.ExternalPaymentCancelParams;
+  export import ExternalPaymentReleaseParams = API.ExternalPaymentReleaseParams;
+  export import ExternalPaymentReverseParams = API.ExternalPaymentReverseParams;
+  export import ExternalPaymentSettleParams = API.ExternalPaymentSettleParams;
 
   export import ManagementOperations = API.ManagementOperations;
-  export type ManagementOperationTransaction = API.ManagementOperationTransaction;
+  export import ManagementOperationTransaction = API.ManagementOperationTransaction;
   export import ManagementOperationTransactionsCursorPage = API.ManagementOperationTransactionsCursorPage;
-  export type ManagementOperationCreateParams = API.ManagementOperationCreateParams;
-  export type ManagementOperationListParams = API.ManagementOperationListParams;
-  export type ManagementOperationReverseParams = API.ManagementOperationReverseParams;
+  export import ManagementOperationCreateParams = API.ManagementOperationCreateParams;
+  export import ManagementOperationListParams = API.ManagementOperationListParams;
+  export import ManagementOperationReverseParams = API.ManagementOperationReverseParams;
 
-  export type AccountFinancialAccountType = API.AccountFinancialAccountType;
-  export type Address = API.Address;
-  export type AuthRule = API.AuthRule;
-  export type Carrier = API.Carrier;
-  export type Currency = API.Currency;
-  export type Document = API.Document;
-  export type InstanceFinancialAccountType = API.InstanceFinancialAccountType;
-  export type ShippingAddress = API.ShippingAddress;
-  export type VelocityLimitParams = API.VelocityLimitParams;
-  export type VelocityLimitParamsPeriodWindow = API.VelocityLimitParamsPeriodWindow;
+  export import AccountFinancialAccountType = API.AccountFinancialAccountType;
+  export import Address = API.Address;
+  export import AuthRule = API.AuthRule;
+  export import Carrier = API.Carrier;
+  export import Currency = API.Currency;
+  export import Document = API.Document;
+  export import InstanceFinancialAccountType = API.InstanceFinancialAccountType;
+  export import ShippingAddress = API.ShippingAddress;
+  export import VelocityLimitParams = API.VelocityLimitParams;
+  export import VelocityLimitParamsPeriodWindow = API.VelocityLimitParamsPeriodWindow;
 }
 
 export default Lithic;

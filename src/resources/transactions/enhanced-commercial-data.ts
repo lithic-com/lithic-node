@@ -23,6 +23,5 @@ export interface EnhancedCommercialDataRetrieveResponse {
 }
 
 export namespace EnhancedCommercialData {
-  export type EnhancedCommercialDataRetrieveResponse =
-    EnhancedCommercialDataAPI.EnhancedCommercialDataRetrieveResponse;
+  export import EnhancedCommercialDataRetrieveResponse = EnhancedCommercialDataAPI.EnhancedCommercialDataRetrieveResponse;
 }

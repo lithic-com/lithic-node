@@ -75,7 +75,7 @@ export interface DigitalCardArt {
 export interface DigitalCardArtListParams extends CursorPageParams {}
 
 export namespace DigitalCardArtResource {
-  export type DigitalCardArt = DigitalCardArtAPI.DigitalCardArt;
+  export import DigitalCardArt = DigitalCardArtAPI.DigitalCardArt;
   export import DigitalCardArtsCursorPage = DigitalCardArtAPI.DigitalCardArtsCursorPage;
-  export type DigitalCardArtListParams = DigitalCardArtAPI.DigitalCardArtListParams;
+  export import DigitalCardArtListParams = DigitalCardArtAPI.DigitalCardArtListParams;
 }

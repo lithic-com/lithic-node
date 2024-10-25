@@ -2369,24 +2369,21 @@ export interface AccountHolderUploadDocumentParams {
 }
 
 export namespace AccountHolders {
-  export type AccountHolder = AccountHoldersAPI.AccountHolder;
-  export type KYB = AccountHoldersAPI.KYB;
-  export type KYC = AccountHoldersAPI.KYC;
-  export type KYCExempt = AccountHoldersAPI.KYCExempt;
-  export type RequiredDocument = AccountHoldersAPI.RequiredDocument;
-  export type AccountHolderCreateResponse = AccountHoldersAPI.AccountHolderCreateResponse;
-  export type AccountHolderUpdateResponse = AccountHoldersAPI.AccountHolderUpdateResponse;
-  export type AccountHolderListDocumentsResponse = AccountHoldersAPI.AccountHolderListDocumentsResponse;
-  export type AccountHolderSimulateEnrollmentReviewResponse =
-    AccountHoldersAPI.AccountHolderSimulateEnrollmentReviewResponse;
+  export import AccountHolder = AccountHoldersAPI.AccountHolder;
+  export import KYB = AccountHoldersAPI.KYB;
+  export import KYC = AccountHoldersAPI.KYC;
+  export import KYCExempt = AccountHoldersAPI.KYCExempt;
+  export import RequiredDocument = AccountHoldersAPI.RequiredDocument;
+  export import AccountHolderCreateResponse = AccountHoldersAPI.AccountHolderCreateResponse;
+  export import AccountHolderUpdateResponse = AccountHoldersAPI.AccountHolderUpdateResponse;
+  export import AccountHolderListDocumentsResponse = AccountHoldersAPI.AccountHolderListDocumentsResponse;
+  export import AccountHolderSimulateEnrollmentReviewResponse = AccountHoldersAPI.AccountHolderSimulateEnrollmentReviewResponse;
   export import AccountHoldersSinglePage = AccountHoldersAPI.AccountHoldersSinglePage;
-  export type AccountHolderCreateParams = AccountHoldersAPI.AccountHolderCreateParams;
-  export type AccountHolderUpdateParams = AccountHoldersAPI.AccountHolderUpdateParams;
-  export type AccountHolderListParams = AccountHoldersAPI.AccountHolderListParams;
-  export type AccountHolderResubmitParams = AccountHoldersAPI.AccountHolderResubmitParams;
-  export type AccountHolderSimulateEnrollmentDocumentReviewParams =
-    AccountHoldersAPI.AccountHolderSimulateEnrollmentDocumentReviewParams;
-  export type AccountHolderSimulateEnrollmentReviewParams =
-    AccountHoldersAPI.AccountHolderSimulateEnrollmentReviewParams;
-  export type AccountHolderUploadDocumentParams = AccountHoldersAPI.AccountHolderUploadDocumentParams;
+  export import AccountHolderCreateParams = AccountHoldersAPI.AccountHolderCreateParams;
+  export import AccountHolderUpdateParams = AccountHoldersAPI.AccountHolderUpdateParams;
+  export import AccountHolderListParams = AccountHoldersAPI.AccountHolderListParams;
+  export import AccountHolderResubmitParams = AccountHoldersAPI.AccountHolderResubmitParams;
+  export import AccountHolderSimulateEnrollmentDocumentReviewParams = AccountHoldersAPI.AccountHolderSimulateEnrollmentDocumentReviewParams;
+  export import AccountHolderSimulateEnrollmentReviewParams = AccountHoldersAPI.AccountHolderSimulateEnrollmentReviewParams;
+  export import AccountHolderUploadDocumentParams = AccountHoldersAPI.AccountHolderUploadDocumentParams;
 }

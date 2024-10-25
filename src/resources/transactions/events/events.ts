@@ -10,5 +10,5 @@ export class Events extends APIResource {
 
 export namespace Events {
   export import EnhancedCommercialData = EnhancedCommercialDataAPI.EnhancedCommercialData;
-  export type EnhancedData = EnhancedCommercialDataAPI.EnhancedData;
+  export import EnhancedData = EnhancedCommercialDataAPI.EnhancedData;
 }
