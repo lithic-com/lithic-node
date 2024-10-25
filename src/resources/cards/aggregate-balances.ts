@@ -100,7 +100,7 @@ export interface AggregateBalanceListParams {
 }
 
 export namespace AggregateBalances {
-  export type AggregateBalanceListResponse = AggregateBalancesAPI.AggregateBalanceListResponse;
+  export import AggregateBalanceListResponse = AggregateBalancesAPI.AggregateBalanceListResponse;
   export import AggregateBalanceListResponsesSinglePage = AggregateBalancesAPI.AggregateBalanceListResponsesSinglePage;
-  export type AggregateBalanceListParams = AggregateBalancesAPI.AggregateBalanceListParams;
+  export import AggregateBalanceListParams = AggregateBalancesAPI.AggregateBalanceListParams;
 }

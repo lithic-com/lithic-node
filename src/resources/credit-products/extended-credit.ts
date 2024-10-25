@@ -18,5 +18,5 @@ export interface ExtendedCredit {
 }
 
 export namespace ExtendedCreditResource {
-  export type ExtendedCredit = ExtendedCreditAPI.ExtendedCredit;
+  export import ExtendedCredit = ExtendedCreditAPI.ExtendedCredit;
 }

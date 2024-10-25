@@ -76,7 +76,7 @@ export interface CardProgram {
 export interface CardProgramListParams extends CursorPageParams {}
 
 export namespace CardPrograms {
-  export type CardProgram = CardProgramsAPI.CardProgram;
+  export import CardProgram = CardProgramsAPI.CardProgram;
   export import CardProgramsCursorPage = CardProgramsAPI.CardProgramsCursorPage;
-  export type CardProgramListParams = CardProgramsAPI.CardProgramListParams;
+  export import CardProgramListParams = CardProgramsAPI.CardProgramListParams;
 }

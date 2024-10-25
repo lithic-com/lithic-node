@@ -241,12 +241,12 @@ export interface ExternalPaymentSettleParams {
 }
 
 export namespace ExternalPayments {
-  export type ExternalPayment = ExternalPaymentsAPI.ExternalPayment;
+  export import ExternalPayment = ExternalPaymentsAPI.ExternalPayment;
   export import ExternalPaymentsCursorPage = ExternalPaymentsAPI.ExternalPaymentsCursorPage;
-  export type ExternalPaymentCreateParams = ExternalPaymentsAPI.ExternalPaymentCreateParams;
-  export type ExternalPaymentListParams = ExternalPaymentsAPI.ExternalPaymentListParams;
-  export type ExternalPaymentCancelParams = ExternalPaymentsAPI.ExternalPaymentCancelParams;
-  export type ExternalPaymentReleaseParams = ExternalPaymentsAPI.ExternalPaymentReleaseParams;
-  export type ExternalPaymentReverseParams = ExternalPaymentsAPI.ExternalPaymentReverseParams;
-  export type ExternalPaymentSettleParams = ExternalPaymentsAPI.ExternalPaymentSettleParams;
+  export import ExternalPaymentCreateParams = ExternalPaymentsAPI.ExternalPaymentCreateParams;
+  export import ExternalPaymentListParams = ExternalPaymentsAPI.ExternalPaymentListParams;
+  export import ExternalPaymentCancelParams = ExternalPaymentsAPI.ExternalPaymentCancelParams;
+  export import ExternalPaymentReleaseParams = ExternalPaymentsAPI.ExternalPaymentReleaseParams;
+  export import ExternalPaymentReverseParams = ExternalPaymentsAPI.ExternalPaymentReverseParams;
+  export import ExternalPaymentSettleParams = ExternalPaymentsAPI.ExternalPaymentSettleParams;
 }

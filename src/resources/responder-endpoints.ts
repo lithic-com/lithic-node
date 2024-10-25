@@ -80,9 +80,9 @@ export interface ResponderEndpointCheckStatusParams {
 }
 
 export namespace ResponderEndpoints {
-  export type ResponderEndpointStatus = ResponderEndpointsAPI.ResponderEndpointStatus;
-  export type ResponderEndpointCreateResponse = ResponderEndpointsAPI.ResponderEndpointCreateResponse;
-  export type ResponderEndpointCreateParams = ResponderEndpointsAPI.ResponderEndpointCreateParams;
-  export type ResponderEndpointDeleteParams = ResponderEndpointsAPI.ResponderEndpointDeleteParams;
-  export type ResponderEndpointCheckStatusParams = ResponderEndpointsAPI.ResponderEndpointCheckStatusParams;
+  export import ResponderEndpointStatus = ResponderEndpointsAPI.ResponderEndpointStatus;
+  export import ResponderEndpointCreateResponse = ResponderEndpointsAPI.ResponderEndpointCreateResponse;
+  export import ResponderEndpointCreateParams = ResponderEndpointsAPI.ResponderEndpointCreateParams;
+  export import ResponderEndpointDeleteParams = ResponderEndpointsAPI.ResponderEndpointDeleteParams;
+  export import ResponderEndpointCheckStatusParams = ResponderEndpointsAPI.ResponderEndpointCheckStatusParams;
 }

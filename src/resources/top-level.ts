@@ -7,5 +7,5 @@ export interface APIStatus {
 }
 
 export namespace TopLevel {
-  export type APIStatus = TopLevelAPI.APIStatus;
+  export import APIStatus = TopLevelAPI.APIStatus;
 }

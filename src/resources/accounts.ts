@@ -351,9 +351,9 @@ export interface AccountListParams extends CursorPageParams {
 }
 
 export namespace Accounts {
-  export type Account = AccountsAPI.Account;
-  export type AccountSpendLimits = AccountsAPI.AccountSpendLimits;
+  export import Account = AccountsAPI.Account;
+  export import AccountSpendLimits = AccountsAPI.AccountSpendLimits;
   export import AccountsCursorPage = AccountsAPI.AccountsCursorPage;
-  export type AccountUpdateParams = AccountsAPI.AccountUpdateParams;
-  export type AccountListParams = AccountsAPI.AccountListParams;
+  export import AccountUpdateParams = AccountsAPI.AccountUpdateParams;
+  export import AccountListParams = AccountsAPI.AccountListParams;
 }

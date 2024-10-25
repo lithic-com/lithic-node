@@ -296,5 +296,5 @@ export namespace EnhancedData {
 }
 
 export namespace EnhancedCommercialData {
-  export type EnhancedData = EnhancedCommercialDataAPI.EnhancedData;
+  export import EnhancedData = EnhancedCommercialDataAPI.EnhancedData;
 }

@@ -88,6 +88,6 @@ export interface CreditConfigurationUpdateParams {
 }
 
 export namespace CreditConfiguration {
-  export type FinancialAccountCreditConfig = CreditConfigurationAPI.FinancialAccountCreditConfig;
-  export type CreditConfigurationUpdateParams = CreditConfigurationAPI.CreditConfigurationUpdateParams;
+  export import FinancialAccountCreditConfig = CreditConfigurationAPI.FinancialAccountCreditConfig;
+  export import CreditConfigurationUpdateParams = CreditConfigurationAPI.CreditConfigurationUpdateParams;
 }

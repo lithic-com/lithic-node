@@ -1075,32 +1075,24 @@ export interface TransactionSimulateVoidParams {
 }
 
 export namespace Transactions {
-  export type Transaction = TransactionsAPI.Transaction;
-  export type TransactionSimulateAuthorizationResponse =
-    TransactionsAPI.TransactionSimulateAuthorizationResponse;
-  export type TransactionSimulateAuthorizationAdviceResponse =
-    TransactionsAPI.TransactionSimulateAuthorizationAdviceResponse;
-  export type TransactionSimulateClearingResponse = TransactionsAPI.TransactionSimulateClearingResponse;
-  export type TransactionSimulateCreditAuthorizationResponse =
-    TransactionsAPI.TransactionSimulateCreditAuthorizationResponse;
-  export type TransactionSimulateReturnResponse = TransactionsAPI.TransactionSimulateReturnResponse;
-  export type TransactionSimulateReturnReversalResponse =
-    TransactionsAPI.TransactionSimulateReturnReversalResponse;
-  export type TransactionSimulateVoidResponse = TransactionsAPI.TransactionSimulateVoidResponse;
+  export import Transaction = TransactionsAPI.Transaction;
+  export import TransactionSimulateAuthorizationResponse = TransactionsAPI.TransactionSimulateAuthorizationResponse;
+  export import TransactionSimulateAuthorizationAdviceResponse = TransactionsAPI.TransactionSimulateAuthorizationAdviceResponse;
+  export import TransactionSimulateClearingResponse = TransactionsAPI.TransactionSimulateClearingResponse;
+  export import TransactionSimulateCreditAuthorizationResponse = TransactionsAPI.TransactionSimulateCreditAuthorizationResponse;
+  export import TransactionSimulateReturnResponse = TransactionsAPI.TransactionSimulateReturnResponse;
+  export import TransactionSimulateReturnReversalResponse = TransactionsAPI.TransactionSimulateReturnReversalResponse;
+  export import TransactionSimulateVoidResponse = TransactionsAPI.TransactionSimulateVoidResponse;
   export import TransactionsCursorPage = TransactionsAPI.TransactionsCursorPage;
-  export type TransactionListParams = TransactionsAPI.TransactionListParams;
-  export type TransactionSimulateAuthorizationParams = TransactionsAPI.TransactionSimulateAuthorizationParams;
-  export type TransactionSimulateAuthorizationAdviceParams =
-    TransactionsAPI.TransactionSimulateAuthorizationAdviceParams;
-  export type TransactionSimulateClearingParams = TransactionsAPI.TransactionSimulateClearingParams;
-  export type TransactionSimulateCreditAuthorizationParams =
-    TransactionsAPI.TransactionSimulateCreditAuthorizationParams;
-  export type TransactionSimulateReturnParams = TransactionsAPI.TransactionSimulateReturnParams;
-  export type TransactionSimulateReturnReversalParams =
-    TransactionsAPI.TransactionSimulateReturnReversalParams;
-  export type TransactionSimulateVoidParams = TransactionsAPI.TransactionSimulateVoidParams;
+  export import TransactionListParams = TransactionsAPI.TransactionListParams;
+  export import TransactionSimulateAuthorizationParams = TransactionsAPI.TransactionSimulateAuthorizationParams;
+  export import TransactionSimulateAuthorizationAdviceParams = TransactionsAPI.TransactionSimulateAuthorizationAdviceParams;
+  export import TransactionSimulateClearingParams = TransactionsAPI.TransactionSimulateClearingParams;
+  export import TransactionSimulateCreditAuthorizationParams = TransactionsAPI.TransactionSimulateCreditAuthorizationParams;
+  export import TransactionSimulateReturnParams = TransactionsAPI.TransactionSimulateReturnParams;
+  export import TransactionSimulateReturnReversalParams = TransactionsAPI.TransactionSimulateReturnReversalParams;
+  export import TransactionSimulateVoidParams = TransactionsAPI.TransactionSimulateVoidParams;
   export import EnhancedCommercialData = EnhancedCommercialDataAPI.EnhancedCommercialData;
-  export type EnhancedCommercialDataRetrieveResponse =
-    EnhancedCommercialDataAPI.EnhancedCommercialDataRetrieveResponse;
+  export import EnhancedCommercialDataRetrieveResponse = EnhancedCommercialDataAPI.EnhancedCommercialDataRetrieveResponse;
   export import Events = EventsAPI.Events;
 }

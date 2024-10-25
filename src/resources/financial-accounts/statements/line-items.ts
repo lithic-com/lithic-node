@@ -295,8 +295,8 @@ export interface LineItemListResponse {
 export interface LineItemListParams extends CursorPageParams {}
 
 export namespace LineItems {
-  export type StatementLineItems = LineItemsAPI.StatementLineItems;
-  export type LineItemListResponse = LineItemsAPI.LineItemListResponse;
+  export import StatementLineItems = LineItemsAPI.StatementLineItems;
+  export import LineItemListResponse = LineItemsAPI.LineItemListResponse;
   export import LineItemListResponsesCursorPage = LineItemsAPI.LineItemListResponsesCursorPage;
-  export type LineItemListParams = LineItemsAPI.LineItemListParams;
+  export import LineItemListParams = LineItemsAPI.LineItemListParams;
 }
