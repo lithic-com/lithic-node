@@ -202,9 +202,9 @@ export interface ManagementOperationReverseParams {
 }
 
 export namespace ManagementOperations {
-  export import ManagementOperationTransaction = ManagementOperationsAPI.ManagementOperationTransaction;
+  export type ManagementOperationTransaction = ManagementOperationsAPI.ManagementOperationTransaction;
   export import ManagementOperationTransactionsCursorPage = ManagementOperationsAPI.ManagementOperationTransactionsCursorPage;
-  export import ManagementOperationCreateParams = ManagementOperationsAPI.ManagementOperationCreateParams;
-  export import ManagementOperationListParams = ManagementOperationsAPI.ManagementOperationListParams;
-  export import ManagementOperationReverseParams = ManagementOperationsAPI.ManagementOperationReverseParams;
+  export type ManagementOperationCreateParams = ManagementOperationsAPI.ManagementOperationCreateParams;
+  export type ManagementOperationListParams = ManagementOperationsAPI.ManagementOperationListParams;
+  export type ManagementOperationReverseParams = ManagementOperationsAPI.ManagementOperationReverseParams;
 }

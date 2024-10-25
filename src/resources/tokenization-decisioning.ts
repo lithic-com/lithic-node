@@ -42,6 +42,7 @@ export interface TokenizationDecisioningRotateSecretResponse {
 }
 
 export namespace TokenizationDecisioning {
-  export import TokenizationSecret = TokenizationDecisioningAPI.TokenizationSecret;
-  export import TokenizationDecisioningRotateSecretResponse = TokenizationDecisioningAPI.TokenizationDecisioningRotateSecretResponse;
+  export type TokenizationSecret = TokenizationDecisioningAPI.TokenizationSecret;
+  export type TokenizationDecisioningRotateSecretResponse =
+    TokenizationDecisioningAPI.TokenizationDecisioningRotateSecretResponse;
 }

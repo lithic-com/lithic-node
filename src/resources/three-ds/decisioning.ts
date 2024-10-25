@@ -146,11 +146,12 @@ export interface DecisioningSimulateChallengeResponseParams {
 }
 
 export namespace Decisioning {
-  export import ChallengeResponse = DecisioningAPI.ChallengeResponse;
-  export import ChallengeResult = DecisioningAPI.ChallengeResult;
-  export import DecisioningRetrieveSecretResponse = DecisioningAPI.DecisioningRetrieveSecretResponse;
-  export import DecisioningSimulateChallengeResponse = DecisioningAPI.DecisioningSimulateChallengeResponse;
-  export import DecisioningChallengeResponseParams = DecisioningAPI.DecisioningChallengeResponseParams;
-  export import DecisioningSimulateChallengeParams = DecisioningAPI.DecisioningSimulateChallengeParams;
-  export import DecisioningSimulateChallengeResponseParams = DecisioningAPI.DecisioningSimulateChallengeResponseParams;
+  export type ChallengeResponse = DecisioningAPI.ChallengeResponse;
+  export type ChallengeResult = DecisioningAPI.ChallengeResult;
+  export type DecisioningRetrieveSecretResponse = DecisioningAPI.DecisioningRetrieveSecretResponse;
+  export type DecisioningSimulateChallengeResponse = DecisioningAPI.DecisioningSimulateChallengeResponse;
+  export type DecisioningChallengeResponseParams = DecisioningAPI.DecisioningChallengeResponseParams;
+  export type DecisioningSimulateChallengeParams = DecisioningAPI.DecisioningSimulateChallengeParams;
+  export type DecisioningSimulateChallengeResponseParams =
+    DecisioningAPI.DecisioningSimulateChallengeResponseParams;
 }

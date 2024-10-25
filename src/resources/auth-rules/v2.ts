@@ -1384,18 +1384,18 @@ export namespace V2DraftParams {
 }
 
 export namespace V2 {
-  export import V2CreateResponse = V2API.V2CreateResponse;
-  export import V2RetrieveResponse = V2API.V2RetrieveResponse;
-  export import V2UpdateResponse = V2API.V2UpdateResponse;
-  export import V2ListResponse = V2API.V2ListResponse;
-  export import V2ApplyResponse = V2API.V2ApplyResponse;
-  export import V2DraftResponse = V2API.V2DraftResponse;
-  export import V2PromoteResponse = V2API.V2PromoteResponse;
-  export import V2ReportResponse = V2API.V2ReportResponse;
+  export type V2CreateResponse = V2API.V2CreateResponse;
+  export type V2RetrieveResponse = V2API.V2RetrieveResponse;
+  export type V2UpdateResponse = V2API.V2UpdateResponse;
+  export type V2ListResponse = V2API.V2ListResponse;
+  export type V2ApplyResponse = V2API.V2ApplyResponse;
+  export type V2DraftResponse = V2API.V2DraftResponse;
+  export type V2PromoteResponse = V2API.V2PromoteResponse;
+  export type V2ReportResponse = V2API.V2ReportResponse;
   export import V2ListResponsesCursorPage = V2API.V2ListResponsesCursorPage;
-  export import V2CreateParams = V2API.V2CreateParams;
-  export import V2UpdateParams = V2API.V2UpdateParams;
-  export import V2ListParams = V2API.V2ListParams;
-  export import V2ApplyParams = V2API.V2ApplyParams;
-  export import V2DraftParams = V2API.V2DraftParams;
+  export type V2CreateParams = V2API.V2CreateParams;
+  export type V2UpdateParams = V2API.V2UpdateParams;
+  export type V2ListParams = V2API.V2ListParams;
+  export type V2ApplyParams = V2API.V2ApplyParams;
+  export type V2DraftParams = V2API.V2DraftParams;
 }

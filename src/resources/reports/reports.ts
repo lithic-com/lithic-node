@@ -253,9 +253,9 @@ export interface SettlementSummaryDetails {
 }
 
 export namespace Reports {
-  export import SettlementDetail = ReportsAPI.SettlementDetail;
-  export import SettlementReport = ReportsAPI.SettlementReport;
-  export import SettlementSummaryDetails = ReportsAPI.SettlementSummaryDetails;
+  export type SettlementDetail = ReportsAPI.SettlementDetail;
+  export type SettlementReport = ReportsAPI.SettlementReport;
+  export type SettlementSummaryDetails = ReportsAPI.SettlementSummaryDetails;
   export import Settlement = SettlementAPI.Settlement;
-  export import SettlementListDetailsParams = SettlementAPI.SettlementListDetailsParams;
+  export type SettlementListDetailsParams = SettlementAPI.SettlementListDetailsParams;
 }

@@ -834,28 +834,28 @@ export interface CardSearchByPanParams {
 }
 
 export namespace Cards {
-  export import Card = CardsAPI.Card;
-  export import CardSpendLimits = CardsAPI.CardSpendLimits;
-  export import SpendLimitDuration = CardsAPI.SpendLimitDuration;
-  export import CardEmbedResponse = CardsAPI.CardEmbedResponse;
-  export import CardProvisionResponse = CardsAPI.CardProvisionResponse;
+  export type Card = CardsAPI.Card;
+  export type CardSpendLimits = CardsAPI.CardSpendLimits;
+  export type SpendLimitDuration = CardsAPI.SpendLimitDuration;
+  export type CardEmbedResponse = CardsAPI.CardEmbedResponse;
+  export type CardProvisionResponse = CardsAPI.CardProvisionResponse;
   export import CardsCursorPage = CardsAPI.CardsCursorPage;
-  export import CardCreateParams = CardsAPI.CardCreateParams;
-  export import CardUpdateParams = CardsAPI.CardUpdateParams;
-  export import CardListParams = CardsAPI.CardListParams;
-  export import CardEmbedParams = CardsAPI.CardEmbedParams;
-  export import CardProvisionParams = CardsAPI.CardProvisionParams;
-  export import CardReissueParams = CardsAPI.CardReissueParams;
-  export import CardRenewParams = CardsAPI.CardRenewParams;
-  export import CardSearchByPanParams = CardsAPI.CardSearchByPanParams;
+  export type CardCreateParams = CardsAPI.CardCreateParams;
+  export type CardUpdateParams = CardsAPI.CardUpdateParams;
+  export type CardListParams = CardsAPI.CardListParams;
+  export type CardEmbedParams = CardsAPI.CardEmbedParams;
+  export type CardProvisionParams = CardsAPI.CardProvisionParams;
+  export type CardReissueParams = CardsAPI.CardReissueParams;
+  export type CardRenewParams = CardsAPI.CardRenewParams;
+  export type CardSearchByPanParams = CardsAPI.CardSearchByPanParams;
   export import AggregateBalances = AggregateBalancesAPI.AggregateBalances;
-  export import AggregateBalanceListResponse = AggregateBalancesAPI.AggregateBalanceListResponse;
+  export type AggregateBalanceListResponse = AggregateBalancesAPI.AggregateBalanceListResponse;
   export import AggregateBalanceListResponsesSinglePage = AggregateBalancesAPI.AggregateBalanceListResponsesSinglePage;
-  export import AggregateBalanceListParams = AggregateBalancesAPI.AggregateBalanceListParams;
+  export type AggregateBalanceListParams = AggregateBalancesAPI.AggregateBalanceListParams;
   export import Balances = BalancesAPI.Balances;
-  export import BalanceListResponse = BalancesAPI.BalanceListResponse;
+  export type BalanceListResponse = BalancesAPI.BalanceListResponse;
   export import BalanceListResponsesSinglePage = BalancesAPI.BalanceListResponsesSinglePage;
-  export import BalanceListParams = BalancesAPI.BalanceListParams;
+  export type BalanceListParams = BalancesAPI.BalanceListParams;
   export import FinancialTransactions = FinancialTransactionsAPI.FinancialTransactions;
-  export import FinancialTransactionListParams = FinancialTransactionsAPI.FinancialTransactionListParams;
+  export type FinancialTransactionListParams = FinancialTransactionsAPI.FinancialTransactionListParams;
 }
