@@ -354,27 +354,27 @@ export interface FinancialAccountListParams {
 }
 
 export namespace FinancialAccounts {
-  export import FinancialAccount = FinancialAccountsAPI.FinancialAccount;
-  export import FinancialTransaction = FinancialAccountsAPI.FinancialTransaction;
+  export type FinancialAccount = FinancialAccountsAPI.FinancialAccount;
+  export type FinancialTransaction = FinancialAccountsAPI.FinancialTransaction;
   export import FinancialAccountsSinglePage = FinancialAccountsAPI.FinancialAccountsSinglePage;
-  export import FinancialAccountCreateParams = FinancialAccountsAPI.FinancialAccountCreateParams;
-  export import FinancialAccountUpdateParams = FinancialAccountsAPI.FinancialAccountUpdateParams;
-  export import FinancialAccountListParams = FinancialAccountsAPI.FinancialAccountListParams;
+  export type FinancialAccountCreateParams = FinancialAccountsAPI.FinancialAccountCreateParams;
+  export type FinancialAccountUpdateParams = FinancialAccountsAPI.FinancialAccountUpdateParams;
+  export type FinancialAccountListParams = FinancialAccountsAPI.FinancialAccountListParams;
   export import Balances = BalancesAPI.Balances;
-  export import BalanceListResponse = BalancesAPI.BalanceListResponse;
+  export type BalanceListResponse = BalancesAPI.BalanceListResponse;
   export import BalanceListResponsesSinglePage = BalancesAPI.BalanceListResponsesSinglePage;
-  export import BalanceListParams = BalancesAPI.BalanceListParams;
+  export type BalanceListParams = BalancesAPI.BalanceListParams;
   export import FinancialTransactions = FinancialTransactionsAPI.FinancialTransactions;
-  export import FinancialTransactionListParams = FinancialTransactionsAPI.FinancialTransactionListParams;
+  export type FinancialTransactionListParams = FinancialTransactionsAPI.FinancialTransactionListParams;
   export import CreditConfiguration = CreditConfigurationAPI.CreditConfiguration;
-  export import FinancialAccountCreditConfig = CreditConfigurationAPI.FinancialAccountCreditConfig;
-  export import CreditConfigurationUpdateParams = CreditConfigurationAPI.CreditConfigurationUpdateParams;
+  export type FinancialAccountCreditConfig = CreditConfigurationAPI.FinancialAccountCreditConfig;
+  export type CreditConfigurationUpdateParams = CreditConfigurationAPI.CreditConfigurationUpdateParams;
   export import Statements = StatementsAPI.Statements;
-  export import Statement = StatementsAPI.Statement;
+  export type Statement = StatementsAPI.Statement;
   export import StatementsCursorPage = StatementsAPI.StatementsCursorPage;
-  export import StatementListParams = StatementsAPI.StatementListParams;
+  export type StatementListParams = StatementsAPI.StatementListParams;
   export import LoanTapes = LoanTapesAPI.LoanTapes;
-  export import LoanTape = LoanTapesAPI.LoanTape;
+  export type LoanTape = LoanTapesAPI.LoanTape;
   export import LoanTapesCursorPage = LoanTapesAPI.LoanTapesCursorPage;
-  export import LoanTapeListParams = LoanTapesAPI.LoanTapeListParams;
+  export type LoanTapeListParams = LoanTapesAPI.LoanTapeListParams;
 }

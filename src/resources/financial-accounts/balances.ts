@@ -111,7 +111,7 @@ export interface BalanceListParams {
 }
 
 export namespace Balances {
-  export import BalanceListResponse = BalancesAPI.BalanceListResponse;
+  export type BalanceListResponse = BalancesAPI.BalanceListResponse;
   export import BalanceListResponsesSinglePage = BalancesAPI.BalanceListResponsesSinglePage;
-  export import BalanceListParams = BalancesAPI.BalanceListParams;
+  export type BalanceListParams = BalancesAPI.BalanceListParams;
 }

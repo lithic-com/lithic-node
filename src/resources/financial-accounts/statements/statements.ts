@@ -339,13 +339,13 @@ export interface StatementListParams extends CursorPageParams {
 }
 
 export namespace Statements {
-  export import Statement = StatementsAPI.Statement;
-  export import Statements = StatementsAPI.Statements;
+  export type Statement = StatementsAPI.Statement;
+  export type Statements = StatementsAPI.Statements;
   export import StatementsCursorPage = StatementsAPI.StatementsCursorPage;
-  export import StatementListParams = StatementsAPI.StatementListParams;
+  export type StatementListParams = StatementsAPI.StatementListParams;
   export import LineItems = LineItemsAPI.LineItems;
-  export import StatementLineItems = LineItemsAPI.StatementLineItems;
-  export import LineItemListResponse = LineItemsAPI.LineItemListResponse;
+  export type StatementLineItems = LineItemsAPI.StatementLineItems;
+  export type LineItemListResponse = LineItemsAPI.LineItemListResponse;
   export import LineItemListResponsesCursorPage = LineItemsAPI.LineItemListResponsesCursorPage;
-  export import LineItemListParams = LineItemsAPI.LineItemListParams;
+  export type LineItemListParams = LineItemsAPI.LineItemListParams;
 }

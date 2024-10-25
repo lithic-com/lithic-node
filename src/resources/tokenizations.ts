@@ -387,13 +387,16 @@ export interface TokenizationUpdateDigitalCardArtParams {
 }
 
 export namespace Tokenizations {
-  export import Tokenization = TokenizationsAPI.Tokenization;
-  export import TokenizationRetrieveResponse = TokenizationsAPI.TokenizationRetrieveResponse;
-  export import TokenizationSimulateResponse = TokenizationsAPI.TokenizationSimulateResponse;
-  export import TokenizationUpdateDigitalCardArtResponse = TokenizationsAPI.TokenizationUpdateDigitalCardArtResponse;
+  export type Tokenization = TokenizationsAPI.Tokenization;
+  export type TokenizationRetrieveResponse = TokenizationsAPI.TokenizationRetrieveResponse;
+  export type TokenizationSimulateResponse = TokenizationsAPI.TokenizationSimulateResponse;
+  export type TokenizationUpdateDigitalCardArtResponse =
+    TokenizationsAPI.TokenizationUpdateDigitalCardArtResponse;
   export import TokenizationsCursorPage = TokenizationsAPI.TokenizationsCursorPage;
-  export import TokenizationListParams = TokenizationsAPI.TokenizationListParams;
-  export import TokenizationResendActivationCodeParams = TokenizationsAPI.TokenizationResendActivationCodeParams;
-  export import TokenizationSimulateParams = TokenizationsAPI.TokenizationSimulateParams;
-  export import TokenizationUpdateDigitalCardArtParams = TokenizationsAPI.TokenizationUpdateDigitalCardArtParams;
+  export type TokenizationListParams = TokenizationsAPI.TokenizationListParams;
+  export type TokenizationResendActivationCodeParams =
+    TokenizationsAPI.TokenizationResendActivationCodeParams;
+  export type TokenizationSimulateParams = TokenizationsAPI.TokenizationSimulateParams;
+  export type TokenizationUpdateDigitalCardArtParams =
+    TokenizationsAPI.TokenizationUpdateDigitalCardArtParams;
 }

@@ -468,18 +468,18 @@ export interface PaymentSimulateReturnParams {
 }
 
 export namespace Payments {
-  export import Payment = PaymentsAPI.Payment;
-  export import PaymentCreateResponse = PaymentsAPI.PaymentCreateResponse;
-  export import PaymentRetryResponse = PaymentsAPI.PaymentRetryResponse;
-  export import PaymentSimulateActionResponse = PaymentsAPI.PaymentSimulateActionResponse;
-  export import PaymentSimulateReceiptResponse = PaymentsAPI.PaymentSimulateReceiptResponse;
-  export import PaymentSimulateReleaseResponse = PaymentsAPI.PaymentSimulateReleaseResponse;
-  export import PaymentSimulateReturnResponse = PaymentsAPI.PaymentSimulateReturnResponse;
+  export type Payment = PaymentsAPI.Payment;
+  export type PaymentCreateResponse = PaymentsAPI.PaymentCreateResponse;
+  export type PaymentRetryResponse = PaymentsAPI.PaymentRetryResponse;
+  export type PaymentSimulateActionResponse = PaymentsAPI.PaymentSimulateActionResponse;
+  export type PaymentSimulateReceiptResponse = PaymentsAPI.PaymentSimulateReceiptResponse;
+  export type PaymentSimulateReleaseResponse = PaymentsAPI.PaymentSimulateReleaseResponse;
+  export type PaymentSimulateReturnResponse = PaymentsAPI.PaymentSimulateReturnResponse;
   export import PaymentsCursorPage = PaymentsAPI.PaymentsCursorPage;
-  export import PaymentCreateParams = PaymentsAPI.PaymentCreateParams;
-  export import PaymentListParams = PaymentsAPI.PaymentListParams;
-  export import PaymentSimulateActionParams = PaymentsAPI.PaymentSimulateActionParams;
-  export import PaymentSimulateReceiptParams = PaymentsAPI.PaymentSimulateReceiptParams;
-  export import PaymentSimulateReleaseParams = PaymentsAPI.PaymentSimulateReleaseParams;
-  export import PaymentSimulateReturnParams = PaymentsAPI.PaymentSimulateReturnParams;
+  export type PaymentCreateParams = PaymentsAPI.PaymentCreateParams;
+  export type PaymentListParams = PaymentsAPI.PaymentListParams;
+  export type PaymentSimulateActionParams = PaymentsAPI.PaymentSimulateActionParams;
+  export type PaymentSimulateReceiptParams = PaymentsAPI.PaymentSimulateReceiptParams;
+  export type PaymentSimulateReleaseParams = PaymentsAPI.PaymentSimulateReleaseParams;
+  export type PaymentSimulateReturnParams = PaymentsAPI.PaymentSimulateReturnParams;
 }

@@ -149,6 +149,6 @@ export interface MicroDepositCreateParams {
 }
 
 export namespace MicroDeposits {
-  export import MicroDepositCreateResponse = MicroDepositsAPI.MicroDepositCreateResponse;
-  export import MicroDepositCreateParams = MicroDepositsAPI.MicroDepositCreateParams;
+  export type MicroDepositCreateResponse = MicroDepositsAPI.MicroDepositCreateResponse;
+  export type MicroDepositCreateParams = MicroDepositsAPI.MicroDepositCreateParams;
 }

@@ -441,7 +441,7 @@ export interface LoanTapeListParams extends CursorPageParams {
 }
 
 export namespace LoanTapes {
-  export import LoanTape = LoanTapesAPI.LoanTape;
+  export type LoanTape = LoanTapesAPI.LoanTape;
   export import LoanTapesCursorPage = LoanTapesAPI.LoanTapesCursorPage;
-  export import LoanTapeListParams = LoanTapesAPI.LoanTapeListParams;
+  export type LoanTapeListParams = LoanTapesAPI.LoanTapeListParams;
 }

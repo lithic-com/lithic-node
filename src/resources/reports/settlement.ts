@@ -47,7 +47,7 @@ export class Settlement extends APIResource {
 export interface SettlementListDetailsParams extends CursorPageParams {}
 
 export namespace Settlement {
-  export import SettlementListDetailsParams = SettlementAPI.SettlementListDetailsParams;
+  export type SettlementListDetailsParams = SettlementAPI.SettlementListDetailsParams;
 }
 
 export { SettlementDetailsCursorPage };

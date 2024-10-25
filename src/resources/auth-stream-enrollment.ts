@@ -36,5 +36,5 @@ export interface AuthStreamSecret {
 }
 
 export namespace AuthStreamEnrollment {
-  export import AuthStreamSecret = AuthStreamEnrollmentAPI.AuthStreamSecret;
+  export type AuthStreamSecret = AuthStreamEnrollmentAPI.AuthStreamSecret;
 }

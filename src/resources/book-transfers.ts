@@ -310,9 +310,9 @@ export interface BookTransferReverseParams {
 }
 
 export namespace BookTransfers {
-  export import BookTransferResponse = BookTransfersAPI.BookTransferResponse;
+  export type BookTransferResponse = BookTransfersAPI.BookTransferResponse;
   export import BookTransferResponsesCursorPage = BookTransfersAPI.BookTransferResponsesCursorPage;
-  export import BookTransferCreateParams = BookTransfersAPI.BookTransferCreateParams;
-  export import BookTransferListParams = BookTransfersAPI.BookTransferListParams;
-  export import BookTransferReverseParams = BookTransfersAPI.BookTransferReverseParams;
+  export type BookTransferCreateParams = BookTransfersAPI.BookTransferCreateParams;
+  export type BookTransferListParams = BookTransfersAPI.BookTransferListParams;
+  export type BookTransferReverseParams = BookTransfersAPI.BookTransferReverseParams;
 }

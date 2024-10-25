@@ -11,5 +11,5 @@ export class CreditProducts extends APIResource {
 
 export namespace CreditProducts {
   export import ExtendedCreditResource = ExtendedCreditAPI.ExtendedCreditResource;
-  export import ExtendedCredit = ExtendedCreditAPI.ExtendedCredit;
+  export type ExtendedCredit = ExtendedCreditAPI.ExtendedCredit;
 }

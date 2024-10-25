@@ -92,7 +92,7 @@ export interface FinancialTransactionListParams {
 }
 
 export namespace FinancialTransactions {
-  export import FinancialTransactionListParams = FinancialTransactionsAPI.FinancialTransactionListParams;
+  export type FinancialTransactionListParams = FinancialTransactionsAPI.FinancialTransactionListParams;
 }
 
 export { FinancialTransactionsSinglePage };
