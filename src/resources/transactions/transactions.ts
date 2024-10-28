@@ -15,14 +15,16 @@ export class Transactions extends APIResource {
   events: EventsAPI.Events = new EventsAPI.Events(this._client);
 
   /**
-   * Get specific card transaction.
+   * Get a specific card transaction. All amounts are in the smallest unit of their
+   * respective currency (e.g., cents for USD).
    */
   retrieve(transactionToken: string, options?: Core.RequestOptions): Core.APIPromise<Transaction> {
     return this._client.get(`/v1/transactions/${transactionToken}`, options);
   }
 
   /**
-   * List card transactions.
+   * List card transactions. All amounts are in the smallest unit of their respective
+   * currency (e.g., cents for USD) and inclusive of any acquirer fees.
    */
   list(
     query?: TransactionListParams,
@@ -159,18 +161,17 @@ export interface Transaction {
   acquirer_reference_number: string | null;
 
   /**
-   * Authorization amount of the transaction (in cents), including any acquirer fees.
-   * This may change over time, and will represent the settled amount once the
-   * transaction is settled.
+   * When the transaction is pending, this represents the authorization amount of the
+   * transaction in the anticipated settlement currency. Once the transaction has
+   * settled, this field represents the settled amount in the settlement currency.
    */
   amount: number;
 
   amounts: Transaction.Amounts;
 
   /**
-   * Authorization amount (in cents) of the transaction, including any acquirer fees.
-   * This amount always represents the amount authorized for the transaction,
-   * unaffected by settlement.
+   * The authorization amount of the transaction in the anticipated settlement
+   * currency.
    */
   authorization_amount: number | null;
 
@@ -197,15 +198,12 @@ export interface Transaction {
   merchant: Transaction.Merchant;
 
   /**
-   * Analogous to the 'amount' property, but will represent the amount in the
-   * transaction's local currency (smallest unit), including any acquirer fees.
+   * Analogous to the 'amount', but in the merchant currency.
    */
   merchant_amount: number | null;
 
   /**
-   * Analogous to the 'authorization_amount' property, but will represent the amount
-   * in the transaction's local currency (smallest unit), including any acquirer
-   * fees.
+   * Analogous to the 'authorization_amount', but in the merchant currency.
    */
   merchant_authorization_amount: number | null;
 
@@ -258,8 +256,7 @@ export interface Transaction {
     | 'USER_TRANSACTION_LIMIT';
 
   /**
-   * Amount of the transaction that has been settled (in cents), including any
-   * acquirer fees. This may change over time.
+   * The settled amount of the transaction in the settlement currency.
    */
   settled_amount: number;
 
@@ -292,13 +289,13 @@ export namespace Transaction {
   export namespace Amounts {
     export interface Cardholder {
       /**
-       * The aggregate settled amount in the cardholder's local currency.
+       * The aggregate settled amount in the cardholder billing currency.
        */
       amount: number;
 
       /**
        * The conversion rate used to convert the merchant amount to the cardholder
-       * amount.
+       * billing amount.
        */
       conversion_rate: string;
 
@@ -312,7 +309,8 @@ export namespace Transaction {
 
     export interface Hold {
       /**
-       * The aggregate pending amount in the anticipated settlement currency.
+       * The aggregate authorization amount of the transaction in the anticipated
+       * settlement currency.
        */
       amount: number;
 
@@ -326,7 +324,7 @@ export namespace Transaction {
 
     export interface Merchant {
       /**
-       * The aggregate settled amount in the merchant's local currency.
+       * The aggregate settled amount in the merchant currency.
        */
       amount: number;
 
@@ -608,7 +606,7 @@ export namespace Transaction {
     token: string;
 
     /**
-     * Amount of the transaction event (in cents), including any acquirer fees.
+     * Amount of the event in the settlement currency.
      */
     amount: number;
 
@@ -736,13 +734,13 @@ export namespace Transaction {
     export namespace Amounts {
       export interface Cardholder {
         /**
-         * The amount in the cardholder's local currency.
+         * The amount in the cardholder billing currency.
          */
         amount: number;
 
         /**
          * The conversion rate used to convert the merchant amount to the cardholder
-         * amount.
+         * billing amount.
          */
         conversion_rate: string;
 
@@ -756,7 +754,7 @@ export namespace Transaction {
 
       export interface Merchant {
         /**
-         * The amount in the merchant's local currency.
+         * The amount in the merchant currency.
          */
         amount: number;
 
@@ -770,7 +768,7 @@ export namespace Transaction {
 
       export interface Settlement {
         /**
-         * The amount in the settlement currency.
+         * Amount of the event, if it is financial, in the settlement currency.
          */
         amount: number;
 
