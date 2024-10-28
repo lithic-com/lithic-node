@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.84.1 (2024-10-28)
+
+Full Changelog: [v0.84.0...v0.84.1](https://github.com/lithic-com/lithic-node/compare/v0.84.0...v0.84.1)
+
+### Bug Fixes
+
+* **internal:** support pnpm git installs ([#545](https://github.com/lithic-com/lithic-node/issues/545)) ([22c93bf](https://github.com/lithic-com/lithic-node/commit/22c93bfa8ae09ae9f8c0a8dd56011f545ab68e5d))
+
+
+### Chores
+
+* **api:** add `PIN_BLOCKED` to `detailed_results` property on Event ([#538](https://github.com/lithic-com/lithic-node/issues/538)) ([0c6c096](https://github.com/lithic-com/lithic-node/commit/0c6c09661be887eee12ac3b61a2a58e9cd0057aa))
+* **api:** adds new result types to Transactions and Events ([#540](https://github.com/lithic-com/lithic-node/issues/540)) ([b98cb38](https://github.com/lithic-com/lithic-node/commit/b98cb386a95176d7504accf9f129e3600f118d1d))
+
+
+### Documentation
+
+* **readme:** minor typo fixes ([#544](https://github.com/lithic-com/lithic-node/issues/544)) ([eca7b13](https://github.com/lithic-com/lithic-node/commit/eca7b13e69ff9563d5f6a59106fb4dc90a0ca955))
+
 ## 0.84.0 (2024-10-23)
 
 Full Changelog: [v0.83.0...v0.84.0](https://github.com/lithic-com/lithic-node/compare/v0.83.0...v0.84.0)
