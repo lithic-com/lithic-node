@@ -141,6 +141,7 @@ export {
   FinancialAccountCreateParams,
   FinancialAccountUpdateParams,
   FinancialAccountListParams,
+  FinancialAccountChargeOffParams,
   FinancialTransactionsSinglePage,
   FinancialAccountsSinglePage,
   FinancialAccounts,
