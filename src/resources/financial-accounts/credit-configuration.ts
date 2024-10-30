@@ -49,6 +49,11 @@ export interface FinancialAccountCreditConfig {
    */
   account_token: string;
 
+  /**
+   * Reason for the financial account being marked as Charged Off
+   */
+  charged_off_reason: 'DELINQUENT' | 'FRAUD' | null;
+
   credit_limit: number | null;
 
   /**
@@ -59,16 +64,16 @@ export interface FinancialAccountCreditConfig {
   external_bank_account_token: string | null;
 
   /**
+   * State of the financial account
+   */
+  financial_account_state: 'PENDING' | 'CURRENT' | 'DELINQUENT' | 'CHARGED_OFF';
+
+  is_spend_blocked: boolean;
+
+  /**
    * Tier assigned to the financial account
    */
   tier: string | null;
-
-  /**
-   * State of the financial account
-   */
-  financial_account_state?: 'PENDING' | 'CURRENT' | 'DELINQUENT';
-
-  is_spend_blocked?: boolean;
 }
 
 export interface CreditConfigurationUpdateParams {

@@ -375,6 +375,7 @@ export namespace Lithic {
   export import FinancialAccountCreateParams = API.FinancialAccountCreateParams;
   export import FinancialAccountUpdateParams = API.FinancialAccountUpdateParams;
   export import FinancialAccountListParams = API.FinancialAccountListParams;
+  export import FinancialAccountChargeOffParams = API.FinancialAccountChargeOffParams;
 
   export import Transactions = API.Transactions;
   export import Transaction = API.Transaction;
