@@ -86,6 +86,20 @@ export class FinancialAccounts extends APIResource {
       ...options,
     });
   }
+
+  /**
+   * Update issuing account state to charged off
+   */
+  chargeOff(
+    financialAccountToken: string,
+    body: FinancialAccountChargeOffParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<CreditConfigurationAPI.FinancialAccountCreditConfig> {
+    return this._client.patch(`/v1/financial_accounts/${financialAccountToken}/charge_off`, {
+      body,
+      ...options,
+    });
+  }
 }
 
 export class FinancialAccountsSinglePage extends SinglePage<FinancialAccount> {}
@@ -122,6 +136,11 @@ export interface FinancialAccount {
 
 export namespace FinancialAccount {
   export interface CreditConfiguration {
+    /**
+     * Reason for the financial account being marked as Charged Off
+     */
+    charged_off_reason: 'DELINQUENT' | 'FRAUD' | null;
+
     credit_limit: number | null;
 
     /**
@@ -132,14 +151,16 @@ export namespace FinancialAccount {
     external_bank_account_token: string | null;
 
     /**
+     * State of the financial account
+     */
+    financial_account_state: 'PENDING' | 'CURRENT' | 'DELINQUENT' | 'CHARGED_OFF' | null;
+
+    is_spend_blocked: boolean;
+
+    /**
      * Tier assigned to the financial account
      */
     tier: string | null;
-
-    /**
-     * State of the financial account
-     */
-    financial_account_state?: 'PENDING' | 'CURRENT' | 'DELINQUENT';
   }
 }
 
@@ -353,6 +374,13 @@ export interface FinancialAccountListParams {
   type?: 'ISSUING' | 'OPERATING' | 'RESERVE';
 }
 
+export interface FinancialAccountChargeOffParams {
+  /**
+   * Reason for the financial account being marked as Charged Off
+   */
+  reason: 'DELINQUENT' | 'FRAUD';
+}
+
 export namespace FinancialAccounts {
   export import FinancialAccount = FinancialAccountsAPI.FinancialAccount;
   export import FinancialTransaction = FinancialAccountsAPI.FinancialTransaction;
@@ -360,6 +388,7 @@ export namespace FinancialAccounts {
   export import FinancialAccountCreateParams = FinancialAccountsAPI.FinancialAccountCreateParams;
   export import FinancialAccountUpdateParams = FinancialAccountsAPI.FinancialAccountUpdateParams;
   export import FinancialAccountListParams = FinancialAccountsAPI.FinancialAccountListParams;
+  export import FinancialAccountChargeOffParams = FinancialAccountsAPI.FinancialAccountChargeOffParams;
   export import Balances = BalancesAPI.Balances;
   export import BalanceListResponse = BalancesAPI.BalanceListResponse;
   export import BalanceListResponsesSinglePage = BalancesAPI.BalanceListResponsesSinglePage;
