@@ -3,8 +3,14 @@
 import { APIResource } from '../../../resource';
 import { isRequestOptions } from '../../../core';
 import * as Core from '../../../core';
-import * as StatementsAPI from './statements';
 import * as LineItemsAPI from './line-items';
+import {
+  LineItemListParams,
+  LineItemListResponse,
+  LineItemListResponsesCursorPage,
+  LineItems,
+  StatementLineItems,
+} from './line-items';
 import { CursorPage, type CursorPageParams } from '../../../pagination';
 
 export class Statements extends APIResource {
@@ -338,14 +344,23 @@ export interface StatementListParams extends CursorPageParams {
   include_initial_statements?: boolean;
 }
 
-export namespace Statements {
-  export import Statement = StatementsAPI.Statement;
-  export import Statements = StatementsAPI.Statements;
-  export import StatementsCursorPage = StatementsAPI.StatementsCursorPage;
-  export import StatementListParams = StatementsAPI.StatementListParams;
-  export import LineItems = LineItemsAPI.LineItems;
-  export import StatementLineItems = LineItemsAPI.StatementLineItems;
-  export import LineItemListResponse = LineItemsAPI.LineItemListResponse;
-  export import LineItemListResponsesCursorPage = LineItemsAPI.LineItemListResponsesCursorPage;
-  export import LineItemListParams = LineItemsAPI.LineItemListParams;
+Statements.StatementsCursorPage = StatementsCursorPage;
+Statements.LineItems = LineItems;
+Statements.LineItemListResponsesCursorPage = LineItemListResponsesCursorPage;
+
+export declare namespace Statements {
+  export {
+    type Statement as Statement,
+    type Statements as Statements,
+    StatementsCursorPage as StatementsCursorPage,
+    type StatementListParams as StatementListParams,
+  };
+
+  export {
+    LineItems as LineItems,
+    type StatementLineItems as StatementLineItems,
+    type LineItemListResponse as LineItemListResponse,
+    LineItemListResponsesCursorPage as LineItemListResponsesCursorPage,
+    type LineItemListParams as LineItemListParams,
+  };
 }

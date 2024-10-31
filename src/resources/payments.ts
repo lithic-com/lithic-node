@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as PaymentsAPI from './payments';
 import * as BalancesAPI from './balances';
 import { CursorPage, type CursorPageParams } from '../pagination';
 
@@ -467,19 +466,23 @@ export interface PaymentSimulateReturnParams {
   return_reason_code?: string;
 }
 
-export namespace Payments {
-  export import Payment = PaymentsAPI.Payment;
-  export import PaymentCreateResponse = PaymentsAPI.PaymentCreateResponse;
-  export import PaymentRetryResponse = PaymentsAPI.PaymentRetryResponse;
-  export import PaymentSimulateActionResponse = PaymentsAPI.PaymentSimulateActionResponse;
-  export import PaymentSimulateReceiptResponse = PaymentsAPI.PaymentSimulateReceiptResponse;
-  export import PaymentSimulateReleaseResponse = PaymentsAPI.PaymentSimulateReleaseResponse;
-  export import PaymentSimulateReturnResponse = PaymentsAPI.PaymentSimulateReturnResponse;
-  export import PaymentsCursorPage = PaymentsAPI.PaymentsCursorPage;
-  export import PaymentCreateParams = PaymentsAPI.PaymentCreateParams;
-  export import PaymentListParams = PaymentsAPI.PaymentListParams;
-  export import PaymentSimulateActionParams = PaymentsAPI.PaymentSimulateActionParams;
-  export import PaymentSimulateReceiptParams = PaymentsAPI.PaymentSimulateReceiptParams;
-  export import PaymentSimulateReleaseParams = PaymentsAPI.PaymentSimulateReleaseParams;
-  export import PaymentSimulateReturnParams = PaymentsAPI.PaymentSimulateReturnParams;
+Payments.PaymentsCursorPage = PaymentsCursorPage;
+
+export declare namespace Payments {
+  export {
+    type Payment as Payment,
+    type PaymentCreateResponse as PaymentCreateResponse,
+    type PaymentRetryResponse as PaymentRetryResponse,
+    type PaymentSimulateActionResponse as PaymentSimulateActionResponse,
+    type PaymentSimulateReceiptResponse as PaymentSimulateReceiptResponse,
+    type PaymentSimulateReleaseResponse as PaymentSimulateReleaseResponse,
+    type PaymentSimulateReturnResponse as PaymentSimulateReturnResponse,
+    PaymentsCursorPage as PaymentsCursorPage,
+    type PaymentCreateParams as PaymentCreateParams,
+    type PaymentListParams as PaymentListParams,
+    type PaymentSimulateActionParams as PaymentSimulateActionParams,
+    type PaymentSimulateReceiptParams as PaymentSimulateReceiptParams,
+    type PaymentSimulateReleaseParams as PaymentSimulateReleaseParams,
+    type PaymentSimulateReturnParams as PaymentSimulateReturnParams,
+  };
 }

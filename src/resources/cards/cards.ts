@@ -3,11 +3,18 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as CardsAPI from './cards';
 import * as Shared from '../shared';
 import * as AggregateBalancesAPI from './aggregate-balances';
+import {
+  AggregateBalanceListParams,
+  AggregateBalanceListResponse,
+  AggregateBalanceListResponsesSinglePage,
+  AggregateBalances,
+} from './aggregate-balances';
 import * as BalancesAPI from './balances';
+import { BalanceListParams, BalanceListResponse, BalanceListResponsesSinglePage, Balances } from './balances';
 import * as FinancialTransactionsAPI from './financial-transactions';
+import { FinancialTransactionListParams, FinancialTransactions } from './financial-transactions';
 import { CursorPage, type CursorPageParams } from '../../pagination';
 
 export class Cards extends APIResource {
@@ -833,29 +840,47 @@ export interface CardSearchByPanParams {
   pan: string;
 }
 
-export namespace Cards {
-  export import Card = CardsAPI.Card;
-  export import CardSpendLimits = CardsAPI.CardSpendLimits;
-  export import SpendLimitDuration = CardsAPI.SpendLimitDuration;
-  export import CardEmbedResponse = CardsAPI.CardEmbedResponse;
-  export import CardProvisionResponse = CardsAPI.CardProvisionResponse;
-  export import CardsCursorPage = CardsAPI.CardsCursorPage;
-  export import CardCreateParams = CardsAPI.CardCreateParams;
-  export import CardUpdateParams = CardsAPI.CardUpdateParams;
-  export import CardListParams = CardsAPI.CardListParams;
-  export import CardEmbedParams = CardsAPI.CardEmbedParams;
-  export import CardProvisionParams = CardsAPI.CardProvisionParams;
-  export import CardReissueParams = CardsAPI.CardReissueParams;
-  export import CardRenewParams = CardsAPI.CardRenewParams;
-  export import CardSearchByPanParams = CardsAPI.CardSearchByPanParams;
-  export import AggregateBalances = AggregateBalancesAPI.AggregateBalances;
-  export import AggregateBalanceListResponse = AggregateBalancesAPI.AggregateBalanceListResponse;
-  export import AggregateBalanceListResponsesSinglePage = AggregateBalancesAPI.AggregateBalanceListResponsesSinglePage;
-  export import AggregateBalanceListParams = AggregateBalancesAPI.AggregateBalanceListParams;
-  export import Balances = BalancesAPI.Balances;
-  export import BalanceListResponse = BalancesAPI.BalanceListResponse;
-  export import BalanceListResponsesSinglePage = BalancesAPI.BalanceListResponsesSinglePage;
-  export import BalanceListParams = BalancesAPI.BalanceListParams;
-  export import FinancialTransactions = FinancialTransactionsAPI.FinancialTransactions;
-  export import FinancialTransactionListParams = FinancialTransactionsAPI.FinancialTransactionListParams;
+Cards.CardsCursorPage = CardsCursorPage;
+Cards.AggregateBalances = AggregateBalances;
+Cards.AggregateBalanceListResponsesSinglePage = AggregateBalanceListResponsesSinglePage;
+Cards.Balances = Balances;
+Cards.BalanceListResponsesSinglePage = BalanceListResponsesSinglePage;
+Cards.FinancialTransactions = FinancialTransactions;
+
+export declare namespace Cards {
+  export {
+    type Card as Card,
+    type CardSpendLimits as CardSpendLimits,
+    type SpendLimitDuration as SpendLimitDuration,
+    type CardEmbedResponse as CardEmbedResponse,
+    type CardProvisionResponse as CardProvisionResponse,
+    CardsCursorPage as CardsCursorPage,
+    type CardCreateParams as CardCreateParams,
+    type CardUpdateParams as CardUpdateParams,
+    type CardListParams as CardListParams,
+    type CardEmbedParams as CardEmbedParams,
+    type CardProvisionParams as CardProvisionParams,
+    type CardReissueParams as CardReissueParams,
+    type CardRenewParams as CardRenewParams,
+    type CardSearchByPanParams as CardSearchByPanParams,
+  };
+
+  export {
+    AggregateBalances as AggregateBalances,
+    type AggregateBalanceListResponse as AggregateBalanceListResponse,
+    AggregateBalanceListResponsesSinglePage as AggregateBalanceListResponsesSinglePage,
+    type AggregateBalanceListParams as AggregateBalanceListParams,
+  };
+
+  export {
+    Balances as Balances,
+    type BalanceListResponse as BalanceListResponse,
+    BalanceListResponsesSinglePage as BalanceListResponsesSinglePage,
+    type BalanceListParams as BalanceListParams,
+  };
+
+  export {
+    FinancialTransactions as FinancialTransactions,
+    type FinancialTransactionListParams as FinancialTransactionListParams,
+  };
 }

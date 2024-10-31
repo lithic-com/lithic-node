@@ -3,12 +3,20 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as FinancialAccountsAPI from './financial-accounts';
 import * as BalancesAPI from './balances';
+import { BalanceListParams, BalanceListResponse, BalanceListResponsesSinglePage, Balances } from './balances';
 import * as CreditConfigurationAPI from './credit-configuration';
+import {
+  CreditConfiguration as CreditConfigurationAPICreditConfiguration,
+  CreditConfigurationUpdateParams,
+  FinancialAccountCreditConfig,
+} from './credit-configuration';
 import * as FinancialTransactionsAPI from './financial-transactions';
+import { FinancialTransactionListParams, FinancialTransactions } from './financial-transactions';
 import * as LoanTapesAPI from './loan-tapes';
+import { LoanTape, LoanTapeListParams, LoanTapes, LoanTapesCursorPage } from './loan-tapes';
 import * as StatementsAPI from './statements/statements';
+import { Statement, StatementListParams, Statements, StatementsCursorPage } from './statements/statements';
 import { SinglePage } from '../../pagination';
 
 export class FinancialAccounts extends APIResource {
@@ -381,29 +389,55 @@ export interface FinancialAccountChargeOffParams {
   reason: 'DELINQUENT' | 'FRAUD';
 }
 
-export namespace FinancialAccounts {
-  export import FinancialAccount = FinancialAccountsAPI.FinancialAccount;
-  export import FinancialTransaction = FinancialAccountsAPI.FinancialTransaction;
-  export import FinancialAccountsSinglePage = FinancialAccountsAPI.FinancialAccountsSinglePage;
-  export import FinancialAccountCreateParams = FinancialAccountsAPI.FinancialAccountCreateParams;
-  export import FinancialAccountUpdateParams = FinancialAccountsAPI.FinancialAccountUpdateParams;
-  export import FinancialAccountListParams = FinancialAccountsAPI.FinancialAccountListParams;
-  export import FinancialAccountChargeOffParams = FinancialAccountsAPI.FinancialAccountChargeOffParams;
-  export import Balances = BalancesAPI.Balances;
-  export import BalanceListResponse = BalancesAPI.BalanceListResponse;
-  export import BalanceListResponsesSinglePage = BalancesAPI.BalanceListResponsesSinglePage;
-  export import BalanceListParams = BalancesAPI.BalanceListParams;
-  export import FinancialTransactions = FinancialTransactionsAPI.FinancialTransactions;
-  export import FinancialTransactionListParams = FinancialTransactionsAPI.FinancialTransactionListParams;
-  export import CreditConfiguration = CreditConfigurationAPI.CreditConfiguration;
-  export import FinancialAccountCreditConfig = CreditConfigurationAPI.FinancialAccountCreditConfig;
-  export import CreditConfigurationUpdateParams = CreditConfigurationAPI.CreditConfigurationUpdateParams;
-  export import Statements = StatementsAPI.Statements;
-  export import Statement = StatementsAPI.Statement;
-  export import StatementsCursorPage = StatementsAPI.StatementsCursorPage;
-  export import StatementListParams = StatementsAPI.StatementListParams;
-  export import LoanTapes = LoanTapesAPI.LoanTapes;
-  export import LoanTape = LoanTapesAPI.LoanTape;
-  export import LoanTapesCursorPage = LoanTapesAPI.LoanTapesCursorPage;
-  export import LoanTapeListParams = LoanTapesAPI.LoanTapeListParams;
+FinancialAccounts.FinancialAccountsSinglePage = FinancialAccountsSinglePage;
+FinancialAccounts.Balances = Balances;
+FinancialAccounts.BalanceListResponsesSinglePage = BalanceListResponsesSinglePage;
+FinancialAccounts.FinancialTransactions = FinancialTransactions;
+FinancialAccounts.CreditConfiguration = CreditConfigurationAPICreditConfiguration;
+FinancialAccounts.StatementsCursorPage = StatementsCursorPage;
+FinancialAccounts.LoanTapes = LoanTapes;
+FinancialAccounts.LoanTapesCursorPage = LoanTapesCursorPage;
+
+export declare namespace FinancialAccounts {
+  export {
+    type FinancialAccount as FinancialAccount,
+    type FinancialTransaction as FinancialTransaction,
+    FinancialAccountsSinglePage as FinancialAccountsSinglePage,
+    type FinancialAccountCreateParams as FinancialAccountCreateParams,
+    type FinancialAccountUpdateParams as FinancialAccountUpdateParams,
+    type FinancialAccountListParams as FinancialAccountListParams,
+    type FinancialAccountChargeOffParams as FinancialAccountChargeOffParams,
+  };
+
+  export {
+    Balances as Balances,
+    type BalanceListResponse as BalanceListResponse,
+    BalanceListResponsesSinglePage as BalanceListResponsesSinglePage,
+    type BalanceListParams as BalanceListParams,
+  };
+
+  export {
+    FinancialTransactions as FinancialTransactions,
+    type FinancialTransactionListParams as FinancialTransactionListParams,
+  };
+
+  export {
+    CreditConfigurationAPICreditConfiguration as CreditConfiguration,
+    type FinancialAccountCreditConfig as FinancialAccountCreditConfig,
+    type CreditConfigurationUpdateParams as CreditConfigurationUpdateParams,
+  };
+
+  export {
+    type Statements as Statements,
+    type Statement as Statement,
+    StatementsCursorPage as StatementsCursorPage,
+    type StatementListParams as StatementListParams,
+  };
+
+  export {
+    LoanTapes as LoanTapes,
+    type LoanTape as LoanTape,
+    LoanTapesCursorPage as LoanTapesCursorPage,
+    type LoanTapeListParams as LoanTapeListParams,
+  };
 }

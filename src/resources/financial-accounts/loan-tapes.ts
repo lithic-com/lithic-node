@@ -3,7 +3,6 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as LoanTapesAPI from './loan-tapes';
 import { CursorPage, type CursorPageParams } from '../../pagination';
 
 export class LoanTapes extends APIResource {
@@ -440,8 +439,12 @@ export interface LoanTapeListParams extends CursorPageParams {
   end?: string;
 }
 
-export namespace LoanTapes {
-  export import LoanTape = LoanTapesAPI.LoanTape;
-  export import LoanTapesCursorPage = LoanTapesAPI.LoanTapesCursorPage;
-  export import LoanTapeListParams = LoanTapesAPI.LoanTapeListParams;
+LoanTapes.LoanTapesCursorPage = LoanTapesCursorPage;
+
+export declare namespace LoanTapes {
+  export {
+    type LoanTape as LoanTape,
+    LoanTapesCursorPage as LoanTapesCursorPage,
+    type LoanTapeListParams as LoanTapeListParams,
+  };
 }

@@ -3,8 +3,18 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as EventsAPI from './events';
 import * as SubscriptionsAPI from './subscriptions';
+import {
+  SubscriptionCreateParams,
+  SubscriptionListAttemptsParams,
+  SubscriptionListParams,
+  SubscriptionRecoverParams,
+  SubscriptionReplayMissingParams,
+  SubscriptionRetrieveSecretResponse,
+  SubscriptionSendSimulatedExampleParams,
+  SubscriptionUpdateParams,
+  Subscriptions,
+} from './subscriptions';
 import { CursorPage, type CursorPageParams } from '../../pagination';
 
 export class Events extends APIResource {
@@ -339,21 +349,30 @@ export interface EventListAttemptsParams extends CursorPageParams {
   status?: 'FAILED' | 'PENDING' | 'SENDING' | 'SUCCESS';
 }
 
-export namespace Events {
-  export import Event = EventsAPI.Event;
-  export import EventSubscription = EventsAPI.EventSubscription;
-  export import MessageAttempt = EventsAPI.MessageAttempt;
-  export import EventsCursorPage = EventsAPI.EventsCursorPage;
-  export import MessageAttemptsCursorPage = EventsAPI.MessageAttemptsCursorPage;
-  export import EventListParams = EventsAPI.EventListParams;
-  export import EventListAttemptsParams = EventsAPI.EventListAttemptsParams;
-  export import Subscriptions = SubscriptionsAPI.Subscriptions;
-  export import SubscriptionRetrieveSecretResponse = SubscriptionsAPI.SubscriptionRetrieveSecretResponse;
-  export import SubscriptionCreateParams = SubscriptionsAPI.SubscriptionCreateParams;
-  export import SubscriptionUpdateParams = SubscriptionsAPI.SubscriptionUpdateParams;
-  export import SubscriptionListParams = SubscriptionsAPI.SubscriptionListParams;
-  export import SubscriptionListAttemptsParams = SubscriptionsAPI.SubscriptionListAttemptsParams;
-  export import SubscriptionRecoverParams = SubscriptionsAPI.SubscriptionRecoverParams;
-  export import SubscriptionReplayMissingParams = SubscriptionsAPI.SubscriptionReplayMissingParams;
-  export import SubscriptionSendSimulatedExampleParams = SubscriptionsAPI.SubscriptionSendSimulatedExampleParams;
+Events.EventsCursorPage = EventsCursorPage;
+Events.MessageAttemptsCursorPage = MessageAttemptsCursorPage;
+Events.Subscriptions = Subscriptions;
+
+export declare namespace Events {
+  export {
+    type Event as Event,
+    type EventSubscription as EventSubscription,
+    type MessageAttempt as MessageAttempt,
+    EventsCursorPage as EventsCursorPage,
+    MessageAttemptsCursorPage as MessageAttemptsCursorPage,
+    type EventListParams as EventListParams,
+    type EventListAttemptsParams as EventListAttemptsParams,
+  };
+
+  export {
+    Subscriptions as Subscriptions,
+    type SubscriptionRetrieveSecretResponse as SubscriptionRetrieveSecretResponse,
+    type SubscriptionCreateParams as SubscriptionCreateParams,
+    type SubscriptionUpdateParams as SubscriptionUpdateParams,
+    type SubscriptionListParams as SubscriptionListParams,
+    type SubscriptionListAttemptsParams as SubscriptionListAttemptsParams,
+    type SubscriptionRecoverParams as SubscriptionRecoverParams,
+    type SubscriptionReplayMissingParams as SubscriptionReplayMissingParams,
+    type SubscriptionSendSimulatedExampleParams as SubscriptionSendSimulatedExampleParams,
+  };
 }

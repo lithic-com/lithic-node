@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as AccountsAPI from './accounts';
 import { CursorPage, type CursorPageParams } from '../pagination';
 
 export class Accounts extends APIResource {
@@ -350,10 +349,14 @@ export interface AccountListParams extends CursorPageParams {
   end?: string;
 }
 
-export namespace Accounts {
-  export import Account = AccountsAPI.Account;
-  export import AccountSpendLimits = AccountsAPI.AccountSpendLimits;
-  export import AccountsCursorPage = AccountsAPI.AccountsCursorPage;
-  export import AccountUpdateParams = AccountsAPI.AccountUpdateParams;
-  export import AccountListParams = AccountsAPI.AccountListParams;
+Accounts.AccountsCursorPage = AccountsCursorPage;
+
+export declare namespace Accounts {
+  export {
+    type Account as Account,
+    type AccountSpendLimits as AccountSpendLimits,
+    AccountsCursorPage as AccountsCursorPage,
+    type AccountUpdateParams as AccountUpdateParams,
+    type AccountListParams as AccountListParams,
+  };
 }

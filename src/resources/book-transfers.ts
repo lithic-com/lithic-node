@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as BookTransfersAPI from './book-transfers';
 import { CursorPage, type CursorPageParams } from '../pagination';
 
 export class BookTransfers extends APIResource {
@@ -309,10 +308,14 @@ export interface BookTransferReverseParams {
   memo?: string;
 }
 
-export namespace BookTransfers {
-  export import BookTransferResponse = BookTransfersAPI.BookTransferResponse;
-  export import BookTransferResponsesCursorPage = BookTransfersAPI.BookTransferResponsesCursorPage;
-  export import BookTransferCreateParams = BookTransfersAPI.BookTransferCreateParams;
-  export import BookTransferListParams = BookTransfersAPI.BookTransferListParams;
-  export import BookTransferReverseParams = BookTransfersAPI.BookTransferReverseParams;
+BookTransfers.BookTransferResponsesCursorPage = BookTransferResponsesCursorPage;
+
+export declare namespace BookTransfers {
+  export {
+    type BookTransferResponse as BookTransferResponse,
+    BookTransferResponsesCursorPage as BookTransferResponsesCursorPage,
+    type BookTransferCreateParams as BookTransferCreateParams,
+    type BookTransferListParams as BookTransferListParams,
+    type BookTransferReverseParams as BookTransferReverseParams,
+  };
 }

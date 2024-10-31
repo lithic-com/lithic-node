@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as DisputesAPI from './disputes';
 import { CursorPage, type CursorPageParams } from '../pagination';
 
 export class Disputes extends APIResource {
@@ -508,18 +507,20 @@ export interface DisputeListEvidencesParams extends CursorPageParams {
   end?: string;
 }
 
-export namespace Disputes {
-  export import Dispute = DisputesAPI.Dispute;
-  export import DisputeEvidence = DisputesAPI.DisputeEvidence;
-  /**
-   * @deprecated use `DisputeEvidence` instead
-   */
-  export import DisputeInitiateEvidenceUploadResponse = DisputesAPI.DisputeInitiateEvidenceUploadResponse;
-  export import DisputesCursorPage = DisputesAPI.DisputesCursorPage;
-  export import DisputeEvidencesCursorPage = DisputesAPI.DisputeEvidencesCursorPage;
-  export import DisputeCreateParams = DisputesAPI.DisputeCreateParams;
-  export import DisputeUpdateParams = DisputesAPI.DisputeUpdateParams;
-  export import DisputeListParams = DisputesAPI.DisputeListParams;
-  export import DisputeInitiateEvidenceUploadParams = DisputesAPI.DisputeInitiateEvidenceUploadParams;
-  export import DisputeListEvidencesParams = DisputesAPI.DisputeListEvidencesParams;
+Disputes.DisputesCursorPage = DisputesCursorPage;
+Disputes.DisputeEvidencesCursorPage = DisputeEvidencesCursorPage;
+
+export declare namespace Disputes {
+  export {
+    type Dispute as Dispute,
+    type DisputeEvidence as DisputeEvidence,
+    type DisputeInitiateEvidenceUploadResponse as DisputeInitiateEvidenceUploadResponse,
+    DisputesCursorPage as DisputesCursorPage,
+    DisputeEvidencesCursorPage as DisputeEvidencesCursorPage,
+    type DisputeCreateParams as DisputeCreateParams,
+    type DisputeUpdateParams as DisputeUpdateParams,
+    type DisputeListParams as DisputeListParams,
+    type DisputeInitiateEvidenceUploadParams as DisputeInitiateEvidenceUploadParams,
+    type DisputeListEvidencesParams as DisputeListEvidencesParams,
+  };
 }

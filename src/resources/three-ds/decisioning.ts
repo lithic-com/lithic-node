@@ -3,7 +3,6 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as DecisioningAPI from './decisioning';
 
 export class Decisioning extends APIResource {
   /**
@@ -145,12 +144,14 @@ export interface DecisioningSimulateChallengeResponseParams {
   challenge_response: ChallengeResult;
 }
 
-export namespace Decisioning {
-  export import ChallengeResponse = DecisioningAPI.ChallengeResponse;
-  export import ChallengeResult = DecisioningAPI.ChallengeResult;
-  export import DecisioningRetrieveSecretResponse = DecisioningAPI.DecisioningRetrieveSecretResponse;
-  export import DecisioningSimulateChallengeResponse = DecisioningAPI.DecisioningSimulateChallengeResponse;
-  export import DecisioningChallengeResponseParams = DecisioningAPI.DecisioningChallengeResponseParams;
-  export import DecisioningSimulateChallengeParams = DecisioningAPI.DecisioningSimulateChallengeParams;
-  export import DecisioningSimulateChallengeResponseParams = DecisioningAPI.DecisioningSimulateChallengeResponseParams;
+export declare namespace Decisioning {
+  export {
+    type ChallengeResponse as ChallengeResponse,
+    type ChallengeResult as ChallengeResult,
+    type DecisioningRetrieveSecretResponse as DecisioningRetrieveSecretResponse,
+    type DecisioningSimulateChallengeResponse as DecisioningSimulateChallengeResponse,
+    type DecisioningChallengeResponseParams as DecisioningChallengeResponseParams,
+    type DecisioningSimulateChallengeParams as DecisioningSimulateChallengeParams,
+    type DecisioningSimulateChallengeResponseParams as DecisioningSimulateChallengeResponseParams,
+  };
 }

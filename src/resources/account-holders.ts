@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as AccountHoldersAPI from './account-holders';
 import * as Shared from './shared';
 import { SinglePage } from '../pagination';
 
@@ -2368,22 +2367,26 @@ export interface AccountHolderUploadDocumentParams {
   entity_token: string;
 }
 
-export namespace AccountHolders {
-  export import AccountHolder = AccountHoldersAPI.AccountHolder;
-  export import KYB = AccountHoldersAPI.KYB;
-  export import KYC = AccountHoldersAPI.KYC;
-  export import KYCExempt = AccountHoldersAPI.KYCExempt;
-  export import RequiredDocument = AccountHoldersAPI.RequiredDocument;
-  export import AccountHolderCreateResponse = AccountHoldersAPI.AccountHolderCreateResponse;
-  export import AccountHolderUpdateResponse = AccountHoldersAPI.AccountHolderUpdateResponse;
-  export import AccountHolderListDocumentsResponse = AccountHoldersAPI.AccountHolderListDocumentsResponse;
-  export import AccountHolderSimulateEnrollmentReviewResponse = AccountHoldersAPI.AccountHolderSimulateEnrollmentReviewResponse;
-  export import AccountHoldersSinglePage = AccountHoldersAPI.AccountHoldersSinglePage;
-  export import AccountHolderCreateParams = AccountHoldersAPI.AccountHolderCreateParams;
-  export import AccountHolderUpdateParams = AccountHoldersAPI.AccountHolderUpdateParams;
-  export import AccountHolderListParams = AccountHoldersAPI.AccountHolderListParams;
-  export import AccountHolderResubmitParams = AccountHoldersAPI.AccountHolderResubmitParams;
-  export import AccountHolderSimulateEnrollmentDocumentReviewParams = AccountHoldersAPI.AccountHolderSimulateEnrollmentDocumentReviewParams;
-  export import AccountHolderSimulateEnrollmentReviewParams = AccountHoldersAPI.AccountHolderSimulateEnrollmentReviewParams;
-  export import AccountHolderUploadDocumentParams = AccountHoldersAPI.AccountHolderUploadDocumentParams;
+AccountHolders.AccountHoldersSinglePage = AccountHoldersSinglePage;
+
+export declare namespace AccountHolders {
+  export {
+    type AccountHolder as AccountHolder,
+    type KYB as KYB,
+    type KYC as KYC,
+    type KYCExempt as KYCExempt,
+    type RequiredDocument as RequiredDocument,
+    type AccountHolderCreateResponse as AccountHolderCreateResponse,
+    type AccountHolderUpdateResponse as AccountHolderUpdateResponse,
+    type AccountHolderListDocumentsResponse as AccountHolderListDocumentsResponse,
+    type AccountHolderSimulateEnrollmentReviewResponse as AccountHolderSimulateEnrollmentReviewResponse,
+    AccountHoldersSinglePage as AccountHoldersSinglePage,
+    type AccountHolderCreateParams as AccountHolderCreateParams,
+    type AccountHolderUpdateParams as AccountHolderUpdateParams,
+    type AccountHolderListParams as AccountHolderListParams,
+    type AccountHolderResubmitParams as AccountHolderResubmitParams,
+    type AccountHolderSimulateEnrollmentDocumentReviewParams as AccountHolderSimulateEnrollmentDocumentReviewParams,
+    type AccountHolderSimulateEnrollmentReviewParams as AccountHolderSimulateEnrollmentReviewParams,
+    type AccountHolderUploadDocumentParams as AccountHolderUploadDocumentParams,
+  };
 }
