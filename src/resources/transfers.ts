@@ -2,7 +2,6 @@
 
 import { APIResource } from '../resource';
 import * as Core from '../core';
-import * as TransfersAPI from './transfers';
 import * as BalancesAPI from './balances';
 
 export class Transfers extends APIResource {
@@ -214,7 +213,6 @@ export interface TransferCreateParams {
   memo?: string;
 }
 
-export namespace Transfers {
-  export import Transfer = TransfersAPI.Transfer;
-  export import TransferCreateParams = TransfersAPI.TransferCreateParams;
+export declare namespace Transfers {
+  export { type Transfer as Transfer, type TransferCreateParams as TransferCreateParams };
 }

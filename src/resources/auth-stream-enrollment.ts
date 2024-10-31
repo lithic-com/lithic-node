@@ -2,7 +2,6 @@
 
 import { APIResource } from '../resource';
 import * as Core from '../core';
-import * as AuthStreamEnrollmentAPI from './auth-stream-enrollment';
 
 export class AuthStreamEnrollment extends APIResource {
   /**
@@ -35,6 +34,6 @@ export interface AuthStreamSecret {
   secret?: string;
 }
 
-export namespace AuthStreamEnrollment {
-  export import AuthStreamSecret = AuthStreamEnrollmentAPI.AuthStreamSecret;
+export declare namespace AuthStreamEnrollment {
+  export { type AuthStreamSecret as AuthStreamSecret };
 }

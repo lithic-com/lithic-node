@@ -3,7 +3,6 @@
 import { APIResource } from '../../../resource';
 import { isRequestOptions } from '../../../core';
 import * as Core from '../../../core';
-import * as LineItemsAPI from './line-items';
 import { CursorPage, type CursorPageParams } from '../../../pagination';
 
 export class LineItems extends APIResource {
@@ -294,9 +293,13 @@ export interface LineItemListResponse {
 
 export interface LineItemListParams extends CursorPageParams {}
 
-export namespace LineItems {
-  export import StatementLineItems = LineItemsAPI.StatementLineItems;
-  export import LineItemListResponse = LineItemsAPI.LineItemListResponse;
-  export import LineItemListResponsesCursorPage = LineItemsAPI.LineItemListResponsesCursorPage;
-  export import LineItemListParams = LineItemsAPI.LineItemListParams;
+LineItems.LineItemListResponsesCursorPage = LineItemListResponsesCursorPage;
+
+export declare namespace LineItems {
+  export {
+    type StatementLineItems as StatementLineItems,
+    type LineItemListResponse as LineItemListResponse,
+    LineItemListResponsesCursorPage as LineItemListResponsesCursorPage,
+    type LineItemListParams as LineItemListParams,
+  };
 }

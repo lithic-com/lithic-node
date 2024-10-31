@@ -11,7 +11,7 @@
     "paths": {
       "lithic/_shims/auto/*": ["src/_shims/auto/*-node"],
       "lithic/*": ["src/*"],
-      "lithic": ["src/index.ts"],
+      "lithic": ["src/index.ts"]
     },
     "noEmit": true,
 

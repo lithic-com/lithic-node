@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as TokenizationsAPI from './tokenizations';
 import { CursorPage, type CursorPageParams } from '../pagination';
 
 export class Tokenizations extends APIResource {
@@ -386,14 +385,18 @@ export interface TokenizationUpdateDigitalCardArtParams {
   digital_card_art_token?: string;
 }
 
-export namespace Tokenizations {
-  export import Tokenization = TokenizationsAPI.Tokenization;
-  export import TokenizationRetrieveResponse = TokenizationsAPI.TokenizationRetrieveResponse;
-  export import TokenizationSimulateResponse = TokenizationsAPI.TokenizationSimulateResponse;
-  export import TokenizationUpdateDigitalCardArtResponse = TokenizationsAPI.TokenizationUpdateDigitalCardArtResponse;
-  export import TokenizationsCursorPage = TokenizationsAPI.TokenizationsCursorPage;
-  export import TokenizationListParams = TokenizationsAPI.TokenizationListParams;
-  export import TokenizationResendActivationCodeParams = TokenizationsAPI.TokenizationResendActivationCodeParams;
-  export import TokenizationSimulateParams = TokenizationsAPI.TokenizationSimulateParams;
-  export import TokenizationUpdateDigitalCardArtParams = TokenizationsAPI.TokenizationUpdateDigitalCardArtParams;
+Tokenizations.TokenizationsCursorPage = TokenizationsCursorPage;
+
+export declare namespace Tokenizations {
+  export {
+    type Tokenization as Tokenization,
+    type TokenizationRetrieveResponse as TokenizationRetrieveResponse,
+    type TokenizationSimulateResponse as TokenizationSimulateResponse,
+    type TokenizationUpdateDigitalCardArtResponse as TokenizationUpdateDigitalCardArtResponse,
+    TokenizationsCursorPage as TokenizationsCursorPage,
+    type TokenizationListParams as TokenizationListParams,
+    type TokenizationResendActivationCodeParams as TokenizationResendActivationCodeParams,
+    type TokenizationSimulateParams as TokenizationSimulateParams,
+    type TokenizationUpdateDigitalCardArtParams as TokenizationUpdateDigitalCardArtParams,
+  };
 }

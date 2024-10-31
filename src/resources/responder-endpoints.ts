@@ -2,7 +2,6 @@
 
 import { APIResource } from '../resource';
 import * as Core from '../core';
-import * as ResponderEndpointsAPI from './responder-endpoints';
 
 export class ResponderEndpoints extends APIResource {
   /**
@@ -79,10 +78,12 @@ export interface ResponderEndpointCheckStatusParams {
   type: 'AUTH_STREAM_ACCESS' | 'THREE_DS_DECISIONING' | 'TOKENIZATION_DECISIONING';
 }
 
-export namespace ResponderEndpoints {
-  export import ResponderEndpointStatus = ResponderEndpointsAPI.ResponderEndpointStatus;
-  export import ResponderEndpointCreateResponse = ResponderEndpointsAPI.ResponderEndpointCreateResponse;
-  export import ResponderEndpointCreateParams = ResponderEndpointsAPI.ResponderEndpointCreateParams;
-  export import ResponderEndpointDeleteParams = ResponderEndpointsAPI.ResponderEndpointDeleteParams;
-  export import ResponderEndpointCheckStatusParams = ResponderEndpointsAPI.ResponderEndpointCheckStatusParams;
+export declare namespace ResponderEndpoints {
+  export {
+    type ResponderEndpointStatus as ResponderEndpointStatus,
+    type ResponderEndpointCreateResponse as ResponderEndpointCreateResponse,
+    type ResponderEndpointCreateParams as ResponderEndpointCreateParams,
+    type ResponderEndpointDeleteParams as ResponderEndpointDeleteParams,
+    type ResponderEndpointCheckStatusParams as ResponderEndpointCheckStatusParams,
+  };
 }

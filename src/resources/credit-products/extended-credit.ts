@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
-import * as ExtendedCreditAPI from './extended-credit';
 
 export class ExtendedCreditResource extends APIResource {
   /**
@@ -17,6 +16,6 @@ export interface ExtendedCredit {
   credit_extended: number;
 }
 
-export namespace ExtendedCreditResource {
-  export import ExtendedCredit = ExtendedCreditAPI.ExtendedCredit;
+export declare namespace ExtendedCreditResource {
+  export { type ExtendedCredit as ExtendedCredit };
 }

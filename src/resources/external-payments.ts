@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as ExternalPaymentsAPI from './external-payments';
 import { CursorPage, type CursorPageParams } from '../pagination';
 
 export class ExternalPayments extends APIResource {
@@ -240,13 +239,17 @@ export interface ExternalPaymentSettleParams {
   progress_to?: 'SETTLED' | 'RELEASED';
 }
 
-export namespace ExternalPayments {
-  export import ExternalPayment = ExternalPaymentsAPI.ExternalPayment;
-  export import ExternalPaymentsCursorPage = ExternalPaymentsAPI.ExternalPaymentsCursorPage;
-  export import ExternalPaymentCreateParams = ExternalPaymentsAPI.ExternalPaymentCreateParams;
-  export import ExternalPaymentListParams = ExternalPaymentsAPI.ExternalPaymentListParams;
-  export import ExternalPaymentCancelParams = ExternalPaymentsAPI.ExternalPaymentCancelParams;
-  export import ExternalPaymentReleaseParams = ExternalPaymentsAPI.ExternalPaymentReleaseParams;
-  export import ExternalPaymentReverseParams = ExternalPaymentsAPI.ExternalPaymentReverseParams;
-  export import ExternalPaymentSettleParams = ExternalPaymentsAPI.ExternalPaymentSettleParams;
+ExternalPayments.ExternalPaymentsCursorPage = ExternalPaymentsCursorPage;
+
+export declare namespace ExternalPayments {
+  export {
+    type ExternalPayment as ExternalPayment,
+    ExternalPaymentsCursorPage as ExternalPaymentsCursorPage,
+    type ExternalPaymentCreateParams as ExternalPaymentCreateParams,
+    type ExternalPaymentListParams as ExternalPaymentListParams,
+    type ExternalPaymentCancelParams as ExternalPaymentCancelParams,
+    type ExternalPaymentReleaseParams as ExternalPaymentReleaseParams,
+    type ExternalPaymentReverseParams as ExternalPaymentReverseParams,
+    type ExternalPaymentSettleParams as ExternalPaymentSettleParams,
+  };
 }

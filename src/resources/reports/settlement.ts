@@ -3,7 +3,6 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as SettlementAPI from './settlement';
 import * as ReportsAPI from './reports';
 import { SettlementDetailsCursorPage } from './reports';
 import { type CursorPageParams } from '../../pagination';
@@ -46,8 +45,8 @@ export class Settlement extends APIResource {
 
 export interface SettlementListDetailsParams extends CursorPageParams {}
 
-export namespace Settlement {
-  export import SettlementListDetailsParams = SettlementAPI.SettlementListDetailsParams;
+export declare namespace Settlement {
+  export { type SettlementListDetailsParams as SettlementListDetailsParams };
 }
 
 export { SettlementDetailsCursorPage };

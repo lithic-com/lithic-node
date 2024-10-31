@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../resource';
 import * as ExtendedCreditAPI from './extended-credit';
+import { ExtendedCredit, ExtendedCreditResource } from './extended-credit';
 
 export class CreditProducts extends APIResource {
   extendedCredit: ExtendedCreditAPI.ExtendedCreditResource = new ExtendedCreditAPI.ExtendedCreditResource(
@@ -9,7 +10,8 @@ export class CreditProducts extends APIResource {
   );
 }
 
-export namespace CreditProducts {
-  export import ExtendedCreditResource = ExtendedCreditAPI.ExtendedCreditResource;
-  export import ExtendedCredit = ExtendedCreditAPI.ExtendedCredit;
+CreditProducts.ExtendedCreditResource = ExtendedCreditResource;
+
+export declare namespace CreditProducts {
+  export { ExtendedCreditResource as ExtendedCreditResource, type ExtendedCredit as ExtendedCredit };
 }

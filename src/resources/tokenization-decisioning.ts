@@ -2,7 +2,6 @@
 
 import { APIResource } from '../resource';
 import * as Core from '../core';
-import * as TokenizationDecisioningAPI from './tokenization-decisioning';
 
 export class TokenizationDecisioning extends APIResource {
   /**
@@ -41,7 +40,9 @@ export interface TokenizationDecisioningRotateSecretResponse {
   secret?: string;
 }
 
-export namespace TokenizationDecisioning {
-  export import TokenizationSecret = TokenizationDecisioningAPI.TokenizationSecret;
-  export import TokenizationDecisioningRotateSecretResponse = TokenizationDecisioningAPI.TokenizationDecisioningRotateSecretResponse;
+export declare namespace TokenizationDecisioning {
+  export {
+    type TokenizationSecret as TokenizationSecret,
+    type TokenizationDecisioningRotateSecretResponse as TokenizationDecisioningRotateSecretResponse,
+  };
 }

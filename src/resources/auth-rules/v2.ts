@@ -3,7 +3,6 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as V2API from './v2';
 import * as Shared from '../shared';
 import { CursorPage, type CursorPageParams } from '../../pagination';
 
@@ -1962,19 +1961,23 @@ export namespace V2DraftParams {
   }
 }
 
-export namespace V2 {
-  export import V2CreateResponse = V2API.V2CreateResponse;
-  export import V2RetrieveResponse = V2API.V2RetrieveResponse;
-  export import V2UpdateResponse = V2API.V2UpdateResponse;
-  export import V2ListResponse = V2API.V2ListResponse;
-  export import V2ApplyResponse = V2API.V2ApplyResponse;
-  export import V2DraftResponse = V2API.V2DraftResponse;
-  export import V2PromoteResponse = V2API.V2PromoteResponse;
-  export import V2ReportResponse = V2API.V2ReportResponse;
-  export import V2ListResponsesCursorPage = V2API.V2ListResponsesCursorPage;
-  export import V2CreateParams = V2API.V2CreateParams;
-  export import V2UpdateParams = V2API.V2UpdateParams;
-  export import V2ListParams = V2API.V2ListParams;
-  export import V2ApplyParams = V2API.V2ApplyParams;
-  export import V2DraftParams = V2API.V2DraftParams;
+V2.V2ListResponsesCursorPage = V2ListResponsesCursorPage;
+
+export declare namespace V2 {
+  export {
+    type V2CreateResponse as V2CreateResponse,
+    type V2RetrieveResponse as V2RetrieveResponse,
+    type V2UpdateResponse as V2UpdateResponse,
+    type V2ListResponse as V2ListResponse,
+    type V2ApplyResponse as V2ApplyResponse,
+    type V2DraftResponse as V2DraftResponse,
+    type V2PromoteResponse as V2PromoteResponse,
+    type V2ReportResponse as V2ReportResponse,
+    V2ListResponsesCursorPage as V2ListResponsesCursorPage,
+    type V2CreateParams as V2CreateParams,
+    type V2UpdateParams as V2UpdateParams,
+    type V2ListParams as V2ListParams,
+    type V2ApplyParams as V2ApplyParams,
+    type V2DraftParams as V2DraftParams,
+  };
 }

@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as ManagementOperationsAPI from './management-operations';
 import { CursorPage, type CursorPageParams } from '../pagination';
 
 export class ManagementOperations extends APIResource {
@@ -201,10 +200,14 @@ export interface ManagementOperationReverseParams {
   memo?: string;
 }
 
-export namespace ManagementOperations {
-  export import ManagementOperationTransaction = ManagementOperationsAPI.ManagementOperationTransaction;
-  export import ManagementOperationTransactionsCursorPage = ManagementOperationsAPI.ManagementOperationTransactionsCursorPage;
-  export import ManagementOperationCreateParams = ManagementOperationsAPI.ManagementOperationCreateParams;
-  export import ManagementOperationListParams = ManagementOperationsAPI.ManagementOperationListParams;
-  export import ManagementOperationReverseParams = ManagementOperationsAPI.ManagementOperationReverseParams;
+ManagementOperations.ManagementOperationTransactionsCursorPage = ManagementOperationTransactionsCursorPage;
+
+export declare namespace ManagementOperations {
+  export {
+    type ManagementOperationTransaction as ManagementOperationTransaction,
+    ManagementOperationTransactionsCursorPage as ManagementOperationTransactionsCursorPage,
+    type ManagementOperationCreateParams as ManagementOperationCreateParams,
+    type ManagementOperationListParams as ManagementOperationListParams,
+    type ManagementOperationReverseParams as ManagementOperationReverseParams,
+  };
 }

@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
-import * as MicroDepositsAPI from './micro-deposits';
 import * as ExternalBankAccountsAPI from './external-bank-accounts';
 
 export class MicroDeposits extends APIResource {
@@ -148,7 +147,9 @@ export interface MicroDepositCreateParams {
   micro_deposits: Array<number>;
 }
 
-export namespace MicroDeposits {
-  export import MicroDepositCreateResponse = MicroDepositsAPI.MicroDepositCreateResponse;
-  export import MicroDepositCreateParams = MicroDepositsAPI.MicroDepositCreateParams;
+export declare namespace MicroDeposits {
+  export {
+    type MicroDepositCreateResponse as MicroDepositCreateResponse,
+    type MicroDepositCreateParams as MicroDepositCreateParams,
+  };
 }
