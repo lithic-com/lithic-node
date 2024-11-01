@@ -3,7 +3,6 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as BalancesAPI from './balances';
 import { SinglePage } from '../../pagination';
 
 export class Balances extends APIResource {
@@ -109,8 +108,12 @@ export interface BalanceListParams {
   last_transaction_event_token?: string;
 }
 
-export namespace Balances {
-  export import BalanceListResponse = BalancesAPI.BalanceListResponse;
-  export import BalanceListResponsesSinglePage = BalancesAPI.BalanceListResponsesSinglePage;
-  export import BalanceListParams = BalancesAPI.BalanceListParams;
+Balances.BalanceListResponsesSinglePage = BalanceListResponsesSinglePage;
+
+export declare namespace Balances {
+  export {
+    type BalanceListResponse as BalanceListResponse,
+    BalanceListResponsesSinglePage as BalanceListResponsesSinglePage,
+    type BalanceListParams as BalanceListParams,
+  };
 }

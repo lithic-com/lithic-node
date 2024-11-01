@@ -3,10 +3,11 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as TransactionsAPI from './transactions';
 import * as Shared from '../shared';
 import * as EnhancedCommercialDataAPI from './enhanced-commercial-data';
+import { EnhancedCommercialData, EnhancedCommercialDataRetrieveResponse } from './enhanced-commercial-data';
 import * as EventsAPI from './events/events';
+import { Events } from './events/events';
 import { CursorPage, type CursorPageParams } from '../../pagination';
 
 export class Transactions extends APIResource {
@@ -1072,25 +1073,35 @@ export interface TransactionSimulateVoidParams {
   type?: 'AUTHORIZATION_EXPIRY' | 'AUTHORIZATION_REVERSAL';
 }
 
-export namespace Transactions {
-  export import Transaction = TransactionsAPI.Transaction;
-  export import TransactionSimulateAuthorizationResponse = TransactionsAPI.TransactionSimulateAuthorizationResponse;
-  export import TransactionSimulateAuthorizationAdviceResponse = TransactionsAPI.TransactionSimulateAuthorizationAdviceResponse;
-  export import TransactionSimulateClearingResponse = TransactionsAPI.TransactionSimulateClearingResponse;
-  export import TransactionSimulateCreditAuthorizationResponse = TransactionsAPI.TransactionSimulateCreditAuthorizationResponse;
-  export import TransactionSimulateReturnResponse = TransactionsAPI.TransactionSimulateReturnResponse;
-  export import TransactionSimulateReturnReversalResponse = TransactionsAPI.TransactionSimulateReturnReversalResponse;
-  export import TransactionSimulateVoidResponse = TransactionsAPI.TransactionSimulateVoidResponse;
-  export import TransactionsCursorPage = TransactionsAPI.TransactionsCursorPage;
-  export import TransactionListParams = TransactionsAPI.TransactionListParams;
-  export import TransactionSimulateAuthorizationParams = TransactionsAPI.TransactionSimulateAuthorizationParams;
-  export import TransactionSimulateAuthorizationAdviceParams = TransactionsAPI.TransactionSimulateAuthorizationAdviceParams;
-  export import TransactionSimulateClearingParams = TransactionsAPI.TransactionSimulateClearingParams;
-  export import TransactionSimulateCreditAuthorizationParams = TransactionsAPI.TransactionSimulateCreditAuthorizationParams;
-  export import TransactionSimulateReturnParams = TransactionsAPI.TransactionSimulateReturnParams;
-  export import TransactionSimulateReturnReversalParams = TransactionsAPI.TransactionSimulateReturnReversalParams;
-  export import TransactionSimulateVoidParams = TransactionsAPI.TransactionSimulateVoidParams;
-  export import EnhancedCommercialData = EnhancedCommercialDataAPI.EnhancedCommercialData;
-  export import EnhancedCommercialDataRetrieveResponse = EnhancedCommercialDataAPI.EnhancedCommercialDataRetrieveResponse;
-  export import Events = EventsAPI.Events;
+Transactions.TransactionsCursorPage = TransactionsCursorPage;
+Transactions.EnhancedCommercialData = EnhancedCommercialData;
+Transactions.Events = Events;
+
+export declare namespace Transactions {
+  export {
+    type Transaction as Transaction,
+    type TransactionSimulateAuthorizationResponse as TransactionSimulateAuthorizationResponse,
+    type TransactionSimulateAuthorizationAdviceResponse as TransactionSimulateAuthorizationAdviceResponse,
+    type TransactionSimulateClearingResponse as TransactionSimulateClearingResponse,
+    type TransactionSimulateCreditAuthorizationResponse as TransactionSimulateCreditAuthorizationResponse,
+    type TransactionSimulateReturnResponse as TransactionSimulateReturnResponse,
+    type TransactionSimulateReturnReversalResponse as TransactionSimulateReturnReversalResponse,
+    type TransactionSimulateVoidResponse as TransactionSimulateVoidResponse,
+    TransactionsCursorPage as TransactionsCursorPage,
+    type TransactionListParams as TransactionListParams,
+    type TransactionSimulateAuthorizationParams as TransactionSimulateAuthorizationParams,
+    type TransactionSimulateAuthorizationAdviceParams as TransactionSimulateAuthorizationAdviceParams,
+    type TransactionSimulateClearingParams as TransactionSimulateClearingParams,
+    type TransactionSimulateCreditAuthorizationParams as TransactionSimulateCreditAuthorizationParams,
+    type TransactionSimulateReturnParams as TransactionSimulateReturnParams,
+    type TransactionSimulateReturnReversalParams as TransactionSimulateReturnReversalParams,
+    type TransactionSimulateVoidParams as TransactionSimulateVoidParams,
+  };
+
+  export {
+    EnhancedCommercialData as EnhancedCommercialData,
+    type EnhancedCommercialDataRetrieveResponse as EnhancedCommercialDataRetrieveResponse,
+  };
+
+  export { Events as Events };
 }

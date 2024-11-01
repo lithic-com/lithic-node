@@ -3,8 +3,8 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as ExternalBankAccountsAPI from './external-bank-accounts';
 import * as MicroDepositsAPI from './micro-deposits';
+import { MicroDepositCreateParams, MicroDepositCreateResponse, MicroDeposits } from './micro-deposits';
 import { CursorPage, type CursorPageParams } from '../../pagination';
 
 export class ExternalBankAccounts extends APIResource {
@@ -1163,23 +1163,31 @@ export interface ExternalBankAccountRetryPrenoteParams {
   financial_account_token?: string;
 }
 
-export namespace ExternalBankAccounts {
-  export import ExternalBankAccountAddress = ExternalBankAccountsAPI.ExternalBankAccountAddress;
-  export import OwnerType = ExternalBankAccountsAPI.OwnerType;
-  export import VerificationMethod = ExternalBankAccountsAPI.VerificationMethod;
-  export import ExternalBankAccountCreateResponse = ExternalBankAccountsAPI.ExternalBankAccountCreateResponse;
-  export import ExternalBankAccountRetrieveResponse = ExternalBankAccountsAPI.ExternalBankAccountRetrieveResponse;
-  export import ExternalBankAccountUpdateResponse = ExternalBankAccountsAPI.ExternalBankAccountUpdateResponse;
-  export import ExternalBankAccountListResponse = ExternalBankAccountsAPI.ExternalBankAccountListResponse;
-  export import ExternalBankAccountRetryMicroDepositsResponse = ExternalBankAccountsAPI.ExternalBankAccountRetryMicroDepositsResponse;
-  export import ExternalBankAccountRetryPrenoteResponse = ExternalBankAccountsAPI.ExternalBankAccountRetryPrenoteResponse;
-  export import ExternalBankAccountListResponsesCursorPage = ExternalBankAccountsAPI.ExternalBankAccountListResponsesCursorPage;
-  export import ExternalBankAccountCreateParams = ExternalBankAccountsAPI.ExternalBankAccountCreateParams;
-  export import ExternalBankAccountUpdateParams = ExternalBankAccountsAPI.ExternalBankAccountUpdateParams;
-  export import ExternalBankAccountListParams = ExternalBankAccountsAPI.ExternalBankAccountListParams;
-  export import ExternalBankAccountRetryMicroDepositsParams = ExternalBankAccountsAPI.ExternalBankAccountRetryMicroDepositsParams;
-  export import ExternalBankAccountRetryPrenoteParams = ExternalBankAccountsAPI.ExternalBankAccountRetryPrenoteParams;
-  export import MicroDeposits = MicroDepositsAPI.MicroDeposits;
-  export import MicroDepositCreateResponse = MicroDepositsAPI.MicroDepositCreateResponse;
-  export import MicroDepositCreateParams = MicroDepositsAPI.MicroDepositCreateParams;
+ExternalBankAccounts.ExternalBankAccountListResponsesCursorPage = ExternalBankAccountListResponsesCursorPage;
+ExternalBankAccounts.MicroDeposits = MicroDeposits;
+
+export declare namespace ExternalBankAccounts {
+  export {
+    type ExternalBankAccountAddress as ExternalBankAccountAddress,
+    type OwnerType as OwnerType,
+    type VerificationMethod as VerificationMethod,
+    type ExternalBankAccountCreateResponse as ExternalBankAccountCreateResponse,
+    type ExternalBankAccountRetrieveResponse as ExternalBankAccountRetrieveResponse,
+    type ExternalBankAccountUpdateResponse as ExternalBankAccountUpdateResponse,
+    type ExternalBankAccountListResponse as ExternalBankAccountListResponse,
+    type ExternalBankAccountRetryMicroDepositsResponse as ExternalBankAccountRetryMicroDepositsResponse,
+    type ExternalBankAccountRetryPrenoteResponse as ExternalBankAccountRetryPrenoteResponse,
+    ExternalBankAccountListResponsesCursorPage as ExternalBankAccountListResponsesCursorPage,
+    type ExternalBankAccountCreateParams as ExternalBankAccountCreateParams,
+    type ExternalBankAccountUpdateParams as ExternalBankAccountUpdateParams,
+    type ExternalBankAccountListParams as ExternalBankAccountListParams,
+    type ExternalBankAccountRetryMicroDepositsParams as ExternalBankAccountRetryMicroDepositsParams,
+    type ExternalBankAccountRetryPrenoteParams as ExternalBankAccountRetryPrenoteParams,
+  };
+
+  export {
+    MicroDeposits as MicroDeposits,
+    type MicroDepositCreateResponse as MicroDepositCreateResponse,
+    type MicroDepositCreateParams as MicroDepositCreateParams,
+  };
 }

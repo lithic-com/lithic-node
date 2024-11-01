@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as CardProgramsAPI from './card-programs';
 import { CursorPage, type CursorPageParams } from '../pagination';
 
 export class CardPrograms extends APIResource {
@@ -75,8 +74,12 @@ export interface CardProgram {
 
 export interface CardProgramListParams extends CursorPageParams {}
 
-export namespace CardPrograms {
-  export import CardProgram = CardProgramsAPI.CardProgram;
-  export import CardProgramsCursorPage = CardProgramsAPI.CardProgramsCursorPage;
-  export import CardProgramListParams = CardProgramsAPI.CardProgramListParams;
+CardPrograms.CardProgramsCursorPage = CardProgramsCursorPage;
+
+export declare namespace CardPrograms {
+  export {
+    type CardProgram as CardProgram,
+    CardProgramsCursorPage as CardProgramsCursorPage,
+    type CardProgramListParams as CardProgramListParams,
+  };
 }

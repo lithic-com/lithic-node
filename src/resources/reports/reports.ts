@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
-import * as ReportsAPI from './reports';
 import * as SettlementAPI from './settlement';
+import { Settlement, SettlementListDetailsParams } from './settlement';
 import { CursorPage } from '../../pagination';
 
 export class Reports extends APIResource {
@@ -252,10 +252,14 @@ export interface SettlementSummaryDetails {
   transactions_gross_amount?: number;
 }
 
-export namespace Reports {
-  export import SettlementDetail = ReportsAPI.SettlementDetail;
-  export import SettlementReport = ReportsAPI.SettlementReport;
-  export import SettlementSummaryDetails = ReportsAPI.SettlementSummaryDetails;
-  export import Settlement = SettlementAPI.Settlement;
-  export import SettlementListDetailsParams = SettlementAPI.SettlementListDetailsParams;
+Reports.Settlement = Settlement;
+
+export declare namespace Reports {
+  export {
+    type SettlementDetail as SettlementDetail,
+    type SettlementReport as SettlementReport,
+    type SettlementSummaryDetails as SettlementSummaryDetails,
+  };
+
+  export { Settlement as Settlement, type SettlementListDetailsParams as SettlementListDetailsParams };
 }

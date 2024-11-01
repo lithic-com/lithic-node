@@ -3,7 +3,6 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as CreditConfigurationAPI from './credit-configuration';
 
 export class CreditConfiguration extends APIResource {
   /**
@@ -92,7 +91,9 @@ export interface CreditConfigurationUpdateParams {
   tier?: string;
 }
 
-export namespace CreditConfiguration {
-  export import FinancialAccountCreditConfig = CreditConfigurationAPI.FinancialAccountCreditConfig;
-  export import CreditConfigurationUpdateParams = CreditConfigurationAPI.CreditConfigurationUpdateParams;
+export declare namespace CreditConfiguration {
+  export {
+    type FinancialAccountCreditConfig as FinancialAccountCreditConfig,
+    type CreditConfigurationUpdateParams as CreditConfigurationUpdateParams,
+  };
 }

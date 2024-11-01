@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as BalancesAPI from './balances';
 import { SinglePage } from '../pagination';
 
 export class Balances extends APIResource {
@@ -105,8 +104,12 @@ export interface BalanceListParams {
   financial_account_type?: 'ISSUING' | 'OPERATING' | 'RESERVE';
 }
 
-export namespace Balances {
-  export import Balance = BalancesAPI.Balance;
-  export import BalancesSinglePage = BalancesAPI.BalancesSinglePage;
-  export import BalanceListParams = BalancesAPI.BalanceListParams;
+Balances.BalancesSinglePage = BalancesSinglePage;
+
+export declare namespace Balances {
+  export {
+    type Balance as Balance,
+    BalancesSinglePage as BalancesSinglePage,
+    type BalanceListParams as BalanceListParams,
+  };
 }

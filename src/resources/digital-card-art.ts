@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as DigitalCardArtAPI from './digital-card-art';
 import { CursorPage, type CursorPageParams } from '../pagination';
 
 export class DigitalCardArtResource extends APIResource {
@@ -74,8 +73,12 @@ export interface DigitalCardArt {
 
 export interface DigitalCardArtListParams extends CursorPageParams {}
 
-export namespace DigitalCardArtResource {
-  export import DigitalCardArt = DigitalCardArtAPI.DigitalCardArt;
-  export import DigitalCardArtsCursorPage = DigitalCardArtAPI.DigitalCardArtsCursorPage;
-  export import DigitalCardArtListParams = DigitalCardArtAPI.DigitalCardArtListParams;
+DigitalCardArtResource.DigitalCardArtsCursorPage = DigitalCardArtsCursorPage;
+
+export declare namespace DigitalCardArtResource {
+  export {
+    type DigitalCardArt as DigitalCardArt,
+    DigitalCardArtsCursorPage as DigitalCardArtsCursorPage,
+    type DigitalCardArtListParams as DigitalCardArtListParams,
+  };
 }

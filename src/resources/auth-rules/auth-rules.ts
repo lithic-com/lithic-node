@@ -3,10 +3,26 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as AuthRulesAPI from './auth-rules';
 import * as Shared from '../shared';
 import { AuthRulesCursorPage } from '../shared';
 import * as V2API from './v2';
+import {
+  V2,
+  V2ApplyParams,
+  V2ApplyResponse,
+  V2CreateParams,
+  V2CreateResponse,
+  V2DraftParams,
+  V2DraftResponse,
+  V2ListParams,
+  V2ListResponse,
+  V2ListResponsesCursorPage,
+  V2PromoteResponse,
+  V2ReportResponse,
+  V2RetrieveResponse,
+  V2UpdateParams,
+  V2UpdateResponse,
+} from './v2';
 import { type CursorPageParams } from '../../pagination';
 
 export class AuthRules extends APIResource {
@@ -430,30 +446,38 @@ export interface AuthRuleRemoveParams {
   program_level?: boolean;
 }
 
-export namespace AuthRules {
-  export import AuthRuleRetrieveResponse = AuthRulesAPI.AuthRuleRetrieveResponse;
-  export import AuthRuleMigrateV1ToV2Response = AuthRulesAPI.AuthRuleMigrateV1ToV2Response;
-  export import AuthRuleRemoveResponse = AuthRulesAPI.AuthRuleRemoveResponse;
-  export import AuthRuleCreateParams = AuthRulesAPI.AuthRuleCreateParams;
-  export import AuthRuleUpdateParams = AuthRulesAPI.AuthRuleUpdateParams;
-  export import AuthRuleListParams = AuthRulesAPI.AuthRuleListParams;
-  export import AuthRuleApplyParams = AuthRulesAPI.AuthRuleApplyParams;
-  export import AuthRuleRemoveParams = AuthRulesAPI.AuthRuleRemoveParams;
-  export import V2 = V2API.V2;
-  export import V2CreateResponse = V2API.V2CreateResponse;
-  export import V2RetrieveResponse = V2API.V2RetrieveResponse;
-  export import V2UpdateResponse = V2API.V2UpdateResponse;
-  export import V2ListResponse = V2API.V2ListResponse;
-  export import V2ApplyResponse = V2API.V2ApplyResponse;
-  export import V2DraftResponse = V2API.V2DraftResponse;
-  export import V2PromoteResponse = V2API.V2PromoteResponse;
-  export import V2ReportResponse = V2API.V2ReportResponse;
-  export import V2ListResponsesCursorPage = V2API.V2ListResponsesCursorPage;
-  export import V2CreateParams = V2API.V2CreateParams;
-  export import V2UpdateParams = V2API.V2UpdateParams;
-  export import V2ListParams = V2API.V2ListParams;
-  export import V2ApplyParams = V2API.V2ApplyParams;
-  export import V2DraftParams = V2API.V2DraftParams;
+AuthRules.V2 = V2;
+AuthRules.V2ListResponsesCursorPage = V2ListResponsesCursorPage;
+
+export declare namespace AuthRules {
+  export {
+    type AuthRuleRetrieveResponse as AuthRuleRetrieveResponse,
+    type AuthRuleMigrateV1ToV2Response as AuthRuleMigrateV1ToV2Response,
+    type AuthRuleRemoveResponse as AuthRuleRemoveResponse,
+    type AuthRuleCreateParams as AuthRuleCreateParams,
+    type AuthRuleUpdateParams as AuthRuleUpdateParams,
+    type AuthRuleListParams as AuthRuleListParams,
+    type AuthRuleApplyParams as AuthRuleApplyParams,
+    type AuthRuleRemoveParams as AuthRuleRemoveParams,
+  };
+
+  export {
+    V2 as V2,
+    type V2CreateResponse as V2CreateResponse,
+    type V2RetrieveResponse as V2RetrieveResponse,
+    type V2UpdateResponse as V2UpdateResponse,
+    type V2ListResponse as V2ListResponse,
+    type V2ApplyResponse as V2ApplyResponse,
+    type V2DraftResponse as V2DraftResponse,
+    type V2PromoteResponse as V2PromoteResponse,
+    type V2ReportResponse as V2ReportResponse,
+    V2ListResponsesCursorPage as V2ListResponsesCursorPage,
+    type V2CreateParams as V2CreateParams,
+    type V2UpdateParams as V2UpdateParams,
+    type V2ListParams as V2ListParams,
+    type V2ApplyParams as V2ApplyParams,
+    type V2DraftParams as V2DraftParams,
+  };
 }
 
 export { AuthRulesCursorPage };
