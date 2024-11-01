@@ -2,24 +2,48 @@
 
 import { APIResource } from '../../resource';
 import * as AuthenticationAPI from './authentication';
+import {
+  Authentication,
+  AuthenticationRetrieveResponse,
+  AuthenticationSimulateParams,
+  AuthenticationSimulateResponse,
+} from './authentication';
 import * as DecisioningAPI from './decisioning';
+import {
+  ChallengeResponse,
+  ChallengeResult,
+  Decisioning,
+  DecisioningChallengeResponseParams,
+  DecisioningRetrieveSecretResponse,
+  DecisioningSimulateChallengeParams,
+  DecisioningSimulateChallengeResponse,
+  DecisioningSimulateChallengeResponseParams,
+} from './decisioning';
 
 export class ThreeDS extends APIResource {
   authentication: AuthenticationAPI.Authentication = new AuthenticationAPI.Authentication(this._client);
   decisioning: DecisioningAPI.Decisioning = new DecisioningAPI.Decisioning(this._client);
 }
 
-export namespace ThreeDS {
-  export import Authentication = AuthenticationAPI.Authentication;
-  export import AuthenticationRetrieveResponse = AuthenticationAPI.AuthenticationRetrieveResponse;
-  export import AuthenticationSimulateResponse = AuthenticationAPI.AuthenticationSimulateResponse;
-  export import AuthenticationSimulateParams = AuthenticationAPI.AuthenticationSimulateParams;
-  export import Decisioning = DecisioningAPI.Decisioning;
-  export import ChallengeResponse = DecisioningAPI.ChallengeResponse;
-  export import ChallengeResult = DecisioningAPI.ChallengeResult;
-  export import DecisioningRetrieveSecretResponse = DecisioningAPI.DecisioningRetrieveSecretResponse;
-  export import DecisioningSimulateChallengeResponse = DecisioningAPI.DecisioningSimulateChallengeResponse;
-  export import DecisioningChallengeResponseParams = DecisioningAPI.DecisioningChallengeResponseParams;
-  export import DecisioningSimulateChallengeParams = DecisioningAPI.DecisioningSimulateChallengeParams;
-  export import DecisioningSimulateChallengeResponseParams = DecisioningAPI.DecisioningSimulateChallengeResponseParams;
+ThreeDS.Authentication = Authentication;
+ThreeDS.Decisioning = Decisioning;
+
+export declare namespace ThreeDS {
+  export {
+    Authentication as Authentication,
+    type AuthenticationRetrieveResponse as AuthenticationRetrieveResponse,
+    type AuthenticationSimulateResponse as AuthenticationSimulateResponse,
+    type AuthenticationSimulateParams as AuthenticationSimulateParams,
+  };
+
+  export {
+    Decisioning as Decisioning,
+    type ChallengeResponse as ChallengeResponse,
+    type ChallengeResult as ChallengeResult,
+    type DecisioningRetrieveSecretResponse as DecisioningRetrieveSecretResponse,
+    type DecisioningSimulateChallengeResponse as DecisioningSimulateChallengeResponse,
+    type DecisioningChallengeResponseParams as DecisioningChallengeResponseParams,
+    type DecisioningSimulateChallengeParams as DecisioningSimulateChallengeParams,
+    type DecisioningSimulateChallengeResponseParams as DecisioningSimulateChallengeResponseParams,
+  };
 }

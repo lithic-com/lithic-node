@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
-import * as EnhancedCommercialDataAPI from './enhanced-commercial-data';
 import * as EventsEnhancedCommercialDataAPI from './events/enhanced-commercial-data';
 
 export class EnhancedCommercialData extends APIResource {
@@ -21,6 +20,6 @@ export interface EnhancedCommercialDataRetrieveResponse {
   data: Array<EventsEnhancedCommercialDataAPI.EnhancedData>;
 }
 
-export namespace EnhancedCommercialData {
-  export import EnhancedCommercialDataRetrieveResponse = EnhancedCommercialDataAPI.EnhancedCommercialDataRetrieveResponse;
+export declare namespace EnhancedCommercialData {
+  export { type EnhancedCommercialDataRetrieveResponse as EnhancedCommercialDataRetrieveResponse };
 }

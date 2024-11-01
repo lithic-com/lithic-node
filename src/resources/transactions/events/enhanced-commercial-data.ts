@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../../resource';
 import * as Core from '../../../core';
-import * as EnhancedCommercialDataAPI from './enhanced-commercial-data';
 
 export class EnhancedCommercialData extends APIResource {
   /**
@@ -294,6 +293,6 @@ export namespace EnhancedData {
   }
 }
 
-export namespace EnhancedCommercialData {
-  export import EnhancedData = EnhancedCommercialDataAPI.EnhancedData;
+export declare namespace EnhancedCommercialData {
+  export { type EnhancedData as EnhancedData };
 }

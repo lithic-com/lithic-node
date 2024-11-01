@@ -3,7 +3,6 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
-import * as AggregateBalancesAPI from './aggregate-balances';
 import { SinglePage } from '../pagination';
 
 export class AggregateBalances extends APIResource {
@@ -98,8 +97,12 @@ export interface AggregateBalanceListParams {
   financial_account_type?: 'ISSUING' | 'OPERATING' | 'RESERVE';
 }
 
-export namespace AggregateBalances {
-  export import AggregateBalance = AggregateBalancesAPI.AggregateBalance;
-  export import AggregateBalancesSinglePage = AggregateBalancesAPI.AggregateBalancesSinglePage;
-  export import AggregateBalanceListParams = AggregateBalancesAPI.AggregateBalanceListParams;
+AggregateBalances.AggregateBalancesSinglePage = AggregateBalancesSinglePage;
+
+export declare namespace AggregateBalances {
+  export {
+    type AggregateBalance as AggregateBalance,
+    AggregateBalancesSinglePage as AggregateBalancesSinglePage,
+    type AggregateBalanceListParams as AggregateBalanceListParams,
+  };
 }

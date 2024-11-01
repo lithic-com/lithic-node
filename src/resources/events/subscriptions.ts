@@ -3,7 +3,6 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
-import * as SubscriptionsAPI from './subscriptions';
 import * as EventsAPI from './events';
 import { EventSubscriptionsCursorPage, MessageAttemptsCursorPage } from './events';
 import { type CursorPageParams } from '../../pagination';
@@ -413,15 +412,17 @@ export interface SubscriptionSendSimulatedExampleParams {
     | 'tokenization.updated';
 }
 
-export namespace Subscriptions {
-  export import SubscriptionRetrieveSecretResponse = SubscriptionsAPI.SubscriptionRetrieveSecretResponse;
-  export import SubscriptionCreateParams = SubscriptionsAPI.SubscriptionCreateParams;
-  export import SubscriptionUpdateParams = SubscriptionsAPI.SubscriptionUpdateParams;
-  export import SubscriptionListParams = SubscriptionsAPI.SubscriptionListParams;
-  export import SubscriptionListAttemptsParams = SubscriptionsAPI.SubscriptionListAttemptsParams;
-  export import SubscriptionRecoverParams = SubscriptionsAPI.SubscriptionRecoverParams;
-  export import SubscriptionReplayMissingParams = SubscriptionsAPI.SubscriptionReplayMissingParams;
-  export import SubscriptionSendSimulatedExampleParams = SubscriptionsAPI.SubscriptionSendSimulatedExampleParams;
+export declare namespace Subscriptions {
+  export {
+    type SubscriptionRetrieveSecretResponse as SubscriptionRetrieveSecretResponse,
+    type SubscriptionCreateParams as SubscriptionCreateParams,
+    type SubscriptionUpdateParams as SubscriptionUpdateParams,
+    type SubscriptionListParams as SubscriptionListParams,
+    type SubscriptionListAttemptsParams as SubscriptionListAttemptsParams,
+    type SubscriptionRecoverParams as SubscriptionRecoverParams,
+    type SubscriptionReplayMissingParams as SubscriptionReplayMissingParams,
+    type SubscriptionSendSimulatedExampleParams as SubscriptionSendSimulatedExampleParams,
+  };
 }
 
 export { EventSubscriptionsCursorPage, MessageAttemptsCursorPage };

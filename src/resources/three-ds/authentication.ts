@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
-import * as AuthenticationAPI from './authentication';
 
 export class Authentication extends APIResource {
   /**
@@ -589,8 +588,10 @@ export namespace AuthenticationSimulateParams {
   }
 }
 
-export namespace Authentication {
-  export import AuthenticationRetrieveResponse = AuthenticationAPI.AuthenticationRetrieveResponse;
-  export import AuthenticationSimulateResponse = AuthenticationAPI.AuthenticationSimulateResponse;
-  export import AuthenticationSimulateParams = AuthenticationAPI.AuthenticationSimulateParams;
+export declare namespace Authentication {
+  export {
+    type AuthenticationRetrieveResponse as AuthenticationRetrieveResponse,
+    type AuthenticationSimulateResponse as AuthenticationSimulateResponse,
+    type AuthenticationSimulateParams as AuthenticationSimulateParams,
+  };
 }
