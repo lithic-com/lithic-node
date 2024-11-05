@@ -103,7 +103,7 @@ export class FinancialAccounts extends APIResource {
     body: FinancialAccountChargeOffParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<CreditConfigurationAPI.FinancialAccountCreditConfig> {
-    return this._client.patch(`/v1/financial_accounts/${financialAccountToken}/charge_off`, {
+    return this._client.post(`/v1/financial_accounts/${financialAccountToken}/charge_off`, {
       body,
       ...options,
     });

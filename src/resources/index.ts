@@ -35,17 +35,7 @@ export {
   type AggregateBalance,
   type AggregateBalanceListParams,
 } from './aggregate-balances';
-export {
-  AuthRules,
-  type AuthRuleRetrieveResponse,
-  type AuthRuleMigrateV1ToV2Response,
-  type AuthRuleRemoveResponse,
-  type AuthRuleCreateParams,
-  type AuthRuleUpdateParams,
-  type AuthRuleListParams,
-  type AuthRuleApplyParams,
-  type AuthRuleRemoveParams,
-} from './auth-rules/auth-rules';
+export { AuthRules } from './auth-rules/auth-rules';
 export { AuthStreamEnrollment, type AuthStreamSecret } from './auth-stream-enrollment';
 export { BalancesSinglePage, Balances, type Balance, type BalanceListParams } from './balances';
 export {
