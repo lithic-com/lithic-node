@@ -1,7 +1,5 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { CursorPage } from '../pagination';
-
 /**
  * Type of account financial account
  */
@@ -535,5 +533,3 @@ export namespace VelocityLimitParams {
  *   the month in Eastern Time.
  */
 export type VelocityLimitParamsPeriodWindow = 'DAY' | 'MONTH';
-
-export class AuthRulesCursorPage extends CursorPage<AuthRule> {}
