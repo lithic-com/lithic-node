@@ -66,22 +66,6 @@ Methods:
 
 # AuthRules
 
-Types:
-
-- <code><a href="./src/resources/auth-rules/auth-rules.ts">AuthRuleRetrieveResponse</a></code>
-- <code><a href="./src/resources/auth-rules/auth-rules.ts">AuthRuleMigrateV1ToV2Response</a></code>
-- <code><a href="./src/resources/auth-rules/auth-rules.ts">AuthRuleRemoveResponse</a></code>
-
-Methods:
-
-- <code title="post /v1/auth_rules">client.authRules.<a href="./src/resources/auth-rules/auth-rules.ts">create</a>({ ...params }) -> AuthRule</code>
-- <code title="get /v1/auth_rules/{auth_rule_token}">client.authRules.<a href="./src/resources/auth-rules/auth-rules.ts">retrieve</a>(authRuleToken) -> AuthRuleRetrieveResponse</code>
-- <code title="put /v1/auth_rules/{auth_rule_token}">client.authRules.<a href="./src/resources/auth-rules/auth-rules.ts">update</a>(authRuleToken, { ...params }) -> AuthRule</code>
-- <code title="get /v1/auth_rules">client.authRules.<a href="./src/resources/auth-rules/auth-rules.ts">list</a>({ ...params }) -> AuthRulesCursorPage</code>
-- <code title="post /v1/auth_rules/{auth_rule_token}/apply">client.authRules.<a href="./src/resources/auth-rules/auth-rules.ts">apply</a>(authRuleToken, { ...params }) -> AuthRule</code>
-- <code title="post /v1/auth_rules/{auth_rule_token}/migrate">client.authRules.<a href="./src/resources/auth-rules/auth-rules.ts">migrateV1ToV2</a>(authRuleToken) -> AuthRuleMigrateV1ToV2Response</code>
-- <code title="delete /v1/auth_rules/remove">client.authRules.<a href="./src/resources/auth-rules/auth-rules.ts">remove</a>({ ...params }) -> AuthRuleRemoveResponse</code>
-
 ## V2
 
 Types:

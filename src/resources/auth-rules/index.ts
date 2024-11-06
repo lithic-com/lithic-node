@@ -1,16 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export {
-  AuthRules,
-  type AuthRuleRetrieveResponse,
-  type AuthRuleMigrateV1ToV2Response,
-  type AuthRuleRemoveResponse,
-  type AuthRuleCreateParams,
-  type AuthRuleUpdateParams,
-  type AuthRuleListParams,
-  type AuthRuleApplyParams,
-  type AuthRuleRemoveParams,
-} from './auth-rules';
+export { AuthRules } from './auth-rules';
 export {
   V2ListResponsesCursorPage,
   V2,
