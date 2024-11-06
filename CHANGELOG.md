@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.86.0 (2024-11-06)
+
+Full Changelog: [v0.85.2...v0.86.0](https://github.com/lithic-com/lithic-node/compare/v0.85.2...v0.86.0)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** removes AuthRules V1 ([#556](https://github.com/lithic-com/lithic-node/issues/556))
+
+### Features
+
+* **api:** removes AuthRules V1 ([#556](https://github.com/lithic-com/lithic-node/issues/556)) ([87e185b](https://github.com/lithic-com/lithic-node/commit/87e185bc1f667c73d28b5d6e7c509b11343b056a))
+
+
+### Bug Fixes
+
+* don't require deno to run build-deno ([#555](https://github.com/lithic-com/lithic-node/issues/555)) ([9ced303](https://github.com/lithic-com/lithic-node/commit/9ced303a800d5fe91f71e22b4c059d0d1b08e573))
+
+
+### Chores
+
+* remove unused build-deno condition ([#553](https://github.com/lithic-com/lithic-node/issues/553)) ([5c9c48b](https://github.com/lithic-com/lithic-node/commit/5c9c48bc04c677b8866874c98ebb8dfe897f9e41))
+
 ## 0.85.2 (2024-11-06)
 
 Full Changelog: [v0.85.1...v0.85.2](https://github.com/lithic-com/lithic-node/compare/v0.85.1...v0.85.2)
