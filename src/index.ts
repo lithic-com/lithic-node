@@ -141,17 +141,7 @@ import {
   TokenizationsCursorPage,
 } from './resources/tokenizations';
 import { Transfer, TransferCreateParams, Transfers } from './resources/transfers';
-import {
-  AuthRuleApplyParams,
-  AuthRuleCreateParams,
-  AuthRuleListParams,
-  AuthRuleMigrateV1ToV2Response,
-  AuthRuleRemoveParams,
-  AuthRuleRemoveResponse,
-  AuthRuleRetrieveResponse,
-  AuthRuleUpdateParams,
-  AuthRules,
-} from './resources/auth-rules/auth-rules';
+import { AuthRules } from './resources/auth-rules/auth-rules';
 import {
   Card,
   CardCreateParams,
@@ -563,17 +553,7 @@ export declare namespace Lithic {
     type AccountHolderUploadDocumentParams as AccountHolderUploadDocumentParams,
   };
 
-  export {
-    AuthRules as AuthRules,
-    type AuthRuleRetrieveResponse as AuthRuleRetrieveResponse,
-    type AuthRuleMigrateV1ToV2Response as AuthRuleMigrateV1ToV2Response,
-    type AuthRuleRemoveResponse as AuthRuleRemoveResponse,
-    type AuthRuleCreateParams as AuthRuleCreateParams,
-    type AuthRuleUpdateParams as AuthRuleUpdateParams,
-    type AuthRuleListParams as AuthRuleListParams,
-    type AuthRuleApplyParams as AuthRuleApplyParams,
-    type AuthRuleRemoveParams as AuthRuleRemoveParams,
-  };
+  export { AuthRules as AuthRules };
 
   export { AuthStreamEnrollment as AuthStreamEnrollment, type AuthStreamSecret as AuthStreamSecret };
 
