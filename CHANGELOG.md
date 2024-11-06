@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.85.1 (2024-11-06)
+
+Full Changelog: [v0.85.0...v0.85.1](https://github.com/lithic-com/lithic-node/compare/v0.85.0...v0.85.1)
+
+### Bug Fixes
+
+* **internal:** remove deprecated auth rules ([#557](https://github.com/lithic-com/lithic-node/issues/557)) ([2e17174](https://github.com/lithic-com/lithic-node/commit/2e171747f81124c054309ef62d30b5eae2d02bf7))
+
+
+### Chores
+
+* **api:** adds `charge_off` functionality to FinancialAccounts ([#550](https://github.com/lithic-com/lithic-node/issues/550)) ([46bca63](https://github.com/lithic-com/lithic-node/commit/46bca637f3864b6b58331cbeb73f1b7ee133253f))
+* **docs:** updates to documentation for V2 AuthRules ([#548](https://github.com/lithic-com/lithic-node/issues/548)) ([d7f23b4](https://github.com/lithic-com/lithic-node/commit/d7f23b4451551cf9dd2f14665ce9313bb4d04ae3))
+
+
+### Refactors
+
+* use type imports for type-only imports ([#551](https://github.com/lithic-com/lithic-node/issues/551)) ([68200ff](https://github.com/lithic-com/lithic-node/commit/68200ff491fe337d28ba4c7ca7df0f66cb7658dd))
+
 ## 0.85.0 (2024-10-28)
 
 Full Changelog: [v0.84.1...v0.85.0](https://github.com/lithic-com/lithic-node/compare/v0.84.1...v0.85.0)
