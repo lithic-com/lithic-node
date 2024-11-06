@@ -32,6 +32,7 @@ describe('resource cards', () => {
       memo: 'New Card',
       pin: 'pin',
       product_id: '1',
+      replacement_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       replacement_for: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       shipping_address: {
         address1: '5 Broad Street',

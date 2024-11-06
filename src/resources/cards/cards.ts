@@ -609,6 +609,15 @@ export interface CardCreateParams {
   product_id?: string;
 
   /**
+   * Restricted field limited to select use cases. Lithic will reach out directly if
+   * this field should be used. Globally unique identifier for the replacement card's
+   * account. If this field is specified, `replacement_for` must also be specified.
+   * If `replacement_for` is specified and this field is omitted, the replacement
+   * card's account will be inferred from the card being replaced.
+   */
+  replacement_account_token?: string;
+
+  /**
    * Only applicable to cards of type `PHYSICAL`. Globally unique identifier for the
    * card that this physical card will replace.
    */
