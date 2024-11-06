@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.85.2 (2024-11-06)
+
+Full Changelog: [v0.85.1...v0.85.2](https://github.com/lithic-com/lithic-node/compare/v0.85.1...v0.85.2)
+
+### Bug Fixes
+
+* **internal:** update http method for chargeoff ([5601cba](https://github.com/lithic-com/lithic-node/commit/5601cba4e278af6d3459460636c63fc08f6392f7))
+
 ## 0.85.1 (2024-11-06)
 
 Full Changelog: [v0.85.0...v0.85.1](https://github.com/lithic-com/lithic-node/compare/v0.85.0...v0.85.1)
