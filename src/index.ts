@@ -231,7 +231,6 @@ const environments = {
   sandbox: 'https://sandbox.lithic.com',
 };
 type Environment = keyof typeof environments;
-
 export interface ClientOptions {
   /**
    * Defaults to process.env['LITHIC_API_KEY'].
@@ -446,25 +445,6 @@ export class Lithic extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-export {
-  LithicError,
-  APIError,
-  APIConnectionError,
-  APIConnectionTimeoutError,
-  APIUserAbortError,
-  NotFoundError,
-  ConflictError,
-  RateLimitError,
-  BadRequestError,
-  AuthenticationError,
-  InternalServerError,
-  PermissionDeniedError,
-  UnprocessableEntityError,
-} from './error';
-
-export import toFile = Uploads.toFile;
-export import fileFromPath = Uploads.fileFromPath;
-
 Lithic.Accounts = Accounts;
 Lithic.AccountsCursorPage = AccountsCursorPage;
 Lithic.AccountHolders = AccountHolders;
@@ -509,7 +489,6 @@ Lithic.ExternalPayments = ExternalPayments;
 Lithic.ExternalPaymentsCursorPage = ExternalPaymentsCursorPage;
 Lithic.ManagementOperations = ManagementOperations;
 Lithic.ManagementOperationTransactionsCursorPage = ManagementOperationTransactionsCursorPage;
-
 export declare namespace Lithic {
   export type RequestOptions = Core.RequestOptions;
 
@@ -781,5 +760,22 @@ export declare namespace Lithic {
   export type VelocityLimitParams = API.VelocityLimitParams;
   export type VelocityLimitParamsPeriodWindow = API.VelocityLimitParamsPeriodWindow;
 }
+
+export { toFile, fileFromPath } from 'lithic/uploads';
+export {
+  LithicError,
+  APIError,
+  APIConnectionError,
+  APIConnectionTimeoutError,
+  APIUserAbortError,
+  NotFoundError,
+  ConflictError,
+  RateLimitError,
+  BadRequestError,
+  AuthenticationError,
+  InternalServerError,
+  PermissionDeniedError,
+  UnprocessableEntityError,
+} from 'lithic/error';
 
 export default Lithic;
