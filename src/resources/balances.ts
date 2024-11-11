@@ -7,7 +7,7 @@ import { SinglePage } from '../pagination';
 
 export class Balances extends APIResource {
   /**
-   * Get the balances for a program or a given end-user account
+   * Get the balances for a program, business, or a given end-user account
    */
   list(
     query?: BalanceListParams,
@@ -97,6 +97,11 @@ export interface BalanceListParams {
    * balances
    */
   balance_date?: string;
+
+  /**
+   * List balances for all financial accounts of a given business_account_token.
+   */
+  business_account_token?: string;
 
   /**
    * List balances for a given Financial Account type.
