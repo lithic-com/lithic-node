@@ -34,6 +34,7 @@ describe('resource balances', () => {
         {
           account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           balance_date: '2019-12-27T18:11:19.117Z',
+          business_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           financial_account_type: 'ISSUING',
         },
         { path: '/_stainless_unknown_path' },
