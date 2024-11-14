@@ -761,7 +761,7 @@ export declare namespace Lithic {
   export type VelocityLimitParamsPeriodWindow = API.VelocityLimitParamsPeriodWindow;
 }
 
-export { toFile, fileFromPath } from 'lithic/uploads';
+export { toFile, fileFromPath } from './uploads';
 export {
   LithicError,
   APIError,
@@ -776,6 +776,6 @@ export {
   InternalServerError,
   PermissionDeniedError,
   UnprocessableEntityError,
-} from 'lithic/error';
+} from './error';
 
 export default Lithic;
