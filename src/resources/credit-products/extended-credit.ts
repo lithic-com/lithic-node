@@ -7,8 +7,8 @@ export class ExtendedCreditResource extends APIResource {
   /**
    * Get the extended credit for a given credit product under a program
    */
-  retrieve(creditProductId: string, options?: Core.RequestOptions): Core.APIPromise<ExtendedCredit> {
-    return this._client.get(`/v1/credit_products/${creditProductId}/extended_credit`, options);
+  retrieve(creditProductToken: string, options?: Core.RequestOptions): Core.APIPromise<ExtendedCredit> {
+    return this._client.get(`/v1/credit_products/${creditProductToken}/extended_credit`, options);
   }
 }
 
