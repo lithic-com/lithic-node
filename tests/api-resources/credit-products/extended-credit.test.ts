@@ -10,7 +10,7 @@ const client = new Lithic({
 
 describe('resource extendedCredit', () => {
   test('retrieve', async () => {
-    const responsePromise = client.creditProducts.extendedCredit.retrieve('credit_product_id');
+    const responsePromise = client.creditProducts.extendedCredit.retrieve('credit_product_token');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,7 +23,7 @@ describe('resource extendedCredit', () => {
   test('retrieve: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.creditProducts.extendedCredit.retrieve('credit_product_id', {
+      client.creditProducts.extendedCredit.retrieve('credit_product_token', {
         path: '/_stainless_unknown_path',
       }),
     ).rejects.toThrow(Lithic.NotFoundError);

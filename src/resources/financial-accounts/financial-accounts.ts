@@ -289,6 +289,7 @@ export namespace FinancialTransaction {
       | 'BALANCE_INQUIRY'
       | 'BILLING_ERROR'
       | 'BILLING_ERROR_REVERSAL'
+      | 'CARD_TO_CARD'
       | 'CASH_BACK'
       | 'CASH_BACK_REVERSAL'
       | 'CLEARING'

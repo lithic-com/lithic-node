@@ -552,7 +552,18 @@ Types:
 
 Methods:
 
-- <code title="get /v1/credit_products/{credit_product_id}/extended_credit">client.creditProducts.extendedCredit.<a href="./src/resources/credit-products/extended-credit.ts">retrieve</a>(creditProductId) -> ExtendedCredit</code>
+- <code title="get /v1/credit_products/{credit_product_token}/extended_credit">client.creditProducts.extendedCredit.<a href="./src/resources/credit-products/extended-credit.ts">retrieve</a>(creditProductToken) -> ExtendedCredit</code>
+
+## PrimeRates
+
+Types:
+
+- <code><a href="./src/resources/credit-products/prime-rates.ts">PrimeRateRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/credit_products/{credit_product_token}/prime_rates">client.creditProducts.primeRates.<a href="./src/resources/credit-products/prime-rates.ts">create</a>(creditProductToken, { ...params }) -> void</code>
+- <code title="get /v1/credit_products/{credit_product_token}/prime_rates">client.creditProducts.primeRates.<a href="./src/resources/credit-products/prime-rates.ts">retrieve</a>(creditProductToken, { ...params }) -> PrimeRateRetrieveResponse</code>
 
 # ExternalPayments
 
