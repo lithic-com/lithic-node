@@ -25,7 +25,7 @@ describe('resource subscriptions', () => {
       url: 'https://example.com',
       description: 'description',
       disabled: true,
-      event_types: ['account_holder.created', 'account_holder.updated', 'account_holder.verification'],
+      event_types: ['account_holder.created'],
     });
   });
 
@@ -65,7 +65,7 @@ describe('resource subscriptions', () => {
       url: 'https://example.com',
       description: 'description',
       disabled: true,
-      event_types: ['account_holder.created', 'account_holder.updated', 'account_holder.verification'],
+      event_types: ['account_holder.created'],
     });
   });
 
