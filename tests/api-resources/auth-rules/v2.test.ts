@@ -11,11 +11,7 @@ const client = new Lithic({
 describe('resource v2', () => {
   test('create: only required params', async () => {
     const responsePromise = client.authRules.v2.create({
-      account_tokens: [
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      ],
+      account_tokens: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -28,18 +24,8 @@ describe('resource v2', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.authRules.v2.create({
-      account_tokens: [
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      ],
-      parameters: {
-        conditions: [
-          { attribute: 'MCC', operation: 'IS_ONE_OF', value: 'string' },
-          { attribute: 'MCC', operation: 'IS_ONE_OF', value: 'string' },
-          { attribute: 'MCC', operation: 'IS_ONE_OF', value: 'string' },
-        ],
-      },
+      account_tokens: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
+      parameters: { conditions: [{ attribute: 'MCC', operation: 'IS_ONE_OF', value: 'string' }] },
       type: 'CONDITIONAL_BLOCK',
     });
   });
@@ -111,11 +97,7 @@ describe('resource v2', () => {
 
   test('apply: only required params', async () => {
     const responsePromise = client.authRules.v2.apply('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      account_tokens: [
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      ],
+      account_tokens: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -128,11 +110,7 @@ describe('resource v2', () => {
 
   test('apply: required and optional params', async () => {
     const response = await client.authRules.v2.apply('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      account_tokens: [
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      ],
+      account_tokens: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
     });
   });
 

@@ -24,60 +24,8 @@ describe('resource accountHolders', () => {
           legal_business_name: 'Acme, Inc.',
           phone_numbers: ['+12124007676'],
         },
-        {
-          address: {
-            address1: '123 Old Forest Way',
-            city: 'Omaha',
-            country: 'USA',
-            postal_code: '68022',
-            state: 'NE',
-          },
-          government_id: '114-123-1513',
-          legal_business_name: 'Acme, Inc.',
-          phone_numbers: ['+12124007676'],
-        },
-        {
-          address: {
-            address1: '123 Old Forest Way',
-            city: 'Omaha',
-            country: 'USA',
-            postal_code: '68022',
-            state: 'NE',
-          },
-          government_id: '114-123-1513',
-          legal_business_name: 'Acme, Inc.',
-          phone_numbers: ['+12124007676'],
-        },
       ],
       beneficial_owner_individuals: [
-        {
-          address: {
-            address1: '123 Old Forest Way',
-            city: 'Omaha',
-            country: 'USA',
-            postal_code: '68022',
-            state: 'NE',
-          },
-          dob: '1991-03-08 08:00:00',
-          email: 'tom@middle-earth.com',
-          first_name: 'Tom',
-          government_id: '111-23-1412',
-          last_name: 'Bombadil',
-        },
-        {
-          address: {
-            address1: '123 Old Forest Way',
-            city: 'Omaha',
-            country: 'USA',
-            postal_code: '68022',
-            state: 'NE',
-          },
-          dob: '1991-03-08 08:00:00',
-          email: 'tom@middle-earth.com',
-          first_name: 'Tom',
-          government_id: '111-23-1412',
-          last_name: 'Bombadil',
-        },
         {
           address: {
             address1: '123 Old Forest Way',
@@ -150,70 +98,8 @@ describe('resource accountHolders', () => {
           dba_business_name: 'dba_business_name',
           parent_company: 'parent_company',
         },
-        {
-          address: {
-            address1: '123 Old Forest Way',
-            city: 'Omaha',
-            country: 'USA',
-            postal_code: '68022',
-            state: 'NE',
-            address2: 'address2',
-          },
-          government_id: '114-123-1513',
-          legal_business_name: 'Acme, Inc.',
-          phone_numbers: ['+12124007676'],
-          dba_business_name: 'dba_business_name',
-          parent_company: 'parent_company',
-        },
-        {
-          address: {
-            address1: '123 Old Forest Way',
-            city: 'Omaha',
-            country: 'USA',
-            postal_code: '68022',
-            state: 'NE',
-            address2: 'address2',
-          },
-          government_id: '114-123-1513',
-          legal_business_name: 'Acme, Inc.',
-          phone_numbers: ['+12124007676'],
-          dba_business_name: 'dba_business_name',
-          parent_company: 'parent_company',
-        },
       ],
       beneficial_owner_individuals: [
-        {
-          address: {
-            address1: '123 Old Forest Way',
-            city: 'Omaha',
-            country: 'USA',
-            postal_code: '68022',
-            state: 'NE',
-            address2: 'address2',
-          },
-          dob: '1991-03-08 08:00:00',
-          email: 'tom@middle-earth.com',
-          first_name: 'Tom',
-          government_id: '111-23-1412',
-          last_name: 'Bombadil',
-          phone_number: '+12124007676',
-        },
-        {
-          address: {
-            address1: '123 Old Forest Way',
-            city: 'Omaha',
-            country: 'USA',
-            postal_code: '68022',
-            state: 'NE',
-            address2: 'address2',
-          },
-          dob: '1991-03-08 08:00:00',
-          email: 'tom@middle-earth.com',
-          first_name: 'Tom',
-          government_id: '111-23-1412',
-          last_name: 'Bombadil',
-          phone_number: '+12124007676',
-        },
         {
           address: {
             address1: '123 Old Forest Way',
@@ -457,7 +343,7 @@ describe('resource accountHolders', () => {
     const response = await client.accountHolders.simulateEnrollmentDocumentReview({
       document_upload_token: 'b11cd67b-0a52-4180-8365-314f3def5426',
       status: 'UPLOADED',
-      accepted_entity_status_reasons: ['string', 'string', 'string'],
+      accepted_entity_status_reasons: ['string'],
       status_reason: 'DOCUMENT_MISSING_REQUIRED_DATA',
     });
   });
