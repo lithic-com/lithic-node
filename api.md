@@ -553,6 +553,29 @@ Methods:
 - <code title="get /v1/book_transfers">client.bookTransfers.<a href="./src/resources/book-transfers.ts">list</a>({ ...params }) -> BookTransferResponsesCursorPage</code>
 - <code title="post /v1/book_transfers/{book_transfer_token}/reverse">client.bookTransfers.<a href="./src/resources/book-transfers.ts">reverse</a>(bookTransferToken, { ...params }) -> BookTransferResponse</code>
 
+# CreditProducts
+
+## ExtendedCredit
+
+Types:
+
+- <code><a href="./src/resources/credit-products/extended-credit.ts">ExtendedCredit</a></code>
+
+Methods:
+
+- <code title="get /v1/credit_products/{credit_product_token}/extended_credit">client.creditProducts.extendedCredit.<a href="./src/resources/credit-products/extended-credit.ts">retrieve</a>(creditProductToken) -> ExtendedCredit</code>
+
+## PrimeRates
+
+Types:
+
+- <code><a href="./src/resources/credit-products/prime-rates.ts">PrimeRateRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/credit_products/{credit_product_token}/prime_rates">client.creditProducts.primeRates.<a href="./src/resources/credit-products/prime-rates.ts">create</a>(creditProductToken, { ...params }) -> void</code>
+- <code title="get /v1/credit_products/{credit_product_token}/prime_rates">client.creditProducts.primeRates.<a href="./src/resources/credit-products/prime-rates.ts">retrieve</a>(creditProductToken, { ...params }) -> PrimeRateRetrieveResponse</code>
+
 # ExternalPayments
 
 Types:

@@ -59,6 +59,7 @@ export namespace StatementLineItems {
 
     category:
       | 'ACH'
+      | 'BALANCE_OR_FUNDING'
       | 'CARD'
       | 'EXTERNAL_ACH'
       | 'EXTERNAL_CHECK'
@@ -102,6 +103,7 @@ export namespace StatementLineItems {
       | 'BALANCE_INQUIRY'
       | 'BILLING_ERROR'
       | 'BILLING_ERROR_REVERSAL'
+      | 'CARD_TO_CARD'
       | 'CASH_BACK'
       | 'CASH_BACK_REVERSAL'
       | 'CLEARING'
@@ -182,6 +184,7 @@ export interface LineItemListResponse {
 
   category:
     | 'ACH'
+    | 'BALANCE_OR_FUNDING'
     | 'CARD'
     | 'EXTERNAL_ACH'
     | 'EXTERNAL_CHECK'
@@ -225,6 +228,7 @@ export interface LineItemListResponse {
     | 'BALANCE_INQUIRY'
     | 'BILLING_ERROR'
     | 'BILLING_ERROR_REVERSAL'
+    | 'CARD_TO_CARD'
     | 'CASH_BACK'
     | 'CASH_BACK_REVERSAL'
     | 'CLEARING'
