@@ -398,6 +398,7 @@ export class Lithic extends Core.APIClient {
   cardPrograms: API.CardPrograms = new API.CardPrograms(this);
   digitalCardArt: API.DigitalCardArtResource = new API.DigitalCardArtResource(this);
   bookTransfers: API.BookTransfers = new API.BookTransfers(this);
+  creditProducts: API.CreditProducts = new API.CreditProducts(this);
   externalPayments: API.ExternalPayments = new API.ExternalPayments(this);
   managementOperations: API.ManagementOperations = new API.ManagementOperations(this);
 
