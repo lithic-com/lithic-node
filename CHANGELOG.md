@@ -1,5 +1,34 @@
 # Changelog
 
+## 0.87.0 (2024-11-21)
+
+Full Changelog: [v0.86.0...v0.87.0](https://github.com/lithic-com/lithic-node/compare/v0.86.0...v0.87.0)
+
+### Features
+
+* **api:** adds PrimeRates API ([#566](https://github.com/lithic-com/lithic-node/issues/566)) ([70adc94](https://github.com/lithic-com/lithic-node/commit/70adc94216a48b88097e4a93b9c1812bd9fe1a24))
+
+
+### Bug Fixes
+
+* **docs:** add missing await to pagination example ([#568](https://github.com/lithic-com/lithic-node/issues/568)) ([5caff62](https://github.com/lithic-com/lithic-node/commit/5caff62cf264c0d083e300600183698094d4c101))
+* **internal:** add back CP ([8ea9e95](https://github.com/lithic-com/lithic-node/commit/8ea9e95a37d98a9bf0ce77982a23796a989e6de2))
+
+
+### Chores
+
+* **api:** add business_account_token param for listing Balances ([#564](https://github.com/lithic-com/lithic-node/issues/564)) ([88e2d76](https://github.com/lithic-com/lithic-node/commit/88e2d7698e7aa5984761f301ec10192952491574))
+* **api:** adds replacement_account_token to Card create parameters ([#562](https://github.com/lithic-com/lithic-node/issues/562)) ([fe79fcf](https://github.com/lithic-com/lithic-node/commit/fe79fcf4370c47c726960e36369311e2859efe61))
+* **client:** drop unused devDependency ([#569](https://github.com/lithic-com/lithic-node/issues/569)) ([101ac75](https://github.com/lithic-com/lithic-node/commit/101ac7570706f99336a010e51e71d2e254e635b7))
+* **internal:** use reexports not destructuring ([#565](https://github.com/lithic-com/lithic-node/issues/565)) ([65e4f11](https://github.com/lithic-com/lithic-node/commit/65e4f11f83508c5b2da37beab74b435fa987089c))
+* remove redundant word in comment ([#573](https://github.com/lithic-com/lithic-node/issues/573)) ([d0e1158](https://github.com/lithic-com/lithic-node/commit/d0e1158d47cb99fda3fa1c73c0b7e4c6007c1960))
+* **tests:** limit array example length ([#570](https://github.com/lithic-com/lithic-node/issues/570)) ([f514713](https://github.com/lithic-com/lithic-node/commit/f5147136ff8168f5958d9a5eb54ece922b0882d7))
+
+
+### Documentation
+
+* remove suggestion to use `npm` call out ([#571](https://github.com/lithic-com/lithic-node/issues/571)) ([1ffb063](https://github.com/lithic-com/lithic-node/commit/1ffb0638814b964a60be0ff745f51dcbc79b42f0))
+
 ## 0.86.0 (2024-11-06)
 
 Full Changelog: [v0.85.2...v0.86.0](https://github.com/lithic-com/lithic-node/compare/v0.85.2...v0.86.0)
