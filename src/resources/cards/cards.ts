@@ -317,8 +317,12 @@ export interface Card {
    * - `SINGLE_USE` - Card is closed upon first successful authorization.
    * - `MERCHANT_LOCKED` - _[Deprecated]_ Card is locked to the first merchant that
    *   successfully authorizes the card.
+   * - `UNLOCKED` - _[Deprecated]_ Similar behavior to VIRTUAL cards, please use
+   *   VIRTUAL instead.
+   * - `DIGITAL_WALLET` - _[Deprecated]_ Similar behavior to VIRTUAL cards, please
+   *   use VIRTUAL instead.
    */
-  type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL';
+  type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET';
 
   /**
    * @deprecated: List of identifiers for the Auth Rule(s) that are applied on the
@@ -386,6 +390,12 @@ export interface Card {
    * should be manufactured with.
    */
   product_id?: string;
+
+  /**
+   * If the card is a replacement for another card, the globally unique identifier
+   * for the card that was replaced.
+   */
+  replacement_for?: string | null;
 }
 
 export namespace Card {
@@ -546,8 +556,12 @@ export interface CardCreateParams {
    * - `SINGLE_USE` - Card is closed upon first successful authorization.
    * - `MERCHANT_LOCKED` - _[Deprecated]_ Card is locked to the first merchant that
    *   successfully authorizes the card.
+   * - `UNLOCKED` - _[Deprecated]_ Similar behavior to VIRTUAL cards, please use
+   *   VIRTUAL instead.
+   * - `DIGITAL_WALLET` - _[Deprecated]_ Similar behavior to VIRTUAL cards, please
+   *   use VIRTUAL instead.
    */
-  type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL';
+  type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET';
 
   /**
    * Globally unique identifier for the account that the card will be associated

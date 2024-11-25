@@ -149,6 +149,9 @@ export class V2 extends APIResource {
 export class V2ListResponsesCursorPage extends CursorPage<V2ListResponse> {}
 
 export interface V2CreateResponse {
+  /**
+   * Auth Rule Token
+   */
   token: string;
 
   /**
@@ -350,6 +353,9 @@ export namespace V2CreateResponse {
 }
 
 export interface V2RetrieveResponse {
+  /**
+   * Auth Rule Token
+   */
   token: string;
 
   /**
@@ -551,6 +557,9 @@ export namespace V2RetrieveResponse {
 }
 
 export interface V2UpdateResponse {
+  /**
+   * Auth Rule Token
+   */
   token: string;
 
   /**
@@ -752,6 +761,9 @@ export namespace V2UpdateResponse {
 }
 
 export interface V2ListResponse {
+  /**
+   * Auth Rule Token
+   */
   token: string;
 
   /**
@@ -953,6 +965,9 @@ export namespace V2ListResponse {
 }
 
 export interface V2ApplyResponse {
+  /**
+   * Auth Rule Token
+   */
   token: string;
 
   /**
@@ -1154,6 +1169,9 @@ export namespace V2ApplyResponse {
 }
 
 export interface V2DraftResponse {
+  /**
+   * Auth Rule Token
+   */
   token: string;
 
   /**
@@ -1355,6 +1373,9 @@ export namespace V2DraftResponse {
 }
 
 export interface V2PromoteResponse {
+  /**
+   * Auth Rule Token
+   */
   token: string;
 
   /**
