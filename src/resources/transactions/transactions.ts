@@ -43,11 +43,12 @@ export class Transactions extends APIResource {
   }
 
   /**
-   * Simulates an authorization request from the payment network as if it came from a
-   * merchant acquirer. If you're configured for ASA, simulating auths requires your
-   * ASA client to be set up properly (respond with a valid JSON to the ASA request).
-   * For users that are not configured for ASA, a daily transaction limit of $5000
-   * USD is applied by default. This limit can be modified via the
+   * Simulates an authorization request from the card network as if it came from a
+   * merchant acquirer. If you are configured for ASA, simulating authorizations
+   * requires your ASA client to be set up properly, i.e. be able to respond to the
+   * ASA request with a valid JSON. For users that are not configured for ASA, a
+   * daily transaction limit of $5000 USD is applied by default. You can update this
+   * limit via the
    * [update account](https://docs.lithic.com/reference/patchaccountbytoken)
    * endpoint.
    */
@@ -59,9 +60,9 @@ export class Transactions extends APIResource {
   }
 
   /**
-   * Simulates an authorization advice request from the payment network as if it came
-   * from a merchant acquirer. An authorization advice request changes the amount of
-   * the transaction.
+   * Simulates an authorization advice from the card network as if it came from a
+   * merchant acquirer. An authorization advice changes the pending amount of the
+   * transaction.
    */
   simulateAuthorizationAdvice(
     body: TransactionSimulateAuthorizationAdviceParams,
@@ -71,12 +72,12 @@ export class Transactions extends APIResource {
   }
 
   /**
-   * Clears an existing authorization. After this event, the transaction is no longer
-   * pending.
+   * Clears an existing authorization, either debit or credit. After this event, the
+   * transaction transitions from `PENDING` to `SETTLED` status.
    *
-   * If no `amount` is supplied to this endpoint, the amount of the transaction will
-   * be captured. Any transaction that has any amount completed at all do not have
-   * access to this behavior.
+   * If `amount` is not set, the full amount of the transaction will be cleared.
+   * Transactions that have already cleared, either partially or fully, cannot be
+   * cleared again using this endpoint.
    */
   simulateClearing(
     body: TransactionSimulateClearingParams,
@@ -86,9 +87,8 @@ export class Transactions extends APIResource {
   }
 
   /**
-   * Simulates a credit authorization advice message from the payment network. This
-   * message indicates that a credit authorization was approved on your behalf by the
-   * network.
+   * Simulates a credit authorization advice from the card network. This message
+   * indicates that the network approved a credit authorization on your behalf.
    */
   simulateCreditAuthorization(
     body: TransactionSimulateCreditAuthorizationParams,
@@ -98,8 +98,9 @@ export class Transactions extends APIResource {
   }
 
   /**
-   * Returns (aka refunds) an amount back to a card. Returns are cleared immediately
-   * and do not spend time in a `PENDING` state.
+   * Returns, or refunds, an amount back to a card. Returns simulated via this
+   * endpoint clear immediately, without prior authorization, and result in a
+   * `SETTLED` transaction status.
    */
   simulateReturn(
     body: TransactionSimulateReturnParams,
@@ -109,9 +110,9 @@ export class Transactions extends APIResource {
   }
 
   /**
-   * Voids a settled credit transaction – i.e., a transaction with a negative amount
-   * and `SETTLED` status. These can be credit authorizations that have already
-   * cleared or financial credit authorizations.
+   * Reverses a return, i.e. a credit transaction with a `SETTLED` status. Returns
+   * can be financial credit authorizations, or credit authorizations that have
+   * cleared.
    */
   simulateReturnReversal(
     body: TransactionSimulateReturnReversalParams,
@@ -121,11 +122,10 @@ export class Transactions extends APIResource {
   }
 
   /**
-   * Voids an existing, uncleared (aka pending) authorization. If amount is not sent
-   * the full amount will be voided. Cannot be used on partially completed
-   * transactions, but can be used on partially voided transactions. _Note that
-   * simulating an authorization expiry on credit authorizations or credit
-   * authorization advice is not currently supported but will be added soon._
+   * Voids a pending authorization. If `amount` is not set, the full amount will be
+   * voided. Can be used on partially voided transactions but not partially cleared
+   * transactions. _Simulating an authorization expiry on credit authorizations or
+   * credit authorization advice is not currently supported but will be added soon._
    */
   simulateVoid(
     body: TransactionSimulateVoidParams,
@@ -162,17 +162,18 @@ export interface Transaction {
   acquirer_reference_number: string | null;
 
   /**
-   * When the transaction is pending, this represents the authorization amount of the
-   * transaction in the anticipated settlement currency. Once the transaction has
-   * settled, this field represents the settled amount in the settlement currency.
+   * @deprecated: When the transaction is pending, this represents the authorization
+   * amount of the transaction in the anticipated settlement currency. Once the
+   * transaction has settled, this field represents the settled amount in the
+   * settlement currency.
    */
   amount: number;
 
   amounts: Transaction.Amounts;
 
   /**
-   * The authorization amount of the transaction in the anticipated settlement
-   * currency.
+   * @deprecated: The authorization amount of the transaction in the anticipated
+   * settlement currency.
    */
   authorization_amount: number | null;
 
@@ -199,12 +200,13 @@ export interface Transaction {
   merchant: Transaction.Merchant;
 
   /**
-   * Analogous to the 'amount', but in the merchant currency.
+   * @deprecated: Analogous to the 'amount', but in the merchant currency.
    */
   merchant_amount: number | null;
 
   /**
-   * Analogous to the 'authorization_amount', but in the merchant currency.
+   * @deprecated: Analogous to the 'authorization_amount', but in the merchant
+   * currency.
    */
   merchant_authorization_amount: number | null;
 
@@ -257,7 +259,7 @@ export interface Transaction {
     | 'USER_TRANSACTION_LIMIT';
 
   /**
-   * The settled amount of the transaction in the settlement currency.
+   * @deprecated: The settled amount of the transaction in the settlement currency.
    */
   settled_amount: number;
 
@@ -290,13 +292,14 @@ export namespace Transaction {
   export namespace Amounts {
     export interface Cardholder {
       /**
-       * The aggregate settled amount in the cardholder billing currency.
+       * The estimated settled amount of the transaction in the cardholder billing
+       * currency.
        */
       amount: number;
 
       /**
-       * The conversion rate used to convert the merchant amount to the cardholder
-       * billing amount.
+       * The exchange rate used to convert the merchant amount to the cardholder billing
+       * amount.
        */
       conversion_rate: string;
 
@@ -310,8 +313,7 @@ export namespace Transaction {
 
     export interface Hold {
       /**
-       * The aggregate authorization amount of the transaction in the anticipated
-       * settlement currency.
+       * The pending amount of the transaction in the anticipated settlement currency.
        */
       amount: number;
 
@@ -325,7 +327,7 @@ export namespace Transaction {
 
     export interface Merchant {
       /**
-       * The aggregate settled amount in the merchant currency.
+       * The settled amount of the transaction in the merchant currency.
        */
       amount: number;
 
@@ -339,7 +341,7 @@ export namespace Transaction {
 
     export interface Settlement {
       /**
-       * The aggregate settled amount in the settlement currency.
+       * The settled amount of the transaction in the settlement currency.
        */
       amount: number;
 
@@ -735,13 +737,13 @@ export namespace Transaction {
     export namespace Amounts {
       export interface Cardholder {
         /**
-         * The amount in the cardholder billing currency.
+         * Amount of the event in the cardholder billing currency.
          */
         amount: number;
 
         /**
-         * The conversion rate used to convert the merchant amount to the cardholder
-         * billing amount.
+         * Exchange rate used to convert the merchant amount to the cardholder billing
+         * amount.
          */
         conversion_rate: string;
 
@@ -755,7 +757,7 @@ export namespace Transaction {
 
       export interface Merchant {
         /**
-         * The amount in the merchant currency.
+         * Amount of the event in the merchant currency.
          */
         amount: number;
 
@@ -770,11 +772,12 @@ export namespace Transaction {
       export interface Settlement {
         /**
          * Amount of the event, if it is financial, in the settlement currency.
+         * Non-financial events do not contain this amount because they do not move funds.
          */
         amount: number;
 
         /**
-         * Conversion rate used to convert the merchant amount to the settlement amount.
+         * Exchange rate used to convert the merchant amount to the settlement amount.
          */
         conversion_rate: string;
 
@@ -893,8 +896,8 @@ export interface TransactionSimulateAuthorizationParams {
   /**
    * Amount (in cents) to authorize. For credit authorizations and financial credit
    * authorizations, any value entered will be converted into a negative amount in
-   * the simulated transaction. For example, entering 100 in this field will appear
-   * as a -100 amount in the transaction. For balance inquiries, this field must be
+   * the simulated transaction. For example, entering 100 in this field will result
+   * in a -100 amount in the transaction. For balance inquiries, this field must be
    * set to 0.
    */
   amount: number;
@@ -945,12 +948,12 @@ export interface TransactionSimulateAuthorizationParams {
    *
    * - `AUTHORIZATION` is a dual message purchase authorization, meaning a subsequent
    *   clearing step is required to settle the transaction.
-   * - `BALANCE_INQUIRY` is a $0 authorization that includes a request for the
-   *   balance held on the card, and is most typically seen when a cardholder
-   *   requests to view a card's balance at an ATM.
+   * - `BALANCE_INQUIRY` is a $0 authorization requesting the balance held on the
+   *   card, and is most often observed when a cardholder requests to view a card's
+   *   balance at an ATM.
    * - `CREDIT_AUTHORIZATION` is a dual message request from a merchant to authorize
-   *   a refund or credit, meaning a subsequent clearing step is required to settle
-   *   the transaction.
+   *   a refund, meaning a subsequent clearing step is required to settle the
+   *   transaction.
    * - `FINANCIAL_AUTHORIZATION` is a single message request from a merchant to debit
    *   funds immediately (such as an ATM withdrawal), and no subsequent clearing is
    *   required to settle the transaction.
@@ -968,7 +971,7 @@ export interface TransactionSimulateAuthorizationParams {
 
 export interface TransactionSimulateAuthorizationAdviceParams {
   /**
-   * The transaction token returned from the /v1/simulate/authorize response.
+   * The transaction token returned from the /v1/simulate/authorize. response.
    */
   token: string;
 
@@ -986,12 +989,15 @@ export interface TransactionSimulateClearingParams {
   token: string;
 
   /**
-   * Amount (in cents) to complete. Typically this will match the original
-   * authorization, but may be more or less.
+   * Amount (in cents) to clear. Typically this will match the amount in the original
+   * authorization, but can be higher or lower. The sign of this amount will
+   * automatically match the sign of the original authorization's amount. For
+   * example, entering 100 in this field will result in a -100 amount in the
+   * transaction, if the original authorization is a credit authorization.
    *
-   * If no amount is supplied to this endpoint, the amount of the transaction will be
-   * captured. Any transaction that has any amount completed at all do not have
-   * access to this behavior.
+   * If `amount` is not set, the full amount of the transaction will be cleared.
+   * Transactions that have already cleared, either partially or fully, cannot be
+   * cleared again using this endpoint.
    */
   amount?: number;
 }
@@ -1058,8 +1064,8 @@ export interface TransactionSimulateVoidParams {
   token: string;
 
   /**
-   * Amount (in cents) to void. Typically this will match the original authorization,
-   * but may be less.
+   * Amount (in cents) to void. Typically this will match the amount in the original
+   * authorization, but can be less.
    */
   amount?: number;
 
