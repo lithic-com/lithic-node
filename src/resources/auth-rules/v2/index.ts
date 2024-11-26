@@ -1,6 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { AuthRules } from './auth-rules';
+export {
+  Backtests,
+  type BacktestResults,
+  type BacktestCreateResponse,
+  type BacktestCreateParams,
+} from './backtests';
 export {
   V2ListResponsesCursorPage,
   V2,
@@ -17,4 +22,4 @@ export {
   type V2ListParams,
   type V2ApplyParams,
   type V2DraftParams,
-} from './v2/index';
+} from './v2';
