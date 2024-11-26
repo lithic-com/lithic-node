@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
-import * as V2API from './v2';
+import * as V2API from './v2/v2';
 import {
   V2,
   V2ApplyParams,
@@ -18,7 +18,7 @@ import {
   V2RetrieveResponse,
   V2UpdateParams,
   V2UpdateResponse,
-} from './v2';
+} from './v2/v2';
 
 export class AuthRules extends APIResource {
   v2: V2API.V2 = new V2API.V2(this._client);

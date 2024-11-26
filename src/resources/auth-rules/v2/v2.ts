@@ -1,12 +1,16 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
-import * as Core from '../../core';
-import * as Shared from '../shared';
-import { CursorPage, type CursorPageParams } from '../../pagination';
+import { APIResource } from '../../../resource';
+import { isRequestOptions } from '../../../core';
+import * as Core from '../../../core';
+import * as Shared from '../../shared';
+import * as BacktestsAPI from './backtests';
+import { BacktestCreateParams, BacktestCreateResponse, BacktestResults, Backtests } from './backtests';
+import { CursorPage, type CursorPageParams } from '../../../pagination';
 
 export class V2 extends APIResource {
+  backtests: BacktestsAPI.Backtests = new BacktestsAPI.Backtests(this._client);
+
   /**
    * Creates a new V2 authorization rule in draft mode
    */
@@ -1983,6 +1987,7 @@ export namespace V2DraftParams {
 }
 
 V2.V2ListResponsesCursorPage = V2ListResponsesCursorPage;
+V2.Backtests = Backtests;
 
 export declare namespace V2 {
   export {
@@ -2000,5 +2005,12 @@ export declare namespace V2 {
     type V2ListParams as V2ListParams,
     type V2ApplyParams as V2ApplyParams,
     type V2DraftParams as V2DraftParams,
+  };
+
+  export {
+    Backtests as Backtests,
+    type BacktestResults as BacktestResults,
+    type BacktestCreateResponse as BacktestCreateResponse,
+    type BacktestCreateParams as BacktestCreateParams,
   };
 }

@@ -125,6 +125,11 @@ export interface SettlementDetail {
    * Date and time when the transaction first occurred. UTC time zone.
    */
   updated: string;
+
+  /**
+   * Network's description of a fee, only present on records with type `FEE`.
+   */
+  fee_description?: string;
 }
 
 export namespace SettlementDetail {
