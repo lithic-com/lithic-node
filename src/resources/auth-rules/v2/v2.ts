@@ -1,12 +1,16 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
-import * as Core from '../../core';
-import * as Shared from '../shared';
-import { CursorPage, type CursorPageParams } from '../../pagination';
+import { APIResource } from '../../../resource';
+import { isRequestOptions } from '../../../core';
+import * as Core from '../../../core';
+import * as Shared from '../../shared';
+import * as BacktestsAPI from './backtests';
+import { BacktestCreateParams, BacktestCreateResponse, BacktestResults, Backtests } from './backtests';
+import { CursorPage, type CursorPageParams } from '../../../pagination';
 
 export class V2 extends APIResource {
+  backtests: BacktestsAPI.Backtests = new BacktestsAPI.Backtests(this._client);
+
   /**
    * Creates a new V2 authorization rule in draft mode
    */
@@ -149,6 +153,9 @@ export class V2 extends APIResource {
 export class V2ListResponsesCursorPage extends CursorPage<V2ListResponse> {}
 
 export interface V2CreateResponse {
+  /**
+   * Auth Rule Token
+   */
   token: string;
 
   /**
@@ -350,6 +357,9 @@ export namespace V2CreateResponse {
 }
 
 export interface V2RetrieveResponse {
+  /**
+   * Auth Rule Token
+   */
   token: string;
 
   /**
@@ -551,6 +561,9 @@ export namespace V2RetrieveResponse {
 }
 
 export interface V2UpdateResponse {
+  /**
+   * Auth Rule Token
+   */
   token: string;
 
   /**
@@ -752,6 +765,9 @@ export namespace V2UpdateResponse {
 }
 
 export interface V2ListResponse {
+  /**
+   * Auth Rule Token
+   */
   token: string;
 
   /**
@@ -953,6 +969,9 @@ export namespace V2ListResponse {
 }
 
 export interface V2ApplyResponse {
+  /**
+   * Auth Rule Token
+   */
   token: string;
 
   /**
@@ -1154,6 +1173,9 @@ export namespace V2ApplyResponse {
 }
 
 export interface V2DraftResponse {
+  /**
+   * Auth Rule Token
+   */
   token: string;
 
   /**
@@ -1355,6 +1377,9 @@ export namespace V2DraftResponse {
 }
 
 export interface V2PromoteResponse {
+  /**
+   * Auth Rule Token
+   */
   token: string;
 
   /**
@@ -1962,6 +1987,7 @@ export namespace V2DraftParams {
 }
 
 V2.V2ListResponsesCursorPage = V2ListResponsesCursorPage;
+V2.Backtests = Backtests;
 
 export declare namespace V2 {
   export {
@@ -1979,5 +2005,12 @@ export declare namespace V2 {
     type V2ListParams as V2ListParams,
     type V2ApplyParams as V2ApplyParams,
     type V2DraftParams as V2DraftParams,
+  };
+
+  export {
+    Backtests as Backtests,
+    type BacktestResults as BacktestResults,
+    type BacktestCreateResponse as BacktestCreateResponse,
+    type BacktestCreateParams as BacktestCreateParams,
   };
 }

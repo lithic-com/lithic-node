@@ -70,25 +70,37 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/auth-rules/v2.ts">V2CreateResponse</a></code>
-- <code><a href="./src/resources/auth-rules/v2.ts">V2RetrieveResponse</a></code>
-- <code><a href="./src/resources/auth-rules/v2.ts">V2UpdateResponse</a></code>
-- <code><a href="./src/resources/auth-rules/v2.ts">V2ListResponse</a></code>
-- <code><a href="./src/resources/auth-rules/v2.ts">V2ApplyResponse</a></code>
-- <code><a href="./src/resources/auth-rules/v2.ts">V2DraftResponse</a></code>
-- <code><a href="./src/resources/auth-rules/v2.ts">V2PromoteResponse</a></code>
-- <code><a href="./src/resources/auth-rules/v2.ts">V2ReportResponse</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">V2CreateResponse</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">V2RetrieveResponse</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">V2UpdateResponse</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">V2ListResponse</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">V2ApplyResponse</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">V2DraftResponse</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">V2PromoteResponse</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">V2ReportResponse</a></code>
 
 Methods:
 
-- <code title="post /v2/auth_rules">client.authRules.v2.<a href="./src/resources/auth-rules/v2.ts">create</a>({ ...params }) -> V2CreateResponse</code>
-- <code title="get /v2/auth_rules/{auth_rule_token}">client.authRules.v2.<a href="./src/resources/auth-rules/v2.ts">retrieve</a>(authRuleToken) -> V2RetrieveResponse</code>
-- <code title="patch /v2/auth_rules/{auth_rule_token}">client.authRules.v2.<a href="./src/resources/auth-rules/v2.ts">update</a>(authRuleToken, { ...params }) -> V2UpdateResponse</code>
-- <code title="get /v2/auth_rules">client.authRules.v2.<a href="./src/resources/auth-rules/v2.ts">list</a>({ ...params }) -> V2ListResponsesCursorPage</code>
-- <code title="post /v2/auth_rules/{auth_rule_token}/apply">client.authRules.v2.<a href="./src/resources/auth-rules/v2.ts">apply</a>(authRuleToken, { ...params }) -> V2ApplyResponse</code>
-- <code title="post /v2/auth_rules/{auth_rule_token}/draft">client.authRules.v2.<a href="./src/resources/auth-rules/v2.ts">draft</a>(authRuleToken, { ...params }) -> V2DraftResponse</code>
-- <code title="post /v2/auth_rules/{auth_rule_token}/promote">client.authRules.v2.<a href="./src/resources/auth-rules/v2.ts">promote</a>(authRuleToken) -> V2PromoteResponse</code>
-- <code title="post /v2/auth_rules/{auth_rule_token}/report">client.authRules.v2.<a href="./src/resources/auth-rules/v2.ts">report</a>(authRuleToken) -> V2ReportResponse</code>
+- <code title="post /v2/auth_rules">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">create</a>({ ...params }) -> V2CreateResponse</code>
+- <code title="get /v2/auth_rules/{auth_rule_token}">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">retrieve</a>(authRuleToken) -> V2RetrieveResponse</code>
+- <code title="patch /v2/auth_rules/{auth_rule_token}">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">update</a>(authRuleToken, { ...params }) -> V2UpdateResponse</code>
+- <code title="get /v2/auth_rules">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">list</a>({ ...params }) -> V2ListResponsesCursorPage</code>
+- <code title="post /v2/auth_rules/{auth_rule_token}/apply">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">apply</a>(authRuleToken, { ...params }) -> V2ApplyResponse</code>
+- <code title="post /v2/auth_rules/{auth_rule_token}/draft">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">draft</a>(authRuleToken, { ...params }) -> V2DraftResponse</code>
+- <code title="post /v2/auth_rules/{auth_rule_token}/promote">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">promote</a>(authRuleToken) -> V2PromoteResponse</code>
+- <code title="post /v2/auth_rules/{auth_rule_token}/report">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">report</a>(authRuleToken) -> V2ReportResponse</code>
+
+### Backtests
+
+Types:
+
+- <code><a href="./src/resources/auth-rules/v2/backtests.ts">BacktestResults</a></code>
+- <code><a href="./src/resources/auth-rules/v2/backtests.ts">BacktestCreateResponse</a></code>
+
+Methods:
+
+- <code title="post /v2/auth_rules/{auth_rule_token}/backtests">client.authRules.v2.backtests.<a href="./src/resources/auth-rules/v2/backtests.ts">create</a>(authRuleToken, { ...params }) -> BacktestCreateResponse</code>
+- <code title="get /v2/auth_rules/{auth_rule_token}/backtests/{auth_rule_backtest_token}">client.authRules.v2.backtests.<a href="./src/resources/auth-rules/v2/backtests.ts">retrieve</a>(authRuleToken, authRuleBacktestToken) -> BacktestResults</code>
 
 # AuthStreamEnrollment
 
