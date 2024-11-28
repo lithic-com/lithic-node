@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.88.0 (2024-11-28)
+
+Full Changelog: [v0.87.0...v0.88.0](https://github.com/lithic-com/lithic-node/compare/v0.87.0...v0.88.0)
+
+### Features
+
+* **api:** updates to Auth Rules numeric types, new Card Types and Authorization Rule Backtests ([#574](https://github.com/lithic-com/lithic-node/issues/574)) ([a005b55](https://github.com/lithic-com/lithic-node/commit/a005b55fd762404867e927b40d9981f077ce1d33))
+* **internal:** make git install file structure match npm ([#577](https://github.com/lithic-com/lithic-node/issues/577)) ([866b317](https://github.com/lithic-com/lithic-node/commit/866b317607fff59457b46eeddea3362d849b98f6))
+
+
+### Chores
+
+* **api:** add backtest methods to AuthRules ([#576](https://github.com/lithic-com/lithic-node/issues/576)) ([fb6a246](https://github.com/lithic-com/lithic-node/commit/fb6a246d73643acabca62f18560e2e654c879fed))
+
 ## 0.87.0 (2024-11-21)
 
 Full Changelog: [v0.86.0...v0.87.0](https://github.com/lithic-com/lithic-node/compare/v0.86.0...v0.87.0)
