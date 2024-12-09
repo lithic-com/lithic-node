@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.89.0 (2024-12-09)
+
+Full Changelog: [v0.88.0...v0.89.0](https://github.com/lithic-com/lithic-node/compare/v0.88.0...v0.89.0)
+
+### Features
+
+* **api:** adds EventRuleResult to Transaction Events ([#579](https://github.com/lithic-com/lithic-node/issues/579)) ([fa60530](https://github.com/lithic-com/lithic-node/commit/fa60530532bbdee82d0942d9f4ac728c13cb6692))
+
+
+### Chores
+
+* **internal:** remove unnecessary getRequestClient function ([#581](https://github.com/lithic-com/lithic-node/issues/581)) ([5a5e522](https://github.com/lithic-com/lithic-node/commit/5a5e52293916a0fc9e8792fe05e9e26c90f65b11))
+
 ## 0.88.0 (2024-11-28)
 
 Full Changelog: [v0.87.0...v0.88.0](https://github.com/lithic-com/lithic-node/compare/v0.87.0...v0.88.0)
