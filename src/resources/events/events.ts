@@ -77,7 +77,7 @@ export class Events extends APIResource {
     options?: Core.RequestOptions,
   ): Promise<void> {
     return this._client.post(
-      `/events/${eventToken}/event_subscriptions/${params.eventSubscriptionToken}/resend`,
+      `/v1/events/${eventToken}/event_subscriptions/${params.eventSubscriptionToken}/resend`,
       options,
     );
   }
