@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.89.0 (2024-12-11)
+
+Full Changelog: [v0.88.0...v0.89.0](https://github.com/lithic-com/lithic-node/compare/v0.88.0...v0.89.0)
+
+### Features
+
+* **api:** adds EventRuleResult to Transaction Events ([#579](https://github.com/lithic-com/lithic-node/issues/579)) ([fa60530](https://github.com/lithic-com/lithic-node/commit/fa60530532bbdee82d0942d9f4ac728c13cb6692))
+
+
+### Bug Fixes
+
+* events.resend was missing v1 url prefix ([01eabac](https://github.com/lithic-com/lithic-node/commit/01eabac8e48934b3daa090e2cfd79410d8b57fea))
+
+
+### Chores
+
+* **internal:** bump cross-spawn to v7.0.6 ([#582](https://github.com/lithic-com/lithic-node/issues/582)) ([bd9dcf1](https://github.com/lithic-com/lithic-node/commit/bd9dcf199079c65e0850e8a64937535e4df8b7e5))
+* **internal:** remove unnecessary getRequestClient function ([#581](https://github.com/lithic-com/lithic-node/issues/581)) ([5a5e522](https://github.com/lithic-com/lithic-node/commit/5a5e52293916a0fc9e8792fe05e9e26c90f65b11))
+* **internal:** update isAbsoluteURL ([#584](https://github.com/lithic-com/lithic-node/issues/584)) ([53a2eca](https://github.com/lithic-com/lithic-node/commit/53a2ecae22947f9603f46ceb2c2356008f0dca10))
+* **types:** nicer error class types + jsdocs ([#583](https://github.com/lithic-com/lithic-node/issues/583)) ([2f91aae](https://github.com/lithic-com/lithic-node/commit/2f91aae98ea09bc247ef464424e07438f71550fd))
+
 ## 0.88.0 (2024-11-28)
 
 Full Changelog: [v0.87.0...v0.88.0](https://github.com/lithic-com/lithic-node/compare/v0.87.0...v0.88.0)
