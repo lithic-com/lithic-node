@@ -118,6 +118,8 @@ export interface Event {
    * - `card.reissued` - Notification that a card has been reissued.
    * - `card.shipped` - Physical card shipment notification. See
    *   https://docs.lithic.com/docs/cards#physical-card-shipped-webhook.
+   * - `card.converted` - Notification that a virtual card has been converted to a
+   *   physical card.
    * - `card_transaction.updated` - Transaction Lifecycle webhook. See
    *   https://docs.lithic.com/docs/transaction-webhooks.
    * - `dispute.updated` - A dispute has been updated.
@@ -144,6 +146,7 @@ export interface Event {
     | 'card.created'
     | 'card.renewed'
     | 'card.reissued'
+    | 'card.converted'
     | 'card.shipped'
     | 'card_transaction.updated'
     | 'digital_wallet.tokenization_approval_request'
@@ -208,6 +211,7 @@ export interface EventSubscription {
     | 'card.created'
     | 'card.renewed'
     | 'card.reissued'
+    | 'card.converted'
     | 'card.shipped'
     | 'card_transaction.updated'
     | 'digital_wallet.tokenization_approval_request'
@@ -310,6 +314,7 @@ export interface EventListParams extends CursorPageParams {
     | 'card.created'
     | 'card.renewed'
     | 'card.reissued'
+    | 'card.converted'
     | 'card.shipped'
     | 'card_transaction.updated'
     | 'digital_wallet.tokenization_approval_request'

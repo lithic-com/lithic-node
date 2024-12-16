@@ -122,7 +122,9 @@ export namespace ManagementOperationTransaction {
       | 'INTEREST_REVERSAL'
       | 'LATE_PAYMENT_REVERSAL'
       | 'BILLING_ERROR_REVERSAL'
-      | 'PROVISIONAL_CREDIT_REVERSAL';
+      | 'PROVISIONAL_CREDIT_REVERSAL'
+      | 'RETURNED_PAYMENT'
+      | 'RETURNED_PAYMENT_REVERSAL';
 
     subtype?: string;
   }
@@ -149,7 +151,9 @@ export interface ManagementOperationCreateParams {
     | 'INTEREST_REVERSAL'
     | 'LATE_PAYMENT_REVERSAL'
     | 'BILLING_ERROR_REVERSAL'
-    | 'PROVISIONAL_CREDIT_REVERSAL';
+    | 'PROVISIONAL_CREDIT_REVERSAL'
+    | 'RETURNED_PAYMENT'
+    | 'RETURNED_PAYMENT_REVERSAL';
 
   financial_account_token: string;
 

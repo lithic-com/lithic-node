@@ -179,7 +179,9 @@ export namespace Transfer {
       | 'RETURN'
       | 'RETURN_REVERSAL'
       | 'TRANSFER'
-      | 'TRANSFER_INSUFFICIENT_FUNDS';
+      | 'TRANSFER_INSUFFICIENT_FUNDS'
+      | 'RETURNED_PAYMENT'
+      | 'RETURNED_PAYMENT_REVERSAL';
   }
 }
 
