@@ -173,6 +173,11 @@ export interface V2CreateResponse {
   draft_version: V2CreateResponse.DraftVersion | null;
 
   /**
+   * Auth Rule Name
+   */
+  name: string | null;
+
+  /**
    * Whether the Auth Rule applies to all authorizations on the card program.
    */
   program_level: boolean;
@@ -186,6 +191,11 @@ export interface V2CreateResponse {
    * The type of Auth Rule
    */
   type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT';
+
+  /**
+   * Card tokens to which the Auth Rule does not apply.
+   */
+  excluded_card_tokens?: Array<string>;
 }
 
 export namespace V2CreateResponse {
@@ -241,6 +251,10 @@ export namespace V2CreateResponse {
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
          *   where the raw score has a range of 0-99, Lithic will normalize the score by
          *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
          */
         attribute?:
           | 'MCC'
@@ -251,7 +265,9 @@ export namespace V2CreateResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE';
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H';
 
         /**
          * The operation to apply to the attribute
@@ -324,6 +340,10 @@ export namespace V2CreateResponse {
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
          *   where the raw score has a range of 0-99, Lithic will normalize the score by
          *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
          */
         attribute?:
           | 'MCC'
@@ -334,7 +354,9 @@ export namespace V2CreateResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE';
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H';
 
         /**
          * The operation to apply to the attribute
@@ -377,6 +399,11 @@ export interface V2RetrieveResponse {
   draft_version: V2RetrieveResponse.DraftVersion | null;
 
   /**
+   * Auth Rule Name
+   */
+  name: string | null;
+
+  /**
    * Whether the Auth Rule applies to all authorizations on the card program.
    */
   program_level: boolean;
@@ -390,6 +417,11 @@ export interface V2RetrieveResponse {
    * The type of Auth Rule
    */
   type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT';
+
+  /**
+   * Card tokens to which the Auth Rule does not apply.
+   */
+  excluded_card_tokens?: Array<string>;
 }
 
 export namespace V2RetrieveResponse {
@@ -445,6 +477,10 @@ export namespace V2RetrieveResponse {
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
          *   where the raw score has a range of 0-99, Lithic will normalize the score by
          *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
          */
         attribute?:
           | 'MCC'
@@ -455,7 +491,9 @@ export namespace V2RetrieveResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE';
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H';
 
         /**
          * The operation to apply to the attribute
@@ -528,6 +566,10 @@ export namespace V2RetrieveResponse {
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
          *   where the raw score has a range of 0-99, Lithic will normalize the score by
          *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
          */
         attribute?:
           | 'MCC'
@@ -538,7 +580,9 @@ export namespace V2RetrieveResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE';
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H';
 
         /**
          * The operation to apply to the attribute
@@ -581,6 +625,11 @@ export interface V2UpdateResponse {
   draft_version: V2UpdateResponse.DraftVersion | null;
 
   /**
+   * Auth Rule Name
+   */
+  name: string | null;
+
+  /**
    * Whether the Auth Rule applies to all authorizations on the card program.
    */
   program_level: boolean;
@@ -594,6 +643,11 @@ export interface V2UpdateResponse {
    * The type of Auth Rule
    */
   type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT';
+
+  /**
+   * Card tokens to which the Auth Rule does not apply.
+   */
+  excluded_card_tokens?: Array<string>;
 }
 
 export namespace V2UpdateResponse {
@@ -649,6 +703,10 @@ export namespace V2UpdateResponse {
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
          *   where the raw score has a range of 0-99, Lithic will normalize the score by
          *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
          */
         attribute?:
           | 'MCC'
@@ -659,7 +717,9 @@ export namespace V2UpdateResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE';
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H';
 
         /**
          * The operation to apply to the attribute
@@ -732,6 +792,10 @@ export namespace V2UpdateResponse {
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
          *   where the raw score has a range of 0-99, Lithic will normalize the score by
          *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
          */
         attribute?:
           | 'MCC'
@@ -742,7 +806,9 @@ export namespace V2UpdateResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE';
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H';
 
         /**
          * The operation to apply to the attribute
@@ -785,6 +851,11 @@ export interface V2ListResponse {
   draft_version: V2ListResponse.DraftVersion | null;
 
   /**
+   * Auth Rule Name
+   */
+  name: string | null;
+
+  /**
    * Whether the Auth Rule applies to all authorizations on the card program.
    */
   program_level: boolean;
@@ -798,6 +869,11 @@ export interface V2ListResponse {
    * The type of Auth Rule
    */
   type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT';
+
+  /**
+   * Card tokens to which the Auth Rule does not apply.
+   */
+  excluded_card_tokens?: Array<string>;
 }
 
 export namespace V2ListResponse {
@@ -853,6 +929,10 @@ export namespace V2ListResponse {
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
          *   where the raw score has a range of 0-99, Lithic will normalize the score by
          *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
          */
         attribute?:
           | 'MCC'
@@ -863,7 +943,9 @@ export namespace V2ListResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE';
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H';
 
         /**
          * The operation to apply to the attribute
@@ -936,6 +1018,10 @@ export namespace V2ListResponse {
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
          *   where the raw score has a range of 0-99, Lithic will normalize the score by
          *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
          */
         attribute?:
           | 'MCC'
@@ -946,7 +1032,9 @@ export namespace V2ListResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE';
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H';
 
         /**
          * The operation to apply to the attribute
@@ -989,6 +1077,11 @@ export interface V2ApplyResponse {
   draft_version: V2ApplyResponse.DraftVersion | null;
 
   /**
+   * Auth Rule Name
+   */
+  name: string | null;
+
+  /**
    * Whether the Auth Rule applies to all authorizations on the card program.
    */
   program_level: boolean;
@@ -1002,6 +1095,11 @@ export interface V2ApplyResponse {
    * The type of Auth Rule
    */
   type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT';
+
+  /**
+   * Card tokens to which the Auth Rule does not apply.
+   */
+  excluded_card_tokens?: Array<string>;
 }
 
 export namespace V2ApplyResponse {
@@ -1057,6 +1155,10 @@ export namespace V2ApplyResponse {
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
          *   where the raw score has a range of 0-99, Lithic will normalize the score by
          *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
          */
         attribute?:
           | 'MCC'
@@ -1067,7 +1169,9 @@ export namespace V2ApplyResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE';
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H';
 
         /**
          * The operation to apply to the attribute
@@ -1140,6 +1244,10 @@ export namespace V2ApplyResponse {
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
          *   where the raw score has a range of 0-99, Lithic will normalize the score by
          *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
          */
         attribute?:
           | 'MCC'
@@ -1150,7 +1258,9 @@ export namespace V2ApplyResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE';
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H';
 
         /**
          * The operation to apply to the attribute
@@ -1193,6 +1303,11 @@ export interface V2DraftResponse {
   draft_version: V2DraftResponse.DraftVersion | null;
 
   /**
+   * Auth Rule Name
+   */
+  name: string | null;
+
+  /**
    * Whether the Auth Rule applies to all authorizations on the card program.
    */
   program_level: boolean;
@@ -1206,6 +1321,11 @@ export interface V2DraftResponse {
    * The type of Auth Rule
    */
   type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT';
+
+  /**
+   * Card tokens to which the Auth Rule does not apply.
+   */
+  excluded_card_tokens?: Array<string>;
 }
 
 export namespace V2DraftResponse {
@@ -1261,6 +1381,10 @@ export namespace V2DraftResponse {
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
          *   where the raw score has a range of 0-99, Lithic will normalize the score by
          *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
          */
         attribute?:
           | 'MCC'
@@ -1271,7 +1395,9 @@ export namespace V2DraftResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE';
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H';
 
         /**
          * The operation to apply to the attribute
@@ -1344,6 +1470,10 @@ export namespace V2DraftResponse {
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
          *   where the raw score has a range of 0-99, Lithic will normalize the score by
          *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
          */
         attribute?:
           | 'MCC'
@@ -1354,7 +1484,9 @@ export namespace V2DraftResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE';
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H';
 
         /**
          * The operation to apply to the attribute
@@ -1397,6 +1529,11 @@ export interface V2PromoteResponse {
   draft_version: V2PromoteResponse.DraftVersion | null;
 
   /**
+   * Auth Rule Name
+   */
+  name: string | null;
+
+  /**
    * Whether the Auth Rule applies to all authorizations on the card program.
    */
   program_level: boolean;
@@ -1410,6 +1547,11 @@ export interface V2PromoteResponse {
    * The type of Auth Rule
    */
   type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT';
+
+  /**
+   * Card tokens to which the Auth Rule does not apply.
+   */
+  excluded_card_tokens?: Array<string>;
 }
 
 export namespace V2PromoteResponse {
@@ -1465,6 +1607,10 @@ export namespace V2PromoteResponse {
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
          *   where the raw score has a range of 0-99, Lithic will normalize the score by
          *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
          */
         attribute?:
           | 'MCC'
@@ -1475,7 +1621,9 @@ export namespace V2PromoteResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE';
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H';
 
         /**
          * The operation to apply to the attribute
@@ -1548,6 +1696,10 @@ export namespace V2PromoteResponse {
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
          *   where the raw score has a range of 0-99, Lithic will normalize the score by
          *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
          */
         attribute?:
           | 'MCC'
@@ -1558,7 +1710,9 @@ export namespace V2PromoteResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE';
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H';
 
         /**
          * The operation to apply to the attribute
@@ -1595,6 +1749,11 @@ export namespace V2CreateParams {
      * Account tokens to which the Auth Rule applies.
      */
     account_tokens: Array<string>;
+
+    /**
+     * Auth Rule Name
+     */
+    name?: string | null;
 
     /**
      * Parameters for the current version of the Auth Rule
@@ -1648,6 +1807,10 @@ export namespace V2CreateParams {
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
          *   where the raw score has a range of 0-99, Lithic will normalize the score by
          *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
          */
         attribute?:
           | 'MCC'
@@ -1658,7 +1821,9 @@ export namespace V2CreateParams {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE';
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H';
 
         /**
          * The operation to apply to the attribute
@@ -1684,6 +1849,11 @@ export namespace V2CreateParams {
      * Card tokens to which the Auth Rule applies.
      */
     card_tokens: Array<string>;
+
+    /**
+     * Auth Rule Name
+     */
+    name?: string | null;
 
     /**
      * Parameters for the current version of the Auth Rule
@@ -1737,6 +1907,10 @@ export namespace V2CreateParams {
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
          *   where the raw score has a range of 0-99, Lithic will normalize the score by
          *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
          */
         attribute?:
           | 'MCC'
@@ -1747,7 +1921,9 @@ export namespace V2CreateParams {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE';
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H';
 
         /**
          * The operation to apply to the attribute
@@ -1773,6 +1949,16 @@ export namespace V2CreateParams {
      * Whether the Auth Rule applies to all authorizations on the card program.
      */
     program_level: boolean;
+
+    /**
+     * Card tokens to which the Auth Rule does not apply.
+     */
+    excluded_card_tokens?: Array<string>;
+
+    /**
+     * Auth Rule Name
+     */
+    name?: string | null;
 
     /**
      * Parameters for the current version of the Auth Rule
@@ -1826,6 +2012,10 @@ export namespace V2CreateParams {
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
          *   where the raw score has a range of 0-99, Lithic will normalize the score by
          *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
          */
         attribute?:
           | 'MCC'
@@ -1836,7 +2026,9 @@ export namespace V2CreateParams {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE';
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H';
 
         /**
          * The operation to apply to the attribute
@@ -1859,6 +2051,11 @@ export namespace V2CreateParams {
 }
 
 export interface V2UpdateParams {
+  /**
+   * Auth Rule Name
+   */
+  name?: string | null;
+
   /**
    * The desired state of the Auth Rule.
    *
@@ -1906,6 +2103,11 @@ export namespace V2ApplyParams {
      * Whether the Auth Rule applies to all authorizations on the card program.
      */
     program_level: boolean;
+
+    /**
+     * Card tokens to which the Auth Rule does not apply.
+     */
+    excluded_card_tokens?: Array<string>;
   }
 }
 
@@ -1955,6 +2157,10 @@ export namespace V2DraftParams {
        *   lowest risk and 999 representing the highest risk. For Visa transactions,
        *   where the raw score has a range of 0-99, Lithic will normalize the score by
        *   multiplying the raw score by 10x.
+       * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+       *   trailing hour up and until the authorization.
+       * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+       *   trailing 24 hours up and until the authorization.
        */
       attribute?:
         | 'MCC'
@@ -1965,7 +2171,9 @@ export namespace V2DraftParams {
         | 'LIABILITY_SHIFT'
         | 'PAN_ENTRY_MODE'
         | 'TRANSACTION_AMOUNT'
-        | 'RISK_SCORE';
+        | 'RISK_SCORE'
+        | 'CARD_TRANSACTION_COUNT_1H'
+        | 'CARD_TRANSACTION_COUNT_24H';
 
       /**
        * The operation to apply to the attribute

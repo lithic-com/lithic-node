@@ -65,6 +65,7 @@ export {
   type CardCreateParams,
   type CardUpdateParams,
   type CardListParams,
+  type CardConvertPhysicalParams,
   type CardEmbedParams,
   type CardProvisionParams,
   type CardReissueParams,

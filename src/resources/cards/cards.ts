@@ -27,7 +27,7 @@ export class Cards extends APIResource {
     new FinancialTransactionsAPI.FinancialTransactions(this._client);
 
   /**
-   * Create a new virtual or physical card. Parameters `pin`, `shipping_address`, and
+   * Create a new virtual or physical card. Parameters `shipping_address` and
    * `product_id` only apply to physical cards.
    */
   create(body: CardCreateParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
@@ -43,7 +43,7 @@ export class Cards extends APIResource {
 
   /**
    * Update the specified properties of the card. Unsupplied properties will remain
-   * unchanged. `pin` parameter only applies to physical cards.
+   * unchanged.
    *
    * _Note: setting a card to a `CLOSED` state is a final action that cannot be
    * undone._
@@ -68,6 +68,26 @@ export class Cards extends APIResource {
   }
 
   /**
+   * Convert a virtual card into a physical card and manufacture it. Customer must
+   * supply relevant fields for physical card creation including `product_id`,
+   * `carrier`, `shipping_method`, and `shipping_address`. The card token will be
+   * unchanged. The card's type will be altered to `PHYSICAL`. The card will be set
+   * to state `PENDING_FULFILLMENT` and fulfilled at next fulfillment cycle. Virtual
+   * cards created on card programs which do not support physical cards cannot be
+   * converted. The card program cannot be changed as part of the conversion. Cards
+   * must be in a state of either `OPEN` or `PAUSED` to be converted. Only applies to
+   * cards of type `VIRTUAL` (or existing cards with deprecated types of
+   * `DIGITAL_WALLET` and `UNLOCKED`).
+   */
+  convertPhysical(
+    cardToken: string,
+    body: CardConvertPhysicalParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<Card> {
+    return this._client.post(`/v1/cards/${cardToken}/convert_physical`, { body, ...options });
+  }
+
+  /**
    * Handling full card PANs and CVV codes requires that you comply with the Payment
    * Card Industry Data Security Standards (PCI DSS). Some clients choose to reduce
    * their compliance obligations by leveraging our embedded card UI solution
@@ -77,9 +97,10 @@ export class Cards extends APIResource {
    * that we provide, optionally styled in the customer's branding using a specified
    * css stylesheet. A user's browser makes the request directly to api.lithic.com,
    * so card PANs and CVVs never touch the API customer's servers while full card
-   * data is displayed to their end-users. The response contains an HTML document.
-   * This means that the url for the request can be inserted straight into the `src`
-   * attribute of an iframe.
+   * data is displayed to their end-users. The response contains an HTML document
+   * (see Embedded Card UI or Changelog for upcoming changes in January). This means
+   * that the url for the request can be inserted straight into the `src` attribute
+   * of an iframe.
    *
    * ```html
    * <iframe
@@ -180,18 +201,21 @@ export class Cards extends APIResource {
   }
 
   /**
-   * Initiate print and shipment of a duplicate physical card.
-   *
-   * Only applies to cards of type `PHYSICAL`.
+   * Initiate print and shipment of a duplicate physical card (e.g. card is
+   * physically damaged). The PAN, expiry, and CVC2 will remain the same and the
+   * original card can continue to be used until the new card is activated. A card
+   * can be reissued a maximum of 8 times. Only applies to cards of type `PHYSICAL`.
    */
   reissue(cardToken: string, body: CardReissueParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
     return this._client.post(`/v1/cards/${cardToken}/reissue`, { body, ...options });
   }
 
   /**
-   * Initiate print and shipment of a renewed physical card.
-   *
-   * Only applies to cards of type `PHYSICAL`.
+   * Creates a new card with the same card token and PAN, but updated expiry and CVC2
+   * code. The original card will keep working for card-present transactions until
+   * the new card is activated. For card-not-present transactions, the original card
+   * details (expiry, CVC2) will also keep working until the new card is activated.
+   * Applies to card types `PHYSICAL` and `VIRTUAL`.
    */
   renew(cardToken: string, body: CardRenewParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
     return this._client.post(`/v1/cards/${cardToken}/renew`, { body, ...options });
@@ -296,8 +320,9 @@ export interface Card {
    * - `PENDING_ACTIVATION` - At regular intervals, cards of type `PHYSICAL` in state
    *   `PENDING_FULFILLMENT` are sent to the card production warehouse and updated to
    *   state `PENDING_ACTIVATION` . Similar to `PENDING_FULFILLMENT`, cards in this
-   *   state can be used for e-commerce transactions. API clients should update the
-   *   card's state to `OPEN` only after the cardholder confirms receipt of the card.
+   *   state can be used for e-commerce transactions or can be added to mobile
+   *   wallets. API clients should update the card's state to `OPEN` only after the
+   *   cardholder confirms receipt of the card.
    *
    * In sandbox, the same daily batch fulfillment occurs, but no cards are actually
    * manufactured.
@@ -609,7 +634,7 @@ export interface CardCreateParams {
   memo?: string;
 
   /**
-   * Encrypted PIN block (in base64). Only applies to cards of type `PHYSICAL` and
+   * Encrypted PIN block (in base64). Applies to cards of type `PHYSICAL` and
    * `VIRTUAL`. See
    * [Encrypted PIN Block](https://docs.lithic.com/docs/cards#encrypted-pin-block).
    */
@@ -632,8 +657,9 @@ export interface CardCreateParams {
   replacement_account_token?: string;
 
   /**
-   * Only applicable to cards of type `PHYSICAL`. Globally unique identifier for the
-   * card that this physical card will replace.
+   * Globally unique identifier for the card that this card will replace. If the card
+   * type is `PHYSICAL` it will be replaced by a `PHYSICAL` card. If the card type is
+   * `VIRTUAL` it will be replaced by a `VIRTUAL` card.
    */
   replacement_for?: string;
 
@@ -778,6 +804,41 @@ export interface CardListParams extends CursorPageParams {
    * Returns cards with the specified state.
    */
   state?: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT';
+}
+
+export interface CardConvertPhysicalParams {
+  /**
+   * The shipping address this card will be sent to.
+   */
+  shipping_address: Shared.ShippingAddress;
+
+  /**
+   * If omitted, the previous carrier will be used.
+   */
+  carrier?: Shared.Carrier;
+
+  /**
+   * Specifies the configuration (e.g. physical card art) that the card should be
+   * manufactured with, and only applies to cards of type `PHYSICAL`. This must be
+   * configured with Lithic before use.
+   */
+  product_id?: string;
+
+  /**
+   * Shipping method for the card. Use of options besides `STANDARD` require
+   * additional permissions.
+   *
+   * - `STANDARD` - USPS regular mail or similar international option, with no
+   *   tracking
+   * - `STANDARD_WITH_TRACKING` - USPS regular mail or similar international option,
+   *   with tracking
+   * - `PRIORITY` - USPS Priority, 1-3 day shipping, with tracking
+   * - `EXPRESS` - FedEx Express, 3-day shipping, with tracking
+   * - `2_DAY` - FedEx 2-day shipping, with tracking
+   * - `EXPEDITED` - FedEx Standard Overnight or similar international option, with
+   *   tracking
+   */
+  shipping_method?: '2-DAY' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING';
 }
 
 export interface CardEmbedParams {
@@ -1010,6 +1071,7 @@ export declare namespace Cards {
     type CardCreateParams as CardCreateParams,
     type CardUpdateParams as CardUpdateParams,
     type CardListParams as CardListParams,
+    type CardConvertPhysicalParams as CardConvertPhysicalParams,
     type CardEmbedParams as CardEmbedParams,
     type CardGetEmbedHTMLParams,
     type CardGetEmbedURLParams,
