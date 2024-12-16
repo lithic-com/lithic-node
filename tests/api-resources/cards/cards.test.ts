@@ -45,7 +45,7 @@ describe('resource cards', () => {
         address2: 'Unit 25A',
         email: 'johnny@appleseed.com',
         line2_text: 'The Bluth Company',
-        phone_number: '+12124007676',
+        phone_number: '+15555555555',
       },
       shipping_method: '2_DAY',
       spend_limit: 1000,
@@ -119,6 +119,48 @@ describe('resource cards', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
+  test('convertPhysical: only required params', async () => {
+    const responsePromise = client.cards.convertPhysical('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      shipping_address: {
+        address1: '5 Broad Street',
+        city: 'NEW YORK',
+        country: 'USA',
+        first_name: 'Janet',
+        last_name: 'Yellen',
+        postal_code: '10001',
+        state: 'NY',
+      },
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('convertPhysical: required and optional params', async () => {
+    const response = await client.cards.convertPhysical('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      shipping_address: {
+        address1: '5 Broad Street',
+        city: 'NEW YORK',
+        country: 'USA',
+        first_name: 'Janet',
+        last_name: 'Yellen',
+        postal_code: '10001',
+        state: 'NY',
+        address2: 'Unit 5A',
+        email: 'johnny@appleseed.com',
+        line2_text: 'The Bluth Company',
+        phone_number: '+15555555555',
+      },
+      carrier: { qr_code_url: 'https://lithic.com/activate-card/1' },
+      product_id: '100',
+      shipping_method: '2-DAY',
+    });
+  });
+
   test('embed: only required params', async () => {
     const responsePromise = client.cards.embed({ embed_request: 'embed_request', hmac: 'hmac' });
     const rawResponse = await responsePromise.asResponse();
@@ -190,7 +232,7 @@ describe('resource cards', () => {
         address2: 'Unit 5A',
         email: 'johnny@appleseed.com',
         line2_text: 'The Bluth Company',
-        phone_number: '+12124007676',
+        phone_number: '+15555555555',
       },
       carrier: { qr_code_url: 'https://lithic.com/activate-card/1' },
       exp_month: '06',

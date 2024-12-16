@@ -162,6 +162,7 @@ Methods:
 - <code title="get /v1/cards/{card_token}">client.cards.<a href="./src/resources/cards/cards.ts">retrieve</a>(cardToken) -> Card</code>
 - <code title="patch /v1/cards/{card_token}">client.cards.<a href="./src/resources/cards/cards.ts">update</a>(cardToken, { ...params }) -> Card</code>
 - <code title="get /v1/cards">client.cards.<a href="./src/resources/cards/cards.ts">list</a>({ ...params }) -> CardsCursorPage</code>
+- <code title="post /v1/cards/{card_token}/convert_physical">client.cards.<a href="./src/resources/cards/cards.ts">convertPhysical</a>(cardToken, { ...params }) -> Card</code>
 - <code title="get /v1/embed/card">client.cards.<a href="./src/resources/cards/cards.ts">embed</a>({ ...params }) -> string</code>
 - <code title="post /v1/cards/{card_token}/provision">client.cards.<a href="./src/resources/cards/cards.ts">provision</a>(cardToken, { ...params }) -> CardProvisionResponse</code>
 - <code title="post /v1/cards/{card_token}/reissue">client.cards.<a href="./src/resources/cards/cards.ts">reissue</a>(cardToken, { ...params }) -> Card</code>

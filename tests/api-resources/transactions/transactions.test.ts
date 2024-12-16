@@ -91,6 +91,7 @@ describe('resource transactions', () => {
       merchant_amount: 0,
       merchant_currency: 'GBP',
       partial_approval_capable: true,
+      pin: '1234',
       status: 'AUTHORIZATION',
     });
   });

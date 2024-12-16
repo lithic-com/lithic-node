@@ -144,6 +144,7 @@ import { Transfer, TransferCreateParams, Transfers } from './resources/transfers
 import { AuthRules } from './resources/auth-rules/auth-rules';
 import {
   Card,
+  CardConvertPhysicalParams,
   CardCreateParams,
   CardEmbedParams,
   CardEmbedResponse,
@@ -564,6 +565,7 @@ export declare namespace Lithic {
     type CardCreateParams as CardCreateParams,
     type CardUpdateParams as CardUpdateParams,
     type CardListParams as CardListParams,
+    type CardConvertPhysicalParams as CardConvertPhysicalParams,
     type CardEmbedParams as CardEmbedParams,
     type CardProvisionParams as CardProvisionParams,
     type CardReissueParams as CardReissueParams,

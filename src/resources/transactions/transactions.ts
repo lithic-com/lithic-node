@@ -156,8 +156,8 @@ export interface Transaction {
   acquirer_fee: number | null;
 
   /**
-   * Unique identifier assigned to a transaction by the acquirer that can be used in
-   * dispute and chargeback filing.
+   * @deprecated: Unique identifier assigned to a transaction by the acquirer that
+   * can be used in dispute and chargeback filing.
    */
   acquirer_reference_number: string | null;
 
@@ -724,6 +724,19 @@ export namespace Transaction {
       | 'RETURN'
       | 'RETURN_REVERSAL';
 
+    /**
+     * Information provided by the card network in each event. This includes common
+     * identifiers shared between you, Lithic, the card network and in some cases the
+     * acquirer. These identifiers often link together events within the same
+     * transaction lifecycle and can be used to locate a particular transaction, such
+     * as during processing of disputes. Not all fields are available in all events,
+     * and the presence of these fields is dependent on the card network and the event
+     * type.
+     *
+     * Now available in sandbox, and available in production on December 17th, 2024.
+     */
+    network_info?: Event.NetworkInfo | null;
+
     rule_results?: Array<Event.RuleResult>;
   }
 
@@ -792,6 +805,66 @@ export namespace Transaction {
       }
     }
 
+    /**
+     * Information provided by the card network in each event. This includes common
+     * identifiers shared between you, Lithic, the card network and in some cases the
+     * acquirer. These identifiers often link together events within the same
+     * transaction lifecycle and can be used to locate a particular transaction, such
+     * as during processing of disputes. Not all fields are available in all events,
+     * and the presence of these fields is dependent on the card network and the event
+     * type.
+     *
+     * Now available in sandbox, and available in production on December 17th, 2024.
+     */
+    export interface NetworkInfo {
+      acquirer: NetworkInfo.Acquirer | null;
+
+      mastercard: NetworkInfo.Mastercard | null;
+
+      visa: NetworkInfo.Visa | null;
+    }
+
+    export namespace NetworkInfo {
+      export interface Acquirer {
+        /**
+         * Identifier assigned by the acquirer, applicable to dual-message transactions
+         * only. The acquirer reference number (ARN) is only populated once a transaction
+         * has been cleared, and it is not available in all transactions (such as automated
+         * fuel dispenser transactions). A single transaction can contain multiple ARNs if
+         * the merchant sends multiple clearings.
+         */
+        acquirer_reference_number: string | null;
+
+        /**
+         * Identifier assigned by the acquirer.
+         */
+        retrieval_reference_number: string | null;
+      }
+
+      export interface Mastercard {
+        /**
+         * Identifier assigned by Mastercard.
+         */
+        banknet_reference_number: string | null;
+
+        /**
+         * Identifier assigned by Mastercard, applicable to single-message transactions
+         * only.
+         */
+        switch_serial_number: string | null;
+      }
+
+      export interface Visa {
+        /**
+         * Identifier assigned by Visa.
+         */
+        transaction_id: string | null;
+      }
+    }
+
+    /**
+     * Available in production on December 17th, 2024.
+     */
     export interface RuleResult {
       /**
        * The Auth Rule Token associated with the rule from which the decline originated.
@@ -1018,6 +1091,11 @@ export interface TransactionSimulateAuthorizationParams {
    * must be used for the remainder.
    */
   partial_approval_capable?: boolean;
+
+  /**
+   * Simulate entering a PIN. If omitted, PIN check will not be performed.
+   */
+  pin?: string;
 
   /**
    * Type of event to simulate.

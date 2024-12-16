@@ -145,7 +145,9 @@ export namespace StatementLineItems {
       | 'RETURN'
       | 'RETURN_REVERSAL'
       | 'TRANSFER'
-      | 'TRANSFER_INSUFFICIENT_FUNDS';
+      | 'TRANSFER_INSUFFICIENT_FUNDS'
+      | 'RETURNED_PAYMENT'
+      | 'RETURNED_PAYMENT_REVERSAL';
 
     /**
      * Globally unique identifier for a financial account
@@ -270,7 +272,9 @@ export interface LineItemListResponse {
     | 'RETURN'
     | 'RETURN_REVERSAL'
     | 'TRANSFER'
-    | 'TRANSFER_INSUFFICIENT_FUNDS';
+    | 'TRANSFER_INSUFFICIENT_FUNDS'
+    | 'RETURNED_PAYMENT'
+    | 'RETURNED_PAYMENT_REVERSAL';
 
   /**
    * Globally unique identifier for a financial account
