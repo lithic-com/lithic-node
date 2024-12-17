@@ -196,7 +196,7 @@ describe('instantiate client', () => {
     expect(client.apiKey).toBe('My Lithic API Key');
   });
 
-  test('with overriden environment variable arguments', () => {
+  test('with overridden environment variable arguments', () => {
     // set options via env var
     process.env['LITHIC_API_KEY'] = 'another My Lithic API Key';
     const client = new Lithic({ apiKey: 'My Lithic API Key' });
