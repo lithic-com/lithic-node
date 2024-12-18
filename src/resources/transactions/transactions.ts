@@ -680,6 +680,17 @@ export namespace Transaction {
      */
     effective_polarity: 'CREDIT' | 'DEBIT';
 
+    /**
+     * Information provided by the card network in each event. This includes common
+     * identifiers shared between you, Lithic, the card network and in some cases the
+     * acquirer. These identifiers often link together events within the same
+     * transaction lifecycle and can be used to locate a particular transaction, such
+     * as during processing of disputes. Not all fields are available in all events,
+     * and the presence of these fields is dependent on the card network and the event
+     * type.
+     */
+    network_info: Event.NetworkInfo | null;
+
     result:
       | 'ACCOUNT_STATE_TRANSACTION_FAIL'
       | 'APPROVED'
@@ -705,6 +716,8 @@ export namespace Transaction {
       | 'UNKNOWN_HOST_TIMEOUT'
       | 'USER_TRANSACTION_LIMIT';
 
+    rule_results: Array<Event.RuleResult>;
+
     /**
      * Type of transaction event
      */
@@ -723,21 +736,6 @@ export namespace Transaction {
       | 'FINANCIAL_CREDIT_AUTHORIZATION'
       | 'RETURN'
       | 'RETURN_REVERSAL';
-
-    /**
-     * Information provided by the card network in each event. This includes common
-     * identifiers shared between you, Lithic, the card network and in some cases the
-     * acquirer. These identifiers often link together events within the same
-     * transaction lifecycle and can be used to locate a particular transaction, such
-     * as during processing of disputes. Not all fields are available in all events,
-     * and the presence of these fields is dependent on the card network and the event
-     * type.
-     *
-     * Now available in sandbox, and available in production on December 17th, 2024.
-     */
-    network_info?: Event.NetworkInfo | null;
-
-    rule_results?: Array<Event.RuleResult>;
   }
 
   export namespace Event {
@@ -813,8 +811,6 @@ export namespace Transaction {
      * as during processing of disputes. Not all fields are available in all events,
      * and the presence of these fields is dependent on the card network and the event
      * type.
-     *
-     * Now available in sandbox, and available in production on December 17th, 2024.
      */
     export interface NetworkInfo {
       acquirer: NetworkInfo.Acquirer | null;
@@ -862,9 +858,6 @@ export namespace Transaction {
       }
     }
 
-    /**
-     * Available in production on December 17th, 2024.
-     */
     export interface RuleResult {
       /**
        * The Auth Rule Token associated with the rule from which the decline originated.
@@ -884,6 +877,9 @@ export namespace Transaction {
        */
       name: string | null;
 
+      /**
+       * The detailed_result associated with this rule's decline.
+       */
       result:
         | 'ACCOUNT_DAILY_SPEND_LIMIT_EXCEEDED'
         | 'ACCOUNT_DELINQUENT'

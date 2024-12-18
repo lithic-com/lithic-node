@@ -89,24 +89,6 @@ export class AccountHolders extends APIResource {
   }
 
   /**
-   * Resubmit a KYC submission. This endpoint should be used in cases where a KYC
-   * submission returned a `PENDING_RESUBMIT` result, meaning one or more critical
-   * KYC fields may have been mis-entered and the individual's identity has not yet
-   * been successfully verified. This step must be completed in order to proceed with
-   * the KYC evaluation.
-   *
-   * Two resubmission attempts are permitted via this endpoint before a `REJECTED`
-   * status is returned and the account creation process is ended.
-   */
-  resubmit(
-    accountHolderToken: string,
-    body: AccountHolderResubmitParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<AccountHolder> {
-    return this._client.post(`/v1/account_holders/${accountHolderToken}/resubmit`, { body, ...options });
-  }
-
-  /**
    * Check the status of an account holder document upload, or retrieve the upload
    * URLs to process your image uploads.
    *
@@ -142,8 +124,7 @@ export class AccountHolders extends APIResource {
 
   /**
    * Simulates an enrollment review for an account holder. This endpoint is only
-   * applicable for workflows that may required intervention such as `KYB_BASIC` or
-   * `KYC_ADVANCED`.
+   * applicable for workflows that may required intervention such as `KYB_BASIC`.
    */
   simulateEnrollmentReview(
     body: AccountHolderSimulateEnrollmentReviewParams,
@@ -274,8 +255,8 @@ export interface AccountHolder {
   phone_number?: string;
 
   /**
-   * Only present for "KYB_BASIC" and "KYC_ADVANCED" workflows. A list of documents
-   * required for the account holder to be approved.
+   * Only present for "KYB_BASIC" workflow. A list of documents required for the
+   * account holder to be approved.
    */
   required_documents?: Array<RequiredDocument>;
 
@@ -286,8 +267,6 @@ export interface AccountHolder {
    *
    * Note:
    *
-   * - `PENDING_RESUBMIT` and `PENDING_DOCUMENT` are only applicable for the
-   *   `KYC_ADVANCED` workflow.
    * - `PENDING_REVIEW` is only applicable for the `KYB_BASIC` workflow.
    */
   status?: 'ACCEPTED' | 'PENDING_REVIEW' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED';
@@ -560,8 +539,6 @@ export namespace AccountHolder {
      *
      * Note:
      *
-     * - `PENDING_RESUBMIT` and `PENDING_DOCUMENT` are only applicable for the
-     *   `KYC_ADVANCED` workflow.
      * - `PENDING_REVIEW` is only applicable for the `KYB_BASIC` workflow.
      */
     status?: 'ACCEPTED' | 'PENDING_REVIEW' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED';
@@ -863,7 +840,7 @@ export interface KYC {
   /**
    * Specifies the type of KYC workflow to run.
    */
-  workflow: 'KYC_ADVANCED' | 'KYC_BASIC' | 'KYC_BYO';
+  workflow: 'KYC_BASIC' | 'KYC_BYO';
 
   /**
    * A user provided id that can be used to link an account holder with an external
@@ -1014,8 +991,6 @@ export interface AccountHolderCreateResponse {
    *
    * Note:
    *
-   * - `PENDING_RESUBMIT` and `PENDING_DOCUMENT` are only applicable for the
-   *   `KYC_ADVANCED` workflow.
    * - `PENDING_REVIEW` is only applicable for the `KYB_BASIC` workflow.
    */
   status: 'ACCEPTED' | 'PENDING_REVIEW' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED';
@@ -1062,8 +1037,8 @@ export interface AccountHolderCreateResponse {
   external_id?: string;
 
   /**
-   * Only present for "KYB_BASIC" and "KYC_ADVANCED" workflows. A list of documents
-   * required for the account holder to be approved.
+   * Only present for "KYB_BASIC" workflow. A list of documents required for the
+   * account holder to be approved.
    */
   required_documents?: Array<RequiredDocument>;
 }
@@ -1997,7 +1972,7 @@ export namespace AccountHolderCreateParams {
     /**
      * Specifies the type of KYC workflow to run.
      */
-    workflow: 'KYC_ADVANCED' | 'KYC_BASIC' | 'KYC_BYO';
+    workflow: 'KYC_BASIC' | 'KYC_BYO';
 
     /**
      * A user provided id that can be used to link an account holder with an external
@@ -2202,71 +2177,6 @@ export interface AccountHolderListParams {
   starting_after?: string;
 }
 
-export interface AccountHolderResubmitParams {
-  /**
-   * Information on individual for whom the account is being opened and KYC is being
-   * re-run.
-   */
-  individual: AccountHolderResubmitParams.Individual;
-
-  /**
-   * An RFC 3339 timestamp indicating when the account holder accepted the applicable
-   * legal agreements (e.g., cardholder terms) as agreed upon during API customer's
-   * implementation with Lithic.
-   */
-  tos_timestamp: string;
-
-  workflow: 'KYC_ADVANCED';
-}
-
-export namespace AccountHolderResubmitParams {
-  /**
-   * Information on individual for whom the account is being opened and KYC is being
-   * re-run.
-   */
-  export interface Individual {
-    /**
-     * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-     * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
-     */
-    address: Shared.Address;
-
-    /**
-     * Individual's date of birth, as an RFC 3339 date.
-     */
-    dob: string;
-
-    /**
-     * Individual's email address. If utilizing Lithic for chargeback processing, this
-     * customer email address may be used to communicate dispute status and resolution.
-     */
-    email: string;
-
-    /**
-     * Individual's first name, as it appears on government-issued identity documents.
-     */
-    first_name: string;
-
-    /**
-     * Government-issued identification number (required for identity verification and
-     * compliance with banking regulations). Social Security Numbers (SSN) and
-     * Individual Taxpayer Identification Numbers (ITIN) are currently supported,
-     * entered as full nine-digits, with or without hyphens
-     */
-    government_id: string;
-
-    /**
-     * Individual's last name, as it appears on government-issued identity documents.
-     */
-    last_name: string;
-
-    /**
-     * Individual's phone number, entered in E.164 format.
-     */
-    phone_number: string;
-  }
-}
-
 export interface AccountHolderSimulateEnrollmentDocumentReviewParams {
   /**
    * The account holder document upload which to perform the simulation upon.
@@ -2384,7 +2294,6 @@ export declare namespace AccountHolders {
     type AccountHolderCreateParams as AccountHolderCreateParams,
     type AccountHolderUpdateParams as AccountHolderUpdateParams,
     type AccountHolderListParams as AccountHolderListParams,
-    type AccountHolderResubmitParams as AccountHolderResubmitParams,
     type AccountHolderSimulateEnrollmentDocumentReviewParams as AccountHolderSimulateEnrollmentDocumentReviewParams,
     type AccountHolderSimulateEnrollmentReviewParams as AccountHolderSimulateEnrollmentReviewParams,
     type AccountHolderUploadDocumentParams as AccountHolderUploadDocumentParams,

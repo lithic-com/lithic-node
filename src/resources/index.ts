@@ -16,7 +16,6 @@ export {
   type AccountHolderCreateParams,
   type AccountHolderUpdateParams,
   type AccountHolderListParams,
-  type AccountHolderResubmitParams,
   type AccountHolderSimulateEnrollmentDocumentReviewParams,
   type AccountHolderSimulateEnrollmentReviewParams,
   type AccountHolderUploadDocumentParams,

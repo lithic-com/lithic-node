@@ -248,58 +248,6 @@ describe('resource accountHolders', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  test('resubmit: only required params', async () => {
-    const responsePromise = client.accountHolders.resubmit('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      individual: {
-        address: {
-          address1: '123 Old Forest Way',
-          city: 'Omaha',
-          country: 'USA',
-          postal_code: '68022',
-          state: 'NE',
-        },
-        dob: '1991-03-08 08:00:00',
-        email: 'tom@middle-earth.com',
-        first_name: 'Tom',
-        government_id: '111-23-1412',
-        last_name: 'Bombadil',
-        phone_number: '+15555555555',
-      },
-      tos_timestamp: '2018-05-29T21:16:05Z',
-      workflow: 'KYC_ADVANCED',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('resubmit: required and optional params', async () => {
-    const response = await client.accountHolders.resubmit('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      individual: {
-        address: {
-          address1: '123 Old Forest Way',
-          city: 'Omaha',
-          country: 'USA',
-          postal_code: '68022',
-          state: 'NE',
-          address2: 'address2',
-        },
-        dob: '1991-03-08 08:00:00',
-        email: 'tom@middle-earth.com',
-        first_name: 'Tom',
-        government_id: '111-23-1412',
-        last_name: 'Bombadil',
-        phone_number: '+15555555555',
-      },
-      tos_timestamp: '2018-05-29T21:16:05Z',
-      workflow: 'KYC_ADVANCED',
-    });
-  });
-
   test('retrieveDocument', async () => {
     const responsePromise = client.accountHolders.retrieveDocument(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
