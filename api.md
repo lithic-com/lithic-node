@@ -58,7 +58,6 @@ Methods:
 - <code title="patch /v1/account_holders/{account_holder_token}">client.accountHolders.<a href="./src/resources/account-holders.ts">update</a>(accountHolderToken, { ...params }) -> AccountHolderUpdateResponse</code>
 - <code title="get /v1/account_holders">client.accountHolders.<a href="./src/resources/account-holders.ts">list</a>({ ...params }) -> AccountHoldersSinglePage</code>
 - <code title="get /v1/account_holders/{account_holder_token}/documents">client.accountHolders.<a href="./src/resources/account-holders.ts">listDocuments</a>(accountHolderToken) -> AccountHolderListDocumentsResponse</code>
-- <code title="post /v1/account_holders/{account_holder_token}/resubmit">client.accountHolders.<a href="./src/resources/account-holders.ts">resubmit</a>(accountHolderToken, { ...params }) -> AccountHolder</code>
 - <code title="get /v1/account_holders/{account_holder_token}/documents/{document_token}">client.accountHolders.<a href="./src/resources/account-holders.ts">retrieveDocument</a>(accountHolderToken, documentToken) -> Document</code>
 - <code title="post /v1/simulate/account_holders/enrollment_document_review">client.accountHolders.<a href="./src/resources/account-holders.ts">simulateEnrollmentDocumentReview</a>({ ...params }) -> Document</code>
 - <code title="post /v1/simulate/account_holders/enrollment_review">client.accountHolders.<a href="./src/resources/account-holders.ts">simulateEnrollmentReview</a>({ ...params }) -> AccountHolderSimulateEnrollmentReviewResponse</code>
