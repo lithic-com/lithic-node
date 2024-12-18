@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.90.0 (2024-12-18)
+
+Full Changelog: [v0.89.0...v0.90.0](https://github.com/lithic-com/lithic-node/compare/v0.89.0...v0.90.0)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** removes AccountHolder `resubmit` endpoint and `KYC_ADVANCED` workflow ([#588](https://github.com/lithic-com/lithic-node/issues/588))
+
+### Features
+
+* **api:** removes AccountHolder `resubmit` endpoint and `KYC_ADVANCED` workflow ([#588](https://github.com/lithic-com/lithic-node/issues/588)) ([d1fb982](https://github.com/lithic-com/lithic-node/commit/d1fb982138b0ff410c0d204f7438c05b5c577826))
+
+
+### Chores
+
+* **api:** new ConvertPhysical endpoint to convert a virtual card to a physical card ([#585](https://github.com/lithic-com/lithic-node/issues/585)) ([fd21fb6](https://github.com/lithic-com/lithic-node/commit/fd21fb62d7d6574485ba28f37309593ba71326b4))
+* **internal:** fix some typos ([#587](https://github.com/lithic-com/lithic-node/issues/587)) ([c56f5bc](https://github.com/lithic-com/lithic-node/commit/c56f5bc454789b25bf8f1bcc9b42ce31897aa44e))
+
 ## 0.89.0 (2024-12-11)
 
 Full Changelog: [v0.88.0...v0.89.0](https://github.com/lithic-com/lithic-node/compare/v0.88.0...v0.89.0)
