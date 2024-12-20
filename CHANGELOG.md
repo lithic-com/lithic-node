@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.90.1 (2024-12-20)
+
+Full Changelog: [v0.90.0...v0.90.1](https://github.com/lithic-com/lithic-node/compare/v0.90.0...v0.90.1)
+
+### Bug Fixes
+
+* **client:** normalize method ([#589](https://github.com/lithic-com/lithic-node/issues/589)) ([4db0108](https://github.com/lithic-com/lithic-node/commit/4db0108ea4b53646997f17751734367b140f9a95))
+
+
+### Documentation
+
+* minor formatting changes ([#591](https://github.com/lithic-com/lithic-node/issues/591)) ([53b3895](https://github.com/lithic-com/lithic-node/commit/53b3895d2e4bfdd11cf93ffddbca521fa4384741))
+
 ## 0.90.0 (2024-12-18)
 
 Full Changelog: [v0.89.0...v0.90.0](https://github.com/lithic-com/lithic-node/compare/v0.89.0...v0.90.0)
