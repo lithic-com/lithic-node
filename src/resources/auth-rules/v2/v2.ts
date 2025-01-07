@@ -1743,7 +1743,7 @@ export type V2CreateParams =
   | V2CreateParams.CreateAuthRuleRequestCardTokens
   | V2CreateParams.CreateAuthRuleRequestProgramLevel;
 
-export namespace V2CreateParams {
+export declare namespace V2CreateParams {
   export interface CreateAuthRuleRequestAccountTokens {
     /**
      * Account tokens to which the Auth Rule applies.
@@ -2083,7 +2083,7 @@ export type V2ApplyParams =
   | V2ApplyParams.ApplyAuthRuleRequestCardTokens
   | V2ApplyParams.ApplyAuthRuleRequestProgramLevel;
 
-export namespace V2ApplyParams {
+export declare namespace V2ApplyParams {
   export interface ApplyAuthRuleRequestAccountTokens {
     /**
      * Account tokens to which the Auth Rule applies.

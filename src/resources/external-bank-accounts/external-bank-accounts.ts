@@ -880,7 +880,7 @@ export type ExternalBankAccountCreateParams =
   | ExternalBankAccountCreateParams.PlaidCreateBankAccountAPIRequest
   | ExternalBankAccountCreateParams.ExternallyVerifiedCreateBankAccountAPIRequest;
 
-export namespace ExternalBankAccountCreateParams {
+export declare namespace ExternalBankAccountCreateParams {
   export interface BankVerifiedCreateBankAccountAPIRequest {
     /**
      * Account Number

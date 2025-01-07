@@ -1698,7 +1698,7 @@ export type AccountHolderCreateParams =
   | AccountHolderCreateParams.KYC
   | AccountHolderCreateParams.KYCExempt;
 
-export namespace AccountHolderCreateParams {
+export declare namespace AccountHolderCreateParams {
   export interface KYB {
     /**
      * List of all entities with >25% ownership in the company. If no entity or
