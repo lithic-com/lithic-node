@@ -235,6 +235,7 @@ const environments = {
   sandbox: 'https://sandbox.lithic.com',
 };
 type Environment = keyof typeof environments;
+
 export interface ClientOptions {
   /**
    * Defaults to process.env['LITHIC_API_KEY'].
