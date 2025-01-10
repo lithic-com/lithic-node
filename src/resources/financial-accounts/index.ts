@@ -26,7 +26,7 @@ export {
 export { LoanTapesCursorPage, LoanTapes, type LoanTape, type LoanTapeListParams } from './loan-tapes';
 export {
   StatementsCursorPage,
-  type Statements,
+  Statements,
   type Statement,
   type StatementListParams,
 } from './statements/index';

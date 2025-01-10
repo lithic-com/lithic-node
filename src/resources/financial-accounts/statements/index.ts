@@ -7,9 +7,4 @@ export {
   type LineItemListResponse,
   type LineItemListParams,
 } from './line-items';
-export {
-  StatementsCursorPage,
-  type Statements,
-  type Statement,
-  type StatementListParams,
-} from './statements';
+export { StatementsCursorPage, Statements, type Statement, type StatementListParams } from './statements';
