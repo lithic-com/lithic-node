@@ -1035,6 +1035,11 @@ export interface TransactionListParams extends CursorPageParams {
    * `APPROVED`, and `DECLINED`.
    */
   result?: 'APPROVED' | 'DECLINED';
+
+  /**
+   * Filters for transactions using transaction status field.
+   */
+  status?: 'PENDING' | 'VOIDED' | 'SETTLED' | 'DECLINED' | 'EXPIRED';
 }
 
 export interface TransactionSimulateAuthorizationParams {
