@@ -326,7 +326,8 @@ export interface Document {
     | 'BANK_STATEMENT'
     | 'UTILITY_BILL_STATEMENT'
     | 'SSN_CARD'
-    | 'ITIN_LETTER';
+    | 'ITIN_LETTER'
+    | 'FINCEN_BOI_REPORT';
 
   /**
    * Globally unique identifier for an entity.
