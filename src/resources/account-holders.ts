@@ -8,12 +8,13 @@ import { SinglePage } from '../pagination';
 
 export class AccountHolders extends APIResource {
   /**
-   * Run an individual or business's information through the Customer Identification
-   * Program (CIP). All calls to this endpoint will return an immediate response -
-   * though in some cases, the response may indicate the enrollment is under review
-   * or further action will be needed to complete the account enrollment process.
-   * This endpoint can only be used on accounts that are part of the program that the
-   * calling API key manages.
+   * Create an account holder and initiate the appropriate onboarding workflow.
+   * Account holders and accounts have a 1:1 relationship. When an account holder is
+   * successfully created an associated account is also created. All calls to this
+   * endpoint will return an immediate response - though in some cases, the response
+   * may indicate the enrollment is under review or further action will be needed to
+   * complete the account enrollment process. This endpoint can only be used on
+   * accounts that are part of the program that the calling API key manages.
    */
   create(
     body: AccountHolderCreateParams,
@@ -933,7 +934,7 @@ export interface KYCExempt {
   last_name: string;
 
   /**
-   * The KYC Exempt user's phone number
+   * The KYC Exempt user's phone number, entered in E.164 format.
    */
   phone_number: string;
 
@@ -2065,7 +2066,7 @@ export declare namespace AccountHolderCreateParams {
     last_name: string;
 
     /**
-     * The KYC Exempt user's phone number
+     * The KYC Exempt user's phone number, entered in E.164 format.
      */
     phone_number: string;
 
@@ -2269,7 +2270,8 @@ export interface AccountHolderUploadDocumentParams {
     | 'BANK_STATEMENT'
     | 'UTILITY_BILL_STATEMENT'
     | 'SSN_CARD'
-    | 'ITIN_LETTER';
+    | 'ITIN_LETTER'
+    | 'FINCEN_BOI_REPORT';
 
   /**
    * Globally unique identifier for the entity.

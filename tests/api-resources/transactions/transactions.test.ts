@@ -60,6 +60,7 @@ describe('resource transactions', () => {
           page_size: 1,
           result: 'APPROVED',
           starting_after: 'starting_after',
+          status: 'PENDING',
         },
         { path: '/_stainless_unknown_path' },
       ),
