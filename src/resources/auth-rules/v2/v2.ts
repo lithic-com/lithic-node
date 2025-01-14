@@ -3,7 +3,7 @@
 import { APIResource } from '../../../resource';
 import { isRequestOptions } from '../../../core';
 import * as Core from '../../../core';
-import * as Shared from '../../shared';
+import * as V2API from './v2';
 import * as BacktestsAPI from './backtests';
 import { BacktestCreateParams, BacktestCreateResponse, BacktestResults, Backtests } from './backtests';
 import { CursorPage, type CursorPageParams } from '../../../pagination';
@@ -152,6 +152,224 @@ export class V2 extends APIResource {
 
 export class V2ListResponsesCursorPage extends CursorPage<V2ListResponse> {}
 
+export interface AuthRule {
+  /**
+   * Globally unique identifier.
+   */
+  token: string;
+
+  /**
+   * Indicates whether the Auth Rule is ACTIVE or INACTIVE
+   */
+  state: 'ACTIVE' | 'INACTIVE';
+
+  /**
+   * Array of account_token(s) identifying the accounts that the Auth Rule applies
+   * to. Note that only this field or `card_tokens` can be provided for a given Auth
+   * Rule.
+   */
+  account_tokens?: Array<string>;
+
+  /**
+   * Countries in which the Auth Rule permits transactions. Note that Lithic
+   * maintains a list of countries in which all transactions are blocked; "allowing"
+   * those countries in an Auth Rule does not override the Lithic-wide restrictions.
+   */
+  allowed_countries?: Array<string>;
+
+  /**
+   * Merchant category codes for which the Auth Rule permits transactions.
+   */
+  allowed_mcc?: Array<string>;
+
+  /**
+   * Countries in which the Auth Rule automatically declines transactions.
+   */
+  blocked_countries?: Array<string>;
+
+  /**
+   * Merchant category codes for which the Auth Rule automatically declines
+   * transactions.
+   */
+  blocked_mcc?: Array<string>;
+
+  /**
+   * Array of card_token(s) identifying the cards that the Auth Rule applies to. Note
+   * that only this field or `account_tokens` can be provided for a given Auth Rule.
+   */
+  card_tokens?: Array<string>;
+
+  /**
+   * Boolean indicating whether the Auth Rule is applied at the program level.
+   */
+  program_level?: boolean;
+}
+
+export interface AuthRuleCondition {
+  /**
+   * The attribute to target.
+   *
+   * The following attributes may be targeted:
+   *
+   * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
+   *   business by the types of goods or services it provides.
+   * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
+   *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
+   *   Netherlands Antilles.
+   * - `CURRENCY`: 3-digit alphabetic ISO 4217 code for the merchant currency of the
+   *   transaction.
+   * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
+   *   (merchant).
+   * - `DESCRIPTOR`: Short description of card acceptor.
+   * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
+   *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
+   *   `TOKEN_AUTHENTICATED`.
+   * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
+   *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
+   *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
+   *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
+   *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
+   * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
+   *   fee field in the settlement/cardholder billing currency. This is the amount
+   *   the issuer should authorize against unless the issuer is paying the acquirer
+   *   fee on behalf of the cardholder.
+   * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
+   *   given authorization. Scores are on a range of 0-999, with 0 representing the
+   *   lowest risk and 999 representing the highest risk. For Visa transactions,
+   *   where the raw score has a range of 0-99, Lithic will normalize the score by
+   *   multiplying the raw score by 10x.
+   * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+   *   trailing hour up and until the authorization.
+   * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+   *   trailing 24 hours up and until the authorization.
+   */
+  attribute?: ConditionalAttribute;
+
+  /**
+   * The operation to apply to the attribute
+   */
+  operation?:
+    | 'IS_ONE_OF'
+    | 'IS_NOT_ONE_OF'
+    | 'MATCHES'
+    | 'DOES_NOT_MATCH'
+    | 'IS_GREATER_THAN'
+    | 'IS_LESS_THAN';
+
+  /**
+   * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+   */
+  value?: string | number | Array<string>;
+}
+
+/**
+ * The attribute to target.
+ *
+ * The following attributes may be targeted:
+ *
+ * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
+ *   business by the types of goods or services it provides.
+ * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
+ *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
+ *   Netherlands Antilles.
+ * - `CURRENCY`: 3-digit alphabetic ISO 4217 code for the merchant currency of the
+ *   transaction.
+ * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
+ *   (merchant).
+ * - `DESCRIPTOR`: Short description of card acceptor.
+ * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
+ *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
+ *   `TOKEN_AUTHENTICATED`.
+ * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
+ *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
+ *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
+ *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
+ *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
+ * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
+ *   fee field in the settlement/cardholder billing currency. This is the amount
+ *   the issuer should authorize against unless the issuer is paying the acquirer
+ *   fee on behalf of the cardholder.
+ * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
+ *   given authorization. Scores are on a range of 0-999, with 0 representing the
+ *   lowest risk and 999 representing the highest risk. For Visa transactions,
+ *   where the raw score has a range of 0-99, Lithic will normalize the score by
+ *   multiplying the raw score by 10x.
+ * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+ *   trailing hour up and until the authorization.
+ * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+ *   trailing 24 hours up and until the authorization.
+ */
+export type ConditionalAttribute =
+  | 'MCC'
+  | 'COUNTRY'
+  | 'CURRENCY'
+  | 'MERCHANT_ID'
+  | 'DESCRIPTOR'
+  | 'LIABILITY_SHIFT'
+  | 'PAN_ENTRY_MODE'
+  | 'TRANSACTION_AMOUNT'
+  | 'RISK_SCORE'
+  | 'CARD_TRANSACTION_COUNT_1H'
+  | 'CARD_TRANSACTION_COUNT_24H';
+
+export interface ConditionalBlockParameters {
+  conditions: Array<AuthRuleCondition>;
+}
+
+export interface VelocityLimitParams {
+  filters: VelocityLimitParams.Filters;
+
+  /**
+   * The size of the trailing window to calculate Spend Velocity over in seconds. The
+   * minimum value is 10 seconds, and the maximum value is 2678400 seconds.
+   */
+  period: number | VelocityLimitParamsPeriodWindow;
+
+  scope: 'CARD' | 'ACCOUNT';
+
+  /**
+   * The maximum amount of spend velocity allowed in the period in minor units (the
+   * smallest unit of a currency, e.g. cents for USD). Transactions exceeding this
+   * limit will be declined.
+   */
+  limit_amount?: number | null;
+
+  /**
+   * The number of spend velocity impacting transactions may not exceed this limit in
+   * the period. Transactions exceeding this limit will be declined. A spend velocity
+   * impacting transaction is a transaction that has been authorized, and optionally
+   * settled, or a force post (a transaction that settled without prior
+   * authorization).
+   */
+  limit_count?: number | null;
+}
+
+export namespace VelocityLimitParams {
+  export interface Filters {
+    /**
+     * ISO-3166-1 alpha-3 Country Codes to include in the velocity calculation.
+     * Transactions not matching any of the provided will not be included in the
+     * calculated velocity.
+     */
+    include_countries?: Array<string> | null;
+
+    /**
+     * Merchant Category Codes to include in the velocity calculation. Transactions not
+     * matching this MCC will not be included in the calculated velocity.
+     */
+    include_mccs?: Array<string> | null;
+  }
+}
+
+/**
+ * The window of time to calculate Spend Velocity over.
+ *
+ * - `DAY`: Velocity over the current day since midnight Eastern Time.
+ * - `MONTH`: Velocity over the current month since 00:00 / 12 AM on the first of
+ *   the month in Eastern Time.
+ */
+export type VelocityLimitParamsPeriodWindow = 'DAY' | 'MONTH';
+
 export interface V2CreateResponse {
   /**
    * Auth Rule Token
@@ -203,178 +421,26 @@ export namespace V2CreateResponse {
     /**
      * Parameters for the current version of the Auth Rule
      */
-    parameters: CurrentVersion.ConditionalBlockParameters | Shared.VelocityLimitParams;
+    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace CurrentVersion {
-    export interface ConditionalBlockParameters {
-      conditions: Array<ConditionalBlockParameters.Condition>;
-    }
-
-    export namespace ConditionalBlockParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-digit alphabetic ISO 4217 code for the merchant currency of the
-         *   transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
-         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
-         *   `TOKEN_AUTHENTICATED`.
-         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
-         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
-         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
-         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
-         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authorization. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
-         *   trailing hour up and until the authorization.
-         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
-         *   trailing 24 hours up and until the authorization.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'LIABILITY_SHIFT'
-          | 'PAN_ENTRY_MODE'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'CARD_TRANSACTION_COUNT_1H'
-          | 'CARD_TRANSACTION_COUNT_24H';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 
   export interface DraftVersion {
     /**
      * Parameters for the current version of the Auth Rule
      */
-    parameters: DraftVersion.ConditionalBlockParameters | Shared.VelocityLimitParams;
+    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace DraftVersion {
-    export interface ConditionalBlockParameters {
-      conditions: Array<ConditionalBlockParameters.Condition>;
-    }
-
-    export namespace ConditionalBlockParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-digit alphabetic ISO 4217 code for the merchant currency of the
-         *   transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
-         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
-         *   `TOKEN_AUTHENTICATED`.
-         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
-         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
-         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
-         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
-         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authorization. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
-         *   trailing hour up and until the authorization.
-         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
-         *   trailing 24 hours up and until the authorization.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'LIABILITY_SHIFT'
-          | 'PAN_ENTRY_MODE'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'CARD_TRANSACTION_COUNT_1H'
-          | 'CARD_TRANSACTION_COUNT_24H';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 }
 
@@ -429,178 +495,26 @@ export namespace V2RetrieveResponse {
     /**
      * Parameters for the current version of the Auth Rule
      */
-    parameters: CurrentVersion.ConditionalBlockParameters | Shared.VelocityLimitParams;
+    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace CurrentVersion {
-    export interface ConditionalBlockParameters {
-      conditions: Array<ConditionalBlockParameters.Condition>;
-    }
-
-    export namespace ConditionalBlockParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-digit alphabetic ISO 4217 code for the merchant currency of the
-         *   transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
-         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
-         *   `TOKEN_AUTHENTICATED`.
-         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
-         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
-         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
-         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
-         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authorization. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
-         *   trailing hour up and until the authorization.
-         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
-         *   trailing 24 hours up and until the authorization.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'LIABILITY_SHIFT'
-          | 'PAN_ENTRY_MODE'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'CARD_TRANSACTION_COUNT_1H'
-          | 'CARD_TRANSACTION_COUNT_24H';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 
   export interface DraftVersion {
     /**
      * Parameters for the current version of the Auth Rule
      */
-    parameters: DraftVersion.ConditionalBlockParameters | Shared.VelocityLimitParams;
+    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace DraftVersion {
-    export interface ConditionalBlockParameters {
-      conditions: Array<ConditionalBlockParameters.Condition>;
-    }
-
-    export namespace ConditionalBlockParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-digit alphabetic ISO 4217 code for the merchant currency of the
-         *   transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
-         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
-         *   `TOKEN_AUTHENTICATED`.
-         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
-         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
-         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
-         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
-         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authorization. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
-         *   trailing hour up and until the authorization.
-         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
-         *   trailing 24 hours up and until the authorization.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'LIABILITY_SHIFT'
-          | 'PAN_ENTRY_MODE'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'CARD_TRANSACTION_COUNT_1H'
-          | 'CARD_TRANSACTION_COUNT_24H';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 }
 
@@ -655,178 +569,26 @@ export namespace V2UpdateResponse {
     /**
      * Parameters for the current version of the Auth Rule
      */
-    parameters: CurrentVersion.ConditionalBlockParameters | Shared.VelocityLimitParams;
+    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace CurrentVersion {
-    export interface ConditionalBlockParameters {
-      conditions: Array<ConditionalBlockParameters.Condition>;
-    }
-
-    export namespace ConditionalBlockParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-digit alphabetic ISO 4217 code for the merchant currency of the
-         *   transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
-         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
-         *   `TOKEN_AUTHENTICATED`.
-         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
-         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
-         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
-         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
-         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authorization. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
-         *   trailing hour up and until the authorization.
-         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
-         *   trailing 24 hours up and until the authorization.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'LIABILITY_SHIFT'
-          | 'PAN_ENTRY_MODE'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'CARD_TRANSACTION_COUNT_1H'
-          | 'CARD_TRANSACTION_COUNT_24H';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 
   export interface DraftVersion {
     /**
      * Parameters for the current version of the Auth Rule
      */
-    parameters: DraftVersion.ConditionalBlockParameters | Shared.VelocityLimitParams;
+    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace DraftVersion {
-    export interface ConditionalBlockParameters {
-      conditions: Array<ConditionalBlockParameters.Condition>;
-    }
-
-    export namespace ConditionalBlockParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-digit alphabetic ISO 4217 code for the merchant currency of the
-         *   transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
-         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
-         *   `TOKEN_AUTHENTICATED`.
-         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
-         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
-         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
-         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
-         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authorization. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
-         *   trailing hour up and until the authorization.
-         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
-         *   trailing 24 hours up and until the authorization.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'LIABILITY_SHIFT'
-          | 'PAN_ENTRY_MODE'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'CARD_TRANSACTION_COUNT_1H'
-          | 'CARD_TRANSACTION_COUNT_24H';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 }
 
@@ -881,178 +643,26 @@ export namespace V2ListResponse {
     /**
      * Parameters for the current version of the Auth Rule
      */
-    parameters: CurrentVersion.ConditionalBlockParameters | Shared.VelocityLimitParams;
+    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace CurrentVersion {
-    export interface ConditionalBlockParameters {
-      conditions: Array<ConditionalBlockParameters.Condition>;
-    }
-
-    export namespace ConditionalBlockParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-digit alphabetic ISO 4217 code for the merchant currency of the
-         *   transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
-         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
-         *   `TOKEN_AUTHENTICATED`.
-         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
-         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
-         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
-         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
-         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authorization. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
-         *   trailing hour up and until the authorization.
-         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
-         *   trailing 24 hours up and until the authorization.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'LIABILITY_SHIFT'
-          | 'PAN_ENTRY_MODE'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'CARD_TRANSACTION_COUNT_1H'
-          | 'CARD_TRANSACTION_COUNT_24H';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 
   export interface DraftVersion {
     /**
      * Parameters for the current version of the Auth Rule
      */
-    parameters: DraftVersion.ConditionalBlockParameters | Shared.VelocityLimitParams;
+    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace DraftVersion {
-    export interface ConditionalBlockParameters {
-      conditions: Array<ConditionalBlockParameters.Condition>;
-    }
-
-    export namespace ConditionalBlockParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-digit alphabetic ISO 4217 code for the merchant currency of the
-         *   transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
-         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
-         *   `TOKEN_AUTHENTICATED`.
-         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
-         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
-         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
-         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
-         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authorization. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
-         *   trailing hour up and until the authorization.
-         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
-         *   trailing 24 hours up and until the authorization.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'LIABILITY_SHIFT'
-          | 'PAN_ENTRY_MODE'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'CARD_TRANSACTION_COUNT_1H'
-          | 'CARD_TRANSACTION_COUNT_24H';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 }
 
@@ -1107,178 +717,26 @@ export namespace V2ApplyResponse {
     /**
      * Parameters for the current version of the Auth Rule
      */
-    parameters: CurrentVersion.ConditionalBlockParameters | Shared.VelocityLimitParams;
+    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace CurrentVersion {
-    export interface ConditionalBlockParameters {
-      conditions: Array<ConditionalBlockParameters.Condition>;
-    }
-
-    export namespace ConditionalBlockParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-digit alphabetic ISO 4217 code for the merchant currency of the
-         *   transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
-         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
-         *   `TOKEN_AUTHENTICATED`.
-         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
-         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
-         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
-         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
-         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authorization. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
-         *   trailing hour up and until the authorization.
-         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
-         *   trailing 24 hours up and until the authorization.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'LIABILITY_SHIFT'
-          | 'PAN_ENTRY_MODE'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'CARD_TRANSACTION_COUNT_1H'
-          | 'CARD_TRANSACTION_COUNT_24H';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 
   export interface DraftVersion {
     /**
      * Parameters for the current version of the Auth Rule
      */
-    parameters: DraftVersion.ConditionalBlockParameters | Shared.VelocityLimitParams;
+    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace DraftVersion {
-    export interface ConditionalBlockParameters {
-      conditions: Array<ConditionalBlockParameters.Condition>;
-    }
-
-    export namespace ConditionalBlockParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-digit alphabetic ISO 4217 code for the merchant currency of the
-         *   transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
-         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
-         *   `TOKEN_AUTHENTICATED`.
-         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
-         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
-         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
-         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
-         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authorization. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
-         *   trailing hour up and until the authorization.
-         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
-         *   trailing 24 hours up and until the authorization.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'LIABILITY_SHIFT'
-          | 'PAN_ENTRY_MODE'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'CARD_TRANSACTION_COUNT_1H'
-          | 'CARD_TRANSACTION_COUNT_24H';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 }
 
@@ -1333,178 +791,26 @@ export namespace V2DraftResponse {
     /**
      * Parameters for the current version of the Auth Rule
      */
-    parameters: CurrentVersion.ConditionalBlockParameters | Shared.VelocityLimitParams;
+    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace CurrentVersion {
-    export interface ConditionalBlockParameters {
-      conditions: Array<ConditionalBlockParameters.Condition>;
-    }
-
-    export namespace ConditionalBlockParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-digit alphabetic ISO 4217 code for the merchant currency of the
-         *   transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
-         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
-         *   `TOKEN_AUTHENTICATED`.
-         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
-         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
-         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
-         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
-         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authorization. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
-         *   trailing hour up and until the authorization.
-         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
-         *   trailing 24 hours up and until the authorization.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'LIABILITY_SHIFT'
-          | 'PAN_ENTRY_MODE'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'CARD_TRANSACTION_COUNT_1H'
-          | 'CARD_TRANSACTION_COUNT_24H';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 
   export interface DraftVersion {
     /**
      * Parameters for the current version of the Auth Rule
      */
-    parameters: DraftVersion.ConditionalBlockParameters | Shared.VelocityLimitParams;
+    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace DraftVersion {
-    export interface ConditionalBlockParameters {
-      conditions: Array<ConditionalBlockParameters.Condition>;
-    }
-
-    export namespace ConditionalBlockParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-digit alphabetic ISO 4217 code for the merchant currency of the
-         *   transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
-         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
-         *   `TOKEN_AUTHENTICATED`.
-         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
-         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
-         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
-         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
-         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authorization. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
-         *   trailing hour up and until the authorization.
-         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
-         *   trailing 24 hours up and until the authorization.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'LIABILITY_SHIFT'
-          | 'PAN_ENTRY_MODE'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'CARD_TRANSACTION_COUNT_1H'
-          | 'CARD_TRANSACTION_COUNT_24H';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 }
 
@@ -1559,178 +865,26 @@ export namespace V2PromoteResponse {
     /**
      * Parameters for the current version of the Auth Rule
      */
-    parameters: CurrentVersion.ConditionalBlockParameters | Shared.VelocityLimitParams;
+    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace CurrentVersion {
-    export interface ConditionalBlockParameters {
-      conditions: Array<ConditionalBlockParameters.Condition>;
-    }
-
-    export namespace ConditionalBlockParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-digit alphabetic ISO 4217 code for the merchant currency of the
-         *   transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
-         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
-         *   `TOKEN_AUTHENTICATED`.
-         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
-         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
-         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
-         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
-         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authorization. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
-         *   trailing hour up and until the authorization.
-         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
-         *   trailing 24 hours up and until the authorization.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'LIABILITY_SHIFT'
-          | 'PAN_ENTRY_MODE'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'CARD_TRANSACTION_COUNT_1H'
-          | 'CARD_TRANSACTION_COUNT_24H';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 
   export interface DraftVersion {
     /**
      * Parameters for the current version of the Auth Rule
      */
-    parameters: DraftVersion.ConditionalBlockParameters | Shared.VelocityLimitParams;
+    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace DraftVersion {
-    export interface ConditionalBlockParameters {
-      conditions: Array<ConditionalBlockParameters.Condition>;
-    }
-
-    export namespace ConditionalBlockParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-digit alphabetic ISO 4217 code for the merchant currency of the
-         *   transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
-         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
-         *   `TOKEN_AUTHENTICATED`.
-         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
-         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
-         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
-         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
-         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authorization. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
-         *   trailing hour up and until the authorization.
-         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
-         *   trailing 24 hours up and until the authorization.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'LIABILITY_SHIFT'
-          | 'PAN_ENTRY_MODE'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'CARD_TRANSACTION_COUNT_1H'
-          | 'CARD_TRANSACTION_COUNT_24H';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 }
 
@@ -1758,90 +912,12 @@ export declare namespace V2CreateParams {
     /**
      * Parameters for the current version of the Auth Rule
      */
-    parameters?:
-      | V2CreateParams.CreateAuthRuleRequestAccountTokens.ConditionalBlockParameters
-      | Shared.VelocityLimitParams;
+    parameters?: ConditionalBlockParameters | VelocityLimitParams;
 
     /**
      * The type of Auth Rule
      */
     type?: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT';
-  }
-
-  export namespace CreateAuthRuleRequestAccountTokens {
-    export interface ConditionalBlockParameters {
-      conditions: Array<ConditionalBlockParameters.Condition>;
-    }
-
-    export namespace ConditionalBlockParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-digit alphabetic ISO 4217 code for the merchant currency of the
-         *   transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
-         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
-         *   `TOKEN_AUTHENTICATED`.
-         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
-         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
-         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
-         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
-         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authorization. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
-         *   trailing hour up and until the authorization.
-         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
-         *   trailing 24 hours up and until the authorization.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'LIABILITY_SHIFT'
-          | 'PAN_ENTRY_MODE'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'CARD_TRANSACTION_COUNT_1H'
-          | 'CARD_TRANSACTION_COUNT_24H';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 
   export interface CreateAuthRuleRequestCardTokens {
@@ -1858,90 +934,12 @@ export declare namespace V2CreateParams {
     /**
      * Parameters for the current version of the Auth Rule
      */
-    parameters?:
-      | V2CreateParams.CreateAuthRuleRequestCardTokens.ConditionalBlockParameters
-      | Shared.VelocityLimitParams;
+    parameters?: ConditionalBlockParameters | VelocityLimitParams;
 
     /**
      * The type of Auth Rule
      */
     type?: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT';
-  }
-
-  export namespace CreateAuthRuleRequestCardTokens {
-    export interface ConditionalBlockParameters {
-      conditions: Array<ConditionalBlockParameters.Condition>;
-    }
-
-    export namespace ConditionalBlockParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-digit alphabetic ISO 4217 code for the merchant currency of the
-         *   transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
-         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
-         *   `TOKEN_AUTHENTICATED`.
-         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
-         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
-         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
-         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
-         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authorization. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
-         *   trailing hour up and until the authorization.
-         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
-         *   trailing 24 hours up and until the authorization.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'LIABILITY_SHIFT'
-          | 'PAN_ENTRY_MODE'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'CARD_TRANSACTION_COUNT_1H'
-          | 'CARD_TRANSACTION_COUNT_24H';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 
   export interface CreateAuthRuleRequestProgramLevel {
@@ -1963,90 +961,12 @@ export declare namespace V2CreateParams {
     /**
      * Parameters for the current version of the Auth Rule
      */
-    parameters?:
-      | V2CreateParams.CreateAuthRuleRequestProgramLevel.ConditionalBlockParameters
-      | Shared.VelocityLimitParams;
+    parameters?: ConditionalBlockParameters | VelocityLimitParams;
 
     /**
      * The type of Auth Rule
      */
     type?: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT';
-  }
-
-  export namespace CreateAuthRuleRequestProgramLevel {
-    export interface ConditionalBlockParameters {
-      conditions: Array<ConditionalBlockParameters.Condition>;
-    }
-
-    export namespace ConditionalBlockParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-digit alphabetic ISO 4217 code for the merchant currency of the
-         *   transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
-         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
-         *   `TOKEN_AUTHENTICATED`.
-         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
-         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
-         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
-         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
-         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authorization. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
-         *   trailing hour up and until the authorization.
-         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
-         *   trailing 24 hours up and until the authorization.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'LIABILITY_SHIFT'
-          | 'PAN_ENTRY_MODE'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'CARD_TRANSACTION_COUNT_1H'
-          | 'CARD_TRANSACTION_COUNT_24H';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 }
 
@@ -2115,83 +1035,7 @@ export interface V2DraftParams {
   /**
    * Parameters for the current version of the Auth Rule
    */
-  parameters?: V2DraftParams.ConditionalBlockParameters | Shared.VelocityLimitParams | null;
-}
-
-export namespace V2DraftParams {
-  export interface ConditionalBlockParameters {
-    conditions: Array<ConditionalBlockParameters.Condition>;
-  }
-
-  export namespace ConditionalBlockParameters {
-    export interface Condition {
-      /**
-       * The attribute to target.
-       *
-       * The following attributes may be targeted:
-       *
-       * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-       *   business by the types of goods or services it provides.
-       * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-       *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-       *   Netherlands Antilles.
-       * - `CURRENCY`: 3-digit alphabetic ISO 4217 code for the merchant currency of the
-       *   transaction.
-       * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-       *   (merchant).
-       * - `DESCRIPTOR`: Short description of card acceptor.
-       * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
-       *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
-       *   `TOKEN_AUTHENTICATED`.
-       * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
-       *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
-       *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
-       *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
-       *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
-       * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-       *   fee field in the settlement/cardholder billing currency. This is the amount
-       *   the issuer should authorize against unless the issuer is paying the acquirer
-       *   fee on behalf of the cardholder.
-       * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-       *   given authorization. Scores are on a range of 0-999, with 0 representing the
-       *   lowest risk and 999 representing the highest risk. For Visa transactions,
-       *   where the raw score has a range of 0-99, Lithic will normalize the score by
-       *   multiplying the raw score by 10x.
-       * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
-       *   trailing hour up and until the authorization.
-       * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
-       *   trailing 24 hours up and until the authorization.
-       */
-      attribute?:
-        | 'MCC'
-        | 'COUNTRY'
-        | 'CURRENCY'
-        | 'MERCHANT_ID'
-        | 'DESCRIPTOR'
-        | 'LIABILITY_SHIFT'
-        | 'PAN_ENTRY_MODE'
-        | 'TRANSACTION_AMOUNT'
-        | 'RISK_SCORE'
-        | 'CARD_TRANSACTION_COUNT_1H'
-        | 'CARD_TRANSACTION_COUNT_24H';
-
-      /**
-       * The operation to apply to the attribute
-       */
-      operation?:
-        | 'IS_ONE_OF'
-        | 'IS_NOT_ONE_OF'
-        | 'MATCHES'
-        | 'DOES_NOT_MATCH'
-        | 'IS_GREATER_THAN'
-        | 'IS_LESS_THAN';
-
-      /**
-       * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-       */
-      value?: string | number | Array<string>;
-    }
-  }
+  parameters?: ConditionalBlockParameters | VelocityLimitParams | null;
 }
 
 V2.V2ListResponsesCursorPage = V2ListResponsesCursorPage;
@@ -2199,6 +1043,12 @@ V2.Backtests = Backtests;
 
 export declare namespace V2 {
   export {
+    type AuthRule as AuthRule,
+    type AuthRuleCondition as AuthRuleCondition,
+    type ConditionalAttribute as ConditionalAttribute,
+    type ConditionalBlockParameters as ConditionalBlockParameters,
+    type VelocityLimitParams as VelocityLimitParams,
+    type VelocityLimitParamsPeriodWindow as VelocityLimitParamsPeriodWindow,
     type V2CreateResponse as V2CreateResponse,
     type V2RetrieveResponse as V2RetrieveResponse,
     type V2UpdateResponse as V2UpdateResponse,

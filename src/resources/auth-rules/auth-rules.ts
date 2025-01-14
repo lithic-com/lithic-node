@@ -3,6 +3,10 @@
 import { APIResource } from '../../resource';
 import * as V2API from './v2/v2';
 import {
+  AuthRule,
+  AuthRuleCondition,
+  ConditionalAttribute,
+  ConditionalBlockParameters,
   V2,
   V2ApplyParams,
   V2ApplyResponse,
@@ -18,6 +22,8 @@ import {
   V2RetrieveResponse,
   V2UpdateParams,
   V2UpdateResponse,
+  VelocityLimitParams,
+  VelocityLimitParamsPeriodWindow,
 } from './v2/v2';
 
 export class AuthRules extends APIResource {
@@ -30,6 +36,12 @@ AuthRules.V2ListResponsesCursorPage = V2ListResponsesCursorPage;
 export declare namespace AuthRules {
   export {
     V2 as V2,
+    type AuthRule as AuthRule,
+    type AuthRuleCondition as AuthRuleCondition,
+    type ConditionalAttribute as ConditionalAttribute,
+    type ConditionalBlockParameters as ConditionalBlockParameters,
+    type VelocityLimitParams as VelocityLimitParams,
+    type VelocityLimitParamsPeriodWindow as VelocityLimitParamsPeriodWindow,
     type V2CreateResponse as V2CreateResponse,
     type V2RetrieveResponse as V2RetrieveResponse,
     type V2UpdateResponse as V2UpdateResponse,

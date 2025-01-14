@@ -14,14 +14,11 @@ Types:
 
 - <code><a href="./src/resources/shared.ts">AccountFinancialAccountType</a></code>
 - <code><a href="./src/resources/shared.ts">Address</a></code>
-- <code><a href="./src/resources/shared.ts">AuthRule</a></code>
 - <code><a href="./src/resources/shared.ts">Carrier</a></code>
 - <code><a href="./src/resources/shared.ts">Currency</a></code>
 - <code><a href="./src/resources/shared.ts">Document</a></code>
 - <code><a href="./src/resources/shared.ts">InstanceFinancialAccountType</a></code>
 - <code><a href="./src/resources/shared.ts">ShippingAddress</a></code>
-- <code><a href="./src/resources/shared.ts">VelocityLimitParams</a></code>
-- <code><a href="./src/resources/shared.ts">VelocityLimitParamsPeriodWindow</a></code>
 
 # Accounts
 
@@ -69,6 +66,12 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">AuthRule</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">AuthRuleCondition</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalAttribute</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalBlockParameters</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">VelocityLimitParams</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">VelocityLimitParamsPeriodWindow</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2CreateResponse</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2RetrieveResponse</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2UpdateResponse</a></code>
