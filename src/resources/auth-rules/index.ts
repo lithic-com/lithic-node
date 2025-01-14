@@ -4,6 +4,12 @@ export { AuthRules } from './auth-rules';
 export {
   V2ListResponsesCursorPage,
   V2,
+  type AuthRule,
+  type AuthRuleCondition,
+  type ConditionalAttribute,
+  type ConditionalBlockParameters,
+  type VelocityLimitParams,
+  type VelocityLimitParamsPeriodWindow,
   type V2CreateResponse,
   type V2RetrieveResponse,
   type V2UpdateResponse,
