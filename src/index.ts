@@ -762,14 +762,11 @@ export declare namespace Lithic {
 
   export type AccountFinancialAccountType = API.AccountFinancialAccountType;
   export type Address = API.Address;
-  export type AuthRule = API.AuthRule;
   export type Carrier = API.Carrier;
   export type Currency = API.Currency;
   export type Document = API.Document;
   export type InstanceFinancialAccountType = API.InstanceFinancialAccountType;
   export type ShippingAddress = API.ShippingAddress;
-  export type VelocityLimitParams = API.VelocityLimitParams;
-  export type VelocityLimitParamsPeriodWindow = API.VelocityLimitParamsPeriodWindow;
 }
 
 export { toFile, fileFromPath } from './uploads';
