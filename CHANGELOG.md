@@ -1,5 +1,38 @@
 # Changelog
 
+## 0.91.0 (2025-01-14)
+
+Full Changelog: [v0.90.0...v0.91.0](https://github.com/lithic-com/lithic-node/compare/v0.90.0...v0.91.0)
+
+### ⚠ BREAKING CHANGES
+
+* **types:** improve auth rules types ([#599](https://github.com/lithic-com/lithic-node/issues/599))
+
+### Features
+
+* **types:** improve auth rules types ([#599](https://github.com/lithic-com/lithic-node/issues/599)) ([18357c6](https://github.com/lithic-com/lithic-node/commit/18357c6b94cfcd887bd12f64b4e450c52f8c131b))
+
+
+### Bug Fixes
+
+* **client:** normalize method ([#589](https://github.com/lithic-com/lithic-node/issues/589)) ([4db0108](https://github.com/lithic-com/lithic-node/commit/4db0108ea4b53646997f17751734367b140f9a95))
+* **client:** reexport resource as value ([#597](https://github.com/lithic-com/lithic-node/issues/597)) ([e22d6ee](https://github.com/lithic-com/lithic-node/commit/e22d6ee2c907f4c6bb0bf68187a3c6eb25d5f699))
+
+
+### Chores
+
+* **api:** updates to documentation and additional filter for status on Transactions ([#598](https://github.com/lithic-com/lithic-node/issues/598)) ([14b7eea](https://github.com/lithic-com/lithic-node/commit/14b7eeaa6f2e7b2710c091b2a5c2ef06ceab1b4e))
+* bump license year ([#592](https://github.com/lithic-com/lithic-node/issues/592)) ([5d71f77](https://github.com/lithic-com/lithic-node/commit/5d71f774418efb513bc9c6f4186490be098d210d))
+* **internal:** change formatting ([#596](https://github.com/lithic-com/lithic-node/issues/596)) ([893a5c8](https://github.com/lithic-com/lithic-node/commit/893a5c8336bed9f84493f3d8e88f789691fce75c))
+* **internal:** update examples ([#594](https://github.com/lithic-com/lithic-node/issues/594)) ([c9c7542](https://github.com/lithic-com/lithic-node/commit/c9c75425124d4dd28091db3c8a5a11590bf04529))
+* **types:** use `declare namespace` ([#593](https://github.com/lithic-com/lithic-node/issues/593)) ([148afbe](https://github.com/lithic-com/lithic-node/commit/148afbed5601a99c583fbf5756e5fe528ae128ae))
+
+
+### Documentation
+
+* minor formatting changes ([#591](https://github.com/lithic-com/lithic-node/issues/591)) ([53b3895](https://github.com/lithic-com/lithic-node/commit/53b3895d2e4bfdd11cf93ffddbca521fa4384741))
+* **readme:** fix misplaced period ([#595](https://github.com/lithic-com/lithic-node/issues/595)) ([bc96dd1](https://github.com/lithic-com/lithic-node/commit/bc96dd1f2472488ac410d196437cc1be9c95f271))
+
 ## 0.90.0 (2024-12-18)
 
 Full Changelog: [v0.89.0...v0.90.0](https://github.com/lithic-com/lithic-node/compare/v0.89.0...v0.90.0)
