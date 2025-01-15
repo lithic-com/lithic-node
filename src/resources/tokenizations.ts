@@ -191,6 +191,11 @@ export interface Tokenization {
   created_at: string;
 
   /**
+   * The network's dynamic pan for the tokenized transaction.
+   */
+  dpan: string | null;
+
+  /**
    * The status of the tokenization request
    */
   status: 'ACTIVE' | 'DEACTIVATED' | 'INACTIVE' | 'PAUSED' | 'PENDING_2FA' | 'PENDING_ACTIVATION' | 'UNKNOWN';
