@@ -191,7 +191,7 @@ export interface Tokenization {
   created_at: string;
 
   /**
-   * The network's dynamic pan for the tokenized transaction.
+   * The dynamic pan assigned to the token by the network.
    */
   dpan: string | null;
 
