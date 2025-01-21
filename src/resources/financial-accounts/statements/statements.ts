@@ -9,6 +9,8 @@ import {
   LineItems,
   StatementLineItems,
   StatementLineItemsDataCursorPage,
+  LineItemListResponse,
+  LineItemListResponsesCursorPage,
 } from './line-items';
 import { CursorPage, type CursorPageParams } from '../../../pagination';
 
@@ -351,6 +353,8 @@ export interface StatementListParams extends CursorPageParams {
 Statements.StatementsCursorPage = StatementsCursorPage;
 Statements.LineItems = LineItems;
 Statements.StatementLineItemsDataCursorPage = StatementLineItemsDataCursorPage;
+// Here for back compatibility
+Statements.LineItemListResponsesCursorPage = LineItemListResponsesCursorPage;
 
 export declare namespace Statements {
   export {
@@ -365,5 +369,8 @@ export declare namespace Statements {
     type StatementLineItems as StatementLineItems,
     StatementLineItemsDataCursorPage as StatementLineItemsDataCursorPage,
     type LineItemListParams as LineItemListParams,
+    // Here for back compatibility
+    type LineItemListResponse as LineItemListResponse,
+    LineItemListResponsesCursorPage as LineItemListResponsesCursorPage,
   };
 }
