@@ -343,11 +343,10 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/financial-accounts/statements/line-items.ts">StatementLineItems</a></code>
-- <code><a href="./src/resources/financial-accounts/statements/line-items.ts">LineItemListResponse</a></code>
 
 Methods:
 
-- <code title="get /v1/financial_accounts/{financial_account_token}/statements/{statement_token}/line_items">client.financialAccounts.statements.lineItems.<a href="./src/resources/financial-accounts/statements/line-items.ts">list</a>(financialAccountToken, statementToken, { ...params }) -> LineItemListResponsesCursorPage</code>
+- <code title="get /v1/financial_accounts/{financial_account_token}/statements/{statement_token}/line_items">client.financialAccounts.statements.lineItems.<a href="./src/resources/financial-accounts/statements/line-items.ts">list</a>(financialAccountToken, statementToken, { ...params }) -> StatementLineItemsDataCursorPage</code>
 
 ## LoanTapes
 
