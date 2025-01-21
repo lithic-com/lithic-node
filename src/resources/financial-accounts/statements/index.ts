@@ -2,8 +2,10 @@
 
 export {
   StatementLineItemsDataCursorPage,
+  LineItemListResponsesCursorPage,
   LineItems,
   type StatementLineItems,
+  type LineItemListResponse,
   type LineItemListParams,
 } from './line-items';
 export { StatementsCursorPage, Statements, type Statement, type StatementListParams } from './statements';

@@ -39,6 +39,9 @@ export class LineItems extends APIResource {
 
 export class StatementLineItemsDataCursorPage extends CursorPage<StatementLineItems.Data> {}
 
+// Here for back compatibility
+export const LineItemListResponsesCursorPage = StatementLineItemsDataCursorPage;
+
 export interface StatementLineItems {
   data: Array<StatementLineItems.Data>;
 
@@ -173,14 +176,23 @@ export namespace StatementLineItems {
   }
 }
 
+export interface LineItemListResponse extends StatementLineItems.Data {}
+
 export interface LineItemListParams extends CursorPageParams {}
 
 LineItems.StatementLineItemsDataCursorPage = StatementLineItemsDataCursorPage;
+
+// Here for back compatibility
+LineItems.LineItemListResponsesCursorPage = LineItemListResponsesCursorPage;
 
 export declare namespace LineItems {
   export {
     type StatementLineItems as StatementLineItems,
     StatementLineItemsDataCursorPage as StatementLineItemsDataCursorPage,
     type LineItemListParams as LineItemListParams,
+
+    // Here for back compatibility
+    type LineItemListResponse as LineItemListResponse,
+    LineItemListResponsesCursorPage as LineItemListResponsesCursorPage,
   };
 }
