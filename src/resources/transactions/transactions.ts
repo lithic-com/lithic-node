@@ -156,13 +156,13 @@ export interface Transaction {
   acquirer_fee: number | null;
 
   /**
-   * @deprecated: Unique identifier assigned to a transaction by the acquirer that
-   * can be used in dispute and chargeback filing.
+   * @deprecated Unique identifier assigned to a transaction by the acquirer that can
+   * be used in dispute and chargeback filing.
    */
   acquirer_reference_number: string | null;
 
   /**
-   * @deprecated: When the transaction is pending, this represents the authorization
+   * @deprecated When the transaction is pending, this represents the authorization
    * amount of the transaction in the anticipated settlement currency. Once the
    * transaction has settled, this field represents the settled amount in the
    * settlement currency.
@@ -172,7 +172,7 @@ export interface Transaction {
   amounts: Transaction.Amounts;
 
   /**
-   * @deprecated: The authorization amount of the transaction in the anticipated
+   * @deprecated The authorization amount of the transaction in the anticipated
    * settlement currency.
    */
   authorization_amount: number | null;
@@ -200,12 +200,12 @@ export interface Transaction {
   merchant: Transaction.Merchant;
 
   /**
-   * @deprecated: Analogous to the 'amount', but in the merchant currency.
+   * @deprecated Analogous to the 'amount', but in the merchant currency.
    */
   merchant_amount: number | null;
 
   /**
-   * @deprecated: Analogous to the 'authorization_amount', but in the merchant
+   * @deprecated Analogous to the 'authorization_amount', but in the merchant
    * currency.
    */
   merchant_authorization_amount: number | null;
@@ -259,7 +259,7 @@ export interface Transaction {
     | 'USER_TRANSACTION_LIMIT';
 
   /**
-   * @deprecated: The settled amount of the transaction in the settlement currency.
+   * @deprecated The settled amount of the transaction in the settlement currency.
    */
   settled_amount: number;
 

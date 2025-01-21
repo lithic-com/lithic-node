@@ -291,7 +291,7 @@ export interface Card {
   type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET';
 
   /**
-   * @deprecated: List of identifiers for the Auth Rule(s) that are applied on the
+   * @deprecated List of identifiers for the Auth Rule(s) that are applied on the
    * card. This field is deprecated and will no longer be populated in the `Card`
    * object. The key will be removed from the schema in a future release. Use the
    * `/auth_rules` endpoints to fetch Auth Rule information instead.
