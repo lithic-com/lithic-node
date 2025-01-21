@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.91.1 (2025-01-21)
+
+Full Changelog: [v0.91.0...v0.91.1](https://github.com/lithic-com/lithic-node/compare/v0.91.0...v0.91.1)
+
+### Bug Fixes
+
+* reuse model in pagination items type ([#605](https://github.com/lithic-com/lithic-node/issues/605)) ([63d4498](https://github.com/lithic-com/lithic-node/commit/63d4498f22f60213e0890c5da5b7b24a18876db5))
+
+
+### Chores
+
+* add back compat aliases for LineItemListResponse ([3a8e040](https://github.com/lithic-com/lithic-node/commit/3a8e040e9888af8a6def5255945bcc406d995fde))
+* **api:** adds `dpan` property to Tokenization ([#602](https://github.com/lithic-com/lithic-node/issues/602)) ([3c75229](https://github.com/lithic-com/lithic-node/commit/3c75229be3021d1f740bfb789572a4bc5ebb1548))
+* **docs:** updates documentation for DPANs ([#603](https://github.com/lithic-com/lithic-node/issues/603)) ([753bcf0](https://github.com/lithic-com/lithic-node/commit/753bcf08b14cab4cee3096d89a2c05e1e5d8676f))
+* **internal:** add test ([#604](https://github.com/lithic-com/lithic-node/issues/604)) ([12512e5](https://github.com/lithic-com/lithic-node/commit/12512e5cf67f3ffab2c23277e77e2bef344a36a8))
+* **types:** add `| undefined` to client options properties ([#600](https://github.com/lithic-com/lithic-node/issues/600)) ([ca52615](https://github.com/lithic-com/lithic-node/commit/ca52615019660445ef7ce335d6d861f3afcce392))
+
+
+### Documentation
+
+* update deprecation messages ([#606](https://github.com/lithic-com/lithic-node/issues/606)) ([bf042c0](https://github.com/lithic-com/lithic-node/commit/bf042c0c1125cd35a82fe4c3212522faf9e7ee6d))
+
 ## 0.91.0 (2025-01-14)
 
 Full Changelog: [v0.90.0...v0.91.0](https://github.com/lithic-com/lithic-node/compare/v0.90.0...v0.91.0)
