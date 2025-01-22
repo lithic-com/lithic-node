@@ -91,6 +91,27 @@ export interface AuthenticationRetrieveResponse {
   message_category: 'NON_PAYMENT_AUTHENTICATION' | 'PAYMENT_AUTHENTICATION';
 
   /**
+   * Indicates whether a challenge is requested for this transaction
+   *
+   * - `NO_PREFERENCE` - No Preference
+   * - `NO_CHALLENGE_REQUESTED` - No Challenge Requested
+   * - `CHALLENGE_PREFERENCE` - Challenge requested (3DS Requestor preference)
+   * - `CHALLENGE_MANDATE` - Challenge requested (Mandate)
+   * - `NO_CHALLENGE_RISK_ALREADY_ASSESSED` - No Challenge requested (Transactional
+   *   risk analysis is already performed)
+   * - `DATA_SHARE_ONLY` - No Challenge requested (Data Share Only)
+   * - `OTHER` - Other indicators not captured by above. These are rarely used
+   */
+  three_ds_requestor_challenge_indicator:
+    | 'NO_PREFERENCE'
+    | 'NO_CHALLENGE_REQUESTED'
+    | 'CHALLENGE_PREFERENCE'
+    | 'CHALLENGE_MANDATE'
+    | 'NO_CHALLENGE_RISK_ALREADY_ASSESSED'
+    | 'DATA_SHARE_ONLY'
+    | 'OTHER';
+
+  /**
    * Object containing additional data about the 3DS request that is beyond the EMV
    * 3DS standard spec (e.g., specific fields that only certain card networks send
    * but are not required across all 3DS requests).
