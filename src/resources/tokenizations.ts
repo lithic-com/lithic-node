@@ -244,6 +244,11 @@ export interface Tokenization {
    * A list of events related to the tokenization.
    */
   events?: Array<Tokenization.Event>;
+
+  /**
+   * The network's unique reference for the card that is tokenized.
+   */
+  payment_account_reference_id?: string | null;
 }
 
 export namespace Tokenization {
