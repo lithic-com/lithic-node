@@ -609,7 +609,7 @@ export namespace Transaction {
     token: string;
 
     /**
-     * Amount of the event in the settlement currency.
+     * @deprecated Amount of the event in the settlement currency.
      */
     amount: number;
 
