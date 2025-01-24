@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.92.0 (2025-01-24)
+
+Full Changelog: [v0.91.1...v0.92.0](https://github.com/lithic-com/lithic-node/compare/v0.91.1...v0.92.0)
+
+### Features
+
+* **api:** adds additional fields to TransactionEvents ([#609](https://github.com/lithic-com/lithic-node/issues/609)) ([0404528](https://github.com/lithic-com/lithic-node/commit/040452865decbf9a4eaeff7064617b96bd8adc3a))
+
+
+### Chores
+
+* **api:** additional field added to 3DS Responses and Tokenization ([#607](https://github.com/lithic-com/lithic-node/issues/607)) ([bb098a5](https://github.com/lithic-com/lithic-node/commit/bb098a519c97f83d27841c9e3b5882678b91295c))
+
 ## 0.91.1 (2025-01-21)
 
 Full Changelog: [v0.91.0...v0.91.1](https://github.com/lithic-com/lithic-node/compare/v0.91.0...v0.91.1)
