@@ -687,7 +687,9 @@ export namespace Transaction {
      * transaction lifecycle and can be used to locate a particular transaction, such
      * as during processing of disputes. Not all fields are available in all events,
      * and the presence of these fields is dependent on the card network and the event
-     * type.
+     * type. If the field is populated by the network, we will pass it through as is
+     * unless otherwise specified. Please consult the official network documentation
+     * for more details about these fields and how to use them.
      */
     network_info: Event.NetworkInfo | null;
 
@@ -810,7 +812,9 @@ export namespace Transaction {
      * transaction lifecycle and can be used to locate a particular transaction, such
      * as during processing of disputes. Not all fields are available in all events,
      * and the presence of these fields is dependent on the card network and the event
-     * type.
+     * type. If the field is populated by the network, we will pass it through as is
+     * unless otherwise specified. Please consult the official network documentation
+     * for more details about these fields and how to use them.
      */
     export interface NetworkInfo {
       acquirer: NetworkInfo.Acquirer | null;
@@ -848,6 +852,28 @@ export namespace Transaction {
          * only.
          */
         switch_serial_number: string | null;
+
+        /**
+         * [Available on January 28th] Identifier assigned by Mastercard. Matches the
+         * `banknet_reference_number` of a prior related event. May be populated in
+         * authorization reversals, incremental authorizations (authorization requests that
+         * augment a previously authorized amount), automated fuel dispenser authorization
+         * advices and clearings, and financial authorizations. If the original banknet
+         * reference number contains all zeroes, then no actual reference number could be
+         * found by the network or acquirer. If Mastercard converts a transaction from
+         * dual-message to single-message, such as for certain ATM transactions, it will
+         * populate the original banknet reference number in the resulting financial
+         * authorization with the banknet reference number of the initial authorization,
+         * which Lithic does not receive.
+         */
+        original_banknet_reference_number?: string | null;
+
+        /**
+         * [Available on January 28th] Identifier assigned by Mastercard. Matches the
+         * `switch_serial_number` of a prior related event. May be populated in returns and
+         * return reversals. Applicable to single-message transactions only.
+         */
+        original_switch_serial_number?: string | null;
       }
 
       export interface Visa {
@@ -855,6 +881,14 @@ export namespace Transaction {
          * Identifier assigned by Visa.
          */
         transaction_id: string | null;
+
+        /**
+         * [Available on January 28th] Identifier assigned by Visa. Matches the
+         * `transaction_id` of a prior related event. May be populated in incremental
+         * authorizations (authorization requests that augment a previously authorized
+         * amount), authorization advices, financial authorizations, and clearings.
+         */
+        original_transaction_id?: string | null;
       }
     }
 
