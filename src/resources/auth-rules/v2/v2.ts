@@ -19,14 +19,18 @@ export class V2 extends APIResource {
   }
 
   /**
-   * Fetches an authorization rule by its token
+   * Fetches a V2 authorization rule by its token
    */
   retrieve(authRuleToken: string, options?: Core.RequestOptions): Core.APIPromise<V2RetrieveResponse> {
     return this._client.get(`/v2/auth_rules/${authRuleToken}`, options);
   }
 
   /**
-   * Updates an authorization rule's properties
+   * Updates a V2 authorization rule's properties
+   *
+   * If `account_tokens`, `card_tokens`, `program_level`, or `excluded_card_tokens`
+   * is provided, this will replace existing associations with the provided list of
+   * entities.
    */
   update(
     authRuleToken: string,
@@ -55,11 +59,17 @@ export class V2 extends APIResource {
   }
 
   /**
-   * Associates an authorization rules with a card program, the provided account(s)
+   * Deletes a V2 authorization rule
+   */
+  del(authRuleToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
+    return this._client.delete(`/v2/auth_rules/${authRuleToken}`, options);
+  }
+
+  /**
+   * Associates a V2 authorization rule with a card program, the provided account(s)
    * or card(s).
    *
-   * This endpoint will replace any existing associations with the provided list of
-   * entities.
+   * Prefer using the `PATCH` method for this operation.
    */
   apply(
     authRuleToken: string,
@@ -70,8 +80,7 @@ export class V2 extends APIResource {
   }
 
   /**
-   * Creates a new draft version of an authorization rules that will be ran in shadow
-   * mode.
+   * Creates a new draft version of a rule that will be ran in shadow mode.
    *
    * This can also be utilized to reset the draft parameters, causing a draft version
    * to no longer be ran in shadow mode.
@@ -85,7 +94,7 @@ export class V2 extends APIResource {
   }
 
   /**
-   * Promotes a draft version of an authorization rule to the currently active
+   * Promotes the draft version of an authorization rule to the currently active
    * version such that it is enforced in the authorization stream.
    */
   promote(authRuleToken: string, options?: Core.RequestOptions): Core.APIPromise<V2PromoteResponse> {
@@ -321,7 +330,7 @@ export interface VelocityLimitParams {
 
   /**
    * The size of the trailing window to calculate Spend Velocity over in seconds. The
-   * minimum value is 10 seconds, and the maximum value is 2678400 seconds.
+   * minimum value is 10 seconds, and the maximum value is 2678400 seconds (31 days).
    */
   period: number | VelocityLimitParamsPeriodWindow;
 
@@ -419,7 +428,7 @@ export interface V2CreateResponse {
 export namespace V2CreateResponse {
   export interface CurrentVersion {
     /**
-     * Parameters for the current version of the Auth Rule
+     * Parameters for the Auth Rule
      */
     parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
@@ -432,7 +441,7 @@ export namespace V2CreateResponse {
 
   export interface DraftVersion {
     /**
-     * Parameters for the current version of the Auth Rule
+     * Parameters for the Auth Rule
      */
     parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
@@ -493,7 +502,7 @@ export interface V2RetrieveResponse {
 export namespace V2RetrieveResponse {
   export interface CurrentVersion {
     /**
-     * Parameters for the current version of the Auth Rule
+     * Parameters for the Auth Rule
      */
     parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
@@ -506,7 +515,7 @@ export namespace V2RetrieveResponse {
 
   export interface DraftVersion {
     /**
-     * Parameters for the current version of the Auth Rule
+     * Parameters for the Auth Rule
      */
     parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
@@ -567,7 +576,7 @@ export interface V2UpdateResponse {
 export namespace V2UpdateResponse {
   export interface CurrentVersion {
     /**
-     * Parameters for the current version of the Auth Rule
+     * Parameters for the Auth Rule
      */
     parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
@@ -580,7 +589,7 @@ export namespace V2UpdateResponse {
 
   export interface DraftVersion {
     /**
-     * Parameters for the current version of the Auth Rule
+     * Parameters for the Auth Rule
      */
     parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
@@ -641,7 +650,7 @@ export interface V2ListResponse {
 export namespace V2ListResponse {
   export interface CurrentVersion {
     /**
-     * Parameters for the current version of the Auth Rule
+     * Parameters for the Auth Rule
      */
     parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
@@ -654,7 +663,7 @@ export namespace V2ListResponse {
 
   export interface DraftVersion {
     /**
-     * Parameters for the current version of the Auth Rule
+     * Parameters for the Auth Rule
      */
     parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
@@ -715,7 +724,7 @@ export interface V2ApplyResponse {
 export namespace V2ApplyResponse {
   export interface CurrentVersion {
     /**
-     * Parameters for the current version of the Auth Rule
+     * Parameters for the Auth Rule
      */
     parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
@@ -728,7 +737,7 @@ export namespace V2ApplyResponse {
 
   export interface DraftVersion {
     /**
-     * Parameters for the current version of the Auth Rule
+     * Parameters for the Auth Rule
      */
     parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
@@ -789,7 +798,7 @@ export interface V2DraftResponse {
 export namespace V2DraftResponse {
   export interface CurrentVersion {
     /**
-     * Parameters for the current version of the Auth Rule
+     * Parameters for the Auth Rule
      */
     parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
@@ -802,7 +811,7 @@ export namespace V2DraftResponse {
 
   export interface DraftVersion {
     /**
-     * Parameters for the current version of the Auth Rule
+     * Parameters for the Auth Rule
      */
     parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
@@ -863,7 +872,7 @@ export interface V2PromoteResponse {
 export namespace V2PromoteResponse {
   export interface CurrentVersion {
     /**
-     * Parameters for the current version of the Auth Rule
+     * Parameters for the Auth Rule
      */
     parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
@@ -876,7 +885,7 @@ export namespace V2PromoteResponse {
 
   export interface DraftVersion {
     /**
-     * Parameters for the current version of the Auth Rule
+     * Parameters for the Auth Rule
      */
     parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
 
@@ -910,7 +919,7 @@ export declare namespace V2CreateParams {
     name?: string | null;
 
     /**
-     * Parameters for the current version of the Auth Rule
+     * Parameters for the Auth Rule
      */
     parameters?: ConditionalBlockParameters | VelocityLimitParams;
 
@@ -932,7 +941,7 @@ export declare namespace V2CreateParams {
     name?: string | null;
 
     /**
-     * Parameters for the current version of the Auth Rule
+     * Parameters for the Auth Rule
      */
     parameters?: ConditionalBlockParameters | VelocityLimitParams;
 
@@ -959,7 +968,7 @@ export declare namespace V2CreateParams {
     name?: string | null;
 
     /**
-     * Parameters for the current version of the Auth Rule
+     * Parameters for the Auth Rule
      */
     parameters?: ConditionalBlockParameters | VelocityLimitParams;
 
@@ -970,20 +979,79 @@ export declare namespace V2CreateParams {
   }
 }
 
-export interface V2UpdateParams {
-  /**
-   * Auth Rule Name
-   */
-  name?: string | null;
+export type V2UpdateParams =
+  | V2UpdateParams.AccountLevelRule
+  | V2UpdateParams.CardLevelRule
+  | V2UpdateParams.ProgramLevelRule;
 
-  /**
-   * The desired state of the Auth Rule.
-   *
-   * Note that only deactivating an Auth Rule through this endpoint is supported at
-   * this time. If you need to (re-)activate an Auth Rule the /promote endpoint
-   * should be used to promote a draft to the currently active version.
-   */
-  state?: 'INACTIVE';
+export declare namespace V2UpdateParams {
+  export interface AccountLevelRule {
+    /**
+     * Account tokens to which the Auth Rule applies.
+     */
+    account_tokens?: Array<string>;
+
+    /**
+     * Auth Rule Name
+     */
+    name?: string | null;
+
+    /**
+     * The desired state of the Auth Rule.
+     *
+     * Note that only deactivating an Auth Rule through this endpoint is supported at
+     * this time. If you need to (re-)activate an Auth Rule the /promote endpoint
+     * should be used to promote a draft to the currently active version.
+     */
+    state?: 'INACTIVE';
+  }
+
+  export interface CardLevelRule {
+    /**
+     * Card tokens to which the Auth Rule applies.
+     */
+    card_tokens?: Array<string>;
+
+    /**
+     * Auth Rule Name
+     */
+    name?: string | null;
+
+    /**
+     * The desired state of the Auth Rule.
+     *
+     * Note that only deactivating an Auth Rule through this endpoint is supported at
+     * this time. If you need to (re-)activate an Auth Rule the /promote endpoint
+     * should be used to promote a draft to the currently active version.
+     */
+    state?: 'INACTIVE';
+  }
+
+  export interface ProgramLevelRule {
+    /**
+     * Card tokens to which the Auth Rule does not apply.
+     */
+    excluded_card_tokens?: Array<string>;
+
+    /**
+     * Auth Rule Name
+     */
+    name?: string | null;
+
+    /**
+     * Whether the Auth Rule applies to all authorizations on the card program.
+     */
+    program_level?: boolean;
+
+    /**
+     * The desired state of the Auth Rule.
+     *
+     * Note that only deactivating an Auth Rule through this endpoint is supported at
+     * this time. If you need to (re-)activate an Auth Rule the /promote endpoint
+     * should be used to promote a draft to the currently active version.
+     */
+    state?: 'INACTIVE';
+  }
 }
 
 export interface V2ListParams extends CursorPageParams {
@@ -1033,7 +1101,7 @@ export declare namespace V2ApplyParams {
 
 export interface V2DraftParams {
   /**
-   * Parameters for the current version of the Auth Rule
+   * Parameters for the Auth Rule
    */
   parameters?: ConditionalBlockParameters | VelocityLimitParams | null;
 }
