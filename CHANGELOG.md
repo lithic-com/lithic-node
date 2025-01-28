@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.93.0 (2025-01-28)
+
+Full Changelog: [v0.92.0...v0.93.0](https://github.com/lithic-com/lithic-node/compare/v0.92.0...v0.93.0)
+
+### Features
+
+* **api:** adds additional request types for updating an Auth Rule ([#610](https://github.com/lithic-com/lithic-node/issues/610)) ([1bdac49](https://github.com/lithic-com/lithic-node/commit/1bdac49ae1c6e01593713255503422139a4915d5))
+
 ## 0.92.0 (2025-01-24)
 
 Full Changelog: [v0.91.1...v0.92.0](https://github.com/lithic-com/lithic-node/compare/v0.91.1...v0.92.0)
