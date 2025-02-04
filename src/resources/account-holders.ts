@@ -1710,7 +1710,7 @@ export declare namespace AccountHolderCreateParams {
      * empty list. However, either this parameter or `beneficial_owner_individuals`
      * must be populated. on entities that should be included.
      */
-    beneficial_owner_entities: Array<AccountHolderCreateParams.KYB.BeneficialOwnerEntity>;
+    beneficial_owner_entities: Array<KYB.BeneficialOwnerEntity>;
 
     /**
      * List of all direct and indirect individuals with >25% ownership in the company.
@@ -1721,13 +1721,13 @@ export declare namespace AccountHolderCreateParams {
      * individual is an entity, pass in an empty list. However, either this parameter
      * or `beneficial_owner_entities` must be populated.
      */
-    beneficial_owner_individuals: Array<AccountHolderCreateParams.KYB.BeneficialOwnerIndividual>;
+    beneficial_owner_individuals: Array<KYB.BeneficialOwnerIndividual>;
 
     /**
      * Information for business for which the account is being opened and KYB is being
      * run.
      */
-    business_entity: AccountHolderCreateParams.KYB.BusinessEntity;
+    business_entity: KYB.BusinessEntity;
 
     /**
      * An individual with significant responsibility for managing the legal entity
@@ -1739,7 +1739,7 @@ export declare namespace AccountHolderCreateParams {
      * [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf)
      * (Section II) for more background.
      */
-    control_person: AccountHolderCreateParams.KYB.ControlPerson;
+    control_person: KYB.ControlPerson;
 
     /**
      * Short description of the company's line of business (i.e., what does the company
@@ -1961,7 +1961,7 @@ export declare namespace AccountHolderCreateParams {
      * Information on individual for whom the account is being opened and KYC is being
      * run.
      */
-    individual: AccountHolderCreateParams.KYC.Individual;
+    individual: KYC.Individual;
 
     /**
      * An RFC 3339 timestamp indicating when the account holder accepted the applicable
