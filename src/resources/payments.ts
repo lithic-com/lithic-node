@@ -214,6 +214,8 @@ export namespace Payment {
      * - `ACH_RECEIPT_SETTLED` - ACH receipt funds have settled.
      * - `ACH_RECEIPT_RELEASED` - ACH receipt released from pending to available
      *   balance.
+     * - `ACH_RETURN_SETTLED` - ACH receipt return settled by the Receiving Depository
+     *   Financial Institution.
      */
     type:
       | 'ACH_ORIGINATION_CANCELLED'
@@ -225,7 +227,8 @@ export namespace Payment {
       | 'ACH_RECEIPT_PROCESSED'
       | 'ACH_RECEIPT_SETTLED'
       | 'ACH_RETURN_INITIATED'
-      | 'ACH_RETURN_PROCESSED';
+      | 'ACH_RETURN_PROCESSED'
+      | 'ACH_RETURN_SETTLED';
 
     /**
      * More detailed reasons for the event
@@ -404,7 +407,8 @@ export interface PaymentSimulateActionParams {
     | 'ACH_ORIGINATION_SETTLED'
     | 'ACH_RECEIPT_SETTLED'
     | 'ACH_RETURN_INITIATED'
-    | 'ACH_RETURN_PROCESSED';
+    | 'ACH_RETURN_PROCESSED'
+    | 'ACH_RETURN_SETTLED';
 
   /**
    * Decline reason

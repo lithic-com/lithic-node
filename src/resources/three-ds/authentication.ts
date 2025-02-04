@@ -43,7 +43,7 @@ export interface AuthenticationRetrieveResponse {
   /**
    * Indicates the outcome of the 3DS authentication process.
    */
-  authentication_result: 'DECLINE' | 'SUCCESS' | null;
+  authentication_result: 'DECLINE' | 'SUCCESS' | 'PENDING_CHALLENGE' | 'PENDING_DECISION';
 
   /**
    * Indicates whether the expiration date provided by the cardholder during checkout
@@ -147,6 +147,11 @@ export interface AuthenticationRetrieveResponse {
    * Present if the channel is 'BROWSER'.
    */
   browser?: AuthenticationRetrieveResponse.Browser;
+
+  /**
+   * Entity that orchestrates the challenge.
+   */
+  challenge_orchestrated_by?: 'LITHIC' | 'CUSTOMER' | 'NO_CHALLENGE' | null;
 
   /**
    * Type of 3DS Requestor Initiated (3RI) request i.e., a 3DS authentication that
