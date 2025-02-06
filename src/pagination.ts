@@ -48,6 +48,10 @@ export class CursorPage<Item extends { token: string }>
     return this.data ?? [];
   }
 
+  override hasNextPage() {
+    return this.has_more && super.hasNextPage();
+  }
+
   // @deprecated Please use `nextPageInfo()` instead
   nextPageParams(): Partial<CursorPageParams> | null {
     const info = this.nextPageInfo();
@@ -110,6 +114,10 @@ export class SinglePage<Item> extends AbstractPage<Item> implements SinglePageRe
 
   getPaginatedItems(): Item[] {
     return this.data ?? [];
+  }
+
+  override hasNextPage() {
+    return this.has_more && super.hasNextPage();
   }
 
   // @deprecated Please use `nextPageInfo()` instead
