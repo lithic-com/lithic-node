@@ -1135,6 +1135,8 @@ export interface ExternalBankAccountUpdateParams {
    */
   owner_type?: OwnerType;
 
+  type?: 'CHECKING' | 'SAVINGS';
+
   /**
    * User Defined ID
    */
