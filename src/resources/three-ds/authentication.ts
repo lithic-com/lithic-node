@@ -73,11 +73,6 @@ export interface AuthenticationRetrieveResponse {
   created: string;
 
   /**
-   * Entity that made the authentication decision.
-   */
-  decision_made_by: 'CUSTOMER_ENDPOINT' | 'LITHIC_DEFAULT' | 'LITHIC_RULES' | 'NETWORK' | 'UNKNOWN' | null;
-
-  /**
    * Object containing data about the merchant involved in the e-commerce
    * transaction.
    */
@@ -149,9 +144,19 @@ export interface AuthenticationRetrieveResponse {
   browser?: AuthenticationRetrieveResponse.Browser;
 
   /**
+   * Metadata about the challenge method and delivery.
+   */
+  challenge_metadata?: AuthenticationRetrieveResponse.ChallengeMetadata | null;
+
+  /**
    * Entity that orchestrates the challenge.
    */
   challenge_orchestrated_by?: 'LITHIC' | 'CUSTOMER' | 'NO_CHALLENGE' | null;
+
+  /**
+   * Entity that made the authentication decision.
+   */
+  decision_made_by?: 'CUSTOMER_ENDPOINT' | 'LITHIC_DEFAULT' | 'LITHIC_RULES' | 'NETWORK' | 'UNKNOWN' | null;
 
   /**
    * Type of 3DS Requestor Initiated (3RI) request i.e., a 3DS authentication that
@@ -505,6 +510,21 @@ export namespace AuthenticationRetrieveResponse {
      * Content of the HTTP user-agent header. Maps to EMV 3DS field browserUserAgent.
      */
     user_agent?: string | null;
+  }
+
+  /**
+   * Metadata about the challenge method and delivery.
+   */
+  export interface ChallengeMetadata {
+    /**
+     * The type of challenge method used for authentication.
+     */
+    method_type: 'SMS_OTP' | 'OUT_OF_BAND';
+
+    /**
+     * The phone number used for delivering the OTP. Relevant only for SMS_OTP method.
+     */
+    phone_number?: string | null;
   }
 
   /**
