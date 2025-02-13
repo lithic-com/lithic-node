@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.94.0 (2025-02-13)
+
+Full Changelog: [v0.93.0...v0.94.0](https://github.com/lithic-com/lithic-node/compare/v0.93.0...v0.94.0)
+
+### Features
+
+* **client:** send `X-Stainless-Timeout` header ([#615](https://github.com/lithic-com/lithic-node/issues/615)) ([fc14eab](https://github.com/lithic-com/lithic-node/commit/fc14eab46ff1b767876db683b0be66f1b1b55b83))
+* **pagination:** avoid fetching when has_more: false ([#616](https://github.com/lithic-com/lithic-node/issues/616)) ([df66050](https://github.com/lithic-com/lithic-node/commit/df6605066b5b59b6244c21d15ee9ba008b7312d0))
+
+
+### Bug Fixes
+
+* **client:** fix export map for index exports ([#618](https://github.com/lithic-com/lithic-node/issues/618)) ([2ca13e4](https://github.com/lithic-com/lithic-node/commit/2ca13e4c7e53202c68f277aa6755518714a63da6))
+
+
+### Chores
+
+* **api:** new 3DS Event and new `challenge_metadata` property on Authentications ([#617](https://github.com/lithic-com/lithic-node/issues/617)) ([1da35d6](https://github.com/lithic-com/lithic-node/commit/1da35d6b031631ba156a463977c2849d1b4bb04c))
+* **api:** new PaymentEventType for ACH Returns and small updates to 3DS AuthenticationResult ([#614](https://github.com/lithic-com/lithic-node/issues/614)) ([116f85b](https://github.com/lithic-com/lithic-node/commit/116f85bfeaf33d0a0963d3ec665dfbbf0bb29ef2))
+* fix references to nested types ([#612](https://github.com/lithic-com/lithic-node/issues/612)) ([7b33255](https://github.com/lithic-com/lithic-node/commit/7b33255eeea77e3d2a60d130e3746aea7546cab0))
+
 ## 0.93.0 (2025-01-28)
 
 Full Changelog: [v0.92.0...v0.93.0](https://github.com/lithic-com/lithic-node/compare/v0.92.0...v0.93.0)
