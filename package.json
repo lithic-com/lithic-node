@@ -1,6 +1,6 @@
 {
   "name": "lithic",
-  "version": "0.93.0",
+  "version": "0.94.0",
   "description": "The official TypeScript library for the Lithic API",
   "author": "Lithic <sdk-feedback@lithic.com>",
   "types": "dist/index.d.ts",
@@ -107,17 +107,38 @@
       "default": "./dist/index.mjs"
     },
     "./*.mjs": {
-      "types": ["./dist/*.d.ts", "./dist/*/index.d.ts"],
-      "default": ["./dist/*.mjs", "./dist/*/index.mjs"]
+      "types": [
+        "./dist/*.d.ts",
+        "./dist/*/index.d.ts"
+      ],
+      "default": [
+        "./dist/*.mjs",
+        "./dist/*/index.mjs"
+      ]
     },
     "./*.js": {
-      "types": ["./dist/*.d.ts", "./dist/*/index.d.ts"],
-      "default": ["./dist/*.js", "./dist/*/index.js"]
+      "types": [
+        "./dist/*.d.ts",
+        "./dist/*/index.d.ts"
+      ],
+      "default": [
+        "./dist/*.js",
+        "./dist/*/index.js"
+      ]
     },
     "./*": {
-      "types": ["./dist/*.d.ts", "./dist/*/index.d.ts"],
-      "require": ["./dist/*.js", "./dist/*/index.js"],
-      "default": ["./dist/*.mjs", "./dist/*/index.mjs"]
+      "types": [
+        "./dist/*.d.ts",
+        "./dist/*/index.d.ts"
+      ],
+      "require": [
+        "./dist/*.js",
+        "./dist/*/index.js"
+      ],
+      "default": [
+        "./dist/*.mjs",
+        "./dist/*/index.mjs"
+      ]
     }
   }
 }
