@@ -48,7 +48,7 @@ export class CursorPage<Item extends { token: string }>
     return this.data ?? [];
   }
 
-  override hasNextPage() {
+  override hasNextPage(): boolean {
     return this.has_more && super.hasNextPage();
   }
 
@@ -116,7 +116,7 @@ export class SinglePage<Item> extends AbstractPage<Item> implements SinglePageRe
     return this.data ?? [];
   }
 
-  override hasNextPage() {
+  override hasNextPage(): boolean {
     return this.has_more && super.hasNextPage();
   }
 

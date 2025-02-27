@@ -183,10 +183,11 @@ export interface FinancialTransaction {
    *
    * - `CARD` - Issuing card transaction.
    * - `ACH` - Transaction over ACH.
+   * - `INTERNAL` - Transaction for internal adjustment.
    * - `TRANSFER` - Internal transfer of funds between financial accounts in your
    *   program.
    */
-  category: 'ACH' | 'CARD' | 'TRANSFER';
+  category: 'ACH' | 'CARD' | 'INTERNAL' | 'TRANSFER';
 
   /**
    * Date and time when the financial transaction first occurred. UTC time zone.
@@ -325,6 +326,7 @@ export namespace FinancialTransaction {
       | 'FINANCIAL_CREDIT_AUTHORIZATION'
       | 'INTEREST'
       | 'INTEREST_REVERSAL'
+      | 'INTERNAL_ADJUSTMENT'
       | 'LATE_PAYMENT'
       | 'LATE_PAYMENT_REVERSAL'
       | 'PROVISIONAL_CREDIT'

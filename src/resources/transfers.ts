@@ -173,6 +173,7 @@ export namespace Transfer {
       | 'FINANCIAL_CREDIT_AUTHORIZATION'
       | 'INTEREST'
       | 'INTEREST_REVERSAL'
+      | 'INTERNAL_ADJUSTMENT'
       | 'LATE_PAYMENT'
       | 'LATE_PAYMENT_REVERSAL'
       | 'PROVISIONAL_CREDIT'
