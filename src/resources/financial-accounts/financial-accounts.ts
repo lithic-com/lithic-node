@@ -133,6 +133,11 @@ export interface FinancialAccount {
 
   nickname: string | null;
 
+  /**
+   * Status of the financial account
+   */
+  status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING';
+
   type: 'ISSUING' | 'RESERVE' | 'OPERATING';
 
   updated: string;
@@ -140,6 +145,17 @@ export interface FinancialAccount {
   account_number?: string | null;
 
   routing_number?: string | null;
+
+  /**
+   * Reason for the financial account status change
+   */
+  status_change_reason?:
+    | 'CHARGED_OFF_DELINQUENT'
+    | 'CHARGED_OFF_FRAUD'
+    | 'END_USER_REQUEST'
+    | 'BANK_REQUEST'
+    | 'DELINQUENT'
+    | null;
 }
 
 export namespace FinancialAccount {
