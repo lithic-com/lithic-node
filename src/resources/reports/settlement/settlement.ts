@@ -1,13 +1,23 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
-import * as Core from '../../core';
-import * as ReportsAPI from './reports';
-import { SettlementDetailsCursorPage } from './reports';
-import { type CursorPageParams } from '../../pagination';
+import { APIResource } from '../../../resource';
+import { isRequestOptions } from '../../../core';
+import * as Core from '../../../core';
+import * as ReportsAPI from '../reports';
+import { SettlementDetailsCursorPage } from '../reports';
+import * as NetworkTotalsAPI from './network-totals';
+import {
+  NetworkTotalListParams,
+  NetworkTotalListResponse,
+  NetworkTotalListResponsesCursorPage,
+  NetworkTotalRetrieveResponse,
+  NetworkTotals,
+} from './network-totals';
+import { type CursorPageParams } from '../../../pagination';
 
 export class Settlement extends APIResource {
+  networkTotals: NetworkTotalsAPI.NetworkTotals = new NetworkTotalsAPI.NetworkTotals(this._client);
+
   /**
    * List details.
    */
@@ -45,8 +55,19 @@ export class Settlement extends APIResource {
 
 export interface SettlementListDetailsParams extends CursorPageParams {}
 
+Settlement.NetworkTotals = NetworkTotals;
+Settlement.NetworkTotalListResponsesCursorPage = NetworkTotalListResponsesCursorPage;
+
 export declare namespace Settlement {
   export { type SettlementListDetailsParams as SettlementListDetailsParams };
+
+  export {
+    NetworkTotals as NetworkTotals,
+    type NetworkTotalRetrieveResponse as NetworkTotalRetrieveResponse,
+    type NetworkTotalListResponse as NetworkTotalListResponse,
+    NetworkTotalListResponsesCursorPage as NetworkTotalListResponsesCursorPage,
+    type NetworkTotalListParams as NetworkTotalListParams,
+  };
 }
 
 export { SettlementDetailsCursorPage };

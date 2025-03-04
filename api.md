@@ -39,7 +39,9 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/account-holders.ts">AccountHolder</a></code>
+- <code><a href="./src/resources/account-holders.ts">AddressUpdate</a></code>
 - <code><a href="./src/resources/account-holders.ts">KYB</a></code>
+- <code><a href="./src/resources/account-holders.ts">KYBBusinessEntity</a></code>
 - <code><a href="./src/resources/account-holders.ts">KYC</a></code>
 - <code><a href="./src/resources/account-holders.ts">KYCExempt</a></code>
 - <code><a href="./src/resources/account-holders.ts">RequiredDocument</a></code>
@@ -489,6 +491,7 @@ Methods:
 
 - <code title="get /v1/three_ds_authentication/{three_ds_authentication_token}">client.threeDS.authentication.<a href="./src/resources/three-ds/authentication.ts">retrieve</a>(threeDSAuthenticationToken) -> AuthenticationRetrieveResponse</code>
 - <code title="post /v1/three_ds_authentication/simulate">client.threeDS.authentication.<a href="./src/resources/three-ds/authentication.ts">simulate</a>({ ...params }) -> AuthenticationSimulateResponse</code>
+- <code title="post /v1/three_ds_decisioning/simulate/enter_otp">client.threeDS.authentication.<a href="./src/resources/three-ds/authentication.ts">simulateOtpEntry</a>({ ...params }) -> void</code>
 
 ## Decisioning
 
@@ -497,15 +500,12 @@ Types:
 - <code><a href="./src/resources/three-ds/decisioning.ts">ChallengeResponse</a></code>
 - <code><a href="./src/resources/three-ds/decisioning.ts">ChallengeResult</a></code>
 - <code><a href="./src/resources/three-ds/decisioning.ts">DecisioningRetrieveSecretResponse</a></code>
-- <code><a href="./src/resources/three-ds/decisioning.ts">DecisioningSimulateChallengeResponse</a></code>
 
 Methods:
 
 - <code title="post /v1/three_ds_decisioning/challenge_response">client.threeDS.decisioning.<a href="./src/resources/three-ds/decisioning.ts">challengeResponse</a>({ ...params }) -> void</code>
 - <code title="get /v1/three_ds_decisioning/secret">client.threeDS.decisioning.<a href="./src/resources/three-ds/decisioning.ts">retrieveSecret</a>() -> DecisioningRetrieveSecretResponse</code>
 - <code title="post /v1/three_ds_decisioning/secret/rotate">client.threeDS.decisioning.<a href="./src/resources/three-ds/decisioning.ts">rotateSecret</a>() -> void</code>
-- <code title="post /v1/three_ds_decisioning/simulate/challenge">client.threeDS.decisioning.<a href="./src/resources/three-ds/decisioning.ts">simulateChallenge</a>({ ...params }) -> DecisioningSimulateChallengeResponse</code>
-- <code title="post /v1/three_ds_decisioning/simulate/challenge_response">client.threeDS.decisioning.<a href="./src/resources/three-ds/decisioning.ts">simulateChallengeResponse</a>({ ...params }) -> void</code>
 
 # Reports
 
@@ -519,8 +519,20 @@ Types:
 
 Methods:
 
-- <code title="get /v1/reports/settlement/details/{report_date}">client.reports.settlement.<a href="./src/resources/reports/settlement.ts">listDetails</a>(reportDate, { ...params }) -> SettlementDetailsCursorPage</code>
-- <code title="get /v1/reports/settlement/summary/{report_date}">client.reports.settlement.<a href="./src/resources/reports/settlement.ts">summary</a>(reportDate) -> SettlementReport</code>
+- <code title="get /v1/reports/settlement/details/{report_date}">client.reports.settlement.<a href="./src/resources/reports/settlement/settlement.ts">listDetails</a>(reportDate, { ...params }) -> SettlementDetailsCursorPage</code>
+- <code title="get /v1/reports/settlement/summary/{report_date}">client.reports.settlement.<a href="./src/resources/reports/settlement/settlement.ts">summary</a>(reportDate) -> SettlementReport</code>
+
+### NetworkTotals
+
+Types:
+
+- <code><a href="./src/resources/reports/settlement/network-totals.ts">NetworkTotalRetrieveResponse</a></code>
+- <code><a href="./src/resources/reports/settlement/network-totals.ts">NetworkTotalListResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/reports/settlement/network_totals/{token}">client.reports.settlement.networkTotals.<a href="./src/resources/reports/settlement/network-totals.ts">retrieve</a>(token) -> NetworkTotalRetrieveResponse</code>
+- <code title="get /v1/reports/settlement/network_totals">client.reports.settlement.networkTotals.<a href="./src/resources/reports/settlement/network-totals.ts">list</a>({ ...params }) -> NetworkTotalListResponsesCursorPage</code>
 
 # CardPrograms
 

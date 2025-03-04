@@ -5,6 +5,7 @@ import * as AuthenticationAPI from './authentication';
 import {
   Authentication,
   AuthenticationRetrieveResponse,
+  AuthenticationSimulateOtpEntryParams,
   AuthenticationSimulateParams,
   AuthenticationSimulateResponse,
 } from './authentication';
@@ -15,9 +16,6 @@ import {
   Decisioning,
   DecisioningChallengeResponseParams,
   DecisioningRetrieveSecretResponse,
-  DecisioningSimulateChallengeParams,
-  DecisioningSimulateChallengeResponse,
-  DecisioningSimulateChallengeResponseParams,
 } from './decisioning';
 
 export class ThreeDS extends APIResource {
@@ -34,6 +32,7 @@ export declare namespace ThreeDS {
     type AuthenticationRetrieveResponse as AuthenticationRetrieveResponse,
     type AuthenticationSimulateResponse as AuthenticationSimulateResponse,
     type AuthenticationSimulateParams as AuthenticationSimulateParams,
+    type AuthenticationSimulateOtpEntryParams as AuthenticationSimulateOtpEntryParams,
   };
 
   export {
@@ -41,9 +40,6 @@ export declare namespace ThreeDS {
     type ChallengeResponse as ChallengeResponse,
     type ChallengeResult as ChallengeResult,
     type DecisioningRetrieveSecretResponse as DecisioningRetrieveSecretResponse,
-    type DecisioningSimulateChallengeResponse as DecisioningSimulateChallengeResponse,
     type DecisioningChallengeResponseParams as DecisioningChallengeResponseParams,
-    type DecisioningSimulateChallengeParams as DecisioningSimulateChallengeParams,
-    type DecisioningSimulateChallengeResponseParams as DecisioningSimulateChallengeResponseParams,
   };
 }
