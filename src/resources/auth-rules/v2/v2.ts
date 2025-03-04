@@ -251,6 +251,9 @@ export interface AuthRuleCondition {
    *   trailing hour up and until the authorization.
    * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
    *   trailing 24 hours up and until the authorization.
+   * - `CARD_STATE`: The current state of the card associated with the transaction.
+   *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
+   *   `PENDING_FULFILLMENT`.
    */
   attribute?: ConditionalAttribute;
 
@@ -307,6 +310,9 @@ export interface AuthRuleCondition {
  *   trailing hour up and until the authorization.
  * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
  *   trailing 24 hours up and until the authorization.
+ * - `CARD_STATE`: The current state of the card associated with the transaction.
+ *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
+ *   `PENDING_FULFILLMENT`.
  */
 export type ConditionalAttribute =
   | 'MCC'
@@ -319,7 +325,8 @@ export type ConditionalAttribute =
   | 'TRANSACTION_AMOUNT'
   | 'RISK_SCORE'
   | 'CARD_TRANSACTION_COUNT_1H'
-  | 'CARD_TRANSACTION_COUNT_24H';
+  | 'CARD_TRANSACTION_COUNT_24H'
+  | 'CARD_STATE';
 
 export interface ConditionalBlockParameters {
   conditions: Array<AuthRuleCondition>;
@@ -374,10 +381,12 @@ export namespace VelocityLimitParams {
  * The window of time to calculate Spend Velocity over.
  *
  * - `DAY`: Velocity over the current day since midnight Eastern Time.
+ * - `WEEK`: Velocity over the current week since 00:00 / 12 AM on Monday in
+ *   Eastern Time.
  * - `MONTH`: Velocity over the current month since 00:00 / 12 AM on the first of
  *   the month in Eastern Time.
  */
-export type VelocityLimitParamsPeriodWindow = 'DAY' | 'MONTH';
+export type VelocityLimitParamsPeriodWindow = 'DAY' | 'WEEK' | 'MONTH';
 
 export interface V2CreateResponse {
   /**
