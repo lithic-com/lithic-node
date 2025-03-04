@@ -1,6 +1,6 @@
 {
   "name": "lithic",
-  "version": "0.94.0",
+  "version": "0.95.0",
   "description": "The official TypeScript library for the Lithic API",
   "author": "Lithic <sdk-feedback@lithic.com>",
   "types": "dist/index.d.ts",

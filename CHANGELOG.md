@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.95.0 (2025-03-04)
+
+Full Changelog: [v0.94.0...v0.95.0](https://github.com/lithic-com/lithic-node/compare/v0.94.0...v0.95.0)
+
+### Features
+
+* **api:** new Settlement API endpoints and changes to update Account Holder endpoint ([#624](https://github.com/lithic-com/lithic-node/issues/624)) ([ba30590](https://github.com/lithic-com/lithic-node/commit/ba305903038db209948addf9f6702848035e117f))
+
+
+### Chores
+
+* **api:** adds new `Internal` Category for FinancialTransactions ([#622](https://github.com/lithic-com/lithic-node/issues/622)) ([403118d](https://github.com/lithic-com/lithic-node/commit/403118d1a4d2a16a97510b63d2c7bb31d857adb4))
+* **internal:** add missing return type annotation ([#619](https://github.com/lithic-com/lithic-node/issues/619)) ([2b16b69](https://github.com/lithic-com/lithic-node/commit/2b16b69aab2e8a1f2d961f6a97528cf0dd36a8e9))
+* **internal:** fix devcontainers setup ([#621](https://github.com/lithic-com/lithic-node/issues/621)) ([60d0e95](https://github.com/lithic-com/lithic-node/commit/60d0e956a04ca8b63ce5f6527e3045ff20715853))
+
+
+### Documentation
+
+* update URLs from stainlessapi.com to stainless.com ([#623](https://github.com/lithic-com/lithic-node/issues/623)) ([6f74793](https://github.com/lithic-com/lithic-node/commit/6f747938025659c61d72f12b4e7878101b6e7ca0))
+
 ## 0.94.0 (2025-02-13)
 
 Full Changelog: [v0.93.0...v0.94.0](https://github.com/lithic-com/lithic-node/compare/v0.93.0...v0.94.0)
