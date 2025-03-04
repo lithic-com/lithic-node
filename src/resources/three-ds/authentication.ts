@@ -26,6 +26,19 @@ export class Authentication extends APIResource {
   ): Core.APIPromise<AuthenticationSimulateResponse> {
     return this._client.post('/v1/three_ds_authentication/simulate', { body, ...options });
   }
+
+  /**
+   * Endpoint for simulating entering OTP into 3DS Challenge UI. A call to
+   * /v1/three_ds_authentication/simulate that resulted in triggered SMS-OTP
+   * challenge must precede. Only a single attempt is supported; upon entering OTP,
+   * the challenge is either approved or declined.
+   */
+  simulateOtpEntry(
+    body: AuthenticationSimulateOtpEntryParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<void> {
+    return this._client.post('/v1/three_ds_decisioning/simulate/enter_otp', { body, ...options });
+  }
 }
 
 export interface AuthenticationRetrieveResponse {
@@ -616,7 +629,8 @@ export namespace AuthenticationSimulateParams {
     mcc: string;
 
     /**
-     * Merchant descriptor, corresponds to `descriptor` in authorization.
+     * Merchant descriptor, corresponds to `descriptor` in authorization. If CHALLENGE
+     * keyword is included, Lithic will trigger a challenge.
      */
     name: string;
   }
@@ -634,10 +648,24 @@ export namespace AuthenticationSimulateParams {
   }
 }
 
+export interface AuthenticationSimulateOtpEntryParams {
+  /**
+   * A unique token returned as part of a /v1/three_ds_authentication/simulate call
+   * that resulted in PENDING_CHALLENGE authentication result.
+   */
+  token: string;
+
+  /**
+   * The OTP entered by the cardholder
+   */
+  otp: string;
+}
+
 export declare namespace Authentication {
   export {
     type AuthenticationRetrieveResponse as AuthenticationRetrieveResponse,
     type AuthenticationSimulateResponse as AuthenticationSimulateResponse,
     type AuthenticationSimulateParams as AuthenticationSimulateParams,
+    type AuthenticationSimulateOtpEntryParams as AuthenticationSimulateOtpEntryParams,
   };
 }
