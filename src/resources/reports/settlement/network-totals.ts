@@ -54,7 +54,7 @@ export interface NetworkTotalRetrieveResponse {
   created: string;
 
   /**
-   * Three-digit alphabetic ISO 4217 code.
+   * 3-character alphabetic ISO 4217 code.
    */
   currency: string;
 
@@ -138,7 +138,7 @@ export interface NetworkTotalListResponse {
   created: string;
 
   /**
-   * Three-digit alphabetic ISO 4217 code.
+   * 3-character alphabetic ISO 4217 code.
    */
   currency: string;
 
