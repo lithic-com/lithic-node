@@ -642,7 +642,7 @@ export namespace AuthenticationSimulateParams {
     amount: number;
 
     /**
-     * 3-digit alphabetic ISO 4217 currency code.
+     * 3-character alphabetic ISO 4217 currency code.
      */
     currency: string;
   }
