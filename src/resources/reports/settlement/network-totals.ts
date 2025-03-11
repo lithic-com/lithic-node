@@ -7,16 +7,14 @@ import { CursorPage, type CursorPageParams } from '../../../pagination';
 
 export class NetworkTotals extends APIResource {
   /**
-   * (Available March 4, 2025) Retrieve a specific network total record by token. Not
-   * available in sandbox.
+   * Retrieve a specific network total record by token. Not available in sandbox.
    */
   retrieve(token: string, options?: Core.RequestOptions): Core.APIPromise<NetworkTotalRetrieveResponse> {
     return this._client.get(`/v1/reports/settlement/network_totals/${token}`, options);
   }
 
   /**
-   * (Available March 4, 2025) List network total records with optional filters. Not
-   * available in sandbox.
+   * List network total records with optional filters. Not available in sandbox.
    */
   list(
     query?: NetworkTotalListParams,

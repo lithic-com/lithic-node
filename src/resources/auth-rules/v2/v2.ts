@@ -363,6 +363,19 @@ export interface VelocityLimitParams {
 export namespace VelocityLimitParams {
   export interface Filters {
     /**
+     * ISO-3166-1 alpha-3 Country Codes to exclude from the velocity calculation.
+     * Transactions matching any of the provided will be excluded from the calculated
+     * velocity.
+     */
+    exclude_countries?: Array<string> | null;
+
+    /**
+     * Merchant Category Codes to exclude from the velocity calculation. Transactions
+     * matching this MCC will be excluded from the calculated velocity.
+     */
+    exclude_mccs?: Array<string> | null;
+
+    /**
      * ISO-3166-1 alpha-3 Country Codes to include in the velocity calculation.
      * Transactions not matching any of the provided will not be included in the
      * calculated velocity.
