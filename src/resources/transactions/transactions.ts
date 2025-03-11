@@ -211,7 +211,8 @@ export interface Transaction {
   merchant_authorization_amount: number | null;
 
   /**
-   * 3-digit alphabetic ISO 4217 code for the local currency of the transaction.
+   * @deprecated 3-character alphabetic ISO 4217 code for the local currency of the
+   * transaction.
    */
   merchant_currency: string;
 
@@ -304,9 +305,7 @@ export namespace Transaction {
       conversion_rate: string;
 
       /**
-       * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
-       * special currencies like `XXX`. Enumerants names are lowercase currency code e.g.
-       * `EUR`, `USD`.
+       * 3-character alphabetic ISO 4217 currency
        */
       currency: Shared.Currency;
     }
@@ -318,9 +317,7 @@ export namespace Transaction {
       amount: number;
 
       /**
-       * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
-       * special currencies like `XXX`. Enumerants names are lowercase currency code e.g.
-       * `EUR`, `USD`.
+       * 3-character alphabetic ISO 4217 currency
        */
       currency: Shared.Currency;
     }
@@ -332,9 +329,7 @@ export namespace Transaction {
       amount: number;
 
       /**
-       * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
-       * special currencies like `XXX`. Enumerants names are lowercase currency code e.g.
-       * `EUR`, `USD`.
+       * 3-character alphabetic ISO 4217 currency
        */
       currency: Shared.Currency;
     }
@@ -346,9 +341,7 @@ export namespace Transaction {
       amount: number;
 
       /**
-       * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
-       * special currencies like `XXX`. Enumerants names are lowercase currency code e.g.
-       * `EUR`, `USD`.
+       * 3-character alphabetic ISO 4217 currency
        */
       currency: Shared.Currency;
     }
@@ -763,9 +756,7 @@ export namespace Transaction {
         conversion_rate: string;
 
         /**
-         * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
-         * special currencies like `XXX`. Enumerants names are lowercase currency code e.g.
-         * `EUR`, `USD`.
+         * 3-character alphabetic ISO 4217 currency
          */
         currency: Shared.Currency;
       }
@@ -777,9 +768,7 @@ export namespace Transaction {
         amount: number;
 
         /**
-         * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
-         * special currencies like `XXX`. Enumerants names are lowercase currency code e.g.
-         * `EUR`, `USD`.
+         * 3-character alphabetic ISO 4217 currency
          */
         currency: Shared.Currency;
       }
@@ -797,9 +786,7 @@ export namespace Transaction {
         conversion_rate: string;
 
         /**
-         * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
-         * special currencies like `XXX`. Enumerants names are lowercase currency code e.g.
-         * `EUR`, `USD`.
+         * 3-character alphabetic ISO 4217 currency
          */
         currency: Shared.Currency;
       }
@@ -1118,7 +1105,7 @@ export interface TransactionSimulateAuthorizationParams {
   merchant_amount?: number;
 
   /**
-   * 3-digit alphabetic ISO 4217 currency code. Note: Simulator only accepts USD,
+   * 3-character alphabetic ISO 4217 currency code. Note: Simulator only accepts USD,
    * GBP, EUR and defaults to GBP if another ISO 4217 code is provided
    */
   merchant_currency?: string;

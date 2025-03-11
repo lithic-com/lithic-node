@@ -41,7 +41,7 @@ export interface SettlementDetail {
   created: string;
 
   /**
-   * Three-digit alphabetic ISO 4217 code.
+   * Three-character alphabetic ISO 4217 code.
    */
   currency: string;
 
@@ -148,7 +148,7 @@ export interface SettlementReport {
   created: string;
 
   /**
-   * @deprecated Three-digit alphabetic ISO 4217 code. (This field is deprecated and
+   * @deprecated 3-character alphabetic ISO 4217 code. (This field is deprecated and
    * will be removed in a future version of the API.)
    */
   currency: string;
@@ -214,7 +214,7 @@ export interface SettlementReport {
 
 export interface SettlementSummaryDetails {
   /**
-   * ISO 4217 alpha 3 code.
+   * 3-character alphabetic ISO 4217 code.
    */
   currency?: string;
 
