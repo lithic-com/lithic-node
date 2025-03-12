@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.96.0 (2025-03-12)
+
+Full Changelog: [v0.95.0...v0.96.0](https://github.com/lithic-com/lithic-node/compare/v0.95.0...v0.96.0)
+
+### Features
+
+* add SKIP_BREW env var to ./scripts/bootstrap ([#625](https://github.com/lithic-com/lithic-node/issues/625)) ([27793b1](https://github.com/lithic-com/lithic-node/commit/27793b162365527284174715af36ac01c92713fc))
+* **client:** accept RFC6838 JSON content types ([#627](https://github.com/lithic-com/lithic-node/issues/627)) ([a47891f](https://github.com/lithic-com/lithic-node/commit/a47891f393bb97bf2b2fe3270dea17136ccaf28f))
+* **client:** update currency data type ([#629](https://github.com/lithic-com/lithic-node/issues/629)) ([406dde5](https://github.com/lithic-com/lithic-node/commit/406dde51c69018337109c67cd0f59c04b43e1e8d))
+
+
+### Bug Fixes
+
+* **ci:** rerun ci ([0d9adc3](https://github.com/lithic-com/lithic-node/commit/0d9adc3f1b553d66220a4085a08fc57ec944a9ba))
+* **ci:** rerun ci ([a14b811](https://github.com/lithic-com/lithic-node/commit/a14b81146a07bf4ca9a4bb67d603ef7661e0af8d))
+
+
+### Chores
+
+* **api:** release of Network Totals reporting and new filters for Velocity Limit Rules ([#628](https://github.com/lithic-com/lithic-node/issues/628)) ([e3f72e3](https://github.com/lithic-com/lithic-node/commit/e3f72e36cbf3ac1516ceb1125f35d0692def7e7d))
+* **client:** deprecate some fields ([406dde5](https://github.com/lithic-com/lithic-node/commit/406dde51c69018337109c67cd0f59c04b43e1e8d))
+
+
+### Documentation
+
+* update some descriptions ([406dde5](https://github.com/lithic-com/lithic-node/commit/406dde51c69018337109c67cd0f59c04b43e1e8d))
+
 ## 0.95.0 (2025-03-04)
 
 Full Changelog: [v0.94.0...v0.95.0](https://github.com/lithic-com/lithic-node/compare/v0.94.0...v0.95.0)
