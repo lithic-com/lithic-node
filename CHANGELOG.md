@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.96.1 (2025-03-13)
+
+Full Changelog: [v0.96.0...v0.96.1](https://github.com/lithic-com/lithic-node/compare/v0.96.0...v0.96.1)
+
+### Bug Fixes
+
+* **exports:** ensure resource imports don't require /index ([#632](https://github.com/lithic-com/lithic-node/issues/632)) ([e946a31](https://github.com/lithic-com/lithic-node/commit/e946a31890720c7776810ee62fa665f29f42a743))
+
+
+### Chores
+
+* **internal:** remove extra empty newlines ([#630](https://github.com/lithic-com/lithic-node/issues/630)) ([8053885](https://github.com/lithic-com/lithic-node/commit/8053885083798c43285f32ec0790b1bd3802177e))
+
 ## 0.96.0 (2025-03-12)
 
 Full Changelog: [v0.95.0...v0.96.0](https://github.com/lithic-com/lithic-node/compare/v0.95.0...v0.96.0)
