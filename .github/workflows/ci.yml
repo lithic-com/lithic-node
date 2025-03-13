@@ -46,7 +46,6 @@ jobs:
 
       - name: Check build
         run: ./scripts/build
-
   examples:
     name: examples
     runs-on: ubuntu-latest
