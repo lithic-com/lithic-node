@@ -43,6 +43,13 @@ export class Transactions extends APIResource {
   }
 
   /**
+   * Expire authorization
+   */
+  expireAuthorization(transactionToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
+    return this._client.post(`/v1/transactions/${transactionToken}/expire_authorization`, options);
+  }
+
+  /**
    * Simulates an authorization request from the card network as if it came from a
    * merchant acquirer. If you are configured for ASA, simulating authorizations
    * requires your ASA client to be set up properly, i.e. be able to respond to the

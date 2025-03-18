@@ -195,10 +195,10 @@ import {
 } from './resources/external-bank-accounts/external-bank-accounts';
 import {
   FinancialAccount,
-  FinancialAccountChargeOffParams,
   FinancialAccountCreateParams,
   FinancialAccountListParams,
   FinancialAccountUpdateParams,
+  FinancialAccountUpdateStatusParams,
   FinancialAccounts,
   FinancialAccountsSinglePage,
   FinancialTransaction,
@@ -637,7 +637,7 @@ export declare namespace Lithic {
     type FinancialAccountCreateParams as FinancialAccountCreateParams,
     type FinancialAccountUpdateParams as FinancialAccountUpdateParams,
     type FinancialAccountListParams as FinancialAccountListParams,
-    type FinancialAccountChargeOffParams as FinancialAccountChargeOffParams,
+    type FinancialAccountUpdateStatusParams as FinancialAccountUpdateStatusParams,
   };
 
   export {

@@ -115,7 +115,7 @@ export interface Statement {
   /**
    * Date when the payment is due
    */
-  payment_due_date: string;
+  payment_due_date: string | null;
 
   period_totals: Statement.PeriodTotals;
 
@@ -134,7 +134,7 @@ export interface Statement {
    */
   statement_start_date: string;
 
-  statement_type: 'INITIAL' | 'PERIOD_END';
+  statement_type: 'INITIAL' | 'PERIOD_END' | 'FINAL';
 
   /**
    * Timestamp of when the statement was updated
