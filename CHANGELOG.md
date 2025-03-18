@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.97.0 (2025-03-18)
+
+Full Changelog: [v0.96.1...v0.97.0](https://github.com/lithic-com/lithic-node/compare/v0.96.1...v0.97.0)
+
+### Features
+
+* **api:** updates to 2 `FinancialAccounts` endpoints and new `ExpireAuthorization` endpoint ([#633](https://github.com/lithic-com/lithic-node/issues/633)) ([98c338d](https://github.com/lithic-com/lithic-node/commit/98c338d65d04e9836d7f0ebbe82efb71bbc25578))
+
 ## 0.96.1 (2025-03-13)
 
 Full Changelog: [v0.96.0...v0.96.1](https://github.com/lithic-com/lithic-node/compare/v0.96.0...v0.96.1)
