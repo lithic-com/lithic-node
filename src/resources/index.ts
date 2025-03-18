@@ -140,7 +140,7 @@ export {
   type FinancialAccountCreateParams,
   type FinancialAccountUpdateParams,
   type FinancialAccountListParams,
-  type FinancialAccountChargeOffParams,
+  type FinancialAccountUpdateStatusParams,
 } from './financial-accounts/financial-accounts';
 export {
   ManagementOperationTransactionsCursorPage,

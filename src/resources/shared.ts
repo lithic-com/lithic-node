@@ -177,7 +177,13 @@ export namespace Document {
 /**
  * Type of instance financial account
  */
-export type InstanceFinancialAccountType = 'ISSUING' | 'RESERVE' | 'OPERATING';
+export type InstanceFinancialAccountType =
+  | 'ISSUING'
+  | 'RESERVE'
+  | 'OPERATING'
+  | 'CHARGED_OFF_FEES'
+  | 'CHARGED_OFF_INTEREST'
+  | 'CHARGED_OFF_PRINCIPAL';
 
 export interface ShippingAddress {
   /**
