@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.97.1 (2025-03-21)
+
+Full Changelog: [v0.97.0...v0.97.1](https://github.com/lithic-com/lithic-node/compare/v0.97.0...v0.97.1)
+
+### Bug Fixes
+
+* avoid type error in certain environments ([#639](https://github.com/lithic-com/lithic-node/issues/639)) ([b992784](https://github.com/lithic-com/lithic-node/commit/b992784b405cd6e153a17dc5126ada6ec294dc3c))
+
+
+### Chores
+
+* **exports:** cleaner resource index imports ([#637](https://github.com/lithic-com/lithic-node/issues/637)) ([7b6a63e](https://github.com/lithic-com/lithic-node/commit/7b6a63e589a98a742915f8028ef458e2c65aed0a))
+* **exports:** stop using path fallbacks ([#638](https://github.com/lithic-com/lithic-node/issues/638)) ([35e5671](https://github.com/lithic-com/lithic-node/commit/35e5671d98207bc282e9ad7cbf5a8f0a14bd026a))
+* **internal:** update .stats.yml ([#635](https://github.com/lithic-com/lithic-node/issues/635)) ([4fc9697](https://github.com/lithic-com/lithic-node/commit/4fc96973ebb844606cc64e080931505ed4d44ea4))
+
 ## 0.97.0 (2025-03-18)
 
 Full Changelog: [v0.96.1...v0.97.0](https://github.com/lithic-com/lithic-node/compare/v0.96.1...v0.97.0)
