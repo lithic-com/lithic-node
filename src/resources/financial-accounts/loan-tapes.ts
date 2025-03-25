@@ -162,6 +162,11 @@ export namespace LoanTape {
     days_past_due: number;
 
     /**
+     * Information about the financial account state
+     */
+    financial_account_state: AccountStanding.FinancialAccountState;
+
+    /**
      * Whether the account currently has grace or not
      */
     has_grace: boolean;
@@ -172,6 +177,29 @@ export namespace LoanTape {
     period_number: number;
 
     period_state: 'STANDARD' | 'PROMO' | 'PENALTY';
+  }
+
+  export namespace AccountStanding {
+    /**
+     * Information about the financial account state
+     */
+    export interface FinancialAccountState {
+      /**
+       * Status of the financial account
+       */
+      status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING';
+
+      /**
+       * Reason for the financial account status change
+       */
+      status_change_reason?:
+        | 'CHARGED_OFF_DELINQUENT'
+        | 'CHARGED_OFF_FRAUD'
+        | 'END_USER_REQUEST'
+        | 'BANK_REQUEST'
+        | 'DELINQUENT'
+        | null;
+    }
   }
 
   export interface Balances {
