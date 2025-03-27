@@ -225,8 +225,8 @@ export interface AuthRuleCondition {
    * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
    *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
    *   Netherlands Antilles.
-   * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
-   *   the transaction.
+   * - `CURRENCY`: 3-digit alphabetic ISO 4217 code for the merchant currency of the
+   *   transaction.
    * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
    *   (merchant).
    * - `DESCRIPTOR`: Short description of card acceptor.
@@ -247,22 +247,10 @@ export interface AuthRuleCondition {
    *   lowest risk and 999 representing the highest risk. For Visa transactions,
    *   where the raw score has a range of 0-99, Lithic will normalize the score by
    *   multiplying the raw score by 10x.
-   * - `CARD_TRANSACTION_COUNT_15M`: The number of transactions on the card in the
-   *   trailing 15 minutes before the authorization.
    * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
    *   trailing hour up and until the authorization.
    * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
    *   trailing 24 hours up and until the authorization.
-   * - `CARD_STATE`: The current state of the card associated with the transaction.
-   *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
-   *   `PENDING_FULFILLMENT`.
-   * - `PIN_ENTERED`: Indicates whether a PIN was entered during the transaction.
-   *   Valid values are `TRUE`, `FALSE`.
-   * - `PIN_STATUS`: The current state of card's PIN. Valid values are `NOT_SET`,
-   *   `OK`, `BLOCKED`.
-   * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
-   *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
-   *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
    */
   attribute?: ConditionalAttribute;
 
@@ -293,8 +281,8 @@ export interface AuthRuleCondition {
  * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
  *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
  *   Netherlands Antilles.
- * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
- *   the transaction.
+ * - `CURRENCY`: 3-digit alphabetic ISO 4217 code for the merchant currency of the
+ *   transaction.
  * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
  *   (merchant).
  * - `DESCRIPTOR`: Short description of card acceptor.
@@ -315,22 +303,10 @@ export interface AuthRuleCondition {
  *   lowest risk and 999 representing the highest risk. For Visa transactions,
  *   where the raw score has a range of 0-99, Lithic will normalize the score by
  *   multiplying the raw score by 10x.
- * - `CARD_TRANSACTION_COUNT_15M`: The number of transactions on the card in the
- *   trailing 15 minutes before the authorization.
  * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
  *   trailing hour up and until the authorization.
  * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
  *   trailing 24 hours up and until the authorization.
- * - `CARD_STATE`: The current state of the card associated with the transaction.
- *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
- *   `PENDING_FULFILLMENT`.
- * - `PIN_ENTERED`: Indicates whether a PIN was entered during the transaction.
- *   Valid values are `TRUE`, `FALSE`.
- * - `PIN_STATUS`: The current state of card's PIN. Valid values are `NOT_SET`,
- *   `OK`, `BLOCKED`.
- * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
- *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
- *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
  */
 export type ConditionalAttribute =
   | 'MCC'
@@ -342,13 +318,8 @@ export type ConditionalAttribute =
   | 'PAN_ENTRY_MODE'
   | 'TRANSACTION_AMOUNT'
   | 'RISK_SCORE'
-  | 'CARD_TRANSACTION_COUNT_15M'
   | 'CARD_TRANSACTION_COUNT_1H'
-  | 'CARD_TRANSACTION_COUNT_24H'
-  | 'CARD_STATE'
-  | 'PIN_ENTERED'
-  | 'PIN_STATUS'
-  | 'WALLET_TYPE';
+  | 'CARD_TRANSACTION_COUNT_24H';
 
 export interface ConditionalBlockParameters {
   conditions: Array<AuthRuleCondition>;
@@ -385,19 +356,6 @@ export interface VelocityLimitParams {
 export namespace VelocityLimitParams {
   export interface Filters {
     /**
-     * ISO-3166-1 alpha-3 Country Codes to exclude from the velocity calculation.
-     * Transactions matching any of the provided will be excluded from the calculated
-     * velocity.
-     */
-    exclude_countries?: Array<string> | null;
-
-    /**
-     * Merchant Category Codes to exclude from the velocity calculation. Transactions
-     * matching this MCC will be excluded from the calculated velocity.
-     */
-    exclude_mccs?: Array<string> | null;
-
-    /**
      * ISO-3166-1 alpha-3 Country Codes to include in the velocity calculation.
      * Transactions not matching any of the provided will not be included in the
      * calculated velocity.
@@ -416,12 +374,10 @@ export namespace VelocityLimitParams {
  * The window of time to calculate Spend Velocity over.
  *
  * - `DAY`: Velocity over the current day since midnight Eastern Time.
- * - `WEEK`: Velocity over the current week since 00:00 / 12 AM on Monday in
- *   Eastern Time.
  * - `MONTH`: Velocity over the current month since 00:00 / 12 AM on the first of
  *   the month in Eastern Time.
  */
-export type VelocityLimitParamsPeriodWindow = 'DAY' | 'WEEK' | 'MONTH';
+export type VelocityLimitParamsPeriodWindow = 'DAY' | 'MONTH';
 
 export interface V2CreateResponse {
   /**

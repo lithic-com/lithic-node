@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
 
 export class Decisioning extends APIResource {
@@ -35,6 +36,37 @@ export class Decisioning extends APIResource {
   rotateSecret(options?: Core.RequestOptions): Core.APIPromise<void> {
     return this._client.post('/v1/three_ds_decisioning/secret/rotate', options);
   }
+
+  /**
+   * Simulates a 3DS authentication challenge request from the payment network as if
+   * it came from an ACS. Requires being configured for 3DS Customer Decisioning, and
+   * enrolled with Lithic's Challenge solution.
+   */
+  simulateChallenge(
+    body?: DecisioningSimulateChallengeParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<DecisioningSimulateChallengeResponse>;
+  simulateChallenge(options?: Core.RequestOptions): Core.APIPromise<DecisioningSimulateChallengeResponse>;
+  simulateChallenge(
+    body: DecisioningSimulateChallengeParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<DecisioningSimulateChallengeResponse> {
+    if (isRequestOptions(body)) {
+      return this.simulateChallenge({}, body);
+    }
+    return this._client.post('/v1/three_ds_decisioning/simulate/challenge', { body, ...options });
+  }
+
+  /**
+   * Endpoint for responding to a 3DS Challenge initiated by a call to
+   * /v1/three_ds_decisioning/simulate/challenge
+   */
+  simulateChallengeResponse(
+    body: DecisioningSimulateChallengeResponseParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<void> {
+    return this._client.post('/v1/three_ds_decisioning/simulate/challenge_response', { body, ...options });
+  }
 }
 
 export interface ChallengeResponse {
@@ -64,7 +96,40 @@ export interface DecisioningRetrieveSecretResponse {
   secret?: string;
 }
 
+export interface DecisioningSimulateChallengeResponse {
+  /**
+   * A unique token to reference this transaction with later calls to void or clear
+   * the authorization. This token is used in
+   * /v1/three_ds_decisioning/simulate/challenge_response to Approve or Decline the
+   * authentication
+   */
+  token?: string;
+}
+
 export interface DecisioningChallengeResponseParams {
+  /**
+   * Globally unique identifier for the 3DS authentication. This token is sent as
+   * part of the initial 3DS Decisioning Request and as part of the 3DS Challenge
+   * Event in the [ThreeDSAuthentication](#/components/schemas/ThreeDSAuthentication)
+   * object
+   */
+  token: string;
+
+  /**
+   * Whether the Cardholder has Approved or Declined the issued Challenge
+   */
+  challenge_response: ChallengeResult;
+}
+
+export interface DecisioningSimulateChallengeParams {
+  /**
+   * A unique token returned as part of a /v1/three_ds_authentication/simulate call
+   * that responded with a CHALLENGE_REQUESTED status.
+   */
+  token?: string;
+}
+
+export interface DecisioningSimulateChallengeResponseParams {
   /**
    * Globally unique identifier for the 3DS authentication. This token is sent as
    * part of the initial 3DS Decisioning Request and as part of the 3DS Challenge
@@ -84,6 +149,9 @@ export declare namespace Decisioning {
     type ChallengeResponse as ChallengeResponse,
     type ChallengeResult as ChallengeResult,
     type DecisioningRetrieveSecretResponse as DecisioningRetrieveSecretResponse,
+    type DecisioningSimulateChallengeResponse as DecisioningSimulateChallengeResponse,
     type DecisioningChallengeResponseParams as DecisioningChallengeResponseParams,
+    type DecisioningSimulateChallengeParams as DecisioningSimulateChallengeParams,
+    type DecisioningSimulateChallengeResponseParams as DecisioningSimulateChallengeResponseParams,
   };
 }

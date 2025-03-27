@@ -59,7 +59,7 @@ export interface FinancialTransactionListParams {
   /**
    * Financial Transaction category to be returned.
    */
-  category?: 'ACH' | 'CARD' | 'INTERNAL' | 'TRANSFER';
+  category?: 'ACH' | 'CARD' | 'TRANSFER';
 
   /**
    * Date string in RFC 3339 format. Only entries created before the specified time

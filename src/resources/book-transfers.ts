@@ -79,8 +79,7 @@ export interface BookTransferResponse {
   created: string;
 
   /**
-   * 3-character alphabetic ISO 4217 code for the settling currency of the
-   * transaction.
+   * 3-digit alphabetic ISO 4217 code for the settling currency of the transaction.
    */
   currency: string;
 
