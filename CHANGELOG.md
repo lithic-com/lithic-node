@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.97.2 (2025-03-27)
+
+Full Changelog: [v0.97.1...v0.97.2](https://github.com/lithic-com/lithic-node/compare/v0.97.1...v0.97.2)
+
+### Bug Fixes
+
+* **internal:** work around https://github.com/vercel/next.js/issues/76881 ([#644](https://github.com/lithic-com/lithic-node/issues/644)) ([2dd0807](https://github.com/lithic-com/lithic-node/commit/2dd0807528642ead63efd19954d5887298aef742))
+
+
+### Chores
+
+* **api:** new attribute targets for Auth Rules and new Financial Account State schema ([#640](https://github.com/lithic-com/lithic-node/issues/640)) ([fd78b50](https://github.com/lithic-com/lithic-node/commit/fd78b50976f5765a23ee506e21f15db943d10a7c))
+* **client:** expose headers on some streaming errors ([#643](https://github.com/lithic-com/lithic-node/issues/643)) ([07b00c4](https://github.com/lithic-com/lithic-node/commit/07b00c40d231b2a50fc795a7acd5045a05143551))
+* fix typos ([#642](https://github.com/lithic-com/lithic-node/issues/642)) ([0236301](https://github.com/lithic-com/lithic-node/commit/023630196503bb939057c8130fda7f3fb06ff64b))
+* **internal:** remove workflow condition ([#649](https://github.com/lithic-com/lithic-node/issues/649)) ([517409d](https://github.com/lithic-com/lithic-node/commit/517409dd2f10b911a80a3a49b477d74c268be8b1))
+
 ## 0.97.1 (2025-03-21)
 
 Full Changelog: [v0.97.0...v0.97.1](https://github.com/lithic-com/lithic-node/compare/v0.97.0...v0.97.1)
