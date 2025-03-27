@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { Settlement, type SettlementListDetailsParams } from './settlement/index';
+export { Settlement, type SettlementListDetailsParams } from './settlement';
 export {
   SettlementDetailsCursorPage,
   Reports,

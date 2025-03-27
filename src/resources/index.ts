@@ -5,9 +5,7 @@ export {
   AccountHoldersSinglePage,
   AccountHolders,
   type AccountHolder,
-  type AddressUpdate,
   type KYB,
-  type KYBBusinessEntity,
   type KYC,
   type KYCExempt,
   type RequiredDocument,
@@ -140,7 +138,7 @@ export {
   type FinancialAccountCreateParams,
   type FinancialAccountUpdateParams,
   type FinancialAccountListParams,
-  type FinancialAccountUpdateStatusParams,
+  type FinancialAccountChargeOffParams,
 } from './financial-accounts/financial-accounts';
 export {
   ManagementOperationTransactionsCursorPage,

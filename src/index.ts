@@ -24,9 +24,7 @@ import {
   AccountHolderUploadDocumentParams,
   AccountHolders,
   AccountHoldersSinglePage,
-  AddressUpdate,
   KYB,
-  KYBBusinessEntity,
   KYC,
   KYCExempt,
   RequiredDocument,
@@ -192,10 +190,10 @@ import {
 } from './resources/external-bank-accounts/external-bank-accounts';
 import {
   FinancialAccount,
+  FinancialAccountChargeOffParams,
   FinancialAccountCreateParams,
   FinancialAccountListParams,
   FinancialAccountUpdateParams,
-  FinancialAccountUpdateStatusParams,
   FinancialAccounts,
   FinancialAccountsSinglePage,
   FinancialTransaction,
@@ -515,9 +513,7 @@ export declare namespace Lithic {
   export {
     AccountHolders as AccountHolders,
     type AccountHolder as AccountHolder,
-    type AddressUpdate as AddressUpdate,
     type KYB as KYB,
-    type KYBBusinessEntity as KYBBusinessEntity,
     type KYC as KYC,
     type KYCExempt as KYCExempt,
     type RequiredDocument as RequiredDocument,
@@ -629,7 +625,7 @@ export declare namespace Lithic {
     type FinancialAccountCreateParams as FinancialAccountCreateParams,
     type FinancialAccountUpdateParams as FinancialAccountUpdateParams,
     type FinancialAccountListParams as FinancialAccountListParams,
-    type FinancialAccountUpdateStatusParams as FinancialAccountUpdateStatusParams,
+    type FinancialAccountChargeOffParams as FinancialAccountChargeOffParams,
   };
 
   export {
