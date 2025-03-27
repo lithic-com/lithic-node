@@ -299,7 +299,7 @@ export interface Card {
   auth_rule_tokens?: Array<string>;
 
   /**
-   * 3-character alphabetic ISO 4217 code for the currency of the cardholder.
+   * 3-digit alphabetic ISO 4217 code for the currency of the cardholder.
    */
   cardholder_currency?: string;
 

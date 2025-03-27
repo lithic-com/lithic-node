@@ -26,19 +26,6 @@ export class Authentication extends APIResource {
   ): Core.APIPromise<AuthenticationSimulateResponse> {
     return this._client.post('/v1/three_ds_authentication/simulate', { body, ...options });
   }
-
-  /**
-   * Endpoint for simulating entering OTP into 3DS Challenge UI. A call to
-   * /v1/three_ds_authentication/simulate that resulted in triggered SMS-OTP
-   * challenge must precede. Only a single attempt is supported; upon entering OTP,
-   * the challenge is either approved or declined.
-   */
-  simulateOtpEntry(
-    body: AuthenticationSimulateOtpEntryParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<void> {
-    return this._client.post('/v1/three_ds_decisioning/simulate/enter_otp', { body, ...options });
-  }
 }
 
 export interface AuthenticationRetrieveResponse {
@@ -84,6 +71,11 @@ export interface AuthenticationRetrieveResponse {
    * Date and time when the authentication was created in Lithic's system.
    */
   created: string;
+
+  /**
+   * Entity that made the authentication decision.
+   */
+  decision_made_by: 'CUSTOMER_ENDPOINT' | 'LITHIC_DEFAULT' | 'LITHIC_RULES' | 'NETWORK' | 'UNKNOWN' | null;
 
   /**
    * Object containing data about the merchant involved in the e-commerce
@@ -157,19 +149,9 @@ export interface AuthenticationRetrieveResponse {
   browser?: AuthenticationRetrieveResponse.Browser;
 
   /**
-   * Metadata about the challenge method and delivery.
-   */
-  challenge_metadata?: AuthenticationRetrieveResponse.ChallengeMetadata | null;
-
-  /**
    * Entity that orchestrates the challenge.
    */
   challenge_orchestrated_by?: 'LITHIC' | 'CUSTOMER' | 'NO_CHALLENGE' | null;
-
-  /**
-   * Entity that made the authentication decision.
-   */
-  decision_made_by?: 'CUSTOMER_ENDPOINT' | 'LITHIC_DEFAULT' | 'LITHIC_RULES' | 'NETWORK' | 'UNKNOWN' | null;
 
   /**
    * Type of 3DS Requestor Initiated (3RI) request i.e., a 3DS authentication that
@@ -526,21 +508,6 @@ export namespace AuthenticationRetrieveResponse {
   }
 
   /**
-   * Metadata about the challenge method and delivery.
-   */
-  export interface ChallengeMetadata {
-    /**
-     * The type of challenge method used for authentication.
-     */
-    method_type: 'SMS_OTP' | 'OUT_OF_BAND';
-
-    /**
-     * The phone number used for delivering the OTP. Relevant only for SMS_OTP method.
-     */
-    phone_number?: string | null;
-  }
-
-  /**
    * Object containing data about the e-commerce transaction for which the merchant
    * is requesting authentication.
    */
@@ -629,8 +596,7 @@ export namespace AuthenticationSimulateParams {
     mcc: string;
 
     /**
-     * Merchant descriptor, corresponds to `descriptor` in authorization. If CHALLENGE
-     * keyword is included, Lithic will trigger a challenge.
+     * Merchant descriptor, corresponds to `descriptor` in authorization.
      */
     name: string;
   }
@@ -642,23 +608,10 @@ export namespace AuthenticationSimulateParams {
     amount: number;
 
     /**
-     * 3-character alphabetic ISO 4217 currency code.
+     * 3-digit alphabetic ISO 4217 currency code.
      */
     currency: string;
   }
-}
-
-export interface AuthenticationSimulateOtpEntryParams {
-  /**
-   * A unique token returned as part of a /v1/three_ds_authentication/simulate call
-   * that resulted in PENDING_CHALLENGE authentication result.
-   */
-  token: string;
-
-  /**
-   * The OTP entered by the cardholder
-   */
-  otp: string;
 }
 
 export declare namespace Authentication {
@@ -666,6 +619,5 @@ export declare namespace Authentication {
     type AuthenticationRetrieveResponse as AuthenticationRetrieveResponse,
     type AuthenticationSimulateResponse as AuthenticationSimulateResponse,
     type AuthenticationSimulateParams as AuthenticationSimulateParams,
-    type AuthenticationSimulateOtpEntryParams as AuthenticationSimulateOtpEntryParams,
   };
 }

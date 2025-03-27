@@ -52,25 +52,4 @@ describe('resource authentication', () => {
       card_expiry_check: 'MATCH',
     });
   });
-
-  test('simulateOtpEntry: only required params', async () => {
-    const responsePromise = client.threeDS.authentication.simulateOtpEntry({
-      token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac',
-      otp: '123456',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('simulateOtpEntry: required and optional params', async () => {
-    const response = await client.threeDS.authentication.simulateOtpEntry({
-      token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac',
-      otp: '123456',
-    });
-  });
 });

@@ -97,7 +97,7 @@ describe('resource subscriptions', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  // Prism Mock server doesn't want Accept header, but server requires it.
+  // Prism Mock server doesnt want Accept header, but server requires it.
   test.skip('del', async () => {
     const responsePromise = client.events.subscriptions.del('event_subscription_token');
     const rawResponse = await responsePromise.asResponse();
@@ -109,7 +109,7 @@ describe('resource subscriptions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism Mock server doesn't want Accept header, but server requires it.
+  // Prism Mock server doesnt want Accept header, but server requires it.
   test.skip('del: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -155,7 +155,7 @@ describe('resource subscriptions', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  // Prism Mock server doesn't want Accept header, but server requires it.
+  // Prism Mock server doesnt want Accept header, but server requires it.
   test.skip('recover', async () => {
     const responsePromise = client.events.subscriptions.recover('event_subscription_token');
     const rawResponse = await responsePromise.asResponse();
@@ -167,7 +167,7 @@ describe('resource subscriptions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism Mock server doesn't want Accept header, but server requires it.
+  // Prism Mock server doesnt want Accept header, but server requires it.
   test.skip('recover: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -175,7 +175,7 @@ describe('resource subscriptions', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  // Prism Mock server doesn't want Accept header, but server requires it.
+  // Prism Mock server doesnt want Accept header, but server requires it.
   test.skip('recover: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -187,7 +187,7 @@ describe('resource subscriptions', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  // Prism Mock server doesn't want Accept header, but server requires it.
+  // Prism Mock server doesnt want Accept header, but server requires it.
   test.skip('replayMissing', async () => {
     const responsePromise = client.events.subscriptions.replayMissing('event_subscription_token');
     const rawResponse = await responsePromise.asResponse();
@@ -199,7 +199,7 @@ describe('resource subscriptions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism Mock server doesn't want Accept header, but server requires it.
+  // Prism Mock server doesnt want Accept header, but server requires it.
   test.skip('replayMissing: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -209,7 +209,7 @@ describe('resource subscriptions', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  // Prism Mock server doesn't want Accept header, but server requires it.
+  // Prism Mock server doesnt want Accept header, but server requires it.
   test.skip('replayMissing: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -241,7 +241,7 @@ describe('resource subscriptions', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  // Prism Mock server doesn't want Accept header, but server requires it.
+  // Prism Mock server doesnt want Accept header, but server requires it.
   test.skip('rotateSecret', async () => {
     const responsePromise = client.events.subscriptions.rotateSecret('event_subscription_token');
     const rawResponse = await responsePromise.asResponse();
@@ -253,7 +253,7 @@ describe('resource subscriptions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism Mock server doesn't want Accept header, but server requires it.
+  // Prism Mock server doesnt want Accept header, but server requires it.
   test.skip('rotateSecret: request options instead of params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(

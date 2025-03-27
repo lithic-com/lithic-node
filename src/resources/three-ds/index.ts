@@ -5,13 +5,15 @@ export {
   type AuthenticationRetrieveResponse,
   type AuthenticationSimulateResponse,
   type AuthenticationSimulateParams,
-  type AuthenticationSimulateOtpEntryParams,
 } from './authentication';
 export {
   Decisioning,
   type ChallengeResponse,
   type ChallengeResult,
   type DecisioningRetrieveSecretResponse,
+  type DecisioningSimulateChallengeResponse,
   type DecisioningChallengeResponseParams,
+  type DecisioningSimulateChallengeParams,
+  type DecisioningSimulateChallengeResponseParams,
 } from './decisioning';
 export { ThreeDS } from './three-ds';

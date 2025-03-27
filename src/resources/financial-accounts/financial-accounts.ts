@@ -96,14 +96,14 @@ export class FinancialAccounts extends APIResource {
   }
 
   /**
-   * Update financial account status
+   * Update issuing account state to charged off
    */
-  updateStatus(
+  chargeOff(
     financialAccountToken: string,
-    body: FinancialAccountUpdateStatusParams,
+    body: FinancialAccountChargeOffParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<FinancialAccount> {
-    return this._client.post(`/v1/financial_accounts/${financialAccountToken}/update_status`, {
+  ): Core.APIPromise<CreditConfigurationAPI.FinancialAccountCreditConfig> {
+    return this._client.post(`/v1/financial_accounts/${financialAccountToken}/charge_off`, {
       body,
       ...options,
     });
@@ -133,35 +133,13 @@ export interface FinancialAccount {
 
   nickname: string | null;
 
-  /**
-   * Status of the financial account
-   */
-  status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING';
-
-  type:
-    | 'ISSUING'
-    | 'RESERVE'
-    | 'OPERATING'
-    | 'CHARGED_OFF_FEES'
-    | 'CHARGED_OFF_INTEREST'
-    | 'CHARGED_OFF_PRINCIPAL';
+  type: 'ISSUING' | 'RESERVE' | 'OPERATING';
 
   updated: string;
 
   account_number?: string | null;
 
   routing_number?: string | null;
-
-  /**
-   * Reason for the financial account status change
-   */
-  status_change_reason?:
-    | 'CHARGED_OFF_DELINQUENT'
-    | 'CHARGED_OFF_FRAUD'
-    | 'END_USER_REQUEST'
-    | 'BANK_REQUEST'
-    | 'DELINQUENT'
-    | null;
 }
 
 export namespace FinancialAccount {
@@ -205,11 +183,10 @@ export interface FinancialTransaction {
    *
    * - `CARD` - Issuing card transaction.
    * - `ACH` - Transaction over ACH.
-   * - `INTERNAL` - Transaction for internal adjustment.
    * - `TRANSFER` - Internal transfer of funds between financial accounts in your
    *   program.
    */
-  category: 'ACH' | 'CARD' | 'INTERNAL' | 'TRANSFER';
+  category: 'ACH' | 'CARD' | 'TRANSFER';
 
   /**
    * Date and time when the financial transaction first occurred. UTC time zone.
@@ -217,8 +194,7 @@ export interface FinancialTransaction {
   created: string;
 
   /**
-   * 3-character alphabetic ISO 4217 code for the settling currency of the
-   * transaction.
+   * 3-digit alphabetic ISO 4217 code for the settling currency of the transaction.
    */
   currency: string;
 
@@ -349,7 +325,6 @@ export namespace FinancialTransaction {
       | 'FINANCIAL_CREDIT_AUTHORIZATION'
       | 'INTEREST'
       | 'INTEREST_REVERSAL'
-      | 'INTERNAL_ADJUSTMENT'
       | 'LATE_PAYMENT'
       | 'LATE_PAYMENT_REVERSAL'
       | 'PROVISIONAL_CREDIT'
@@ -411,21 +386,11 @@ export interface FinancialAccountListParams {
   type?: 'ISSUING' | 'OPERATING' | 'RESERVE';
 }
 
-export interface FinancialAccountUpdateStatusParams {
+export interface FinancialAccountChargeOffParams {
   /**
-   * Status of the financial account
+   * Reason for the financial account being marked as Charged Off
    */
-  status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING';
-
-  /**
-   * Reason for the financial account status change
-   */
-  status_change_reason:
-    | 'CHARGED_OFF_FRAUD'
-    | 'END_USER_REQUEST'
-    | 'BANK_REQUEST'
-    | 'CHARGED_OFF_DELINQUENT'
-    | null;
+  reason: 'DELINQUENT' | 'FRAUD';
 }
 
 FinancialAccounts.FinancialAccountsSinglePage = FinancialAccountsSinglePage;
@@ -445,7 +410,7 @@ export declare namespace FinancialAccounts {
     type FinancialAccountCreateParams as FinancialAccountCreateParams,
     type FinancialAccountUpdateParams as FinancialAccountUpdateParams,
     type FinancialAccountListParams as FinancialAccountListParams,
-    type FinancialAccountUpdateStatusParams as FinancialAccountUpdateStatusParams,
+    type FinancialAccountChargeOffParams as FinancialAccountChargeOffParams,
   };
 
   export {
