@@ -159,7 +159,7 @@ export interface ExternalBankAccountCreateResponse {
   created: string;
 
   /**
-   * currency of the external account 3-digit alphabetic ISO 4217 code
+   * currency of the external account 3-character alphabetic ISO 4217 code
    */
   currency: string;
 
@@ -282,7 +282,7 @@ export interface ExternalBankAccountRetrieveResponse {
   created: string;
 
   /**
-   * currency of the external account 3-digit alphabetic ISO 4217 code
+   * currency of the external account 3-character alphabetic ISO 4217 code
    */
   currency: string;
 
@@ -405,7 +405,7 @@ export interface ExternalBankAccountUpdateResponse {
   created: string;
 
   /**
-   * currency of the external account 3-digit alphabetic ISO 4217 code
+   * currency of the external account 3-character alphabetic ISO 4217 code
    */
   currency: string;
 
@@ -528,7 +528,7 @@ export interface ExternalBankAccountListResponse {
   created: string;
 
   /**
-   * currency of the external account 3-digit alphabetic ISO 4217 code
+   * currency of the external account 3-character alphabetic ISO 4217 code
    */
   currency: string;
 
@@ -651,7 +651,7 @@ export interface ExternalBankAccountRetryMicroDepositsResponse {
   created: string;
 
   /**
-   * currency of the external account 3-digit alphabetic ISO 4217 code
+   * currency of the external account 3-character alphabetic ISO 4217 code
    */
   currency: string;
 
@@ -774,7 +774,7 @@ export interface ExternalBankAccountRetryPrenoteResponse {
   created: string;
 
   /**
-   * currency of the external account 3-digit alphabetic ISO 4217 code
+   * currency of the external account 3-character alphabetic ISO 4217 code
    */
   currency: string;
 
@@ -894,7 +894,7 @@ export declare namespace ExternalBankAccountCreateParams {
     country: string;
 
     /**
-     * currency of the external account 3-digit alphabetic ISO 4217 code
+     * currency of the external account 3-character alphabetic ISO 4217 code
      */
     currency: string;
 
@@ -1029,7 +1029,7 @@ export declare namespace ExternalBankAccountCreateParams {
     country: string;
 
     /**
-     * currency of the external account 3-digit alphabetic ISO 4217 code
+     * currency of the external account 3-character alphabetic ISO 4217 code
      */
     currency: string;
 
@@ -1134,6 +1134,8 @@ export interface ExternalBankAccountUpdateParams {
    * Owner Type
    */
   owner_type?: OwnerType;
+
+  type?: 'CHECKING' | 'SAVINGS';
 
   /**
    * User Defined ID

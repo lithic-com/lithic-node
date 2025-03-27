@@ -43,6 +43,13 @@ export class Transactions extends APIResource {
   }
 
   /**
+   * Expire authorization
+   */
+  expireAuthorization(transactionToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
+    return this._client.post(`/v1/transactions/${transactionToken}/expire_authorization`, options);
+  }
+
+  /**
    * Simulates an authorization request from the card network as if it came from a
    * merchant acquirer. If you are configured for ASA, simulating authorizations
    * requires your ASA client to be set up properly, i.e. be able to respond to the
@@ -211,7 +218,8 @@ export interface Transaction {
   merchant_authorization_amount: number | null;
 
   /**
-   * 3-digit alphabetic ISO 4217 code for the local currency of the transaction.
+   * @deprecated 3-character alphabetic ISO 4217 code for the local currency of the
+   * transaction.
    */
   merchant_currency: string;
 
@@ -304,9 +312,7 @@ export namespace Transaction {
       conversion_rate: string;
 
       /**
-       * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
-       * special currencies like `XXX`. Enumerants names are lowercase currency code e.g.
-       * `EUR`, `USD`.
+       * 3-character alphabetic ISO 4217 currency
        */
       currency: Shared.Currency;
     }
@@ -318,9 +324,7 @@ export namespace Transaction {
       amount: number;
 
       /**
-       * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
-       * special currencies like `XXX`. Enumerants names are lowercase currency code e.g.
-       * `EUR`, `USD`.
+       * 3-character alphabetic ISO 4217 currency
        */
       currency: Shared.Currency;
     }
@@ -332,9 +336,7 @@ export namespace Transaction {
       amount: number;
 
       /**
-       * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
-       * special currencies like `XXX`. Enumerants names are lowercase currency code e.g.
-       * `EUR`, `USD`.
+       * 3-character alphabetic ISO 4217 currency
        */
       currency: Shared.Currency;
     }
@@ -346,9 +348,7 @@ export namespace Transaction {
       amount: number;
 
       /**
-       * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
-       * special currencies like `XXX`. Enumerants names are lowercase currency code e.g.
-       * `EUR`, `USD`.
+       * 3-character alphabetic ISO 4217 currency
        */
       currency: Shared.Currency;
     }
@@ -763,9 +763,7 @@ export namespace Transaction {
         conversion_rate: string;
 
         /**
-         * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
-         * special currencies like `XXX`. Enumerants names are lowercase currency code e.g.
-         * `EUR`, `USD`.
+         * 3-character alphabetic ISO 4217 currency
          */
         currency: Shared.Currency;
       }
@@ -777,9 +775,7 @@ export namespace Transaction {
         amount: number;
 
         /**
-         * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
-         * special currencies like `XXX`. Enumerants names are lowercase currency code e.g.
-         * `EUR`, `USD`.
+         * 3-character alphabetic ISO 4217 currency
          */
         currency: Shared.Currency;
       }
@@ -797,9 +793,7 @@ export namespace Transaction {
         conversion_rate: string;
 
         /**
-         * ISO 4217 currency. Its enumerants are ISO 4217 currencies except for some
-         * special currencies like `XXX`. Enumerants names are lowercase currency code e.g.
-         * `EUR`, `USD`.
+         * 3-character alphabetic ISO 4217 currency
          */
         currency: Shared.Currency;
       }
@@ -1118,7 +1112,7 @@ export interface TransactionSimulateAuthorizationParams {
   merchant_amount?: number;
 
   /**
-   * 3-digit alphabetic ISO 4217 currency code. Note: Simulator only accepts USD,
+   * 3-character alphabetic ISO 4217 currency code. Note: Simulator only accepts USD,
    * GBP, EUR and defaults to GBP if another ISO 4217 code is provided
    */
   merchant_currency?: string;
