@@ -47,7 +47,7 @@ export interface AggregateBalanceListResponse {
   created: string;
 
   /**
-   * 3-character alphabetic ISO 4217 code for the local currency of the balance.
+   * 3-digit alphabetic ISO 4217 code for the local currency of the balance.
    */
   currency: string;
 

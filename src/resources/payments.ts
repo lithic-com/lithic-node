@@ -107,7 +107,7 @@ export interface Payment {
   created: string;
 
   /**
-   * 3-character alphabetic ISO 4217 code for the settling currency of the payment.
+   * 3-digit alphabetic ISO 4217 code for the settling currency of the payment.
    */
   currency: string;
 

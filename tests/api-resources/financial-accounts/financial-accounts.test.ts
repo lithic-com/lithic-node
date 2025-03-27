@@ -113,10 +113,9 @@ describe('resource financialAccounts', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  test('updateStatus: only required params', async () => {
-    const responsePromise = client.financialAccounts.updateStatus('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      status: 'OPEN',
-      status_change_reason: 'CHARGED_OFF_FRAUD',
+  test('chargeOff: only required params', async () => {
+    const responsePromise = client.financialAccounts.chargeOff('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      reason: 'DELINQUENT',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -127,10 +126,9 @@ describe('resource financialAccounts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('updateStatus: required and optional params', async () => {
-    const response = await client.financialAccounts.updateStatus('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      status: 'OPEN',
-      status_change_reason: 'CHARGED_OFF_FRAUD',
+  test('chargeOff: required and optional params', async () => {
+    const response = await client.financialAccounts.chargeOff('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      reason: 'DELINQUENT',
     });
   });
 });
