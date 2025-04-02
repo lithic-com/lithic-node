@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.97.3 (2025-04-02)
+
+Full Changelog: [v0.97.2...v0.97.3](https://github.com/lithic-com/lithic-node/compare/v0.97.2...v0.97.3)
+
+### Bug Fixes
+
+* **client:** send `X-Stainless-Timeout` in seconds ([#652](https://github.com/lithic-com/lithic-node/issues/652)) ([57013d2](https://github.com/lithic-com/lithic-node/commit/57013d2248304cfb4ba92c2f1827d7bb5d01e319))
+
+
+### Chores
+
+* internal codegen changes ([c0d866d](https://github.com/lithic-com/lithic-node/commit/c0d866d4189f76a437b45542cde92e0b3b695a40))
+* internal codegen changes ([f25f411](https://github.com/lithic-com/lithic-node/commit/f25f41153f55e4598cf2b6b2354824966b206ccd))
+
 ## 0.97.2 (2025-03-27)
 
 Full Changelog: [v0.97.1...v0.97.2](https://github.com/lithic-com/lithic-node/compare/v0.97.1...v0.97.2)
