@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.97.4 (2025-04-03)
+
+Full Changelog: [v0.97.3...v0.97.4](https://github.com/lithic-com/lithic-node/compare/v0.97.3...v0.97.4)
+
+### Bug Fixes
+
+* **api:** improve type resolution when importing as a package ([#656](https://github.com/lithic-com/lithic-node/issues/656)) ([ba46854](https://github.com/lithic-com/lithic-node/commit/ba468549326405246627fb874acd34181f32236e))
+
+
+### Chores
+
+* **internal:** add aliases for Record and Array ([#654](https://github.com/lithic-com/lithic-node/issues/654)) ([2172c3f](https://github.com/lithic-com/lithic-node/commit/2172c3f30c7c1b0ac2f39ad8081675b4d26e107c))
+
 ## 0.97.3 (2025-04-02)
 
 Full Changelog: [v0.97.2...v0.97.3](https://github.com/lithic-com/lithic-node/compare/v0.97.2...v0.97.3)
