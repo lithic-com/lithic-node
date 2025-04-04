@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.97.5 (2025-04-04)
+
+Full Changelog: [v0.97.4...v0.97.5](https://github.com/lithic-com/lithic-node/compare/v0.97.4...v0.97.5)
+
+### Bug Fixes
+
+* **mcp:** remove unused tools.ts ([#658](https://github.com/lithic-com/lithic-node/issues/658)) ([32d6597](https://github.com/lithic-com/lithic-node/commit/32d65972045428a43ba8790b06c8f61248a8be77))
+
 ## 0.97.4 (2025-04-03)
 
 Full Changelog: [v0.97.3...v0.97.4](https://github.com/lithic-com/lithic-node/compare/v0.97.3...v0.97.4)
