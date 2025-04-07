@@ -190,9 +190,9 @@ export namespace LoanTape {
       status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING';
 
       /**
-       * Reason for the financial account status change
+       * Substatus for the financial account
        */
-      status_change_reason?:
+      substatus?:
         | 'CHARGED_OFF_DELINQUENT'
         | 'CHARGED_OFF_FRAUD'
         | 'END_USER_REQUEST'

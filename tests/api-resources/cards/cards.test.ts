@@ -157,7 +157,7 @@ describe('resource cards', () => {
       },
       carrier: { qr_code_url: 'https://lithic.com/activate-card/1' },
       product_id: '100',
-      shipping_method: '2-DAY',
+      shipping_method: '2_DAY',
     });
   });
 
@@ -238,7 +238,7 @@ describe('resource cards', () => {
       exp_month: '06',
       exp_year: '2027',
       product_id: '100',
-      shipping_method: '2-DAY',
+      shipping_method: '2_DAY',
     });
   });
 

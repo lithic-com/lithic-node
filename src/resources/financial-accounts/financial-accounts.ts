@@ -153,9 +153,9 @@ export interface FinancialAccount {
   routing_number?: string | null;
 
   /**
-   * Reason for the financial account status change
+   * Substatus for the financial account
    */
-  status_change_reason?:
+  substatus?:
     | 'CHARGED_OFF_DELINQUENT'
     | 'CHARGED_OFF_FRAUD'
     | 'END_USER_REQUEST'
@@ -418,14 +418,9 @@ export interface FinancialAccountUpdateStatusParams {
   status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING';
 
   /**
-   * Reason for the financial account status change
+   * Substatus for the financial account
    */
-  status_change_reason:
-    | 'CHARGED_OFF_FRAUD'
-    | 'END_USER_REQUEST'
-    | 'BANK_REQUEST'
-    | 'CHARGED_OFF_DELINQUENT'
-    | null;
+  substatus: 'CHARGED_OFF_FRAUD' | 'END_USER_REQUEST' | 'BANK_REQUEST' | 'CHARGED_OFF_DELINQUENT' | null;
 }
 
 FinancialAccounts.FinancialAccountsSinglePage = FinancialAccountsSinglePage;

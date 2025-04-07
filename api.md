@@ -276,6 +276,12 @@ Methods:
 - <code title="post /v1/event_subscriptions/{event_subscription_token}/secret/rotate">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">rotateSecret</a>(eventSubscriptionToken) -> void</code>
 - <code title="post /v1/simulate/event_subscriptions/{event_subscription_token}/send_example">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">sendSimulatedExample</a>(eventSubscriptionToken, { ...params }) -> void</code>
 
+## EventSubscriptions
+
+Methods:
+
+- <code title="post /v1/events/{event_token}/event_subscriptions/{event_subscription_token}/resend">client.events.eventSubscriptions.<a href="./src/resources/events/event-subscriptions.ts">resend</a>(eventToken, eventSubscriptionToken) -> void</code>
+
 # Transfers
 
 Types:
