@@ -3,6 +3,8 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
+import * as EventSubscriptionsAPI from './event-subscriptions';
+import { EventSubscriptions } from './event-subscriptions';
 import * as SubscriptionsAPI from './subscriptions';
 import {
   SubscriptionCreateParams,
@@ -19,6 +21,9 @@ import { CursorPage, type CursorPageParams } from '../../pagination';
 
 export class Events extends APIResource {
   subscriptions: SubscriptionsAPI.Subscriptions = new SubscriptionsAPI.Subscriptions(this._client);
+  eventSubscriptions: EventSubscriptionsAPI.EventSubscriptions = new EventSubscriptionsAPI.EventSubscriptions(
+    this._client,
+  );
 
   /**
    * Get an event.
@@ -366,6 +371,7 @@ export interface EventListAttemptsParams extends CursorPageParams {
 Events.EventsCursorPage = EventsCursorPage;
 Events.MessageAttemptsCursorPage = MessageAttemptsCursorPage;
 Events.Subscriptions = Subscriptions;
+Events.EventSubscriptions = EventSubscriptions;
 
 export declare namespace Events {
   export {
@@ -389,4 +395,6 @@ export declare namespace Events {
     type SubscriptionReplayMissingParams as SubscriptionReplayMissingParams,
     type SubscriptionSendSimulatedExampleParams as SubscriptionSendSimulatedExampleParams,
   };
+
+  export { EventSubscriptions as EventSubscriptions };
 }
