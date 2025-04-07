@@ -66,6 +66,7 @@ jobs:
   examples:
     name: examples
     runs-on: ubuntu-latest
+    if: github.repository == 'lithic-com/lithic-node'
 
     steps:
       - uses: actions/checkout@v4
