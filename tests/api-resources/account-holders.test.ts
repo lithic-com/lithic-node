@@ -11,20 +11,6 @@ const client = new Lithic({
 describe('resource accountHolders', () => {
   test('create: only required params', async () => {
     const responsePromise = client.accountHolders.create({
-      beneficial_owner_entities: [
-        {
-          address: {
-            address1: '123 Old Forest Way',
-            city: 'Omaha',
-            country: 'USA',
-            postal_code: '68022',
-            state: 'NE',
-          },
-          government_id: '114-123-1513',
-          legal_business_name: 'Acme, Inc.',
-          phone_numbers: ['+15555555555'],
-        },
-      ],
       beneficial_owner_individuals: [
         {
           address: {
@@ -82,23 +68,6 @@ describe('resource accountHolders', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.accountHolders.create({
-      beneficial_owner_entities: [
-        {
-          address: {
-            address1: '123 Old Forest Way',
-            city: 'Omaha',
-            country: 'USA',
-            postal_code: '68022',
-            state: 'NE',
-            address2: 'address2',
-          },
-          government_id: '114-123-1513',
-          legal_business_name: 'Acme, Inc.',
-          phone_numbers: ['+15555555555'],
-          dba_business_name: 'dba_business_name',
-          parent_company: 'parent_company',
-        },
-      ],
       beneficial_owner_individuals: [
         {
           address: {
@@ -151,6 +120,23 @@ describe('resource accountHolders', () => {
       nature_of_business: 'Software company selling solutions to the restaurant industry',
       tos_timestamp: '2018-05-29T21:16:05Z',
       workflow: 'KYB_BASIC',
+      beneficial_owner_entities: [
+        {
+          address: {
+            address1: '123 Old Forest Way',
+            city: 'Omaha',
+            country: 'USA',
+            postal_code: '68022',
+            state: 'NE',
+            address2: 'address2',
+          },
+          government_id: '114-123-1513',
+          legal_business_name: 'Acme, Inc.',
+          phone_numbers: ['+15555555555'],
+          dba_business_name: 'dba_business_name',
+          parent_company: 'parent_company',
+        },
+      ],
       external_id: 'external_id',
       kyb_passed_timestamp: '2018-05-29T21:16:05Z',
       website_url: 'www.mybusiness.com',

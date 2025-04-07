@@ -191,8 +191,7 @@ export interface AccountHolder {
   account_token?: string;
 
   /**
-   * Only present when user_type == "BUSINESS". List of all entities with >25%
-   * ownership in the company.
+   * Deprecated. Only present when user_type == "BUSINESS".
    */
   beneficial_owner_entities?: Array<AccountHolder.BeneficialOwnerEntity>;
 
@@ -614,24 +613,11 @@ export interface AddressUpdate {
 
 export interface KYB {
   /**
-   * List of all entities with >25% ownership in the company. If no entity or
-   * individual owns >25% of the company, and the largest shareholder is an entity,
-   * please identify them in this field. See
-   * [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf)
-   * (Section I) for more background. If no business owner is an entity, pass in an
-   * empty list. However, either this parameter or `beneficial_owner_individuals`
-   * must be populated. on entities that should be included.
-   */
-  beneficial_owner_entities: Array<KYB.BeneficialOwnerEntity>;
-
-  /**
    * List of all direct and indirect individuals with >25% ownership in the company.
-   * If no entity or individual owns >25% of the company, and the largest shareholder
-   * is an individual, please identify them in this field. See
+   * If no individual owns >25% of the company, please identify the largest
+   * shareholder in this field. See
    * [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf)
-   * (Section I) for more background on individuals that should be included. If no
-   * individual is an entity, pass in an empty list. However, either this parameter
-   * or `beneficial_owner_entities` must be populated.
+   * (Section I) for more background on individuals that should be included.
    */
   beneficial_owner_individuals: Array<KYB.BeneficialOwnerIndividual>;
 
@@ -672,6 +658,11 @@ export interface KYB {
   workflow: 'KYB_BASIC' | 'KYB_BYO';
 
   /**
+   * Deprecated.
+   */
+  beneficial_owner_entities?: Array<KYB.BeneficialOwnerEntity>;
+
+  /**
    * A user provided id that can be used to link an account holder with an external
    * system
    */
@@ -692,43 +683,6 @@ export interface KYB {
 }
 
 export namespace KYB {
-  export interface BeneficialOwnerEntity {
-    /**
-     * Business's physical address - PO boxes, UPS drops, and FedEx drops are not
-     * acceptable; APO/FPO are acceptable.
-     */
-    address: Shared.Address;
-
-    /**
-     * Government-issued identification number. US Federal Employer Identification
-     * Numbers (EIN) are currently supported, entered as full nine-digits, with or
-     * without hyphens.
-     */
-    government_id: string;
-
-    /**
-     * Legal (formal) business name.
-     */
-    legal_business_name: string;
-
-    /**
-     * One or more of the business's phone number(s), entered as a list in E.164
-     * format.
-     */
-    phone_numbers: Array<string>;
-
-    /**
-     * Any name that the business operates under that is not its legal business name
-     * (if applicable).
-     */
-    dba_business_name?: string;
-
-    /**
-     * Parent company name (if applicable).
-     */
-    parent_company?: string;
-  }
-
   /**
    * Individuals associated with a KYB application. Phone number is optional.
    */
@@ -865,6 +819,43 @@ export namespace KYB {
      * Individual's phone number, entered in E.164 format.
      */
     phone_number?: string;
+  }
+
+  export interface BeneficialOwnerEntity {
+    /**
+     * Business's physical address - PO boxes, UPS drops, and FedEx drops are not
+     * acceptable; APO/FPO are acceptable.
+     */
+    address: Shared.Address;
+
+    /**
+     * Government-issued identification number. US Federal Employer Identification
+     * Numbers (EIN) are currently supported, entered as full nine-digits, with or
+     * without hyphens.
+     */
+    government_id: string;
+
+    /**
+     * Legal (formal) business name.
+     */
+    legal_business_name: string;
+
+    /**
+     * One or more of the business's phone number(s), entered as a list in E.164
+     * format.
+     */
+    phone_numbers: Array<string>;
+
+    /**
+     * Any name that the business operates under that is not its legal business name
+     * (if applicable).
+     */
+    dba_business_name?: string;
+
+    /**
+     * Parent company name (if applicable).
+     */
+    parent_company?: string;
   }
 }
 
@@ -2190,24 +2181,11 @@ export type AccountHolderCreateParams =
 export declare namespace AccountHolderCreateParams {
   export interface KYB {
     /**
-     * List of all entities with >25% ownership in the company. If no entity or
-     * individual owns >25% of the company, and the largest shareholder is an entity,
-     * please identify them in this field. See
-     * [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf)
-     * (Section I) for more background. If no business owner is an entity, pass in an
-     * empty list. However, either this parameter or `beneficial_owner_individuals`
-     * must be populated. on entities that should be included.
-     */
-    beneficial_owner_entities: Array<KYB.BeneficialOwnerEntity>;
-
-    /**
      * List of all direct and indirect individuals with >25% ownership in the company.
-     * If no entity or individual owns >25% of the company, and the largest shareholder
-     * is an individual, please identify them in this field. See
+     * If no individual owns >25% of the company, please identify the largest
+     * shareholder in this field. See
      * [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf)
-     * (Section I) for more background on individuals that should be included. If no
-     * individual is an entity, pass in an empty list. However, either this parameter
-     * or `beneficial_owner_entities` must be populated.
+     * (Section I) for more background on individuals that should be included.
      */
     beneficial_owner_individuals: Array<KYB.BeneficialOwnerIndividual>;
 
@@ -2248,6 +2226,11 @@ export declare namespace AccountHolderCreateParams {
     workflow: 'KYB_BASIC' | 'KYB_BYO';
 
     /**
+     * Deprecated.
+     */
+    beneficial_owner_entities?: Array<KYB.BeneficialOwnerEntity>;
+
+    /**
      * A user provided id that can be used to link an account holder with an external
      * system
      */
@@ -2268,43 +2251,6 @@ export declare namespace AccountHolderCreateParams {
   }
 
   export namespace KYB {
-    export interface BeneficialOwnerEntity {
-      /**
-       * Business's physical address - PO boxes, UPS drops, and FedEx drops are not
-       * acceptable; APO/FPO are acceptable.
-       */
-      address: Shared.Address;
-
-      /**
-       * Government-issued identification number. US Federal Employer Identification
-       * Numbers (EIN) are currently supported, entered as full nine-digits, with or
-       * without hyphens.
-       */
-      government_id: string;
-
-      /**
-       * Legal (formal) business name.
-       */
-      legal_business_name: string;
-
-      /**
-       * One or more of the business's phone number(s), entered as a list in E.164
-       * format.
-       */
-      phone_numbers: Array<string>;
-
-      /**
-       * Any name that the business operates under that is not its legal business name
-       * (if applicable).
-       */
-      dba_business_name?: string;
-
-      /**
-       * Parent company name (if applicable).
-       */
-      parent_company?: string;
-    }
-
     /**
      * Individuals associated with a KYB application. Phone number is optional.
      */
@@ -2441,6 +2387,43 @@ export declare namespace AccountHolderCreateParams {
        * Individual's phone number, entered in E.164 format.
        */
       phone_number?: string;
+    }
+
+    export interface BeneficialOwnerEntity {
+      /**
+       * Business's physical address - PO boxes, UPS drops, and FedEx drops are not
+       * acceptable; APO/FPO are acceptable.
+       */
+      address: Shared.Address;
+
+      /**
+       * Government-issued identification number. US Federal Employer Identification
+       * Numbers (EIN) are currently supported, entered as full nine-digits, with or
+       * without hyphens.
+       */
+      government_id: string;
+
+      /**
+       * Legal (formal) business name.
+       */
+      legal_business_name: string;
+
+      /**
+       * One or more of the business's phone number(s), entered as a list in E.164
+       * format.
+       */
+      phone_numbers: Array<string>;
+
+      /**
+       * Any name that the business operates under that is not its legal business name
+       * (if applicable).
+       */
+      dba_business_name?: string;
+
+      /**
+       * Parent company name (if applicable).
+       */
+      parent_company?: string;
     }
   }
 
