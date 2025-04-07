@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.98.0 (2025-04-07)
+
+Full Changelog: [v0.97.5...v0.98.0](https://github.com/lithic-com/lithic-node/compare/v0.97.5...v0.98.0)
+
+### Features
+
+* **api:** new resend endpoint for Event Subscriptions ([#663](https://github.com/lithic-com/lithic-node/issues/663)) ([cb6fa3b](https://github.com/lithic-com/lithic-node/commit/cb6fa3b6cd1f8ef22016b65764cee038bf060bf0))
+
+
+### Chores
+
+* **internal:** only run examples workflow in main repo ([#661](https://github.com/lithic-com/lithic-node/issues/661)) ([868a6b3](https://github.com/lithic-com/lithic-node/commit/868a6b33adad6074ec839f21ec9e8699be57e508))
+
 ## 0.97.5 (2025-04-04)
 
 Full Changelog: [v0.97.4...v0.97.5](https://github.com/lithic-com/lithic-node/compare/v0.97.4...v0.97.5)
