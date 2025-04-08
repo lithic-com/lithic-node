@@ -89,6 +89,8 @@ export interface ManagementOperationTransaction {
 
   status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED';
 
+  transaction_series: ManagementOperationTransaction.TransactionSeries | null;
+
   updated: string;
 
   user_defined_id?: string;
@@ -128,6 +130,14 @@ export namespace ManagementOperationTransaction {
       | 'RETURNED_PAYMENT_REVERSAL';
 
     subtype?: string;
+  }
+
+  export interface TransactionSeries {
+    related_transaction_event_token: string | null;
+
+    related_transaction_token: string | null;
+
+    type: string;
   }
 }
 
