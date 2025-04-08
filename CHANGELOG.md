@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.99.0 (2025-04-08)
+
+Full Changelog: [v0.98.0...v0.99.0](https://github.com/lithic-com/lithic-node/compare/v0.98.0...v0.99.0)
+
+### Features
+
+* **api:** introduce TransactionSeries and update ShippingMethod fields ([#665](https://github.com/lithic-com/lithic-node/issues/665)) ([515ce4f](https://github.com/lithic-com/lithic-node/commit/515ce4f884a95c54fb5ee19a59f99898d0cccb5f))
+
 ## 0.98.0 (2025-04-07)
 
 Full Changelog: [v0.97.5...v0.98.0](https://github.com/lithic-com/lithic-node/compare/v0.97.5...v0.98.0)
