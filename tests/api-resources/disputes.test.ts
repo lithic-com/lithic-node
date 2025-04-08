@@ -12,7 +12,7 @@ describe('resource disputes', () => {
   test('create: only required params', async () => {
     const responsePromise = client.disputes.create({
       amount: 10000,
-      reason: 'ATM_CASH_MISDISPENSE',
+      reason: 'FRAUD_CARD_PRESENT',
       transaction_token: '12345624-aa69-4cbc-a946-30d90181b621',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -27,7 +27,7 @@ describe('resource disputes', () => {
   test('create: required and optional params', async () => {
     const response = await client.disputes.create({
       amount: 10000,
-      reason: 'ATM_CASH_MISDISPENSE',
+      reason: 'FRAUD_CARD_PRESENT',
       transaction_token: '12345624-aa69-4cbc-a946-30d90181b621',
       customer_filed_date: '2021-06-28T22:53:15Z',
       customer_note: 'customer_note',
