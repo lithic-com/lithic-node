@@ -10,7 +10,7 @@ const client = new Lithic({
 
 describe('resource cards', () => {
   test('create: only required params', async () => {
-    const responsePromise = client.cards.create({ type: 'MERCHANT_LOCKED' });
+    const responsePromise = client.cards.create({ type: 'VIRTUAL' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,7 +22,7 @@ describe('resource cards', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.cards.create({
-      type: 'MERCHANT_LOCKED',
+      type: 'VIRTUAL',
       account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       card_program_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       carrier: { qr_code_url: 'qr_code_url' },
@@ -49,7 +49,7 @@ describe('resource cards', () => {
       },
       shipping_method: '2_DAY',
       spend_limit: 1000,
-      spend_limit_duration: 'ANNUALLY',
+      spend_limit_duration: 'TRANSACTION',
       state: 'OPEN',
     });
   });
@@ -157,7 +157,7 @@ describe('resource cards', () => {
       },
       carrier: { qr_code_url: 'https://lithic.com/activate-card/1' },
       product_id: '100',
-      shipping_method: '2_DAY',
+      shipping_method: 'STANDARD',
     });
   });
 
@@ -248,7 +248,7 @@ describe('resource cards', () => {
       exp_month: '06',
       exp_year: '2027',
       product_id: '100',
-      shipping_method: '2_DAY',
+      shipping_method: 'STANDARD',
     });
   });
 

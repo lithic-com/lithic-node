@@ -151,7 +151,7 @@ describe('resource tokenizations', () => {
     await expect(
       client.tokenizations.resendActivationCode(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { activation_method_type: 'EMAIL_TO_CARDHOLDER_ADDRESS' },
+        { activation_method_type: 'TEXT_TO_CARDHOLDER_NUMBER' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Lithic.NotFoundError);
