@@ -191,13 +191,16 @@ export interface AccountHolder {
   account_token?: string;
 
   /**
-   * Deprecated. Only present when user_type == "BUSINESS".
+   * @deprecated Deprecated.
    */
   beneficial_owner_entities?: Array<AccountHolder.BeneficialOwnerEntity>;
 
   /**
-   * Only present when user_type == "BUSINESS". List of all individuals with >25%
-   * ownership in the company.
+   * Only present when user_type == "BUSINESS". List of all direct and indirect
+   * individuals with 25% or more ownership in the company. If no individual owns 25%
+   * of the company, please identify the largest shareholder in this field. See
+   * [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf)
+   * (Section I) for more background on individuals that should be included.
    */
   beneficial_owner_individuals?: Array<AccountHolder.BeneficialOwnerIndividual>;
 
@@ -301,8 +304,8 @@ export interface AccountHolder {
   /**
    * The type of Account Holder. If the type is "INDIVIDUAL", the "individual"
    * attribute will be present. If the type is "BUSINESS" then the "business_entity",
-   * "control_person", "beneficial_owner_individuals", "beneficial_owner_entities",
-   * "nature_of_business", and "website_url" attributes will be present.
+   * "control_person", "beneficial_owner_individuals", "nature_of_business", and
+   * "website_url" attributes will be present.
    */
   user_type?: 'BUSINESS' | 'INDIVIDUAL';
 
@@ -613,8 +616,8 @@ export interface AddressUpdate {
 
 export interface KYB {
   /**
-   * List of all direct and indirect individuals with >25% ownership in the company.
-   * If no individual owns >25% of the company, please identify the largest
+   * List of all direct and indirect individuals with 25% or more ownership in the
+   * company. If no individual owns 25% of the company, please identify the largest
    * shareholder in this field. See
    * [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf)
    * (Section I) for more background on individuals that should be included.
@@ -658,7 +661,7 @@ export interface KYB {
   workflow: 'KYB_BASIC' | 'KYB_BYO';
 
   /**
-   * Deprecated.
+   * @deprecated Deprecated.
    */
   beneficial_owner_entities?: Array<KYB.BeneficialOwnerEntity>;
 
@@ -1174,14 +1177,16 @@ export namespace AccountHolderUpdateResponse {
     account_token?: string;
 
     /**
-     * Only present when user_type == "BUSINESS". List of all entities with >25%
-     * ownership in the company.
+     * Deprecated.
      */
     beneficial_owner_entities?: Array<AccountHoldersAPI.KYBBusinessEntity>;
 
     /**
-     * Only present when user_type == "BUSINESS". List of all individuals with >25%
-     * ownership in the company.
+     * Only present when user_type == "BUSINESS". List of all direct and indirect
+     * individuals with 25% or more ownership in the company. If no individual owns 25%
+     * of the company, please identify the largest shareholder in this field. See
+     * [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf)
+     * (Section I) for more background on individuals that should be included.
      */
     beneficial_owner_individuals?: Array<KYBKYCPatchResponse.BeneficialOwnerIndividual>;
 
@@ -1310,9 +1315,8 @@ export namespace AccountHolderUpdateResponse {
      * attribute will be present.
      *
      * If the type is "BUSINESS" then the "business_entity", "control_person",
-     * "beneficial_owner_individuals", "beneficial_owner_entities",
-     *
-     * "nature_of_business", and "website_url" attributes will be present.
+     * "beneficial_owner_individuals", "nature_of_business", and "website_url"
+     * attributes will be present.
      */
     user_type?: 'BUSINESS' | 'INDIVIDUAL';
 
@@ -1723,14 +1727,16 @@ export interface AccountHolderSimulateEnrollmentReviewResponse {
   account_token?: string;
 
   /**
-   * Only present when user_type == "BUSINESS". List of all entities with >25%
-   * ownership in the company.
+   * Deprecated.
    */
   beneficial_owner_entities?: Array<KYBBusinessEntity>;
 
   /**
-   * Only present when user_type == "BUSINESS". List of all individuals with >25%
-   * ownership in the company.
+   * Only present when user_type == "BUSINESS". List of all direct and indirect
+   * individuals with 25% or more ownership in the company. If no individual owns 25%
+   * of the company, please identify the largest shareholder in this field. See
+   * [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf)
+   * (Section I) for more background on individuals that should be included.
    */
   beneficial_owner_individuals?: Array<AccountHolderSimulateEnrollmentReviewResponse.BeneficialOwnerIndividual>;
 
@@ -1859,9 +1865,8 @@ export interface AccountHolderSimulateEnrollmentReviewResponse {
    * attribute will be present.
    *
    * If the type is "BUSINESS" then the "business_entity", "control_person",
-   * "beneficial_owner_individuals", "beneficial_owner_entities",
-   *
-   * "nature_of_business", and "website_url" attributes will be present.
+   * "beneficial_owner_individuals", "nature_of_business", and "website_url"
+   * attributes will be present.
    */
   user_type?: 'BUSINESS' | 'INDIVIDUAL';
 
@@ -2181,8 +2186,8 @@ export type AccountHolderCreateParams =
 export declare namespace AccountHolderCreateParams {
   export interface KYB {
     /**
-     * List of all direct and indirect individuals with >25% ownership in the company.
-     * If no individual owns >25% of the company, please identify the largest
+     * List of all direct and indirect individuals with 25% or more ownership in the
+     * company. If no individual owns 25% of the company, please identify the largest
      * shareholder in this field. See
      * [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf)
      * (Section I) for more background on individuals that should be included.
@@ -2569,24 +2574,16 @@ export type AccountHolderUpdateParams =
 export declare namespace AccountHolderUpdateParams {
   export interface KYBPatchRequest {
     /**
-     * List of all entities with >25% ownership in the company. If no entity or
-     * individual owns >25% of the company, and the largest shareholder is an entity,
-     * please identify them in this field. See
-     * [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf)(Section
-     * I) for more background. If no business owner is an entity, pass in an empty
-     * list. However, either this parameter or `beneficial_owner_individuals` must be
-     * populated. on entities that should be included.
+     * Deprecated.
      */
     beneficial_owner_entities?: Array<KYBPatchRequest.BeneficialOwnerEntity>;
 
     /**
-     * List of all individuals with >25% ownership in the company. If no entity or
-     * individual owns >25% of the company, and the largest shareholder is an
-     * individual, please identify them in this field. See
-     * [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf)(Section
-     * I) for more background on individuals that should be included. If no individual
-     * is an entity, pass in an empty list. However, either this parameter or
-     * `beneficial_owner_entities` must be populated.
+     * List of all direct and indirect individuals with 25% or more ownership in the
+     * company. If no individual owns 25% of the company, please identify the largest
+     * shareholder in this field. See
+     * [FinCEN requirements](https://www.fincen.gov/sites/default/files/shared/CDD_Rev6.7_Sept_2017_Certificate.pdf)
+     * (Section I) for more background on individuals that should be included.
      */
     beneficial_owner_individuals?: Array<KYBPatchRequest.BeneficialOwnerIndividual>;
 
