@@ -169,6 +169,11 @@ export interface Payment {
   updated: string;
 
   user_defined_id: string | null;
+
+  /**
+   * Date when the financial transaction expected to be released after settlement
+   */
+  expected_release_date?: string;
 }
 
 export namespace Payment {
