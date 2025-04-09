@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.100.0 (2025-04-09)
+
+Full Changelog: [v0.99.0...v0.100.0](https://github.com/lithic-com/lithic-node/compare/v0.99.0...v0.100.0)
+
+### Features
+
+* **api:** manual updates ([cb9ff45](https://github.com/lithic-com/lithic-node/commit/cb9ff45df4aee95f075655ed207278ae3315d1bb))
+
+
+### Chores
+
+* configure new SDK language ([11e6d26](https://github.com/lithic-com/lithic-node/commit/11e6d26f951191902873f579bc7d01acf8f48ae2))
+* **internal:** upload builds and expand CI branch coverage ([#669](https://github.com/lithic-com/lithic-node/issues/669)) ([0c21c35](https://github.com/lithic-com/lithic-node/commit/0c21c3579e917601560694b21f2611905b30007c))
+* **tests:** improve enum examples ([#667](https://github.com/lithic-com/lithic-node/issues/667)) ([0fcc400](https://github.com/lithic-com/lithic-node/commit/0fcc40077890403cf48eec36a168edaf1757b6ef))
+
 ## 0.99.0 (2025-04-08)
 
 Full Changelog: [v0.98.0...v0.99.0](https://github.com/lithic-com/lithic-node/compare/v0.98.0...v0.99.0)
