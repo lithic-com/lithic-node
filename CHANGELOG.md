@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.100.1 (2025-04-09)
+
+Full Changelog: [v0.100.0...v0.100.1](https://github.com/lithic-com/lithic-node/compare/v0.100.0...v0.100.1)
+
+### Chores
+
+* **internal:** reduce CI branch coverage ([ff24f91](https://github.com/lithic-com/lithic-node/commit/ff24f911753215dc6bdfa3205336eac7614f5c32))
+
 ## 0.100.0 (2025-04-09)
 
 Full Changelog: [v0.99.0...v0.100.0](https://github.com/lithic-com/lithic-node/compare/v0.99.0...v0.100.0)
