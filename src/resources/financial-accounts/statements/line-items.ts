@@ -68,7 +68,8 @@ export namespace StatementLineItems {
       | 'MANAGEMENT_ADJUSTMENT'
       | 'MANAGEMENT_DISPUTE'
       | 'MANAGEMENT_FEE'
-      | 'MANAGEMENT_REWARD';
+      | 'MANAGEMENT_REWARD'
+      | 'MANAGEMENT_DISBURSEMENT';
 
     /**
      * Timestamp of when the line item was generated
@@ -151,7 +152,8 @@ export namespace StatementLineItems {
       | 'TRANSFER'
       | 'TRANSFER_INSUFFICIENT_FUNDS'
       | 'RETURNED_PAYMENT'
-      | 'RETURNED_PAYMENT_REVERSAL';
+      | 'RETURNED_PAYMENT_REVERSAL'
+      | 'LITHIC_NETWORK_PAYMENT';
 
     /**
      * Globally unique identifier for a financial account

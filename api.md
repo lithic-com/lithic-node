@@ -155,25 +155,32 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/cards/cards.ts">Card</a></code>
 - <code><a href="./src/resources/cards/cards.ts">CardSpendLimits</a></code>
 - <code><a href="./src/resources/cards/cards.ts">SpendLimitDuration</a></code>
+- <code><a href="./src/resources/cards/cards.ts">CardCreateResponse</a></code>
+- <code><a href="./src/resources/cards/cards.ts">CardRetrieveResponse</a></code>
+- <code><a href="./src/resources/cards/cards.ts">CardUpdateResponse</a></code>
+- <code><a href="./src/resources/cards/cards.ts">CardListResponse</a></code>
+- <code><a href="./src/resources/cards/cards.ts">CardConvertPhysicalResponse</a></code>
 - <code><a href="./src/resources/cards/cards.ts">CardEmbedResponse</a></code>
 - <code><a href="./src/resources/cards/cards.ts">CardProvisionResponse</a></code>
+- <code><a href="./src/resources/cards/cards.ts">CardReissueResponse</a></code>
+- <code><a href="./src/resources/cards/cards.ts">CardRenewResponse</a></code>
+- <code><a href="./src/resources/cards/cards.ts">CardSearchByPanResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/cards">client.cards.<a href="./src/resources/cards/cards.ts">create</a>({ ...params }) -> Card</code>
-- <code title="get /v1/cards/{card_token}">client.cards.<a href="./src/resources/cards/cards.ts">retrieve</a>(cardToken) -> Card</code>
-- <code title="patch /v1/cards/{card_token}">client.cards.<a href="./src/resources/cards/cards.ts">update</a>(cardToken, { ...params }) -> Card</code>
-- <code title="get /v1/cards">client.cards.<a href="./src/resources/cards/cards.ts">list</a>({ ...params }) -> CardsCursorPage</code>
-- <code title="post /v1/cards/{card_token}/convert_physical">client.cards.<a href="./src/resources/cards/cards.ts">convertPhysical</a>(cardToken, { ...params }) -> Card</code>
+- <code title="post /v1/cards">client.cards.<a href="./src/resources/cards/cards.ts">create</a>({ ...params }) -> CardCreateResponse</code>
+- <code title="get /v1/cards/{card_token}">client.cards.<a href="./src/resources/cards/cards.ts">retrieve</a>(cardToken) -> CardRetrieveResponse</code>
+- <code title="patch /v1/cards/{card_token}">client.cards.<a href="./src/resources/cards/cards.ts">update</a>(cardToken, { ...params }) -> CardUpdateResponse</code>
+- <code title="get /v1/cards">client.cards.<a href="./src/resources/cards/cards.ts">list</a>({ ...params }) -> CardListResponsesCursorPage</code>
+- <code title="post /v1/cards/{card_token}/convert_physical">client.cards.<a href="./src/resources/cards/cards.ts">convertPhysical</a>(cardToken, { ...params }) -> CardConvertPhysicalResponse</code>
 - <code title="get /v1/embed/card">client.cards.<a href="./src/resources/cards/cards.ts">embed</a>({ ...params }) -> string</code>
 - <code title="post /v1/cards/{card_token}/provision">client.cards.<a href="./src/resources/cards/cards.ts">provision</a>(cardToken, { ...params }) -> CardProvisionResponse</code>
-- <code title="post /v1/cards/{card_token}/reissue">client.cards.<a href="./src/resources/cards/cards.ts">reissue</a>(cardToken, { ...params }) -> Card</code>
-- <code title="post /v1/cards/{card_token}/renew">client.cards.<a href="./src/resources/cards/cards.ts">renew</a>(cardToken, { ...params }) -> Card</code>
+- <code title="post /v1/cards/{card_token}/reissue">client.cards.<a href="./src/resources/cards/cards.ts">reissue</a>(cardToken, { ...params }) -> CardReissueResponse</code>
+- <code title="post /v1/cards/{card_token}/renew">client.cards.<a href="./src/resources/cards/cards.ts">renew</a>(cardToken, { ...params }) -> CardRenewResponse</code>
 - <code title="get /v1/cards/{card_token}/spend_limits">client.cards.<a href="./src/resources/cards/cards.ts">retrieveSpendLimits</a>(cardToken) -> CardSpendLimits</code>
-- <code title="post /v1/cards/search_by_pan">client.cards.<a href="./src/resources/cards/cards.ts">searchByPan</a>({ ...params }) -> Card</code>
+- <code title="post /v1/cards/search_by_pan">client.cards.<a href="./src/resources/cards/cards.ts">searchByPan</a>({ ...params }) -> CardSearchByPanResponse</code>
 
 ## AggregateBalances
 

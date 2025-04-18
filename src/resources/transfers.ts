@@ -185,7 +185,8 @@ export namespace Transfer {
       | 'TRANSFER'
       | 'TRANSFER_INSUFFICIENT_FUNDS'
       | 'RETURNED_PAYMENT'
-      | 'RETURNED_PAYMENT_REVERSAL';
+      | 'RETURNED_PAYMENT_REVERSAL'
+      | 'LITHIC_NETWORK_PAYMENT';
   }
 }
 
