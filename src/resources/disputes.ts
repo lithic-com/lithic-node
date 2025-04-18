@@ -256,11 +256,6 @@ export interface Dispute {
   representment_date: string | null;
 
   /**
-   * Resolution amount net of network fees.
-   */
-  resolution_amount: number | null;
-
-  /**
    * Date that the dispute was resolved.
    */
   resolution_date: string | null;

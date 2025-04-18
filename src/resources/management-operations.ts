@@ -69,7 +69,12 @@ export class ManagementOperationTransactionsCursorPage extends CursorPage<Manage
 export interface ManagementOperationTransaction {
   token: string;
 
-  category: 'MANAGEMENT_FEE' | 'MANAGEMENT_DISPUTE' | 'MANAGEMENT_REWARD' | 'MANAGEMENT_ADJUSTMENT';
+  category:
+    | 'MANAGEMENT_FEE'
+    | 'MANAGEMENT_DISPUTE'
+    | 'MANAGEMENT_REWARD'
+    | 'MANAGEMENT_ADJUSTMENT'
+    | 'MANAGEMENT_DISBURSEMENT';
 
   created: string;
 
@@ -113,21 +118,25 @@ export namespace ManagementOperationTransaction {
     result: 'APPROVED' | 'DECLINED';
 
     type:
-      | 'CASH_BACK'
-      | 'CURRENCY_CONVERSION'
-      | 'INTEREST'
-      | 'LATE_PAYMENT'
-      | 'BILLING_ERROR'
-      | 'PROVISIONAL_CREDIT'
       | 'LOSS_WRITE_OFF'
+      | 'CASH_BACK'
       | 'CASH_BACK_REVERSAL'
+      | 'CURRENCY_CONVERSION'
       | 'CURRENCY_CONVERSION_REVERSAL'
+      | 'INTEREST'
       | 'INTEREST_REVERSAL'
+      | 'LATE_PAYMENT'
       | 'LATE_PAYMENT_REVERSAL'
+      | 'BILLING_ERROR'
       | 'BILLING_ERROR_REVERSAL'
+      | 'PROVISIONAL_CREDIT'
       | 'PROVISIONAL_CREDIT_REVERSAL'
       | 'RETURNED_PAYMENT'
-      | 'RETURNED_PAYMENT_REVERSAL';
+      | 'RETURNED_PAYMENT_REVERSAL'
+      | 'DISPUTE_WON'
+      | 'DISPUTE_WON_REVERSAL'
+      | 'DISBURSE'
+      | 'DISBURSE_REVERSAL';
 
     subtype?: string;
   }
@@ -144,28 +153,37 @@ export namespace ManagementOperationTransaction {
 export interface ManagementOperationCreateParams {
   amount: number;
 
-  category: 'MANAGEMENT_FEE' | 'MANAGEMENT_DISPUTE' | 'MANAGEMENT_REWARD' | 'MANAGEMENT_ADJUSTMENT';
+  category:
+    | 'MANAGEMENT_FEE'
+    | 'MANAGEMENT_DISPUTE'
+    | 'MANAGEMENT_REWARD'
+    | 'MANAGEMENT_ADJUSTMENT'
+    | 'MANAGEMENT_DISBURSEMENT';
 
   direction: 'CREDIT' | 'DEBIT';
 
   effective_date: string;
 
   event_type:
-    | 'CASH_BACK'
-    | 'CURRENCY_CONVERSION'
-    | 'INTEREST'
-    | 'LATE_PAYMENT'
-    | 'BILLING_ERROR'
-    | 'PROVISIONAL_CREDIT'
     | 'LOSS_WRITE_OFF'
+    | 'CASH_BACK'
     | 'CASH_BACK_REVERSAL'
+    | 'CURRENCY_CONVERSION'
     | 'CURRENCY_CONVERSION_REVERSAL'
+    | 'INTEREST'
     | 'INTEREST_REVERSAL'
+    | 'LATE_PAYMENT'
     | 'LATE_PAYMENT_REVERSAL'
+    | 'BILLING_ERROR'
     | 'BILLING_ERROR_REVERSAL'
+    | 'PROVISIONAL_CREDIT'
     | 'PROVISIONAL_CREDIT_REVERSAL'
     | 'RETURNED_PAYMENT'
-    | 'RETURNED_PAYMENT_REVERSAL';
+    | 'RETURNED_PAYMENT_REVERSAL'
+    | 'DISPUTE_WON'
+    | 'DISPUTE_WON_REVERSAL'
+    | 'DISBURSE'
+    | 'DISBURSE_REVERSAL';
 
   financial_account_token: string;
 
@@ -190,7 +208,12 @@ export interface ManagementOperationListParams extends CursorPageParams {
   /**
    * Management operation category to be returned.
    */
-  category?: 'MANAGEMENT_FEE' | 'MANAGEMENT_DISPUTE' | 'MANAGEMENT_REWARD' | 'MANAGEMENT_ADJUSTMENT';
+  category?:
+    | 'MANAGEMENT_FEE'
+    | 'MANAGEMENT_DISPUTE'
+    | 'MANAGEMENT_REWARD'
+    | 'MANAGEMENT_ADJUSTMENT'
+    | 'MANAGEMENT_DISBURSEMENT';
 
   /**
    * Date string in RFC 3339 format. Only entries created before the specified time

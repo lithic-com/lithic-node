@@ -144,7 +144,9 @@ export interface FinancialAccount {
     | 'OPERATING'
     | 'CHARGED_OFF_FEES'
     | 'CHARGED_OFF_INTEREST'
-    | 'CHARGED_OFF_PRINCIPAL';
+    | 'CHARGED_OFF_PRINCIPAL'
+    | 'SECURITY'
+    | 'PROGRAM_RECEIVABLES';
 
   updated: string;
 
@@ -360,7 +362,8 @@ export namespace FinancialTransaction {
       | 'TRANSFER'
       | 'TRANSFER_INSUFFICIENT_FUNDS'
       | 'RETURNED_PAYMENT'
-      | 'RETURNED_PAYMENT_REVERSAL';
+      | 'RETURNED_PAYMENT_REVERSAL'
+      | 'LITHIC_NETWORK_PAYMENT';
   }
 }
 

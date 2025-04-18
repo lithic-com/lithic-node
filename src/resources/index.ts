@@ -48,21 +48,22 @@ export {
   type BookTransferReverseParams,
 } from './book-transfers';
 export {
-  CardProgramsCursorPage,
-  CardPrograms,
-  type CardProgram,
-  type CardProgramListParams,
-} from './card-programs';
-export {
-  CardsCursorPage,
+  CardListResponsesCursorPage,
   Cards,
-  type Card,
   type CardSpendLimits,
   type SpendLimitDuration,
+  type CardCreateResponse,
+  type CardRetrieveResponse,
+  type CardUpdateResponse,
+  type CardListResponse,
+  type CardConvertPhysicalResponse,
   type CardEmbedResponse,
   type CardGetEmbedHTMLParams,
   type CardGetEmbedURLParams,
   type CardProvisionResponse,
+  type CardReissueResponse,
+  type CardRenewResponse,
+  type CardSearchByPanResponse,
   type CardCreateParams,
   type CardUpdateParams,
   type CardListParams,
@@ -73,6 +74,12 @@ export {
   type CardRenewParams,
   type CardSearchByPanParams,
 } from './cards/cards';
+export {
+  CardProgramsCursorPage,
+  CardPrograms,
+  type CardProgram,
+  type CardProgramListParams,
+} from './card-programs';
 export { CreditProducts } from './credit-products/credit-products';
 export {
   DigitalCardArtsCursorPage,

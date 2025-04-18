@@ -431,7 +431,7 @@ export interface PaymentSimulateActionParams {
 
 export interface PaymentSimulateReceiptParams {
   /**
-   * Payment token
+   * Customer-generated payment token used to uniquely identify the simulated payment
    */
   token: string;
 

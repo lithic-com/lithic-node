@@ -589,6 +589,12 @@ export namespace Transaction {
         | 'VENDING'
         | 'VOICE'
         | 'UNKNOWN';
+
+      /**
+       * Uniquely identifies a terminal at the card acceptor location of acquiring
+       * institutions or merchant POS Systems
+       */
+      acceptor_terminal_id?: string | null;
     }
   }
 
@@ -738,6 +744,8 @@ export namespace Transaction {
       | 'FINANCIAL_CREDIT_AUTHORIZATION'
       | 'RETURN'
       | 'RETURN_REVERSAL';
+
+    network_specific_data?: Event.NetworkSpecificData;
   }
 
   export namespace Event {
@@ -964,6 +972,60 @@ export namespace Transaction {
         | 'TRANSACTION_PREVIOUSLY_COMPLETED'
         | 'UNAUTHORIZED_MERCHANT'
         | 'VEHICLE_NUMBER_INVALID';
+    }
+
+    export interface NetworkSpecificData {
+      mastercard: NetworkSpecificData.Mastercard;
+
+      visa: NetworkSpecificData.Visa;
+    }
+
+    export namespace NetworkSpecificData {
+      export interface Mastercard {
+        /**
+         * Indicates the electronic commerce security level and UCAF collection.
+         */
+        ecommerce_security_level_indicator: string | null;
+
+        /**
+         * The On-behalf Service performed on the transaction and the results. Contains all
+         * applicable, on-behalf service results that were performed on a given
+         * transaction.
+         */
+        on_behalf_service_result: Array<Mastercard.OnBehalfServiceResult> | null;
+
+        /**
+         * Indicates the type of additional transaction purpose.
+         */
+        transaction_type_identifier: string | null;
+      }
+
+      export namespace Mastercard {
+        export interface OnBehalfServiceResult {
+          /**
+           * Indicates the results of the service processing.
+           */
+          result_1: string;
+
+          /**
+           * Identifies the results of the service processing.
+           */
+          result_2: string;
+
+          /**
+           * Indicates the service performed on the transaction.
+           */
+          service: string;
+        }
+      }
+
+      export interface Visa {
+        /**
+         * Identifies the purpose or category of a transaction, used to classify and
+         * process transactions according to Visa’s rules.
+         */
+        business_application_identifier: string | null;
+      }
     }
   }
 }

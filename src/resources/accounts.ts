@@ -70,8 +70,7 @@ export interface Account {
   token: string;
 
   /**
-   * Timestamp of when the account was created. For accounts created before
-   * 2023-05-11, this field will be null.
+   * Timestamp of when the account was created.
    */
   created: string | null;
 
