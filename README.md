@@ -49,7 +49,7 @@ const client = new Lithic({
 
 async function main() {
   const params: Lithic.CardCreateParams = { type: 'SINGLE_USE' };
-  const card: Lithic.CardCreateResponse = await client.cards.create(params);
+  const card: Lithic.Card = await client.cards.create(params);
 }
 
 main();
@@ -146,8 +146,8 @@ You can use the `for await … of` syntax to iterate through items across all pa
 async function fetchAllCards(params) {
   const allCards = [];
   // Automatically fetches more pages as needed.
-  for await (const cardListResponse of client.cards.list()) {
-    allCards.push(cardListResponse);
+  for await (const nonPCICard of client.cards.list()) {
+    allCards.push(nonPCICard);
   }
   return allCards;
 }
@@ -157,8 +157,8 @@ Alternatively, you can request a single page at a time:
 
 ```ts
 let page = await client.cards.list();
-for (const cardListResponse of page.data) {
-  console.log(cardListResponse);
+for (const nonPCICard of page.data) {
+  console.log(nonPCICard);
 }
 
 // Convenience methods are provided for manually paginating:
