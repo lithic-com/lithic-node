@@ -144,28 +144,22 @@ import {
 import { Transfer, TransferCreateParams, Transfers } from './resources/transfers';
 import { AuthRules } from './resources/auth-rules/auth-rules';
 import {
+  Card,
   CardConvertPhysicalParams,
-  CardConvertPhysicalResponse,
   CardCreateParams,
-  CardCreateResponse,
   CardEmbedParams,
   CardEmbedResponse,
   CardListParams,
-  CardListResponse,
-  CardListResponsesCursorPage,
   CardProvisionParams,
   CardProvisionResponse,
   CardReissueParams,
-  CardReissueResponse,
   CardRenewParams,
-  CardRenewResponse,
-  CardRetrieveResponse,
   CardSearchByPanParams,
-  CardSearchByPanResponse,
   CardSpendLimits,
   CardUpdateParams,
-  CardUpdateResponse,
   Cards,
+  NonPCICard,
+  NonPCICardsCursorPage,
   SpendLimitDuration,
 } from './resources/cards/cards';
 import { CreditProducts } from './resources/credit-products/credit-products';
@@ -465,7 +459,7 @@ Lithic.TokenizationDecisioning = TokenizationDecisioning;
 Lithic.Tokenizations = Tokenizations;
 Lithic.TokenizationsCursorPage = TokenizationsCursorPage;
 Lithic.Cards = Cards;
-Lithic.CardListResponsesCursorPage = CardListResponsesCursorPage;
+Lithic.NonPCICardsCursorPage = NonPCICardsCursorPage;
 Lithic.Balances = Balances;
 Lithic.BalancesSinglePage = BalancesSinglePage;
 Lithic.AggregateBalances = AggregateBalances;
@@ -566,19 +560,13 @@ export declare namespace Lithic {
 
   export {
     Cards as Cards,
+    type Card as Card,
     type CardSpendLimits as CardSpendLimits,
+    type NonPCICard as NonPCICard,
     type SpendLimitDuration as SpendLimitDuration,
-    type CardCreateResponse as CardCreateResponse,
-    type CardRetrieveResponse as CardRetrieveResponse,
-    type CardUpdateResponse as CardUpdateResponse,
-    type CardListResponse as CardListResponse,
-    type CardConvertPhysicalResponse as CardConvertPhysicalResponse,
     type CardEmbedResponse as CardEmbedResponse,
     type CardProvisionResponse as CardProvisionResponse,
-    type CardReissueResponse as CardReissueResponse,
-    type CardRenewResponse as CardRenewResponse,
-    type CardSearchByPanResponse as CardSearchByPanResponse,
-    CardListResponsesCursorPage as CardListResponsesCursorPage,
+    NonPCICardsCursorPage as NonPCICardsCursorPage,
     type CardCreateParams as CardCreateParams,
     type CardUpdateParams as CardUpdateParams,
     type CardListParams as CardListParams,
