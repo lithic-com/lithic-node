@@ -30,14 +30,14 @@ export class Cards extends APIResource {
    * Create a new virtual or physical card. Parameters `shipping_address` and
    * `product_id` only apply to physical cards.
    */
-  create(body: CardCreateParams, options?: Core.RequestOptions): Core.APIPromise<CardCreateResponse> {
+  create(body: CardCreateParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
     return this._client.post('/v1/cards', { body, ...options });
   }
 
   /**
    * Get card configuration such as spend limit and state.
    */
-  retrieve(cardToken: string, options?: Core.RequestOptions): Core.APIPromise<CardRetrieveResponse> {
+  retrieve(cardToken: string, options?: Core.RequestOptions): Core.APIPromise<Card> {
     return this._client.get(`/v1/cards/${cardToken}`, options);
   }
 
@@ -48,11 +48,7 @@ export class Cards extends APIResource {
    * _Note: setting a card to a `CLOSED` state is a final action that cannot be
    * undone._
    */
-  update(
-    cardToken: string,
-    body: CardUpdateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<CardUpdateResponse> {
+  update(cardToken: string, body: CardUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
     return this._client.patch(`/v1/cards/${cardToken}`, { body, ...options });
   }
 
@@ -62,16 +58,16 @@ export class Cards extends APIResource {
   list(
     query?: CardListParams,
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CardListResponsesCursorPage, CardListResponse>;
-  list(options?: Core.RequestOptions): Core.PagePromise<CardListResponsesCursorPage, CardListResponse>;
+  ): Core.PagePromise<NonPCICardsCursorPage, NonPCICard>;
+  list(options?: Core.RequestOptions): Core.PagePromise<NonPCICardsCursorPage, NonPCICard>;
   list(
     query: CardListParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.PagePromise<CardListResponsesCursorPage, CardListResponse> {
+  ): Core.PagePromise<NonPCICardsCursorPage, NonPCICard> {
     if (isRequestOptions(query)) {
       return this.list({}, query);
     }
-    return this._client.getAPIList('/v1/cards', CardListResponsesCursorPage, { query, ...options });
+    return this._client.getAPIList('/v1/cards', NonPCICardsCursorPage, { query, ...options });
   }
 
   /**
@@ -90,7 +86,7 @@ export class Cards extends APIResource {
     cardToken: string,
     body: CardConvertPhysicalParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<CardConvertPhysicalResponse> {
+  ): Core.APIPromise<Card> {
     return this._client.post(`/v1/cards/${cardToken}/convert_physical`, { body, ...options });
   }
 
@@ -214,11 +210,7 @@ export class Cards extends APIResource {
    * applies to cards of type `PHYSICAL`. A card can be replaced or renewed a total
    * of 8 times.
    */
-  reissue(
-    cardToken: string,
-    body: CardReissueParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<CardReissueResponse> {
+  reissue(cardToken: string, body: CardReissueParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
     return this._client.post(`/v1/cards/${cardToken}/reissue`, { body, ...options });
   }
 
@@ -233,11 +225,7 @@ export class Cards extends APIResource {
    * and CVC2 code. `product_id`, `shipping_method`, `shipping_address`, `carrier`
    * are only relevant for renewing `PHYSICAL` cards.
    */
-  renew(
-    cardToken: string,
-    body: CardRenewParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<CardRenewResponse> {
+  renew(cardToken: string, body: CardRenewParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
     return this._client.post(`/v1/cards/${cardToken}/renew`, { body, ...options });
   }
 
@@ -258,15 +246,29 @@ export class Cards extends APIResource {
    * `POST` endpoint because it is more secure to send sensitive data in a request
    * body than in a URL._
    */
-  searchByPan(
-    body: CardSearchByPanParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<CardSearchByPanResponse> {
+  searchByPan(body: CardSearchByPanParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
     return this._client.post('/v1/cards/search_by_pan', { body, ...options });
   }
 }
 
-export class CardListResponsesCursorPage extends CursorPage<CardListResponse> {}
+export class NonPCICardsCursorPage extends CursorPage<NonPCICard> {}
+
+/**
+ * Card details with potentially PCI sensitive information for Enterprise customers
+ */
+export interface Card extends NonPCICard {
+  /**
+   * Three digit cvv printed on the back of the card.
+   */
+  cvv?: string;
+
+  /**
+   * Primary Account Number (PAN) (i.e. the card number). Customers must be PCI
+   * compliant to have PAN returned as a field in production. Please contact
+   * support@lithic.com for questions.
+   */
+  pan?: string;
+}
 
 export interface CardSpendLimits {
   available_spend_limit: CardSpendLimits.AvailableSpendLimit;
@@ -336,6 +338,199 @@ export namespace CardSpendLimits {
 }
 
 /**
+ * Card details without PCI information
+ */
+export interface NonPCICard {
+  /**
+   * Globally unique identifier.
+   */
+  token: string;
+
+  /**
+   * Globally unique identifier for the account to which the card belongs.
+   */
+  account_token: string;
+
+  /**
+   * Globally unique identifier for the card program on which the card exists.
+   */
+  card_program_token: string;
+
+  /**
+   * An RFC 3339 timestamp for when the card was created. UTC time zone.
+   */
+  created: string;
+
+  /**
+   * Deprecated: Funding account for the card.
+   */
+  funding: NonPCICard.Funding;
+
+  /**
+   * Last four digits of the card number.
+   */
+  last_four: string;
+
+  /**
+   * Indicates if a card is blocked due a PIN status issue (e.g. excessive incorrect
+   * attempts).
+   */
+  pin_status: 'OK' | 'BLOCKED' | 'NOT_SET';
+
+  /**
+   * Amount (in cents) to limit approved authorizations (e.g. 100000 would be a
+   * $1,000 limit). Transaction requests above the spend limit will be declined.
+   */
+  spend_limit: number;
+
+  /**
+   * Spend limit duration
+   */
+  spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION' | 'DAILY';
+
+  /**
+   * Card state values: _ `CLOSED` - Card will no longer approve authorizations.
+   * Closing a card cannot be undone. _ `OPEN` - Card will approve authorizations (if
+   * they match card and account parameters). _ `PAUSED` - Card will decline
+   * authorizations, but can be resumed at a later time. _ `PENDING_FULFILLMENT` -
+   * The initial state for cards of type `PHYSICAL`. The card is provisioned pending
+   * manufacturing and fulfillment. Cards in this state can accept authorizations for
+   * e-commerce purchases, but not for "Card Present" purchases where the physical
+   * card itself is present. \* `PENDING_ACTIVATION` - At regular intervals, cards of
+   * type `PHYSICAL` in state `PENDING_FULFILLMENT` are sent to the card production
+   * warehouse and updated to state `PENDING_ACTIVATION`. Similar to
+   * `PENDING_FULFILLMENT`, cards in this state can be used for e-commerce
+   * transactions or can be added to mobile wallets. API clients should update the
+   * card's state to `OPEN` only after the cardholder confirms receipt of the card.
+   * In sandbox, the same daily batch fulfillment occurs, but no cards are actually
+   * manufactured.
+   */
+  state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT';
+
+  /**
+   * Card types: _ `VIRTUAL` - Card will authorize at any merchant and can be added
+   * to a digital wallet like Apple Pay or Google Pay (if the card program is digital
+   * wallet-enabled). _ `PHYSICAL` - Manufactured and sent to the cardholder. We
+   * offer white label branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe
+   * functionality. _ `SINGLE_USE` - Card is closed upon first successful
+   * authorization. _ `MERCHANT_LOCKED` - _[Deprecated]_ Card is locked to the first
+   * merchant that successfully authorizes the card. _ `UNLOCKED` - _[Deprecated]_
+   * Similar behavior to VIRTUAL cards, please use VIRTUAL instead. _
+   * `DIGITAL_WALLET` - _[Deprecated]_ Similar behavior to VIRTUAL cards, please use
+   * VIRTUAL instead.
+   */
+  type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET';
+
+  /**
+   * @deprecated List of identifiers for the Auth Rule(s) that are applied on the
+   * card. This field is deprecated and will no longer be populated in the `Card`
+   * object. The key will be removed from the schema in a future release. Use the
+   * `/auth_rules` endpoints to fetch Auth Rule information instead.
+   */
+  auth_rule_tokens?: Array<string>;
+
+  /**
+   * 3-character alphabetic ISO 4217 code for the currency of the cardholder.
+   */
+  cardholder_currency?: string;
+
+  /**
+   * Specifies the digital card art to be displayed in the user's digital wallet
+   * after tokenization. This artwork must be approved by Mastercard and configured
+   * by Lithic to use.
+   */
+  digital_card_art_token?: string;
+
+  /**
+   * Two digit (MM) expiry month.
+   */
+  exp_month?: string;
+
+  /**
+   * Four digit (yyyy) expiry year.
+   */
+  exp_year?: string;
+
+  /**
+   * Hostname of card's locked merchant (will be empty if not applicable).
+   */
+  hostname?: string;
+
+  /**
+   * Friendly name to identify the card.
+   */
+  memo?: string;
+
+  /**
+   * Indicates if there are offline PIN changes pending card interaction with an
+   * offline PIN terminal. Possible commands are: CHANGE_PIN, UNBLOCK_PIN. Applicable
+   * only to cards issued in markets supporting offline PINs.
+   */
+  pending_commands?: Array<string>;
+
+  /**
+   * Only applicable to cards of type `PHYSICAL`. This must be configured with Lithic
+   * before use. Specifies the configuration (i.e., physical card art) that the card
+   * should be manufactured with.
+   */
+  product_id?: string;
+
+  /**
+   * If the card is a replacement for another card, the globally unique identifier
+   * for the card that was replaced.
+   */
+  replacement_for?: string | null;
+}
+
+export namespace NonPCICard {
+  /**
+   * Deprecated: Funding account for the card.
+   */
+  export interface Funding {
+    /**
+     * A globally unique identifier for this FundingAccount.
+     */
+    token: string;
+
+    /**
+     * An RFC 3339 string representing when this funding source was added to the Lithic
+     * account. This may be `null`. UTC time zone.
+     */
+    created: string;
+
+    /**
+     * The last 4 digits of the account (e.g. bank account, debit card) associated with
+     * this FundingAccount. This may be null.
+     */
+    last_four: string;
+
+    /**
+     * State of funding source. Funding source states: _ `ENABLED` - The funding
+     * account is available to use for card creation and transactions. _ `PENDING` -
+     * The funding account is still being verified e.g. bank micro-deposits
+     * verification. \* `DELETED` - The founding account has been deleted.
+     */
+    state: 'DELETED' | 'ENABLED' | 'PENDING';
+
+    /**
+     * Types of funding source: _ `DEPOSITORY_CHECKING` - Bank checking account. _
+     * `DEPOSITORY_SAVINGS` - Bank savings account.
+     */
+    type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS';
+
+    /**
+     * Account name identifying the funding source. This may be `null`.
+     */
+    account_name?: string;
+
+    /**
+     * The nickname given to the `FundingAccount` or `null` if it has no nickname.
+     */
+    nickname?: string;
+  }
+}
+
+/**
  * Spend limit duration values:
  *
  * - `ANNUALLY` - Card will authorize transactions up to spend limit for the
@@ -351,1638 +546,10 @@ export namespace CardSpendLimits {
  */
 export type SpendLimitDuration = 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION';
 
-/**
- * Card details with potentially PCI sensitive information for Enterprise customers
- */
-export interface CardCreateResponse {
-  /**
-   * Globally unique identifier.
-   */
-  token: string;
-
-  /**
-   * Globally unique identifier for the account to which the card belongs.
-   */
-  account_token: string;
-
-  /**
-   * Globally unique identifier for the card program on which the card exists.
-   */
-  card_program_token: string;
-
-  /**
-   * An RFC 3339 timestamp for when the card was created. UTC time zone.
-   */
-  created: string;
-
-  /**
-   * Deprecated: Funding account for the card.
-   */
-  funding: CardCreateResponse.Funding;
-
-  /**
-   * Last four digits of the card number.
-   */
-  last_four: string;
-
-  /**
-   * Indicates if a card is blocked due a PIN status issue (e.g. excessive incorrect
-   * attempts).
-   */
-  pin_status: 'OK' | 'BLOCKED' | 'NOT_SET';
-
-  /**
-   * Amount (in cents) to limit approved authorizations (e.g. 100000 would be a
-   * $1,000 limit). Transaction requests above the spend limit will be declined.
-   */
-  spend_limit: number;
-
-  /**
-   * Spend limit duration
-   */
-  spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION' | 'DAILY';
-
-  /**
-   * Card state values: _ `CLOSED` - Card will no longer approve authorizations.
-   * Closing a card cannot be undone. _ `OPEN` - Card will approve authorizations (if
-   * they match card and account parameters). _ `PAUSED` - Card will decline
-   * authorizations, but can be resumed at a later time. _ `PENDING_FULFILLMENT` -
-   * The initial state for cards of type `PHYSICAL`. The card is provisioned pending
-   * manufacturing and fulfillment. Cards in this state can accept authorizations for
-   * e-commerce purchases, but not for "Card Present" purchases where the physical
-   * card itself is present. \* `PENDING_ACTIVATION` - At regular intervals, cards of
-   * type `PHYSICAL` in state `PENDING_FULFILLMENT` are sent to the card production
-   * warehouse and updated to state `PENDING_ACTIVATION`. Similar to
-   * `PENDING_FULFILLMENT`, cards in this state can be used for e-commerce
-   * transactions or can be added to mobile wallets. API clients should update the
-   * card's state to `OPEN` only after the cardholder confirms receipt of the card.
-   * In sandbox, the same daily batch fulfillment occurs, but no cards are actually
-   * manufactured.
-   */
-  state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT';
-
-  /**
-   * Card types: _ `VIRTUAL` - Card will authorize at any merchant and can be added
-   * to a digital wallet like Apple Pay or Google Pay (if the card program is digital
-   * wallet-enabled). _ `PHYSICAL` - Manufactured and sent to the cardholder. We
-   * offer white label branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe
-   * functionality. _ `SINGLE_USE` - Card is closed upon first successful
-   * authorization. _ `MERCHANT_LOCKED` - _[Deprecated]_ Card is locked to the first
-   * merchant that successfully authorizes the card. _ `UNLOCKED` - _[Deprecated]_
-   * Similar behavior to VIRTUAL cards, please use VIRTUAL instead. _
-   * `DIGITAL_WALLET` - _[Deprecated]_ Similar behavior to VIRTUAL cards, please use
-   * VIRTUAL instead.
-   */
-  type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET';
-
-  /**
-   * @deprecated List of identifiers for the Auth Rule(s) that are applied on the
-   * card. This field is deprecated and will no longer be populated in the `Card`
-   * object. The key will be removed from the schema in a future release. Use the
-   * `/auth_rules` endpoints to fetch Auth Rule information instead.
-   */
-  auth_rule_tokens?: Array<string>;
-
-  /**
-   * 3-character alphabetic ISO 4217 code for the currency of the cardholder.
-   */
-  cardholder_currency?: string;
-
-  /**
-   * Three digit cvv printed on the back of the card.
-   */
-  cvv?: string;
-
-  /**
-   * Specifies the digital card art to be displayed in the user's digital wallet
-   * after tokenization. This artwork must be approved by Mastercard and configured
-   * by Lithic to use.
-   */
-  digital_card_art_token?: string;
-
-  /**
-   * Two digit (MM) expiry month.
-   */
-  exp_month?: string;
-
-  /**
-   * Four digit (yyyy) expiry year.
-   */
-  exp_year?: string;
-
-  /**
-   * Hostname of card's locked merchant (will be empty if not applicable).
-   */
-  hostname?: string;
-
-  /**
-   * Friendly name to identify the card.
-   */
-  memo?: string;
-
-  /**
-   * Primary Account Number (PAN) (i.e. the card number). Customers must be PCI
-   * compliant to have PAN returned as a field in production. Please contact
-   * support@lithic.com for questions.
-   */
-  pan?: string;
-
-  /**
-   * Indicates if there are offline PIN changes pending card interaction with an
-   * offline PIN terminal. Possible commands are: CHANGE_PIN, UNBLOCK_PIN. Applicable
-   * only to cards issued in markets supporting offline PINs.
-   */
-  pending_commands?: Array<string>;
-
-  /**
-   * Only applicable to cards of type `PHYSICAL`. This must be configured with Lithic
-   * before use. Specifies the configuration (i.e., physical card art) that the card
-   * should be manufactured with.
-   */
-  product_id?: string;
-
-  /**
-   * If the card is a replacement for another card, the globally unique identifier
-   * for the card that was replaced.
-   */
-  replacement_for?: string | null;
-}
-
-export namespace CardCreateResponse {
-  /**
-   * Deprecated: Funding account for the card.
-   */
-  export interface Funding {
-    /**
-     * A globally unique identifier for this FundingAccount.
-     */
-    token: string;
-
-    /**
-     * An RFC 3339 string representing when this funding source was added to the Lithic
-     * account. This may be `null`. UTC time zone.
-     */
-    created: string;
-
-    /**
-     * The last 4 digits of the account (e.g. bank account, debit card) associated with
-     * this FundingAccount. This may be null.
-     */
-    last_four: string;
-
-    /**
-     * State of funding source. Funding source states: _ `ENABLED` - The funding
-     * account is available to use for card creation and transactions. _ `PENDING` -
-     * The funding account is still being verified e.g. bank micro-deposits
-     * verification. \* `DELETED` - The founding account has been deleted.
-     */
-    state: 'DELETED' | 'ENABLED' | 'PENDING';
-
-    /**
-     * Types of funding source: _ `DEPOSITORY_CHECKING` - Bank checking account. _
-     * `DEPOSITORY_SAVINGS` - Bank savings account.
-     */
-    type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS';
-
-    /**
-     * Account name identifying the funding source. This may be `null`.
-     */
-    account_name?: string;
-
-    /**
-     * The nickname given to the `FundingAccount` or `null` if it has no nickname.
-     */
-    nickname?: string;
-  }
-}
-
-/**
- * Card details with potentially PCI sensitive information for Enterprise customers
- */
-export interface CardRetrieveResponse {
-  /**
-   * Globally unique identifier.
-   */
-  token: string;
-
-  /**
-   * Globally unique identifier for the account to which the card belongs.
-   */
-  account_token: string;
-
-  /**
-   * Globally unique identifier for the card program on which the card exists.
-   */
-  card_program_token: string;
-
-  /**
-   * An RFC 3339 timestamp for when the card was created. UTC time zone.
-   */
-  created: string;
-
-  /**
-   * Deprecated: Funding account for the card.
-   */
-  funding: CardRetrieveResponse.Funding;
-
-  /**
-   * Last four digits of the card number.
-   */
-  last_four: string;
-
-  /**
-   * Indicates if a card is blocked due a PIN status issue (e.g. excessive incorrect
-   * attempts).
-   */
-  pin_status: 'OK' | 'BLOCKED' | 'NOT_SET';
-
-  /**
-   * Amount (in cents) to limit approved authorizations (e.g. 100000 would be a
-   * $1,000 limit). Transaction requests above the spend limit will be declined.
-   */
-  spend_limit: number;
-
-  /**
-   * Spend limit duration
-   */
-  spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION' | 'DAILY';
-
-  /**
-   * Card state values: _ `CLOSED` - Card will no longer approve authorizations.
-   * Closing a card cannot be undone. _ `OPEN` - Card will approve authorizations (if
-   * they match card and account parameters). _ `PAUSED` - Card will decline
-   * authorizations, but can be resumed at a later time. _ `PENDING_FULFILLMENT` -
-   * The initial state for cards of type `PHYSICAL`. The card is provisioned pending
-   * manufacturing and fulfillment. Cards in this state can accept authorizations for
-   * e-commerce purchases, but not for "Card Present" purchases where the physical
-   * card itself is present. \* `PENDING_ACTIVATION` - At regular intervals, cards of
-   * type `PHYSICAL` in state `PENDING_FULFILLMENT` are sent to the card production
-   * warehouse and updated to state `PENDING_ACTIVATION`. Similar to
-   * `PENDING_FULFILLMENT`, cards in this state can be used for e-commerce
-   * transactions or can be added to mobile wallets. API clients should update the
-   * card's state to `OPEN` only after the cardholder confirms receipt of the card.
-   * In sandbox, the same daily batch fulfillment occurs, but no cards are actually
-   * manufactured.
-   */
-  state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT';
-
-  /**
-   * Card types: _ `VIRTUAL` - Card will authorize at any merchant and can be added
-   * to a digital wallet like Apple Pay or Google Pay (if the card program is digital
-   * wallet-enabled). _ `PHYSICAL` - Manufactured and sent to the cardholder. We
-   * offer white label branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe
-   * functionality. _ `SINGLE_USE` - Card is closed upon first successful
-   * authorization. _ `MERCHANT_LOCKED` - _[Deprecated]_ Card is locked to the first
-   * merchant that successfully authorizes the card. _ `UNLOCKED` - _[Deprecated]_
-   * Similar behavior to VIRTUAL cards, please use VIRTUAL instead. _
-   * `DIGITAL_WALLET` - _[Deprecated]_ Similar behavior to VIRTUAL cards, please use
-   * VIRTUAL instead.
-   */
-  type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET';
-
-  /**
-   * @deprecated List of identifiers for the Auth Rule(s) that are applied on the
-   * card. This field is deprecated and will no longer be populated in the `Card`
-   * object. The key will be removed from the schema in a future release. Use the
-   * `/auth_rules` endpoints to fetch Auth Rule information instead.
-   */
-  auth_rule_tokens?: Array<string>;
-
-  /**
-   * 3-character alphabetic ISO 4217 code for the currency of the cardholder.
-   */
-  cardholder_currency?: string;
-
-  /**
-   * Three digit cvv printed on the back of the card.
-   */
-  cvv?: string;
-
-  /**
-   * Specifies the digital card art to be displayed in the user's digital wallet
-   * after tokenization. This artwork must be approved by Mastercard and configured
-   * by Lithic to use.
-   */
-  digital_card_art_token?: string;
-
-  /**
-   * Two digit (MM) expiry month.
-   */
-  exp_month?: string;
-
-  /**
-   * Four digit (yyyy) expiry year.
-   */
-  exp_year?: string;
-
-  /**
-   * Hostname of card's locked merchant (will be empty if not applicable).
-   */
-  hostname?: string;
-
-  /**
-   * Friendly name to identify the card.
-   */
-  memo?: string;
-
-  /**
-   * Primary Account Number (PAN) (i.e. the card number). Customers must be PCI
-   * compliant to have PAN returned as a field in production. Please contact
-   * support@lithic.com for questions.
-   */
-  pan?: string;
-
-  /**
-   * Indicates if there are offline PIN changes pending card interaction with an
-   * offline PIN terminal. Possible commands are: CHANGE_PIN, UNBLOCK_PIN. Applicable
-   * only to cards issued in markets supporting offline PINs.
-   */
-  pending_commands?: Array<string>;
-
-  /**
-   * Only applicable to cards of type `PHYSICAL`. This must be configured with Lithic
-   * before use. Specifies the configuration (i.e., physical card art) that the card
-   * should be manufactured with.
-   */
-  product_id?: string;
-
-  /**
-   * If the card is a replacement for another card, the globally unique identifier
-   * for the card that was replaced.
-   */
-  replacement_for?: string | null;
-}
-
-export namespace CardRetrieveResponse {
-  /**
-   * Deprecated: Funding account for the card.
-   */
-  export interface Funding {
-    /**
-     * A globally unique identifier for this FundingAccount.
-     */
-    token: string;
-
-    /**
-     * An RFC 3339 string representing when this funding source was added to the Lithic
-     * account. This may be `null`. UTC time zone.
-     */
-    created: string;
-
-    /**
-     * The last 4 digits of the account (e.g. bank account, debit card) associated with
-     * this FundingAccount. This may be null.
-     */
-    last_four: string;
-
-    /**
-     * State of funding source. Funding source states: _ `ENABLED` - The funding
-     * account is available to use for card creation and transactions. _ `PENDING` -
-     * The funding account is still being verified e.g. bank micro-deposits
-     * verification. \* `DELETED` - The founding account has been deleted.
-     */
-    state: 'DELETED' | 'ENABLED' | 'PENDING';
-
-    /**
-     * Types of funding source: _ `DEPOSITORY_CHECKING` - Bank checking account. _
-     * `DEPOSITORY_SAVINGS` - Bank savings account.
-     */
-    type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS';
-
-    /**
-     * Account name identifying the funding source. This may be `null`.
-     */
-    account_name?: string;
-
-    /**
-     * The nickname given to the `FundingAccount` or `null` if it has no nickname.
-     */
-    nickname?: string;
-  }
-}
-
-/**
- * Card details with potentially PCI sensitive information for Enterprise customers
- */
-export interface CardUpdateResponse {
-  /**
-   * Globally unique identifier.
-   */
-  token: string;
-
-  /**
-   * Globally unique identifier for the account to which the card belongs.
-   */
-  account_token: string;
-
-  /**
-   * Globally unique identifier for the card program on which the card exists.
-   */
-  card_program_token: string;
-
-  /**
-   * An RFC 3339 timestamp for when the card was created. UTC time zone.
-   */
-  created: string;
-
-  /**
-   * Deprecated: Funding account for the card.
-   */
-  funding: CardUpdateResponse.Funding;
-
-  /**
-   * Last four digits of the card number.
-   */
-  last_four: string;
-
-  /**
-   * Indicates if a card is blocked due a PIN status issue (e.g. excessive incorrect
-   * attempts).
-   */
-  pin_status: 'OK' | 'BLOCKED' | 'NOT_SET';
-
-  /**
-   * Amount (in cents) to limit approved authorizations (e.g. 100000 would be a
-   * $1,000 limit). Transaction requests above the spend limit will be declined.
-   */
-  spend_limit: number;
-
-  /**
-   * Spend limit duration
-   */
-  spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION' | 'DAILY';
-
-  /**
-   * Card state values: _ `CLOSED` - Card will no longer approve authorizations.
-   * Closing a card cannot be undone. _ `OPEN` - Card will approve authorizations (if
-   * they match card and account parameters). _ `PAUSED` - Card will decline
-   * authorizations, but can be resumed at a later time. _ `PENDING_FULFILLMENT` -
-   * The initial state for cards of type `PHYSICAL`. The card is provisioned pending
-   * manufacturing and fulfillment. Cards in this state can accept authorizations for
-   * e-commerce purchases, but not for "Card Present" purchases where the physical
-   * card itself is present. \* `PENDING_ACTIVATION` - At regular intervals, cards of
-   * type `PHYSICAL` in state `PENDING_FULFILLMENT` are sent to the card production
-   * warehouse and updated to state `PENDING_ACTIVATION`. Similar to
-   * `PENDING_FULFILLMENT`, cards in this state can be used for e-commerce
-   * transactions or can be added to mobile wallets. API clients should update the
-   * card's state to `OPEN` only after the cardholder confirms receipt of the card.
-   * In sandbox, the same daily batch fulfillment occurs, but no cards are actually
-   * manufactured.
-   */
-  state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT';
-
-  /**
-   * Card types: _ `VIRTUAL` - Card will authorize at any merchant and can be added
-   * to a digital wallet like Apple Pay or Google Pay (if the card program is digital
-   * wallet-enabled). _ `PHYSICAL` - Manufactured and sent to the cardholder. We
-   * offer white label branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe
-   * functionality. _ `SINGLE_USE` - Card is closed upon first successful
-   * authorization. _ `MERCHANT_LOCKED` - _[Deprecated]_ Card is locked to the first
-   * merchant that successfully authorizes the card. _ `UNLOCKED` - _[Deprecated]_
-   * Similar behavior to VIRTUAL cards, please use VIRTUAL instead. _
-   * `DIGITAL_WALLET` - _[Deprecated]_ Similar behavior to VIRTUAL cards, please use
-   * VIRTUAL instead.
-   */
-  type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET';
-
-  /**
-   * @deprecated List of identifiers for the Auth Rule(s) that are applied on the
-   * card. This field is deprecated and will no longer be populated in the `Card`
-   * object. The key will be removed from the schema in a future release. Use the
-   * `/auth_rules` endpoints to fetch Auth Rule information instead.
-   */
-  auth_rule_tokens?: Array<string>;
-
-  /**
-   * 3-character alphabetic ISO 4217 code for the currency of the cardholder.
-   */
-  cardholder_currency?: string;
-
-  /**
-   * Three digit cvv printed on the back of the card.
-   */
-  cvv?: string;
-
-  /**
-   * Specifies the digital card art to be displayed in the user's digital wallet
-   * after tokenization. This artwork must be approved by Mastercard and configured
-   * by Lithic to use.
-   */
-  digital_card_art_token?: string;
-
-  /**
-   * Two digit (MM) expiry month.
-   */
-  exp_month?: string;
-
-  /**
-   * Four digit (yyyy) expiry year.
-   */
-  exp_year?: string;
-
-  /**
-   * Hostname of card's locked merchant (will be empty if not applicable).
-   */
-  hostname?: string;
-
-  /**
-   * Friendly name to identify the card.
-   */
-  memo?: string;
-
-  /**
-   * Primary Account Number (PAN) (i.e. the card number). Customers must be PCI
-   * compliant to have PAN returned as a field in production. Please contact
-   * support@lithic.com for questions.
-   */
-  pan?: string;
-
-  /**
-   * Indicates if there are offline PIN changes pending card interaction with an
-   * offline PIN terminal. Possible commands are: CHANGE_PIN, UNBLOCK_PIN. Applicable
-   * only to cards issued in markets supporting offline PINs.
-   */
-  pending_commands?: Array<string>;
-
-  /**
-   * Only applicable to cards of type `PHYSICAL`. This must be configured with Lithic
-   * before use. Specifies the configuration (i.e., physical card art) that the card
-   * should be manufactured with.
-   */
-  product_id?: string;
-
-  /**
-   * If the card is a replacement for another card, the globally unique identifier
-   * for the card that was replaced.
-   */
-  replacement_for?: string | null;
-}
-
-export namespace CardUpdateResponse {
-  /**
-   * Deprecated: Funding account for the card.
-   */
-  export interface Funding {
-    /**
-     * A globally unique identifier for this FundingAccount.
-     */
-    token: string;
-
-    /**
-     * An RFC 3339 string representing when this funding source was added to the Lithic
-     * account. This may be `null`. UTC time zone.
-     */
-    created: string;
-
-    /**
-     * The last 4 digits of the account (e.g. bank account, debit card) associated with
-     * this FundingAccount. This may be null.
-     */
-    last_four: string;
-
-    /**
-     * State of funding source. Funding source states: _ `ENABLED` - The funding
-     * account is available to use for card creation and transactions. _ `PENDING` -
-     * The funding account is still being verified e.g. bank micro-deposits
-     * verification. \* `DELETED` - The founding account has been deleted.
-     */
-    state: 'DELETED' | 'ENABLED' | 'PENDING';
-
-    /**
-     * Types of funding source: _ `DEPOSITORY_CHECKING` - Bank checking account. _
-     * `DEPOSITORY_SAVINGS` - Bank savings account.
-     */
-    type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS';
-
-    /**
-     * Account name identifying the funding source. This may be `null`.
-     */
-    account_name?: string;
-
-    /**
-     * The nickname given to the `FundingAccount` or `null` if it has no nickname.
-     */
-    nickname?: string;
-  }
-}
-
-/**
- * Card details without PCI information
- */
-export interface CardListResponse {
-  /**
-   * Globally unique identifier.
-   */
-  token: string;
-
-  /**
-   * Globally unique identifier for the account to which the card belongs.
-   */
-  account_token: string;
-
-  /**
-   * Globally unique identifier for the card program on which the card exists.
-   */
-  card_program_token: string;
-
-  /**
-   * An RFC 3339 timestamp for when the card was created. UTC time zone.
-   */
-  created: string;
-
-  /**
-   * Deprecated: Funding account for the card.
-   */
-  funding: CardListResponse.Funding;
-
-  /**
-   * Last four digits of the card number.
-   */
-  last_four: string;
-
-  /**
-   * Indicates if a card is blocked due a PIN status issue (e.g. excessive incorrect
-   * attempts).
-   */
-  pin_status: 'OK' | 'BLOCKED' | 'NOT_SET';
-
-  /**
-   * Amount (in cents) to limit approved authorizations (e.g. 100000 would be a
-   * $1,000 limit). Transaction requests above the spend limit will be declined.
-   */
-  spend_limit: number;
-
-  /**
-   * Spend limit duration
-   */
-  spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION' | 'DAILY';
-
-  /**
-   * Card state values: _ `CLOSED` - Card will no longer approve authorizations.
-   * Closing a card cannot be undone. _ `OPEN` - Card will approve authorizations (if
-   * they match card and account parameters). _ `PAUSED` - Card will decline
-   * authorizations, but can be resumed at a later time. _ `PENDING_FULFILLMENT` -
-   * The initial state for cards of type `PHYSICAL`. The card is provisioned pending
-   * manufacturing and fulfillment. Cards in this state can accept authorizations for
-   * e-commerce purchases, but not for "Card Present" purchases where the physical
-   * card itself is present. \* `PENDING_ACTIVATION` - At regular intervals, cards of
-   * type `PHYSICAL` in state `PENDING_FULFILLMENT` are sent to the card production
-   * warehouse and updated to state `PENDING_ACTIVATION`. Similar to
-   * `PENDING_FULFILLMENT`, cards in this state can be used for e-commerce
-   * transactions or can be added to mobile wallets. API clients should update the
-   * card's state to `OPEN` only after the cardholder confirms receipt of the card.
-   * In sandbox, the same daily batch fulfillment occurs, but no cards are actually
-   * manufactured.
-   */
-  state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT';
-
-  /**
-   * Card types: _ `VIRTUAL` - Card will authorize at any merchant and can be added
-   * to a digital wallet like Apple Pay or Google Pay (if the card program is digital
-   * wallet-enabled). _ `PHYSICAL` - Manufactured and sent to the cardholder. We
-   * offer white label branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe
-   * functionality. _ `SINGLE_USE` - Card is closed upon first successful
-   * authorization. _ `MERCHANT_LOCKED` - _[Deprecated]_ Card is locked to the first
-   * merchant that successfully authorizes the card. _ `UNLOCKED` - _[Deprecated]_
-   * Similar behavior to VIRTUAL cards, please use VIRTUAL instead. _
-   * `DIGITAL_WALLET` - _[Deprecated]_ Similar behavior to VIRTUAL cards, please use
-   * VIRTUAL instead.
-   */
-  type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET';
-
-  /**
-   * @deprecated List of identifiers for the Auth Rule(s) that are applied on the
-   * card. This field is deprecated and will no longer be populated in the `Card`
-   * object. The key will be removed from the schema in a future release. Use the
-   * `/auth_rules` endpoints to fetch Auth Rule information instead.
-   */
-  auth_rule_tokens?: Array<string>;
-
-  /**
-   * 3-character alphabetic ISO 4217 code for the currency of the cardholder.
-   */
-  cardholder_currency?: string;
-
-  /**
-   * Specifies the digital card art to be displayed in the user's digital wallet
-   * after tokenization. This artwork must be approved by Mastercard and configured
-   * by Lithic to use.
-   */
-  digital_card_art_token?: string;
-
-  /**
-   * Two digit (MM) expiry month.
-   */
-  exp_month?: string;
-
-  /**
-   * Four digit (yyyy) expiry year.
-   */
-  exp_year?: string;
-
-  /**
-   * Hostname of card's locked merchant (will be empty if not applicable).
-   */
-  hostname?: string;
-
-  /**
-   * Friendly name to identify the card.
-   */
-  memo?: string;
-
-  /**
-   * Indicates if there are offline PIN changes pending card interaction with an
-   * offline PIN terminal. Possible commands are: CHANGE_PIN, UNBLOCK_PIN. Applicable
-   * only to cards issued in markets supporting offline PINs.
-   */
-  pending_commands?: Array<string>;
-
-  /**
-   * Only applicable to cards of type `PHYSICAL`. This must be configured with Lithic
-   * before use. Specifies the configuration (i.e., physical card art) that the card
-   * should be manufactured with.
-   */
-  product_id?: string;
-
-  /**
-   * If the card is a replacement for another card, the globally unique identifier
-   * for the card that was replaced.
-   */
-  replacement_for?: string | null;
-}
-
-export namespace CardListResponse {
-  /**
-   * Deprecated: Funding account for the card.
-   */
-  export interface Funding {
-    /**
-     * A globally unique identifier for this FundingAccount.
-     */
-    token: string;
-
-    /**
-     * An RFC 3339 string representing when this funding source was added to the Lithic
-     * account. This may be `null`. UTC time zone.
-     */
-    created: string;
-
-    /**
-     * The last 4 digits of the account (e.g. bank account, debit card) associated with
-     * this FundingAccount. This may be null.
-     */
-    last_four: string;
-
-    /**
-     * State of funding source. Funding source states: _ `ENABLED` - The funding
-     * account is available to use for card creation and transactions. _ `PENDING` -
-     * The funding account is still being verified e.g. bank micro-deposits
-     * verification. \* `DELETED` - The founding account has been deleted.
-     */
-    state: 'DELETED' | 'ENABLED' | 'PENDING';
-
-    /**
-     * Types of funding source: _ `DEPOSITORY_CHECKING` - Bank checking account. _
-     * `DEPOSITORY_SAVINGS` - Bank savings account.
-     */
-    type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS';
-
-    /**
-     * Account name identifying the funding source. This may be `null`.
-     */
-    account_name?: string;
-
-    /**
-     * The nickname given to the `FundingAccount` or `null` if it has no nickname.
-     */
-    nickname?: string;
-  }
-}
-
-/**
- * Card details with potentially PCI sensitive information for Enterprise customers
- */
-export interface CardConvertPhysicalResponse {
-  /**
-   * Globally unique identifier.
-   */
-  token: string;
-
-  /**
-   * Globally unique identifier for the account to which the card belongs.
-   */
-  account_token: string;
-
-  /**
-   * Globally unique identifier for the card program on which the card exists.
-   */
-  card_program_token: string;
-
-  /**
-   * An RFC 3339 timestamp for when the card was created. UTC time zone.
-   */
-  created: string;
-
-  /**
-   * Deprecated: Funding account for the card.
-   */
-  funding: CardConvertPhysicalResponse.Funding;
-
-  /**
-   * Last four digits of the card number.
-   */
-  last_four: string;
-
-  /**
-   * Indicates if a card is blocked due a PIN status issue (e.g. excessive incorrect
-   * attempts).
-   */
-  pin_status: 'OK' | 'BLOCKED' | 'NOT_SET';
-
-  /**
-   * Amount (in cents) to limit approved authorizations (e.g. 100000 would be a
-   * $1,000 limit). Transaction requests above the spend limit will be declined.
-   */
-  spend_limit: number;
-
-  /**
-   * Spend limit duration
-   */
-  spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION' | 'DAILY';
-
-  /**
-   * Card state values: _ `CLOSED` - Card will no longer approve authorizations.
-   * Closing a card cannot be undone. _ `OPEN` - Card will approve authorizations (if
-   * they match card and account parameters). _ `PAUSED` - Card will decline
-   * authorizations, but can be resumed at a later time. _ `PENDING_FULFILLMENT` -
-   * The initial state for cards of type `PHYSICAL`. The card is provisioned pending
-   * manufacturing and fulfillment. Cards in this state can accept authorizations for
-   * e-commerce purchases, but not for "Card Present" purchases where the physical
-   * card itself is present. \* `PENDING_ACTIVATION` - At regular intervals, cards of
-   * type `PHYSICAL` in state `PENDING_FULFILLMENT` are sent to the card production
-   * warehouse and updated to state `PENDING_ACTIVATION`. Similar to
-   * `PENDING_FULFILLMENT`, cards in this state can be used for e-commerce
-   * transactions or can be added to mobile wallets. API clients should update the
-   * card's state to `OPEN` only after the cardholder confirms receipt of the card.
-   * In sandbox, the same daily batch fulfillment occurs, but no cards are actually
-   * manufactured.
-   */
-  state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT';
-
-  /**
-   * Card types: _ `VIRTUAL` - Card will authorize at any merchant and can be added
-   * to a digital wallet like Apple Pay or Google Pay (if the card program is digital
-   * wallet-enabled). _ `PHYSICAL` - Manufactured and sent to the cardholder. We
-   * offer white label branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe
-   * functionality. _ `SINGLE_USE` - Card is closed upon first successful
-   * authorization. _ `MERCHANT_LOCKED` - _[Deprecated]_ Card is locked to the first
-   * merchant that successfully authorizes the card. _ `UNLOCKED` - _[Deprecated]_
-   * Similar behavior to VIRTUAL cards, please use VIRTUAL instead. _
-   * `DIGITAL_WALLET` - _[Deprecated]_ Similar behavior to VIRTUAL cards, please use
-   * VIRTUAL instead.
-   */
-  type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET';
-
-  /**
-   * @deprecated List of identifiers for the Auth Rule(s) that are applied on the
-   * card. This field is deprecated and will no longer be populated in the `Card`
-   * object. The key will be removed from the schema in a future release. Use the
-   * `/auth_rules` endpoints to fetch Auth Rule information instead.
-   */
-  auth_rule_tokens?: Array<string>;
-
-  /**
-   * 3-character alphabetic ISO 4217 code for the currency of the cardholder.
-   */
-  cardholder_currency?: string;
-
-  /**
-   * Three digit cvv printed on the back of the card.
-   */
-  cvv?: string;
-
-  /**
-   * Specifies the digital card art to be displayed in the user's digital wallet
-   * after tokenization. This artwork must be approved by Mastercard and configured
-   * by Lithic to use.
-   */
-  digital_card_art_token?: string;
-
-  /**
-   * Two digit (MM) expiry month.
-   */
-  exp_month?: string;
-
-  /**
-   * Four digit (yyyy) expiry year.
-   */
-  exp_year?: string;
-
-  /**
-   * Hostname of card's locked merchant (will be empty if not applicable).
-   */
-  hostname?: string;
-
-  /**
-   * Friendly name to identify the card.
-   */
-  memo?: string;
-
-  /**
-   * Primary Account Number (PAN) (i.e. the card number). Customers must be PCI
-   * compliant to have PAN returned as a field in production. Please contact
-   * support@lithic.com for questions.
-   */
-  pan?: string;
-
-  /**
-   * Indicates if there are offline PIN changes pending card interaction with an
-   * offline PIN terminal. Possible commands are: CHANGE_PIN, UNBLOCK_PIN. Applicable
-   * only to cards issued in markets supporting offline PINs.
-   */
-  pending_commands?: Array<string>;
-
-  /**
-   * Only applicable to cards of type `PHYSICAL`. This must be configured with Lithic
-   * before use. Specifies the configuration (i.e., physical card art) that the card
-   * should be manufactured with.
-   */
-  product_id?: string;
-
-  /**
-   * If the card is a replacement for another card, the globally unique identifier
-   * for the card that was replaced.
-   */
-  replacement_for?: string | null;
-}
-
-export namespace CardConvertPhysicalResponse {
-  /**
-   * Deprecated: Funding account for the card.
-   */
-  export interface Funding {
-    /**
-     * A globally unique identifier for this FundingAccount.
-     */
-    token: string;
-
-    /**
-     * An RFC 3339 string representing when this funding source was added to the Lithic
-     * account. This may be `null`. UTC time zone.
-     */
-    created: string;
-
-    /**
-     * The last 4 digits of the account (e.g. bank account, debit card) associated with
-     * this FundingAccount. This may be null.
-     */
-    last_four: string;
-
-    /**
-     * State of funding source. Funding source states: _ `ENABLED` - The funding
-     * account is available to use for card creation and transactions. _ `PENDING` -
-     * The funding account is still being verified e.g. bank micro-deposits
-     * verification. \* `DELETED` - The founding account has been deleted.
-     */
-    state: 'DELETED' | 'ENABLED' | 'PENDING';
-
-    /**
-     * Types of funding source: _ `DEPOSITORY_CHECKING` - Bank checking account. _
-     * `DEPOSITORY_SAVINGS` - Bank savings account.
-     */
-    type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS';
-
-    /**
-     * Account name identifying the funding source. This may be `null`.
-     */
-    account_name?: string;
-
-    /**
-     * The nickname given to the `FundingAccount` or `null` if it has no nickname.
-     */
-    nickname?: string;
-  }
-}
-
 export type CardEmbedResponse = string;
 
 export interface CardProvisionResponse {
   provisioning_payload?: string;
-}
-
-/**
- * Card details with potentially PCI sensitive information for Enterprise customers
- */
-export interface CardReissueResponse {
-  /**
-   * Globally unique identifier.
-   */
-  token: string;
-
-  /**
-   * Globally unique identifier for the account to which the card belongs.
-   */
-  account_token: string;
-
-  /**
-   * Globally unique identifier for the card program on which the card exists.
-   */
-  card_program_token: string;
-
-  /**
-   * An RFC 3339 timestamp for when the card was created. UTC time zone.
-   */
-  created: string;
-
-  /**
-   * Deprecated: Funding account for the card.
-   */
-  funding: CardReissueResponse.Funding;
-
-  /**
-   * Last four digits of the card number.
-   */
-  last_four: string;
-
-  /**
-   * Indicates if a card is blocked due a PIN status issue (e.g. excessive incorrect
-   * attempts).
-   */
-  pin_status: 'OK' | 'BLOCKED' | 'NOT_SET';
-
-  /**
-   * Amount (in cents) to limit approved authorizations (e.g. 100000 would be a
-   * $1,000 limit). Transaction requests above the spend limit will be declined.
-   */
-  spend_limit: number;
-
-  /**
-   * Spend limit duration
-   */
-  spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION' | 'DAILY';
-
-  /**
-   * Card state values: _ `CLOSED` - Card will no longer approve authorizations.
-   * Closing a card cannot be undone. _ `OPEN` - Card will approve authorizations (if
-   * they match card and account parameters). _ `PAUSED` - Card will decline
-   * authorizations, but can be resumed at a later time. _ `PENDING_FULFILLMENT` -
-   * The initial state for cards of type `PHYSICAL`. The card is provisioned pending
-   * manufacturing and fulfillment. Cards in this state can accept authorizations for
-   * e-commerce purchases, but not for "Card Present" purchases where the physical
-   * card itself is present. \* `PENDING_ACTIVATION` - At regular intervals, cards of
-   * type `PHYSICAL` in state `PENDING_FULFILLMENT` are sent to the card production
-   * warehouse and updated to state `PENDING_ACTIVATION`. Similar to
-   * `PENDING_FULFILLMENT`, cards in this state can be used for e-commerce
-   * transactions or can be added to mobile wallets. API clients should update the
-   * card's state to `OPEN` only after the cardholder confirms receipt of the card.
-   * In sandbox, the same daily batch fulfillment occurs, but no cards are actually
-   * manufactured.
-   */
-  state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT';
-
-  /**
-   * Card types: _ `VIRTUAL` - Card will authorize at any merchant and can be added
-   * to a digital wallet like Apple Pay or Google Pay (if the card program is digital
-   * wallet-enabled). _ `PHYSICAL` - Manufactured and sent to the cardholder. We
-   * offer white label branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe
-   * functionality. _ `SINGLE_USE` - Card is closed upon first successful
-   * authorization. _ `MERCHANT_LOCKED` - _[Deprecated]_ Card is locked to the first
-   * merchant that successfully authorizes the card. _ `UNLOCKED` - _[Deprecated]_
-   * Similar behavior to VIRTUAL cards, please use VIRTUAL instead. _
-   * `DIGITAL_WALLET` - _[Deprecated]_ Similar behavior to VIRTUAL cards, please use
-   * VIRTUAL instead.
-   */
-  type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET';
-
-  /**
-   * @deprecated List of identifiers for the Auth Rule(s) that are applied on the
-   * card. This field is deprecated and will no longer be populated in the `Card`
-   * object. The key will be removed from the schema in a future release. Use the
-   * `/auth_rules` endpoints to fetch Auth Rule information instead.
-   */
-  auth_rule_tokens?: Array<string>;
-
-  /**
-   * 3-character alphabetic ISO 4217 code for the currency of the cardholder.
-   */
-  cardholder_currency?: string;
-
-  /**
-   * Three digit cvv printed on the back of the card.
-   */
-  cvv?: string;
-
-  /**
-   * Specifies the digital card art to be displayed in the user's digital wallet
-   * after tokenization. This artwork must be approved by Mastercard and configured
-   * by Lithic to use.
-   */
-  digital_card_art_token?: string;
-
-  /**
-   * Two digit (MM) expiry month.
-   */
-  exp_month?: string;
-
-  /**
-   * Four digit (yyyy) expiry year.
-   */
-  exp_year?: string;
-
-  /**
-   * Hostname of card's locked merchant (will be empty if not applicable).
-   */
-  hostname?: string;
-
-  /**
-   * Friendly name to identify the card.
-   */
-  memo?: string;
-
-  /**
-   * Primary Account Number (PAN) (i.e. the card number). Customers must be PCI
-   * compliant to have PAN returned as a field in production. Please contact
-   * support@lithic.com for questions.
-   */
-  pan?: string;
-
-  /**
-   * Indicates if there are offline PIN changes pending card interaction with an
-   * offline PIN terminal. Possible commands are: CHANGE_PIN, UNBLOCK_PIN. Applicable
-   * only to cards issued in markets supporting offline PINs.
-   */
-  pending_commands?: Array<string>;
-
-  /**
-   * Only applicable to cards of type `PHYSICAL`. This must be configured with Lithic
-   * before use. Specifies the configuration (i.e., physical card art) that the card
-   * should be manufactured with.
-   */
-  product_id?: string;
-
-  /**
-   * If the card is a replacement for another card, the globally unique identifier
-   * for the card that was replaced.
-   */
-  replacement_for?: string | null;
-}
-
-export namespace CardReissueResponse {
-  /**
-   * Deprecated: Funding account for the card.
-   */
-  export interface Funding {
-    /**
-     * A globally unique identifier for this FundingAccount.
-     */
-    token: string;
-
-    /**
-     * An RFC 3339 string representing when this funding source was added to the Lithic
-     * account. This may be `null`. UTC time zone.
-     */
-    created: string;
-
-    /**
-     * The last 4 digits of the account (e.g. bank account, debit card) associated with
-     * this FundingAccount. This may be null.
-     */
-    last_four: string;
-
-    /**
-     * State of funding source. Funding source states: _ `ENABLED` - The funding
-     * account is available to use for card creation and transactions. _ `PENDING` -
-     * The funding account is still being verified e.g. bank micro-deposits
-     * verification. \* `DELETED` - The founding account has been deleted.
-     */
-    state: 'DELETED' | 'ENABLED' | 'PENDING';
-
-    /**
-     * Types of funding source: _ `DEPOSITORY_CHECKING` - Bank checking account. _
-     * `DEPOSITORY_SAVINGS` - Bank savings account.
-     */
-    type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS';
-
-    /**
-     * Account name identifying the funding source. This may be `null`.
-     */
-    account_name?: string;
-
-    /**
-     * The nickname given to the `FundingAccount` or `null` if it has no nickname.
-     */
-    nickname?: string;
-  }
-}
-
-/**
- * Card details with potentially PCI sensitive information for Enterprise customers
- */
-export interface CardRenewResponse {
-  /**
-   * Globally unique identifier.
-   */
-  token: string;
-
-  /**
-   * Globally unique identifier for the account to which the card belongs.
-   */
-  account_token: string;
-
-  /**
-   * Globally unique identifier for the card program on which the card exists.
-   */
-  card_program_token: string;
-
-  /**
-   * An RFC 3339 timestamp for when the card was created. UTC time zone.
-   */
-  created: string;
-
-  /**
-   * Deprecated: Funding account for the card.
-   */
-  funding: CardRenewResponse.Funding;
-
-  /**
-   * Last four digits of the card number.
-   */
-  last_four: string;
-
-  /**
-   * Indicates if a card is blocked due a PIN status issue (e.g. excessive incorrect
-   * attempts).
-   */
-  pin_status: 'OK' | 'BLOCKED' | 'NOT_SET';
-
-  /**
-   * Amount (in cents) to limit approved authorizations (e.g. 100000 would be a
-   * $1,000 limit). Transaction requests above the spend limit will be declined.
-   */
-  spend_limit: number;
-
-  /**
-   * Spend limit duration
-   */
-  spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION' | 'DAILY';
-
-  /**
-   * Card state values: _ `CLOSED` - Card will no longer approve authorizations.
-   * Closing a card cannot be undone. _ `OPEN` - Card will approve authorizations (if
-   * they match card and account parameters). _ `PAUSED` - Card will decline
-   * authorizations, but can be resumed at a later time. _ `PENDING_FULFILLMENT` -
-   * The initial state for cards of type `PHYSICAL`. The card is provisioned pending
-   * manufacturing and fulfillment. Cards in this state can accept authorizations for
-   * e-commerce purchases, but not for "Card Present" purchases where the physical
-   * card itself is present. \* `PENDING_ACTIVATION` - At regular intervals, cards of
-   * type `PHYSICAL` in state `PENDING_FULFILLMENT` are sent to the card production
-   * warehouse and updated to state `PENDING_ACTIVATION`. Similar to
-   * `PENDING_FULFILLMENT`, cards in this state can be used for e-commerce
-   * transactions or can be added to mobile wallets. API clients should update the
-   * card's state to `OPEN` only after the cardholder confirms receipt of the card.
-   * In sandbox, the same daily batch fulfillment occurs, but no cards are actually
-   * manufactured.
-   */
-  state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT';
-
-  /**
-   * Card types: _ `VIRTUAL` - Card will authorize at any merchant and can be added
-   * to a digital wallet like Apple Pay or Google Pay (if the card program is digital
-   * wallet-enabled). _ `PHYSICAL` - Manufactured and sent to the cardholder. We
-   * offer white label branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe
-   * functionality. _ `SINGLE_USE` - Card is closed upon first successful
-   * authorization. _ `MERCHANT_LOCKED` - _[Deprecated]_ Card is locked to the first
-   * merchant that successfully authorizes the card. _ `UNLOCKED` - _[Deprecated]_
-   * Similar behavior to VIRTUAL cards, please use VIRTUAL instead. _
-   * `DIGITAL_WALLET` - _[Deprecated]_ Similar behavior to VIRTUAL cards, please use
-   * VIRTUAL instead.
-   */
-  type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET';
-
-  /**
-   * @deprecated List of identifiers for the Auth Rule(s) that are applied on the
-   * card. This field is deprecated and will no longer be populated in the `Card`
-   * object. The key will be removed from the schema in a future release. Use the
-   * `/auth_rules` endpoints to fetch Auth Rule information instead.
-   */
-  auth_rule_tokens?: Array<string>;
-
-  /**
-   * 3-character alphabetic ISO 4217 code for the currency of the cardholder.
-   */
-  cardholder_currency?: string;
-
-  /**
-   * Three digit cvv printed on the back of the card.
-   */
-  cvv?: string;
-
-  /**
-   * Specifies the digital card art to be displayed in the user's digital wallet
-   * after tokenization. This artwork must be approved by Mastercard and configured
-   * by Lithic to use.
-   */
-  digital_card_art_token?: string;
-
-  /**
-   * Two digit (MM) expiry month.
-   */
-  exp_month?: string;
-
-  /**
-   * Four digit (yyyy) expiry year.
-   */
-  exp_year?: string;
-
-  /**
-   * Hostname of card's locked merchant (will be empty if not applicable).
-   */
-  hostname?: string;
-
-  /**
-   * Friendly name to identify the card.
-   */
-  memo?: string;
-
-  /**
-   * Primary Account Number (PAN) (i.e. the card number). Customers must be PCI
-   * compliant to have PAN returned as a field in production. Please contact
-   * support@lithic.com for questions.
-   */
-  pan?: string;
-
-  /**
-   * Indicates if there are offline PIN changes pending card interaction with an
-   * offline PIN terminal. Possible commands are: CHANGE_PIN, UNBLOCK_PIN. Applicable
-   * only to cards issued in markets supporting offline PINs.
-   */
-  pending_commands?: Array<string>;
-
-  /**
-   * Only applicable to cards of type `PHYSICAL`. This must be configured with Lithic
-   * before use. Specifies the configuration (i.e., physical card art) that the card
-   * should be manufactured with.
-   */
-  product_id?: string;
-
-  /**
-   * If the card is a replacement for another card, the globally unique identifier
-   * for the card that was replaced.
-   */
-  replacement_for?: string | null;
-}
-
-export namespace CardRenewResponse {
-  /**
-   * Deprecated: Funding account for the card.
-   */
-  export interface Funding {
-    /**
-     * A globally unique identifier for this FundingAccount.
-     */
-    token: string;
-
-    /**
-     * An RFC 3339 string representing when this funding source was added to the Lithic
-     * account. This may be `null`. UTC time zone.
-     */
-    created: string;
-
-    /**
-     * The last 4 digits of the account (e.g. bank account, debit card) associated with
-     * this FundingAccount. This may be null.
-     */
-    last_four: string;
-
-    /**
-     * State of funding source. Funding source states: _ `ENABLED` - The funding
-     * account is available to use for card creation and transactions. _ `PENDING` -
-     * The funding account is still being verified e.g. bank micro-deposits
-     * verification. \* `DELETED` - The founding account has been deleted.
-     */
-    state: 'DELETED' | 'ENABLED' | 'PENDING';
-
-    /**
-     * Types of funding source: _ `DEPOSITORY_CHECKING` - Bank checking account. _
-     * `DEPOSITORY_SAVINGS` - Bank savings account.
-     */
-    type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS';
-
-    /**
-     * Account name identifying the funding source. This may be `null`.
-     */
-    account_name?: string;
-
-    /**
-     * The nickname given to the `FundingAccount` or `null` if it has no nickname.
-     */
-    nickname?: string;
-  }
-}
-
-/**
- * Card details with potentially PCI sensitive information for Enterprise customers
- */
-export interface CardSearchByPanResponse {
-  /**
-   * Globally unique identifier.
-   */
-  token: string;
-
-  /**
-   * Globally unique identifier for the account to which the card belongs.
-   */
-  account_token: string;
-
-  /**
-   * Globally unique identifier for the card program on which the card exists.
-   */
-  card_program_token: string;
-
-  /**
-   * An RFC 3339 timestamp for when the card was created. UTC time zone.
-   */
-  created: string;
-
-  /**
-   * Deprecated: Funding account for the card.
-   */
-  funding: CardSearchByPanResponse.Funding;
-
-  /**
-   * Last four digits of the card number.
-   */
-  last_four: string;
-
-  /**
-   * Indicates if a card is blocked due a PIN status issue (e.g. excessive incorrect
-   * attempts).
-   */
-  pin_status: 'OK' | 'BLOCKED' | 'NOT_SET';
-
-  /**
-   * Amount (in cents) to limit approved authorizations (e.g. 100000 would be a
-   * $1,000 limit). Transaction requests above the spend limit will be declined.
-   */
-  spend_limit: number;
-
-  /**
-   * Spend limit duration
-   */
-  spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION' | 'DAILY';
-
-  /**
-   * Card state values: _ `CLOSED` - Card will no longer approve authorizations.
-   * Closing a card cannot be undone. _ `OPEN` - Card will approve authorizations (if
-   * they match card and account parameters). _ `PAUSED` - Card will decline
-   * authorizations, but can be resumed at a later time. _ `PENDING_FULFILLMENT` -
-   * The initial state for cards of type `PHYSICAL`. The card is provisioned pending
-   * manufacturing and fulfillment. Cards in this state can accept authorizations for
-   * e-commerce purchases, but not for "Card Present" purchases where the physical
-   * card itself is present. \* `PENDING_ACTIVATION` - At regular intervals, cards of
-   * type `PHYSICAL` in state `PENDING_FULFILLMENT` are sent to the card production
-   * warehouse and updated to state `PENDING_ACTIVATION`. Similar to
-   * `PENDING_FULFILLMENT`, cards in this state can be used for e-commerce
-   * transactions or can be added to mobile wallets. API clients should update the
-   * card's state to `OPEN` only after the cardholder confirms receipt of the card.
-   * In sandbox, the same daily batch fulfillment occurs, but no cards are actually
-   * manufactured.
-   */
-  state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT';
-
-  /**
-   * Card types: _ `VIRTUAL` - Card will authorize at any merchant and can be added
-   * to a digital wallet like Apple Pay or Google Pay (if the card program is digital
-   * wallet-enabled). _ `PHYSICAL` - Manufactured and sent to the cardholder. We
-   * offer white label branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe
-   * functionality. _ `SINGLE_USE` - Card is closed upon first successful
-   * authorization. _ `MERCHANT_LOCKED` - _[Deprecated]_ Card is locked to the first
-   * merchant that successfully authorizes the card. _ `UNLOCKED` - _[Deprecated]_
-   * Similar behavior to VIRTUAL cards, please use VIRTUAL instead. _
-   * `DIGITAL_WALLET` - _[Deprecated]_ Similar behavior to VIRTUAL cards, please use
-   * VIRTUAL instead.
-   */
-  type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET';
-
-  /**
-   * @deprecated List of identifiers for the Auth Rule(s) that are applied on the
-   * card. This field is deprecated and will no longer be populated in the `Card`
-   * object. The key will be removed from the schema in a future release. Use the
-   * `/auth_rules` endpoints to fetch Auth Rule information instead.
-   */
-  auth_rule_tokens?: Array<string>;
-
-  /**
-   * 3-character alphabetic ISO 4217 code for the currency of the cardholder.
-   */
-  cardholder_currency?: string;
-
-  /**
-   * Three digit cvv printed on the back of the card.
-   */
-  cvv?: string;
-
-  /**
-   * Specifies the digital card art to be displayed in the user's digital wallet
-   * after tokenization. This artwork must be approved by Mastercard and configured
-   * by Lithic to use.
-   */
-  digital_card_art_token?: string;
-
-  /**
-   * Two digit (MM) expiry month.
-   */
-  exp_month?: string;
-
-  /**
-   * Four digit (yyyy) expiry year.
-   */
-  exp_year?: string;
-
-  /**
-   * Hostname of card's locked merchant (will be empty if not applicable).
-   */
-  hostname?: string;
-
-  /**
-   * Friendly name to identify the card.
-   */
-  memo?: string;
-
-  /**
-   * Primary Account Number (PAN) (i.e. the card number). Customers must be PCI
-   * compliant to have PAN returned as a field in production. Please contact
-   * support@lithic.com for questions.
-   */
-  pan?: string;
-
-  /**
-   * Indicates if there are offline PIN changes pending card interaction with an
-   * offline PIN terminal. Possible commands are: CHANGE_PIN, UNBLOCK_PIN. Applicable
-   * only to cards issued in markets supporting offline PINs.
-   */
-  pending_commands?: Array<string>;
-
-  /**
-   * Only applicable to cards of type `PHYSICAL`. This must be configured with Lithic
-   * before use. Specifies the configuration (i.e., physical card art) that the card
-   * should be manufactured with.
-   */
-  product_id?: string;
-
-  /**
-   * If the card is a replacement for another card, the globally unique identifier
-   * for the card that was replaced.
-   */
-  replacement_for?: string | null;
-}
-
-export namespace CardSearchByPanResponse {
-  /**
-   * Deprecated: Funding account for the card.
-   */
-  export interface Funding {
-    /**
-     * A globally unique identifier for this FundingAccount.
-     */
-    token: string;
-
-    /**
-     * An RFC 3339 string representing when this funding source was added to the Lithic
-     * account. This may be `null`. UTC time zone.
-     */
-    created: string;
-
-    /**
-     * The last 4 digits of the account (e.g. bank account, debit card) associated with
-     * this FundingAccount. This may be null.
-     */
-    last_four: string;
-
-    /**
-     * State of funding source. Funding source states: _ `ENABLED` - The funding
-     * account is available to use for card creation and transactions. _ `PENDING` -
-     * The funding account is still being verified e.g. bank micro-deposits
-     * verification. \* `DELETED` - The founding account has been deleted.
-     */
-    state: 'DELETED' | 'ENABLED' | 'PENDING';
-
-    /**
-     * Types of funding source: _ `DEPOSITORY_CHECKING` - Bank checking account. _
-     * `DEPOSITORY_SAVINGS` - Bank savings account.
-     */
-    type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS';
-
-    /**
-     * Account name identifying the funding source. This may be `null`.
-     */
-    account_name?: string;
-
-    /**
-     * The nickname given to the `FundingAccount` or `null` if it has no nickname.
-     */
-    nickname?: string;
-  }
 }
 
 export interface CardCreateParams {
@@ -2471,7 +1038,7 @@ export interface CardSearchByPanParams {
   pan: string;
 }
 
-Cards.CardListResponsesCursorPage = CardListResponsesCursorPage;
+Cards.NonPCICardsCursorPage = NonPCICardsCursorPage;
 Cards.AggregateBalances = AggregateBalances;
 Cards.AggregateBalanceListResponsesSinglePage = AggregateBalanceListResponsesSinglePage;
 Cards.Balances = Balances;
@@ -2480,19 +1047,13 @@ Cards.FinancialTransactions = FinancialTransactions;
 
 export declare namespace Cards {
   export {
+    type Card as Card,
     type CardSpendLimits as CardSpendLimits,
+    type NonPCICard as NonPCICard,
     type SpendLimitDuration as SpendLimitDuration,
-    type CardCreateResponse as CardCreateResponse,
-    type CardRetrieveResponse as CardRetrieveResponse,
-    type CardUpdateResponse as CardUpdateResponse,
-    type CardListResponse as CardListResponse,
-    type CardConvertPhysicalResponse as CardConvertPhysicalResponse,
     type CardEmbedResponse as CardEmbedResponse,
     type CardProvisionResponse as CardProvisionResponse,
-    type CardReissueResponse as CardReissueResponse,
-    type CardRenewResponse as CardRenewResponse,
-    type CardSearchByPanResponse as CardSearchByPanResponse,
-    CardListResponsesCursorPage as CardListResponsesCursorPage,
+    NonPCICardsCursorPage as NonPCICardsCursorPage,
     type CardCreateParams as CardCreateParams,
     type CardUpdateParams as CardUpdateParams,
     type CardListParams as CardListParams,
