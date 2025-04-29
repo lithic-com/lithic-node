@@ -146,7 +146,7 @@ export class Cards extends APIResource {
    * Initiate print and shipment of a duplicate physical card (e.g. card is
    * physically damaged). The PAN, expiry, and CVC2 will remain the same and the
    * original card can continue to be used until the new card is activated. Only
-   * applies to cards of type `PHYSICAL`. A card can be replaced or renewed a total
+   * applies to cards of type `PHYSICAL`. A card can be reissued or renewed a total
    * of 8 times.
    */
   reissue(cardToken: string, body: CardReissueParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
@@ -159,7 +159,7 @@ export class Cards extends APIResource {
    * original card will keep working for card-present transactions until the new card
    * is activated. For card-not-present transactions, the original card details
    * (expiry, CVC2) will also keep working until the new card is activated. A
-   * `PHYSICAL` card can be replaced or renewed a total of 8 times. For `VIRTUAL`,
+   * `PHYSICAL` card can be reissued or renewed a total of 8 times. For `VIRTUAL`,
    * the card will retain the same card token and PAN and receive an updated expiry
    * and CVC2 code. `product_id`, `shipping_method`, `shipping_address`, `carrier`
    * are only relevant for renewing `PHYSICAL` cards.

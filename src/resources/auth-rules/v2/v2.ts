@@ -461,7 +461,7 @@ export interface V2CreateResponse {
   /**
    * The type of Auth Rule
    */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT';
+  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK';
 
   /**
    * Card tokens to which the Auth Rule does not apply.
@@ -474,7 +474,10 @@ export namespace V2CreateResponse {
     /**
      * Parameters for the Auth Rule
      */
-    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
+    parameters:
+      | V2API.ConditionalBlockParameters
+      | V2API.VelocityLimitParams
+      | CurrentVersion.MerchantLockParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
@@ -483,17 +486,98 @@ export namespace V2CreateResponse {
     version: number;
   }
 
+  export namespace CurrentVersion {
+    export interface MerchantLockParameters {
+      /**
+       * A list of merchant locks defining specific merchants or groups of merchants
+       * (based on descriptors or IDs) that the lock applies to.
+       */
+      merchants: Array<MerchantLockParameters.Merchant>;
+    }
+
+    export namespace MerchantLockParameters {
+      /**
+       * Represents a specific merchant lock based on their ID or descriptor. Each
+       * merchant object allows transaction rules to work at a granular level and
+       * requires at least one of merchant_id or descriptor.
+       */
+      export interface Merchant {
+        /**
+         * A comment or explanation about the merchant, used internally for rule management
+         * purposes.
+         */
+        comment?: string;
+
+        /**
+         * Short description of the merchant, often used to provide more human-readable
+         * context about the transaction merchant. This is typically the name or label
+         * shown on transaction summaries.
+         */
+        descriptor?: string;
+
+        /**
+         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
+         * attribute specifies the merchant entity that will be locked or referenced for
+         * authorization rules.
+         */
+        merchant_id?: string;
+      }
+    }
+  }
+
   export interface DraftVersion {
     /**
      * Parameters for the Auth Rule
      */
-    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
+    parameters:
+      | V2API.ConditionalBlockParameters
+      | V2API.VelocityLimitParams
+      | DraftVersion.MerchantLockParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
+  }
+
+  export namespace DraftVersion {
+    export interface MerchantLockParameters {
+      /**
+       * A list of merchant locks defining specific merchants or groups of merchants
+       * (based on descriptors or IDs) that the lock applies to.
+       */
+      merchants: Array<MerchantLockParameters.Merchant>;
+    }
+
+    export namespace MerchantLockParameters {
+      /**
+       * Represents a specific merchant lock based on their ID or descriptor. Each
+       * merchant object allows transaction rules to work at a granular level and
+       * requires at least one of merchant_id or descriptor.
+       */
+      export interface Merchant {
+        /**
+         * A comment or explanation about the merchant, used internally for rule management
+         * purposes.
+         */
+        comment?: string;
+
+        /**
+         * Short description of the merchant, often used to provide more human-readable
+         * context about the transaction merchant. This is typically the name or label
+         * shown on transaction summaries.
+         */
+        descriptor?: string;
+
+        /**
+         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
+         * attribute specifies the merchant entity that will be locked or referenced for
+         * authorization rules.
+         */
+        merchant_id?: string;
+      }
+    }
   }
 }
 
@@ -535,7 +619,7 @@ export interface V2RetrieveResponse {
   /**
    * The type of Auth Rule
    */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT';
+  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK';
 
   /**
    * Card tokens to which the Auth Rule does not apply.
@@ -548,7 +632,10 @@ export namespace V2RetrieveResponse {
     /**
      * Parameters for the Auth Rule
      */
-    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
+    parameters:
+      | V2API.ConditionalBlockParameters
+      | V2API.VelocityLimitParams
+      | CurrentVersion.MerchantLockParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
@@ -557,17 +644,98 @@ export namespace V2RetrieveResponse {
     version: number;
   }
 
+  export namespace CurrentVersion {
+    export interface MerchantLockParameters {
+      /**
+       * A list of merchant locks defining specific merchants or groups of merchants
+       * (based on descriptors or IDs) that the lock applies to.
+       */
+      merchants: Array<MerchantLockParameters.Merchant>;
+    }
+
+    export namespace MerchantLockParameters {
+      /**
+       * Represents a specific merchant lock based on their ID or descriptor. Each
+       * merchant object allows transaction rules to work at a granular level and
+       * requires at least one of merchant_id or descriptor.
+       */
+      export interface Merchant {
+        /**
+         * A comment or explanation about the merchant, used internally for rule management
+         * purposes.
+         */
+        comment?: string;
+
+        /**
+         * Short description of the merchant, often used to provide more human-readable
+         * context about the transaction merchant. This is typically the name or label
+         * shown on transaction summaries.
+         */
+        descriptor?: string;
+
+        /**
+         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
+         * attribute specifies the merchant entity that will be locked or referenced for
+         * authorization rules.
+         */
+        merchant_id?: string;
+      }
+    }
+  }
+
   export interface DraftVersion {
     /**
      * Parameters for the Auth Rule
      */
-    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
+    parameters:
+      | V2API.ConditionalBlockParameters
+      | V2API.VelocityLimitParams
+      | DraftVersion.MerchantLockParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
+  }
+
+  export namespace DraftVersion {
+    export interface MerchantLockParameters {
+      /**
+       * A list of merchant locks defining specific merchants or groups of merchants
+       * (based on descriptors or IDs) that the lock applies to.
+       */
+      merchants: Array<MerchantLockParameters.Merchant>;
+    }
+
+    export namespace MerchantLockParameters {
+      /**
+       * Represents a specific merchant lock based on their ID or descriptor. Each
+       * merchant object allows transaction rules to work at a granular level and
+       * requires at least one of merchant_id or descriptor.
+       */
+      export interface Merchant {
+        /**
+         * A comment or explanation about the merchant, used internally for rule management
+         * purposes.
+         */
+        comment?: string;
+
+        /**
+         * Short description of the merchant, often used to provide more human-readable
+         * context about the transaction merchant. This is typically the name or label
+         * shown on transaction summaries.
+         */
+        descriptor?: string;
+
+        /**
+         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
+         * attribute specifies the merchant entity that will be locked or referenced for
+         * authorization rules.
+         */
+        merchant_id?: string;
+      }
+    }
   }
 }
 
@@ -609,7 +777,7 @@ export interface V2UpdateResponse {
   /**
    * The type of Auth Rule
    */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT';
+  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK';
 
   /**
    * Card tokens to which the Auth Rule does not apply.
@@ -622,7 +790,10 @@ export namespace V2UpdateResponse {
     /**
      * Parameters for the Auth Rule
      */
-    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
+    parameters:
+      | V2API.ConditionalBlockParameters
+      | V2API.VelocityLimitParams
+      | CurrentVersion.MerchantLockParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
@@ -631,17 +802,98 @@ export namespace V2UpdateResponse {
     version: number;
   }
 
+  export namespace CurrentVersion {
+    export interface MerchantLockParameters {
+      /**
+       * A list of merchant locks defining specific merchants or groups of merchants
+       * (based on descriptors or IDs) that the lock applies to.
+       */
+      merchants: Array<MerchantLockParameters.Merchant>;
+    }
+
+    export namespace MerchantLockParameters {
+      /**
+       * Represents a specific merchant lock based on their ID or descriptor. Each
+       * merchant object allows transaction rules to work at a granular level and
+       * requires at least one of merchant_id or descriptor.
+       */
+      export interface Merchant {
+        /**
+         * A comment or explanation about the merchant, used internally for rule management
+         * purposes.
+         */
+        comment?: string;
+
+        /**
+         * Short description of the merchant, often used to provide more human-readable
+         * context about the transaction merchant. This is typically the name or label
+         * shown on transaction summaries.
+         */
+        descriptor?: string;
+
+        /**
+         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
+         * attribute specifies the merchant entity that will be locked or referenced for
+         * authorization rules.
+         */
+        merchant_id?: string;
+      }
+    }
+  }
+
   export interface DraftVersion {
     /**
      * Parameters for the Auth Rule
      */
-    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
+    parameters:
+      | V2API.ConditionalBlockParameters
+      | V2API.VelocityLimitParams
+      | DraftVersion.MerchantLockParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
+  }
+
+  export namespace DraftVersion {
+    export interface MerchantLockParameters {
+      /**
+       * A list of merchant locks defining specific merchants or groups of merchants
+       * (based on descriptors or IDs) that the lock applies to.
+       */
+      merchants: Array<MerchantLockParameters.Merchant>;
+    }
+
+    export namespace MerchantLockParameters {
+      /**
+       * Represents a specific merchant lock based on their ID or descriptor. Each
+       * merchant object allows transaction rules to work at a granular level and
+       * requires at least one of merchant_id or descriptor.
+       */
+      export interface Merchant {
+        /**
+         * A comment or explanation about the merchant, used internally for rule management
+         * purposes.
+         */
+        comment?: string;
+
+        /**
+         * Short description of the merchant, often used to provide more human-readable
+         * context about the transaction merchant. This is typically the name or label
+         * shown on transaction summaries.
+         */
+        descriptor?: string;
+
+        /**
+         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
+         * attribute specifies the merchant entity that will be locked or referenced for
+         * authorization rules.
+         */
+        merchant_id?: string;
+      }
+    }
   }
 }
 
@@ -683,7 +935,7 @@ export interface V2ListResponse {
   /**
    * The type of Auth Rule
    */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT';
+  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK';
 
   /**
    * Card tokens to which the Auth Rule does not apply.
@@ -696,7 +948,10 @@ export namespace V2ListResponse {
     /**
      * Parameters for the Auth Rule
      */
-    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
+    parameters:
+      | V2API.ConditionalBlockParameters
+      | V2API.VelocityLimitParams
+      | CurrentVersion.MerchantLockParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
@@ -705,17 +960,98 @@ export namespace V2ListResponse {
     version: number;
   }
 
+  export namespace CurrentVersion {
+    export interface MerchantLockParameters {
+      /**
+       * A list of merchant locks defining specific merchants or groups of merchants
+       * (based on descriptors or IDs) that the lock applies to.
+       */
+      merchants: Array<MerchantLockParameters.Merchant>;
+    }
+
+    export namespace MerchantLockParameters {
+      /**
+       * Represents a specific merchant lock based on their ID or descriptor. Each
+       * merchant object allows transaction rules to work at a granular level and
+       * requires at least one of merchant_id or descriptor.
+       */
+      export interface Merchant {
+        /**
+         * A comment or explanation about the merchant, used internally for rule management
+         * purposes.
+         */
+        comment?: string;
+
+        /**
+         * Short description of the merchant, often used to provide more human-readable
+         * context about the transaction merchant. This is typically the name or label
+         * shown on transaction summaries.
+         */
+        descriptor?: string;
+
+        /**
+         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
+         * attribute specifies the merchant entity that will be locked or referenced for
+         * authorization rules.
+         */
+        merchant_id?: string;
+      }
+    }
+  }
+
   export interface DraftVersion {
     /**
      * Parameters for the Auth Rule
      */
-    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
+    parameters:
+      | V2API.ConditionalBlockParameters
+      | V2API.VelocityLimitParams
+      | DraftVersion.MerchantLockParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
+  }
+
+  export namespace DraftVersion {
+    export interface MerchantLockParameters {
+      /**
+       * A list of merchant locks defining specific merchants or groups of merchants
+       * (based on descriptors or IDs) that the lock applies to.
+       */
+      merchants: Array<MerchantLockParameters.Merchant>;
+    }
+
+    export namespace MerchantLockParameters {
+      /**
+       * Represents a specific merchant lock based on their ID or descriptor. Each
+       * merchant object allows transaction rules to work at a granular level and
+       * requires at least one of merchant_id or descriptor.
+       */
+      export interface Merchant {
+        /**
+         * A comment or explanation about the merchant, used internally for rule management
+         * purposes.
+         */
+        comment?: string;
+
+        /**
+         * Short description of the merchant, often used to provide more human-readable
+         * context about the transaction merchant. This is typically the name or label
+         * shown on transaction summaries.
+         */
+        descriptor?: string;
+
+        /**
+         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
+         * attribute specifies the merchant entity that will be locked or referenced for
+         * authorization rules.
+         */
+        merchant_id?: string;
+      }
+    }
   }
 }
 
@@ -757,7 +1093,7 @@ export interface V2ApplyResponse {
   /**
    * The type of Auth Rule
    */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT';
+  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK';
 
   /**
    * Card tokens to which the Auth Rule does not apply.
@@ -770,7 +1106,10 @@ export namespace V2ApplyResponse {
     /**
      * Parameters for the Auth Rule
      */
-    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
+    parameters:
+      | V2API.ConditionalBlockParameters
+      | V2API.VelocityLimitParams
+      | CurrentVersion.MerchantLockParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
@@ -779,17 +1118,98 @@ export namespace V2ApplyResponse {
     version: number;
   }
 
+  export namespace CurrentVersion {
+    export interface MerchantLockParameters {
+      /**
+       * A list of merchant locks defining specific merchants or groups of merchants
+       * (based on descriptors or IDs) that the lock applies to.
+       */
+      merchants: Array<MerchantLockParameters.Merchant>;
+    }
+
+    export namespace MerchantLockParameters {
+      /**
+       * Represents a specific merchant lock based on their ID or descriptor. Each
+       * merchant object allows transaction rules to work at a granular level and
+       * requires at least one of merchant_id or descriptor.
+       */
+      export interface Merchant {
+        /**
+         * A comment or explanation about the merchant, used internally for rule management
+         * purposes.
+         */
+        comment?: string;
+
+        /**
+         * Short description of the merchant, often used to provide more human-readable
+         * context about the transaction merchant. This is typically the name or label
+         * shown on transaction summaries.
+         */
+        descriptor?: string;
+
+        /**
+         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
+         * attribute specifies the merchant entity that will be locked or referenced for
+         * authorization rules.
+         */
+        merchant_id?: string;
+      }
+    }
+  }
+
   export interface DraftVersion {
     /**
      * Parameters for the Auth Rule
      */
-    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
+    parameters:
+      | V2API.ConditionalBlockParameters
+      | V2API.VelocityLimitParams
+      | DraftVersion.MerchantLockParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
+  }
+
+  export namespace DraftVersion {
+    export interface MerchantLockParameters {
+      /**
+       * A list of merchant locks defining specific merchants or groups of merchants
+       * (based on descriptors or IDs) that the lock applies to.
+       */
+      merchants: Array<MerchantLockParameters.Merchant>;
+    }
+
+    export namespace MerchantLockParameters {
+      /**
+       * Represents a specific merchant lock based on their ID or descriptor. Each
+       * merchant object allows transaction rules to work at a granular level and
+       * requires at least one of merchant_id or descriptor.
+       */
+      export interface Merchant {
+        /**
+         * A comment or explanation about the merchant, used internally for rule management
+         * purposes.
+         */
+        comment?: string;
+
+        /**
+         * Short description of the merchant, often used to provide more human-readable
+         * context about the transaction merchant. This is typically the name or label
+         * shown on transaction summaries.
+         */
+        descriptor?: string;
+
+        /**
+         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
+         * attribute specifies the merchant entity that will be locked or referenced for
+         * authorization rules.
+         */
+        merchant_id?: string;
+      }
+    }
   }
 }
 
@@ -831,7 +1251,7 @@ export interface V2DraftResponse {
   /**
    * The type of Auth Rule
    */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT';
+  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK';
 
   /**
    * Card tokens to which the Auth Rule does not apply.
@@ -844,7 +1264,10 @@ export namespace V2DraftResponse {
     /**
      * Parameters for the Auth Rule
      */
-    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
+    parameters:
+      | V2API.ConditionalBlockParameters
+      | V2API.VelocityLimitParams
+      | CurrentVersion.MerchantLockParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
@@ -853,17 +1276,98 @@ export namespace V2DraftResponse {
     version: number;
   }
 
+  export namespace CurrentVersion {
+    export interface MerchantLockParameters {
+      /**
+       * A list of merchant locks defining specific merchants or groups of merchants
+       * (based on descriptors or IDs) that the lock applies to.
+       */
+      merchants: Array<MerchantLockParameters.Merchant>;
+    }
+
+    export namespace MerchantLockParameters {
+      /**
+       * Represents a specific merchant lock based on their ID or descriptor. Each
+       * merchant object allows transaction rules to work at a granular level and
+       * requires at least one of merchant_id or descriptor.
+       */
+      export interface Merchant {
+        /**
+         * A comment or explanation about the merchant, used internally for rule management
+         * purposes.
+         */
+        comment?: string;
+
+        /**
+         * Short description of the merchant, often used to provide more human-readable
+         * context about the transaction merchant. This is typically the name or label
+         * shown on transaction summaries.
+         */
+        descriptor?: string;
+
+        /**
+         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
+         * attribute specifies the merchant entity that will be locked or referenced for
+         * authorization rules.
+         */
+        merchant_id?: string;
+      }
+    }
+  }
+
   export interface DraftVersion {
     /**
      * Parameters for the Auth Rule
      */
-    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
+    parameters:
+      | V2API.ConditionalBlockParameters
+      | V2API.VelocityLimitParams
+      | DraftVersion.MerchantLockParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
+  }
+
+  export namespace DraftVersion {
+    export interface MerchantLockParameters {
+      /**
+       * A list of merchant locks defining specific merchants or groups of merchants
+       * (based on descriptors or IDs) that the lock applies to.
+       */
+      merchants: Array<MerchantLockParameters.Merchant>;
+    }
+
+    export namespace MerchantLockParameters {
+      /**
+       * Represents a specific merchant lock based on their ID or descriptor. Each
+       * merchant object allows transaction rules to work at a granular level and
+       * requires at least one of merchant_id or descriptor.
+       */
+      export interface Merchant {
+        /**
+         * A comment or explanation about the merchant, used internally for rule management
+         * purposes.
+         */
+        comment?: string;
+
+        /**
+         * Short description of the merchant, often used to provide more human-readable
+         * context about the transaction merchant. This is typically the name or label
+         * shown on transaction summaries.
+         */
+        descriptor?: string;
+
+        /**
+         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
+         * attribute specifies the merchant entity that will be locked or referenced for
+         * authorization rules.
+         */
+        merchant_id?: string;
+      }
+    }
   }
 }
 
@@ -905,7 +1409,7 @@ export interface V2PromoteResponse {
   /**
    * The type of Auth Rule
    */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT';
+  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK';
 
   /**
    * Card tokens to which the Auth Rule does not apply.
@@ -918,7 +1422,10 @@ export namespace V2PromoteResponse {
     /**
      * Parameters for the Auth Rule
      */
-    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
+    parameters:
+      | V2API.ConditionalBlockParameters
+      | V2API.VelocityLimitParams
+      | CurrentVersion.MerchantLockParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
@@ -927,17 +1434,98 @@ export namespace V2PromoteResponse {
     version: number;
   }
 
+  export namespace CurrentVersion {
+    export interface MerchantLockParameters {
+      /**
+       * A list of merchant locks defining specific merchants or groups of merchants
+       * (based on descriptors or IDs) that the lock applies to.
+       */
+      merchants: Array<MerchantLockParameters.Merchant>;
+    }
+
+    export namespace MerchantLockParameters {
+      /**
+       * Represents a specific merchant lock based on their ID or descriptor. Each
+       * merchant object allows transaction rules to work at a granular level and
+       * requires at least one of merchant_id or descriptor.
+       */
+      export interface Merchant {
+        /**
+         * A comment or explanation about the merchant, used internally for rule management
+         * purposes.
+         */
+        comment?: string;
+
+        /**
+         * Short description of the merchant, often used to provide more human-readable
+         * context about the transaction merchant. This is typically the name or label
+         * shown on transaction summaries.
+         */
+        descriptor?: string;
+
+        /**
+         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
+         * attribute specifies the merchant entity that will be locked or referenced for
+         * authorization rules.
+         */
+        merchant_id?: string;
+      }
+    }
+  }
+
   export interface DraftVersion {
     /**
      * Parameters for the Auth Rule
      */
-    parameters: V2API.ConditionalBlockParameters | V2API.VelocityLimitParams;
+    parameters:
+      | V2API.ConditionalBlockParameters
+      | V2API.VelocityLimitParams
+      | DraftVersion.MerchantLockParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
+  }
+
+  export namespace DraftVersion {
+    export interface MerchantLockParameters {
+      /**
+       * A list of merchant locks defining specific merchants or groups of merchants
+       * (based on descriptors or IDs) that the lock applies to.
+       */
+      merchants: Array<MerchantLockParameters.Merchant>;
+    }
+
+    export namespace MerchantLockParameters {
+      /**
+       * Represents a specific merchant lock based on their ID or descriptor. Each
+       * merchant object allows transaction rules to work at a granular level and
+       * requires at least one of merchant_id or descriptor.
+       */
+      export interface Merchant {
+        /**
+         * A comment or explanation about the merchant, used internally for rule management
+         * purposes.
+         */
+        comment?: string;
+
+        /**
+         * Short description of the merchant, often used to provide more human-readable
+         * context about the transaction merchant. This is typically the name or label
+         * shown on transaction summaries.
+         */
+        descriptor?: string;
+
+        /**
+         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
+         * attribute specifies the merchant entity that will be locked or referenced for
+         * authorization rules.
+         */
+        merchant_id?: string;
+      }
+    }
   }
 }
 
@@ -965,12 +1553,54 @@ export declare namespace V2CreateParams {
     /**
      * Parameters for the Auth Rule
      */
-    parameters?: ConditionalBlockParameters | VelocityLimitParams;
+    parameters?:
+      | ConditionalBlockParameters
+      | VelocityLimitParams
+      | CreateAuthRuleRequestAccountTokens.MerchantLockParameters;
 
     /**
      * The type of Auth Rule
      */
-    type?: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT';
+    type?: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK';
+  }
+
+  export namespace CreateAuthRuleRequestAccountTokens {
+    export interface MerchantLockParameters {
+      /**
+       * A list of merchant locks defining specific merchants or groups of merchants
+       * (based on descriptors or IDs) that the lock applies to.
+       */
+      merchants: Array<MerchantLockParameters.Merchant>;
+    }
+
+    export namespace MerchantLockParameters {
+      /**
+       * Represents a specific merchant lock based on their ID or descriptor. Each
+       * merchant object allows transaction rules to work at a granular level and
+       * requires at least one of merchant_id or descriptor.
+       */
+      export interface Merchant {
+        /**
+         * A comment or explanation about the merchant, used internally for rule management
+         * purposes.
+         */
+        comment?: string;
+
+        /**
+         * Short description of the merchant, often used to provide more human-readable
+         * context about the transaction merchant. This is typically the name or label
+         * shown on transaction summaries.
+         */
+        descriptor?: string;
+
+        /**
+         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
+         * attribute specifies the merchant entity that will be locked or referenced for
+         * authorization rules.
+         */
+        merchant_id?: string;
+      }
+    }
   }
 
   export interface CreateAuthRuleRequestCardTokens {
@@ -987,12 +1617,54 @@ export declare namespace V2CreateParams {
     /**
      * Parameters for the Auth Rule
      */
-    parameters?: ConditionalBlockParameters | VelocityLimitParams;
+    parameters?:
+      | ConditionalBlockParameters
+      | VelocityLimitParams
+      | CreateAuthRuleRequestCardTokens.MerchantLockParameters;
 
     /**
      * The type of Auth Rule
      */
-    type?: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT';
+    type?: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK';
+  }
+
+  export namespace CreateAuthRuleRequestCardTokens {
+    export interface MerchantLockParameters {
+      /**
+       * A list of merchant locks defining specific merchants or groups of merchants
+       * (based on descriptors or IDs) that the lock applies to.
+       */
+      merchants: Array<MerchantLockParameters.Merchant>;
+    }
+
+    export namespace MerchantLockParameters {
+      /**
+       * Represents a specific merchant lock based on their ID or descriptor. Each
+       * merchant object allows transaction rules to work at a granular level and
+       * requires at least one of merchant_id or descriptor.
+       */
+      export interface Merchant {
+        /**
+         * A comment or explanation about the merchant, used internally for rule management
+         * purposes.
+         */
+        comment?: string;
+
+        /**
+         * Short description of the merchant, often used to provide more human-readable
+         * context about the transaction merchant. This is typically the name or label
+         * shown on transaction summaries.
+         */
+        descriptor?: string;
+
+        /**
+         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
+         * attribute specifies the merchant entity that will be locked or referenced for
+         * authorization rules.
+         */
+        merchant_id?: string;
+      }
+    }
   }
 
   export interface CreateAuthRuleRequestProgramLevel {
@@ -1014,12 +1686,54 @@ export declare namespace V2CreateParams {
     /**
      * Parameters for the Auth Rule
      */
-    parameters?: ConditionalBlockParameters | VelocityLimitParams;
+    parameters?:
+      | ConditionalBlockParameters
+      | VelocityLimitParams
+      | CreateAuthRuleRequestProgramLevel.MerchantLockParameters;
 
     /**
      * The type of Auth Rule
      */
-    type?: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT';
+    type?: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK';
+  }
+
+  export namespace CreateAuthRuleRequestProgramLevel {
+    export interface MerchantLockParameters {
+      /**
+       * A list of merchant locks defining specific merchants or groups of merchants
+       * (based on descriptors or IDs) that the lock applies to.
+       */
+      merchants: Array<MerchantLockParameters.Merchant>;
+    }
+
+    export namespace MerchantLockParameters {
+      /**
+       * Represents a specific merchant lock based on their ID or descriptor. Each
+       * merchant object allows transaction rules to work at a granular level and
+       * requires at least one of merchant_id or descriptor.
+       */
+      export interface Merchant {
+        /**
+         * A comment or explanation about the merchant, used internally for rule management
+         * purposes.
+         */
+        comment?: string;
+
+        /**
+         * Short description of the merchant, often used to provide more human-readable
+         * context about the transaction merchant. This is typically the name or label
+         * shown on transaction summaries.
+         */
+        descriptor?: string;
+
+        /**
+         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
+         * attribute specifies the merchant entity that will be locked or referenced for
+         * authorization rules.
+         */
+        merchant_id?: string;
+      }
+    }
   }
 }
 
@@ -1108,6 +1822,11 @@ export interface V2ListParams extends CursorPageParams {
    * Only return Authorization Rules that are bound to the provided card token.
    */
   card_token?: string;
+
+  /**
+   * Only return Authorization Rules that are bound to the provided scope;
+   */
+  scope?: 'PROGRAM' | 'ACCOUNT' | 'CARD';
 }
 
 export type V2ApplyParams =
@@ -1147,7 +1866,46 @@ export interface V2DraftParams {
   /**
    * Parameters for the Auth Rule
    */
-  parameters?: ConditionalBlockParameters | VelocityLimitParams | null;
+  parameters?: ConditionalBlockParameters | VelocityLimitParams | V2DraftParams.MerchantLockParameters | null;
+}
+
+export namespace V2DraftParams {
+  export interface MerchantLockParameters {
+    /**
+     * A list of merchant locks defining specific merchants or groups of merchants
+     * (based on descriptors or IDs) that the lock applies to.
+     */
+    merchants: Array<MerchantLockParameters.Merchant>;
+  }
+
+  export namespace MerchantLockParameters {
+    /**
+     * Represents a specific merchant lock based on their ID or descriptor. Each
+     * merchant object allows transaction rules to work at a granular level and
+     * requires at least one of merchant_id or descriptor.
+     */
+    export interface Merchant {
+      /**
+       * A comment or explanation about the merchant, used internally for rule management
+       * purposes.
+       */
+      comment?: string;
+
+      /**
+       * Short description of the merchant, often used to provide more human-readable
+       * context about the transaction merchant. This is typically the name or label
+       * shown on transaction summaries.
+       */
+      descriptor?: string;
+
+      /**
+       * Unique alphanumeric identifier for the payment card acceptor (merchant). This
+       * attribute specifies the merchant entity that will be locked or referenced for
+       * authorization rules.
+       */
+      merchant_id?: string;
+    }
+  }
 }
 
 V2.V2ListResponsesCursorPage = V2ListResponsesCursorPage;

@@ -147,6 +147,7 @@ export namespace StatementLineItems {
       | 'LOSS_WRITE_OFF'
       | 'PROVISIONAL_CREDIT'
       | 'PROVISIONAL_CREDIT_REVERSAL'
+      | 'SERVICE'
       | 'RETURN'
       | 'RETURN_REVERSAL'
       | 'TRANSFER'
