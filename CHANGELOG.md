@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.102.0 (2025-04-29)
+
+Full Changelog: [v0.101.0...v0.102.0](https://github.com/lithic-com/lithic-node/compare/v0.101.0...v0.102.0)
+
+### Features
+
+* **api:** adds new merchant lock Auth Rule ([2d28881](https://github.com/lithic-com/lithic-node/commit/2d28881c58a50fb360d4dbc2efe305c4d959117f))
+
+
+### Chores
+
+* **ci:** add timeout thresholds for CI jobs ([f6f9a6c](https://github.com/lithic-com/lithic-node/commit/f6f9a6ce92f18a82507edef0eff2723a65ef47f5))
+* **ci:** only use depot for staging repos ([f094198](https://github.com/lithic-com/lithic-node/commit/f094198d1ca3e80abff2534ac09d12b71bddb546))
+* **ci:** run on more branches and use depot runners ([b123255](https://github.com/lithic-com/lithic-node/commit/b123255639aa86d78a8fc06149eaa01fcbc64633))
+
 ## 0.101.0 (2025-04-21)
 
 Full Changelog: [v0.100.0...v0.101.0](https://github.com/lithic-com/lithic-node/compare/v0.100.0...v0.101.0)
