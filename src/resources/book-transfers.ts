@@ -242,6 +242,7 @@ export interface BookTransferCreateParams {
     | 'INACTIVITY_FEE_DOWN'
     | 'PROVISIONAL_CREDIT'
     | 'DISPUTE_WON'
+    | 'SERVICE'
     | 'TRANSFER';
 
   /**
