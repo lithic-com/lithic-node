@@ -2238,7 +2238,7 @@ export declare namespace AccountHolderCreateParams {
     workflow: 'KYB_BASIC' | 'KYB_BYO';
 
     /**
-     * Deprecated.
+     * @deprecated Deprecated.
      */
     beneficial_owner_entities?: Array<KYB.BeneficialOwnerEntity>;
 
@@ -2581,7 +2581,7 @@ export type AccountHolderUpdateParams =
 export declare namespace AccountHolderUpdateParams {
   export interface KYBPatchRequest {
     /**
-     * Deprecated.
+     * @deprecated Deprecated.
      */
     beneficial_owner_entities?: Array<KYBPatchRequest.BeneficialOwnerEntity>;
 
