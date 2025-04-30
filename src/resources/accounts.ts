@@ -304,7 +304,7 @@ export interface AccountUpdateParams {
   state?: 'ACTIVE' | 'PAUSED';
 
   /**
-   * Address used during Address Verification Service (AVS) checks during
+   * @deprecated Address used during Address Verification Service (AVS) checks during
    * transactions if enabled via Auth Rules. This field is deprecated as AVS checks
    * are no longer supported by Authorization Rules. The field will be removed from
    * the schema in a future release.
