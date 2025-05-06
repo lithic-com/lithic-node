@@ -8,6 +8,15 @@ import { CursorPage, type CursorPageParams } from '../../pagination';
 export class LoanTapes extends APIResource {
   /**
    * Get a specific loan tape for a given financial account.
+   *
+   * @example
+   * ```ts
+   * const loanTape =
+   *   await client.financialAccounts.loanTapes.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     'loan_tape_token',
+   *   );
+   * ```
    */
   retrieve(
     financialAccountToken: string,
@@ -22,6 +31,16 @@ export class LoanTapes extends APIResource {
 
   /**
    * List the loan tapes for a given financial account.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const loanTape of client.financialAccounts.loanTapes.list(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     financialAccountToken: string,

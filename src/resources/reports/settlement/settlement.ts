@@ -20,6 +20,16 @@ export class Settlement extends APIResource {
 
   /**
    * List details.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const settlementDetail of client.reports.settlement.listDetails(
+   *   '2023-09-01',
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   listDetails(
     reportDate: string,
@@ -47,6 +57,12 @@ export class Settlement extends APIResource {
 
   /**
    * Get the settlement report for a specified report date. Not available in sandbox.
+   *
+   * @example
+   * ```ts
+   * const settlementReport =
+   *   await client.reports.settlement.summary('2023-09-01');
+   * ```
    */
   summary(reportDate: string, options?: Core.RequestOptions): Core.APIPromise<ReportsAPI.SettlementReport> {
     return this._client.get(`/v1/reports/settlement/summary/${reportDate}`, options);

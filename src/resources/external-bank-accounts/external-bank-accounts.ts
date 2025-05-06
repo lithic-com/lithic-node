@@ -12,6 +12,23 @@ export class ExternalBankAccounts extends APIResource {
 
   /**
    * Creates an external bank account within a program or Lithic account.
+   *
+   * @example
+   * ```ts
+   * const externalBankAccount =
+   *   await client.externalBankAccounts.create({
+   *     account_number: '12345678901234567',
+   *     country: 'USD',
+   *     currency: 'USD',
+   *     financial_account_token:
+   *       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     owner: 'owner',
+   *     owner_type: 'INDIVIDUAL',
+   *     routing_number: '123456789',
+   *     type: 'CHECKING',
+   *     verification_method: 'MANUAL',
+   *   });
+   * ```
    */
   create(
     body: ExternalBankAccountCreateParams,

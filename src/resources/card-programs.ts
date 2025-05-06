@@ -8,6 +8,13 @@ import { CursorPage, type CursorPageParams } from '../pagination';
 export class CardPrograms extends APIResource {
   /**
    * Get card program.
+   *
+   * @example
+   * ```ts
+   * const cardProgram = await client.cardPrograms.retrieve(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   retrieve(cardProgramToken: string, options?: Core.RequestOptions): Core.APIPromise<CardProgram> {
     return this._client.get(`/v1/card_programs/${cardProgramToken}`, options);
@@ -15,6 +22,14 @@ export class CardPrograms extends APIResource {
 
   /**
    * List card programs.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const cardProgram of client.cardPrograms.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query?: CardProgramListParams,

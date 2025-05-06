@@ -17,6 +17,15 @@ export class Statements extends APIResource {
 
   /**
    * Get a specific statement for a given financial account.
+   *
+   * @example
+   * ```ts
+   * const statement =
+   *   await client.financialAccounts.statements.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     'statement_token',
+   *   );
+   * ```
    */
   retrieve(
     financialAccountToken: string,
@@ -31,6 +40,16 @@ export class Statements extends APIResource {
 
   /**
    * List the statements for a given financial account.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const statement of client.financialAccounts.statements.list(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     financialAccountToken: string,

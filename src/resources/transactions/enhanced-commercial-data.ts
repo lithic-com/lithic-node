@@ -8,6 +8,14 @@ export class EnhancedCommercialData extends APIResource {
   /**
    * Get all L2/L3 enhanced commercial data associated with a transaction. Not
    * available in sandbox.
+   *
+   * @example
+   * ```ts
+   * const enhancedCommercialData =
+   *   await client.transactions.enhancedCommercialData.retrieve(
+   *     '00000000-0000-0000-0000-000000000000',
+   *   );
+   * ```
    */
   retrieve(
     transactionToken: string,

@@ -7,6 +7,14 @@ import * as Core from '../../core';
 export class CreditConfiguration extends APIResource {
   /**
    * Get an Account's credit configuration
+   *
+   * @example
+   * ```ts
+   * const financialAccountCreditConfig =
+   *   await client.financialAccounts.creditConfiguration.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   retrieve(
     financialAccountToken: string,
@@ -17,6 +25,14 @@ export class CreditConfiguration extends APIResource {
 
   /**
    * Update an account's credit configuration
+   *
+   * @example
+   * ```ts
+   * const financialAccountCreditConfig =
+   *   await client.financialAccounts.creditConfiguration.update(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   update(
     financialAccountToken: string,

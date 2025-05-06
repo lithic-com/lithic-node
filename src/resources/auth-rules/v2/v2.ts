@@ -13,6 +13,13 @@ export class V2 extends APIResource {
 
   /**
    * Creates a new V2 authorization rule in draft mode
+   *
+   * @example
+   * ```ts
+   * const v2 = await client.authRules.v2.create({
+   *   account_tokens: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
+   * });
+   * ```
    */
   create(body: V2CreateParams, options?: Core.RequestOptions): Core.APIPromise<V2CreateResponse> {
     return this._client.post('/v2/auth_rules', { body, ...options });
@@ -20,6 +27,13 @@ export class V2 extends APIResource {
 
   /**
    * Fetches a V2 authorization rule by its token
+   *
+   * @example
+   * ```ts
+   * const v2 = await client.authRules.v2.retrieve(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   retrieve(authRuleToken: string, options?: Core.RequestOptions): Core.APIPromise<V2RetrieveResponse> {
     return this._client.get(`/v2/auth_rules/${authRuleToken}`, options);
@@ -31,6 +45,13 @@ export class V2 extends APIResource {
    * If `account_tokens`, `card_tokens`, `program_level`, or `excluded_card_tokens`
    * is provided, this will replace existing associations with the provided list of
    * entities.
+   *
+   * @example
+   * ```ts
+   * const v2 = await client.authRules.v2.update(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   update(
     authRuleToken: string,
@@ -42,6 +63,14 @@ export class V2 extends APIResource {
 
   /**
    * Lists V2 authorization rules
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const v2ListResponse of client.authRules.v2.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query?: V2ListParams,
@@ -60,6 +89,13 @@ export class V2 extends APIResource {
 
   /**
    * Deletes a V2 authorization rule
+   *
+   * @example
+   * ```ts
+   * await client.authRules.v2.del(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   del(authRuleToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
     return this._client.delete(`/v2/auth_rules/${authRuleToken}`, options);
@@ -70,6 +106,18 @@ export class V2 extends APIResource {
    * or card(s).
    *
    * Prefer using the `PATCH` method for this operation.
+   *
+   * @example
+   * ```ts
+   * const response = await client.authRules.v2.apply(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   {
+   *     account_tokens: [
+   *       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     ],
+   *   },
+   * );
+   * ```
    */
   apply(
     authRuleToken: string,
@@ -84,6 +132,13 @@ export class V2 extends APIResource {
    *
    * This can also be utilized to reset the draft parameters, causing a draft version
    * to no longer be ran in shadow mode.
+   *
+   * @example
+   * ```ts
+   * const response = await client.authRules.v2.draft(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   draft(
     authRuleToken: string,
@@ -96,6 +151,13 @@ export class V2 extends APIResource {
   /**
    * Promotes the draft version of an authorization rule to the currently active
    * version such that it is enforced in the authorization stream.
+   *
+   * @example
+   * ```ts
+   * const response = await client.authRules.v2.promote(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   promote(authRuleToken: string, options?: Core.RequestOptions): Core.APIPromise<V2PromoteResponse> {
     return this._client.post(`/v2/auth_rules/${authRuleToken}/promote`, options);
@@ -153,6 +215,13 @@ export class V2 extends APIResource {
    * receive the webhook. Additionally, there is a delay of approximately 15 minutes
    * between when Lithic's transaction processing systems have processed the
    * transaction, and when a transaction will be included in the report.
+   *
+   * @example
+   * ```ts
+   * const response = await client.authRules.v2.report(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   report(authRuleToken: string, options?: Core.RequestOptions): Core.APIPromise<V2ReportResponse> {
     return this._client.post(`/v2/auth_rules/${authRuleToken}/report`, options);

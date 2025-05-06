@@ -8,6 +8,13 @@ import { CursorPage, type CursorPageParams } from '../pagination';
 export class Tokenizations extends APIResource {
   /**
    * Get tokenization
+   *
+   * @example
+   * ```ts
+   * const tokenization = await client.tokenizations.retrieve(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   retrieve(
     tokenizationToken: string,
@@ -18,6 +25,14 @@ export class Tokenizations extends APIResource {
 
   /**
    * List card tokenizations
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const tokenization of client.tokenizations.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query?: TokenizationListParams,
@@ -43,6 +58,13 @@ export class Tokenizations extends APIResource {
    * `PENDING_ACTIVATION`, or `PENDING_2FA`. This will put the tokenization in an
    * active state, and transactions will be allowed. Reach out at
    * [lithic.com/contact](https://lithic.com/contact) for more information.
+   *
+   * @example
+   * ```ts
+   * await client.tokenizations.activate(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   activate(tokenizationToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
     return this._client.post(`/v1/tokenizations/${tokenizationToken}/activate`, options);
@@ -58,6 +80,13 @@ export class Tokenizations extends APIResource {
    * operation. If the target is a digital wallet tokenization, it will be removed
    * from its device. Reach out at [lithic.com/contact](https://lithic.com/contact)
    * for more information.
+   *
+   * @example
+   * ```ts
+   * await client.tokenizations.deactivate(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   deactivate(tokenizationToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
     return this._client.post(`/v1/tokenizations/${tokenizationToken}/deactivate`, options);
@@ -72,6 +101,13 @@ export class Tokenizations extends APIResource {
    * merchants from sending authorizations, and is a temporary status that can be
    * changed. Reach out at [lithic.com/contact](https://lithic.com/contact) for more
    * information.
+   *
+   * @example
+   * ```ts
+   * await client.tokenizations.pause(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   pause(tokenizationToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
     return this._client.post(`/v1/tokenizations/${tokenizationToken}/pause`, options);
@@ -88,6 +124,14 @@ export class Tokenizations extends APIResource {
    * contact method will not be eligible for resending the activation code, and the
    * cardholder must restart the provision process. Reach out at
    * [lithic.com/contact](https://lithic.com/contact) for more information.
+   *
+   * @example
+   * ```ts
+   * await client.tokenizations.resendActivationCode(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   { activation_method_type: 'TEXT_TO_CARDHOLDER_NUMBER' },
+   * );
+   * ```
    */
   resendActivationCode(
     tokenizationToken: string,
@@ -112,6 +156,19 @@ export class Tokenizations extends APIResource {
   /**
    * This endpoint is used to simulate a card's tokenization in the Digital Wallet
    * and merchant tokenization ecosystem.
+   *
+   * @example
+   * ```ts
+   * const response = await client.tokenizations.simulate({
+   *   cvv: '776',
+   *   expiration_date: '08/29',
+   *   pan: '4111111289144142',
+   *   tokenization_source: 'APPLE_PAY',
+   *   account_score: 5,
+   *   device_score: 5,
+   *   wallet_recommended_decision: 'APPROVED',
+   * });
+   * ```
    */
   simulate(
     body: TokenizationSimulateParams,
@@ -128,6 +185,13 @@ export class Tokenizations extends APIResource {
    * used on tokenizations with status `PAUSED`. This will put the tokenization in an
    * active state, and transactions may resume. Reach out at
    * [lithic.com/contact](https://lithic.com/contact) for more information.
+   *
+   * @example
+   * ```ts
+   * await client.tokenizations.unpause(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   unpause(tokenizationToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
     return this._client.post(`/v1/tokenizations/${tokenizationToken}/unpause`, options);
@@ -142,6 +206,14 @@ export class Tokenizations extends APIResource {
    * all tokenizations for a card. New tokenizations for a card will be created with
    * the art referenced in the card object's `digital_card_art_token` field. Reach
    * out at [lithic.com/contact](https://lithic.com/contact) for more information.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.tokenizations.updateDigitalCardArt(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   updateDigitalCardArt(
     tokenizationToken: string,
