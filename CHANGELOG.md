@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.102.1 (2025-05-06)
+
+Full Changelog: [v0.102.0...v0.102.1](https://github.com/lithic-com/lithic-node/compare/v0.102.0...v0.102.1)
+
+### Bug Fixes
+
+* **internals:** fix servers entry for /v2/auth_rules.get ([ac57bb0](https://github.com/lithic-com/lithic-node/commit/ac57bb0ab422f1f472f124359682557d3bb3e8f5))
+
+
+### Chores
+
+* **ci:** bump node version for release workflows ([052ebca](https://github.com/lithic-com/lithic-node/commit/052ebca9fd7d44344c396594ea4b04e44b702073))
+* **docs:** add missing deprecation warnings ([72ba0aa](https://github.com/lithic-com/lithic-node/commit/72ba0aad3671d441d20eb20f7e97f258fa8560d8))
+
+
+### Documentation
+
+* **readme:** fix typo ([19e6113](https://github.com/lithic-com/lithic-node/commit/19e6113d980562958bd9bcde6a6653649cdd6b08))
+
 ## 0.102.0 (2025-04-29)
 
 Full Changelog: [v0.101.0...v0.102.0](https://github.com/lithic-com/lithic-node/compare/v0.101.0...v0.102.0)
