@@ -30,6 +30,15 @@ export class FinancialAccounts extends APIResource {
 
   /**
    * Create a new financial account
+   *
+   * @example
+   * ```ts
+   * const financialAccount =
+   *   await client.financialAccounts.create({
+   *     nickname: 'nickname',
+   *     type: 'OPERATING',
+   *   });
+   * ```
    */
   create(
     params: FinancialAccountCreateParams,
@@ -48,6 +57,14 @@ export class FinancialAccounts extends APIResource {
 
   /**
    * Get a financial account
+   *
+   * @example
+   * ```ts
+   * const financialAccount =
+   *   await client.financialAccounts.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   retrieve(financialAccountToken: string, options?: Core.RequestOptions): Core.APIPromise<FinancialAccount> {
     return this._client.get(`/v1/financial_accounts/${financialAccountToken}`, options);
@@ -55,6 +72,14 @@ export class FinancialAccounts extends APIResource {
 
   /**
    * Update a financial account
+   *
+   * @example
+   * ```ts
+   * const financialAccount =
+   *   await client.financialAccounts.update(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   update(
     financialAccountToken: string,
@@ -76,6 +101,14 @@ export class FinancialAccounts extends APIResource {
   /**
    * Retrieve information on your financial accounts including routing and account
    * number.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const financialAccount of client.financialAccounts.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query?: FinancialAccountListParams,
@@ -97,6 +130,15 @@ export class FinancialAccounts extends APIResource {
 
   /**
    * Update financial account status
+   *
+   * @example
+   * ```ts
+   * const financialAccount =
+   *   await client.financialAccounts.updateStatus(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     { status: 'OPEN', substatus: 'CHARGED_OFF_FRAUD' },
+   *   );
+   * ```
    */
   updateStatus(
     financialAccountToken: string,
