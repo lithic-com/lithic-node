@@ -18,6 +18,13 @@ export class Transactions extends APIResource {
   /**
    * Get a specific card transaction. All amounts are in the smallest unit of their
    * respective currency (e.g., cents for USD).
+   *
+   * @example
+   * ```ts
+   * const transaction = await client.transactions.retrieve(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   retrieve(transactionToken: string, options?: Core.RequestOptions): Core.APIPromise<Transaction> {
     return this._client.get(`/v1/transactions/${transactionToken}`, options);
@@ -26,6 +33,14 @@ export class Transactions extends APIResource {
   /**
    * List card transactions. All amounts are in the smallest unit of their respective
    * currency (e.g., cents for USD) and inclusive of any acquirer fees.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const transaction of client.transactions.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query?: TransactionListParams,
@@ -44,6 +59,13 @@ export class Transactions extends APIResource {
 
   /**
    * Expire authorization
+   *
+   * @example
+   * ```ts
+   * await client.transactions.expireAuthorization(
+   *   '00000000-0000-0000-0000-000000000000',
+   * );
+   * ```
    */
   expireAuthorization(transactionToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
     return this._client.post(`/v1/transactions/${transactionToken}/expire_authorization`, options);
@@ -58,6 +80,16 @@ export class Transactions extends APIResource {
    * limit via the
    * [update account](https://docs.lithic.com/reference/patchaccountbytoken)
    * endpoint.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.transactions.simulateAuthorization({
+   *     amount: 3831,
+   *     descriptor: 'COFFEE SHOP',
+   *     pan: '4111111289144142',
+   *   });
+   * ```
    */
   simulateAuthorization(
     body: TransactionSimulateAuthorizationParams,
@@ -70,6 +102,15 @@ export class Transactions extends APIResource {
    * Simulates an authorization advice from the card network as if it came from a
    * merchant acquirer. An authorization advice changes the pending amount of the
    * transaction.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.transactions.simulateAuthorizationAdvice({
+   *     token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac',
+   *     amount: 3831,
+   *   });
+   * ```
    */
   simulateAuthorizationAdvice(
     body: TransactionSimulateAuthorizationAdviceParams,
@@ -85,6 +126,13 @@ export class Transactions extends APIResource {
    * If `amount` is not set, the full amount of the transaction will be cleared.
    * Transactions that have already cleared, either partially or fully, cannot be
    * cleared again using this endpoint.
+   *
+   * @example
+   * ```ts
+   * const response = await client.transactions.simulateClearing(
+   *   { token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac' },
+   * );
+   * ```
    */
   simulateClearing(
     body: TransactionSimulateClearingParams,
@@ -96,6 +144,17 @@ export class Transactions extends APIResource {
   /**
    * Simulates a credit authorization advice from the card network. This message
    * indicates that the network approved a credit authorization on your behalf.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.transactions.simulateCreditAuthorization({
+   *     amount: 3831,
+   *     descriptor: 'COFFEE SHOP',
+   *     pan: '4111111289144142',
+   *     merchant_acceptor_id: 'XRKGDPOWEWQRRWU',
+   *   });
+   * ```
    */
   simulateCreditAuthorization(
     body: TransactionSimulateCreditAuthorizationParams,
@@ -108,6 +167,15 @@ export class Transactions extends APIResource {
    * Returns, or refunds, an amount back to a card. Returns simulated via this
    * endpoint clear immediately, without prior authorization, and result in a
    * `SETTLED` transaction status.
+   *
+   * @example
+   * ```ts
+   * const response = await client.transactions.simulateReturn({
+   *   amount: 3831,
+   *   descriptor: 'COFFEE SHOP',
+   *   pan: '4111111289144142',
+   * });
+   * ```
    */
   simulateReturn(
     body: TransactionSimulateReturnParams,
@@ -120,6 +188,14 @@ export class Transactions extends APIResource {
    * Reverses a return, i.e. a credit transaction with a `SETTLED` status. Returns
    * can be financial credit authorizations, or credit authorizations that have
    * cleared.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.transactions.simulateReturnReversal({
+   *     token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac',
+   *   });
+   * ```
    */
   simulateReturnReversal(
     body: TransactionSimulateReturnReversalParams,
@@ -133,6 +209,15 @@ export class Transactions extends APIResource {
    * voided. Can be used on partially voided transactions but not partially cleared
    * transactions. _Simulating an authorization expiry on credit authorizations or
    * credit authorization advice is not currently supported but will be added soon._
+   *
+   * @example
+   * ```ts
+   * const response = await client.transactions.simulateVoid({
+   *   token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac',
+   *   amount: 100,
+   *   type: 'AUTHORIZATION_EXPIRY',
+   * });
+   * ```
    */
   simulateVoid(
     body: TransactionSimulateVoidParams,

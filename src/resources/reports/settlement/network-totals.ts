@@ -8,6 +8,14 @@ import { CursorPage, type CursorPageParams } from '../../../pagination';
 export class NetworkTotals extends APIResource {
   /**
    * Retrieve a specific network total record by token. Not available in sandbox.
+   *
+   * @example
+   * ```ts
+   * const networkTotal =
+   *   await client.reports.settlement.networkTotals.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   retrieve(token: string, options?: Core.RequestOptions): Core.APIPromise<NetworkTotalRetrieveResponse> {
     return this._client.get(`/v1/reports/settlement/network_totals/${token}`, options);
@@ -15,6 +23,14 @@ export class NetworkTotals extends APIResource {
 
   /**
    * List network total records with optional filters. Not available in sandbox.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const networkTotalListResponse of client.reports.settlement.networkTotals.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query?: NetworkTotalListParams,

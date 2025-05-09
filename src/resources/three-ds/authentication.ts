@@ -6,6 +6,14 @@ import * as Core from '../../core';
 export class Authentication extends APIResource {
   /**
    * Get 3DS Authentication by token
+   *
+   * @example
+   * ```ts
+   * const authentication =
+   *   await client.threeDS.authentication.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   retrieve(
     threeDSAuthenticationToken: string,
@@ -19,6 +27,22 @@ export class Authentication extends APIResource {
    * from an ACS. If you're configured for 3DS Customer Decisioning, simulating
    * authentications requires your customer decisioning endpoint to be set up
    * properly (respond with a valid JSON).
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.threeDS.authentication.simulate({
+   *     merchant: {
+   *       country: 'USA',
+   *       id: 'OODKZAPJVN4YS7O',
+   *       mcc: '5812',
+   *       name: 'COFFEE SHOP',
+   *     },
+   *     pan: '4111111289144142',
+   *     transaction: { amount: 100, currency: 'USD' },
+   *     card_expiry_check: 'MATCH',
+   *   });
+   * ```
    */
   simulate(
     body: AuthenticationSimulateParams,
@@ -32,6 +56,14 @@ export class Authentication extends APIResource {
    * /v1/three_ds_authentication/simulate that resulted in triggered SMS-OTP
    * challenge must precede. Only a single attempt is supported; upon entering OTP,
    * the challenge is either approved or declined.
+   *
+   * @example
+   * ```ts
+   * await client.threeDS.authentication.simulateOtpEntry({
+   *   token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac',
+   *   otp: '123456',
+   * });
+   * ```
    */
   simulateOtpEntry(
     body: AuthenticationSimulateOtpEntryParams,

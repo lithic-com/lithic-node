@@ -8,6 +8,16 @@ import { CursorPage, type CursorPageParams } from '../pagination';
 export class Disputes extends APIResource {
   /**
    * Initiate a dispute.
+   *
+   * @example
+   * ```ts
+   * const dispute = await client.disputes.create({
+   *   amount: 10000,
+   *   reason: 'FRAUD_CARD_PRESENT',
+   *   transaction_token: '12345624-aa69-4cbc-a946-30d90181b621',
+   *   customer_filed_date: '2021-06-28T22:53:15Z',
+   * });
+   * ```
    */
   create(body: DisputeCreateParams, options?: Core.RequestOptions): Core.APIPromise<Dispute> {
     return this._client.post('/v1/disputes', { body, ...options });
@@ -15,6 +25,13 @@ export class Disputes extends APIResource {
 
   /**
    * Get dispute.
+   *
+   * @example
+   * ```ts
+   * const dispute = await client.disputes.retrieve(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   retrieve(disputeToken: string, options?: Core.RequestOptions): Core.APIPromise<Dispute> {
     return this._client.get(`/v1/disputes/${disputeToken}`, options);
@@ -22,6 +39,13 @@ export class Disputes extends APIResource {
 
   /**
    * Update dispute. Can only be modified if status is `NEW`.
+   *
+   * @example
+   * ```ts
+   * const dispute = await client.disputes.update(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   update(
     disputeToken: string,
@@ -33,6 +57,14 @@ export class Disputes extends APIResource {
 
   /**
    * List disputes.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const dispute of client.disputes.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query?: DisputeListParams,
@@ -51,6 +83,13 @@ export class Disputes extends APIResource {
 
   /**
    * Withdraw dispute.
+   *
+   * @example
+   * ```ts
+   * const dispute = await client.disputes.del(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   del(disputeToken: string, options?: Core.RequestOptions): Core.APIPromise<Dispute> {
     return this._client.delete(`/v1/disputes/${disputeToken}`, options);
@@ -59,6 +98,15 @@ export class Disputes extends APIResource {
   /**
    * Soft delete evidence for a dispute. Evidence will not be reviewed or submitted
    * by Lithic after it is withdrawn.
+   *
+   * @example
+   * ```ts
+   * const disputeEvidence =
+   *   await client.disputes.deleteEvidence(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   deleteEvidence(
     disputeToken: string,
@@ -74,6 +122,14 @@ export class Disputes extends APIResource {
    *
    * Uploaded documents must either be a `jpg`, `png` or `pdf` file, and each must be
    * less than 5 GiB.
+   *
+   * @example
+   * ```ts
+   * const disputeEvidence =
+   *   await client.disputes.initiateEvidenceUpload(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   initiateEvidenceUpload(
     disputeToken: string,
@@ -97,6 +153,16 @@ export class Disputes extends APIResource {
 
   /**
    * List evidence metadata for a dispute.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const disputeEvidence of client.disputes.listEvidences(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   listEvidences(
     disputeToken: string,
@@ -123,6 +189,15 @@ export class Disputes extends APIResource {
 
   /**
    * Get a dispute's evidence metadata.
+   *
+   * @example
+   * ```ts
+   * const disputeEvidence =
+   *   await client.disputes.retrieveEvidence(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   retrieveEvidence(
     disputeToken: string,
