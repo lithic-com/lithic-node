@@ -6,6 +6,14 @@ import * as Core from '../../core';
 export class Decisioning extends APIResource {
   /**
    * Card program's response to a 3DS Challenge Request (CReq)
+   *
+   * @example
+   * ```ts
+   * await client.threeDS.decisioning.challengeResponse({
+   *   token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   challenge_response: 'APPROVE',
+   * });
+   * ```
    */
   challengeResponse(
     body: DecisioningChallengeResponseParams,
@@ -21,6 +29,12 @@ export class Decisioning extends APIResource {
    * after calling this endpoint for the first time. See
    * [this page](https://docs.lithic.com/docs/3ds-decisioning#3ds-decisioning-hmac-secrets)
    * for more detail about verifying 3DS Decisioning requests.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.threeDS.decisioning.retrieveSecret();
+   * ```
    */
   retrieveSecret(options?: Core.RequestOptions): Core.APIPromise<DecisioningRetrieveSecretResponse> {
     return this._client.get('/v1/three_ds_decisioning/secret', options);
@@ -31,6 +45,11 @@ export class Decisioning extends APIResource {
    * deactivated 24 hours after a successful request to this endpoint. Make a
    * [`GET /three_ds_decisioning/secret`](https://docs.lithic.com/reference/getthreedsdecisioningsecret)
    * request to retrieve the new secret key.
+   *
+   * @example
+   * ```ts
+   * await client.threeDS.decisioning.rotateSecret();
+   * ```
    */
   rotateSecret(options?: Core.RequestOptions): Core.APIPromise<void> {
     return this._client.post('/v1/three_ds_decisioning/secret/rotate', options);

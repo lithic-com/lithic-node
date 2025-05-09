@@ -17,6 +17,54 @@ export class AccountHolders extends APIResource {
    * review or further action will be needed to complete the account creation
    * process. This endpoint can only be used on accounts that are part of the program
    * that the calling API key manages.
+   *
+   * @example
+   * ```ts
+   * const accountHolder = await client.accountHolders.create({
+   *   beneficial_owner_individuals: [
+   *     {
+   *       address: { ... },
+   *       dob: '1991-03-08T08:00:00Z',
+   *       email: 'tim@left-earth.com',
+   *       first_name: 'Timmy',
+   *       government_id: '211-23-1412',
+   *       last_name: 'Turner',
+   *       phone_number: '+15555555555',
+   *     },
+   *   ],
+   *   business_entity: {
+   *     address: { ... },
+   *     dba_name: 'Example Business Solutions',
+   *     government_id: '12-3456789',
+   *     legal_business_name: 'Busy Business, Inc.',
+   *     phone_numbers: ['+15555555555'],
+   *   },
+   *   control_person: {
+   *     address: { ... },
+   *     birthdate: '1980-04-12',
+   *     dob: '1991-03-08T08:00:00Z',
+   *     email: 'tom@middle-pluto.com',
+   *     first_name: 'Tom',
+   *     government_id: '111-23-1412',
+   *     last_name: 'Timothy',
+   *     phone_number: '+15555555555',
+   *   },
+   *   nature_of_business: 'Software company selling solutions to the restaurant industry',
+   *   tos_timestamp: '2022-03-08T08:00:00Z',
+   *   workflow: 'KYB_BASIC',
+   *   beneficial_owner_entities: [
+   *     {
+   *       address: { ... },
+   *       dba_name: 'MHoldings',
+   *       government_id: '98-7654321',
+   *       legal_business_name: 'Majority Holdings LLC',
+   *       phone_numbers: ['+15555555555'],
+   *     },
+   *   ],
+   *   kyb_passed_timestamp: '2022-03-08T08:00:00Z',
+   *   website_url: 'https://www.mybusiness.com',
+   * });
+   * ```
    */
   create(
     body: AccountHolderCreateParams,
@@ -32,6 +80,13 @@ export class AccountHolders extends APIResource {
   /**
    * Get an Individual or Business Account Holder and/or their KYC or KYB evaluation
    * status.
+   *
+   * @example
+   * ```ts
+   * const accountHolder = await client.accountHolders.retrieve(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   retrieve(accountHolderToken: string, options?: Core.RequestOptions): Core.APIPromise<AccountHolder> {
     return this._client.get(`/v1/account_holders/${accountHolderToken}`, options);
@@ -48,6 +103,13 @@ export class AccountHolders extends APIResource {
    * review or further action will be needed to complete the account creation
    * process. This endpoint can only be used on existing accounts that are part of
    * the program that the calling API key manages.
+   *
+   * @example
+   * ```ts
+   * const accountHolder = await client.accountHolders.update(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   update(
     accountHolderToken: string,
@@ -60,6 +122,14 @@ export class AccountHolders extends APIResource {
   /**
    * Get a list of individual or business account holders and their KYC or KYB
    * evaluation status.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const accountHolder of client.accountHolders.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query?: AccountHolderListParams,
@@ -92,6 +162,13 @@ export class AccountHolders extends APIResource {
    * When a new document upload is generated for a failed attempt, the response will
    * show an additional entry in the `required_document_uploads` list in a `PENDING`
    * state for the corresponding `image_type`.
+   *
+   * @example
+   * ```ts
+   * const response = await client.accountHolders.listDocuments(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   listDocuments(
     accountHolderToken: string,
@@ -115,6 +192,15 @@ export class AccountHolders extends APIResource {
    * When a new account holder document upload is generated for a failed attempt, the
    * response will show an additional entry in the `required_document_uploads` array
    * in a `PENDING` state for the corresponding `image_type`.
+   *
+   * @example
+   * ```ts
+   * const document =
+   *   await client.accountHolders.retrieveDocument(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   retrieveDocument(
     accountHolderToken: string,
@@ -126,6 +212,17 @@ export class AccountHolders extends APIResource {
 
   /**
    * Simulates a review for an account holder document upload.
+   *
+   * @example
+   * ```ts
+   * const document =
+   *   await client.accountHolders.simulateEnrollmentDocumentReview(
+   *     {
+   *       document_upload_token: 'document_upload_token',
+   *       status: 'UPLOADED',
+   *     },
+   *   );
+   * ```
    */
   simulateEnrollmentDocumentReview(
     body: AccountHolderSimulateEnrollmentDocumentReviewParams,
@@ -137,6 +234,17 @@ export class AccountHolders extends APIResource {
   /**
    * Simulates an enrollment review for an account holder. This endpoint is only
    * applicable for workflows that may required intervention such as `KYB_BASIC`.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.accountHolders.simulateEnrollmentReview({
+   *     account_holder_token:
+   *       '1415964d-4400-4d79-9fb3-eee0faaee4e4',
+   *     status: 'ACCEPTED',
+   *     status_reasons: [],
+   *   });
+   * ```
    */
   simulateEnrollmentReview(
     body: AccountHolderSimulateEnrollmentReviewParams,
@@ -164,6 +272,17 @@ export class AccountHolders extends APIResource {
    * `REJECTED` status is returned and the account creation process is ended.
    * Currently only one type of account holder document is supported per KYC
    * verification.
+   *
+   * @example
+   * ```ts
+   * const document = await client.accountHolders.uploadDocument(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   {
+   *     document_type: 'EIN_LETTER',
+   *     entity_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   },
+   * );
+   * ```
    */
   uploadDocument(
     accountHolderToken: string,

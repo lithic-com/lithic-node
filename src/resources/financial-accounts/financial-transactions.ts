@@ -9,6 +9,15 @@ import { FinancialTransactionsSinglePage } from './financial-accounts';
 export class FinancialTransactions extends APIResource {
   /**
    * Get the financial transaction for the provided token.
+   *
+   * @example
+   * ```ts
+   * const financialTransaction =
+   *   await client.financialAccounts.financialTransactions.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   retrieve(
     financialAccountToken: string,
@@ -23,6 +32,16 @@ export class FinancialTransactions extends APIResource {
 
   /**
    * List the financial transactions for a given financial account.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const financialTransaction of client.financialAccounts.financialTransactions.list(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     financialAccountToken: string,

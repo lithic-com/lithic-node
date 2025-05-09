@@ -5,7 +5,16 @@ import * as Core from '../../../core';
 
 export class EnhancedCommercialData extends APIResource {
   /**
-   * Get L2/L3 enhanced commercial data associated with a transaction event.
+   * Get L2/L3 enhanced commercial data associated with a transaction event. Not
+   * available in sandbox.
+   *
+   * @example
+   * ```ts
+   * const enhancedData =
+   *   await client.transactions.events.enhancedCommercialData.retrieve(
+   *     '00000000-0000-0000-0000-000000000000',
+   *   );
+   * ```
    */
   retrieve(eventToken: string, options?: Core.RequestOptions): Core.APIPromise<EnhancedData> {
     return this._client.get(`/v1/transactions/events/${eventToken}/enhanced_commercial_data`, options);

@@ -8,6 +8,13 @@ import { CursorPage, type CursorPageParams } from '../pagination';
 export class Accounts extends APIResource {
   /**
    * Get account configuration such as spend limits.
+   *
+   * @example
+   * ```ts
+   * const account = await client.accounts.retrieve(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   retrieve(accountToken: string, options?: Core.RequestOptions): Core.APIPromise<Account> {
     return this._client.get(`/v1/accounts/${accountToken}`, options);
@@ -17,6 +24,14 @@ export class Accounts extends APIResource {
    * Update account configuration such as state or spend limits. Can only be run on
    * accounts that are part of the program managed by this API key. Accounts that are
    * in the `PAUSED` state will not be able to transact or create new cards.
+   *
+   * @example
+   * ```ts
+   * const account = await client.accounts.update(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   { daily_spend_limit: 1000 },
+   * );
+   * ```
    */
   update(
     accountToken: string,
@@ -28,6 +43,14 @@ export class Accounts extends APIResource {
 
   /**
    * List account configurations.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const account of client.accounts.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query?: AccountListParams,
@@ -50,6 +73,14 @@ export class Accounts extends APIResource {
    * duration. For example, if the Account has a daily spend limit of $1000
    * configured, and has spent $600 in the last 24 hours, the available spend limit
    * returned would be $400.
+   *
+   * @example
+   * ```ts
+   * const accountSpendLimits =
+   *   await client.accounts.retrieveSpendLimits(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   retrieveSpendLimits(
     accountToken: string,

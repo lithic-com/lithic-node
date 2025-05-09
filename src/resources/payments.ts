@@ -9,6 +9,20 @@ import { CursorPage, type CursorPageParams } from '../pagination';
 export class Payments extends APIResource {
   /**
    * Initiates a payment between a financial account and an external bank account.
+   *
+   * @example
+   * ```ts
+   * const payment = await client.payments.create({
+   *   amount: 1,
+   *   external_bank_account_token:
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   financial_account_token:
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   method: 'ACH_NEXT_DAY',
+   *   method_attributes: { sec_code: 'CCD' },
+   *   type: 'COLLECTION',
+   * });
+   * ```
    */
   create(body: PaymentCreateParams, options?: Core.RequestOptions): Core.APIPromise<PaymentCreateResponse> {
     return this._client.post('/v1/payments', { body, ...options });
@@ -16,6 +30,13 @@ export class Payments extends APIResource {
 
   /**
    * Get the payment by token.
+   *
+   * @example
+   * ```ts
+   * const payment = await client.payments.retrieve(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   retrieve(paymentToken: string, options?: Core.RequestOptions): Core.APIPromise<Payment> {
     return this._client.get(`/v1/payments/${paymentToken}`, options);
@@ -23,6 +44,14 @@ export class Payments extends APIResource {
 
   /**
    * List all the payments for the provided search criteria.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const payment of client.payments.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query?: PaymentListParams,
@@ -41,6 +70,13 @@ export class Payments extends APIResource {
 
   /**
    * Retry an origination which has been returned.
+   *
+   * @example
+   * ```ts
+   * const response = await client.payments.retry(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   retry(paymentToken: string, options?: Core.RequestOptions): Core.APIPromise<PaymentRetryResponse> {
     return this._client.post(`/v1/payments/${paymentToken}/retry`, options);
@@ -48,6 +84,14 @@ export class Payments extends APIResource {
 
   /**
    * Simulate payment lifecycle event
+   *
+   * @example
+   * ```ts
+   * const response = await client.payments.simulateAction(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   { event_type: 'ACH_ORIGINATION_REVIEWED' },
+   * );
+   * ```
    */
   simulateAction(
     paymentToken: string,
@@ -59,6 +103,17 @@ export class Payments extends APIResource {
 
   /**
    * Simulates a receipt of a Payment.
+   *
+   * @example
+   * ```ts
+   * const response = await client.payments.simulateReceipt({
+   *   token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   amount: 0,
+   *   financial_account_token:
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   receipt_type: 'RECEIPT_CREDIT',
+   * });
+   * ```
    */
   simulateReceipt(
     body: PaymentSimulateReceiptParams,
@@ -69,6 +124,13 @@ export class Payments extends APIResource {
 
   /**
    * Simulates a release of a Payment.
+   *
+   * @example
+   * ```ts
+   * const response = await client.payments.simulateRelease({
+   *   payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * });
+   * ```
    */
   simulateRelease(
     body: PaymentSimulateReleaseParams,
@@ -79,6 +141,13 @@ export class Payments extends APIResource {
 
   /**
    * Simulates a return of a Payment.
+   *
+   * @example
+   * ```ts
+   * const response = await client.payments.simulateReturn({
+   *   payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * });
+   * ```
    */
   simulateReturn(
     body: PaymentSimulateReturnParams,

@@ -8,6 +8,17 @@ import { CursorPage, type CursorPageParams } from '../../../pagination';
 export class LineItems extends APIResource {
   /**
    * List the line items for a given statement within a given financial account.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const lineItem of client.financialAccounts.statements.lineItems.list(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   'statement_token',
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     financialAccountToken: string,

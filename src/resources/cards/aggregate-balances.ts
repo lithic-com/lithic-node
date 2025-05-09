@@ -8,6 +8,14 @@ import { SinglePage } from '../../pagination';
 export class AggregateBalances extends APIResource {
   /**
    * Get the aggregated card balance across all end-user accounts.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const aggregateBalanceListResponse of client.cards.aggregateBalances.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query?: AggregateBalanceListParams,

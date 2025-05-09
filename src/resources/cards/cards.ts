@@ -29,6 +29,17 @@ export class Cards extends APIResource {
   /**
    * Create a new virtual or physical card. Parameters `shipping_address` and
    * `product_id` only apply to physical cards.
+   *
+   * @example
+   * ```ts
+   * const card = await client.cards.create({
+   *   type: 'VIRTUAL',
+   *   memo: 'New Card',
+   *   spend_limit: 1000,
+   *   spend_limit_duration: 'TRANSACTION',
+   *   state: 'OPEN',
+   * });
+   * ```
    */
   create(body: CardCreateParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
     return this._client.post('/v1/cards', { body, ...options });
@@ -36,6 +47,13 @@ export class Cards extends APIResource {
 
   /**
    * Get card configuration such as spend limit and state.
+   *
+   * @example
+   * ```ts
+   * const card = await client.cards.retrieve(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   retrieve(cardToken: string, options?: Core.RequestOptions): Core.APIPromise<Card> {
     return this._client.get(`/v1/cards/${cardToken}`, options);
@@ -47,6 +65,19 @@ export class Cards extends APIResource {
    *
    * _Note: setting a card to a `CLOSED` state is a final action that cannot be
    * undone._
+   *
+   * @example
+   * ```ts
+   * const card = await client.cards.update(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   {
+   *     memo: 'Updated Name',
+   *     spend_limit: 100,
+   *     spend_limit_duration: 'FOREVER',
+   *     state: 'OPEN',
+   *   },
+   * );
+   * ```
    */
   update(cardToken: string, body: CardUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
     return this._client.patch(`/v1/cards/${cardToken}`, { body, ...options });
@@ -54,6 +85,14 @@ export class Cards extends APIResource {
 
   /**
    * List cards.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const nonPCICard of client.cards.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query?: CardListParams,
@@ -81,6 +120,30 @@ export class Cards extends APIResource {
    * must be in an `OPEN` state to be converted. Only applies to cards of type
    * `VIRTUAL` (or existing cards with deprecated types of `DIGITAL_WALLET` and
    * `UNLOCKED`).
+   *
+   * @example
+   * ```ts
+   * const card = await client.cards.convertPhysical(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   {
+   *     shipping_address: {
+   *       address1: '5 Broad Street',
+   *       address2: 'Unit 5A',
+   *       city: 'NEW YORK',
+   *       country: 'USA',
+   *       first_name: 'Janet',
+   *       last_name: 'Yellen',
+   *       postal_code: '10001',
+   *       state: 'NY',
+   *     },
+   *     carrier: {
+   *       qr_code_url: 'https://lithic.com/activate-card/1',
+   *     },
+   *     product_id: '100',
+   *     shipping_method: 'STANDARD',
+   *   },
+   * );
+   * ```
    */
   convertPhysical(
     cardToken: string,
@@ -118,6 +181,14 @@ export class Cards extends APIResource {
    * the whole iframe) on the server or make an ajax call from your front end code,
    * but **do not ever embed your API key into front end code, as doing so introduces
    * a serious security vulnerability**.
+   *
+   * @example
+   * ```ts
+   * const response = await client.cards.embed({
+   *   embed_request: 'embed_request',
+   *   hmac: 'hmac',
+   * });
+   * ```
    */
   embed(query: CardEmbedParams, options?: Core.RequestOptions): Core.APIPromise<string> {
     return this._client.get('/v1/embed/card', {
@@ -194,6 +265,14 @@ export class Cards extends APIResource {
    * This requires some additional setup and configuration. Please
    * [Contact Us](https://lithic.com/contact) or your Customer Success representative
    * for more information.
+   *
+   * @example
+   * ```ts
+   * const response = await client.cards.provision(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   { digital_wallet: 'GOOGLE_PAY' },
+   * );
+   * ```
    */
   provision(
     cardToken: string,
@@ -209,6 +288,30 @@ export class Cards extends APIResource {
    * original card can continue to be used until the new card is activated. Only
    * applies to cards of type `PHYSICAL`. A card can be reissued or renewed a total
    * of 8 times.
+   *
+   * @example
+   * ```ts
+   * const card = await client.cards.reissue(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   {
+   *     carrier: {
+   *       qr_code_url: 'https://lithic.com/activate-card/1',
+   *     },
+   *     product_id: '100',
+   *     shipping_address: {
+   *       address1: '5 Broad Street',
+   *       address2: 'Unit 5A',
+   *       city: 'NEW YORK',
+   *       country: 'USA',
+   *       first_name: 'Janet',
+   *       last_name: 'Yellen',
+   *       postal_code: '10001',
+   *       state: 'NY',
+   *     },
+   *     shipping_method: 'STANDARD',
+   *   },
+   * );
+   * ```
    */
   reissue(cardToken: string, body: CardReissueParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
     return this._client.post(`/v1/cards/${cardToken}/reissue`, { body, ...options });
@@ -224,6 +327,30 @@ export class Cards extends APIResource {
    * the card will retain the same card token and PAN and receive an updated expiry
    * and CVC2 code. `product_id`, `shipping_method`, `shipping_address`, `carrier`
    * are only relevant for renewing `PHYSICAL` cards.
+   *
+   * @example
+   * ```ts
+   * const card = await client.cards.renew(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   {
+   *     shipping_address: {
+   *       address1: '5 Broad Street',
+   *       address2: 'Unit 5A',
+   *       city: 'NEW YORK',
+   *       country: 'USA',
+   *       first_name: 'Janet',
+   *       last_name: 'Yellen',
+   *       postal_code: '10001',
+   *       state: 'NY',
+   *     },
+   *     carrier: {
+   *       qr_code_url: 'https://lithic.com/activate-card/1',
+   *     },
+   *     product_id: '100',
+   *     shipping_method: 'STANDARD',
+   *   },
+   * );
+   * ```
    */
   renew(cardToken: string, body: CardRenewParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
     return this._client.post(`/v1/cards/${cardToken}/renew`, { body, ...options });
@@ -234,6 +361,14 @@ export class Cards extends APIResource {
    * on the Card and the amount already spent over the spend limit's duration. For
    * example, if the Card has a monthly spend limit of $1000 configured, and has
    * spent $600 in the last month, the available spend limit returned would be $400.
+   *
+   * @example
+   * ```ts
+   * const cardSpendLimits =
+   *   await client.cards.retrieveSpendLimits(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   retrieveSpendLimits(cardToken: string, options?: Core.RequestOptions): Core.APIPromise<CardSpendLimits> {
     return this._client.get(`/v1/cards/${cardToken}/spend_limits`, options);
@@ -245,6 +380,13 @@ export class Cards extends APIResource {
    * [support@lithic.com](mailto:support@lithic.com) for questions. _Note: this is a
    * `POST` endpoint because it is more secure to send sensitive data in a request
    * body than in a URL._
+   *
+   * @example
+   * ```ts
+   * const card = await client.cards.searchByPan({
+   *   pan: '4111111289144142',
+   * });
+   * ```
    */
   searchByPan(body: CardSearchByPanParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
     return this._client.post('/v1/cards/search_by_pan', { body, ...options });
