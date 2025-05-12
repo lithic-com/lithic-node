@@ -309,11 +309,10 @@ export interface Transaction {
   merchant_currency: string;
 
   /**
-   * Card network of the authorization. Can be `INTERLINK`, `MAESTRO`, `MASTERCARD`,
-   * `VISA`, or `UNKNOWN`. Value is `UNKNOWN` when Lithic cannot determine the
-   * network code from the upstream provider.
+   * Card network of the authorization. Value is `UNKNOWN` when Lithic cannot
+   * determine the network code from the upstream provider.
    */
-  network: 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA' | null;
+  network: 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA' | null;
 
   /**
    * Network-provided score assessing risk level associated with a given
@@ -515,6 +514,11 @@ export namespace Transaction {
      * use `authentication_result`)
      */
     verification_result: 'CANCELLED' | 'FAILED' | 'FRICTIONLESS' | 'NOT_ATTEMPTED' | 'REJECTED' | 'SUCCESS';
+
+    /**
+     * Indicates the method used to authenticate the cardholder.
+     */
+    authentication_method?: 'FRICTIONLESS' | 'CHALLENGE' | 'NONE';
   }
 
   export interface Merchant {
@@ -906,6 +910,8 @@ export namespace Transaction {
     export interface NetworkInfo {
       acquirer: NetworkInfo.Acquirer | null;
 
+      amex: NetworkInfo.Amex | null;
+
       mastercard: NetworkInfo.Mastercard | null;
 
       visa: NetworkInfo.Visa | null;
@@ -926,6 +932,23 @@ export namespace Transaction {
          * Identifier assigned by the acquirer.
          */
         retrieval_reference_number: string | null;
+      }
+
+      export interface Amex {
+        /**
+         * Identifier assigned by American Express. Matches the `transaction_id` of a prior
+         * related event. May be populated in incremental authorizations (authorization
+         * requests that augment a previously authorized amount), authorization advices,
+         * financial authorizations, and clearings.
+         */
+        original_transaction_id: string | null;
+
+        /**
+         * Identifier assigned by American Express to link original messages to subsequent
+         * messages. Guaranteed by American Express to be unique for each original
+         * authorization and financial authorization.
+         */
+        transaction_id: string | null;
       }
 
       export interface Mastercard {

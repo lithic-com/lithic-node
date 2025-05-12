@@ -110,6 +110,7 @@ describe('resource cards', () => {
           begin: '2019-12-27T18:11:19.117Z',
           end: '2019-12-27T18:11:19.117Z',
           ending_before: 'ending_before',
+          memo: 'memo',
           page_size: 1,
           starting_after: 'starting_after',
           state: 'CLOSED',

@@ -80,7 +80,8 @@ export namespace StatementLineItems {
       | 'MANAGEMENT_DISPUTE'
       | 'MANAGEMENT_FEE'
       | 'MANAGEMENT_REWARD'
-      | 'MANAGEMENT_DISBURSEMENT';
+      | 'MANAGEMENT_DISBURSEMENT'
+      | 'PROGRAM_FUNDING';
 
     /**
      * Timestamp of when the line item was generated

@@ -867,6 +867,11 @@ export interface CardListParams extends CursorPageParams {
   end?: string;
 
   /**
+   * Returns cards containing the specified partial or full memo text.
+   */
+  memo?: string;
+
+  /**
    * Returns cards with the specified state.
    */
   state?: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT';
