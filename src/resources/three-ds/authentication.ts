@@ -584,6 +584,12 @@ export namespace AuthenticationRetrieveResponse {
     amount: number;
 
     /**
+     * Approximate amount of the purchase in minor units of cardholder currency.
+     * Derived from `amount` using a daily conversion rate.
+     */
+    cardholder_amount: number | null;
+
+    /**
      * Currency of the purchase. Maps to EMV 3DS field purchaseCurrency.
      */
     currency: string;
