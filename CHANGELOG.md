@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.103.0 (2025-05-12)
+
+Full Changelog: [v0.102.1...v0.103.0](https://github.com/lithic-com/lithic-node/compare/v0.102.1...v0.103.0)
+
+### Features
+
+* **api:** manual updates ([83bc985](https://github.com/lithic-com/lithic-node/commit/83bc985b0460c15ae2f4e95d40520788dab08fb5))
+
+
+### Documentation
+
+* add examples to tsdocs ([a7ba231](https://github.com/lithic-com/lithic-node/commit/a7ba2317abd52bc6ccaf4a2fe817293821850c3e))
+* remove or fix invalid readme examples ([96ecf00](https://github.com/lithic-com/lithic-node/commit/96ecf0028c67d53c228e09ad88f55629b841b139))
+
 ## 0.102.1 (2025-05-06)
 
 Full Changelog: [v0.102.0...v0.102.1](https://github.com/lithic-com/lithic-node/compare/v0.102.0...v0.102.1)
