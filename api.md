@@ -161,6 +161,7 @@ Types:
 - <code><a href="./src/resources/cards/cards.ts">SpendLimitDuration</a></code>
 - <code><a href="./src/resources/cards/cards.ts">CardEmbedResponse</a></code>
 - <code><a href="./src/resources/cards/cards.ts">CardProvisionResponse</a></code>
+- <code><a href="./src/resources/cards/cards.ts">CardWebProvisionResponse</a></code>
 
 Methods:
 
@@ -175,6 +176,7 @@ Methods:
 - <code title="post /v1/cards/{card_token}/renew">client.cards.<a href="./src/resources/cards/cards.ts">renew</a>(cardToken, { ...params }) -> Card</code>
 - <code title="get /v1/cards/{card_token}/spend_limits">client.cards.<a href="./src/resources/cards/cards.ts">retrieveSpendLimits</a>(cardToken) -> CardSpendLimits</code>
 - <code title="post /v1/cards/search_by_pan">client.cards.<a href="./src/resources/cards/cards.ts">searchByPan</a>({ ...params }) -> Card</code>
+- <code title="post /v1/cards/{card_token}/web_provision">client.cards.<a href="./src/resources/cards/cards.ts">webProvision</a>(cardToken, { ...params }) -> CardWebProvisionResponse</code>
 
 ## AggregateBalances
 
@@ -628,3 +630,17 @@ Methods:
 - <code title="get /v1/management_operations/{management_operation_token}">client.managementOperations.<a href="./src/resources/management-operations.ts">retrieve</a>(managementOperationToken) -> ManagementOperationTransaction</code>
 - <code title="get /v1/management_operations">client.managementOperations.<a href="./src/resources/management-operations.ts">list</a>({ ...params }) -> ManagementOperationTransactionsCursorPage</code>
 - <code title="post /v1/management_operations/{management_operation_token}/reverse">client.managementOperations.<a href="./src/resources/management-operations.ts">reverse</a>(managementOperationToken, { ...params }) -> ManagementOperationTransaction</code>
+
+# FundingEvents
+
+Types:
+
+- <code><a href="./src/resources/funding-events.ts">FundingEventRetrieveResponse</a></code>
+- <code><a href="./src/resources/funding-events.ts">FundingEventListResponse</a></code>
+- <code><a href="./src/resources/funding-events.ts">FundingEventRetrieveDetailsResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/funding_events/{funding_event_token}">client.fundingEvents.<a href="./src/resources/funding-events.ts">retrieve</a>(fundingEventToken) -> FundingEventRetrieveResponse</code>
+- <code title="get /v1/funding_events">client.fundingEvents.<a href="./src/resources/funding-events.ts">list</a>({ ...params }) -> FundingEventListResponsesCursorPage</code>
+- <code title="get /v1/funding_events/{funding_event_token}/details">client.fundingEvents.<a href="./src/resources/funding-events.ts">retrieveDetails</a>(fundingEventToken) -> FundingEventRetrieveDetailsResponse</code>

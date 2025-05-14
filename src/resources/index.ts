@@ -125,6 +125,14 @@ export {
   type FinancialAccountUpdateStatusParams,
 } from './financial-accounts/financial-accounts';
 export {
+  FundingEventListResponsesCursorPage,
+  FundingEvents,
+  type FundingEventRetrieveResponse,
+  type FundingEventListResponse,
+  type FundingEventRetrieveDetailsResponse,
+  type FundingEventListParams,
+} from './funding-events';
+export {
   ManagementOperationTransactionsCursorPage,
   ManagementOperations,
   type ManagementOperationTransaction,
@@ -141,6 +149,7 @@ export {
   type SpendLimitDuration,
   type CardEmbedResponse,
   type CardProvisionResponse,
+  type CardWebProvisionResponse,
   type CardCreateParams,
   type CardUpdateParams,
   type CardListParams,
@@ -150,6 +159,7 @@ export {
   type CardReissueParams,
   type CardRenewParams,
   type CardSearchByPanParams,
+  type CardWebProvisionParams,
 } from './cards/cards';
 export {
   PaymentsCursorPage,

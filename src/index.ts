@@ -92,6 +92,14 @@ import {
   ExternalPaymentsCursorPage,
 } from './resources/external-payments';
 import {
+  FundingEventListParams,
+  FundingEventListResponse,
+  FundingEventListResponsesCursorPage,
+  FundingEventRetrieveDetailsResponse,
+  FundingEventRetrieveResponse,
+  FundingEvents,
+} from './resources/funding-events';
+import {
   ManagementOperationCreateParams,
   ManagementOperationListParams,
   ManagementOperationReverseParams,
@@ -157,6 +165,8 @@ import {
   CardSearchByPanParams,
   CardSpendLimits,
   CardUpdateParams,
+  CardWebProvisionParams,
+  CardWebProvisionResponse,
   Cards,
   NonPCICard,
   NonPCICardsCursorPage,
@@ -400,6 +410,7 @@ export class Lithic extends Core.APIClient {
   creditProducts: API.CreditProducts = new API.CreditProducts(this);
   externalPayments: API.ExternalPayments = new API.ExternalPayments(this);
   managementOperations: API.ManagementOperations = new API.ManagementOperations(this);
+  fundingEvents: API.FundingEvents = new API.FundingEvents(this);
 
   /**
    * Status of api
@@ -493,6 +504,8 @@ Lithic.ExternalPayments = ExternalPayments;
 Lithic.ExternalPaymentsCursorPage = ExternalPaymentsCursorPage;
 Lithic.ManagementOperations = ManagementOperations;
 Lithic.ManagementOperationTransactionsCursorPage = ManagementOperationTransactionsCursorPage;
+Lithic.FundingEvents = FundingEvents;
+Lithic.FundingEventListResponsesCursorPage = FundingEventListResponsesCursorPage;
 export declare namespace Lithic {
   export type RequestOptions = Core.RequestOptions;
 
@@ -566,6 +579,7 @@ export declare namespace Lithic {
     type SpendLimitDuration as SpendLimitDuration,
     type CardEmbedResponse as CardEmbedResponse,
     type CardProvisionResponse as CardProvisionResponse,
+    type CardWebProvisionResponse as CardWebProvisionResponse,
     NonPCICardsCursorPage as NonPCICardsCursorPage,
     type CardCreateParams as CardCreateParams,
     type CardUpdateParams as CardUpdateParams,
@@ -576,6 +590,7 @@ export declare namespace Lithic {
     type CardReissueParams as CardReissueParams,
     type CardRenewParams as CardRenewParams,
     type CardSearchByPanParams as CardSearchByPanParams,
+    type CardWebProvisionParams as CardWebProvisionParams,
   };
 
   export {
@@ -754,6 +769,15 @@ export declare namespace Lithic {
     type ManagementOperationCreateParams as ManagementOperationCreateParams,
     type ManagementOperationListParams as ManagementOperationListParams,
     type ManagementOperationReverseParams as ManagementOperationReverseParams,
+  };
+
+  export {
+    FundingEvents as FundingEvents,
+    type FundingEventRetrieveResponse as FundingEventRetrieveResponse,
+    type FundingEventListResponse as FundingEventListResponse,
+    type FundingEventRetrieveDetailsResponse as FundingEventRetrieveDetailsResponse,
+    FundingEventListResponsesCursorPage as FundingEventListResponsesCursorPage,
+    type FundingEventListParams as FundingEventListParams,
   };
 
   export type AccountFinancialAccountType = API.AccountFinancialAccountType;

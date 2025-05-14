@@ -330,6 +330,30 @@ export class Cards extends APIResource {
   searchByPan(body: CardSearchByPanParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
     return this._client.post('/v1/cards/search_by_pan', { body, ...options });
   }
+
+  /**
+   * Allow your cardholders to directly add payment cards to the device's digital
+   * wallet from a browser on the web. Currently only suported for Apple Pay.
+   *
+   * This requires some additional setup and configuration. Please
+   * [Contact Us](https://lithic.com/contact) or your Customer Success representative
+   * for more information.
+   *
+   * @example
+   * ```ts
+   * const response = await client.cards.webProvision(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   { digital_wallet: 'APPLE_PAY' },
+   * );
+   * ```
+   */
+  webProvision(
+    cardToken: string,
+    body: CardWebProvisionParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<CardWebProvisionResponse> {
+    return this._client.post(`/v1/cards/${cardToken}/web_provision`, { body, ...options });
+  }
 }
 
 export class NonPCICardsCursorPage extends CursorPage<NonPCICard> {}
@@ -631,6 +655,60 @@ export type CardEmbedResponse = string;
 
 export interface CardProvisionResponse {
   provisioning_payload?: string;
+}
+
+export interface CardWebProvisionResponse {
+  /**
+   * JWS object required for handoff to Apple's script.
+   */
+  jws?: CardWebProvisionResponse.Jws;
+
+  /**
+   * A unique identifier for the JWS object.
+   */
+  state?: string;
+}
+
+export namespace CardWebProvisionResponse {
+  /**
+   * JWS object required for handoff to Apple's script.
+   */
+  export interface Jws {
+    /**
+     * JWS unprotected headers containing header parameters that aren't
+     * integrity-protected by the JWS signature.
+     */
+    header?: Jws.Header;
+
+    /**
+     * Base64url encoded JSON object containing the provisioning payload.
+     */
+    payload?: string;
+
+    /**
+     * Base64url encoded JWS protected headers containing the header parameters that
+     * are integrity-protected by the JWS signature.
+     */
+    protected?: string;
+
+    /**
+     * Base64url encoded signature of the JWS object.
+     */
+    signature?: string;
+  }
+
+  export namespace Jws {
+    /**
+     * JWS unprotected headers containing header parameters that aren't
+     * integrity-protected by the JWS signature.
+     */
+    export interface Header {
+      /**
+       * The ID for the JWS Public Key of the key pair used to generate the signature.
+       */
+      kid?: string;
+    }
+  }
 }
 
 export interface CardCreateParams {
@@ -1056,6 +1134,13 @@ export interface CardSearchByPanParams {
   pan: string;
 }
 
+export interface CardWebProvisionParams {
+  /**
+   * Name of digital wallet provider.
+   */
+  digital_wallet?: 'APPLE_PAY';
+}
+
 Cards.NonPCICardsCursorPage = NonPCICardsCursorPage;
 Cards.AggregateBalances = AggregateBalances;
 Cards.AggregateBalanceListResponsesSinglePage = AggregateBalanceListResponsesSinglePage;
@@ -1071,6 +1156,7 @@ export declare namespace Cards {
     type SpendLimitDuration as SpendLimitDuration,
     type CardEmbedResponse as CardEmbedResponse,
     type CardProvisionResponse as CardProvisionResponse,
+    type CardWebProvisionResponse as CardWebProvisionResponse,
     NonPCICardsCursorPage as NonPCICardsCursorPage,
     type CardCreateParams as CardCreateParams,
     type CardUpdateParams as CardUpdateParams,
@@ -1081,6 +1167,7 @@ export declare namespace Cards {
     type CardReissueParams as CardReissueParams,
     type CardRenewParams as CardRenewParams,
     type CardSearchByPanParams as CardSearchByPanParams,
+    type CardWebProvisionParams as CardWebProvisionParams,
   };
 
   export {
