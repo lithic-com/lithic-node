@@ -22,6 +22,7 @@ export {
   type SpendLimitDuration,
   type CardEmbedResponse,
   type CardProvisionResponse,
+  type CardWebProvisionResponse,
   type CardCreateParams,
   type CardUpdateParams,
   type CardListParams,
@@ -33,4 +34,5 @@ export {
   type CardReissueParams,
   type CardRenewParams,
   type CardSearchByPanParams,
+  type CardWebProvisionParams,
 } from './cards';
