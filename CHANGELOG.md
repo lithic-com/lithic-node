@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.104.0 (2025-05-15)
+
+Full Changelog: [v0.103.0...v0.104.0](https://github.com/lithic-com/lithic-node/compare/v0.103.0...v0.104.0)
+
+### Features
+
+* **api:** new Funding Events and Card Web Provision API's ([f20f1fd](https://github.com/lithic-com/lithic-node/commit/f20f1fdb13c585a36caf6e2fe8f2213b09b7cc23))
+
 ## 0.103.0 (2025-05-12)
 
 Full Changelog: [v0.102.1...v0.103.0](https://github.com/lithic-com/lithic-node/compare/v0.102.1...v0.103.0)
