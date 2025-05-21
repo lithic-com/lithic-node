@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.104.1 (2025-05-21)
+
+Full Changelog: [v0.104.0...v0.104.1](https://github.com/lithic-com/lithic-node/compare/v0.104.0...v0.104.1)
+
+### Chores
+
+* **docs:** grammar improvements ([c865442](https://github.com/lithic-com/lithic-node/commit/c86544253bfd618490ebbce5a7d5f7dbdcee1844))
+
 ## 0.104.0 (2025-05-15)
 
 Full Changelog: [v0.103.0...v0.104.0](https://github.com/lithic-com/lithic-node/compare/v0.103.0...v0.104.0)

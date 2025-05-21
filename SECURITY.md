@@ -16,11 +16,11 @@ before making any information public.
 ## Reporting Non-SDK Related Security Issues
 
 If you encounter security issues that are not directly related to SDKs but pertain to the services
-or products provided by Lithic please follow the respective company's security reporting guidelines.
+or products provided by Lithic, please follow the respective company's security reporting guidelines.
 
 ### Lithic Terms and Policies
 
-Please contact sdk-feedback@lithic.com for any questions or concerns regarding security of our services.
+Please contact sdk-feedback@lithic.com for any questions or concerns regarding the security of our services.
 
 ---
 
