@@ -8,6 +8,8 @@ export class Transfers extends APIResource {
   /**
    * Transfer funds between two financial accounts or between a financial account and
    * card
+   *
+   * @deprecated
    */
   create(body: TransferCreateParams, options?: Core.RequestOptions): Core.APIPromise<Transfer> {
     return this._client.post('/v1/transfer', { body, ...options });
