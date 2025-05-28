@@ -107,17 +107,7 @@ export class V2 extends APIResource {
    *
    * Prefer using the `PATCH` method for this operation.
    *
-   * @example
-   * ```ts
-   * const response = await client.authRules.v2.apply(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   {
-   *     account_tokens: [
-   *       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     ],
-   *   },
-   * );
-   * ```
+   * @deprecated
    */
   apply(
     authRuleToken: string,
