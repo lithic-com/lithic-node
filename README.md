@@ -143,13 +143,13 @@ List methods in the Lithic API are paginated.
 You can use the `for await … of` syntax to iterate through items across all pages:
 
 ```ts
-async function fetchAllCards(params) {
-  const allCards = [];
+async function fetchAllNonPCICards(params) {
+  const allNonPCICards = [];
   // Automatically fetches more pages as needed.
   for await (const nonPCICard of client.cards.list()) {
-    allCards.push(nonPCICard);
+    allNonPCICards.push(nonPCICard);
   }
-  return allCards;
+  return allNonPCICards;
 }
 ```
 
