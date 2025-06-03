@@ -1203,7 +1203,7 @@ export interface RequiredDocument {
   entity_token: string;
 
   /**
-   * rovides the status reasons that will be satisfied by providing one of the valid
+   * Provides the status reasons that will be satisfied by providing one of the valid
    * documents.
    */
   status_reasons: Array<string>;

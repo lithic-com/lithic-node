@@ -249,7 +249,9 @@ export interface Transaction {
 
   /**
    * @deprecated Unique identifier assigned to a transaction by the acquirer that can
-   * be used in dispute and chargeback filing.
+   * be used in dispute and chargeback filing. This field has been deprecated in
+   * favor of the `acquirer_reference_number` that resides in the event-level
+   * `network_info`.
    */
   acquirer_reference_number: string | null;
 
