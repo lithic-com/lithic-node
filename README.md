@@ -25,13 +25,9 @@ const client = new Lithic({
   environment: 'sandbox', // defaults to 'production'
 });
 
-async function main() {
-  const card = await client.cards.create({ type: 'SINGLE_USE' });
+const card = await client.cards.create({ type: 'SINGLE_USE' });
 
-  console.log(card.token);
-}
-
-main();
+console.log(card.token);
 ```
 
 ### Request & Response types
@@ -47,12 +43,8 @@ const client = new Lithic({
   environment: 'sandbox', // defaults to 'production'
 });
 
-async function main() {
-  const params: Lithic.CardCreateParams = { type: 'SINGLE_USE' };
-  const card: Lithic.Card = await client.cards.create(params);
-}
-
-main();
+const params: Lithic.CardCreateParams = { type: 'SINGLE_USE' };
+const card: Lithic.Card = await client.cards.create(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -65,21 +57,17 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-async function main() {
-  const card = await client.cards.create({ type: 'MERCHANT_LOCKED' }).catch(async (err) => {
-    if (err instanceof Lithic.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.error?.message); // Invalid parameter(s): type
-      console.log(err.error?.debugging_request_id); // 94d5e915-xxxx-4cee-a4f5-2xd6ebd279ac
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
-    }
-  });
-}
-
-main();
+const card = await client.cards.create({ type: 'MERCHANT_LOCKED' }).catch(async (err) => {
+  if (err instanceof Lithic.APIError) {
+    console.log(err.status); // 400
+    console.log(err.name); // BadRequestError
+    console.log(err.error?.message); // Invalid parameter(s): type
+    console.log(err.error?.debugging_request_id); // 94d5e915-xxxx-4cee-a4f5-2xd6ebd279ac
+    console.log(err.headers); // {server: 'nginx', ...}
+  } else {
+    throw err;
+  }
+});
 ```
 
 Error codes are as follows:
