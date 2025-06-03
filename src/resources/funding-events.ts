@@ -64,7 +64,8 @@ export interface FundingEventRetrieveResponse {
   collection_resource_type: 'BOOK_TRANSFER' | 'PAYMENT';
 
   /**
-   * IDs of collections
+   * IDs of collections, further information can be gathered from the appropriate
+   * collection API based on collection_resource_type
    */
   collection_tokens: Array<string>;
 
@@ -79,14 +80,14 @@ export interface FundingEventRetrieveResponse {
   high_watermark: string;
 
   /**
+   * Network settlement summary breakdown by network settlement date
+   */
+  network_settlement_summary: Array<FundingEventRetrieveResponse.NetworkSettlementSummary>;
+
+  /**
    * Time of the previous high watermark
    */
   previous_high_watermark: string;
-
-  /**
-   * List of settlements
-   */
-  settlement_breakdowns: Array<FundingEventRetrieveResponse.SettlementBreakdown>;
 
   /**
    * Time of the update
@@ -95,10 +96,10 @@ export interface FundingEventRetrieveResponse {
 }
 
 export namespace FundingEventRetrieveResponse {
-  export interface SettlementBreakdown {
-    amount: number;
+  export interface NetworkSettlementSummary {
+    network_settlement_date: string;
 
-    settlement_date: string;
+    settled_gross_amount: number;
   }
 }
 
@@ -114,7 +115,8 @@ export interface FundingEventListResponse {
   collection_resource_type: 'BOOK_TRANSFER' | 'PAYMENT';
 
   /**
-   * IDs of collections
+   * IDs of collections, further information can be gathered from the appropriate
+   * collection API based on collection_resource_type
    */
   collection_tokens: Array<string>;
 
@@ -129,14 +131,14 @@ export interface FundingEventListResponse {
   high_watermark: string;
 
   /**
+   * Network settlement summary breakdown by network settlement date
+   */
+  network_settlement_summary: Array<FundingEventListResponse.NetworkSettlementSummary>;
+
+  /**
    * Time of the previous high watermark
    */
   previous_high_watermark: string;
-
-  /**
-   * List of settlements
-   */
-  settlement_breakdowns: Array<FundingEventListResponse.SettlementBreakdown>;
 
   /**
    * Time of the update
@@ -145,10 +147,10 @@ export interface FundingEventListResponse {
 }
 
 export namespace FundingEventListResponse {
-  export interface SettlementBreakdown {
-    amount: number;
+  export interface NetworkSettlementSummary {
+    network_settlement_date: string;
 
-    settlement_date: string;
+    settled_gross_amount: number;
   }
 }
 
