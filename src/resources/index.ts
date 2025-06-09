@@ -122,6 +122,7 @@ export {
   type FinancialAccountCreateParams,
   type FinancialAccountUpdateParams,
   type FinancialAccountListParams,
+  type FinancialAccountRegisterAccountNumberParams,
   type FinancialAccountUpdateStatusParams,
 } from './financial-accounts/financial-accounts';
 export {

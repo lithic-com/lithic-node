@@ -129,6 +129,28 @@ export class FinancialAccounts extends APIResource {
   }
 
   /**
+   * Register account number
+   *
+   * @example
+   * ```ts
+   * await client.financialAccounts.registerAccountNumber(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   { account_number: 'account_number' },
+   * );
+   * ```
+   */
+  registerAccountNumber(
+    financialAccountToken: string,
+    body: FinancialAccountRegisterAccountNumberParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<void> {
+    return this._client.post(`/v1/financial_accounts/${financialAccountToken}/register_account_number`, {
+      body,
+      ...options,
+    });
+  }
+
+  /**
    * Update financial account status
    *
    * @example
@@ -188,7 +210,8 @@ export interface FinancialAccount {
     | 'CHARGED_OFF_INTEREST'
     | 'CHARGED_OFF_PRINCIPAL'
     | 'SECURITY'
-    | 'PROGRAM_RECEIVABLES';
+    | 'PROGRAM_RECEIVABLES'
+    | 'COLLECTION';
 
   updated: string;
 
@@ -458,6 +481,10 @@ export interface FinancialAccountListParams {
   type?: 'ISSUING' | 'OPERATING' | 'RESERVE';
 }
 
+export interface FinancialAccountRegisterAccountNumberParams {
+  account_number: string;
+}
+
 export interface FinancialAccountUpdateStatusParams {
   /**
    * Status of the financial account
@@ -487,6 +514,7 @@ export declare namespace FinancialAccounts {
     type FinancialAccountCreateParams as FinancialAccountCreateParams,
     type FinancialAccountUpdateParams as FinancialAccountUpdateParams,
     type FinancialAccountListParams as FinancialAccountListParams,
+    type FinancialAccountRegisterAccountNumberParams as FinancialAccountRegisterAccountNumberParams,
     type FinancialAccountUpdateStatusParams as FinancialAccountUpdateStatusParams,
   };
 
