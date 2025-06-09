@@ -478,8 +478,10 @@ export namespace VelocityLimitParams {
  *   Eastern Time.
  * - `MONTH`: Velocity over the current month since 00:00 / 12 AM on the first of
  *   the month in Eastern Time.
+ * - `YEAR`: Velocity over the current year since 00:00 / 12 AM on January 1st in
+ *   Eastern Time.
  */
-export type VelocityLimitParamsPeriodWindow = 'DAY' | 'WEEK' | 'MONTH';
+export type VelocityLimitParamsPeriodWindow = 'DAY' | 'WEEK' | 'MONTH' | 'YEAR';
 
 export interface V2CreateResponse {
   /**

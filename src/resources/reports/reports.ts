@@ -92,7 +92,9 @@ export interface SettlementDetail {
   report_date: string;
 
   /**
-   * Date of when money movement is triggered for the transaction.
+   * Date of when money movement is triggered for the transaction. One exception
+   * applies - for Mastercard dual message settlement, this is the settlement
+   * advisement date, which is distinct from the date of money movement.
    */
   settlement_date: string;
 

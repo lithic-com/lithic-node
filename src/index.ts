@@ -208,6 +208,7 @@ import {
   FinancialAccount,
   FinancialAccountCreateParams,
   FinancialAccountListParams,
+  FinancialAccountRegisterAccountNumberParams,
   FinancialAccountUpdateParams,
   FinancialAccountUpdateStatusParams,
   FinancialAccounts,
@@ -654,6 +655,7 @@ export declare namespace Lithic {
     type FinancialAccountCreateParams as FinancialAccountCreateParams,
     type FinancialAccountUpdateParams as FinancialAccountUpdateParams,
     type FinancialAccountListParams as FinancialAccountListParams,
+    type FinancialAccountRegisterAccountNumberParams as FinancialAccountRegisterAccountNumberParams,
     type FinancialAccountUpdateStatusParams as FinancialAccountUpdateStatusParams,
   };
 

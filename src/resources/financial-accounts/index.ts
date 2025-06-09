@@ -21,6 +21,7 @@ export {
   type FinancialAccountCreateParams,
   type FinancialAccountUpdateParams,
   type FinancialAccountListParams,
+  type FinancialAccountRegisterAccountNumberParams,
   type FinancialAccountUpdateStatusParams,
 } from './financial-accounts';
 export { LoanTapesCursorPage, LoanTapes, type LoanTape, type LoanTapeListParams } from './loan-tapes';
