@@ -479,7 +479,13 @@ export namespace Transaction {
     /**
      * Indicates which party made the 3DS authentication decision.
      */
-    decision_made_by: 'CUSTOMER_ENDPOINT' | 'LITHIC_DEFAULT' | 'LITHIC_RULES' | 'NETWORK' | 'UNKNOWN';
+    decision_made_by:
+      | 'CUSTOMER_RULES'
+      | 'CUSTOMER_ENDPOINT'
+      | 'LITHIC_DEFAULT'
+      | 'LITHIC_RULES'
+      | 'NETWORK'
+      | 'UNKNOWN';
 
     /**
      * Indicates whether chargeback liability shift applies to the transaction.

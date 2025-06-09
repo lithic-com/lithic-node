@@ -312,6 +312,7 @@ Methods:
 - <code title="get /v1/financial_accounts/{financial_account_token}">client.financialAccounts.<a href="./src/resources/financial-accounts/financial-accounts.ts">retrieve</a>(financialAccountToken) -> FinancialAccount</code>
 - <code title="patch /v1/financial_accounts/{financial_account_token}">client.financialAccounts.<a href="./src/resources/financial-accounts/financial-accounts.ts">update</a>(financialAccountToken, { ...params }) -> FinancialAccount</code>
 - <code title="get /v1/financial_accounts">client.financialAccounts.<a href="./src/resources/financial-accounts/financial-accounts.ts">list</a>({ ...params }) -> FinancialAccountsSinglePage</code>
+- <code title="post /v1/financial_accounts/{financial_account_token}/register_account_number">client.financialAccounts.<a href="./src/resources/financial-accounts/financial-accounts.ts">registerAccountNumber</a>(financialAccountToken, { ...params }) -> void</code>
 - <code title="post /v1/financial_accounts/{financial_account_token}/update_status">client.financialAccounts.<a href="./src/resources/financial-accounts/financial-accounts.ts">updateStatus</a>(financialAccountToken, { ...params }) -> FinancialAccount</code>
 
 ## Balances
