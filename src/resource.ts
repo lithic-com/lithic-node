@@ -2,7 +2,7 @@
 
 import type { Lithic } from './index';
 
-export class APIResource {
+export abstract class APIResource {
   protected _client: Lithic;
 
   constructor(client: Lithic) {
