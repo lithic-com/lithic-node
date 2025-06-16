@@ -152,7 +152,13 @@ export interface ExternalBankAccountAddress {
 
 export type OwnerType = 'INDIVIDUAL' | 'BUSINESS';
 
-export type VerificationMethod = 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE' | 'EXTERNALLY_VERIFIED';
+export type VerificationMethod =
+  | 'MANUAL'
+  | 'MICRO_DEPOSIT'
+  | 'PLAID'
+  | 'PRENOTE'
+  | 'EXTERNALLY_VERIFIED'
+  | 'UNVERIFIED';
 
 export interface ExternalBankAccountCreateResponse {
   /**
