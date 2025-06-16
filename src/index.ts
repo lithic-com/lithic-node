@@ -374,6 +374,7 @@ export class Lithic extends Core.APIClient {
 
     super({
       baseURL: options.baseURL || environments[options.environment || 'production'],
+      baseURLOverridden: baseURL ? baseURL !== environments[options.environment || 'production'] : false,
       timeout: options.timeout ?? 60000 /* 1 minute */,
       httpAgent: options.httpAgent,
       maxRetries: options.maxRetries,
@@ -412,6 +413,13 @@ export class Lithic extends Core.APIClient {
   externalPayments: API.ExternalPayments = new API.ExternalPayments(this);
   managementOperations: API.ManagementOperations = new API.ManagementOperations(this);
   fundingEvents: API.FundingEvents = new API.FundingEvents(this);
+
+  /**
+   * Check whether the base URL is set to its default.
+   */
+  #baseURLOverridden(): boolean {
+    return this.baseURL !== environments[this._options.environment || 'production'];
+  }
 
   /**
    * Status of api
