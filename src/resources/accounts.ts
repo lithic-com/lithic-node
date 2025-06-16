@@ -121,11 +121,11 @@ export interface Account {
    * - `PAUSED` - Account will not be able to transact or create new cards. It can be
    *   set back to `ACTIVE`.
    * - `CLOSED` - Account will not be able to transact or create new cards. `CLOSED`
-   *   accounts are also unable to be transitioned to `ACTIVE` or `PAUSED` states.
-   *   `CLOSED` accounts result from failing to pass KYB/KYC or Lithic closing for
-   *   risk/compliance reasons. Please contact
-   *   [support@lithic.com](mailto:support@lithic.com) if you believe this was in
-   *   error.
+   *   accounts are unable to be transitioned to `ACTIVE` or `PAUSED` states.
+   *   Accounts can be manually set to `CLOSED`, or this can be done by Lithic due to
+   *   failure to pass KYB/KYC or for risk/compliance reasons. Please contact
+   *   [support@lithic.com](mailto:support@lithic.com) if you believe this was done
+   *   by mistake.
    */
   state: 'ACTIVE' | 'PAUSED' | 'CLOSED';
 
@@ -332,7 +332,7 @@ export interface AccountUpdateParams {
   /**
    * Account states.
    */
-  state?: 'ACTIVE' | 'PAUSED';
+  state?: 'ACTIVE' | 'PAUSED' | 'CLOSED';
 
   /**
    * @deprecated Address used during Address Verification Service (AVS) checks during
