@@ -186,7 +186,7 @@ export interface Event {
     | 'tokenization.two_factor_authentication_code_sent'
     | 'tokenization.updated';
 
-  payload: Record<string, unknown>;
+  payload: { [key: string]: unknown };
 }
 
 /**
