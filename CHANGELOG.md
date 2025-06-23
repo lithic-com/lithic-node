@@ -1,5 +1,41 @@
 # Changelog
 
+## 0.105.0 (2025-06-23)
+
+Full Changelog: [v0.104.0...v0.105.0](https://github.com/lithic-com/lithic-node/compare/v0.104.0...v0.105.0)
+
+### Features
+
+* **api:** add CLOSED account state option and UNVERIFIED verification method ([779fc1d](https://github.com/lithic-com/lithic-node/commit/779fc1dbefde25af64746c478a0463204881a5cc))
+* **client:** add support for endpoint-specific base URLs ([5351646](https://github.com/lithic-com/lithic-node/commit/5351646a5adaabcd75c94ce3f79e97f6e82d1991))
+* **client:** adds endpoint to register an account number on a Financial Account ([48bfcca](https://github.com/lithic-com/lithic-node/commit/48bfcca8844f2f5eb1e327f643b3f1045d8e9ad1))
+* **client:** adds support for 3DS to Auth Rules ([b025f79](https://github.com/lithic-com/lithic-node/commit/b025f79ed419867818490d05790d070703430040))
+
+
+### Bug Fixes
+
+* publish script — handle NPM errors correctly ([5d9df71](https://github.com/lithic-com/lithic-node/commit/5d9df71546b2879d46fb780a4c05b0e6a71464fd))
+
+
+### Chores
+
+* **api:** mark some methods as deprecated ([55ca4f7](https://github.com/lithic-com/lithic-node/commit/55ca4f74ff18db37b26e79d434c305ac98fa6540))
+* **ci:** enable for pull requests ([ad4bab3](https://github.com/lithic-com/lithic-node/commit/ad4bab3be985580e9425c7ad999e2c2c160401f4))
+* **docs:** grammar improvements ([c865442](https://github.com/lithic-com/lithic-node/commit/c86544253bfd618490ebbce5a7d5f7dbdcee1844))
+* **docs:** use top-level-await in example snippets ([eef2b95](https://github.com/lithic-com/lithic-node/commit/eef2b95ae499d44432c5132700dcea820a4df936))
+* improve publish-npm script --latest tag logic ([926af31](https://github.com/lithic-com/lithic-node/commit/926af3149944b4cff98d184aea5a4ad413c5acb6))
+* **internal:** make base APIResource abstract ([57924eb](https://github.com/lithic-com/lithic-node/commit/57924eb4f90d1a6afa9bf9b8ddc3b40dde397074))
+
+
+### Documentation
+
+* **pagination:** improve naming ([e8f3074](https://github.com/lithic-com/lithic-node/commit/e8f307463828d4829c1d654479af634d23f948cd))
+
+
+### Refactors
+
+* **types:** replace Record with mapped types ([e256fb9](https://github.com/lithic-com/lithic-node/commit/e256fb97cb883c61226295cfca28bf4bf9e02d5d))
+
 ## 0.104.0 (2025-05-15)
 
 Full Changelog: [v0.103.0...v0.104.0](https://github.com/lithic-com/lithic-node/compare/v0.103.0...v0.104.0)
