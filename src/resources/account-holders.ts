@@ -108,6 +108,11 @@ export class AccountHolders extends APIResource {
    * ```ts
    * const accountHolder = await client.accountHolders.update(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   {
+   *     business_entity: { address: { postal_code: '61023' } },
+   *     control_person: { address: { postal_code: '68023' } },
+   *     website_url: 'https://www.mynewbusiness.com',
+   *   },
    * );
    * ```
    */
@@ -218,7 +223,8 @@ export class AccountHolders extends APIResource {
    * const document =
    *   await client.accountHolders.simulateEnrollmentDocumentReview(
    *     {
-   *       document_upload_token: 'document_upload_token',
+   *       document_upload_token:
+   *         'b11cd67b-0a52-4180-8365-314f3def5426',
    *       status: 'UPLOADED',
    *     },
    *   );

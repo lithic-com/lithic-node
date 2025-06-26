@@ -17,16 +17,24 @@ export class ExternalBankAccounts extends APIResource {
    * ```ts
    * const externalBankAccount =
    *   await client.externalBankAccounts.create({
-   *     account_number: '12345678901234567',
-   *     country: 'USD',
+   *     account_number: '13719713158835300',
+   *     country: 'USA',
    *     currency: 'USD',
    *     financial_account_token:
    *       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     owner: 'owner',
-   *     owner_type: 'INDIVIDUAL',
-   *     routing_number: '123456789',
+   *     owner: 'John Doe',
+   *     owner_type: 'BUSINESS',
+   *     routing_number: '011103093',
    *     type: 'CHECKING',
-   *     verification_method: 'MANUAL',
+   *     verification_method: 'MICRO_DEPOSIT',
+   *     address: {
+   *       address1: '5 Broad Street',
+   *       city: 'New York',
+   *       country: 'USA',
+   *       postal_code: '10001',
+   *       state: 'NY',
+   *     },
+   *     name: 'John Does Checking',
    *   });
    * ```
    */
@@ -39,6 +47,14 @@ export class ExternalBankAccounts extends APIResource {
 
   /**
    * Get the external bank account by token.
+   *
+   * @example
+   * ```ts
+   * const externalBankAccount =
+   *   await client.externalBankAccounts.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   retrieve(
     externalBankAccountToken: string,
@@ -49,6 +65,14 @@ export class ExternalBankAccounts extends APIResource {
 
   /**
    * Update the external bank account by token.
+   *
+   * @example
+   * ```ts
+   * const externalBankAccount =
+   *   await client.externalBankAccounts.update(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   update(
     externalBankAccountToken: string,
@@ -60,6 +84,14 @@ export class ExternalBankAccounts extends APIResource {
 
   /**
    * List all the external bank accounts for the provided search criteria.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const externalBankAccountListResponse of client.externalBankAccounts.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query?: ExternalBankAccountListParams,
@@ -83,6 +115,14 @@ export class ExternalBankAccounts extends APIResource {
 
   /**
    * Retry external bank account micro deposit verification.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.externalBankAccounts.retryMicroDeposits(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   retryMicroDeposits(
     externalBankAccountToken: string,
@@ -109,6 +149,14 @@ export class ExternalBankAccounts extends APIResource {
 
   /**
    * Retry external bank account prenote verification.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.externalBankAccounts.retryPrenote(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   retryPrenote(
     externalBankAccountToken: string,
@@ -901,7 +949,8 @@ export interface ExternalBankAccountRetryPrenoteResponse {
 export type ExternalBankAccountCreateParams =
   | ExternalBankAccountCreateParams.BankVerifiedCreateBankAccountAPIRequest
   | ExternalBankAccountCreateParams.PlaidCreateBankAccountAPIRequest
-  | ExternalBankAccountCreateParams.ExternallyVerifiedCreateBankAccountAPIRequest;
+  | ExternalBankAccountCreateParams.ExternallyVerifiedCreateBankAccountAPIRequest
+  | ExternalBankAccountCreateParams.UnverifiedCreateBankAccountAPIRequest;
 
 export declare namespace ExternalBankAccountCreateParams {
   export interface BankVerifiedCreateBankAccountAPIRequest {
@@ -1081,6 +1130,87 @@ export declare namespace ExternalBankAccountCreateParams {
      * Verification Method
      */
     verification_method: 'EXTERNALLY_VERIFIED';
+
+    /**
+     * Indicates which Lithic account the external account is associated with. For
+     * external accounts that are associated with the program, account_token field
+     * returned will be null
+     */
+    account_token?: string;
+
+    /**
+     * Address
+     */
+    address?: ExternalBankAccountAddress;
+
+    /**
+     * Optional field that helps identify bank accounts in receipts
+     */
+    company_id?: string;
+
+    /**
+     * Date of Birth of the Individual that owns the external bank account
+     */
+    dob?: string;
+
+    /**
+     * Doing Business As
+     */
+    doing_business_as?: string;
+
+    /**
+     * The nickname for this External Bank Account
+     */
+    name?: string;
+
+    /**
+     * User Defined ID
+     */
+    user_defined_id?: string;
+  }
+
+  export interface UnverifiedCreateBankAccountAPIRequest {
+    /**
+     * Account Number
+     */
+    account_number: string;
+
+    /**
+     * The country that the bank account is located in using ISO 3166-1. We will only
+     * accept USA bank accounts e.g., USA
+     */
+    country: string;
+
+    /**
+     * currency of the external account 3-character alphabetic ISO 4217 code
+     */
+    currency: string;
+
+    /**
+     * Legal Name of the business or individual who owns the external account. This
+     * will appear in statements
+     */
+    owner: string;
+
+    /**
+     * Owner Type
+     */
+    owner_type: OwnerType;
+
+    /**
+     * Routing Number
+     */
+    routing_number: string;
+
+    /**
+     * Account Type
+     */
+    type: 'CHECKING' | 'SAVINGS';
+
+    /**
+     * Verification Method
+     */
+    verification_method: 'UNVERIFIED';
 
     /**
      * Indicates which Lithic account the external account is associated with. For

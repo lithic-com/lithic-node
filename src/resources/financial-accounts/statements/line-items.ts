@@ -125,6 +125,7 @@ export namespace StatementLineItems {
       | 'CASH_BACK'
       | 'CASH_BACK_REVERSAL'
       | 'CLEARING'
+      | 'COLLECTION'
       | 'CORRECTION_CREDIT'
       | 'CORRECTION_DEBIT'
       | 'CREDIT_AUTHORIZATION'

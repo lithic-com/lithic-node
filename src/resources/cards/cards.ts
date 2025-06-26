@@ -879,10 +879,12 @@ export interface CardCreateParams {
    * - `STANDARD_WITH_TRACKING` - USPS regular mail or similar international option,
    *   with tracking
    * - `PRIORITY` - USPS Priority, 1-3 day shipping, with tracking
-   * - `EXPRESS` - FedEx Express, 3-day shipping, with tracking
-   * - `2_DAY` - FedEx 2-day shipping, with tracking
-   * - `EXPEDITED` - FedEx Standard Overnight or similar international option, with
+   * - `EXPRESS` - FedEx or UPS depending on card manufacturer, Express, 3-day
+   *   shipping, with tracking
+   * - `2_DAY` - FedEx or UPS depending on card manufacturer, 2-day shipping, with
    *   tracking
+   * - `EXPEDITED` - FedEx or UPS depending on card manufacturer, Standard Overnight
+   *   or similar international option, with tracking
    */
   shipping_method?: '2_DAY' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING';
 
@@ -1043,10 +1045,12 @@ export interface CardConvertPhysicalParams {
    * - `STANDARD_WITH_TRACKING` - USPS regular mail or similar international option,
    *   with tracking
    * - `PRIORITY` - USPS Priority, 1-3 day shipping, with tracking
-   * - `EXPRESS` - FedEx Express, 3-day shipping, with tracking
-   * - `2_DAY` - FedEx 2-day shipping, with tracking
-   * - `EXPEDITED` - FedEx Standard Overnight or similar international option, with
+   * - `EXPRESS` - FedEx or UPS depending on card manufacturer, Express, 3-day
+   *   shipping, with tracking
+   * - `2_DAY` - FedEx or UPS depending on card manufacturer, 2-day shipping, with
    *   tracking
+   * - `EXPEDITED` - FedEx or UPS depending on card manufacturer, Standard Overnight
+   *   or similar international option, with tracking
    */
   shipping_method?: '2_DAY' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING';
 }
@@ -1201,10 +1205,12 @@ export interface CardReissueParams {
    * - `STANDARD_WITH_TRACKING` - USPS regular mail or similar international option,
    *   with tracking
    * - `PRIORITY` - USPS Priority, 1-3 day shipping, with tracking
-   * - `EXPRESS` - FedEx Express, 3-day shipping, with tracking
-   * - `2_DAY` - FedEx 2-day shipping, with tracking
-   * - `EXPEDITED` - FedEx Standard Overnight or similar international option, with
+   * - `EXPRESS` - FedEx or UPS depending on card manufacturer, Express, 3-day
+   *   shipping, with tracking
+   * - `2_DAY` - FedEx or UPS depending on card manufacturer, 2-day shipping, with
    *   tracking
+   * - `EXPEDITED` - FedEx or UPS depending on card manufacturer, Standard Overnight
+   *   or similar international option, with tracking
    */
   shipping_method?: '2_DAY' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING';
 }
@@ -1248,10 +1254,12 @@ export interface CardRenewParams {
    * - `STANDARD_WITH_TRACKING` - USPS regular mail or similar international option,
    *   with tracking
    * - `PRIORITY` - USPS Priority, 1-3 day shipping, with tracking
-   * - `EXPRESS` - FedEx Express, 3-day shipping, with tracking
-   * - `2_DAY` - FedEx 2-day shipping, with tracking
-   * - `EXPEDITED` - FedEx Standard Overnight or similar international option, with
+   * - `EXPRESS` - FedEx or UPS depending on card manufacturer, Express, 3-day
+   *   shipping, with tracking
+   * - `2_DAY` - FedEx or UPS depending on card manufacturer, 2-day shipping, with
    *   tracking
+   * - `EXPEDITED` - FedEx or UPS depending on card manufacturer, Standard Overnight
+   *   or similar international option, with tracking
    */
   shipping_method?: '2_DAY' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING';
 }
