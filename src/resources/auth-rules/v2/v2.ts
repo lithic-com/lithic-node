@@ -154,10 +154,11 @@ export class V2 extends APIResource {
   }
 
   /**
-   * Requests a performance report of an Auth rule to be asynchronously generated.
-   * Reports can only be run on rules in draft or active mode and will included
-   * approved and declined statistics as well as examples. The generated report will
-   * be delivered asynchronously through a webhook with `event_type` =
+   * This endpoint is deprecated and will be removed in the future. Requests a
+   * performance report of an Auth rule to be asynchronously generated. Reports can
+   * only be run on rules in draft or active mode and will included approved and
+   * declined statistics as well as examples. The generated report will be delivered
+   * asynchronously through a webhook with `event_type` =
    * `auth_rules.performance_report.created`. See the docs on setting up
    * [webhook subscriptions](https://docs.lithic.com/docs/events-api).
    *
@@ -205,15 +206,41 @@ export class V2 extends APIResource {
    * between when Lithic's transaction processing systems have processed the
    * transaction, and when a transaction will be included in the report.
    *
-   * @example
-   * ```ts
-   * const response = await client.authRules.v2.report(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
+   * @deprecated
    */
   report(authRuleToken: string, options?: Core.RequestOptions): Core.APIPromise<V2ReportResponse> {
     return this._client.post(`/v2/auth_rules/${authRuleToken}/report`, options);
+  }
+
+  /**
+   * Retrieves a performance report for an Auth rule containing daily statistics and
+   * evaluation outcomes.
+   *
+   * **Time Range Limitations:**
+   *
+   * - Reports are supported for the past 3 months only
+   * - Maximum interval length is 1 month
+   * - Report data is available only through the previous day in UTC (current day
+   *   data is not available)
+   *
+   * The report provides daily statistics for both current and draft versions of the
+   * Auth rule, including approval, decline, and challenge counts along with sample
+   * events.
+   *
+   * @example
+   * ```ts
+   * const response = await client.authRules.v2.retrieveReport(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   { begin: '2019-12-27', end: '2019-12-27' },
+   * );
+   * ```
+   */
+  retrieveReport(
+    authRuleToken: string,
+    query: V2RetrieveReportParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<V2RetrieveReportResponse> {
+    return this._client.get(`/v2/auth_rules/${authRuleToken}/report`, { query, ...options });
   }
 }
 
@@ -410,6 +437,65 @@ export type ConditionalAttribute =
 
 export interface ConditionalBlockParameters {
   conditions: Array<AuthRuleCondition>;
+}
+
+export interface RuleStats {
+  /**
+   * The total number of historical transactions approved by this rule during the
+   * relevant period, or the number of transactions that would have been approved if
+   * the rule was evaluated in shadow mode.
+   */
+  approved?: number;
+
+  /**
+   * The total number of historical transactions challenged by this rule during the
+   * relevant period, or the number of transactions that would have been challenged
+   * if the rule was evaluated in shadow mode. Currently applicable only for 3DS Auth
+   * Rules.
+   */
+  challenged?: number;
+
+  /**
+   * The total number of historical transactions declined by this rule during the
+   * relevant period, or the number of transactions that would have been declined if
+   * the rule was evaluated in shadow mode.
+   */
+  declined?: number;
+
+  /**
+   * Example events and their outcomes.
+   */
+  examples?: Array<RuleStats.Example>;
+
+  /**
+   * The version of the rule, this is incremented whenever the rule's parameters
+   * change.
+   */
+  version?: number;
+}
+
+export namespace RuleStats {
+  export interface Example {
+    /**
+     * Whether the rule would have approved the request.
+     */
+    approved?: boolean;
+
+    /**
+     * The decision made by the rule for this event.
+     */
+    decision?: 'APPROVED' | 'DECLINED' | 'CHALLENGED';
+
+    /**
+     * The event token.
+     */
+    event_token?: string;
+
+    /**
+     * The timestamp of the event.
+     */
+    timestamp?: string;
+  }
 }
 
 export interface VelocityLimitParams {
@@ -2594,6 +2680,47 @@ export interface V2ReportResponse {
   report_token?: string;
 }
 
+export interface V2RetrieveReportResponse {
+  /**
+   * Auth Rule Token
+   */
+  auth_rule_token: string;
+
+  /**
+   * The start date (UTC) of the report.
+   */
+  begin: string;
+
+  /**
+   * Daily evaluation statistics for the Auth Rule.
+   */
+  daily_statistics: Array<V2RetrieveReportResponse.DailyStatistic>;
+
+  /**
+   * The end date (UTC) of the report.
+   */
+  end: string;
+}
+
+export namespace V2RetrieveReportResponse {
+  export interface DailyStatistic {
+    /**
+     * Detailed statistics for the current version of the rule.
+     */
+    current_version_statistics: V2API.RuleStats | null;
+
+    /**
+     * The date (UTC) for which the statistics are reported.
+     */
+    date: string;
+
+    /**
+     * Detailed statistics for the draft version of the rule.
+     */
+    draft_version_statistics: V2API.RuleStats | null;
+  }
+}
+
 export type V2CreateParams =
   | V2CreateParams.CreateAuthRuleRequestAccountTokens
   | V2CreateParams.CreateAuthRuleRequestCardTokens
@@ -3260,6 +3387,18 @@ export namespace V2DraftParams {
   }
 }
 
+export interface V2RetrieveReportParams {
+  /**
+   * Start date for the report
+   */
+  begin: string;
+
+  /**
+   * End date for the report
+   */
+  end: string;
+}
+
 V2.V2ListResponsesCursorPage = V2ListResponsesCursorPage;
 V2.Backtests = Backtests;
 
@@ -3269,6 +3408,7 @@ export declare namespace V2 {
     type AuthRuleCondition as AuthRuleCondition,
     type ConditionalAttribute as ConditionalAttribute,
     type ConditionalBlockParameters as ConditionalBlockParameters,
+    type RuleStats as RuleStats,
     type VelocityLimitParams as VelocityLimitParams,
     type VelocityLimitParamsPeriodWindow as VelocityLimitParamsPeriodWindow,
     type V2CreateResponse as V2CreateResponse,
@@ -3279,12 +3419,14 @@ export declare namespace V2 {
     type V2DraftResponse as V2DraftResponse,
     type V2PromoteResponse as V2PromoteResponse,
     type V2ReportResponse as V2ReportResponse,
+    type V2RetrieveReportResponse as V2RetrieveReportResponse,
     V2ListResponsesCursorPage as V2ListResponsesCursorPage,
     type V2CreateParams as V2CreateParams,
     type V2UpdateParams as V2UpdateParams,
     type V2ListParams as V2ListParams,
     type V2ApplyParams as V2ApplyParams,
     type V2DraftParams as V2DraftParams,
+    type V2RetrieveReportParams as V2RetrieveReportParams,
   };
 
   export {

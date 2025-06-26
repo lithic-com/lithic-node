@@ -72,6 +72,7 @@ Types:
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">AuthRuleCondition</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalAttribute</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalBlockParameters</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">RuleStats</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">VelocityLimitParams</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">VelocityLimitParamsPeriodWindow</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2CreateResponse</a></code>
@@ -82,6 +83,7 @@ Types:
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2DraftResponse</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2PromoteResponse</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2ReportResponse</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">V2RetrieveReportResponse</a></code>
 
 Methods:
 
@@ -94,6 +96,7 @@ Methods:
 - <code title="post /v2/auth_rules/{auth_rule_token}/draft">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">draft</a>(authRuleToken, { ...params }) -> V2DraftResponse</code>
 - <code title="post /v2/auth_rules/{auth_rule_token}/promote">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">promote</a>(authRuleToken) -> V2PromoteResponse</code>
 - <code title="post /v2/auth_rules/{auth_rule_token}/report">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">report</a>(authRuleToken) -> V2ReportResponse</code>
+- <code title="get /v2/auth_rules/{auth_rule_token}/report">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">retrieveReport</a>(authRuleToken, { ...params }) -> V2RetrieveReportResponse</code>
 
 ### Backtests
 
@@ -656,3 +659,17 @@ Methods:
 - <code title="get /v1/funding_events/{funding_event_token}">client.fundingEvents.<a href="./src/resources/funding-events.ts">retrieve</a>(fundingEventToken) -> FundingEventRetrieveResponse</code>
 - <code title="get /v1/funding_events">client.fundingEvents.<a href="./src/resources/funding-events.ts">list</a>({ ...params }) -> FundingEventListResponsesCursorPage</code>
 - <code title="get /v1/funding_events/{funding_event_token}/details">client.fundingEvents.<a href="./src/resources/funding-events.ts">retrieveDetails</a>(fundingEventToken) -> FundingEventRetrieveDetailsResponse</code>
+
+# Fraud
+
+## Transactions
+
+Types:
+
+- <code><a href="./src/resources/fraud/transactions.ts">TransactionRetrieveResponse</a></code>
+- <code><a href="./src/resources/fraud/transactions.ts">TransactionReportResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/fraud/transactions/{transaction_token}">client.fraud.transactions.<a href="./src/resources/fraud/transactions.ts">retrieve</a>(transactionToken) -> TransactionRetrieveResponse</code>
+- <code title="post /v1/fraud/transactions/{transaction_token}">client.fraud.transactions.<a href="./src/resources/fraud/transactions.ts">report</a>(transactionToken, { ...params }) -> TransactionReportResponse</code>

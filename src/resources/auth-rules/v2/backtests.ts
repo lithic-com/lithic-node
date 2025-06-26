@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../../resource';
 import * as Core from '../../../core';
+import * as V2API from './v2';
 
 export class Backtests extends APIResource {
   /**
@@ -22,13 +23,14 @@ export class Backtests extends APIResource {
    * `/v2/auth_rules/{auth_rule_token}/backtests/{auth_rule_backtest_token}`
    * endpoint.
    *
-   * Lithic currently supports backtesting for `CONDITIONAL_BLOCK` rules. Backtesting
-   * for `VELOCITY_LIMIT` rules is generally not supported. In specific cases (i.e.
-   * where Lithic has pre-calculated the requested velocity metrics for historical
-   * transactions), a backtest may be feasible. However, such cases are uncommon and
-   * customers should not anticipate support for velocity backtests under most
-   * configurations. If a historical transaction does not feature the required inputs
-   * to evaluate the rule, then it will not be included in the final backtest report.
+   * Lithic currently supports backtesting for `CONDITIONAL_BLOCK` /
+   * `CONDITIONAL_3DS_ACTION` rules. Backtesting for `VELOCITY_LIMIT` rules is
+   * generally not supported. In specific cases (i.e. where Lithic has pre-calculated
+   * the requested velocity metrics for historical transactions), a backtest may be
+   * feasible. However, such cases are uncommon and customers should not anticipate
+   * support for velocity backtests under most configurations. If a historical
+   * transaction does not feature the required inputs to evaluate the rule, then it
+   * will not be included in the final backtest report.
    *
    * @example
    * ```ts
@@ -96,129 +98,9 @@ export interface BacktestResults {
 
 export namespace BacktestResults {
   export interface Results {
-    current_version?: Results.CurrentVersion | null;
+    current_version?: V2API.RuleStats | null;
 
-    draft_version?: Results.DraftVersion | null;
-  }
-
-  export namespace Results {
-    export interface CurrentVersion {
-      /**
-       * The total number of historical transactions approved by this rule during the
-       * relevant period, or the number of transactions that would have been approved if
-       * the rule was evaluated in shadow mode.
-       */
-      approved?: number;
-
-      /**
-       * The total number of historical transactions challenged by this rule during the
-       * relevant period, or the number of transactions that would have been challenged
-       * if the rule was evaluated in shadow mode. Currently applicable only for 3DS Auth
-       * Rules.
-       */
-      challenged?: number;
-
-      /**
-       * The total number of historical transactions declined by this rule during the
-       * relevant period, or the number of transactions that would have been declined if
-       * the rule was evaluated in shadow mode.
-       */
-      declined?: number;
-
-      /**
-       * Example events and their outcomes.
-       */
-      examples?: Array<CurrentVersion.Example>;
-
-      /**
-       * The version of the rule, this is incremented whenever the rule's parameters
-       * change.
-       */
-      version?: number;
-    }
-
-    export namespace CurrentVersion {
-      export interface Example {
-        /**
-         * Whether the rule would have approved the request.
-         */
-        approved?: boolean;
-
-        /**
-         * The decision made by the rule for this event.
-         */
-        decision?: 'APPROVED' | 'DECLINED' | 'CHALLENGED';
-
-        /**
-         * The event token.
-         */
-        event_token?: string;
-
-        /**
-         * The timestamp of the event.
-         */
-        timestamp?: string;
-      }
-    }
-
-    export interface DraftVersion {
-      /**
-       * The total number of historical transactions approved by this rule during the
-       * relevant period, or the number of transactions that would have been approved if
-       * the rule was evaluated in shadow mode.
-       */
-      approved?: number;
-
-      /**
-       * The total number of historical transactions challenged by this rule during the
-       * relevant period, or the number of transactions that would have been challenged
-       * if the rule was evaluated in shadow mode. Currently applicable only for 3DS Auth
-       * Rules.
-       */
-      challenged?: number;
-
-      /**
-       * The total number of historical transactions declined by this rule during the
-       * relevant period, or the number of transactions that would have been declined if
-       * the rule was evaluated in shadow mode.
-       */
-      declined?: number;
-
-      /**
-       * Example events and their outcomes.
-       */
-      examples?: Array<DraftVersion.Example>;
-
-      /**
-       * The version of the rule, this is incremented whenever the rule's parameters
-       * change.
-       */
-      version?: number;
-    }
-
-    export namespace DraftVersion {
-      export interface Example {
-        /**
-         * Whether the rule would have approved the request.
-         */
-        approved?: boolean;
-
-        /**
-         * The decision made by the rule for this event.
-         */
-        decision?: 'APPROVED' | 'DECLINED' | 'CHALLENGED';
-
-        /**
-         * The event token.
-         */
-        event_token?: string;
-
-        /**
-         * The timestamp of the event.
-         */
-        timestamp?: string;
-      }
-    }
+    draft_version?: V2API.RuleStats | null;
   }
 
   export interface SimulationParameters {

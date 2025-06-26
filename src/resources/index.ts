@@ -126,6 +126,7 @@ export {
   type FinancialAccountRegisterAccountNumberParams,
   type FinancialAccountUpdateStatusParams,
 } from './financial-accounts/financial-accounts';
+export { Fraud } from './fraud/fraud';
 export {
   FundingEventListResponsesCursorPage,
   FundingEvents,
