@@ -185,4 +185,25 @@ describe('resource v2', () => {
       }),
     ).rejects.toThrow(Lithic.NotFoundError);
   });
+
+  test('retrieveReport: only required params', async () => {
+    const responsePromise = client.authRules.v2.retrieveReport('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      begin: '2019-12-27',
+      end: '2019-12-27',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('retrieveReport: required and optional params', async () => {
+    const response = await client.authRules.v2.retrieveReport('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      begin: '2019-12-27',
+      end: '2019-12-27',
+    });
+  });
 });

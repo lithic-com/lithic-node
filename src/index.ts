@@ -212,6 +212,7 @@ import {
   FinancialAccountsSinglePage,
   FinancialTransaction,
 } from './resources/financial-accounts/financial-accounts';
+import { Fraud } from './resources/fraud/fraud';
 import {
   Reports,
   SettlementDetail,
@@ -413,6 +414,7 @@ export class Lithic extends Core.APIClient {
   externalPayments: API.ExternalPayments = new API.ExternalPayments(this);
   managementOperations: API.ManagementOperations = new API.ManagementOperations(this);
   fundingEvents: API.FundingEvents = new API.FundingEvents(this);
+  fraud: API.Fraud = new API.Fraud(this);
 
   /**
    * Check whether the base URL is set to its default.
@@ -515,6 +517,7 @@ Lithic.ManagementOperations = ManagementOperations;
 Lithic.ManagementOperationTransactionsCursorPage = ManagementOperationTransactionsCursorPage;
 Lithic.FundingEvents = FundingEvents;
 Lithic.FundingEventListResponsesCursorPage = FundingEventListResponsesCursorPage;
+Lithic.Fraud = Fraud;
 export declare namespace Lithic {
   export type RequestOptions = Core.RequestOptions;
 
@@ -789,6 +792,8 @@ export declare namespace Lithic {
     FundingEventListResponsesCursorPage as FundingEventListResponsesCursorPage,
     type FundingEventListParams as FundingEventListParams,
   };
+
+  export { Fraud as Fraud };
 
   export type AccountFinancialAccountType = API.AccountFinancialAccountType;
   export type Address = API.Address;

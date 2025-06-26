@@ -329,6 +329,8 @@ export namespace Payment {
     sec_code: 'CCD' | 'PPD' | 'WEB';
 
     trace_numbers: Array<string | null>;
+
+    addenda?: string | null;
   }
 }
 
@@ -441,6 +443,8 @@ export interface PaymentCreateParams {
 export namespace PaymentCreateParams {
   export interface MethodAttributes {
     sec_code: 'CCD' | 'PPD' | 'WEB';
+
+    addenda?: string | null;
   }
 }
 

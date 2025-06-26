@@ -35,14 +35,13 @@ export class Authentication extends APIResource {
    * const response =
    *   await client.threeDS.authentication.simulate({
    *     merchant: {
-   *       country: 'USA',
    *       id: 'OODKZAPJVN4YS7O',
+   *       country: 'USA',
    *       mcc: '5812',
    *       name: 'COFFEE SHOP',
    *     },
    *     pan: '4111111289144142',
-   *     transaction: { amount: 100, currency: 'USD' },
-   *     card_expiry_check: 'MATCH',
+   *     transaction: { amount: 0, currency: 'GBP' },
    *   });
    * ```
    */
@@ -55,9 +54,9 @@ export class Authentication extends APIResource {
 
   /**
    * Endpoint for simulating entering OTP into 3DS Challenge UI. A call to
-   * /v1/three_ds_authentication/simulate that resulted in triggered SMS-OTP
-   * challenge must precede. Only a single attempt is supported; upon entering OTP,
-   * the challenge is either approved or declined.
+   * [/v1/three_ds_authentication/simulate](https://docs.lithic.com/reference/postsimulateauthentication)
+   * that resulted in triggered SMS-OTP challenge must precede. Only a single attempt
+   * is supported; upon entering OTP, the challenge is either approved or declined.
    *
    * @example
    * ```ts
@@ -75,9 +74,13 @@ export class Authentication extends APIResource {
   }
 }
 
+/**
+ * Represents a 3DS authentication
+ */
 export interface AuthenticationRetrieveResponse {
   /**
-   * Globally unique identifier for the 3DS authentication.
+   * Globally unique identifier for the 3DS authentication. Permitted values:
+   * 36-digit version 4 UUID (including hyphens).
    */
   token: string;
 
@@ -100,7 +103,7 @@ export interface AuthenticationRetrieveResponse {
 
   /**
    * Globally unique identifier for the card on which the 3DS authentication has
-   * occurred.
+   * occurred. Permitted values: 36-digit version 4 UUID (including hyphens).
    */
   card_token: string;
 
@@ -110,12 +113,14 @@ export interface AuthenticationRetrieveResponse {
   cardholder: AuthenticationRetrieveResponse.Cardholder;
 
   /**
-   * Channel in which the authentication occurs. Maps to EMV 3DS field deviceChannel.
+   * Channel in which the authentication occurs. Maps to EMV 3DS field
+   * `deviceChannel`.
    */
   channel: 'APP_BASED' | 'BROWSER' | 'THREE_DS_REQUESTOR_INITIATED';
 
   /**
-   * Date and time when the authentication was created in Lithic's system.
+   * Date and time when the authentication was created in Lithic's system. Permitted
+   * values: Date string in the ISO 8601 format yyyy-MM-dd'T'hh:mm:ssZ.
    */
   created: string;
 
@@ -164,12 +169,12 @@ export interface AuthenticationRetrieveResponse {
    * Object containing data about the app used in the e-commerce transaction. Present
    * if the channel is 'APP_BASED'.
    */
-  app?: AuthenticationRetrieveResponse.App;
+  app?: AuthenticationRetrieveResponse.App | null;
 
   /**
    * Type of authentication request - i.e., the type of transaction or interaction is
    * causing the merchant to request an authentication. Maps to EMV 3DS field
-   * threeDSRequestorAuthenticationInd.
+   * `threeDSRequestorAuthenticationInd`.
    */
   authentication_request_type?:
     | 'ADD_CARD'
@@ -188,29 +193,41 @@ export interface AuthenticationRetrieveResponse {
    * Object containing data about the browser used in the e-commerce transaction.
    * Present if the channel is 'BROWSER'.
    */
-  browser?: AuthenticationRetrieveResponse.Browser;
+  browser?: AuthenticationRetrieveResponse.Browser | null;
 
   /**
-   * Metadata about the challenge method and delivery.
+   * Metadata about the challenge method and delivery. Only present when a challenge
+   * is triggered.
    */
   challenge_metadata?: AuthenticationRetrieveResponse.ChallengeMetadata | null;
 
   /**
-   * Entity that orchestrates the challenge.
+   * Entity that orchestrates the challenge. This won't be set for authentications
+   * for which a decision has not yet been made (e.g. in-flight customer decisioning
+   * request).
    */
   challenge_orchestrated_by?: 'LITHIC' | 'CUSTOMER' | 'NO_CHALLENGE' | null;
 
   /**
-   * Entity that made the authentication decision.
+   * Entity that made the authentication decision. This won't be set for
+   * authentications for which a decision has not yet been made (e.g. in-flight
+   * customer decisioning request).
    */
-  decision_made_by?: 'CUSTOMER_ENDPOINT' | 'LITHIC_DEFAULT' | 'LITHIC_RULES' | 'NETWORK' | 'UNKNOWN' | null;
+  decision_made_by?:
+    | 'LITHIC_RULES'
+    | 'LITHIC_DEFAULT'
+    | 'CUSTOMER_RULES'
+    | 'CUSTOMER_ENDPOINT'
+    | 'NETWORK'
+    | 'UNKNOWN'
+    | null;
 
   /**
-   * Type of 3DS Requestor Initiated (3RI) request i.e., a 3DS authentication that
+   * Type of 3DS Requestor Initiated (3RI) request — i.e., a 3DS authentication that
    * takes place at the initiation of the merchant rather than the cardholder. The
    * most common example of this is where a merchant is authenticating before billing
    * for a recurring transaction such as a pay TV subscription or a utility bill.
-   * Maps to EMV 3DS field threeRIInd.
+   * Maps to EMV 3DS field `threeRIInd`.
    */
   three_ri_request_type?:
     | 'ACCOUNT_VERIFICATION'
@@ -247,7 +264,7 @@ export namespace AuthenticationRetrieveResponse {
      * Indicates whether the shipping address and billing address provided by the
      * cardholder are the same. This value - and assessment of whether the addresses
      * match - is provided directly in the 3DS request and is not determined by Lithic.
-     * Maps to EMV 3DS field addrMatch.
+     * Maps to EMV 3DS field `addrMatch`.
      */
     address_match?: boolean | null;
 
@@ -258,30 +275,30 @@ export namespace AuthenticationRetrieveResponse {
 
     /**
      * Email address that is either provided by the cardholder or is on file with the
-     * merchant in a 3RI request. Maps to EMV 3DS field email.
+     * merchant in a 3RI request. Maps to EMV 3DS field `email`.
      */
     email?: string | null;
 
     /**
-     * Name of the cardholder. Maps to EMV 3DS field cardholderName.
+     * Name of the cardholder. Maps to EMV 3DS field `cardholderName`.
      */
     name?: string | null;
 
     /**
      * Home phone number provided by the cardholder. Maps to EMV 3DS fields
-     * homePhone.cc and homePhone.subscriber.
+     * `homePhone.cc` and `homePhone.subscriber`.
      */
     phone_number_home?: string | null;
 
     /**
      * Mobile/cell phone number provided by the cardholder. Maps to EMV 3DS fields
-     * mobilePhone.cc and mobilePhone.subscriber.
+     * `mobilePhone.cc` and `mobilePhone.subscriber`.
      */
     phone_number_mobile?: string | null;
 
     /**
      * Work phone number provided by the cardholder. Maps to EMV 3DS fields
-     * workPhone.cc and workPhone.subscriber.
+     * `workPhone.cc` and `workPhone.subscriber`.
      */
     phone_number_work?: string | null;
 
@@ -372,24 +389,25 @@ export namespace AuthenticationRetrieveResponse {
   export interface Merchant {
     /**
      * Merchant identifier as assigned by the acquirer. Maps to EMV 3DS field
-     * acquirerMerchantId.
+     * `acquirerMerchantId`.
      */
     id: string;
 
     /**
      * Country code of the merchant requesting 3DS authentication. Maps to EMV 3DS
-     * field merchantCountryCode.
+     * field `merchantCountryCode`. Permitted values: ISO 3166-1 alpha-3 country code
+     * (e.g., USA).
      */
     country: string;
 
     /**
      * Merchant category code assigned to the merchant that describes its business
-     * activity type. Maps to EMV 3DS field mcc.
+     * activity type. Maps to EMV 3DS field `mcc`.
      */
     mcc: string;
 
     /**
-     * Name of the merchant. Maps to EMV 3DS field merchantName.
+     * Name of the merchant. Maps to EMV 3DS field `merchantName`.
      */
     name: string;
 
@@ -408,13 +426,13 @@ export namespace AuthenticationRetrieveResponse {
     export interface RiskIndicator {
       /**
        * In transactions with electronic delivery, email address to which merchandise is
-       * delivered. Maps to EMV 3DS field deliveryEmailAddress.
+       * delivered. Maps to EMV 3DS field `deliveryEmailAddress`.
        */
       delivery_email_address?: string | null;
 
       /**
        * The delivery time frame for the merchandise. Maps to EMV 3DS field
-       * deliveryTimeframe.
+       * `deliveryTimeframe`.
        */
       delivery_time_frame?:
         | 'ELECTRONIC_DELIVERY'
@@ -426,37 +444,39 @@ export namespace AuthenticationRetrieveResponse {
       /**
        * In prepaid or gift card purchase transactions, purchase amount total in major
        * units (e.g., a purchase of USD $205.10 would be 205). Maps to EMV 3DS field
-       * giftCardAmount.
+       * `giftCardAmount`.
        */
       gift_card_amount?: number | null;
 
       /**
        * In prepaid or gift card purchase transactions, count of individual prepaid or
-       * gift cards/codes purchased. Maps to EMV 3DS field giftCardCount.
+       * gift cards/codes purchased. Maps to EMV 3DS field `giftCardCount`.
        */
       gift_card_count?: number | null;
 
       /**
        * In prepaid or gift card purchase transactions, currency code of the gift card.
-       * Maps to EMV 3DS field giftCardCurr.
+       * Maps to EMV 3DS field `giftCardCurr`. Permitted values: ISO 4217 three-character
+       * currency code (e.g., USD).
        */
       gift_card_currency?: string | null;
 
       /**
        * Indicates whether the purchase is for merchandise that is available now or at a
-       * future date. Maps to EMV 3DS field preOrderPurchaseInd.
+       * future date. Maps to EMV 3DS field `preOrderPurchaseInd`.
        */
       order_availability?: 'FUTURE_AVAILABILITY' | 'MERCHANDISE_AVAILABLE' | null;
 
       /**
        * In pre-order purchase transactions, the expected date that the merchandise will
-       * be available. Maps to EMV 3DS field preOrderDate.
+       * be available. Maps to EMV 3DS field `preOrderDate`. Permitted values: Date
+       * string in the ISO 8601 format yyyy-MM-dd'T'hh:mm:ssZ
        */
       pre_order_available_date?: string | null;
 
       /**
        * Indicates whether the cardholder is reordering previously purchased merchandise.
-       * Maps to EMV 3DS field reorderItemsInd.
+       * Maps to EMV 3DS field `reorderItemsInd`.
        */
       reorder_items?: 'FIRST_TIME_ORDERED' | 'REORDERED' | null;
 
@@ -464,7 +484,7 @@ export namespace AuthenticationRetrieveResponse {
        * Shipping method that the cardholder chose for the transaction. If purchase
        * includes one or more item, this indicator is used for the physical goods; if the
        * purchase only includes digital goods, this indicator is used to describe the
-       * most expensive item purchased. Maps to EMV 3DS field shipIndicator.
+       * most expensive item purchased. Maps to EMV 3DS field `shipIndicator`.
        */
       shipping_method?:
         | 'DIGITAL_GOODS'
@@ -494,7 +514,8 @@ export namespace AuthenticationRetrieveResponse {
 
     /**
      * Mastercard only: Assessment by the network of the authentication risk level,
-     * with a higher value indicating a higher amount of risk.
+     * with a higher value indicating a higher amount of risk. Permitted values:
+     * Integer between 0-950, in increments of 50.
      */
     network_risk_score?: number | null;
   }
@@ -506,13 +527,13 @@ export namespace AuthenticationRetrieveResponse {
   export interface App {
     /**
      * Device information gathered from the cardholder's device - JSON name/value pairs
-     * that is Base64url encoded. Maps to EMV 3DS field deviceInfo.
+     * that is Base64url encoded. Maps to EMV 3DS field `deviceInfo`.
      */
     device_info?: string | null;
 
     /**
      * External IP address used by the app generating the 3DS authentication request.
-     * Maps to EMV 3DS field appIp.
+     * Maps to EMV 3DS field `appIp`.
      */
     ip?: string;
   }
@@ -523,44 +544,51 @@ export namespace AuthenticationRetrieveResponse {
    */
   export interface Browser {
     /**
+     * Content of the HTTP accept headers as sent from the cardholder's browser to the
+     * 3DS requestor (e.g., merchant or digital wallet).
+     */
+    accept_header?: string | null;
+
+    /**
      * IP address of the browser as returned by the HTTP headers to the 3DS requestor
-     * (e.g., merchant or digital wallet). Maps to EMV 3DS field browserIP.
+     * (e.g., merchant or digital wallet). Maps to EMV 3DS field `browserIP`.
      */
     ip?: string | null;
 
     /**
      * Indicates whether the cardholder's browser has the ability to execute Java. Maps
-     * to EMV 3DS field browserJavaEnabled.
+     * to EMV 3DS field `browserJavaEnabled`.
      */
     java_enabled?: boolean | null;
 
     /**
      * Indicates whether the cardholder's browser has the ability to execute
-     * JavaScript. Maps to EMV 3DS field browserJavascriptEnabled.
+     * JavaScript. Maps to EMV 3DS field `browserJavascriptEnabled`.
      */
     javascript_enabled?: boolean | null;
 
     /**
      * Language of the cardholder's browser as defined in IETF BCP47. Maps to EMV 3DS
-     * field browserLanguage.
+     * field `browserLanguage`.
      */
     language?: string | null;
 
     /**
      * Time zone of the cardholder's browser offset in minutes between UTC and the
      * cardholder browser's local time. The offset is positive if the local time is
-     * behind UTC and negative if it is ahead. Maps to EMV 3DS field browserTz.
+     * behind UTC and negative if it is ahead. Maps to EMV 3DS field `browserTz`.
      */
     time_zone?: string | null;
 
     /**
-     * Content of the HTTP user-agent header. Maps to EMV 3DS field browserUserAgent.
+     * Content of the HTTP user-agent header. Maps to EMV 3DS field `browserUserAgent`.
      */
     user_agent?: string | null;
   }
 
   /**
-   * Metadata about the challenge method and delivery.
+   * Metadata about the challenge method and delivery. Only present when a challenge
+   * is triggered.
    */
   export interface ChallengeMetadata {
     /**
@@ -581,7 +609,7 @@ export namespace AuthenticationRetrieveResponse {
   export interface Transaction {
     /**
      * Amount of the purchase in minor units of currency with all punctuation removed.
-     * Maps to EMV 3DS field purchaseAmount.
+     * Maps to EMV 3DS field `purchaseAmount`.
      */
     amount: number;
 
@@ -592,25 +620,27 @@ export namespace AuthenticationRetrieveResponse {
     cardholder_amount: number | null;
 
     /**
-     * Currency of the purchase. Maps to EMV 3DS field purchaseCurrency.
+     * Currency of the purchase. Maps to EMV 3DS field `purchaseCurrency`. Permitted
+     * values: ISO 4217 three-character currency code (e.g., USD).
      */
     currency: string;
 
     /**
      * Minor units of currency, as specified in ISO 4217 currency exponent. Maps to EMV
-     * 3DS field purchaseExponent.
+     * 3DS field `purchaseExponent`.
      */
     currency_exponent: number;
 
     /**
      * Date and time when the authentication was generated by the merchant/acquirer's
-     * 3DS server. Maps to EMV 3DS field purchaseDate.
+     * 3DS server. Maps to EMV 3DS field `purchaseDate`. Permitted values: Date string
+     * in the ISO 8601 format yyyy-MM-dd'T'hh:mm:ssZ.
      */
     date_time: string;
 
     /**
      * Type of the transaction for which a 3DS authentication request is occurring.
-     * Maps to EMV 3DS field transType.
+     * Maps to EMV 3DS field `transType`.
      */
     type:
       | 'ACCOUNT_FUNDING'
@@ -624,13 +654,15 @@ export namespace AuthenticationRetrieveResponse {
 
 export interface AuthenticationSimulateResponse {
   /**
-   * A unique token to reference this transaction with later calls to void or clear
-   * the authorization.
+   * Globally unique identifier for the 3DS authentication.
    */
   token?: string;
 }
 
 export interface AuthenticationSimulateParams {
+  /**
+   * Merchant information for the simulated transaction
+   */
   merchant: AuthenticationSimulateParams.Merchant;
 
   /**
@@ -638,6 +670,9 @@ export interface AuthenticationSimulateParams {
    */
   pan: string;
 
+  /**
+   * Transaction details for the simulation
+   */
   transaction: AuthenticationSimulateParams.Transaction;
 
   /**
@@ -648,6 +683,9 @@ export interface AuthenticationSimulateParams {
 }
 
 export namespace AuthenticationSimulateParams {
+  /**
+   * Merchant information for the simulated transaction
+   */
   export interface Merchant {
     /**
      * Unique identifier to identify the payment card acceptor. Corresponds to
@@ -675,6 +713,9 @@ export namespace AuthenticationSimulateParams {
     name: string;
   }
 
+  /**
+   * Transaction details for the simulation
+   */
   export interface Transaction {
     /**
      * Amount (in cents) to authenticate.
