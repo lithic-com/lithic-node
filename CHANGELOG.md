@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.106.0 (2025-06-27)
+
+Full Changelog: [v0.105.0...v0.106.0](https://github.com/lithic-com/lithic-node/compare/v0.105.0...v0.106.0)
+
+### Features
+
+* **client:** adds support for on-demand Auth Rule Performance Reports ([bef8079](https://github.com/lithic-com/lithic-node/commit/bef807998eea5e4189f92fe037a3f34a13227a9c))
+
+
+### Bug Fixes
+
+* **ci:** release-doctor — report correct token name ([0551c7c](https://github.com/lithic-com/lithic-node/commit/0551c7c12b94bae5101c1c4e4fe93ec6d8dc5155))
+
 ## 0.105.0 (2025-06-23)
 
 Full Changelog: [v0.104.0...v0.105.0](https://github.com/lithic-com/lithic-node/compare/v0.104.0...v0.105.0)
