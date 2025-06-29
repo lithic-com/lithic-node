@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.106.1 (2025-06-29)
+
+Full Changelog: [v0.106.0...v0.106.1](https://github.com/lithic-com/lithic-node/compare/v0.106.0...v0.106.1)
+
+### Bug Fixes
+
+* **ci:** correct conditional ([1282914](https://github.com/lithic-com/lithic-node/commit/128291446e093aa9092b0993750cec460839e60a))
+
+
+### Chores
+
+* **ci:** only run for pushes and fork pull requests ([94ada3e](https://github.com/lithic-com/lithic-node/commit/94ada3e7857ea2d4f313422b492ae053f5b65365))
+* **internal:** manual updates ([fe8205e](https://github.com/lithic-com/lithic-node/commit/fe8205e6eb43e30132c34be7e7880ca3646a0b7f))
+
 ## 0.106.0 (2025-06-27)
 
 Full Changelog: [v0.105.0...v0.106.0](https://github.com/lithic-com/lithic-node/compare/v0.105.0...v0.106.0)
