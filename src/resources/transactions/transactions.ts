@@ -842,6 +842,8 @@ export namespace Transaction {
       | 'RETURN'
       | 'RETURN_REVERSAL';
 
+    account_type?: 'CHECKING' | 'SAVINGS';
+
     network_specific_data?: Event.NetworkSpecificData;
   }
 
