@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.107.0 (2025-07-02)
+
+Full Changelog: [v0.106.1...v0.107.0](https://github.com/lithic-com/lithic-node/compare/v0.106.1...v0.107.0)
+
+### Features
+
+* **api:** add models for merchant_lock_parameters and conditional_3ds_action_parameters ([932b3b4](https://github.com/lithic-com/lithic-node/commit/932b3b46e3590ffbf87fce99f937bd6a57ed6fbc))
+* **api:** api update ([d8fc06f](https://github.com/lithic-com/lithic-node/commit/d8fc06f1ed9bd0071a281509adebb7f3944e2679))
+
+
+### Bug Fixes
+
+* **client:** don't send `Content-Type` for bodyless methods ([c277f5e](https://github.com/lithic-com/lithic-node/commit/c277f5e84bb32e44c55fd16c77db11679ef8a5ad))
+
+
+### Chores
+
+* mention unit type in timeout docs ([14cdd27](https://github.com/lithic-com/lithic-node/commit/14cdd2726ea4eceaa92b72522bc5a993c9650d30))
+
 ## 0.106.1 (2025-06-29)
 
 Full Changelog: [v0.106.0...v0.106.1](https://github.com/lithic-com/lithic-node/compare/v0.106.0...v0.106.1)
