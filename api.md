@@ -70,8 +70,10 @@ Types:
 
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">AuthRule</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">AuthRuleCondition</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">Conditional3DSActionParameters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalAttribute</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalBlockParameters</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">MerchantLockParameters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">RuleStats</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">VelocityLimitParams</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">VelocityLimitParamsPeriodWindow</a></code>
