@@ -368,6 +368,71 @@ export interface AuthRuleCondition {
   value?: string | number | Array<string>;
 }
 
+export interface Conditional3DSActionParameters {
+  /**
+   * The action to take if the conditions are met.
+   */
+  action: 'DECLINE' | 'CHALLENGE';
+
+  conditions: Array<Conditional3DSActionParameters.Condition>;
+}
+
+export namespace Conditional3DSActionParameters {
+  export interface Condition {
+    /**
+     * The attribute to target.
+     *
+     * The following attributes may be targeted:
+     *
+     * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
+     *   business by the types of goods or services it provides.
+     * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
+     *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
+     *   Netherlands Antilles.
+     * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
+     *   the transaction.
+     * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
+     *   (merchant).
+     * - `DESCRIPTOR`: Short description of card acceptor.
+     * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
+     *   fee field in the settlement/cardholder billing currency. This is the amount
+     *   the issuer should authorize against unless the issuer is paying the acquirer
+     *   fee on behalf of the cardholder.
+     * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
+     *   given authentication. Scores are on a range of 0-999, with 0 representing the
+     *   lowest risk and 999 representing the highest risk. For Visa transactions,
+     *   where the raw score has a range of 0-99, Lithic will normalize the score by
+     *   multiplying the raw score by 10x.
+     * - `MESSAGE_CATEGORY`: The category of the authentication being processed.
+     */
+    attribute?:
+      | 'MCC'
+      | 'COUNTRY'
+      | 'CURRENCY'
+      | 'MERCHANT_ID'
+      | 'DESCRIPTOR'
+      | 'TRANSACTION_AMOUNT'
+      | 'RISK_SCORE'
+      | 'MESSAGE_CATEGORY';
+
+    /**
+     * The operation to apply to the attribute
+     */
+    operation?:
+      | 'IS_ONE_OF'
+      | 'IS_NOT_ONE_OF'
+      | 'MATCHES'
+      | 'DOES_NOT_MATCH'
+      | 'IS_GREATER_THAN'
+      | 'IS_LESS_THAN';
+
+    /**
+     * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+     */
+    value?: string | number | Array<string>;
+  }
+}
+
 /**
  * The attribute to target.
  *
@@ -437,6 +502,43 @@ export type ConditionalAttribute =
 
 export interface ConditionalBlockParameters {
   conditions: Array<AuthRuleCondition>;
+}
+
+export interface MerchantLockParameters {
+  /**
+   * A list of merchant locks defining specific merchants or groups of merchants
+   * (based on descriptors or IDs) that the lock applies to.
+   */
+  merchants: Array<MerchantLockParameters.Merchant>;
+}
+
+export namespace MerchantLockParameters {
+  /**
+   * Represents a specific merchant lock based on their ID or descriptor. Each
+   * merchant object allows transaction rules to work at a granular level and
+   * requires at least one of merchant_id or descriptor.
+   */
+  export interface Merchant {
+    /**
+     * A comment or explanation about the merchant, used internally for rule management
+     * purposes.
+     */
+    comment?: string;
+
+    /**
+     * Short description of the merchant, often used to provide more human-readable
+     * context about the transaction merchant. This is typically the name or label
+     * shown on transaction summaries.
+     */
+    descriptor?: string;
+
+    /**
+     * Unique alphanumeric identifier for the payment card acceptor (merchant). This
+     * attribute specifies the merchant entity that will be locked or referenced for
+     * authorization rules.
+     */
+    merchant_id?: string;
+  }
 }
 
 export interface RuleStats {
@@ -634,118 +736,14 @@ export namespace V2CreateResponse {
     parameters:
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
-      | CurrentVersion.MerchantLockParameters
-      | CurrentVersion.Conditional3DSActionParameters;
+      | V2API.MerchantLockParameters
+      | V2API.Conditional3DSActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace CurrentVersion {
-    export interface MerchantLockParameters {
-      /**
-       * A list of merchant locks defining specific merchants or groups of merchants
-       * (based on descriptors or IDs) that the lock applies to.
-       */
-      merchants: Array<MerchantLockParameters.Merchant>;
-    }
-
-    export namespace MerchantLockParameters {
-      /**
-       * Represents a specific merchant lock based on their ID or descriptor. Each
-       * merchant object allows transaction rules to work at a granular level and
-       * requires at least one of merchant_id or descriptor.
-       */
-      export interface Merchant {
-        /**
-         * A comment or explanation about the merchant, used internally for rule management
-         * purposes.
-         */
-        comment?: string;
-
-        /**
-         * Short description of the merchant, often used to provide more human-readable
-         * context about the transaction merchant. This is typically the name or label
-         * shown on transaction summaries.
-         */
-        descriptor?: string;
-
-        /**
-         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
-         * attribute specifies the merchant entity that will be locked or referenced for
-         * authorization rules.
-         */
-        merchant_id?: string;
-      }
-    }
-
-    export interface Conditional3DSActionParameters {
-      /**
-       * The action to take if the conditions are met.
-       */
-      action: 'DECLINE' | 'CHALLENGE';
-
-      conditions: Array<Conditional3DSActionParameters.Condition>;
-    }
-
-    export namespace Conditional3DSActionParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
-         *   the transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authentication. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `MESSAGE_CATEGORY`: The category of the authentication being processed.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'MESSAGE_CATEGORY';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 
   export interface DraftVersion {
@@ -755,118 +753,14 @@ export namespace V2CreateResponse {
     parameters:
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
-      | DraftVersion.MerchantLockParameters
-      | DraftVersion.Conditional3DSActionParameters;
+      | V2API.MerchantLockParameters
+      | V2API.Conditional3DSActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace DraftVersion {
-    export interface MerchantLockParameters {
-      /**
-       * A list of merchant locks defining specific merchants or groups of merchants
-       * (based on descriptors or IDs) that the lock applies to.
-       */
-      merchants: Array<MerchantLockParameters.Merchant>;
-    }
-
-    export namespace MerchantLockParameters {
-      /**
-       * Represents a specific merchant lock based on their ID or descriptor. Each
-       * merchant object allows transaction rules to work at a granular level and
-       * requires at least one of merchant_id or descriptor.
-       */
-      export interface Merchant {
-        /**
-         * A comment or explanation about the merchant, used internally for rule management
-         * purposes.
-         */
-        comment?: string;
-
-        /**
-         * Short description of the merchant, often used to provide more human-readable
-         * context about the transaction merchant. This is typically the name or label
-         * shown on transaction summaries.
-         */
-        descriptor?: string;
-
-        /**
-         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
-         * attribute specifies the merchant entity that will be locked or referenced for
-         * authorization rules.
-         */
-        merchant_id?: string;
-      }
-    }
-
-    export interface Conditional3DSActionParameters {
-      /**
-       * The action to take if the conditions are met.
-       */
-      action: 'DECLINE' | 'CHALLENGE';
-
-      conditions: Array<Conditional3DSActionParameters.Condition>;
-    }
-
-    export namespace Conditional3DSActionParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
-         *   the transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authentication. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `MESSAGE_CATEGORY`: The category of the authentication being processed.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'MESSAGE_CATEGORY';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 }
 
@@ -935,118 +829,14 @@ export namespace V2RetrieveResponse {
     parameters:
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
-      | CurrentVersion.MerchantLockParameters
-      | CurrentVersion.Conditional3DSActionParameters;
+      | V2API.MerchantLockParameters
+      | V2API.Conditional3DSActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace CurrentVersion {
-    export interface MerchantLockParameters {
-      /**
-       * A list of merchant locks defining specific merchants or groups of merchants
-       * (based on descriptors or IDs) that the lock applies to.
-       */
-      merchants: Array<MerchantLockParameters.Merchant>;
-    }
-
-    export namespace MerchantLockParameters {
-      /**
-       * Represents a specific merchant lock based on their ID or descriptor. Each
-       * merchant object allows transaction rules to work at a granular level and
-       * requires at least one of merchant_id or descriptor.
-       */
-      export interface Merchant {
-        /**
-         * A comment or explanation about the merchant, used internally for rule management
-         * purposes.
-         */
-        comment?: string;
-
-        /**
-         * Short description of the merchant, often used to provide more human-readable
-         * context about the transaction merchant. This is typically the name or label
-         * shown on transaction summaries.
-         */
-        descriptor?: string;
-
-        /**
-         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
-         * attribute specifies the merchant entity that will be locked or referenced for
-         * authorization rules.
-         */
-        merchant_id?: string;
-      }
-    }
-
-    export interface Conditional3DSActionParameters {
-      /**
-       * The action to take if the conditions are met.
-       */
-      action: 'DECLINE' | 'CHALLENGE';
-
-      conditions: Array<Conditional3DSActionParameters.Condition>;
-    }
-
-    export namespace Conditional3DSActionParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
-         *   the transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authentication. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `MESSAGE_CATEGORY`: The category of the authentication being processed.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'MESSAGE_CATEGORY';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 
   export interface DraftVersion {
@@ -1056,118 +846,14 @@ export namespace V2RetrieveResponse {
     parameters:
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
-      | DraftVersion.MerchantLockParameters
-      | DraftVersion.Conditional3DSActionParameters;
+      | V2API.MerchantLockParameters
+      | V2API.Conditional3DSActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace DraftVersion {
-    export interface MerchantLockParameters {
-      /**
-       * A list of merchant locks defining specific merchants or groups of merchants
-       * (based on descriptors or IDs) that the lock applies to.
-       */
-      merchants: Array<MerchantLockParameters.Merchant>;
-    }
-
-    export namespace MerchantLockParameters {
-      /**
-       * Represents a specific merchant lock based on their ID or descriptor. Each
-       * merchant object allows transaction rules to work at a granular level and
-       * requires at least one of merchant_id or descriptor.
-       */
-      export interface Merchant {
-        /**
-         * A comment or explanation about the merchant, used internally for rule management
-         * purposes.
-         */
-        comment?: string;
-
-        /**
-         * Short description of the merchant, often used to provide more human-readable
-         * context about the transaction merchant. This is typically the name or label
-         * shown on transaction summaries.
-         */
-        descriptor?: string;
-
-        /**
-         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
-         * attribute specifies the merchant entity that will be locked or referenced for
-         * authorization rules.
-         */
-        merchant_id?: string;
-      }
-    }
-
-    export interface Conditional3DSActionParameters {
-      /**
-       * The action to take if the conditions are met.
-       */
-      action: 'DECLINE' | 'CHALLENGE';
-
-      conditions: Array<Conditional3DSActionParameters.Condition>;
-    }
-
-    export namespace Conditional3DSActionParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
-         *   the transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authentication. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `MESSAGE_CATEGORY`: The category of the authentication being processed.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'MESSAGE_CATEGORY';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 }
 
@@ -1236,118 +922,14 @@ export namespace V2UpdateResponse {
     parameters:
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
-      | CurrentVersion.MerchantLockParameters
-      | CurrentVersion.Conditional3DSActionParameters;
+      | V2API.MerchantLockParameters
+      | V2API.Conditional3DSActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace CurrentVersion {
-    export interface MerchantLockParameters {
-      /**
-       * A list of merchant locks defining specific merchants or groups of merchants
-       * (based on descriptors or IDs) that the lock applies to.
-       */
-      merchants: Array<MerchantLockParameters.Merchant>;
-    }
-
-    export namespace MerchantLockParameters {
-      /**
-       * Represents a specific merchant lock based on their ID or descriptor. Each
-       * merchant object allows transaction rules to work at a granular level and
-       * requires at least one of merchant_id or descriptor.
-       */
-      export interface Merchant {
-        /**
-         * A comment or explanation about the merchant, used internally for rule management
-         * purposes.
-         */
-        comment?: string;
-
-        /**
-         * Short description of the merchant, often used to provide more human-readable
-         * context about the transaction merchant. This is typically the name or label
-         * shown on transaction summaries.
-         */
-        descriptor?: string;
-
-        /**
-         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
-         * attribute specifies the merchant entity that will be locked or referenced for
-         * authorization rules.
-         */
-        merchant_id?: string;
-      }
-    }
-
-    export interface Conditional3DSActionParameters {
-      /**
-       * The action to take if the conditions are met.
-       */
-      action: 'DECLINE' | 'CHALLENGE';
-
-      conditions: Array<Conditional3DSActionParameters.Condition>;
-    }
-
-    export namespace Conditional3DSActionParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
-         *   the transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authentication. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `MESSAGE_CATEGORY`: The category of the authentication being processed.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'MESSAGE_CATEGORY';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 
   export interface DraftVersion {
@@ -1357,118 +939,14 @@ export namespace V2UpdateResponse {
     parameters:
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
-      | DraftVersion.MerchantLockParameters
-      | DraftVersion.Conditional3DSActionParameters;
+      | V2API.MerchantLockParameters
+      | V2API.Conditional3DSActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace DraftVersion {
-    export interface MerchantLockParameters {
-      /**
-       * A list of merchant locks defining specific merchants or groups of merchants
-       * (based on descriptors or IDs) that the lock applies to.
-       */
-      merchants: Array<MerchantLockParameters.Merchant>;
-    }
-
-    export namespace MerchantLockParameters {
-      /**
-       * Represents a specific merchant lock based on their ID or descriptor. Each
-       * merchant object allows transaction rules to work at a granular level and
-       * requires at least one of merchant_id or descriptor.
-       */
-      export interface Merchant {
-        /**
-         * A comment or explanation about the merchant, used internally for rule management
-         * purposes.
-         */
-        comment?: string;
-
-        /**
-         * Short description of the merchant, often used to provide more human-readable
-         * context about the transaction merchant. This is typically the name or label
-         * shown on transaction summaries.
-         */
-        descriptor?: string;
-
-        /**
-         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
-         * attribute specifies the merchant entity that will be locked or referenced for
-         * authorization rules.
-         */
-        merchant_id?: string;
-      }
-    }
-
-    export interface Conditional3DSActionParameters {
-      /**
-       * The action to take if the conditions are met.
-       */
-      action: 'DECLINE' | 'CHALLENGE';
-
-      conditions: Array<Conditional3DSActionParameters.Condition>;
-    }
-
-    export namespace Conditional3DSActionParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
-         *   the transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authentication. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `MESSAGE_CATEGORY`: The category of the authentication being processed.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'MESSAGE_CATEGORY';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 }
 
@@ -1537,118 +1015,14 @@ export namespace V2ListResponse {
     parameters:
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
-      | CurrentVersion.MerchantLockParameters
-      | CurrentVersion.Conditional3DSActionParameters;
+      | V2API.MerchantLockParameters
+      | V2API.Conditional3DSActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace CurrentVersion {
-    export interface MerchantLockParameters {
-      /**
-       * A list of merchant locks defining specific merchants or groups of merchants
-       * (based on descriptors or IDs) that the lock applies to.
-       */
-      merchants: Array<MerchantLockParameters.Merchant>;
-    }
-
-    export namespace MerchantLockParameters {
-      /**
-       * Represents a specific merchant lock based on their ID or descriptor. Each
-       * merchant object allows transaction rules to work at a granular level and
-       * requires at least one of merchant_id or descriptor.
-       */
-      export interface Merchant {
-        /**
-         * A comment or explanation about the merchant, used internally for rule management
-         * purposes.
-         */
-        comment?: string;
-
-        /**
-         * Short description of the merchant, often used to provide more human-readable
-         * context about the transaction merchant. This is typically the name or label
-         * shown on transaction summaries.
-         */
-        descriptor?: string;
-
-        /**
-         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
-         * attribute specifies the merchant entity that will be locked or referenced for
-         * authorization rules.
-         */
-        merchant_id?: string;
-      }
-    }
-
-    export interface Conditional3DSActionParameters {
-      /**
-       * The action to take if the conditions are met.
-       */
-      action: 'DECLINE' | 'CHALLENGE';
-
-      conditions: Array<Conditional3DSActionParameters.Condition>;
-    }
-
-    export namespace Conditional3DSActionParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
-         *   the transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authentication. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `MESSAGE_CATEGORY`: The category of the authentication being processed.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'MESSAGE_CATEGORY';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 
   export interface DraftVersion {
@@ -1658,118 +1032,14 @@ export namespace V2ListResponse {
     parameters:
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
-      | DraftVersion.MerchantLockParameters
-      | DraftVersion.Conditional3DSActionParameters;
+      | V2API.MerchantLockParameters
+      | V2API.Conditional3DSActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace DraftVersion {
-    export interface MerchantLockParameters {
-      /**
-       * A list of merchant locks defining specific merchants or groups of merchants
-       * (based on descriptors or IDs) that the lock applies to.
-       */
-      merchants: Array<MerchantLockParameters.Merchant>;
-    }
-
-    export namespace MerchantLockParameters {
-      /**
-       * Represents a specific merchant lock based on their ID or descriptor. Each
-       * merchant object allows transaction rules to work at a granular level and
-       * requires at least one of merchant_id or descriptor.
-       */
-      export interface Merchant {
-        /**
-         * A comment or explanation about the merchant, used internally for rule management
-         * purposes.
-         */
-        comment?: string;
-
-        /**
-         * Short description of the merchant, often used to provide more human-readable
-         * context about the transaction merchant. This is typically the name or label
-         * shown on transaction summaries.
-         */
-        descriptor?: string;
-
-        /**
-         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
-         * attribute specifies the merchant entity that will be locked or referenced for
-         * authorization rules.
-         */
-        merchant_id?: string;
-      }
-    }
-
-    export interface Conditional3DSActionParameters {
-      /**
-       * The action to take if the conditions are met.
-       */
-      action: 'DECLINE' | 'CHALLENGE';
-
-      conditions: Array<Conditional3DSActionParameters.Condition>;
-    }
-
-    export namespace Conditional3DSActionParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
-         *   the transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authentication. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `MESSAGE_CATEGORY`: The category of the authentication being processed.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'MESSAGE_CATEGORY';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 }
 
@@ -1838,118 +1108,14 @@ export namespace V2ApplyResponse {
     parameters:
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
-      | CurrentVersion.MerchantLockParameters
-      | CurrentVersion.Conditional3DSActionParameters;
+      | V2API.MerchantLockParameters
+      | V2API.Conditional3DSActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace CurrentVersion {
-    export interface MerchantLockParameters {
-      /**
-       * A list of merchant locks defining specific merchants or groups of merchants
-       * (based on descriptors or IDs) that the lock applies to.
-       */
-      merchants: Array<MerchantLockParameters.Merchant>;
-    }
-
-    export namespace MerchantLockParameters {
-      /**
-       * Represents a specific merchant lock based on their ID or descriptor. Each
-       * merchant object allows transaction rules to work at a granular level and
-       * requires at least one of merchant_id or descriptor.
-       */
-      export interface Merchant {
-        /**
-         * A comment or explanation about the merchant, used internally for rule management
-         * purposes.
-         */
-        comment?: string;
-
-        /**
-         * Short description of the merchant, often used to provide more human-readable
-         * context about the transaction merchant. This is typically the name or label
-         * shown on transaction summaries.
-         */
-        descriptor?: string;
-
-        /**
-         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
-         * attribute specifies the merchant entity that will be locked or referenced for
-         * authorization rules.
-         */
-        merchant_id?: string;
-      }
-    }
-
-    export interface Conditional3DSActionParameters {
-      /**
-       * The action to take if the conditions are met.
-       */
-      action: 'DECLINE' | 'CHALLENGE';
-
-      conditions: Array<Conditional3DSActionParameters.Condition>;
-    }
-
-    export namespace Conditional3DSActionParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
-         *   the transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authentication. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `MESSAGE_CATEGORY`: The category of the authentication being processed.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'MESSAGE_CATEGORY';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 
   export interface DraftVersion {
@@ -1959,118 +1125,14 @@ export namespace V2ApplyResponse {
     parameters:
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
-      | DraftVersion.MerchantLockParameters
-      | DraftVersion.Conditional3DSActionParameters;
+      | V2API.MerchantLockParameters
+      | V2API.Conditional3DSActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace DraftVersion {
-    export interface MerchantLockParameters {
-      /**
-       * A list of merchant locks defining specific merchants or groups of merchants
-       * (based on descriptors or IDs) that the lock applies to.
-       */
-      merchants: Array<MerchantLockParameters.Merchant>;
-    }
-
-    export namespace MerchantLockParameters {
-      /**
-       * Represents a specific merchant lock based on their ID or descriptor. Each
-       * merchant object allows transaction rules to work at a granular level and
-       * requires at least one of merchant_id or descriptor.
-       */
-      export interface Merchant {
-        /**
-         * A comment or explanation about the merchant, used internally for rule management
-         * purposes.
-         */
-        comment?: string;
-
-        /**
-         * Short description of the merchant, often used to provide more human-readable
-         * context about the transaction merchant. This is typically the name or label
-         * shown on transaction summaries.
-         */
-        descriptor?: string;
-
-        /**
-         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
-         * attribute specifies the merchant entity that will be locked or referenced for
-         * authorization rules.
-         */
-        merchant_id?: string;
-      }
-    }
-
-    export interface Conditional3DSActionParameters {
-      /**
-       * The action to take if the conditions are met.
-       */
-      action: 'DECLINE' | 'CHALLENGE';
-
-      conditions: Array<Conditional3DSActionParameters.Condition>;
-    }
-
-    export namespace Conditional3DSActionParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
-         *   the transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authentication. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `MESSAGE_CATEGORY`: The category of the authentication being processed.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'MESSAGE_CATEGORY';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 }
 
@@ -2139,118 +1201,14 @@ export namespace V2DraftResponse {
     parameters:
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
-      | CurrentVersion.MerchantLockParameters
-      | CurrentVersion.Conditional3DSActionParameters;
+      | V2API.MerchantLockParameters
+      | V2API.Conditional3DSActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace CurrentVersion {
-    export interface MerchantLockParameters {
-      /**
-       * A list of merchant locks defining specific merchants or groups of merchants
-       * (based on descriptors or IDs) that the lock applies to.
-       */
-      merchants: Array<MerchantLockParameters.Merchant>;
-    }
-
-    export namespace MerchantLockParameters {
-      /**
-       * Represents a specific merchant lock based on their ID or descriptor. Each
-       * merchant object allows transaction rules to work at a granular level and
-       * requires at least one of merchant_id or descriptor.
-       */
-      export interface Merchant {
-        /**
-         * A comment or explanation about the merchant, used internally for rule management
-         * purposes.
-         */
-        comment?: string;
-
-        /**
-         * Short description of the merchant, often used to provide more human-readable
-         * context about the transaction merchant. This is typically the name or label
-         * shown on transaction summaries.
-         */
-        descriptor?: string;
-
-        /**
-         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
-         * attribute specifies the merchant entity that will be locked or referenced for
-         * authorization rules.
-         */
-        merchant_id?: string;
-      }
-    }
-
-    export interface Conditional3DSActionParameters {
-      /**
-       * The action to take if the conditions are met.
-       */
-      action: 'DECLINE' | 'CHALLENGE';
-
-      conditions: Array<Conditional3DSActionParameters.Condition>;
-    }
-
-    export namespace Conditional3DSActionParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
-         *   the transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authentication. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `MESSAGE_CATEGORY`: The category of the authentication being processed.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'MESSAGE_CATEGORY';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 
   export interface DraftVersion {
@@ -2260,118 +1218,14 @@ export namespace V2DraftResponse {
     parameters:
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
-      | DraftVersion.MerchantLockParameters
-      | DraftVersion.Conditional3DSActionParameters;
+      | V2API.MerchantLockParameters
+      | V2API.Conditional3DSActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace DraftVersion {
-    export interface MerchantLockParameters {
-      /**
-       * A list of merchant locks defining specific merchants or groups of merchants
-       * (based on descriptors or IDs) that the lock applies to.
-       */
-      merchants: Array<MerchantLockParameters.Merchant>;
-    }
-
-    export namespace MerchantLockParameters {
-      /**
-       * Represents a specific merchant lock based on their ID or descriptor. Each
-       * merchant object allows transaction rules to work at a granular level and
-       * requires at least one of merchant_id or descriptor.
-       */
-      export interface Merchant {
-        /**
-         * A comment or explanation about the merchant, used internally for rule management
-         * purposes.
-         */
-        comment?: string;
-
-        /**
-         * Short description of the merchant, often used to provide more human-readable
-         * context about the transaction merchant. This is typically the name or label
-         * shown on transaction summaries.
-         */
-        descriptor?: string;
-
-        /**
-         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
-         * attribute specifies the merchant entity that will be locked or referenced for
-         * authorization rules.
-         */
-        merchant_id?: string;
-      }
-    }
-
-    export interface Conditional3DSActionParameters {
-      /**
-       * The action to take if the conditions are met.
-       */
-      action: 'DECLINE' | 'CHALLENGE';
-
-      conditions: Array<Conditional3DSActionParameters.Condition>;
-    }
-
-    export namespace Conditional3DSActionParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
-         *   the transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authentication. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `MESSAGE_CATEGORY`: The category of the authentication being processed.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'MESSAGE_CATEGORY';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 }
 
@@ -2440,118 +1294,14 @@ export namespace V2PromoteResponse {
     parameters:
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
-      | CurrentVersion.MerchantLockParameters
-      | CurrentVersion.Conditional3DSActionParameters;
+      | V2API.MerchantLockParameters
+      | V2API.Conditional3DSActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace CurrentVersion {
-    export interface MerchantLockParameters {
-      /**
-       * A list of merchant locks defining specific merchants or groups of merchants
-       * (based on descriptors or IDs) that the lock applies to.
-       */
-      merchants: Array<MerchantLockParameters.Merchant>;
-    }
-
-    export namespace MerchantLockParameters {
-      /**
-       * Represents a specific merchant lock based on their ID or descriptor. Each
-       * merchant object allows transaction rules to work at a granular level and
-       * requires at least one of merchant_id or descriptor.
-       */
-      export interface Merchant {
-        /**
-         * A comment or explanation about the merchant, used internally for rule management
-         * purposes.
-         */
-        comment?: string;
-
-        /**
-         * Short description of the merchant, often used to provide more human-readable
-         * context about the transaction merchant. This is typically the name or label
-         * shown on transaction summaries.
-         */
-        descriptor?: string;
-
-        /**
-         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
-         * attribute specifies the merchant entity that will be locked or referenced for
-         * authorization rules.
-         */
-        merchant_id?: string;
-      }
-    }
-
-    export interface Conditional3DSActionParameters {
-      /**
-       * The action to take if the conditions are met.
-       */
-      action: 'DECLINE' | 'CHALLENGE';
-
-      conditions: Array<Conditional3DSActionParameters.Condition>;
-    }
-
-    export namespace Conditional3DSActionParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
-         *   the transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authentication. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `MESSAGE_CATEGORY`: The category of the authentication being processed.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'MESSAGE_CATEGORY';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 
   export interface DraftVersion {
@@ -2561,118 +1311,14 @@ export namespace V2PromoteResponse {
     parameters:
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
-      | DraftVersion.MerchantLockParameters
-      | DraftVersion.Conditional3DSActionParameters;
+      | V2API.MerchantLockParameters
+      | V2API.Conditional3DSActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
-  }
-
-  export namespace DraftVersion {
-    export interface MerchantLockParameters {
-      /**
-       * A list of merchant locks defining specific merchants or groups of merchants
-       * (based on descriptors or IDs) that the lock applies to.
-       */
-      merchants: Array<MerchantLockParameters.Merchant>;
-    }
-
-    export namespace MerchantLockParameters {
-      /**
-       * Represents a specific merchant lock based on their ID or descriptor. Each
-       * merchant object allows transaction rules to work at a granular level and
-       * requires at least one of merchant_id or descriptor.
-       */
-      export interface Merchant {
-        /**
-         * A comment or explanation about the merchant, used internally for rule management
-         * purposes.
-         */
-        comment?: string;
-
-        /**
-         * Short description of the merchant, often used to provide more human-readable
-         * context about the transaction merchant. This is typically the name or label
-         * shown on transaction summaries.
-         */
-        descriptor?: string;
-
-        /**
-         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
-         * attribute specifies the merchant entity that will be locked or referenced for
-         * authorization rules.
-         */
-        merchant_id?: string;
-      }
-    }
-
-    export interface Conditional3DSActionParameters {
-      /**
-       * The action to take if the conditions are met.
-       */
-      action: 'DECLINE' | 'CHALLENGE';
-
-      conditions: Array<Conditional3DSActionParameters.Condition>;
-    }
-
-    export namespace Conditional3DSActionParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
-         *   the transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authentication. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `MESSAGE_CATEGORY`: The category of the authentication being processed.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'MESSAGE_CATEGORY';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 }
 
@@ -2744,8 +1390,8 @@ export declare namespace V2CreateParams {
     parameters?:
       | ConditionalBlockParameters
       | VelocityLimitParams
-      | CreateAuthRuleRequestAccountTokens.MerchantLockParameters
-      | CreateAuthRuleRequestAccountTokens.Conditional3DSActionParameters;
+      | MerchantLockParameters
+      | Conditional3DSActionParameters;
 
     /**
      * The type of Auth Rule. Effectively determines the event stream during which it
@@ -2757,110 +1403,6 @@ export declare namespace V2CreateParams {
      * - `CONDITIONAL_3DS_ACTION`: THREE_DS_AUTHENTICATION event stream.
      */
     type?: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_3DS_ACTION';
-  }
-
-  export namespace CreateAuthRuleRequestAccountTokens {
-    export interface MerchantLockParameters {
-      /**
-       * A list of merchant locks defining specific merchants or groups of merchants
-       * (based on descriptors or IDs) that the lock applies to.
-       */
-      merchants: Array<MerchantLockParameters.Merchant>;
-    }
-
-    export namespace MerchantLockParameters {
-      /**
-       * Represents a specific merchant lock based on their ID or descriptor. Each
-       * merchant object allows transaction rules to work at a granular level and
-       * requires at least one of merchant_id or descriptor.
-       */
-      export interface Merchant {
-        /**
-         * A comment or explanation about the merchant, used internally for rule management
-         * purposes.
-         */
-        comment?: string;
-
-        /**
-         * Short description of the merchant, often used to provide more human-readable
-         * context about the transaction merchant. This is typically the name or label
-         * shown on transaction summaries.
-         */
-        descriptor?: string;
-
-        /**
-         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
-         * attribute specifies the merchant entity that will be locked or referenced for
-         * authorization rules.
-         */
-        merchant_id?: string;
-      }
-    }
-
-    export interface Conditional3DSActionParameters {
-      /**
-       * The action to take if the conditions are met.
-       */
-      action: 'DECLINE' | 'CHALLENGE';
-
-      conditions: Array<Conditional3DSActionParameters.Condition>;
-    }
-
-    export namespace Conditional3DSActionParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
-         *   the transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authentication. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `MESSAGE_CATEGORY`: The category of the authentication being processed.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'MESSAGE_CATEGORY';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 
   export interface CreateAuthRuleRequestCardTokens {
@@ -2880,8 +1422,8 @@ export declare namespace V2CreateParams {
     parameters?:
       | ConditionalBlockParameters
       | VelocityLimitParams
-      | CreateAuthRuleRequestCardTokens.MerchantLockParameters
-      | CreateAuthRuleRequestCardTokens.Conditional3DSActionParameters;
+      | MerchantLockParameters
+      | Conditional3DSActionParameters;
 
     /**
      * The type of Auth Rule. Effectively determines the event stream during which it
@@ -2893,110 +1435,6 @@ export declare namespace V2CreateParams {
      * - `CONDITIONAL_3DS_ACTION`: THREE_DS_AUTHENTICATION event stream.
      */
     type?: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_3DS_ACTION';
-  }
-
-  export namespace CreateAuthRuleRequestCardTokens {
-    export interface MerchantLockParameters {
-      /**
-       * A list of merchant locks defining specific merchants or groups of merchants
-       * (based on descriptors or IDs) that the lock applies to.
-       */
-      merchants: Array<MerchantLockParameters.Merchant>;
-    }
-
-    export namespace MerchantLockParameters {
-      /**
-       * Represents a specific merchant lock based on their ID or descriptor. Each
-       * merchant object allows transaction rules to work at a granular level and
-       * requires at least one of merchant_id or descriptor.
-       */
-      export interface Merchant {
-        /**
-         * A comment or explanation about the merchant, used internally for rule management
-         * purposes.
-         */
-        comment?: string;
-
-        /**
-         * Short description of the merchant, often used to provide more human-readable
-         * context about the transaction merchant. This is typically the name or label
-         * shown on transaction summaries.
-         */
-        descriptor?: string;
-
-        /**
-         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
-         * attribute specifies the merchant entity that will be locked or referenced for
-         * authorization rules.
-         */
-        merchant_id?: string;
-      }
-    }
-
-    export interface Conditional3DSActionParameters {
-      /**
-       * The action to take if the conditions are met.
-       */
-      action: 'DECLINE' | 'CHALLENGE';
-
-      conditions: Array<Conditional3DSActionParameters.Condition>;
-    }
-
-    export namespace Conditional3DSActionParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
-         *   the transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authentication. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `MESSAGE_CATEGORY`: The category of the authentication being processed.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'MESSAGE_CATEGORY';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 
   export interface CreateAuthRuleRequestProgramLevel {
@@ -3021,8 +1459,8 @@ export declare namespace V2CreateParams {
     parameters?:
       | ConditionalBlockParameters
       | VelocityLimitParams
-      | CreateAuthRuleRequestProgramLevel.MerchantLockParameters
-      | CreateAuthRuleRequestProgramLevel.Conditional3DSActionParameters;
+      | MerchantLockParameters
+      | Conditional3DSActionParameters;
 
     /**
      * The type of Auth Rule. Effectively determines the event stream during which it
@@ -3034,110 +1472,6 @@ export declare namespace V2CreateParams {
      * - `CONDITIONAL_3DS_ACTION`: THREE_DS_AUTHENTICATION event stream.
      */
     type?: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_3DS_ACTION';
-  }
-
-  export namespace CreateAuthRuleRequestProgramLevel {
-    export interface MerchantLockParameters {
-      /**
-       * A list of merchant locks defining specific merchants or groups of merchants
-       * (based on descriptors or IDs) that the lock applies to.
-       */
-      merchants: Array<MerchantLockParameters.Merchant>;
-    }
-
-    export namespace MerchantLockParameters {
-      /**
-       * Represents a specific merchant lock based on their ID or descriptor. Each
-       * merchant object allows transaction rules to work at a granular level and
-       * requires at least one of merchant_id or descriptor.
-       */
-      export interface Merchant {
-        /**
-         * A comment or explanation about the merchant, used internally for rule management
-         * purposes.
-         */
-        comment?: string;
-
-        /**
-         * Short description of the merchant, often used to provide more human-readable
-         * context about the transaction merchant. This is typically the name or label
-         * shown on transaction summaries.
-         */
-        descriptor?: string;
-
-        /**
-         * Unique alphanumeric identifier for the payment card acceptor (merchant). This
-         * attribute specifies the merchant entity that will be locked or referenced for
-         * authorization rules.
-         */
-        merchant_id?: string;
-      }
-    }
-
-    export interface Conditional3DSActionParameters {
-      /**
-       * The action to take if the conditions are met.
-       */
-      action: 'DECLINE' | 'CHALLENGE';
-
-      conditions: Array<Conditional3DSActionParameters.Condition>;
-    }
-
-    export namespace Conditional3DSActionParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
-         *   the transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authentication. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `MESSAGE_CATEGORY`: The category of the authentication being processed.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'TRANSACTION_AMOUNT'
-          | 'RISK_SCORE'
-          | 'MESSAGE_CATEGORY';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_GREATER_THAN'
-          | 'IS_LESS_THAN';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
   }
 }
 
@@ -3278,113 +1612,9 @@ export interface V2DraftParams {
   parameters?:
     | ConditionalBlockParameters
     | VelocityLimitParams
-    | V2DraftParams.MerchantLockParameters
-    | V2DraftParams.Conditional3DSActionParameters
+    | MerchantLockParameters
+    | Conditional3DSActionParameters
     | null;
-}
-
-export namespace V2DraftParams {
-  export interface MerchantLockParameters {
-    /**
-     * A list of merchant locks defining specific merchants or groups of merchants
-     * (based on descriptors or IDs) that the lock applies to.
-     */
-    merchants: Array<MerchantLockParameters.Merchant>;
-  }
-
-  export namespace MerchantLockParameters {
-    /**
-     * Represents a specific merchant lock based on their ID or descriptor. Each
-     * merchant object allows transaction rules to work at a granular level and
-     * requires at least one of merchant_id or descriptor.
-     */
-    export interface Merchant {
-      /**
-       * A comment or explanation about the merchant, used internally for rule management
-       * purposes.
-       */
-      comment?: string;
-
-      /**
-       * Short description of the merchant, often used to provide more human-readable
-       * context about the transaction merchant. This is typically the name or label
-       * shown on transaction summaries.
-       */
-      descriptor?: string;
-
-      /**
-       * Unique alphanumeric identifier for the payment card acceptor (merchant). This
-       * attribute specifies the merchant entity that will be locked or referenced for
-       * authorization rules.
-       */
-      merchant_id?: string;
-    }
-  }
-
-  export interface Conditional3DSActionParameters {
-    /**
-     * The action to take if the conditions are met.
-     */
-    action: 'DECLINE' | 'CHALLENGE';
-
-    conditions: Array<Conditional3DSActionParameters.Condition>;
-  }
-
-  export namespace Conditional3DSActionParameters {
-    export interface Condition {
-      /**
-       * The attribute to target.
-       *
-       * The following attributes may be targeted:
-       *
-       * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-       *   business by the types of goods or services it provides.
-       * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-       *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-       *   Netherlands Antilles.
-       * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
-       *   the transaction.
-       * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-       *   (merchant).
-       * - `DESCRIPTOR`: Short description of card acceptor.
-       * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-       *   fee field in the settlement/cardholder billing currency. This is the amount
-       *   the issuer should authorize against unless the issuer is paying the acquirer
-       *   fee on behalf of the cardholder.
-       * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-       *   given authentication. Scores are on a range of 0-999, with 0 representing the
-       *   lowest risk and 999 representing the highest risk. For Visa transactions,
-       *   where the raw score has a range of 0-99, Lithic will normalize the score by
-       *   multiplying the raw score by 10x.
-       * - `MESSAGE_CATEGORY`: The category of the authentication being processed.
-       */
-      attribute?:
-        | 'MCC'
-        | 'COUNTRY'
-        | 'CURRENCY'
-        | 'MERCHANT_ID'
-        | 'DESCRIPTOR'
-        | 'TRANSACTION_AMOUNT'
-        | 'RISK_SCORE'
-        | 'MESSAGE_CATEGORY';
-
-      /**
-       * The operation to apply to the attribute
-       */
-      operation?:
-        | 'IS_ONE_OF'
-        | 'IS_NOT_ONE_OF'
-        | 'MATCHES'
-        | 'DOES_NOT_MATCH'
-        | 'IS_GREATER_THAN'
-        | 'IS_LESS_THAN';
-
-      /**
-       * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-       */
-      value?: string | number | Array<string>;
-    }
-  }
 }
 
 export interface V2RetrieveReportParams {
@@ -3406,8 +1636,10 @@ export declare namespace V2 {
   export {
     type AuthRule as AuthRule,
     type AuthRuleCondition as AuthRuleCondition,
+    type Conditional3DSActionParameters as Conditional3DSActionParameters,
     type ConditionalAttribute as ConditionalAttribute,
     type ConditionalBlockParameters as ConditionalBlockParameters,
+    type MerchantLockParameters as MerchantLockParameters,
     type RuleStats as RuleStats,
     type VelocityLimitParams as VelocityLimitParams,
     type VelocityLimitParamsPeriodWindow as VelocityLimitParamsPeriodWindow,
