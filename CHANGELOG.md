@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.108.0 (2025-07-03)
+
+Full Changelog: [v0.107.0...v0.108.0](https://github.com/lithic-com/lithic-node/compare/v0.107.0...v0.108.0)
+
+### Features
+
+* **api:** api update ([86aeaf5](https://github.com/lithic-com/lithic-node/commit/86aeaf5e75d3431bb2283968f1a137312b8fd441))
+
 ## 0.107.0 (2025-07-02)
 
 Full Changelog: [v0.106.1...v0.107.0](https://github.com/lithic-com/lithic-node/compare/v0.106.1...v0.107.0)
