@@ -82,10 +82,16 @@ export interface NetworkTotalRetrieveResponse {
   institution_id: string;
 
   /**
-   * Card network where the transaction took place. VISA, MASTERCARD, MAESTRO, or
-   * INTERLINK.
+   * Indicates that all settlement records related to this Network Total are
+   * available in the details endpoint.
    */
-  network: 'VISA' | 'MASTERCARD' | 'MAESTRO' | 'INTERLINK';
+  is_complete: boolean;
+
+  /**
+   * Card network where the transaction took place. AMEX, VISA, MASTERCARD, MAESTRO,
+   * or INTERLINK.
+   */
+  network: 'AMEX' | 'VISA' | 'MASTERCARD' | 'MAESTRO' | 'INTERLINK';
 
   /**
    * Date that the network total record applies to. YYYY-MM-DD format.
@@ -166,10 +172,16 @@ export interface NetworkTotalListResponse {
   institution_id: string;
 
   /**
-   * Card network where the transaction took place. VISA, MASTERCARD, MAESTRO, or
-   * INTERLINK.
+   * Indicates that all settlement records related to this Network Total are
+   * available in the details endpoint.
    */
-  network: 'VISA' | 'MASTERCARD' | 'MAESTRO' | 'INTERLINK';
+  is_complete: boolean;
+
+  /**
+   * Card network where the transaction took place. AMEX, VISA, MASTERCARD, MAESTRO,
+   * or INTERLINK.
+   */
+  network: 'AMEX' | 'VISA' | 'MASTERCARD' | 'MAESTRO' | 'INTERLINK';
 
   /**
    * Date that the network total record applies to. YYYY-MM-DD format.
