@@ -639,6 +639,8 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/management-operations.ts">ExternalResource</a></code>
+- <code><a href="./src/resources/management-operations.ts">ExternalResourceType</a></code>
 - <code><a href="./src/resources/management-operations.ts">ManagementOperationTransaction</a></code>
 
 Methods:
@@ -675,3 +677,14 @@ Methods:
 
 - <code title="get /v1/fraud/transactions/{transaction_token}">client.fraud.transactions.<a href="./src/resources/fraud/transactions.ts">retrieve</a>(transactionToken) -> TransactionRetrieveResponse</code>
 - <code title="post /v1/fraud/transactions/{transaction_token}">client.fraud.transactions.<a href="./src/resources/fraud/transactions.ts">report</a>(transactionToken, { ...params }) -> TransactionReportResponse</code>
+
+# NetworkPrograms
+
+Types:
+
+- <code><a href="./src/resources/network-programs.ts">NetworkProgram</a></code>
+
+Methods:
+
+- <code title="get /v1/network_programs/{network_program_token}">client.networkPrograms.<a href="./src/resources/network-programs.ts">retrieve</a>(networkProgramToken) -> NetworkProgram</code>
+- <code title="get /v1/network_programs">client.networkPrograms.<a href="./src/resources/network-programs.ts">list</a>({ ...params }) -> NetworkProgramsSinglePage</code>

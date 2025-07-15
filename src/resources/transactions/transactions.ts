@@ -454,12 +454,13 @@ export namespace Transaction {
 
   export interface CardholderAuthentication {
     /**
-     * The 3DS version used for the authentication
+     * @deprecated The 3DS version used for the authentication
      */
     '3ds_version': string | null;
 
     /**
-     * Whether an acquirer exemption applied to the transaction.
+     * @deprecated Whether an acquirer exemption applied to the transaction. Not
+     * currently populated and will be removed in the future.
      */
     acquirer_exemption:
       | 'AUTHENTICATION_OUTAGE_EXCEPTION'
@@ -472,7 +473,7 @@ export namespace Transaction {
       | 'TRANSACTION_RISK_ANALYSIS';
 
     /**
-     * Indicates what the outcome of the 3DS authentication process is.
+     * Indicates the outcome of the 3DS authentication process.
      */
     authentication_result: 'ATTEMPTS' | 'DECLINE' | 'NONE' | 'SUCCESS';
 
@@ -491,17 +492,15 @@ export namespace Transaction {
      * Indicates whether chargeback liability shift applies to the transaction.
      * Possible enum values:
      *
-     *     * `3DS_AUTHENTICATED`: The transaction was fully authenticated through a 3-D Secure flow, chargeback liability shift applies.
-     *
-     *     * `ACQUIRER_EXEMPTION`: The acquirer utilised an exemption to bypass Strong Customer Authentication (`transStatus = N`, or `transStatus = I`). Liability remains with the acquirer and in this case the `acquirer_exemption` field is expected to be not `NONE`.
-     *
-     *     * `NONE`: Chargeback liability shift has not shifted to the issuer, i.e. the merchant is liable.
-     *
+     * - `3DS_AUTHENTICATED`: The transaction was fully authenticated through a 3-D
+     *   Secure flow, chargeback liability shift applies.
+     * - `NONE`: Chargeback liability shift has not shifted to the issuer, i.e. the
+     *   merchant is liable.
      * - `TOKEN_AUTHENTICATED`: The transaction was a tokenized payment with validated
      *   cryptography, possibly recurring. Chargeback liability shift to the issuer
      *   applies.
      */
-    liability_shift: '3DS_AUTHENTICATED' | 'ACQUIRER_EXEMPTION' | 'NONE' | 'TOKEN_AUTHENTICATED';
+    liability_shift: '3DS_AUTHENTICATED' | 'TOKEN_AUTHENTICATED' | 'NONE';
 
     /**
      * Unique identifier you can use to match a given 3DS authentication (available via
@@ -512,14 +511,14 @@ export namespace Transaction {
     three_ds_authentication_token: string | null;
 
     /**
-     * Indicates whether a 3DS challenge flow was used, and if so, what the
+     * @deprecated Indicates whether a 3DS challenge flow was used, and if so, what the
      * verification method was. (deprecated, use `authentication_result`)
      */
     verification_attempted: 'NONE' | 'OTHER';
 
     /**
-     * Indicates whether a transaction is considered 3DS authenticated. (deprecated,
-     * use `authentication_result`)
+     * @deprecated Indicates whether a transaction is considered 3DS authenticated.
+     * (deprecated, use `authentication_result`)
      */
     verification_result: 'CANCELLED' | 'FAILED' | 'FRICTIONLESS' | 'NOT_ATTEMPTED' | 'REJECTED' | 'SUCCESS';
 

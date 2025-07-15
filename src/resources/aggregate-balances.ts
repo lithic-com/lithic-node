@@ -53,7 +53,7 @@ export interface AggregateBalance {
   /**
    * Type of financial account
    */
-  financial_account_type: 'ISSUING' | 'OPERATING' | 'RESERVE';
+  financial_account_type: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY';
 
   /**
    * Globally unique identifier for the financial account that had its balance
@@ -94,7 +94,7 @@ export interface AggregateBalanceListParams {
   /**
    * Get the aggregate balance for a given Financial Account type.
    */
-  financial_account_type?: 'ISSUING' | 'OPERATING' | 'RESERVE';
+  financial_account_type?: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY';
 }
 
 AggregateBalances.AggregateBalancesSinglePage = AggregateBalancesSinglePage;

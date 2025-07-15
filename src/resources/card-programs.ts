@@ -76,6 +76,12 @@ export interface CardProgram {
   pan_range_start: string;
 
   /**
+   * Whether the card program is participating in Account Level Management. Currently
+   * applicable to Visa card programs only.
+   */
+  account_level_management_enabled?: boolean;
+
+  /**
    * 3-character alphabetic ISO 4217 code for the currency of the cardholder.
    */
   cardholder_currency?: string;

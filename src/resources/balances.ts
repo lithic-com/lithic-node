@@ -54,7 +54,7 @@ export interface Balance {
   /**
    * Type of financial account.
    */
-  financial_account_type: 'ISSUING' | 'OPERATING' | 'RESERVE';
+  financial_account_type: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY';
 
   /**
    * Globally unique identifier for the last financial transaction event that
@@ -106,7 +106,7 @@ export interface BalanceListParams {
   /**
    * List balances for a given Financial Account type.
    */
-  financial_account_type?: 'ISSUING' | 'OPERATING' | 'RESERVE';
+  financial_account_type?: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY';
 }
 
 Balances.BalancesSinglePage = BalancesSinglePage;
