@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.110.0 (2025-07-15)
+
+Full Changelog: [v0.109.0...v0.110.0](https://github.com/lithic-com/lithic-node/compare/v0.109.0...v0.110.0)
+
+### Features
+
+* **api:** adds Network Programs and Account/Card Sub-statuses ([ac6bf9d](https://github.com/lithic-com/lithic-node/commit/ac6bf9d63fb768ec914d6d1a968ecd5b63b8ea9d))
+
+
+### Chores
+
+* make some internal functions async ([84d6291](https://github.com/lithic-com/lithic-node/commit/84d62910fc606cede794d7a75d23a032c40decc4))
+
 ## 0.109.0 (2025-07-03)
 
 Full Changelog: [v0.108.0...v0.109.0](https://github.com/lithic-com/lithic-node/compare/v0.108.0...v0.109.0)
