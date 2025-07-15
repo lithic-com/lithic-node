@@ -37,6 +37,7 @@ describe('resource managementOperations', () => {
       financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       memo: 'memo',
+      on_closed_account: 'FAIL',
       subtype: 'subtype',
       user_defined_id: 'user_defined_id',
     });

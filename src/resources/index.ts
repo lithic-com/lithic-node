@@ -137,11 +137,19 @@ export {
 export {
   ManagementOperationTransactionsCursorPage,
   ManagementOperations,
+  type ExternalResource,
+  type ExternalResourceType,
   type ManagementOperationTransaction,
   type ManagementOperationCreateParams,
   type ManagementOperationListParams,
   type ManagementOperationReverseParams,
 } from './management-operations';
+export {
+  NetworkProgramsSinglePage,
+  NetworkPrograms,
+  type NetworkProgram,
+  type NetworkProgramListParams,
+} from './network-programs';
 export {
   NonPCICardsCursorPage,
   Cards,

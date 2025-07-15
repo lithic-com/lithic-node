@@ -479,7 +479,7 @@ export interface FinancialAccountListParams {
   /**
    * List financial accounts of a given type
    */
-  type?: 'ISSUING' | 'OPERATING' | 'RESERVE';
+  type?: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY';
 }
 
 export interface FinancialAccountRegisterAccountNumberParams {
