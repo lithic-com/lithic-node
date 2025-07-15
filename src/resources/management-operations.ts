@@ -66,6 +66,31 @@ export class ManagementOperations extends APIResource {
 
 export class ManagementOperationTransactionsCursorPage extends CursorPage<ManagementOperationTransaction> {}
 
+/**
+ * External resource associated with the management operation
+ */
+export interface ExternalResource {
+  /**
+   * Token identifying the external resource
+   */
+  external_resource_token: string;
+
+  /**
+   * Type of external resource associated with the management operation
+   */
+  external_resource_type: ExternalResourceType;
+
+  /**
+   * Token identifying the external resource sub-resource
+   */
+  external_resource_sub_token?: string;
+}
+
+/**
+ * Type of external resource associated with the management operation
+ */
+export type ExternalResourceType = 'STATEMENT' | 'COLLECTION' | 'DISPUTE' | 'UNKNOWN';
+
 export interface ManagementOperationTransaction {
   token: string;
 
@@ -97,6 +122,11 @@ export interface ManagementOperationTransaction {
   transaction_series: ManagementOperationTransaction.TransactionSeries | null;
 
   updated: string;
+
+  /**
+   * External resource associated with the management operation
+   */
+  external_resource?: ExternalResource | null;
 
   user_defined_id?: string;
 }
@@ -191,6 +221,11 @@ export interface ManagementOperationCreateParams {
 
   memo?: string;
 
+  /**
+   * What to do if the financial account is closed when posting an operation
+   */
+  on_closed_account?: 'FAIL' | 'USE_SUSPENSE';
+
   subtype?: string;
 
   user_defined_id?: string;
@@ -243,6 +278,8 @@ ManagementOperations.ManagementOperationTransactionsCursorPage = ManagementOpera
 
 export declare namespace ManagementOperations {
   export {
+    type ExternalResource as ExternalResource,
+    type ExternalResourceType as ExternalResourceType,
     type ManagementOperationTransaction as ManagementOperationTransaction,
     ManagementOperationTransactionsCursorPage as ManagementOperationTransactionsCursorPage,
     type ManagementOperationCreateParams as ManagementOperationCreateParams,

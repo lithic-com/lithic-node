@@ -398,11 +398,8 @@ export namespace Conditional3DSActionParameters {
      *   fee field in the settlement/cardholder billing currency. This is the amount
      *   the issuer should authorize against unless the issuer is paying the acquirer
      *   fee on behalf of the cardholder.
-     * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-     *   given authentication. Scores are on a range of 0-999, with 0 representing the
-     *   lowest risk and 999 representing the highest risk. For Visa transactions,
-     *   where the raw score has a range of 0-99, Lithic will normalize the score by
-     *   multiplying the raw score by 10x.
+     * - `RISK_SCORE`: Mastercard only: Assessment by the network of the authentication
+     *   risk level, with a higher value indicating a higher amount of risk.
      * - `MESSAGE_CATEGORY`: The category of the authentication being processed.
      */
     attribute?:
@@ -607,7 +604,7 @@ export interface VelocityLimitParams {
    * The size of the trailing window to calculate Spend Velocity over in seconds. The
    * minimum value is 10 seconds, and the maximum value is 2678400 seconds (31 days).
    */
-  period: number | VelocityLimitParamsPeriodWindow;
+  period: VelocityLimitParamsPeriodWindow;
 
   scope: 'CARD' | 'ACCOUNT';
 
@@ -659,17 +656,90 @@ export namespace VelocityLimitParams {
 }
 
 /**
- * The window of time to calculate Spend Velocity over.
- *
- * - `DAY`: Velocity over the current day since midnight Eastern Time.
- * - `WEEK`: Velocity over the current week since 00:00 / 12 AM on Monday in
- *   Eastern Time.
- * - `MONTH`: Velocity over the current month since 00:00 / 12 AM on the first of
- *   the month in Eastern Time.
- * - `YEAR`: Velocity over the current year since 00:00 / 12 AM on January 1st in
- *   Eastern Time.
+ * The size of the trailing window to calculate Spend Velocity over in seconds. The
+ * minimum value is 10 seconds, and the maximum value is 2678400 seconds (31 days).
  */
-export type VelocityLimitParamsPeriodWindow = 'DAY' | 'WEEK' | 'MONTH' | 'YEAR';
+export type VelocityLimitParamsPeriodWindow =
+  | number
+  | 'DAY'
+  | 'WEEK'
+  | 'MONTH'
+  | 'YEAR'
+  | VelocityLimitParamsPeriodWindow.TrailingWindowObject
+  | VelocityLimitParamsPeriodWindow.FixedWindowDay
+  | VelocityLimitParamsPeriodWindow.FixedWindowWeek
+  | VelocityLimitParamsPeriodWindow.FixedWindowMonth
+  | VelocityLimitParamsPeriodWindow.FixedWindowYear;
+
+export namespace VelocityLimitParamsPeriodWindow {
+  export interface TrailingWindowObject {
+    /**
+     * The size of the trailing window to calculate Spend Velocity over in seconds. The
+     * minimum value is 10 seconds, and the maximum value is 2678400 seconds (31 days).
+     */
+    duration?: number;
+
+    type?: 'CUSTOM';
+  }
+
+  /**
+   * Velocity over the current day since 00:00 / 12 AM in Eastern Time
+   */
+  export interface FixedWindowDay {
+    type?: 'DAY';
+  }
+
+  /**
+   * Velocity over the current week since 00:00 / 12 AM in Eastern Time on specified
+   * `day_of_week`
+   */
+  export interface FixedWindowWeek {
+    /**
+     * The day of the week to start the week from. Following ISO-8601, 1 is Monday and
+     * 7 is Sunday. Defaults to Monday if not specified.
+     */
+    day_of_week?: number;
+
+    type?: 'WEEK';
+  }
+
+  /**
+   * Velocity over the current month since 00:00 / 12 AM in Eastern Time on specified
+   * `day_of_month`.
+   */
+  export interface FixedWindowMonth {
+    /**
+     * The day of the month to start from. Accepts values from 1 to 31, and will reset
+     * at the end of the month if the day exceeds the number of days in the month.
+     * Defaults to the 1st of the month if not specified.
+     */
+    day_of_month?: number;
+
+    type?: 'MONTH';
+  }
+
+  /**
+   * Velocity over the current year since 00:00 / 12 AM in Eastern Time on specified
+   * `month` and `day_of_month`. This validates the month and day of the year to
+   * start from is a real date. In the event that February 29th is selected, in
+   * non-leap years, the window will start from February 28th.
+   */
+  export interface FixedWindowYear {
+    /**
+     * The day of the month to start from. Defaults to the 1st of the month if not
+     * specified.
+     */
+    day_of_month?: number;
+
+    /**
+     * The month to start from. 1 is January and 12 is December. Defaults to January if
+     * not specified.
+     */
+    month?: number;
+
+    type?: 'YEAR';
+  }
+}
 
 export interface V2CreateResponse {
   /**

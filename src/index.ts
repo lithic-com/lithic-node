@@ -100,6 +100,8 @@ import {
   FundingEvents,
 } from './resources/funding-events';
 import {
+  ExternalResource,
+  ExternalResourceType,
   ManagementOperationCreateParams,
   ManagementOperationListParams,
   ManagementOperationReverseParams,
@@ -107,6 +109,12 @@ import {
   ManagementOperationTransactionsCursorPage,
   ManagementOperations,
 } from './resources/management-operations';
+import {
+  NetworkProgram,
+  NetworkProgramListParams,
+  NetworkPrograms,
+  NetworkProgramsSinglePage,
+} from './resources/network-programs';
 import {
   Payment,
   PaymentCreateParams,
@@ -422,6 +430,7 @@ export class Lithic extends Core.APIClient {
   managementOperations: API.ManagementOperations = new API.ManagementOperations(this);
   fundingEvents: API.FundingEvents = new API.FundingEvents(this);
   fraud: API.Fraud = new API.Fraud(this);
+  networkPrograms: API.NetworkPrograms = new API.NetworkPrograms(this);
 
   /**
    * Check whether the base URL is set to its default.
@@ -525,6 +534,8 @@ Lithic.ManagementOperationTransactionsCursorPage = ManagementOperationTransactio
 Lithic.FundingEvents = FundingEvents;
 Lithic.FundingEventListResponsesCursorPage = FundingEventListResponsesCursorPage;
 Lithic.Fraud = Fraud;
+Lithic.NetworkPrograms = NetworkPrograms;
+Lithic.NetworkProgramsSinglePage = NetworkProgramsSinglePage;
 export declare namespace Lithic {
   export type RequestOptions = Core.RequestOptions;
 
@@ -789,6 +800,8 @@ export declare namespace Lithic {
 
   export {
     ManagementOperations as ManagementOperations,
+    type ExternalResource as ExternalResource,
+    type ExternalResourceType as ExternalResourceType,
     type ManagementOperationTransaction as ManagementOperationTransaction,
     ManagementOperationTransactionsCursorPage as ManagementOperationTransactionsCursorPage,
     type ManagementOperationCreateParams as ManagementOperationCreateParams,
@@ -806,6 +819,13 @@ export declare namespace Lithic {
   };
 
   export { Fraud as Fraud };
+
+  export {
+    NetworkPrograms as NetworkPrograms,
+    type NetworkProgram as NetworkProgram,
+    NetworkProgramsSinglePage as NetworkProgramsSinglePage,
+    type NetworkProgramListParams as NetworkProgramListParams,
+  };
 
   export type AccountFinancialAccountType = API.AccountFinancialAccountType;
   export type Address = API.Address;

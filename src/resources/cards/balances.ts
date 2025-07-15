@@ -96,7 +96,7 @@ export interface BalanceListResponse {
   /**
    * Type of financial account.
    */
-  type: 'ISSUING' | 'OPERATING' | 'RESERVE';
+  type: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY';
 
   /**
    * Date and time for when the balance was last updated.

@@ -145,6 +145,50 @@ export interface Account {
   cardholder_currency?: string;
 
   /**
+   * Additional context or information related to the account.
+   */
+  comment?: string;
+
+  /**
+   * Account state substatus values:
+   *
+   * - `FRAUD_IDENTIFIED` - The account has been recognized as being created or used
+   *   with stolen or fabricated identity information, encompassing both true
+   *   identity theft and synthetic identities.
+   * - `SUSPICIOUS_ACTIVITY` - The account has exhibited suspicious behavior, such as
+   *   unauthorized access or fraudulent transactions, necessitating further
+   *   investigation.
+   * - `RISK_VIOLATION` - The account has been involved in deliberate misuse by the
+   *   legitimate account holder. Examples include disputing valid transactions
+   *   without cause, falsely claiming non-receipt of goods, or engaging in
+   *   intentional bust-out schemes to exploit account services.
+   * - `END_USER_REQUEST` - The account holder has voluntarily requested the closure
+   *   of the account for personal reasons. This encompasses situations such as
+   *   bankruptcy, other financial considerations, or the account holder's death.
+   * - `ISSUER_REQUEST` - The issuer has initiated the closure of the account due to
+   *   business strategy, risk management, inactivity, product changes, regulatory
+   *   concerns, or violations of terms and conditions.
+   * - `NOT_ACTIVE` - The account has not had any transactions or payment activity
+   *   within a specified period. This status applies to accounts that are paused or
+   *   closed due to inactivity.
+   * - `INTERNAL_REVIEW` - The account is temporarily paused pending further internal
+   *   review. In future implementations, this status may prevent clients from
+   *   activating the account via APIs until the review is completed.
+   * - `OTHER` - The reason for the account's current status does not fall into any
+   *   of the above categories. A comment should be provided to specify the
+   *   particular reason.
+   */
+  substatus?:
+    | 'FRAUD_IDENTIFIED'
+    | 'SUSPICIOUS_ACTIVITY'
+    | 'RISK_VIOLATION'
+    | 'END_USER_REQUEST'
+    | 'ISSUER_REQUEST'
+    | 'NOT_ACTIVE'
+    | 'INTERNAL_REVIEW'
+    | 'OTHER';
+
+  /**
    * @deprecated
    */
   verification_address?: Account.VerificationAddress;
@@ -307,6 +351,11 @@ export namespace AccountSpendLimits {
 
 export interface AccountUpdateParams {
   /**
+   * Additional context or information related to the account.
+   */
+  comment?: string;
+
+  /**
    * Amount (in cents) for the account's daily spend limit (e.g. 100000 would be a
    * $1,000 limit). By default the daily spend limit is set to $1,250.
    */
@@ -333,6 +382,45 @@ export interface AccountUpdateParams {
    * Account states.
    */
   state?: 'ACTIVE' | 'PAUSED' | 'CLOSED';
+
+  /**
+   * Account state substatus values:
+   *
+   * - `FRAUD_IDENTIFIED` - The account has been recognized as being created or used
+   *   with stolen or fabricated identity information, encompassing both true
+   *   identity theft and synthetic identities.
+   * - `SUSPICIOUS_ACTIVITY` - The account has exhibited suspicious behavior, such as
+   *   unauthorized access or fraudulent transactions, necessitating further
+   *   investigation.
+   * - `RISK_VIOLATION` - The account has been involved in deliberate misuse by the
+   *   legitimate account holder. Examples include disputing valid transactions
+   *   without cause, falsely claiming non-receipt of goods, or engaging in
+   *   intentional bust-out schemes to exploit account services.
+   * - `END_USER_REQUEST` - The account holder has voluntarily requested the closure
+   *   of the account for personal reasons. This encompasses situations such as
+   *   bankruptcy, other financial considerations, or the account holder's death.
+   * - `ISSUER_REQUEST` - The issuer has initiated the closure of the account due to
+   *   business strategy, risk management, inactivity, product changes, regulatory
+   *   concerns, or violations of terms and conditions.
+   * - `NOT_ACTIVE` - The account has not had any transactions or payment activity
+   *   within a specified period. This status applies to accounts that are paused or
+   *   closed due to inactivity.
+   * - `INTERNAL_REVIEW` - The account is temporarily paused pending further internal
+   *   review. In future implementations, this status may prevent clients from
+   *   activating the account via APIs until the review is completed.
+   * - `OTHER` - The reason for the account's current status does not fall into any
+   *   of the above categories. A comment should be provided to specify the
+   *   particular reason.
+   */
+  substatus?:
+    | 'FRAUD_IDENTIFIED'
+    | 'SUSPICIOUS_ACTIVITY'
+    | 'RISK_VIOLATION'
+    | 'END_USER_REQUEST'
+    | 'ISSUER_REQUEST'
+    | 'NOT_ACTIVE'
+    | 'INTERNAL_REVIEW'
+    | 'OTHER';
 
   /**
    * @deprecated Address used during Address Verification Service (AVS) checks during
