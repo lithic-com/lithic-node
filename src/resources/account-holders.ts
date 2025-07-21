@@ -350,10 +350,9 @@ export interface AccountHolder {
   control_person?: AccountHolder.ControlPerson;
 
   /**
-   * < Deprecated. Use control_person.email when user_type == "BUSINESS". Use
-   * individual.phone_number when user_type == "INDIVIDUAL".
-   *
-   * > Primary email of Account Holder.
+   * (Deprecated. Use control_person.email when user_type == "BUSINESS". Use
+   * individual.phone_number when user_type == "INDIVIDUAL".) Primary email of
+   * Account Holder.
    */
   email?: string;
 
@@ -381,10 +380,9 @@ export interface AccountHolder {
   nature_of_business?: string;
 
   /**
-   * < Deprecated. Use control_person.phone_number when user_type == "BUSINESS". Use
-   * individual.phone_number when user_type == "INDIVIDUAL".
-   *
-   * > Primary phone of Account Holder, entered in E.164 format.
+   * (Deprecated. Use control_person.phone_number when user_type == "BUSINESS". Use
+   * individual.phone_number when user_type == "INDIVIDUAL".) Primary phone of
+   * Account Holder, entered in E.164 format.
    */
   phone_number?: string;
 
@@ -395,7 +393,7 @@ export interface AccountHolder {
   required_documents?: Array<RequiredDocument>;
 
   /**
-   * <Deprecated. Use verification_application.status instead>
+   * (Deprecated. Use verification_application.status instead)
    *
    * KYC and KYB evaluation states.
    *
@@ -406,8 +404,9 @@ export interface AccountHolder {
   status?: 'ACCEPTED' | 'PENDING_REVIEW' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED';
 
   /**
-   * <Deprecated. Use verification_application.status_reasons> Reason for the
-   * evaluation status.
+   * (Deprecated. Use verification_application.status_reasons)
+   *
+   * Reason for the evaluation status.
    */
   status_reasons?: Array<
     | 'ADDRESS_VERIFICATION_FAILURE'
@@ -1348,10 +1347,9 @@ export namespace AccountHolderUpdateResponse {
     created?: string;
 
     /**
-     * < Deprecated. Use control_person.email when user_type == "BUSINESS". Use
-     * individual.phone_number when user_type == "INDIVIDUAL".
-     *
-     * > Primary email of Account Holder.
+     * (Deprecated. Use control_person.email when user_type == "BUSINESS". Use
+     * individual.phone_number when user_type == "INDIVIDUAL".) Primary email of
+     * Account Holder.
      */
     email?: string;
 
@@ -1380,10 +1378,9 @@ export namespace AccountHolderUpdateResponse {
     nature_of_business?: string;
 
     /**
-     * < Deprecated. Use control_person.phone_number when user_type == "BUSINESS". Use
-     * individual.phone_number when user_type == "INDIVIDUAL".
-     *
-     * > Primary phone of Account Holder, entered in E.164 format.
+     * (Deprecated. Use control_person.phone_number when user_type == "BUSINESS". Use
+     * individual.phone_number when user_type == "INDIVIDUAL".) Primary phone of
+     * Account Holder, entered in E.164 format.
      */
     phone_number?: string;
 
@@ -1394,9 +1391,8 @@ export namespace AccountHolderUpdateResponse {
     required_documents?: Array<AccountHoldersAPI.RequiredDocument>;
 
     /**
-     * <Deprecated. Use verification_application.status instead>
-     *
-     * KYC and KYB evaluation states.
+     * (Deprecated. Use verification_application.status instead) KYC and KYB evaluation
+     * states.
      *
      * Note: `PENDING_RESUBMIT` and `PENDING_DOCUMENT` are only applicable for the
      * `ADVANCED` workflow.
@@ -1404,7 +1400,7 @@ export namespace AccountHolderUpdateResponse {
     status?: 'ACCEPTED' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED';
 
     /**
-     * <Deprecated. Use verification_application.status_reasons> Reason for the
+     * (Deprecated. Use verification_application.status_reasons) Reason for the
      * evaluation status.
      */
     status_reasons?: Array<
@@ -1899,10 +1895,9 @@ export interface AccountHolderSimulateEnrollmentReviewResponse {
   created?: string;
 
   /**
-   * < Deprecated. Use control_person.email when user_type == "BUSINESS". Use
-   * individual.phone_number when user_type == "INDIVIDUAL".
-   *
-   * > Primary email of Account Holder.
+   * (Deprecated. Use control_person.email when user_type == "BUSINESS". Use
+   * individual.phone_number when user_type == "INDIVIDUAL".) Primary email of
+   * Account Holder.
    */
   email?: string;
 
@@ -1931,10 +1926,9 @@ export interface AccountHolderSimulateEnrollmentReviewResponse {
   nature_of_business?: string;
 
   /**
-   * < Deprecated. Use control_person.phone_number when user_type == "BUSINESS". Use
-   * individual.phone_number when user_type == "INDIVIDUAL".
-   *
-   * > Primary phone of Account Holder, entered in E.164 format.
+   * (Deprecated. Use control_person.phone_number when user_type == "BUSINESS". Use
+   * individual.phone_number when user_type == "INDIVIDUAL".) Primary phone of
+   * Account Holder, entered in E.164 format.
    */
   phone_number?: string;
 
@@ -1945,9 +1939,8 @@ export interface AccountHolderSimulateEnrollmentReviewResponse {
   required_documents?: Array<RequiredDocument>;
 
   /**
-   * <Deprecated. Use verification_application.status instead>
-   *
-   * KYC and KYB evaluation states.
+   * (Deprecated. Use verification_application.status instead) KYC and KYB evaluation
+   * states.
    *
    * Note: `PENDING_RESUBMIT` and `PENDING_DOCUMENT` are only applicable for the
    * `ADVANCED` workflow.
@@ -1955,7 +1948,7 @@ export interface AccountHolderSimulateEnrollmentReviewResponse {
   status?: 'ACCEPTED' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED';
 
   /**
-   * <Deprecated. Use verification_application.status_reasons> Reason for the
+   * (Deprecated. Use verification_application.status_reasons) Reason for the
    * evaluation status.
    */
   status_reasons?: Array<
