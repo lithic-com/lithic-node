@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.111.0 (2025-07-23)
+
+Full Changelog: [v0.110.0...v0.111.0](https://github.com/lithic-com/lithic-node/compare/v0.110.0...v0.111.0)
+
+### Features
+
+* **api:** adds new Auth Rules Scope and Settlement Details type ([7e07bc1](https://github.com/lithic-com/lithic-node/commit/7e07bc1e832b8ebc55aa5d6fd294aa5b6d8e95f0))
+
+
+### Chores
+
+* **docs:** update Account Holder deprecation formatting ([4333988](https://github.com/lithic-com/lithic-node/commit/4333988dea5be81f742719fdbb6139f6bc837664))
+
 ## 0.110.0 (2025-07-15)
 
 Full Changelog: [v0.109.0...v0.110.0](https://github.com/lithic-com/lithic-node/compare/v0.109.0...v0.110.0)
