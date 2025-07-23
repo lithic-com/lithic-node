@@ -1639,7 +1639,7 @@ export interface V2ListParams extends CursorPageParams {
   /**
    * Only return Auth Rules that are bound to the provided scope.
    */
-  scope?: 'PROGRAM' | 'ACCOUNT' | 'CARD';
+  scope?: 'PROGRAM' | 'ACCOUNT' | 'CARD' | 'ANY';
 }
 
 export type V2ApplyParams =
