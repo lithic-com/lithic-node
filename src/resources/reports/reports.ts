@@ -117,6 +117,7 @@ export interface SettlementDetail {
     | 'ARBITRATION'
     | 'CHARGEBACK'
     | 'CLEARING'
+    | 'COLLABORATION'
     | 'FEE'
     | 'FINANCIAL'
     | 'NON-FINANCIAL'
