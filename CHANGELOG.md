@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.112.0 (2025-07-28)
+
+Full Changelog: [v0.111.0...v0.112.0](https://github.com/lithic-com/lithic-node/compare/v0.111.0...v0.112.0)
+
+### Features
+
+* **api:** updates Transaction retrieve response to match API ([956374d](https://github.com/lithic-com/lithic-node/commit/956374d59abec62614ee0e1031d75e4893c62c2e))
+
 ## 0.111.0 (2025-07-23)
 
 Full Changelog: [v0.110.0...v0.111.0](https://github.com/lithic-com/lithic-node/compare/v0.110.0...v0.111.0)
