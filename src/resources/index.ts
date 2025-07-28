@@ -214,7 +214,6 @@ export {
   TokenizationsCursorPage,
   Tokenizations,
   type Tokenization,
-  type TokenizationRetrieveResponse,
   type TokenizationSimulateResponse,
   type TokenizationUpdateDigitalCardArtResponse,
   type TokenizationListParams,

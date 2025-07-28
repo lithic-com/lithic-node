@@ -92,41 +92,55 @@ export interface ExternalResource {
 export type ExternalResourceType = 'STATEMENT' | 'COLLECTION' | 'DISPUTE' | 'UNKNOWN';
 
 export interface ManagementOperationTransaction {
+  /**
+   * Unique identifier for the transaction
+   */
   token: string;
 
-  category:
+  /**
+   * ISO 8601 timestamp of when the transaction was created
+   */
+  created: string;
+
+  family: 'CARD' | 'PAYMENT' | 'TRANSFER' | 'INTERNAL' | 'EXTERNAL_PAYMENT' | 'MANAGEMENT_OPERATION';
+
+  /**
+   * The status of the transaction
+   */
+  status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED';
+
+  /**
+   * ISO 8601 timestamp of when the transaction was last updated
+   */
+  updated: string;
+
+  category?:
     | 'MANAGEMENT_FEE'
     | 'MANAGEMENT_DISPUTE'
     | 'MANAGEMENT_REWARD'
     | 'MANAGEMENT_ADJUSTMENT'
     | 'MANAGEMENT_DISBURSEMENT';
 
-  created: string;
+  currency?: string;
 
-  currency: string;
+  direction?: 'CREDIT' | 'DEBIT';
 
-  direction: 'CREDIT' | 'DEBIT';
-
-  events: Array<ManagementOperationTransaction.Event>;
-
-  financial_account_token: string;
-
-  pending_amount: number;
-
-  result: 'APPROVED' | 'DECLINED';
-
-  settled_amount: number;
-
-  status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED';
-
-  transaction_series: ManagementOperationTransaction.TransactionSeries | null;
-
-  updated: string;
+  events?: Array<ManagementOperationTransaction.Event>;
 
   /**
    * External resource associated with the management operation
    */
   external_resource?: ExternalResource | null;
+
+  financial_account_token?: string;
+
+  pending_amount?: number;
+
+  result?: 'APPROVED' | 'DECLINED';
+
+  settled_amount?: number;
+
+  transaction_series?: ManagementOperationTransaction.TransactionSeries | null;
 
   user_defined_id?: string;
 }
