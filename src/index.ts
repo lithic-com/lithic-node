@@ -149,7 +149,6 @@ import {
   Tokenization,
   TokenizationListParams,
   TokenizationResendActivationCodeParams,
-  TokenizationRetrieveResponse,
   TokenizationSimulateParams,
   TokenizationSimulateResponse,
   TokenizationUpdateDigitalCardArtParams,
@@ -586,7 +585,6 @@ export declare namespace Lithic {
   export {
     Tokenizations as Tokenizations,
     type Tokenization as Tokenization,
-    type TokenizationRetrieveResponse as TokenizationRetrieveResponse,
     type TokenizationSimulateResponse as TokenizationSimulateResponse,
     type TokenizationUpdateDigitalCardArtResponse as TokenizationUpdateDigitalCardArtResponse,
     TokenizationsCursorPage as TokenizationsCursorPage,

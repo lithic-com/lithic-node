@@ -16,10 +16,7 @@ export class Tokenizations extends APIResource {
    * );
    * ```
    */
-  retrieve(
-    tokenizationToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<TokenizationRetrieveResponse> {
+  retrieve(tokenizationToken: string, options?: Core.RequestOptions): Core.APIPromise<Tokenization> {
     return this._client.get(`/v1/tokenizations/${tokenizationToken}`, options);
   }
 
@@ -363,10 +360,6 @@ export namespace Tokenization {
   }
 }
 
-export interface TokenizationRetrieveResponse {
-  data?: Tokenization;
-}
-
 export interface TokenizationSimulateResponse {
   data?: Array<Tokenization>;
 }
@@ -472,7 +465,6 @@ Tokenizations.TokenizationsCursorPage = TokenizationsCursorPage;
 export declare namespace Tokenizations {
   export {
     type Tokenization as Tokenization,
-    type TokenizationRetrieveResponse as TokenizationRetrieveResponse,
     type TokenizationSimulateResponse as TokenizationSimulateResponse,
     type TokenizationUpdateDigitalCardArtResponse as TokenizationUpdateDigitalCardArtResponse,
     TokenizationsCursorPage as TokenizationsCursorPage,
