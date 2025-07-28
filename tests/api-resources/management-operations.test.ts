@@ -11,7 +11,7 @@ const client = new Lithic({
 describe('resource managementOperations', () => {
   test('create: only required params', async () => {
     const responsePromise = client.managementOperations.create({
-      amount: 0,
+      amount: 1,
       category: 'MANAGEMENT_FEE',
       direction: 'CREDIT',
       effective_date: '2019-12-27',
@@ -29,7 +29,7 @@ describe('resource managementOperations', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.managementOperations.create({
-      amount: 0,
+      amount: 1,
       category: 'MANAGEMENT_FEE',
       direction: 'CREDIT',
       effective_date: '2019-12-27',

@@ -89,29 +89,43 @@ export class ExternalPayments extends APIResource {
 export class ExternalPaymentsCursorPage extends CursorPage<ExternalPayment> {}
 
 export interface ExternalPayment {
+  /**
+   * Unique identifier for the transaction
+   */
   token: string;
 
-  category: 'EXTERNAL_WIRE' | 'EXTERNAL_ACH' | 'EXTERNAL_CHECK' | 'EXTERNAL_TRANSFER';
-
+  /**
+   * ISO 8601 timestamp of when the transaction was created
+   */
   created: string;
 
-  currency: string;
+  family: 'CARD' | 'PAYMENT' | 'TRANSFER' | 'INTERNAL' | 'EXTERNAL_PAYMENT' | 'MANAGEMENT_OPERATION';
 
-  events: Array<ExternalPayment.Event>;
-
-  financial_account_token: string;
-
-  payment_type: 'DEPOSIT' | 'WITHDRAWAL';
-
-  pending_amount: number;
-
-  result: 'APPROVED' | 'DECLINED';
-
-  settled_amount: number;
-
+  /**
+   * The status of the transaction
+   */
   status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED';
 
+  /**
+   * ISO 8601 timestamp of when the transaction was last updated
+   */
   updated: string;
+
+  category?: 'EXTERNAL_WIRE' | 'EXTERNAL_ACH' | 'EXTERNAL_CHECK' | 'EXTERNAL_TRANSFER';
+
+  currency?: string;
+
+  events?: Array<ExternalPayment.Event>;
+
+  financial_account_token?: string;
+
+  payment_type?: 'DEPOSIT' | 'WITHDRAWAL';
+
+  pending_amount?: number;
+
+  result?: 'APPROVED' | 'DECLINED';
+
+  settled_amount?: number;
 
   user_defined_id?: string;
 }

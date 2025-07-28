@@ -140,13 +140,12 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/tokenizations.ts">Tokenization</a></code>
-- <code><a href="./src/resources/tokenizations.ts">TokenizationRetrieveResponse</a></code>
 - <code><a href="./src/resources/tokenizations.ts">TokenizationSimulateResponse</a></code>
 - <code><a href="./src/resources/tokenizations.ts">TokenizationUpdateDigitalCardArtResponse</a></code>
 
 Methods:
 
-- <code title="get /v1/tokenizations/{tokenization_token}">client.tokenizations.<a href="./src/resources/tokenizations.ts">retrieve</a>(tokenizationToken) -> TokenizationRetrieveResponse</code>
+- <code title="get /v1/tokenizations/{tokenization_token}">client.tokenizations.<a href="./src/resources/tokenizations.ts">retrieve</a>(tokenizationToken) -> Tokenization</code>
 - <code title="get /v1/tokenizations">client.tokenizations.<a href="./src/resources/tokenizations.ts">list</a>({ ...params }) -> TokenizationsCursorPage</code>
 - <code title="post /v1/tokenizations/{tokenization_token}/activate">client.tokenizations.<a href="./src/resources/tokenizations.ts">activate</a>(tokenizationToken) -> void</code>
 - <code title="post /v1/tokenizations/{tokenization_token}/deactivate">client.tokenizations.<a href="./src/resources/tokenizations.ts">deactivate</a>(tokenizationToken) -> void</code>
