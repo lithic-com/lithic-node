@@ -58,10 +58,6 @@
     "./shims/web.js",
     "./shims/web.mjs"
   ],
-  "imports": {
-    "lithic": ".",
-    "lithic/*": "./src/*"
-  },
   "exports": {
     "./_shims/auto/*": {
       "deno": {
