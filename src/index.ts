@@ -11,6 +11,13 @@ import * as API from './resources/index';
 import * as TopLevelAPI from './resources/top-level';
 import { APIStatus } from './resources/top-level';
 import {
+  AccountActivity,
+  AccountActivityListParams,
+  AccountActivityListResponse,
+  AccountActivityListResponsesCursorPage,
+  AccountActivityRetrieveTransactionResponse,
+} from './resources/account-activity';
+import {
   AccountHolder,
   AccountHolderCreateParams,
   AccountHolderCreateResponse,
@@ -430,6 +437,7 @@ export class Lithic extends Core.APIClient {
   fundingEvents: API.FundingEvents = new API.FundingEvents(this);
   fraud: API.Fraud = new API.Fraud(this);
   networkPrograms: API.NetworkPrograms = new API.NetworkPrograms(this);
+  accountActivity: API.AccountActivity = new API.AccountActivity(this);
 
   /**
    * Check whether the base URL is set to its default.
@@ -535,6 +543,8 @@ Lithic.FundingEventListResponsesCursorPage = FundingEventListResponsesCursorPage
 Lithic.Fraud = Fraud;
 Lithic.NetworkPrograms = NetworkPrograms;
 Lithic.NetworkProgramsSinglePage = NetworkProgramsSinglePage;
+Lithic.AccountActivity = AccountActivity;
+Lithic.AccountActivityListResponsesCursorPage = AccountActivityListResponsesCursorPage;
 export declare namespace Lithic {
   export type RequestOptions = Core.RequestOptions;
 
@@ -823,6 +833,14 @@ export declare namespace Lithic {
     type NetworkProgram as NetworkProgram,
     NetworkProgramsSinglePage as NetworkProgramsSinglePage,
     type NetworkProgramListParams as NetworkProgramListParams,
+  };
+
+  export {
+    AccountActivity as AccountActivity,
+    type AccountActivityListResponse as AccountActivityListResponse,
+    type AccountActivityRetrieveTransactionResponse as AccountActivityRetrieveTransactionResponse,
+    AccountActivityListResponsesCursorPage as AccountActivityListResponsesCursorPage,
+    type AccountActivityListParams as AccountActivityListParams,
   };
 
   export type AccountFinancialAccountType = API.AccountFinancialAccountType;

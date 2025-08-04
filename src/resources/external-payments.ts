@@ -138,7 +138,7 @@ export namespace ExternalPayment {
 
     created: string;
 
-    detailed_results: Array<'APPROVED'>;
+    detailed_results: Array<'APPROVED' | 'INSUFFICIENT_FUNDS'>;
 
     effective_date: string;
 
