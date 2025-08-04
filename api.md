@@ -676,3 +676,15 @@ Methods:
 
 - <code title="get /v1/network_programs/{network_program_token}">client.networkPrograms.<a href="./src/resources/network-programs.ts">retrieve</a>(networkProgramToken) -> NetworkProgram</code>
 - <code title="get /v1/network_programs">client.networkPrograms.<a href="./src/resources/network-programs.ts">list</a>({ ...params }) -> NetworkProgramsSinglePage</code>
+
+# AccountActivity
+
+Types:
+
+- <code><a href="./src/resources/account-activity.ts">AccountActivityListResponse</a></code>
+- <code><a href="./src/resources/account-activity.ts">AccountActivityRetrieveTransactionResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/account_activity">client.accountActivity.<a href="./src/resources/account-activity.ts">list</a>({ ...params }) -> AccountActivityListResponsesCursorPage</code>
+- <code title="get /v1/account_activity/{transaction_token}">client.accountActivity.<a href="./src/resources/account-activity.ts">retrieveTransaction</a>(transactionToken) -> AccountActivityRetrieveTransactionResponse</code>

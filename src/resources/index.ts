@@ -2,6 +2,13 @@
 
 export * from './shared';
 export {
+  AccountActivityListResponsesCursorPage,
+  AccountActivity,
+  type AccountActivityListResponse,
+  type AccountActivityRetrieveTransactionResponse,
+  type AccountActivityListParams,
+} from './account-activity';
+export {
   AccountHoldersSinglePage,
   AccountHolders,
   type AccountHolder,

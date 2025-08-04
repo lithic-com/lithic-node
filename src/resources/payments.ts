@@ -208,6 +208,11 @@ export interface Payment {
   pending_amount: number;
 
   /**
+   * Account tokens related to a payment transaction
+   */
+  related_account_tokens: Payment.RelatedAccountTokens;
+
+  /**
    * APPROVED payments were successful while DECLINED payments were declined by
    * Lithic or returned.
    */
@@ -331,6 +336,21 @@ export namespace Payment {
     trace_numbers: Array<string | null>;
 
     addenda?: string | null;
+  }
+
+  /**
+   * Account tokens related to a payment transaction
+   */
+  export interface RelatedAccountTokens {
+    /**
+     * Globally unique identifier for the account
+     */
+    account_token: string | null;
+
+    /**
+     * Globally unique identifier for the business account
+     */
+    business_account_token: string | null;
   }
 }
 
