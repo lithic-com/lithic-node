@@ -3,6 +3,7 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
+import * as ManagementOperationsAPI from './management-operations';
 import { CursorPage, type CursorPageParams } from '../pagination';
 
 export class BookTransfers extends APIResource {
@@ -90,6 +91,11 @@ export interface BookTransferResponse {
   events: Array<BookTransferResponse.Event>;
 
   /**
+   * External resource associated with the management operation
+   */
+  external_resource: ManagementOperationsAPI.ExternalResource | null;
+
+  /**
    * Globally unique identifier for the financial account or card that will send the
    * funds. Accepted type dependent on the program's use case.
    */
@@ -125,6 +131,11 @@ export interface BookTransferResponse {
    * the funds. Accepted type dependent on the program's use case.
    */
   to_financial_account_token: unknown;
+
+  /**
+   * A series of transactions that are grouped together.
+   */
+  transaction_series: BookTransferResponse.TransactionSeries | null;
 
   /**
    * Date and time when the financial transaction was last updated. UTC time zone.
@@ -174,6 +185,17 @@ export namespace BookTransferResponse {
     /**
      * Type of the book transfer
      */
+    type: string;
+  }
+
+  /**
+   * A series of transactions that are grouped together.
+   */
+  export interface TransactionSeries {
+    related_transaction_event_token: string | null;
+
+    related_transaction_token: string | null;
+
     type: string;
   }
 }
