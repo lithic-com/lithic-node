@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.112.1 (2025-08-04)
+
+Full Changelog: [v0.112.0...v0.112.1](https://github.com/lithic-com/lithic-node/compare/v0.112.0...v0.112.1)
+
+### Features
+
+* **api:** adds new Account Activity API ([ef676b8](https://github.com/lithic-com/lithic-node/commit/ef676b8cef81a8cc383d3098615bfa9650ea35ce))
+
+
+### Chores
+
+* **internal:** remove redundant imports config ([aea4fa8](https://github.com/lithic-com/lithic-node/commit/aea4fa8ec0c360a472eb9821488ecd1bafa06994))
+
 ## 0.112.0 (2025-07-28)
 
 Full Changelog: [v0.111.0...v0.112.0](https://github.com/lithic-com/lithic-node/compare/v0.111.0...v0.112.0)
