@@ -1,8 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
-import * as Core from '../../core';
+import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
 import * as AggregateBalancesAPI from './aggregate-balances';
 import {
@@ -14,8 +12,16 @@ import {
 import * as BalancesAPI from './balances';
 import { BalanceListParams, BalanceListResponse, BalanceListResponsesSinglePage, Balances } from './balances';
 import * as FinancialTransactionsAPI from './financial-transactions';
-import { FinancialTransactionListParams, FinancialTransactions } from './financial-transactions';
-import { CursorPage, type CursorPageParams } from '../../pagination';
+import {
+  FinancialTransactionListParams,
+  FinancialTransactionRetrieveParams,
+  FinancialTransactions,
+} from './financial-transactions';
+import { APIPromise } from '../../core/api-promise';
+import { CursorPage, type CursorPageParams, PagePromise } from '../../core/pagination';
+import { buildHeaders } from '../../internal/headers';
+import { RequestOptions } from '../../internal/request-options';
+import { path } from '../../internal/utils/path';
 
 export class Cards extends APIResource {
   aggregateBalances: AggregateBalancesAPI.AggregateBalances = new AggregateBalancesAPI.AggregateBalances(
@@ -40,7 +46,7 @@ export class Cards extends APIResource {
    * });
    * ```
    */
-  create(body: CardCreateParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
+  create(body: CardCreateParams, options?: RequestOptions): APIPromise<Card> {
     return this._client.post('/v1/cards', { body, ...options });
   }
 
@@ -54,8 +60,8 @@ export class Cards extends APIResource {
    * );
    * ```
    */
-  retrieve(cardToken: string, options?: Core.RequestOptions): Core.APIPromise<Card> {
-    return this._client.get(`/v1/cards/${cardToken}`, options);
+  retrieve(cardToken: string, options?: RequestOptions): APIPromise<Card> {
+    return this._client.get(path`/v1/cards/${cardToken}`, options);
   }
 
   /**
@@ -78,8 +84,8 @@ export class Cards extends APIResource {
    * );
    * ```
    */
-  update(cardToken: string, body: CardUpdateParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
-    return this._client.patch(`/v1/cards/${cardToken}`, { body, ...options });
+  update(cardToken: string, body: CardUpdateParams, options?: RequestOptions): APIPromise<Card> {
+    return this._client.patch(path`/v1/cards/${cardToken}`, { body, ...options });
   }
 
   /**
@@ -94,18 +100,10 @@ export class Cards extends APIResource {
    * ```
    */
   list(
-    query?: CardListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<NonPCICardsCursorPage, NonPCICard>;
-  list(options?: Core.RequestOptions): Core.PagePromise<NonPCICardsCursorPage, NonPCICard>;
-  list(
-    query: CardListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<NonPCICardsCursorPage, NonPCICard> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v1/cards', NonPCICardsCursorPage, { query, ...options });
+    query: CardListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<NonPCICardsCursorPage, NonPCICard> {
+    return this._client.getAPIList('/v1/cards', CursorPage<NonPCICard>, { query, ...options });
   }
 
   /**
@@ -147,9 +145,9 @@ export class Cards extends APIResource {
   convertPhysical(
     cardToken: string,
     body: CardConvertPhysicalParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Card> {
-    return this._client.post(`/v1/cards/${cardToken}/convert_physical`, { body, ...options });
+    options?: RequestOptions,
+  ): APIPromise<Card> {
+    return this._client.post(path`/v1/cards/${cardToken}/convert_physical`, { body, ...options });
   }
 
   /**
@@ -189,11 +187,11 @@ export class Cards extends APIResource {
    * });
    * ```
    */
-  embed(query: CardEmbedParams, options?: Core.RequestOptions): Core.APIPromise<string> {
+  embed(query: CardEmbedParams, options?: RequestOptions): APIPromise<string> {
     return this._client.get('/v1/embed/card', {
       query,
       ...options,
-      headers: { Accept: 'text/html', ...options?.headers },
+      headers: buildHeaders([{ Accept: 'text/html' }, options?.headers]),
     });
   }
 
@@ -216,9 +214,9 @@ export class Cards extends APIResource {
   provision(
     cardToken: string,
     body: CardProvisionParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<CardProvisionResponse> {
-    return this._client.post(`/v1/cards/${cardToken}/provision`, { body, ...options });
+    options?: RequestOptions,
+  ): APIPromise<CardProvisionResponse> {
+    return this._client.post(path`/v1/cards/${cardToken}/provision`, { body, ...options });
   }
 
   /**
@@ -252,8 +250,8 @@ export class Cards extends APIResource {
    * );
    * ```
    */
-  reissue(cardToken: string, body: CardReissueParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
-    return this._client.post(`/v1/cards/${cardToken}/reissue`, { body, ...options });
+  reissue(cardToken: string, body: CardReissueParams, options?: RequestOptions): APIPromise<Card> {
+    return this._client.post(path`/v1/cards/${cardToken}/reissue`, { body, ...options });
   }
 
   /**
@@ -291,8 +289,8 @@ export class Cards extends APIResource {
    * );
    * ```
    */
-  renew(cardToken: string, body: CardRenewParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
-    return this._client.post(`/v1/cards/${cardToken}/renew`, { body, ...options });
+  renew(cardToken: string, body: CardRenewParams, options?: RequestOptions): APIPromise<Card> {
+    return this._client.post(path`/v1/cards/${cardToken}/renew`, { body, ...options });
   }
 
   /**
@@ -309,8 +307,8 @@ export class Cards extends APIResource {
    *   );
    * ```
    */
-  retrieveSpendLimits(cardToken: string, options?: Core.RequestOptions): Core.APIPromise<CardSpendLimits> {
-    return this._client.get(`/v1/cards/${cardToken}/spend_limits`, options);
+  retrieveSpendLimits(cardToken: string, options?: RequestOptions): APIPromise<CardSpendLimits> {
+    return this._client.get(path`/v1/cards/${cardToken}/spend_limits`, options);
   }
 
   /**
@@ -327,7 +325,7 @@ export class Cards extends APIResource {
    * });
    * ```
    */
-  searchByPan(body: CardSearchByPanParams, options?: Core.RequestOptions): Core.APIPromise<Card> {
+  searchByPan(body: CardSearchByPanParams, options?: RequestOptions): APIPromise<Card> {
     return this._client.post('/v1/cards/search_by_pan', { body, ...options });
   }
 
@@ -350,13 +348,13 @@ export class Cards extends APIResource {
   webProvision(
     cardToken: string,
     body: CardWebProvisionParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<CardWebProvisionResponse> {
-    return this._client.post(`/v1/cards/${cardToken}/web_provision`, { body, ...options });
+    options?: RequestOptions,
+  ): APIPromise<CardWebProvisionResponse> {
+    return this._client.post(path`/v1/cards/${cardToken}/web_provision`, { body, ...options });
   }
 }
 
-export class NonPCICardsCursorPage extends CursorPage<NonPCICard> {}
+export type NonPCICardsCursorPage = CursorPage<NonPCICard>;
 
 /**
  * Card details with potentially PCI sensitive information for Enterprise customers
@@ -1308,11 +1306,8 @@ export interface CardWebProvisionParams {
   digital_wallet?: 'APPLE_PAY';
 }
 
-Cards.NonPCICardsCursorPage = NonPCICardsCursorPage;
 Cards.AggregateBalances = AggregateBalances;
-Cards.AggregateBalanceListResponsesSinglePage = AggregateBalanceListResponsesSinglePage;
 Cards.Balances = Balances;
-Cards.BalanceListResponsesSinglePage = BalanceListResponsesSinglePage;
 Cards.FinancialTransactions = FinancialTransactions;
 
 export declare namespace Cards {
@@ -1324,7 +1319,7 @@ export declare namespace Cards {
     type CardEmbedResponse as CardEmbedResponse,
     type CardProvisionResponse as CardProvisionResponse,
     type CardWebProvisionResponse as CardWebProvisionResponse,
-    NonPCICardsCursorPage as NonPCICardsCursorPage,
+    type NonPCICardsCursorPage as NonPCICardsCursorPage,
     type CardCreateParams as CardCreateParams,
     type CardUpdateParams as CardUpdateParams,
     type CardListParams as CardListParams,
@@ -1340,19 +1335,20 @@ export declare namespace Cards {
   export {
     AggregateBalances as AggregateBalances,
     type AggregateBalanceListResponse as AggregateBalanceListResponse,
-    AggregateBalanceListResponsesSinglePage as AggregateBalanceListResponsesSinglePage,
+    type AggregateBalanceListResponsesSinglePage as AggregateBalanceListResponsesSinglePage,
     type AggregateBalanceListParams as AggregateBalanceListParams,
   };
 
   export {
     Balances as Balances,
     type BalanceListResponse as BalanceListResponse,
-    BalanceListResponsesSinglePage as BalanceListResponsesSinglePage,
+    type BalanceListResponsesSinglePage as BalanceListResponsesSinglePage,
     type BalanceListParams as BalanceListParams,
   };
 
   export {
     FinancialTransactions as FinancialTransactions,
+    type FinancialTransactionRetrieveParams as FinancialTransactionRetrieveParams,
     type FinancialTransactionListParams as FinancialTransactionListParams,
   };
 }

@@ -1,8 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../../resource';
-import * as Core from '../../../core';
+import { APIResource } from '../../../core/resource';
 import * as V2API from './v2';
+import { APIPromise } from '../../../core/api-promise';
+import { RequestOptions } from '../../../internal/request-options';
+import { path } from '../../../internal/utils/path';
 
 export class Backtests extends APIResource {
   /**
@@ -42,9 +44,9 @@ export class Backtests extends APIResource {
   create(
     authRuleToken: string,
     body: BacktestCreateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<BacktestCreateResponse> {
-    return this._client.post(`/v2/auth_rules/${authRuleToken}/backtests`, { body, ...options });
+    options?: RequestOptions,
+  ): APIPromise<BacktestCreateResponse> {
+    return this._client.post(path`/v2/auth_rules/${authRuleToken}/backtests`, { body, ...options });
   }
 
   /**
@@ -72,16 +74,23 @@ export class Backtests extends APIResource {
    * const backtestResults =
    *   await client.authRules.v2.backtests.retrieve(
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     {
+   *       auth_rule_token:
+   *         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     },
    *   );
    * ```
    */
   retrieve(
-    authRuleToken: string,
     authRuleBacktestToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<BacktestResults> {
-    return this._client.get(`/v2/auth_rules/${authRuleToken}/backtests/${authRuleBacktestToken}`, options);
+    params: BacktestRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<BacktestResults> {
+    const { auth_rule_token } = params;
+    return this._client.get(
+      path`/v2/auth_rules/${auth_rule_token}/backtests/${authRuleBacktestToken}`,
+      options,
+    );
   }
 }
 
@@ -140,10 +149,18 @@ export interface BacktestCreateParams {
   start?: string;
 }
 
+export interface BacktestRetrieveParams {
+  /**
+   * Globally unique identifier for the Auth Rule.
+   */
+  auth_rule_token: string;
+}
+
 export declare namespace Backtests {
   export {
     type BacktestResults as BacktestResults,
     type BacktestCreateResponse as BacktestCreateResponse,
     type BacktestCreateParams as BacktestCreateParams,
+    type BacktestRetrieveParams as BacktestRetrieveParams,
   };
 }

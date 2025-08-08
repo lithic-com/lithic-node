@@ -1,10 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import { isRequestOptions } from '../core';
-import * as Core from '../core';
+import { APIResource } from '../core/resource';
 import * as BalancesAPI from './balances';
-import { CursorPage, type CursorPageParams } from '../pagination';
+import { APIPromise } from '../core/api-promise';
+import { CursorPage, type CursorPageParams, PagePromise } from '../core/pagination';
+import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 export class Payments extends APIResource {
   /**
@@ -24,7 +25,7 @@ export class Payments extends APIResource {
    * });
    * ```
    */
-  create(body: PaymentCreateParams, options?: Core.RequestOptions): Core.APIPromise<PaymentCreateResponse> {
+  create(body: PaymentCreateParams, options?: RequestOptions): APIPromise<PaymentCreateResponse> {
     return this._client.post('/v1/payments', { body, ...options });
   }
 
@@ -38,8 +39,8 @@ export class Payments extends APIResource {
    * );
    * ```
    */
-  retrieve(paymentToken: string, options?: Core.RequestOptions): Core.APIPromise<Payment> {
-    return this._client.get(`/v1/payments/${paymentToken}`, options);
+  retrieve(paymentToken: string, options?: RequestOptions): APIPromise<Payment> {
+    return this._client.get(path`/v1/payments/${paymentToken}`, options);
   }
 
   /**
@@ -54,18 +55,10 @@ export class Payments extends APIResource {
    * ```
    */
   list(
-    query?: PaymentListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<PaymentsCursorPage, Payment>;
-  list(options?: Core.RequestOptions): Core.PagePromise<PaymentsCursorPage, Payment>;
-  list(
-    query: PaymentListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<PaymentsCursorPage, Payment> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v1/payments', PaymentsCursorPage, { query, ...options });
+    query: PaymentListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PaymentsCursorPage, Payment> {
+    return this._client.getAPIList('/v1/payments', CursorPage<Payment>, { query, ...options });
   }
 
   /**
@@ -78,8 +71,8 @@ export class Payments extends APIResource {
    * );
    * ```
    */
-  retry(paymentToken: string, options?: Core.RequestOptions): Core.APIPromise<PaymentRetryResponse> {
-    return this._client.post(`/v1/payments/${paymentToken}/retry`, options);
+  retry(paymentToken: string, options?: RequestOptions): APIPromise<PaymentRetryResponse> {
+    return this._client.post(path`/v1/payments/${paymentToken}/retry`, options);
   }
 
   /**
@@ -96,9 +89,9 @@ export class Payments extends APIResource {
   simulateAction(
     paymentToken: string,
     body: PaymentSimulateActionParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<PaymentSimulateActionResponse> {
-    return this._client.post(`/v1/simulate/payments/${paymentToken}/action`, { body, ...options });
+    options?: RequestOptions,
+  ): APIPromise<PaymentSimulateActionResponse> {
+    return this._client.post(path`/v1/simulate/payments/${paymentToken}/action`, { body, ...options });
   }
 
   /**
@@ -117,8 +110,8 @@ export class Payments extends APIResource {
    */
   simulateReceipt(
     body: PaymentSimulateReceiptParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<PaymentSimulateReceiptResponse> {
+    options?: RequestOptions,
+  ): APIPromise<PaymentSimulateReceiptResponse> {
     return this._client.post('/v1/simulate/payments/receipt', { body, ...options });
   }
 
@@ -134,8 +127,8 @@ export class Payments extends APIResource {
    */
   simulateRelease(
     body: PaymentSimulateReleaseParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<PaymentSimulateReleaseResponse> {
+    options?: RequestOptions,
+  ): APIPromise<PaymentSimulateReleaseResponse> {
     return this._client.post('/v1/simulate/payments/release', { body, ...options });
   }
 
@@ -151,13 +144,13 @@ export class Payments extends APIResource {
    */
   simulateReturn(
     body: PaymentSimulateReturnParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<PaymentSimulateReturnResponse> {
+    options?: RequestOptions,
+  ): APIPromise<PaymentSimulateReturnResponse> {
     return this._client.post('/v1/simulate/payments/return', { body, ...options });
   }
 }
 
-export class PaymentsCursorPage extends CursorPage<Payment> {}
+export type PaymentsCursorPage = CursorPage<Payment>;
 
 export interface Payment {
   /**
@@ -569,8 +562,6 @@ export interface PaymentSimulateReturnParams {
   return_reason_code?: string;
 }
 
-Payments.PaymentsCursorPage = PaymentsCursorPage;
-
 export declare namespace Payments {
   export {
     type Payment as Payment,
@@ -580,7 +571,7 @@ export declare namespace Payments {
     type PaymentSimulateReceiptResponse as PaymentSimulateReceiptResponse,
     type PaymentSimulateReleaseResponse as PaymentSimulateReleaseResponse,
     type PaymentSimulateReturnResponse as PaymentSimulateReturnResponse,
-    PaymentsCursorPage as PaymentsCursorPage,
+    type PaymentsCursorPage as PaymentsCursorPage,
     type PaymentCreateParams as PaymentCreateParams,
     type PaymentListParams as PaymentListParams,
     type PaymentSimulateActionParams as PaymentSimulateActionParams,

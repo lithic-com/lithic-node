@@ -1,9 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import { isRequestOptions } from '../core';
-import * as Core from '../core';
-import { CursorPage, type CursorPageParams } from '../pagination';
+import { APIResource } from '../core/resource';
+import { APIPromise } from '../core/api-promise';
+import { CursorPage, type CursorPageParams, PagePromise } from '../core/pagination';
+import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 export class ManagementOperations extends APIResource {
   /**
@@ -11,8 +12,8 @@ export class ManagementOperations extends APIResource {
    */
   create(
     body: ManagementOperationCreateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ManagementOperationTransaction> {
+    options?: RequestOptions,
+  ): APIPromise<ManagementOperationTransaction> {
     return this._client.post('/v1/management_operations', { body, ...options });
   }
 
@@ -21,29 +22,19 @@ export class ManagementOperations extends APIResource {
    */
   retrieve(
     managementOperationToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ManagementOperationTransaction> {
-    return this._client.get(`/v1/management_operations/${managementOperationToken}`, options);
+    options?: RequestOptions,
+  ): APIPromise<ManagementOperationTransaction> {
+    return this._client.get(path`/v1/management_operations/${managementOperationToken}`, options);
   }
 
   /**
    * List management operations
    */
   list(
-    query?: ManagementOperationListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<ManagementOperationTransactionsCursorPage, ManagementOperationTransaction>;
-  list(
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<ManagementOperationTransactionsCursorPage, ManagementOperationTransaction>;
-  list(
-    query: ManagementOperationListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<ManagementOperationTransactionsCursorPage, ManagementOperationTransaction> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v1/management_operations', ManagementOperationTransactionsCursorPage, {
+    query: ManagementOperationListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ManagementOperationTransactionsCursorPage, ManagementOperationTransaction> {
+    return this._client.getAPIList('/v1/management_operations', CursorPage<ManagementOperationTransaction>, {
       query,
       ...options,
     });
@@ -55,16 +46,16 @@ export class ManagementOperations extends APIResource {
   reverse(
     managementOperationToken: string,
     body: ManagementOperationReverseParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ManagementOperationTransaction> {
-    return this._client.post(`/v1/management_operations/${managementOperationToken}/reverse`, {
+    options?: RequestOptions,
+  ): APIPromise<ManagementOperationTransaction> {
+    return this._client.post(path`/v1/management_operations/${managementOperationToken}/reverse`, {
       body,
       ...options,
     });
   }
 }
 
-export class ManagementOperationTransactionsCursorPage extends CursorPage<ManagementOperationTransaction> {}
+export type ManagementOperationTransactionsCursorPage = CursorPage<ManagementOperationTransaction>;
 
 /**
  * External resource associated with the management operation
@@ -288,14 +279,12 @@ export interface ManagementOperationReverseParams {
   memo?: string;
 }
 
-ManagementOperations.ManagementOperationTransactionsCursorPage = ManagementOperationTransactionsCursorPage;
-
 export declare namespace ManagementOperations {
   export {
     type ExternalResource as ExternalResource,
     type ExternalResourceType as ExternalResourceType,
     type ManagementOperationTransaction as ManagementOperationTransaction,
-    ManagementOperationTransactionsCursorPage as ManagementOperationTransactionsCursorPage,
+    type ManagementOperationTransactionsCursorPage as ManagementOperationTransactionsCursorPage,
     type ManagementOperationCreateParams as ManagementOperationCreateParams,
     type ManagementOperationListParams as ManagementOperationListParams,
     type ManagementOperationReverseParams as ManagementOperationReverseParams,

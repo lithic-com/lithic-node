@@ -1,7 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import * as Core from '../core';
+import { APIResource } from '../core/resource';
+import { APIPromise } from '../core/api-promise';
+import { RequestOptions } from '../internal/request-options';
 
 export class ResponderEndpoints extends APIResource {
   /**
@@ -9,15 +10,15 @@ export class ResponderEndpoints extends APIResource {
    */
   create(
     body: ResponderEndpointCreateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ResponderEndpointCreateResponse> {
+    options?: RequestOptions,
+  ): APIPromise<ResponderEndpointCreateResponse> {
     return this._client.post('/v1/responder_endpoints', { body, ...options });
   }
 
   /**
    * Disenroll a responder endpoint
    */
-  del(params: ResponderEndpointDeleteParams, options?: Core.RequestOptions): Core.APIPromise<void> {
+  delete(params: ResponderEndpointDeleteParams, options?: RequestOptions): APIPromise<void> {
     const { type } = params;
     return this._client.delete('/v1/responder_endpoints', { query: { type }, ...options });
   }
@@ -27,8 +28,8 @@ export class ResponderEndpoints extends APIResource {
    */
   checkStatus(
     query: ResponderEndpointCheckStatusParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ResponderEndpointStatus> {
+    options?: RequestOptions,
+  ): APIPromise<ResponderEndpointStatus> {
     return this._client.get('/v1/responder_endpoints', { query, ...options });
   }
 }

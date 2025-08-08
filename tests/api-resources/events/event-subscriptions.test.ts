@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import Lithic from 'lithic';
-import { Response } from 'node-fetch';
 
 const client = new Lithic({
   apiKey: 'My Lithic API Key',
@@ -9,11 +8,10 @@ const client = new Lithic({
 });
 
 describe('resource eventSubscriptions', () => {
-  test('resend', async () => {
-    const responsePromise = client.events.eventSubscriptions.resend(
-      'event_token',
-      'event_subscription_token',
-    );
+  test('resend: only required params', async () => {
+    const responsePromise = client.events.eventSubscriptions.resend('event_subscription_token', {
+      event_token: 'event_token',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,12 +21,9 @@ describe('resource eventSubscriptions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('resend: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.events.eventSubscriptions.resend('event_token', 'event_subscription_token', {
-        path: '/_stainless_unknown_path',
-      }),
-    ).rejects.toThrow(Lithic.NotFoundError);
+  test('resend: required and optional params', async () => {
+    const response = await client.events.eventSubscriptions.resend('event_subscription_token', {
+      event_token: 'event_token',
+    });
   });
 });

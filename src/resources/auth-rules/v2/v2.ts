@@ -1,12 +1,19 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../../resource';
-import { isRequestOptions } from '../../../core';
-import * as Core from '../../../core';
+import { APIResource } from '../../../core/resource';
 import * as V2API from './v2';
 import * as BacktestsAPI from './backtests';
-import { BacktestCreateParams, BacktestCreateResponse, BacktestResults, Backtests } from './backtests';
-import { CursorPage, type CursorPageParams } from '../../../pagination';
+import {
+  BacktestCreateParams,
+  BacktestCreateResponse,
+  BacktestResults,
+  BacktestRetrieveParams,
+  Backtests,
+} from './backtests';
+import { APIPromise } from '../../../core/api-promise';
+import { CursorPage, type CursorPageParams, PagePromise } from '../../../core/pagination';
+import { RequestOptions } from '../../../internal/request-options';
+import { path } from '../../../internal/utils/path';
 
 export class V2 extends APIResource {
   backtests: BacktestsAPI.Backtests = new BacktestsAPI.Backtests(this._client);
@@ -21,7 +28,7 @@ export class V2 extends APIResource {
    * });
    * ```
    */
-  create(body: V2CreateParams, options?: Core.RequestOptions): Core.APIPromise<V2CreateResponse> {
+  create(body: V2CreateParams, options?: RequestOptions): APIPromise<V2CreateResponse> {
     return this._client.post('/v2/auth_rules', { body, ...options });
   }
 
@@ -35,8 +42,8 @@ export class V2 extends APIResource {
    * );
    * ```
    */
-  retrieve(authRuleToken: string, options?: Core.RequestOptions): Core.APIPromise<V2RetrieveResponse> {
-    return this._client.get(`/v2/auth_rules/${authRuleToken}`, options);
+  retrieve(authRuleToken: string, options?: RequestOptions): APIPromise<V2RetrieveResponse> {
+    return this._client.get(path`/v2/auth_rules/${authRuleToken}`, options);
   }
 
   /**
@@ -56,9 +63,9 @@ export class V2 extends APIResource {
   update(
     authRuleToken: string,
     body: V2UpdateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<V2UpdateResponse> {
-    return this._client.patch(`/v2/auth_rules/${authRuleToken}`, { body, ...options });
+    options?: RequestOptions,
+  ): APIPromise<V2UpdateResponse> {
+    return this._client.patch(path`/v2/auth_rules/${authRuleToken}`, { body, ...options });
   }
 
   /**
@@ -73,18 +80,10 @@ export class V2 extends APIResource {
    * ```
    */
   list(
-    query?: V2ListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<V2ListResponsesCursorPage, V2ListResponse>;
-  list(options?: Core.RequestOptions): Core.PagePromise<V2ListResponsesCursorPage, V2ListResponse>;
-  list(
-    query: V2ListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<V2ListResponsesCursorPage, V2ListResponse> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v2/auth_rules', V2ListResponsesCursorPage, { query, ...options });
+    query: V2ListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<V2ListResponsesCursorPage, V2ListResponse> {
+    return this._client.getAPIList('/v2/auth_rules', CursorPage<V2ListResponse>, { query, ...options });
   }
 
   /**
@@ -92,13 +91,13 @@ export class V2 extends APIResource {
    *
    * @example
    * ```ts
-   * await client.authRules.v2.del(
+   * await client.authRules.v2.delete(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    * );
    * ```
    */
-  del(authRuleToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
-    return this._client.delete(`/v2/auth_rules/${authRuleToken}`, options);
+  delete(authRuleToken: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/v2/auth_rules/${authRuleToken}`, options);
   }
 
   /**
@@ -109,12 +108,8 @@ export class V2 extends APIResource {
    *
    * @deprecated
    */
-  apply(
-    authRuleToken: string,
-    body: V2ApplyParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<V2ApplyResponse> {
-    return this._client.post(`/v2/auth_rules/${authRuleToken}/apply`, { body, ...options });
+  apply(authRuleToken: string, body: V2ApplyParams, options?: RequestOptions): APIPromise<V2ApplyResponse> {
+    return this._client.post(path`/v2/auth_rules/${authRuleToken}/apply`, { body, ...options });
   }
 
   /**
@@ -130,12 +125,8 @@ export class V2 extends APIResource {
    * );
    * ```
    */
-  draft(
-    authRuleToken: string,
-    body: V2DraftParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<V2DraftResponse> {
-    return this._client.post(`/v2/auth_rules/${authRuleToken}/draft`, { body, ...options });
+  draft(authRuleToken: string, body: V2DraftParams, options?: RequestOptions): APIPromise<V2DraftResponse> {
+    return this._client.post(path`/v2/auth_rules/${authRuleToken}/draft`, { body, ...options });
   }
 
   /**
@@ -149,8 +140,8 @@ export class V2 extends APIResource {
    * );
    * ```
    */
-  promote(authRuleToken: string, options?: Core.RequestOptions): Core.APIPromise<V2PromoteResponse> {
-    return this._client.post(`/v2/auth_rules/${authRuleToken}/promote`, options);
+  promote(authRuleToken: string, options?: RequestOptions): APIPromise<V2PromoteResponse> {
+    return this._client.post(path`/v2/auth_rules/${authRuleToken}/promote`, options);
   }
 
   /**
@@ -208,8 +199,8 @@ export class V2 extends APIResource {
    *
    * @deprecated
    */
-  report(authRuleToken: string, options?: Core.RequestOptions): Core.APIPromise<V2ReportResponse> {
-    return this._client.post(`/v2/auth_rules/${authRuleToken}/report`, options);
+  report(authRuleToken: string, options?: RequestOptions): APIPromise<V2ReportResponse> {
+    return this._client.post(path`/v2/auth_rules/${authRuleToken}/report`, options);
   }
 
   /**
@@ -238,13 +229,13 @@ export class V2 extends APIResource {
   retrieveReport(
     authRuleToken: string,
     query: V2RetrieveReportParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<V2RetrieveReportResponse> {
-    return this._client.get(`/v2/auth_rules/${authRuleToken}/report`, { query, ...options });
+    options?: RequestOptions,
+  ): APIPromise<V2RetrieveReportResponse> {
+    return this._client.get(path`/v2/auth_rules/${authRuleToken}/report`, { query, ...options });
   }
 }
 
-export class V2ListResponsesCursorPage extends CursorPage<V2ListResponse> {}
+export type V2ListResponsesCursorPage = CursorPage<V2ListResponse>;
 
 export interface AuthRule {
   /**
@@ -1699,7 +1690,6 @@ export interface V2RetrieveReportParams {
   end: string;
 }
 
-V2.V2ListResponsesCursorPage = V2ListResponsesCursorPage;
 V2.Backtests = Backtests;
 
 export declare namespace V2 {
@@ -1722,7 +1712,7 @@ export declare namespace V2 {
     type V2PromoteResponse as V2PromoteResponse,
     type V2ReportResponse as V2ReportResponse,
     type V2RetrieveReportResponse as V2RetrieveReportResponse,
-    V2ListResponsesCursorPage as V2ListResponsesCursorPage,
+    type V2ListResponsesCursorPage as V2ListResponsesCursorPage,
     type V2CreateParams as V2CreateParams,
     type V2UpdateParams as V2UpdateParams,
     type V2ListParams as V2ListParams,
@@ -1736,5 +1726,6 @@ export declare namespace V2 {
     type BacktestResults as BacktestResults,
     type BacktestCreateResponse as BacktestCreateResponse,
     type BacktestCreateParams as BacktestCreateParams,
+    type BacktestRetrieveParams as BacktestRetrieveParams,
   };
 }

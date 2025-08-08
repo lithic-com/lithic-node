@@ -1,7 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import * as Core from '../../core';
+import { APIResource } from '../../core/resource';
+import { APIPromise } from '../../core/api-promise';
+import { RequestOptions } from '../../internal/request-options';
+import { path } from '../../internal/utils/path';
 
 export class Transactions extends APIResource {
   /**
@@ -16,11 +18,8 @@ export class Transactions extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    transactionToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<TransactionRetrieveResponse> {
-    return this._client.get(`/v1/fraud/transactions/${transactionToken}`, options);
+  retrieve(transactionToken: string, options?: RequestOptions): APIPromise<TransactionRetrieveResponse> {
+    return this._client.get(path`/v1/fraud/transactions/${transactionToken}`, options);
   }
 
   /**
@@ -38,9 +37,9 @@ export class Transactions extends APIResource {
   report(
     transactionToken: string,
     body: TransactionReportParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<TransactionReportResponse> {
-    return this._client.post(`/v1/fraud/transactions/${transactionToken}`, { body, ...options });
+    options?: RequestOptions,
+  ): APIPromise<TransactionReportResponse> {
+    return this._client.post(path`/v1/fraud/transactions/${transactionToken}`, { body, ...options });
   }
 }
 

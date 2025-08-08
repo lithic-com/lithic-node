@@ -1,9 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import { isRequestOptions } from '../core';
-import * as Core from '../core';
-import { CursorPage, type CursorPageParams } from '../pagination';
+import { APIResource } from '../core/resource';
+import { APIPromise } from '../core/api-promise';
+import { CursorPage, type CursorPageParams, PagePromise } from '../core/pagination';
+import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 export class Tokenizations extends APIResource {
   /**
@@ -16,8 +17,8 @@ export class Tokenizations extends APIResource {
    * );
    * ```
    */
-  retrieve(tokenizationToken: string, options?: Core.RequestOptions): Core.APIPromise<Tokenization> {
-    return this._client.get(`/v1/tokenizations/${tokenizationToken}`, options);
+  retrieve(tokenizationToken: string, options?: RequestOptions): APIPromise<Tokenization> {
+    return this._client.get(path`/v1/tokenizations/${tokenizationToken}`, options);
   }
 
   /**
@@ -32,18 +33,10 @@ export class Tokenizations extends APIResource {
    * ```
    */
   list(
-    query?: TokenizationListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<TokenizationsCursorPage, Tokenization>;
-  list(options?: Core.RequestOptions): Core.PagePromise<TokenizationsCursorPage, Tokenization>;
-  list(
-    query: TokenizationListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<TokenizationsCursorPage, Tokenization> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v1/tokenizations', TokenizationsCursorPage, { query, ...options });
+    query: TokenizationListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<TokenizationsCursorPage, Tokenization> {
+    return this._client.getAPIList('/v1/tokenizations', CursorPage<Tokenization>, { query, ...options });
   }
 
   /**
@@ -63,8 +56,8 @@ export class Tokenizations extends APIResource {
    * );
    * ```
    */
-  activate(tokenizationToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
-    return this._client.post(`/v1/tokenizations/${tokenizationToken}/activate`, options);
+  activate(tokenizationToken: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.post(path`/v1/tokenizations/${tokenizationToken}/activate`, options);
   }
 
   /**
@@ -85,8 +78,8 @@ export class Tokenizations extends APIResource {
    * );
    * ```
    */
-  deactivate(tokenizationToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
-    return this._client.post(`/v1/tokenizations/${tokenizationToken}/deactivate`, options);
+  deactivate(tokenizationToken: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.post(path`/v1/tokenizations/${tokenizationToken}/deactivate`, options);
   }
 
   /**
@@ -106,8 +99,8 @@ export class Tokenizations extends APIResource {
    * );
    * ```
    */
-  pause(tokenizationToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
-    return this._client.post(`/v1/tokenizations/${tokenizationToken}/pause`, options);
+  pause(tokenizationToken: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.post(path`/v1/tokenizations/${tokenizationToken}/pause`, options);
   }
 
   /**
@@ -132,19 +125,10 @@ export class Tokenizations extends APIResource {
    */
   resendActivationCode(
     tokenizationToken: string,
-    body?: TokenizationResendActivationCodeParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<void>;
-  resendActivationCode(tokenizationToken: string, options?: Core.RequestOptions): Core.APIPromise<void>;
-  resendActivationCode(
-    tokenizationToken: string,
-    body: TokenizationResendActivationCodeParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<void> {
-    if (isRequestOptions(body)) {
-      return this.resendActivationCode(tokenizationToken, {}, body);
-    }
-    return this._client.post(`/v1/tokenizations/${tokenizationToken}/resend_activation_code`, {
+    body: TokenizationResendActivationCodeParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    return this._client.post(path`/v1/tokenizations/${tokenizationToken}/resend_activation_code`, {
       body,
       ...options,
     });
@@ -169,8 +153,8 @@ export class Tokenizations extends APIResource {
    */
   simulate(
     body: TokenizationSimulateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<TokenizationSimulateResponse> {
+    options?: RequestOptions,
+  ): APIPromise<TokenizationSimulateResponse> {
     return this._client.post('/v1/simulate/tokenizations', { body, ...options });
   }
 
@@ -190,8 +174,8 @@ export class Tokenizations extends APIResource {
    * );
    * ```
    */
-  unpause(tokenizationToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
-    return this._client.post(`/v1/tokenizations/${tokenizationToken}/unpause`, options);
+  unpause(tokenizationToken: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.post(path`/v1/tokenizations/${tokenizationToken}/unpause`, options);
   }
 
   /**
@@ -214,29 +198,17 @@ export class Tokenizations extends APIResource {
    */
   updateDigitalCardArt(
     tokenizationToken: string,
-    body?: TokenizationUpdateDigitalCardArtParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<TokenizationUpdateDigitalCardArtResponse>;
-  updateDigitalCardArt(
-    tokenizationToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<TokenizationUpdateDigitalCardArtResponse>;
-  updateDigitalCardArt(
-    tokenizationToken: string,
-    body: TokenizationUpdateDigitalCardArtParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<TokenizationUpdateDigitalCardArtResponse> {
-    if (isRequestOptions(body)) {
-      return this.updateDigitalCardArt(tokenizationToken, {}, body);
-    }
-    return this._client.post(`/v1/tokenizations/${tokenizationToken}/update_digital_card_art`, {
+    body: TokenizationUpdateDigitalCardArtParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<TokenizationUpdateDigitalCardArtResponse> {
+    return this._client.post(path`/v1/tokenizations/${tokenizationToken}/update_digital_card_art`, {
       body,
       ...options,
     });
   }
 }
 
-export class TokenizationsCursorPage extends CursorPage<Tokenization> {}
+export type TokenizationsCursorPage = CursorPage<Tokenization>;
 
 export interface Tokenization {
   /**
@@ -460,14 +432,12 @@ export interface TokenizationUpdateDigitalCardArtParams {
   digital_card_art_token?: string;
 }
 
-Tokenizations.TokenizationsCursorPage = TokenizationsCursorPage;
-
 export declare namespace Tokenizations {
   export {
     type Tokenization as Tokenization,
     type TokenizationSimulateResponse as TokenizationSimulateResponse,
     type TokenizationUpdateDigitalCardArtResponse as TokenizationUpdateDigitalCardArtResponse,
-    TokenizationsCursorPage as TokenizationsCursorPage,
+    type TokenizationsCursorPage as TokenizationsCursorPage,
     type TokenizationListParams as TokenizationListParams,
     type TokenizationResendActivationCodeParams as TokenizationResendActivationCodeParams,
     type TokenizationSimulateParams as TokenizationSimulateParams,

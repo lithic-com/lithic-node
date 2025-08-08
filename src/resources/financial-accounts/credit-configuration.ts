@@ -1,8 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
-import * as Core from '../../core';
+import { APIResource } from '../../core/resource';
+import { APIPromise } from '../../core/api-promise';
+import { RequestOptions } from '../../internal/request-options';
+import { path } from '../../internal/utils/path';
 
 export class CreditConfiguration extends APIResource {
   /**
@@ -18,9 +19,12 @@ export class CreditConfiguration extends APIResource {
    */
   retrieve(
     financialAccountToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<FinancialAccountCreditConfig> {
-    return this._client.get(`/v1/financial_accounts/${financialAccountToken}/credit_configuration`, options);
+    options?: RequestOptions,
+  ): APIPromise<FinancialAccountCreditConfig> {
+    return this._client.get(
+      path`/v1/financial_accounts/${financialAccountToken}/credit_configuration`,
+      options,
+    );
   }
 
   /**
@@ -36,22 +40,10 @@ export class CreditConfiguration extends APIResource {
    */
   update(
     financialAccountToken: string,
-    body?: CreditConfigurationUpdateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<FinancialAccountCreditConfig>;
-  update(
-    financialAccountToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<FinancialAccountCreditConfig>;
-  update(
-    financialAccountToken: string,
-    body: CreditConfigurationUpdateParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<FinancialAccountCreditConfig> {
-    if (isRequestOptions(body)) {
-      return this.update(financialAccountToken, {}, body);
-    }
-    return this._client.patch(`/v1/financial_accounts/${financialAccountToken}/credit_configuration`, {
+    body: CreditConfigurationUpdateParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<FinancialAccountCreditConfig> {
+    return this._client.patch(path`/v1/financial_accounts/${financialAccountToken}/credit_configuration`, {
       body,
       ...options,
     });

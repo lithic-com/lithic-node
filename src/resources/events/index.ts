@@ -1,16 +1,16 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { EventSubscriptions } from './event-subscriptions';
+export { EventSubscriptions, type EventSubscriptionResendParams } from './event-subscriptions';
 export {
-  EventSubscriptionsCursorPage,
-  MessageAttemptsCursorPage,
-  EventsCursorPage,
   Events,
   type Event,
   type EventSubscription,
   type MessageAttempt,
   type EventListParams,
   type EventListAttemptsParams,
+  type EventSubscriptionsCursorPage,
+  type MessageAttemptsCursorPage,
+  type EventsCursorPage,
 } from './events';
 export {
   Subscriptions,

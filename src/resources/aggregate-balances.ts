@@ -1,9 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import { isRequestOptions } from '../core';
-import * as Core from '../core';
-import { SinglePage } from '../pagination';
+import { APIResource } from '../core/resource';
+import { PagePromise, SinglePage } from '../core/pagination';
+import { RequestOptions } from '../internal/request-options';
 
 export class AggregateBalances extends APIResource {
   /**
@@ -11,25 +10,17 @@ export class AggregateBalances extends APIResource {
    * type
    */
   list(
-    query?: AggregateBalanceListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<AggregateBalancesSinglePage, AggregateBalance>;
-  list(options?: Core.RequestOptions): Core.PagePromise<AggregateBalancesSinglePage, AggregateBalance>;
-  list(
-    query: AggregateBalanceListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<AggregateBalancesSinglePage, AggregateBalance> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v1/aggregate_balances', AggregateBalancesSinglePage, {
+    query: AggregateBalanceListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<AggregateBalancesSinglePage, AggregateBalance> {
+    return this._client.getAPIList('/v1/aggregate_balances', SinglePage<AggregateBalance>, {
       query,
       ...options,
     });
   }
 }
 
-export class AggregateBalancesSinglePage extends SinglePage<AggregateBalance> {}
+export type AggregateBalancesSinglePage = SinglePage<AggregateBalance>;
 
 /**
  * Aggregate Balance across all end-user accounts
@@ -97,12 +88,10 @@ export interface AggregateBalanceListParams {
   financial_account_type?: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY';
 }
 
-AggregateBalances.AggregateBalancesSinglePage = AggregateBalancesSinglePage;
-
 export declare namespace AggregateBalances {
   export {
     type AggregateBalance as AggregateBalance,
-    AggregateBalancesSinglePage as AggregateBalancesSinglePage,
+    type AggregateBalancesSinglePage as AggregateBalancesSinglePage,
     type AggregateBalanceListParams as AggregateBalanceListParams,
   };
 }

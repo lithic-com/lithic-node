@@ -1,32 +1,23 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import { isRequestOptions } from '../core';
-import * as Core from '../core';
+import { APIResource } from '../core/resource';
 import * as ExternalPaymentsAPI from './external-payments';
 import * as ManagementOperationsAPI from './management-operations';
 import * as TransactionsAPI from './transactions/transactions';
-import { CursorPage, type CursorPageParams } from '../pagination';
+import { APIPromise } from '../core/api-promise';
+import { CursorPage, type CursorPageParams, PagePromise } from '../core/pagination';
+import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 export class AccountActivity extends APIResource {
   /**
    * Retrieve a list of transactions across all public accounts.
    */
   list(
-    query?: AccountActivityListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<AccountActivityListResponsesCursorPage, AccountActivityListResponse>;
-  list(
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<AccountActivityListResponsesCursorPage, AccountActivityListResponse>;
-  list(
-    query: AccountActivityListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<AccountActivityListResponsesCursorPage, AccountActivityListResponse> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v1/account_activity', AccountActivityListResponsesCursorPage, {
+    query: AccountActivityListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<AccountActivityListResponsesCursorPage, AccountActivityListResponse> {
+    return this._client.getAPIList('/v1/account_activity', CursorPage<AccountActivityListResponse>, {
       query,
       ...options,
     });
@@ -37,13 +28,13 @@ export class AccountActivity extends APIResource {
    */
   retrieveTransaction(
     transactionToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<AccountActivityRetrieveTransactionResponse> {
-    return this._client.get(`/v1/account_activity/${transactionToken}`, options);
+    options?: RequestOptions,
+  ): APIPromise<AccountActivityRetrieveTransactionResponse> {
+    return this._client.get(path`/v1/account_activity/${transactionToken}`, options);
   }
 }
 
-export class AccountActivityListResponsesCursorPage extends CursorPage<AccountActivityListResponse> {}
+export type AccountActivityListResponsesCursorPage = CursorPage<AccountActivityListResponse>;
 
 /**
  * Response containing multiple transaction types
@@ -961,13 +952,11 @@ export interface AccountActivityListParams extends CursorPageParams {
   status?: Array<'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED' | 'RETURNED' | 'REVERSED'>;
 }
 
-AccountActivity.AccountActivityListResponsesCursorPage = AccountActivityListResponsesCursorPage;
-
 export declare namespace AccountActivity {
   export {
     type AccountActivityListResponse as AccountActivityListResponse,
     type AccountActivityRetrieveTransactionResponse as AccountActivityRetrieveTransactionResponse,
-    AccountActivityListResponsesCursorPage as AccountActivityListResponsesCursorPage,
+    type AccountActivityListResponsesCursorPage as AccountActivityListResponsesCursorPage,
     type AccountActivityListParams as AccountActivityListParams,
   };
 }

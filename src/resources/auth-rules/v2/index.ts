@@ -5,9 +5,9 @@ export {
   type BacktestResults,
   type BacktestCreateResponse,
   type BacktestCreateParams,
+  type BacktestRetrieveParams,
 } from './backtests';
 export {
-  V2ListResponsesCursorPage,
   V2,
   type AuthRule,
   type AuthRuleCondition,
@@ -33,4 +33,5 @@ export {
   type V2ApplyParams,
   type V2DraftParams,
   type V2RetrieveReportParams,
+  type V2ListResponsesCursorPage,
 } from './v2';

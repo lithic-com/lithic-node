@@ -1,8 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import * as Core from '../../core';
+import { APIResource } from '../../core/resource';
 import * as ExternalBankAccountsAPI from './external-bank-accounts';
+import { APIPromise } from '../../core/api-promise';
+import { RequestOptions } from '../../internal/request-options';
+import { path } from '../../internal/utils/path';
 
 export class MicroDeposits extends APIResource {
   /**
@@ -11,9 +13,9 @@ export class MicroDeposits extends APIResource {
   create(
     externalBankAccountToken: string,
     body: MicroDepositCreateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<MicroDepositCreateResponse> {
-    return this._client.post(`/v1/external_bank_accounts/${externalBankAccountToken}/micro_deposits`, {
+    options?: RequestOptions,
+  ): APIPromise<MicroDepositCreateResponse> {
+    return this._client.post(path`/v1/external_bank_accounts/${externalBankAccountToken}/micro_deposits`, {
       body,
       ...options,
     });

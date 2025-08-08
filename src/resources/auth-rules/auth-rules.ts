@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
+import { APIResource } from '../../core/resource';
 import * as V2API from './v2/v2';
 import {
   AuthRule,
@@ -36,7 +36,6 @@ export class AuthRules extends APIResource {
 }
 
 AuthRules.V2 = V2;
-AuthRules.V2ListResponsesCursorPage = V2ListResponsesCursorPage;
 
 export declare namespace AuthRules {
   export {
@@ -59,7 +58,7 @@ export declare namespace AuthRules {
     type V2PromoteResponse as V2PromoteResponse,
     type V2ReportResponse as V2ReportResponse,
     type V2RetrieveReportResponse as V2RetrieveReportResponse,
-    V2ListResponsesCursorPage as V2ListResponsesCursorPage,
+    type V2ListResponsesCursorPage as V2ListResponsesCursorPage,
     type V2CreateParams as V2CreateParams,
     type V2UpdateParams as V2UpdateParams,
     type V2ListParams as V2ListParams,

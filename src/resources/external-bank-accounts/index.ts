@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export {
-  ExternalBankAccountListResponsesCursorPage,
   ExternalBankAccounts,
   type ExternalBankAccountAddress,
   type OwnerType,
@@ -17,6 +16,7 @@ export {
   type ExternalBankAccountListParams,
   type ExternalBankAccountRetryMicroDepositsParams,
   type ExternalBankAccountRetryPrenoteParams,
+  type ExternalBankAccountListResponsesCursorPage,
 } from './external-bank-accounts';
 export {
   MicroDeposits,

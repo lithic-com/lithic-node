@@ -1,38 +1,31 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import { isRequestOptions } from '../core';
-import * as Core from '../core';
-import { CursorPage, type CursorPageParams } from '../pagination';
+import { APIResource } from '../core/resource';
+import { APIPromise } from '../core/api-promise';
+import { CursorPage, type CursorPageParams, PagePromise } from '../core/pagination';
+import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 export class DigitalCardArtResource extends APIResource {
   /**
    * Get digital card art by token.
    */
-  retrieve(digitalCardArtToken: string, options?: Core.RequestOptions): Core.APIPromise<DigitalCardArt> {
-    return this._client.get(`/v1/digital_card_art/${digitalCardArtToken}`, options);
+  retrieve(digitalCardArtToken: string, options?: RequestOptions): APIPromise<DigitalCardArt> {
+    return this._client.get(path`/v1/digital_card_art/${digitalCardArtToken}`, options);
   }
 
   /**
    * List digital card art.
    */
   list(
-    query?: DigitalCardArtListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<DigitalCardArtsCursorPage, DigitalCardArt>;
-  list(options?: Core.RequestOptions): Core.PagePromise<DigitalCardArtsCursorPage, DigitalCardArt>;
-  list(
-    query: DigitalCardArtListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<DigitalCardArtsCursorPage, DigitalCardArt> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v1/digital_card_art', DigitalCardArtsCursorPage, { query, ...options });
+    query: DigitalCardArtListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<DigitalCardArtsCursorPage, DigitalCardArt> {
+    return this._client.getAPIList('/v1/digital_card_art', CursorPage<DigitalCardArt>, { query, ...options });
   }
 }
 
-export class DigitalCardArtsCursorPage extends CursorPage<DigitalCardArt> {}
+export type DigitalCardArtsCursorPage = CursorPage<DigitalCardArt>;
 
 export interface DigitalCardArt {
   /**
@@ -73,12 +66,10 @@ export interface DigitalCardArt {
 
 export interface DigitalCardArtListParams extends CursorPageParams {}
 
-DigitalCardArtResource.DigitalCardArtsCursorPage = DigitalCardArtsCursorPage;
-
 export declare namespace DigitalCardArtResource {
   export {
     type DigitalCardArt as DigitalCardArt,
-    DigitalCardArtsCursorPage as DigitalCardArtsCursorPage,
+    type DigitalCardArtsCursorPage as DigitalCardArtsCursorPage,
     type DigitalCardArtListParams as DigitalCardArtListParams,
   };
 }

@@ -1,7 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import * as Core from '../core';
+import { APIResource } from '../core/resource';
+import { APIPromise } from '../core/api-promise';
+import { RequestOptions } from '../internal/request-options';
 
 export class TokenizationDecisioning extends APIResource {
   /**
@@ -12,7 +13,7 @@ export class TokenizationDecisioning extends APIResource {
    * [this page](https://docs.lithic.com/docs/events-api#verifying-webhooks) for more
    * detail about verifying Tokenization Decisioning requests.
    */
-  retrieveSecret(options?: Core.RequestOptions): Core.APIPromise<TokenizationSecret> {
+  retrieveSecret(options?: RequestOptions): APIPromise<TokenizationSecret> {
     return this._client.get('/v1/tokenization_decisioning/secret', options);
   }
 
@@ -21,7 +22,7 @@ export class TokenizationDecisioning extends APIResource {
    * Decisioning secret key will be deactivated 24 hours after a successful request
    * to this endpoint.
    */
-  rotateSecret(options?: Core.RequestOptions): Core.APIPromise<TokenizationDecisioningRotateSecretResponse> {
+  rotateSecret(options?: RequestOptions): APIPromise<TokenizationDecisioningRotateSecretResponse> {
     return this._client.post('/v1/tokenization_decisioning/secret/rotate', options);
   }
 }

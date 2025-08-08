@@ -1,10 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
-import * as Core from '../../core';
+import { APIResource } from '../../core/resource';
 import * as EventSubscriptionsAPI from './event-subscriptions';
-import { EventSubscriptions } from './event-subscriptions';
+import { EventSubscriptionResendParams, EventSubscriptions } from './event-subscriptions';
 import * as SubscriptionsAPI from './subscriptions';
 import {
   SubscriptionCreateParams,
@@ -17,7 +15,10 @@ import {
   SubscriptionUpdateParams,
   Subscriptions,
 } from './subscriptions';
-import { CursorPage, type CursorPageParams } from '../../pagination';
+import { APIPromise } from '../../core/api-promise';
+import { CursorPage, type CursorPageParams, PagePromise } from '../../core/pagination';
+import { RequestOptions } from '../../internal/request-options';
+import { path } from '../../internal/utils/path';
 
 export class Events extends APIResource {
   subscriptions: SubscriptionsAPI.Subscriptions = new SubscriptionsAPI.Subscriptions(this._client);
@@ -28,23 +29,18 @@ export class Events extends APIResource {
   /**
    * Get an event.
    */
-  retrieve(eventToken: string, options?: Core.RequestOptions): Core.APIPromise<Event> {
-    return this._client.get(`/v1/events/${eventToken}`, options);
+  retrieve(eventToken: string, options?: RequestOptions): APIPromise<Event> {
+    return this._client.get(path`/v1/events/${eventToken}`, options);
   }
 
   /**
    * List all events.
    */
-  list(query?: EventListParams, options?: Core.RequestOptions): Core.PagePromise<EventsCursorPage, Event>;
-  list(options?: Core.RequestOptions): Core.PagePromise<EventsCursorPage, Event>;
   list(
-    query: EventListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<EventsCursorPage, Event> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v1/events', EventsCursorPage, { query, ...options });
+    query: EventListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<EventsCursorPage, Event> {
+    return this._client.getAPIList('/v1/events', CursorPage<Event>, { query, ...options });
   }
 
   /**
@@ -52,33 +48,21 @@ export class Events extends APIResource {
    */
   listAttempts(
     eventToken: string,
-    query?: EventListAttemptsParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<MessageAttemptsCursorPage, MessageAttempt>;
-  listAttempts(
-    eventToken: string,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<MessageAttemptsCursorPage, MessageAttempt>;
-  listAttempts(
-    eventToken: string,
-    query: EventListAttemptsParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<MessageAttemptsCursorPage, MessageAttempt> {
-    if (isRequestOptions(query)) {
-      return this.listAttempts(eventToken, {}, query);
-    }
-    return this._client.getAPIList(`/v1/events/${eventToken}/attempts`, MessageAttemptsCursorPage, {
+    query: EventListAttemptsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MessageAttemptsCursorPage, MessageAttempt> {
+    return this._client.getAPIList(path`/v1/events/${eventToken}/attempts`, CursorPage<MessageAttempt>, {
       query,
       ...options,
     });
   }
 }
 
-export class EventsCursorPage extends CursorPage<Event> {}
+export type EventsCursorPage = CursorPage<Event>;
 
-export class MessageAttemptsCursorPage extends CursorPage<MessageAttempt> {}
+export type MessageAttemptsCursorPage = CursorPage<MessageAttempt>;
 
-export class EventSubscriptionsCursorPage extends CursorPage<EventSubscription> {}
+export type EventSubscriptionsCursorPage = CursorPage<EventSubscription>;
 
 /**
  * A single event that affects the transaction state and lifecycle.
@@ -377,8 +361,6 @@ export interface EventListAttemptsParams extends CursorPageParams {
   status?: 'FAILED' | 'PENDING' | 'SENDING' | 'SUCCESS';
 }
 
-Events.EventsCursorPage = EventsCursorPage;
-Events.MessageAttemptsCursorPage = MessageAttemptsCursorPage;
 Events.Subscriptions = Subscriptions;
 Events.EventSubscriptions = EventSubscriptions;
 
@@ -387,8 +369,8 @@ export declare namespace Events {
     type Event as Event,
     type EventSubscription as EventSubscription,
     type MessageAttempt as MessageAttempt,
-    EventsCursorPage as EventsCursorPage,
-    MessageAttemptsCursorPage as MessageAttemptsCursorPage,
+    type EventsCursorPage as EventsCursorPage,
+    type MessageAttemptsCursorPage as MessageAttemptsCursorPage,
     type EventListParams as EventListParams,
     type EventListAttemptsParams as EventListAttemptsParams,
   };
@@ -405,5 +387,8 @@ export declare namespace Events {
     type SubscriptionSendSimulatedExampleParams as SubscriptionSendSimulatedExampleParams,
   };
 
-  export { EventSubscriptions as EventSubscriptions };
+  export {
+    EventSubscriptions as EventSubscriptions,
+    type EventSubscriptionResendParams as EventSubscriptionResendParams,
+  };
 }

@@ -1,7 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import * as Core from '../../core';
+import { APIResource } from '../../core/resource';
+import { APIPromise } from '../../core/api-promise';
+import { RequestOptions } from '../../internal/request-options';
+import { path } from '../../internal/utils/path';
 
 export class Authentication extends APIResource {
   /**
@@ -17,9 +19,9 @@ export class Authentication extends APIResource {
    */
   retrieve(
     threeDSAuthenticationToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<AuthenticationRetrieveResponse> {
-    return this._client.get(`/v1/three_ds_authentication/${threeDSAuthenticationToken}`, options);
+    options?: RequestOptions,
+  ): APIPromise<AuthenticationRetrieveResponse> {
+    return this._client.get(path`/v1/three_ds_authentication/${threeDSAuthenticationToken}`, options);
   }
 
   /**
@@ -47,8 +49,8 @@ export class Authentication extends APIResource {
    */
   simulate(
     body: AuthenticationSimulateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<AuthenticationSimulateResponse> {
+    options?: RequestOptions,
+  ): APIPromise<AuthenticationSimulateResponse> {
     return this._client.post('/v1/three_ds_authentication/simulate', { body, ...options });
   }
 
@@ -66,10 +68,7 @@ export class Authentication extends APIResource {
    * });
    * ```
    */
-  simulateOtpEntry(
-    body: AuthenticationSimulateOtpEntryParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<void> {
+  simulateOtpEntry(body: AuthenticationSimulateOtpEntryParams, options?: RequestOptions): APIPromise<void> {
     return this._client.post('/v1/three_ds_decisioning/simulate/enter_otp', { body, ...options });
   }
 }

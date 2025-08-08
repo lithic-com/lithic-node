@@ -1,9 +1,15 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export {
-  StatementLineItemsDataCursorPage,
   LineItems,
   type StatementLineItems,
   type LineItemListParams,
+  type StatementLineItemsDataCursorPage,
 } from './line-items';
-export { StatementsCursorPage, Statements, type Statement, type StatementListParams } from './statements';
+export {
+  Statements,
+  type Statement,
+  type StatementRetrieveParams,
+  type StatementListParams,
+  type StatementsCursorPage,
+} from './statements';

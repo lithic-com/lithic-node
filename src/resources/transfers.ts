@@ -1,8 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import * as Core from '../core';
+import { APIResource } from '../core/resource';
 import * as BalancesAPI from './balances';
+import { APIPromise } from '../core/api-promise';
+import { RequestOptions } from '../internal/request-options';
 
 export class Transfers extends APIResource {
   /**
@@ -11,7 +12,7 @@ export class Transfers extends APIResource {
    *
    * @deprecated
    */
-  create(body: TransferCreateParams, options?: Core.RequestOptions): Core.APIPromise<Transfer> {
+  create(body: TransferCreateParams, options?: RequestOptions): APIPromise<Transfer> {
     return this._client.post('/v1/transfer', { body, ...options });
   }
 }
