@@ -791,7 +791,7 @@ export interface KYB {
   external_id?: string;
 
   /**
-   * An RFC 3339 timestamp indicating when precomputed KYC was completed on the
+   * An RFC 3339 timestamp indicating when precomputed KYB was completed on the
    * business with a pass result.
    *
    * This field is required only if workflow type is `KYB_BYO`.
@@ -1742,6 +1742,12 @@ export namespace AccountHolderUpdateResponse {
        * Timestamp of when the application was last updated.
        */
       updated: string;
+
+      /**
+       * Timestamp of when the application passed the verification process. Only present
+       * if `status` is `ACCEPTED`
+       */
+      ky_passed_at?: string;
     }
   }
 
@@ -2290,6 +2296,12 @@ export namespace AccountHolderSimulateEnrollmentReviewResponse {
      * Timestamp of when the application was last updated.
      */
     updated: string;
+
+    /**
+     * Timestamp of when the application passed the verification process. Only present
+     * if `status` is `ACCEPTED`
+     */
+    ky_passed_at?: string;
   }
 }
 
@@ -2358,7 +2370,7 @@ export declare namespace AccountHolderCreateParams {
     external_id?: string;
 
     /**
-     * An RFC 3339 timestamp indicating when precomputed KYC was completed on the
+     * An RFC 3339 timestamp indicating when precomputed KYB was completed on the
      * business with a pass result.
      *
      * This field is required only if workflow type is `KYB_BYO`.
