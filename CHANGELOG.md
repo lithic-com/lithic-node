@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.113.0 (2025-08-13)
+
+Full Changelog: [v0.112.1...v0.113.0](https://github.com/lithic-com/lithic-node/compare/v0.112.1...v0.113.0)
+
+### Features
+
+* **api:** adds detailed 3DS challenge statuses ([154ee3c](https://github.com/lithic-com/lithic-node/commit/154ee3c90653488c8e0563ef7a5f2d14e67b920a))
+
+
+### Chores
+
+* **internal:** move publish config ([b5ba034](https://github.com/lithic-com/lithic-node/commit/b5ba034b03530835dc6eecec30c2ed9b7b9947bd))
+* **internal:** update comment in script ([f78eeef](https://github.com/lithic-com/lithic-node/commit/f78eeef652c1d85073c84ec50aaa51b505e641f9))
+* update @stainless-api/prism-cli to v5.15.0 ([81df714](https://github.com/lithic-com/lithic-node/commit/81df7140fe356d8f3be31900fe32059a5870c107))
+
 ## 0.112.1 (2025-08-04)
 
 Full Changelog: [v0.112.0...v0.112.1](https://github.com/lithic-com/lithic-node/compare/v0.112.0...v0.112.1)
