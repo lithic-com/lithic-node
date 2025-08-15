@@ -1045,6 +1045,7 @@ export class Lithic {
   networkPrograms: API.NetworkPrograms = new API.NetworkPrograms(this);
   accountActivity: API.AccountActivity = new API.AccountActivity(this);
 }
+
 Lithic.Accounts = Accounts;
 Lithic.AccountHolders = AccountHolders;
 Lithic.AuthRules = AuthRules;
@@ -1074,6 +1075,7 @@ Lithic.FundingEvents = FundingEvents;
 Lithic.Fraud = Fraud;
 Lithic.NetworkPrograms = NetworkPrograms;
 Lithic.AccountActivity = AccountActivity;
+
 export declare namespace Lithic {
   export type RequestOptions = Opts.RequestOptions;
 
