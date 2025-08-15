@@ -545,6 +545,7 @@ Lithic.NetworkPrograms = NetworkPrograms;
 Lithic.NetworkProgramsSinglePage = NetworkProgramsSinglePage;
 Lithic.AccountActivity = AccountActivity;
 Lithic.AccountActivityListResponsesCursorPage = AccountActivityListResponsesCursorPage;
+
 export declare namespace Lithic {
   export type RequestOptions = Core.RequestOptions;
 
