@@ -241,9 +241,27 @@ export interface Payment {
    * Date when the financial transaction expected to be released after settlement
    */
   expected_release_date?: string;
+
+  /**
+   * Payment type indicating the specific ACH message or Fedwire transfer type
+   */
+  type?:
+    | 'ORIGINATION_CREDIT'
+    | 'ORIGINATION_DEBIT'
+    | 'RECEIPT_CREDIT'
+    | 'RECEIPT_DEBIT'
+    | 'CUSTOMER_TRANSFER'
+    | 'DRAWDOWN_PAYMENT'
+    | 'REVERSAL_PAYMENT'
+    | 'DRAWDOWN_REQUEST'
+    | 'REVERSAL_REQUEST'
+    | 'DRAWDOWN_REFUSAL';
 }
 
 export namespace Payment {
+  /**
+   * Payment Event
+   */
   export interface Event {
     /**
      * Globally unique identifier.

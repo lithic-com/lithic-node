@@ -35,7 +35,9 @@ describe('resource bookTransfers', () => {
       to_financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       type: 'ATM_WITHDRAWAL',
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      external_id: 'external_id',
       memo: 'memo',
+      on_closed_account: 'FAIL',
     });
   });
 
