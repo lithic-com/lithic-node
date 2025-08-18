@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.114.0 (2025-08-18)
+
+Full Changelog: [v0.113.0...v0.114.0](https://github.com/lithic-com/lithic-node/compare/v0.113.0...v0.114.0)
+
+### Features
+
+* **api:** adds Event types for additional API resources ([0058158](https://github.com/lithic-com/lithic-node/commit/0058158941a4fd8e35dc42252b0bc31d3da685bf))
+
+
+### Chores
+
+* **deps:** update dependency node-fetch to v2.6.13 ([49193e6](https://github.com/lithic-com/lithic-node/commit/49193e652e03af313eabc1b835a38a895177a7cf))
+* **internal:** formatting change ([16746b6](https://github.com/lithic-com/lithic-node/commit/16746b6dde99ca079ec5054a30c3f973f5709ce7))
+
 ## 0.113.0 (2025-08-13)
 
 Full Changelog: [v0.112.1...v0.113.0](https://github.com/lithic-com/lithic-node/compare/v0.112.1...v0.113.0)
