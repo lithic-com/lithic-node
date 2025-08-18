@@ -99,6 +99,9 @@ export interface Transfer {
 }
 
 export namespace Transfer {
+  /**
+   * Financial Event
+   */
   export interface Event {
     /**
      * Globally unique identifier.

@@ -186,7 +186,8 @@ export type InstanceFinancialAccountType =
   | 'CHARGED_OFF_PRINCIPAL'
   | 'SECURITY'
   | 'PROGRAM_RECEIVABLES'
-  | 'COLLECTION';
+  | 'COLLECTION'
+  | 'BANK_ACCOUNTS_PAYABLE';
 
 export interface ShippingAddress {
   /**

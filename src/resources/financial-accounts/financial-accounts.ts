@@ -211,7 +211,8 @@ export interface FinancialAccount {
     | 'CHARGED_OFF_PRINCIPAL'
     | 'SECURITY'
     | 'PROGRAM_RECEIVABLES'
-    | 'COLLECTION';
+    | 'COLLECTION'
+    | 'BANK_ACCOUNTS_PAYABLE';
 
   updated: string;
 
@@ -339,6 +340,9 @@ export interface FinancialTransaction {
 }
 
 export namespace FinancialTransaction {
+  /**
+   * Financial Event
+   */
   export interface Event {
     /**
      * Globally unique identifier.

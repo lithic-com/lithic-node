@@ -91,6 +91,11 @@ export interface BookTransferResponse {
   events: Array<BookTransferResponse.Event>;
 
   /**
+   * External ID defined by the customer
+   */
+  external_id: string | null;
+
+  /**
    * External resource associated with the management operation
    */
   external_resource: ManagementOperationsAPI.ExternalResource | null;
@@ -103,15 +108,13 @@ export interface BookTransferResponse {
 
   /**
    * Pending amount of the transaction in the currency's smallest unit (e.g., cents),
-   * including any acquirer fees. The value of this field will go to zero over time
-   * once the financial transaction is settled.
+   * including any acquirer fees.
+   *
+   * The value of this field will go to zero over time once the financial transaction
+   * is settled.
    */
   pending_amount: number;
 
-  /**
-   * APPROVED transactions were successful while DECLINED transactions were declined
-   * by user, Lithic, or the network.
-   */
   result: 'APPROVED' | 'DECLINED';
 
   /**
@@ -121,8 +124,11 @@ export interface BookTransferResponse {
   settled_amount: number;
 
   /**
-   * Status types: _ `DECLINED` - The transfer was declined. _ `REVERSED` - The
-   * transfer was reversed \* `SETTLED` - The transfer is completed.
+   * Status types:
+   *
+   * - `DECLINED` - The transfer was declined.
+   * - `REVERSED` - The transfer was reversed
+   * - `SETTLED` - The transfer is completed.
    */
   status: 'DECLINED' | 'REVERSED' | 'SETTLED';
 
@@ -130,7 +136,7 @@ export interface BookTransferResponse {
    * Globally unique identifier for the financial account or card that will receive
    * the funds. Accepted type dependent on the program's use case.
    */
-  to_financial_account_token: unknown;
+  to_financial_account_token: string;
 
   /**
    * A series of transactions that are grouped together.
@@ -144,6 +150,9 @@ export interface BookTransferResponse {
 }
 
 export namespace BookTransferResponse {
+  /**
+   * Book transfer Event
+   */
   export interface Event {
     /**
      * Globally unique identifier.
@@ -161,10 +170,7 @@ export namespace BookTransferResponse {
      */
     created: string;
 
-    /**
-     * Detailed Results
-     */
-    detailed_results: Array<'APPROVED' | 'FUNDS_INSUFFICIENT'>;
+    detailed_results: 'APPROVED' | 'FUNDS_INSUFFICIENT';
 
     /**
      * Memo for the transfer.
@@ -185,7 +191,40 @@ export namespace BookTransferResponse {
     /**
      * Type of the book transfer
      */
-    type: string;
+    type:
+      | 'ATM_WITHDRAWAL'
+      | 'ATM_DECLINE'
+      | 'INTERNATIONAL_ATM_WITHDRAWAL'
+      | 'INACTIVITY'
+      | 'STATEMENT'
+      | 'MONTHLY'
+      | 'QUARTERLY'
+      | 'ANNUAL'
+      | 'CUSTOMER_SERVICE'
+      | 'ACCOUNT_MAINTENANCE'
+      | 'ACCOUNT_ACTIVATION'
+      | 'ACCOUNT_CLOSURE'
+      | 'CARD_REPLACEMENT'
+      | 'CARD_DELIVERY'
+      | 'CARD_CREATE'
+      | 'CURRENCY_CONVERSION'
+      | 'INTEREST'
+      | 'LATE_PAYMENT'
+      | 'BILL_PAYMENT'
+      | 'CASH_BACK'
+      | 'ACCOUNT_TO_ACCOUNT'
+      | 'CARD_TO_CARD'
+      | 'DISBURSE'
+      | 'BILLING_ERROR'
+      | 'LOSS_WRITE_OFF'
+      | 'EXPIRED_CARD'
+      | 'EARLY_DERECOGNITION'
+      | 'ESCHEATMENT'
+      | 'INACTIVITY_FEE_DOWN'
+      | 'PROVISIONAL_CREDIT'
+      | 'DISPUTE_WON'
+      | 'SERVICE'
+      | 'TRANSFER';
   }
 
   /**
@@ -202,7 +241,7 @@ export namespace BookTransferResponse {
 
 export interface BookTransferCreateParams {
   /**
-   * Amount to be transferred in the currency’s smallest unit (e.g., cents for USD).
+   * Amount to be transferred in the currency's smallest unit (e.g., cents for USD).
    * This should always be a positive value.
    */
   amount: number;
@@ -230,7 +269,7 @@ export interface BookTransferCreateParams {
   to_financial_account_token: string;
 
   /**
-   * Type of book_transfer
+   * Type of the book transfer
    */
   type:
     | 'ATM_WITHDRAWAL'
@@ -274,9 +313,19 @@ export interface BookTransferCreateParams {
   token?: string;
 
   /**
+   * External ID defined by the customer
+   */
+  external_id?: string;
+
+  /**
    * Optional descriptor for the transfer.
    */
   memo?: string;
+
+  /**
+   * What to do if the financial account is closed when posting an operation
+   */
+  on_closed_account?: 'FAIL' | 'USE_SUSPENSE';
 }
 
 export interface BookTransferListParams extends CursorPageParams {
