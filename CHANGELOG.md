@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.114.1 (2025-08-22)
+
+Full Changelog: [v0.114.0...v0.114.1](https://github.com/lithic-com/lithic-node/compare/v0.114.0...v0.114.1)
+
+### Chores
+
+* update CI script ([19fb41a](https://github.com/lithic-com/lithic-node/commit/19fb41a67f950166c64a35149cdef7a53b582baf))
+
 ## 0.114.0 (2025-08-18)
 
 Full Changelog: [v0.113.0...v0.114.0](https://github.com/lithic-com/lithic-node/compare/v0.113.0...v0.114.0)
