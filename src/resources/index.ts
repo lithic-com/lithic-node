@@ -4,6 +4,7 @@ export * from './shared';
 export {
   AccountActivityListResponsesCursorPage,
   AccountActivity,
+  type WirePartyDetails,
   type AccountActivityListResponse,
   type AccountActivityRetrieveTransactionResponse,
   type AccountActivityListParams,
