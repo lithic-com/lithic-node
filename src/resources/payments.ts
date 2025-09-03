@@ -257,12 +257,10 @@ export interface Payment {
     | 'ORIGINATION_DEBIT'
     | 'RECEIPT_CREDIT'
     | 'RECEIPT_DEBIT'
-    | 'CUSTOMER_TRANSFER'
-    | 'DRAWDOWN_PAYMENT'
-    | 'REVERSAL_PAYMENT'
-    | 'DRAWDOWN_REQUEST'
-    | 'REVERSAL_REQUEST'
-    | 'DRAWDOWN_REFUSAL';
+    | 'WIRE_INBOUND_PAYMENT'
+    | 'WIRE_INBOUND_ADMIN'
+    | 'WIRE_OUTBOUND_PAYMENT'
+    | 'WIRE_OUTBOUND_ADMIN';
 }
 
 export namespace Payment {

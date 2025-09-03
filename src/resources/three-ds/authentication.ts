@@ -526,16 +526,60 @@ export namespace AuthenticationRetrieveResponse {
    */
   export interface App {
     /**
-     * Device information gathered from the cardholder's device - JSON name/value pairs
-     * that is Base64url encoded. Maps to EMV 3DS field `deviceInfo`.
+     * Device model: e.g. "Apple iPhone 16".
+     */
+    device?: string | null;
+
+    /**
+     * Raw device information - base64-encoded JSON object. Maps to EMV 3DS field
+     * `deviceInfo`.
      */
     device_info?: string | null;
 
     /**
-     * External IP address used by the app generating the 3DS authentication request.
-     * Maps to EMV 3DS field `appIp`.
+     * IP address of the device.
      */
     ip?: string;
+
+    /**
+     * Latitude coordinate of current device location.
+     */
+    latitude?: number | null;
+
+    /**
+     * Device locale: e.g. "en-US".
+     */
+    locale?: string | null;
+
+    /**
+     * Longitude coordinate of current device location.
+     */
+    longitude?: number | null;
+
+    /**
+     * Operating System: e.g. "Android 12", "iOS 17.1".
+     */
+    os?: string | null;
+
+    /**
+     * Device platform: Android, iOS, Windows, etc.
+     */
+    platform?: string | null;
+
+    /**
+     * Screen height in pixels.
+     */
+    screen_height?: number | null;
+
+    /**
+     * Screen width in pixels.
+     */
+    screen_width?: number | null;
+
+    /**
+     * Time zone offset in minutes between UTC and device local time.
+     */
+    time_zone?: string | null;
   }
 
   /**
@@ -574,9 +618,8 @@ export namespace AuthenticationRetrieveResponse {
     language?: string | null;
 
     /**
-     * Time zone of the cardholder's browser offset in minutes between UTC and the
-     * cardholder browser's local time. The offset is positive if the local time is
-     * behind UTC and negative if it is ahead. Maps to EMV 3DS field `browserTz`.
+     * Time zone offset in minutes between UTC and browser local time. Maps to EMV 3DS
+     * field `browserTz`.
      */
     time_zone?: string | null;
 
