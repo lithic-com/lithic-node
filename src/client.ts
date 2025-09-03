@@ -32,6 +32,7 @@ import {
   AccountActivityListResponse,
   AccountActivityListResponsesCursorPage,
   AccountActivityRetrieveTransactionResponse,
+  WirePartyDetails,
 } from './resources/account-activity';
 import {
   AccountHolder,
@@ -1365,6 +1366,7 @@ export declare namespace Lithic {
 
   export {
     AccountActivity as AccountActivity,
+    type WirePartyDetails as WirePartyDetails,
     type AccountActivityListResponse as AccountActivityListResponse,
     type AccountActivityRetrieveTransactionResponse as AccountActivityRetrieveTransactionResponse,
     type AccountActivityListResponsesCursorPage as AccountActivityListResponsesCursorPage,

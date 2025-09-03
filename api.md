@@ -680,6 +680,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/account-activity.ts">WirePartyDetails</a></code>
 - <code><a href="./src/resources/account-activity.ts">AccountActivityListResponse</a></code>
 - <code><a href="./src/resources/account-activity.ts">AccountActivityRetrieveTransactionResponse</a></code>
 

@@ -212,7 +212,8 @@ export namespace BookTransferResponse {
       | 'PROVISIONAL_CREDIT'
       | 'DISPUTE_WON'
       | 'SERVICE'
-      | 'TRANSFER';
+      | 'TRANSFER'
+      | 'COLLECTION';
   }
 
   /**
@@ -292,7 +293,8 @@ export interface BookTransferCreateParams {
     | 'PROVISIONAL_CREDIT'
     | 'DISPUTE_WON'
     | 'SERVICE'
-    | 'TRANSFER';
+    | 'TRANSFER'
+    | 'COLLECTION';
 
   /**
    * Customer-provided token that will serve as an idempotency token. This token will

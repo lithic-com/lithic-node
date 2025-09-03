@@ -350,8 +350,12 @@ export interface AuthRuleCondition {
     | 'IS_NOT_ONE_OF'
     | 'MATCHES'
     | 'DOES_NOT_MATCH'
+    | 'IS_EQUAL_TO'
+    | 'IS_NOT_EQUAL_TO'
     | 'IS_GREATER_THAN'
-    | 'IS_LESS_THAN';
+    | 'IS_GREATER_THAN_OR_EQUAL_TO'
+    | 'IS_LESS_THAN'
+    | 'IS_LESS_THAN_OR_EQUAL_TO';
 
   /**
    * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
@@ -411,8 +415,12 @@ export namespace Conditional3DSActionParameters {
       | 'IS_NOT_ONE_OF'
       | 'MATCHES'
       | 'DOES_NOT_MATCH'
+      | 'IS_EQUAL_TO'
+      | 'IS_NOT_EQUAL_TO'
       | 'IS_GREATER_THAN'
-      | 'IS_LESS_THAN';
+      | 'IS_GREATER_THAN_OR_EQUAL_TO'
+      | 'IS_LESS_THAN'
+      | 'IS_LESS_THAN_OR_EQUAL_TO';
 
     /**
      * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`

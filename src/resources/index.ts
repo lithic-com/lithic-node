@@ -3,6 +3,7 @@
 export * from './shared';
 export {
   AccountActivity,
+  type WirePartyDetails,
   type AccountActivityListResponse,
   type AccountActivityRetrieveTransactionResponse,
   type AccountActivityListParams,

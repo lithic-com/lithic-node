@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as AccountActivityAPI from './account-activity';
 import * as ExternalPaymentsAPI from './external-payments';
 import * as ManagementOperationsAPI from './management-operations';
 import * as TransactionsAPI from './transactions/transactions';
@@ -35,6 +36,28 @@ export class AccountActivity extends APIResource {
 }
 
 export type AccountActivityListResponsesCursorPage = CursorPage<AccountActivityListResponse>;
+
+export interface WirePartyDetails {
+  /**
+   * Account number
+   */
+  account_number?: string | null;
+
+  /**
+   * Routing number or BIC of the financial institution
+   */
+  agent_id?: string | null;
+
+  /**
+   * Name of the financial institution
+   */
+  agent_name?: string | null;
+
+  /**
+   * Name of the person or company
+   */
+  name?: string | null;
+}
 
 /**
  * Response containing multiple transaction types
@@ -388,7 +411,8 @@ export namespace AccountActivityListResponse {
         | 'PROVISIONAL_CREDIT'
         | 'DISPUTE_WON'
         | 'SERVICE'
-        | 'TRANSFER';
+        | 'TRANSFER'
+        | 'COLLECTION';
     }
 
     export interface TransactionSeries {
@@ -541,6 +565,16 @@ export namespace AccountActivityListResponse {
      */
     external_bank_account_token?: string | null;
 
+    type?:
+      | 'ORIGINATION_CREDIT'
+      | 'ORIGINATION_DEBIT'
+      | 'RECEIPT_CREDIT'
+      | 'RECEIPT_DEBIT'
+      | 'WIRE_INBOUND_PAYMENT'
+      | 'WIRE_INBOUND_ADMIN'
+      | 'WIRE_OUTBOUND_PAYMENT'
+      | 'WIRE_OUTBOUND_ADMIN';
+
     /**
      * User-defined identifier
      */
@@ -663,57 +697,27 @@ export namespace AccountActivityListResponse {
       /**
        * Type of wire transfer
        */
-      wire_transfer_type: 'FEDWIRE' | 'SWIFT';
+      wire_network: 'FEDWIRE' | 'SWIFT';
+
+      creditor?: AccountActivityAPI.WirePartyDetails;
+
+      debtor?: AccountActivityAPI.WirePartyDetails;
 
       /**
-       * External bank name
+       * Point to point reference identifier, as assigned by the instructing party, used
+       * for tracking the message through the Fedwire system
        */
-      external_bank_name?: string | null;
+      message_id?: string | null;
 
       /**
-       * External bank routing number
+       * Payment details or invoice reference
        */
-      external_bank_routing_number?: string | null;
+      remittance_information?: string | null;
 
       /**
-       * External individual name
+       * Type of wire message
        */
-      external_individual_name?: string | null;
-
-      /**
-       * IMAD
-       */
-      imad?: string | null;
-
-      /**
-       * Lithic bank name
-       */
-      lithic_bank_name?: string | null;
-
-      /**
-       * Lithic bank routing number
-       */
-      lithic_bank_routing_number?: string | null;
-
-      /**
-       * Lithic individual name
-       */
-      lithic_individual_name?: string | null;
-
-      /**
-       * OMAD
-       */
-      omad?: string | null;
-
-      /**
-       * UUID of previous transfer if this is a retry
-       */
-      previous_transfer?: string | null;
-
-      /**
-       * Wire token
-       */
-      wire_token?: string | null;
+      wire_message_type?: string;
     }
 
     /**
@@ -1085,7 +1089,8 @@ export namespace AccountActivityRetrieveTransactionResponse {
         | 'PROVISIONAL_CREDIT'
         | 'DISPUTE_WON'
         | 'SERVICE'
-        | 'TRANSFER';
+        | 'TRANSFER'
+        | 'COLLECTION';
     }
 
     export interface TransactionSeries {
@@ -1238,6 +1243,16 @@ export namespace AccountActivityRetrieveTransactionResponse {
      */
     external_bank_account_token?: string | null;
 
+    type?:
+      | 'ORIGINATION_CREDIT'
+      | 'ORIGINATION_DEBIT'
+      | 'RECEIPT_CREDIT'
+      | 'RECEIPT_DEBIT'
+      | 'WIRE_INBOUND_PAYMENT'
+      | 'WIRE_INBOUND_ADMIN'
+      | 'WIRE_OUTBOUND_PAYMENT'
+      | 'WIRE_OUTBOUND_ADMIN';
+
     /**
      * User-defined identifier
      */
@@ -1360,57 +1375,27 @@ export namespace AccountActivityRetrieveTransactionResponse {
       /**
        * Type of wire transfer
        */
-      wire_transfer_type: 'FEDWIRE' | 'SWIFT';
+      wire_network: 'FEDWIRE' | 'SWIFT';
+
+      creditor?: AccountActivityAPI.WirePartyDetails;
+
+      debtor?: AccountActivityAPI.WirePartyDetails;
 
       /**
-       * External bank name
+       * Point to point reference identifier, as assigned by the instructing party, used
+       * for tracking the message through the Fedwire system
        */
-      external_bank_name?: string | null;
+      message_id?: string | null;
 
       /**
-       * External bank routing number
+       * Payment details or invoice reference
        */
-      external_bank_routing_number?: string | null;
+      remittance_information?: string | null;
 
       /**
-       * External individual name
+       * Type of wire message
        */
-      external_individual_name?: string | null;
-
-      /**
-       * IMAD
-       */
-      imad?: string | null;
-
-      /**
-       * Lithic bank name
-       */
-      lithic_bank_name?: string | null;
-
-      /**
-       * Lithic bank routing number
-       */
-      lithic_bank_routing_number?: string | null;
-
-      /**
-       * Lithic individual name
-       */
-      lithic_individual_name?: string | null;
-
-      /**
-       * OMAD
-       */
-      omad?: string | null;
-
-      /**
-       * UUID of previous transfer if this is a retry
-       */
-      previous_transfer?: string | null;
-
-      /**
-       * Wire token
-       */
-      wire_token?: string | null;
+      wire_message_type?: string;
     }
 
     /**
@@ -1489,6 +1474,7 @@ export interface AccountActivityListParams extends CursorPageParams {
 
 export declare namespace AccountActivity {
   export {
+    type WirePartyDetails as WirePartyDetails,
     type AccountActivityListResponse as AccountActivityListResponse,
     type AccountActivityRetrieveTransactionResponse as AccountActivityRetrieveTransactionResponse,
     type AccountActivityListResponsesCursorPage as AccountActivityListResponsesCursorPage,
