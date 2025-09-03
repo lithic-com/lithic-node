@@ -212,7 +212,7 @@ export interface FinancialAccount {
     | 'SECURITY'
     | 'PROGRAM_RECEIVABLES'
     | 'COLLECTION'
-    | 'BANK_ACCOUNTS_PAYABLE';
+    | 'PROGRAM_BANK_ACCOUNTS_PAYABLE';
 
   updated: string;
 
