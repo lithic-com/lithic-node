@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.116.0 (2025-09-09)
+
+Full Changelog: [v0.115.0...v0.116.0](https://github.com/lithic-com/lithic-node/compare/v0.115.0...v0.116.0)
+
+### Features
+
+* **api:** adds support for unpauseing external bank accounts ([f3312e1](https://github.com/lithic-com/lithic-node/commit/f3312e15309039957e51833a1fe3b3755cacc035))
+
+
+### Chores
+
+* ci build action ([d8bdf03](https://github.com/lithic-com/lithic-node/commit/d8bdf03b9b97e07ea1d782d0c5211ac94069821c))
+* **internal:** codegen related update ([eeaddc2](https://github.com/lithic-com/lithic-node/commit/eeaddc2ae59006ddf49755b3bd911228716b6e05))
+
 ## 0.115.0 (2025-09-03)
 
 Full Changelog: [v0.114.0...v0.115.0](https://github.com/lithic-com/lithic-node/compare/v0.114.0...v0.115.0)
