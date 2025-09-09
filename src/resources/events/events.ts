@@ -128,6 +128,8 @@ export interface Event {
    * - `card_transaction.updated` - Transaction Lifecycle webhook. See
    *   https://docs.lithic.com/docs/transaction-webhooks.
    * - `dispute.updated` - A dispute has been updated.
+   * - `dispute_transaction.created` - A new dispute transaction has been created.
+   * - `dispute_transaction.updated` - A dispute transaction has been updated.
    * - `digital_wallet.tokenization_approval_request` - Card network's request to
    *   Lithic to activate a digital wallet token.
    * - `digital_wallet.tokenization_result` - Notification of the end result of a
@@ -161,6 +163,8 @@ export interface Event {
     | 'digital_wallet.tokenization_updated'
     | 'dispute.updated'
     | 'dispute_evidence.upload_failed'
+    | 'dispute_transaction.created'
+    | 'dispute_transaction.updated'
     | 'external_bank_account.created'
     | 'external_bank_account.updated'
     | 'external_payment.created'
@@ -232,6 +236,8 @@ export interface EventSubscription {
     | 'digital_wallet.tokenization_updated'
     | 'dispute.updated'
     | 'dispute_evidence.upload_failed'
+    | 'dispute_transaction.created'
+    | 'dispute_transaction.updated'
     | 'external_bank_account.created'
     | 'external_bank_account.updated'
     | 'external_payment.created'
@@ -341,6 +347,8 @@ export interface EventListParams extends CursorPageParams {
     | 'digital_wallet.tokenization_updated'
     | 'dispute.updated'
     | 'dispute_evidence.upload_failed'
+    | 'dispute_transaction.created'
+    | 'dispute_transaction.updated'
     | 'external_bank_account.created'
     | 'external_bank_account.updated'
     | 'external_payment.created'
