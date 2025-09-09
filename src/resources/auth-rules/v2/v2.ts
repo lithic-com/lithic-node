@@ -16,9 +16,7 @@ export class V2 extends APIResource {
    *
    * @example
    * ```ts
-   * const v2 = await client.authRules.v2.create({
-   *   account_tokens: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
-   * });
+   * const v2 = await client.authRules.v2.create();
    * ```
    */
   create(body: V2CreateParams, options?: Core.RequestOptions): Core.APIPromise<V2CreateResponse> {
@@ -761,6 +759,11 @@ export interface V2CreateResponse {
   account_tokens: Array<string>;
 
   /**
+   * Business Account tokens to which the Auth Rule applies.
+   */
+  business_account_tokens: Array<string>;
+
+  /**
    * Card tokens to which the Auth Rule applies.
    */
   card_tokens: Array<string>;
@@ -770,7 +773,7 @@ export interface V2CreateResponse {
   draft_version: V2CreateResponse.DraftVersion | null;
 
   /**
-   * The type of event stream the Auth rule applies to.
+   * The event stream during which the rule will be evaluated.
    */
   event_stream: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
 
@@ -790,15 +793,17 @@ export interface V2CreateResponse {
   state: 'ACTIVE' | 'INACTIVE';
 
   /**
-   * The type of Auth Rule. Effectively determines the event stream during which it
-   * will be evaluated.
+   * The type of Auth Rule. For certain rule types, this determines the event stream
+   * during which it will be evaluated. For rules that can be applied to one of
+   * several event streams, the effective one is defined by the separate
+   * `event_stream` field.
    *
    * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
    * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
    * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-   * - `CONDITIONAL_3DS_ACTION`: THREE_DS_AUTHENTICATION event stream.
+   * - `CONDITIONAL_ACTION`: AUTHORIZATION or THREE_DS_AUTHENTICATION event stream.
    */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_3DS_ACTION';
+  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
 
   /**
    * Card tokens to which the Auth Rule does not apply.
@@ -815,13 +820,119 @@ export namespace V2CreateResponse {
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters;
+      | V2API.Conditional3DSActionParameters
+      | CurrentVersion.ConditionalAuthorizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
+  }
+
+  export namespace CurrentVersion {
+    export interface ConditionalAuthorizationActionParameters {
+      /**
+       * The action to take if the conditions are met.
+       */
+      action: 'DECLINE' | 'CHALLENGE';
+
+      conditions: Array<ConditionalAuthorizationActionParameters.Condition>;
+    }
+
+    export namespace ConditionalAuthorizationActionParameters {
+      export interface Condition {
+        /**
+         * The attribute to target.
+         *
+         * The following attributes may be targeted:
+         *
+         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
+         *   business by the types of goods or services it provides.
+         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
+         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
+         *   Netherlands Antilles.
+         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
+         *   the transaction.
+         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
+         *   (merchant).
+         * - `DESCRIPTOR`: Short description of card acceptor.
+         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
+         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
+         *   `TOKEN_AUTHENTICATED`.
+         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
+         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
+         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
+         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
+         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
+         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
+         *   fee field in the settlement/cardholder billing currency. This is the amount
+         *   the issuer should authorize against unless the issuer is paying the acquirer
+         *   fee on behalf of the cardholder.
+         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
+         *   given authorization. Scores are on a range of 0-999, with 0 representing the
+         *   lowest risk and 999 representing the highest risk. For Visa transactions,
+         *   where the raw score has a range of 0-99, Lithic will normalize the score by
+         *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_15M`: The number of transactions on the card in the
+         *   trailing 15 minutes before the authorization.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
+         * - `CARD_STATE`: The current state of the card associated with the transaction.
+         *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
+         *   `PENDING_FULFILLMENT`.
+         * - `PIN_ENTERED`: Indicates whether a PIN was entered during the transaction.
+         *   Valid values are `TRUE`, `FALSE`.
+         * - `PIN_STATUS`: The current state of card's PIN. Valid values are `NOT_SET`,
+         *   `OK`, `BLOCKED`.
+         * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
+         *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
+         *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
+         * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
+         *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         */
+        attribute?:
+          | 'MCC'
+          | 'COUNTRY'
+          | 'CURRENCY'
+          | 'MERCHANT_ID'
+          | 'DESCRIPTOR'
+          | 'LIABILITY_SHIFT'
+          | 'PAN_ENTRY_MODE'
+          | 'TRANSACTION_AMOUNT'
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_15M'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H'
+          | 'CARD_STATE'
+          | 'PIN_ENTERED'
+          | 'PIN_STATUS'
+          | 'WALLET_TYPE'
+          | 'TRANSACTION_INITIATOR';
+
+        /**
+         * The operation to apply to the attribute
+         */
+        operation?:
+          | 'IS_ONE_OF'
+          | 'IS_NOT_ONE_OF'
+          | 'MATCHES'
+          | 'DOES_NOT_MATCH'
+          | 'IS_EQUAL_TO'
+          | 'IS_NOT_EQUAL_TO'
+          | 'IS_GREATER_THAN'
+          | 'IS_GREATER_THAN_OR_EQUAL_TO'
+          | 'IS_LESS_THAN'
+          | 'IS_LESS_THAN_OR_EQUAL_TO';
+
+        /**
+         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+         */
+        value?: string | number | Array<string>;
+      }
+    }
   }
 
   export interface DraftVersion {
@@ -832,13 +943,119 @@ export namespace V2CreateResponse {
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters;
+      | V2API.Conditional3DSActionParameters
+      | DraftVersion.ConditionalAuthorizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
+  }
+
+  export namespace DraftVersion {
+    export interface ConditionalAuthorizationActionParameters {
+      /**
+       * The action to take if the conditions are met.
+       */
+      action: 'DECLINE' | 'CHALLENGE';
+
+      conditions: Array<ConditionalAuthorizationActionParameters.Condition>;
+    }
+
+    export namespace ConditionalAuthorizationActionParameters {
+      export interface Condition {
+        /**
+         * The attribute to target.
+         *
+         * The following attributes may be targeted:
+         *
+         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
+         *   business by the types of goods or services it provides.
+         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
+         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
+         *   Netherlands Antilles.
+         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
+         *   the transaction.
+         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
+         *   (merchant).
+         * - `DESCRIPTOR`: Short description of card acceptor.
+         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
+         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
+         *   `TOKEN_AUTHENTICATED`.
+         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
+         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
+         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
+         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
+         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
+         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
+         *   fee field in the settlement/cardholder billing currency. This is the amount
+         *   the issuer should authorize against unless the issuer is paying the acquirer
+         *   fee on behalf of the cardholder.
+         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
+         *   given authorization. Scores are on a range of 0-999, with 0 representing the
+         *   lowest risk and 999 representing the highest risk. For Visa transactions,
+         *   where the raw score has a range of 0-99, Lithic will normalize the score by
+         *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_15M`: The number of transactions on the card in the
+         *   trailing 15 minutes before the authorization.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
+         * - `CARD_STATE`: The current state of the card associated with the transaction.
+         *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
+         *   `PENDING_FULFILLMENT`.
+         * - `PIN_ENTERED`: Indicates whether a PIN was entered during the transaction.
+         *   Valid values are `TRUE`, `FALSE`.
+         * - `PIN_STATUS`: The current state of card's PIN. Valid values are `NOT_SET`,
+         *   `OK`, `BLOCKED`.
+         * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
+         *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
+         *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
+         * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
+         *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         */
+        attribute?:
+          | 'MCC'
+          | 'COUNTRY'
+          | 'CURRENCY'
+          | 'MERCHANT_ID'
+          | 'DESCRIPTOR'
+          | 'LIABILITY_SHIFT'
+          | 'PAN_ENTRY_MODE'
+          | 'TRANSACTION_AMOUNT'
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_15M'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H'
+          | 'CARD_STATE'
+          | 'PIN_ENTERED'
+          | 'PIN_STATUS'
+          | 'WALLET_TYPE'
+          | 'TRANSACTION_INITIATOR';
+
+        /**
+         * The operation to apply to the attribute
+         */
+        operation?:
+          | 'IS_ONE_OF'
+          | 'IS_NOT_ONE_OF'
+          | 'MATCHES'
+          | 'DOES_NOT_MATCH'
+          | 'IS_EQUAL_TO'
+          | 'IS_NOT_EQUAL_TO'
+          | 'IS_GREATER_THAN'
+          | 'IS_GREATER_THAN_OR_EQUAL_TO'
+          | 'IS_LESS_THAN'
+          | 'IS_LESS_THAN_OR_EQUAL_TO';
+
+        /**
+         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+         */
+        value?: string | number | Array<string>;
+      }
+    }
   }
 }
 
@@ -854,6 +1071,11 @@ export interface V2RetrieveResponse {
   account_tokens: Array<string>;
 
   /**
+   * Business Account tokens to which the Auth Rule applies.
+   */
+  business_account_tokens: Array<string>;
+
+  /**
    * Card tokens to which the Auth Rule applies.
    */
   card_tokens: Array<string>;
@@ -863,7 +1085,7 @@ export interface V2RetrieveResponse {
   draft_version: V2RetrieveResponse.DraftVersion | null;
 
   /**
-   * The type of event stream the Auth rule applies to.
+   * The event stream during which the rule will be evaluated.
    */
   event_stream: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
 
@@ -883,15 +1105,17 @@ export interface V2RetrieveResponse {
   state: 'ACTIVE' | 'INACTIVE';
 
   /**
-   * The type of Auth Rule. Effectively determines the event stream during which it
-   * will be evaluated.
+   * The type of Auth Rule. For certain rule types, this determines the event stream
+   * during which it will be evaluated. For rules that can be applied to one of
+   * several event streams, the effective one is defined by the separate
+   * `event_stream` field.
    *
    * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
    * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
    * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-   * - `CONDITIONAL_3DS_ACTION`: THREE_DS_AUTHENTICATION event stream.
+   * - `CONDITIONAL_ACTION`: AUTHORIZATION or THREE_DS_AUTHENTICATION event stream.
    */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_3DS_ACTION';
+  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
 
   /**
    * Card tokens to which the Auth Rule does not apply.
@@ -908,13 +1132,119 @@ export namespace V2RetrieveResponse {
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters;
+      | V2API.Conditional3DSActionParameters
+      | CurrentVersion.ConditionalAuthorizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
+  }
+
+  export namespace CurrentVersion {
+    export interface ConditionalAuthorizationActionParameters {
+      /**
+       * The action to take if the conditions are met.
+       */
+      action: 'DECLINE' | 'CHALLENGE';
+
+      conditions: Array<ConditionalAuthorizationActionParameters.Condition>;
+    }
+
+    export namespace ConditionalAuthorizationActionParameters {
+      export interface Condition {
+        /**
+         * The attribute to target.
+         *
+         * The following attributes may be targeted:
+         *
+         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
+         *   business by the types of goods or services it provides.
+         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
+         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
+         *   Netherlands Antilles.
+         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
+         *   the transaction.
+         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
+         *   (merchant).
+         * - `DESCRIPTOR`: Short description of card acceptor.
+         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
+         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
+         *   `TOKEN_AUTHENTICATED`.
+         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
+         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
+         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
+         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
+         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
+         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
+         *   fee field in the settlement/cardholder billing currency. This is the amount
+         *   the issuer should authorize against unless the issuer is paying the acquirer
+         *   fee on behalf of the cardholder.
+         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
+         *   given authorization. Scores are on a range of 0-999, with 0 representing the
+         *   lowest risk and 999 representing the highest risk. For Visa transactions,
+         *   where the raw score has a range of 0-99, Lithic will normalize the score by
+         *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_15M`: The number of transactions on the card in the
+         *   trailing 15 minutes before the authorization.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
+         * - `CARD_STATE`: The current state of the card associated with the transaction.
+         *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
+         *   `PENDING_FULFILLMENT`.
+         * - `PIN_ENTERED`: Indicates whether a PIN was entered during the transaction.
+         *   Valid values are `TRUE`, `FALSE`.
+         * - `PIN_STATUS`: The current state of card's PIN. Valid values are `NOT_SET`,
+         *   `OK`, `BLOCKED`.
+         * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
+         *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
+         *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
+         * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
+         *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         */
+        attribute?:
+          | 'MCC'
+          | 'COUNTRY'
+          | 'CURRENCY'
+          | 'MERCHANT_ID'
+          | 'DESCRIPTOR'
+          | 'LIABILITY_SHIFT'
+          | 'PAN_ENTRY_MODE'
+          | 'TRANSACTION_AMOUNT'
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_15M'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H'
+          | 'CARD_STATE'
+          | 'PIN_ENTERED'
+          | 'PIN_STATUS'
+          | 'WALLET_TYPE'
+          | 'TRANSACTION_INITIATOR';
+
+        /**
+         * The operation to apply to the attribute
+         */
+        operation?:
+          | 'IS_ONE_OF'
+          | 'IS_NOT_ONE_OF'
+          | 'MATCHES'
+          | 'DOES_NOT_MATCH'
+          | 'IS_EQUAL_TO'
+          | 'IS_NOT_EQUAL_TO'
+          | 'IS_GREATER_THAN'
+          | 'IS_GREATER_THAN_OR_EQUAL_TO'
+          | 'IS_LESS_THAN'
+          | 'IS_LESS_THAN_OR_EQUAL_TO';
+
+        /**
+         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+         */
+        value?: string | number | Array<string>;
+      }
+    }
   }
 
   export interface DraftVersion {
@@ -925,13 +1255,119 @@ export namespace V2RetrieveResponse {
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters;
+      | V2API.Conditional3DSActionParameters
+      | DraftVersion.ConditionalAuthorizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
+  }
+
+  export namespace DraftVersion {
+    export interface ConditionalAuthorizationActionParameters {
+      /**
+       * The action to take if the conditions are met.
+       */
+      action: 'DECLINE' | 'CHALLENGE';
+
+      conditions: Array<ConditionalAuthorizationActionParameters.Condition>;
+    }
+
+    export namespace ConditionalAuthorizationActionParameters {
+      export interface Condition {
+        /**
+         * The attribute to target.
+         *
+         * The following attributes may be targeted:
+         *
+         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
+         *   business by the types of goods or services it provides.
+         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
+         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
+         *   Netherlands Antilles.
+         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
+         *   the transaction.
+         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
+         *   (merchant).
+         * - `DESCRIPTOR`: Short description of card acceptor.
+         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
+         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
+         *   `TOKEN_AUTHENTICATED`.
+         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
+         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
+         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
+         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
+         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
+         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
+         *   fee field in the settlement/cardholder billing currency. This is the amount
+         *   the issuer should authorize against unless the issuer is paying the acquirer
+         *   fee on behalf of the cardholder.
+         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
+         *   given authorization. Scores are on a range of 0-999, with 0 representing the
+         *   lowest risk and 999 representing the highest risk. For Visa transactions,
+         *   where the raw score has a range of 0-99, Lithic will normalize the score by
+         *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_15M`: The number of transactions on the card in the
+         *   trailing 15 minutes before the authorization.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
+         * - `CARD_STATE`: The current state of the card associated with the transaction.
+         *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
+         *   `PENDING_FULFILLMENT`.
+         * - `PIN_ENTERED`: Indicates whether a PIN was entered during the transaction.
+         *   Valid values are `TRUE`, `FALSE`.
+         * - `PIN_STATUS`: The current state of card's PIN. Valid values are `NOT_SET`,
+         *   `OK`, `BLOCKED`.
+         * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
+         *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
+         *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
+         * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
+         *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         */
+        attribute?:
+          | 'MCC'
+          | 'COUNTRY'
+          | 'CURRENCY'
+          | 'MERCHANT_ID'
+          | 'DESCRIPTOR'
+          | 'LIABILITY_SHIFT'
+          | 'PAN_ENTRY_MODE'
+          | 'TRANSACTION_AMOUNT'
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_15M'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H'
+          | 'CARD_STATE'
+          | 'PIN_ENTERED'
+          | 'PIN_STATUS'
+          | 'WALLET_TYPE'
+          | 'TRANSACTION_INITIATOR';
+
+        /**
+         * The operation to apply to the attribute
+         */
+        operation?:
+          | 'IS_ONE_OF'
+          | 'IS_NOT_ONE_OF'
+          | 'MATCHES'
+          | 'DOES_NOT_MATCH'
+          | 'IS_EQUAL_TO'
+          | 'IS_NOT_EQUAL_TO'
+          | 'IS_GREATER_THAN'
+          | 'IS_GREATER_THAN_OR_EQUAL_TO'
+          | 'IS_LESS_THAN'
+          | 'IS_LESS_THAN_OR_EQUAL_TO';
+
+        /**
+         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+         */
+        value?: string | number | Array<string>;
+      }
+    }
   }
 }
 
@@ -947,6 +1383,11 @@ export interface V2UpdateResponse {
   account_tokens: Array<string>;
 
   /**
+   * Business Account tokens to which the Auth Rule applies.
+   */
+  business_account_tokens: Array<string>;
+
+  /**
    * Card tokens to which the Auth Rule applies.
    */
   card_tokens: Array<string>;
@@ -956,7 +1397,7 @@ export interface V2UpdateResponse {
   draft_version: V2UpdateResponse.DraftVersion | null;
 
   /**
-   * The type of event stream the Auth rule applies to.
+   * The event stream during which the rule will be evaluated.
    */
   event_stream: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
 
@@ -976,15 +1417,17 @@ export interface V2UpdateResponse {
   state: 'ACTIVE' | 'INACTIVE';
 
   /**
-   * The type of Auth Rule. Effectively determines the event stream during which it
-   * will be evaluated.
+   * The type of Auth Rule. For certain rule types, this determines the event stream
+   * during which it will be evaluated. For rules that can be applied to one of
+   * several event streams, the effective one is defined by the separate
+   * `event_stream` field.
    *
    * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
    * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
    * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-   * - `CONDITIONAL_3DS_ACTION`: THREE_DS_AUTHENTICATION event stream.
+   * - `CONDITIONAL_ACTION`: AUTHORIZATION or THREE_DS_AUTHENTICATION event stream.
    */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_3DS_ACTION';
+  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
 
   /**
    * Card tokens to which the Auth Rule does not apply.
@@ -1001,13 +1444,119 @@ export namespace V2UpdateResponse {
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters;
+      | V2API.Conditional3DSActionParameters
+      | CurrentVersion.ConditionalAuthorizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
+  }
+
+  export namespace CurrentVersion {
+    export interface ConditionalAuthorizationActionParameters {
+      /**
+       * The action to take if the conditions are met.
+       */
+      action: 'DECLINE' | 'CHALLENGE';
+
+      conditions: Array<ConditionalAuthorizationActionParameters.Condition>;
+    }
+
+    export namespace ConditionalAuthorizationActionParameters {
+      export interface Condition {
+        /**
+         * The attribute to target.
+         *
+         * The following attributes may be targeted:
+         *
+         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
+         *   business by the types of goods or services it provides.
+         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
+         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
+         *   Netherlands Antilles.
+         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
+         *   the transaction.
+         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
+         *   (merchant).
+         * - `DESCRIPTOR`: Short description of card acceptor.
+         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
+         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
+         *   `TOKEN_AUTHENTICATED`.
+         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
+         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
+         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
+         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
+         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
+         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
+         *   fee field in the settlement/cardholder billing currency. This is the amount
+         *   the issuer should authorize against unless the issuer is paying the acquirer
+         *   fee on behalf of the cardholder.
+         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
+         *   given authorization. Scores are on a range of 0-999, with 0 representing the
+         *   lowest risk and 999 representing the highest risk. For Visa transactions,
+         *   where the raw score has a range of 0-99, Lithic will normalize the score by
+         *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_15M`: The number of transactions on the card in the
+         *   trailing 15 minutes before the authorization.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
+         * - `CARD_STATE`: The current state of the card associated with the transaction.
+         *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
+         *   `PENDING_FULFILLMENT`.
+         * - `PIN_ENTERED`: Indicates whether a PIN was entered during the transaction.
+         *   Valid values are `TRUE`, `FALSE`.
+         * - `PIN_STATUS`: The current state of card's PIN. Valid values are `NOT_SET`,
+         *   `OK`, `BLOCKED`.
+         * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
+         *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
+         *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
+         * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
+         *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         */
+        attribute?:
+          | 'MCC'
+          | 'COUNTRY'
+          | 'CURRENCY'
+          | 'MERCHANT_ID'
+          | 'DESCRIPTOR'
+          | 'LIABILITY_SHIFT'
+          | 'PAN_ENTRY_MODE'
+          | 'TRANSACTION_AMOUNT'
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_15M'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H'
+          | 'CARD_STATE'
+          | 'PIN_ENTERED'
+          | 'PIN_STATUS'
+          | 'WALLET_TYPE'
+          | 'TRANSACTION_INITIATOR';
+
+        /**
+         * The operation to apply to the attribute
+         */
+        operation?:
+          | 'IS_ONE_OF'
+          | 'IS_NOT_ONE_OF'
+          | 'MATCHES'
+          | 'DOES_NOT_MATCH'
+          | 'IS_EQUAL_TO'
+          | 'IS_NOT_EQUAL_TO'
+          | 'IS_GREATER_THAN'
+          | 'IS_GREATER_THAN_OR_EQUAL_TO'
+          | 'IS_LESS_THAN'
+          | 'IS_LESS_THAN_OR_EQUAL_TO';
+
+        /**
+         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+         */
+        value?: string | number | Array<string>;
+      }
+    }
   }
 
   export interface DraftVersion {
@@ -1018,13 +1567,119 @@ export namespace V2UpdateResponse {
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters;
+      | V2API.Conditional3DSActionParameters
+      | DraftVersion.ConditionalAuthorizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
+  }
+
+  export namespace DraftVersion {
+    export interface ConditionalAuthorizationActionParameters {
+      /**
+       * The action to take if the conditions are met.
+       */
+      action: 'DECLINE' | 'CHALLENGE';
+
+      conditions: Array<ConditionalAuthorizationActionParameters.Condition>;
+    }
+
+    export namespace ConditionalAuthorizationActionParameters {
+      export interface Condition {
+        /**
+         * The attribute to target.
+         *
+         * The following attributes may be targeted:
+         *
+         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
+         *   business by the types of goods or services it provides.
+         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
+         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
+         *   Netherlands Antilles.
+         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
+         *   the transaction.
+         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
+         *   (merchant).
+         * - `DESCRIPTOR`: Short description of card acceptor.
+         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
+         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
+         *   `TOKEN_AUTHENTICATED`.
+         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
+         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
+         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
+         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
+         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
+         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
+         *   fee field in the settlement/cardholder billing currency. This is the amount
+         *   the issuer should authorize against unless the issuer is paying the acquirer
+         *   fee on behalf of the cardholder.
+         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
+         *   given authorization. Scores are on a range of 0-999, with 0 representing the
+         *   lowest risk and 999 representing the highest risk. For Visa transactions,
+         *   where the raw score has a range of 0-99, Lithic will normalize the score by
+         *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_15M`: The number of transactions on the card in the
+         *   trailing 15 minutes before the authorization.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
+         * - `CARD_STATE`: The current state of the card associated with the transaction.
+         *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
+         *   `PENDING_FULFILLMENT`.
+         * - `PIN_ENTERED`: Indicates whether a PIN was entered during the transaction.
+         *   Valid values are `TRUE`, `FALSE`.
+         * - `PIN_STATUS`: The current state of card's PIN. Valid values are `NOT_SET`,
+         *   `OK`, `BLOCKED`.
+         * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
+         *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
+         *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
+         * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
+         *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         */
+        attribute?:
+          | 'MCC'
+          | 'COUNTRY'
+          | 'CURRENCY'
+          | 'MERCHANT_ID'
+          | 'DESCRIPTOR'
+          | 'LIABILITY_SHIFT'
+          | 'PAN_ENTRY_MODE'
+          | 'TRANSACTION_AMOUNT'
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_15M'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H'
+          | 'CARD_STATE'
+          | 'PIN_ENTERED'
+          | 'PIN_STATUS'
+          | 'WALLET_TYPE'
+          | 'TRANSACTION_INITIATOR';
+
+        /**
+         * The operation to apply to the attribute
+         */
+        operation?:
+          | 'IS_ONE_OF'
+          | 'IS_NOT_ONE_OF'
+          | 'MATCHES'
+          | 'DOES_NOT_MATCH'
+          | 'IS_EQUAL_TO'
+          | 'IS_NOT_EQUAL_TO'
+          | 'IS_GREATER_THAN'
+          | 'IS_GREATER_THAN_OR_EQUAL_TO'
+          | 'IS_LESS_THAN'
+          | 'IS_LESS_THAN_OR_EQUAL_TO';
+
+        /**
+         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+         */
+        value?: string | number | Array<string>;
+      }
+    }
   }
 }
 
@@ -1040,6 +1695,11 @@ export interface V2ListResponse {
   account_tokens: Array<string>;
 
   /**
+   * Business Account tokens to which the Auth Rule applies.
+   */
+  business_account_tokens: Array<string>;
+
+  /**
    * Card tokens to which the Auth Rule applies.
    */
   card_tokens: Array<string>;
@@ -1049,7 +1709,7 @@ export interface V2ListResponse {
   draft_version: V2ListResponse.DraftVersion | null;
 
   /**
-   * The type of event stream the Auth rule applies to.
+   * The event stream during which the rule will be evaluated.
    */
   event_stream: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
 
@@ -1069,15 +1729,17 @@ export interface V2ListResponse {
   state: 'ACTIVE' | 'INACTIVE';
 
   /**
-   * The type of Auth Rule. Effectively determines the event stream during which it
-   * will be evaluated.
+   * The type of Auth Rule. For certain rule types, this determines the event stream
+   * during which it will be evaluated. For rules that can be applied to one of
+   * several event streams, the effective one is defined by the separate
+   * `event_stream` field.
    *
    * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
    * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
    * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-   * - `CONDITIONAL_3DS_ACTION`: THREE_DS_AUTHENTICATION event stream.
+   * - `CONDITIONAL_ACTION`: AUTHORIZATION or THREE_DS_AUTHENTICATION event stream.
    */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_3DS_ACTION';
+  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
 
   /**
    * Card tokens to which the Auth Rule does not apply.
@@ -1094,13 +1756,119 @@ export namespace V2ListResponse {
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters;
+      | V2API.Conditional3DSActionParameters
+      | CurrentVersion.ConditionalAuthorizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
+  }
+
+  export namespace CurrentVersion {
+    export interface ConditionalAuthorizationActionParameters {
+      /**
+       * The action to take if the conditions are met.
+       */
+      action: 'DECLINE' | 'CHALLENGE';
+
+      conditions: Array<ConditionalAuthorizationActionParameters.Condition>;
+    }
+
+    export namespace ConditionalAuthorizationActionParameters {
+      export interface Condition {
+        /**
+         * The attribute to target.
+         *
+         * The following attributes may be targeted:
+         *
+         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
+         *   business by the types of goods or services it provides.
+         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
+         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
+         *   Netherlands Antilles.
+         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
+         *   the transaction.
+         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
+         *   (merchant).
+         * - `DESCRIPTOR`: Short description of card acceptor.
+         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
+         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
+         *   `TOKEN_AUTHENTICATED`.
+         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
+         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
+         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
+         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
+         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
+         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
+         *   fee field in the settlement/cardholder billing currency. This is the amount
+         *   the issuer should authorize against unless the issuer is paying the acquirer
+         *   fee on behalf of the cardholder.
+         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
+         *   given authorization. Scores are on a range of 0-999, with 0 representing the
+         *   lowest risk and 999 representing the highest risk. For Visa transactions,
+         *   where the raw score has a range of 0-99, Lithic will normalize the score by
+         *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_15M`: The number of transactions on the card in the
+         *   trailing 15 minutes before the authorization.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
+         * - `CARD_STATE`: The current state of the card associated with the transaction.
+         *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
+         *   `PENDING_FULFILLMENT`.
+         * - `PIN_ENTERED`: Indicates whether a PIN was entered during the transaction.
+         *   Valid values are `TRUE`, `FALSE`.
+         * - `PIN_STATUS`: The current state of card's PIN. Valid values are `NOT_SET`,
+         *   `OK`, `BLOCKED`.
+         * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
+         *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
+         *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
+         * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
+         *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         */
+        attribute?:
+          | 'MCC'
+          | 'COUNTRY'
+          | 'CURRENCY'
+          | 'MERCHANT_ID'
+          | 'DESCRIPTOR'
+          | 'LIABILITY_SHIFT'
+          | 'PAN_ENTRY_MODE'
+          | 'TRANSACTION_AMOUNT'
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_15M'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H'
+          | 'CARD_STATE'
+          | 'PIN_ENTERED'
+          | 'PIN_STATUS'
+          | 'WALLET_TYPE'
+          | 'TRANSACTION_INITIATOR';
+
+        /**
+         * The operation to apply to the attribute
+         */
+        operation?:
+          | 'IS_ONE_OF'
+          | 'IS_NOT_ONE_OF'
+          | 'MATCHES'
+          | 'DOES_NOT_MATCH'
+          | 'IS_EQUAL_TO'
+          | 'IS_NOT_EQUAL_TO'
+          | 'IS_GREATER_THAN'
+          | 'IS_GREATER_THAN_OR_EQUAL_TO'
+          | 'IS_LESS_THAN'
+          | 'IS_LESS_THAN_OR_EQUAL_TO';
+
+        /**
+         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+         */
+        value?: string | number | Array<string>;
+      }
+    }
   }
 
   export interface DraftVersion {
@@ -1111,13 +1879,119 @@ export namespace V2ListResponse {
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters;
+      | V2API.Conditional3DSActionParameters
+      | DraftVersion.ConditionalAuthorizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
+  }
+
+  export namespace DraftVersion {
+    export interface ConditionalAuthorizationActionParameters {
+      /**
+       * The action to take if the conditions are met.
+       */
+      action: 'DECLINE' | 'CHALLENGE';
+
+      conditions: Array<ConditionalAuthorizationActionParameters.Condition>;
+    }
+
+    export namespace ConditionalAuthorizationActionParameters {
+      export interface Condition {
+        /**
+         * The attribute to target.
+         *
+         * The following attributes may be targeted:
+         *
+         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
+         *   business by the types of goods or services it provides.
+         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
+         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
+         *   Netherlands Antilles.
+         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
+         *   the transaction.
+         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
+         *   (merchant).
+         * - `DESCRIPTOR`: Short description of card acceptor.
+         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
+         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
+         *   `TOKEN_AUTHENTICATED`.
+         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
+         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
+         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
+         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
+         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
+         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
+         *   fee field in the settlement/cardholder billing currency. This is the amount
+         *   the issuer should authorize against unless the issuer is paying the acquirer
+         *   fee on behalf of the cardholder.
+         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
+         *   given authorization. Scores are on a range of 0-999, with 0 representing the
+         *   lowest risk and 999 representing the highest risk. For Visa transactions,
+         *   where the raw score has a range of 0-99, Lithic will normalize the score by
+         *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_15M`: The number of transactions on the card in the
+         *   trailing 15 minutes before the authorization.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
+         * - `CARD_STATE`: The current state of the card associated with the transaction.
+         *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
+         *   `PENDING_FULFILLMENT`.
+         * - `PIN_ENTERED`: Indicates whether a PIN was entered during the transaction.
+         *   Valid values are `TRUE`, `FALSE`.
+         * - `PIN_STATUS`: The current state of card's PIN. Valid values are `NOT_SET`,
+         *   `OK`, `BLOCKED`.
+         * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
+         *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
+         *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
+         * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
+         *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         */
+        attribute?:
+          | 'MCC'
+          | 'COUNTRY'
+          | 'CURRENCY'
+          | 'MERCHANT_ID'
+          | 'DESCRIPTOR'
+          | 'LIABILITY_SHIFT'
+          | 'PAN_ENTRY_MODE'
+          | 'TRANSACTION_AMOUNT'
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_15M'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H'
+          | 'CARD_STATE'
+          | 'PIN_ENTERED'
+          | 'PIN_STATUS'
+          | 'WALLET_TYPE'
+          | 'TRANSACTION_INITIATOR';
+
+        /**
+         * The operation to apply to the attribute
+         */
+        operation?:
+          | 'IS_ONE_OF'
+          | 'IS_NOT_ONE_OF'
+          | 'MATCHES'
+          | 'DOES_NOT_MATCH'
+          | 'IS_EQUAL_TO'
+          | 'IS_NOT_EQUAL_TO'
+          | 'IS_GREATER_THAN'
+          | 'IS_GREATER_THAN_OR_EQUAL_TO'
+          | 'IS_LESS_THAN'
+          | 'IS_LESS_THAN_OR_EQUAL_TO';
+
+        /**
+         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+         */
+        value?: string | number | Array<string>;
+      }
+    }
   }
 }
 
@@ -1133,6 +2007,11 @@ export interface V2ApplyResponse {
   account_tokens: Array<string>;
 
   /**
+   * Business Account tokens to which the Auth Rule applies.
+   */
+  business_account_tokens: Array<string>;
+
+  /**
    * Card tokens to which the Auth Rule applies.
    */
   card_tokens: Array<string>;
@@ -1142,7 +2021,7 @@ export interface V2ApplyResponse {
   draft_version: V2ApplyResponse.DraftVersion | null;
 
   /**
-   * The type of event stream the Auth rule applies to.
+   * The event stream during which the rule will be evaluated.
    */
   event_stream: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
 
@@ -1162,15 +2041,17 @@ export interface V2ApplyResponse {
   state: 'ACTIVE' | 'INACTIVE';
 
   /**
-   * The type of Auth Rule. Effectively determines the event stream during which it
-   * will be evaluated.
+   * The type of Auth Rule. For certain rule types, this determines the event stream
+   * during which it will be evaluated. For rules that can be applied to one of
+   * several event streams, the effective one is defined by the separate
+   * `event_stream` field.
    *
    * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
    * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
    * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-   * - `CONDITIONAL_3DS_ACTION`: THREE_DS_AUTHENTICATION event stream.
+   * - `CONDITIONAL_ACTION`: AUTHORIZATION or THREE_DS_AUTHENTICATION event stream.
    */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_3DS_ACTION';
+  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
 
   /**
    * Card tokens to which the Auth Rule does not apply.
@@ -1187,13 +2068,119 @@ export namespace V2ApplyResponse {
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters;
+      | V2API.Conditional3DSActionParameters
+      | CurrentVersion.ConditionalAuthorizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
+  }
+
+  export namespace CurrentVersion {
+    export interface ConditionalAuthorizationActionParameters {
+      /**
+       * The action to take if the conditions are met.
+       */
+      action: 'DECLINE' | 'CHALLENGE';
+
+      conditions: Array<ConditionalAuthorizationActionParameters.Condition>;
+    }
+
+    export namespace ConditionalAuthorizationActionParameters {
+      export interface Condition {
+        /**
+         * The attribute to target.
+         *
+         * The following attributes may be targeted:
+         *
+         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
+         *   business by the types of goods or services it provides.
+         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
+         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
+         *   Netherlands Antilles.
+         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
+         *   the transaction.
+         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
+         *   (merchant).
+         * - `DESCRIPTOR`: Short description of card acceptor.
+         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
+         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
+         *   `TOKEN_AUTHENTICATED`.
+         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
+         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
+         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
+         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
+         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
+         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
+         *   fee field in the settlement/cardholder billing currency. This is the amount
+         *   the issuer should authorize against unless the issuer is paying the acquirer
+         *   fee on behalf of the cardholder.
+         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
+         *   given authorization. Scores are on a range of 0-999, with 0 representing the
+         *   lowest risk and 999 representing the highest risk. For Visa transactions,
+         *   where the raw score has a range of 0-99, Lithic will normalize the score by
+         *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_15M`: The number of transactions on the card in the
+         *   trailing 15 minutes before the authorization.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
+         * - `CARD_STATE`: The current state of the card associated with the transaction.
+         *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
+         *   `PENDING_FULFILLMENT`.
+         * - `PIN_ENTERED`: Indicates whether a PIN was entered during the transaction.
+         *   Valid values are `TRUE`, `FALSE`.
+         * - `PIN_STATUS`: The current state of card's PIN. Valid values are `NOT_SET`,
+         *   `OK`, `BLOCKED`.
+         * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
+         *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
+         *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
+         * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
+         *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         */
+        attribute?:
+          | 'MCC'
+          | 'COUNTRY'
+          | 'CURRENCY'
+          | 'MERCHANT_ID'
+          | 'DESCRIPTOR'
+          | 'LIABILITY_SHIFT'
+          | 'PAN_ENTRY_MODE'
+          | 'TRANSACTION_AMOUNT'
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_15M'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H'
+          | 'CARD_STATE'
+          | 'PIN_ENTERED'
+          | 'PIN_STATUS'
+          | 'WALLET_TYPE'
+          | 'TRANSACTION_INITIATOR';
+
+        /**
+         * The operation to apply to the attribute
+         */
+        operation?:
+          | 'IS_ONE_OF'
+          | 'IS_NOT_ONE_OF'
+          | 'MATCHES'
+          | 'DOES_NOT_MATCH'
+          | 'IS_EQUAL_TO'
+          | 'IS_NOT_EQUAL_TO'
+          | 'IS_GREATER_THAN'
+          | 'IS_GREATER_THAN_OR_EQUAL_TO'
+          | 'IS_LESS_THAN'
+          | 'IS_LESS_THAN_OR_EQUAL_TO';
+
+        /**
+         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+         */
+        value?: string | number | Array<string>;
+      }
+    }
   }
 
   export interface DraftVersion {
@@ -1204,13 +2191,119 @@ export namespace V2ApplyResponse {
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters;
+      | V2API.Conditional3DSActionParameters
+      | DraftVersion.ConditionalAuthorizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
+  }
+
+  export namespace DraftVersion {
+    export interface ConditionalAuthorizationActionParameters {
+      /**
+       * The action to take if the conditions are met.
+       */
+      action: 'DECLINE' | 'CHALLENGE';
+
+      conditions: Array<ConditionalAuthorizationActionParameters.Condition>;
+    }
+
+    export namespace ConditionalAuthorizationActionParameters {
+      export interface Condition {
+        /**
+         * The attribute to target.
+         *
+         * The following attributes may be targeted:
+         *
+         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
+         *   business by the types of goods or services it provides.
+         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
+         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
+         *   Netherlands Antilles.
+         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
+         *   the transaction.
+         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
+         *   (merchant).
+         * - `DESCRIPTOR`: Short description of card acceptor.
+         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
+         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
+         *   `TOKEN_AUTHENTICATED`.
+         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
+         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
+         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
+         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
+         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
+         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
+         *   fee field in the settlement/cardholder billing currency. This is the amount
+         *   the issuer should authorize against unless the issuer is paying the acquirer
+         *   fee on behalf of the cardholder.
+         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
+         *   given authorization. Scores are on a range of 0-999, with 0 representing the
+         *   lowest risk and 999 representing the highest risk. For Visa transactions,
+         *   where the raw score has a range of 0-99, Lithic will normalize the score by
+         *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_15M`: The number of transactions on the card in the
+         *   trailing 15 minutes before the authorization.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
+         * - `CARD_STATE`: The current state of the card associated with the transaction.
+         *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
+         *   `PENDING_FULFILLMENT`.
+         * - `PIN_ENTERED`: Indicates whether a PIN was entered during the transaction.
+         *   Valid values are `TRUE`, `FALSE`.
+         * - `PIN_STATUS`: The current state of card's PIN. Valid values are `NOT_SET`,
+         *   `OK`, `BLOCKED`.
+         * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
+         *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
+         *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
+         * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
+         *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         */
+        attribute?:
+          | 'MCC'
+          | 'COUNTRY'
+          | 'CURRENCY'
+          | 'MERCHANT_ID'
+          | 'DESCRIPTOR'
+          | 'LIABILITY_SHIFT'
+          | 'PAN_ENTRY_MODE'
+          | 'TRANSACTION_AMOUNT'
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_15M'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H'
+          | 'CARD_STATE'
+          | 'PIN_ENTERED'
+          | 'PIN_STATUS'
+          | 'WALLET_TYPE'
+          | 'TRANSACTION_INITIATOR';
+
+        /**
+         * The operation to apply to the attribute
+         */
+        operation?:
+          | 'IS_ONE_OF'
+          | 'IS_NOT_ONE_OF'
+          | 'MATCHES'
+          | 'DOES_NOT_MATCH'
+          | 'IS_EQUAL_TO'
+          | 'IS_NOT_EQUAL_TO'
+          | 'IS_GREATER_THAN'
+          | 'IS_GREATER_THAN_OR_EQUAL_TO'
+          | 'IS_LESS_THAN'
+          | 'IS_LESS_THAN_OR_EQUAL_TO';
+
+        /**
+         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+         */
+        value?: string | number | Array<string>;
+      }
+    }
   }
 }
 
@@ -1226,6 +2319,11 @@ export interface V2DraftResponse {
   account_tokens: Array<string>;
 
   /**
+   * Business Account tokens to which the Auth Rule applies.
+   */
+  business_account_tokens: Array<string>;
+
+  /**
    * Card tokens to which the Auth Rule applies.
    */
   card_tokens: Array<string>;
@@ -1235,7 +2333,7 @@ export interface V2DraftResponse {
   draft_version: V2DraftResponse.DraftVersion | null;
 
   /**
-   * The type of event stream the Auth rule applies to.
+   * The event stream during which the rule will be evaluated.
    */
   event_stream: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
 
@@ -1255,15 +2353,17 @@ export interface V2DraftResponse {
   state: 'ACTIVE' | 'INACTIVE';
 
   /**
-   * The type of Auth Rule. Effectively determines the event stream during which it
-   * will be evaluated.
+   * The type of Auth Rule. For certain rule types, this determines the event stream
+   * during which it will be evaluated. For rules that can be applied to one of
+   * several event streams, the effective one is defined by the separate
+   * `event_stream` field.
    *
    * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
    * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
    * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-   * - `CONDITIONAL_3DS_ACTION`: THREE_DS_AUTHENTICATION event stream.
+   * - `CONDITIONAL_ACTION`: AUTHORIZATION or THREE_DS_AUTHENTICATION event stream.
    */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_3DS_ACTION';
+  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
 
   /**
    * Card tokens to which the Auth Rule does not apply.
@@ -1280,13 +2380,119 @@ export namespace V2DraftResponse {
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters;
+      | V2API.Conditional3DSActionParameters
+      | CurrentVersion.ConditionalAuthorizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
+  }
+
+  export namespace CurrentVersion {
+    export interface ConditionalAuthorizationActionParameters {
+      /**
+       * The action to take if the conditions are met.
+       */
+      action: 'DECLINE' | 'CHALLENGE';
+
+      conditions: Array<ConditionalAuthorizationActionParameters.Condition>;
+    }
+
+    export namespace ConditionalAuthorizationActionParameters {
+      export interface Condition {
+        /**
+         * The attribute to target.
+         *
+         * The following attributes may be targeted:
+         *
+         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
+         *   business by the types of goods or services it provides.
+         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
+         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
+         *   Netherlands Antilles.
+         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
+         *   the transaction.
+         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
+         *   (merchant).
+         * - `DESCRIPTOR`: Short description of card acceptor.
+         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
+         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
+         *   `TOKEN_AUTHENTICATED`.
+         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
+         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
+         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
+         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
+         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
+         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
+         *   fee field in the settlement/cardholder billing currency. This is the amount
+         *   the issuer should authorize against unless the issuer is paying the acquirer
+         *   fee on behalf of the cardholder.
+         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
+         *   given authorization. Scores are on a range of 0-999, with 0 representing the
+         *   lowest risk and 999 representing the highest risk. For Visa transactions,
+         *   where the raw score has a range of 0-99, Lithic will normalize the score by
+         *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_15M`: The number of transactions on the card in the
+         *   trailing 15 minutes before the authorization.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
+         * - `CARD_STATE`: The current state of the card associated with the transaction.
+         *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
+         *   `PENDING_FULFILLMENT`.
+         * - `PIN_ENTERED`: Indicates whether a PIN was entered during the transaction.
+         *   Valid values are `TRUE`, `FALSE`.
+         * - `PIN_STATUS`: The current state of card's PIN. Valid values are `NOT_SET`,
+         *   `OK`, `BLOCKED`.
+         * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
+         *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
+         *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
+         * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
+         *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         */
+        attribute?:
+          | 'MCC'
+          | 'COUNTRY'
+          | 'CURRENCY'
+          | 'MERCHANT_ID'
+          | 'DESCRIPTOR'
+          | 'LIABILITY_SHIFT'
+          | 'PAN_ENTRY_MODE'
+          | 'TRANSACTION_AMOUNT'
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_15M'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H'
+          | 'CARD_STATE'
+          | 'PIN_ENTERED'
+          | 'PIN_STATUS'
+          | 'WALLET_TYPE'
+          | 'TRANSACTION_INITIATOR';
+
+        /**
+         * The operation to apply to the attribute
+         */
+        operation?:
+          | 'IS_ONE_OF'
+          | 'IS_NOT_ONE_OF'
+          | 'MATCHES'
+          | 'DOES_NOT_MATCH'
+          | 'IS_EQUAL_TO'
+          | 'IS_NOT_EQUAL_TO'
+          | 'IS_GREATER_THAN'
+          | 'IS_GREATER_THAN_OR_EQUAL_TO'
+          | 'IS_LESS_THAN'
+          | 'IS_LESS_THAN_OR_EQUAL_TO';
+
+        /**
+         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+         */
+        value?: string | number | Array<string>;
+      }
+    }
   }
 
   export interface DraftVersion {
@@ -1297,13 +2503,119 @@ export namespace V2DraftResponse {
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters;
+      | V2API.Conditional3DSActionParameters
+      | DraftVersion.ConditionalAuthorizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
+  }
+
+  export namespace DraftVersion {
+    export interface ConditionalAuthorizationActionParameters {
+      /**
+       * The action to take if the conditions are met.
+       */
+      action: 'DECLINE' | 'CHALLENGE';
+
+      conditions: Array<ConditionalAuthorizationActionParameters.Condition>;
+    }
+
+    export namespace ConditionalAuthorizationActionParameters {
+      export interface Condition {
+        /**
+         * The attribute to target.
+         *
+         * The following attributes may be targeted:
+         *
+         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
+         *   business by the types of goods or services it provides.
+         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
+         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
+         *   Netherlands Antilles.
+         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
+         *   the transaction.
+         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
+         *   (merchant).
+         * - `DESCRIPTOR`: Short description of card acceptor.
+         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
+         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
+         *   `TOKEN_AUTHENTICATED`.
+         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
+         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
+         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
+         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
+         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
+         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
+         *   fee field in the settlement/cardholder billing currency. This is the amount
+         *   the issuer should authorize against unless the issuer is paying the acquirer
+         *   fee on behalf of the cardholder.
+         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
+         *   given authorization. Scores are on a range of 0-999, with 0 representing the
+         *   lowest risk and 999 representing the highest risk. For Visa transactions,
+         *   where the raw score has a range of 0-99, Lithic will normalize the score by
+         *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_15M`: The number of transactions on the card in the
+         *   trailing 15 minutes before the authorization.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
+         * - `CARD_STATE`: The current state of the card associated with the transaction.
+         *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
+         *   `PENDING_FULFILLMENT`.
+         * - `PIN_ENTERED`: Indicates whether a PIN was entered during the transaction.
+         *   Valid values are `TRUE`, `FALSE`.
+         * - `PIN_STATUS`: The current state of card's PIN. Valid values are `NOT_SET`,
+         *   `OK`, `BLOCKED`.
+         * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
+         *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
+         *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
+         * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
+         *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         */
+        attribute?:
+          | 'MCC'
+          | 'COUNTRY'
+          | 'CURRENCY'
+          | 'MERCHANT_ID'
+          | 'DESCRIPTOR'
+          | 'LIABILITY_SHIFT'
+          | 'PAN_ENTRY_MODE'
+          | 'TRANSACTION_AMOUNT'
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_15M'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H'
+          | 'CARD_STATE'
+          | 'PIN_ENTERED'
+          | 'PIN_STATUS'
+          | 'WALLET_TYPE'
+          | 'TRANSACTION_INITIATOR';
+
+        /**
+         * The operation to apply to the attribute
+         */
+        operation?:
+          | 'IS_ONE_OF'
+          | 'IS_NOT_ONE_OF'
+          | 'MATCHES'
+          | 'DOES_NOT_MATCH'
+          | 'IS_EQUAL_TO'
+          | 'IS_NOT_EQUAL_TO'
+          | 'IS_GREATER_THAN'
+          | 'IS_GREATER_THAN_OR_EQUAL_TO'
+          | 'IS_LESS_THAN'
+          | 'IS_LESS_THAN_OR_EQUAL_TO';
+
+        /**
+         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+         */
+        value?: string | number | Array<string>;
+      }
+    }
   }
 }
 
@@ -1319,6 +2631,11 @@ export interface V2PromoteResponse {
   account_tokens: Array<string>;
 
   /**
+   * Business Account tokens to which the Auth Rule applies.
+   */
+  business_account_tokens: Array<string>;
+
+  /**
    * Card tokens to which the Auth Rule applies.
    */
   card_tokens: Array<string>;
@@ -1328,7 +2645,7 @@ export interface V2PromoteResponse {
   draft_version: V2PromoteResponse.DraftVersion | null;
 
   /**
-   * The type of event stream the Auth rule applies to.
+   * The event stream during which the rule will be evaluated.
    */
   event_stream: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
 
@@ -1348,15 +2665,17 @@ export interface V2PromoteResponse {
   state: 'ACTIVE' | 'INACTIVE';
 
   /**
-   * The type of Auth Rule. Effectively determines the event stream during which it
-   * will be evaluated.
+   * The type of Auth Rule. For certain rule types, this determines the event stream
+   * during which it will be evaluated. For rules that can be applied to one of
+   * several event streams, the effective one is defined by the separate
+   * `event_stream` field.
    *
    * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
    * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
    * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-   * - `CONDITIONAL_3DS_ACTION`: THREE_DS_AUTHENTICATION event stream.
+   * - `CONDITIONAL_ACTION`: AUTHORIZATION or THREE_DS_AUTHENTICATION event stream.
    */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_3DS_ACTION';
+  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
 
   /**
    * Card tokens to which the Auth Rule does not apply.
@@ -1373,13 +2692,119 @@ export namespace V2PromoteResponse {
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters;
+      | V2API.Conditional3DSActionParameters
+      | CurrentVersion.ConditionalAuthorizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
+  }
+
+  export namespace CurrentVersion {
+    export interface ConditionalAuthorizationActionParameters {
+      /**
+       * The action to take if the conditions are met.
+       */
+      action: 'DECLINE' | 'CHALLENGE';
+
+      conditions: Array<ConditionalAuthorizationActionParameters.Condition>;
+    }
+
+    export namespace ConditionalAuthorizationActionParameters {
+      export interface Condition {
+        /**
+         * The attribute to target.
+         *
+         * The following attributes may be targeted:
+         *
+         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
+         *   business by the types of goods or services it provides.
+         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
+         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
+         *   Netherlands Antilles.
+         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
+         *   the transaction.
+         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
+         *   (merchant).
+         * - `DESCRIPTOR`: Short description of card acceptor.
+         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
+         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
+         *   `TOKEN_AUTHENTICATED`.
+         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
+         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
+         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
+         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
+         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
+         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
+         *   fee field in the settlement/cardholder billing currency. This is the amount
+         *   the issuer should authorize against unless the issuer is paying the acquirer
+         *   fee on behalf of the cardholder.
+         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
+         *   given authorization. Scores are on a range of 0-999, with 0 representing the
+         *   lowest risk and 999 representing the highest risk. For Visa transactions,
+         *   where the raw score has a range of 0-99, Lithic will normalize the score by
+         *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_15M`: The number of transactions on the card in the
+         *   trailing 15 minutes before the authorization.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
+         * - `CARD_STATE`: The current state of the card associated with the transaction.
+         *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
+         *   `PENDING_FULFILLMENT`.
+         * - `PIN_ENTERED`: Indicates whether a PIN was entered during the transaction.
+         *   Valid values are `TRUE`, `FALSE`.
+         * - `PIN_STATUS`: The current state of card's PIN. Valid values are `NOT_SET`,
+         *   `OK`, `BLOCKED`.
+         * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
+         *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
+         *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
+         * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
+         *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         */
+        attribute?:
+          | 'MCC'
+          | 'COUNTRY'
+          | 'CURRENCY'
+          | 'MERCHANT_ID'
+          | 'DESCRIPTOR'
+          | 'LIABILITY_SHIFT'
+          | 'PAN_ENTRY_MODE'
+          | 'TRANSACTION_AMOUNT'
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_15M'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H'
+          | 'CARD_STATE'
+          | 'PIN_ENTERED'
+          | 'PIN_STATUS'
+          | 'WALLET_TYPE'
+          | 'TRANSACTION_INITIATOR';
+
+        /**
+         * The operation to apply to the attribute
+         */
+        operation?:
+          | 'IS_ONE_OF'
+          | 'IS_NOT_ONE_OF'
+          | 'MATCHES'
+          | 'DOES_NOT_MATCH'
+          | 'IS_EQUAL_TO'
+          | 'IS_NOT_EQUAL_TO'
+          | 'IS_GREATER_THAN'
+          | 'IS_GREATER_THAN_OR_EQUAL_TO'
+          | 'IS_LESS_THAN'
+          | 'IS_LESS_THAN_OR_EQUAL_TO';
+
+        /**
+         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+         */
+        value?: string | number | Array<string>;
+      }
+    }
   }
 
   export interface DraftVersion {
@@ -1390,13 +2815,119 @@ export namespace V2PromoteResponse {
       | V2API.ConditionalBlockParameters
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters;
+      | V2API.Conditional3DSActionParameters
+      | DraftVersion.ConditionalAuthorizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
      * change.
      */
     version: number;
+  }
+
+  export namespace DraftVersion {
+    export interface ConditionalAuthorizationActionParameters {
+      /**
+       * The action to take if the conditions are met.
+       */
+      action: 'DECLINE' | 'CHALLENGE';
+
+      conditions: Array<ConditionalAuthorizationActionParameters.Condition>;
+    }
+
+    export namespace ConditionalAuthorizationActionParameters {
+      export interface Condition {
+        /**
+         * The attribute to target.
+         *
+         * The following attributes may be targeted:
+         *
+         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
+         *   business by the types of goods or services it provides.
+         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
+         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
+         *   Netherlands Antilles.
+         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
+         *   the transaction.
+         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
+         *   (merchant).
+         * - `DESCRIPTOR`: Short description of card acceptor.
+         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
+         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
+         *   `TOKEN_AUTHENTICATED`.
+         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
+         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
+         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
+         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
+         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
+         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
+         *   fee field in the settlement/cardholder billing currency. This is the amount
+         *   the issuer should authorize against unless the issuer is paying the acquirer
+         *   fee on behalf of the cardholder.
+         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
+         *   given authorization. Scores are on a range of 0-999, with 0 representing the
+         *   lowest risk and 999 representing the highest risk. For Visa transactions,
+         *   where the raw score has a range of 0-99, Lithic will normalize the score by
+         *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_15M`: The number of transactions on the card in the
+         *   trailing 15 minutes before the authorization.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
+         * - `CARD_STATE`: The current state of the card associated with the transaction.
+         *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
+         *   `PENDING_FULFILLMENT`.
+         * - `PIN_ENTERED`: Indicates whether a PIN was entered during the transaction.
+         *   Valid values are `TRUE`, `FALSE`.
+         * - `PIN_STATUS`: The current state of card's PIN. Valid values are `NOT_SET`,
+         *   `OK`, `BLOCKED`.
+         * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
+         *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
+         *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
+         * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
+         *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         */
+        attribute?:
+          | 'MCC'
+          | 'COUNTRY'
+          | 'CURRENCY'
+          | 'MERCHANT_ID'
+          | 'DESCRIPTOR'
+          | 'LIABILITY_SHIFT'
+          | 'PAN_ENTRY_MODE'
+          | 'TRANSACTION_AMOUNT'
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_15M'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H'
+          | 'CARD_STATE'
+          | 'PIN_ENTERED'
+          | 'PIN_STATUS'
+          | 'WALLET_TYPE'
+          | 'TRANSACTION_INITIATOR';
+
+        /**
+         * The operation to apply to the attribute
+         */
+        operation?:
+          | 'IS_ONE_OF'
+          | 'IS_NOT_ONE_OF'
+          | 'MATCHES'
+          | 'DOES_NOT_MATCH'
+          | 'IS_EQUAL_TO'
+          | 'IS_NOT_EQUAL_TO'
+          | 'IS_GREATER_THAN'
+          | 'IS_GREATER_THAN_OR_EQUAL_TO'
+          | 'IS_LESS_THAN'
+          | 'IS_LESS_THAN_OR_EQUAL_TO';
+
+        /**
+         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+         */
+        value?: string | number | Array<string>;
+      }
+    }
   }
 }
 
@@ -1455,7 +2986,17 @@ export declare namespace V2CreateParams {
     /**
      * Account tokens to which the Auth Rule applies.
      */
-    account_tokens: Array<string>;
+    account_tokens?: Array<string>;
+
+    /**
+     * Business Account tokens to which the Auth Rule applies.
+     */
+    business_account_tokens?: Array<string>;
+
+    /**
+     * The event stream during which the rule will be evaluated.
+     */
+    event_stream?: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
 
     /**
      * Auth Rule Name
@@ -1469,18 +3010,126 @@ export declare namespace V2CreateParams {
       | ConditionalBlockParameters
       | VelocityLimitParams
       | MerchantLockParameters
-      | Conditional3DSActionParameters;
+      | Conditional3DSActionParameters
+      | CreateAuthRuleRequestAccountTokens.ConditionalAuthorizationActionParameters;
 
     /**
-     * The type of Auth Rule. Effectively determines the event stream during which it
-     * will be evaluated.
+     * The type of Auth Rule. For certain rule types, this determines the event stream
+     * during which it will be evaluated. For rules that can be applied to one of
+     * several event streams, the effective one is defined by the separate
+     * `event_stream` field.
      *
      * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
      * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
      * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-     * - `CONDITIONAL_3DS_ACTION`: THREE_DS_AUTHENTICATION event stream.
+     * - `CONDITIONAL_ACTION`: AUTHORIZATION or THREE_DS_AUTHENTICATION event stream.
      */
-    type?: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_3DS_ACTION';
+    type?: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
+  }
+
+  export namespace CreateAuthRuleRequestAccountTokens {
+    export interface ConditionalAuthorizationActionParameters {
+      /**
+       * The action to take if the conditions are met.
+       */
+      action: 'DECLINE' | 'CHALLENGE';
+
+      conditions: Array<ConditionalAuthorizationActionParameters.Condition>;
+    }
+
+    export namespace ConditionalAuthorizationActionParameters {
+      export interface Condition {
+        /**
+         * The attribute to target.
+         *
+         * The following attributes may be targeted:
+         *
+         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
+         *   business by the types of goods or services it provides.
+         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
+         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
+         *   Netherlands Antilles.
+         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
+         *   the transaction.
+         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
+         *   (merchant).
+         * - `DESCRIPTOR`: Short description of card acceptor.
+         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
+         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
+         *   `TOKEN_AUTHENTICATED`.
+         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
+         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
+         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
+         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
+         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
+         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
+         *   fee field in the settlement/cardholder billing currency. This is the amount
+         *   the issuer should authorize against unless the issuer is paying the acquirer
+         *   fee on behalf of the cardholder.
+         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
+         *   given authorization. Scores are on a range of 0-999, with 0 representing the
+         *   lowest risk and 999 representing the highest risk. For Visa transactions,
+         *   where the raw score has a range of 0-99, Lithic will normalize the score by
+         *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_15M`: The number of transactions on the card in the
+         *   trailing 15 minutes before the authorization.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
+         * - `CARD_STATE`: The current state of the card associated with the transaction.
+         *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
+         *   `PENDING_FULFILLMENT`.
+         * - `PIN_ENTERED`: Indicates whether a PIN was entered during the transaction.
+         *   Valid values are `TRUE`, `FALSE`.
+         * - `PIN_STATUS`: The current state of card's PIN. Valid values are `NOT_SET`,
+         *   `OK`, `BLOCKED`.
+         * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
+         *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
+         *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
+         * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
+         *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         */
+        attribute?:
+          | 'MCC'
+          | 'COUNTRY'
+          | 'CURRENCY'
+          | 'MERCHANT_ID'
+          | 'DESCRIPTOR'
+          | 'LIABILITY_SHIFT'
+          | 'PAN_ENTRY_MODE'
+          | 'TRANSACTION_AMOUNT'
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_15M'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H'
+          | 'CARD_STATE'
+          | 'PIN_ENTERED'
+          | 'PIN_STATUS'
+          | 'WALLET_TYPE'
+          | 'TRANSACTION_INITIATOR';
+
+        /**
+         * The operation to apply to the attribute
+         */
+        operation?:
+          | 'IS_ONE_OF'
+          | 'IS_NOT_ONE_OF'
+          | 'MATCHES'
+          | 'DOES_NOT_MATCH'
+          | 'IS_EQUAL_TO'
+          | 'IS_NOT_EQUAL_TO'
+          | 'IS_GREATER_THAN'
+          | 'IS_GREATER_THAN_OR_EQUAL_TO'
+          | 'IS_LESS_THAN'
+          | 'IS_LESS_THAN_OR_EQUAL_TO';
+
+        /**
+         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+         */
+        value?: string | number | Array<string>;
+      }
+    }
   }
 
   export interface CreateAuthRuleRequestCardTokens {
@@ -1490,6 +3139,11 @@ export declare namespace V2CreateParams {
     card_tokens: Array<string>;
 
     /**
+     * The event stream during which the rule will be evaluated.
+     */
+    event_stream?: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
+
+    /**
      * Auth Rule Name
      */
     name?: string | null;
@@ -1501,18 +3155,126 @@ export declare namespace V2CreateParams {
       | ConditionalBlockParameters
       | VelocityLimitParams
       | MerchantLockParameters
-      | Conditional3DSActionParameters;
+      | Conditional3DSActionParameters
+      | CreateAuthRuleRequestCardTokens.ConditionalAuthorizationActionParameters;
 
     /**
-     * The type of Auth Rule. Effectively determines the event stream during which it
-     * will be evaluated.
+     * The type of Auth Rule. For certain rule types, this determines the event stream
+     * during which it will be evaluated. For rules that can be applied to one of
+     * several event streams, the effective one is defined by the separate
+     * `event_stream` field.
      *
      * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
      * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
      * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-     * - `CONDITIONAL_3DS_ACTION`: THREE_DS_AUTHENTICATION event stream.
+     * - `CONDITIONAL_ACTION`: AUTHORIZATION or THREE_DS_AUTHENTICATION event stream.
      */
-    type?: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_3DS_ACTION';
+    type?: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
+  }
+
+  export namespace CreateAuthRuleRequestCardTokens {
+    export interface ConditionalAuthorizationActionParameters {
+      /**
+       * The action to take if the conditions are met.
+       */
+      action: 'DECLINE' | 'CHALLENGE';
+
+      conditions: Array<ConditionalAuthorizationActionParameters.Condition>;
+    }
+
+    export namespace ConditionalAuthorizationActionParameters {
+      export interface Condition {
+        /**
+         * The attribute to target.
+         *
+         * The following attributes may be targeted:
+         *
+         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
+         *   business by the types of goods or services it provides.
+         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
+         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
+         *   Netherlands Antilles.
+         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
+         *   the transaction.
+         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
+         *   (merchant).
+         * - `DESCRIPTOR`: Short description of card acceptor.
+         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
+         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
+         *   `TOKEN_AUTHENTICATED`.
+         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
+         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
+         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
+         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
+         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
+         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
+         *   fee field in the settlement/cardholder billing currency. This is the amount
+         *   the issuer should authorize against unless the issuer is paying the acquirer
+         *   fee on behalf of the cardholder.
+         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
+         *   given authorization. Scores are on a range of 0-999, with 0 representing the
+         *   lowest risk and 999 representing the highest risk. For Visa transactions,
+         *   where the raw score has a range of 0-99, Lithic will normalize the score by
+         *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_15M`: The number of transactions on the card in the
+         *   trailing 15 minutes before the authorization.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
+         * - `CARD_STATE`: The current state of the card associated with the transaction.
+         *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
+         *   `PENDING_FULFILLMENT`.
+         * - `PIN_ENTERED`: Indicates whether a PIN was entered during the transaction.
+         *   Valid values are `TRUE`, `FALSE`.
+         * - `PIN_STATUS`: The current state of card's PIN. Valid values are `NOT_SET`,
+         *   `OK`, `BLOCKED`.
+         * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
+         *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
+         *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
+         * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
+         *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         */
+        attribute?:
+          | 'MCC'
+          | 'COUNTRY'
+          | 'CURRENCY'
+          | 'MERCHANT_ID'
+          | 'DESCRIPTOR'
+          | 'LIABILITY_SHIFT'
+          | 'PAN_ENTRY_MODE'
+          | 'TRANSACTION_AMOUNT'
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_15M'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H'
+          | 'CARD_STATE'
+          | 'PIN_ENTERED'
+          | 'PIN_STATUS'
+          | 'WALLET_TYPE'
+          | 'TRANSACTION_INITIATOR';
+
+        /**
+         * The operation to apply to the attribute
+         */
+        operation?:
+          | 'IS_ONE_OF'
+          | 'IS_NOT_ONE_OF'
+          | 'MATCHES'
+          | 'DOES_NOT_MATCH'
+          | 'IS_EQUAL_TO'
+          | 'IS_NOT_EQUAL_TO'
+          | 'IS_GREATER_THAN'
+          | 'IS_GREATER_THAN_OR_EQUAL_TO'
+          | 'IS_LESS_THAN'
+          | 'IS_LESS_THAN_OR_EQUAL_TO';
+
+        /**
+         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+         */
+        value?: string | number | Array<string>;
+      }
+    }
   }
 
   export interface CreateAuthRuleRequestProgramLevel {
@@ -1520,6 +3282,11 @@ export declare namespace V2CreateParams {
      * Whether the Auth Rule applies to all authorizations on the card program.
      */
     program_level: boolean;
+
+    /**
+     * The event stream during which the rule will be evaluated.
+     */
+    event_stream?: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
 
     /**
      * Card tokens to which the Auth Rule does not apply.
@@ -1538,33 +3305,153 @@ export declare namespace V2CreateParams {
       | ConditionalBlockParameters
       | VelocityLimitParams
       | MerchantLockParameters
-      | Conditional3DSActionParameters;
+      | Conditional3DSActionParameters
+      | CreateAuthRuleRequestProgramLevel.ConditionalAuthorizationActionParameters;
 
     /**
-     * The type of Auth Rule. Effectively determines the event stream during which it
-     * will be evaluated.
+     * The type of Auth Rule. For certain rule types, this determines the event stream
+     * during which it will be evaluated. For rules that can be applied to one of
+     * several event streams, the effective one is defined by the separate
+     * `event_stream` field.
      *
      * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
      * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
      * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-     * - `CONDITIONAL_3DS_ACTION`: THREE_DS_AUTHENTICATION event stream.
+     * - `CONDITIONAL_ACTION`: AUTHORIZATION or THREE_DS_AUTHENTICATION event stream.
      */
-    type?: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_3DS_ACTION';
+    type?: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
+  }
+
+  export namespace CreateAuthRuleRequestProgramLevel {
+    export interface ConditionalAuthorizationActionParameters {
+      /**
+       * The action to take if the conditions are met.
+       */
+      action: 'DECLINE' | 'CHALLENGE';
+
+      conditions: Array<ConditionalAuthorizationActionParameters.Condition>;
+    }
+
+    export namespace ConditionalAuthorizationActionParameters {
+      export interface Condition {
+        /**
+         * The attribute to target.
+         *
+         * The following attributes may be targeted:
+         *
+         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
+         *   business by the types of goods or services it provides.
+         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
+         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
+         *   Netherlands Antilles.
+         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
+         *   the transaction.
+         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
+         *   (merchant).
+         * - `DESCRIPTOR`: Short description of card acceptor.
+         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
+         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
+         *   `TOKEN_AUTHENTICATED`.
+         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
+         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
+         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
+         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
+         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
+         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
+         *   fee field in the settlement/cardholder billing currency. This is the amount
+         *   the issuer should authorize against unless the issuer is paying the acquirer
+         *   fee on behalf of the cardholder.
+         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
+         *   given authorization. Scores are on a range of 0-999, with 0 representing the
+         *   lowest risk and 999 representing the highest risk. For Visa transactions,
+         *   where the raw score has a range of 0-99, Lithic will normalize the score by
+         *   multiplying the raw score by 10x.
+         * - `CARD_TRANSACTION_COUNT_15M`: The number of transactions on the card in the
+         *   trailing 15 minutes before the authorization.
+         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+         *   trailing hour up and until the authorization.
+         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+         *   trailing 24 hours up and until the authorization.
+         * - `CARD_STATE`: The current state of the card associated with the transaction.
+         *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
+         *   `PENDING_FULFILLMENT`.
+         * - `PIN_ENTERED`: Indicates whether a PIN was entered during the transaction.
+         *   Valid values are `TRUE`, `FALSE`.
+         * - `PIN_STATUS`: The current state of card's PIN. Valid values are `NOT_SET`,
+         *   `OK`, `BLOCKED`.
+         * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
+         *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
+         *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
+         * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
+         *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         */
+        attribute?:
+          | 'MCC'
+          | 'COUNTRY'
+          | 'CURRENCY'
+          | 'MERCHANT_ID'
+          | 'DESCRIPTOR'
+          | 'LIABILITY_SHIFT'
+          | 'PAN_ENTRY_MODE'
+          | 'TRANSACTION_AMOUNT'
+          | 'RISK_SCORE'
+          | 'CARD_TRANSACTION_COUNT_15M'
+          | 'CARD_TRANSACTION_COUNT_1H'
+          | 'CARD_TRANSACTION_COUNT_24H'
+          | 'CARD_STATE'
+          | 'PIN_ENTERED'
+          | 'PIN_STATUS'
+          | 'WALLET_TYPE'
+          | 'TRANSACTION_INITIATOR';
+
+        /**
+         * The operation to apply to the attribute
+         */
+        operation?:
+          | 'IS_ONE_OF'
+          | 'IS_NOT_ONE_OF'
+          | 'MATCHES'
+          | 'DOES_NOT_MATCH'
+          | 'IS_EQUAL_TO'
+          | 'IS_NOT_EQUAL_TO'
+          | 'IS_GREATER_THAN'
+          | 'IS_GREATER_THAN_OR_EQUAL_TO'
+          | 'IS_LESS_THAN'
+          | 'IS_LESS_THAN_OR_EQUAL_TO';
+
+        /**
+         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+         */
+        value?: string | number | Array<string>;
+      }
+    }
   }
 }
 
 export type V2UpdateParams =
-  | V2UpdateParams.AccountLevelRule
+  | V2UpdateParams.Variant0
+  | V2UpdateParams.Variant1
   | V2UpdateParams.CardLevelRule
   | V2UpdateParams.ProgramLevelRule;
 
 export declare namespace V2UpdateParams {
-  export interface AccountLevelRule {
+  export interface Variant0 {
     /**
-     * Account tokens to which the Auth Rule applies.
+     * Auth Rule Name
      */
-    account_tokens?: Array<string>;
+    name?: string | null;
 
+    /**
+     * The desired state of the Auth Rule.
+     *
+     * Note that only deactivating an Auth Rule through this endpoint is supported at
+     * this time. If you need to (re-)activate an Auth Rule the /promote endpoint
+     * should be used to promote a draft to the currently active version.
+     */
+    state?: 'INACTIVE';
+  }
+
+  export interface Variant1 {
     /**
      * Auth Rule Name
      */
@@ -1635,6 +3522,11 @@ export interface V2ListParams extends CursorPageParams {
   account_token?: string;
 
   /**
+   * Only return Auth Rules that are bound to the provided business account token.
+   */
+  business_account_token?: string;
+
+  /**
    * Only return Auth Rules that are bound to the provided card token.
    */
   card_token?: string;
@@ -1647,7 +3539,7 @@ export interface V2ListParams extends CursorPageParams {
   /**
    * Only return Auth Rules that are bound to the provided scope.
    */
-  scope?: 'PROGRAM' | 'ACCOUNT' | 'CARD' | 'ANY';
+  scope?: 'PROGRAM' | 'ACCOUNT' | 'BUSINESS_ACCOUNT' | 'CARD' | 'ANY';
 }
 
 export type V2ApplyParams =
@@ -1660,7 +3552,12 @@ export declare namespace V2ApplyParams {
     /**
      * Account tokens to which the Auth Rule applies.
      */
-    account_tokens: Array<string>;
+    account_tokens?: Array<string>;
+
+    /**
+     * Business Account tokens to which the Auth Rule applies.
+     */
+    business_account_tokens?: Array<string>;
   }
 
   export interface ApplyAuthRuleRequestCardTokens {
@@ -1692,7 +3589,113 @@ export interface V2DraftParams {
     | VelocityLimitParams
     | MerchantLockParameters
     | Conditional3DSActionParameters
+    | V2DraftParams.ConditionalAuthorizationActionParameters
     | null;
+}
+
+export namespace V2DraftParams {
+  export interface ConditionalAuthorizationActionParameters {
+    /**
+     * The action to take if the conditions are met.
+     */
+    action: 'DECLINE' | 'CHALLENGE';
+
+    conditions: Array<ConditionalAuthorizationActionParameters.Condition>;
+  }
+
+  export namespace ConditionalAuthorizationActionParameters {
+    export interface Condition {
+      /**
+       * The attribute to target.
+       *
+       * The following attributes may be targeted:
+       *
+       * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
+       *   business by the types of goods or services it provides.
+       * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
+       *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
+       *   Netherlands Antilles.
+       * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
+       *   the transaction.
+       * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
+       *   (merchant).
+       * - `DESCRIPTOR`: Short description of card acceptor.
+       * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
+       *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
+       *   `TOKEN_AUTHENTICATED`.
+       * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
+       *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
+       *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
+       *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
+       *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
+       * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
+       *   fee field in the settlement/cardholder billing currency. This is the amount
+       *   the issuer should authorize against unless the issuer is paying the acquirer
+       *   fee on behalf of the cardholder.
+       * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
+       *   given authorization. Scores are on a range of 0-999, with 0 representing the
+       *   lowest risk and 999 representing the highest risk. For Visa transactions,
+       *   where the raw score has a range of 0-99, Lithic will normalize the score by
+       *   multiplying the raw score by 10x.
+       * - `CARD_TRANSACTION_COUNT_15M`: The number of transactions on the card in the
+       *   trailing 15 minutes before the authorization.
+       * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
+       *   trailing hour up and until the authorization.
+       * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
+       *   trailing 24 hours up and until the authorization.
+       * - `CARD_STATE`: The current state of the card associated with the transaction.
+       *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
+       *   `PENDING_FULFILLMENT`.
+       * - `PIN_ENTERED`: Indicates whether a PIN was entered during the transaction.
+       *   Valid values are `TRUE`, `FALSE`.
+       * - `PIN_STATUS`: The current state of card's PIN. Valid values are `NOT_SET`,
+       *   `OK`, `BLOCKED`.
+       * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
+       *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
+       *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
+       * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
+       *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+       */
+      attribute?:
+        | 'MCC'
+        | 'COUNTRY'
+        | 'CURRENCY'
+        | 'MERCHANT_ID'
+        | 'DESCRIPTOR'
+        | 'LIABILITY_SHIFT'
+        | 'PAN_ENTRY_MODE'
+        | 'TRANSACTION_AMOUNT'
+        | 'RISK_SCORE'
+        | 'CARD_TRANSACTION_COUNT_15M'
+        | 'CARD_TRANSACTION_COUNT_1H'
+        | 'CARD_TRANSACTION_COUNT_24H'
+        | 'CARD_STATE'
+        | 'PIN_ENTERED'
+        | 'PIN_STATUS'
+        | 'WALLET_TYPE'
+        | 'TRANSACTION_INITIATOR';
+
+      /**
+       * The operation to apply to the attribute
+       */
+      operation?:
+        | 'IS_ONE_OF'
+        | 'IS_NOT_ONE_OF'
+        | 'MATCHES'
+        | 'DOES_NOT_MATCH'
+        | 'IS_EQUAL_TO'
+        | 'IS_NOT_EQUAL_TO'
+        | 'IS_GREATER_THAN'
+        | 'IS_GREATER_THAN_OR_EQUAL_TO'
+        | 'IS_LESS_THAN'
+        | 'IS_LESS_THAN_OR_EQUAL_TO';
+
+      /**
+       * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+       */
+      value?: string | number | Array<string>;
+    }
+  }
 }
 
 export interface V2RetrieveReportParams {

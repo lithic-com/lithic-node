@@ -24,9 +24,9 @@ export class Backtests extends APIResource {
    * endpoint.
    *
    * Lithic currently supports backtesting for `CONDITIONAL_BLOCK` /
-   * `CONDITIONAL_3DS_ACTION` rules. Backtesting for `VELOCITY_LIMIT` rules is
-   * generally not supported. In specific cases (i.e. where Lithic has pre-calculated
-   * the requested velocity metrics for historical transactions), a backtest may be
+   * `CONDITIONAL_ACTION` rules. Backtesting for `VELOCITY_LIMIT` rules is generally
+   * not supported. In specific cases (i.e. where Lithic has pre-calculated the
+   * requested velocity metrics for historical transactions), a backtest may be
    * feasible. However, such cases are uncommon and customers should not anticipate
    * support for velocity backtests under most configurations. If a historical
    * transaction does not feature the required inputs to evaluate the rule, then it
