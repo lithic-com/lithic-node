@@ -321,6 +321,7 @@ export interface Transaction {
   pos: Transaction.Pos;
 
   result:
+    | 'ACCOUNT_PAUSED'
     | 'ACCOUNT_STATE_TRANSACTION_FAIL'
     | 'APPROVED'
     | 'BANK_CONNECTION_ERROR'
@@ -721,6 +722,7 @@ export namespace Transaction {
       | 'ACCOUNT_INACTIVE'
       | 'ACCOUNT_LIFETIME_SPEND_LIMIT_EXCEEDED'
       | 'ACCOUNT_MONTHLY_SPEND_LIMIT_EXCEEDED'
+      | 'ACCOUNT_PAUSED'
       | 'ACCOUNT_UNDER_REVIEW'
       | 'ADDRESS_INCORRECT'
       | 'APPROVED'
@@ -789,6 +791,7 @@ export namespace Transaction {
     network_info: Event.NetworkInfo | null;
 
     result:
+      | 'ACCOUNT_PAUSED'
       | 'ACCOUNT_STATE_TRANSACTION_FAIL'
       | 'APPROVED'
       | 'BANK_CONNECTION_ERROR'
@@ -1035,6 +1038,7 @@ export namespace Transaction {
         | 'ACCOUNT_INACTIVE'
         | 'ACCOUNT_LIFETIME_SPEND_LIMIT_EXCEEDED'
         | 'ACCOUNT_MONTHLY_SPEND_LIMIT_EXCEEDED'
+        | 'ACCOUNT_PAUSED'
         | 'ACCOUNT_UNDER_REVIEW'
         | 'ADDRESS_INCORRECT'
         | 'APPROVED'

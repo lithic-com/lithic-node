@@ -8,10 +8,8 @@ const client = new Lithic({
 });
 
 describe('resource v2', () => {
-  test('create: only required params', async () => {
-    const responsePromise = client.authRules.v2.create({
-      account_tokens: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
-    });
+  test('create', async () => {
+    const responsePromise = client.authRules.v2.create({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -19,15 +17,6 @@ describe('resource v2', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('create: required and optional params', async () => {
-    const response = await client.authRules.v2.create({
-      account_tokens: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
-      name: 'name',
-      parameters: { conditions: [{ attribute: 'MCC', operation: 'IS_ONE_OF', value: 'string' }] },
-      type: 'CONDITIONAL_BLOCK',
-    });
   });
 
   test('retrieve', async () => {
@@ -69,6 +58,7 @@ describe('resource v2', () => {
       client.authRules.v2.list(
         {
           account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          business_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           card_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           ending_before: 'ending_before',
           event_stream: 'AUTHORIZATION',
@@ -92,10 +82,8 @@ describe('resource v2', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('apply: only required params', async () => {
-    const responsePromise = client.authRules.v2.apply('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      account_tokens: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
-    });
+  test('apply', async () => {
+    const responsePromise = client.authRules.v2.apply('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -103,12 +91,6 @@ describe('resource v2', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('apply: required and optional params', async () => {
-    const response = await client.authRules.v2.apply('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      account_tokens: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
-    });
   });
 
   test('draft', async () => {

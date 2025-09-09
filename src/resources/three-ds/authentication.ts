@@ -387,34 +387,36 @@ export namespace AuthenticationRetrieveResponse {
    */
   export interface Merchant {
     /**
-     * Merchant identifier as assigned by the acquirer. Maps to EMV 3DS field
-     * `acquirerMerchantId`.
-     */
-    id: string;
-
-    /**
-     * Country code of the merchant requesting 3DS authentication. Maps to EMV 3DS
-     * field `merchantCountryCode`. Permitted values: ISO 3166-1 alpha-3 country code
-     * (e.g., USA).
-     */
-    country: string;
-
-    /**
-     * Merchant category code assigned to the merchant that describes its business
-     * activity type. Maps to EMV 3DS field `mcc`.
-     */
-    mcc: string;
-
-    /**
-     * Name of the merchant. Maps to EMV 3DS field `merchantName`.
-     */
-    name: string;
-
-    /**
      * Object containing additional data indicating additional risk factors related to
      * the e-commerce transaction.
      */
     risk_indicator: Merchant.RiskIndicator;
+
+    /**
+     * Merchant identifier as assigned by the acquirer. Maps to EMV 3DS field
+     * `acquirerMerchantId`. May not be present for non-payment authentications.
+     */
+    id?: string | null;
+
+    /**
+     * Country code of the merchant requesting 3DS authentication. Maps to EMV 3DS
+     * field `merchantCountryCode`. Permitted values: ISO 3166-1 alpha-3 country code
+     * (e.g., USA). May not be present for non-payment authentications.
+     */
+    country?: string | null;
+
+    /**
+     * Merchant category code assigned to the merchant that describes its business
+     * activity type. Maps to EMV 3DS field `mcc`. May not be present for non-payment
+     * authentications.
+     */
+    mcc?: string | null;
+
+    /**
+     * Name of the merchant. Maps to EMV 3DS field `merchantName`. May not be present
+     * for non-payment authentications.
+     */
+    name?: string | null;
   }
 
   export namespace Merchant {

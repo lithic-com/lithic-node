@@ -1464,12 +1464,12 @@ export interface AccountActivityListParams extends CursorPageParams {
   /**
    * Filter by transaction result
    */
-  result?: Array<'APPROVED' | 'DECLINED'>;
+  result?: 'APPROVED' | 'DECLINED';
 
   /**
    * Filter by transaction status
    */
-  status?: Array<'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED' | 'RETURNED' | 'REVERSED'>;
+  status?: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'RETURNED' | 'REVERSED' | 'SETTLED' | 'VOIDED';
 }
 
 export declare namespace AccountActivity {
