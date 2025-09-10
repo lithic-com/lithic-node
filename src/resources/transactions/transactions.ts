@@ -138,21 +138,36 @@ export class Transactions extends APIResource {
    * Simulates a credit authorization advice from the card network. This message
    * indicates that the network approved a credit authorization on your behalf.
    *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.transactions.simulateCreditAuthorization({
-   *     amount: 3831,
-   *     descriptor: 'COFFEE SHOP',
-   *     pan: '4111111289144142',
-   *     merchant_acceptor_id: 'XRKGDPOWEWQRRWU',
-   *   });
-   * ```
+   * @deprecated use `simulateCreditAuthorizationAdvice` instead
    */
   simulateCreditAuthorization(
     body: TransactionSimulateCreditAuthorizationParams,
     options?: RequestOptions,
   ): APIPromise<TransactionSimulateCreditAuthorizationResponse> {
+    return this._client.post('/v1/simulate/credit_authorization_advice', { body, ...options });
+  }
+
+  /**
+   * Simulates a credit authorization advice from the card network. This message
+   * indicates that the network approved a credit authorization on your behalf.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.transactions.simulateCreditAuthorizationAdvice(
+   *     {
+   *       amount: 3831,
+   *       descriptor: 'COFFEE SHOP',
+   *       pan: '4111111289144142',
+   *       merchant_acceptor_id: 'XRKGDPOWEWQRRWU',
+   *     },
+   *   );
+   * ```
+   */
+  simulateCreditAuthorizationAdvice(
+    body: TransactionSimulateCreditAuthorizationAdviceParams,
+    options?: RequestOptions,
+  ): APIPromise<TransactionSimulateCreditAuthorizationAdviceResponse> {
     return this._client.post('/v1/simulate/credit_authorization_advice', { body, ...options });
   }
 
@@ -1188,6 +1203,18 @@ export interface TransactionSimulateCreditAuthorizationResponse {
   debugging_request_id?: string;
 }
 
+export interface TransactionSimulateCreditAuthorizationAdviceResponse {
+  /**
+   * A unique token to reference this transaction.
+   */
+  token?: string;
+
+  /**
+   * Debugging request ID to share with Lithic Support team.
+   */
+  debugging_request_id?: string;
+}
+
 export interface TransactionSimulateReturnResponse {
   /**
    * A unique token to reference this transaction.
@@ -1395,6 +1422,37 @@ export interface TransactionSimulateCreditAuthorizationParams {
   merchant_acceptor_id?: string;
 }
 
+export interface TransactionSimulateCreditAuthorizationAdviceParams {
+  /**
+   * Amount (in cents). Any value entered will be converted into a negative amount in
+   * the simulated transaction. For example, entering 100 in this field will appear
+   * as a -100 amount in the transaction.
+   */
+  amount: number;
+
+  /**
+   * Merchant descriptor.
+   */
+  descriptor: string;
+
+  /**
+   * Sixteen digit card number.
+   */
+  pan: string;
+
+  /**
+   * Merchant category code for the transaction to be simulated. A four-digit number
+   * listed in ISO 18245. Supported merchant category codes can be found
+   * [here](https://docs.lithic.com/docs/transactions#merchant-category-codes-mccs).
+   */
+  mcc?: string;
+
+  /**
+   * Unique identifier to identify the payment card acceptor.
+   */
+  merchant_acceptor_id?: string;
+}
+
 export interface TransactionSimulateReturnParams {
   /**
    * Amount (in cents) to authorize.
@@ -1451,6 +1509,7 @@ export declare namespace Transactions {
     type TransactionSimulateAuthorizationAdviceResponse as TransactionSimulateAuthorizationAdviceResponse,
     type TransactionSimulateClearingResponse as TransactionSimulateClearingResponse,
     type TransactionSimulateCreditAuthorizationResponse as TransactionSimulateCreditAuthorizationResponse,
+    type TransactionSimulateCreditAuthorizationAdviceResponse as TransactionSimulateCreditAuthorizationAdviceResponse,
     type TransactionSimulateReturnResponse as TransactionSimulateReturnResponse,
     type TransactionSimulateReturnReversalResponse as TransactionSimulateReturnReversalResponse,
     type TransactionSimulateVoidResponse as TransactionSimulateVoidResponse,
@@ -1460,6 +1519,7 @@ export declare namespace Transactions {
     type TransactionSimulateAuthorizationAdviceParams as TransactionSimulateAuthorizationAdviceParams,
     type TransactionSimulateClearingParams as TransactionSimulateClearingParams,
     type TransactionSimulateCreditAuthorizationParams as TransactionSimulateCreditAuthorizationParams,
+    type TransactionSimulateCreditAuthorizationAdviceParams as TransactionSimulateCreditAuthorizationAdviceParams,
     type TransactionSimulateReturnParams as TransactionSimulateReturnParams,
     type TransactionSimulateReturnReversalParams as TransactionSimulateReturnReversalParams,
     type TransactionSimulateVoidParams as TransactionSimulateVoidParams,

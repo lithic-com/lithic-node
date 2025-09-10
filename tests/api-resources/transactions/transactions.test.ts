@@ -157,6 +157,31 @@ describe('resource transactions', () => {
     });
   });
 
+  test('simulateCreditAuthorizationAdvice: only required params', async () => {
+    const responsePromise = client.transactions.simulateCreditAuthorizationAdvice({
+      amount: 3831,
+      descriptor: 'COFFEE SHOP',
+      pan: '4111111289144142',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('simulateCreditAuthorizationAdvice: required and optional params', async () => {
+    const response = await client.transactions.simulateCreditAuthorizationAdvice({
+      amount: 3831,
+      descriptor: 'COFFEE SHOP',
+      pan: '4111111289144142',
+      mcc: '5812',
+      merchant_acceptor_id: 'XRKGDPOWEWQRRWU',
+    });
+  });
+
   test('simulateReturn: only required params', async () => {
     const responsePromise = client.transactions.simulateReturn({
       amount: 3831,
