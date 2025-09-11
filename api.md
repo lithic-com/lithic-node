@@ -389,6 +389,7 @@ Types:
 - <code><a href="./src/resources/transactions/transactions.ts">TransactionSimulateAuthorizationAdviceResponse</a></code>
 - <code><a href="./src/resources/transactions/transactions.ts">TransactionSimulateClearingResponse</a></code>
 - <code><a href="./src/resources/transactions/transactions.ts">TransactionSimulateCreditAuthorizationResponse</a></code>
+- <code><a href="./src/resources/transactions/transactions.ts">TransactionSimulateCreditAuthorizationAdviceResponse</a></code>
 - <code><a href="./src/resources/transactions/transactions.ts">TransactionSimulateReturnResponse</a></code>
 - <code><a href="./src/resources/transactions/transactions.ts">TransactionSimulateReturnReversalResponse</a></code>
 - <code><a href="./src/resources/transactions/transactions.ts">TransactionSimulateVoidResponse</a></code>
@@ -402,6 +403,7 @@ Methods:
 - <code title="post /v1/simulate/authorization_advice">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateAuthorizationAdvice</a>({ ...params }) -> TransactionSimulateAuthorizationAdviceResponse</code>
 - <code title="post /v1/simulate/clearing">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateClearing</a>({ ...params }) -> TransactionSimulateClearingResponse</code>
 - <code title="post /v1/simulate/credit_authorization_advice">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateCreditAuthorization</a>({ ...params }) -> TransactionSimulateCreditAuthorizationResponse</code>
+- <code title="post /v1/simulate/credit_authorization_advice">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateCreditAuthorizationAdvice</a>({ ...params }) -> TransactionSimulateCreditAuthorizationAdviceResponse</code>
 - <code title="post /v1/simulate/return">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateReturn</a>({ ...params }) -> TransactionSimulateReturnResponse</code>
 - <code title="post /v1/simulate/return_reversal">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateReturnReversal</a>({ ...params }) -> TransactionSimulateReturnReversalResponse</code>
 - <code title="post /v1/simulate/void">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateVoid</a>({ ...params }) -> TransactionSimulateVoidResponse</code>
