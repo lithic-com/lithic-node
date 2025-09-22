@@ -1485,7 +1485,8 @@ export interface TransactionSimulateVoidParams {
 
   /**
    * Amount (in cents) to void. Typically this will match the amount in the original
-   * authorization, but can be less.
+   * authorization, but can be less. Applies to authorization reversals only. An
+   * authorization expiry will always apply to the full pending amount.
    */
   amount?: number;
 
