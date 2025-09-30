@@ -211,6 +211,44 @@ export class V2 extends APIResource {
   }
 
   /**
+   * Fetches the current calculated Feature values for the given Auth Rule
+   *
+   * This only calculates the features for the active version.
+   *
+   * - VelocityLimit Rules calculates the current Velocity Feature data. This
+   *   requires a `card_token` or `account_token` matching what the rule is Scoped
+   *   to.
+   * - ConditionalBlock Rules calculates the CARD*TRANSACTION_COUNT*\* attributes on
+   *   the rule. This requires a `card_token`
+   *
+   * @example
+   * ```ts
+   * const response = await client.authRules.v2.retrieveFeatures(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  retrieveFeatures(
+    authRuleToken: string,
+    query?: V2RetrieveFeaturesParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<V2RetrieveFeaturesResponse>;
+  retrieveFeatures(
+    authRuleToken: string,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<V2RetrieveFeaturesResponse>;
+  retrieveFeatures(
+    authRuleToken: string,
+    query: V2RetrieveFeaturesParams | Core.RequestOptions = {},
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<V2RetrieveFeaturesResponse> {
+    if (isRequestOptions(query)) {
+      return this.retrieveFeatures(authRuleToken, {}, query);
+    }
+    return this._client.get(`/v2/auth_rules/${authRuleToken}/features`, { query, ...options });
+  }
+
+  /**
    * Retrieves a performance report for an Auth rule containing daily statistics and
    * evaluation outcomes.
    *
@@ -607,11 +645,16 @@ export interface VelocityLimitParams {
   filters: VelocityLimitParams.Filters;
 
   /**
+   * DEPRECATED: This has been deprecated in favor of the Trailing Window Objects
+   *
    * The size of the trailing window to calculate Spend Velocity over in seconds. The
    * minimum value is 10 seconds, and the maximum value is 2678400 seconds (31 days).
    */
   period: VelocityLimitParamsPeriodWindow;
 
+  /**
+   * The scope the velocity is calculated for
+   */
   scope: 'CARD' | 'ACCOUNT';
 
   /**
@@ -658,10 +701,34 @@ export namespace VelocityLimitParams {
      * matching this MCC will not be included in the calculated velocity.
      */
     include_mccs?: Array<string> | null;
+
+    /**
+     * PAN entry modes to include in the velocity calculation. Transactions not
+     * matching any of the provided will not be included in the calculated velocity.
+     */
+    include_pan_entry_modes?: Array<
+      | 'AUTO_ENTRY'
+      | 'BAR_CODE'
+      | 'CONTACTLESS'
+      | 'CREDENTIAL_ON_FILE'
+      | 'ECOMMERCE'
+      | 'ERROR_KEYED'
+      | 'ERROR_MAGNETIC_STRIPE'
+      | 'ICC'
+      | 'KEY_ENTERED'
+      | 'MAGNETIC_STRIPE'
+      | 'MANUAL'
+      | 'OCR'
+      | 'SECURE_CARDLESS'
+      | 'UNSPECIFIED'
+      | 'UNKNOWN'
+    > | null;
   }
 }
 
 /**
+ * DEPRECATED: This has been deprecated in favor of the Trailing Window Objects
+ *
  * The size of the trailing window to calculate Spend Velocity over in seconds. The
  * minimum value is 10 seconds, and the maximum value is 2678400 seconds (31 days).
  */
@@ -778,6 +845,12 @@ export interface V2CreateResponse {
   event_stream: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
 
   /**
+   * Indicates whether this auth rule is managed by Lithic. If true, the rule cannot
+   * be modified or deleted by the user
+   */
+  lithic_managed: boolean;
+
+  /**
    * Auth Rule Name
    */
   name: string | null;
@@ -869,6 +942,8 @@ export namespace V2CreateResponse {
          *   fee field in the settlement/cardholder billing currency. This is the amount
          *   the issuer should authorize against unless the issuer is paying the acquirer
          *   fee on behalf of the cardholder.
+         * - `CASH_AMOUNT`: The cash amount of the transaction in minor units (cents). This
+         *   represents the amount of cash being withdrawn or advanced.
          * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
          *   given authorization. Scores are on a range of 0-999, with 0 representing the
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
@@ -902,6 +977,7 @@ export namespace V2CreateResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
+          | 'CASH_AMOUNT'
           | 'RISK_SCORE'
           | 'CARD_TRANSACTION_COUNT_15M'
           | 'CARD_TRANSACTION_COUNT_1H'
@@ -992,6 +1068,8 @@ export namespace V2CreateResponse {
          *   fee field in the settlement/cardholder billing currency. This is the amount
          *   the issuer should authorize against unless the issuer is paying the acquirer
          *   fee on behalf of the cardholder.
+         * - `CASH_AMOUNT`: The cash amount of the transaction in minor units (cents). This
+         *   represents the amount of cash being withdrawn or advanced.
          * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
          *   given authorization. Scores are on a range of 0-999, with 0 representing the
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
@@ -1025,6 +1103,7 @@ export namespace V2CreateResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
+          | 'CASH_AMOUNT'
           | 'RISK_SCORE'
           | 'CARD_TRANSACTION_COUNT_15M'
           | 'CARD_TRANSACTION_COUNT_1H'
@@ -1088,6 +1167,12 @@ export interface V2RetrieveResponse {
    * The event stream during which the rule will be evaluated.
    */
   event_stream: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
+
+  /**
+   * Indicates whether this auth rule is managed by Lithic. If true, the rule cannot
+   * be modified or deleted by the user
+   */
+  lithic_managed: boolean;
 
   /**
    * Auth Rule Name
@@ -1181,6 +1266,8 @@ export namespace V2RetrieveResponse {
          *   fee field in the settlement/cardholder billing currency. This is the amount
          *   the issuer should authorize against unless the issuer is paying the acquirer
          *   fee on behalf of the cardholder.
+         * - `CASH_AMOUNT`: The cash amount of the transaction in minor units (cents). This
+         *   represents the amount of cash being withdrawn or advanced.
          * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
          *   given authorization. Scores are on a range of 0-999, with 0 representing the
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
@@ -1214,6 +1301,7 @@ export namespace V2RetrieveResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
+          | 'CASH_AMOUNT'
           | 'RISK_SCORE'
           | 'CARD_TRANSACTION_COUNT_15M'
           | 'CARD_TRANSACTION_COUNT_1H'
@@ -1304,6 +1392,8 @@ export namespace V2RetrieveResponse {
          *   fee field in the settlement/cardholder billing currency. This is the amount
          *   the issuer should authorize against unless the issuer is paying the acquirer
          *   fee on behalf of the cardholder.
+         * - `CASH_AMOUNT`: The cash amount of the transaction in minor units (cents). This
+         *   represents the amount of cash being withdrawn or advanced.
          * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
          *   given authorization. Scores are on a range of 0-999, with 0 representing the
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
@@ -1337,6 +1427,7 @@ export namespace V2RetrieveResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
+          | 'CASH_AMOUNT'
           | 'RISK_SCORE'
           | 'CARD_TRANSACTION_COUNT_15M'
           | 'CARD_TRANSACTION_COUNT_1H'
@@ -1400,6 +1491,12 @@ export interface V2UpdateResponse {
    * The event stream during which the rule will be evaluated.
    */
   event_stream: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
+
+  /**
+   * Indicates whether this auth rule is managed by Lithic. If true, the rule cannot
+   * be modified or deleted by the user
+   */
+  lithic_managed: boolean;
 
   /**
    * Auth Rule Name
@@ -1493,6 +1590,8 @@ export namespace V2UpdateResponse {
          *   fee field in the settlement/cardholder billing currency. This is the amount
          *   the issuer should authorize against unless the issuer is paying the acquirer
          *   fee on behalf of the cardholder.
+         * - `CASH_AMOUNT`: The cash amount of the transaction in minor units (cents). This
+         *   represents the amount of cash being withdrawn or advanced.
          * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
          *   given authorization. Scores are on a range of 0-999, with 0 representing the
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
@@ -1526,6 +1625,7 @@ export namespace V2UpdateResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
+          | 'CASH_AMOUNT'
           | 'RISK_SCORE'
           | 'CARD_TRANSACTION_COUNT_15M'
           | 'CARD_TRANSACTION_COUNT_1H'
@@ -1616,6 +1716,8 @@ export namespace V2UpdateResponse {
          *   fee field in the settlement/cardholder billing currency. This is the amount
          *   the issuer should authorize against unless the issuer is paying the acquirer
          *   fee on behalf of the cardholder.
+         * - `CASH_AMOUNT`: The cash amount of the transaction in minor units (cents). This
+         *   represents the amount of cash being withdrawn or advanced.
          * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
          *   given authorization. Scores are on a range of 0-999, with 0 representing the
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
@@ -1649,6 +1751,7 @@ export namespace V2UpdateResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
+          | 'CASH_AMOUNT'
           | 'RISK_SCORE'
           | 'CARD_TRANSACTION_COUNT_15M'
           | 'CARD_TRANSACTION_COUNT_1H'
@@ -1712,6 +1815,12 @@ export interface V2ListResponse {
    * The event stream during which the rule will be evaluated.
    */
   event_stream: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
+
+  /**
+   * Indicates whether this auth rule is managed by Lithic. If true, the rule cannot
+   * be modified or deleted by the user
+   */
+  lithic_managed: boolean;
 
   /**
    * Auth Rule Name
@@ -1805,6 +1914,8 @@ export namespace V2ListResponse {
          *   fee field in the settlement/cardholder billing currency. This is the amount
          *   the issuer should authorize against unless the issuer is paying the acquirer
          *   fee on behalf of the cardholder.
+         * - `CASH_AMOUNT`: The cash amount of the transaction in minor units (cents). This
+         *   represents the amount of cash being withdrawn or advanced.
          * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
          *   given authorization. Scores are on a range of 0-999, with 0 representing the
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
@@ -1838,6 +1949,7 @@ export namespace V2ListResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
+          | 'CASH_AMOUNT'
           | 'RISK_SCORE'
           | 'CARD_TRANSACTION_COUNT_15M'
           | 'CARD_TRANSACTION_COUNT_1H'
@@ -1928,6 +2040,8 @@ export namespace V2ListResponse {
          *   fee field in the settlement/cardholder billing currency. This is the amount
          *   the issuer should authorize against unless the issuer is paying the acquirer
          *   fee on behalf of the cardholder.
+         * - `CASH_AMOUNT`: The cash amount of the transaction in minor units (cents). This
+         *   represents the amount of cash being withdrawn or advanced.
          * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
          *   given authorization. Scores are on a range of 0-999, with 0 representing the
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
@@ -1961,6 +2075,7 @@ export namespace V2ListResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
+          | 'CASH_AMOUNT'
           | 'RISK_SCORE'
           | 'CARD_TRANSACTION_COUNT_15M'
           | 'CARD_TRANSACTION_COUNT_1H'
@@ -2024,6 +2139,12 @@ export interface V2ApplyResponse {
    * The event stream during which the rule will be evaluated.
    */
   event_stream: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
+
+  /**
+   * Indicates whether this auth rule is managed by Lithic. If true, the rule cannot
+   * be modified or deleted by the user
+   */
+  lithic_managed: boolean;
 
   /**
    * Auth Rule Name
@@ -2117,6 +2238,8 @@ export namespace V2ApplyResponse {
          *   fee field in the settlement/cardholder billing currency. This is the amount
          *   the issuer should authorize against unless the issuer is paying the acquirer
          *   fee on behalf of the cardholder.
+         * - `CASH_AMOUNT`: The cash amount of the transaction in minor units (cents). This
+         *   represents the amount of cash being withdrawn or advanced.
          * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
          *   given authorization. Scores are on a range of 0-999, with 0 representing the
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
@@ -2150,6 +2273,7 @@ export namespace V2ApplyResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
+          | 'CASH_AMOUNT'
           | 'RISK_SCORE'
           | 'CARD_TRANSACTION_COUNT_15M'
           | 'CARD_TRANSACTION_COUNT_1H'
@@ -2240,6 +2364,8 @@ export namespace V2ApplyResponse {
          *   fee field in the settlement/cardholder billing currency. This is the amount
          *   the issuer should authorize against unless the issuer is paying the acquirer
          *   fee on behalf of the cardholder.
+         * - `CASH_AMOUNT`: The cash amount of the transaction in minor units (cents). This
+         *   represents the amount of cash being withdrawn or advanced.
          * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
          *   given authorization. Scores are on a range of 0-999, with 0 representing the
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
@@ -2273,6 +2399,7 @@ export namespace V2ApplyResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
+          | 'CASH_AMOUNT'
           | 'RISK_SCORE'
           | 'CARD_TRANSACTION_COUNT_15M'
           | 'CARD_TRANSACTION_COUNT_1H'
@@ -2336,6 +2463,12 @@ export interface V2DraftResponse {
    * The event stream during which the rule will be evaluated.
    */
   event_stream: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
+
+  /**
+   * Indicates whether this auth rule is managed by Lithic. If true, the rule cannot
+   * be modified or deleted by the user
+   */
+  lithic_managed: boolean;
 
   /**
    * Auth Rule Name
@@ -2429,6 +2562,8 @@ export namespace V2DraftResponse {
          *   fee field in the settlement/cardholder billing currency. This is the amount
          *   the issuer should authorize against unless the issuer is paying the acquirer
          *   fee on behalf of the cardholder.
+         * - `CASH_AMOUNT`: The cash amount of the transaction in minor units (cents). This
+         *   represents the amount of cash being withdrawn or advanced.
          * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
          *   given authorization. Scores are on a range of 0-999, with 0 representing the
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
@@ -2462,6 +2597,7 @@ export namespace V2DraftResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
+          | 'CASH_AMOUNT'
           | 'RISK_SCORE'
           | 'CARD_TRANSACTION_COUNT_15M'
           | 'CARD_TRANSACTION_COUNT_1H'
@@ -2552,6 +2688,8 @@ export namespace V2DraftResponse {
          *   fee field in the settlement/cardholder billing currency. This is the amount
          *   the issuer should authorize against unless the issuer is paying the acquirer
          *   fee on behalf of the cardholder.
+         * - `CASH_AMOUNT`: The cash amount of the transaction in minor units (cents). This
+         *   represents the amount of cash being withdrawn or advanced.
          * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
          *   given authorization. Scores are on a range of 0-999, with 0 representing the
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
@@ -2585,6 +2723,7 @@ export namespace V2DraftResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
+          | 'CASH_AMOUNT'
           | 'RISK_SCORE'
           | 'CARD_TRANSACTION_COUNT_15M'
           | 'CARD_TRANSACTION_COUNT_1H'
@@ -2648,6 +2787,12 @@ export interface V2PromoteResponse {
    * The event stream during which the rule will be evaluated.
    */
   event_stream: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
+
+  /**
+   * Indicates whether this auth rule is managed by Lithic. If true, the rule cannot
+   * be modified or deleted by the user
+   */
+  lithic_managed: boolean;
 
   /**
    * Auth Rule Name
@@ -2741,6 +2886,8 @@ export namespace V2PromoteResponse {
          *   fee field in the settlement/cardholder billing currency. This is the amount
          *   the issuer should authorize against unless the issuer is paying the acquirer
          *   fee on behalf of the cardholder.
+         * - `CASH_AMOUNT`: The cash amount of the transaction in minor units (cents). This
+         *   represents the amount of cash being withdrawn or advanced.
          * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
          *   given authorization. Scores are on a range of 0-999, with 0 representing the
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
@@ -2774,6 +2921,7 @@ export namespace V2PromoteResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
+          | 'CASH_AMOUNT'
           | 'RISK_SCORE'
           | 'CARD_TRANSACTION_COUNT_15M'
           | 'CARD_TRANSACTION_COUNT_1H'
@@ -2864,6 +3012,8 @@ export namespace V2PromoteResponse {
          *   fee field in the settlement/cardholder billing currency. This is the amount
          *   the issuer should authorize against unless the issuer is paying the acquirer
          *   fee on behalf of the cardholder.
+         * - `CASH_AMOUNT`: The cash amount of the transaction in minor units (cents). This
+         *   represents the amount of cash being withdrawn or advanced.
          * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
          *   given authorization. Scores are on a range of 0-999, with 0 representing the
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
@@ -2897,6 +3047,7 @@ export namespace V2PromoteResponse {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
+          | 'CASH_AMOUNT'
           | 'RISK_SCORE'
           | 'CARD_TRANSACTION_COUNT_15M'
           | 'CARD_TRANSACTION_COUNT_1H'
@@ -2933,6 +3084,106 @@ export namespace V2PromoteResponse {
 
 export interface V2ReportResponse {
   report_token?: string;
+}
+
+export interface V2RetrieveFeaturesResponse {
+  /**
+   * Timestamp at which the Features were evaluated
+   */
+  evaluated: string;
+
+  /**
+   * Calculated Features used for evaluation of the provided Auth Rule
+   */
+  features: Array<V2RetrieveFeaturesResponse.Feature>;
+}
+
+export namespace V2RetrieveFeaturesResponse {
+  export interface Feature {
+    filters: Feature.Filters;
+
+    /**
+     * DEPRECATED: This has been deprecated in favor of the Trailing Window Objects
+     *
+     * The size of the trailing window to calculate Spend Velocity over in seconds. The
+     * minimum value is 10 seconds, and the maximum value is 2678400 seconds (31 days).
+     */
+    period: V2API.VelocityLimitParamsPeriodWindow;
+
+    /**
+     * The scope the velocity is calculated for
+     */
+    scope: 'CARD' | 'ACCOUNT';
+
+    value: Feature.Value;
+  }
+
+  export namespace Feature {
+    export interface Filters {
+      /**
+       * ISO-3166-1 alpha-3 Country Codes to exclude from the velocity calculation.
+       * Transactions matching any of the provided will be excluded from the calculated
+       * velocity.
+       */
+      exclude_countries?: Array<string> | null;
+
+      /**
+       * Merchant Category Codes to exclude from the velocity calculation. Transactions
+       * matching this MCC will be excluded from the calculated velocity.
+       */
+      exclude_mccs?: Array<string> | null;
+
+      /**
+       * ISO-3166-1 alpha-3 Country Codes to include in the velocity calculation.
+       * Transactions not matching any of the provided will not be included in the
+       * calculated velocity.
+       */
+      include_countries?: Array<string> | null;
+
+      /**
+       * Merchant Category Codes to include in the velocity calculation. Transactions not
+       * matching this MCC will not be included in the calculated velocity.
+       */
+      include_mccs?: Array<string> | null;
+
+      /**
+       * PAN entry modes to include in the velocity calculation. Transactions not
+       * matching any of the provided will not be included in the calculated velocity.
+       */
+      include_pan_entry_modes?: Array<
+        | 'AUTO_ENTRY'
+        | 'BAR_CODE'
+        | 'CONTACTLESS'
+        | 'CREDENTIAL_ON_FILE'
+        | 'ECOMMERCE'
+        | 'ERROR_KEYED'
+        | 'ERROR_MAGNETIC_STRIPE'
+        | 'ICC'
+        | 'KEY_ENTERED'
+        | 'MAGNETIC_STRIPE'
+        | 'MANUAL'
+        | 'OCR'
+        | 'SECURE_CARDLESS'
+        | 'UNSPECIFIED'
+        | 'UNKNOWN'
+      > | null;
+    }
+
+    export interface Value {
+      /**
+       * Amount (in cents) for the given Auth Rule that is used as input for calculating
+       * the rule. For Velocity Limit rules this would be the calculated Velocity. For
+       * Conditional Rules using CARD*TRANSACTION_COUNT*\* this will be 0
+       */
+      amount: number;
+
+      /**
+       * Number of velocity impacting transactions matching the given scope, period and
+       * filters
+       */
+      count: number;
+    }
+  }
 }
 
 export interface V2RetrieveReportResponse {
@@ -3066,6 +3317,8 @@ export declare namespace V2CreateParams {
          *   fee field in the settlement/cardholder billing currency. This is the amount
          *   the issuer should authorize against unless the issuer is paying the acquirer
          *   fee on behalf of the cardholder.
+         * - `CASH_AMOUNT`: The cash amount of the transaction in minor units (cents). This
+         *   represents the amount of cash being withdrawn or advanced.
          * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
          *   given authorization. Scores are on a range of 0-999, with 0 representing the
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
@@ -3099,6 +3352,7 @@ export declare namespace V2CreateParams {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
+          | 'CASH_AMOUNT'
           | 'RISK_SCORE'
           | 'CARD_TRANSACTION_COUNT_15M'
           | 'CARD_TRANSACTION_COUNT_1H'
@@ -3211,6 +3465,8 @@ export declare namespace V2CreateParams {
          *   fee field in the settlement/cardholder billing currency. This is the amount
          *   the issuer should authorize against unless the issuer is paying the acquirer
          *   fee on behalf of the cardholder.
+         * - `CASH_AMOUNT`: The cash amount of the transaction in minor units (cents). This
+         *   represents the amount of cash being withdrawn or advanced.
          * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
          *   given authorization. Scores are on a range of 0-999, with 0 representing the
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
@@ -3244,6 +3500,7 @@ export declare namespace V2CreateParams {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
+          | 'CASH_AMOUNT'
           | 'RISK_SCORE'
           | 'CARD_TRANSACTION_COUNT_15M'
           | 'CARD_TRANSACTION_COUNT_1H'
@@ -3361,6 +3618,8 @@ export declare namespace V2CreateParams {
          *   fee field in the settlement/cardholder billing currency. This is the amount
          *   the issuer should authorize against unless the issuer is paying the acquirer
          *   fee on behalf of the cardholder.
+         * - `CASH_AMOUNT`: The cash amount of the transaction in minor units (cents). This
+         *   represents the amount of cash being withdrawn or advanced.
          * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
          *   given authorization. Scores are on a range of 0-999, with 0 representing the
          *   lowest risk and 999 representing the highest risk. For Visa transactions,
@@ -3394,6 +3653,7 @@ export declare namespace V2CreateParams {
           | 'LIABILITY_SHIFT'
           | 'PAN_ENTRY_MODE'
           | 'TRANSACTION_AMOUNT'
+          | 'CASH_AMOUNT'
           | 'RISK_SCORE'
           | 'CARD_TRANSACTION_COUNT_15M'
           | 'CARD_TRANSACTION_COUNT_1H'
@@ -3632,6 +3892,8 @@ export namespace V2DraftParams {
        *   fee field in the settlement/cardholder billing currency. This is the amount
        *   the issuer should authorize against unless the issuer is paying the acquirer
        *   fee on behalf of the cardholder.
+       * - `CASH_AMOUNT`: The cash amount of the transaction in minor units (cents). This
+       *   represents the amount of cash being withdrawn or advanced.
        * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
        *   given authorization. Scores are on a range of 0-999, with 0 representing the
        *   lowest risk and 999 representing the highest risk. For Visa transactions,
@@ -3665,6 +3927,7 @@ export namespace V2DraftParams {
         | 'LIABILITY_SHIFT'
         | 'PAN_ENTRY_MODE'
         | 'TRANSACTION_AMOUNT'
+        | 'CASH_AMOUNT'
         | 'RISK_SCORE'
         | 'CARD_TRANSACTION_COUNT_15M'
         | 'CARD_TRANSACTION_COUNT_1H'
@@ -3696,6 +3959,12 @@ export namespace V2DraftParams {
       value?: string | number | Array<string>;
     }
   }
+}
+
+export interface V2RetrieveFeaturesParams {
+  account_token?: string;
+
+  card_token?: string;
 }
 
 export interface V2RetrieveReportParams {
@@ -3732,6 +4001,7 @@ export declare namespace V2 {
     type V2DraftResponse as V2DraftResponse,
     type V2PromoteResponse as V2PromoteResponse,
     type V2ReportResponse as V2ReportResponse,
+    type V2RetrieveFeaturesResponse as V2RetrieveFeaturesResponse,
     type V2RetrieveReportResponse as V2RetrieveReportResponse,
     V2ListResponsesCursorPage as V2ListResponsesCursorPage,
     type V2CreateParams as V2CreateParams,
@@ -3739,6 +4009,7 @@ export declare namespace V2 {
     type V2ListParams as V2ListParams,
     type V2ApplyParams as V2ApplyParams,
     type V2DraftParams as V2DraftParams,
+    type V2RetrieveFeaturesParams as V2RetrieveFeaturesParams,
     type V2RetrieveReportParams as V2RetrieveReportParams,
   };
 

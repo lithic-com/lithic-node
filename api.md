@@ -85,6 +85,7 @@ Types:
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2DraftResponse</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2PromoteResponse</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2ReportResponse</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">V2RetrieveFeaturesResponse</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2RetrieveReportResponse</a></code>
 
 Methods:
@@ -98,6 +99,7 @@ Methods:
 - <code title="post /v2/auth_rules/{auth_rule_token}/draft">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">draft</a>(authRuleToken, { ...params }) -> V2DraftResponse</code>
 - <code title="post /v2/auth_rules/{auth_rule_token}/promote">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">promote</a>(authRuleToken) -> V2PromoteResponse</code>
 - <code title="post /v2/auth_rules/{auth_rule_token}/report">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">report</a>(authRuleToken) -> V2ReportResponse</code>
+- <code title="get /v2/auth_rules/{auth_rule_token}/features">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">retrieveFeatures</a>(authRuleToken, { ...params }) -> V2RetrieveFeaturesResponse</code>
 - <code title="get /v2/auth_rules/{auth_rule_token}/report">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">retrieveReport</a>(authRuleToken, { ...params }) -> V2RetrieveReportResponse</code>
 
 ### Backtests
