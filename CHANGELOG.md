@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.118.0 (2025-09-30)
+
+Full Changelog: [v0.117.0...v0.118.0](https://github.com/lithic-com/lithic-node/compare/v0.117.0...v0.118.0)
+
+### Features
+
+* **api:** adds support for Auth Rule features ([b6f3fe5](https://github.com/lithic-com/lithic-node/commit/b6f3fe52db085742c6d20d31de969e72ddc43b8e))
+
+
+### Performance Improvements
+
+* faster formatting ([9655d02](https://github.com/lithic-com/lithic-node/commit/9655d02ac719fc1ec86aad81f48978ae70de05b9))
+
+
+### Chores
+
+* do not install brew dependencies in ./scripts/bootstrap by default ([45a4d76](https://github.com/lithic-com/lithic-node/commit/45a4d768d929e802118103c63dba6b7ab61832f6))
+* **docs:** small updates to doc strings on a few endpoints ([4cddaec](https://github.com/lithic-com/lithic-node/commit/4cddaec3d58f0112e4d20a8e6639fbd7e782bfe7))
+* **internal:** codegen related update ([b25d202](https://github.com/lithic-com/lithic-node/commit/b25d2025ad5d21ab206bf7436867ac166c45819c))
+* **internal:** fix incremental formatting in some cases ([4ff1df4](https://github.com/lithic-com/lithic-node/commit/4ff1df4ba0679cd68fdb07a2ad0a591a7dfd2038))
+* **internal:** ignore .eslintcache ([7c61939](https://github.com/lithic-com/lithic-node/commit/7c619399bc0bb0e1322785ca3192602819560656))
+* **internal:** remove deprecated `compilerOptions.baseUrl` from tsconfig.json ([e8adde0](https://github.com/lithic-com/lithic-node/commit/e8adde0644dee008d9401faa8c064f7372217753))
+
 ## 0.117.0 (2025-09-11)
 
 Full Changelog: [v0.116.0...v0.117.0](https://github.com/lithic-com/lithic-node/compare/v0.116.0...v0.117.0)
