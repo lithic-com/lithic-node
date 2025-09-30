@@ -22,6 +22,8 @@ import {
   V2ListResponsesCursorPage,
   V2PromoteResponse,
   V2ReportResponse,
+  V2RetrieveFeaturesParams,
+  V2RetrieveFeaturesResponse,
   V2RetrieveReportParams,
   V2RetrieveReportResponse,
   V2RetrieveResponse,
@@ -57,6 +59,7 @@ export declare namespace AuthRules {
     type V2DraftResponse as V2DraftResponse,
     type V2PromoteResponse as V2PromoteResponse,
     type V2ReportResponse as V2ReportResponse,
+    type V2RetrieveFeaturesResponse as V2RetrieveFeaturesResponse,
     type V2RetrieveReportResponse as V2RetrieveReportResponse,
     type V2ListResponsesCursorPage as V2ListResponsesCursorPage,
     type V2CreateParams as V2CreateParams,
@@ -64,6 +67,7 @@ export declare namespace AuthRules {
     type V2ListParams as V2ListParams,
     type V2ApplyParams as V2ApplyParams,
     type V2DraftParams as V2DraftParams,
+    type V2RetrieveFeaturesParams as V2RetrieveFeaturesParams,
     type V2RetrieveReportParams as V2RetrieveReportParams,
   };
 }
