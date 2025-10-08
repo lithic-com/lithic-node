@@ -15,7 +15,7 @@ describe('resource bookTransfers', () => {
       from_financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       subtype: 'subtype',
       to_financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      type: 'ATM_WITHDRAWAL',
+      type: 'ATM_BALANCE_INQUIRY',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -33,7 +33,7 @@ describe('resource bookTransfers', () => {
       from_financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       subtype: 'subtype',
       to_financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      type: 'ATM_WITHDRAWAL',
+      type: 'ATM_BALANCE_INQUIRY',
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       external_id: 'external_id',
       memo: 'memo',
@@ -71,7 +71,7 @@ describe('resource bookTransfers', () => {
           account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           begin: '2019-12-27T18:11:19.117Z',
           business_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          category: 'BALANCE_OR_FUNDING',
+          category: 'ADJUSTMENT',
           end: '2019-12-27T18:11:19.117Z',
           ending_before: 'ending_before',
           financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',

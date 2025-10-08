@@ -86,6 +86,11 @@ export namespace AccountActivityListResponse {
     category:
       | 'ACH'
       | 'BALANCE_OR_FUNDING'
+      | 'FEE'
+      | 'REWARD'
+      | 'ADJUSTMENT'
+      | 'DERECOGNITION'
+      | 'DISPUTE'
       | 'CARD'
       | 'EXTERNAL_ACH'
       | 'EXTERNAL_CHECK'
@@ -183,12 +188,14 @@ export namespace AccountActivityListResponse {
         | 'ACH_ORIGINATION_INITIATED'
         | 'ACH_ORIGINATION_PROCESSED'
         | 'ACH_ORIGINATION_RELEASED'
+        | 'ACH_ORIGINATION_REJECTED'
         | 'ACH_ORIGINATION_REVIEWED'
         | 'ACH_ORIGINATION_SETTLED'
         | 'ACH_RECEIPT_PROCESSED'
         | 'ACH_RECEIPT_SETTLED'
         | 'ACH_RETURN_INITIATED'
         | 'ACH_RETURN_PROCESSED'
+        | 'ACH_RETURN_REJECTED'
         | 'ACH_RETURN_SETTLED'
         | 'AUTHORIZATION'
         | 'AUTHORIZATION_ADVICE'
@@ -260,19 +267,15 @@ export namespace AccountActivityListResponse {
     token: string;
 
     category:
-      | 'ACH'
+      | 'ADJUSTMENT'
       | 'BALANCE_OR_FUNDING'
-      | 'CARD'
-      | 'EXTERNAL_ACH'
-      | 'EXTERNAL_CHECK'
-      | 'EXTERNAL_TRANSFER'
-      | 'EXTERNAL_WIRE'
-      | 'MANAGEMENT_ADJUSTMENT'
-      | 'MANAGEMENT_DISPUTE'
-      | 'MANAGEMENT_FEE'
-      | 'MANAGEMENT_REWARD'
-      | 'MANAGEMENT_DISBURSEMENT'
-      | 'PROGRAM_FUNDING';
+      | 'DERECOGNITION'
+      | 'DISPUTE'
+      | 'FEE'
+      | 'INTERNAL'
+      | 'REWARD'
+      | 'PROGRAM_FUNDING'
+      | 'TRANSFER';
 
     /**
      * ISO 8601 timestamp of when the transaction was created
@@ -379,6 +382,7 @@ export namespace AccountActivityListResponse {
        * Type of the book transfer
        */
       type:
+        | 'ATM_BALANCE_INQUIRY'
         | 'ATM_WITHDRAWAL'
         | 'ATM_DECLINE'
         | 'INTERNATIONAL_ATM_WITHDRAWAL'
@@ -466,6 +470,11 @@ export namespace AccountActivityListResponse {
     category:
       | 'ACH'
       | 'BALANCE_OR_FUNDING'
+      | 'FEE'
+      | 'REWARD'
+      | 'ADJUSTMENT'
+      | 'DERECOGNITION'
+      | 'DISPUTE'
       | 'CARD'
       | 'EXTERNAL_ACH'
       | 'EXTERNAL_CHECK'
@@ -764,6 +773,11 @@ export namespace AccountActivityRetrieveTransactionResponse {
     category:
       | 'ACH'
       | 'BALANCE_OR_FUNDING'
+      | 'FEE'
+      | 'REWARD'
+      | 'ADJUSTMENT'
+      | 'DERECOGNITION'
+      | 'DISPUTE'
       | 'CARD'
       | 'EXTERNAL_ACH'
       | 'EXTERNAL_CHECK'
@@ -861,12 +875,14 @@ export namespace AccountActivityRetrieveTransactionResponse {
         | 'ACH_ORIGINATION_INITIATED'
         | 'ACH_ORIGINATION_PROCESSED'
         | 'ACH_ORIGINATION_RELEASED'
+        | 'ACH_ORIGINATION_REJECTED'
         | 'ACH_ORIGINATION_REVIEWED'
         | 'ACH_ORIGINATION_SETTLED'
         | 'ACH_RECEIPT_PROCESSED'
         | 'ACH_RECEIPT_SETTLED'
         | 'ACH_RETURN_INITIATED'
         | 'ACH_RETURN_PROCESSED'
+        | 'ACH_RETURN_REJECTED'
         | 'ACH_RETURN_SETTLED'
         | 'AUTHORIZATION'
         | 'AUTHORIZATION_ADVICE'
@@ -938,19 +954,15 @@ export namespace AccountActivityRetrieveTransactionResponse {
     token: string;
 
     category:
-      | 'ACH'
+      | 'ADJUSTMENT'
       | 'BALANCE_OR_FUNDING'
-      | 'CARD'
-      | 'EXTERNAL_ACH'
-      | 'EXTERNAL_CHECK'
-      | 'EXTERNAL_TRANSFER'
-      | 'EXTERNAL_WIRE'
-      | 'MANAGEMENT_ADJUSTMENT'
-      | 'MANAGEMENT_DISPUTE'
-      | 'MANAGEMENT_FEE'
-      | 'MANAGEMENT_REWARD'
-      | 'MANAGEMENT_DISBURSEMENT'
-      | 'PROGRAM_FUNDING';
+      | 'DERECOGNITION'
+      | 'DISPUTE'
+      | 'FEE'
+      | 'INTERNAL'
+      | 'REWARD'
+      | 'PROGRAM_FUNDING'
+      | 'TRANSFER';
 
     /**
      * ISO 8601 timestamp of when the transaction was created
@@ -1057,6 +1069,7 @@ export namespace AccountActivityRetrieveTransactionResponse {
        * Type of the book transfer
        */
       type:
+        | 'ATM_BALANCE_INQUIRY'
         | 'ATM_WITHDRAWAL'
         | 'ATM_DECLINE'
         | 'INTERNATIONAL_ATM_WITHDRAWAL'
@@ -1144,6 +1157,11 @@ export namespace AccountActivityRetrieveTransactionResponse {
     category:
       | 'ACH'
       | 'BALANCE_OR_FUNDING'
+      | 'FEE'
+      | 'REWARD'
+      | 'ADJUSTMENT'
+      | 'DERECOGNITION'
+      | 'DISPUTE'
       | 'CARD'
       | 'EXTERNAL_ACH'
       | 'EXTERNAL_CHECK'
@@ -1438,6 +1456,11 @@ export interface AccountActivityListParams extends CursorPageParams {
   category?:
     | 'ACH'
     | 'BALANCE_OR_FUNDING'
+    | 'FEE'
+    | 'REWARD'
+    | 'ADJUSTMENT'
+    | 'DERECOGNITION'
+    | 'DISPUTE'
     | 'CARD'
     | 'EXTERNAL_ACH'
     | 'EXTERNAL_CHECK'

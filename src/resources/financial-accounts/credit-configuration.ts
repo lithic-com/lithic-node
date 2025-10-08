@@ -56,6 +56,8 @@ export interface FinancialAccountCreditConfig {
    */
   account_token: string;
 
+  auto_collection_configuration: FinancialAccountCreditConfig.AutoCollectionConfiguration;
+
   /**
    * Reason for the financial account being marked as Charged Off
    */
@@ -83,7 +85,18 @@ export interface FinancialAccountCreditConfig {
   tier: string | null;
 }
 
+export namespace FinancialAccountCreditConfig {
+  export interface AutoCollectionConfiguration {
+    /**
+     * If auto collection is enabled for this account
+     */
+    auto_collection_enabled: boolean;
+  }
+}
+
 export interface CreditConfigurationUpdateParams {
+  auto_collection_configuration?: CreditConfigurationUpdateParams.AutoCollectionConfiguration;
+
   credit_limit?: number;
 
   /**
@@ -97,6 +110,15 @@ export interface CreditConfigurationUpdateParams {
    * Tier to assign to a financial account
    */
   tier?: string;
+}
+
+export namespace CreditConfigurationUpdateParams {
+  export interface AutoCollectionConfiguration {
+    /**
+     * If auto collection is enabled for this account
+     */
+    auto_collection_enabled?: boolean;
+  }
 }
 
 export declare namespace CreditConfiguration {

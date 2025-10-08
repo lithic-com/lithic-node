@@ -57,10 +57,16 @@ export interface BookTransferResponse {
    */
   token: string;
 
-  /**
-   * Category of the book transfer
-   */
-  category: 'ADJUSTMENT' | 'BALANCE_OR_FUNDING' | 'DERECOGNITION' | 'DISPUTE' | 'FEE' | 'REWARD' | 'TRANSFER';
+  category:
+    | 'ADJUSTMENT'
+    | 'BALANCE_OR_FUNDING'
+    | 'DERECOGNITION'
+    | 'DISPUTE'
+    | 'FEE'
+    | 'INTERNAL'
+    | 'REWARD'
+    | 'PROGRAM_FUNDING'
+    | 'TRANSFER';
 
   /**
    * Date and time when the transfer occurred. UTC time zone.
@@ -180,6 +186,7 @@ export namespace BookTransferResponse {
      * Type of the book transfer
      */
     type:
+      | 'ATM_BALANCE_INQUIRY'
       | 'ATM_WITHDRAWAL'
       | 'ATM_DECLINE'
       | 'INTERNATIONAL_ATM_WITHDRAWAL'
@@ -235,10 +242,16 @@ export interface BookTransferCreateParams {
    */
   amount: number;
 
-  /**
-   * Category of the book transfer
-   */
-  category: 'ADJUSTMENT' | 'BALANCE_OR_FUNDING' | 'DERECOGNITION' | 'DISPUTE' | 'FEE' | 'REWARD' | 'TRANSFER';
+  category:
+    | 'ADJUSTMENT'
+    | 'BALANCE_OR_FUNDING'
+    | 'DERECOGNITION'
+    | 'DISPUTE'
+    | 'FEE'
+    | 'INTERNAL'
+    | 'REWARD'
+    | 'PROGRAM_FUNDING'
+    | 'TRANSFER';
 
   /**
    * Globally unique identifier for the financial account or card that will send the
@@ -261,6 +274,7 @@ export interface BookTransferCreateParams {
    * Type of the book transfer
    */
   type:
+    | 'ATM_BALANCE_INQUIRY'
     | 'ATM_WITHDRAWAL'
     | 'ATM_DECLINE'
     | 'INTERNATIONAL_ATM_WITHDRAWAL'
@@ -333,13 +347,15 @@ export interface BookTransferListParams extends CursorPageParams {
    * Book Transfer category to be returned.
    */
   category?:
-    | 'BALANCE_OR_FUNDING'
-    | 'FEE'
-    | 'REWARD'
     | 'ADJUSTMENT'
+    | 'BALANCE_OR_FUNDING'
     | 'DERECOGNITION'
     | 'DISPUTE'
-    | 'INTERNAL';
+    | 'FEE'
+    | 'INTERNAL'
+    | 'REWARD'
+    | 'PROGRAM_FUNDING'
+    | 'TRANSFER';
 
   /**
    * Date string in RFC 3339 format. Only entries created before the specified time

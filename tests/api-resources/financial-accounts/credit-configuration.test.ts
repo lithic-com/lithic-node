@@ -40,6 +40,7 @@ describe('resource creditConfiguration', () => {
       client.financialAccounts.creditConfiguration.update(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
+          auto_collection_configuration: { auto_collection_enabled: true },
           credit_limit: 0,
           credit_product_token: 'credit_product_token',
           external_bank_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',

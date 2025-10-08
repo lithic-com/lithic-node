@@ -232,6 +232,11 @@ export interface Tokenization {
   created_at: string;
 
   /**
+   * The device identifier associated with the tokenization.
+   */
+  device_id: string | null;
+
+  /**
    * The dynamic pan assigned to the token by the network.
    */
   dpan: string | null;
