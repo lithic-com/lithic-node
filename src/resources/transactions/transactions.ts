@@ -306,6 +306,8 @@ export interface Transaction {
    */
   created: string;
 
+  financial_account_token: string | null;
+
   merchant: Transaction.Merchant;
 
   /**
@@ -353,6 +355,7 @@ export interface Transaction {
     | 'DECLINED'
     | 'FRAUD_ADVICE'
     | 'IGNORED_TTL_EXPIRY'
+    | 'SUSPECTED_FRAUD'
     | 'INACTIVE_ACCOUNT'
     | 'INCORRECT_PIN'
     | 'INVALID_CARD_DETAILS'
@@ -786,6 +789,7 @@ export namespace Transaction {
       | 'REVERSAL_UNMATCHED'
       | 'SECURITY_VIOLATION'
       | 'SINGLE_USE_CARD_REATTEMPTED'
+      | 'SUSPECTED_FRAUD'
       | 'TRANSACTION_INVALID'
       | 'TRANSACTION_NOT_PERMITTED_TO_ACQUIRER_OR_TERMINAL'
       | 'TRANSACTION_NOT_PERMITTED_TO_ISSUER_OR_CARDHOLDER'
@@ -823,6 +827,7 @@ export namespace Transaction {
       | 'DECLINED'
       | 'FRAUD_ADVICE'
       | 'IGNORED_TTL_EXPIRY'
+      | 'SUSPECTED_FRAUD'
       | 'INACTIVE_ACCOUNT'
       | 'INCORRECT_PIN'
       | 'INVALID_CARD_DETAILS'
@@ -1102,6 +1107,7 @@ export namespace Transaction {
         | 'REVERSAL_UNMATCHED'
         | 'SECURITY_VIOLATION'
         | 'SINGLE_USE_CARD_REATTEMPTED'
+        | 'SUSPECTED_FRAUD'
         | 'TRANSACTION_INVALID'
         | 'TRANSACTION_NOT_PERMITTED_TO_ACQUIRER_OR_TERMINAL'
         | 'TRANSACTION_NOT_PERMITTED_TO_ISSUER_OR_CARDHOLDER'
