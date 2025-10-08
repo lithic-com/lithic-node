@@ -3689,29 +3689,22 @@ export declare namespace V2CreateParams {
 }
 
 export type V2UpdateParams =
-  | V2UpdateParams.Variant0
-  | V2UpdateParams.Variant1
+  | V2UpdateParams.AccountLevelRule
   | V2UpdateParams.CardLevelRule
   | V2UpdateParams.ProgramLevelRule;
 
 export declare namespace V2UpdateParams {
-  export interface Variant0 {
+  export interface AccountLevelRule {
     /**
-     * Auth Rule Name
+     * Account tokens to which the Auth Rule applies.
      */
-    name?: string | null;
+    account_tokens?: Array<string>;
 
     /**
-     * The desired state of the Auth Rule.
-     *
-     * Note that only deactivating an Auth Rule through this endpoint is supported at
-     * this time. If you need to (re-)activate an Auth Rule the /promote endpoint
-     * should be used to promote a draft to the currently active version.
+     * Business Account tokens to which the Auth Rule applies.
      */
-    state?: 'INACTIVE';
-  }
+    business_account_tokens?: Array<string>;
 
-  export interface Variant1 {
     /**
      * Auth Rule Name
      */

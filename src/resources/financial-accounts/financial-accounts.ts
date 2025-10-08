@@ -259,6 +259,17 @@ export namespace FinancialAccount {
      * Tier assigned to the financial account
      */
     tier: string | null;
+
+    auto_collection_configuration?: CreditConfiguration.AutoCollectionConfiguration;
+  }
+
+  export namespace CreditConfiguration {
+    export interface AutoCollectionConfiguration {
+      /**
+       * If auto collection is enabled for this account
+       */
+      auto_collection_enabled: boolean;
+    }
   }
 }
 
@@ -371,12 +382,14 @@ export namespace FinancialTransaction {
       | 'ACH_ORIGINATION_INITIATED'
       | 'ACH_ORIGINATION_PROCESSED'
       | 'ACH_ORIGINATION_RELEASED'
+      | 'ACH_ORIGINATION_REJECTED'
       | 'ACH_ORIGINATION_REVIEWED'
       | 'ACH_ORIGINATION_SETTLED'
       | 'ACH_RECEIPT_PROCESSED'
       | 'ACH_RECEIPT_SETTLED'
       | 'ACH_RETURN_INITIATED'
       | 'ACH_RETURN_PROCESSED'
+      | 'ACH_RETURN_REJECTED'
       | 'ACH_RETURN_SETTLED'
       | 'AUTHORIZATION'
       | 'AUTHORIZATION_ADVICE'
