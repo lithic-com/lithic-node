@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.119.0 (2025-10-08)
+
+Full Changelog: [v0.118.0...v0.119.0](https://github.com/lithic-com/lithic-node/compare/v0.118.0...v0.119.0)
+
+### Features
+
+* **api:** adds support for Auto-Collections ([54b4ed7](https://github.com/lithic-com/lithic-node/commit/54b4ed76bcbd4d4dfebf231ec3dfad676cdfa1f8))
+
+
+### Chores
+
+* **internal:** remove .eslintcache ([f527ccb](https://github.com/lithic-com/lithic-node/commit/f527ccbd82f42ad097d14a2f869533d810869751))
+* **internal:** use npm pack for build uploads ([26fb1ba](https://github.com/lithic-com/lithic-node/commit/26fb1ba36b520046dc131b9c1a22fa4351474747))
+
 ## 0.118.0 (2025-09-30)
 
 Full Changelog: [v0.117.0...v0.118.0](https://github.com/lithic-com/lithic-node/compare/v0.117.0...v0.118.0)
