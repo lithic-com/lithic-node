@@ -102,8 +102,6 @@ export interface ManagementOperationTransaction {
    */
   created: string;
 
-  family: 'CARD' | 'PAYMENT' | 'TRANSFER' | 'INTERNAL' | 'EXTERNAL_PAYMENT' | 'MANAGEMENT_OPERATION';
-
   /**
    * The status of the transaction
    */
@@ -131,6 +129,11 @@ export interface ManagementOperationTransaction {
    * External resource associated with the management operation
    */
   external_resource?: ExternalResource | null;
+
+  /**
+   * MANAGEMENT_OPERATION - Management Operation Transaction
+   */
+  family?: 'MANAGEMENT_OPERATION';
 
   financial_account_token?: string;
 

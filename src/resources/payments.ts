@@ -3,6 +3,7 @@
 import { APIResource } from '../resource';
 import { isRequestOptions } from '../core';
 import * as Core from '../core';
+import * as AccountActivityAPI from './account-activity';
 import * as BalancesAPI from './balances';
 import { CursorPage, type CursorPageParams } from '../pagination';
 
@@ -159,99 +160,128 @@ export class Payments extends APIResource {
 
 export class PaymentsCursorPage extends CursorPage<Payment> {}
 
+/**
+ * Payment transaction
+ */
 export interface Payment {
   /**
-   * Globally unique identifier.
+   * Unique identifier for the transaction
    */
   token: string;
 
   /**
-   * Payment category
+   * Transaction category
    */
-  category: 'ACH';
+  category:
+    | 'ACH'
+    | 'BALANCE_OR_FUNDING'
+    | 'FEE'
+    | 'REWARD'
+    | 'ADJUSTMENT'
+    | 'DERECOGNITION'
+    | 'DISPUTE'
+    | 'CARD'
+    | 'EXTERNAL_ACH'
+    | 'EXTERNAL_CHECK'
+    | 'EXTERNAL_TRANSFER'
+    | 'EXTERNAL_WIRE'
+    | 'MANAGEMENT_ADJUSTMENT'
+    | 'MANAGEMENT_DISPUTE'
+    | 'MANAGEMENT_FEE'
+    | 'MANAGEMENT_REWARD'
+    | 'MANAGEMENT_DISBURSEMENT'
+    | 'PROGRAM_FUNDING';
 
   /**
-   * Date and time when the payment first occurred. UTC time zone.
+   * ISO 8601 timestamp of when the transaction was created
    */
   created: string;
 
   /**
-   * 3-character alphabetic ISO 4217 code for the settling currency of the payment.
-   */
-  currency: string;
-
-  /**
-   * A string that provides a description of the payment; may be useful to display to
-   * users.
+   * Transaction descriptor
    */
   descriptor: string;
 
+  /**
+   * Transfer direction
+   */
   direction: 'CREDIT' | 'DEBIT';
 
   /**
-   * A list of all payment events that have modified this payment.
+   * List of transaction events
    */
   events: Array<Payment.Event>;
 
-  external_bank_account_token: string | null;
-
-  financial_account_token: string;
-
-  method: 'ACH_NEXT_DAY' | 'ACH_SAME_DAY';
-
-  method_attributes: Payment.MethodAttributes;
+  /**
+   * PAYMENT - Payment Transaction
+   */
+  family: 'PAYMENT';
 
   /**
-   * Pending amount of the payment in the currency's smallest unit (e.g., cents). The
-   * value of this field will go to zero over time once the payment is settled.
+   * Financial account token
+   */
+  financial_account_token: string;
+
+  /**
+   * Transfer method
+   */
+  method: 'ACH_NEXT_DAY' | 'ACH_SAME_DAY' | 'WIRE';
+
+  /**
+   * Method-specific attributes
+   */
+  method_attributes: Payment.ACHMethodAttributes | Payment.WireMethodAttributes;
+
+  /**
+   * Pending amount in cents
    */
   pending_amount: number;
 
   /**
-   * Account tokens related to a payment transaction
+   * Related account tokens for the transaction
    */
   related_account_tokens: Payment.RelatedAccountTokens;
 
   /**
-   * APPROVED payments were successful while DECLINED payments were declined by
-   * Lithic or returned.
+   * Transaction result
    */
   result: 'APPROVED' | 'DECLINED';
 
   /**
-   * Amount of the payment that has been settled in the currency's smallest unit
-   * (e.g., cents).
+   * Settled amount in cents
    */
   settled_amount: number;
 
-  source: 'CUSTOMER' | 'LITHIC';
-
   /**
-   * Status types:
-   *
-   * - `DECLINED` - The payment was declined.
-   * - `PENDING` - The payment is being processed and has yet to settle or release
-   *   (origination debit).
-   * - `RETURNED` - The payment has been returned.
-   * - `SETTLED` - The payment is completed.
+   * Transaction source
    */
-  status: 'DECLINED' | 'PENDING' | 'RETURNED' | 'SETTLED';
+  source: 'LITHIC' | 'EXTERNAL' | 'CUSTOMER';
 
   /**
-   * Date and time when the financial transaction was last updated. UTC time zone.
+   * The status of the transaction
+   */
+  status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED';
+
+  /**
+   * ISO 8601 timestamp of when the transaction was last updated
    */
   updated: string;
 
-  user_defined_id: string | null;
+  /**
+   * Currency of the transaction in ISO 4217 format
+   */
+  currency?: string;
 
   /**
-   * Date when the financial transaction expected to be released after settlement
+   * Expected release date for the transaction
    */
-  expected_release_date?: string;
+  expected_release_date?: string | null;
 
   /**
-   * Payment type indicating the specific ACH message or Fedwire transfer type
+   * External bank account token
    */
+  external_bank_account_token?: string | null;
+
   type?:
     | 'ORIGINATION_CREDIT'
     | 'ORIGINATION_DEBIT'
@@ -261,6 +291,11 @@ export interface Payment {
     | 'WIRE_INBOUND_ADMIN'
     | 'WIRE_OUTBOUND_PAYMENT'
     | 'WIRE_OUTBOUND_ADMIN';
+
+  /**
+   * User-defined identifier
+   */
+  user_defined_id?: string | null;
 }
 
 export namespace Payment {
@@ -338,24 +373,72 @@ export namespace Payment {
     >;
   }
 
-  export interface MethodAttributes {
-    company_id: string | null;
+  export interface ACHMethodAttributes {
+    /**
+     * SEC code for ACH transaction
+     */
+    sec_code: 'CCD' | 'PPD' | 'WEB' | 'TEL' | 'CIE' | 'CTX';
 
-    receipt_routing_number: string | null;
-
-    retries: number | null;
-
-    return_reason_code: string | null;
-
-    sec_code: 'CCD' | 'PPD' | 'WEB';
-
-    trace_numbers: Array<string | null>;
-
+    /**
+     * Addenda information
+     */
     addenda?: string | null;
+
+    /**
+     * Company ID for the ACH transaction
+     */
+    company_id?: string | null;
+
+    /**
+     * Receipt routing number
+     */
+    receipt_routing_number?: string | null;
+
+    /**
+     * Number of retries attempted
+     */
+    retries?: number | null;
+
+    /**
+     * Return reason code if the transaction was returned
+     */
+    return_reason_code?: string | null;
+
+    /**
+     * Trace numbers for the ACH transaction
+     */
+    trace_numbers?: Array<string>;
+  }
+
+  export interface WireMethodAttributes {
+    /**
+     * Type of wire transfer
+     */
+    wire_network: 'FEDWIRE' | 'SWIFT';
+
+    creditor?: AccountActivityAPI.WirePartyDetails;
+
+    debtor?: AccountActivityAPI.WirePartyDetails;
+
+    /**
+     * Point to point reference identifier, as assigned by the instructing party, used
+     * for tracking the message through the Fedwire system
+     */
+    message_id?: string | null;
+
+    /**
+     * Payment details or invoice reference
+     */
+    remittance_information?: string | null;
+
+    /**
+     * Type of wire message
+     */
+    wire_message_type?: string;
   }
 
   /**
-   * Account tokens related to a payment transaction
+   * Related account tokens for the transaction
    */
   export interface RelatedAccountTokens {
     /**
@@ -370,6 +453,9 @@ export namespace Payment {
   }
 }
 
+/**
+ * Payment transaction
+ */
 export interface PaymentCreateResponse extends Payment {
   /**
    * Balance
@@ -377,6 +463,9 @@ export interface PaymentCreateResponse extends Payment {
   balance?: BalancesAPI.Balance;
 }
 
+/**
+ * Payment transaction
+ */
 export interface PaymentRetryResponse extends Payment {
   /**
    * Balance

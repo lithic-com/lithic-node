@@ -796,6 +796,8 @@ export namespace Transaction {
       | 'TRANSACTION_PREVIOUSLY_COMPLETED'
       | 'UNAUTHORIZED_MERCHANT'
       | 'VEHICLE_NUMBER_INVALID'
+      | 'CARDHOLDER_CHALLENGED'
+      | 'CARDHOLDER_CHALLENGE_FAILED'
     >;
 
     /**
@@ -1113,7 +1115,9 @@ export namespace Transaction {
         | 'TRANSACTION_NOT_PERMITTED_TO_ISSUER_OR_CARDHOLDER'
         | 'TRANSACTION_PREVIOUSLY_COMPLETED'
         | 'UNAUTHORIZED_MERCHANT'
-        | 'VEHICLE_NUMBER_INVALID';
+        | 'VEHICLE_NUMBER_INVALID'
+        | 'CARDHOLDER_CHALLENGED'
+        | 'CARDHOLDER_CHALLENGE_FAILED';
     }
 
     export interface NetworkSpecificData {
