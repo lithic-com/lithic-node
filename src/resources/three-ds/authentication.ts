@@ -269,6 +269,14 @@ export namespace AuthenticationRetrieveResponse {
     address_match?: boolean | null;
 
     /**
+     * Lithic's evaluation result comparing the transaction's address data with the
+     * cardholder KYC data if it exists. In the event Lithic does not have any
+     * Cardholder KYC data, or the transaction does not contain any address data,
+     * NOT_PRESENT will be returned
+     */
+    address_on_file_match?: 'MATCH' | 'MATCH_ADDRESS_ONLY' | 'MATCH_ZIP_ONLY' | 'MISMATCH' | 'NOT_PRESENT';
+
+    /**
      * Object containing data on the billing address provided during the transaction.
      */
     billing_address?: Cardholder.BillingAddress;

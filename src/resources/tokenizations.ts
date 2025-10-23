@@ -348,6 +348,7 @@ export namespace Tokenization {
       | 'TOKEN_ACTIVATED'
       | 'TOKEN_CREATED'
       | 'TOKEN_DEACTIVATED'
+      | 'TOKEN_DELETED_FROM_CONSUMER_APP'
       | 'TOKEN_INACTIVE'
       | 'TOKEN_STATE_UNKNOWN'
       | 'TOKEN_SUSPENDED'

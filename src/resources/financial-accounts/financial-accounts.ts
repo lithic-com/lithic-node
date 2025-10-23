@@ -234,10 +234,7 @@ export interface FinancialAccount {
 
 export namespace FinancialAccount {
   export interface CreditConfiguration {
-    /**
-     * Reason for the financial account being marked as Charged Off
-     */
-    charged_off_reason: 'DELINQUENT' | 'FRAUD' | null;
+    auto_collection_configuration: CreditConfiguration.AutoCollectionConfiguration;
 
     credit_limit: number | null;
 
@@ -249,18 +246,24 @@ export namespace FinancialAccount {
     external_bank_account_token: string | null;
 
     /**
-     * State of the financial account
-     */
-    financial_account_state: 'PENDING' | 'CURRENT' | 'DELINQUENT' | 'CHARGED_OFF' | null;
-
-    is_spend_blocked: boolean;
-
-    /**
      * Tier assigned to the financial account
      */
     tier: string | null;
 
-    auto_collection_configuration?: CreditConfiguration.AutoCollectionConfiguration;
+    /**
+     * @deprecated Reason for the financial account being marked as Charged Off
+     */
+    charged_off_reason?: 'DELINQUENT' | 'FRAUD' | null;
+
+    /**
+     * @deprecated State of the financial account
+     */
+    financial_account_state?: 'PENDING' | 'CURRENT' | 'DELINQUENT' | 'CHARGED_OFF' | null;
+
+    /**
+     * @deprecated
+     */
+    is_spend_blocked?: boolean;
   }
 
   export namespace CreditConfiguration {

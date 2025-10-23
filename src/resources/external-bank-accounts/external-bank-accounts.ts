@@ -155,7 +155,6 @@ export type OwnerType = 'INDIVIDUAL' | 'BUSINESS';
 export type VerificationMethod =
   | 'MANUAL'
   | 'MICRO_DEPOSIT'
-  | 'PLAID'
   | 'PRENOTE'
   | 'EXTERNALLY_VERIFIED'
   | 'UNVERIFIED';
@@ -900,7 +899,6 @@ export interface ExternalBankAccountRetryPrenoteResponse {
 
 export type ExternalBankAccountCreateParams =
   | ExternalBankAccountCreateParams.BankVerifiedCreateBankAccountAPIRequest
-  | ExternalBankAccountCreateParams.PlaidCreateBankAccountAPIRequest
   | ExternalBankAccountCreateParams.ExternallyVerifiedCreateBankAccountAPIRequest
   | ExternalBankAccountCreateParams.UnverifiedCreateBankAccountAPIRequest;
 
@@ -991,53 +989,6 @@ export declare namespace ExternalBankAccountCreateParams {
     user_defined_id?: string;
 
     verification_enforcement?: boolean;
-  }
-
-  export interface PlaidCreateBankAccountAPIRequest {
-    /**
-     * Legal Name of the business or individual who owns the external account. This
-     * will appear in statements
-     */
-    owner: string;
-
-    /**
-     * Owner Type
-     */
-    owner_type: OwnerType;
-
-    processor_token: string;
-
-    /**
-     * Verification Method
-     */
-    verification_method: VerificationMethod;
-
-    /**
-     * Indicates which Lithic account the external account is associated with. For
-     * external accounts that are associated with the program, account_token field
-     * returned will be null
-     */
-    account_token?: string;
-
-    /**
-     * Optional field that helps identify bank accounts in receipts
-     */
-    company_id?: string;
-
-    /**
-     * Date of Birth of the Individual that owns the external bank account
-     */
-    dob?: string;
-
-    /**
-     * Doing Business As
-     */
-    doing_business_as?: string;
-
-    /**
-     * User Defined ID
-     */
-    user_defined_id?: string;
   }
 
   export interface ExternallyVerifiedCreateBankAccountAPIRequest {
