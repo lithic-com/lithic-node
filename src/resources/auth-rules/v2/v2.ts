@@ -143,65 +143,6 @@ export class V2 extends APIResource {
   }
 
   /**
-   * This endpoint is deprecated and will be removed in the future. Requests a
-   * performance report of an Auth rule to be asynchronously generated. Reports can
-   * only be run on rules in draft or active mode and will included approved and
-   * declined statistics as well as examples. The generated report will be delivered
-   * asynchronously through a webhook with `event_type` =
-   * `auth_rules.performance_report.created`. See the docs on setting up
-   * [webhook subscriptions](https://docs.lithic.com/docs/events-api).
-   *
-   * Reports are generated based on data collected by Lithic's processing system in
-   * the trailing week. The performance of the auth rule will be assessed on the
-   * configuration of the auth rule at the time the report is requested. This implies
-   * that if a performance report is requested, right after updating an auth rule,
-   * depending on the number of events processed for a card program, it may be the
-   * case that no data is available for the report. Therefore Lithic recommends to
-   * decouple making updates to an Auth Rule, and requesting performance reports.
-   *
-   * To make this concrete, consider the following example:
-   *
-   * 1. At time `t`, a new Auth Rule is created, and applies to all auth events on a
-   *    card program. The Auth Rule has not yet been promoted, causing the draft
-   *    version of the rule to be applied in shadow mode.
-   * 2. At time `t + 1 hour` a performance report is requested for the Auth Rule.
-   *    This performance report will _only_ contain data for the Auth Rule being
-   *    executed in the window between `t` and `t + 1 hour`. This is because Lithic's
-   *    transaction processing system will only start capturing data for the Auth
-   *    Rule at the time it is created.
-   * 3. At time `t + 2 hours` the draft version of the Auth Rule is promoted to the
-   *    active version of the Auth Rule by calling the
-   *    `/v2/auth_rules/{auth_rule_token}/promote` endpoint. If a performance report
-   *    is requested at this moment it will still only contain data for this version
-   *    of the rule, but the window of available data will now span from `t` to
-   *    `t + 2 hours`.
-   * 4. At time `t + 3 hours` a new version of the rule is drafted by calling the
-   *    `/v2/auth_rules/{auth_rule_token}/draft` endpoint. If a performance report is
-   *    requested right at this moment, it will only contain data for events to which
-   *    both the active version and the draft version is applied. Lithic does this to
-   *    ensure that performance reports represent a fair comparison between rules.
-   *    Because there may be no events in this window, and because there may be some
-   *    lag before data is available in a performance report, the requested
-   *    performance report could contain no to little data.
-   * 5. At time `t + 4 hours` another performance report is requested: this time the
-   *    performance report will contain data from the window between `t + 3 hours`
-   *    and `t + 4 hours`, for any events to which both the current version of the
-   *    Auth rule (in enforcing mode) and the draft version of the Auth rule (in
-   *    shadow mode) applied.
-   *
-   * Note that generating a report may take up to 15 minutes and that delivery is not
-   * guaranteed. Customers are required to have created an event subscription to
-   * receive the webhook. Additionally, there is a delay of approximately 15 minutes
-   * between when Lithic's transaction processing systems have processed the
-   * transaction, and when a transaction will be included in the report.
-   *
-   * @deprecated
-   */
-  report(authRuleToken: string, options?: RequestOptions): APIPromise<V2ReportResponse> {
-    return this._client.post(path`/v2/auth_rules/${authRuleToken}/report`, options);
-  }
-
-  /**
    * Fetches the current calculated Feature values for the given Auth Rule
    *
    * This only calculates the features for the active version.
@@ -363,6 +304,9 @@ export interface AuthRuleCondition {
    * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
    *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
    *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
+   * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
+   *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
+   *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
    */
   attribute?: ConditionalAttribute;
 
@@ -420,6 +364,9 @@ export namespace Conditional3DSActionParameters {
      * - `RISK_SCORE`: Mastercard only: Assessment by the network of the authentication
      *   risk level, with a higher value indicating a higher amount of risk.
      * - `MESSAGE_CATEGORY`: The category of the authentication being processed.
+     * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
+     *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
+     *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
      */
     attribute?:
       | 'MCC'
@@ -429,7 +376,8 @@ export namespace Conditional3DSActionParameters {
       | 'DESCRIPTOR'
       | 'TRANSACTION_AMOUNT'
       | 'RISK_SCORE'
-      | 'MESSAGE_CATEGORY';
+      | 'MESSAGE_CATEGORY'
+      | 'ADDRESS_MATCH';
 
     /**
      * The operation to apply to the attribute
@@ -501,6 +449,9 @@ export namespace Conditional3DSActionParameters {
  * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
  *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
  *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
+ * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
+ *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
+ *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
  */
 export type ConditionalAttribute =
   | 'MCC'
@@ -518,7 +469,8 @@ export type ConditionalAttribute =
   | 'CARD_STATE'
   | 'PIN_ENTERED'
   | 'PIN_STATUS'
-  | 'WALLET_TYPE';
+  | 'WALLET_TYPE'
+  | 'ADDRESS_MATCH';
 
 export interface ConditionalBlockParameters {
   conditions: Array<AuthRuleCondition>;
@@ -946,6 +898,9 @@ export namespace V2CreateResponse {
          *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
          * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
          *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
+         *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
+         *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
          */
         attribute?:
           | 'MCC'
@@ -965,7 +920,8 @@ export namespace V2CreateResponse {
           | 'PIN_ENTERED'
           | 'PIN_STATUS'
           | 'WALLET_TYPE'
-          | 'TRANSACTION_INITIATOR';
+          | 'TRANSACTION_INITIATOR'
+          | 'ADDRESS_MATCH';
 
         /**
          * The operation to apply to the attribute
@@ -1072,6 +1028,9 @@ export namespace V2CreateResponse {
          *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
          * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
          *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
+         *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
+         *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
          */
         attribute?:
           | 'MCC'
@@ -1091,7 +1050,8 @@ export namespace V2CreateResponse {
           | 'PIN_ENTERED'
           | 'PIN_STATUS'
           | 'WALLET_TYPE'
-          | 'TRANSACTION_INITIATOR';
+          | 'TRANSACTION_INITIATOR'
+          | 'ADDRESS_MATCH';
 
         /**
          * The operation to apply to the attribute
@@ -1270,6 +1230,9 @@ export namespace V2RetrieveResponse {
          *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
          * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
          *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
+         *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
+         *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
          */
         attribute?:
           | 'MCC'
@@ -1289,7 +1252,8 @@ export namespace V2RetrieveResponse {
           | 'PIN_ENTERED'
           | 'PIN_STATUS'
           | 'WALLET_TYPE'
-          | 'TRANSACTION_INITIATOR';
+          | 'TRANSACTION_INITIATOR'
+          | 'ADDRESS_MATCH';
 
         /**
          * The operation to apply to the attribute
@@ -1396,6 +1360,9 @@ export namespace V2RetrieveResponse {
          *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
          * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
          *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
+         *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
+         *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
          */
         attribute?:
           | 'MCC'
@@ -1415,7 +1382,8 @@ export namespace V2RetrieveResponse {
           | 'PIN_ENTERED'
           | 'PIN_STATUS'
           | 'WALLET_TYPE'
-          | 'TRANSACTION_INITIATOR';
+          | 'TRANSACTION_INITIATOR'
+          | 'ADDRESS_MATCH';
 
         /**
          * The operation to apply to the attribute
@@ -1594,6 +1562,9 @@ export namespace V2UpdateResponse {
          *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
          * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
          *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
+         *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
+         *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
          */
         attribute?:
           | 'MCC'
@@ -1613,7 +1584,8 @@ export namespace V2UpdateResponse {
           | 'PIN_ENTERED'
           | 'PIN_STATUS'
           | 'WALLET_TYPE'
-          | 'TRANSACTION_INITIATOR';
+          | 'TRANSACTION_INITIATOR'
+          | 'ADDRESS_MATCH';
 
         /**
          * The operation to apply to the attribute
@@ -1720,6 +1692,9 @@ export namespace V2UpdateResponse {
          *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
          * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
          *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
+         *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
+         *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
          */
         attribute?:
           | 'MCC'
@@ -1739,7 +1714,8 @@ export namespace V2UpdateResponse {
           | 'PIN_ENTERED'
           | 'PIN_STATUS'
           | 'WALLET_TYPE'
-          | 'TRANSACTION_INITIATOR';
+          | 'TRANSACTION_INITIATOR'
+          | 'ADDRESS_MATCH';
 
         /**
          * The operation to apply to the attribute
@@ -1918,6 +1894,9 @@ export namespace V2ListResponse {
          *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
          * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
          *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
+         *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
+         *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
          */
         attribute?:
           | 'MCC'
@@ -1937,7 +1916,8 @@ export namespace V2ListResponse {
           | 'PIN_ENTERED'
           | 'PIN_STATUS'
           | 'WALLET_TYPE'
-          | 'TRANSACTION_INITIATOR';
+          | 'TRANSACTION_INITIATOR'
+          | 'ADDRESS_MATCH';
 
         /**
          * The operation to apply to the attribute
@@ -2044,6 +2024,9 @@ export namespace V2ListResponse {
          *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
          * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
          *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
+         *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
+         *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
          */
         attribute?:
           | 'MCC'
@@ -2063,7 +2046,8 @@ export namespace V2ListResponse {
           | 'PIN_ENTERED'
           | 'PIN_STATUS'
           | 'WALLET_TYPE'
-          | 'TRANSACTION_INITIATOR';
+          | 'TRANSACTION_INITIATOR'
+          | 'ADDRESS_MATCH';
 
         /**
          * The operation to apply to the attribute
@@ -2242,6 +2226,9 @@ export namespace V2ApplyResponse {
          *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
          * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
          *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
+         *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
+         *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
          */
         attribute?:
           | 'MCC'
@@ -2261,7 +2248,8 @@ export namespace V2ApplyResponse {
           | 'PIN_ENTERED'
           | 'PIN_STATUS'
           | 'WALLET_TYPE'
-          | 'TRANSACTION_INITIATOR';
+          | 'TRANSACTION_INITIATOR'
+          | 'ADDRESS_MATCH';
 
         /**
          * The operation to apply to the attribute
@@ -2368,6 +2356,9 @@ export namespace V2ApplyResponse {
          *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
          * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
          *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
+         *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
+         *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
          */
         attribute?:
           | 'MCC'
@@ -2387,7 +2378,8 @@ export namespace V2ApplyResponse {
           | 'PIN_ENTERED'
           | 'PIN_STATUS'
           | 'WALLET_TYPE'
-          | 'TRANSACTION_INITIATOR';
+          | 'TRANSACTION_INITIATOR'
+          | 'ADDRESS_MATCH';
 
         /**
          * The operation to apply to the attribute
@@ -2566,6 +2558,9 @@ export namespace V2DraftResponse {
          *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
          * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
          *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
+         *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
+         *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
          */
         attribute?:
           | 'MCC'
@@ -2585,7 +2580,8 @@ export namespace V2DraftResponse {
           | 'PIN_ENTERED'
           | 'PIN_STATUS'
           | 'WALLET_TYPE'
-          | 'TRANSACTION_INITIATOR';
+          | 'TRANSACTION_INITIATOR'
+          | 'ADDRESS_MATCH';
 
         /**
          * The operation to apply to the attribute
@@ -2692,6 +2688,9 @@ export namespace V2DraftResponse {
          *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
          * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
          *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
+         *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
+         *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
          */
         attribute?:
           | 'MCC'
@@ -2711,7 +2710,8 @@ export namespace V2DraftResponse {
           | 'PIN_ENTERED'
           | 'PIN_STATUS'
           | 'WALLET_TYPE'
-          | 'TRANSACTION_INITIATOR';
+          | 'TRANSACTION_INITIATOR'
+          | 'ADDRESS_MATCH';
 
         /**
          * The operation to apply to the attribute
@@ -2890,6 +2890,9 @@ export namespace V2PromoteResponse {
          *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
          * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
          *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
+         *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
+         *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
          */
         attribute?:
           | 'MCC'
@@ -2909,7 +2912,8 @@ export namespace V2PromoteResponse {
           | 'PIN_ENTERED'
           | 'PIN_STATUS'
           | 'WALLET_TYPE'
-          | 'TRANSACTION_INITIATOR';
+          | 'TRANSACTION_INITIATOR'
+          | 'ADDRESS_MATCH';
 
         /**
          * The operation to apply to the attribute
@@ -3016,6 +3020,9 @@ export namespace V2PromoteResponse {
          *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
          * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
          *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
+         *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
+         *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
          */
         attribute?:
           | 'MCC'
@@ -3035,7 +3042,8 @@ export namespace V2PromoteResponse {
           | 'PIN_ENTERED'
           | 'PIN_STATUS'
           | 'WALLET_TYPE'
-          | 'TRANSACTION_INITIATOR';
+          | 'TRANSACTION_INITIATOR'
+          | 'ADDRESS_MATCH';
 
         /**
          * The operation to apply to the attribute
@@ -3059,10 +3067,6 @@ export namespace V2PromoteResponse {
       }
     }
   }
-}
-
-export interface V2ReportResponse {
-  report_token?: string;
 }
 
 export interface V2RetrieveFeaturesResponse {
@@ -3321,6 +3325,9 @@ export declare namespace V2CreateParams {
          *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
          * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
          *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
+         *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
+         *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
          */
         attribute?:
           | 'MCC'
@@ -3340,7 +3347,8 @@ export declare namespace V2CreateParams {
           | 'PIN_ENTERED'
           | 'PIN_STATUS'
           | 'WALLET_TYPE'
-          | 'TRANSACTION_INITIATOR';
+          | 'TRANSACTION_INITIATOR'
+          | 'ADDRESS_MATCH';
 
         /**
          * The operation to apply to the attribute
@@ -3469,6 +3477,9 @@ export declare namespace V2CreateParams {
          *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
          * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
          *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
+         *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
+         *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
          */
         attribute?:
           | 'MCC'
@@ -3488,7 +3499,8 @@ export declare namespace V2CreateParams {
           | 'PIN_ENTERED'
           | 'PIN_STATUS'
           | 'WALLET_TYPE'
-          | 'TRANSACTION_INITIATOR';
+          | 'TRANSACTION_INITIATOR'
+          | 'ADDRESS_MATCH';
 
         /**
          * The operation to apply to the attribute
@@ -3622,6 +3634,9 @@ export declare namespace V2CreateParams {
          *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
          * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
          *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+         * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
+         *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
+         *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
          */
         attribute?:
           | 'MCC'
@@ -3641,7 +3656,8 @@ export declare namespace V2CreateParams {
           | 'PIN_ENTERED'
           | 'PIN_STATUS'
           | 'WALLET_TYPE'
-          | 'TRANSACTION_INITIATOR';
+          | 'TRANSACTION_INITIATOR'
+          | 'ADDRESS_MATCH';
 
         /**
          * The operation to apply to the attribute
@@ -3889,6 +3905,9 @@ export namespace V2DraftParams {
        *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
        * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
        *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
+       * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
+       *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
+       *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
        */
       attribute?:
         | 'MCC'
@@ -3908,7 +3927,8 @@ export namespace V2DraftParams {
         | 'PIN_ENTERED'
         | 'PIN_STATUS'
         | 'WALLET_TYPE'
-        | 'TRANSACTION_INITIATOR';
+        | 'TRANSACTION_INITIATOR'
+        | 'ADDRESS_MATCH';
 
       /**
        * The operation to apply to the attribute
@@ -3971,7 +3991,6 @@ export declare namespace V2 {
     type V2ApplyResponse as V2ApplyResponse,
     type V2DraftResponse as V2DraftResponse,
     type V2PromoteResponse as V2PromoteResponse,
-    type V2ReportResponse as V2ReportResponse,
     type V2RetrieveFeaturesResponse as V2RetrieveFeaturesResponse,
     type V2RetrieveReportResponse as V2RetrieveReportResponse,
     type V2ListResponsesCursorPage as V2ListResponsesCursorPage,

@@ -17,6 +17,7 @@ export {
   type Card,
   type CardSpendLimits,
   type NonPCICard,
+  type ProvisionResponse,
   type SpendLimitDuration,
   type CardEmbedResponse,
   type CardProvisionResponse,

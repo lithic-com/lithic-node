@@ -692,6 +692,18 @@ export namespace NonPCICard {
 }
 
 /**
+ * Object containing the fields required to add a card to Apple Pay. Applies only
+ * to Apple Pay wallet.
+ */
+export interface ProvisionResponse {
+  activationData?: string;
+
+  encryptedData?: string;
+
+  ephemeralPublicKey?: string;
+}
+
+/**
  * Spend limit duration values:
  *
  * - `ANNUALLY` - Card will authorize transactions up to spend limit for the
@@ -710,7 +722,11 @@ export type SpendLimitDuration = 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTI
 export type CardEmbedResponse = string;
 
 export interface CardProvisionResponse {
-  provisioning_payload?: string;
+  /**
+   * Base64 encoded JSON payload representing a payment card that can be passed to a
+   * device's digital wallet. Applies to Google and Samsung Pay wallets.
+   */
+  provisioning_payload?: string | ProvisionResponse;
 }
 
 export interface CardWebProvisionResponse {
@@ -1315,6 +1331,7 @@ export declare namespace Cards {
     type Card as Card,
     type CardSpendLimits as CardSpendLimits,
     type NonPCICard as NonPCICard,
+    type ProvisionResponse as ProvisionResponse,
     type SpendLimitDuration as SpendLimitDuration,
     type CardEmbedResponse as CardEmbedResponse,
     type CardProvisionResponse as CardProvisionResponse,

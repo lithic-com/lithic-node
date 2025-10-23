@@ -104,8 +104,6 @@ export interface ExternalPayment {
    */
   created: string;
 
-  family: 'CARD' | 'PAYMENT' | 'TRANSFER' | 'INTERNAL' | 'EXTERNAL_PAYMENT' | 'MANAGEMENT_OPERATION';
-
   /**
    * The status of the transaction
    */
@@ -121,6 +119,11 @@ export interface ExternalPayment {
   currency?: string;
 
   events?: Array<ExternalPayment.Event>;
+
+  /**
+   * EXTERNAL_PAYMENT - External Payment Response
+   */
+  family?: 'EXTERNAL_PAYMENT';
 
   financial_account_token?: string;
 

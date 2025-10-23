@@ -50,10 +50,12 @@ export class BookTransfers extends APIResource {
 
 export type BookTransferResponsesCursorPage = CursorPage<BookTransferResponse>;
 
+/**
+ * Book transfer transaction
+ */
 export interface BookTransferResponse {
   /**
-   * Customer-provided token that will serve as an idempotency token. This token will
-   * become the transaction token.
+   * Unique identifier for the transaction
    */
   token: string;
 
@@ -69,34 +71,29 @@ export interface BookTransferResponse {
     | 'TRANSFER';
 
   /**
-   * Date and time when the transfer occurred. UTC time zone.
+   * ISO 8601 timestamp of when the transaction was created
    */
   created: string;
 
   /**
    * 3-character alphabetic ISO 4217 code for the settling currency of the
-   * transaction.
+   * transaction
    */
   currency: string;
 
   /**
-   * A list of all financial events that have modified this transfer.
+   * A list of all financial events that have modified this transfer
    */
   events: Array<BookTransferResponse.Event>;
 
   /**
-   * External ID defined by the customer
+   * TRANSFER - Book Transfer Transaction
    */
-  external_id: string | null;
-
-  /**
-   * External resource associated with the management operation
-   */
-  external_resource: ManagementOperationsAPI.ExternalResource | null;
+  family: 'TRANSFER';
 
   /**
    * Globally unique identifier for the financial account or card that will send the
-   * funds. Accepted type dependent on the program's use case.
+   * funds. Accepted type dependent on the program's use case
    */
   from_financial_account_token: string;
 
@@ -113,34 +110,40 @@ export interface BookTransferResponse {
 
   /**
    * Amount of the transaction that has been settled in the currency's smallest unit
-   * (e.g., cents).
+   * (e.g., cents)
    */
   settled_amount: number;
 
   /**
-   * Status types:
-   *
-   * - `DECLINED` - The transfer was declined.
-   * - `REVERSED` - The transfer was reversed
-   * - `SETTLED` - The transfer is completed.
+   * The status of the transaction
    */
-  status: 'DECLINED' | 'REVERSED' | 'SETTLED';
+  status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED';
 
   /**
    * Globally unique identifier for the financial account or card that will receive
-   * the funds. Accepted type dependent on the program's use case.
+   * the funds. Accepted type dependent on the program's use case
    */
   to_financial_account_token: string;
 
   /**
-   * A series of transactions that are grouped together.
-   */
-  transaction_series: BookTransferResponse.TransactionSeries | null;
-
-  /**
-   * Date and time when the financial transaction was last updated. UTC time zone.
+   * ISO 8601 timestamp of when the transaction was last updated
    */
   updated: string;
+
+  /**
+   * External ID defined by the customer
+   */
+  external_id?: string | null;
+
+  /**
+   * External resource associated with the management operation
+   */
+  external_resource?: ManagementOperationsAPI.ExternalResource | null;
+
+  /**
+   * A series of transactions that are grouped together
+   */
+  transaction_series?: BookTransferResponse.TransactionSeries | null;
 }
 
 export namespace BookTransferResponse {
@@ -224,7 +227,7 @@ export namespace BookTransferResponse {
   }
 
   /**
-   * A series of transactions that are grouped together.
+   * A series of transactions that are grouped together
    */
   export interface TransactionSeries {
     related_transaction_event_token: string | null;
