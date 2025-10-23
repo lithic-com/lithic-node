@@ -84,7 +84,6 @@ Types:
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2ApplyResponse</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2DraftResponse</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2PromoteResponse</a></code>
-- <code><a href="./src/resources/auth-rules/v2/v2.ts">V2ReportResponse</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2RetrieveFeaturesResponse</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2RetrieveReportResponse</a></code>
 
@@ -98,7 +97,6 @@ Methods:
 - <code title="post /v2/auth_rules/{auth_rule_token}/apply">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">apply</a>(authRuleToken, { ...params }) -> V2ApplyResponse</code>
 - <code title="post /v2/auth_rules/{auth_rule_token}/draft">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">draft</a>(authRuleToken, { ...params }) -> V2DraftResponse</code>
 - <code title="post /v2/auth_rules/{auth_rule_token}/promote">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">promote</a>(authRuleToken) -> V2PromoteResponse</code>
-- <code title="post /v2/auth_rules/{auth_rule_token}/report">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">report</a>(authRuleToken) -> V2ReportResponse</code>
 - <code title="get /v2/auth_rules/{auth_rule_token}/features">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">retrieveFeatures</a>(authRuleToken, { ...params }) -> V2RetrieveFeaturesResponse</code>
 - <code title="get /v2/auth_rules/{auth_rule_token}/report">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">retrieveReport</a>(authRuleToken, { ...params }) -> V2RetrieveReportResponse</code>
 
@@ -164,6 +162,7 @@ Types:
 - <code><a href="./src/resources/cards/cards.ts">Card</a></code>
 - <code><a href="./src/resources/cards/cards.ts">CardSpendLimits</a></code>
 - <code><a href="./src/resources/cards/cards.ts">NonPCICard</a></code>
+- <code><a href="./src/resources/cards/cards.ts">ProvisionResponse</a></code>
 - <code><a href="./src/resources/cards/cards.ts">SpendLimitDuration</a></code>
 - <code><a href="./src/resources/cards/cards.ts">CardEmbedResponse</a></code>
 - <code><a href="./src/resources/cards/cards.ts">CardProvisionResponse</a></code>

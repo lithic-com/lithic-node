@@ -185,6 +185,7 @@ import {
   Cards,
   NonPCICard,
   NonPCICardsCursorPage,
+  ProvisionResponse,
   SpendLimitDuration,
 } from './resources/cards/cards';
 import { CreditProducts } from './resources/credit-products/credit-products';
@@ -613,6 +614,7 @@ export declare namespace Lithic {
     type Card as Card,
     type CardSpendLimits as CardSpendLimits,
     type NonPCICard as NonPCICard,
+    type ProvisionResponse as ProvisionResponse,
     type SpendLimitDuration as SpendLimitDuration,
     type CardEmbedResponse as CardEmbedResponse,
     type CardProvisionResponse as CardProvisionResponse,

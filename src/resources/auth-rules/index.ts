@@ -20,7 +20,6 @@ export {
   type V2ApplyResponse,
   type V2DraftResponse,
   type V2PromoteResponse,
-  type V2ReportResponse,
   type V2RetrieveFeaturesResponse,
   type V2RetrieveReportResponse,
   type V2CreateParams,
