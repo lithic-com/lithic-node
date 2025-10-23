@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.120.0 (2025-10-23)
+
+Full Changelog: [v0.119.0...v0.120.0](https://github.com/lithic-com/lithic-node/compare/v0.119.0...v0.120.0)
+
+### Features
+
+* **api:** updates to Auth Rules and Card provisioning ([3f7a87a](https://github.com/lithic-com/lithic-node/commit/3f7a87aa862ae4c165f3fbc66b1fb646cdfcf0d7))
+
 ## 0.119.0 (2025-10-08)
 
 Full Changelog: [v0.118.0...v0.119.0](https://github.com/lithic-com/lithic-node/compare/v0.118.0...v0.119.0)
