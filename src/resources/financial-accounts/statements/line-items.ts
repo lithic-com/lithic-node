@@ -116,6 +116,7 @@ export namespace StatementLineItems {
       | 'ACH_ORIGINATION_REVIEWED'
       | 'ACH_ORIGINATION_SETTLED'
       | 'ACH_RECEIPT_PROCESSED'
+      | 'ACH_RECEIPT_RELEASED'
       | 'ACH_RECEIPT_SETTLED'
       | 'ACH_RETURN_INITIATED'
       | 'ACH_RETURN_PROCESSED'
