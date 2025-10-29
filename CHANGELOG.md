@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.120.1 (2025-10-29)
+
+Full Changelog: [v0.120.0...v0.120.1](https://github.com/lithic-com/lithic-node/compare/v0.120.0...v0.120.1)
+
+### Chores
+
+* **api:** adds support for new ACH_RECEIPT_RELEASED event ([0fa4c03](https://github.com/lithic-com/lithic-node/commit/0fa4c032819548755256ea6572f7b65ee6d8ede6))
+
 ## 0.120.0 (2025-10-23)
 
 Full Changelog: [v0.119.0...v0.120.0](https://github.com/lithic-com/lithic-node/compare/v0.119.0...v0.120.0)
