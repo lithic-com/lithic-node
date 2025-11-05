@@ -17,16 +17,24 @@ export class ExternalBankAccounts extends APIResource {
    * ```ts
    * const externalBankAccount =
    *   await client.externalBankAccounts.create({
-   *     account_number: '12345678901234567',
-   *     country: 'USD',
+   *     account_number: '13719713158835300',
+   *     country: 'USA',
    *     currency: 'USD',
    *     financial_account_token:
-   *       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     owner: 'owner',
-   *     owner_type: 'INDIVIDUAL',
-   *     routing_number: '123456789',
+   *       'dabadb3b-700c-41e3-8801-d5dfc84ebea0',
+   *     owner: 'John Doe',
+   *     owner_type: 'BUSINESS',
+   *     routing_number: '011103093',
    *     type: 'CHECKING',
-   *     verification_method: 'MANUAL',
+   *     verification_method: 'PRENOTE',
+   *     address: {
+   *       address1: '5 Broad Street',
+   *       city: 'New York',
+   *       country: 'USA',
+   *       postal_code: '10001',
+   *       state: 'NY',
+   *     },
+   *     name: 'John Does Checking',
    *   });
    * ```
    */
@@ -39,6 +47,14 @@ export class ExternalBankAccounts extends APIResource {
 
   /**
    * Get the external bank account by token.
+   *
+   * @example
+   * ```ts
+   * const externalBankAccount =
+   *   await client.externalBankAccounts.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   retrieve(
     externalBankAccountToken: string,
@@ -49,6 +65,14 @@ export class ExternalBankAccounts extends APIResource {
 
   /**
    * Update the external bank account by token.
+   *
+   * @example
+   * ```ts
+   * const externalBankAccount =
+   *   await client.externalBankAccounts.update(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   update(
     externalBankAccountToken: string,
@@ -60,6 +84,14 @@ export class ExternalBankAccounts extends APIResource {
 
   /**
    * List all the external bank accounts for the provided search criteria.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const externalBankAccountListResponse of client.externalBankAccounts.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query?: ExternalBankAccountListParams,
@@ -83,6 +115,14 @@ export class ExternalBankAccounts extends APIResource {
 
   /**
    * Retry external bank account micro deposit verification.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.externalBankAccounts.retryMicroDeposits(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   retryMicroDeposits(
     externalBankAccountToken: string,
@@ -109,6 +149,14 @@ export class ExternalBankAccounts extends APIResource {
 
   /**
    * Retry external bank account prenote verification.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.externalBankAccounts.retryPrenote(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   retryPrenote(
     externalBankAccountToken: string,

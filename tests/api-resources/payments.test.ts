@@ -133,7 +133,9 @@ describe('resource payments', () => {
   test('simulateAction: required and optional params', async () => {
     const response = await client.payments.simulateAction('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       event_type: 'ACH_ORIGINATION_REVIEWED',
+      date_of_death: '2019-12-27',
       decline_reason: 'PROGRAM_TRANSACTION_LIMIT_EXCEEDED',
+      return_addenda: 'return_addenda',
       return_reason_code: 'return_reason_code',
     });
   });

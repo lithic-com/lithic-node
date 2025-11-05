@@ -261,7 +261,7 @@ describe('resource accountHolders', () => {
 
   test('simulateEnrollmentDocumentReview: only required params', async () => {
     const responsePromise = client.accountHolders.simulateEnrollmentDocumentReview({
-      document_upload_token: 'document_upload_token',
+      document_upload_token: 'b11cd67b-0a52-4180-8365-314f3def5426',
       status: 'UPLOADED',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -275,7 +275,7 @@ describe('resource accountHolders', () => {
 
   test('simulateEnrollmentDocumentReview: required and optional params', async () => {
     const response = await client.accountHolders.simulateEnrollmentDocumentReview({
-      document_upload_token: 'document_upload_token',
+      document_upload_token: 'b11cd67b-0a52-4180-8365-314f3def5426',
       status: 'UPLOADED',
       accepted_entity_status_reasons: ['string'],
       status_reason: 'DOCUMENT_MISSING_REQUIRED_DATA',

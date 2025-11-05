@@ -81,7 +81,6 @@ Types:
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2RetrieveResponse</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2UpdateResponse</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2ListResponse</a></code>
-- <code><a href="./src/resources/auth-rules/v2/v2.ts">V2ApplyResponse</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2DraftResponse</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2PromoteResponse</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2RetrieveFeaturesResponse</a></code>
@@ -94,7 +93,6 @@ Methods:
 - <code title="patch /v2/auth_rules/{auth_rule_token}">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">update</a>(authRuleToken, { ...params }) -> V2UpdateResponse</code>
 - <code title="get /v2/auth_rules">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">list</a>({ ...params }) -> V2ListResponsesCursorPage</code>
 - <code title="delete /v2/auth_rules/{auth_rule_token}">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">del</a>(authRuleToken) -> void</code>
-- <code title="post /v2/auth_rules/{auth_rule_token}/apply">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">apply</a>(authRuleToken, { ...params }) -> V2ApplyResponse</code>
 - <code title="post /v2/auth_rules/{auth_rule_token}/draft">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">draft</a>(authRuleToken, { ...params }) -> V2DraftResponse</code>
 - <code title="post /v2/auth_rules/{auth_rule_token}/promote">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">promote</a>(authRuleToken) -> V2PromoteResponse</code>
 - <code title="get /v2/auth_rules/{auth_rule_token}/features">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">retrieveFeatures</a>(authRuleToken, { ...params }) -> V2RetrieveFeaturesResponse</code>
@@ -238,15 +236,20 @@ Types:
 
 - <code><a href="./src/resources/disputes.ts">Dispute</a></code>
 - <code><a href="./src/resources/disputes.ts">DisputeEvidence</a></code>
+- <code><a href="./src/resources/disputes.ts">DisputeCreateResponse</a></code>
+- <code><a href="./src/resources/disputes.ts">DisputeRetrieveResponse</a></code>
+- <code><a href="./src/resources/disputes.ts">DisputeUpdateResponse</a></code>
+- <code><a href="./src/resources/disputes.ts">DisputeListResponse</a></code>
+- <code><a href="./src/resources/disputes.ts">DisputeDeleteResponse</a></code>
 - <code><a href="./src/resources/disputes.ts">DisputeInitiateEvidenceUploadResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/disputes">client.disputes.<a href="./src/resources/disputes.ts">create</a>({ ...params }) -> Dispute</code>
-- <code title="get /v1/disputes/{dispute_token}">client.disputes.<a href="./src/resources/disputes.ts">retrieve</a>(disputeToken) -> Dispute</code>
-- <code title="patch /v1/disputes/{dispute_token}">client.disputes.<a href="./src/resources/disputes.ts">update</a>(disputeToken, { ...params }) -> Dispute</code>
-- <code title="get /v1/disputes">client.disputes.<a href="./src/resources/disputes.ts">list</a>({ ...params }) -> DisputesCursorPage</code>
-- <code title="delete /v1/disputes/{dispute_token}">client.disputes.<a href="./src/resources/disputes.ts">del</a>(disputeToken) -> Dispute</code>
+- <code title="post /v1/disputes">client.disputes.<a href="./src/resources/disputes.ts">create</a>({ ...params }) -> DisputeCreateResponse</code>
+- <code title="get /v1/disputes/{dispute_token}">client.disputes.<a href="./src/resources/disputes.ts">retrieve</a>(disputeToken) -> DisputeRetrieveResponse</code>
+- <code title="patch /v1/disputes/{dispute_token}">client.disputes.<a href="./src/resources/disputes.ts">update</a>(disputeToken, { ...params }) -> DisputeUpdateResponse</code>
+- <code title="get /v1/disputes">client.disputes.<a href="./src/resources/disputes.ts">list</a>({ ...params }) -> DisputeListResponsesCursorPage</code>
+- <code title="delete /v1/disputes/{dispute_token}">client.disputes.<a href="./src/resources/disputes.ts">del</a>(disputeToken) -> DisputeDeleteResponse</code>
 - <code title="delete /v1/disputes/{dispute_token}/evidences/{evidence_token}">client.disputes.<a href="./src/resources/disputes.ts">deleteEvidence</a>(disputeToken, evidenceToken) -> DisputeEvidence</code>
 - <code title="post /v1/disputes/{dispute_token}/evidences">client.disputes.<a href="./src/resources/disputes.ts">initiateEvidenceUpload</a>(disputeToken, { ...params }) -> DisputeEvidence</code>
 - <code title="get /v1/disputes/{dispute_token}/evidences">client.disputes.<a href="./src/resources/disputes.ts">listEvidences</a>(disputeToken, { ...params }) -> DisputeEvidencesCursorPage</code>

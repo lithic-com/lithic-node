@@ -78,15 +78,20 @@ import {
 import {
   Dispute,
   DisputeCreateParams,
+  DisputeCreateResponse,
+  DisputeDeleteResponse,
   DisputeEvidence,
   DisputeEvidencesCursorPage,
   DisputeInitiateEvidenceUploadParams,
   DisputeInitiateEvidenceUploadResponse,
   DisputeListEvidencesParams,
   DisputeListParams,
+  DisputeListResponse,
+  DisputeListResponsesCursorPage,
+  DisputeRetrieveResponse,
   DisputeUpdateParams,
+  DisputeUpdateResponse,
   Disputes,
-  DisputesCursorPage,
 } from './resources/disputes';
 import {
   ExternalPayment,
@@ -514,7 +519,7 @@ Lithic.BalancesSinglePage = BalancesSinglePage;
 Lithic.AggregateBalances = AggregateBalances;
 Lithic.AggregateBalancesSinglePage = AggregateBalancesSinglePage;
 Lithic.Disputes = Disputes;
-Lithic.DisputesCursorPage = DisputesCursorPage;
+Lithic.DisputeListResponsesCursorPage = DisputeListResponsesCursorPage;
 Lithic.DisputeEvidencesCursorPage = DisputeEvidencesCursorPage;
 Lithic.Events = Events;
 Lithic.EventsCursorPage = EventsCursorPage;
@@ -657,8 +662,13 @@ export declare namespace Lithic {
     Disputes as Disputes,
     type Dispute as Dispute,
     type DisputeEvidence as DisputeEvidence,
+    type DisputeCreateResponse as DisputeCreateResponse,
+    type DisputeRetrieveResponse as DisputeRetrieveResponse,
+    type DisputeUpdateResponse as DisputeUpdateResponse,
+    type DisputeListResponse as DisputeListResponse,
+    type DisputeDeleteResponse as DisputeDeleteResponse,
     type DisputeInitiateEvidenceUploadResponse as DisputeInitiateEvidenceUploadResponse,
-    DisputesCursorPage as DisputesCursorPage,
+    DisputeListResponsesCursorPage as DisputeListResponsesCursorPage,
     DisputeEvidencesCursorPage as DisputeEvidencesCursorPage,
     type DisputeCreateParams as DisputeCreateParams,
     type DisputeUpdateParams as DisputeUpdateParams,
