@@ -69,11 +69,16 @@ export {
   type DigitalCardArtListParams,
 } from './digital-card-art';
 export {
-  DisputesCursorPage,
+  DisputeListResponsesCursorPage,
   DisputeEvidencesCursorPage,
   Disputes,
   type Dispute,
   type DisputeEvidence,
+  type DisputeCreateResponse,
+  type DisputeRetrieveResponse,
+  type DisputeUpdateResponse,
+  type DisputeListResponse,
+  type DisputeDeleteResponse,
   type DisputeInitiateEvidenceUploadResponse,
   type DisputeCreateParams,
   type DisputeUpdateParams,
