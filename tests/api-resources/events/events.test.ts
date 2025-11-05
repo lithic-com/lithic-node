@@ -53,7 +53,7 @@ describe('resource events', () => {
           begin: '2019-12-27T18:11:19.117Z',
           end: '2019-12-27T18:11:19.117Z',
           ending_before: 'ending_before',
-          event_types: ['account_holder.created'],
+          event_types: ['account_holder_document.updated'],
           page_size: 1,
           starting_after: 'starting_after',
           with_content: true,

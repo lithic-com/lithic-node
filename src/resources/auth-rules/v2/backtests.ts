@@ -31,13 +31,6 @@ export class Backtests extends APIResource {
    * support for velocity backtests under most configurations. If a historical
    * transaction does not feature the required inputs to evaluate the rule, then it
    * will not be included in the final backtest report.
-   *
-   * @example
-   * ```ts
-   * const backtest = await client.authRules.v2.backtests.create(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
    */
   create(
     authRuleToken: string,
@@ -66,15 +59,6 @@ export class Backtests extends APIResource {
    * served backtest report will be consistent with which version of the rule is
    * currently activated in the respective event stream, regardless of which version
    * of the rule was active in the event stream at the time a backtest is requested.
-   *
-   * @example
-   * ```ts
-   * const backtestResults =
-   *   await client.authRules.v2.backtests.retrieve(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
-   * ```
    */
   retrieve(
     authRuleToken: string,

@@ -218,7 +218,8 @@ export class AccountHolders extends APIResource {
    * const document =
    *   await client.accountHolders.simulateEnrollmentDocumentReview(
    *     {
-   *       document_upload_token: 'document_upload_token',
+   *       document_upload_token:
+   *         'b11cd67b-0a52-4180-8365-314f3def5426',
    *       status: 'UPLOADED',
    *     },
    *   );
@@ -1318,7 +1319,7 @@ export namespace AccountHolderUpdateResponse {
      * users of businesses. Pass the account_token of the enrolled business associated
      * with the AUTHORIZED_USER in this field.
      */
-    business_account_token?: string;
+    business_account_token?: string | null;
 
     /**
      * Only present when user_type == "BUSINESS". Information about the business for
@@ -1768,7 +1769,7 @@ export namespace AccountHolderUpdateResponse {
     /**
      * The token for the business account that the account holder is associated with
      */
-    business_account_token?: string;
+    business_account_token?: string | null;
 
     /**
      * The email for the account holder
@@ -1872,7 +1873,7 @@ export interface AccountHolderSimulateEnrollmentReviewResponse {
    * users of businesses. Pass the account_token of the enrolled business associated
    * with the AUTHORIZED_USER in this field.
    */
-  business_account_token?: string;
+  business_account_token?: string | null;
 
   /**
    * Only present when user_type == "BUSINESS". Information about the business for

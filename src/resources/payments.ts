@@ -419,6 +419,11 @@ export namespace Payment {
 
   export interface WireMethodAttributes {
     /**
+     * Type of wire message
+     */
+    wire_message_type: string | null;
+
+    /**
      * Type of wire transfer
      */
     wire_network: 'FEDWIRE' | 'SWIFT';
@@ -437,11 +442,6 @@ export namespace Payment {
      * Payment details or invoice reference
      */
     remittance_information?: string | null;
-
-    /**
-     * Type of wire message
-     */
-    wire_message_type?: string;
   }
 
   /**
@@ -622,12 +622,22 @@ export interface PaymentSimulateActionParams {
     | 'ACH_RETURN_SETTLED';
 
   /**
+   * Date of Death for ACH Return
+   */
+  date_of_death?: string;
+
+  /**
    * Decline reason
    */
   decline_reason?:
     | 'PROGRAM_TRANSACTION_LIMIT_EXCEEDED'
     | 'PROGRAM_DAILY_LIMIT_EXCEEDED'
     | 'PROGRAM_MONTHLY_LIMIT_EXCEEDED';
+
+  /**
+   * Return Addenda
+   */
+  return_addenda?: string;
 
   /**
    * Return Reason Code
