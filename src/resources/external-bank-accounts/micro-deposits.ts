@@ -9,6 +9,15 @@ import { path } from '../../internal/utils/path';
 export class MicroDeposits extends APIResource {
   /**
    * Verify the external bank account by providing the micro deposit amounts.
+   *
+   * @example
+   * ```ts
+   * const microDeposit =
+   *   await client.externalBankAccounts.microDeposits.create(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     { micro_deposits: [0, 0] },
+   *   );
+   * ```
    */
   create(
     externalBankAccountToken: string,

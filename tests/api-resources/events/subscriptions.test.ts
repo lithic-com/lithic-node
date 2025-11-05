@@ -24,7 +24,7 @@ describe('resource subscriptions', () => {
       url: 'https://example.com',
       description: 'description',
       disabled: true,
-      event_types: ['account_holder.created'],
+      event_types: ['account_holder_document.updated'],
     });
   });
 
@@ -57,7 +57,7 @@ describe('resource subscriptions', () => {
       url: 'https://example.com',
       description: 'description',
       disabled: true,
-      event_types: ['account_holder.created'],
+      event_types: ['account_holder_document.updated'],
     });
   });
 
@@ -210,7 +210,7 @@ describe('resource subscriptions', () => {
     await expect(
       client.events.subscriptions.sendSimulatedExample(
         'event_subscription_token',
-        { event_type: 'account_holder.created' },
+        { event_type: 'account_holder_document.updated' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Lithic.NotFoundError);

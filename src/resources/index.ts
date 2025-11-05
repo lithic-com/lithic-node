@@ -95,6 +95,11 @@ export {
   Disputes,
   type Dispute,
   type DisputeEvidence,
+  type DisputeCreateResponse,
+  type DisputeRetrieveResponse,
+  type DisputeUpdateResponse,
+  type DisputeListResponse,
+  type DisputeDeleteResponse,
   type DisputeCreateParams,
   type DisputeUpdateParams,
   type DisputeListParams,
@@ -102,7 +107,7 @@ export {
   type DisputeInitiateEvidenceUploadParams,
   type DisputeListEvidencesParams,
   type DisputeRetrieveEvidenceParams,
-  type DisputesCursorPage,
+  type DisputeListResponsesCursorPage,
   type DisputeEvidencesCursorPage,
 } from './disputes';
 export {

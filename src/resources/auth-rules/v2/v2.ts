@@ -20,11 +20,6 @@ export class V2 extends APIResource {
 
   /**
    * Creates a new V2 Auth rule in draft mode
-   *
-   * @example
-   * ```ts
-   * const v2 = await client.authRules.v2.create();
-   * ```
    */
   create(body: V2CreateParams, options?: RequestOptions): APIPromise<V2CreateResponse> {
     return this._client.post('/v2/auth_rules', { body, ...options });
@@ -32,13 +27,6 @@ export class V2 extends APIResource {
 
   /**
    * Fetches a V2 Auth rule by its token
-   *
-   * @example
-   * ```ts
-   * const v2 = await client.authRules.v2.retrieve(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
    */
   retrieve(authRuleToken: string, options?: RequestOptions): APIPromise<V2RetrieveResponse> {
     return this._client.get(path`/v2/auth_rules/${authRuleToken}`, options);
@@ -50,13 +38,6 @@ export class V2 extends APIResource {
    * If `account_tokens`, `card_tokens`, `program_level`, or `excluded_card_tokens`
    * is provided, this will replace existing associations with the provided list of
    * entities.
-   *
-   * @example
-   * ```ts
-   * const v2 = await client.authRules.v2.update(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
    */
   update(
     authRuleToken: string,
@@ -68,14 +49,6 @@ export class V2 extends APIResource {
 
   /**
    * Lists V2 Auth rules
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const v2ListResponse of client.authRules.v2.list()) {
-   *   // ...
-   * }
-   * ```
    */
   list(
     query: V2ListParams | null | undefined = {},
@@ -86,28 +59,9 @@ export class V2 extends APIResource {
 
   /**
    * Deletes a V2 Auth rule
-   *
-   * @example
-   * ```ts
-   * await client.authRules.v2.delete(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
    */
   delete(authRuleToken: string, options?: RequestOptions): APIPromise<void> {
     return this._client.delete(path`/v2/auth_rules/${authRuleToken}`, options);
-  }
-
-  /**
-   * Associates a V2 Auth rule with a card program, the provided account(s) or
-   * card(s).
-   *
-   * Prefer using the `PATCH` method for this operation.
-   *
-   * @deprecated
-   */
-  apply(authRuleToken: string, body: V2ApplyParams, options?: RequestOptions): APIPromise<V2ApplyResponse> {
-    return this._client.post(path`/v2/auth_rules/${authRuleToken}/apply`, { body, ...options });
   }
 
   /**
@@ -115,13 +69,6 @@ export class V2 extends APIResource {
    *
    * This can also be utilized to reset the draft parameters, causing a draft version
    * to no longer be ran in shadow mode.
-   *
-   * @example
-   * ```ts
-   * const response = await client.authRules.v2.draft(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
    */
   draft(authRuleToken: string, body: V2DraftParams, options?: RequestOptions): APIPromise<V2DraftResponse> {
     return this._client.post(path`/v2/auth_rules/${authRuleToken}/draft`, { body, ...options });
@@ -130,13 +77,6 @@ export class V2 extends APIResource {
   /**
    * Promotes the draft version of an Auth rule to the currently active version such
    * that it is enforced in the respective stream.
-   *
-   * @example
-   * ```ts
-   * const response = await client.authRules.v2.promote(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
    */
   promote(authRuleToken: string, options?: RequestOptions): APIPromise<V2PromoteResponse> {
     return this._client.post(path`/v2/auth_rules/${authRuleToken}/promote`, options);
@@ -152,13 +92,6 @@ export class V2 extends APIResource {
    *   to.
    * - ConditionalBlock Rules calculates the CARD*TRANSACTION_COUNT*\* attributes on
    *   the rule. This requires a `card_token`
-   *
-   * @example
-   * ```ts
-   * const response = await client.authRules.v2.retrieveFeatures(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
    */
   retrieveFeatures(
     authRuleToken: string,
@@ -182,14 +115,6 @@ export class V2 extends APIResource {
    * The report provides daily statistics for both current and draft versions of the
    * Auth rule, including approval, decline, and challenge counts along with sample
    * events.
-   *
-   * @example
-   * ```ts
-   * const response = await client.authRules.v2.retrieveReport(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   { begin: '2019-12-27', end: '2019-12-27' },
-   * );
-   * ```
    */
   retrieveReport(
     authRuleToken: string,
@@ -576,10 +501,7 @@ export interface VelocityLimitParams {
   filters: VelocityLimitParams.Filters;
 
   /**
-   * DEPRECATED: This has been deprecated in favor of the Trailing Window Objects
-   *
-   * The size of the trailing window to calculate Spend Velocity over in seconds. The
-   * minimum value is 10 seconds, and the maximum value is 2678400 seconds (31 days).
+   * Velocity over the current day since 00:00 / 12 AM in Eastern Time
    */
   period: VelocityLimitParamsPeriodWindow;
 
@@ -658,17 +580,9 @@ export namespace VelocityLimitParams {
 }
 
 /**
- * DEPRECATED: This has been deprecated in favor of the Trailing Window Objects
- *
- * The size of the trailing window to calculate Spend Velocity over in seconds. The
- * minimum value is 10 seconds, and the maximum value is 2678400 seconds (31 days).
+ * Velocity over the current day since 00:00 / 12 AM in Eastern Time
  */
 export type VelocityLimitParamsPeriodWindow =
-  | number
-  | 'DAY'
-  | 'WEEK'
-  | 'MONTH'
-  | 'YEAR'
   | VelocityLimitParamsPeriodWindow.TrailingWindowObject
   | VelocityLimitParamsPeriodWindow.FixedWindowDay
   | VelocityLimitParamsPeriodWindow.FixedWindowWeek
@@ -681,16 +595,16 @@ export namespace VelocityLimitParamsPeriodWindow {
      * The size of the trailing window to calculate Spend Velocity over in seconds. The
      * minimum value is 10 seconds, and the maximum value is 2678400 seconds (31 days).
      */
-    duration?: number;
+    duration: number;
 
-    type?: 'CUSTOM';
+    type: 'CUSTOM';
   }
 
   /**
    * Velocity over the current day since 00:00 / 12 AM in Eastern Time
    */
   export interface FixedWindowDay {
-    type?: 'DAY';
+    type: 'DAY';
   }
 
   /**
@@ -698,13 +612,13 @@ export namespace VelocityLimitParamsPeriodWindow {
    * `day_of_week`
    */
   export interface FixedWindowWeek {
+    type: 'WEEK';
+
     /**
      * The day of the week to start the week from. Following ISO-8601, 1 is Monday and
      * 7 is Sunday. Defaults to Monday if not specified.
      */
     day_of_week?: number;
-
-    type?: 'WEEK';
   }
 
   /**
@@ -712,14 +626,14 @@ export namespace VelocityLimitParamsPeriodWindow {
    * `day_of_month`.
    */
   export interface FixedWindowMonth {
+    type: 'MONTH';
+
     /**
      * The day of the month to start from. Accepts values from 1 to 31, and will reset
      * at the end of the month if the day exceeds the number of days in the month.
      * Defaults to the 1st of the month if not specified.
      */
     day_of_month?: number;
-
-    type?: 'MONTH';
   }
 
   /**
@@ -729,6 +643,8 @@ export namespace VelocityLimitParamsPeriodWindow {
    * non-leap years, the window will start from February 28th.
    */
   export interface FixedWindowYear {
+    type: 'YEAR';
+
     /**
      * The day of the month to start from. Defaults to the 1st of the month if not
      * specified.
@@ -740,8 +656,6 @@ export namespace VelocityLimitParamsPeriodWindow {
      * not specified.
      */
     month?: number;
-
-    type?: 'YEAR';
   }
 }
 
@@ -2073,338 +1987,6 @@ export namespace V2ListResponse {
   }
 }
 
-export interface V2ApplyResponse {
-  /**
-   * Auth Rule Token
-   */
-  token: string;
-
-  /**
-   * Account tokens to which the Auth Rule applies.
-   */
-  account_tokens: Array<string>;
-
-  /**
-   * Business Account tokens to which the Auth Rule applies.
-   */
-  business_account_tokens: Array<string>;
-
-  /**
-   * Card tokens to which the Auth Rule applies.
-   */
-  card_tokens: Array<string>;
-
-  current_version: V2ApplyResponse.CurrentVersion | null;
-
-  draft_version: V2ApplyResponse.DraftVersion | null;
-
-  /**
-   * The event stream during which the rule will be evaluated.
-   */
-  event_stream: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
-
-  /**
-   * Indicates whether this auth rule is managed by Lithic. If true, the rule cannot
-   * be modified or deleted by the user
-   */
-  lithic_managed: boolean;
-
-  /**
-   * Auth Rule Name
-   */
-  name: string | null;
-
-  /**
-   * Whether the Auth Rule applies to all authorizations on the card program.
-   */
-  program_level: boolean;
-
-  /**
-   * The state of the Auth Rule
-   */
-  state: 'ACTIVE' | 'INACTIVE';
-
-  /**
-   * The type of Auth Rule. For certain rule types, this determines the event stream
-   * during which it will be evaluated. For rules that can be applied to one of
-   * several event streams, the effective one is defined by the separate
-   * `event_stream` field.
-   *
-   * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
-   * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
-   * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-   * - `CONDITIONAL_ACTION`: AUTHORIZATION or THREE_DS_AUTHENTICATION event stream.
-   */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
-
-  /**
-   * Card tokens to which the Auth Rule does not apply.
-   */
-  excluded_card_tokens?: Array<string>;
-}
-
-export namespace V2ApplyResponse {
-  export interface CurrentVersion {
-    /**
-     * Parameters for the Auth Rule
-     */
-    parameters:
-      | V2API.ConditionalBlockParameters
-      | V2API.VelocityLimitParams
-      | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters
-      | CurrentVersion.ConditionalAuthorizationActionParameters;
-
-    /**
-     * The version of the rule, this is incremented whenever the rule's parameters
-     * change.
-     */
-    version: number;
-  }
-
-  export namespace CurrentVersion {
-    export interface ConditionalAuthorizationActionParameters {
-      /**
-       * The action to take if the conditions are met.
-       */
-      action: 'DECLINE' | 'CHALLENGE';
-
-      conditions: Array<ConditionalAuthorizationActionParameters.Condition>;
-    }
-
-    export namespace ConditionalAuthorizationActionParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
-         *   the transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
-         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
-         *   `TOKEN_AUTHENTICATED`.
-         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
-         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
-         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
-         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
-         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `CASH_AMOUNT`: The cash amount of the transaction in minor units (cents). This
-         *   represents the amount of cash being withdrawn or advanced.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authorization. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `CARD_TRANSACTION_COUNT_15M`: The number of transactions on the card in the
-         *   trailing 15 minutes before the authorization.
-         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
-         *   trailing hour up and until the authorization.
-         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
-         *   trailing 24 hours up and until the authorization.
-         * - `CARD_STATE`: The current state of the card associated with the transaction.
-         *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
-         *   `PENDING_FULFILLMENT`.
-         * - `PIN_ENTERED`: Indicates whether a PIN was entered during the transaction.
-         *   Valid values are `TRUE`, `FALSE`.
-         * - `PIN_STATUS`: The current state of card's PIN. Valid values are `NOT_SET`,
-         *   `OK`, `BLOCKED`.
-         * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
-         *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
-         *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
-         * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
-         *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
-         * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
-         *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
-         *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'LIABILITY_SHIFT'
-          | 'PAN_ENTRY_MODE'
-          | 'TRANSACTION_AMOUNT'
-          | 'CASH_AMOUNT'
-          | 'RISK_SCORE'
-          | 'CARD_TRANSACTION_COUNT_15M'
-          | 'CARD_TRANSACTION_COUNT_1H'
-          | 'CARD_TRANSACTION_COUNT_24H'
-          | 'CARD_STATE'
-          | 'PIN_ENTERED'
-          | 'PIN_STATUS'
-          | 'WALLET_TYPE'
-          | 'TRANSACTION_INITIATOR'
-          | 'ADDRESS_MATCH';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_EQUAL_TO'
-          | 'IS_NOT_EQUAL_TO'
-          | 'IS_GREATER_THAN'
-          | 'IS_GREATER_THAN_OR_EQUAL_TO'
-          | 'IS_LESS_THAN'
-          | 'IS_LESS_THAN_OR_EQUAL_TO';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
-  }
-
-  export interface DraftVersion {
-    /**
-     * Parameters for the Auth Rule
-     */
-    parameters:
-      | V2API.ConditionalBlockParameters
-      | V2API.VelocityLimitParams
-      | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters
-      | DraftVersion.ConditionalAuthorizationActionParameters;
-
-    /**
-     * The version of the rule, this is incremented whenever the rule's parameters
-     * change.
-     */
-    version: number;
-  }
-
-  export namespace DraftVersion {
-    export interface ConditionalAuthorizationActionParameters {
-      /**
-       * The action to take if the conditions are met.
-       */
-      action: 'DECLINE' | 'CHALLENGE';
-
-      conditions: Array<ConditionalAuthorizationActionParameters.Condition>;
-    }
-
-    export namespace ConditionalAuthorizationActionParameters {
-      export interface Condition {
-        /**
-         * The attribute to target.
-         *
-         * The following attributes may be targeted:
-         *
-         * - `MCC`: A four-digit number listed in ISO 18245. An MCC is used to classify a
-         *   business by the types of goods or services it provides.
-         * - `COUNTRY`: Country of entity of card acceptor. Possible values are: (1) all
-         *   ISO 3166-1 alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for
-         *   Netherlands Antilles.
-         * - `CURRENCY`: 3-character alphabetic ISO 4217 code for the merchant currency of
-         *   the transaction.
-         * - `MERCHANT_ID`: Unique alphanumeric identifier for the payment card acceptor
-         *   (merchant).
-         * - `DESCRIPTOR`: Short description of card acceptor.
-         * - `LIABILITY_SHIFT`: Indicates whether chargeback liability shift to the issuer
-         *   applies to the transaction. Valid values are `NONE`, `3DS_AUTHENTICATED`, or
-         *   `TOKEN_AUTHENTICATED`.
-         * - `PAN_ENTRY_MODE`: The method by which the cardholder's primary account number
-         *   (PAN) was entered. Valid values are `AUTO_ENTRY`, `BAR_CODE`, `CONTACTLESS`,
-         *   `ECOMMERCE`, `ERROR_KEYED`, `ERROR_MAGNETIC_STRIPE`, `ICC`, `KEY_ENTERED`,
-         *   `MAGNETIC_STRIPE`, `MANUAL`, `OCR`, `SECURE_CARDLESS`, `UNSPECIFIED`,
-         *   `UNKNOWN`, `CREDENTIAL_ON_FILE`, or `ECOMMERCE`.
-         * - `TRANSACTION_AMOUNT`: The base transaction amount (in cents) plus the acquirer
-         *   fee field in the settlement/cardholder billing currency. This is the amount
-         *   the issuer should authorize against unless the issuer is paying the acquirer
-         *   fee on behalf of the cardholder.
-         * - `CASH_AMOUNT`: The cash amount of the transaction in minor units (cents). This
-         *   represents the amount of cash being withdrawn or advanced.
-         * - `RISK_SCORE`: Network-provided score assessing risk level associated with a
-         *   given authorization. Scores are on a range of 0-999, with 0 representing the
-         *   lowest risk and 999 representing the highest risk. For Visa transactions,
-         *   where the raw score has a range of 0-99, Lithic will normalize the score by
-         *   multiplying the raw score by 10x.
-         * - `CARD_TRANSACTION_COUNT_15M`: The number of transactions on the card in the
-         *   trailing 15 minutes before the authorization.
-         * - `CARD_TRANSACTION_COUNT_1H`: The number of transactions on the card in the
-         *   trailing hour up and until the authorization.
-         * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
-         *   trailing 24 hours up and until the authorization.
-         * - `CARD_STATE`: The current state of the card associated with the transaction.
-         *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
-         *   `PENDING_FULFILLMENT`.
-         * - `PIN_ENTERED`: Indicates whether a PIN was entered during the transaction.
-         *   Valid values are `TRUE`, `FALSE`.
-         * - `PIN_STATUS`: The current state of card's PIN. Valid values are `NOT_SET`,
-         *   `OK`, `BLOCKED`.
-         * - `WALLET_TYPE`: For transactions using a digital wallet token, indicates the
-         *   source of the token. Valid values are `APPLE_PAY`, `GOOGLE_PAY`,
-         *   `SAMSUNG_PAY`, `MASTERPASS`, `MERCHANT`, `OTHER`, `NONE`.
-         * - `TRANSACTION_INITIATOR`: The entity that initiated the transaction indicates
-         *   the source of the token. Valid values are `CARDHOLDER`, `MERCHANT`, `UNKNOWN`.
-         * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
-         *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
-         *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
-         */
-        attribute?:
-          | 'MCC'
-          | 'COUNTRY'
-          | 'CURRENCY'
-          | 'MERCHANT_ID'
-          | 'DESCRIPTOR'
-          | 'LIABILITY_SHIFT'
-          | 'PAN_ENTRY_MODE'
-          | 'TRANSACTION_AMOUNT'
-          | 'CASH_AMOUNT'
-          | 'RISK_SCORE'
-          | 'CARD_TRANSACTION_COUNT_15M'
-          | 'CARD_TRANSACTION_COUNT_1H'
-          | 'CARD_TRANSACTION_COUNT_24H'
-          | 'CARD_STATE'
-          | 'PIN_ENTERED'
-          | 'PIN_STATUS'
-          | 'WALLET_TYPE'
-          | 'TRANSACTION_INITIATOR'
-          | 'ADDRESS_MATCH';
-
-        /**
-         * The operation to apply to the attribute
-         */
-        operation?:
-          | 'IS_ONE_OF'
-          | 'IS_NOT_ONE_OF'
-          | 'MATCHES'
-          | 'DOES_NOT_MATCH'
-          | 'IS_EQUAL_TO'
-          | 'IS_NOT_EQUAL_TO'
-          | 'IS_GREATER_THAN'
-          | 'IS_GREATER_THAN_OR_EQUAL_TO'
-          | 'IS_LESS_THAN'
-          | 'IS_LESS_THAN_OR_EQUAL_TO';
-
-        /**
-         * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
-         */
-        value?: string | number | Array<string>;
-      }
-    }
-  }
-}
-
 export interface V2DraftResponse {
   /**
    * Auth Rule Token
@@ -3086,10 +2668,7 @@ export namespace V2RetrieveFeaturesResponse {
     filters: Feature.Filters;
 
     /**
-     * DEPRECATED: This has been deprecated in favor of the Trailing Window Objects
-     *
-     * The size of the trailing window to calculate Spend Velocity over in seconds. The
-     * minimum value is 10 seconds, and the maximum value is 2678400 seconds (31 days).
+     * Velocity over the current day since 00:00 / 12 AM in Eastern Time
      */
     period: V2API.VelocityLimitParamsPeriodWindow;
 
@@ -3790,44 +3369,6 @@ export interface V2ListParams extends CursorPageParams {
   scope?: 'PROGRAM' | 'ACCOUNT' | 'BUSINESS_ACCOUNT' | 'CARD' | 'ANY';
 }
 
-export type V2ApplyParams =
-  | V2ApplyParams.ApplyAuthRuleRequestAccountTokens
-  | V2ApplyParams.ApplyAuthRuleRequestCardTokens
-  | V2ApplyParams.ApplyAuthRuleRequestProgramLevel;
-
-export declare namespace V2ApplyParams {
-  export interface ApplyAuthRuleRequestAccountTokens {
-    /**
-     * Account tokens to which the Auth Rule applies.
-     */
-    account_tokens?: Array<string>;
-
-    /**
-     * Business Account tokens to which the Auth Rule applies.
-     */
-    business_account_tokens?: Array<string>;
-  }
-
-  export interface ApplyAuthRuleRequestCardTokens {
-    /**
-     * Card tokens to which the Auth Rule applies.
-     */
-    card_tokens: Array<string>;
-  }
-
-  export interface ApplyAuthRuleRequestProgramLevel {
-    /**
-     * Whether the Auth Rule applies to all authorizations on the card program.
-     */
-    program_level: boolean;
-
-    /**
-     * Card tokens to which the Auth Rule does not apply.
-     */
-    excluded_card_tokens?: Array<string>;
-  }
-}
-
 export interface V2DraftParams {
   /**
    * Parameters for the Auth Rule
@@ -3988,7 +3529,6 @@ export declare namespace V2 {
     type V2RetrieveResponse as V2RetrieveResponse,
     type V2UpdateResponse as V2UpdateResponse,
     type V2ListResponse as V2ListResponse,
-    type V2ApplyResponse as V2ApplyResponse,
     type V2DraftResponse as V2DraftResponse,
     type V2PromoteResponse as V2PromoteResponse,
     type V2RetrieveFeaturesResponse as V2RetrieveFeaturesResponse,
@@ -3997,7 +3537,6 @@ export declare namespace V2 {
     type V2CreateParams as V2CreateParams,
     type V2UpdateParams as V2UpdateParams,
     type V2ListParams as V2ListParams,
-    type V2ApplyParams as V2ApplyParams,
     type V2DraftParams as V2DraftParams,
     type V2RetrieveFeaturesParams as V2RetrieveFeaturesParams,
     type V2RetrieveReportParams as V2RetrieveReportParams,

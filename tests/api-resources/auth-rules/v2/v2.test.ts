@@ -60,11 +60,11 @@ describe('resource v2', () => {
           account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           business_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           card_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          ending_before: 'ending_before',
+          ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           event_stream: 'AUTHORIZATION',
           page_size: 1,
           scope: 'PROGRAM',
-          starting_after: 'starting_after',
+          starting_after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -73,17 +73,6 @@ describe('resource v2', () => {
 
   test('delete', async () => {
     const responsePromise = client.authRules.v2.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('apply', async () => {
-    const responsePromise = client.authRules.v2.apply('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

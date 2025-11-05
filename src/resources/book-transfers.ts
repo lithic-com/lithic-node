@@ -167,7 +167,7 @@ export namespace BookTransferResponse {
      */
     created: string;
 
-    detailed_results: 'APPROVED' | 'FUNDS_INSUFFICIENT';
+    detailed_results: Array<'APPROVED' | 'FUNDS_INSUFFICIENT'>;
 
     /**
      * Memo for the transfer.
