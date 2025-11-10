@@ -232,11 +232,6 @@ export interface Tokenization {
   created_at: string;
 
   /**
-   * The device identifier associated with the tokenization.
-   */
-  device_id: string | null;
-
-  /**
    * The dynamic pan assigned to the token by the network.
    */
   dpan: string | null;
@@ -247,8 +242,9 @@ export interface Tokenization {
   status: 'ACTIVE' | 'DEACTIVATED' | 'INACTIVE' | 'PAUSED' | 'PENDING_2FA' | 'PENDING_ACTIVATION' | 'UNKNOWN';
 
   /**
-   * The entity that requested the tokenization. Represents a Digital Wallet or
-   * merchant.
+   * The entity that requested the tokenization. For digital wallets, this will be
+   * one of the defined wallet types. For merchant tokenizations, this will be a
+   * free-form merchant name string.
    */
   token_requestor_name:
     | 'AMAZON_ONE'
@@ -257,11 +253,13 @@ export interface Tokenization {
     | 'FACEBOOK'
     | 'FITBIT_PAY'
     | 'GARMIN_PAY'
+    | 'GOOGLE_PAY'
     | 'MICROSOFT_PAY'
     | 'NETFLIX'
     | 'SAMSUNG_PAY'
     | 'UNKNOWN'
-    | 'VISA_CHECKOUT';
+    | 'VISA_CHECKOUT'
+    | (string & {});
 
   /**
    * The network's unique reference for the tokenization.
@@ -279,12 +277,17 @@ export interface Tokenization {
   updated_at: string;
 
   /**
-   * Specifies the digital card art displayed in the user’s digital wallet after
+   * The device identifier associated with the tokenization.
+   */
+  device_id?: string | null;
+
+  /**
+   * Specifies the digital card art displayed in the user's digital wallet after
    * tokenization. This will be null if the tokenization was created without an
    * associated digital card art. See
    * [Flexible Card Art Guide](https://docs.lithic.com/docs/about-digital-wallets#flexible-card-art).
    */
-  digital_card_art_token?: string;
+  digital_card_art_token?: string | null;
 
   /**
    * A list of events related to the tokenization.
