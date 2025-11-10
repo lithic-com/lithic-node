@@ -266,6 +266,11 @@ export namespace Statement {
     /**
      * Volume of debit management operation transactions less any interest in cents
      */
+    debits: number;
+
+    /**
+     * Volume of debit management operation transactions less any interest in cents
+     */
     fees: number;
 
     /**
@@ -282,6 +287,16 @@ export namespace Statement {
      * Net card transaction volume less any cash advances in cents
      */
     purchases: number;
+
+    /**
+     * Breakdown of credits
+     */
+    credit_details?: unknown;
+
+    /**
+     * Breakdown of debits
+     */
+    debit_details?: unknown;
   }
 
   export interface YtdTotals {
@@ -304,6 +319,11 @@ export namespace Statement {
     /**
      * Volume of debit management operation transactions less any interest in cents
      */
+    debits: number;
+
+    /**
+     * Volume of debit management operation transactions less any interest in cents
+     */
     fees: number;
 
     /**
@@ -320,6 +340,16 @@ export namespace Statement {
      * Net card transaction volume less any cash advances in cents
      */
     purchases: number;
+
+    /**
+     * Breakdown of credits
+     */
+    credit_details?: unknown;
+
+    /**
+     * Breakdown of debits
+     */
+    debit_details?: unknown;
   }
 
   export interface InterestDetails {

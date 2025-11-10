@@ -72,7 +72,7 @@ export namespace EnhancedData {
       /**
        * The price of the item purchased in merchant currency.
        */
-      amount?: number;
+      amount?: string;
 
       /**
        * A human-readable description of the item.
@@ -87,7 +87,7 @@ export namespace EnhancedData {
       /**
        * The quantity of the item purchased.
        */
-      quantity?: number;
+      quantity?: string;
     }
 
     export interface Tax {
@@ -158,7 +158,7 @@ export namespace EnhancedData {
       /**
        * The quantity of fuel purchased.
        */
-      quantity?: number;
+      quantity?: string;
 
       /**
        * The type of fuel purchased.
