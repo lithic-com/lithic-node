@@ -346,6 +346,11 @@ export namespace LoanTape {
      * Breakdown of debits
      */
     debit_details?: unknown;
+
+    /**
+     * Breakdown of payments
+     */
+    payment_details?: unknown;
   }
 
   export interface InterestDetails {
@@ -455,6 +460,11 @@ export namespace LoanTape {
      * Breakdown of debits
      */
     debit_details?: unknown;
+
+    /**
+     * Breakdown of payments
+     */
+    payment_details?: unknown;
   }
 
   export interface PreviousStatementBalance {
@@ -514,6 +524,11 @@ export namespace LoanTape {
      * Breakdown of debits
      */
     debit_details?: unknown;
+
+    /**
+     * Breakdown of payments
+     */
+    payment_details?: unknown;
   }
 }
 
