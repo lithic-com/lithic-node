@@ -315,6 +315,11 @@ export namespace LoanTape {
     /**
      * Volume of debit management operation transactions less any interest in cents
      */
+    debits: number;
+
+    /**
+     * Volume of debit management operation transactions less any interest in cents
+     */
     fees: number;
 
     /**
@@ -331,6 +336,16 @@ export namespace LoanTape {
      * Net card transaction volume less any cash advances in cents
      */
     purchases: number;
+
+    /**
+     * Breakdown of credits
+     */
+    credit_details?: unknown;
+
+    /**
+     * Breakdown of debits
+     */
+    debit_details?: unknown;
   }
 
   export interface InterestDetails {
@@ -409,6 +424,11 @@ export namespace LoanTape {
     /**
      * Volume of debit management operation transactions less any interest in cents
      */
+    debits: number;
+
+    /**
+     * Volume of debit management operation transactions less any interest in cents
+     */
     fees: number;
 
     /**
@@ -425,6 +445,16 @@ export namespace LoanTape {
      * Net card transaction volume less any cash advances in cents
      */
     purchases: number;
+
+    /**
+     * Breakdown of credits
+     */
+    credit_details?: unknown;
+
+    /**
+     * Breakdown of debits
+     */
+    debit_details?: unknown;
   }
 
   export interface PreviousStatementBalance {
@@ -453,6 +483,11 @@ export namespace LoanTape {
     /**
      * Volume of debit management operation transactions less any interest in cents
      */
+    debits: number;
+
+    /**
+     * Volume of debit management operation transactions less any interest in cents
+     */
     fees: number;
 
     /**
@@ -469,6 +504,16 @@ export namespace LoanTape {
      * Net card transaction volume less any cash advances in cents
      */
     purchases: number;
+
+    /**
+     * Breakdown of credits
+     */
+    credit_details?: unknown;
+
+    /**
+     * Breakdown of debits
+     */
+    debit_details?: unknown;
   }
 }
 
