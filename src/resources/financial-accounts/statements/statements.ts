@@ -290,6 +290,11 @@ export namespace Statement {
      * Breakdown of debits
      */
     debit_details?: unknown;
+
+    /**
+     * Breakdown of payments
+     */
+    payment_details?: unknown;
   }
 
   export interface YtdTotals {
@@ -343,6 +348,11 @@ export namespace Statement {
      * Breakdown of debits
      */
     debit_details?: unknown;
+
+    /**
+     * Breakdown of payments
+     */
+    payment_details?: unknown;
   }
 
   export interface InterestDetails {
