@@ -7,6 +7,7 @@ import {
   AuthRuleCondition,
   Conditional3DSActionParameters,
   ConditionalAttribute,
+  ConditionalAuthorizationActionParameters,
   ConditionalBlockParameters,
   MerchantLockParameters,
   RuleStats,
@@ -27,7 +28,7 @@ import {
   V2UpdateParams,
   V2UpdateResponse,
   VelocityLimitParams,
-  VelocityLimitParamsPeriodWindow,
+  VelocityLimitPeriod,
 } from './v2/v2';
 
 export class AuthRules extends APIResource {
@@ -44,11 +45,12 @@ export declare namespace AuthRules {
     type AuthRuleCondition as AuthRuleCondition,
     type Conditional3DSActionParameters as Conditional3DSActionParameters,
     type ConditionalAttribute as ConditionalAttribute,
+    type ConditionalAuthorizationActionParameters as ConditionalAuthorizationActionParameters,
     type ConditionalBlockParameters as ConditionalBlockParameters,
     type MerchantLockParameters as MerchantLockParameters,
     type RuleStats as RuleStats,
     type VelocityLimitParams as VelocityLimitParams,
-    type VelocityLimitParamsPeriodWindow as VelocityLimitParamsPeriodWindow,
+    type VelocityLimitPeriod as VelocityLimitPeriod,
     type V2CreateResponse as V2CreateResponse,
     type V2RetrieveResponse as V2RetrieveResponse,
     type V2UpdateResponse as V2UpdateResponse,
