@@ -473,23 +473,9 @@ export namespace Transaction {
 
   export interface CardholderAuthentication {
     /**
-     * @deprecated The 3DS version used for the authentication
+     * Indicates the method used to authenticate the cardholder.
      */
-    '3ds_version': string | null;
-
-    /**
-     * @deprecated Whether an acquirer exemption applied to the transaction. Not
-     * currently populated and will be removed in the future.
-     */
-    acquirer_exemption:
-      | 'AUTHENTICATION_OUTAGE_EXCEPTION'
-      | 'LOW_VALUE'
-      | 'MERCHANT_INITIATED_TRANSACTION'
-      | 'NONE'
-      | 'RECURRING_PAYMENT'
-      | 'SECURE_CORPORATE_PAYMENT'
-      | 'STRONG_CUSTOMER_AUTHENTICATION_DELEGATION'
-      | 'TRANSACTION_RISK_ANALYSIS';
+    authentication_method: 'FRICTIONLESS' | 'CHALLENGE' | 'NONE';
 
     /**
      * Indicates the outcome of the 3DS authentication process.
@@ -528,23 +514,6 @@ export namespace Transaction {
      * transaction on a best-effort basis.
      */
     three_ds_authentication_token: string | null;
-
-    /**
-     * @deprecated Indicates whether a 3DS challenge flow was used, and if so, what the
-     * verification method was. (deprecated, use `authentication_result`)
-     */
-    verification_attempted: 'NONE' | 'OTHER';
-
-    /**
-     * @deprecated Indicates whether a transaction is considered 3DS authenticated.
-     * (deprecated, use `authentication_result`)
-     */
-    verification_result: 'CANCELLED' | 'FAILED' | 'FRICTIONLESS' | 'NOT_ATTEMPTED' | 'REJECTED' | 'SUCCESS';
-
-    /**
-     * Indicates the method used to authenticate the cardholder.
-     */
-    authentication_method?: 'FRICTIONLESS' | 'CHALLENGE' | 'NONE';
   }
 
   export interface Merchant {
