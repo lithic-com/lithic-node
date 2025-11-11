@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.121.0 (2025-11-11)
+
+Full Changelog: [v0.120.0...v0.121.0](https://github.com/lithic-com/lithic-node/compare/v0.120.0...v0.121.0)
+
+### Features
+
+* **api:** add payment_details ([ae08bf9](https://github.com/lithic-com/lithic-node/commit/ae08bf92da67135df7932c1816c19a35f7ebf44a))
+* **api:** deprecate auth rule apply endpoint and fix several schemas ([121d5f4](https://github.com/lithic-com/lithic-node/commit/121d5f4fb50e81ad30a487e4159bd24d3d31d989))
+* **api:** new fields in Statements APIs ([33a4e87](https://github.com/lithic-com/lithic-node/commit/33a4e87d0af4b7e49f0ac945a4e28097c0cf0296))
+* **api:** re-add rules metadata to tokenization events ([6441a18](https://github.com/lithic-com/lithic-node/commit/6441a182c45e95012400f41013f99cca73af2ebb))
+* **api:** remove deprecated fields from Cardholder Authentication object ([6441a18](https://github.com/lithic-com/lithic-node/commit/6441a182c45e95012400f41013f99cca73af2ebb))
+
+
+### Bug Fixes
+
+* **api:** adjust Auth Rules spec for better SDK structure ([6441a18](https://github.com/lithic-com/lithic-node/commit/6441a182c45e95012400f41013f99cca73af2ebb))
+* **api:** fix oneOf -&gt; anyOf in account holder update ([ae08bf9](https://github.com/lithic-com/lithic-node/commit/ae08bf92da67135df7932c1816c19a35f7ebf44a))
+* **api:** fixing spec for Tokenizations and Enhanced data ([33a4e87](https://github.com/lithic-com/lithic-node/commit/33a4e87d0af4b7e49f0ac945a4e28097c0cf0296))
+
+
+### Chores
+
+* **api:** adds support for new ACH_RECEIPT_RELEASED event ([0fa4c03](https://github.com/lithic-com/lithic-node/commit/0fa4c032819548755256ea6572f7b65ee6d8ede6))
+
 ## 0.120.0 (2025-10-23)
 
 Full Changelog: [v0.119.0...v0.120.0](https://github.com/lithic-com/lithic-node/compare/v0.119.0...v0.120.0)
