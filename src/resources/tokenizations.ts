@@ -358,6 +358,51 @@ export namespace Tokenization {
       | 'TOKEN_UPDATED';
 
     /**
+     * Results from rules that were evaluated for this tokenization
+     */
+    rule_results?: Array<Event.RuleResult>;
+
+    /**
+     * List of reasons why the tokenization was declined
+     */
+    tokenization_decline_reasons?: Array<
+      | 'ACCOUNT_SCORE_1'
+      | 'DEVICE_SCORE_1'
+      | 'ALL_WALLET_DECLINE_REASONS_PRESENT'
+      | 'WALLET_RECOMMENDED_DECISION_RED'
+      | 'CVC_MISMATCH'
+      | 'CARD_EXPIRY_MONTH_MISMATCH'
+      | 'CARD_EXPIRY_YEAR_MISMATCH'
+      | 'CARD_INVALID_STATE'
+      | 'CUSTOMER_RED_PATH'
+      | 'INVALID_CUSTOMER_RESPONSE'
+      | 'NETWORK_FAILURE'
+      | 'GENERIC_DECLINE'
+      | 'DIGITAL_CARD_ART_REQUIRED'
+    >;
+
+    /**
+     * List of reasons why two-factor authentication was required
+     */
+    tokenization_tfa_reasons?: Array<
+      | 'WALLET_RECOMMENDED_TFA'
+      | 'SUSPICIOUS_ACTIVITY'
+      | 'DEVICE_RECENTLY_LOST'
+      | 'TOO_MANY_RECENT_ATTEMPTS'
+      | 'TOO_MANY_RECENT_TOKENS'
+      | 'TOO_MANY_DIFFERENT_CARDHOLDERS'
+      | 'OUTSIDE_HOME_TERRITORY'
+      | 'HAS_SUSPENDED_TOKENS'
+      | 'HIGH_RISK'
+      | 'ACCOUNT_SCORE_LOW'
+      | 'DEVICE_SCORE_LOW'
+      | 'CARD_STATE_TFA'
+      | 'HARDCODED_TFA'
+      | 'CUSTOMER_RULE_TFA'
+      | 'DEVICE_HOST_CARD_EMULATION'
+    >;
+
+    /**
      * Enum representing the type of tokenization event that occurred
      */
     type?:
@@ -366,6 +411,33 @@ export namespace Tokenization {
       | 'TOKENIZATION_DECISIONING'
       | 'TOKENIZATION_ELIGIBILITY_CHECK'
       | 'TOKENIZATION_UPDATED';
+  }
+
+  export namespace Event {
+    export interface RuleResult {
+      /**
+       * The Auth Rule Token associated with the rule. If this is set to null, then the
+       * result was not associated with a customer-configured rule. This may happen in
+       * cases where a tokenization is declined or requires TFA due to a
+       * Lithic-configured security or compliance rule, for example.
+       */
+      auth_rule_token: string | null;
+
+      /**
+       * A human-readable explanation outlining the motivation for the rule's result
+       */
+      explanation: string | null;
+
+      /**
+       * The name for the rule, if any was configured
+       */
+      name: string | null;
+
+      /**
+       * The result associated with this rule
+       */
+      result: 'APPROVED' | 'DECLINED' | 'REQUIRE_TFA' | 'ERROR';
+    }
   }
 }
 
