@@ -13,8 +13,10 @@ export {
 } from './credit-configuration';
 export {
   FinancialAccounts,
+  type CategoryDetails,
   type FinancialAccount,
   type FinancialTransaction,
+  type StatementTotals,
   type FinancialAccountCreateParams,
   type FinancialAccountUpdateParams,
   type FinancialAccountListParams,
@@ -30,6 +32,7 @@ export {
 } from './financial-transactions';
 export {
   LoanTapes,
+  type CategoryBalances,
   type LoanTape,
   type LoanTapeRetrieveParams,
   type LoanTapeListParams,

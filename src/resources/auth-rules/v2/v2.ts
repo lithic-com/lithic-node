@@ -233,27 +233,17 @@ export interface AuthRuleCondition {
    *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
    *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
    */
-  attribute?: ConditionalAttribute;
+  attribute: ConditionalAttribute;
 
   /**
    * The operation to apply to the attribute
    */
-  operation?:
-    | 'IS_ONE_OF'
-    | 'IS_NOT_ONE_OF'
-    | 'MATCHES'
-    | 'DOES_NOT_MATCH'
-    | 'IS_EQUAL_TO'
-    | 'IS_NOT_EQUAL_TO'
-    | 'IS_GREATER_THAN'
-    | 'IS_GREATER_THAN_OR_EQUAL_TO'
-    | 'IS_LESS_THAN'
-    | 'IS_LESS_THAN_OR_EQUAL_TO';
+  operation: ConditionalOperation;
 
   /**
    * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
    */
-  value?: string | number | Array<string>;
+  value: ConditionalValue;
 }
 
 export interface Conditional3DSActionParameters {
@@ -293,7 +283,7 @@ export namespace Conditional3DSActionParameters {
      *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
      *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
      */
-    attribute?:
+    attribute:
       | 'MCC'
       | 'COUNTRY'
       | 'CURRENCY'
@@ -307,22 +297,145 @@ export namespace Conditional3DSActionParameters {
     /**
      * The operation to apply to the attribute
      */
-    operation?:
-      | 'IS_ONE_OF'
-      | 'IS_NOT_ONE_OF'
-      | 'MATCHES'
-      | 'DOES_NOT_MATCH'
-      | 'IS_EQUAL_TO'
-      | 'IS_NOT_EQUAL_TO'
-      | 'IS_GREATER_THAN'
-      | 'IS_GREATER_THAN_OR_EQUAL_TO'
-      | 'IS_LESS_THAN'
-      | 'IS_LESS_THAN_OR_EQUAL_TO';
+    operation: V2API.ConditionalOperation;
 
     /**
      * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
      */
-    value?: string | number | Array<string>;
+    value: V2API.ConditionalValue;
+  }
+}
+
+export interface ConditionalACHActionParameters {
+  /**
+   * The action to take if the conditions are met
+   */
+  action: ConditionalACHActionParameters.ApproveAction | ConditionalACHActionParameters.ReturnAction;
+
+  conditions: Array<ConditionalACHActionParameters.Condition>;
+}
+
+export namespace ConditionalACHActionParameters {
+  export interface ApproveAction {
+    /**
+     * Approve the ACH transaction
+     */
+    type: 'APPROVE';
+  }
+
+  export interface ReturnAction {
+    /**
+     * NACHA return code to use when returning the transaction. Note that the list of
+     * available return codes is subject to an allowlist configured at the program
+     * level
+     */
+    code:
+      | 'R01'
+      | 'R02'
+      | 'R03'
+      | 'R04'
+      | 'R05'
+      | 'R06'
+      | 'R07'
+      | 'R08'
+      | 'R09'
+      | 'R10'
+      | 'R11'
+      | 'R12'
+      | 'R13'
+      | 'R14'
+      | 'R15'
+      | 'R16'
+      | 'R17'
+      | 'R18'
+      | 'R19'
+      | 'R20'
+      | 'R21'
+      | 'R22'
+      | 'R23'
+      | 'R24'
+      | 'R25'
+      | 'R26'
+      | 'R27'
+      | 'R28'
+      | 'R29'
+      | 'R30'
+      | 'R31'
+      | 'R32'
+      | 'R33'
+      | 'R34'
+      | 'R35'
+      | 'R36'
+      | 'R37'
+      | 'R38'
+      | 'R39'
+      | 'R40'
+      | 'R41'
+      | 'R42'
+      | 'R43'
+      | 'R44'
+      | 'R45'
+      | 'R46'
+      | 'R47'
+      | 'R50'
+      | 'R51'
+      | 'R52'
+      | 'R53'
+      | 'R61'
+      | 'R62'
+      | 'R67'
+      | 'R68'
+      | 'R69'
+      | 'R70'
+      | 'R71'
+      | 'R72'
+      | 'R73'
+      | 'R74'
+      | 'R75'
+      | 'R76'
+      | 'R77'
+      | 'R80'
+      | 'R81'
+      | 'R82'
+      | 'R83'
+      | 'R84'
+      | 'R85';
+
+    /**
+     * Return the ACH transaction
+     */
+    type: 'RETURN';
+  }
+
+  export interface Condition {
+    /**
+     * The attribute to target.
+     *
+     * The following attributes may be targeted:
+     *
+     * - `COMPANY_NAME`: The name of the company initiating the ACH transaction.
+     * - `COMPANY_ID`: The company ID (also known as Standard Entry Class (SEC) Company
+     *   ID) of the entity initiating the ACH transaction.
+     * - `TIMESTAMP`: The timestamp of the ACH transaction in ISO 8601 format.
+     * - `TRANSACTION_AMOUNT`: The amount of the ACH transaction in minor units
+     *   (cents).
+     * - `SEC_CODE`: Standard Entry Class code indicating the type of ACH transaction.
+     *   Valid values include PPD (Prearranged Payment and Deposit Entry), CCD
+     *   (Corporate Credit or Debit Entry), WEB (Internet-Initiated/Mobile Entry), TEL
+     *   (Telephone-Initiated Entry), and others.
+     * - `MEMO`: Optional memo or description field included with the ACH transaction.
+     */
+    attribute: 'COMPANY_NAME' | 'COMPANY_ID' | 'TIMESTAMP' | 'TRANSACTION_AMOUNT' | 'SEC_CODE' | 'MEMO';
+
+    /**
+     * The operation to apply to the attribute
+     */
+    operation: V2API.ConditionalOperation;
+
+    /**
+     * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+     */
+    value: V2API.ConditionalValue;
   }
 }
 
@@ -464,7 +577,7 @@ export namespace ConditionalAuthorizationActionParameters {
      *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
      *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
      */
-    attribute?:
+    attribute:
       | 'MCC'
       | 'COUNTRY'
       | 'CURRENCY'
@@ -488,28 +601,152 @@ export namespace ConditionalAuthorizationActionParameters {
     /**
      * The operation to apply to the attribute
      */
-    operation?:
-      | 'IS_ONE_OF'
-      | 'IS_NOT_ONE_OF'
-      | 'MATCHES'
-      | 'DOES_NOT_MATCH'
-      | 'IS_EQUAL_TO'
-      | 'IS_NOT_EQUAL_TO'
-      | 'IS_GREATER_THAN'
-      | 'IS_GREATER_THAN_OR_EQUAL_TO'
-      | 'IS_LESS_THAN'
-      | 'IS_LESS_THAN_OR_EQUAL_TO';
+    operation: V2API.ConditionalOperation;
 
     /**
      * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
      */
-    value?: string | number | Array<string>;
+    value: V2API.ConditionalValue;
   }
 }
 
 export interface ConditionalBlockParameters {
   conditions: Array<AuthRuleCondition>;
 }
+
+/**
+ * The operation to apply to the attribute
+ */
+export type ConditionalOperation =
+  | 'IS_ONE_OF'
+  | 'IS_NOT_ONE_OF'
+  | 'MATCHES'
+  | 'DOES_NOT_MATCH'
+  | 'IS_EQUAL_TO'
+  | 'IS_NOT_EQUAL_TO'
+  | 'IS_GREATER_THAN'
+  | 'IS_GREATER_THAN_OR_EQUAL_TO'
+  | 'IS_LESS_THAN'
+  | 'IS_LESS_THAN_OR_EQUAL_TO';
+
+export interface ConditionalTokenizationActionParameters {
+  /**
+   * The action to take if the conditions are met
+   */
+  action:
+    | ConditionalTokenizationActionParameters.DeclineAction
+    | ConditionalTokenizationActionParameters.RequireTfaAction;
+
+  conditions: Array<ConditionalTokenizationActionParameters.Condition>;
+}
+
+export namespace ConditionalTokenizationActionParameters {
+  export interface DeclineAction {
+    /**
+     * Decline the tokenization request
+     */
+    type: 'DECLINE';
+
+    /**
+     * Reason code for declining the tokenization request
+     */
+    reason?:
+      | 'ACCOUNT_SCORE_1'
+      | 'DEVICE_SCORE_1'
+      | 'ALL_WALLET_DECLINE_REASONS_PRESENT'
+      | 'WALLET_RECOMMENDED_DECISION_RED'
+      | 'CVC_MISMATCH'
+      | 'CARD_EXPIRY_MONTH_MISMATCH'
+      | 'CARD_EXPIRY_YEAR_MISMATCH'
+      | 'CARD_INVALID_STATE'
+      | 'CUSTOMER_RED_PATH'
+      | 'INVALID_CUSTOMER_RESPONSE'
+      | 'NETWORK_FAILURE'
+      | 'GENERIC_DECLINE'
+      | 'DIGITAL_CARD_ART_REQUIRED';
+  }
+
+  export interface RequireTfaAction {
+    /**
+     * Require two-factor authentication for the tokenization request
+     */
+    type: 'REQUIRE_TFA';
+
+    /**
+     * Reason code for requiring two-factor authentication
+     */
+    reason?:
+      | 'WALLET_RECOMMENDED_TFA'
+      | 'SUSPICIOUS_ACTIVITY'
+      | 'DEVICE_RECENTLY_LOST'
+      | 'TOO_MANY_RECENT_ATTEMPTS'
+      | 'TOO_MANY_RECENT_TOKENS'
+      | 'TOO_MANY_DIFFERENT_CARDHOLDERS'
+      | 'OUTSIDE_HOME_TERRITORY'
+      | 'HAS_SUSPENDED_TOKENS'
+      | 'HIGH_RISK'
+      | 'ACCOUNT_SCORE_LOW'
+      | 'DEVICE_SCORE_LOW'
+      | 'CARD_STATE_TFA'
+      | 'HARDCODED_TFA'
+      | 'CUSTOMER_RULE_TFA'
+      | 'DEVICE_HOST_CARD_EMULATION';
+  }
+
+  export interface Condition {
+    /**
+     * The attribute to target.
+     *
+     * The following attributes may be targeted:
+     *
+     * - `TIMESTAMP`: The timestamp of the tokenization request in ISO 8601 format.
+     * - `TOKENIZATION_CHANNEL`: The channel through which the tokenization request was
+     *   initiated (e.g., DIGITAL_WALLET, ECOMMERCE).
+     * - `TOKENIZATION_SOURCE`: The source of the tokenization request.
+     * - `TOKEN_REQUESTOR_NAME`: The name of the entity requesting the token. Valid
+     *   values are `ALT_ID`, `AMAZON_ONE`, `AMERICAN_EXPRESS_TOKEN_SERVICE`,
+     *   `ANDROID_PAY`, `APPLE_PAY`, `FACEBOOK`, `FITBIT_PAY`, `GARMIN_PAY`,
+     *   `GOOGLE_PAY`, `GOOGLE_VCN`, `ISSUER_HCE`, `MICROSOFT_PAY`, `NETFLIX`,
+     *   `SAMSUNG_PAY`, `UNKNOWN`, `VISA_CHECKOUT`.
+     * - `WALLET_ACCOUNT_SCORE`: Risk score for the account in the digital wallet.
+     *   Numeric value where lower numbers indicate higher risk (e.g., 1 = high risk, 2
+     *   = medium risk).
+     * - `WALLET_DEVICE_SCORE`: Risk score for the device in the digital wallet.
+     *   Numeric value where lower numbers indicate higher risk (e.g., 1 = high risk, 2
+     *   = medium risk).
+     * - `WALLET_RECOMMENDED_DECISION`: The decision recommended by the digital wallet
+     *   provider. Valid values include APPROVE, DECLINE,
+     *   REQUIRE_ADDITIONAL_AUTHENTICATION.
+     * - `TOKEN_REQUESTOR_ID`: Unique identifier for the entity requesting the token.
+     * - `WALLET_TOKEN_STATUS`: The current status of the wallet token.
+     */
+    attribute:
+      | 'TIMESTAMP'
+      | 'TOKENIZATION_CHANNEL'
+      | 'TOKENIZATION_SOURCE'
+      | 'TOKEN_REQUESTOR_NAME'
+      | 'WALLET_ACCOUNT_SCORE'
+      | 'WALLET_DEVICE_SCORE'
+      | 'WALLET_RECOMMENDED_DECISION'
+      | 'TOKEN_REQUESTOR_ID'
+      | 'WALLET_TOKEN_STATUS';
+
+    /**
+     * The operation to apply to the attribute
+     */
+    operation: V2API.ConditionalOperation;
+
+    /**
+     * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+     */
+    value: V2API.ConditionalValue;
+  }
+}
+
+/**
+ * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+ */
+export type ConditionalValue = string | number | Array<string>;
 
 export interface MerchantLockParameters {
   /**
@@ -797,7 +1034,12 @@ export interface V2CreateResponse {
   /**
    * The event stream during which the rule will be evaluated.
    */
-  event_stream: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
+  event_stream:
+    | 'AUTHORIZATION'
+    | 'THREE_DS_AUTHENTICATION'
+    | 'TOKENIZATION'
+    | 'ACH_CREDIT_RECEIPT'
+    | 'ACH_DEBIT_RECEIPT';
 
   /**
    * Indicates whether this auth rule is managed by Lithic. If true, the rule cannot
@@ -829,7 +1071,8 @@ export interface V2CreateResponse {
    * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
    * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
    * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-   * - `CONDITIONAL_ACTION`: AUTHORIZATION or THREE_DS_AUTHENTICATION event stream.
+   * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
+   *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
    */
   type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
 
@@ -849,7 +1092,9 @@ export namespace V2CreateResponse {
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
       | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters;
+      | V2API.ConditionalAuthorizationActionParameters
+      | V2API.ConditionalACHActionParameters
+      | V2API.ConditionalTokenizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
@@ -867,7 +1112,9 @@ export namespace V2CreateResponse {
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
       | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters;
+      | V2API.ConditionalAuthorizationActionParameters
+      | V2API.ConditionalACHActionParameters
+      | V2API.ConditionalTokenizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
@@ -905,7 +1152,12 @@ export interface V2RetrieveResponse {
   /**
    * The event stream during which the rule will be evaluated.
    */
-  event_stream: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
+  event_stream:
+    | 'AUTHORIZATION'
+    | 'THREE_DS_AUTHENTICATION'
+    | 'TOKENIZATION'
+    | 'ACH_CREDIT_RECEIPT'
+    | 'ACH_DEBIT_RECEIPT';
 
   /**
    * Indicates whether this auth rule is managed by Lithic. If true, the rule cannot
@@ -937,7 +1189,8 @@ export interface V2RetrieveResponse {
    * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
    * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
    * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-   * - `CONDITIONAL_ACTION`: AUTHORIZATION or THREE_DS_AUTHENTICATION event stream.
+   * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
+   *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
    */
   type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
 
@@ -957,7 +1210,9 @@ export namespace V2RetrieveResponse {
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
       | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters;
+      | V2API.ConditionalAuthorizationActionParameters
+      | V2API.ConditionalACHActionParameters
+      | V2API.ConditionalTokenizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
@@ -975,7 +1230,9 @@ export namespace V2RetrieveResponse {
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
       | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters;
+      | V2API.ConditionalAuthorizationActionParameters
+      | V2API.ConditionalACHActionParameters
+      | V2API.ConditionalTokenizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
@@ -1013,7 +1270,12 @@ export interface V2UpdateResponse {
   /**
    * The event stream during which the rule will be evaluated.
    */
-  event_stream: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
+  event_stream:
+    | 'AUTHORIZATION'
+    | 'THREE_DS_AUTHENTICATION'
+    | 'TOKENIZATION'
+    | 'ACH_CREDIT_RECEIPT'
+    | 'ACH_DEBIT_RECEIPT';
 
   /**
    * Indicates whether this auth rule is managed by Lithic. If true, the rule cannot
@@ -1045,7 +1307,8 @@ export interface V2UpdateResponse {
    * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
    * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
    * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-   * - `CONDITIONAL_ACTION`: AUTHORIZATION or THREE_DS_AUTHENTICATION event stream.
+   * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
+   *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
    */
   type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
 
@@ -1065,7 +1328,9 @@ export namespace V2UpdateResponse {
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
       | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters;
+      | V2API.ConditionalAuthorizationActionParameters
+      | V2API.ConditionalACHActionParameters
+      | V2API.ConditionalTokenizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
@@ -1083,7 +1348,9 @@ export namespace V2UpdateResponse {
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
       | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters;
+      | V2API.ConditionalAuthorizationActionParameters
+      | V2API.ConditionalACHActionParameters
+      | V2API.ConditionalTokenizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
@@ -1121,7 +1388,12 @@ export interface V2ListResponse {
   /**
    * The event stream during which the rule will be evaluated.
    */
-  event_stream: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
+  event_stream:
+    | 'AUTHORIZATION'
+    | 'THREE_DS_AUTHENTICATION'
+    | 'TOKENIZATION'
+    | 'ACH_CREDIT_RECEIPT'
+    | 'ACH_DEBIT_RECEIPT';
 
   /**
    * Indicates whether this auth rule is managed by Lithic. If true, the rule cannot
@@ -1153,7 +1425,8 @@ export interface V2ListResponse {
    * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
    * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
    * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-   * - `CONDITIONAL_ACTION`: AUTHORIZATION or THREE_DS_AUTHENTICATION event stream.
+   * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
+   *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
    */
   type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
 
@@ -1173,7 +1446,9 @@ export namespace V2ListResponse {
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
       | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters;
+      | V2API.ConditionalAuthorizationActionParameters
+      | V2API.ConditionalACHActionParameters
+      | V2API.ConditionalTokenizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
@@ -1191,7 +1466,9 @@ export namespace V2ListResponse {
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
       | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters;
+      | V2API.ConditionalAuthorizationActionParameters
+      | V2API.ConditionalACHActionParameters
+      | V2API.ConditionalTokenizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
@@ -1229,7 +1506,12 @@ export interface V2DraftResponse {
   /**
    * The event stream during which the rule will be evaluated.
    */
-  event_stream: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
+  event_stream:
+    | 'AUTHORIZATION'
+    | 'THREE_DS_AUTHENTICATION'
+    | 'TOKENIZATION'
+    | 'ACH_CREDIT_RECEIPT'
+    | 'ACH_DEBIT_RECEIPT';
 
   /**
    * Indicates whether this auth rule is managed by Lithic. If true, the rule cannot
@@ -1261,7 +1543,8 @@ export interface V2DraftResponse {
    * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
    * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
    * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-   * - `CONDITIONAL_ACTION`: AUTHORIZATION or THREE_DS_AUTHENTICATION event stream.
+   * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
+   *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
    */
   type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
 
@@ -1281,7 +1564,9 @@ export namespace V2DraftResponse {
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
       | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters;
+      | V2API.ConditionalAuthorizationActionParameters
+      | V2API.ConditionalACHActionParameters
+      | V2API.ConditionalTokenizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
@@ -1299,7 +1584,9 @@ export namespace V2DraftResponse {
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
       | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters;
+      | V2API.ConditionalAuthorizationActionParameters
+      | V2API.ConditionalACHActionParameters
+      | V2API.ConditionalTokenizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
@@ -1337,7 +1624,12 @@ export interface V2PromoteResponse {
   /**
    * The event stream during which the rule will be evaluated.
    */
-  event_stream: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
+  event_stream:
+    | 'AUTHORIZATION'
+    | 'THREE_DS_AUTHENTICATION'
+    | 'TOKENIZATION'
+    | 'ACH_CREDIT_RECEIPT'
+    | 'ACH_DEBIT_RECEIPT';
 
   /**
    * Indicates whether this auth rule is managed by Lithic. If true, the rule cannot
@@ -1369,7 +1661,8 @@ export interface V2PromoteResponse {
    * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
    * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
    * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-   * - `CONDITIONAL_ACTION`: AUTHORIZATION or THREE_DS_AUTHENTICATION event stream.
+   * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
+   *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
    */
   type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
 
@@ -1389,7 +1682,9 @@ export namespace V2PromoteResponse {
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
       | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters;
+      | V2API.ConditionalAuthorizationActionParameters
+      | V2API.ConditionalACHActionParameters
+      | V2API.ConditionalTokenizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
@@ -1407,7 +1702,9 @@ export namespace V2PromoteResponse {
       | V2API.VelocityLimitParams
       | V2API.MerchantLockParameters
       | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters;
+      | V2API.ConditionalAuthorizationActionParameters
+      | V2API.ConditionalACHActionParameters
+      | V2API.ConditionalTokenizationActionParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
@@ -1570,7 +1867,9 @@ export declare namespace V2CreateParams {
       | VelocityLimitParams
       | MerchantLockParameters
       | Conditional3DSActionParameters
-      | ConditionalAuthorizationActionParameters;
+      | ConditionalAuthorizationActionParameters
+      | ConditionalACHActionParameters
+      | ConditionalTokenizationActionParameters;
 
     /**
      * The type of Auth Rule. For certain rule types, this determines the event stream
@@ -1581,7 +1880,8 @@ export declare namespace V2CreateParams {
      * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
      * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
      * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-     * - `CONDITIONAL_ACTION`: AUTHORIZATION or THREE_DS_AUTHENTICATION event stream.
+     * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
+     *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
      */
     type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
 
@@ -1598,7 +1898,12 @@ export declare namespace V2CreateParams {
     /**
      * The event stream during which the rule will be evaluated.
      */
-    event_stream?: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
+    event_stream?:
+      | 'AUTHORIZATION'
+      | 'THREE_DS_AUTHENTICATION'
+      | 'TOKENIZATION'
+      | 'ACH_CREDIT_RECEIPT'
+      | 'ACH_DEBIT_RECEIPT';
 
     /**
      * Auth Rule Name
@@ -1620,7 +1925,9 @@ export declare namespace V2CreateParams {
       | VelocityLimitParams
       | MerchantLockParameters
       | Conditional3DSActionParameters
-      | ConditionalAuthorizationActionParameters;
+      | ConditionalAuthorizationActionParameters
+      | ConditionalACHActionParameters
+      | ConditionalTokenizationActionParameters;
 
     /**
      * The type of Auth Rule. For certain rule types, this determines the event stream
@@ -1631,14 +1938,20 @@ export declare namespace V2CreateParams {
      * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
      * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
      * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-     * - `CONDITIONAL_ACTION`: AUTHORIZATION or THREE_DS_AUTHENTICATION event stream.
+     * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
+     *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
      */
     type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
 
     /**
      * The event stream during which the rule will be evaluated.
      */
-    event_stream?: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
+    event_stream?:
+      | 'AUTHORIZATION'
+      | 'THREE_DS_AUTHENTICATION'
+      | 'TOKENIZATION'
+      | 'ACH_CREDIT_RECEIPT'
+      | 'ACH_DEBIT_RECEIPT';
 
     /**
      * Auth Rule Name
@@ -1655,7 +1968,9 @@ export declare namespace V2CreateParams {
       | VelocityLimitParams
       | MerchantLockParameters
       | Conditional3DSActionParameters
-      | ConditionalAuthorizationActionParameters;
+      | ConditionalAuthorizationActionParameters
+      | ConditionalACHActionParameters
+      | ConditionalTokenizationActionParameters;
 
     /**
      * Whether the Auth Rule applies to all authorizations on the card program.
@@ -1671,14 +1986,20 @@ export declare namespace V2CreateParams {
      * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
      * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
      * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-     * - `CONDITIONAL_ACTION`: AUTHORIZATION or THREE_DS_AUTHENTICATION event stream.
+     * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
+     *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
      */
     type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
 
     /**
      * The event stream during which the rule will be evaluated.
      */
-    event_stream?: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
+    event_stream?:
+      | 'AUTHORIZATION'
+      | 'THREE_DS_AUTHENTICATION'
+      | 'TOKENIZATION'
+      | 'ACH_CREDIT_RECEIPT'
+      | 'ACH_DEBIT_RECEIPT';
 
     /**
      * Card tokens to which the Auth Rule does not apply.
@@ -1791,7 +2112,12 @@ export interface V2ListParams extends CursorPageParams {
   /**
    * Only return Auth rules that are executed during the provided event stream.
    */
-  event_stream?: 'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION';
+  event_stream?:
+    | 'AUTHORIZATION'
+    | 'THREE_DS_AUTHENTICATION'
+    | 'TOKENIZATION'
+    | 'ACH_CREDIT_RECEIPT'
+    | 'ACH_DEBIT_RECEIPT';
 
   /**
    * Only return Auth Rules that are bound to the provided scope.
@@ -1809,6 +2135,8 @@ export interface V2DraftParams {
     | MerchantLockParameters
     | Conditional3DSActionParameters
     | ConditionalAuthorizationActionParameters
+    | ConditionalACHActionParameters
+    | ConditionalTokenizationActionParameters
     | null;
 }
 
@@ -1837,9 +2165,13 @@ export declare namespace V2 {
     type AuthRule as AuthRule,
     type AuthRuleCondition as AuthRuleCondition,
     type Conditional3DSActionParameters as Conditional3DSActionParameters,
+    type ConditionalACHActionParameters as ConditionalACHActionParameters,
     type ConditionalAttribute as ConditionalAttribute,
     type ConditionalAuthorizationActionParameters as ConditionalAuthorizationActionParameters,
     type ConditionalBlockParameters as ConditionalBlockParameters,
+    type ConditionalOperation as ConditionalOperation,
+    type ConditionalTokenizationActionParameters as ConditionalTokenizationActionParameters,
+    type ConditionalValue as ConditionalValue,
     type MerchantLockParameters as MerchantLockParameters,
     type RuleStats as RuleStats,
     type VelocityLimitParams as VelocityLimitParams,

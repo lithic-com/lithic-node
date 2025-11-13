@@ -10,7 +10,7 @@ const client = new Lithic({
 describe('resource v2', () => {
   test('create: only required params', async () => {
     const responsePromise = client.authRules.v2.create({
-      parameters: { conditions: [{}] },
+      parameters: { conditions: [{ attribute: 'MCC', operation: 'IS_ONE_OF', value: 'string' }] },
       type: 'CONDITIONAL_BLOCK',
     });
     const rawResponse = await responsePromise.asResponse();

@@ -151,6 +151,23 @@ export class ExternalBankAccounts extends APIResource {
       ...options,
     });
   }
+
+  /**
+   * Unpause an external bank account
+   *
+   * @example
+   * ```ts
+   * const response = await client.externalBankAccounts.unpause(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  unpause(
+    externalBankAccountToken: string,
+    options?: RequestOptions,
+  ): APIPromise<ExternalBankAccountUnpauseResponse> {
+    return this._client.post(path`/v1/external_bank_accounts/${externalBankAccountToken}/unpause`, options);
+  }
 }
 
 export type ExternalBankAccountListResponsesCursorPage = CursorPage<ExternalBankAccountListResponse>;
@@ -166,7 +183,7 @@ export interface ExternalBankAccountAddress {
 
   state: string;
 
-  address2?: string;
+  address2?: string | null;
 }
 
 export type OwnerType = 'INDIVIDUAL' | 'BUSINESS';
@@ -256,49 +273,49 @@ export interface ExternalBankAccountCreateResponse {
    * external accounts that are associated with the program, account_token field
    * returned will be null
    */
-  account_token?: string;
+  account_token?: string | null;
 
   /**
    * Address
    */
-  address?: ExternalBankAccountAddress;
+  address?: ExternalBankAccountAddress | null;
 
   /**
    * Optional field that helps identify bank accounts in receipts
    */
-  company_id?: string;
+  company_id?: string | null;
 
   /**
    * Date of Birth of the Individual that owns the external bank account
    */
-  dob?: string;
+  dob?: string | null;
 
   /**
    * Doing Business As
    */
-  doing_business_as?: string;
+  doing_business_as?: string | null;
 
   /**
    * The financial account token of the operating account to fund the micro deposits
    */
-  financial_account_token?: string;
+  financial_account_token?: string | null;
 
   /**
    * The nickname for this External Bank Account
    */
-  name?: string;
+  name?: string | null;
 
   /**
    * User Defined ID
    */
-  user_defined_id?: string;
+  user_defined_id?: string | null;
 
   /**
    * Optional free text description of the reason for the failed verification. For
    * ACH micro-deposits returned, this field will display the reason return code sent
    * by the ACH network
    */
-  verification_failed_reason?: string;
+  verification_failed_reason?: string | null;
 }
 
 export interface ExternalBankAccountRetrieveResponse {
@@ -379,49 +396,49 @@ export interface ExternalBankAccountRetrieveResponse {
    * external accounts that are associated with the program, account_token field
    * returned will be null
    */
-  account_token?: string;
+  account_token?: string | null;
 
   /**
    * Address
    */
-  address?: ExternalBankAccountAddress;
+  address?: ExternalBankAccountAddress | null;
 
   /**
    * Optional field that helps identify bank accounts in receipts
    */
-  company_id?: string;
+  company_id?: string | null;
 
   /**
    * Date of Birth of the Individual that owns the external bank account
    */
-  dob?: string;
+  dob?: string | null;
 
   /**
    * Doing Business As
    */
-  doing_business_as?: string;
+  doing_business_as?: string | null;
 
   /**
    * The financial account token of the operating account to fund the micro deposits
    */
-  financial_account_token?: string;
+  financial_account_token?: string | null;
 
   /**
    * The nickname for this External Bank Account
    */
-  name?: string;
+  name?: string | null;
 
   /**
    * User Defined ID
    */
-  user_defined_id?: string;
+  user_defined_id?: string | null;
 
   /**
    * Optional free text description of the reason for the failed verification. For
    * ACH micro-deposits returned, this field will display the reason return code sent
    * by the ACH network
    */
-  verification_failed_reason?: string;
+  verification_failed_reason?: string | null;
 }
 
 export interface ExternalBankAccountUpdateResponse {
@@ -502,49 +519,49 @@ export interface ExternalBankAccountUpdateResponse {
    * external accounts that are associated with the program, account_token field
    * returned will be null
    */
-  account_token?: string;
+  account_token?: string | null;
 
   /**
    * Address
    */
-  address?: ExternalBankAccountAddress;
+  address?: ExternalBankAccountAddress | null;
 
   /**
    * Optional field that helps identify bank accounts in receipts
    */
-  company_id?: string;
+  company_id?: string | null;
 
   /**
    * Date of Birth of the Individual that owns the external bank account
    */
-  dob?: string;
+  dob?: string | null;
 
   /**
    * Doing Business As
    */
-  doing_business_as?: string;
+  doing_business_as?: string | null;
 
   /**
    * The financial account token of the operating account to fund the micro deposits
    */
-  financial_account_token?: string;
+  financial_account_token?: string | null;
 
   /**
    * The nickname for this External Bank Account
    */
-  name?: string;
+  name?: string | null;
 
   /**
    * User Defined ID
    */
-  user_defined_id?: string;
+  user_defined_id?: string | null;
 
   /**
    * Optional free text description of the reason for the failed verification. For
    * ACH micro-deposits returned, this field will display the reason return code sent
    * by the ACH network
    */
-  verification_failed_reason?: string;
+  verification_failed_reason?: string | null;
 }
 
 export interface ExternalBankAccountListResponse {
@@ -625,49 +642,49 @@ export interface ExternalBankAccountListResponse {
    * external accounts that are associated with the program, account_token field
    * returned will be null
    */
-  account_token?: string;
+  account_token?: string | null;
 
   /**
    * Address
    */
-  address?: ExternalBankAccountAddress;
+  address?: ExternalBankAccountAddress | null;
 
   /**
    * Optional field that helps identify bank accounts in receipts
    */
-  company_id?: string;
+  company_id?: string | null;
 
   /**
    * Date of Birth of the Individual that owns the external bank account
    */
-  dob?: string;
+  dob?: string | null;
 
   /**
    * Doing Business As
    */
-  doing_business_as?: string;
+  doing_business_as?: string | null;
 
   /**
    * The financial account token of the operating account to fund the micro deposits
    */
-  financial_account_token?: string;
+  financial_account_token?: string | null;
 
   /**
    * The nickname for this External Bank Account
    */
-  name?: string;
+  name?: string | null;
 
   /**
    * User Defined ID
    */
-  user_defined_id?: string;
+  user_defined_id?: string | null;
 
   /**
    * Optional free text description of the reason for the failed verification. For
    * ACH micro-deposits returned, this field will display the reason return code sent
    * by the ACH network
    */
-  verification_failed_reason?: string;
+  verification_failed_reason?: string | null;
 }
 
 export interface ExternalBankAccountRetryMicroDepositsResponse {
@@ -748,49 +765,49 @@ export interface ExternalBankAccountRetryMicroDepositsResponse {
    * external accounts that are associated with the program, account_token field
    * returned will be null
    */
-  account_token?: string;
+  account_token?: string | null;
 
   /**
    * Address
    */
-  address?: ExternalBankAccountAddress;
+  address?: ExternalBankAccountAddress | null;
 
   /**
    * Optional field that helps identify bank accounts in receipts
    */
-  company_id?: string;
+  company_id?: string | null;
 
   /**
    * Date of Birth of the Individual that owns the external bank account
    */
-  dob?: string;
+  dob?: string | null;
 
   /**
    * Doing Business As
    */
-  doing_business_as?: string;
+  doing_business_as?: string | null;
 
   /**
    * The financial account token of the operating account to fund the micro deposits
    */
-  financial_account_token?: string;
+  financial_account_token?: string | null;
 
   /**
    * The nickname for this External Bank Account
    */
-  name?: string;
+  name?: string | null;
 
   /**
    * User Defined ID
    */
-  user_defined_id?: string;
+  user_defined_id?: string | null;
 
   /**
    * Optional free text description of the reason for the failed verification. For
    * ACH micro-deposits returned, this field will display the reason return code sent
    * by the ACH network
    */
-  verification_failed_reason?: string;
+  verification_failed_reason?: string | null;
 }
 
 export interface ExternalBankAccountRetryPrenoteResponse {
@@ -871,49 +888,172 @@ export interface ExternalBankAccountRetryPrenoteResponse {
    * external accounts that are associated with the program, account_token field
    * returned will be null
    */
-  account_token?: string;
+  account_token?: string | null;
 
   /**
    * Address
    */
-  address?: ExternalBankAccountAddress;
+  address?: ExternalBankAccountAddress | null;
 
   /**
    * Optional field that helps identify bank accounts in receipts
    */
-  company_id?: string;
+  company_id?: string | null;
 
   /**
    * Date of Birth of the Individual that owns the external bank account
    */
-  dob?: string;
+  dob?: string | null;
 
   /**
    * Doing Business As
    */
-  doing_business_as?: string;
+  doing_business_as?: string | null;
 
   /**
    * The financial account token of the operating account to fund the micro deposits
    */
-  financial_account_token?: string;
+  financial_account_token?: string | null;
 
   /**
    * The nickname for this External Bank Account
    */
-  name?: string;
+  name?: string | null;
 
   /**
    * User Defined ID
    */
-  user_defined_id?: string;
+  user_defined_id?: string | null;
 
   /**
    * Optional free text description of the reason for the failed verification. For
    * ACH micro-deposits returned, this field will display the reason return code sent
    * by the ACH network
    */
-  verification_failed_reason?: string;
+  verification_failed_reason?: string | null;
+}
+
+export interface ExternalBankAccountUnpauseResponse {
+  /**
+   * A globally unique identifier for this record of an external bank account
+   * association. If a program links an external bank account to more than one
+   * end-user or to both the program and the end-user, then Lithic will return each
+   * record of the association
+   */
+  token: string;
+
+  /**
+   * The country that the bank account is located in using ISO 3166-1. We will only
+   * accept USA bank accounts e.g., USA
+   */
+  country: string;
+
+  /**
+   * An ISO 8601 string representing when this funding source was added to the Lithic
+   * account.
+   */
+  created: string;
+
+  /**
+   * currency of the external account 3-character alphabetic ISO 4217 code
+   */
+  currency: string;
+
+  /**
+   * The last 4 digits of the bank account. Derived by Lithic from the account number
+   * passed
+   */
+  last_four: string;
+
+  /**
+   * Legal Name of the business or individual who owns the external account. This
+   * will appear in statements
+   */
+  owner: string;
+
+  /**
+   * Owner Type
+   */
+  owner_type: OwnerType;
+
+  /**
+   * Routing Number
+   */
+  routing_number: string;
+
+  /**
+   * Account State
+   */
+  state: 'ENABLED' | 'CLOSED' | 'PAUSED';
+
+  /**
+   * Account Type
+   */
+  type: 'CHECKING' | 'SAVINGS';
+
+  /**
+   * The number of attempts at verification
+   */
+  verification_attempts: number;
+
+  /**
+   * Verification Method
+   */
+  verification_method: VerificationMethod;
+
+  /**
+   * Verification State
+   */
+  verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS';
+
+  /**
+   * Indicates which Lithic account the external account is associated with. For
+   * external accounts that are associated with the program, account_token field
+   * returned will be null
+   */
+  account_token?: string | null;
+
+  /**
+   * Address
+   */
+  address?: ExternalBankAccountAddress | null;
+
+  /**
+   * Optional field that helps identify bank accounts in receipts
+   */
+  company_id?: string | null;
+
+  /**
+   * Date of Birth of the Individual that owns the external bank account
+   */
+  dob?: string | null;
+
+  /**
+   * Doing Business As
+   */
+  doing_business_as?: string | null;
+
+  /**
+   * The financial account token of the operating account to fund the micro deposits
+   */
+  financial_account_token?: string | null;
+
+  /**
+   * The nickname for this External Bank Account
+   */
+  name?: string | null;
+
+  /**
+   * User Defined ID
+   */
+  user_defined_id?: string | null;
+
+  /**
+   * Optional free text description of the reason for the failed verification. For
+   * ACH micro-deposits returned, this field will display the reason return code sent
+   * by the ACH network
+   */
+  verification_failed_reason?: string | null;
 }
 
 export type ExternalBankAccountCreateParams =
@@ -1253,6 +1393,7 @@ export declare namespace ExternalBankAccounts {
     type ExternalBankAccountListResponse as ExternalBankAccountListResponse,
     type ExternalBankAccountRetryMicroDepositsResponse as ExternalBankAccountRetryMicroDepositsResponse,
     type ExternalBankAccountRetryPrenoteResponse as ExternalBankAccountRetryPrenoteResponse,
+    type ExternalBankAccountUnpauseResponse as ExternalBankAccountUnpauseResponse,
     type ExternalBankAccountListResponsesCursorPage as ExternalBankAccountListResponsesCursorPage,
     type ExternalBankAccountCreateParams as ExternalBankAccountCreateParams,
     type ExternalBankAccountUpdateParams as ExternalBankAccountUpdateParams,

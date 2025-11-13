@@ -77,6 +77,42 @@ export class Payments extends APIResource {
   }
 
   /**
+   * Return an ACH payment with a specified return reason code. Returns must be
+   * initiated within the time window specified by NACHA rules for each return code
+   * (typically 2 banking days for most codes, 60 calendar days for unauthorized
+   * debits). For a complete list of return codes and their meanings, see the
+   * [ACH Return Reasons documentation](https://docs.lithic.com/docs/ach-overview#ach-return-reasons).
+   *
+   * Note:
+   *
+   * - This endpoint does not modify the state of the financial account associated
+   *   with the payment. If you would like to change the account state, use the
+   *   [Update financial account status](https://docs.lithic.com/reference/updatefinancialaccountstatus)
+   *   endpoint.
+   * - By default this endpoint is not enabled for your account. Please contact your
+   *   implementations manager to enable this feature.
+   *
+   * @example
+   * ```ts
+   * const response = await client.payments.return(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   {
+   *     financial_account_token:
+   *       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     return_reason_code: 'R01',
+   *   },
+   * );
+   * ```
+   */
+  return(
+    paymentToken: string,
+    body: PaymentReturnParams,
+    options?: RequestOptions,
+  ): APIPromise<PaymentReturnResponse> {
+    return this._client.post(path`/v1/payments/${paymentToken}/return`, { body, ...options });
+  }
+
+  /**
    * Simulate payment lifecycle event
    *
    * @example
@@ -231,9 +267,9 @@ export interface Payment {
   pending_amount: number;
 
   /**
-   * Related account tokens for the transaction
+   * Account tokens related to a payment transaction
    */
-  related_account_tokens: Payment.RelatedAccountTokens;
+  related_account_tokens: Payment.RelatedAccountTokens | null;
 
   /**
    * Transaction result
@@ -253,7 +289,7 @@ export interface Payment {
   /**
    * The status of the transaction
    */
-  status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED';
+  status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED';
 
   /**
    * ISO 8601 timestamp of when the transaction was last updated
@@ -365,6 +401,7 @@ export namespace Payment {
      */
     detailed_results?: Array<
       | 'APPROVED'
+      | 'DECLINED'
       | 'FUNDS_INSUFFICIENT'
       | 'ACCOUNT_INVALID'
       | 'PROGRAM_TRANSACTION_LIMIT_EXCEEDED'
@@ -438,7 +475,7 @@ export namespace Payment {
   }
 
   /**
-   * Related account tokens for the transaction
+   * Account tokens related to a payment transaction
    */
   export interface RelatedAccountTokens {
     /**
@@ -471,6 +508,26 @@ export interface PaymentRetryResponse extends Payment {
    * Balance
    */
   balance?: BalancesAPI.Balance;
+}
+
+/**
+ * Response from ACH operations including returns
+ */
+export interface PaymentReturnResponse {
+  /**
+   * Transaction result
+   */
+  result: 'APPROVED' | 'DECLINED';
+
+  /**
+   * Globally unique identifier for the transaction group
+   */
+  transaction_group_uuid: string;
+
+  /**
+   * Globally unique identifier for the transaction
+   */
+  transaction_uuid: string;
 }
 
 export interface PaymentSimulateActionResponse {
@@ -599,6 +656,38 @@ export interface PaymentListParams extends CursorPageParams {
   status?: 'DECLINED' | 'PENDING' | 'RETURNED' | 'SETTLED';
 }
 
+export interface PaymentReturnParams {
+  /**
+   * Globally unique identifier for the financial account
+   */
+  financial_account_token: string;
+
+  /**
+   * ACH return reason code indicating the reason for returning the payment.
+   * Supported codes include R01-R53 and R80-R85. For a complete list of return codes
+   * and their meanings, see
+   * [ACH Return Reasons](https://docs.lithic.com/docs/ach-overview#ach-return-reasons)
+   */
+  return_reason_code: string;
+
+  /**
+   * Optional additional information about the return. Limited to 44 characters
+   */
+  addenda?: string | null;
+
+  /**
+   * Date of death in YYYY-MM-DD format. Required when using return codes **R14**
+   * (representative payee deceased) or **R15** (beneficiary or account holder
+   * deceased)
+   */
+  date_of_death?: string | null;
+
+  /**
+   * Optional memo for the return. Limited to 10 characters
+   */
+  memo?: string | null;
+}
+
 export interface PaymentSimulateActionParams {
   /**
    * Event Type
@@ -689,6 +778,7 @@ export declare namespace Payments {
     type Payment as Payment,
     type PaymentCreateResponse as PaymentCreateResponse,
     type PaymentRetryResponse as PaymentRetryResponse,
+    type PaymentReturnResponse as PaymentReturnResponse,
     type PaymentSimulateActionResponse as PaymentSimulateActionResponse,
     type PaymentSimulateReceiptResponse as PaymentSimulateReceiptResponse,
     type PaymentSimulateReleaseResponse as PaymentSimulateReleaseResponse,
@@ -696,6 +786,7 @@ export declare namespace Payments {
     type PaymentsCursorPage as PaymentsCursorPage,
     type PaymentCreateParams as PaymentCreateParams,
     type PaymentListParams as PaymentListParams,
+    type PaymentReturnParams as PaymentReturnParams,
     type PaymentSimulateActionParams as PaymentSimulateActionParams,
     type PaymentSimulateReceiptParams as PaymentSimulateReceiptParams,
     type PaymentSimulateReleaseParams as PaymentSimulateReleaseParams,

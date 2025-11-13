@@ -112,6 +112,7 @@ client.example.list(undefined, { headers: { ... } });
 - `client.disputes.list()`
 - `client.disputes.initiateEvidenceUpload()`
 - `client.disputes.listEvidences()`
+- `client.disputesV2.list()`
 - `client.events.list()`
 - `client.events.listAttempts()`
 - `client.events.subscriptions.list()`

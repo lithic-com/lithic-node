@@ -11,6 +11,7 @@ export {
   type ExternalBankAccountListResponse,
   type ExternalBankAccountRetryMicroDepositsResponse,
   type ExternalBankAccountRetryPrenoteResponse,
+  type ExternalBankAccountUnpauseResponse,
   type ExternalBankAccountCreateParams,
   type ExternalBankAccountUpdateParams,
   type ExternalBankAccountListParams,

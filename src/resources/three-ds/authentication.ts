@@ -292,20 +292,20 @@ export namespace AuthenticationRetrieveResponse {
     name?: string | null;
 
     /**
-     * Home phone number provided by the cardholder. Maps to EMV 3DS fields
-     * `homePhone.cc` and `homePhone.subscriber`.
+     * Home phone number in E.164 format provided by the cardholder. Maps to EMV 3DS
+     * fields `homePhone.cc` and `homePhone.subscriber`.
      */
     phone_number_home?: string | null;
 
     /**
-     * Mobile/cell phone number provided by the cardholder. Maps to EMV 3DS fields
-     * `mobilePhone.cc` and `mobilePhone.subscriber`.
+     * Mobile/cell phone number in E.164 format provided by the cardholder. Maps to EMV
+     * 3DS fields `mobilePhone.cc` and `mobilePhone.subscriber`.
      */
     phone_number_mobile?: string | null;
 
     /**
-     * Work phone number provided by the cardholder. Maps to EMV 3DS fields
-     * `workPhone.cc` and `workPhone.subscriber`.
+     * Work phone number in E.164 format provided by the cardholder. Maps to EMV 3DS
+     * fields `workPhone.cc` and `workPhone.subscriber`.
      */
     phone_number_work?: string | null;
 
