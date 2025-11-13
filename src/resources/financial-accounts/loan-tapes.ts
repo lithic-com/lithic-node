@@ -3,6 +3,8 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
+import * as LoanTapesAPI from './loan-tapes';
+import * as FinancialAccountsAPI from './financial-accounts';
 import { CursorPage, type CursorPageParams } from '../../pagination';
 
 export class LoanTapes extends APIResource {
@@ -69,6 +71,14 @@ export class LoanTapes extends APIResource {
 
 export class LoanTapesCursorPage extends CursorPage<LoanTape> {}
 
+export interface CategoryBalances {
+  fees: number;
+
+  interest: number;
+
+  principal: number;
+}
+
 export interface LoanTape {
   /**
    * Globally unique identifier for a loan tape
@@ -106,7 +116,7 @@ export interface LoanTape {
    */
   date: string;
 
-  day_totals: LoanTape.DayTotals;
+  day_totals: FinancialAccountsAPI.StatementTotals;
 
   /**
    * Balance at the end of the day
@@ -129,9 +139,9 @@ export interface LoanTape {
 
   minimum_payment_balance: LoanTape.MinimumPaymentBalance;
 
-  payment_allocation: LoanTape.PaymentAllocation;
+  payment_allocation: CategoryBalances;
 
-  period_totals: LoanTape.PeriodTotals;
+  period_totals: FinancialAccountsAPI.StatementTotals;
 
   previous_statement_balance: LoanTape.PreviousStatementBalance;
 
@@ -150,12 +160,12 @@ export interface LoanTape {
    */
   version: number;
 
-  ytd_totals: LoanTape.YtdTotals;
+  ytd_totals: FinancialAccountsAPI.StatementTotals;
 
   /**
    * Interest tier to which this account belongs to
    */
-  tier?: string;
+  tier?: string | null;
 }
 
 export namespace LoanTape {
@@ -226,173 +236,40 @@ export namespace LoanTape {
      * Amount due for the prior billing cycle. Any amounts not fully paid off on this
      * due date will be considered past due the next day
      */
-    due: Balances.Due;
+    due: LoanTapesAPI.CategoryBalances;
 
     /**
      * Amount due for the current billing cycle. Any amounts not paid off by early
      * payments or credits will be considered due at the end of the current billing
      * period
      */
-    next_statement_due: Balances.NextStatementDue;
+    next_statement_due: LoanTapesAPI.CategoryBalances;
 
     /**
      * Amount not paid off on previous due dates
      */
-    past_due: Balances.PastDue;
+    past_due: LoanTapesAPI.CategoryBalances;
 
     /**
      * Amount due for the past billing cycles.
      */
-    past_statements_due: Balances.PastStatementsDue;
-  }
-
-  export namespace Balances {
-    /**
-     * Amount due for the prior billing cycle. Any amounts not fully paid off on this
-     * due date will be considered past due the next day
-     */
-    export interface Due {
-      fees: number;
-
-      interest: number;
-
-      principal: number;
-    }
-
-    /**
-     * Amount due for the current billing cycle. Any amounts not paid off by early
-     * payments or credits will be considered due at the end of the current billing
-     * period
-     */
-    export interface NextStatementDue {
-      fees: number;
-
-      interest: number;
-
-      principal: number;
-    }
-
-    /**
-     * Amount not paid off on previous due dates
-     */
-    export interface PastDue {
-      fees: number;
-
-      interest: number;
-
-      principal: number;
-    }
-
-    /**
-     * Amount due for the past billing cycles.
-     */
-    export interface PastStatementsDue {
-      fees: number;
-
-      interest: number;
-
-      principal: number;
-    }
-  }
-
-  export interface DayTotals {
-    /**
-     * Opening balance transferred from previous account in cents
-     */
-    balance_transfers: number;
-
-    /**
-     * ATM and cashback transactions in cents
-     */
-    cash_advances: number;
-
-    /**
-     * Volume of credit management operation transactions less any balance transfers in
-     * cents
-     */
-    credits: number;
-
-    /**
-     * Volume of debit management operation transactions less any interest in cents
-     */
-    debits: number;
-
-    /**
-     * Volume of debit management operation transactions less any interest in cents
-     */
-    fees: number;
-
-    /**
-     * Interest accrued in cents
-     */
-    interest: number;
-
-    /**
-     * Any funds transfers which affective the balance in cents
-     */
-    payments: number;
-
-    /**
-     * Net card transaction volume less any cash advances in cents
-     */
-    purchases: number;
-
-    /**
-     * Breakdown of credits
-     */
-    credit_details?: unknown;
-
-    /**
-     * Breakdown of debits
-     */
-    debit_details?: unknown;
-
-    /**
-     * Breakdown of payments
-     */
-    payment_details?: unknown;
+    past_statements_due: LoanTapesAPI.CategoryBalances;
   }
 
   export interface InterestDetails {
     actual_interest_charged: number | null;
 
-    daily_balance_amounts: InterestDetails.DailyBalanceAmounts;
+    daily_balance_amounts: FinancialAccountsAPI.CategoryDetails;
 
-    effective_apr: InterestDetails.EffectiveApr;
+    effective_apr: FinancialAccountsAPI.CategoryDetails;
 
     interest_calculation_method: 'DAILY' | 'AVERAGE_DAILY';
 
-    interest_for_period: InterestDetails.InterestForPeriod;
+    interest_for_period: FinancialAccountsAPI.CategoryDetails;
 
     prime_rate: string | null;
 
     minimum_interest_charged?: number | null;
-  }
-
-  export namespace InterestDetails {
-    export interface DailyBalanceAmounts {
-      balance_transfers: string;
-
-      cash_advances: string;
-
-      purchases: string;
-    }
-
-    export interface EffectiveApr {
-      balance_transfers: string;
-
-      cash_advances: string;
-
-      purchases: string;
-    }
-
-    export interface InterestForPeriod {
-      balance_transfers: string;
-
-      cash_advances: string;
-
-      purchases: string;
-    }
   }
 
   export interface MinimumPaymentBalance {
@@ -401,134 +278,10 @@ export namespace LoanTape {
     remaining: number;
   }
 
-  export interface PaymentAllocation {
-    fees: number;
-
-    interest: number;
-
-    principal: number;
-  }
-
-  export interface PeriodTotals {
-    /**
-     * Opening balance transferred from previous account in cents
-     */
-    balance_transfers: number;
-
-    /**
-     * ATM and cashback transactions in cents
-     */
-    cash_advances: number;
-
-    /**
-     * Volume of credit management operation transactions less any balance transfers in
-     * cents
-     */
-    credits: number;
-
-    /**
-     * Volume of debit management operation transactions less any interest in cents
-     */
-    debits: number;
-
-    /**
-     * Volume of debit management operation transactions less any interest in cents
-     */
-    fees: number;
-
-    /**
-     * Interest accrued in cents
-     */
-    interest: number;
-
-    /**
-     * Any funds transfers which affective the balance in cents
-     */
-    payments: number;
-
-    /**
-     * Net card transaction volume less any cash advances in cents
-     */
-    purchases: number;
-
-    /**
-     * Breakdown of credits
-     */
-    credit_details?: unknown;
-
-    /**
-     * Breakdown of debits
-     */
-    debit_details?: unknown;
-
-    /**
-     * Breakdown of payments
-     */
-    payment_details?: unknown;
-  }
-
   export interface PreviousStatementBalance {
     amount: number;
 
     remaining: number;
-  }
-
-  export interface YtdTotals {
-    /**
-     * Opening balance transferred from previous account in cents
-     */
-    balance_transfers: number;
-
-    /**
-     * ATM and cashback transactions in cents
-     */
-    cash_advances: number;
-
-    /**
-     * Volume of credit management operation transactions less any balance transfers in
-     * cents
-     */
-    credits: number;
-
-    /**
-     * Volume of debit management operation transactions less any interest in cents
-     */
-    debits: number;
-
-    /**
-     * Volume of debit management operation transactions less any interest in cents
-     */
-    fees: number;
-
-    /**
-     * Interest accrued in cents
-     */
-    interest: number;
-
-    /**
-     * Any funds transfers which affective the balance in cents
-     */
-    payments: number;
-
-    /**
-     * Net card transaction volume less any cash advances in cents
-     */
-    purchases: number;
-
-    /**
-     * Breakdown of credits
-     */
-    credit_details?: unknown;
-
-    /**
-     * Breakdown of debits
-     */
-    debit_details?: unknown;
-
-    /**
-     * Breakdown of payments
-     */
-    payment_details?: unknown;
   }
 }
 
@@ -550,6 +303,7 @@ LoanTapes.LoanTapesCursorPage = LoanTapesCursorPage;
 
 export declare namespace LoanTapes {
   export {
+    type CategoryBalances as CategoryBalances,
     type LoanTape as LoanTape,
     LoanTapesCursorPage as LoanTapesCursorPage,
     type LoanTapeListParams as LoanTapeListParams,

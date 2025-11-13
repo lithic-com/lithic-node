@@ -16,15 +16,23 @@ export {
   FinancialTransactionsSinglePage,
   FinancialAccountsSinglePage,
   FinancialAccounts,
+  type CategoryDetails,
   type FinancialAccount,
   type FinancialTransaction,
+  type StatementTotals,
   type FinancialAccountCreateParams,
   type FinancialAccountUpdateParams,
   type FinancialAccountListParams,
   type FinancialAccountRegisterAccountNumberParams,
   type FinancialAccountUpdateStatusParams,
 } from './financial-accounts';
-export { LoanTapesCursorPage, LoanTapes, type LoanTape, type LoanTapeListParams } from './loan-tapes';
+export {
+  LoanTapesCursorPage,
+  LoanTapes,
+  type CategoryBalances,
+  type LoanTape,
+  type LoanTapeListParams,
+} from './loan-tapes';
 export {
   StatementsCursorPage,
   Statements,

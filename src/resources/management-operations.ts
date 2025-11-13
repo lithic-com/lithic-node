@@ -105,7 +105,7 @@ export interface ManagementOperationTransaction {
   /**
    * The status of the transaction
    */
-  status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED';
+  status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED';
 
   /**
    * ISO 8601 timestamp of when the transaction was last updated
@@ -145,7 +145,7 @@ export interface ManagementOperationTransaction {
 
   transaction_series?: ManagementOperationTransaction.TransactionSeries | null;
 
-  user_defined_id?: string;
+  user_defined_id?: string | null;
 }
 
 export namespace ManagementOperationTransaction {
@@ -185,7 +185,7 @@ export namespace ManagementOperationTransaction {
       | 'DISBURSE'
       | 'DISBURSE_REVERSAL';
 
-    subtype?: string;
+    subtype?: string | null;
   }
 
   export interface TransactionSeries {
@@ -282,7 +282,7 @@ export interface ManagementOperationListParams extends CursorPageParams {
   /**
    * Management operation status to be returned.
    */
-  status?: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED';
+  status?: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED';
 }
 
 export interface ManagementOperationReverseParams {

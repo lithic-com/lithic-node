@@ -175,6 +175,106 @@ export namespace Document {
 }
 
 /**
+ * Financial Event
+ */
+export interface FinancialEvent {
+  /**
+   * Globally unique identifier.
+   */
+  token?: string;
+
+  /**
+   * Amount of the financial event that has been settled in the currency's smallest
+   * unit (e.g., cents).
+   */
+  amount?: number;
+
+  /**
+   * Date and time when the financial event occurred. UTC time zone.
+   */
+  created?: string;
+
+  /**
+   * APPROVED financial events were successful while DECLINED financial events were
+   * declined by user, Lithic, or the network.
+   */
+  result?: 'APPROVED' | 'DECLINED';
+
+  type?:
+    | 'ACH_ORIGINATION_CANCELLED'
+    | 'ACH_ORIGINATION_INITIATED'
+    | 'ACH_ORIGINATION_PROCESSED'
+    | 'ACH_ORIGINATION_RELEASED'
+    | 'ACH_ORIGINATION_REJECTED'
+    | 'ACH_ORIGINATION_REVIEWED'
+    | 'ACH_ORIGINATION_SETTLED'
+    | 'ACH_RECEIPT_PROCESSED'
+    | 'ACH_RECEIPT_RELEASED'
+    | 'ACH_RECEIPT_SETTLED'
+    | 'ACH_RETURN_INITIATED'
+    | 'ACH_RETURN_PROCESSED'
+    | 'ACH_RETURN_REJECTED'
+    | 'ACH_RETURN_SETTLED'
+    | 'AUTHORIZATION'
+    | 'AUTHORIZATION_ADVICE'
+    | 'AUTHORIZATION_EXPIRY'
+    | 'AUTHORIZATION_REVERSAL'
+    | 'BALANCE_INQUIRY'
+    | 'BILLING_ERROR'
+    | 'BILLING_ERROR_REVERSAL'
+    | 'CARD_TO_CARD'
+    | 'CASH_BACK'
+    | 'CASH_BACK_REVERSAL'
+    | 'CLEARING'
+    | 'COLLECTION'
+    | 'CORRECTION_CREDIT'
+    | 'CORRECTION_DEBIT'
+    | 'CREDIT_AUTHORIZATION'
+    | 'CREDIT_AUTHORIZATION_ADVICE'
+    | 'CURRENCY_CONVERSION'
+    | 'CURRENCY_CONVERSION_REVERSAL'
+    | 'DISPUTE_WON'
+    | 'EXTERNAL_ACH_CANCELED'
+    | 'EXTERNAL_ACH_INITIATED'
+    | 'EXTERNAL_ACH_RELEASED'
+    | 'EXTERNAL_ACH_REVERSED'
+    | 'EXTERNAL_ACH_SETTLED'
+    | 'EXTERNAL_CHECK_CANCELED'
+    | 'EXTERNAL_CHECK_INITIATED'
+    | 'EXTERNAL_CHECK_RELEASED'
+    | 'EXTERNAL_CHECK_REVERSED'
+    | 'EXTERNAL_CHECK_SETTLED'
+    | 'EXTERNAL_TRANSFER_CANCELED'
+    | 'EXTERNAL_TRANSFER_INITIATED'
+    | 'EXTERNAL_TRANSFER_RELEASED'
+    | 'EXTERNAL_TRANSFER_REVERSED'
+    | 'EXTERNAL_TRANSFER_SETTLED'
+    | 'EXTERNAL_WIRE_CANCELED'
+    | 'EXTERNAL_WIRE_INITIATED'
+    | 'EXTERNAL_WIRE_RELEASED'
+    | 'EXTERNAL_WIRE_REVERSED'
+    | 'EXTERNAL_WIRE_SETTLED'
+    | 'FINANCIAL_AUTHORIZATION'
+    | 'FINANCIAL_CREDIT_AUTHORIZATION'
+    | 'INTEREST'
+    | 'INTEREST_REVERSAL'
+    | 'INTERNAL_ADJUSTMENT'
+    | 'LATE_PAYMENT'
+    | 'LATE_PAYMENT_REVERSAL'
+    | 'LOSS_WRITE_OFF'
+    | 'PROVISIONAL_CREDIT'
+    | 'PROVISIONAL_CREDIT_REVERSAL'
+    | 'SERVICE'
+    | 'RETURN'
+    | 'RETURN_REVERSAL'
+    | 'TRANSFER'
+    | 'TRANSFER_INSUFFICIENT_FUNDS'
+    | 'RETURNED_PAYMENT'
+    | 'RETURNED_PAYMENT_REVERSAL'
+    | 'LITHIC_NETWORK_PAYMENT';
+}
+
+/**
  * Type of instance financial account
  */
 export type InstanceFinancialAccountType =
@@ -188,6 +288,46 @@ export type InstanceFinancialAccountType =
   | 'PROGRAM_RECEIVABLES'
   | 'COLLECTION'
   | 'PROGRAM_BANK_ACCOUNTS_PAYABLE';
+
+export interface Merchant {
+  /**
+   * Unique alphanumeric identifier for the payment card acceptor (merchant).
+   */
+  acceptor_id: string;
+
+  /**
+   * Unique numeric identifier of the acquiring institution.
+   */
+  acquiring_institution_id: string;
+
+  /**
+   * City of card acceptor. Note that in many cases, particularly in card-not-present
+   * transactions, merchants may send through a phone number or URL in this field.
+   */
+  city: string;
+
+  /**
+   * Country or entity of card acceptor. Possible values are: (1) all ISO 3166-1
+   * alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for Netherlands Antilles.
+   */
+  country: string;
+
+  /**
+   * Short description of card acceptor.
+   */
+  descriptor: string;
+
+  /**
+   * Merchant category code (MCC). A four-digit number listed in ISO 18245. An MCC is
+   * used to classify a business by the types of goods or services it provides.
+   */
+  mcc: string;
+
+  /**
+   * Geographic state of card acceptor.
+   */
+  state: string;
+}
 
 export interface ShippingAddress {
   /**

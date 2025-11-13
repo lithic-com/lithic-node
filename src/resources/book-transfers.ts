@@ -129,7 +129,7 @@ export interface BookTransferResponse {
   /**
    * The status of the transaction
    */
-  status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED';
+  status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED';
 
   /**
    * Globally unique identifier for the financial account or card that will receive

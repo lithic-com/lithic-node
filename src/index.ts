@@ -78,21 +78,17 @@ import {
 import {
   Dispute,
   DisputeCreateParams,
-  DisputeCreateResponse,
-  DisputeDeleteResponse,
   DisputeEvidence,
   DisputeEvidencesCursorPage,
   DisputeInitiateEvidenceUploadParams,
   DisputeInitiateEvidenceUploadResponse,
   DisputeListEvidencesParams,
   DisputeListParams,
-  DisputeListResponse,
-  DisputeListResponsesCursorPage,
-  DisputeRetrieveResponse,
   DisputeUpdateParams,
-  DisputeUpdateResponse,
   Disputes,
+  DisputesCursorPage,
 } from './resources/disputes';
+import { DisputeV2, DisputeV2sCursorPage, DisputesV2, DisputesV2ListParams } from './resources/disputes-v2';
 import {
   ExternalPayment,
   ExternalPaymentCancelParams,
@@ -134,6 +130,8 @@ import {
   PaymentCreateResponse,
   PaymentListParams,
   PaymentRetryResponse,
+  PaymentReturnParams,
+  PaymentReturnResponse,
   PaymentSimulateActionParams,
   PaymentSimulateActionResponse,
   PaymentSimulateReceiptParams,
@@ -216,6 +214,7 @@ import {
   ExternalBankAccountRetryMicroDepositsResponse,
   ExternalBankAccountRetryPrenoteParams,
   ExternalBankAccountRetryPrenoteResponse,
+  ExternalBankAccountUnpauseResponse,
   ExternalBankAccountUpdateParams,
   ExternalBankAccountUpdateResponse,
   ExternalBankAccounts,
@@ -223,6 +222,7 @@ import {
   VerificationMethod,
 } from './resources/external-bank-accounts/external-bank-accounts';
 import {
+  CategoryDetails,
   FinancialAccount,
   FinancialAccountCreateParams,
   FinancialAccountListParams,
@@ -232,6 +232,7 @@ import {
   FinancialAccounts,
   FinancialAccountsSinglePage,
   FinancialTransaction,
+  StatementTotals,
 } from './resources/financial-accounts/financial-accounts';
 import { Fraud } from './resources/fraud/fraud';
 import {
@@ -423,6 +424,7 @@ export class Lithic extends Core.APIClient {
   balances: API.Balances = new API.Balances(this);
   aggregateBalances: API.AggregateBalances = new API.AggregateBalances(this);
   disputes: API.Disputes = new API.Disputes(this);
+  disputesV2: API.DisputesV2 = new API.DisputesV2(this);
   events: API.Events = new API.Events(this);
   transfers: API.Transfers = new API.Transfers(this);
   financialAccounts: API.FinancialAccounts = new API.FinancialAccounts(this);
@@ -514,8 +516,10 @@ Lithic.BalancesSinglePage = BalancesSinglePage;
 Lithic.AggregateBalances = AggregateBalances;
 Lithic.AggregateBalancesSinglePage = AggregateBalancesSinglePage;
 Lithic.Disputes = Disputes;
-Lithic.DisputeListResponsesCursorPage = DisputeListResponsesCursorPage;
+Lithic.DisputesCursorPage = DisputesCursorPage;
 Lithic.DisputeEvidencesCursorPage = DisputeEvidencesCursorPage;
+Lithic.DisputesV2 = DisputesV2;
+Lithic.DisputeV2sCursorPage = DisputeV2sCursorPage;
 Lithic.Events = Events;
 Lithic.EventsCursorPage = EventsCursorPage;
 Lithic.MessageAttemptsCursorPage = MessageAttemptsCursorPage;
@@ -655,19 +659,21 @@ export declare namespace Lithic {
     Disputes as Disputes,
     type Dispute as Dispute,
     type DisputeEvidence as DisputeEvidence,
-    type DisputeCreateResponse as DisputeCreateResponse,
-    type DisputeRetrieveResponse as DisputeRetrieveResponse,
-    type DisputeUpdateResponse as DisputeUpdateResponse,
-    type DisputeListResponse as DisputeListResponse,
-    type DisputeDeleteResponse as DisputeDeleteResponse,
     type DisputeInitiateEvidenceUploadResponse as DisputeInitiateEvidenceUploadResponse,
-    DisputeListResponsesCursorPage as DisputeListResponsesCursorPage,
+    DisputesCursorPage as DisputesCursorPage,
     DisputeEvidencesCursorPage as DisputeEvidencesCursorPage,
     type DisputeCreateParams as DisputeCreateParams,
     type DisputeUpdateParams as DisputeUpdateParams,
     type DisputeListParams as DisputeListParams,
     type DisputeInitiateEvidenceUploadParams as DisputeInitiateEvidenceUploadParams,
     type DisputeListEvidencesParams as DisputeListEvidencesParams,
+  };
+
+  export {
+    DisputesV2 as DisputesV2,
+    type DisputeV2 as DisputeV2,
+    DisputeV2sCursorPage as DisputeV2sCursorPage,
+    type DisputesV2ListParams as DisputesV2ListParams,
   };
 
   export {
@@ -689,8 +695,10 @@ export declare namespace Lithic {
 
   export {
     FinancialAccounts as FinancialAccounts,
+    type CategoryDetails as CategoryDetails,
     type FinancialAccount as FinancialAccount,
     type FinancialTransaction as FinancialTransaction,
+    type StatementTotals as StatementTotals,
     FinancialAccountsSinglePage as FinancialAccountsSinglePage,
     type FinancialAccountCreateParams as FinancialAccountCreateParams,
     type FinancialAccountUpdateParams as FinancialAccountUpdateParams,
@@ -742,6 +750,7 @@ export declare namespace Lithic {
     type ExternalBankAccountListResponse as ExternalBankAccountListResponse,
     type ExternalBankAccountRetryMicroDepositsResponse as ExternalBankAccountRetryMicroDepositsResponse,
     type ExternalBankAccountRetryPrenoteResponse as ExternalBankAccountRetryPrenoteResponse,
+    type ExternalBankAccountUnpauseResponse as ExternalBankAccountUnpauseResponse,
     ExternalBankAccountListResponsesCursorPage as ExternalBankAccountListResponsesCursorPage,
     type ExternalBankAccountCreateParams as ExternalBankAccountCreateParams,
     type ExternalBankAccountUpdateParams as ExternalBankAccountUpdateParams,
@@ -755,6 +764,7 @@ export declare namespace Lithic {
     type Payment as Payment,
     type PaymentCreateResponse as PaymentCreateResponse,
     type PaymentRetryResponse as PaymentRetryResponse,
+    type PaymentReturnResponse as PaymentReturnResponse,
     type PaymentSimulateActionResponse as PaymentSimulateActionResponse,
     type PaymentSimulateReceiptResponse as PaymentSimulateReceiptResponse,
     type PaymentSimulateReleaseResponse as PaymentSimulateReleaseResponse,
@@ -762,6 +772,7 @@ export declare namespace Lithic {
     PaymentsCursorPage as PaymentsCursorPage,
     type PaymentCreateParams as PaymentCreateParams,
     type PaymentListParams as PaymentListParams,
+    type PaymentReturnParams as PaymentReturnParams,
     type PaymentSimulateActionParams as PaymentSimulateActionParams,
     type PaymentSimulateReceiptParams as PaymentSimulateReceiptParams,
     type PaymentSimulateReleaseParams as PaymentSimulateReleaseParams,
@@ -857,7 +868,9 @@ export declare namespace Lithic {
   export type Carrier = API.Carrier;
   export type Currency = API.Currency;
   export type Document = API.Document;
+  export type FinancialEvent = API.FinancialEvent;
   export type InstanceFinancialAccountType = API.InstanceFinancialAccountType;
+  export type Merchant = API.Merchant;
   export type ShippingAddress = API.ShippingAddress;
 }
 

@@ -107,49 +107,49 @@ export interface MicroDepositCreateResponse {
    * external accounts that are associated with the program, account_token field
    * returned will be null
    */
-  account_token?: string;
+  account_token?: string | null;
 
   /**
    * Address
    */
-  address?: ExternalBankAccountsAPI.ExternalBankAccountAddress;
+  address?: ExternalBankAccountsAPI.ExternalBankAccountAddress | null;
 
   /**
    * Optional field that helps identify bank accounts in receipts
    */
-  company_id?: string;
+  company_id?: string | null;
 
   /**
    * Date of Birth of the Individual that owns the external bank account
    */
-  dob?: string;
+  dob?: string | null;
 
   /**
    * Doing Business As
    */
-  doing_business_as?: string;
+  doing_business_as?: string | null;
 
   /**
    * The financial account token of the operating account to fund the micro deposits
    */
-  financial_account_token?: string;
+  financial_account_token?: string | null;
 
   /**
    * The nickname for this External Bank Account
    */
-  name?: string;
+  name?: string | null;
 
   /**
    * User Defined ID
    */
-  user_defined_id?: string;
+  user_defined_id?: string | null;
 
   /**
    * Optional free text description of the reason for the failed verification. For
    * ACH micro-deposits returned, this field will display the reason return code sent
    * by the ACH network
    */
-  verification_failed_reason?: string;
+  verification_failed_reason?: string | null;
 }
 
 export interface MicroDepositCreateParams {
