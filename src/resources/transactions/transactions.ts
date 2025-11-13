@@ -308,7 +308,7 @@ export interface Transaction {
 
   financial_account_token: string | null;
 
-  merchant: Transaction.Merchant;
+  merchant: Shared.Merchant;
 
   /**
    * @deprecated Analogous to the 'amount', but in the merchant currency.
@@ -514,46 +514,6 @@ export namespace Transaction {
      * transaction on a best-effort basis.
      */
     three_ds_authentication_token: string | null;
-  }
-
-  export interface Merchant {
-    /**
-     * Unique alphanumeric identifier for the payment card acceptor (merchant).
-     */
-    acceptor_id: string;
-
-    /**
-     * Unique numeric identifier of the acquiring institution.
-     */
-    acquiring_institution_id: string;
-
-    /**
-     * City of card acceptor. Note that in many cases, particularly in card-not-present
-     * transactions, merchants may send through a phone number or URL in this field.
-     */
-    city: string;
-
-    /**
-     * Country or entity of card acceptor. Possible values are: (1) all ISO 3166-1
-     * alpha-3 country codes, (2) QZZ for Kosovo, and (3) ANT for Netherlands Antilles.
-     */
-    country: string;
-
-    /**
-     * Short description of card acceptor.
-     */
-    descriptor: string;
-
-    /**
-     * Merchant category code (MCC). A four-digit number listed in ISO 18245. An MCC is
-     * used to classify a business by the types of goods or services it provides.
-     */
-    mcc: string;
-
-    /**
-     * Geographic state of card acceptor.
-     */
-    state: string;
   }
 
   export interface Pos {

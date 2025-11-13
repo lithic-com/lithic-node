@@ -3,6 +3,7 @@
 import { APIResource } from '../../resource';
 import { isRequestOptions } from '../../core';
 import * as Core from '../../core';
+import * as Shared from '../shared';
 import * as BalancesAPI from './balances';
 import { BalanceListParams, BalanceListResponse, BalanceListResponsesSinglePage, Balances } from './balances';
 import * as CreditConfigurationAPI from './credit-configuration';
@@ -14,7 +15,7 @@ import {
 import * as FinancialTransactionsAPI from './financial-transactions';
 import { FinancialTransactionListParams, FinancialTransactions } from './financial-transactions';
 import * as LoanTapesAPI from './loan-tapes';
-import { LoanTape, LoanTapeListParams, LoanTapes, LoanTapesCursorPage } from './loan-tapes';
+import { CategoryBalances, LoanTape, LoanTapeListParams, LoanTapes, LoanTapesCursorPage } from './loan-tapes';
 import * as StatementsAPI from './statements/statements';
 import { Statement, StatementListParams, Statements, StatementsCursorPage } from './statements/statements';
 import { SinglePage } from '../../pagination';
@@ -178,6 +179,14 @@ export class FinancialAccountsSinglePage extends SinglePage<FinancialAccount> {}
 
 export class FinancialTransactionsSinglePage extends SinglePage<FinancialTransaction> {}
 
+export interface CategoryDetails {
+  balance_transfers: string;
+
+  cash_advances: string;
+
+  purchases: string;
+}
+
 export interface FinancialAccount {
   /**
    * Globally unique identifier for the account
@@ -234,7 +243,7 @@ export interface FinancialAccount {
 
 export namespace FinancialAccount {
   export interface CreditConfiguration {
-    auto_collection_configuration: CreditConfiguration.AutoCollectionConfiguration;
+    auto_collection_configuration: CreditConfiguration.AutoCollectionConfiguration | null;
 
     credit_limit: number | null;
 
@@ -298,7 +307,7 @@ export interface FinancialTransaction {
   /**
    * A list of all financial events that have modified this financial transaction.
    */
-  events: Array<FinancialTransaction.Event>;
+  events: Array<Shared.FinancialEvent>;
 
   /**
    * Pending amount of the transaction in the currency's smallest unit (e.g., cents),
@@ -338,106 +347,62 @@ export interface FinancialTransaction {
   updated: string;
 }
 
-export namespace FinancialTransaction {
+export interface StatementTotals {
   /**
-   * Financial Event
+   * Opening balance transferred from previous account in cents
    */
-  export interface Event {
-    /**
-     * Globally unique identifier.
-     */
-    token?: string;
+  balance_transfers: number;
 
-    /**
-     * Amount of the financial event that has been settled in the currency's smallest
-     * unit (e.g., cents).
-     */
-    amount?: number;
+  /**
+   * ATM and cashback transactions in cents
+   */
+  cash_advances: number;
 
-    /**
-     * Date and time when the financial event occurred. UTC time zone.
-     */
-    created?: string;
+  /**
+   * Volume of credit management operation transactions less any balance transfers in
+   * cents
+   */
+  credits: number;
 
-    /**
-     * APPROVED financial events were successful while DECLINED financial events were
-     * declined by user, Lithic, or the network.
-     */
-    result?: 'APPROVED' | 'DECLINED';
+  /**
+   * Volume of debit management operation transactions less any interest in cents
+   */
+  debits: number;
 
-    type?:
-      | 'ACH_ORIGINATION_CANCELLED'
-      | 'ACH_ORIGINATION_INITIATED'
-      | 'ACH_ORIGINATION_PROCESSED'
-      | 'ACH_ORIGINATION_RELEASED'
-      | 'ACH_ORIGINATION_REJECTED'
-      | 'ACH_ORIGINATION_REVIEWED'
-      | 'ACH_ORIGINATION_SETTLED'
-      | 'ACH_RECEIPT_PROCESSED'
-      | 'ACH_RECEIPT_RELEASED'
-      | 'ACH_RECEIPT_SETTLED'
-      | 'ACH_RETURN_INITIATED'
-      | 'ACH_RETURN_PROCESSED'
-      | 'ACH_RETURN_REJECTED'
-      | 'ACH_RETURN_SETTLED'
-      | 'AUTHORIZATION'
-      | 'AUTHORIZATION_ADVICE'
-      | 'AUTHORIZATION_EXPIRY'
-      | 'AUTHORIZATION_REVERSAL'
-      | 'BALANCE_INQUIRY'
-      | 'BILLING_ERROR'
-      | 'BILLING_ERROR_REVERSAL'
-      | 'CARD_TO_CARD'
-      | 'CASH_BACK'
-      | 'CASH_BACK_REVERSAL'
-      | 'CLEARING'
-      | 'COLLECTION'
-      | 'CORRECTION_CREDIT'
-      | 'CORRECTION_DEBIT'
-      | 'CREDIT_AUTHORIZATION'
-      | 'CREDIT_AUTHORIZATION_ADVICE'
-      | 'CURRENCY_CONVERSION'
-      | 'CURRENCY_CONVERSION_REVERSAL'
-      | 'DISPUTE_WON'
-      | 'EXTERNAL_ACH_CANCELED'
-      | 'EXTERNAL_ACH_INITIATED'
-      | 'EXTERNAL_ACH_RELEASED'
-      | 'EXTERNAL_ACH_REVERSED'
-      | 'EXTERNAL_ACH_SETTLED'
-      | 'EXTERNAL_CHECK_CANCELED'
-      | 'EXTERNAL_CHECK_INITIATED'
-      | 'EXTERNAL_CHECK_RELEASED'
-      | 'EXTERNAL_CHECK_REVERSED'
-      | 'EXTERNAL_CHECK_SETTLED'
-      | 'EXTERNAL_TRANSFER_CANCELED'
-      | 'EXTERNAL_TRANSFER_INITIATED'
-      | 'EXTERNAL_TRANSFER_RELEASED'
-      | 'EXTERNAL_TRANSFER_REVERSED'
-      | 'EXTERNAL_TRANSFER_SETTLED'
-      | 'EXTERNAL_WIRE_CANCELED'
-      | 'EXTERNAL_WIRE_INITIATED'
-      | 'EXTERNAL_WIRE_RELEASED'
-      | 'EXTERNAL_WIRE_REVERSED'
-      | 'EXTERNAL_WIRE_SETTLED'
-      | 'FINANCIAL_AUTHORIZATION'
-      | 'FINANCIAL_CREDIT_AUTHORIZATION'
-      | 'INTEREST'
-      | 'INTEREST_REVERSAL'
-      | 'INTERNAL_ADJUSTMENT'
-      | 'LATE_PAYMENT'
-      | 'LATE_PAYMENT_REVERSAL'
-      | 'LOSS_WRITE_OFF'
-      | 'PROVISIONAL_CREDIT'
-      | 'PROVISIONAL_CREDIT_REVERSAL'
-      | 'SERVICE'
-      | 'RETURN'
-      | 'RETURN_REVERSAL'
-      | 'TRANSFER'
-      | 'TRANSFER_INSUFFICIENT_FUNDS'
-      | 'RETURNED_PAYMENT'
-      | 'RETURNED_PAYMENT_REVERSAL'
-      | 'LITHIC_NETWORK_PAYMENT';
-  }
+  /**
+   * Volume of debit management operation transactions less any interest in cents
+   */
+  fees: number;
+
+  /**
+   * Interest accrued in cents
+   */
+  interest: number;
+
+  /**
+   * Any funds transfers which affective the balance in cents
+   */
+  payments: number;
+
+  /**
+   * Net card transaction volume less any cash advances in cents
+   */
+  purchases: number;
+
+  /**
+   * Breakdown of credits
+   */
+  credit_details?: unknown;
+
+  /**
+   * Breakdown of debits
+   */
+  debit_details?: unknown;
+
+  /**
+   * Breakdown of payments
+   */
+  payment_details?: unknown;
 }
 
 export interface FinancialAccountCreateParams {
@@ -515,8 +480,10 @@ FinancialAccounts.LoanTapesCursorPage = LoanTapesCursorPage;
 
 export declare namespace FinancialAccounts {
   export {
+    type CategoryDetails as CategoryDetails,
     type FinancialAccount as FinancialAccount,
     type FinancialTransaction as FinancialTransaction,
+    type StatementTotals as StatementTotals,
     FinancialAccountsSinglePage as FinancialAccountsSinglePage,
     type FinancialAccountCreateParams as FinancialAccountCreateParams,
     type FinancialAccountUpdateParams as FinancialAccountUpdateParams,
@@ -552,6 +519,7 @@ export declare namespace FinancialAccounts {
 
   export {
     LoanTapes as LoanTapes,
+    type CategoryBalances as CategoryBalances,
     type LoanTape as LoanTape,
     LoanTapesCursorPage as LoanTapesCursorPage,
     type LoanTapeListParams as LoanTapeListParams,

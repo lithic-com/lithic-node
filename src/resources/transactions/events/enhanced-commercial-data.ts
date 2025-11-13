@@ -51,17 +51,17 @@ export namespace EnhancedData {
     /**
      * An optional customer identifier.
      */
-    customer_reference_number?: string;
+    customer_reference_number?: string | null;
 
     /**
      * An optional merchant identifier.
      */
-    merchant_reference_number?: string;
+    merchant_reference_number?: string | null;
 
     /**
      * The date of the order.
      */
-    order_date?: string;
+    order_date?: string | null;
   }
 
   export namespace Common {
@@ -72,39 +72,39 @@ export namespace EnhancedData {
       /**
        * The price of the item purchased in merchant currency.
        */
-      amount?: string;
+      amount?: string | null;
 
       /**
        * A human-readable description of the item.
        */
-      description?: string;
+      description?: string | null;
 
       /**
        * An identifier for the item purchased.
        */
-      product_code?: string;
+      product_code?: string | null;
 
       /**
        * The quantity of the item purchased.
        */
-      quantity?: string;
+      quantity?: string | null;
     }
 
     export interface Tax {
       /**
        * The amount of tax collected.
        */
-      amount?: number;
+      amount?: number | null;
 
       /**
        * A flag indicating whether the transaction is tax exempt or not.
        */
-      exempt?: 'TAX_INCLUDED' | 'TAX_NOT_INCLUDED' | 'NOT_SUPPORTED';
+      exempt?: 'TAX_INCLUDED' | 'TAX_NOT_INCLUDED' | 'NOT_SUPPORTED' | null;
 
       /**
        * The tax ID of the merchant.
        */
-      merchant_tax_id?: string;
+      merchant_tax_id?: string | null;
     }
   }
 
@@ -117,12 +117,12 @@ export namespace EnhancedData {
      * The driver number entered into at the terminal at the time of sale, with leading
      * zeroes stripped.
      */
-    driver_number?: string;
+    driver_number?: string | null;
 
     /**
      * The odometer reading entered into at the terminal at the time of sale.
      */
-    odometer?: number;
+    odometer?: number | null;
 
     /**
      * The type of fuel service.
@@ -133,7 +133,7 @@ export namespace EnhancedData {
      * The vehicle number entered into at the terminal at the time of sale, with
      * leading zeroes stripped.
      */
-    vehicle_number?: string;
+    vehicle_number?: string | null;
   }
 
   export namespace Fleet {
@@ -141,24 +141,24 @@ export namespace EnhancedData {
       /**
        * The discount applied to the gross sale amount.
        */
-      discount?: number;
+      discount?: number | null;
 
       /**
        * The gross sale amount.
        */
-      gross_sale?: number;
+      gross_sale?: number | null;
 
       /**
        * The amount after discount.
        */
-      net_sale?: number;
+      net_sale?: number | null;
     }
 
     export interface Fuel {
       /**
        * The quantity of fuel purchased.
        */
-      quantity?: string;
+      quantity?: string | null;
 
       /**
        * The type of fuel purchased.
@@ -280,7 +280,8 @@ export namespace EnhancedData {
         | 'BIODIESEL_BLEND_99_PERCENT_OFF_ROAD_NON_TAXABLE'
         | 'BIODIESEL_BLEND_100_PERCENT_OFF_ROAD_NON_TAXABLE'
         | 'RENEWABLE_DIESEL_BIODIESEL_6_20_PERCENT_OFF_ROAD_NON_TAXABLE'
-        | 'MISCELLANEOUS_OTHER_FUEL';
+        | 'MISCELLANEOUS_OTHER_FUEL'
+        | null;
 
       /**
        * Unit of measure for fuel disbursement.
@@ -292,12 +293,13 @@ export namespace EnhancedData {
         | 'KILOGRAMS'
         | 'IMPERIAL_GALLONS'
         | 'NOT_APPLICABLE'
-        | 'UNKNOWN';
+        | 'UNKNOWN'
+        | null;
 
       /**
        * The price per unit of fuel.
        */
-      unit_price?: number;
+      unit_price?: number | null;
     }
   }
 }
