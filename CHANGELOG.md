@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.122.0 (2025-11-13)
+
+Full Changelog: [v0.121.0...v0.122.0](https://github.com/lithic-com/lithic-node/compare/v0.121.0...v0.122.0)
+
+### Features
+
+* **api:** add disputes V2 endpoints ([5533a47](https://github.com/lithic-com/lithic-node/commit/5533a477b97ed6f7ad9888c19587df93c958a358))
+* **api:** add return payment method ([5533a47](https://github.com/lithic-com/lithic-node/commit/5533a477b97ed6f7ad9888c19587df93c958a358))
+* **api:** add Tokenization and ACH Rules ([5533a47](https://github.com/lithic-com/lithic-node/commit/5533a477b97ed6f7ad9888c19587df93c958a358))
+* **api:** add unpause external_bank_accounts API method ([5533a47](https://github.com/lithic-com/lithic-node/commit/5533a477b97ed6f7ad9888c19587df93c958a358))
+* **api:** extract some common schemas into models ([5533a47](https://github.com/lithic-com/lithic-node/commit/5533a477b97ed6f7ad9888c19587df93c958a358))
+
+
+### Bug Fixes
+
+* **api:** change allowed phone number length from 18 to 16 ([5533a47](https://github.com/lithic-com/lithic-node/commit/5533a477b97ed6f7ad9888c19587df93c958a358))
+* **api:** mark certain optional fields as nullable ([5533a47](https://github.com/lithic-com/lithic-node/commit/5533a477b97ed6f7ad9888c19587df93c958a358))
+
 ## 0.121.0 (2025-11-11)
 
 Full Changelog: [v0.120.0...v0.121.0](https://github.com/lithic-com/lithic-node/compare/v0.120.0...v0.121.0)
