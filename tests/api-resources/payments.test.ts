@@ -117,6 +117,30 @@ describe('resource payments', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
+  test('return: only required params', async () => {
+    const responsePromise = client.payments.return('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      return_reason_code: 'R01',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('return: required and optional params', async () => {
+    const response = await client.payments.return('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      return_reason_code: 'R01',
+      addenda: 'addenda',
+      date_of_death: '2025-01-15',
+      memo: 'memo',
+    });
+  });
+
   test('simulateAction: only required params', async () => {
     const responsePromise = client.payments.simulateAction('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       event_type: 'ACH_ORIGINATION_REVIEWED',

@@ -3,6 +3,7 @@
 import { APIResource } from '../../../resource';
 import { isRequestOptions } from '../../../core';
 import * as Core from '../../../core';
+import * as FinancialAccountsAPI from '../financial-accounts';
 import * as LineItemsAPI from './line-items';
 import {
   LineItemListParams,
@@ -136,7 +137,7 @@ export interface Statement {
    */
   payment_due_date: string | null;
 
-  period_totals: Statement.PeriodTotals;
+  period_totals: FinancialAccountsAPI.StatementTotals;
 
   /**
    * Balance at the start of the billing period
@@ -160,7 +161,7 @@ export interface Statement {
    */
   updated: string;
 
-  ytd_totals: Statement.YtdTotals;
+  ytd_totals: FinancialAccountsAPI.StatementTotals;
 
   interest_details?: Statement.InterestDetails | null;
 
@@ -253,162 +254,20 @@ export namespace Statement {
     past_due: number;
   }
 
-  export interface PeriodTotals {
-    /**
-     * Opening balance transferred from previous account in cents
-     */
-    balance_transfers: number;
-
-    /**
-     * ATM and cashback transactions in cents
-     */
-    cash_advances: number;
-
-    /**
-     * Volume of credit management operation transactions less any balance transfers in
-     * cents
-     */
-    credits: number;
-
-    /**
-     * Volume of debit management operation transactions less any interest in cents
-     */
-    debits: number;
-
-    /**
-     * Volume of debit management operation transactions less any interest in cents
-     */
-    fees: number;
-
-    /**
-     * Interest accrued in cents
-     */
-    interest: number;
-
-    /**
-     * Any funds transfers which affective the balance in cents
-     */
-    payments: number;
-
-    /**
-     * Net card transaction volume less any cash advances in cents
-     */
-    purchases: number;
-
-    /**
-     * Breakdown of credits
-     */
-    credit_details?: unknown;
-
-    /**
-     * Breakdown of debits
-     */
-    debit_details?: unknown;
-
-    /**
-     * Breakdown of payments
-     */
-    payment_details?: unknown;
-  }
-
-  export interface YtdTotals {
-    /**
-     * Opening balance transferred from previous account in cents
-     */
-    balance_transfers: number;
-
-    /**
-     * ATM and cashback transactions in cents
-     */
-    cash_advances: number;
-
-    /**
-     * Volume of credit management operation transactions less any balance transfers in
-     * cents
-     */
-    credits: number;
-
-    /**
-     * Volume of debit management operation transactions less any interest in cents
-     */
-    debits: number;
-
-    /**
-     * Volume of debit management operation transactions less any interest in cents
-     */
-    fees: number;
-
-    /**
-     * Interest accrued in cents
-     */
-    interest: number;
-
-    /**
-     * Any funds transfers which affective the balance in cents
-     */
-    payments: number;
-
-    /**
-     * Net card transaction volume less any cash advances in cents
-     */
-    purchases: number;
-
-    /**
-     * Breakdown of credits
-     */
-    credit_details?: unknown;
-
-    /**
-     * Breakdown of debits
-     */
-    debit_details?: unknown;
-
-    /**
-     * Breakdown of payments
-     */
-    payment_details?: unknown;
-  }
-
   export interface InterestDetails {
     actual_interest_charged: number | null;
 
-    daily_balance_amounts: InterestDetails.DailyBalanceAmounts;
+    daily_balance_amounts: FinancialAccountsAPI.CategoryDetails;
 
-    effective_apr: InterestDetails.EffectiveApr;
+    effective_apr: FinancialAccountsAPI.CategoryDetails;
 
     interest_calculation_method: 'DAILY' | 'AVERAGE_DAILY';
 
-    interest_for_period: InterestDetails.InterestForPeriod;
+    interest_for_period: FinancialAccountsAPI.CategoryDetails;
 
     prime_rate: string | null;
 
     minimum_interest_charged?: number | null;
-  }
-
-  export namespace InterestDetails {
-    export interface DailyBalanceAmounts {
-      balance_transfers: string;
-
-      cash_advances: string;
-
-      purchases: string;
-    }
-
-    export interface EffectiveApr {
-      balance_transfers: string;
-
-      cash_advances: string;
-
-      purchases: string;
-    }
-
-    export interface InterestForPeriod {
-      balance_transfers: string;
-
-      cash_advances: string;
-
-      purchases: string;
-    }
   }
 }
 

@@ -102,7 +102,7 @@ export interface ExternalPayment {
   /**
    * The status of the transaction
    */
-  status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED';
+  status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED';
 
   /**
    * ISO 8601 timestamp of when the transaction was last updated
@@ -130,7 +130,7 @@ export interface ExternalPayment {
 
   settled_amount?: number;
 
-  user_defined_id?: string;
+  user_defined_id?: string | null;
 }
 
 export namespace ExternalPayment {
@@ -227,7 +227,7 @@ export interface ExternalPaymentListParams extends CursorPageParams {
   /**
    * Book transfer status to be returned.
    */
-  status?: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED';
+  status?: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED';
 }
 
 export interface ExternalPaymentCancelParams {

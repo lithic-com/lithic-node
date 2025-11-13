@@ -17,7 +17,9 @@ Types:
 - <code><a href="./src/resources/shared.ts">Carrier</a></code>
 - <code><a href="./src/resources/shared.ts">Currency</a></code>
 - <code><a href="./src/resources/shared.ts">Document</a></code>
+- <code><a href="./src/resources/shared.ts">FinancialEvent</a></code>
 - <code><a href="./src/resources/shared.ts">InstanceFinancialAccountType</a></code>
+- <code><a href="./src/resources/shared.ts">Merchant</a></code>
 - <code><a href="./src/resources/shared.ts">ShippingAddress</a></code>
 
 # Accounts
@@ -71,9 +73,13 @@ Types:
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">AuthRule</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">AuthRuleCondition</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">Conditional3DSActionParameters</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalACHActionParameters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalAttribute</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalAuthorizationActionParameters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalBlockParameters</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalOperation</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalTokenizationActionParameters</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalValue</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">MerchantLockParameters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">RuleStats</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">VelocityLimitParams</a></code>
@@ -237,25 +243,31 @@ Types:
 
 - <code><a href="./src/resources/disputes.ts">Dispute</a></code>
 - <code><a href="./src/resources/disputes.ts">DisputeEvidence</a></code>
-- <code><a href="./src/resources/disputes.ts">DisputeCreateResponse</a></code>
-- <code><a href="./src/resources/disputes.ts">DisputeRetrieveResponse</a></code>
-- <code><a href="./src/resources/disputes.ts">DisputeUpdateResponse</a></code>
-- <code><a href="./src/resources/disputes.ts">DisputeListResponse</a></code>
-- <code><a href="./src/resources/disputes.ts">DisputeDeleteResponse</a></code>
 - <code><a href="./src/resources/disputes.ts">DisputeInitiateEvidenceUploadResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/disputes">client.disputes.<a href="./src/resources/disputes.ts">create</a>({ ...params }) -> DisputeCreateResponse</code>
-- <code title="get /v1/disputes/{dispute_token}">client.disputes.<a href="./src/resources/disputes.ts">retrieve</a>(disputeToken) -> DisputeRetrieveResponse</code>
-- <code title="patch /v1/disputes/{dispute_token}">client.disputes.<a href="./src/resources/disputes.ts">update</a>(disputeToken, { ...params }) -> DisputeUpdateResponse</code>
-- <code title="get /v1/disputes">client.disputes.<a href="./src/resources/disputes.ts">list</a>({ ...params }) -> DisputeListResponsesCursorPage</code>
-- <code title="delete /v1/disputes/{dispute_token}">client.disputes.<a href="./src/resources/disputes.ts">del</a>(disputeToken) -> DisputeDeleteResponse</code>
+- <code title="post /v1/disputes">client.disputes.<a href="./src/resources/disputes.ts">create</a>({ ...params }) -> Dispute</code>
+- <code title="get /v1/disputes/{dispute_token}">client.disputes.<a href="./src/resources/disputes.ts">retrieve</a>(disputeToken) -> Dispute</code>
+- <code title="patch /v1/disputes/{dispute_token}">client.disputes.<a href="./src/resources/disputes.ts">update</a>(disputeToken, { ...params }) -> Dispute</code>
+- <code title="get /v1/disputes">client.disputes.<a href="./src/resources/disputes.ts">list</a>({ ...params }) -> DisputesCursorPage</code>
+- <code title="delete /v1/disputes/{dispute_token}">client.disputes.<a href="./src/resources/disputes.ts">del</a>(disputeToken) -> Dispute</code>
 - <code title="delete /v1/disputes/{dispute_token}/evidences/{evidence_token}">client.disputes.<a href="./src/resources/disputes.ts">deleteEvidence</a>(disputeToken, evidenceToken) -> DisputeEvidence</code>
 - <code title="post /v1/disputes/{dispute_token}/evidences">client.disputes.<a href="./src/resources/disputes.ts">initiateEvidenceUpload</a>(disputeToken, { ...params }) -> DisputeEvidence</code>
 - <code title="get /v1/disputes/{dispute_token}/evidences">client.disputes.<a href="./src/resources/disputes.ts">listEvidences</a>(disputeToken, { ...params }) -> DisputeEvidencesCursorPage</code>
 - <code title="get /v1/disputes/{dispute_token}/evidences/{evidence_token}">client.disputes.<a href="./src/resources/disputes.ts">retrieveEvidence</a>(disputeToken, evidenceToken) -> DisputeEvidence</code>
 - <code>client.disputes.<a href="./src/resources/disputes.ts">uploadEvidence</a>(disputeToken, file, options?) -> Promise&lt;void&gt;</code>
+
+# DisputesV2
+
+Types:
+
+- <code><a href="./src/resources/disputes-v2.ts">DisputeV2</a></code>
+
+Methods:
+
+- <code title="get /v2/disputes/{dispute_token}">client.disputesV2.<a href="./src/resources/disputes-v2.ts">retrieve</a>(disputeToken) -> DisputeV2</code>
+- <code title="get /v2/disputes">client.disputesV2.<a href="./src/resources/disputes-v2.ts">list</a>({ ...params }) -> DisputeV2sCursorPage</code>
 
 # Events
 
@@ -312,8 +324,10 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/financial-accounts/financial-accounts.ts">CategoryDetails</a></code>
 - <code><a href="./src/resources/financial-accounts/financial-accounts.ts">FinancialAccount</a></code>
 - <code><a href="./src/resources/financial-accounts/financial-accounts.ts">FinancialTransaction</a></code>
+- <code><a href="./src/resources/financial-accounts/financial-accounts.ts">StatementTotals</a></code>
 
 Methods:
 
@@ -378,6 +392,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/financial-accounts/loan-tapes.ts">CategoryBalances</a></code>
 - <code><a href="./src/resources/financial-accounts/loan-tapes.ts">LoanTape</a></code>
 
 Methods:
@@ -468,6 +483,7 @@ Types:
 - <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">ExternalBankAccountListResponse</a></code>
 - <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">ExternalBankAccountRetryMicroDepositsResponse</a></code>
 - <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">ExternalBankAccountRetryPrenoteResponse</a></code>
+- <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">ExternalBankAccountUnpauseResponse</a></code>
 
 Methods:
 
@@ -477,6 +493,7 @@ Methods:
 - <code title="get /v1/external_bank_accounts">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">list</a>({ ...params }) -> ExternalBankAccountListResponsesCursorPage</code>
 - <code title="post /v1/external_bank_accounts/{external_bank_account_token}/retry_micro_deposits">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">retryMicroDeposits</a>(externalBankAccountToken, { ...params }) -> ExternalBankAccountRetryMicroDepositsResponse</code>
 - <code title="post /v1/external_bank_accounts/{external_bank_account_token}/retry_prenote">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">retryPrenote</a>(externalBankAccountToken, { ...params }) -> ExternalBankAccountRetryPrenoteResponse</code>
+- <code title="post /v1/external_bank_accounts/{external_bank_account_token}/unpause">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">unpause</a>(externalBankAccountToken) -> ExternalBankAccountUnpauseResponse</code>
 
 ## MicroDeposits
 
@@ -495,6 +512,7 @@ Types:
 - <code><a href="./src/resources/payments.ts">Payment</a></code>
 - <code><a href="./src/resources/payments.ts">PaymentCreateResponse</a></code>
 - <code><a href="./src/resources/payments.ts">PaymentRetryResponse</a></code>
+- <code><a href="./src/resources/payments.ts">PaymentReturnResponse</a></code>
 - <code><a href="./src/resources/payments.ts">PaymentSimulateActionResponse</a></code>
 - <code><a href="./src/resources/payments.ts">PaymentSimulateReceiptResponse</a></code>
 - <code><a href="./src/resources/payments.ts">PaymentSimulateReleaseResponse</a></code>
@@ -506,6 +524,7 @@ Methods:
 - <code title="get /v1/payments/{payment_token}">client.payments.<a href="./src/resources/payments.ts">retrieve</a>(paymentToken) -> Payment</code>
 - <code title="get /v1/payments">client.payments.<a href="./src/resources/payments.ts">list</a>({ ...params }) -> PaymentsCursorPage</code>
 - <code title="post /v1/payments/{payment_token}/retry">client.payments.<a href="./src/resources/payments.ts">retry</a>(paymentToken) -> PaymentRetryResponse</code>
+- <code title="post /v1/payments/{payment_token}/return">client.payments.<a href="./src/resources/payments.ts">return</a>(paymentToken, { ...params }) -> PaymentReturnResponse</code>
 - <code title="post /v1/simulate/payments/{payment_token}/action">client.payments.<a href="./src/resources/payments.ts">simulateAction</a>(paymentToken, { ...params }) -> PaymentSimulateActionResponse</code>
 - <code title="post /v1/simulate/payments/receipt">client.payments.<a href="./src/resources/payments.ts">simulateReceipt</a>({ ...params }) -> PaymentSimulateReceiptResponse</code>
 - <code title="post /v1/simulate/payments/release">client.payments.<a href="./src/resources/payments.ts">simulateRelease</a>({ ...params }) -> PaymentSimulateReleaseResponse</code>
