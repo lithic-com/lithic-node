@@ -191,7 +191,6 @@ export {
   type Payment,
   type PaymentCreateResponse,
   type PaymentRetryResponse,
-  type PaymentReturnResponse,
   type PaymentSimulateActionResponse,
   type PaymentSimulateReceiptResponse,
   type PaymentSimulateReleaseResponse,
