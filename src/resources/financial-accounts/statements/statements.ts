@@ -174,6 +174,11 @@ export interface Statement {
    * Date when the next billing period will end
    */
   next_statement_end_date?: string;
+
+  /**
+   * Details on number and size of payments to pay off balance
+   */
+  payoff_details?: Statement.PayoffDetails | null;
 }
 
 export namespace Statement {
@@ -268,6 +273,40 @@ export namespace Statement {
     prime_rate: string | null;
 
     minimum_interest_charged?: number | null;
+  }
+
+  /**
+   * Details on number and size of payments to pay off balance
+   */
+  export interface PayoffDetails {
+    /**
+     * The number of months it would take to pay off the balance in full by only paying
+     * the minimum payment. "NA" will signal negative or zero amortization
+     */
+    minimum_payment_months: string;
+
+    /**
+     * The sum of all interest and principal paid, in cents, when only paying minimum
+     * monthly payment. "NA" will signal negative or zero amortization
+     */
+    minimum_payment_total: string;
+
+    /**
+     * Number of months to full pay off
+     */
+    payoff_period_length_months: number;
+
+    /**
+     * The amount needed to be paid, in cents, each month in order to pay off current
+     * balance in the payoff period
+     */
+    payoff_period_monthly_payment_amount: number;
+
+    /**
+     * The sum of all interest and principal paid, in cents, when paying off in the
+     * payoff period
+     */
+    payoff_period_payment_total: number;
   }
 }
 
