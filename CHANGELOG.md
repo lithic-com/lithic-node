@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.123.0 (2025-11-20)
+
+Full Changelog: [v0.122.0...v0.123.0](https://github.com/lithic-com/lithic-node/compare/v0.122.0...v0.123.0)
+
+### Features
+
+* **api:** Add Payoff Details ([b6622a6](https://github.com/lithic-com/lithic-node/commit/b6622a63eb1db133fba7a32e74f89f37247f2abd))
+
+
+### Bug Fixes
+
+* **api:** Modify return type of returns API to payment-transaction ([b6622a6](https://github.com/lithic-com/lithic-node/commit/b6622a63eb1db133fba7a32e74f89f37247f2abd))
+
 ## 0.122.0 (2025-11-13)
 
 Full Changelog: [v0.121.0...v0.122.0](https://github.com/lithic-com/lithic-node/compare/v0.121.0...v0.122.0)
