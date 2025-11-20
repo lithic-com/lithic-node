@@ -101,7 +101,7 @@ export class Payments extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.payments.return(
+   * const payment = await client.payments.return(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *   {
    *     financial_account_token:
@@ -115,7 +115,7 @@ export class Payments extends APIResource {
     paymentToken: string,
     body: PaymentReturnParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<PaymentReturnResponse> {
+  ): Core.APIPromise<Payment> {
     return this._client.post(`/v1/payments/${paymentToken}/return`, { body, ...options });
   }
 
@@ -517,26 +517,6 @@ export interface PaymentRetryResponse extends Payment {
   balance?: BalancesAPI.Balance;
 }
 
-/**
- * Response from ACH operations including returns
- */
-export interface PaymentReturnResponse {
-  /**
-   * Transaction result
-   */
-  result: 'APPROVED' | 'DECLINED';
-
-  /**
-   * Globally unique identifier for the transaction group
-   */
-  transaction_group_uuid: string;
-
-  /**
-   * Globally unique identifier for the transaction
-   */
-  transaction_uuid: string;
-}
-
 export interface PaymentSimulateActionResponse {
   /**
    * Debugging Request Id
@@ -787,7 +767,6 @@ export declare namespace Payments {
     type Payment as Payment,
     type PaymentCreateResponse as PaymentCreateResponse,
     type PaymentRetryResponse as PaymentRetryResponse,
-    type PaymentReturnResponse as PaymentReturnResponse,
     type PaymentSimulateActionResponse as PaymentSimulateActionResponse,
     type PaymentSimulateReceiptResponse as PaymentSimulateReceiptResponse,
     type PaymentSimulateReleaseResponse as PaymentSimulateReleaseResponse,
