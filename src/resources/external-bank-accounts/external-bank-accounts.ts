@@ -27,7 +27,7 @@ export class ExternalBankAccounts extends APIResource {
    *     owner_type: 'BUSINESS',
    *     routing_number: '011103093',
    *     type: 'CHECKING',
-   *     verification_method: 'PRENOTE',
+   *     verification_method: 'MICRO_DEPOSIT',
    *     address: {
    *       address1: '5 Broad Street',
    *       city: 'New York',

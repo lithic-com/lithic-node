@@ -21,14 +21,14 @@ export class V2 extends APIResource {
   /**
    * Creates a new V2 Auth rule in draft mode
    */
-  create(body: V2CreateParams, options?: RequestOptions): APIPromise<V2CreateResponse> {
+  create(body: V2CreateParams, options?: RequestOptions): APIPromise<AuthRule> {
     return this._client.post('/v2/auth_rules', { body, ...options });
   }
 
   /**
    * Fetches a V2 Auth rule by its token
    */
-  retrieve(authRuleToken: string, options?: RequestOptions): APIPromise<V2RetrieveResponse> {
+  retrieve(authRuleToken: string, options?: RequestOptions): APIPromise<AuthRule> {
     return this._client.get(path`/v2/auth_rules/${authRuleToken}`, options);
   }
 
@@ -39,11 +39,7 @@ export class V2 extends APIResource {
    * is provided, this will replace existing associations with the provided list of
    * entities.
    */
-  update(
-    authRuleToken: string,
-    body: V2UpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<V2UpdateResponse> {
+  update(authRuleToken: string, body: V2UpdateParams, options?: RequestOptions): APIPromise<AuthRule> {
     return this._client.patch(path`/v2/auth_rules/${authRuleToken}`, { body, ...options });
   }
 
@@ -53,8 +49,8 @@ export class V2 extends APIResource {
   list(
     query: V2ListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<V2ListResponsesCursorPage, V2ListResponse> {
-    return this._client.getAPIList('/v2/auth_rules', CursorPage<V2ListResponse>, { query, ...options });
+  ): PagePromise<AuthRulesCursorPage, AuthRule> {
+    return this._client.getAPIList('/v2/auth_rules', CursorPage<AuthRule>, { query, ...options });
   }
 
   /**
@@ -70,7 +66,7 @@ export class V2 extends APIResource {
    * This can also be utilized to reset the draft parameters, causing a draft version
    * to no longer be ran in shadow mode.
    */
-  draft(authRuleToken: string, body: V2DraftParams, options?: RequestOptions): APIPromise<V2DraftResponse> {
+  draft(authRuleToken: string, body: V2DraftParams, options?: RequestOptions): APIPromise<AuthRule> {
     return this._client.post(path`/v2/auth_rules/${authRuleToken}/draft`, { body, ...options });
   }
 
@@ -78,7 +74,7 @@ export class V2 extends APIResource {
    * Promotes the draft version of an Auth rule to the currently active version such
    * that it is enforced in the respective stream.
    */
-  promote(authRuleToken: string, options?: RequestOptions): APIPromise<V2PromoteResponse> {
+  promote(authRuleToken: string, options?: RequestOptions): APIPromise<AuthRule> {
     return this._client.post(path`/v2/auth_rules/${authRuleToken}/promote`, options);
   }
 
@@ -125,59 +121,124 @@ export class V2 extends APIResource {
   }
 }
 
-export type V2ListResponsesCursorPage = CursorPage<V2ListResponse>;
+export type AuthRulesCursorPage = CursorPage<AuthRule>;
 
 export interface AuthRule {
   /**
-   * Globally unique identifier.
+   * Auth Rule Token
    */
   token: string;
 
   /**
-   * Indicates whether the Auth Rule is ACTIVE or INACTIVE
+   * Account tokens to which the Auth Rule applies.
+   */
+  account_tokens: Array<string>;
+
+  /**
+   * Business Account tokens to which the Auth Rule applies.
+   */
+  business_account_tokens: Array<string>;
+
+  /**
+   * Card tokens to which the Auth Rule applies.
+   */
+  card_tokens: Array<string>;
+
+  current_version: AuthRule.CurrentVersion | null;
+
+  draft_version: AuthRule.DraftVersion | null;
+
+  /**
+   * The event stream during which the rule will be evaluated.
+   */
+  event_stream:
+    | 'AUTHORIZATION'
+    | 'THREE_DS_AUTHENTICATION'
+    | 'TOKENIZATION'
+    | 'ACH_CREDIT_RECEIPT'
+    | 'ACH_DEBIT_RECEIPT';
+
+  /**
+   * Indicates whether this auth rule is managed by Lithic. If true, the rule cannot
+   * be modified or deleted by the user
+   */
+  lithic_managed: boolean;
+
+  /**
+   * Auth Rule Name
+   */
+  name: string | null;
+
+  /**
+   * Whether the Auth Rule applies to all authorizations on the card program.
+   */
+  program_level: boolean;
+
+  /**
+   * The state of the Auth Rule
    */
   state: 'ACTIVE' | 'INACTIVE';
 
   /**
-   * Array of account_token(s) identifying the accounts that the Auth Rule applies
-   * to. Note that only this field or `card_tokens` can be provided for a given Auth
-   * Rule.
+   * The type of Auth Rule. For certain rule types, this determines the event stream
+   * during which it will be evaluated. For rules that can be applied to one of
+   * several event streams, the effective one is defined by the separate
+   * `event_stream` field.
+   *
+   * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
+   * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
+   * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
+   * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
+   *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
    */
-  account_tokens?: Array<string>;
+  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
 
   /**
-   * Countries in which the Auth Rule permits transactions. Note that Lithic
-   * maintains a list of countries in which all transactions are blocked; "allowing"
-   * those countries in an Auth Rule does not override the Lithic-wide restrictions.
+   * Card tokens to which the Auth Rule does not apply.
    */
-  allowed_countries?: Array<string>;
+  excluded_card_tokens?: Array<string>;
+}
 
-  /**
-   * Merchant category codes for which the Auth Rule permits transactions.
-   */
-  allowed_mcc?: Array<string>;
+export namespace AuthRule {
+  export interface CurrentVersion {
+    /**
+     * Parameters for the Auth Rule
+     */
+    parameters:
+      | V2API.ConditionalBlockParameters
+      | V2API.VelocityLimitParams
+      | V2API.MerchantLockParameters
+      | V2API.Conditional3DSActionParameters
+      | V2API.ConditionalAuthorizationActionParameters
+      | V2API.ConditionalACHActionParameters
+      | V2API.ConditionalTokenizationActionParameters;
 
-  /**
-   * Countries in which the Auth Rule automatically declines transactions.
-   */
-  blocked_countries?: Array<string>;
+    /**
+     * The version of the rule, this is incremented whenever the rule's parameters
+     * change.
+     */
+    version: number;
+  }
 
-  /**
-   * Merchant category codes for which the Auth Rule automatically declines
-   * transactions.
-   */
-  blocked_mcc?: Array<string>;
+  export interface DraftVersion {
+    /**
+     * Parameters for the Auth Rule
+     */
+    parameters:
+      | V2API.ConditionalBlockParameters
+      | V2API.VelocityLimitParams
+      | V2API.MerchantLockParameters
+      | V2API.Conditional3DSActionParameters
+      | V2API.ConditionalAuthorizationActionParameters
+      | V2API.ConditionalACHActionParameters
+      | V2API.ConditionalTokenizationActionParameters;
 
-  /**
-   * Array of card_token(s) identifying the cards that the Auth Rule applies to. Note
-   * that only this field or `account_tokens` can be provided for a given Auth Rule.
-   */
-  card_tokens?: Array<string>;
-
-  /**
-   * Boolean indicating whether the Auth Rule is applied at the program level.
-   */
-  program_level?: boolean;
+    /**
+     * The version of the rule, this is incremented whenever the rule's parameters
+     * change.
+     */
+    version: number;
+  }
 }
 
 export interface AuthRuleCondition {
@@ -627,7 +688,10 @@ export type ConditionalOperation =
   | 'IS_GREATER_THAN'
   | 'IS_GREATER_THAN_OR_EQUAL_TO'
   | 'IS_LESS_THAN'
-  | 'IS_LESS_THAN_OR_EQUAL_TO';
+  | 'IS_LESS_THAN_OR_EQUAL_TO'
+  | 'CONTAINS_ANY'
+  | 'CONTAINS_ALL'
+  | 'CONTAINS_NONE';
 
 export interface ConditionalTokenizationActionParameters {
   /**
@@ -717,6 +781,14 @@ export namespace ConditionalTokenizationActionParameters {
      * - `WALLET_RECOMMENDED_DECISION`: The decision recommended by the digital wallet
      *   provider. Valid values include APPROVE, DECLINE,
      *   REQUIRE_ADDITIONAL_AUTHENTICATION.
+     * - `WALLET_RECOMMENDATION_REASONS`: List of reasons provided by the digital
+     *   wallet provider for the recommended decision. Valid values are
+     *   `ACCOUNT_CARD_TOO_NEW`, `ACCOUNT_RECENTLY_CHANGED`, `ACCOUNT_TOO_NEW`,
+     *   `ACCOUNT_TOO_NEW_SINCE_LAUNCH`, `DEVICE_RECENTLY_LOST`,
+     *   `HAS_SUSPENDED_TOKENS`, `HIGH_RISK`, `INACTIVE_ACCOUNT`, `LOW_ACCOUNT_SCORE`,
+     *   `LOW_DEVICE_SCORE`, `OUTSIDE_HOME_TERRITORY`, `SUSPICIOUS_ACTIVITY`,
+     *   `TOO_MANY_DIFFERENT_CARDHOLDERS`, `TOO_MANY_RECENT_ATTEMPTS`,
+     *   `TOO_MANY_RECENT_TOKENS`, `UNABLE_TO_ASSESS`.
      * - `TOKEN_REQUESTOR_ID`: Unique identifier for the entity requesting the token.
      * - `WALLET_TOKEN_STATUS`: The current status of the wallet token.
      */
@@ -728,6 +800,7 @@ export namespace ConditionalTokenizationActionParameters {
       | 'WALLET_ACCOUNT_SCORE'
       | 'WALLET_DEVICE_SCORE'
       | 'WALLET_RECOMMENDED_DECISION'
+      | 'WALLET_RECOMMENDATION_REASONS'
       | 'TOKEN_REQUESTOR_ID'
       | 'WALLET_TOKEN_STATUS';
 
@@ -1003,714 +1076,6 @@ export namespace VelocityLimitPeriod {
      * not specified.
      */
     month?: number;
-  }
-}
-
-export interface V2CreateResponse {
-  /**
-   * Auth Rule Token
-   */
-  token: string;
-
-  /**
-   * Account tokens to which the Auth Rule applies.
-   */
-  account_tokens: Array<string>;
-
-  /**
-   * Business Account tokens to which the Auth Rule applies.
-   */
-  business_account_tokens: Array<string>;
-
-  /**
-   * Card tokens to which the Auth Rule applies.
-   */
-  card_tokens: Array<string>;
-
-  current_version: V2CreateResponse.CurrentVersion | null;
-
-  draft_version: V2CreateResponse.DraftVersion | null;
-
-  /**
-   * The event stream during which the rule will be evaluated.
-   */
-  event_stream:
-    | 'AUTHORIZATION'
-    | 'THREE_DS_AUTHENTICATION'
-    | 'TOKENIZATION'
-    | 'ACH_CREDIT_RECEIPT'
-    | 'ACH_DEBIT_RECEIPT';
-
-  /**
-   * Indicates whether this auth rule is managed by Lithic. If true, the rule cannot
-   * be modified or deleted by the user
-   */
-  lithic_managed: boolean;
-
-  /**
-   * Auth Rule Name
-   */
-  name: string | null;
-
-  /**
-   * Whether the Auth Rule applies to all authorizations on the card program.
-   */
-  program_level: boolean;
-
-  /**
-   * The state of the Auth Rule
-   */
-  state: 'ACTIVE' | 'INACTIVE';
-
-  /**
-   * The type of Auth Rule. For certain rule types, this determines the event stream
-   * during which it will be evaluated. For rules that can be applied to one of
-   * several event streams, the effective one is defined by the separate
-   * `event_stream` field.
-   *
-   * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
-   * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
-   * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-   * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
-   *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
-   */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
-
-  /**
-   * Card tokens to which the Auth Rule does not apply.
-   */
-  excluded_card_tokens?: Array<string>;
-}
-
-export namespace V2CreateResponse {
-  export interface CurrentVersion {
-    /**
-     * Parameters for the Auth Rule
-     */
-    parameters:
-      | V2API.ConditionalBlockParameters
-      | V2API.VelocityLimitParams
-      | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters
-      | V2API.ConditionalACHActionParameters
-      | V2API.ConditionalTokenizationActionParameters;
-
-    /**
-     * The version of the rule, this is incremented whenever the rule's parameters
-     * change.
-     */
-    version: number;
-  }
-
-  export interface DraftVersion {
-    /**
-     * Parameters for the Auth Rule
-     */
-    parameters:
-      | V2API.ConditionalBlockParameters
-      | V2API.VelocityLimitParams
-      | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters
-      | V2API.ConditionalACHActionParameters
-      | V2API.ConditionalTokenizationActionParameters;
-
-    /**
-     * The version of the rule, this is incremented whenever the rule's parameters
-     * change.
-     */
-    version: number;
-  }
-}
-
-export interface V2RetrieveResponse {
-  /**
-   * Auth Rule Token
-   */
-  token: string;
-
-  /**
-   * Account tokens to which the Auth Rule applies.
-   */
-  account_tokens: Array<string>;
-
-  /**
-   * Business Account tokens to which the Auth Rule applies.
-   */
-  business_account_tokens: Array<string>;
-
-  /**
-   * Card tokens to which the Auth Rule applies.
-   */
-  card_tokens: Array<string>;
-
-  current_version: V2RetrieveResponse.CurrentVersion | null;
-
-  draft_version: V2RetrieveResponse.DraftVersion | null;
-
-  /**
-   * The event stream during which the rule will be evaluated.
-   */
-  event_stream:
-    | 'AUTHORIZATION'
-    | 'THREE_DS_AUTHENTICATION'
-    | 'TOKENIZATION'
-    | 'ACH_CREDIT_RECEIPT'
-    | 'ACH_DEBIT_RECEIPT';
-
-  /**
-   * Indicates whether this auth rule is managed by Lithic. If true, the rule cannot
-   * be modified or deleted by the user
-   */
-  lithic_managed: boolean;
-
-  /**
-   * Auth Rule Name
-   */
-  name: string | null;
-
-  /**
-   * Whether the Auth Rule applies to all authorizations on the card program.
-   */
-  program_level: boolean;
-
-  /**
-   * The state of the Auth Rule
-   */
-  state: 'ACTIVE' | 'INACTIVE';
-
-  /**
-   * The type of Auth Rule. For certain rule types, this determines the event stream
-   * during which it will be evaluated. For rules that can be applied to one of
-   * several event streams, the effective one is defined by the separate
-   * `event_stream` field.
-   *
-   * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
-   * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
-   * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-   * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
-   *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
-   */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
-
-  /**
-   * Card tokens to which the Auth Rule does not apply.
-   */
-  excluded_card_tokens?: Array<string>;
-}
-
-export namespace V2RetrieveResponse {
-  export interface CurrentVersion {
-    /**
-     * Parameters for the Auth Rule
-     */
-    parameters:
-      | V2API.ConditionalBlockParameters
-      | V2API.VelocityLimitParams
-      | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters
-      | V2API.ConditionalACHActionParameters
-      | V2API.ConditionalTokenizationActionParameters;
-
-    /**
-     * The version of the rule, this is incremented whenever the rule's parameters
-     * change.
-     */
-    version: number;
-  }
-
-  export interface DraftVersion {
-    /**
-     * Parameters for the Auth Rule
-     */
-    parameters:
-      | V2API.ConditionalBlockParameters
-      | V2API.VelocityLimitParams
-      | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters
-      | V2API.ConditionalACHActionParameters
-      | V2API.ConditionalTokenizationActionParameters;
-
-    /**
-     * The version of the rule, this is incremented whenever the rule's parameters
-     * change.
-     */
-    version: number;
-  }
-}
-
-export interface V2UpdateResponse {
-  /**
-   * Auth Rule Token
-   */
-  token: string;
-
-  /**
-   * Account tokens to which the Auth Rule applies.
-   */
-  account_tokens: Array<string>;
-
-  /**
-   * Business Account tokens to which the Auth Rule applies.
-   */
-  business_account_tokens: Array<string>;
-
-  /**
-   * Card tokens to which the Auth Rule applies.
-   */
-  card_tokens: Array<string>;
-
-  current_version: V2UpdateResponse.CurrentVersion | null;
-
-  draft_version: V2UpdateResponse.DraftVersion | null;
-
-  /**
-   * The event stream during which the rule will be evaluated.
-   */
-  event_stream:
-    | 'AUTHORIZATION'
-    | 'THREE_DS_AUTHENTICATION'
-    | 'TOKENIZATION'
-    | 'ACH_CREDIT_RECEIPT'
-    | 'ACH_DEBIT_RECEIPT';
-
-  /**
-   * Indicates whether this auth rule is managed by Lithic. If true, the rule cannot
-   * be modified or deleted by the user
-   */
-  lithic_managed: boolean;
-
-  /**
-   * Auth Rule Name
-   */
-  name: string | null;
-
-  /**
-   * Whether the Auth Rule applies to all authorizations on the card program.
-   */
-  program_level: boolean;
-
-  /**
-   * The state of the Auth Rule
-   */
-  state: 'ACTIVE' | 'INACTIVE';
-
-  /**
-   * The type of Auth Rule. For certain rule types, this determines the event stream
-   * during which it will be evaluated. For rules that can be applied to one of
-   * several event streams, the effective one is defined by the separate
-   * `event_stream` field.
-   *
-   * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
-   * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
-   * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-   * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
-   *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
-   */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
-
-  /**
-   * Card tokens to which the Auth Rule does not apply.
-   */
-  excluded_card_tokens?: Array<string>;
-}
-
-export namespace V2UpdateResponse {
-  export interface CurrentVersion {
-    /**
-     * Parameters for the Auth Rule
-     */
-    parameters:
-      | V2API.ConditionalBlockParameters
-      | V2API.VelocityLimitParams
-      | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters
-      | V2API.ConditionalACHActionParameters
-      | V2API.ConditionalTokenizationActionParameters;
-
-    /**
-     * The version of the rule, this is incremented whenever the rule's parameters
-     * change.
-     */
-    version: number;
-  }
-
-  export interface DraftVersion {
-    /**
-     * Parameters for the Auth Rule
-     */
-    parameters:
-      | V2API.ConditionalBlockParameters
-      | V2API.VelocityLimitParams
-      | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters
-      | V2API.ConditionalACHActionParameters
-      | V2API.ConditionalTokenizationActionParameters;
-
-    /**
-     * The version of the rule, this is incremented whenever the rule's parameters
-     * change.
-     */
-    version: number;
-  }
-}
-
-export interface V2ListResponse {
-  /**
-   * Auth Rule Token
-   */
-  token: string;
-
-  /**
-   * Account tokens to which the Auth Rule applies.
-   */
-  account_tokens: Array<string>;
-
-  /**
-   * Business Account tokens to which the Auth Rule applies.
-   */
-  business_account_tokens: Array<string>;
-
-  /**
-   * Card tokens to which the Auth Rule applies.
-   */
-  card_tokens: Array<string>;
-
-  current_version: V2ListResponse.CurrentVersion | null;
-
-  draft_version: V2ListResponse.DraftVersion | null;
-
-  /**
-   * The event stream during which the rule will be evaluated.
-   */
-  event_stream:
-    | 'AUTHORIZATION'
-    | 'THREE_DS_AUTHENTICATION'
-    | 'TOKENIZATION'
-    | 'ACH_CREDIT_RECEIPT'
-    | 'ACH_DEBIT_RECEIPT';
-
-  /**
-   * Indicates whether this auth rule is managed by Lithic. If true, the rule cannot
-   * be modified or deleted by the user
-   */
-  lithic_managed: boolean;
-
-  /**
-   * Auth Rule Name
-   */
-  name: string | null;
-
-  /**
-   * Whether the Auth Rule applies to all authorizations on the card program.
-   */
-  program_level: boolean;
-
-  /**
-   * The state of the Auth Rule
-   */
-  state: 'ACTIVE' | 'INACTIVE';
-
-  /**
-   * The type of Auth Rule. For certain rule types, this determines the event stream
-   * during which it will be evaluated. For rules that can be applied to one of
-   * several event streams, the effective one is defined by the separate
-   * `event_stream` field.
-   *
-   * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
-   * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
-   * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-   * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
-   *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
-   */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
-
-  /**
-   * Card tokens to which the Auth Rule does not apply.
-   */
-  excluded_card_tokens?: Array<string>;
-}
-
-export namespace V2ListResponse {
-  export interface CurrentVersion {
-    /**
-     * Parameters for the Auth Rule
-     */
-    parameters:
-      | V2API.ConditionalBlockParameters
-      | V2API.VelocityLimitParams
-      | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters
-      | V2API.ConditionalACHActionParameters
-      | V2API.ConditionalTokenizationActionParameters;
-
-    /**
-     * The version of the rule, this is incremented whenever the rule's parameters
-     * change.
-     */
-    version: number;
-  }
-
-  export interface DraftVersion {
-    /**
-     * Parameters for the Auth Rule
-     */
-    parameters:
-      | V2API.ConditionalBlockParameters
-      | V2API.VelocityLimitParams
-      | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters
-      | V2API.ConditionalACHActionParameters
-      | V2API.ConditionalTokenizationActionParameters;
-
-    /**
-     * The version of the rule, this is incremented whenever the rule's parameters
-     * change.
-     */
-    version: number;
-  }
-}
-
-export interface V2DraftResponse {
-  /**
-   * Auth Rule Token
-   */
-  token: string;
-
-  /**
-   * Account tokens to which the Auth Rule applies.
-   */
-  account_tokens: Array<string>;
-
-  /**
-   * Business Account tokens to which the Auth Rule applies.
-   */
-  business_account_tokens: Array<string>;
-
-  /**
-   * Card tokens to which the Auth Rule applies.
-   */
-  card_tokens: Array<string>;
-
-  current_version: V2DraftResponse.CurrentVersion | null;
-
-  draft_version: V2DraftResponse.DraftVersion | null;
-
-  /**
-   * The event stream during which the rule will be evaluated.
-   */
-  event_stream:
-    | 'AUTHORIZATION'
-    | 'THREE_DS_AUTHENTICATION'
-    | 'TOKENIZATION'
-    | 'ACH_CREDIT_RECEIPT'
-    | 'ACH_DEBIT_RECEIPT';
-
-  /**
-   * Indicates whether this auth rule is managed by Lithic. If true, the rule cannot
-   * be modified or deleted by the user
-   */
-  lithic_managed: boolean;
-
-  /**
-   * Auth Rule Name
-   */
-  name: string | null;
-
-  /**
-   * Whether the Auth Rule applies to all authorizations on the card program.
-   */
-  program_level: boolean;
-
-  /**
-   * The state of the Auth Rule
-   */
-  state: 'ACTIVE' | 'INACTIVE';
-
-  /**
-   * The type of Auth Rule. For certain rule types, this determines the event stream
-   * during which it will be evaluated. For rules that can be applied to one of
-   * several event streams, the effective one is defined by the separate
-   * `event_stream` field.
-   *
-   * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
-   * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
-   * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-   * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
-   *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
-   */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
-
-  /**
-   * Card tokens to which the Auth Rule does not apply.
-   */
-  excluded_card_tokens?: Array<string>;
-}
-
-export namespace V2DraftResponse {
-  export interface CurrentVersion {
-    /**
-     * Parameters for the Auth Rule
-     */
-    parameters:
-      | V2API.ConditionalBlockParameters
-      | V2API.VelocityLimitParams
-      | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters
-      | V2API.ConditionalACHActionParameters
-      | V2API.ConditionalTokenizationActionParameters;
-
-    /**
-     * The version of the rule, this is incremented whenever the rule's parameters
-     * change.
-     */
-    version: number;
-  }
-
-  export interface DraftVersion {
-    /**
-     * Parameters for the Auth Rule
-     */
-    parameters:
-      | V2API.ConditionalBlockParameters
-      | V2API.VelocityLimitParams
-      | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters
-      | V2API.ConditionalACHActionParameters
-      | V2API.ConditionalTokenizationActionParameters;
-
-    /**
-     * The version of the rule, this is incremented whenever the rule's parameters
-     * change.
-     */
-    version: number;
-  }
-}
-
-export interface V2PromoteResponse {
-  /**
-   * Auth Rule Token
-   */
-  token: string;
-
-  /**
-   * Account tokens to which the Auth Rule applies.
-   */
-  account_tokens: Array<string>;
-
-  /**
-   * Business Account tokens to which the Auth Rule applies.
-   */
-  business_account_tokens: Array<string>;
-
-  /**
-   * Card tokens to which the Auth Rule applies.
-   */
-  card_tokens: Array<string>;
-
-  current_version: V2PromoteResponse.CurrentVersion | null;
-
-  draft_version: V2PromoteResponse.DraftVersion | null;
-
-  /**
-   * The event stream during which the rule will be evaluated.
-   */
-  event_stream:
-    | 'AUTHORIZATION'
-    | 'THREE_DS_AUTHENTICATION'
-    | 'TOKENIZATION'
-    | 'ACH_CREDIT_RECEIPT'
-    | 'ACH_DEBIT_RECEIPT';
-
-  /**
-   * Indicates whether this auth rule is managed by Lithic. If true, the rule cannot
-   * be modified or deleted by the user
-   */
-  lithic_managed: boolean;
-
-  /**
-   * Auth Rule Name
-   */
-  name: string | null;
-
-  /**
-   * Whether the Auth Rule applies to all authorizations on the card program.
-   */
-  program_level: boolean;
-
-  /**
-   * The state of the Auth Rule
-   */
-  state: 'ACTIVE' | 'INACTIVE';
-
-  /**
-   * The type of Auth Rule. For certain rule types, this determines the event stream
-   * during which it will be evaluated. For rules that can be applied to one of
-   * several event streams, the effective one is defined by the separate
-   * `event_stream` field.
-   *
-   * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
-   * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
-   * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
-   * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
-   *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
-   */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
-
-  /**
-   * Card tokens to which the Auth Rule does not apply.
-   */
-  excluded_card_tokens?: Array<string>;
-}
-
-export namespace V2PromoteResponse {
-  export interface CurrentVersion {
-    /**
-     * Parameters for the Auth Rule
-     */
-    parameters:
-      | V2API.ConditionalBlockParameters
-      | V2API.VelocityLimitParams
-      | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters
-      | V2API.ConditionalACHActionParameters
-      | V2API.ConditionalTokenizationActionParameters;
-
-    /**
-     * The version of the rule, this is incremented whenever the rule's parameters
-     * change.
-     */
-    version: number;
-  }
-
-  export interface DraftVersion {
-    /**
-     * Parameters for the Auth Rule
-     */
-    parameters:
-      | V2API.ConditionalBlockParameters
-      | V2API.VelocityLimitParams
-      | V2API.MerchantLockParameters
-      | V2API.Conditional3DSActionParameters
-      | V2API.ConditionalAuthorizationActionParameters
-      | V2API.ConditionalACHActionParameters
-      | V2API.ConditionalTokenizationActionParameters;
-
-    /**
-     * The version of the rule, this is incremented whenever the rule's parameters
-     * change.
-     */
-    version: number;
   }
 }
 
@@ -2176,15 +1541,9 @@ export declare namespace V2 {
     type RuleStats as RuleStats,
     type VelocityLimitParams as VelocityLimitParams,
     type VelocityLimitPeriod as VelocityLimitPeriod,
-    type V2CreateResponse as V2CreateResponse,
-    type V2RetrieveResponse as V2RetrieveResponse,
-    type V2UpdateResponse as V2UpdateResponse,
-    type V2ListResponse as V2ListResponse,
-    type V2DraftResponse as V2DraftResponse,
-    type V2PromoteResponse as V2PromoteResponse,
     type V2RetrieveFeaturesResponse as V2RetrieveFeaturesResponse,
     type V2RetrieveReportResponse as V2RetrieveReportResponse,
-    type V2ListResponsesCursorPage as V2ListResponsesCursorPage,
+    type AuthRulesCursorPage as AuthRulesCursorPage,
     type V2CreateParams as V2CreateParams,
     type V2UpdateParams as V2UpdateParams,
     type V2ListParams as V2ListParams,

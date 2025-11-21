@@ -160,7 +160,7 @@ describe('resource tokenizations', () => {
     await expect(
       client.tokenizations.updateDigitalCardArt(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { digital_card_art_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+        { digital_card_art_token: '5e9483eb-8103-4e16-9794-2106111b2eca' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Lithic.NotFoundError);

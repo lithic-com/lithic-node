@@ -280,19 +280,19 @@ export namespace Statement {
     /**
      * Number of months to full pay off
      */
-    payoff_period_length_months: number;
+    payoff_period_length_months: number | null;
 
     /**
      * The amount needed to be paid, in cents, each month in order to pay off current
      * balance in the payoff period
      */
-    payoff_period_monthly_payment_amount: number;
+    payoff_period_monthly_payment_amount: number | null;
 
     /**
      * The sum of all interest and principal paid, in cents, when paying off in the
      * payoff period
      */
-    payoff_period_payment_total: number;
+    payoff_period_payment_total: number | null;
   }
 }
 

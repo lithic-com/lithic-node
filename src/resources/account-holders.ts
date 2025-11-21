@@ -35,7 +35,7 @@ export class AccountHolders extends APIResource {
    *   ],
    *   business_entity: {
    *     address: { ... },
-   *     dba_name: 'Example Business Solutions',
+   *     dba_business_name: 'Example Business Solutions',
    *     government_id: '12-3456789',
    *     legal_business_name: 'Busy Business, Inc.',
    *     phone_numbers: ['+15555555555'],
@@ -52,11 +52,11 @@ export class AccountHolders extends APIResource {
    *   },
    *   nature_of_business: 'Software company selling solutions to the restaurant industry',
    *   tos_timestamp: '2022-03-08T08:00:00Z',
-   *   workflow: 'KYB_BASIC',
+   *   workflow: 'KYB_BYO',
    *   beneficial_owner_entities: [
    *     {
    *       address: { ... },
-   *       dba_name: 'MHoldings',
+   *       dba_business_name: 'MHoldings',
    *       government_id: '98-7654321',
    *       legal_business_name: 'Majority Holdings LLC',
    *       phone_numbers: ['+15555555555'],
@@ -107,8 +107,14 @@ export class AccountHolders extends APIResource {
    * const accountHolder = await client.accountHolders.update(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *   {
-   *     business_entity: { address: { postal_code: '61023' } },
-   *     control_person: { address: { postal_code: '68023' } },
+   *     business_entity: {
+   *       entity_token: '83cf25ae-c14f-4d10-9fa2-0119f36c7286',
+   *       address: { postal_code: '61023' },
+   *     },
+   *     control_person: {
+   *       entity_token: 'fd771a07-c5c2-42f3-a53c-a6c79c6c0d07',
+   *       address: { postal_code: '68023' },
+   *     },
    *     website_url: 'https://www.mynewbusiness.com',
    *   },
    * );
@@ -282,7 +288,7 @@ export class AccountHolders extends APIResource {
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *   {
    *     document_type: 'EIN_LETTER',
-   *     entity_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     entity_token: '83cf25ae-c14f-4d10-9fa2-0119f36c7286',
    *   },
    * );
    * ```
