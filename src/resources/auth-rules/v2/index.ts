@@ -1,13 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export {
-  Backtests,
-  type BacktestResults,
-  type BacktestCreateResponse,
-  type BacktestCreateParams,
-} from './backtests';
-export {
-  V2ListResponsesCursorPage,
+  AuthRulesCursorPage,
   V2,
   type AuthRule,
   type AuthRuleCondition,
@@ -23,12 +17,6 @@ export {
   type RuleStats,
   type VelocityLimitParams,
   type VelocityLimitPeriod,
-  type V2CreateResponse,
-  type V2RetrieveResponse,
-  type V2UpdateResponse,
-  type V2ListResponse,
-  type V2DraftResponse,
-  type V2PromoteResponse,
   type V2RetrieveFeaturesResponse,
   type V2RetrieveReportResponse,
   type V2CreateParams,
@@ -38,3 +26,9 @@ export {
   type V2RetrieveFeaturesParams,
   type V2RetrieveReportParams,
 } from './v2';
+export {
+  Backtests,
+  type BacktestResults,
+  type BacktestCreateResponse,
+  type BacktestCreateParams,
+} from './backtests';
