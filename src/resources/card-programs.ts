@@ -56,6 +56,12 @@ export interface CardProgram {
   token: string;
 
   /**
+   * Whether the card program is participating in Account Level Management. Currently
+   * applicable to Visa card programs only.
+   */
+  account_level_management_enabled: boolean;
+
+  /**
    * Timestamp of when the card program was created.
    */
   created: string;
@@ -74,12 +80,6 @@ export interface CardProgram {
    * The first digits of the card number that this card program starts with.
    */
   pan_range_start: string;
-
-  /**
-   * Whether the card program is participating in Account Level Management. Currently
-   * applicable to Visa card programs only.
-   */
-  account_level_management_enabled?: boolean;
 
   /**
    * 3-character alphabetic ISO 4217 code for the currency of the cardholder.

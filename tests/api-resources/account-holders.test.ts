@@ -296,7 +296,7 @@ describe('resource accountHolders', () => {
   test('uploadDocument: only required params', async () => {
     const responsePromise = client.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       document_type: 'EIN_LETTER',
-      entity_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      entity_token: '83cf25ae-c14f-4d10-9fa2-0119f36c7286',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -310,7 +310,7 @@ describe('resource accountHolders', () => {
   test('uploadDocument: required and optional params', async () => {
     const response = await client.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       document_type: 'EIN_LETTER',
-      entity_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      entity_token: '83cf25ae-c14f-4d10-9fa2-0119f36c7286',
     });
   });
 });
