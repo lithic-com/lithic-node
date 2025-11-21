@@ -5,6 +5,7 @@ import * as V2API from './v2/v2';
 import {
   AuthRule,
   AuthRuleCondition,
+  AuthRulesCursorPage,
   Conditional3DSActionParameters,
   ConditionalACHActionParameters,
   ConditionalAttribute,
@@ -17,20 +18,13 @@ import {
   RuleStats,
   V2,
   V2CreateParams,
-  V2CreateResponse,
   V2DraftParams,
-  V2DraftResponse,
   V2ListParams,
-  V2ListResponse,
-  V2ListResponsesCursorPage,
-  V2PromoteResponse,
   V2RetrieveFeaturesParams,
   V2RetrieveFeaturesResponse,
   V2RetrieveReportParams,
   V2RetrieveReportResponse,
-  V2RetrieveResponse,
   V2UpdateParams,
-  V2UpdateResponse,
   VelocityLimitParams,
   VelocityLimitPeriod,
 } from './v2/v2';
@@ -40,7 +34,7 @@ export class AuthRules extends APIResource {
 }
 
 AuthRules.V2 = V2;
-AuthRules.V2ListResponsesCursorPage = V2ListResponsesCursorPage;
+AuthRules.AuthRulesCursorPage = AuthRulesCursorPage;
 
 export declare namespace AuthRules {
   export {
@@ -59,15 +53,9 @@ export declare namespace AuthRules {
     type RuleStats as RuleStats,
     type VelocityLimitParams as VelocityLimitParams,
     type VelocityLimitPeriod as VelocityLimitPeriod,
-    type V2CreateResponse as V2CreateResponse,
-    type V2RetrieveResponse as V2RetrieveResponse,
-    type V2UpdateResponse as V2UpdateResponse,
-    type V2ListResponse as V2ListResponse,
-    type V2DraftResponse as V2DraftResponse,
-    type V2PromoteResponse as V2PromoteResponse,
     type V2RetrieveFeaturesResponse as V2RetrieveFeaturesResponse,
     type V2RetrieveReportResponse as V2RetrieveReportResponse,
-    V2ListResponsesCursorPage as V2ListResponsesCursorPage,
+    AuthRulesCursorPage as AuthRulesCursorPage,
     type V2CreateParams as V2CreateParams,
     type V2UpdateParams as V2UpdateParams,
     type V2ListParams as V2ListParams,

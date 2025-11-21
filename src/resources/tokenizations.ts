@@ -156,7 +156,7 @@ export class Tokenizations extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.tokenizations.simulate({
+   * const tokenization = await client.tokenizations.simulate({
    *   cvv: '776',
    *   expiration_date: '08/29',
    *   pan: '4111111289144142',
@@ -167,10 +167,7 @@ export class Tokenizations extends APIResource {
    * });
    * ```
    */
-  simulate(
-    body: TokenizationSimulateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<TokenizationSimulateResponse> {
+  simulate(body: TokenizationSimulateParams, options?: Core.RequestOptions): Core.APIPromise<Tokenization> {
     return this._client.post('/v1/simulate/tokenizations', { body, ...options });
   }
 
@@ -206,7 +203,7 @@ export class Tokenizations extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
+   * const tokenization =
    *   await client.tokenizations.updateDigitalCardArt(
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *   );
@@ -216,16 +213,16 @@ export class Tokenizations extends APIResource {
     tokenizationToken: string,
     body?: TokenizationUpdateDigitalCardArtParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<TokenizationUpdateDigitalCardArtResponse>;
+  ): Core.APIPromise<Tokenization>;
   updateDigitalCardArt(
     tokenizationToken: string,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<TokenizationUpdateDigitalCardArtResponse>;
+  ): Core.APIPromise<Tokenization>;
   updateDigitalCardArt(
     tokenizationToken: string,
     body: TokenizationUpdateDigitalCardArtParams | Core.RequestOptions = {},
     options?: Core.RequestOptions,
-  ): Core.APIPromise<TokenizationUpdateDigitalCardArtResponse> {
+  ): Core.APIPromise<Tokenization> {
     if (isRequestOptions(body)) {
       return this.updateDigitalCardArt(tokenizationToken, {}, body);
     }
@@ -441,14 +438,6 @@ export namespace Tokenization {
   }
 }
 
-export interface TokenizationSimulateResponse {
-  data?: Array<Tokenization>;
-}
-
-export interface TokenizationUpdateDigitalCardArtResponse {
-  data?: Tokenization;
-}
-
 export interface TokenizationListParams extends CursorPageParams {
   /**
    * Filters for tokenizations associated with a specific account.
@@ -546,8 +535,6 @@ Tokenizations.TokenizationsCursorPage = TokenizationsCursorPage;
 export declare namespace Tokenizations {
   export {
     type Tokenization as Tokenization,
-    type TokenizationSimulateResponse as TokenizationSimulateResponse,
-    type TokenizationUpdateDigitalCardArtResponse as TokenizationUpdateDigitalCardArtResponse,
     TokenizationsCursorPage as TokenizationsCursorPage,
     type TokenizationListParams as TokenizationListParams,
     type TokenizationResendActivationCodeParams as TokenizationResendActivationCodeParams,

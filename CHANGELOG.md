@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.124.0 (2025-11-21)
+
+Full Changelog: [v0.123.0...v0.124.0](https://github.com/lithic-com/lithic-node/compare/v0.123.0...v0.124.0)
+
+### Features
+
+* **api:** add WALLET_RECOMMENDATION_REASONS attribute for tokenization rules ([dff88e2](https://github.com/lithic-com/lithic-node/commit/dff88e2282bdaffffd01d22ac8933e052a63852e))
+* **api:** provide a unified model for AuthRule ([dff88e2](https://github.com/lithic-com/lithic-node/commit/dff88e2282bdaffffd01d22ac8933e052a63852e))
+
+
+### Bug Fixes
+
+* **api:** fix examples in spec that were not fully valid ([dff88e2](https://github.com/lithic-com/lithic-node/commit/dff88e2282bdaffffd01d22ac8933e052a63852e))
+* **api:** make certain payoff fields nullable ([dff88e2](https://github.com/lithic-com/lithic-node/commit/dff88e2282bdaffffd01d22ac8933e052a63852e))
+
 ## 0.123.0 (2025-11-20)
 
 Full Changelog: [v0.122.0...v0.123.0](https://github.com/lithic-com/lithic-node/compare/v0.122.0...v0.123.0)

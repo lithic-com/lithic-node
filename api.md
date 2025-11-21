@@ -84,24 +84,18 @@ Types:
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">RuleStats</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">VelocityLimitParams</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">VelocityLimitPeriod</a></code>
-- <code><a href="./src/resources/auth-rules/v2/v2.ts">V2CreateResponse</a></code>
-- <code><a href="./src/resources/auth-rules/v2/v2.ts">V2RetrieveResponse</a></code>
-- <code><a href="./src/resources/auth-rules/v2/v2.ts">V2UpdateResponse</a></code>
-- <code><a href="./src/resources/auth-rules/v2/v2.ts">V2ListResponse</a></code>
-- <code><a href="./src/resources/auth-rules/v2/v2.ts">V2DraftResponse</a></code>
-- <code><a href="./src/resources/auth-rules/v2/v2.ts">V2PromoteResponse</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2RetrieveFeaturesResponse</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2RetrieveReportResponse</a></code>
 
 Methods:
 
-- <code title="post /v2/auth_rules">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">create</a>({ ...params }) -> V2CreateResponse</code>
-- <code title="get /v2/auth_rules/{auth_rule_token}">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">retrieve</a>(authRuleToken) -> V2RetrieveResponse</code>
-- <code title="patch /v2/auth_rules/{auth_rule_token}">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">update</a>(authRuleToken, { ...params }) -> V2UpdateResponse</code>
-- <code title="get /v2/auth_rules">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">list</a>({ ...params }) -> V2ListResponsesCursorPage</code>
+- <code title="post /v2/auth_rules">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">create</a>({ ...params }) -> AuthRule</code>
+- <code title="get /v2/auth_rules/{auth_rule_token}">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">retrieve</a>(authRuleToken) -> AuthRule</code>
+- <code title="patch /v2/auth_rules/{auth_rule_token}">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">update</a>(authRuleToken, { ...params }) -> AuthRule</code>
+- <code title="get /v2/auth_rules">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">list</a>({ ...params }) -> AuthRulesCursorPage</code>
 - <code title="delete /v2/auth_rules/{auth_rule_token}">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">del</a>(authRuleToken) -> void</code>
-- <code title="post /v2/auth_rules/{auth_rule_token}/draft">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">draft</a>(authRuleToken, { ...params }) -> V2DraftResponse</code>
-- <code title="post /v2/auth_rules/{auth_rule_token}/promote">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">promote</a>(authRuleToken) -> V2PromoteResponse</code>
+- <code title="post /v2/auth_rules/{auth_rule_token}/draft">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">draft</a>(authRuleToken, { ...params }) -> AuthRule</code>
+- <code title="post /v2/auth_rules/{auth_rule_token}/promote">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">promote</a>(authRuleToken) -> AuthRule</code>
 - <code title="get /v2/auth_rules/{auth_rule_token}/features">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">retrieveFeatures</a>(authRuleToken, { ...params }) -> V2RetrieveFeaturesResponse</code>
 - <code title="get /v2/auth_rules/{auth_rule_token}/report">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">retrieveReport</a>(authRuleToken, { ...params }) -> V2RetrieveReportResponse</code>
 
@@ -145,8 +139,6 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/tokenizations.ts">Tokenization</a></code>
-- <code><a href="./src/resources/tokenizations.ts">TokenizationSimulateResponse</a></code>
-- <code><a href="./src/resources/tokenizations.ts">TokenizationUpdateDigitalCardArtResponse</a></code>
 
 Methods:
 
@@ -156,9 +148,9 @@ Methods:
 - <code title="post /v1/tokenizations/{tokenization_token}/deactivate">client.tokenizations.<a href="./src/resources/tokenizations.ts">deactivate</a>(tokenizationToken) -> void</code>
 - <code title="post /v1/tokenizations/{tokenization_token}/pause">client.tokenizations.<a href="./src/resources/tokenizations.ts">pause</a>(tokenizationToken) -> void</code>
 - <code title="post /v1/tokenizations/{tokenization_token}/resend_activation_code">client.tokenizations.<a href="./src/resources/tokenizations.ts">resendActivationCode</a>(tokenizationToken, { ...params }) -> void</code>
-- <code title="post /v1/simulate/tokenizations">client.tokenizations.<a href="./src/resources/tokenizations.ts">simulate</a>({ ...params }) -> TokenizationSimulateResponse</code>
+- <code title="post /v1/simulate/tokenizations">client.tokenizations.<a href="./src/resources/tokenizations.ts">simulate</a>({ ...params }) -> Tokenization</code>
 - <code title="post /v1/tokenizations/{tokenization_token}/unpause">client.tokenizations.<a href="./src/resources/tokenizations.ts">unpause</a>(tokenizationToken) -> void</code>
-- <code title="post /v1/tokenizations/{tokenization_token}/update_digital_card_art">client.tokenizations.<a href="./src/resources/tokenizations.ts">updateDigitalCardArt</a>(tokenizationToken, { ...params }) -> TokenizationUpdateDigitalCardArtResponse</code>
+- <code title="post /v1/tokenizations/{tokenization_token}/update_digital_card_art">client.tokenizations.<a href="./src/resources/tokenizations.ts">updateDigitalCardArt</a>(tokenizationToken, { ...params }) -> Tokenization</code>
 
 # Cards
 

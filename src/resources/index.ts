@@ -228,8 +228,6 @@ export {
   TokenizationsCursorPage,
   Tokenizations,
   type Tokenization,
-  type TokenizationSimulateResponse,
-  type TokenizationUpdateDigitalCardArtResponse,
   type TokenizationListParams,
   type TokenizationResendActivationCodeParams,
   type TokenizationSimulateParams,

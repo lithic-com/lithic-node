@@ -160,9 +160,7 @@ import {
   TokenizationListParams,
   TokenizationResendActivationCodeParams,
   TokenizationSimulateParams,
-  TokenizationSimulateResponse,
   TokenizationUpdateDigitalCardArtParams,
-  TokenizationUpdateDigitalCardArtResponse,
   Tokenizations,
   TokenizationsCursorPage,
 } from './resources/tokenizations';
@@ -613,8 +611,6 @@ export declare namespace Lithic {
   export {
     Tokenizations as Tokenizations,
     type Tokenization as Tokenization,
-    type TokenizationSimulateResponse as TokenizationSimulateResponse,
-    type TokenizationUpdateDigitalCardArtResponse as TokenizationUpdateDigitalCardArtResponse,
     TokenizationsCursorPage as TokenizationsCursorPage,
     type TokenizationListParams as TokenizationListParams,
     type TokenizationResendActivationCodeParams as TokenizationResendActivationCodeParams,
