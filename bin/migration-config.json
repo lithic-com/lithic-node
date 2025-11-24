@@ -1,6 +1,6 @@
 {
   "pkg": "lithic",
-  "githubRepo": "https://github.com/stainless-sdks/lithic-typescript",
+  "githubRepo": "https://github.com/lithic-com/lithic-node",
   "clientClass": "Lithic",
   "methods": [
     {

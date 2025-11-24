@@ -9,11 +9,8 @@ The REST API documentation can be found on [docs.lithic.com](https://docs.lithic
 ## Installation
 
 ```sh
-npm install git+ssh://git@github.com:stainless-sdks/lithic-typescript.git
+npm install lithic
 ```
-
-> [!NOTE]
-> Once this package is [published to npm](https://www.stainless.com/docs/guides/publish), this will become: `npm install lithic`
 
 ## Usage
 
@@ -415,7 +412,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/lithic-typescript/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/lithic-com/lithic-node/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 
