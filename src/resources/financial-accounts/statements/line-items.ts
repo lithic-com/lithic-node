@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../../resource';
-import { isRequestOptions } from '../../../core';
-import * as Core from '../../../core';
-import { CursorPage, type CursorPageParams } from '../../../pagination';
+import { APIResource } from '../../../core/resource';
+import { CursorPage, type CursorPageParams, PagePromise } from '../../../core/pagination';
+import { RequestOptions } from '../../../internal/request-options';
+import { path } from '../../../internal/utils/path';
 
 export class LineItems extends APIResource {
   /**
@@ -13,45 +13,33 @@ export class LineItems extends APIResource {
    * ```ts
    * // Automatically fetches more pages as needed.
    * for await (const lineItem of client.financialAccounts.statements.lineItems.list(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *   'statement_token',
+   *   {
+   *     financial_account_token:
+   *       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   },
    * )) {
    *   // ...
    * }
    * ```
    */
   list(
-    financialAccountToken: string,
     statementToken: string,
-    query?: LineItemListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<StatementLineItemsDataCursorPage, StatementLineItems.Data>;
-  list(
-    financialAccountToken: string,
-    statementToken: string,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<StatementLineItemsDataCursorPage, StatementLineItems.Data>;
-  list(
-    financialAccountToken: string,
-    statementToken: string,
-    query: LineItemListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<StatementLineItemsDataCursorPage, StatementLineItems.Data> {
-    if (isRequestOptions(query)) {
-      return this.list(financialAccountToken, statementToken, {}, query);
-    }
+    params: LineItemListParams,
+    options?: RequestOptions,
+  ): PagePromise<StatementLineItemsDataCursorPage, StatementLineItems.Data> {
+    const { financial_account_token, ...query } = params;
     return this._client.getAPIList(
-      `/v1/financial_accounts/${financialAccountToken}/statements/${statementToken}/line_items`,
-      StatementLineItemsDataCursorPage,
+      path`/v1/financial_accounts/${financial_account_token}/statements/${statementToken}/line_items`,
+      CursorPage<StatementLineItems.Data>,
       { query, ...options },
     );
   }
 }
 
-export class StatementLineItemsDataCursorPage extends CursorPage<StatementLineItems.Data> {}
+export type StatementLineItemsDataCursorPage = CursorPage<StatementLineItems.Data>;
 
-// Here for back compatibility
-export const LineItemListResponsesCursorPage = StatementLineItemsDataCursorPage;
+export interface LineItemListResponse extends StatementLineItems.Data {}
 
 export interface StatementLineItems {
   data: Array<StatementLineItems.Data>;
@@ -204,11 +192,17 @@ export namespace StatementLineItems {
   }
 }
 
-export interface LineItemListResponse extends StatementLineItems.Data {}
+export interface LineItemListParams extends CursorPageParams {
+  /**
+   * Path param: Globally unique identifier for financial account.
+   */
+  financial_account_token: string;
+}
 
-export interface LineItemListParams extends CursorPageParams {}
+// back compatibility
+class StatementLineItemsDataCursorPageOld extends CursorPage<StatementLineItems.Data> {}
 
-LineItems.StatementLineItemsDataCursorPage = StatementLineItemsDataCursorPage;
+export const LineItemListResponsesCursorPage = StatementLineItemsDataCursorPageOld;
 
 // Here for back compatibility
 LineItems.LineItemListResponsesCursorPage = LineItemListResponsesCursorPage;
@@ -216,7 +210,7 @@ LineItems.LineItemListResponsesCursorPage = LineItemListResponsesCursorPage;
 export declare namespace LineItems {
   export {
     type StatementLineItems as StatementLineItems,
-    StatementLineItemsDataCursorPage as StatementLineItemsDataCursorPage,
+    type StatementLineItemsDataCursorPage as StatementLineItemsDataCursorPage,
     type LineItemListParams as LineItemListParams,
 
     // Here for back compatibility

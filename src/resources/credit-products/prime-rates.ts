@@ -1,8 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
-import * as Core from '../../core';
+import { APIResource } from '../../core/resource';
+import { APIPromise } from '../../core/api-promise';
+import { RequestOptions } from '../../internal/request-options';
+import { path } from '../../internal/utils/path';
 
 export class PrimeRates extends APIResource {
   /**
@@ -11,9 +12,12 @@ export class PrimeRates extends APIResource {
   create(
     creditProductToken: string,
     body: PrimeRateCreateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<void> {
-    return this._client.post(`/v1/credit_products/${creditProductToken}/prime_rates`, { body, ...options });
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    return this._client.post(path`/v1/credit_products/${creditProductToken}/prime_rates`, {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -21,22 +25,13 @@ export class PrimeRates extends APIResource {
    */
   retrieve(
     creditProductToken: string,
-    query?: PrimeRateRetrieveParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<PrimeRateRetrieveResponse>;
-  retrieve(
-    creditProductToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<PrimeRateRetrieveResponse>;
-  retrieve(
-    creditProductToken: string,
-    query: PrimeRateRetrieveParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<PrimeRateRetrieveResponse> {
-    if (isRequestOptions(query)) {
-      return this.retrieve(creditProductToken, {}, query);
-    }
-    return this._client.get(`/v1/credit_products/${creditProductToken}/prime_rates`, { query, ...options });
+    query: PrimeRateRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<PrimeRateRetrieveResponse> {
+    return this._client.get(path`/v1/credit_products/${creditProductToken}/prime_rates`, {
+      query,
+      ...options,
+    });
   }
 }
 

@@ -1,9 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import { isRequestOptions } from '../core';
-import * as Core from '../core';
-import { CursorPage, type CursorPageParams } from '../pagination';
+import { APIResource } from '../core/resource';
+import { APIPromise } from '../core/api-promise';
+import { CursorPage, type CursorPageParams, PagePromise } from '../core/pagination';
+import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 export class CardPrograms extends APIResource {
   /**
@@ -16,8 +17,8 @@ export class CardPrograms extends APIResource {
    * );
    * ```
    */
-  retrieve(cardProgramToken: string, options?: Core.RequestOptions): Core.APIPromise<CardProgram> {
-    return this._client.get(`/v1/card_programs/${cardProgramToken}`, options);
+  retrieve(cardProgramToken: string, options?: RequestOptions): APIPromise<CardProgram> {
+    return this._client.get(path`/v1/card_programs/${cardProgramToken}`, options);
   }
 
   /**
@@ -32,28 +33,26 @@ export class CardPrograms extends APIResource {
    * ```
    */
   list(
-    query?: CardProgramListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<CardProgramsCursorPage, CardProgram>;
-  list(options?: Core.RequestOptions): Core.PagePromise<CardProgramsCursorPage, CardProgram>;
-  list(
-    query: CardProgramListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<CardProgramsCursorPage, CardProgram> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v1/card_programs', CardProgramsCursorPage, { query, ...options });
+    query: CardProgramListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<CardProgramsCursorPage, CardProgram> {
+    return this._client.getAPIList('/v1/card_programs', CursorPage<CardProgram>, { query, ...options });
   }
 }
 
-export class CardProgramsCursorPage extends CursorPage<CardProgram> {}
+export type CardProgramsCursorPage = CursorPage<CardProgram>;
 
 export interface CardProgram {
   /**
    * Globally unique identifier.
    */
   token: string;
+
+  /**
+   * Whether the card program is participating in Account Level Management. Currently
+   * applicable to Visa card programs only.
+   */
+  account_level_management_enabled: boolean;
 
   /**
    * Timestamp of when the card program was created.
@@ -76,12 +75,6 @@ export interface CardProgram {
   pan_range_start: string;
 
   /**
-   * Whether the card program is participating in Account Level Management. Currently
-   * applicable to Visa card programs only.
-   */
-  account_level_management_enabled?: boolean;
-
-  /**
    * 3-character alphabetic ISO 4217 code for the currency of the cardholder.
    */
   cardholder_currency?: string;
@@ -95,12 +88,10 @@ export interface CardProgram {
 
 export interface CardProgramListParams extends CursorPageParams {}
 
-CardPrograms.CardProgramsCursorPage = CardProgramsCursorPage;
-
 export declare namespace CardPrograms {
   export {
     type CardProgram as CardProgram,
-    CardProgramsCursorPage as CardProgramsCursorPage,
+    type CardProgramsCursorPage as CardProgramsCursorPage,
     type CardProgramListParams as CardProgramListParams,
   };
 }

@@ -6,7 +6,6 @@ export {
 } from './enhanced-commercial-data';
 export { Events } from './events/index';
 export {
-  TransactionsCursorPage,
   Transactions,
   type Transaction,
   type TransactionSimulateAuthorizationResponse,
@@ -26,4 +25,5 @@ export {
   type TransactionSimulateReturnParams,
   type TransactionSimulateReturnReversalParams,
   type TransactionSimulateVoidParams,
+  type TransactionsCursorPage,
 } from './transactions';

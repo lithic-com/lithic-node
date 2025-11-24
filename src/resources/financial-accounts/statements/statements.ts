@@ -1,8 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../../resource';
-import { isRequestOptions } from '../../../core';
-import * as Core from '../../../core';
+import { APIResource } from '../../../core/resource';
 import * as FinancialAccountsAPI from '../financial-accounts';
 import * as LineItemsAPI from './line-items';
 import {
@@ -13,7 +11,10 @@ import {
   LineItemListResponse,
   LineItemListResponsesCursorPage,
 } from './line-items';
-import { CursorPage, type CursorPageParams } from '../../../pagination';
+import { APIPromise } from '../../../core/api-promise';
+import { CursorPage, type CursorPageParams, PagePromise } from '../../../core/pagination';
+import { RequestOptions } from '../../../internal/request-options';
+import { path } from '../../../internal/utils/path';
 
 export class Statements extends APIResource {
   lineItems: LineItemsAPI.LineItems = new LineItemsAPI.LineItems(this._client);
@@ -25,18 +26,22 @@ export class Statements extends APIResource {
    * ```ts
    * const statement =
    *   await client.financialAccounts.statements.retrieve(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *     'statement_token',
+   *     {
+   *       financial_account_token:
+   *         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     },
    *   );
    * ```
    */
   retrieve(
-    financialAccountToken: string,
     statementToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Statement> {
+    params: StatementRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<Statement> {
+    const { financial_account_token } = params;
     return this._client.get(
-      `/v1/financial_accounts/${financialAccountToken}/statements/${statementToken}`,
+      path`/v1/financial_accounts/${financial_account_token}/statements/${statementToken}`,
       options,
     );
   }
@@ -56,30 +61,18 @@ export class Statements extends APIResource {
    */
   list(
     financialAccountToken: string,
-    query?: StatementListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<StatementsCursorPage, Statement>;
-  list(
-    financialAccountToken: string,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<StatementsCursorPage, Statement>;
-  list(
-    financialAccountToken: string,
-    query: StatementListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<StatementsCursorPage, Statement> {
-    if (isRequestOptions(query)) {
-      return this.list(financialAccountToken, {}, query);
-    }
+    query: StatementListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<StatementsCursorPage, Statement> {
     return this._client.getAPIList(
-      `/v1/financial_accounts/${financialAccountToken}/statements`,
-      StatementsCursorPage,
+      path`/v1/financial_accounts/${financialAccountToken}/statements`,
+      CursorPage<Statement>,
       { query, ...options },
     );
   }
 }
 
-export class StatementsCursorPage extends CursorPage<Statement> {}
+export type StatementsCursorPage = CursorPage<Statement>;
 
 export interface Statement {
   /**
@@ -294,19 +287,19 @@ export namespace Statement {
     /**
      * Number of months to full pay off
      */
-    payoff_period_length_months: number;
+    payoff_period_length_months: number | null;
 
     /**
      * The amount needed to be paid, in cents, each month in order to pay off current
      * balance in the payoff period
      */
-    payoff_period_monthly_payment_amount: number;
+    payoff_period_monthly_payment_amount: number | null;
 
     /**
      * The sum of all interest and principal paid, in cents, when paying off in the
      * payoff period
      */
-    payoff_period_payment_total: number;
+    payoff_period_payment_total: number | null;
   }
 }
 
@@ -314,6 +307,13 @@ export interface Statements {
   data: Array<Statement>;
 
   has_more: boolean;
+}
+
+export interface StatementRetrieveParams {
+  /**
+   * Globally unique identifier for financial account.
+   */
+  financial_account_token: string;
 }
 
 export interface StatementListParams extends CursorPageParams {
@@ -335,24 +335,21 @@ export interface StatementListParams extends CursorPageParams {
   include_initial_statements?: boolean;
 }
 
-Statements.StatementsCursorPage = StatementsCursorPage;
 Statements.LineItems = LineItems;
-Statements.StatementLineItemsDataCursorPage = StatementLineItemsDataCursorPage;
-// Here for back compatibility
-Statements.LineItemListResponsesCursorPage = LineItemListResponsesCursorPage;
 
 export declare namespace Statements {
   export {
     type Statement as Statement,
     type Statements as Statements,
-    StatementsCursorPage as StatementsCursorPage,
+    type StatementsCursorPage as StatementsCursorPage,
+    type StatementRetrieveParams as StatementRetrieveParams,
     type StatementListParams as StatementListParams,
   };
 
   export {
     LineItems as LineItems,
     type StatementLineItems as StatementLineItems,
-    StatementLineItemsDataCursorPage as StatementLineItemsDataCursorPage,
+    type StatementLineItemsDataCursorPage as StatementLineItemsDataCursorPage,
     type LineItemListParams as LineItemListParams,
     // Here for back compatibility
     type LineItemListResponse as LineItemListResponse,

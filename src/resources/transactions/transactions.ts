@@ -1,14 +1,15 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
-import * as Core from '../../core';
+import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
 import * as EnhancedCommercialDataAPI from './enhanced-commercial-data';
 import { EnhancedCommercialData, EnhancedCommercialDataRetrieveResponse } from './enhanced-commercial-data';
 import * as EventsAPI from './events/events';
 import { Events } from './events/events';
-import { CursorPage, type CursorPageParams } from '../../pagination';
+import { APIPromise } from '../../core/api-promise';
+import { CursorPage, type CursorPageParams, PagePromise } from '../../core/pagination';
+import { RequestOptions } from '../../internal/request-options';
+import { path } from '../../internal/utils/path';
 
 export class Transactions extends APIResource {
   enhancedCommercialData: EnhancedCommercialDataAPI.EnhancedCommercialData =
@@ -26,8 +27,8 @@ export class Transactions extends APIResource {
    * );
    * ```
    */
-  retrieve(transactionToken: string, options?: Core.RequestOptions): Core.APIPromise<Transaction> {
-    return this._client.get(`/v1/transactions/${transactionToken}`, options);
+  retrieve(transactionToken: string, options?: RequestOptions): APIPromise<Transaction> {
+    return this._client.get(path`/v1/transactions/${transactionToken}`, options);
   }
 
   /**
@@ -43,18 +44,10 @@ export class Transactions extends APIResource {
    * ```
    */
   list(
-    query?: TransactionListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<TransactionsCursorPage, Transaction>;
-  list(options?: Core.RequestOptions): Core.PagePromise<TransactionsCursorPage, Transaction>;
-  list(
-    query: TransactionListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<TransactionsCursorPage, Transaction> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v1/transactions', TransactionsCursorPage, { query, ...options });
+    query: TransactionListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<TransactionsCursorPage, Transaction> {
+    return this._client.getAPIList('/v1/transactions', CursorPage<Transaction>, { query, ...options });
   }
 
   /**
@@ -67,8 +60,8 @@ export class Transactions extends APIResource {
    * );
    * ```
    */
-  expireAuthorization(transactionToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
-    return this._client.post(`/v1/transactions/${transactionToken}/expire_authorization`, options);
+  expireAuthorization(transactionToken: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.post(path`/v1/transactions/${transactionToken}/expire_authorization`, options);
   }
 
   /**
@@ -93,8 +86,8 @@ export class Transactions extends APIResource {
    */
   simulateAuthorization(
     body: TransactionSimulateAuthorizationParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<TransactionSimulateAuthorizationResponse> {
+    options?: RequestOptions,
+  ): APIPromise<TransactionSimulateAuthorizationResponse> {
     return this._client.post('/v1/simulate/authorize', { body, ...options });
   }
 
@@ -114,8 +107,8 @@ export class Transactions extends APIResource {
    */
   simulateAuthorizationAdvice(
     body: TransactionSimulateAuthorizationAdviceParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<TransactionSimulateAuthorizationAdviceResponse> {
+    options?: RequestOptions,
+  ): APIPromise<TransactionSimulateAuthorizationAdviceResponse> {
     return this._client.post('/v1/simulate/authorization_advice', { body, ...options });
   }
 
@@ -136,8 +129,8 @@ export class Transactions extends APIResource {
    */
   simulateClearing(
     body: TransactionSimulateClearingParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<TransactionSimulateClearingResponse> {
+    options?: RequestOptions,
+  ): APIPromise<TransactionSimulateClearingResponse> {
     return this._client.post('/v1/simulate/clearing', { body, ...options });
   }
 
@@ -149,8 +142,8 @@ export class Transactions extends APIResource {
    */
   simulateCreditAuthorization(
     body: TransactionSimulateCreditAuthorizationParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<TransactionSimulateCreditAuthorizationResponse> {
+    options?: RequestOptions,
+  ): APIPromise<TransactionSimulateCreditAuthorizationResponse> {
     return this._client.post('/v1/simulate/credit_authorization_advice', { body, ...options });
   }
 
@@ -173,8 +166,8 @@ export class Transactions extends APIResource {
    */
   simulateCreditAuthorizationAdvice(
     body: TransactionSimulateCreditAuthorizationAdviceParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<TransactionSimulateCreditAuthorizationAdviceResponse> {
+    options?: RequestOptions,
+  ): APIPromise<TransactionSimulateCreditAuthorizationAdviceResponse> {
     return this._client.post('/v1/simulate/credit_authorization_advice', { body, ...options });
   }
 
@@ -194,8 +187,8 @@ export class Transactions extends APIResource {
    */
   simulateReturn(
     body: TransactionSimulateReturnParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<TransactionSimulateReturnResponse> {
+    options?: RequestOptions,
+  ): APIPromise<TransactionSimulateReturnResponse> {
     return this._client.post('/v1/simulate/return', { body, ...options });
   }
 
@@ -214,8 +207,8 @@ export class Transactions extends APIResource {
    */
   simulateReturnReversal(
     body: TransactionSimulateReturnReversalParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<TransactionSimulateReturnReversalResponse> {
+    options?: RequestOptions,
+  ): APIPromise<TransactionSimulateReturnReversalResponse> {
     return this._client.post('/v1/simulate/return_reversal', { body, ...options });
   }
 
@@ -236,13 +229,13 @@ export class Transactions extends APIResource {
    */
   simulateVoid(
     body: TransactionSimulateVoidParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<TransactionSimulateVoidResponse> {
+    options?: RequestOptions,
+  ): APIPromise<TransactionSimulateVoidResponse> {
     return this._client.post('/v1/simulate/void', { body, ...options });
   }
 }
 
-export class TransactionsCursorPage extends CursorPage<Transaction> {}
+export type TransactionsCursorPage = CursorPage<Transaction>;
 
 export interface Transaction {
   /**
@@ -1446,7 +1439,6 @@ export interface TransactionSimulateVoidParams {
   type?: 'AUTHORIZATION_EXPIRY' | 'AUTHORIZATION_REVERSAL';
 }
 
-Transactions.TransactionsCursorPage = TransactionsCursorPage;
 Transactions.EnhancedCommercialData = EnhancedCommercialData;
 Transactions.Events = Events;
 
@@ -1461,7 +1453,7 @@ export declare namespace Transactions {
     type TransactionSimulateReturnResponse as TransactionSimulateReturnResponse,
     type TransactionSimulateReturnReversalResponse as TransactionSimulateReturnReversalResponse,
     type TransactionSimulateVoidResponse as TransactionSimulateVoidResponse,
-    TransactionsCursorPage as TransactionsCursorPage,
+    type TransactionsCursorPage as TransactionsCursorPage,
     type TransactionListParams as TransactionListParams,
     type TransactionSimulateAuthorizationParams as TransactionSimulateAuthorizationParams,
     type TransactionSimulateAuthorizationAdviceParams as TransactionSimulateAuthorizationAdviceParams,

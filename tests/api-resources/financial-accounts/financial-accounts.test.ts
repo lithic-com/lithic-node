@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import Lithic from 'lithic';
-import { Response } from 'node-fetch';
 
 const client = new Lithic({
   apiKey: 'My Lithic API Key',
@@ -41,15 +40,6 @@ describe('resource financialAccounts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieve: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.financialAccounts.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-        path: '/_stainless_unknown_path',
-      }),
-    ).rejects.toThrow(Lithic.NotFoundError);
-  });
-
   test('update', async () => {
     const responsePromise = client.financialAccounts.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
@@ -59,15 +49,6 @@ describe('resource financialAccounts', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('update: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.financialAccounts.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-        path: '/_stainless_unknown_path',
-      }),
-    ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('update: request options and params are passed correctly', async () => {
@@ -90,13 +71,6 @@ describe('resource financialAccounts', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('list: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.financialAccounts.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Lithic.NotFoundError,
-    );
   });
 
   test('list: request options and params are passed correctly', async () => {

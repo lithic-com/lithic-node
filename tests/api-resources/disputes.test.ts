@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import Lithic from 'lithic';
-import { Response } from 'node-fetch';
 
 const client = new Lithic({
   apiKey: 'My Lithic API Key',
@@ -45,13 +44,6 @@ describe('resource disputes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieve: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.disputes.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Lithic.NotFoundError);
-  });
-
   test('update', async () => {
     const responsePromise = client.disputes.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
     const rawResponse = await responsePromise.asResponse();
@@ -74,13 +66,6 @@ describe('resource disputes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.disputes.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Lithic.NotFoundError,
-    );
-  });
-
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -99,8 +84,8 @@ describe('resource disputes', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  test('del', async () => {
-    const responsePromise = client.disputes.del('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+  test('delete', async () => {
+    const responsePromise = client.disputes.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -110,18 +95,10 @@ describe('resource disputes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('del: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.disputes.del('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Lithic.NotFoundError);
-  });
-
-  test('deleteEvidence', async () => {
-    const responsePromise = client.disputes.deleteEvidence(
-      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-    );
+  test('deleteEvidence: only required params', async () => {
+    const responsePromise = client.disputes.deleteEvidence('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      dispute_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -131,15 +108,10 @@ describe('resource disputes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('deleteEvidence: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.disputes.deleteEvidence(
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
+  test('deleteEvidence: required and optional params', async () => {
+    const response = await client.disputes.deleteEvidence('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      dispute_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
   });
 
   test('initiateEvidenceUpload', async () => {
@@ -151,15 +123,6 @@ describe('resource disputes', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('initiateEvidenceUpload: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.disputes.initiateEvidenceUpload('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-        path: '/_stainless_unknown_path',
-      }),
-    ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('initiateEvidenceUpload: request options and params are passed correctly', async () => {
@@ -184,15 +147,6 @@ describe('resource disputes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('listEvidences: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.disputes.listEvidences('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-        path: '/_stainless_unknown_path',
-      }),
-    ).rejects.toThrow(Lithic.NotFoundError);
-  });
-
   test('listEvidences: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -210,11 +164,10 @@ describe('resource disputes', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  test('retrieveEvidence', async () => {
-    const responsePromise = client.disputes.retrieveEvidence(
-      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-    );
+  test('retrieveEvidence: only required params', async () => {
+    const responsePromise = client.disputes.retrieveEvidence('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      dispute_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -224,14 +177,9 @@ describe('resource disputes', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieveEvidence: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.disputes.retrieveEvidence(
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
+  test('retrieveEvidence: required and optional params', async () => {
+    const response = await client.disputes.retrieveEvidence('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      dispute_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
   });
 });

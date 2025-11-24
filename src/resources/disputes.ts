@@ -1,9 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import { isRequestOptions, maybeMultipartFormRequestOptions, Uploadable } from '../core';
-import * as Core from '../core';
-import { CursorPage, type CursorPageParams } from '../pagination';
+import { APIResource } from '../core/resource';
+import { APIPromise } from '../core/api-promise';
+import { CursorPage, type CursorPageParams, PagePromise } from '../core/pagination';
+import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
+import { Uploadable } from '../uploads';
+import { maybeMultipartFormRequestOptions } from '../internal/uploads';
 
 export class Disputes extends APIResource {
   /**
@@ -19,7 +22,7 @@ export class Disputes extends APIResource {
    * });
    * ```
    */
-  create(body: DisputeCreateParams, options?: Core.RequestOptions): Core.APIPromise<Dispute> {
+  create(body: DisputeCreateParams, options?: RequestOptions): APIPromise<Dispute> {
     return this._client.post('/v1/disputes', { body, ...options });
   }
 
@@ -33,8 +36,8 @@ export class Disputes extends APIResource {
    * );
    * ```
    */
-  retrieve(disputeToken: string, options?: Core.RequestOptions): Core.APIPromise<Dispute> {
-    return this._client.get(`/v1/disputes/${disputeToken}`, options);
+  retrieve(disputeToken: string, options?: RequestOptions): APIPromise<Dispute> {
+    return this._client.get(path`/v1/disputes/${disputeToken}`, options);
   }
 
   /**
@@ -47,12 +50,8 @@ export class Disputes extends APIResource {
    * );
    * ```
    */
-  update(
-    disputeToken: string,
-    body: DisputeUpdateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Dispute> {
-    return this._client.patch(`/v1/disputes/${disputeToken}`, { body, ...options });
+  update(disputeToken: string, body: DisputeUpdateParams, options?: RequestOptions): APIPromise<Dispute> {
+    return this._client.patch(path`/v1/disputes/${disputeToken}`, { body, ...options });
   }
 
   /**
@@ -67,18 +66,10 @@ export class Disputes extends APIResource {
    * ```
    */
   list(
-    query?: DisputeListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<DisputesCursorPage, Dispute>;
-  list(options?: Core.RequestOptions): Core.PagePromise<DisputesCursorPage, Dispute>;
-  list(
-    query: DisputeListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<DisputesCursorPage, Dispute> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v1/disputes', DisputesCursorPage, { query, ...options });
+    query: DisputeListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<DisputesCursorPage, Dispute> {
+    return this._client.getAPIList('/v1/disputes', CursorPage<Dispute>, { query, ...options });
   }
 
   /**
@@ -86,13 +77,13 @@ export class Disputes extends APIResource {
    *
    * @example
    * ```ts
-   * const dispute = await client.disputes.del(
+   * const dispute = await client.disputes.delete(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    * );
    * ```
    */
-  del(disputeToken: string, options?: Core.RequestOptions): Core.APIPromise<Dispute> {
-    return this._client.delete(`/v1/disputes/${disputeToken}`, options);
+  delete(disputeToken: string, options?: RequestOptions): APIPromise<Dispute> {
+    return this._client.delete(path`/v1/disputes/${disputeToken}`, options);
   }
 
   /**
@@ -104,16 +95,19 @@ export class Disputes extends APIResource {
    * const disputeEvidence =
    *   await client.disputes.deleteEvidence(
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     {
+   *       dispute_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     },
    *   );
    * ```
    */
   deleteEvidence(
-    disputeToken: string,
     evidenceToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<DisputeEvidence> {
-    return this._client.delete(`/v1/disputes/${disputeToken}/evidences/${evidenceToken}`, options);
+    params: DisputeDeleteEvidenceParams,
+    options?: RequestOptions,
+  ): APIPromise<DisputeEvidence> {
+    const { dispute_token } = params;
+    return this._client.delete(path`/v1/disputes/${dispute_token}/evidences/${evidenceToken}`, options);
   }
 
   /**
@@ -133,22 +127,10 @@ export class Disputes extends APIResource {
    */
   initiateEvidenceUpload(
     disputeToken: string,
-    body?: DisputeInitiateEvidenceUploadParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<DisputeEvidence>;
-  initiateEvidenceUpload(
-    disputeToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<DisputeEvidence>;
-  initiateEvidenceUpload(
-    disputeToken: string,
-    body: DisputeInitiateEvidenceUploadParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<DisputeEvidence> {
-    if (isRequestOptions(body)) {
-      return this.initiateEvidenceUpload(disputeToken, {}, body);
-    }
-    return this._client.post(`/v1/disputes/${disputeToken}/evidences`, { body, ...options });
+    body: DisputeInitiateEvidenceUploadParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<DisputeEvidence> {
+    return this._client.post(path`/v1/disputes/${disputeToken}/evidences`, { body, ...options });
   }
 
   /**
@@ -166,25 +148,14 @@ export class Disputes extends APIResource {
    */
   listEvidences(
     disputeToken: string,
-    query?: DisputeListEvidencesParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<DisputeEvidencesCursorPage, DisputeEvidence>;
-  listEvidences(
-    disputeToken: string,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<DisputeEvidencesCursorPage, DisputeEvidence>;
-  listEvidences(
-    disputeToken: string,
-    query: DisputeListEvidencesParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<DisputeEvidencesCursorPage, DisputeEvidence> {
-    if (isRequestOptions(query)) {
-      return this.listEvidences(disputeToken, {}, query);
-    }
-    return this._client.getAPIList(`/v1/disputes/${disputeToken}/evidences`, DisputeEvidencesCursorPage, {
-      query,
-      ...options,
-    });
+    query: DisputeListEvidencesParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<DisputeEvidencesCursorPage, DisputeEvidence> {
+    return this._client.getAPIList(
+      path`/v1/disputes/${disputeToken}/evidences`,
+      CursorPage<DisputeEvidence>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -195,38 +166,44 @@ export class Disputes extends APIResource {
    * const disputeEvidence =
    *   await client.disputes.retrieveEvidence(
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     {
+   *       dispute_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     },
    *   );
    * ```
    */
   retrieveEvidence(
-    disputeToken: string,
     evidenceToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<DisputeEvidence> {
-    return this._client.get(`/v1/disputes/${disputeToken}/evidences/${evidenceToken}`, options);
+    params: DisputeRetrieveEvidenceParams,
+    options?: RequestOptions,
+  ): APIPromise<DisputeEvidence> {
+    const { dispute_token } = params;
+    return this._client.get(path`/v1/disputes/${dispute_token}/evidences/${evidenceToken}`, options);
   }
 
   /**
    * Initiates the Dispute Evidence Upload, then uploads the file to the returned
    * `upload_url`.
    */
-  uploadEvidence(disputeToken: string, file: Uploadable, options?: Core.RequestOptions): Promise<void> {
-    return this._client.disputes.initiateEvidenceUpload(disputeToken, options).then(async (payload) => {
+  uploadEvidence(disputeToken: string, file: Uploadable, options?: RequestOptions): Promise<DisputeEvidence> {
+    return this._client.disputes.initiateEvidenceUpload(disputeToken, {}, options).then(async (payload) => {
       if (!payload.upload_url) {
-        return Promise.reject("Missing 'upload_url' from response payload");
+        return APIPromise.reject("Missing 'upload_url' from response payload");
       }
       return this._client.put(
         payload.upload_url,
-        await maybeMultipartFormRequestOptions({ body: { file }, headers: { Authorization: null } }),
+        await maybeMultipartFormRequestOptions(
+          { body: { file }, headers: { Authorization: null } },
+          this._client.fetch,
+        ),
       );
     });
   }
 }
 
-export class DisputesCursorPage extends CursorPage<Dispute> {}
+export type DisputesCursorPage = CursorPage<Dispute>;
 
-export class DisputeEvidencesCursorPage extends CursorPage<DisputeEvidence> {}
+export type DisputeEvidencesCursorPage = CursorPage<DisputeEvidence>;
 
 /**
  * Dispute.
@@ -458,11 +435,6 @@ export interface DisputeEvidence {
   upload_url?: string;
 }
 
-/**
- * @deprecated use `DisputeEvidence` instead
- */
-export type DisputeInitiateEvidenceUploadResponse = DisputeEvidence;
-
 export interface DisputeCreateParams {
   /**
    * Amount to dispute
@@ -572,6 +544,10 @@ export interface DisputeListParams extends CursorPageParams {
   transaction_tokens?: Array<string>;
 }
 
+export interface DisputeDeleteEvidenceParams {
+  dispute_token: string;
+}
+
 export interface DisputeInitiateEvidenceUploadParams {
   /**
    * Filename of the evidence.
@@ -593,20 +569,22 @@ export interface DisputeListEvidencesParams extends CursorPageParams {
   end?: string;
 }
 
-Disputes.DisputesCursorPage = DisputesCursorPage;
-Disputes.DisputeEvidencesCursorPage = DisputeEvidencesCursorPage;
+export interface DisputeRetrieveEvidenceParams {
+  dispute_token: string;
+}
 
 export declare namespace Disputes {
   export {
     type Dispute as Dispute,
     type DisputeEvidence as DisputeEvidence,
-    type DisputeInitiateEvidenceUploadResponse as DisputeInitiateEvidenceUploadResponse,
-    DisputesCursorPage as DisputesCursorPage,
-    DisputeEvidencesCursorPage as DisputeEvidencesCursorPage,
+    type DisputesCursorPage as DisputesCursorPage,
+    type DisputeEvidencesCursorPage as DisputeEvidencesCursorPage,
     type DisputeCreateParams as DisputeCreateParams,
     type DisputeUpdateParams as DisputeUpdateParams,
     type DisputeListParams as DisputeListParams,
+    type DisputeDeleteEvidenceParams as DisputeDeleteEvidenceParams,
     type DisputeInitiateEvidenceUploadParams as DisputeInitiateEvidenceUploadParams,
     type DisputeListEvidencesParams as DisputeListEvidencesParams,
+    type DisputeRetrieveEvidenceParams as DisputeRetrieveEvidenceParams,
   };
 }

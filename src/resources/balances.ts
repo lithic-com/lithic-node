@@ -1,31 +1,22 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import { isRequestOptions } from '../core';
-import * as Core from '../core';
-import { SinglePage } from '../pagination';
+import { APIResource } from '../core/resource';
+import { PagePromise, SinglePage } from '../core/pagination';
+import { RequestOptions } from '../internal/request-options';
 
 export class Balances extends APIResource {
   /**
    * Get the balances for a program, business, or a given end-user account
    */
   list(
-    query?: BalanceListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<BalancesSinglePage, Balance>;
-  list(options?: Core.RequestOptions): Core.PagePromise<BalancesSinglePage, Balance>;
-  list(
-    query: BalanceListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<BalancesSinglePage, Balance> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v1/balances', BalancesSinglePage, { query, ...options });
+    query: BalanceListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<BalancesSinglePage, Balance> {
+    return this._client.getAPIList('/v1/balances', SinglePage<Balance>, { query, ...options });
   }
 }
 
-export class BalancesSinglePage extends SinglePage<Balance> {}
+export type BalancesSinglePage = SinglePage<Balance>;
 
 /**
  * Balance
@@ -109,12 +100,10 @@ export interface BalanceListParams {
   financial_account_type?: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY';
 }
 
-Balances.BalancesSinglePage = BalancesSinglePage;
-
 export declare namespace Balances {
   export {
     type Balance as Balance,
-    BalancesSinglePage as BalancesSinglePage,
+    type BalancesSinglePage as BalancesSinglePage,
     type BalanceListParams as BalanceListParams,
   };
 }

@@ -1,7 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import * as Core from '../../core';
+import { APIResource } from '../../core/resource';
+import { APIPromise } from '../../core/api-promise';
+import { RequestOptions } from '../../internal/request-options';
 
 export class Decisioning extends APIResource {
   /**
@@ -20,10 +21,7 @@ export class Decisioning extends APIResource {
    * });
    * ```
    */
-  challengeResponse(
-    body: DecisioningChallengeResponseParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<void> {
+  challengeResponse(body: DecisioningChallengeResponseParams, options?: RequestOptions): APIPromise<void> {
     return this._client.post('/v1/three_ds_decisioning/challenge_response', { body, ...options });
   }
 
@@ -41,7 +39,7 @@ export class Decisioning extends APIResource {
    *   await client.threeDS.decisioning.retrieveSecret();
    * ```
    */
-  retrieveSecret(options?: Core.RequestOptions): Core.APIPromise<DecisioningRetrieveSecretResponse> {
+  retrieveSecret(options?: RequestOptions): APIPromise<DecisioningRetrieveSecretResponse> {
     return this._client.get('/v1/three_ds_decisioning/secret', options);
   }
 
@@ -56,7 +54,7 @@ export class Decisioning extends APIResource {
    * await client.threeDS.decisioning.rotateSecret();
    * ```
    */
-  rotateSecret(options?: Core.RequestOptions): Core.APIPromise<void> {
+  rotateSecret(options?: RequestOptions): APIPromise<void> {
     return this._client.post('/v1/three_ds_decisioning/secret/rotate', options);
   }
 }

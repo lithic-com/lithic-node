@@ -1,9 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../../resource';
-import { isRequestOptions } from '../../../core';
-import * as Core from '../../../core';
-import { CursorPage, type CursorPageParams } from '../../../pagination';
+import { APIResource } from '../../../core/resource';
+import { APIPromise } from '../../../core/api-promise';
+import { CursorPage, type CursorPageParams, PagePromise } from '../../../core/pagination';
+import { RequestOptions } from '../../../internal/request-options';
+import { path } from '../../../internal/utils/path';
 
 export class NetworkTotals extends APIResource {
   /**
@@ -17,8 +18,8 @@ export class NetworkTotals extends APIResource {
    *   );
    * ```
    */
-  retrieve(token: string, options?: Core.RequestOptions): Core.APIPromise<NetworkTotalRetrieveResponse> {
-    return this._client.get(`/v1/reports/settlement/network_totals/${token}`, options);
+  retrieve(token: string, options?: RequestOptions): APIPromise<NetworkTotalRetrieveResponse> {
+    return this._client.get(path`/v1/reports/settlement/network_totals/${token}`, options);
   }
 
   /**
@@ -33,28 +34,18 @@ export class NetworkTotals extends APIResource {
    * ```
    */
   list(
-    query?: NetworkTotalListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<NetworkTotalListResponsesCursorPage, NetworkTotalListResponse>;
-  list(
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<NetworkTotalListResponsesCursorPage, NetworkTotalListResponse>;
-  list(
-    query: NetworkTotalListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<NetworkTotalListResponsesCursorPage, NetworkTotalListResponse> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
+    query: NetworkTotalListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<NetworkTotalListResponsesCursorPage, NetworkTotalListResponse> {
     return this._client.getAPIList(
       '/v1/reports/settlement/network_totals',
-      NetworkTotalListResponsesCursorPage,
+      CursorPage<NetworkTotalListResponse>,
       { query, ...options },
     );
   }
 }
 
-export class NetworkTotalListResponsesCursorPage extends CursorPage<NetworkTotalListResponse> {}
+export type NetworkTotalListResponsesCursorPage = CursorPage<NetworkTotalListResponse>;
 
 export interface NetworkTotalRetrieveResponse {
   /**
@@ -281,13 +272,11 @@ export interface NetworkTotalListParams extends CursorPageParams {
   settlement_institution_id?: string;
 }
 
-NetworkTotals.NetworkTotalListResponsesCursorPage = NetworkTotalListResponsesCursorPage;
-
 export declare namespace NetworkTotals {
   export {
     type NetworkTotalRetrieveResponse as NetworkTotalRetrieveResponse,
     type NetworkTotalListResponse as NetworkTotalListResponse,
-    NetworkTotalListResponsesCursorPage as NetworkTotalListResponsesCursorPage,
+    type NetworkTotalListResponsesCursorPage as NetworkTotalListResponsesCursorPage,
     type NetworkTotalListParams as NetworkTotalListParams,
   };
 }

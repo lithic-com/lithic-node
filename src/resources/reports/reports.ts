@@ -1,15 +1,15 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
+import { APIResource } from '../../core/resource';
 import * as SettlementAPI from './settlement/settlement';
 import { Settlement, SettlementListDetailsParams } from './settlement/settlement';
-import { CursorPage } from '../../pagination';
+import { CursorPage } from '../../core/pagination';
 
 export class Reports extends APIResource {
   settlement: SettlementAPI.Settlement = new SettlementAPI.Settlement(this._client);
 }
 
-export class SettlementDetailsCursorPage extends CursorPage<SettlementDetail> {}
+export type SettlementDetailsCursorPage = CursorPage<SettlementDetail>;
 
 export interface SettlementDetail {
   /**

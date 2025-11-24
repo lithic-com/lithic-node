@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless.
 
-import { APIResource } from 'lithic/resource';
+import { getRequiredHeader, HeadersLike } from '../internal/headers';
+import { APIResource } from '../resource';
 import { createHmac } from 'crypto';
-import { getRequiredHeader, HeadersLike } from 'lithic/core';
 
 export class Webhooks extends APIResource {
   /**

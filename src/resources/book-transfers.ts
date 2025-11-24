@@ -1,48 +1,36 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import { isRequestOptions } from '../core';
-import * as Core from '../core';
+import { APIResource } from '../core/resource';
 import * as ManagementOperationsAPI from './management-operations';
-import { CursorPage, type CursorPageParams } from '../pagination';
+import { APIPromise } from '../core/api-promise';
+import { CursorPage, type CursorPageParams, PagePromise } from '../core/pagination';
+import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 export class BookTransfers extends APIResource {
   /**
    * Book transfer funds between two financial accounts or between a financial
    * account and card
    */
-  create(
-    body: BookTransferCreateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<BookTransferResponse> {
+  create(body: BookTransferCreateParams, options?: RequestOptions): APIPromise<BookTransferResponse> {
     return this._client.post('/v1/book_transfers', { body, ...options });
   }
 
   /**
    * Get book transfer by token
    */
-  retrieve(bookTransferToken: string, options?: Core.RequestOptions): Core.APIPromise<BookTransferResponse> {
-    return this._client.get(`/v1/book_transfers/${bookTransferToken}`, options);
+  retrieve(bookTransferToken: string, options?: RequestOptions): APIPromise<BookTransferResponse> {
+    return this._client.get(path`/v1/book_transfers/${bookTransferToken}`, options);
   }
 
   /**
    * List book transfers
    */
   list(
-    query?: BookTransferListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<BookTransferResponsesCursorPage, BookTransferResponse>;
-  list(
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<BookTransferResponsesCursorPage, BookTransferResponse>;
-  list(
-    query: BookTransferListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<BookTransferResponsesCursorPage, BookTransferResponse> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v1/book_transfers', BookTransferResponsesCursorPage, {
+    query: BookTransferListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<BookTransferResponsesCursorPage, BookTransferResponse> {
+    return this._client.getAPIList('/v1/book_transfers', CursorPage<BookTransferResponse>, {
       query,
       ...options,
     });
@@ -54,13 +42,13 @@ export class BookTransfers extends APIResource {
   reverse(
     bookTransferToken: string,
     body: BookTransferReverseParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<BookTransferResponse> {
-    return this._client.post(`/v1/book_transfers/${bookTransferToken}/reverse`, { body, ...options });
+    options?: RequestOptions,
+  ): APIPromise<BookTransferResponse> {
+    return this._client.post(path`/v1/book_transfers/${bookTransferToken}/reverse`, { body, ...options });
   }
 }
 
-export class BookTransferResponsesCursorPage extends CursorPage<BookTransferResponse> {}
+export type BookTransferResponsesCursorPage = CursorPage<BookTransferResponse>;
 
 /**
  * Book transfer transaction
@@ -402,12 +390,10 @@ export interface BookTransferReverseParams {
   memo?: string;
 }
 
-BookTransfers.BookTransferResponsesCursorPage = BookTransferResponsesCursorPage;
-
 export declare namespace BookTransfers {
   export {
     type BookTransferResponse as BookTransferResponse,
-    BookTransferResponsesCursorPage as BookTransferResponsesCursorPage,
+    type BookTransferResponsesCursorPage as BookTransferResponsesCursorPage,
     type BookTransferCreateParams as BookTransferCreateParams,
     type BookTransferListParams as BookTransferListParams,
     type BookTransferReverseParams as BookTransferReverseParams,

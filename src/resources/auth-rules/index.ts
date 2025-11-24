@@ -2,7 +2,6 @@
 
 export { AuthRules } from './auth-rules';
 export {
-  V2ListResponsesCursorPage,
   V2,
   type AuthRule,
   type AuthRuleCondition,
@@ -18,12 +17,6 @@ export {
   type RuleStats,
   type VelocityLimitParams,
   type VelocityLimitPeriod,
-  type V2CreateResponse,
-  type V2RetrieveResponse,
-  type V2UpdateResponse,
-  type V2ListResponse,
-  type V2DraftResponse,
-  type V2PromoteResponse,
   type V2RetrieveFeaturesResponse,
   type V2RetrieveReportResponse,
   type V2CreateParams,
@@ -32,4 +25,5 @@ export {
   type V2DraftParams,
   type V2RetrieveFeaturesParams,
   type V2RetrieveReportParams,
+  type AuthRulesCursorPage,
 } from './v2/index';

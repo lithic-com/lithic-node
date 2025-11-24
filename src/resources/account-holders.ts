@@ -1,11 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import { isRequestOptions } from '../core';
-import * as Core from '../core';
+import { APIResource } from '../core/resource';
 import * as AccountHoldersAPI from './account-holders';
 import * as Shared from './shared';
-import { SinglePage } from '../pagination';
+import { APIPromise } from '../core/api-promise';
+import { PagePromise, SinglePage } from '../core/pagination';
+import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 export class AccountHolders extends APIResource {
   /**
@@ -34,7 +35,7 @@ export class AccountHolders extends APIResource {
    *   ],
    *   business_entity: {
    *     address: { ... },
-   *     dba_name: 'Example Business Solutions',
+   *     dba_business_name: 'Example Business Solutions',
    *     government_id: '12-3456789',
    *     legal_business_name: 'Busy Business, Inc.',
    *     phone_numbers: ['+15555555555'],
@@ -51,11 +52,11 @@ export class AccountHolders extends APIResource {
    *   },
    *   nature_of_business: 'Software company selling solutions to the restaurant industry',
    *   tos_timestamp: '2022-03-08T08:00:00Z',
-   *   workflow: 'KYB_BASIC',
+   *   workflow: 'KYB_BYO',
    *   beneficial_owner_entities: [
    *     {
    *       address: { ... },
-   *       dba_name: 'MHoldings',
+   *       dba_business_name: 'MHoldings',
    *       government_id: '98-7654321',
    *       legal_business_name: 'Majority Holdings LLC',
    *       phone_numbers: ['+15555555555'],
@@ -66,10 +67,7 @@ export class AccountHolders extends APIResource {
    * });
    * ```
    */
-  create(
-    body: AccountHolderCreateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<AccountHolderCreateResponse> {
+  create(body: AccountHolderCreateParams, options?: RequestOptions): APIPromise<AccountHolderCreateResponse> {
     return this._client.post('/v1/account_holders', {
       body,
       timeout: (this._client as any)._options.timeout ?? 300000,
@@ -88,8 +86,8 @@ export class AccountHolders extends APIResource {
    * );
    * ```
    */
-  retrieve(accountHolderToken: string, options?: Core.RequestOptions): Core.APIPromise<AccountHolder> {
-    return this._client.get(`/v1/account_holders/${accountHolderToken}`, options);
+  retrieve(accountHolderToken: string, options?: RequestOptions): APIPromise<AccountHolder> {
+    return this._client.get(path`/v1/account_holders/${accountHolderToken}`, options);
   }
 
   /**
@@ -109,8 +107,14 @@ export class AccountHolders extends APIResource {
    * const accountHolder = await client.accountHolders.update(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *   {
-   *     business_entity: { address: { postal_code: '61023' } },
-   *     control_person: { address: { postal_code: '68023' } },
+   *     business_entity: {
+   *       entity_token: '83cf25ae-c14f-4d10-9fa2-0119f36c7286',
+   *       address: { postal_code: '61023' },
+   *     },
+   *     control_person: {
+   *       entity_token: 'fd771a07-c5c2-42f3-a53c-a6c79c6c0d07',
+   *       address: { postal_code: '68023' },
+   *     },
    *     website_url: 'https://www.mynewbusiness.com',
    *   },
    * );
@@ -119,9 +123,9 @@ export class AccountHolders extends APIResource {
   update(
     accountHolderToken: string,
     body: AccountHolderUpdateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<AccountHolderUpdateResponse> {
-    return this._client.patch(`/v1/account_holders/${accountHolderToken}`, { body, ...options });
+    options?: RequestOptions,
+  ): APIPromise<AccountHolderUpdateResponse> {
+    return this._client.patch(path`/v1/account_holders/${accountHolderToken}`, { body, ...options });
   }
 
   /**
@@ -137,18 +141,10 @@ export class AccountHolders extends APIResource {
    * ```
    */
   list(
-    query?: AccountHolderListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<AccountHoldersSinglePage, AccountHolder>;
-  list(options?: Core.RequestOptions): Core.PagePromise<AccountHoldersSinglePage, AccountHolder>;
-  list(
-    query: AccountHolderListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<AccountHoldersSinglePage, AccountHolder> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v1/account_holders', AccountHoldersSinglePage, { query, ...options });
+    query: AccountHolderListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<AccountHoldersSinglePage, AccountHolder> {
+    return this._client.getAPIList('/v1/account_holders', SinglePage<AccountHolder>, { query, ...options });
   }
 
   /**
@@ -177,9 +173,9 @@ export class AccountHolders extends APIResource {
    */
   listDocuments(
     accountHolderToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<AccountHolderListDocumentsResponse> {
-    return this._client.get(`/v1/account_holders/${accountHolderToken}/documents`, options);
+    options?: RequestOptions,
+  ): APIPromise<AccountHolderListDocumentsResponse> {
+    return this._client.get(path`/v1/account_holders/${accountHolderToken}/documents`, options);
   }
 
   /**
@@ -203,16 +199,23 @@ export class AccountHolders extends APIResource {
    * const document =
    *   await client.accountHolders.retrieveDocument(
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     {
+   *       account_holder_token:
+   *         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     },
    *   );
    * ```
    */
   retrieveDocument(
-    accountHolderToken: string,
     documentToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.Document> {
-    return this._client.get(`/v1/account_holders/${accountHolderToken}/documents/${documentToken}`, options);
+    params: AccountHolderRetrieveDocumentParams,
+    options?: RequestOptions,
+  ): APIPromise<Shared.Document> {
+    const { account_holder_token } = params;
+    return this._client.get(
+      path`/v1/account_holders/${account_holder_token}/documents/${documentToken}`,
+      options,
+    );
   }
 
   /**
@@ -232,8 +235,8 @@ export class AccountHolders extends APIResource {
    */
   simulateEnrollmentDocumentReview(
     body: AccountHolderSimulateEnrollmentDocumentReviewParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.Document> {
+    options?: RequestOptions,
+  ): APIPromise<Shared.Document> {
     return this._client.post('/v1/simulate/account_holders/enrollment_document_review', { body, ...options });
   }
 
@@ -254,8 +257,8 @@ export class AccountHolders extends APIResource {
    */
   simulateEnrollmentReview(
     body: AccountHolderSimulateEnrollmentReviewParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<AccountHolderSimulateEnrollmentReviewResponse> {
+    options?: RequestOptions,
+  ): APIPromise<AccountHolderSimulateEnrollmentReviewResponse> {
     return this._client.post('/v1/simulate/account_holders/enrollment_review', { body, ...options });
   }
 
@@ -285,7 +288,7 @@ export class AccountHolders extends APIResource {
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *   {
    *     document_type: 'EIN_LETTER',
-   *     entity_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     entity_token: '83cf25ae-c14f-4d10-9fa2-0119f36c7286',
    *   },
    * );
    * ```
@@ -293,13 +296,13 @@ export class AccountHolders extends APIResource {
   uploadDocument(
     accountHolderToken: string,
     body: AccountHolderUploadDocumentParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Shared.Document> {
-    return this._client.post(`/v1/account_holders/${accountHolderToken}/documents`, { body, ...options });
+    options?: RequestOptions,
+  ): APIPromise<Shared.Document> {
+    return this._client.post(path`/v1/account_holders/${accountHolderToken}/documents`, { body, ...options });
   }
 }
 
-export class AccountHoldersSinglePage extends SinglePage<AccountHolder> {}
+export type AccountHoldersSinglePage = SinglePage<AccountHolder>;
 
 export interface AccountHolder {
   /**
@@ -3331,6 +3334,13 @@ export interface AccountHolderListParams {
   starting_after?: string;
 }
 
+export interface AccountHolderRetrieveDocumentParams {
+  /**
+   * Globally unique identifier for the account holder.
+   */
+  account_holder_token: string;
+}
+
 export interface AccountHolderSimulateEnrollmentDocumentReviewParams {
   /**
    * The account holder document upload which to perform the simulation upon.
@@ -3432,8 +3442,6 @@ export interface AccountHolderUploadDocumentParams {
   entity_token: string;
 }
 
-AccountHolders.AccountHoldersSinglePage = AccountHoldersSinglePage;
-
 export declare namespace AccountHolders {
   export {
     type AccountHolder as AccountHolder,
@@ -3447,10 +3455,11 @@ export declare namespace AccountHolders {
     type AccountHolderUpdateResponse as AccountHolderUpdateResponse,
     type AccountHolderListDocumentsResponse as AccountHolderListDocumentsResponse,
     type AccountHolderSimulateEnrollmentReviewResponse as AccountHolderSimulateEnrollmentReviewResponse,
-    AccountHoldersSinglePage as AccountHoldersSinglePage,
+    type AccountHoldersSinglePage as AccountHoldersSinglePage,
     type AccountHolderCreateParams as AccountHolderCreateParams,
     type AccountHolderUpdateParams as AccountHolderUpdateParams,
     type AccountHolderListParams as AccountHolderListParams,
+    type AccountHolderRetrieveDocumentParams as AccountHolderRetrieveDocumentParams,
     type AccountHolderSimulateEnrollmentDocumentReviewParams as AccountHolderSimulateEnrollmentDocumentReviewParams,
     type AccountHolderSimulateEnrollmentReviewParams as AccountHolderSimulateEnrollmentReviewParams,
     type AccountHolderUploadDocumentParams as AccountHolderUploadDocumentParams,

@@ -5,7 +5,6 @@ const config: JestConfigWithTsJest = {
   testEnvironment: 'node',
   moduleNameMapper: {
     '^lithic$': '<rootDir>/src/index.ts',
-    '^lithic/_shims/auto/(.*)$': '<rootDir>/src/_shims/auto/$1-node',
     '^lithic/(.*)$': '<rootDir>/src/$1',
   },
   modulePathIgnorePatterns: [
@@ -13,6 +12,7 @@ const config: JestConfigWithTsJest = {
     '<rootDir>/dist/',
     '<rootDir>/deno/',
     '<rootDir>/deno_tests/',
+    '<rootDir>/packages/',
   ],
   testPathIgnorePatterns: ['scripts'],
 };

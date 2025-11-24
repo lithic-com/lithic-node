@@ -1,11 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
-import * as Core from '../../core';
+import { APIResource } from '../../core/resource';
 import * as LoanTapesAPI from './loan-tapes';
 import * as FinancialAccountsAPI from './financial-accounts';
-import { CursorPage, type CursorPageParams } from '../../pagination';
+import { APIPromise } from '../../core/api-promise';
+import { CursorPage, type CursorPageParams, PagePromise } from '../../core/pagination';
+import { RequestOptions } from '../../internal/request-options';
+import { path } from '../../internal/utils/path';
 
 export class LoanTapes extends APIResource {
   /**
@@ -15,18 +16,22 @@ export class LoanTapes extends APIResource {
    * ```ts
    * const loanTape =
    *   await client.financialAccounts.loanTapes.retrieve(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *     'loan_tape_token',
+   *     {
+   *       financial_account_token:
+   *         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     },
    *   );
    * ```
    */
   retrieve(
-    financialAccountToken: string,
     loanTapeToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<LoanTape> {
+    params: LoanTapeRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<LoanTape> {
+    const { financial_account_token } = params;
     return this._client.get(
-      `/v1/financial_accounts/${financialAccountToken}/loan_tapes/${loanTapeToken}`,
+      path`/v1/financial_accounts/${financial_account_token}/loan_tapes/${loanTapeToken}`,
       options,
     );
   }
@@ -46,30 +51,18 @@ export class LoanTapes extends APIResource {
    */
   list(
     financialAccountToken: string,
-    query?: LoanTapeListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<LoanTapesCursorPage, LoanTape>;
-  list(
-    financialAccountToken: string,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<LoanTapesCursorPage, LoanTape>;
-  list(
-    financialAccountToken: string,
-    query: LoanTapeListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<LoanTapesCursorPage, LoanTape> {
-    if (isRequestOptions(query)) {
-      return this.list(financialAccountToken, {}, query);
-    }
+    query: LoanTapeListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<LoanTapesCursorPage, LoanTape> {
     return this._client.getAPIList(
-      `/v1/financial_accounts/${financialAccountToken}/loan_tapes`,
-      LoanTapesCursorPage,
+      path`/v1/financial_accounts/${financialAccountToken}/loan_tapes`,
+      CursorPage<LoanTape>,
       { query, ...options },
     );
   }
 }
 
-export class LoanTapesCursorPage extends CursorPage<LoanTape> {}
+export type LoanTapesCursorPage = CursorPage<LoanTape>;
 
 export interface CategoryBalances {
   fees: number;
@@ -285,6 +278,13 @@ export namespace LoanTape {
   }
 }
 
+export interface LoanTapeRetrieveParams {
+  /**
+   * Globally unique identifier for financial account.
+   */
+  financial_account_token: string;
+}
+
 export interface LoanTapeListParams extends CursorPageParams {
   /**
    * Date string in RFC 3339 format. Only entries created after the specified date
@@ -299,13 +299,12 @@ export interface LoanTapeListParams extends CursorPageParams {
   end?: string;
 }
 
-LoanTapes.LoanTapesCursorPage = LoanTapesCursorPage;
-
 export declare namespace LoanTapes {
   export {
     type CategoryBalances as CategoryBalances,
     type LoanTape as LoanTape,
-    LoanTapesCursorPage as LoanTapesCursorPage,
+    type LoanTapesCursorPage as LoanTapesCursorPage,
+    type LoanTapeRetrieveParams as LoanTapeRetrieveParams,
     type LoanTapeListParams as LoanTapeListParams,
   };
 }
