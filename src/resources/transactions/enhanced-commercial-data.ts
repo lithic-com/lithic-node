@@ -1,8 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import * as Core from '../../core';
+import { APIResource } from '../../core/resource';
 import * as EventsEnhancedCommercialDataAPI from './events/enhanced-commercial-data';
+import { APIPromise } from '../../core/api-promise';
+import { RequestOptions } from '../../internal/request-options';
+import { path } from '../../internal/utils/path';
 
 export class EnhancedCommercialData extends APIResource {
   /**
@@ -19,9 +21,9 @@ export class EnhancedCommercialData extends APIResource {
    */
   retrieve(
     transactionToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<EnhancedCommercialDataRetrieveResponse> {
-    return this._client.get(`/v1/transactions/${transactionToken}/enhanced_commercial_data`, options);
+    options?: RequestOptions,
+  ): APIPromise<EnhancedCommercialDataRetrieveResponse> {
+    return this._client.get(path`/v1/transactions/${transactionToken}/enhanced_commercial_data`, options);
   }
 }
 

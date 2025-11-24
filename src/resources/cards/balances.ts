@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
-import * as Core from '../../core';
-import { SinglePage } from '../../pagination';
+import { APIResource } from '../../core/resource';
+import { PagePromise, SinglePage } from '../../core/pagination';
+import { RequestOptions } from '../../internal/request-options';
+import { path } from '../../internal/utils/path';
 
 export class Balances extends APIResource {
   /**
@@ -21,29 +21,17 @@ export class Balances extends APIResource {
    */
   list(
     cardToken: string,
-    query?: BalanceListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<BalanceListResponsesSinglePage, BalanceListResponse>;
-  list(
-    cardToken: string,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<BalanceListResponsesSinglePage, BalanceListResponse>;
-  list(
-    cardToken: string,
-    query: BalanceListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<BalanceListResponsesSinglePage, BalanceListResponse> {
-    if (isRequestOptions(query)) {
-      return this.list(cardToken, {}, query);
-    }
-    return this._client.getAPIList(`/v1/cards/${cardToken}/balances`, BalanceListResponsesSinglePage, {
+    query: BalanceListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<BalanceListResponsesSinglePage, BalanceListResponse> {
+    return this._client.getAPIList(path`/v1/cards/${cardToken}/balances`, SinglePage<BalanceListResponse>, {
       query,
       ...options,
     });
   }
 }
 
-export class BalanceListResponsesSinglePage extends SinglePage<BalanceListResponse> {}
+export type BalanceListResponsesSinglePage = SinglePage<BalanceListResponse>;
 
 /**
  * Balance of a Financial Account
@@ -118,12 +106,10 @@ export interface BalanceListParams {
   last_transaction_event_token?: string;
 }
 
-Balances.BalanceListResponsesSinglePage = BalanceListResponsesSinglePage;
-
 export declare namespace Balances {
   export {
     type BalanceListResponse as BalanceListResponse,
-    BalanceListResponsesSinglePage as BalanceListResponsesSinglePage,
+    type BalanceListResponsesSinglePage as BalanceListResponsesSinglePage,
     type BalanceListParams as BalanceListParams,
   };
 }

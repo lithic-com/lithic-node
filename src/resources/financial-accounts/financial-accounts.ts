@@ -1,8 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
-import * as Core from '../../core';
+import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
 import * as BalancesAPI from './balances';
 import { BalanceListParams, BalanceListResponse, BalanceListResponsesSinglePage, Balances } from './balances';
@@ -13,12 +11,33 @@ import {
   FinancialAccountCreditConfig,
 } from './credit-configuration';
 import * as FinancialTransactionsAPI from './financial-transactions';
-import { FinancialTransactionListParams, FinancialTransactions } from './financial-transactions';
+import {
+  FinancialTransactionListParams,
+  FinancialTransactionRetrieveParams,
+  FinancialTransactions,
+} from './financial-transactions';
 import * as LoanTapesAPI from './loan-tapes';
-import { CategoryBalances, LoanTape, LoanTapeListParams, LoanTapes, LoanTapesCursorPage } from './loan-tapes';
+import {
+  CategoryBalances,
+  LoanTape,
+  LoanTapeListParams,
+  LoanTapeRetrieveParams,
+  LoanTapes,
+  LoanTapesCursorPage,
+} from './loan-tapes';
 import * as StatementsAPI from './statements/statements';
-import { Statement, StatementListParams, Statements, StatementsCursorPage } from './statements/statements';
-import { SinglePage } from '../../pagination';
+import {
+  Statement,
+  StatementListParams,
+  StatementRetrieveParams,
+  Statements,
+  StatementsCursorPage,
+} from './statements/statements';
+import { APIPromise } from '../../core/api-promise';
+import { PagePromise, SinglePage } from '../../core/pagination';
+import { buildHeaders } from '../../internal/headers';
+import { RequestOptions } from '../../internal/request-options';
+import { path } from '../../internal/utils/path';
 
 export class FinancialAccounts extends APIResource {
   balances: BalancesAPI.Balances = new BalancesAPI.Balances(this._client);
@@ -41,18 +60,15 @@ export class FinancialAccounts extends APIResource {
    *   });
    * ```
    */
-  create(
-    params: FinancialAccountCreateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<FinancialAccount> {
+  create(params: FinancialAccountCreateParams, options?: RequestOptions): APIPromise<FinancialAccount> {
     const { 'Idempotency-Key': idempotencyKey, ...body } = params;
     return this._client.post('/v1/financial_accounts', {
       body,
       ...options,
-      headers: {
-        ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined),
-        ...options?.headers,
-      },
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
     });
   }
 
@@ -67,8 +83,8 @@ export class FinancialAccounts extends APIResource {
    *   );
    * ```
    */
-  retrieve(financialAccountToken: string, options?: Core.RequestOptions): Core.APIPromise<FinancialAccount> {
-    return this._client.get(`/v1/financial_accounts/${financialAccountToken}`, options);
+  retrieve(financialAccountToken: string, options?: RequestOptions): APIPromise<FinancialAccount> {
+    return this._client.get(path`/v1/financial_accounts/${financialAccountToken}`, options);
   }
 
   /**
@@ -84,19 +100,10 @@ export class FinancialAccounts extends APIResource {
    */
   update(
     financialAccountToken: string,
-    body?: FinancialAccountUpdateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<FinancialAccount>;
-  update(financialAccountToken: string, options?: Core.RequestOptions): Core.APIPromise<FinancialAccount>;
-  update(
-    financialAccountToken: string,
-    body: FinancialAccountUpdateParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<FinancialAccount> {
-    if (isRequestOptions(body)) {
-      return this.update(financialAccountToken, {}, body);
-    }
-    return this._client.patch(`/v1/financial_accounts/${financialAccountToken}`, { body, ...options });
+    body: FinancialAccountUpdateParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<FinancialAccount> {
+    return this._client.patch(path`/v1/financial_accounts/${financialAccountToken}`, { body, ...options });
   }
 
   /**
@@ -112,18 +119,10 @@ export class FinancialAccounts extends APIResource {
    * ```
    */
   list(
-    query?: FinancialAccountListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<FinancialAccountsSinglePage, FinancialAccount>;
-  list(options?: Core.RequestOptions): Core.PagePromise<FinancialAccountsSinglePage, FinancialAccount>;
-  list(
-    query: FinancialAccountListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<FinancialAccountsSinglePage, FinancialAccount> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v1/financial_accounts', FinancialAccountsSinglePage, {
+    query: FinancialAccountListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<FinancialAccountsSinglePage, FinancialAccount> {
+    return this._client.getAPIList('/v1/financial_accounts', SinglePage<FinancialAccount>, {
       query,
       ...options,
     });
@@ -143,9 +142,9 @@ export class FinancialAccounts extends APIResource {
   registerAccountNumber(
     financialAccountToken: string,
     body: FinancialAccountRegisterAccountNumberParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<void> {
-    return this._client.post(`/v1/financial_accounts/${financialAccountToken}/register_account_number`, {
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    return this._client.post(path`/v1/financial_accounts/${financialAccountToken}/register_account_number`, {
       body,
       ...options,
     });
@@ -166,18 +165,18 @@ export class FinancialAccounts extends APIResource {
   updateStatus(
     financialAccountToken: string,
     body: FinancialAccountUpdateStatusParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<FinancialAccount> {
-    return this._client.post(`/v1/financial_accounts/${financialAccountToken}/update_status`, {
+    options?: RequestOptions,
+  ): APIPromise<FinancialAccount> {
+    return this._client.post(path`/v1/financial_accounts/${financialAccountToken}/update_status`, {
       body,
       ...options,
     });
   }
 }
 
-export class FinancialAccountsSinglePage extends SinglePage<FinancialAccount> {}
+export type FinancialAccountsSinglePage = SinglePage<FinancialAccount>;
 
-export class FinancialTransactionsSinglePage extends SinglePage<FinancialTransaction> {}
+export type FinancialTransactionsSinglePage = SinglePage<FinancialTransaction>;
 
 export interface CategoryDetails {
   balance_transfers: string;
@@ -469,14 +468,10 @@ export interface FinancialAccountUpdateStatusParams {
   substatus: 'CHARGED_OFF_FRAUD' | 'END_USER_REQUEST' | 'BANK_REQUEST' | 'CHARGED_OFF_DELINQUENT' | null;
 }
 
-FinancialAccounts.FinancialAccountsSinglePage = FinancialAccountsSinglePage;
 FinancialAccounts.Balances = Balances;
-FinancialAccounts.BalanceListResponsesSinglePage = BalanceListResponsesSinglePage;
 FinancialAccounts.FinancialTransactions = FinancialTransactions;
 FinancialAccounts.CreditConfiguration = CreditConfigurationAPICreditConfiguration;
-FinancialAccounts.StatementsCursorPage = StatementsCursorPage;
 FinancialAccounts.LoanTapes = LoanTapes;
-FinancialAccounts.LoanTapesCursorPage = LoanTapesCursorPage;
 
 export declare namespace FinancialAccounts {
   export {
@@ -484,7 +479,7 @@ export declare namespace FinancialAccounts {
     type FinancialAccount as FinancialAccount,
     type FinancialTransaction as FinancialTransaction,
     type StatementTotals as StatementTotals,
-    FinancialAccountsSinglePage as FinancialAccountsSinglePage,
+    type FinancialAccountsSinglePage as FinancialAccountsSinglePage,
     type FinancialAccountCreateParams as FinancialAccountCreateParams,
     type FinancialAccountUpdateParams as FinancialAccountUpdateParams,
     type FinancialAccountListParams as FinancialAccountListParams,
@@ -495,12 +490,13 @@ export declare namespace FinancialAccounts {
   export {
     Balances as Balances,
     type BalanceListResponse as BalanceListResponse,
-    BalanceListResponsesSinglePage as BalanceListResponsesSinglePage,
+    type BalanceListResponsesSinglePage as BalanceListResponsesSinglePage,
     type BalanceListParams as BalanceListParams,
   };
 
   export {
     FinancialTransactions as FinancialTransactions,
+    type FinancialTransactionRetrieveParams as FinancialTransactionRetrieveParams,
     type FinancialTransactionListParams as FinancialTransactionListParams,
   };
 
@@ -513,7 +509,8 @@ export declare namespace FinancialAccounts {
   export {
     type Statements as Statements,
     type Statement as Statement,
-    StatementsCursorPage as StatementsCursorPage,
+    type StatementsCursorPage as StatementsCursorPage,
+    type StatementRetrieveParams as StatementRetrieveParams,
     type StatementListParams as StatementListParams,
   };
 
@@ -521,7 +518,8 @@ export declare namespace FinancialAccounts {
     LoanTapes as LoanTapes,
     type CategoryBalances as CategoryBalances,
     type LoanTape as LoanTape,
-    LoanTapesCursorPage as LoanTapesCursorPage,
+    type LoanTapesCursorPage as LoanTapesCursorPage,
+    type LoanTapeRetrieveParams as LoanTapeRetrieveParams,
     type LoanTapeListParams as LoanTapeListParams,
   };
 }

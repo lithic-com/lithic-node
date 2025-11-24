@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import Lithic from 'lithic';
-import { Response } from 'node-fetch';
 
 const client = new Lithic({
   apiKey: 'My Lithic API Key',
@@ -24,17 +23,17 @@ describe('resource cards', () => {
     const response = await client.cards.create({
       type: 'VIRTUAL',
       account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      card_program_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      card_program_token: '5e9483eb-8103-4e16-9794-2106111b2eca',
       carrier: { qr_code_url: 'qr_code_url' },
-      digital_card_art_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      digital_card_art_token: '5e9483eb-8103-4e16-9794-2106111b2eca',
       exp_month: '06',
       exp_year: '2027',
       memo: 'New Card',
       pin: 'pin',
       product_id: '1',
-      replacement_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      replacement_account_token: '5e9483eb-8103-4e16-9794-2106111b2eca',
       replacement_comment: 'replacement_comment',
-      replacement_for: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      replacement_for: '5e9483eb-8103-4e16-9794-2106111b2eca',
       replacement_substatus: 'LOST',
       shipping_address: {
         address1: '5 Broad Street',
@@ -67,13 +66,6 @@ describe('resource cards', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieve: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.cards.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Lithic.NotFoundError);
-  });
-
   test('update', async () => {
     const responsePromise = client.cards.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
     const rawResponse = await responsePromise.asResponse();
@@ -94,13 +86,6 @@ describe('resource cards', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('list: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(client.cards.list({ path: '/_stainless_unknown_path' })).rejects.toThrow(
-      Lithic.NotFoundError,
-    );
   });
 
   test('list: request options and params are passed correctly', async () => {
@@ -264,15 +249,6 @@ describe('resource cards', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('retrieveSpendLimits: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.cards.retrieveSpendLimits('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-        path: '/_stainless_unknown_path',
-      }),
-    ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('searchByPan: only required params', async () => {

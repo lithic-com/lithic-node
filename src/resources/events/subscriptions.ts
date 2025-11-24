@@ -1,20 +1,18 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
-import * as Core from '../../core';
+import { APIResource } from '../../core/resource';
 import * as EventsAPI from './events';
 import { EventSubscriptionsCursorPage, MessageAttemptsCursorPage } from './events';
-import { type CursorPageParams } from '../../pagination';
+import { APIPromise } from '../../core/api-promise';
+import { CursorPage, type CursorPageParams, PagePromise } from '../../core/pagination';
+import { RequestOptions } from '../../internal/request-options';
+import { path } from '../../internal/utils/path';
 
 export class Subscriptions extends APIResource {
   /**
    * Create a new event subscription.
    */
-  create(
-    body: SubscriptionCreateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<EventsAPI.EventSubscription> {
+  create(body: SubscriptionCreateParams, options?: RequestOptions): APIPromise<EventsAPI.EventSubscription> {
     return this._client.post('/v1/event_subscriptions', { body, ...options });
   }
 
@@ -23,9 +21,9 @@ export class Subscriptions extends APIResource {
    */
   retrieve(
     eventSubscriptionToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<EventsAPI.EventSubscription> {
-    return this._client.get(`/v1/event_subscriptions/${eventSubscriptionToken}`, options);
+    options?: RequestOptions,
+  ): APIPromise<EventsAPI.EventSubscription> {
+    return this._client.get(path`/v1/event_subscriptions/${eventSubscriptionToken}`, options);
   }
 
   /**
@@ -34,29 +32,19 @@ export class Subscriptions extends APIResource {
   update(
     eventSubscriptionToken: string,
     body: SubscriptionUpdateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<EventsAPI.EventSubscription> {
-    return this._client.patch(`/v1/event_subscriptions/${eventSubscriptionToken}`, { body, ...options });
+    options?: RequestOptions,
+  ): APIPromise<EventsAPI.EventSubscription> {
+    return this._client.patch(path`/v1/event_subscriptions/${eventSubscriptionToken}`, { body, ...options });
   }
 
   /**
    * List all the event subscriptions.
    */
   list(
-    query?: SubscriptionListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<EventSubscriptionsCursorPage, EventsAPI.EventSubscription>;
-  list(
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<EventSubscriptionsCursorPage, EventsAPI.EventSubscription>;
-  list(
-    query: SubscriptionListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<EventSubscriptionsCursorPage, EventsAPI.EventSubscription> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v1/event_subscriptions', EventSubscriptionsCursorPage, {
+    query: SubscriptionListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<EventSubscriptionsCursorPage, EventsAPI.EventSubscription> {
+    return this._client.getAPIList('/v1/event_subscriptions', CursorPage<EventsAPI.EventSubscription>, {
       query,
       ...options,
     });
@@ -65,8 +53,8 @@ export class Subscriptions extends APIResource {
   /**
    * Delete an event subscription.
    */
-  del(eventSubscriptionToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
-    return this._client.delete(`/v1/event_subscriptions/${eventSubscriptionToken}`, options);
+  delete(eventSubscriptionToken: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/v1/event_subscriptions/${eventSubscriptionToken}`, options);
   }
 
   /**
@@ -74,24 +62,12 @@ export class Subscriptions extends APIResource {
    */
   listAttempts(
     eventSubscriptionToken: string,
-    query?: SubscriptionListAttemptsParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<MessageAttemptsCursorPage, EventsAPI.MessageAttempt>;
-  listAttempts(
-    eventSubscriptionToken: string,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<MessageAttemptsCursorPage, EventsAPI.MessageAttempt>;
-  listAttempts(
-    eventSubscriptionToken: string,
-    query: SubscriptionListAttemptsParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<MessageAttemptsCursorPage, EventsAPI.MessageAttempt> {
-    if (isRequestOptions(query)) {
-      return this.listAttempts(eventSubscriptionToken, {}, query);
-    }
+    query: SubscriptionListAttemptsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MessageAttemptsCursorPage, EventsAPI.MessageAttempt> {
     return this._client.getAPIList(
-      `/v1/event_subscriptions/${eventSubscriptionToken}/attempts`,
-      MessageAttemptsCursorPage,
+      path`/v1/event_subscriptions/${eventSubscriptionToken}/attempts`,
+      CursorPage<EventsAPI.MessageAttempt>,
       { query, ...options },
     );
   }
@@ -101,20 +77,11 @@ export class Subscriptions extends APIResource {
    */
   recover(
     eventSubscriptionToken: string,
-    params?: SubscriptionRecoverParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<void>;
-  recover(eventSubscriptionToken: string, options?: Core.RequestOptions): Core.APIPromise<void>;
-  recover(
-    eventSubscriptionToken: string,
-    params: SubscriptionRecoverParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<void> {
-    if (isRequestOptions(params)) {
-      return this.recover(eventSubscriptionToken, {}, params);
-    }
-    const { begin, end } = params;
-    return this._client.post(`/v1/event_subscriptions/${eventSubscriptionToken}/recover`, {
+    params: SubscriptionRecoverParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    const { begin, end } = params ?? {};
+    return this._client.post(path`/v1/event_subscriptions/${eventSubscriptionToken}/recover`, {
       query: { begin, end },
       ...options,
     });
@@ -129,20 +96,11 @@ export class Subscriptions extends APIResource {
    */
   replayMissing(
     eventSubscriptionToken: string,
-    params?: SubscriptionReplayMissingParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<void>;
-  replayMissing(eventSubscriptionToken: string, options?: Core.RequestOptions): Core.APIPromise<void>;
-  replayMissing(
-    eventSubscriptionToken: string,
-    params: SubscriptionReplayMissingParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<void> {
-    if (isRequestOptions(params)) {
-      return this.replayMissing(eventSubscriptionToken, {}, params);
-    }
-    const { begin, end } = params;
-    return this._client.post(`/v1/event_subscriptions/${eventSubscriptionToken}/replay_missing`, {
+    params: SubscriptionReplayMissingParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    const { begin, end } = params ?? {};
+    return this._client.post(path`/v1/event_subscriptions/${eventSubscriptionToken}/replay_missing`, {
       query: { begin, end },
       ...options,
     });
@@ -153,17 +111,17 @@ export class Subscriptions extends APIResource {
    */
   retrieveSecret(
     eventSubscriptionToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<SubscriptionRetrieveSecretResponse> {
-    return this._client.get(`/v1/event_subscriptions/${eventSubscriptionToken}/secret`, options);
+    options?: RequestOptions,
+  ): APIPromise<SubscriptionRetrieveSecretResponse> {
+    return this._client.get(path`/v1/event_subscriptions/${eventSubscriptionToken}/secret`, options);
   }
 
   /**
    * Rotate the secret for an event subscription. The previous secret will be valid
    * for the next 24 hours.
    */
-  rotateSecret(eventSubscriptionToken: string, options?: Core.RequestOptions): Core.APIPromise<void> {
-    return this._client.post(`/v1/event_subscriptions/${eventSubscriptionToken}/secret/rotate`, options);
+  rotateSecret(eventSubscriptionToken: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.post(path`/v1/event_subscriptions/${eventSubscriptionToken}/secret/rotate`, options);
   }
 
   /**
@@ -171,19 +129,10 @@ export class Subscriptions extends APIResource {
    */
   sendSimulatedExample(
     eventSubscriptionToken: string,
-    body?: SubscriptionSendSimulatedExampleParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<void>;
-  sendSimulatedExample(eventSubscriptionToken: string, options?: Core.RequestOptions): Core.APIPromise<void>;
-  sendSimulatedExample(
-    eventSubscriptionToken: string,
-    body: SubscriptionSendSimulatedExampleParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<void> {
-    if (isRequestOptions(body)) {
-      return this.sendSimulatedExample(eventSubscriptionToken, {}, body);
-    }
-    return this._client.post(`/v1/simulate/event_subscriptions/${eventSubscriptionToken}/send_example`, {
+    body: SubscriptionSendSimulatedExampleParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    return this._client.post(path`/v1/simulate/event_subscriptions/${eventSubscriptionToken}/send_example`, {
       body,
       ...options,
     });
@@ -467,4 +416,4 @@ export declare namespace Subscriptions {
   };
 }
 
-export { EventSubscriptionsCursorPage, MessageAttemptsCursorPage };
+export { type EventSubscriptionsCursorPage, type MessageAttemptsCursorPage };

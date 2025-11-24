@@ -1,168 +1,17 @@
 # Changelog
 
-## 0.123.0 (2025-11-20)
+## 0.124.0 (2025-11-24)
 
-Full Changelog: [v0.122.0...v0.123.0](https://github.com/lithic-com/lithic-node/compare/v0.122.0...v0.123.0)
-
-### Features
-
-* **api:** Add Payoff Details ([b6622a6](https://github.com/lithic-com/lithic-node/commit/b6622a63eb1db133fba7a32e74f89f37247f2abd))
-
-
-### Bug Fixes
-
-* **api:** Modify return type of returns API to payment-transaction ([b6622a6](https://github.com/lithic-com/lithic-node/commit/b6622a63eb1db133fba7a32e74f89f37247f2abd))
-
-## 0.122.0 (2025-11-13)
-
-Full Changelog: [v0.121.0...v0.122.0](https://github.com/lithic-com/lithic-node/compare/v0.121.0...v0.122.0)
+Full Changelog: [v0.112.1...v0.124.0](https://github.com/lithic-com/lithic-node/compare/v0.112.1...v0.124.0)
 
 ### Features
 
-* **api:** add disputes V2 endpoints ([5533a47](https://github.com/lithic-com/lithic-node/commit/5533a477b97ed6f7ad9888c19587df93c958a358))
-* **api:** add return payment method ([5533a47](https://github.com/lithic-com/lithic-node/commit/5533a477b97ed6f7ad9888c19587df93c958a358))
-* **api:** add Tokenization and ACH Rules ([5533a47](https://github.com/lithic-com/lithic-node/commit/5533a477b97ed6f7ad9888c19587df93c958a358))
-* **api:** add unpause external_bank_accounts API method ([5533a47](https://github.com/lithic-com/lithic-node/commit/5533a477b97ed6f7ad9888c19587df93c958a358))
-* **api:** extract some common schemas into models ([5533a47](https://github.com/lithic-com/lithic-node/commit/5533a477b97ed6f7ad9888c19587df93c958a358))
-
-
-### Bug Fixes
-
-* **api:** change allowed phone number length from 18 to 16 ([5533a47](https://github.com/lithic-com/lithic-node/commit/5533a477b97ed6f7ad9888c19587df93c958a358))
-* **api:** mark certain optional fields as nullable ([5533a47](https://github.com/lithic-com/lithic-node/commit/5533a477b97ed6f7ad9888c19587df93c958a358))
-
-## 0.121.0 (2025-11-11)
-
-Full Changelog: [v0.120.0...v0.121.0](https://github.com/lithic-com/lithic-node/compare/v0.120.0...v0.121.0)
-
-### Features
-
-* **api:** add payment_details ([ae08bf9](https://github.com/lithic-com/lithic-node/commit/ae08bf92da67135df7932c1816c19a35f7ebf44a))
-* **api:** deprecate auth rule apply endpoint and fix several schemas ([121d5f4](https://github.com/lithic-com/lithic-node/commit/121d5f4fb50e81ad30a487e4159bd24d3d31d989))
-* **api:** new fields in Statements APIs ([33a4e87](https://github.com/lithic-com/lithic-node/commit/33a4e87d0af4b7e49f0ac945a4e28097c0cf0296))
-* **api:** re-add rules metadata to tokenization events ([6441a18](https://github.com/lithic-com/lithic-node/commit/6441a182c45e95012400f41013f99cca73af2ebb))
-* **api:** remove deprecated fields from Cardholder Authentication object ([6441a18](https://github.com/lithic-com/lithic-node/commit/6441a182c45e95012400f41013f99cca73af2ebb))
-
-
-### Bug Fixes
-
-* **api:** adjust Auth Rules spec for better SDK structure ([6441a18](https://github.com/lithic-com/lithic-node/commit/6441a182c45e95012400f41013f99cca73af2ebb))
-* **api:** fix oneOf -&gt; anyOf in account holder update ([ae08bf9](https://github.com/lithic-com/lithic-node/commit/ae08bf92da67135df7932c1816c19a35f7ebf44a))
-* **api:** fixing spec for Tokenizations and Enhanced data ([33a4e87](https://github.com/lithic-com/lithic-node/commit/33a4e87d0af4b7e49f0ac945a4e28097c0cf0296))
+* **api:** major upgrade of Typescript SDK ([8d54827](https://github.com/lithic-com/lithic-node/commit/8d548272e8f0146c25c67b163fd15db9a85e2027))
 
 
 ### Chores
 
-* **api:** adds support for new ACH_RECEIPT_RELEASED event ([0fa4c03](https://github.com/lithic-com/lithic-node/commit/0fa4c032819548755256ea6572f7b65ee6d8ede6))
-
-## 0.120.0 (2025-10-23)
-
-Full Changelog: [v0.119.0...v0.120.0](https://github.com/lithic-com/lithic-node/compare/v0.119.0...v0.120.0)
-
-### Features
-
-* **api:** updates to Auth Rules and Card provisioning ([3f7a87a](https://github.com/lithic-com/lithic-node/commit/3f7a87aa862ae4c165f3fbc66b1fb646cdfcf0d7))
-
-## 0.119.0 (2025-10-08)
-
-Full Changelog: [v0.118.0...v0.119.0](https://github.com/lithic-com/lithic-node/compare/v0.118.0...v0.119.0)
-
-### Features
-
-* **api:** adds support for Auto-Collections ([54b4ed7](https://github.com/lithic-com/lithic-node/commit/54b4ed76bcbd4d4dfebf231ec3dfad676cdfa1f8))
-
-
-### Chores
-
-* **internal:** remove .eslintcache ([f527ccb](https://github.com/lithic-com/lithic-node/commit/f527ccbd82f42ad097d14a2f869533d810869751))
-* **internal:** use npm pack for build uploads ([26fb1ba](https://github.com/lithic-com/lithic-node/commit/26fb1ba36b520046dc131b9c1a22fa4351474747))
-
-## 0.118.0 (2025-09-30)
-
-Full Changelog: [v0.117.0...v0.118.0](https://github.com/lithic-com/lithic-node/compare/v0.117.0...v0.118.0)
-
-### Features
-
-* **api:** adds support for Auth Rule features ([b6f3fe5](https://github.com/lithic-com/lithic-node/commit/b6f3fe52db085742c6d20d31de969e72ddc43b8e))
-
-
-### Performance Improvements
-
-* faster formatting ([9655d02](https://github.com/lithic-com/lithic-node/commit/9655d02ac719fc1ec86aad81f48978ae70de05b9))
-
-
-### Chores
-
-* do not install brew dependencies in ./scripts/bootstrap by default ([45a4d76](https://github.com/lithic-com/lithic-node/commit/45a4d768d929e802118103c63dba6b7ab61832f6))
-* **docs:** small updates to doc strings on a few endpoints ([4cddaec](https://github.com/lithic-com/lithic-node/commit/4cddaec3d58f0112e4d20a8e6639fbd7e782bfe7))
-* **internal:** codegen related update ([b25d202](https://github.com/lithic-com/lithic-node/commit/b25d2025ad5d21ab206bf7436867ac166c45819c))
-* **internal:** fix incremental formatting in some cases ([4ff1df4](https://github.com/lithic-com/lithic-node/commit/4ff1df4ba0679cd68fdb07a2ad0a591a7dfd2038))
-* **internal:** ignore .eslintcache ([7c61939](https://github.com/lithic-com/lithic-node/commit/7c619399bc0bb0e1322785ca3192602819560656))
-* **internal:** remove deprecated `compilerOptions.baseUrl` from tsconfig.json ([e8adde0](https://github.com/lithic-com/lithic-node/commit/e8adde0644dee008d9401faa8c064f7372217753))
-
-## 0.117.0 (2025-09-11)
-
-Full Changelog: [v0.116.0...v0.117.0](https://github.com/lithic-com/lithic-node/compare/v0.116.0...v0.117.0)
-
-### Features
-
-* **api:** manual updates ([4ed495c](https://github.com/lithic-com/lithic-node/commit/4ed495c2d33e24ae9d7ab4aedb5bbe4f52efabc3))
-
-## 0.116.0 (2025-09-09)
-
-Full Changelog: [v0.115.0...v0.116.0](https://github.com/lithic-com/lithic-node/compare/v0.115.0...v0.116.0)
-
-### Features
-
-* **api:** adds support for unpauseing external bank accounts ([f3312e1](https://github.com/lithic-com/lithic-node/commit/f3312e15309039957e51833a1fe3b3755cacc035))
-
-
-### Chores
-
-* ci build action ([d8bdf03](https://github.com/lithic-com/lithic-node/commit/d8bdf03b9b97e07ea1d782d0c5211ac94069821c))
-* **internal:** codegen related update ([eeaddc2](https://github.com/lithic-com/lithic-node/commit/eeaddc2ae59006ddf49755b3bd911228716b6e05))
-
-## 0.115.0 (2025-09-03)
-
-Full Changelog: [v0.114.0...v0.115.0](https://github.com/lithic-com/lithic-node/compare/v0.114.0...v0.115.0)
-
-### Features
-
-* **api:** adds support for delegated KYB onboarding and more device details in 3DS Authentications ([d50cb8f](https://github.com/lithic-com/lithic-node/commit/d50cb8f8cc81c2c706b059c9fbdd8e7955ad59ea))
-
-
-### Chores
-
-* update CI script ([19fb41a](https://github.com/lithic-com/lithic-node/commit/19fb41a67f950166c64a35149cdef7a53b582baf))
-
-## 0.114.0 (2025-08-18)
-
-Full Changelog: [v0.113.0...v0.114.0](https://github.com/lithic-com/lithic-node/compare/v0.113.0...v0.114.0)
-
-### Features
-
-* **api:** adds Event types for additional API resources ([0058158](https://github.com/lithic-com/lithic-node/commit/0058158941a4fd8e35dc42252b0bc31d3da685bf))
-
-
-### Chores
-
-* **deps:** update dependency node-fetch to v2.6.13 ([49193e6](https://github.com/lithic-com/lithic-node/commit/49193e652e03af313eabc1b835a38a895177a7cf))
-* **internal:** formatting change ([16746b6](https://github.com/lithic-com/lithic-node/commit/16746b6dde99ca079ec5054a30c3f973f5709ce7))
-
-## 0.113.0 (2025-08-13)
-
-Full Changelog: [v0.112.1...v0.113.0](https://github.com/lithic-com/lithic-node/compare/v0.112.1...v0.113.0)
-
-### Features
-
-* **api:** adds detailed 3DS challenge statuses ([154ee3c](https://github.com/lithic-com/lithic-node/commit/154ee3c90653488c8e0563ef7a5f2d14e67b920a))
-
-
-### Chores
-
-* **internal:** move publish config ([b5ba034](https://github.com/lithic-com/lithic-node/commit/b5ba034b03530835dc6eecec30c2ed9b7b9947bd))
-* **internal:** update comment in script ([f78eeef](https://github.com/lithic-com/lithic-node/commit/f78eeef652c1d85073c84ec50aaa51b505e641f9))
-* update @stainless-api/prism-cli to v5.15.0 ([81df714](https://github.com/lithic-com/lithic-node/commit/81df7140fe356d8f3be31900fe32059a5870c107))
+* sync repo ([447f84e](https://github.com/lithic-com/lithic-node/commit/447f84e3bcd4da99daa85a9cf84fe089e09c7e27))
 
 ## 0.112.1 (2025-08-04)
 

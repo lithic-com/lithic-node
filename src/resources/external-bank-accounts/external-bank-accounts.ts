@@ -1,11 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
-import * as Core from '../../core';
+import { APIResource } from '../../core/resource';
 import * as MicroDepositsAPI from './micro-deposits';
 import { MicroDepositCreateParams, MicroDepositCreateResponse, MicroDeposits } from './micro-deposits';
-import { CursorPage, type CursorPageParams } from '../../pagination';
+import { APIPromise } from '../../core/api-promise';
+import { CursorPage, type CursorPageParams, PagePromise } from '../../core/pagination';
+import { RequestOptions } from '../../internal/request-options';
+import { path } from '../../internal/utils/path';
 
 export class ExternalBankAccounts extends APIResource {
   microDeposits: MicroDepositsAPI.MicroDeposits = new MicroDepositsAPI.MicroDeposits(this._client);
@@ -26,7 +27,7 @@ export class ExternalBankAccounts extends APIResource {
    *     owner_type: 'BUSINESS',
    *     routing_number: '011103093',
    *     type: 'CHECKING',
-   *     verification_method: 'PRENOTE',
+   *     verification_method: 'MICRO_DEPOSIT',
    *     address: {
    *       address1: '5 Broad Street',
    *       city: 'New York',
@@ -40,8 +41,8 @@ export class ExternalBankAccounts extends APIResource {
    */
   create(
     body: ExternalBankAccountCreateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExternalBankAccountCreateResponse> {
+    options?: RequestOptions,
+  ): APIPromise<ExternalBankAccountCreateResponse> {
     return this._client.post('/v1/external_bank_accounts', { body, ...options });
   }
 
@@ -58,9 +59,9 @@ export class ExternalBankAccounts extends APIResource {
    */
   retrieve(
     externalBankAccountToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExternalBankAccountRetrieveResponse> {
-    return this._client.get(`/v1/external_bank_accounts/${externalBankAccountToken}`, options);
+    options?: RequestOptions,
+  ): APIPromise<ExternalBankAccountRetrieveResponse> {
+    return this._client.get(path`/v1/external_bank_accounts/${externalBankAccountToken}`, options);
   }
 
   /**
@@ -77,9 +78,12 @@ export class ExternalBankAccounts extends APIResource {
   update(
     externalBankAccountToken: string,
     body: ExternalBankAccountUpdateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExternalBankAccountUpdateResponse> {
-    return this._client.patch(`/v1/external_bank_accounts/${externalBankAccountToken}`, { body, ...options });
+    options?: RequestOptions,
+  ): APIPromise<ExternalBankAccountUpdateResponse> {
+    return this._client.patch(path`/v1/external_bank_accounts/${externalBankAccountToken}`, {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -94,23 +98,14 @@ export class ExternalBankAccounts extends APIResource {
    * ```
    */
   list(
-    query?: ExternalBankAccountListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<ExternalBankAccountListResponsesCursorPage, ExternalBankAccountListResponse>;
-  list(
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<ExternalBankAccountListResponsesCursorPage, ExternalBankAccountListResponse>;
-  list(
-    query: ExternalBankAccountListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<ExternalBankAccountListResponsesCursorPage, ExternalBankAccountListResponse> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v1/external_bank_accounts', ExternalBankAccountListResponsesCursorPage, {
-      query,
-      ...options,
-    });
+    query: ExternalBankAccountListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ExternalBankAccountListResponsesCursorPage, ExternalBankAccountListResponse> {
+    return this._client.getAPIList(
+      '/v1/external_bank_accounts',
+      CursorPage<ExternalBankAccountListResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -126,25 +121,13 @@ export class ExternalBankAccounts extends APIResource {
    */
   retryMicroDeposits(
     externalBankAccountToken: string,
-    body?: ExternalBankAccountRetryMicroDepositsParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExternalBankAccountRetryMicroDepositsResponse>;
-  retryMicroDeposits(
-    externalBankAccountToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExternalBankAccountRetryMicroDepositsResponse>;
-  retryMicroDeposits(
-    externalBankAccountToken: string,
-    body: ExternalBankAccountRetryMicroDepositsParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExternalBankAccountRetryMicroDepositsResponse> {
-    if (isRequestOptions(body)) {
-      return this.retryMicroDeposits(externalBankAccountToken, {}, body);
-    }
-    return this._client.post(`/v1/external_bank_accounts/${externalBankAccountToken}/retry_micro_deposits`, {
-      body,
-      ...options,
-    });
+    body: ExternalBankAccountRetryMicroDepositsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ExternalBankAccountRetryMicroDepositsResponse> {
+    return this._client.post(
+      path`/v1/external_bank_accounts/${externalBankAccountToken}/retry_micro_deposits`,
+      { body, ...options },
+    );
   }
 
   /**
@@ -160,22 +143,10 @@ export class ExternalBankAccounts extends APIResource {
    */
   retryPrenote(
     externalBankAccountToken: string,
-    body?: ExternalBankAccountRetryPrenoteParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExternalBankAccountRetryPrenoteResponse>;
-  retryPrenote(
-    externalBankAccountToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExternalBankAccountRetryPrenoteResponse>;
-  retryPrenote(
-    externalBankAccountToken: string,
-    body: ExternalBankAccountRetryPrenoteParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExternalBankAccountRetryPrenoteResponse> {
-    if (isRequestOptions(body)) {
-      return this.retryPrenote(externalBankAccountToken, {}, body);
-    }
-    return this._client.post(`/v1/external_bank_accounts/${externalBankAccountToken}/retry_prenote`, {
+    body: ExternalBankAccountRetryPrenoteParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ExternalBankAccountRetryPrenoteResponse> {
+    return this._client.post(path`/v1/external_bank_accounts/${externalBankAccountToken}/retry_prenote`, {
       body,
       ...options,
     });
@@ -193,13 +164,13 @@ export class ExternalBankAccounts extends APIResource {
    */
   unpause(
     externalBankAccountToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExternalBankAccountUnpauseResponse> {
-    return this._client.post(`/v1/external_bank_accounts/${externalBankAccountToken}/unpause`, options);
+    options?: RequestOptions,
+  ): APIPromise<ExternalBankAccountUnpauseResponse> {
+    return this._client.post(path`/v1/external_bank_accounts/${externalBankAccountToken}/unpause`, options);
   }
 }
 
-export class ExternalBankAccountListResponsesCursorPage extends CursorPage<ExternalBankAccountListResponse> {}
+export type ExternalBankAccountListResponsesCursorPage = CursorPage<ExternalBankAccountListResponse>;
 
 export interface ExternalBankAccountAddress {
   address1: string;
@@ -1409,7 +1380,6 @@ export interface ExternalBankAccountRetryPrenoteParams {
   financial_account_token?: string;
 }
 
-ExternalBankAccounts.ExternalBankAccountListResponsesCursorPage = ExternalBankAccountListResponsesCursorPage;
 ExternalBankAccounts.MicroDeposits = MicroDeposits;
 
 export declare namespace ExternalBankAccounts {
@@ -1424,7 +1394,7 @@ export declare namespace ExternalBankAccounts {
     type ExternalBankAccountRetryMicroDepositsResponse as ExternalBankAccountRetryMicroDepositsResponse,
     type ExternalBankAccountRetryPrenoteResponse as ExternalBankAccountRetryPrenoteResponse,
     type ExternalBankAccountUnpauseResponse as ExternalBankAccountUnpauseResponse,
-    ExternalBankAccountListResponsesCursorPage as ExternalBankAccountListResponsesCursorPage,
+    type ExternalBankAccountListResponsesCursorPage as ExternalBankAccountListResponsesCursorPage,
     type ExternalBankAccountCreateParams as ExternalBankAccountCreateParams,
     type ExternalBankAccountUpdateParams as ExternalBankAccountUpdateParams,
     type ExternalBankAccountListParams as ExternalBankAccountListParams,

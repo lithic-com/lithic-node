@@ -1,41 +1,34 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import { isRequestOptions } from '../core';
-import * as Core from '../core';
-import { CursorPage, type CursorPageParams } from '../pagination';
+import { APIResource } from '../core/resource';
+import { APIPromise } from '../core/api-promise';
+import { CursorPage, type CursorPageParams, PagePromise } from '../core/pagination';
+import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 export class ExternalPayments extends APIResource {
   /**
    * Create external payment
    */
-  create(body: ExternalPaymentCreateParams, options?: Core.RequestOptions): Core.APIPromise<ExternalPayment> {
+  create(body: ExternalPaymentCreateParams, options?: RequestOptions): APIPromise<ExternalPayment> {
     return this._client.post('/v1/external_payments', { body, ...options });
   }
 
   /**
    * Get external payment
    */
-  retrieve(externalPaymentToken: string, options?: Core.RequestOptions): Core.APIPromise<ExternalPayment> {
-    return this._client.get(`/v1/external_payments/${externalPaymentToken}`, options);
+  retrieve(externalPaymentToken: string, options?: RequestOptions): APIPromise<ExternalPayment> {
+    return this._client.get(path`/v1/external_payments/${externalPaymentToken}`, options);
   }
 
   /**
    * List external payments
    */
   list(
-    query?: ExternalPaymentListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<ExternalPaymentsCursorPage, ExternalPayment>;
-  list(options?: Core.RequestOptions): Core.PagePromise<ExternalPaymentsCursorPage, ExternalPayment>;
-  list(
-    query: ExternalPaymentListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<ExternalPaymentsCursorPage, ExternalPayment> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v1/external_payments', ExternalPaymentsCursorPage, {
+    query: ExternalPaymentListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ExternalPaymentsCursorPage, ExternalPayment> {
+    return this._client.getAPIList('/v1/external_payments', CursorPage<ExternalPayment>, {
       query,
       ...options,
     });
@@ -47,9 +40,12 @@ export class ExternalPayments extends APIResource {
   cancel(
     externalPaymentToken: string,
     body: ExternalPaymentCancelParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExternalPayment> {
-    return this._client.post(`/v1/external_payments/${externalPaymentToken}/cancel`, { body, ...options });
+    options?: RequestOptions,
+  ): APIPromise<ExternalPayment> {
+    return this._client.post(path`/v1/external_payments/${externalPaymentToken}/cancel`, {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -58,9 +54,12 @@ export class ExternalPayments extends APIResource {
   release(
     externalPaymentToken: string,
     body: ExternalPaymentReleaseParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExternalPayment> {
-    return this._client.post(`/v1/external_payments/${externalPaymentToken}/release`, { body, ...options });
+    options?: RequestOptions,
+  ): APIPromise<ExternalPayment> {
+    return this._client.post(path`/v1/external_payments/${externalPaymentToken}/release`, {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -69,9 +68,12 @@ export class ExternalPayments extends APIResource {
   reverse(
     externalPaymentToken: string,
     body: ExternalPaymentReverseParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExternalPayment> {
-    return this._client.post(`/v1/external_payments/${externalPaymentToken}/reverse`, { body, ...options });
+    options?: RequestOptions,
+  ): APIPromise<ExternalPayment> {
+    return this._client.post(path`/v1/external_payments/${externalPaymentToken}/reverse`, {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -80,13 +82,16 @@ export class ExternalPayments extends APIResource {
   settle(
     externalPaymentToken: string,
     body: ExternalPaymentSettleParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<ExternalPayment> {
-    return this._client.post(`/v1/external_payments/${externalPaymentToken}/settle`, { body, ...options });
+    options?: RequestOptions,
+  ): APIPromise<ExternalPayment> {
+    return this._client.post(path`/v1/external_payments/${externalPaymentToken}/settle`, {
+      body,
+      ...options,
+    });
   }
 }
 
-export class ExternalPaymentsCursorPage extends CursorPage<ExternalPayment> {}
+export type ExternalPaymentsCursorPage = CursorPage<ExternalPayment>;
 
 export interface ExternalPayment {
   /**
@@ -256,12 +261,10 @@ export interface ExternalPaymentSettleParams {
   progress_to?: 'SETTLED' | 'RELEASED';
 }
 
-ExternalPayments.ExternalPaymentsCursorPage = ExternalPaymentsCursorPage;
-
 export declare namespace ExternalPayments {
   export {
     type ExternalPayment as ExternalPayment,
-    ExternalPaymentsCursorPage as ExternalPaymentsCursorPage,
+    type ExternalPaymentsCursorPage as ExternalPaymentsCursorPage,
     type ExternalPaymentCreateParams as ExternalPaymentCreateParams,
     type ExternalPaymentListParams as ExternalPaymentListParams,
     type ExternalPaymentCancelParams as ExternalPaymentCancelParams,

@@ -1,10 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
-import * as Core from '../../core';
+import { APIResource } from '../../core/resource';
 import * as FinancialAccountsAPI from '../financial-accounts/financial-accounts';
 import { FinancialTransactionsSinglePage } from '../financial-accounts/financial-accounts';
+import { APIPromise } from '../../core/api-promise';
+import { PagePromise, SinglePage } from '../../core/pagination';
+import { RequestOptions } from '../../internal/request-options';
+import { path } from '../../internal/utils/path';
 
 export class FinancialTransactions extends APIResource {
   /**
@@ -15,17 +17,18 @@ export class FinancialTransactions extends APIResource {
    * const financialTransaction =
    *   await client.cards.financialTransactions.retrieve(
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     { card_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
    *   );
    * ```
    */
   retrieve(
-    cardToken: string,
     financialTransactionToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<FinancialAccountsAPI.FinancialTransaction> {
+    params: FinancialTransactionRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<FinancialAccountsAPI.FinancialTransaction> {
+    const { card_token } = params;
     return this._client.get(
-      `/v1/cards/${cardToken}/financial_transactions/${financialTransactionToken}`,
+      path`/v1/cards/${card_token}/financial_transactions/${financialTransactionToken}`,
       options,
     );
   }
@@ -45,27 +48,19 @@ export class FinancialTransactions extends APIResource {
    */
   list(
     cardToken: string,
-    query?: FinancialTransactionListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<FinancialTransactionsSinglePage, FinancialAccountsAPI.FinancialTransaction>;
-  list(
-    cardToken: string,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<FinancialTransactionsSinglePage, FinancialAccountsAPI.FinancialTransaction>;
-  list(
-    cardToken: string,
-    query: FinancialTransactionListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<FinancialTransactionsSinglePage, FinancialAccountsAPI.FinancialTransaction> {
-    if (isRequestOptions(query)) {
-      return this.list(cardToken, {}, query);
-    }
+    query: FinancialTransactionListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<FinancialTransactionsSinglePage, FinancialAccountsAPI.FinancialTransaction> {
     return this._client.getAPIList(
-      `/v1/cards/${cardToken}/financial_transactions`,
-      FinancialTransactionsSinglePage,
+      path`/v1/cards/${cardToken}/financial_transactions`,
+      SinglePage<FinancialAccountsAPI.FinancialTransaction>,
       { query, ...options },
     );
   }
+}
+
+export interface FinancialTransactionRetrieveParams {
+  card_token: string;
 }
 
 export interface FinancialTransactionListParams {
@@ -110,7 +105,10 @@ export interface FinancialTransactionListParams {
 }
 
 export declare namespace FinancialTransactions {
-  export { type FinancialTransactionListParams as FinancialTransactionListParams };
+  export {
+    type FinancialTransactionRetrieveParams as FinancialTransactionRetrieveParams,
+    type FinancialTransactionListParams as FinancialTransactionListParams,
+  };
 }
 
-export { FinancialTransactionsSinglePage };
+export { type FinancialTransactionsSinglePage };

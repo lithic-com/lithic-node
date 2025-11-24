@@ -1,9 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import { isRequestOptions } from '../core';
-import * as Core from '../core';
-import { CursorPage, type CursorPageParams } from '../pagination';
+import { APIResource } from '../core/resource';
+import { APIPromise } from '../core/api-promise';
+import { CursorPage, type CursorPageParams, PagePromise } from '../core/pagination';
+import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 export class Accounts extends APIResource {
   /**
@@ -16,8 +17,8 @@ export class Accounts extends APIResource {
    * );
    * ```
    */
-  retrieve(accountToken: string, options?: Core.RequestOptions): Core.APIPromise<Account> {
-    return this._client.get(`/v1/accounts/${accountToken}`, options);
+  retrieve(accountToken: string, options?: RequestOptions): APIPromise<Account> {
+    return this._client.get(path`/v1/accounts/${accountToken}`, options);
   }
 
   /**
@@ -33,12 +34,8 @@ export class Accounts extends APIResource {
    * );
    * ```
    */
-  update(
-    accountToken: string,
-    body: AccountUpdateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<Account> {
-    return this._client.patch(`/v1/accounts/${accountToken}`, { body, ...options });
+  update(accountToken: string, body: AccountUpdateParams, options?: RequestOptions): APIPromise<Account> {
+    return this._client.patch(path`/v1/accounts/${accountToken}`, { body, ...options });
   }
 
   /**
@@ -53,18 +50,10 @@ export class Accounts extends APIResource {
    * ```
    */
   list(
-    query?: AccountListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<AccountsCursorPage, Account>;
-  list(options?: Core.RequestOptions): Core.PagePromise<AccountsCursorPage, Account>;
-  list(
-    query: AccountListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<AccountsCursorPage, Account> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v1/accounts', AccountsCursorPage, { query, ...options });
+    query: AccountListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<AccountsCursorPage, Account> {
+    return this._client.getAPIList('/v1/accounts', CursorPage<Account>, { query, ...options });
   }
 
   /**
@@ -82,15 +71,12 @@ export class Accounts extends APIResource {
    *   );
    * ```
    */
-  retrieveSpendLimits(
-    accountToken: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<AccountSpendLimits> {
-    return this._client.get(`/v1/accounts/${accountToken}/spend_limits`, options);
+  retrieveSpendLimits(accountToken: string, options?: RequestOptions): APIPromise<AccountSpendLimits> {
+    return this._client.get(path`/v1/accounts/${accountToken}/spend_limits`, options);
   }
 }
 
-export class AccountsCursorPage extends CursorPage<Account> {}
+export type AccountsCursorPage = CursorPage<Account>;
 
 export interface Account {
   /**
@@ -467,13 +453,11 @@ export interface AccountListParams extends CursorPageParams {
   end?: string;
 }
 
-Accounts.AccountsCursorPage = AccountsCursorPage;
-
 export declare namespace Accounts {
   export {
     type Account as Account,
     type AccountSpendLimits as AccountSpendLimits,
-    AccountsCursorPage as AccountsCursorPage,
+    type AccountsCursorPage as AccountsCursorPage,
     type AccountUpdateParams as AccountUpdateParams,
     type AccountListParams as AccountListParams,
   };

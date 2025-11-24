@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import Lithic from 'lithic';
-import { Response } from 'node-fetch';
 
 const client = new Lithic({
   apiKey: 'My Lithic API Key',
@@ -9,10 +8,10 @@ const client = new Lithic({
 });
 
 describe('resource financialTransactions', () => {
-  test('retrieve', async () => {
+  test('retrieve: only required params', async () => {
     const responsePromise = client.cards.financialTransactions.retrieve(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      { card_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -23,15 +22,11 @@ describe('resource financialTransactions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieve: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.cards.financialTransactions.retrieve(
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
+  test('retrieve: required and optional params', async () => {
+    const response = await client.cards.financialTransactions.retrieve(
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      { card_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+    );
   });
 
   test('list', async () => {
@@ -43,15 +38,6 @@ describe('resource financialTransactions', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('list: request options instead of params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.cards.financialTransactions.list('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-        path: '/_stainless_unknown_path',
-      }),
-    ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('list: request options and params are passed correctly', async () => {

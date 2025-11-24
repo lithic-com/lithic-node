@@ -1,39 +1,32 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import { isRequestOptions } from '../core';
-import * as Core from '../core';
+import { APIResource } from '../core/resource';
 import * as Shared from './shared';
-import { CursorPage, type CursorPageParams } from '../pagination';
+import { APIPromise } from '../core/api-promise';
+import { CursorPage, type CursorPageParams, PagePromise } from '../core/pagination';
+import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 export class DisputesV2 extends APIResource {
   /**
    * Retrieves a specific dispute by its token.
    */
-  retrieve(disputeToken: string, options?: Core.RequestOptions): Core.APIPromise<DisputeV2> {
-    return this._client.get(`/v2/disputes/${disputeToken}`, options);
+  retrieve(disputeToken: string, options?: RequestOptions): APIPromise<DisputeV2> {
+    return this._client.get(path`/v2/disputes/${disputeToken}`, options);
   }
 
   /**
    * Returns a paginated list of disputes.
    */
   list(
-    query?: DisputesV2ListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<DisputeV2sCursorPage, DisputeV2>;
-  list(options?: Core.RequestOptions): Core.PagePromise<DisputeV2sCursorPage, DisputeV2>;
-  list(
-    query: DisputesV2ListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<DisputeV2sCursorPage, DisputeV2> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v2/disputes', DisputeV2sCursorPage, { query, ...options });
+    query: DisputesV2ListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<DisputeV2sCursorPage, DisputeV2> {
+    return this._client.getAPIList('/v2/disputes', CursorPage<DisputeV2>, { query, ...options });
   }
 }
 
-export class DisputeV2sCursorPage extends CursorPage<DisputeV2> {}
+export type DisputeV2sCursorPage = CursorPage<DisputeV2>;
 
 /**
  * The Dispute object tracks the progression of a dispute throughout its lifecycle.
@@ -304,12 +297,10 @@ export interface DisputesV2ListParams extends CursorPageParams {
   end?: string;
 }
 
-DisputesV2.DisputeV2sCursorPage = DisputeV2sCursorPage;
-
 export declare namespace DisputesV2 {
   export {
     type DisputeV2 as DisputeV2,
-    DisputeV2sCursorPage as DisputeV2sCursorPage,
+    type DisputeV2sCursorPage as DisputeV2sCursorPage,
     type DisputesV2ListParams as DisputesV2ListParams,
   };
 }

@@ -1,7 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import * as Core from '../core';
+import { APIResource } from '../core/resource';
+import { APIPromise } from '../core/api-promise';
+import { RequestOptions } from '../internal/request-options';
 
 export class AuthStreamEnrollment extends APIResource {
   /**
@@ -12,7 +13,7 @@ export class AuthStreamEnrollment extends APIResource {
    * [this page](https://docs.lithic.com/docs/auth-stream-access-asa#asa-webhook-verification)
    * for more detail about verifying ASA webhooks.
    */
-  retrieveSecret(options?: Core.RequestOptions): Core.APIPromise<AuthStreamSecret> {
+  retrieveSecret(options?: RequestOptions): APIPromise<AuthStreamSecret> {
     return this._client.get('/v1/auth_stream/secret', options);
   }
 
@@ -22,7 +23,7 @@ export class AuthStreamEnrollment extends APIResource {
    * [`GET /auth_stream/secret`](https://docs.lithic.com/reference/getauthstreamsecret)
    * request to retrieve the new secret key.
    */
-  rotateSecret(options?: Core.RequestOptions): Core.APIPromise<void> {
+  rotateSecret(options?: RequestOptions): APIPromise<void> {
     return this._client.post('/v1/auth_stream/secret/rotate', options);
   }
 }

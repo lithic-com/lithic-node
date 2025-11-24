@@ -1,9 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
-import * as Core from '../../core';
-import { SinglePage } from '../../pagination';
+import { APIResource } from '../../core/resource';
+import { PagePromise, SinglePage } from '../../core/pagination';
+import { RequestOptions } from '../../internal/request-options';
 
 export class AggregateBalances extends APIResource {
   /**
@@ -18,27 +17,17 @@ export class AggregateBalances extends APIResource {
    * ```
    */
   list(
-    query?: AggregateBalanceListParams,
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<AggregateBalanceListResponsesSinglePage, AggregateBalanceListResponse>;
-  list(
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<AggregateBalanceListResponsesSinglePage, AggregateBalanceListResponse>;
-  list(
-    query: AggregateBalanceListParams | Core.RequestOptions = {},
-    options?: Core.RequestOptions,
-  ): Core.PagePromise<AggregateBalanceListResponsesSinglePage, AggregateBalanceListResponse> {
-    if (isRequestOptions(query)) {
-      return this.list({}, query);
-    }
-    return this._client.getAPIList('/v1/cards/aggregate_balances', AggregateBalanceListResponsesSinglePage, {
+    query: AggregateBalanceListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<AggregateBalanceListResponsesSinglePage, AggregateBalanceListResponse> {
+    return this._client.getAPIList('/v1/cards/aggregate_balances', SinglePage<AggregateBalanceListResponse>, {
       query,
       ...options,
     });
   }
 }
 
-export class AggregateBalanceListResponsesSinglePage extends SinglePage<AggregateBalanceListResponse> {}
+export type AggregateBalanceListResponsesSinglePage = SinglePage<AggregateBalanceListResponse>;
 
 /**
  * Card Aggregate Balance across all end-user accounts
@@ -106,12 +95,10 @@ export interface AggregateBalanceListParams {
   business_account_token?: string;
 }
 
-AggregateBalances.AggregateBalanceListResponsesSinglePage = AggregateBalanceListResponsesSinglePage;
-
 export declare namespace AggregateBalances {
   export {
     type AggregateBalanceListResponse as AggregateBalanceListResponse,
-    AggregateBalanceListResponsesSinglePage as AggregateBalanceListResponsesSinglePage,
+    type AggregateBalanceListResponsesSinglePage as AggregateBalanceListResponsesSinglePage,
     type AggregateBalanceListParams as AggregateBalanceListParams,
   };
 }

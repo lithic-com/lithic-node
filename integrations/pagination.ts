@@ -1,6 +1,6 @@
 #!/usr/bin/env -S yarn tsn
 
-import Lithic from 'lithic';
+import Lithic from '../src';
 
 const lithic = new Lithic({ environment: 'sandbox' });
 

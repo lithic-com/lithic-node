@@ -1,0 +1,361 @@
+{
+  "pkg": "lithic",
+  "githubRepo": "https://github.com/lithic-com/lithic-node",
+  "clientClass": "Lithic",
+  "methods": [
+    {
+      "base": "accountHolders",
+      "name": "retrieveDocument",
+      "params": [
+        {
+          "type": "param",
+          "key": "document_token",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": false
+        },
+        {
+          "type": "options"
+        }
+      ],
+      "oldParams": [
+        {
+          "type": "param",
+          "key": "account_holder_token",
+          "location": "path"
+        },
+        {
+          "type": "param",
+          "key": "document_token",
+          "location": "path"
+        },
+        {
+          "type": "options"
+        }
+      ]
+    },
+    {
+      "base": "authRules.v2",
+      "name": "delete",
+      "oldName": "del"
+    },
+    {
+      "base": "authRules.v2.backtests",
+      "name": "retrieve",
+      "params": [
+        {
+          "type": "param",
+          "key": "auth_rule_backtest_token",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": false
+        },
+        {
+          "type": "options"
+        }
+      ],
+      "oldParams": [
+        {
+          "type": "param",
+          "key": "auth_rule_token",
+          "location": "path"
+        },
+        {
+          "type": "param",
+          "key": "auth_rule_backtest_token",
+          "location": "path"
+        },
+        {
+          "type": "options"
+        }
+      ]
+    },
+    {
+      "base": "cards.financialTransactions",
+      "name": "retrieve",
+      "params": [
+        {
+          "type": "param",
+          "key": "financial_transaction_token",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": false
+        },
+        {
+          "type": "options"
+        }
+      ],
+      "oldParams": [
+        {
+          "type": "param",
+          "key": "card_token",
+          "location": "path"
+        },
+        {
+          "type": "param",
+          "key": "financial_transaction_token",
+          "location": "path"
+        },
+        {
+          "type": "options"
+        }
+      ]
+    },
+    {
+      "base": "disputes",
+      "name": "delete",
+      "oldName": "del"
+    },
+    {
+      "base": "disputes",
+      "name": "deleteEvidence",
+      "params": [
+        {
+          "type": "param",
+          "key": "evidence_token",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": false
+        },
+        {
+          "type": "options"
+        }
+      ],
+      "oldParams": [
+        {
+          "type": "param",
+          "key": "dispute_token",
+          "location": "path"
+        },
+        {
+          "type": "param",
+          "key": "evidence_token",
+          "location": "path"
+        },
+        {
+          "type": "options"
+        }
+      ]
+    },
+    {
+      "base": "disputes",
+      "name": "retrieveEvidence",
+      "params": [
+        {
+          "type": "param",
+          "key": "evidence_token",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": false
+        },
+        {
+          "type": "options"
+        }
+      ],
+      "oldParams": [
+        {
+          "type": "param",
+          "key": "dispute_token",
+          "location": "path"
+        },
+        {
+          "type": "param",
+          "key": "evidence_token",
+          "location": "path"
+        },
+        {
+          "type": "options"
+        }
+      ]
+    },
+    {
+      "base": "events.subscriptions",
+      "name": "delete",
+      "oldName": "del"
+    },
+    {
+      "base": "events.eventSubscriptions",
+      "name": "resend",
+      "params": [
+        {
+          "type": "param",
+          "key": "event_subscription_token",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": false
+        },
+        {
+          "type": "options"
+        }
+      ],
+      "oldParams": [
+        {
+          "type": "param",
+          "key": "event_token",
+          "location": "path"
+        },
+        {
+          "type": "param",
+          "key": "event_subscription_token",
+          "location": "path"
+        },
+        {
+          "type": "options"
+        }
+      ]
+    },
+    {
+      "base": "financialAccounts.financialTransactions",
+      "name": "retrieve",
+      "params": [
+        {
+          "type": "param",
+          "key": "financial_transaction_token",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": false
+        },
+        {
+          "type": "options"
+        }
+      ],
+      "oldParams": [
+        {
+          "type": "param",
+          "key": "financial_account_token",
+          "location": "path"
+        },
+        {
+          "type": "param",
+          "key": "financial_transaction_token",
+          "location": "path"
+        },
+        {
+          "type": "options"
+        }
+      ]
+    },
+    {
+      "base": "financialAccounts.statements",
+      "name": "retrieve",
+      "params": [
+        {
+          "type": "param",
+          "key": "statement_token",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": false
+        },
+        {
+          "type": "options"
+        }
+      ],
+      "oldParams": [
+        {
+          "type": "param",
+          "key": "financial_account_token",
+          "location": "path"
+        },
+        {
+          "type": "param",
+          "key": "statement_token",
+          "location": "path"
+        },
+        {
+          "type": "options"
+        }
+      ]
+    },
+    {
+      "base": "financialAccounts.statements.lineItems",
+      "name": "list",
+      "params": [
+        {
+          "type": "param",
+          "key": "statement_token",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": false
+        },
+        {
+          "type": "options"
+        }
+      ],
+      "oldParams": [
+        {
+          "type": "param",
+          "key": "financial_account_token",
+          "location": "path"
+        },
+        {
+          "type": "param",
+          "key": "statement_token",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": true
+        },
+        {
+          "type": "options"
+        }
+      ]
+    },
+    {
+      "base": "financialAccounts.loanTapes",
+      "name": "retrieve",
+      "params": [
+        {
+          "type": "param",
+          "key": "loan_tape_token",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": false
+        },
+        {
+          "type": "options"
+        }
+      ],
+      "oldParams": [
+        {
+          "type": "param",
+          "key": "financial_account_token",
+          "location": "path"
+        },
+        {
+          "type": "param",
+          "key": "loan_tape_token",
+          "location": "path"
+        },
+        {
+          "type": "options"
+        }
+      ]
+    },
+    {
+      "base": "responderEndpoints",
+      "name": "delete",
+      "oldName": "del"
+    }
+  ]
+}

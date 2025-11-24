@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import Lithic from 'lithic';
-import { Response } from 'node-fetch';
 
 const client = new Lithic({
   apiKey: 'My Lithic API Key',

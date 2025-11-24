@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import Lithic from 'lithic';
-import { Response } from 'node-fetch';
 
 const client = new Lithic({
   apiKey: 'My Lithic API Key',
@@ -21,8 +20,8 @@ describe('resource responderEndpoints', () => {
   });
 
   // Prism errors when accept header set but no request body is defined
-  test.skip('del: only required params', async () => {
-    const responsePromise = client.responderEndpoints.del({ type: 'AUTH_STREAM_ACCESS' });
+  test.skip('delete: only required params', async () => {
+    const responsePromise = client.responderEndpoints.delete({ type: 'AUTH_STREAM_ACCESS' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -33,8 +32,8 @@ describe('resource responderEndpoints', () => {
   });
 
   // Prism errors when accept header set but no request body is defined
-  test.skip('del: required and optional params', async () => {
-    const response = await client.responderEndpoints.del({ type: 'AUTH_STREAM_ACCESS' });
+  test.skip('delete: required and optional params', async () => {
+    const response = await client.responderEndpoints.delete({ type: 'AUTH_STREAM_ACCESS' });
   });
 
   test('checkStatus: only required params', async () => {
