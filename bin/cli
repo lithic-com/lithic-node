@@ -4,7 +4,7 @@ const { spawnSync } = require('child_process');
 
 const commands = {
   migrate: {
-    description: 'Run migrations to update your code using lithic@0 to be compatible with lithic@1',
+    description: 'Run migrations to update your code using lithic@0.123 to be compatible with lithic@0.124',
     fn: () => {
       const result = spawnSync(
         'npx',
