@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.124.0 (2025-11-24)
+
+Full Changelog: [v0.112.1...v0.124.0](https://github.com/lithic-com/lithic-node/compare/v0.112.1...v0.124.0)
+
+### Features
+
+* **api:** major upgrade of Typescript SDK ([8d54827](https://github.com/lithic-com/lithic-node/commit/8d548272e8f0146c25c67b163fd15db9a85e2027))
+
+
+### Chores
+
+* sync repo ([447f84e](https://github.com/lithic-com/lithic-node/commit/447f84e3bcd4da99daa85a9cf84fe089e09c7e27))
+
 ## 0.112.1 (2025-08-04)
 
 Full Changelog: [v0.112.0...v0.112.1](https://github.com/lithic-com/lithic-node/compare/v0.112.0...v0.112.1)
