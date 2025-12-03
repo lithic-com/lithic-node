@@ -4,13 +4,7 @@ import { APIResource } from '../../../core/resource';
 import * as ReportsAPI from '../reports';
 import { SettlementDetailsCursorPage } from '../reports';
 import * as NetworkTotalsAPI from './network-totals';
-import {
-  NetworkTotalListParams,
-  NetworkTotalListResponse,
-  NetworkTotalListResponsesCursorPage,
-  NetworkTotalRetrieveResponse,
-  NetworkTotals,
-} from './network-totals';
+import { NetworkTotalListParams, NetworkTotals } from './network-totals';
 import { APIPromise } from '../../../core/api-promise';
 import { CursorPage, type CursorPageParams, PagePromise } from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
@@ -65,13 +59,7 @@ Settlement.NetworkTotals = NetworkTotals;
 export declare namespace Settlement {
   export { type SettlementListDetailsParams as SettlementListDetailsParams };
 
-  export {
-    NetworkTotals as NetworkTotals,
-    type NetworkTotalRetrieveResponse as NetworkTotalRetrieveResponse,
-    type NetworkTotalListResponse as NetworkTotalListResponse,
-    type NetworkTotalListResponsesCursorPage as NetworkTotalListResponsesCursorPage,
-    type NetworkTotalListParams as NetworkTotalListParams,
-  };
+  export { NetworkTotals as NetworkTotals, type NetworkTotalListParams as NetworkTotalListParams };
 }
 
 export { type SettlementDetailsCursorPage };

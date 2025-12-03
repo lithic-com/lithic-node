@@ -1,6 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as FinancialAccountsAPI from '../financial-accounts/financial-accounts';
+import { FinancialAccountBalancesSinglePage } from '../financial-accounts/financial-accounts';
 import { PagePromise, SinglePage } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -12,7 +14,7 @@ export class Balances extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const balanceListResponse of client.cards.balances.list(
+   * for await (const financialAccountBalance of client.cards.balances.list(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    * )) {
    *   // ...
@@ -23,73 +25,13 @@ export class Balances extends APIResource {
     cardToken: string,
     query: BalanceListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<BalanceListResponsesSinglePage, BalanceListResponse> {
-    return this._client.getAPIList(path`/v1/cards/${cardToken}/balances`, SinglePage<BalanceListResponse>, {
-      query,
-      ...options,
-    });
+  ): PagePromise<FinancialAccountBalancesSinglePage, FinancialAccountsAPI.FinancialAccountBalance> {
+    return this._client.getAPIList(
+      path`/v1/cards/${cardToken}/balances`,
+      SinglePage<FinancialAccountsAPI.FinancialAccountBalance>,
+      { query, ...options },
+    );
   }
-}
-
-export type BalanceListResponsesSinglePage = SinglePage<BalanceListResponse>;
-
-/**
- * Balance of a Financial Account
- */
-export interface BalanceListResponse {
-  /**
-   * Globally unique identifier for the financial account that holds this balance.
-   */
-  token: string;
-
-  /**
-   * Funds available for spend in the currency's smallest unit (e.g., cents for USD)
-   */
-  available_amount: number;
-
-  /**
-   * Date and time for when the balance was first created.
-   */
-  created: string;
-
-  /**
-   * 3-character alphabetic ISO 4217 code for the local currency of the balance.
-   */
-  currency: string;
-
-  /**
-   * Globally unique identifier for the last financial transaction event that
-   * impacted this balance.
-   */
-  last_transaction_event_token: string;
-
-  /**
-   * Globally unique identifier for the last financial transaction that impacted this
-   * balance.
-   */
-  last_transaction_token: string;
-
-  /**
-   * Funds not available for spend due to card authorizations or pending ACH release.
-   * Shown in the currency's smallest unit (e.g., cents for USD).
-   */
-  pending_amount: number;
-
-  /**
-   * The sum of available and pending balance in the currency's smallest unit (e.g.,
-   * cents for USD).
-   */
-  total_amount: number;
-
-  /**
-   * Type of financial account.
-   */
-  type: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY';
-
-  /**
-   * Date and time for when the balance was last updated.
-   */
-  updated: string;
 }
 
 export interface BalanceListParams {
@@ -107,9 +49,7 @@ export interface BalanceListParams {
 }
 
 export declare namespace Balances {
-  export {
-    type BalanceListResponse as BalanceListResponse,
-    type BalanceListResponsesSinglePage as BalanceListResponsesSinglePage,
-    type BalanceListParams as BalanceListParams,
-  };
+  export { type BalanceListParams as BalanceListParams };
 }
+
+export { type FinancialAccountBalancesSinglePage };

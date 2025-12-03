@@ -57,6 +57,14 @@ export {
   type BookTransferResponsesCursorPage,
 } from './book-transfers';
 export {
+  CardBulkOrders,
+  type CardBulkOrder,
+  type CardBulkOrderCreateParams,
+  type CardBulkOrderUpdateParams,
+  type CardBulkOrderListParams,
+  type CardBulkOrdersCursorPage,
+} from './card-bulk-orders';
+export {
   CardPrograms,
   type CardProgram,
   type CardProgramListParams,
@@ -124,6 +132,7 @@ export {
 } from './events/events';
 export {
   ExternalBankAccounts,
+  type ExternalBankAccount,
   type ExternalBankAccountAddress,
   type OwnerType,
   type VerificationMethod,
@@ -132,8 +141,6 @@ export {
   type ExternalBankAccountUpdateResponse,
   type ExternalBankAccountListResponse,
   type ExternalBankAccountRetryMicroDepositsResponse,
-  type ExternalBankAccountRetryPrenoteResponse,
-  type ExternalBankAccountUnpauseResponse,
   type ExternalBankAccountCreateParams,
   type ExternalBankAccountUpdateParams,
   type ExternalBankAccountListParams,
@@ -156,6 +163,7 @@ export {
   FinancialAccounts,
   type CategoryDetails,
   type FinancialAccount,
+  type FinancialAccountBalance,
   type FinancialTransaction,
   type StatementTotals,
   type FinancialAccountCreateParams,
@@ -163,18 +171,19 @@ export {
   type FinancialAccountListParams,
   type FinancialAccountRegisterAccountNumberParams,
   type FinancialAccountUpdateStatusParams,
+  type FinancialAccountBalancesSinglePage,
   type FinancialTransactionsSinglePage,
   type FinancialAccountsSinglePage,
 } from './financial-accounts/financial-accounts';
 export { Fraud } from './fraud/fraud';
 export {
   FundingEvents,
-  type FundingEventRetrieveResponse,
-  type FundingEventListResponse,
+  type FundingEvent,
   type FundingEventRetrieveDetailsResponse,
   type FundingEventListParams,
-  type FundingEventListResponsesCursorPage,
+  type FundingEventsCursorPage,
 } from './funding-events';
+export { InternalTransactionResource, type InternalTransaction } from './internal-transaction';
 export {
   ManagementOperations,
   type ExternalResource,
@@ -211,10 +220,12 @@ export {
 } from './payments';
 export {
   Reports,
+  type NetworkTotal,
   type SettlementDetail,
   type SettlementReport,
   type SettlementSummaryDetails,
   type SettlementDetailsCursorPage,
+  type NetworkTotalsCursorPage,
 } from './reports/reports';
 export {
   ResponderEndpoints,
@@ -224,7 +235,7 @@ export {
   type ResponderEndpointDeleteParams,
   type ResponderEndpointCheckStatusParams,
 } from './responder-endpoints';
-export { ThreeDS } from './three-ds/three-ds';
+export { ThreeDS, type ThreeDSAuthentication } from './three-ds/three-ds';
 export {
   TokenizationDecisioning,
   type TokenizationSecret,
@@ -232,7 +243,13 @@ export {
 } from './tokenization-decisioning';
 export {
   Tokenizations,
+  type Device,
+  type DigitalWalletTokenMetadata,
   type Tokenization,
+  type TokenizationDeclineReason,
+  type TokenizationRuleResult,
+  type TokenizationTfaReason,
+  type WalletDecisioningInfo,
   type TokenizationListParams,
   type TokenizationResendActivationCodeParams,
   type TokenizationSimulateParams,
@@ -241,6 +258,8 @@ export {
 } from './tokenizations';
 export {
   Transactions,
+  type CardholderAuthentication,
+  type TokenInfo,
   type Transaction,
   type TransactionSimulateAuthorizationResponse,
   type TransactionSimulateAuthorizationAdviceResponse,

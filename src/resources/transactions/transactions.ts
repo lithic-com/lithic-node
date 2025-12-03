@@ -237,6 +237,61 @@ export class Transactions extends APIResource {
 
 export type TransactionsCursorPage = CursorPage<Transaction>;
 
+export interface CardholderAuthentication {
+  /**
+   * Indicates the method used to authenticate the cardholder.
+   */
+  authentication_method: 'FRICTIONLESS' | 'CHALLENGE' | 'NONE';
+
+  /**
+   * Indicates the outcome of the 3DS authentication process.
+   */
+  authentication_result: 'ATTEMPTS' | 'DECLINE' | 'NONE' | 'SUCCESS';
+
+  /**
+   * Indicates which party made the 3DS authentication decision.
+   */
+  decision_made_by:
+    | 'CUSTOMER_RULES'
+    | 'CUSTOMER_ENDPOINT'
+    | 'LITHIC_DEFAULT'
+    | 'LITHIC_RULES'
+    | 'NETWORK'
+    | 'UNKNOWN';
+
+  /**
+   * Indicates whether chargeback liability shift applies to the transaction.
+   * Possible enum values:
+   *
+   * - `3DS_AUTHENTICATED`: The transaction was fully authenticated through a 3-D
+   *   Secure flow, chargeback liability shift applies.
+   * - `NONE`: Chargeback liability shift has not shifted to the issuer, i.e. the
+   *   merchant is liable.
+   * - `TOKEN_AUTHENTICATED`: The transaction was a tokenized payment with validated
+   *   cryptography, possibly recurring. Chargeback liability shift to the issuer
+   *   applies.
+   */
+  liability_shift: '3DS_AUTHENTICATED' | 'TOKEN_AUTHENTICATED' | 'NONE';
+
+  /**
+   * Unique identifier you can use to match a given 3DS authentication (available via
+   * the three_ds_authentication.created event webhook) and the transaction. Note
+   * that in cases where liability shift does not occur, this token is matched to the
+   * transaction on a best-effort basis.
+   */
+  three_ds_authentication_token: string | null;
+}
+
+export interface TokenInfo {
+  /**
+   * The wallet_type field will indicate the source of the token. Possible token
+   * sources include digital wallets (Apple, Google, or Samsung Pay), merchant
+   * tokenization, and “other” sources like in-flight commerce. Masterpass is not
+   * currently supported and is included for future use.
+   */
+  wallet_type: 'APPLE_PAY' | 'GOOGLE_PAY' | 'MASTERPASS' | 'MERCHANT' | 'OTHER' | 'SAMSUNG_PAY';
+}
+
 export interface Transaction {
   /**
    * Globally unique identifier.
@@ -292,7 +347,7 @@ export interface Transaction {
    */
   card_token: string;
 
-  cardholder_authentication: Transaction.CardholderAuthentication | null;
+  cardholder_authentication: CardholderAuthentication | null;
 
   /**
    * Date and time when the transaction first occurred. UTC time zone.
@@ -374,7 +429,7 @@ export interface Transaction {
    */
   status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED';
 
-  token_info: Transaction.TokenInfo | null;
+  token_info: TokenInfo | null;
 
   /**
    * Date and time when the transaction last updated. UTC time zone.
@@ -462,51 +517,6 @@ export namespace Transaction {
      * Cardholder ZIP code
      */
     zipcode: string;
-  }
-
-  export interface CardholderAuthentication {
-    /**
-     * Indicates the method used to authenticate the cardholder.
-     */
-    authentication_method: 'FRICTIONLESS' | 'CHALLENGE' | 'NONE';
-
-    /**
-     * Indicates the outcome of the 3DS authentication process.
-     */
-    authentication_result: 'ATTEMPTS' | 'DECLINE' | 'NONE' | 'SUCCESS';
-
-    /**
-     * Indicates which party made the 3DS authentication decision.
-     */
-    decision_made_by:
-      | 'CUSTOMER_RULES'
-      | 'CUSTOMER_ENDPOINT'
-      | 'LITHIC_DEFAULT'
-      | 'LITHIC_RULES'
-      | 'NETWORK'
-      | 'UNKNOWN';
-
-    /**
-     * Indicates whether chargeback liability shift applies to the transaction.
-     * Possible enum values:
-     *
-     * - `3DS_AUTHENTICATED`: The transaction was fully authenticated through a 3-D
-     *   Secure flow, chargeback liability shift applies.
-     * - `NONE`: Chargeback liability shift has not shifted to the issuer, i.e. the
-     *   merchant is liable.
-     * - `TOKEN_AUTHENTICATED`: The transaction was a tokenized payment with validated
-     *   cryptography, possibly recurring. Chargeback liability shift to the issuer
-     *   applies.
-     */
-    liability_shift: '3DS_AUTHENTICATED' | 'TOKEN_AUTHENTICATED' | 'NONE';
-
-    /**
-     * Unique identifier you can use to match a given 3DS authentication (available via
-     * the three_ds_authentication.created event webhook) and the transaction. Note
-     * that in cases where liability shift does not occur, this token is matched to the
-     * transaction on a best-effort basis.
-     */
-    three_ds_authentication_token: string | null;
   }
 
   export interface Pos {
@@ -633,16 +643,6 @@ export namespace Transaction {
        */
       acceptor_terminal_id?: string | null;
     }
-  }
-
-  export interface TokenInfo {
-    /**
-     * The wallet_type field will indicate the source of the token. Possible token
-     * sources include digital wallets (Apple, Google, or Samsung Pay), merchant
-     * tokenization, and “other” sources like in-flight commerce. Masterpass is not
-     * currently supported and is included for future use.
-     */
-    wallet_type: 'APPLE_PAY' | 'GOOGLE_PAY' | 'MASTERPASS' | 'MERCHANT' | 'OTHER' | 'SAMSUNG_PAY';
   }
 
   export interface Event {
@@ -1444,6 +1444,8 @@ Transactions.Events = Events;
 
 export declare namespace Transactions {
   export {
+    type CardholderAuthentication as CardholderAuthentication,
+    type TokenInfo as TokenInfo,
     type Transaction as Transaction,
     type TransactionSimulateAuthorizationResponse as TransactionSimulateAuthorizationResponse,
     type TransactionSimulateAuthorizationAdviceResponse as TransactionSimulateAuthorizationAdviceResponse,
