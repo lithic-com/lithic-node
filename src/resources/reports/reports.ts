@@ -11,6 +11,98 @@ export class Reports extends APIResource {
 
 export type SettlementDetailsCursorPage = CursorPage<SettlementDetail>;
 
+export type NetworkTotalsCursorPage = CursorPage<NetworkTotal>;
+
+export interface NetworkTotal {
+  /**
+   * Globally unique identifier.
+   */
+  token: string;
+
+  amounts: NetworkTotal.Amounts;
+
+  /**
+   * RFC 3339 timestamp for when the record was created. UTC time zone.
+   */
+  created: string;
+
+  /**
+   * 3-character alphabetic ISO 4217 code.
+   */
+  currency: string;
+
+  /**
+   * The institution that activity occurred on. For Mastercard: ICA (Interbank Card
+   * Association). For Maestro: institution ID. For Visa: lowest level SRE
+   * (Settlement Reporting Entity).
+   */
+  institution_id: string;
+
+  /**
+   * Indicates that all settlement records related to this Network Total are
+   * available in the details endpoint.
+   */
+  is_complete: boolean;
+
+  /**
+   * Card network where the transaction took place. AMEX, VISA, MASTERCARD, MAESTRO,
+   * or INTERLINK.
+   */
+  network: 'AMEX' | 'VISA' | 'MASTERCARD' | 'MAESTRO' | 'INTERLINK';
+
+  /**
+   * Date that the network total record applies to. YYYY-MM-DD format.
+   */
+  report_date: string;
+
+  /**
+   * The institution responsible for settlement. For Mastercard: same as
+   * `institution_id`. For Maestro: billing ICA. For Visa: Funds Transfer SRE
+   * (FTSRE).
+   */
+  settlement_institution_id: string;
+
+  /**
+   * Settlement service.
+   */
+  settlement_service: string;
+
+  /**
+   * RFC 3339 timestamp for when the record was last updated. UTC time zone.
+   */
+  updated: string;
+
+  /**
+   * The clearing cycle that the network total record applies to. Mastercard only.
+   */
+  cycle?: number;
+}
+
+export namespace NetworkTotal {
+  export interface Amounts {
+    /**
+     * Total settlement amount excluding interchange, in currency's smallest unit.
+     */
+    gross_settlement: number;
+
+    /**
+     * Interchange amount, in currency's smallest unit.
+     */
+    interchange_fees: number;
+
+    /**
+     * `gross_settlement` net of `interchange_fees` and `visa_charges` (if applicable),
+     * in currency's smallest unit.
+     */
+    net_settlement: number;
+
+    /**
+     * Charges specific to Visa/Interlink, in currency's smallest unit.
+     */
+    visa_charges?: number;
+  }
+}
+
 export interface SettlementDetail {
   /**
    * Globally unique identifier denoting the Settlement Detail.
@@ -264,6 +356,7 @@ Reports.Settlement = Settlement;
 
 export declare namespace Reports {
   export {
+    type NetworkTotal as NetworkTotal,
     type SettlementDetail as SettlementDetail,
     type SettlementReport as SettlementReport,
     type SettlementSummaryDetails as SettlementSummaryDetails,

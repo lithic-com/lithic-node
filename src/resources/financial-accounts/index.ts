@@ -1,11 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export {
-  Balances,
-  type BalanceListResponse,
-  type BalanceListParams,
-  type BalanceListResponsesSinglePage,
-} from './balances';
+export { Balances, type BalanceListParams } from './balances';
 export {
   CreditConfiguration,
   type FinancialAccountCreditConfig,
@@ -15,6 +10,7 @@ export {
   FinancialAccounts,
   type CategoryDetails,
   type FinancialAccount,
+  type FinancialAccountBalance,
   type FinancialTransaction,
   type StatementTotals,
   type FinancialAccountCreateParams,
@@ -22,6 +18,7 @@ export {
   type FinancialAccountListParams,
   type FinancialAccountRegisterAccountNumberParams,
   type FinancialAccountUpdateStatusParams,
+  type FinancialAccountBalancesSinglePage,
   type FinancialTransactionsSinglePage,
   type FinancialAccountsSinglePage,
 } from './financial-accounts';

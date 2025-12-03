@@ -2,6 +2,7 @@
 
 export {
   ExternalBankAccounts,
+  type ExternalBankAccount,
   type ExternalBankAccountAddress,
   type OwnerType,
   type VerificationMethod,
@@ -10,8 +11,6 @@ export {
   type ExternalBankAccountUpdateResponse,
   type ExternalBankAccountListResponse,
   type ExternalBankAccountRetryMicroDepositsResponse,
-  type ExternalBankAccountRetryPrenoteResponse,
-  type ExternalBankAccountUnpauseResponse,
   type ExternalBankAccountCreateParams,
   type ExternalBankAccountUpdateParams,
   type ExternalBankAccountListParams,

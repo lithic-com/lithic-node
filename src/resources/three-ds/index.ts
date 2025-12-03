@@ -2,7 +2,6 @@
 
 export {
   Authentication,
-  type AuthenticationRetrieveResponse,
   type AuthenticationSimulateResponse,
   type AuthenticationSimulateParams,
   type AuthenticationSimulateOtpEntryParams,
@@ -14,4 +13,4 @@ export {
   type DecisioningRetrieveSecretResponse,
   type DecisioningChallengeResponseParams,
 } from './decisioning';
-export { ThreeDS } from './three-ds';
+export { ThreeDS, type ThreeDSAuthentication } from './three-ds';

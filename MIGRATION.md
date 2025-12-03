@@ -107,6 +107,7 @@ client.example.list(undefined, { headers: { ... } });
 - `client.cards.aggregateBalances.list()`
 - `client.cards.balances.list()`
 - `client.cards.financialTransactions.list()`
+- `client.cardBulkOrders.list()`
 - `client.balances.list()`
 - `client.aggregateBalances.list()`
 - `client.disputes.list()`
