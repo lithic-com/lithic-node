@@ -138,7 +138,13 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/tokenizations.ts">Device</a></code>
+- <code><a href="./src/resources/tokenizations.ts">DigitalWalletTokenMetadata</a></code>
 - <code><a href="./src/resources/tokenizations.ts">Tokenization</a></code>
+- <code><a href="./src/resources/tokenizations.ts">TokenizationDeclineReason</a></code>
+- <code><a href="./src/resources/tokenizations.ts">TokenizationRuleResult</a></code>
+- <code><a href="./src/resources/tokenizations.ts">TokenizationTfaReason</a></code>
+- <code><a href="./src/resources/tokenizations.ts">WalletDecisioningInfo</a></code>
 
 Methods:
 
@@ -194,13 +200,9 @@ Methods:
 
 ## Balances
 
-Types:
-
-- <code><a href="./src/resources/cards/balances.ts">BalanceListResponse</a></code>
-
 Methods:
 
-- <code title="get /v1/cards/{card_token}/balances">client.cards.balances.<a href="./src/resources/cards/balances.ts">list</a>(cardToken, { ...params }) -> BalanceListResponsesSinglePage</code>
+- <code title="get /v1/cards/{card_token}/balances">client.cards.balances.<a href="./src/resources/cards/balances.ts">list</a>(cardToken, { ...params }) -> FinancialAccountBalancesSinglePage</code>
 
 ## FinancialTransactions
 
@@ -208,6 +210,19 @@ Methods:
 
 - <code title="get /v1/cards/{card_token}/financial_transactions/{financial_transaction_token}">client.cards.financialTransactions.<a href="./src/resources/cards/financial-transactions.ts">retrieve</a>(financialTransactionToken, { ...params }) -> FinancialTransaction</code>
 - <code title="get /v1/cards/{card_token}/financial_transactions">client.cards.financialTransactions.<a href="./src/resources/cards/financial-transactions.ts">list</a>(cardToken, { ...params }) -> FinancialTransactionsSinglePage</code>
+
+# CardBulkOrders
+
+Types:
+
+- <code><a href="./src/resources/card-bulk-orders.ts">CardBulkOrder</a></code>
+
+Methods:
+
+- <code title="post /v1/card_bulk_orders">client.cardBulkOrders.<a href="./src/resources/card-bulk-orders.ts">create</a>({ ...params }) -> CardBulkOrder</code>
+- <code title="get /v1/card_bulk_orders/{bulk_order_token}">client.cardBulkOrders.<a href="./src/resources/card-bulk-orders.ts">retrieve</a>(bulkOrderToken) -> CardBulkOrder</code>
+- <code title="patch /v1/card_bulk_orders/{bulk_order_token}">client.cardBulkOrders.<a href="./src/resources/card-bulk-orders.ts">update</a>(bulkOrderToken, { ...params }) -> CardBulkOrder</code>
+- <code title="get /v1/card_bulk_orders">client.cardBulkOrders.<a href="./src/resources/card-bulk-orders.ts">list</a>({ ...params }) -> CardBulkOrdersCursorPage</code>
 
 # Balances
 
@@ -317,6 +332,7 @@ Types:
 
 - <code><a href="./src/resources/financial-accounts/financial-accounts.ts">CategoryDetails</a></code>
 - <code><a href="./src/resources/financial-accounts/financial-accounts.ts">FinancialAccount</a></code>
+- <code><a href="./src/resources/financial-accounts/financial-accounts.ts">FinancialAccountBalance</a></code>
 - <code><a href="./src/resources/financial-accounts/financial-accounts.ts">FinancialTransaction</a></code>
 - <code><a href="./src/resources/financial-accounts/financial-accounts.ts">StatementTotals</a></code>
 
@@ -331,13 +347,9 @@ Methods:
 
 ## Balances
 
-Types:
-
-- <code><a href="./src/resources/financial-accounts/balances.ts">BalanceListResponse</a></code>
-
 Methods:
 
-- <code title="get /v1/financial_accounts/{financial_account_token}/balances">client.financialAccounts.balances.<a href="./src/resources/financial-accounts/balances.ts">list</a>(financialAccountToken, { ...params }) -> BalanceListResponsesSinglePage</code>
+- <code title="get /v1/financial_accounts/{financial_account_token}/balances">client.financialAccounts.balances.<a href="./src/resources/financial-accounts/balances.ts">list</a>(financialAccountToken, { ...params }) -> FinancialAccountBalancesSinglePage</code>
 
 ## FinancialTransactions
 
@@ -395,6 +407,8 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/transactions/transactions.ts">CardholderAuthentication</a></code>
+- <code><a href="./src/resources/transactions/transactions.ts">TokenInfo</a></code>
 - <code><a href="./src/resources/transactions/transactions.ts">Transaction</a></code>
 - <code><a href="./src/resources/transactions/transactions.ts">TransactionSimulateAuthorizationResponse</a></code>
 - <code><a href="./src/resources/transactions/transactions.ts">TransactionSimulateAuthorizationAdviceResponse</a></code>
@@ -465,6 +479,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">ExternalBankAccount</a></code>
 - <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">ExternalBankAccountAddress</a></code>
 - <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">OwnerType</a></code>
 - <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">VerificationMethod</a></code>
@@ -473,8 +488,6 @@ Types:
 - <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">ExternalBankAccountUpdateResponse</a></code>
 - <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">ExternalBankAccountListResponse</a></code>
 - <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">ExternalBankAccountRetryMicroDepositsResponse</a></code>
-- <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">ExternalBankAccountRetryPrenoteResponse</a></code>
-- <code><a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">ExternalBankAccountUnpauseResponse</a></code>
 
 Methods:
 
@@ -483,8 +496,8 @@ Methods:
 - <code title="patch /v1/external_bank_accounts/{external_bank_account_token}">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">update</a>(externalBankAccountToken, { ...params }) -> ExternalBankAccountUpdateResponse</code>
 - <code title="get /v1/external_bank_accounts">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">list</a>({ ...params }) -> ExternalBankAccountListResponsesCursorPage</code>
 - <code title="post /v1/external_bank_accounts/{external_bank_account_token}/retry_micro_deposits">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">retryMicroDeposits</a>(externalBankAccountToken, { ...params }) -> ExternalBankAccountRetryMicroDepositsResponse</code>
-- <code title="post /v1/external_bank_accounts/{external_bank_account_token}/retry_prenote">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">retryPrenote</a>(externalBankAccountToken, { ...params }) -> ExternalBankAccountRetryPrenoteResponse</code>
-- <code title="post /v1/external_bank_accounts/{external_bank_account_token}/unpause">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">unpause</a>(externalBankAccountToken) -> ExternalBankAccountUnpauseResponse</code>
+- <code title="post /v1/external_bank_accounts/{external_bank_account_token}/retry_prenote">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">retryPrenote</a>(externalBankAccountToken, { ...params }) -> ExternalBankAccount</code>
+- <code title="post /v1/external_bank_accounts/{external_bank_account_token}/unpause">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">unpause</a>(externalBankAccountToken) -> ExternalBankAccount</code>
 
 ## MicroDeposits
 
@@ -522,16 +535,19 @@ Methods:
 
 # ThreeDS
 
+Types:
+
+- <code><a href="./src/resources/three-ds/three-ds.ts">ThreeDSAuthentication</a></code>
+
 ## Authentication
 
 Types:
 
-- <code><a href="./src/resources/three-ds/authentication.ts">AuthenticationRetrieveResponse</a></code>
 - <code><a href="./src/resources/three-ds/authentication.ts">AuthenticationSimulateResponse</a></code>
 
 Methods:
 
-- <code title="get /v1/three_ds_authentication/{three_ds_authentication_token}">client.threeDS.authentication.<a href="./src/resources/three-ds/authentication.ts">retrieve</a>(threeDSAuthenticationToken) -> AuthenticationRetrieveResponse</code>
+- <code title="get /v1/three_ds_authentication/{three_ds_authentication_token}">client.threeDS.authentication.<a href="./src/resources/three-ds/authentication.ts">retrieve</a>(threeDSAuthenticationToken) -> ThreeDSAuthentication</code>
 - <code title="post /v1/three_ds_authentication/simulate">client.threeDS.authentication.<a href="./src/resources/three-ds/authentication.ts">simulate</a>({ ...params }) -> AuthenticationSimulateResponse</code>
 - <code title="post /v1/three_ds_decisioning/simulate/enter_otp">client.threeDS.authentication.<a href="./src/resources/three-ds/authentication.ts">simulateOtpEntry</a>({ ...params }) -> void</code>
 
@@ -553,6 +569,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/reports/reports.ts">NetworkTotal</a></code>
 - <code><a href="./src/resources/reports/reports.ts">SettlementDetail</a></code>
 - <code><a href="./src/resources/reports/reports.ts">SettlementReport</a></code>
 - <code><a href="./src/resources/reports/reports.ts">SettlementSummaryDetails</a></code>
@@ -566,15 +583,10 @@ Methods:
 
 ### NetworkTotals
 
-Types:
-
-- <code><a href="./src/resources/reports/settlement/network-totals.ts">NetworkTotalRetrieveResponse</a></code>
-- <code><a href="./src/resources/reports/settlement/network-totals.ts">NetworkTotalListResponse</a></code>
-
 Methods:
 
-- <code title="get /v1/reports/settlement/network_totals/{token}">client.reports.settlement.networkTotals.<a href="./src/resources/reports/settlement/network-totals.ts">retrieve</a>(token) -> NetworkTotalRetrieveResponse</code>
-- <code title="get /v1/reports/settlement/network_totals">client.reports.settlement.networkTotals.<a href="./src/resources/reports/settlement/network-totals.ts">list</a>({ ...params }) -> NetworkTotalListResponsesCursorPage</code>
+- <code title="get /v1/reports/settlement/network_totals/{token}">client.reports.settlement.networkTotals.<a href="./src/resources/reports/settlement/network-totals.ts">retrieve</a>(token) -> NetworkTotal</code>
+- <code title="get /v1/reports/settlement/network_totals">client.reports.settlement.networkTotals.<a href="./src/resources/reports/settlement/network-totals.ts">list</a>({ ...params }) -> NetworkTotalsCursorPage</code>
 
 # CardPrograms
 
@@ -665,18 +677,23 @@ Methods:
 - <code title="get /v1/management_operations">client.managementOperations.<a href="./src/resources/management-operations.ts">list</a>({ ...params }) -> ManagementOperationTransactionsCursorPage</code>
 - <code title="post /v1/management_operations/{management_operation_token}/reverse">client.managementOperations.<a href="./src/resources/management-operations.ts">reverse</a>(managementOperationToken, { ...params }) -> ManagementOperationTransaction</code>
 
+# InternalTransaction
+
+Types:
+
+- <code><a href="./src/resources/internal-transaction.ts">InternalTransaction</a></code>
+
 # FundingEvents
 
 Types:
 
-- <code><a href="./src/resources/funding-events.ts">FundingEventRetrieveResponse</a></code>
-- <code><a href="./src/resources/funding-events.ts">FundingEventListResponse</a></code>
+- <code><a href="./src/resources/funding-events.ts">FundingEvent</a></code>
 - <code><a href="./src/resources/funding-events.ts">FundingEventRetrieveDetailsResponse</a></code>
 
 Methods:
 
-- <code title="get /v1/funding_events/{funding_event_token}">client.fundingEvents.<a href="./src/resources/funding-events.ts">retrieve</a>(fundingEventToken) -> FundingEventRetrieveResponse</code>
-- <code title="get /v1/funding_events">client.fundingEvents.<a href="./src/resources/funding-events.ts">list</a>({ ...params }) -> FundingEventListResponsesCursorPage</code>
+- <code title="get /v1/funding_events/{funding_event_token}">client.fundingEvents.<a href="./src/resources/funding-events.ts">retrieve</a>(fundingEventToken) -> FundingEvent</code>
+- <code title="get /v1/funding_events">client.fundingEvents.<a href="./src/resources/funding-events.ts">list</a>({ ...params }) -> FundingEventsCursorPage</code>
 - <code title="get /v1/funding_events/{funding_event_token}/details">client.fundingEvents.<a href="./src/resources/funding-events.ts">retrieveDetails</a>(fundingEventToken) -> FundingEventRetrieveDetailsResponse</code>
 
 # Fraud

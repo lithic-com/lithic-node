@@ -81,6 +81,14 @@ import {
   BookTransfers,
 } from './resources/book-transfers';
 import {
+  CardBulkOrder,
+  CardBulkOrderCreateParams,
+  CardBulkOrderListParams,
+  CardBulkOrderUpdateParams,
+  CardBulkOrders,
+  CardBulkOrdersCursorPage,
+} from './resources/card-bulk-orders';
+import {
   CardProgram,
   CardProgramListParams,
   CardPrograms,
@@ -119,13 +127,13 @@ import {
   ExternalPaymentsCursorPage,
 } from './resources/external-payments';
 import {
+  FundingEvent,
   FundingEventListParams,
-  FundingEventListResponse,
-  FundingEventListResponsesCursorPage,
   FundingEventRetrieveDetailsResponse,
-  FundingEventRetrieveResponse,
   FundingEvents,
+  FundingEventsCursorPage,
 } from './resources/funding-events';
+import { InternalTransaction, InternalTransactionResource } from './resources/internal-transaction';
 import {
   ExternalResource,
   ExternalResourceType,
@@ -174,13 +182,19 @@ import {
   TokenizationSecret,
 } from './resources/tokenization-decisioning';
 import {
+  Device,
+  DigitalWalletTokenMetadata,
   Tokenization,
+  TokenizationDeclineReason,
   TokenizationListParams,
   TokenizationResendActivationCodeParams,
+  TokenizationRuleResult,
   TokenizationSimulateParams,
+  TokenizationTfaReason,
   TokenizationUpdateDigitalCardArtParams,
   Tokenizations,
   TokenizationsCursorPage,
+  WalletDecisioningInfo,
 } from './resources/tokenizations';
 import { Transfer, TransferCreateParams, Transfers } from './resources/transfers';
 import { AuthRules } from './resources/auth-rules/auth-rules';
@@ -218,6 +232,7 @@ import {
   MessageAttemptsCursorPage,
 } from './resources/events/events';
 import {
+  ExternalBankAccount,
   ExternalBankAccountAddress,
   ExternalBankAccountCreateParams,
   ExternalBankAccountCreateResponse,
@@ -228,8 +243,6 @@ import {
   ExternalBankAccountRetryMicroDepositsParams,
   ExternalBankAccountRetryMicroDepositsResponse,
   ExternalBankAccountRetryPrenoteParams,
-  ExternalBankAccountRetryPrenoteResponse,
-  ExternalBankAccountUnpauseResponse,
   ExternalBankAccountUpdateParams,
   ExternalBankAccountUpdateResponse,
   ExternalBankAccounts,
@@ -239,6 +252,7 @@ import {
 import {
   CategoryDetails,
   FinancialAccount,
+  FinancialAccountBalance,
   FinancialAccountCreateParams,
   FinancialAccountListParams,
   FinancialAccountRegisterAccountNumberParams,
@@ -251,13 +265,16 @@ import {
 } from './resources/financial-accounts/financial-accounts';
 import { Fraud } from './resources/fraud/fraud';
 import {
+  NetworkTotal,
   Reports,
   SettlementDetail,
   SettlementReport,
   SettlementSummaryDetails,
 } from './resources/reports/reports';
-import { ThreeDS } from './resources/three-ds/three-ds';
+import { ThreeDS, ThreeDSAuthentication } from './resources/three-ds/three-ds';
 import {
+  CardholderAuthentication,
+  TokenInfo,
   Transaction,
   TransactionListParams,
   TransactionSimulateAuthorizationAdviceParams,
@@ -1031,6 +1048,7 @@ export class Lithic {
   tokenizationDecisioning: API.TokenizationDecisioning = new API.TokenizationDecisioning(this);
   tokenizations: API.Tokenizations = new API.Tokenizations(this);
   cards: API.Cards = new API.Cards(this);
+  cardBulkOrders: API.CardBulkOrders = new API.CardBulkOrders(this);
   balances: API.Balances = new API.Balances(this);
   aggregateBalances: API.AggregateBalances = new API.AggregateBalances(this);
   disputes: API.Disputes = new API.Disputes(this);
@@ -1050,6 +1068,7 @@ export class Lithic {
   creditProducts: API.CreditProducts = new API.CreditProducts(this);
   externalPayments: API.ExternalPayments = new API.ExternalPayments(this);
   managementOperations: API.ManagementOperations = new API.ManagementOperations(this);
+  internalTransaction: API.InternalTransactionResource = new API.InternalTransactionResource(this);
   fundingEvents: API.FundingEvents = new API.FundingEvents(this);
   fraud: API.Fraud = new API.Fraud(this);
   networkPrograms: API.NetworkPrograms = new API.NetworkPrograms(this);
@@ -1063,6 +1082,7 @@ Lithic.AuthStreamEnrollment = AuthStreamEnrollment;
 Lithic.TokenizationDecisioning = TokenizationDecisioning;
 Lithic.Tokenizations = Tokenizations;
 Lithic.Cards = Cards;
+Lithic.CardBulkOrders = CardBulkOrders;
 Lithic.Balances = Balances;
 Lithic.AggregateBalances = AggregateBalances;
 Lithic.Disputes = Disputes;
@@ -1082,6 +1102,7 @@ Lithic.BookTransfers = BookTransfers;
 Lithic.CreditProducts = CreditProducts;
 Lithic.ExternalPayments = ExternalPayments;
 Lithic.ManagementOperations = ManagementOperations;
+Lithic.InternalTransactionResource = InternalTransactionResource;
 Lithic.FundingEvents = FundingEvents;
 Lithic.Fraud = Fraud;
 Lithic.NetworkPrograms = NetworkPrograms;
@@ -1142,7 +1163,13 @@ export declare namespace Lithic {
 
   export {
     Tokenizations as Tokenizations,
+    type Device as Device,
+    type DigitalWalletTokenMetadata as DigitalWalletTokenMetadata,
     type Tokenization as Tokenization,
+    type TokenizationDeclineReason as TokenizationDeclineReason,
+    type TokenizationRuleResult as TokenizationRuleResult,
+    type TokenizationTfaReason as TokenizationTfaReason,
+    type WalletDecisioningInfo as WalletDecisioningInfo,
     type TokenizationsCursorPage as TokenizationsCursorPage,
     type TokenizationListParams as TokenizationListParams,
     type TokenizationResendActivationCodeParams as TokenizationResendActivationCodeParams,
@@ -1171,6 +1198,15 @@ export declare namespace Lithic {
     type CardRenewParams as CardRenewParams,
     type CardSearchByPanParams as CardSearchByPanParams,
     type CardWebProvisionParams as CardWebProvisionParams,
+  };
+
+  export {
+    CardBulkOrders as CardBulkOrders,
+    type CardBulkOrder as CardBulkOrder,
+    type CardBulkOrdersCursorPage as CardBulkOrdersCursorPage,
+    type CardBulkOrderCreateParams as CardBulkOrderCreateParams,
+    type CardBulkOrderUpdateParams as CardBulkOrderUpdateParams,
+    type CardBulkOrderListParams as CardBulkOrderListParams,
   };
 
   export {
@@ -1230,6 +1266,7 @@ export declare namespace Lithic {
     FinancialAccounts as FinancialAccounts,
     type CategoryDetails as CategoryDetails,
     type FinancialAccount as FinancialAccount,
+    type FinancialAccountBalance as FinancialAccountBalance,
     type FinancialTransaction as FinancialTransaction,
     type StatementTotals as StatementTotals,
     type FinancialAccountsSinglePage as FinancialAccountsSinglePage,
@@ -1242,6 +1279,8 @@ export declare namespace Lithic {
 
   export {
     Transactions as Transactions,
+    type CardholderAuthentication as CardholderAuthentication,
+    type TokenInfo as TokenInfo,
     type Transaction as Transaction,
     type TransactionSimulateAuthorizationResponse as TransactionSimulateAuthorizationResponse,
     type TransactionSimulateAuthorizationAdviceResponse as TransactionSimulateAuthorizationAdviceResponse,
@@ -1274,6 +1313,7 @@ export declare namespace Lithic {
 
   export {
     ExternalBankAccounts as ExternalBankAccounts,
+    type ExternalBankAccount as ExternalBankAccount,
     type ExternalBankAccountAddress as ExternalBankAccountAddress,
     type OwnerType as OwnerType,
     type VerificationMethod as VerificationMethod,
@@ -1282,8 +1322,6 @@ export declare namespace Lithic {
     type ExternalBankAccountUpdateResponse as ExternalBankAccountUpdateResponse,
     type ExternalBankAccountListResponse as ExternalBankAccountListResponse,
     type ExternalBankAccountRetryMicroDepositsResponse as ExternalBankAccountRetryMicroDepositsResponse,
-    type ExternalBankAccountRetryPrenoteResponse as ExternalBankAccountRetryPrenoteResponse,
-    type ExternalBankAccountUnpauseResponse as ExternalBankAccountUnpauseResponse,
     type ExternalBankAccountListResponsesCursorPage as ExternalBankAccountListResponsesCursorPage,
     type ExternalBankAccountCreateParams as ExternalBankAccountCreateParams,
     type ExternalBankAccountUpdateParams as ExternalBankAccountUpdateParams,
@@ -1311,10 +1349,11 @@ export declare namespace Lithic {
     type PaymentSimulateReturnParams as PaymentSimulateReturnParams,
   };
 
-  export { ThreeDS as ThreeDS };
+  export { ThreeDS as ThreeDS, type ThreeDSAuthentication as ThreeDSAuthentication };
 
   export {
     Reports as Reports,
+    type NetworkTotal as NetworkTotal,
     type SettlementDetail as SettlementDetail,
     type SettlementReport as SettlementReport,
     type SettlementSummaryDetails as SettlementSummaryDetails,
@@ -1369,11 +1408,15 @@ export declare namespace Lithic {
   };
 
   export {
+    InternalTransactionResource as InternalTransactionResource,
+    type InternalTransaction as InternalTransaction,
+  };
+
+  export {
     FundingEvents as FundingEvents,
-    type FundingEventRetrieveResponse as FundingEventRetrieveResponse,
-    type FundingEventListResponse as FundingEventListResponse,
+    type FundingEvent as FundingEvent,
     type FundingEventRetrieveDetailsResponse as FundingEventRetrieveDetailsResponse,
-    type FundingEventListResponsesCursorPage as FundingEventListResponsesCursorPage,
+    type FundingEventsCursorPage as FundingEventsCursorPage,
     type FundingEventListParams as FundingEventListParams,
   };
 
