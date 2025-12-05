@@ -23,6 +23,7 @@ describe('resource cards', () => {
     const response = await client.cards.create({
       type: 'VIRTUAL',
       account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      bulk_order_token: '5e9483eb-8103-4e16-9794-2106111b2eca',
       card_program_token: '5e9483eb-8103-4e16-9794-2106111b2eca',
       carrier: { qr_code_url: 'qr_code_url' },
       digital_card_art_token: '5e9483eb-8103-4e16-9794-2106111b2eca',

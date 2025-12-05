@@ -7,6 +7,8 @@ export {
 export { Events } from './events/index';
 export {
   Transactions,
+  type CardholderAuthentication,
+  type TokenInfo,
   type Transaction,
   type TransactionSimulateAuthorizationResponse,
   type TransactionSimulateAuthorizationAdviceResponse,

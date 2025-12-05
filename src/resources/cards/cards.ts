@@ -10,7 +10,7 @@ import {
   AggregateBalances,
 } from './aggregate-balances';
 import * as BalancesAPI from './balances';
-import { BalanceListParams, BalanceListResponse, BalanceListResponsesSinglePage, Balances } from './balances';
+import { BalanceListParams, Balances } from './balances';
 import * as FinancialTransactionsAPI from './financial-transactions';
 import {
   FinancialTransactionListParams,
@@ -594,6 +594,12 @@ export interface NonPCICard {
   auth_rule_tokens?: Array<string>;
 
   /**
+   * Globally unique identifier for the bulk order associated with this card. Only
+   * applicable to physical cards that are part of a bulk shipment
+   */
+  bulk_order_token?: string | null;
+
+  /**
    * 3-character alphabetic ISO 4217 code for the currency of the cardholder.
    */
   cardholder_currency?: string;
@@ -863,6 +869,13 @@ export interface CardCreateParams {
   account_token?: string;
 
   /**
+   * Globally unique identifier for an existing bulk order to associate this card
+   * with. When specified, the card will be added to the bulk order for batch
+   * shipment. Only applicable to cards of type PHYSICAL
+   */
+  bulk_order_token?: string;
+
+  /**
    * For card programs with more than one BIN range. This must be configured with
    * Lithic before use. Identifies the card program/BIN range under which to create
    * the card. If omitted, will utilize the program's default `card_program_token`.
@@ -994,8 +1007,16 @@ export interface CardCreateParams {
    *   tracking
    * - `EXPEDITED` - FedEx or UPS depending on card manufacturer, Standard Overnight
    *   or similar international option, with tracking
+   * - `BULK_EXPEDITED` - Bulk shipment with Expedited shipping
    */
-  shipping_method?: '2_DAY' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING';
+  shipping_method?:
+    | '2_DAY'
+    | 'BULK_EXPEDITED'
+    | 'EXPEDITED'
+    | 'EXPRESS'
+    | 'PRIORITY'
+    | 'STANDARD'
+    | 'STANDARD_WITH_TRACKING';
 
   /**
    * Amount (in cents) to limit approved authorizations (e.g. 100000 would be a
@@ -1213,8 +1234,16 @@ export interface CardConvertPhysicalParams {
    *   tracking
    * - `EXPEDITED` - FedEx or UPS depending on card manufacturer, Standard Overnight
    *   or similar international option, with tracking
+   * - `BULK_EXPEDITED` - Bulk shipment with Expedited shipping
    */
-  shipping_method?: '2_DAY' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING';
+  shipping_method?:
+    | '2_DAY'
+    | 'BULK_EXPEDITED'
+    | 'EXPEDITED'
+    | 'EXPRESS'
+    | 'PRIORITY'
+    | 'STANDARD'
+    | 'STANDARD_WITH_TRACKING';
 }
 
 export interface CardEmbedParams {
@@ -1373,8 +1402,16 @@ export interface CardReissueParams {
    *   tracking
    * - `EXPEDITED` - FedEx or UPS depending on card manufacturer, Standard Overnight
    *   or similar international option, with tracking
+   * - `BULK_EXPEDITED` - Bulk shipment with Expedited shipping
    */
-  shipping_method?: '2_DAY' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING';
+  shipping_method?:
+    | '2_DAY'
+    | 'BULK_EXPEDITED'
+    | 'EXPEDITED'
+    | 'EXPRESS'
+    | 'PRIORITY'
+    | 'STANDARD'
+    | 'STANDARD_WITH_TRACKING';
 }
 
 export interface CardRenewParams {
@@ -1422,8 +1459,16 @@ export interface CardRenewParams {
    *   tracking
    * - `EXPEDITED` - FedEx or UPS depending on card manufacturer, Standard Overnight
    *   or similar international option, with tracking
+   * - `BULK_EXPEDITED` - Bulk shipment with Expedited shipping
    */
-  shipping_method?: '2_DAY' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING';
+  shipping_method?:
+    | '2_DAY'
+    | 'BULK_EXPEDITED'
+    | 'EXPEDITED'
+    | 'EXPRESS'
+    | 'PRIORITY'
+    | 'STANDARD'
+    | 'STANDARD_WITH_TRACKING';
 }
 
 export interface CardSearchByPanParams {
@@ -1476,12 +1521,7 @@ export declare namespace Cards {
     type AggregateBalanceListParams as AggregateBalanceListParams,
   };
 
-  export {
-    Balances as Balances,
-    type BalanceListResponse as BalanceListResponse,
-    type BalanceListResponsesSinglePage as BalanceListResponsesSinglePage,
-    type BalanceListParams as BalanceListParams,
-  };
+  export { Balances as Balances, type BalanceListParams as BalanceListParams };
 
   export {
     FinancialTransactions as FinancialTransactions,

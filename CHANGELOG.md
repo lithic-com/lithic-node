@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.125.0 (2025-12-05)
+
+Full Changelog: [v0.124.0...v0.125.0](https://github.com/lithic-com/lithic-node/compare/v0.124.0...v0.125.0)
+
+### Features
+
+* **api:** add bulk card creation APIs ([cbe8285](https://github.com/lithic-com/lithic-node/commit/cbe82854fa79d7b47a32b94fd75c37e51b347d40))
+
+
+### Bug Fixes
+
+* **api:** extract several common types to reduce duplication ([cbe8285](https://github.com/lithic-com/lithic-node/commit/cbe82854fa79d7b47a32b94fd75c37e51b347d40))
+* **mcp:** correct code tool API endpoint ([01caa79](https://github.com/lithic-com/lithic-node/commit/01caa79422659c90e274b449ee882fdd7c04cef2))
+* **mcp:** return correct lines on typescript errors ([ee744e3](https://github.com/lithic-com/lithic-node/commit/ee744e3c2f84fc53b220a483334f7e4c7914f286))
+
+
+### Chores
+
+* **client:** fix logger property type ([fdcf76c](https://github.com/lithic-com/lithic-node/commit/fdcf76c889a05ef505a61380814da7ec7b18080b))
+* **internal:** codegen related update ([c904aa8](https://github.com/lithic-com/lithic-node/commit/c904aa8b4ad89daf3435b02b52c1e10f56d534fa))
+* **internal:** codegen related update ([29cac70](https://github.com/lithic-com/lithic-node/commit/29cac7024024a9761e9b16d73a6d758184b2d8d1))
+* **internal:** upgrade eslint ([4350d98](https://github.com/lithic-com/lithic-node/commit/4350d987faf057810107110ce2fb4d8dfaa7e59a))
+
 ## 0.124.0 (2025-11-24)
 
 Full Changelog: [v0.112.1...v0.124.0](https://github.com/lithic-com/lithic-node/compare/v0.112.1...v0.124.0)

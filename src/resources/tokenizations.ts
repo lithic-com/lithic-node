@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as TokenizationsAPI from './tokenizations';
 import { APIPromise } from '../core/api-promise';
 import { CursorPage, type CursorPageParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
@@ -207,6 +208,110 @@ export class Tokenizations extends APIResource {
 
 export type TokenizationsCursorPage = CursorPage<Tokenization>;
 
+export interface Device {
+  /**
+   * The IMEI number of the device being provisioned. For Amex, this field contains
+   * device ID instead as IMEI is not provided
+   */
+  imei: string | null;
+
+  /**
+   * The IP address of the device initiating the request
+   */
+  ip_address: string | null;
+
+  /**
+   * Latitude and longitude where the device is located during the authorization
+   * attempt
+   */
+  location: string | null;
+}
+
+/**
+ * Contains the metadata for the digital wallet being tokenized.
+ */
+export interface DigitalWalletTokenMetadata {
+  /**
+   * Contains the information of the account responsible for the payment.
+   */
+  payment_account_info: DigitalWalletTokenMetadata.PaymentAccountInfo;
+
+  /**
+   * The current status of the digital wallet token. Pending or declined.
+   */
+  status: string;
+
+  /**
+   * The identifier of the Payment App instance within a device that will be
+   * provisioned with a token
+   */
+  payment_app_instance_id?: string | null;
+
+  /**
+   * The party that requested the digitization
+   */
+  token_requestor_id?: string;
+
+  /**
+   * Human-readable name of the wallet that the token_requestor_id maps to.
+   */
+  token_requestor_name?:
+    | 'AMAZON_ONE'
+    | 'ANDROID_PAY'
+    | 'APPLE_PAY'
+    | 'FACEBOOK'
+    | 'FITBIT_PAY'
+    | 'GARMIN_PAY'
+    | 'MICROSOFT_PAY'
+    | 'NETFLIX'
+    | 'SAMSUNG_PAY'
+    | 'UNKNOWN'
+    | 'VISA_CHECKOUT';
+}
+
+export namespace DigitalWalletTokenMetadata {
+  /**
+   * Contains the information of the account responsible for the payment.
+   */
+  export interface PaymentAccountInfo {
+    /**
+     * Additional information that can be used to identify the account holder, such as
+     * name, address, etc
+     */
+    account_holder_data: PaymentAccountInfo.AccountHolderData;
+
+    /**
+     * Reference to the PAN that is unique per Wallet Provider
+     */
+    pan_unique_reference?: string | null;
+
+    /**
+     * The unique account reference assigned to the PAN
+     */
+    payment_account_reference?: string | null;
+
+    /**
+     * A unique reference assigned following the allocation of a token used to identify
+     * the token for the duration of its lifetime.
+     */
+    token_unique_reference?: string | null;
+  }
+
+  export namespace PaymentAccountInfo {
+    /**
+     * Additional information that can be used to identify the account holder, such as
+     * name, address, etc
+     */
+    export interface AccountHolderData {
+      /**
+       * The phone number, may contain country code along with phone number when
+       * countryDialInCode is not present
+       */
+      phone_number?: string | null;
+    }
+  }
+}
+
 export interface Tokenization {
   /**
    * Globally unique identifier for a Tokenization
@@ -329,47 +434,17 @@ export namespace Tokenization {
     /**
      * Results from rules that were evaluated for this tokenization
      */
-    rule_results?: Array<Event.RuleResult>;
+    rule_results?: Array<TokenizationsAPI.TokenizationRuleResult>;
 
     /**
      * List of reasons why the tokenization was declined
      */
-    tokenization_decline_reasons?: Array<
-      | 'ACCOUNT_SCORE_1'
-      | 'DEVICE_SCORE_1'
-      | 'ALL_WALLET_DECLINE_REASONS_PRESENT'
-      | 'WALLET_RECOMMENDED_DECISION_RED'
-      | 'CVC_MISMATCH'
-      | 'CARD_EXPIRY_MONTH_MISMATCH'
-      | 'CARD_EXPIRY_YEAR_MISMATCH'
-      | 'CARD_INVALID_STATE'
-      | 'CUSTOMER_RED_PATH'
-      | 'INVALID_CUSTOMER_RESPONSE'
-      | 'NETWORK_FAILURE'
-      | 'GENERIC_DECLINE'
-      | 'DIGITAL_CARD_ART_REQUIRED'
-    >;
+    tokenization_decline_reasons?: Array<TokenizationsAPI.TokenizationDeclineReason>;
 
     /**
      * List of reasons why two-factor authentication was required
      */
-    tokenization_tfa_reasons?: Array<
-      | 'WALLET_RECOMMENDED_TFA'
-      | 'SUSPICIOUS_ACTIVITY'
-      | 'DEVICE_RECENTLY_LOST'
-      | 'TOO_MANY_RECENT_ATTEMPTS'
-      | 'TOO_MANY_RECENT_TOKENS'
-      | 'TOO_MANY_DIFFERENT_CARDHOLDERS'
-      | 'OUTSIDE_HOME_TERRITORY'
-      | 'HAS_SUSPENDED_TOKENS'
-      | 'HIGH_RISK'
-      | 'ACCOUNT_SCORE_LOW'
-      | 'DEVICE_SCORE_LOW'
-      | 'CARD_STATE_TFA'
-      | 'HARDCODED_TFA'
-      | 'CUSTOMER_RULE_TFA'
-      | 'DEVICE_HOST_CARD_EMULATION'
-    >;
+    tokenization_tfa_reasons?: Array<TokenizationsAPI.TokenizationTfaReason>;
 
     /**
      * Enum representing the type of tokenization event that occurred
@@ -381,33 +456,92 @@ export namespace Tokenization {
       | 'TOKENIZATION_ELIGIBILITY_CHECK'
       | 'TOKENIZATION_UPDATED';
   }
+}
 
-  export namespace Event {
-    export interface RuleResult {
-      /**
-       * The Auth Rule Token associated with the rule. If this is set to null, then the
-       * result was not associated with a customer-configured rule. This may happen in
-       * cases where a tokenization is declined or requires TFA due to a
-       * Lithic-configured security or compliance rule, for example.
-       */
-      auth_rule_token: string | null;
+/**
+ * Reason code for why a tokenization was declined
+ */
+export type TokenizationDeclineReason =
+  | 'ACCOUNT_SCORE_1'
+  | 'DEVICE_SCORE_1'
+  | 'ALL_WALLET_DECLINE_REASONS_PRESENT'
+  | 'WALLET_RECOMMENDED_DECISION_RED'
+  | 'CVC_MISMATCH'
+  | 'CARD_EXPIRY_MONTH_MISMATCH'
+  | 'CARD_EXPIRY_YEAR_MISMATCH'
+  | 'CARD_INVALID_STATE'
+  | 'CUSTOMER_RED_PATH'
+  | 'INVALID_CUSTOMER_RESPONSE'
+  | 'NETWORK_FAILURE'
+  | 'GENERIC_DECLINE'
+  | 'DIGITAL_CARD_ART_REQUIRED';
 
-      /**
-       * A human-readable explanation outlining the motivation for the rule's result
-       */
-      explanation: string | null;
+export interface TokenizationRuleResult {
+  /**
+   * The Auth Rule Token associated with the rule. If this is set to null, then the
+   * result was not associated with a customer-configured rule. This may happen in
+   * cases where a tokenization is declined or requires TFA due to a
+   * Lithic-configured security or compliance rule, for example.
+   */
+  auth_rule_token: string | null;
 
-      /**
-       * The name for the rule, if any was configured
-       */
-      name: string | null;
+  /**
+   * A human-readable explanation outlining the motivation for the rule's result
+   */
+  explanation: string | null;
 
-      /**
-       * The result associated with this rule
-       */
-      result: 'APPROVED' | 'DECLINED' | 'REQUIRE_TFA' | 'ERROR';
-    }
-  }
+  /**
+   * The name for the rule, if any was configured
+   */
+  name: string | null;
+
+  /**
+   * The result associated with this rule
+   */
+  result: 'APPROVED' | 'DECLINED' | 'REQUIRE_TFA' | 'ERROR';
+}
+
+/**
+ * Reason code for why a tokenization required two-factor authentication
+ */
+export type TokenizationTfaReason =
+  | 'WALLET_RECOMMENDED_TFA'
+  | 'SUSPICIOUS_ACTIVITY'
+  | 'DEVICE_RECENTLY_LOST'
+  | 'TOO_MANY_RECENT_ATTEMPTS'
+  | 'TOO_MANY_RECENT_TOKENS'
+  | 'TOO_MANY_DIFFERENT_CARDHOLDERS'
+  | 'OUTSIDE_HOME_TERRITORY'
+  | 'HAS_SUSPENDED_TOKENS'
+  | 'HIGH_RISK'
+  | 'ACCOUNT_SCORE_LOW'
+  | 'DEVICE_SCORE_LOW'
+  | 'CARD_STATE_TFA'
+  | 'HARDCODED_TFA'
+  | 'CUSTOMER_RULE_TFA'
+  | 'DEVICE_HOST_CARD_EMULATION';
+
+export interface WalletDecisioningInfo {
+  /**
+   * Score given to the account by the Wallet Provider
+   */
+  account_score: string | null;
+
+  /**
+   * Score given to the device by the Wallet Provider
+   */
+  device_score: string | null;
+
+  /**
+   * The decision recommended by the Wallet Provider
+   */
+  recommended_decision: string | null;
+
+  /**
+   * Reasons provided to the Wallet Provider on how the recommended decision was
+   * reached
+   */
+  recommendation_reasons?: Array<string> | null;
 }
 
 export interface TokenizationListParams extends CursorPageParams {
@@ -504,7 +638,13 @@ export interface TokenizationUpdateDigitalCardArtParams {
 
 export declare namespace Tokenizations {
   export {
+    type Device as Device,
+    type DigitalWalletTokenMetadata as DigitalWalletTokenMetadata,
     type Tokenization as Tokenization,
+    type TokenizationDeclineReason as TokenizationDeclineReason,
+    type TokenizationRuleResult as TokenizationRuleResult,
+    type TokenizationTfaReason as TokenizationTfaReason,
+    type WalletDecisioningInfo as WalletDecisioningInfo,
     type TokenizationsCursorPage as TokenizationsCursorPage,
     type TokenizationListParams as TokenizationListParams,
     type TokenizationResendActivationCodeParams as TokenizationResendActivationCodeParams,

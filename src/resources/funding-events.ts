@@ -10,7 +10,7 @@ export class FundingEvents extends APIResource {
   /**
    * Get funding event for program by id
    */
-  retrieve(fundingEventToken: string, options?: RequestOptions): APIPromise<FundingEventRetrieveResponse> {
+  retrieve(fundingEventToken: string, options?: RequestOptions): APIPromise<FundingEvent> {
     return this._client.get(path`/v1/funding_events/${fundingEventToken}`, options);
   }
 
@@ -20,11 +20,8 @@ export class FundingEvents extends APIResource {
   list(
     query: FundingEventListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<FundingEventListResponsesCursorPage, FundingEventListResponse> {
-    return this._client.getAPIList('/v1/funding_events', CursorPage<FundingEventListResponse>, {
-      query,
-      ...options,
-    });
+  ): PagePromise<FundingEventsCursorPage, FundingEvent> {
+    return this._client.getAPIList('/v1/funding_events', CursorPage<FundingEvent>, { query, ...options });
   }
 
   /**
@@ -38,9 +35,9 @@ export class FundingEvents extends APIResource {
   }
 }
 
-export type FundingEventListResponsesCursorPage = CursorPage<FundingEventListResponse>;
+export type FundingEventsCursorPage = CursorPage<FundingEvent>;
 
-export interface FundingEventRetrieveResponse {
+export interface FundingEvent {
   /**
    * Unique token ID
    */
@@ -70,7 +67,7 @@ export interface FundingEventRetrieveResponse {
   /**
    * Network settlement summary breakdown by network settlement date
    */
-  network_settlement_summary: Array<FundingEventRetrieveResponse.NetworkSettlementSummary>;
+  network_settlement_summary: Array<FundingEvent.NetworkSettlementSummary>;
 
   /**
    * Time of the previous high watermark
@@ -83,58 +80,7 @@ export interface FundingEventRetrieveResponse {
   updated: string;
 }
 
-export namespace FundingEventRetrieveResponse {
-  export interface NetworkSettlementSummary {
-    network_settlement_date: string;
-
-    settled_gross_amount: number;
-  }
-}
-
-export interface FundingEventListResponse {
-  /**
-   * Unique token ID
-   */
-  token: string;
-
-  /**
-   * Collection resource type
-   */
-  collection_resource_type: 'BOOK_TRANSFER' | 'PAYMENT';
-
-  /**
-   * IDs of collections, further information can be gathered from the appropriate
-   * collection API based on collection_resource_type
-   */
-  collection_tokens: Array<string>;
-
-  /**
-   * Time of the creation
-   */
-  created: string;
-
-  /**
-   * Time of the high watermark
-   */
-  high_watermark: string;
-
-  /**
-   * Network settlement summary breakdown by network settlement date
-   */
-  network_settlement_summary: Array<FundingEventListResponse.NetworkSettlementSummary>;
-
-  /**
-   * Time of the previous high watermark
-   */
-  previous_high_watermark: string;
-
-  /**
-   * Time of the update
-   */
-  updated: string;
-}
-
-export namespace FundingEventListResponse {
+export namespace FundingEvent {
   export interface NetworkSettlementSummary {
     network_settlement_date: string;
 
@@ -163,10 +109,9 @@ export interface FundingEventListParams extends CursorPageParams {}
 
 export declare namespace FundingEvents {
   export {
-    type FundingEventRetrieveResponse as FundingEventRetrieveResponse,
-    type FundingEventListResponse as FundingEventListResponse,
+    type FundingEvent as FundingEvent,
     type FundingEventRetrieveDetailsResponse as FundingEventRetrieveDetailsResponse,
-    type FundingEventListResponsesCursorPage as FundingEventListResponsesCursorPage,
+    type FundingEventsCursorPage as FundingEventsCursorPage,
     type FundingEventListParams as FundingEventListParams,
   };
 }

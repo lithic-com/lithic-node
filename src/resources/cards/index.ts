@@ -6,12 +6,7 @@ export {
   type AggregateBalanceListParams,
   type AggregateBalanceListResponsesSinglePage,
 } from './aggregate-balances';
-export {
-  Balances,
-  type BalanceListResponse,
-  type BalanceListParams,
-  type BalanceListResponsesSinglePage,
-} from './balances';
+export { Balances, type BalanceListParams } from './balances';
 export {
   Cards,
   type Card,

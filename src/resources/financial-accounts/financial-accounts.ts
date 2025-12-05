@@ -3,7 +3,7 @@
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
 import * as BalancesAPI from './balances';
-import { BalanceListParams, BalanceListResponse, BalanceListResponsesSinglePage, Balances } from './balances';
+import { BalanceListParams, Balances } from './balances';
 import * as CreditConfigurationAPI from './credit-configuration';
 import {
   CreditConfiguration as CreditConfigurationAPICreditConfiguration,
@@ -176,6 +176,8 @@ export class FinancialAccounts extends APIResource {
 
 export type FinancialAccountsSinglePage = SinglePage<FinancialAccount>;
 
+export type FinancialAccountBalancesSinglePage = SinglePage<FinancialAccountBalance>;
+
 export type FinancialTransactionsSinglePage = SinglePage<FinancialTransaction>;
 
 export interface CategoryDetails {
@@ -267,6 +269,65 @@ export namespace FinancialAccount {
       auto_collection_enabled: boolean;
     }
   }
+}
+
+/**
+ * Balance of a Financial Account
+ */
+export interface FinancialAccountBalance {
+  /**
+   * Globally unique identifier for the financial account that holds this balance.
+   */
+  token: string;
+
+  /**
+   * Funds available for spend in the currency's smallest unit (e.g., cents for USD)
+   */
+  available_amount: number;
+
+  /**
+   * Date and time for when the balance was first created.
+   */
+  created: string;
+
+  /**
+   * 3-character alphabetic ISO 4217 code for the local currency of the balance.
+   */
+  currency: string;
+
+  /**
+   * Globally unique identifier for the last financial transaction event that
+   * impacted this balance.
+   */
+  last_transaction_event_token: string;
+
+  /**
+   * Globally unique identifier for the last financial transaction that impacted this
+   * balance.
+   */
+  last_transaction_token: string;
+
+  /**
+   * Funds not available for spend due to card authorizations or pending ACH release.
+   * Shown in the currency's smallest unit (e.g., cents for USD).
+   */
+  pending_amount: number;
+
+  /**
+   * The sum of available and pending balance in the currency's smallest unit (e.g.,
+   * cents for USD).
+   */
+  total_amount: number;
+
+  /**
+   * Type of financial account.
+   */
+  type: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY';
+
+  /**
+   * Date and time for when the balance was last updated.
+   */
+  updated: string;
 }
 
 export interface FinancialTransaction {
@@ -477,6 +538,7 @@ export declare namespace FinancialAccounts {
   export {
     type CategoryDetails as CategoryDetails,
     type FinancialAccount as FinancialAccount,
+    type FinancialAccountBalance as FinancialAccountBalance,
     type FinancialTransaction as FinancialTransaction,
     type StatementTotals as StatementTotals,
     type FinancialAccountsSinglePage as FinancialAccountsSinglePage,
@@ -487,12 +549,7 @@ export declare namespace FinancialAccounts {
     type FinancialAccountUpdateStatusParams as FinancialAccountUpdateStatusParams,
   };
 
-  export {
-    Balances as Balances,
-    type BalanceListResponse as BalanceListResponse,
-    type BalanceListResponsesSinglePage as BalanceListResponsesSinglePage,
-    type BalanceListParams as BalanceListParams,
-  };
+  export { Balances as Balances, type BalanceListParams as BalanceListParams };
 
   export {
     FinancialTransactions as FinancialTransactions,

@@ -1,6 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
+import * as ReportsAPI from '../reports';
+import { NetworkTotalsCursorPage } from '../reports';
 import { APIPromise } from '../../../core/api-promise';
 import { CursorPage, type CursorPageParams, PagePromise } from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
@@ -18,7 +20,7 @@ export class NetworkTotals extends APIResource {
    *   );
    * ```
    */
-  retrieve(token: string, options?: RequestOptions): APIPromise<NetworkTotalRetrieveResponse> {
+  retrieve(token: string, options?: RequestOptions): APIPromise<ReportsAPI.NetworkTotal> {
     return this._client.get(path`/v1/reports/settlement/network_totals/${token}`, options);
   }
 
@@ -28,7 +30,7 @@ export class NetworkTotals extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const networkTotalListResponse of client.reports.settlement.networkTotals.list()) {
+   * for await (const networkTotal of client.reports.settlement.networkTotals.list()) {
    *   // ...
    * }
    * ```
@@ -36,194 +38,12 @@ export class NetworkTotals extends APIResource {
   list(
     query: NetworkTotalListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<NetworkTotalListResponsesCursorPage, NetworkTotalListResponse> {
+  ): PagePromise<NetworkTotalsCursorPage, ReportsAPI.NetworkTotal> {
     return this._client.getAPIList(
       '/v1/reports/settlement/network_totals',
-      CursorPage<NetworkTotalListResponse>,
+      CursorPage<ReportsAPI.NetworkTotal>,
       { query, ...options },
     );
-  }
-}
-
-export type NetworkTotalListResponsesCursorPage = CursorPage<NetworkTotalListResponse>;
-
-export interface NetworkTotalRetrieveResponse {
-  /**
-   * Globally unique identifier.
-   */
-  token: string;
-
-  amounts: NetworkTotalRetrieveResponse.Amounts;
-
-  /**
-   * RFC 3339 timestamp for when the record was created. UTC time zone.
-   */
-  created: string;
-
-  /**
-   * 3-character alphabetic ISO 4217 code.
-   */
-  currency: string;
-
-  /**
-   * The institution that activity occurred on. For Mastercard: ICA (Interbank Card
-   * Association). For Maestro: institution ID. For Visa: lowest level SRE
-   * (Settlement Reporting Entity).
-   */
-  institution_id: string;
-
-  /**
-   * Indicates that all settlement records related to this Network Total are
-   * available in the details endpoint.
-   */
-  is_complete: boolean;
-
-  /**
-   * Card network where the transaction took place. AMEX, VISA, MASTERCARD, MAESTRO,
-   * or INTERLINK.
-   */
-  network: 'AMEX' | 'VISA' | 'MASTERCARD' | 'MAESTRO' | 'INTERLINK';
-
-  /**
-   * Date that the network total record applies to. YYYY-MM-DD format.
-   */
-  report_date: string;
-
-  /**
-   * The institution responsible for settlement. For Mastercard: same as
-   * `institution_id`. For Maestro: billing ICA. For Visa: Funds Transfer SRE
-   * (FTSRE).
-   */
-  settlement_institution_id: string;
-
-  /**
-   * Settlement service.
-   */
-  settlement_service: string;
-
-  /**
-   * RFC 3339 timestamp for when the record was last updated. UTC time zone.
-   */
-  updated: string;
-
-  /**
-   * The clearing cycle that the network total record applies to. Mastercard only.
-   */
-  cycle?: number;
-}
-
-export namespace NetworkTotalRetrieveResponse {
-  export interface Amounts {
-    /**
-     * Total settlement amount excluding interchange, in currency's smallest unit.
-     */
-    gross_settlement: number;
-
-    /**
-     * Interchange amount, in currency's smallest unit.
-     */
-    interchange_fees: number;
-
-    /**
-     * `gross_settlement` net of `interchange_fees` and `visa_charges` (if applicable),
-     * in currency's smallest unit.
-     */
-    net_settlement: number;
-
-    /**
-     * Charges specific to Visa/Interlink, in currency's smallest unit.
-     */
-    visa_charges?: number;
-  }
-}
-
-export interface NetworkTotalListResponse {
-  /**
-   * Globally unique identifier.
-   */
-  token: string;
-
-  amounts: NetworkTotalListResponse.Amounts;
-
-  /**
-   * RFC 3339 timestamp for when the record was created. UTC time zone.
-   */
-  created: string;
-
-  /**
-   * 3-character alphabetic ISO 4217 code.
-   */
-  currency: string;
-
-  /**
-   * The institution that activity occurred on. For Mastercard: ICA (Interbank Card
-   * Association). For Maestro: institution ID. For Visa: lowest level SRE
-   * (Settlement Reporting Entity).
-   */
-  institution_id: string;
-
-  /**
-   * Indicates that all settlement records related to this Network Total are
-   * available in the details endpoint.
-   */
-  is_complete: boolean;
-
-  /**
-   * Card network where the transaction took place. AMEX, VISA, MASTERCARD, MAESTRO,
-   * or INTERLINK.
-   */
-  network: 'AMEX' | 'VISA' | 'MASTERCARD' | 'MAESTRO' | 'INTERLINK';
-
-  /**
-   * Date that the network total record applies to. YYYY-MM-DD format.
-   */
-  report_date: string;
-
-  /**
-   * The institution responsible for settlement. For Mastercard: same as
-   * `institution_id`. For Maestro: billing ICA. For Visa: Funds Transfer SRE
-   * (FTSRE).
-   */
-  settlement_institution_id: string;
-
-  /**
-   * Settlement service.
-   */
-  settlement_service: string;
-
-  /**
-   * RFC 3339 timestamp for when the record was last updated. UTC time zone.
-   */
-  updated: string;
-
-  /**
-   * The clearing cycle that the network total record applies to. Mastercard only.
-   */
-  cycle?: number;
-}
-
-export namespace NetworkTotalListResponse {
-  export interface Amounts {
-    /**
-     * Total settlement amount excluding interchange, in currency's smallest unit.
-     */
-    gross_settlement: number;
-
-    /**
-     * Interchange amount, in currency's smallest unit.
-     */
-    interchange_fees: number;
-
-    /**
-     * `gross_settlement` net of `interchange_fees` and `visa_charges` (if applicable),
-     * in currency's smallest unit.
-     */
-    net_settlement: number;
-
-    /**
-     * Charges specific to Visa/Interlink, in currency's smallest unit.
-     */
-    visa_charges?: number;
   }
 }
 
@@ -273,10 +93,7 @@ export interface NetworkTotalListParams extends CursorPageParams {
 }
 
 export declare namespace NetworkTotals {
-  export {
-    type NetworkTotalRetrieveResponse as NetworkTotalRetrieveResponse,
-    type NetworkTotalListResponse as NetworkTotalListResponse,
-    type NetworkTotalListResponsesCursorPage as NetworkTotalListResponsesCursorPage,
-    type NetworkTotalListParams as NetworkTotalListParams,
-  };
+  export { type NetworkTotalListParams as NetworkTotalListParams };
 }
+
+export { type NetworkTotalsCursorPage };
