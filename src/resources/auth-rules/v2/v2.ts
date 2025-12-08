@@ -1475,7 +1475,8 @@ export interface V2ListParams extends CursorPageParams {
   card_token?: string;
 
   /**
-   * Only return Auth rules that are executed during the provided event stream.
+   * Deprecated: Use event_streams instead. Only return Auth rules that are executed
+   * during the provided event stream.
    */
   event_stream?:
     | 'AUTHORIZATION'
@@ -1483,6 +1484,15 @@ export interface V2ListParams extends CursorPageParams {
     | 'TOKENIZATION'
     | 'ACH_CREDIT_RECEIPT'
     | 'ACH_DEBIT_RECEIPT';
+
+  /**
+   * Only return Auth rules that are executed during any of the provided event
+   * streams. If event_streams and event_stream are specified, the values will be
+   * combined.
+   */
+  event_streams?: Array<
+    'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION' | 'TOKENIZATION' | 'ACH_CREDIT_RECEIPT' | 'ACH_DEBIT_RECEIPT'
+  >;
 
   /**
    * Only return Auth Rules that are bound to the provided scope.

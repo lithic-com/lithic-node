@@ -32,7 +32,7 @@ describe('resource payments', () => {
       external_bank_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       method: 'ACH_NEXT_DAY',
-      method_attributes: { sec_code: 'CCD', addenda: 'addenda' },
+      method_attributes: { sec_code: 'CCD', ach_hold__period: 0, addenda: 'addenda' },
       type: 'COLLECTION',
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       memo: 'memo',
