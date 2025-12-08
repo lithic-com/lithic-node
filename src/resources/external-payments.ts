@@ -114,7 +114,13 @@ export interface ExternalPayment {
    */
   updated: string;
 
-  category?: 'EXTERNAL_WIRE' | 'EXTERNAL_ACH' | 'EXTERNAL_CHECK' | 'EXTERNAL_TRANSFER';
+  category?:
+    | 'EXTERNAL_WIRE'
+    | 'EXTERNAL_ACH'
+    | 'EXTERNAL_CHECK'
+    | 'EXTERNAL_FEDNOW'
+    | 'EXTERNAL_RTP'
+    | 'EXTERNAL_TRANSFER';
 
   currency?: string;
 
@@ -174,14 +180,30 @@ export namespace ExternalPayment {
       | 'EXTERNAL_CHECK_CANCELED'
       | 'EXTERNAL_CHECK_SETTLED'
       | 'EXTERNAL_CHECK_REVERSED'
-      | 'EXTERNAL_CHECK_RELEASED';
+      | 'EXTERNAL_CHECK_RELEASED'
+      | 'EXTERNAL_FEDNOW_INITIATED'
+      | 'EXTERNAL_FEDNOW_CANCELED'
+      | 'EXTERNAL_FEDNOW_SETTLED'
+      | 'EXTERNAL_FEDNOW_REVERSED'
+      | 'EXTERNAL_FEDNOW_RELEASED'
+      | 'EXTERNAL_RTP_INITIATED'
+      | 'EXTERNAL_RTP_CANCELED'
+      | 'EXTERNAL_RTP_SETTLED'
+      | 'EXTERNAL_RTP_REVERSED'
+      | 'EXTERNAL_RTP_RELEASED';
   }
 }
 
 export interface ExternalPaymentCreateParams {
   amount: number;
 
-  category: 'EXTERNAL_WIRE' | 'EXTERNAL_ACH' | 'EXTERNAL_CHECK' | 'EXTERNAL_TRANSFER';
+  category:
+    | 'EXTERNAL_WIRE'
+    | 'EXTERNAL_ACH'
+    | 'EXTERNAL_CHECK'
+    | 'EXTERNAL_FEDNOW'
+    | 'EXTERNAL_RTP'
+    | 'EXTERNAL_TRANSFER';
 
   effective_date: string;
 
@@ -210,7 +232,13 @@ export interface ExternalPaymentListParams extends CursorPageParams {
   /**
    * External Payment category to be returned.
    */
-  category?: 'EXTERNAL_WIRE' | 'EXTERNAL_ACH' | 'EXTERNAL_CHECK' | 'EXTERNAL_TRANSFER';
+  category?:
+    | 'EXTERNAL_WIRE'
+    | 'EXTERNAL_ACH'
+    | 'EXTERNAL_CHECK'
+    | 'EXTERNAL_FEDNOW'
+    | 'EXTERNAL_RTP'
+    | 'EXTERNAL_TRANSFER';
 
   /**
    * Date string in RFC 3339 format. Only entries created before the specified time

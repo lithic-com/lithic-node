@@ -174,7 +174,13 @@ export namespace ManagementOperationTransaction {
       | 'DISPUTE_WON'
       | 'DISPUTE_WON_REVERSAL'
       | 'DISBURSE'
-      | 'DISBURSE_REVERSAL';
+      | 'DISBURSE_REVERSAL'
+      | 'ANNUAL'
+      | 'ANNUAL_REVERSAL'
+      | 'QUARTERLY'
+      | 'QUARTERLY_REVERSAL'
+      | 'MONTHLY'
+      | 'MONTHLY_REVERSAL';
 
     subtype?: string | null;
   }
@@ -221,7 +227,13 @@ export interface ManagementOperationCreateParams {
     | 'DISPUTE_WON'
     | 'DISPUTE_WON_REVERSAL'
     | 'DISBURSE'
-    | 'DISBURSE_REVERSAL';
+    | 'DISBURSE_REVERSAL'
+    | 'ANNUAL'
+    | 'ANNUAL_REVERSAL'
+    | 'QUARTERLY'
+    | 'QUARTERLY_REVERSAL'
+    | 'MONTHLY'
+    | 'MONTHLY_REVERSAL';
 
   financial_account_token: string;
 

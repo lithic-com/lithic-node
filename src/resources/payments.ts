@@ -208,6 +208,8 @@ export interface Payment {
     | 'CARD'
     | 'EXTERNAL_ACH'
     | 'EXTERNAL_CHECK'
+    | 'EXTERNAL_FEDNOW'
+    | 'EXTERNAL_RTP'
     | 'EXTERNAL_TRANSFER'
     | 'EXTERNAL_WIRE'
     | 'MANAGEMENT_ADJUSTMENT'
@@ -413,6 +415,11 @@ export namespace Payment {
     sec_code: 'CCD' | 'PPD' | 'WEB' | 'TEL' | 'CIE' | 'CTX';
 
     /**
+     * Number of days the ACH transaction is on hold
+     */
+    ach_hold_period?: number | null;
+
+    /**
      * Addenda information
      */
     addenda?: string | null;
@@ -601,6 +608,11 @@ export interface PaymentCreateParams {
 export namespace PaymentCreateParams {
   export interface MethodAttributes {
     sec_code: 'CCD' | 'PPD' | 'WEB';
+
+    /**
+     * Number of days to hold the ACH payment
+     */
+    ach_hold__period?: number;
 
     addenda?: string | null;
   }

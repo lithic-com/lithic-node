@@ -68,6 +68,8 @@ export namespace StatementLineItems {
       | 'CARD'
       | 'EXTERNAL_ACH'
       | 'EXTERNAL_CHECK'
+      | 'EXTERNAL_FEDNOW'
+      | 'EXTERNAL_RTP'
       | 'EXTERNAL_TRANSFER'
       | 'EXTERNAL_WIRE'
       | 'MANAGEMENT_ADJUSTMENT'
@@ -137,6 +139,16 @@ export namespace StatementLineItems {
       | 'EXTERNAL_CHECK_RELEASED'
       | 'EXTERNAL_CHECK_REVERSED'
       | 'EXTERNAL_CHECK_SETTLED'
+      | 'EXTERNAL_FEDNOW_CANCELED'
+      | 'EXTERNAL_FEDNOW_INITIATED'
+      | 'EXTERNAL_FEDNOW_RELEASED'
+      | 'EXTERNAL_FEDNOW_REVERSED'
+      | 'EXTERNAL_FEDNOW_SETTLED'
+      | 'EXTERNAL_RTP_CANCELED'
+      | 'EXTERNAL_RTP_INITIATED'
+      | 'EXTERNAL_RTP_RELEASED'
+      | 'EXTERNAL_RTP_REVERSED'
+      | 'EXTERNAL_RTP_SETTLED'
       | 'EXTERNAL_TRANSFER_CANCELED'
       | 'EXTERNAL_TRANSFER_INITIATED'
       | 'EXTERNAL_TRANSFER_RELEASED'
@@ -164,7 +176,13 @@ export namespace StatementLineItems {
       | 'TRANSFER_INSUFFICIENT_FUNDS'
       | 'RETURNED_PAYMENT'
       | 'RETURNED_PAYMENT_REVERSAL'
-      | 'LITHIC_NETWORK_PAYMENT';
+      | 'LITHIC_NETWORK_PAYMENT'
+      | 'ANNUAL'
+      | 'ANNUAL_REVERSAL'
+      | 'QUARTERLY'
+      | 'QUARTERLY_REVERSAL'
+      | 'MONTHLY'
+      | 'MONTHLY_REVERSAL';
 
     /**
      * Globally unique identifier for a financial account

@@ -76,6 +76,7 @@ describe('resource v2', () => {
           card_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
           event_stream: 'AUTHORIZATION',
+          event_streams: ['AUTHORIZATION'],
           page_size: 1,
           scope: 'PROGRAM',
           starting_after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
