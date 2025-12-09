@@ -689,6 +689,8 @@ export type ConditionalOperation =
   | 'IS_GREATER_THAN_OR_EQUAL_TO'
   | 'IS_LESS_THAN'
   | 'IS_LESS_THAN_OR_EQUAL_TO'
+  | 'IS_AFTER'
+  | 'IS_BEFORE'
   | 'CONTAINS_ANY'
   | 'CONTAINS_ALL'
   | 'CONTAINS_NONE';
@@ -819,7 +821,7 @@ export namespace ConditionalTokenizationActionParameters {
 /**
  * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
  */
-export type ConditionalValue = string | number | Array<string>;
+export type ConditionalValue = string | number | Array<string> | (string & {});
 
 export interface MerchantLockParameters {
   /**
