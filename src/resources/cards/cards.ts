@@ -735,57 +735,77 @@ export interface CardProvisionResponse {
   provisioning_payload?: string | ProvisionResponse;
 }
 
-export interface CardWebProvisionResponse {
-  /**
-   * JWS object required for handoff to Apple's script.
-   */
-  jws?: CardWebProvisionResponse.Jws;
-
-  /**
-   * A unique identifier for the JWS object.
-   */
-  state?: string;
-}
+export type CardWebProvisionResponse =
+  | CardWebProvisionResponse.AppleWebPushProvisioningResponse
+  | CardWebProvisionResponse.GoogleWebPushProvisioningResponse;
 
 export namespace CardWebProvisionResponse {
-  /**
-   * JWS object required for handoff to Apple's script.
-   */
-  export interface Jws {
+  export interface AppleWebPushProvisioningResponse {
     /**
-     * JWS unprotected headers containing header parameters that aren't
-     * integrity-protected by the JWS signature.
+     * JWS object required for handoff to Apple's script.
      */
-    header?: Jws.Header;
+    jws?: AppleWebPushProvisioningResponse.Jws;
 
     /**
-     * Base64url encoded JSON object containing the provisioning payload.
+     * A unique identifier for the JWS object.
      */
-    payload?: string;
-
-    /**
-     * Base64url encoded JWS protected headers containing the header parameters that
-     * are integrity-protected by the JWS signature.
-     */
-    protected?: string;
-
-    /**
-     * Base64url encoded signature of the JWS object.
-     */
-    signature?: string;
+    state?: string;
   }
 
-  export namespace Jws {
+  export namespace AppleWebPushProvisioningResponse {
     /**
-     * JWS unprotected headers containing header parameters that aren't
-     * integrity-protected by the JWS signature.
+     * JWS object required for handoff to Apple's script.
      */
-    export interface Header {
+    export interface Jws {
       /**
-       * The ID for the JWS Public Key of the key pair used to generate the signature.
+       * JWS unprotected headers containing header parameters that aren't
+       * integrity-protected by the JWS signature.
        */
-      kid?: string;
+      header?: Jws.Header;
+
+      /**
+       * Base64url encoded JSON object containing the provisioning payload.
+       */
+      payload?: string;
+
+      /**
+       * Base64url encoded JWS protected headers containing the header parameters that
+       * are integrity-protected by the JWS signature.
+       */
+      protected?: string;
+
+      /**
+       * Base64url encoded signature of the JWS object.
+       */
+      signature?: string;
     }
+
+    export namespace Jws {
+      /**
+       * JWS unprotected headers containing header parameters that aren't
+       * integrity-protected by the JWS signature.
+       */
+      export interface Header {
+        /**
+         * The ID for the JWS Public Key of the key pair used to generate the signature.
+         */
+        kid?: string;
+      }
+    }
+  }
+
+  export interface GoogleWebPushProvisioningResponse {
+    /**
+     * A base64 encoded and encrypted payload representing card data for the Google Pay
+     * UWPP FPAN flow.
+     */
+    google_opc?: string;
+
+    /**
+     * A base64 encoded and encrypted payload representing card data for the Google Pay
+     * UWPP tokenization flow.
+     */
+    tsp_opc?: string;
   }
 }
 
@@ -1362,9 +1382,27 @@ export interface CardSearchByPanParams {
 
 export interface CardWebProvisionParams {
   /**
+   * Only applicable if `digital_wallet` is GOOGLE_PAY. Google Pay Web Push
+   * Provisioning device identifier required for the tokenization flow
+   */
+  client_device_id?: string;
+
+  /**
+   * Only applicable if `digital_wallet` is GOOGLE_PAY. Google Pay Web Push
+   * Provisioning wallet account identifier required for the tokenization flow
+   */
+  client_wallet_account_id?: string;
+
+  /**
    * Name of digital wallet provider.
    */
-  digital_wallet?: 'APPLE_PAY';
+  digital_wallet?: 'APPLE_PAY' | 'GOOGLE_PAY';
+
+  /**
+   * Only applicable if `digital_wallet` is GOOGLE_PAY. Google Pay Web Push
+   * Provisioning session identifier required for the FPAN flow.
+   */
+  server_session_id?: string;
 }
 
 Cards.AggregateBalances = AggregateBalances;
