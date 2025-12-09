@@ -80,6 +80,7 @@ Types:
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalOperation</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalTokenizationActionParameters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalValue</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">EventStream</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">MerchantLockParameters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">RuleStats</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">VelocityLimitParams</a></code>

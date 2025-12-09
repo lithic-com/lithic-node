@@ -19,6 +19,7 @@ export {
   type ConditionalOperation,
   type ConditionalTokenizationActionParameters,
   type ConditionalValue,
+  type EventStream,
   type MerchantLockParameters,
   type RuleStats,
   type VelocityLimitParams,

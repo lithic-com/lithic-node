@@ -151,12 +151,7 @@ export interface AuthRule {
   /**
    * The event stream during which the rule will be evaluated.
    */
-  event_stream:
-    | 'AUTHORIZATION'
-    | 'THREE_DS_AUTHENTICATION'
-    | 'TOKENIZATION'
-    | 'ACH_CREDIT_RECEIPT'
-    | 'ACH_DEBIT_RECEIPT';
+  event_stream: EventStream;
 
   /**
    * Indicates whether this auth rule is managed by Lithic. If true, the rule cannot
@@ -823,6 +818,16 @@ export namespace ConditionalTokenizationActionParameters {
  */
 export type ConditionalValue = string | number | Array<string> | (string & {});
 
+/**
+ * The event stream during which the rule will be evaluated.
+ */
+export type EventStream =
+  | 'AUTHORIZATION'
+  | 'THREE_DS_AUTHENTICATION'
+  | 'TOKENIZATION'
+  | 'ACH_CREDIT_RECEIPT'
+  | 'ACH_DEBIT_RECEIPT';
+
 export interface MerchantLockParameters {
   /**
    * A list of merchant locks defining specific merchants or groups of merchants
@@ -1265,12 +1270,7 @@ export declare namespace V2CreateParams {
     /**
      * The event stream during which the rule will be evaluated.
      */
-    event_stream?:
-      | 'AUTHORIZATION'
-      | 'THREE_DS_AUTHENTICATION'
-      | 'TOKENIZATION'
-      | 'ACH_CREDIT_RECEIPT'
-      | 'ACH_DEBIT_RECEIPT';
+    event_stream?: EventStream;
 
     /**
      * Auth Rule Name
@@ -1313,12 +1313,7 @@ export declare namespace V2CreateParams {
     /**
      * The event stream during which the rule will be evaluated.
      */
-    event_stream?:
-      | 'AUTHORIZATION'
-      | 'THREE_DS_AUTHENTICATION'
-      | 'TOKENIZATION'
-      | 'ACH_CREDIT_RECEIPT'
-      | 'ACH_DEBIT_RECEIPT';
+    event_stream?: EventStream;
 
     /**
      * Auth Rule Name
@@ -1361,12 +1356,7 @@ export declare namespace V2CreateParams {
     /**
      * The event stream during which the rule will be evaluated.
      */
-    event_stream?:
-      | 'AUTHORIZATION'
-      | 'THREE_DS_AUTHENTICATION'
-      | 'TOKENIZATION'
-      | 'ACH_CREDIT_RECEIPT'
-      | 'ACH_DEBIT_RECEIPT';
+    event_stream?: EventStream;
 
     /**
      * Card tokens to which the Auth Rule does not apply.
@@ -1480,21 +1470,14 @@ export interface V2ListParams extends CursorPageParams {
    * Deprecated: Use event_streams instead. Only return Auth rules that are executed
    * during the provided event stream.
    */
-  event_stream?:
-    | 'AUTHORIZATION'
-    | 'THREE_DS_AUTHENTICATION'
-    | 'TOKENIZATION'
-    | 'ACH_CREDIT_RECEIPT'
-    | 'ACH_DEBIT_RECEIPT';
+  event_stream?: EventStream;
 
   /**
    * Only return Auth rules that are executed during any of the provided event
    * streams. If event_streams and event_stream are specified, the values will be
    * combined.
    */
-  event_streams?: Array<
-    'AUTHORIZATION' | 'THREE_DS_AUTHENTICATION' | 'TOKENIZATION' | 'ACH_CREDIT_RECEIPT' | 'ACH_DEBIT_RECEIPT'
-  >;
+  event_streams?: Array<EventStream>;
 
   /**
    * Only return Auth Rules that are bound to the provided scope.
@@ -1549,6 +1532,7 @@ export declare namespace V2 {
     type ConditionalOperation as ConditionalOperation,
     type ConditionalTokenizationActionParameters as ConditionalTokenizationActionParameters,
     type ConditionalValue as ConditionalValue,
+    type EventStream as EventStream,
     type MerchantLockParameters as MerchantLockParameters,
     type RuleStats as RuleStats,
     type VelocityLimitParams as VelocityLimitParams,
