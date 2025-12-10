@@ -734,3 +734,67 @@ Methods:
 
 - <code title="get /v1/account_activity">client.accountActivity.<a href="./src/resources/account-activity.ts">list</a>({ ...params }) -> AccountActivityListResponsesCursorPage</code>
 - <code title="get /v1/account_activity/{transaction_token}">client.accountActivity.<a href="./src/resources/account-activity.ts">retrieveTransaction</a>(transactionToken) -> AccountActivityRetrieveTransactionResponse</code>
+
+# Webhooks
+
+Types:
+
+- <code><a href="./src/resources/webhooks.ts">AccountHolderCreatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">AccountHolderUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">AccountHolderVerificationWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">AccountHolderDocumentUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">AsaRequestWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">TokenizationDecisioningRequestWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">AuthRulesBacktestReportCreatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">BalanceUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">BookTransferTransactionCreatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">BookTransferTransactionUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CardCreatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CardConvertedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CardRenewedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CardReissuedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CardShippedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CardTransactionUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CardTransactionEnhancedDataCreatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CardTransactionEnhancedDataUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">DigitalWalletTokenizationApprovalRequestWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">DigitalWalletTokenizationResultWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">DigitalWalletTokenizationTwoFactorAuthenticationCodeWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">DigitalWalletTokenizationTwoFactorAuthenticationCodeSentWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">DigitalWalletTokenizationUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">DisputeUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">DisputeEvidenceUploadFailedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ExternalBankAccountCreatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ExternalBankAccountUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ExternalPaymentCreatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ExternalPaymentUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">FinancialAccountCreatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">FinancialAccountUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">FundingEventCreatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">LoanTapeCreatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">LoanTapeUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ManagementOperationCreatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ManagementOperationUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">InternalTransactionCreatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">InternalTransactionUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">NetworkTotalCreatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">NetworkTotalUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">PaymentTransactionCreatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">PaymentTransactionUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">SettlementReportUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">StatementsCreatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ThreeDSAuthenticationCreatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ThreeDSAuthenticationUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ThreeDSAuthenticationChallengeWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">TokenizationApprovalRequestWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">TokenizationResultWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">TokenizationTwoFactorAuthenticationCodeWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">TokenizationTwoFactorAuthenticationCodeSentWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">TokenizationUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">DisputeTransactionCreatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">DisputeTransactionUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ParsedWebhookEvent</a></code>
+
+Methods:
+
+- <code>client.webhooks.<a href="./src/resources/webhooks.ts">parsed</a>(body) -> void</code>
