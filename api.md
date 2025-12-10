@@ -475,6 +475,8 @@ Methods:
 
 - <code>client.webhooks.<a href="./src/resources/webhooks.ts">unwrap</a>(payload, headers, secret) -> Object</code>
 - <code>client.webhooks.<a href="./src/resources/webhooks.ts">verifySignature</a>(body, headers, secret) -> void</code>
+- <code>client.webhooks.<a href="./src/resources/webhooks.ts">parse</a>(body, headers, secret) -> ParsedWebhookEvent</code>
+- <code>client.webhooks.<a href="./src/resources/webhooks.ts">parseUnsafe</a>(body) -> ParsedWebhookEvent</code>
 
 # ExternalBankAccounts
 
