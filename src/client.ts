@@ -197,6 +197,64 @@ import {
   WalletDecisioningInfo,
 } from './resources/tokenizations';
 import { Transfer, TransferCreateParams, Transfers } from './resources/transfers';
+import {
+  AccountHolderCreatedWebhookEvent,
+  AccountHolderDocumentUpdatedWebhookEvent,
+  AccountHolderUpdatedWebhookEvent,
+  AccountHolderVerificationWebhookEvent,
+  AsaRequestWebhookEvent,
+  AuthRulesBacktestReportCreatedWebhookEvent,
+  BalanceUpdatedWebhookEvent,
+  BookTransferTransactionCreatedWebhookEvent,
+  BookTransferTransactionUpdatedWebhookEvent,
+  CardConvertedWebhookEvent,
+  CardCreatedWebhookEvent,
+  CardReissuedWebhookEvent,
+  CardRenewedWebhookEvent,
+  CardShippedWebhookEvent,
+  CardTransactionEnhancedDataCreatedWebhookEvent,
+  CardTransactionEnhancedDataUpdatedWebhookEvent,
+  CardTransactionUpdatedWebhookEvent,
+  DigitalWalletTokenizationApprovalRequestWebhookEvent,
+  DigitalWalletTokenizationResultWebhookEvent,
+  DigitalWalletTokenizationTwoFactorAuthenticationCodeSentWebhookEvent,
+  DigitalWalletTokenizationTwoFactorAuthenticationCodeWebhookEvent,
+  DigitalWalletTokenizationUpdatedWebhookEvent,
+  DisputeEvidenceUploadFailedWebhookEvent,
+  DisputeTransactionCreatedWebhookEvent,
+  DisputeTransactionUpdatedWebhookEvent,
+  DisputeUpdatedWebhookEvent,
+  ExternalBankAccountCreatedWebhookEvent,
+  ExternalBankAccountUpdatedWebhookEvent,
+  ExternalPaymentCreatedWebhookEvent,
+  ExternalPaymentUpdatedWebhookEvent,
+  FinancialAccountCreatedWebhookEvent,
+  FinancialAccountUpdatedWebhookEvent,
+  FundingEventCreatedWebhookEvent,
+  InternalTransactionCreatedWebhookEvent,
+  InternalTransactionUpdatedWebhookEvent,
+  LoanTapeCreatedWebhookEvent,
+  LoanTapeUpdatedWebhookEvent,
+  ManagementOperationCreatedWebhookEvent,
+  ManagementOperationUpdatedWebhookEvent,
+  NetworkTotalCreatedWebhookEvent,
+  NetworkTotalUpdatedWebhookEvent,
+  ParsedWebhookEvent,
+  PaymentTransactionCreatedWebhookEvent,
+  PaymentTransactionUpdatedWebhookEvent,
+  SettlementReportUpdatedWebhookEvent,
+  StatementsCreatedWebhookEvent,
+  ThreeDSAuthenticationChallengeWebhookEvent,
+  ThreeDSAuthenticationCreatedWebhookEvent,
+  ThreeDSAuthenticationUpdatedWebhookEvent,
+  TokenizationApprovalRequestWebhookEvent,
+  TokenizationDecisioningRequestWebhookEvent,
+  TokenizationResultWebhookEvent,
+  TokenizationTwoFactorAuthenticationCodeSentWebhookEvent,
+  TokenizationTwoFactorAuthenticationCodeWebhookEvent,
+  TokenizationUpdatedWebhookEvent,
+  Webhooks,
+} from './resources/webhooks';
 import { AuthRules } from './resources/auth-rules/auth-rules';
 import {
   Card,
@@ -1071,6 +1129,7 @@ export class Lithic {
   fraud: API.Fraud = new API.Fraud(this);
   networkPrograms: API.NetworkPrograms = new API.NetworkPrograms(this);
   accountActivity: API.AccountActivity = new API.AccountActivity(this);
+  webhooks: API.Webhooks = new API.Webhooks(this);
 }
 
 Lithic.Accounts = Accounts;
@@ -1105,6 +1164,7 @@ Lithic.FundingEvents = FundingEvents;
 Lithic.Fraud = Fraud;
 Lithic.NetworkPrograms = NetworkPrograms;
 Lithic.AccountActivity = AccountActivity;
+Lithic.Webhooks = Webhooks;
 
 export declare namespace Lithic {
   export type RequestOptions = Opts.RequestOptions;
@@ -1434,6 +1494,65 @@ export declare namespace Lithic {
     type AccountActivityRetrieveTransactionResponse as AccountActivityRetrieveTransactionResponse,
     type AccountActivityListResponsesCursorPage as AccountActivityListResponsesCursorPage,
     type AccountActivityListParams as AccountActivityListParams,
+  };
+
+  export {
+    Webhooks as Webhooks,
+    type AccountHolderCreatedWebhookEvent as AccountHolderCreatedWebhookEvent,
+    type AccountHolderUpdatedWebhookEvent as AccountHolderUpdatedWebhookEvent,
+    type AccountHolderVerificationWebhookEvent as AccountHolderVerificationWebhookEvent,
+    type AccountHolderDocumentUpdatedWebhookEvent as AccountHolderDocumentUpdatedWebhookEvent,
+    type AsaRequestWebhookEvent as AsaRequestWebhookEvent,
+    type TokenizationDecisioningRequestWebhookEvent as TokenizationDecisioningRequestWebhookEvent,
+    type AuthRulesBacktestReportCreatedWebhookEvent as AuthRulesBacktestReportCreatedWebhookEvent,
+    type BalanceUpdatedWebhookEvent as BalanceUpdatedWebhookEvent,
+    type BookTransferTransactionCreatedWebhookEvent as BookTransferTransactionCreatedWebhookEvent,
+    type BookTransferTransactionUpdatedWebhookEvent as BookTransferTransactionUpdatedWebhookEvent,
+    type CardCreatedWebhookEvent as CardCreatedWebhookEvent,
+    type CardConvertedWebhookEvent as CardConvertedWebhookEvent,
+    type CardRenewedWebhookEvent as CardRenewedWebhookEvent,
+    type CardReissuedWebhookEvent as CardReissuedWebhookEvent,
+    type CardShippedWebhookEvent as CardShippedWebhookEvent,
+    type CardTransactionUpdatedWebhookEvent as CardTransactionUpdatedWebhookEvent,
+    type CardTransactionEnhancedDataCreatedWebhookEvent as CardTransactionEnhancedDataCreatedWebhookEvent,
+    type CardTransactionEnhancedDataUpdatedWebhookEvent as CardTransactionEnhancedDataUpdatedWebhookEvent,
+    type DigitalWalletTokenizationApprovalRequestWebhookEvent as DigitalWalletTokenizationApprovalRequestWebhookEvent,
+    type DigitalWalletTokenizationResultWebhookEvent as DigitalWalletTokenizationResultWebhookEvent,
+    type DigitalWalletTokenizationTwoFactorAuthenticationCodeWebhookEvent as DigitalWalletTokenizationTwoFactorAuthenticationCodeWebhookEvent,
+    type DigitalWalletTokenizationTwoFactorAuthenticationCodeSentWebhookEvent as DigitalWalletTokenizationTwoFactorAuthenticationCodeSentWebhookEvent,
+    type DigitalWalletTokenizationUpdatedWebhookEvent as DigitalWalletTokenizationUpdatedWebhookEvent,
+    type DisputeUpdatedWebhookEvent as DisputeUpdatedWebhookEvent,
+    type DisputeEvidenceUploadFailedWebhookEvent as DisputeEvidenceUploadFailedWebhookEvent,
+    type ExternalBankAccountCreatedWebhookEvent as ExternalBankAccountCreatedWebhookEvent,
+    type ExternalBankAccountUpdatedWebhookEvent as ExternalBankAccountUpdatedWebhookEvent,
+    type ExternalPaymentCreatedWebhookEvent as ExternalPaymentCreatedWebhookEvent,
+    type ExternalPaymentUpdatedWebhookEvent as ExternalPaymentUpdatedWebhookEvent,
+    type FinancialAccountCreatedWebhookEvent as FinancialAccountCreatedWebhookEvent,
+    type FinancialAccountUpdatedWebhookEvent as FinancialAccountUpdatedWebhookEvent,
+    type FundingEventCreatedWebhookEvent as FundingEventCreatedWebhookEvent,
+    type LoanTapeCreatedWebhookEvent as LoanTapeCreatedWebhookEvent,
+    type LoanTapeUpdatedWebhookEvent as LoanTapeUpdatedWebhookEvent,
+    type ManagementOperationCreatedWebhookEvent as ManagementOperationCreatedWebhookEvent,
+    type ManagementOperationUpdatedWebhookEvent as ManagementOperationUpdatedWebhookEvent,
+    type InternalTransactionCreatedWebhookEvent as InternalTransactionCreatedWebhookEvent,
+    type InternalTransactionUpdatedWebhookEvent as InternalTransactionUpdatedWebhookEvent,
+    type NetworkTotalCreatedWebhookEvent as NetworkTotalCreatedWebhookEvent,
+    type NetworkTotalUpdatedWebhookEvent as NetworkTotalUpdatedWebhookEvent,
+    type PaymentTransactionCreatedWebhookEvent as PaymentTransactionCreatedWebhookEvent,
+    type PaymentTransactionUpdatedWebhookEvent as PaymentTransactionUpdatedWebhookEvent,
+    type SettlementReportUpdatedWebhookEvent as SettlementReportUpdatedWebhookEvent,
+    type StatementsCreatedWebhookEvent as StatementsCreatedWebhookEvent,
+    type ThreeDSAuthenticationCreatedWebhookEvent as ThreeDSAuthenticationCreatedWebhookEvent,
+    type ThreeDSAuthenticationUpdatedWebhookEvent as ThreeDSAuthenticationUpdatedWebhookEvent,
+    type ThreeDSAuthenticationChallengeWebhookEvent as ThreeDSAuthenticationChallengeWebhookEvent,
+    type TokenizationApprovalRequestWebhookEvent as TokenizationApprovalRequestWebhookEvent,
+    type TokenizationResultWebhookEvent as TokenizationResultWebhookEvent,
+    type TokenizationTwoFactorAuthenticationCodeWebhookEvent as TokenizationTwoFactorAuthenticationCodeWebhookEvent,
+    type TokenizationTwoFactorAuthenticationCodeSentWebhookEvent as TokenizationTwoFactorAuthenticationCodeSentWebhookEvent,
+    type TokenizationUpdatedWebhookEvent as TokenizationUpdatedWebhookEvent,
+    type DisputeTransactionCreatedWebhookEvent as DisputeTransactionCreatedWebhookEvent,
+    type DisputeTransactionUpdatedWebhookEvent as DisputeTransactionUpdatedWebhookEvent,
+    type ParsedWebhookEvent as ParsedWebhookEvent,
   };
 
   export type AccountFinancialAccountType = API.AccountFinancialAccountType;
