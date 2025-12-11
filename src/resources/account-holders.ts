@@ -42,7 +42,6 @@ export class AccountHolders extends APIResource {
    *   },
    *   control_person: {
    *     address: { ... },
-   *     birthdate: '1980-04-12',
    *     dob: '1991-03-08T08:00:00Z',
    *     email: 'tom@middle-pluto.com',
    *     first_name: 'Tom',
