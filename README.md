@@ -173,34 +173,65 @@ const card = await client.cards.create(
 );
 ```
 
-## Webhook Verification
+## Webhooks
 
-We provide helper methods for verifying that a webhook request came from Lithic, and not a malicious third party.
+Lithic uses webhooks to notify your application when events happen. The library provides signature verification via the `standardwebhooks` package.
 
-You can use `lithic.webhooks.verifySignature(body: string, headers, secret?) -> void` or `lithic.webhooks.unwrap(body: string, headers, secret?) -> Payload`,
-both of which will raise an error if the signature is invalid.
-
-Note that the "body" parameter must be the raw JSON string sent from the server (do not parse and re-stringify it).
-The `.unwrap()` method will automatically parse this JSON for you into a typed `Payload`.
-
-For example:
+### Parsing and verifying webhooks
 
 ```ts
-// with Express:
-app.use('/webhooks/lithic', bodyParser.text({ type: '*/*' }), function (req, res) {
-  const payload = lithic.webhooks.unwrap(req.body, req.headers, process.env['LITHIC_WEBHOOK_SECRET']); // env var used by default; explicit here.
-  console.log(payload);
-  res.json({ ok: true });
+// Verifies signature and returns typed event
+const event = lithic.webhooks.parse(body, {
+  headers: req.headers,
+  secret: process.env['LITHIC_WEBHOOK_SECRET'], // optional, reads from env by default
 });
 
-// with Next.js (app router):
-export default async function POST(req) {
-  const body = await req.text(); // if you're using the pages router, you will need this trick: https://vancelucas.com/blog/how-to-access-raw-body-data-with-next-js/
-  const payload = lithic.webhooks.unwrap(body, req.headers, process.env['LITHIC_WEBHOOK_SECRET']); // env var used by default; explicit here.
-  console.log(payload);
+switch (event.event_type) {
+  case 'card.created':
+    console.log(`Card created: ${event.card_token}`);
+    break;
+  case 'card_transaction.updated':
+    console.log(`Transaction updated: ${event.token}`);
+    break;
+  // ... handle other event types
+}
+```
+
+### Parsing without verification
+
+```ts
+// Parse only - skips signature verification (not recommended for production)
+const event = lithic.webhooks.parseUnsafe(body);
+```
+
+### Full Express example
+
+```ts
+app.use('/webhooks/lithic', bodyParser.text({ type: '*/*' }), function (req, res) {
+  const event = lithic.webhooks.parse(req.body, { headers: req.headers });
+  console.log(event);
+  res.json({ ok: true });
+});
+```
+
+### Full Next.js example (app router)
+
+```ts
+export default async function POST(req: Request) {
+  const body = await req.text();
+  const event = lithic.webhooks.parse(body, { headers: Object.fromEntries(req.headers) });
+  console.log(event);
   return NextResponse.json({ ok: true });
 }
 ```
+
+> [!NOTE]
+> If you're using the pages router, you will need [this trick](https://vancelucas.com/blog/how-to-access-raw-body-data-with-next-js/) to get the raw body.
+
+### Other methods
+
+- `lithic.webhooks.verifySignature(body, headers, secret?)` – Only verify the signature without parsing
+- `lithic.webhooks.unwrap(body, headers, secret?)` – Verify and parse (returns untyped `Object`)
 
 ## Advanced Usage
 
