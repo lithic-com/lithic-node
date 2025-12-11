@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.126.0 (2025-12-11)
+
+Full Changelog: [v0.125.0...v0.126.0](https://github.com/lithic-com/lithic-node/compare/v0.125.0...v0.126.0)
+
+### Features
+
+* **api:** add webhook schemas to SDKs - add parse and parse_unsafe ([0722f58](https://github.com/lithic-com/lithic-node/commit/0722f581ee010030b4d30f277658811a8279779c))
+
+
+### Chores
+
+* remove some unnecessary custom code ([878587c](https://github.com/lithic-com/lithic-node/commit/878587c4e1e90f9ff812845ba61b20309890be0b))
+* replace custom webhook signature verification with standardwebhooks ([0722f58](https://github.com/lithic-com/lithic-node/commit/0722f581ee010030b4d30f277658811a8279779c))
+
+
+### Documentation
+
+* update webhooks section in readme ([5548a43](https://github.com/lithic-com/lithic-node/commit/5548a43ab7e079ae601b5ea6ac0e43c3e6caf13d))
+* update webhooks section in readme ([63639e0](https://github.com/lithic-com/lithic-node/commit/63639e09b4c88261f1fdf96f7d966185b9f6993a))
+
 ## 0.125.0 (2025-12-09)
 
 Full Changelog: [v0.124.0...v0.125.0](https://github.com/lithic-com/lithic-node/compare/v0.124.0...v0.125.0)
