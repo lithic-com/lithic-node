@@ -197,10 +197,13 @@ switch (event.event_type) {
 }
 ```
 
-### Parsing without verification
+### Parsing and verifying separately
 
 ```ts
-// Parse only - skips signature verification (not recommended for production)
+// Verify signature without parsing the event
+lithic.webhooks.verifySignature(body, headers)
+
+// Parse only - skips signature verification
 const event = lithic.webhooks.parseUnsafe(body);
 ```
 
@@ -228,10 +231,6 @@ export default async function POST(req: Request) {
 > [!NOTE]
 > If you're using the pages router, you will need [this trick](https://vancelucas.com/blog/how-to-access-raw-body-data-with-next-js/) to get the raw body.
 
-### Other methods
-
-- `lithic.webhooks.verifySignature(body, headers, secret?)` – Only verify the signature without parsing
-- `lithic.webhooks.unwrap(body, headers, secret?)` – Verify and parse (returns untyped `Object`)
 
 ## Advanced Usage
 
