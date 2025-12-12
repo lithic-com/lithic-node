@@ -64,12 +64,6 @@ import {
   Accounts,
   AccountsCursorPage,
 } from './resources/accounts';
-import {
-  AggregateBalance,
-  AggregateBalanceListParams,
-  AggregateBalances,
-  AggregateBalancesSinglePage,
-} from './resources/aggregate-balances';
 import { AuthStreamEnrollment, AuthStreamSecret } from './resources/auth-stream-enrollment';
 import { Balance, BalanceListParams, Balances, BalancesSinglePage } from './resources/balances';
 import {
@@ -1106,7 +1100,6 @@ export class Lithic {
   cards: API.Cards = new API.Cards(this);
   cardBulkOrders: API.CardBulkOrders = new API.CardBulkOrders(this);
   balances: API.Balances = new API.Balances(this);
-  aggregateBalances: API.AggregateBalances = new API.AggregateBalances(this);
   disputes: API.Disputes = new API.Disputes(this);
   disputesV2: API.DisputesV2 = new API.DisputesV2(this);
   events: API.Events = new API.Events(this);
@@ -1141,7 +1134,6 @@ Lithic.Tokenizations = Tokenizations;
 Lithic.Cards = Cards;
 Lithic.CardBulkOrders = CardBulkOrders;
 Lithic.Balances = Balances;
-Lithic.AggregateBalances = AggregateBalances;
 Lithic.Disputes = Disputes;
 Lithic.DisputesV2 = DisputesV2;
 Lithic.Events = Events;
@@ -1272,13 +1264,6 @@ export declare namespace Lithic {
     type Balance as Balance,
     type BalancesSinglePage as BalancesSinglePage,
     type BalanceListParams as BalanceListParams,
-  };
-
-  export {
-    AggregateBalances as AggregateBalances,
-    type AggregateBalance as AggregateBalance,
-    type AggregateBalancesSinglePage as AggregateBalancesSinglePage,
-    type AggregateBalanceListParams as AggregateBalanceListParams,
   };
 
   export {

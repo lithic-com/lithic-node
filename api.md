@@ -187,16 +187,6 @@ Methods:
 - <code title="post /v1/cards/search_by_pan">client.cards.<a href="./src/resources/cards/cards.ts">searchByPan</a>({ ...params }) -> Card</code>
 - <code title="post /v1/cards/{card_token}/web_provision">client.cards.<a href="./src/resources/cards/cards.ts">webProvision</a>(cardToken, { ...params }) -> CardWebProvisionResponse</code>
 
-## AggregateBalances
-
-Types:
-
-- <code><a href="./src/resources/cards/aggregate-balances.ts">AggregateBalanceListResponse</a></code>
-
-Methods:
-
-- <code title="get /v1/cards/aggregate_balances">client.cards.aggregateBalances.<a href="./src/resources/cards/aggregate-balances.ts">list</a>({ ...params }) -> AggregateBalanceListResponsesSinglePage</code>
-
 ## Balances
 
 Methods:
@@ -232,16 +222,6 @@ Types:
 Methods:
 
 - <code title="get /v1/balances">client.balances.<a href="./src/resources/balances.ts">list</a>({ ...params }) -> BalancesSinglePage</code>
-
-# AggregateBalances
-
-Types:
-
-- <code><a href="./src/resources/aggregate-balances.ts">AggregateBalance</a></code>
-
-Methods:
-
-- <code title="get /v1/aggregate_balances">client.aggregateBalances.<a href="./src/resources/aggregate-balances.ts">list</a>({ ...params }) -> AggregateBalancesSinglePage</code>
 
 # Disputes
 

@@ -104,12 +104,10 @@ client.example.list(undefined, { headers: { ... } });
 - `client.tokenizations.resendActivationCode()`
 - `client.tokenizations.updateDigitalCardArt()`
 - `client.cards.list()`
-- `client.cards.aggregateBalances.list()`
 - `client.cards.balances.list()`
 - `client.cards.financialTransactions.list()`
 - `client.cardBulkOrders.list()`
 - `client.balances.list()`
-- `client.aggregateBalances.list()`
 - `client.disputes.list()`
 - `client.disputes.initiateEvidenceUpload()`
 - `client.disputes.listEvidences()`
@@ -146,24 +144,6 @@ client.example.list(undefined, { headers: { ... } });
 - `client.accountActivity.list()`
 
 </details>
-
-### HTTP method naming
-
-Previously some methods could not be named intuitively due to an internal naming conflict. This has been fixed and the affected methods are now correctly named.
-
-```ts
-// Before
-client.authRules.v2.del();
-client.disputes.del();
-client.events.subscriptions.del();
-client.responderEndpoints.del();
-
-// After
-client.authRules.v2.delete();
-client.disputes.delete();
-client.events.subscriptions.delete();
-client.responderEndpoints.delete();
-```
 
 ### Removed `httpAgent` in favor of `fetchOptions`
 
