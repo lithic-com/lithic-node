@@ -37,11 +37,6 @@
       ]
     },
     {
-      "base": "authRules.v2",
-      "name": "delete",
-      "oldName": "del"
-    },
-    {
       "base": "authRules.v2.backtests",
       "name": "retrieve",
       "params": [
@@ -109,11 +104,6 @@
     },
     {
       "base": "disputes",
-      "name": "delete",
-      "oldName": "del"
-    },
-    {
-      "base": "disputes",
       "name": "deleteEvidence",
       "params": [
         {
@@ -177,11 +167,6 @@
           "type": "options"
         }
       ]
-    },
-    {
-      "base": "events.subscriptions",
-      "name": "delete",
-      "oldName": "del"
     },
     {
       "base": "events.eventSubscriptions",
@@ -351,11 +336,6 @@
           "type": "options"
         }
       ]
-    },
-    {
-      "base": "responderEndpoints",
-      "name": "delete",
-      "oldName": "del"
     }
   ]
 }

@@ -2,13 +2,6 @@
 
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
-import * as AggregateBalancesAPI from './aggregate-balances';
-import {
-  AggregateBalanceListParams,
-  AggregateBalanceListResponse,
-  AggregateBalanceListResponsesSinglePage,
-  AggregateBalances,
-} from './aggregate-balances';
 import * as BalancesAPI from './balances';
 import { BalanceListParams, Balances } from './balances';
 import * as FinancialTransactionsAPI from './financial-transactions';
@@ -25,9 +18,6 @@ import { path } from '../../internal/utils/path';
 import { createHmac } from 'crypto';
 
 export class Cards extends APIResource {
-  aggregateBalances: AggregateBalancesAPI.AggregateBalances = new AggregateBalancesAPI.AggregateBalances(
-    this._client,
-  );
   balances: BalancesAPI.Balances = new BalancesAPI.Balances(this._client);
   financialTransactions: FinancialTransactionsAPI.FinancialTransactions =
     new FinancialTransactionsAPI.FinancialTransactions(this._client);
@@ -1523,7 +1513,6 @@ export interface CardWebProvisionParams {
   server_session_id?: string;
 }
 
-Cards.AggregateBalances = AggregateBalances;
 Cards.Balances = Balances;
 Cards.FinancialTransactions = FinancialTransactions;
 
@@ -1550,13 +1539,6 @@ export declare namespace Cards {
     type CardRenewParams as CardRenewParams,
     type CardSearchByPanParams as CardSearchByPanParams,
     type CardWebProvisionParams as CardWebProvisionParams,
-  };
-
-  export {
-    AggregateBalances as AggregateBalances,
-    type AggregateBalanceListResponse as AggregateBalanceListResponse,
-    type AggregateBalanceListResponsesSinglePage as AggregateBalanceListResponsesSinglePage,
-    type AggregateBalanceListParams as AggregateBalanceListParams,
   };
 
   export { Balances as Balances, type BalanceListParams as BalanceListParams };

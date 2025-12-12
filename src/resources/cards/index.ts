@@ -1,11 +1,5 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export {
-  AggregateBalances,
-  type AggregateBalanceListResponse,
-  type AggregateBalanceListParams,
-  type AggregateBalanceListResponsesSinglePage,
-} from './aggregate-balances';
 export { Balances, type BalanceListParams } from './balances';
 export {
   Cards,
