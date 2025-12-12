@@ -39,12 +39,6 @@ export {
   type AccountListParams,
   type AccountsCursorPage,
 } from './accounts';
-export {
-  AggregateBalances,
-  type AggregateBalance,
-  type AggregateBalanceListParams,
-  type AggregateBalancesSinglePage,
-} from './aggregate-balances';
 export { AuthRules } from './auth-rules/auth-rules';
 export { AuthStreamEnrollment, type AuthStreamSecret } from './auth-stream-enrollment';
 export { Balances, type Balance, type BalanceListParams, type BalancesSinglePage } from './balances';

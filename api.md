@@ -189,16 +189,6 @@ Methods:
 - <code>client.cards.<a href="./src/resources/cards/cards.ts">getEmbedHTML</a>(...args) -> Promise&lt;string&gt;</code>
 - <code>client.cards.<a href="./src/resources/cards/cards.ts">getEmbedURL</a>(...args) -> string</code>
 
-## AggregateBalances
-
-Types:
-
-- <code><a href="./src/resources/cards/aggregate-balances.ts">AggregateBalanceListResponse</a></code>
-
-Methods:
-
-- <code title="get /v1/cards/aggregate_balances">client.cards.aggregateBalances.<a href="./src/resources/cards/aggregate-balances.ts">list</a>({ ...params }) -> AggregateBalanceListResponsesSinglePage</code>
-
 ## Balances
 
 Methods:
@@ -234,16 +224,6 @@ Types:
 Methods:
 
 - <code title="get /v1/balances">client.balances.<a href="./src/resources/balances.ts">list</a>({ ...params }) -> BalancesSinglePage</code>
-
-# AggregateBalances
-
-Types:
-
-- <code><a href="./src/resources/aggregate-balances.ts">AggregateBalance</a></code>
-
-Methods:
-
-- <code title="get /v1/aggregate_balances">client.aggregateBalances.<a href="./src/resources/aggregate-balances.ts">list</a>({ ...params }) -> AggregateBalancesSinglePage</code>
 
 # Disputes
 
