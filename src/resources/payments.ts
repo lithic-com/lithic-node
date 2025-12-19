@@ -406,6 +406,11 @@ export namespace Payment {
       | 'PROGRAM_DAILY_LIMIT_EXCEEDED'
       | 'PROGRAM_MONTHLY_LIMIT_EXCEEDED'
     >;
+
+    /**
+     * Payment event external ID, for example, ACH trace number.
+     */
+    external_id?: string | null;
   }
 
   export interface ACHMethodAttributes {

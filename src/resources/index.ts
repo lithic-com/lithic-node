@@ -47,6 +47,7 @@ export {
   type BookTransferResponse,
   type BookTransferCreateParams,
   type BookTransferListParams,
+  type BookTransferRetryParams,
   type BookTransferReverseParams,
   type BookTransferResponsesCursorPage,
 } from './book-transfers';
@@ -274,6 +275,12 @@ export {
   type TransactionSimulateVoidParams,
   type TransactionsCursorPage,
 } from './transactions/transactions';
+export {
+  TransferLimits,
+  type TransferLimitsResponse,
+  type TransferLimitListParams,
+  type TransferLimitsResponseDataSinglePage,
+} from './transfer-limits';
 export { Transfers, type Transfer, type TransferCreateParams } from './transfers';
 export {
   Webhooks,
