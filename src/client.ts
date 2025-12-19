@@ -71,6 +71,7 @@ import {
   BookTransferListParams,
   BookTransferResponse,
   BookTransferResponsesCursorPage,
+  BookTransferRetryParams,
   BookTransferReverseParams,
   BookTransfers,
 } from './resources/book-transfers';
@@ -190,6 +191,12 @@ import {
   TokenizationsCursorPage,
   WalletDecisioningInfo,
 } from './resources/tokenizations';
+import {
+  TransferLimitListParams,
+  TransferLimits,
+  TransferLimitsResponse,
+  TransferLimitsResponseDataSinglePage,
+} from './resources/transfer-limits';
 import { Transfer, TransferCreateParams, Transfers } from './resources/transfers';
 import {
   AccountHolderCreatedWebhookEvent,
@@ -1122,6 +1129,7 @@ export class Lithic {
   fraud: API.Fraud = new API.Fraud(this);
   networkPrograms: API.NetworkPrograms = new API.NetworkPrograms(this);
   accountActivity: API.AccountActivity = new API.AccountActivity(this);
+  transferLimits: API.TransferLimits = new API.TransferLimits(this);
   webhooks: API.Webhooks = new API.Webhooks(this);
 }
 
@@ -1156,6 +1164,7 @@ Lithic.FundingEvents = FundingEvents;
 Lithic.Fraud = Fraud;
 Lithic.NetworkPrograms = NetworkPrograms;
 Lithic.AccountActivity = AccountActivity;
+Lithic.TransferLimits = TransferLimits;
 Lithic.Webhooks = Webhooks;
 
 export declare namespace Lithic {
@@ -1422,6 +1431,7 @@ export declare namespace Lithic {
     type BookTransferResponsesCursorPage as BookTransferResponsesCursorPage,
     type BookTransferCreateParams as BookTransferCreateParams,
     type BookTransferListParams as BookTransferListParams,
+    type BookTransferRetryParams as BookTransferRetryParams,
     type BookTransferReverseParams as BookTransferReverseParams,
   };
 
@@ -1479,6 +1489,13 @@ export declare namespace Lithic {
     type AccountActivityRetrieveTransactionResponse as AccountActivityRetrieveTransactionResponse,
     type AccountActivityListResponsesCursorPage as AccountActivityListResponsesCursorPage,
     type AccountActivityListParams as AccountActivityListParams,
+  };
+
+  export {
+    TransferLimits as TransferLimits,
+    type TransferLimitsResponse as TransferLimitsResponse,
+    type TransferLimitsResponseDataSinglePage as TransferLimitsResponseDataSinglePage,
+    type TransferLimitListParams as TransferLimitListParams,
   };
 
   export {
