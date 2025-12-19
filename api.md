@@ -591,6 +591,7 @@ Methods:
 - <code title="post /v1/book_transfers">client.bookTransfers.<a href="./src/resources/book-transfers.ts">create</a>({ ...params }) -> BookTransferResponse</code>
 - <code title="get /v1/book_transfers/{book_transfer_token}">client.bookTransfers.<a href="./src/resources/book-transfers.ts">retrieve</a>(bookTransferToken) -> BookTransferResponse</code>
 - <code title="get /v1/book_transfers">client.bookTransfers.<a href="./src/resources/book-transfers.ts">list</a>({ ...params }) -> BookTransferResponsesCursorPage</code>
+- <code title="post /v1/book_transfers/{book_transfer_token}/retry">client.bookTransfers.<a href="./src/resources/book-transfers.ts">retry</a>(bookTransferToken, { ...params }) -> BookTransferResponse</code>
 - <code title="post /v1/book_transfers/{book_transfer_token}/reverse">client.bookTransfers.<a href="./src/resources/book-transfers.ts">reverse</a>(bookTransferToken, { ...params }) -> BookTransferResponse</code>
 
 # CreditProducts
@@ -703,6 +704,16 @@ Methods:
 
 - <code title="get /v1/account_activity">client.accountActivity.<a href="./src/resources/account-activity.ts">list</a>({ ...params }) -> AccountActivityListResponsesCursorPage</code>
 - <code title="get /v1/account_activity/{transaction_token}">client.accountActivity.<a href="./src/resources/account-activity.ts">retrieveTransaction</a>(transactionToken) -> AccountActivityRetrieveTransactionResponse</code>
+
+# TransferLimits
+
+Types:
+
+- <code><a href="./src/resources/transfer-limits.ts">TransferLimitsResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/transfer_limits">client.transferLimits.<a href="./src/resources/transfer-limits.ts">list</a>({ ...params }) -> TransferLimitsResponseDataSinglePage</code>
 
 # Webhooks
 

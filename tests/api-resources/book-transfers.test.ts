@@ -85,6 +85,25 @@ describe('resource bookTransfers', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
+  test('retry: only required params', async () => {
+    const responsePromise = client.bookTransfers.retry('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      retry_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('retry: required and optional params', async () => {
+    const response = await client.bookTransfers.retry('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      retry_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
+  });
+
   test('reverse', async () => {
     const responsePromise = client.bookTransfers.reverse('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
     const rawResponse = await responsePromise.asResponse();

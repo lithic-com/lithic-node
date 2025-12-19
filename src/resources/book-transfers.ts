@@ -37,6 +37,17 @@ export class BookTransfers extends APIResource {
   }
 
   /**
+   * Retry a book transfer that has been declined
+   */
+  retry(
+    bookTransferToken: string,
+    body: BookTransferRetryParams,
+    options?: RequestOptions,
+  ): APIPromise<BookTransferResponse> {
+    return this._client.post(path`/v1/book_transfers/${bookTransferToken}/retry`, { body, ...options });
+  }
+
+  /**
    * Reverse a book transfer
    */
   reverse(
@@ -383,6 +394,13 @@ export interface BookTransferListParams extends CursorPageParams {
   status?: 'DECLINED' | 'SETTLED';
 }
 
+export interface BookTransferRetryParams {
+  /**
+   * Globally unique identifier for the retry.
+   */
+  retry_token: string;
+}
+
 export interface BookTransferReverseParams {
   /**
    * Optional descriptor for the reversal.
@@ -396,6 +414,7 @@ export declare namespace BookTransfers {
     type BookTransferResponsesCursorPage as BookTransferResponsesCursorPage,
     type BookTransferCreateParams as BookTransferCreateParams,
     type BookTransferListParams as BookTransferListParams,
+    type BookTransferRetryParams as BookTransferRetryParams,
     type BookTransferReverseParams as BookTransferReverseParams,
   };
 }
