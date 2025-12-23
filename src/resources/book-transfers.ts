@@ -396,7 +396,8 @@ export interface BookTransferListParams extends CursorPageParams {
 
 export interface BookTransferRetryParams {
   /**
-   * Globally unique identifier for the retry.
+   * Customer-provided token that will serve as an idempotency token. This token will
+   * become the transaction token.
    */
   retry_token: string;
 }

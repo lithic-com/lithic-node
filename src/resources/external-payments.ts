@@ -211,6 +211,10 @@ export interface ExternalPaymentCreateParams {
 
   payment_type: 'DEPOSIT' | 'WITHDRAWAL';
 
+  /**
+   * Customer-provided token that will serve as an idempotency token. This token will
+   * become the transaction token.
+   */
   token?: string;
 
   memo?: string;

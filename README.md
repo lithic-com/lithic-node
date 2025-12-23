@@ -156,23 +156,6 @@ while (page.hasNextPage()) {
 }
 ```
 
-## Default Headers
-
-We automatically send the `X-Lithic-Pagination` header set to `cursor`.
-
-If you need to, you can override it by setting default headers on a per-request basis.
-
-```ts
-import Lithic from 'lithic';
-
-const client = new Lithic();
-
-const card = await client.cards.create(
-  { type: 'SINGLE_USE' },
-  { headers: { 'X-Lithic-Pagination': 'My-Custom-Value' } },
-);
-```
-
 ## Webhooks
 
 Lithic uses webhooks to notify your application when events happen. The library provides signature verification via the `standardwebhooks` package.
@@ -230,7 +213,6 @@ export default async function POST(req: Request) {
 
 > [!NOTE]
 > If you're using the pages router, you will need [this trick](https://vancelucas.com/blog/how-to-access-raw-body-data-with-next-js/) to get the raw body.
-
 
 ## Advanced Usage
 
