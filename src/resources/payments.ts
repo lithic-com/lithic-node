@@ -317,7 +317,8 @@ export interface Payment {
     | 'WIRE_INBOUND_PAYMENT'
     | 'WIRE_INBOUND_ADMIN'
     | 'WIRE_OUTBOUND_PAYMENT'
-    | 'WIRE_OUTBOUND_ADMIN';
+    | 'WIRE_OUTBOUND_ADMIN'
+    | 'WIRE_DRAWDOWN_REQUEST';
 
   /**
    * User-defined identifier

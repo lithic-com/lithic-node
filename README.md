@@ -156,23 +156,6 @@ while (page.hasNextPage()) {
 }
 ```
 
-## Default Headers
-
-We automatically send the `X-Lithic-Pagination` header set to `cursor`.
-
-If you need to, you can override it by setting default headers on a per-request basis.
-
-```ts
-import Lithic from 'lithic';
-
-const client = new Lithic();
-
-const card = await client.cards.create(
-  { type: 'SINGLE_USE' },
-  { headers: { 'X-Lithic-Pagination': 'My-Custom-Value' } },
-);
-```
-
 ## Advanced Usage
 
 ### Accessing raw Response data (e.g., headers)
