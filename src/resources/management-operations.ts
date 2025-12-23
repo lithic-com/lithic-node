@@ -237,6 +237,10 @@ export interface ManagementOperationCreateParams {
 
   financial_account_token: string;
 
+  /**
+   * Customer-provided token that will serve as an idempotency token. This token will
+   * become the transaction token.
+   */
   token?: string;
 
   memo?: string;

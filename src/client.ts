@@ -1029,7 +1029,6 @@ export class Lithic {
         'X-Stainless-Retry-Count': String(retryCount),
         ...(options.timeout ? { 'X-Stainless-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
         ...getPlatformHeaders(),
-        'X-Lithic-Pagination': 'cursor',
       },
       await this.authHeaders(options),
       this._options.defaultHeaders,
