@@ -184,7 +184,7 @@ switch (event.event_type) {
 
 ```ts
 // Verify signature without parsing the event
-lithic.webhooks.verifySignature(body, headers)
+lithic.webhooks.verifySignature(body, headers);
 
 // Parse only - skips signature verification
 const event = lithic.webhooks.parseUnsafe(body);
