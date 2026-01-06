@@ -174,7 +174,9 @@ const response = await client.cards.create({ type: 'SINGLE_USE' }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: card, response: raw } = await client.cards.create({ type: 'SINGLE_USE' }).withResponse();
+const { data: card, response: raw } = await client.cards
+  .create({ type: 'SINGLE_USE' })
+  .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(card.token);
 ```
