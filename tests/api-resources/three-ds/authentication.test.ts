@@ -21,7 +21,12 @@ describe('resource authentication', () => {
 
   test('simulate: only required params', async () => {
     const responsePromise = client.threeDS.authentication.simulate({
-      merchant: { id: 'OODKZAPJVN4YS7O', country: 'USA', mcc: '5812', name: 'COFFEE SHOP' },
+      merchant: {
+        id: 'OODKZAPJVN4YS7O',
+        country: 'USA',
+        mcc: '5812',
+        name: 'COFFEE SHOP',
+      },
       pan: '4111111289144142',
       transaction: { amount: 0, currency: 'GBP' },
     });
@@ -36,7 +41,12 @@ describe('resource authentication', () => {
 
   test('simulate: required and optional params', async () => {
     const response = await client.threeDS.authentication.simulate({
-      merchant: { id: 'OODKZAPJVN4YS7O', country: 'USA', mcc: '5812', name: 'COFFEE SHOP' },
+      merchant: {
+        id: 'OODKZAPJVN4YS7O',
+        country: 'USA',
+        mcc: '5812',
+        name: 'COFFEE SHOP',
+      },
       pan: '4111111289144142',
       transaction: { amount: 0, currency: 'GBP' },
       card_expiry_check: 'MATCH',

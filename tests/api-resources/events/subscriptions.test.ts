@@ -76,7 +76,11 @@ describe('resource subscriptions', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.events.subscriptions.list(
-        { ending_before: 'ending_before', page_size: 1, starting_after: 'starting_after' },
+        {
+          ending_before: 'ending_before',
+          page_size: 1,
+          starting_after: 'starting_after',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Lithic.NotFoundError);

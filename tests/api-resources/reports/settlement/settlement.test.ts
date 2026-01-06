@@ -24,7 +24,11 @@ describe('resource settlement', () => {
     await expect(
       client.reports.settlement.listDetails(
         '2023-09-01',
-        { ending_before: 'ending_before', page_size: 1, starting_after: 'starting_after' },
+        {
+          ending_before: 'ending_before',
+          page_size: 1,
+          starting_after: 'starting_after',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Lithic.NotFoundError);
