@@ -10,7 +10,15 @@ const client = new Lithic({
 describe('resource v2', () => {
   test('create: only required params', async () => {
     const responsePromise = client.authRules.v2.create({
-      parameters: { conditions: [{ attribute: 'MCC', operation: 'IS_ONE_OF', value: 'string' }] },
+      parameters: {
+        conditions: [
+          {
+            attribute: 'MCC',
+            operation: 'IS_ONE_OF',
+            value: 'string',
+          },
+        ],
+      },
       type: 'CONDITIONAL_BLOCK',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -24,7 +32,15 @@ describe('resource v2', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.authRules.v2.create({
-      parameters: { conditions: [{ attribute: 'MCC', operation: 'IS_ONE_OF', value: 'string' }] },
+      parameters: {
+        conditions: [
+          {
+            attribute: 'MCC',
+            operation: 'IS_ONE_OF',
+            value: 'string',
+          },
+        ],
+      },
       type: 'CONDITIONAL_BLOCK',
       account_tokens: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
       business_account_tokens: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
