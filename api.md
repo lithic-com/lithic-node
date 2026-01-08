@@ -723,7 +723,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">AccountHolderUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">AccountHolderVerificationWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">AccountHolderDocumentUpdatedWebhookEvent</a></code>
-- <code><a href="./src/resources/webhooks.ts">AsaRequestWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CardAuthorizationApprovalRequestWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TokenizationDecisioningRequestWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">AuthRulesBacktestReportCreatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">BalanceUpdatedWebhookEvent</a></code>
@@ -771,6 +771,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">TokenizationTwoFactorAuthenticationCodeWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TokenizationTwoFactorAuthenticationCodeSentWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TokenizationUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ThreeDSAuthenticationApprovalRequestWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">DisputeTransactionCreatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">DisputeTransactionUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ParsedWebhookEvent</a></code>

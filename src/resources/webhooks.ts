@@ -616,10 +616,7 @@ export namespace AccountHolderDocumentUpdatedWebhookEvent {
   }
 }
 
-/**
- * The Auth Stream Access request payload that was sent to the ASA responder.
- */
-export interface AsaRequestWebhookEvent {
+export interface CardAuthorizationApprovalRequestWebhookEvent {
   /**
    * The provisional transaction group uuid associated with the authorization
    */
@@ -645,12 +642,12 @@ export interface AsaRequestWebhookEvent {
    */
   authorization_amount: number;
 
-  avs: AsaRequestWebhookEvent.Avs;
+  avs: CardAuthorizationApprovalRequestWebhookEvent.Avs;
 
   /**
    * Card object in ASA
    */
-  card: AsaRequestWebhookEvent.Card;
+  card: CardAuthorizationApprovalRequestWebhookEvent.Card;
 
   /**
    * 3-character alphabetic ISO 4217 code for cardholder's billing currency.
@@ -671,6 +668,8 @@ export interface AsaRequestWebhookEvent {
    * Date and time when the transaction first occurred in UTC.
    */
   created: string;
+
+  event_type: 'card_authorization.approval_request';
 
   merchant: Shared.Merchant;
 
@@ -739,13 +738,13 @@ export interface AsaRequestWebhookEvent {
    * Optional Object containing information if the Card is a part of a Fleet managed
    * program
    */
-  fleet_info?: AsaRequestWebhookEvent.FleetInfo | null;
+  fleet_info?: CardAuthorizationApprovalRequestWebhookEvent.FleetInfo | null;
 
   /**
    * The latest Authorization Challenge that was issued to the cardholder for this
    * merchant.
    */
-  latest_challenge?: AsaRequestWebhookEvent.LatestChallenge;
+  latest_challenge?: CardAuthorizationApprovalRequestWebhookEvent.LatestChallenge;
 
   /**
    * Card network of the authorization.
@@ -769,9 +768,9 @@ export interface AsaRequestWebhookEvent {
    * values and how to use them. This object is only available to certain programs-
    * contact your Customer Success Manager to discuss enabling access.
    */
-  network_specific_data?: AsaRequestWebhookEvent.NetworkSpecificData | null;
+  network_specific_data?: CardAuthorizationApprovalRequestWebhookEvent.NetworkSpecificData | null;
 
-  pos?: AsaRequestWebhookEvent.Pos;
+  pos?: CardAuthorizationApprovalRequestWebhookEvent.Pos;
 
   token_info?: TransactionsAPI.TokenInfo | null;
 
@@ -781,7 +780,7 @@ export interface AsaRequestWebhookEvent {
   ttl?: string;
 }
 
-export namespace AsaRequestWebhookEvent {
+export namespace CardAuthorizationApprovalRequestWebhookEvent {
   export interface Avs {
     /**
      * Cardholder address
@@ -2201,6 +2200,13 @@ export interface TokenizationUpdatedWebhookEvent {
 }
 
 /**
+ * Represents a 3DS authentication
+ */
+export interface ThreeDSAuthenticationApprovalRequestWebhookEvent extends ThreeDSAPI.ThreeDSAuthentication {
+  event_type: 'three_ds_authentication.approval_request';
+}
+
+/**
  * The Dispute object tracks the progression of a dispute throughout its lifecycle.
  */
 export interface DisputeTransactionCreatedWebhookEvent extends DisputesV2API.DisputeV2 {
@@ -2230,7 +2236,7 @@ export type ParsedWebhookEvent =
   | ParsedWebhookEvent.LegacyPayload
   | AccountHolderVerificationWebhookEvent
   | AccountHolderDocumentUpdatedWebhookEvent
-  | AsaRequestWebhookEvent
+  | CardAuthorizationApprovalRequestWebhookEvent
   | TokenizationDecisioningRequestWebhookEvent
   | AuthRulesBacktestReportCreatedWebhookEvent
   | BalanceUpdatedWebhookEvent
@@ -2278,7 +2284,7 @@ export type ParsedWebhookEvent =
   | TokenizationTwoFactorAuthenticationCodeWebhookEvent
   | TokenizationTwoFactorAuthenticationCodeSentWebhookEvent
   | TokenizationUpdatedWebhookEvent
-  | ThreeDSAPI.ThreeDSAuthentication
+  | ThreeDSAuthenticationApprovalRequestWebhookEvent
   | DisputeTransactionCreatedWebhookEvent
   | DisputeTransactionUpdatedWebhookEvent;
 
@@ -2707,7 +2713,7 @@ export declare namespace Webhooks {
     type AccountHolderUpdatedWebhookEvent as AccountHolderUpdatedWebhookEvent,
     type AccountHolderVerificationWebhookEvent as AccountHolderVerificationWebhookEvent,
     type AccountHolderDocumentUpdatedWebhookEvent as AccountHolderDocumentUpdatedWebhookEvent,
-    type AsaRequestWebhookEvent as AsaRequestWebhookEvent,
+    type CardAuthorizationApprovalRequestWebhookEvent as CardAuthorizationApprovalRequestWebhookEvent,
     type TokenizationDecisioningRequestWebhookEvent as TokenizationDecisioningRequestWebhookEvent,
     type AuthRulesBacktestReportCreatedWebhookEvent as AuthRulesBacktestReportCreatedWebhookEvent,
     type BalanceUpdatedWebhookEvent as BalanceUpdatedWebhookEvent,
@@ -2755,6 +2761,7 @@ export declare namespace Webhooks {
     type TokenizationTwoFactorAuthenticationCodeWebhookEvent as TokenizationTwoFactorAuthenticationCodeWebhookEvent,
     type TokenizationTwoFactorAuthenticationCodeSentWebhookEvent as TokenizationTwoFactorAuthenticationCodeSentWebhookEvent,
     type TokenizationUpdatedWebhookEvent as TokenizationUpdatedWebhookEvent,
+    type ThreeDSAuthenticationApprovalRequestWebhookEvent as ThreeDSAuthenticationApprovalRequestWebhookEvent,
     type DisputeTransactionCreatedWebhookEvent as DisputeTransactionCreatedWebhookEvent,
     type DisputeTransactionUpdatedWebhookEvent as DisputeTransactionUpdatedWebhookEvent,
     type ParsedWebhookEvent as ParsedWebhookEvent,
