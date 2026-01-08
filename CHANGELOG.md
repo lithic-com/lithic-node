@@ -1,5 +1,41 @@
 # Changelog
 
+## 0.127.0 (2026-01-08)
+
+Full Changelog: [v0.126.0...v0.127.0](https://github.com/lithic-com/lithic-node/compare/v0.126.0...v0.127.0)
+
+### Features
+
+* **api:** Add card state attribute to tokenization rules ([0a56f6a](https://github.com/lithic-com/lithic-node/commit/0a56f6a01d6965c24dde06bdc1e56f252235a575))
+* **api:** Add event_type to ASA request and 3DS decisioning request ([0a56f6a](https://github.com/lithic-com/lithic-node/commit/0a56f6a01d6965c24dde06bdc1e56f252235a575))
+* **api:** add external_id to payment_event ([538d96e](https://github.com/lithic-com/lithic-node/commit/538d96e5eba1b99e56839f5b0aac87496b681279))
+* **api:** add get /v1/transfer_limits endpoint ([538d96e](https://github.com/lithic-com/lithic-node/commit/538d96e5eba1b99e56839f5b0aac87496b681279))
+* **api:** add post /v1/book_transfers/{book_transfer_token}/retry endpoint ([538d96e](https://github.com/lithic-com/lithic-node/commit/538d96e5eba1b99e56839f5b0aac87496b681279))
+* **api:** Add user defined status to ledger accounts ([0a56f6a](https://github.com/lithic-com/lithic-node/commit/0a56f6a01d6965c24dde06bdc1e56f252235a575))
+* **api:** add WIRE_DRAWDOWN_REQUEST transfer type ([e7c375b](https://github.com/lithic-com/lithic-node/commit/e7c375bf328756a708d54e8a33e2ed154ebfeb93))
+* **api:** Expose Payment Allocation Details ([0a56f6a](https://github.com/lithic-com/lithic-node/commit/0a56f6a01d6965c24dde06bdc1e56f252235a575))
+* **api:** remove unnecessary X-Lithic-Pagination header ([e7c375b](https://github.com/lithic-com/lithic-node/commit/e7c375bf328756a708d54e8a33e2ed154ebfeb93))
+* **api:** remove v1/aggregate_balances and related models ([0078e74](https://github.com/lithic-com/lithic-node/commit/0078e74adc26ff15a7340684c1b07b662e500e01))
+
+
+### Bug Fixes
+
+* **docs:** remove extraneous example object fields ([3ba95e6](https://github.com/lithic-com/lithic-node/commit/3ba95e64b6eea6893359d17a21d66eab3a93219b))
+
+
+### Chores
+
+* break long lines in snippets into multiline ([5e9608e](https://github.com/lithic-com/lithic-node/commit/5e9608eda7596bc4d7d621013feb6900f4caae98))
+* formatting ([0b4c11e](https://github.com/lithic-com/lithic-node/commit/0b4c11edeffb476c403be5b84c1e310fd5dfc063))
+* **internal:** codegen related update ([a06ac86](https://github.com/lithic-com/lithic-node/commit/a06ac867f0c60f77fd92dfe6a7eac8e9c4967cd5))
+* update code formatting ([0a56f6a](https://github.com/lithic-com/lithic-node/commit/0a56f6a01d6965c24dde06bdc1e56f252235a575))
+
+
+### Documentation
+
+* **api:** clarify description of token /  retry_token when it serves as idempotency key ([e7c375b](https://github.com/lithic-com/lithic-node/commit/e7c375bf328756a708d54e8a33e2ed154ebfeb93))
+* Update language for Google Web Push Provisioning docs ([0a56f6a](https://github.com/lithic-com/lithic-node/commit/0a56f6a01d6965c24dde06bdc1e56f252235a575))
+
 ## 0.126.0 (2025-12-11)
 
 Full Changelog: [v0.125.0...v0.126.0](https://github.com/lithic-com/lithic-node/compare/v0.125.0...v0.126.0)
