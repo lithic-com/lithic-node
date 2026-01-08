@@ -212,6 +212,17 @@ export interface FinancialAccount {
    */
   status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING';
 
+  /**
+   * Substatus for the financial account
+   */
+  substatus:
+    | 'CHARGED_OFF_DELINQUENT'
+    | 'CHARGED_OFF_FRAUD'
+    | 'END_USER_REQUEST'
+    | 'BANK_REQUEST'
+    | 'DELINQUENT'
+    | null;
+
   type:
     | 'ISSUING'
     | 'RESERVE'
@@ -226,20 +237,14 @@ export interface FinancialAccount {
 
   updated: string;
 
+  /**
+   * User-defined status for the financial account
+   */
+  user_defined_status: string | null;
+
   account_number?: string | null;
 
   routing_number?: string | null;
-
-  /**
-   * Substatus for the financial account
-   */
-  substatus?:
-    | 'CHARGED_OFF_DELINQUENT'
-    | 'CHARGED_OFF_FRAUD'
-    | 'END_USER_REQUEST'
-    | 'BANK_REQUEST'
-    | 'DELINQUENT'
-    | null;
 }
 
 export namespace FinancialAccount {
@@ -527,6 +532,11 @@ export interface FinancialAccountUpdateStatusParams {
    * Substatus for the financial account
    */
   substatus: 'CHARGED_OFF_FRAUD' | 'END_USER_REQUEST' | 'BANK_REQUEST' | 'CHARGED_OFF_DELINQUENT' | null;
+
+  /**
+   * User-defined status for the financial account
+   */
+  user_defined_status?: string;
 }
 
 FinancialAccounts.Balances = Balances;

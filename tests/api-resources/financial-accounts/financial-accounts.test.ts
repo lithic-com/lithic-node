@@ -126,6 +126,7 @@ describe('resource financialAccounts', () => {
     const response = await client.financialAccounts.updateStatus('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       status: 'OPEN',
       substatus: 'CHARGED_OFF_FRAUD',
+      user_defined_status: '26',
     });
   });
 });
