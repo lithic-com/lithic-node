@@ -472,27 +472,27 @@ export interface StatementTotals {
 
 export interface FinancialAccountCreateParams {
   /**
-   * Body param:
+   * Body param
    */
   nickname: string;
 
   /**
-   * Body param:
+   * Body param
    */
   type: 'OPERATING';
 
   /**
-   * Body param:
+   * Body param
    */
   account_token?: string;
 
   /**
-   * Body param:
+   * Body param
    */
   is_for_benefit_of?: boolean;
 
   /**
-   * Header param:
+   * Header param
    */
   'Idempotency-Key'?: string;
 }
