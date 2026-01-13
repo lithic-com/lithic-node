@@ -618,7 +618,7 @@ export namespace PaymentCreateParams {
     /**
      * Number of days to hold the ACH payment
      */
-    ach_hold__period?: number;
+    ach_hold_period?: number;
 
     addenda?: string | null;
   }
