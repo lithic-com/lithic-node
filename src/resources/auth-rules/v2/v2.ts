@@ -928,8 +928,6 @@ export namespace RuleStats {
 }
 
 export interface VelocityLimitParams {
-  filters: VelocityLimitParams.Filters;
-
   /**
    * Velocity over the current day since 00:00 / 12 AM in Eastern Time
    */
@@ -939,6 +937,8 @@ export interface VelocityLimitParams {
    * The scope the velocity is calculated for
    */
   scope: 'CARD' | 'ACCOUNT';
+
+  filters?: VelocityLimitParams.Filters;
 
   /**
    * The maximum amount of spend velocity allowed in the period in minor units (the
