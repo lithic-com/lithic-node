@@ -492,7 +492,7 @@ export interface FinancialAccountCreateParams {
   is_for_benefit_of?: boolean;
 
   /**
-   * Header param
+   * Header param: Idempotency key for the request
    */
   'Idempotency-Key'?: string;
 }

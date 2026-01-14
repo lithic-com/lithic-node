@@ -37,8 +37,16 @@ export class Cards extends APIResource {
    * });
    * ```
    */
-  create(body: CardCreateParams, options?: RequestOptions): APIPromise<Card> {
-    return this._client.post('/v1/cards', { body, ...options });
+  create(params: CardCreateParams, options?: RequestOptions): APIPromise<Card> {
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/v1/cards', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -851,7 +859,7 @@ export namespace CardWebProvisionResponse {
 
 export interface CardCreateParams {
   /**
-   * Card types:
+   * Body param: Card types:
    *
    * - `VIRTUAL` - Card will authorize at any merchant and can be added to a digital
    *   wallet like Apple Pay or Google Pay (if the card program is digital
@@ -871,95 +879,99 @@ export interface CardCreateParams {
   type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET';
 
   /**
-   * Globally unique identifier for the account that the card will be associated
-   * with. Required for programs enrolling users using the
+   * Body param: Globally unique identifier for the account that the card will be
+   * associated with. Required for programs enrolling users using the
    * [/account_holders endpoint](https://docs.lithic.com/docs/account-holders-kyc).
    * See [Managing Your Program](doc:managing-your-program) for more information.
    */
   account_token?: string;
 
   /**
-   * Globally unique identifier for an existing bulk order to associate this card
-   * with. When specified, the card will be added to the bulk order for batch
-   * shipment. Only applicable to cards of type PHYSICAL
+   * Body param: Globally unique identifier for an existing bulk order to associate
+   * this card with. When specified, the card will be added to the bulk order for
+   * batch shipment. Only applicable to cards of type PHYSICAL
    */
   bulk_order_token?: string;
 
   /**
-   * For card programs with more than one BIN range. This must be configured with
-   * Lithic before use. Identifies the card program/BIN range under which to create
-   * the card. If omitted, will utilize the program's default `card_program_token`.
-   * In Sandbox, use 00000000-0000-0000-1000-000000000000 and
+   * Body param: For card programs with more than one BIN range. This must be
+   * configured with Lithic before use. Identifies the card program/BIN range under
+   * which to create the card. If omitted, will utilize the program's default
+   * `card_program_token`. In Sandbox, use 00000000-0000-0000-1000-000000000000 and
    * 00000000-0000-0000-2000-000000000000 to test creating cards on specific card
    * programs.
    */
   card_program_token?: string;
 
+  /**
+   * Body param
+   */
   carrier?: Shared.Carrier;
 
   /**
-   * Specifies the digital card art to be displayed in the user’s digital wallet
-   * after tokenization. This artwork must be approved by Mastercard and configured
-   * by Lithic to use. See
+   * Body param: Specifies the digital card art to be displayed in the user’s digital
+   * wallet after tokenization. This artwork must be approved by Mastercard and
+   * configured by Lithic to use. See
    * [Flexible Card Art Guide](https://docs.lithic.com/docs/about-digital-wallets#flexible-card-art).
    */
   digital_card_art_token?: string;
 
   /**
-   * Two digit (MM) expiry month. If neither `exp_month` nor `exp_year` is provided,
-   * an expiration date will be generated.
+   * Body param: Two digit (MM) expiry month. If neither `exp_month` nor `exp_year`
+   * is provided, an expiration date will be generated.
    */
   exp_month?: string;
 
   /**
-   * Four digit (yyyy) expiry year. If neither `exp_month` nor `exp_year` is
-   * provided, an expiration date will be generated.
+   * Body param: Four digit (yyyy) expiry year. If neither `exp_month` nor `exp_year`
+   * is provided, an expiration date will be generated.
    */
   exp_year?: string;
 
   /**
-   * Friendly name to identify the card.
+   * Body param: Friendly name to identify the card.
    */
   memo?: string;
 
   /**
-   * Encrypted PIN block (in base64). Applies to cards of type `PHYSICAL` and
-   * `VIRTUAL`. See
+   * Body param: Encrypted PIN block (in base64). Applies to cards of type `PHYSICAL`
+   * and `VIRTUAL`. See
    * [Encrypted PIN Block](https://docs.lithic.com/docs/cards#encrypted-pin-block).
    */
   pin?: string;
 
   /**
-   * Only applicable to cards of type `PHYSICAL`. This must be configured with Lithic
-   * before use. Specifies the configuration (i.e., physical card art) that the card
-   * should be manufactured with.
+   * Body param: Only applicable to cards of type `PHYSICAL`. This must be configured
+   * with Lithic before use. Specifies the configuration (i.e., physical card art)
+   * that the card should be manufactured with.
    */
   product_id?: string;
 
   /**
-   * Restricted field limited to select use cases. Lithic will reach out directly if
-   * this field should be used. Globally unique identifier for the replacement card's
-   * account. If this field is specified, `replacement_for` must also be specified.
-   * If `replacement_for` is specified and this field is omitted, the replacement
-   * card's account will be inferred from the card being replaced.
+   * Body param: Restricted field limited to select use cases. Lithic will reach out
+   * directly if this field should be used. Globally unique identifier for the
+   * replacement card's account. If this field is specified, `replacement_for` must
+   * also be specified. If `replacement_for` is specified and this field is omitted,
+   * the replacement card's account will be inferred from the card being replaced.
    */
   replacement_account_token?: string;
 
   /**
-   * Additional context or information related to the card that this card will
-   * replace.
+   * Body param: Additional context or information related to the card that this card
+   * will replace.
    */
   replacement_comment?: string;
 
   /**
-   * Globally unique identifier for the card that this card will replace. If the card
-   * type is `PHYSICAL` it will be replaced by a `PHYSICAL` card. If the card type is
-   * `VIRTUAL` it will be replaced by a `VIRTUAL` card.
+   * Body param: Globally unique identifier for the card that this card will replace.
+   * If the card type is `PHYSICAL` it will be replaced by a `PHYSICAL` card. If the
+   * card type is `VIRTUAL` it will be replaced by a `VIRTUAL` card.
    */
   replacement_for?: string;
 
   /**
-   * Card state substatus values for the card that this card will replace:
+   * Body param: Card state substatus values for the card that this card will
+   * replace:
    *
    * - `LOST` - The physical card is no longer in the cardholder's possession due to
    *   being lost or never received by the cardholder.
@@ -1000,11 +1012,14 @@ export interface CardCreateParams {
     | 'UNDELIVERABLE'
     | 'OTHER';
 
+  /**
+   * Body param
+   */
   shipping_address?: Shared.ShippingAddress;
 
   /**
-   * Shipping method for the card. Only applies to cards of type PHYSICAL. Use of
-   * options besides `STANDARD` require additional permissions.
+   * Body param: Shipping method for the card. Only applies to cards of type
+   * PHYSICAL. Use of options besides `STANDARD` require additional permissions.
    *
    * - `STANDARD` - USPS regular mail or similar international option, with no
    *   tracking
@@ -1029,16 +1044,16 @@ export interface CardCreateParams {
     | 'STANDARD_WITH_TRACKING';
 
   /**
-   * Amount (in cents) to limit approved authorizations (e.g. 100000 would be a
-   * $1,000 limit). Transaction requests above the spend limit will be declined. Note
-   * that a spend limit of 0 is effectively no limit, and should only be used to
-   * reset or remove a prior limit. Only a limit of 1 or above will result in
-   * declined transactions due to checks against the card limit.
+   * Body param: Amount (in cents) to limit approved authorizations (e.g. 100000
+   * would be a $1,000 limit). Transaction requests above the spend limit will be
+   * declined. Note that a spend limit of 0 is effectively no limit, and should only
+   * be used to reset or remove a prior limit. Only a limit of 1 or above will result
+   * in declined transactions due to checks against the card limit.
    */
   spend_limit?: number;
 
   /**
-   * Spend limit duration values:
+   * Body param: Spend limit duration values:
    *
    * - `ANNUALLY` - Card will authorize transactions up to spend limit for the
    *   trailing year.
@@ -1054,7 +1069,7 @@ export interface CardCreateParams {
   spend_limit_duration?: SpendLimitDuration;
 
   /**
-   * Card state values:
+   * Body param: Card state values:
    *
    * - `OPEN` - Card will approve authorizations (if they match card and account
    *   parameters).
@@ -1062,6 +1077,11 @@ export interface CardCreateParams {
    *   time.
    */
   state?: 'OPEN' | 'PAUSED';
+
+  /**
+   * Header param: Idempotency key for the request
+   */
+  'Idempotency-Key'?: string;
 }
 
 export interface CardUpdateParams {
