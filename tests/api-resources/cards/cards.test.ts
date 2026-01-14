@@ -53,6 +53,7 @@ describe('resource cards', () => {
       spend_limit: 1000,
       spend_limit_duration: 'TRANSACTION',
       state: 'OPEN',
+      'Idempotency-Key': '65a9dad4-1b60-4686-83fd-65b25078a4b4',
     });
   });
 
