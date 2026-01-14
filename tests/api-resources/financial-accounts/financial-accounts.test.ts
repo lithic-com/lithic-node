@@ -25,7 +25,7 @@ describe('resource financialAccounts', () => {
       type: 'OPERATING',
       account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       is_for_benefit_of: true,
-      'Idempotency-Key': '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      'Idempotency-Key': '65a9dad4-1b60-4686-83fd-65b25078a4b4',
     });
   });
 
