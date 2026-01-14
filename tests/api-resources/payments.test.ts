@@ -34,7 +34,7 @@ describe('resource payments', () => {
       method: 'ACH_NEXT_DAY',
       method_attributes: {
         sec_code: 'CCD',
-        ach_hold_period: 0,
+        ach_hold__period: 0,
         addenda: 'addenda',
       },
       type: 'COLLECTION',
