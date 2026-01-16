@@ -742,12 +742,12 @@ export namespace CardWebProvisionResponse {
     /**
      * JWS object required for handoff to Apple's script.
      */
-    jws?: AppleWebPushProvisioningResponse.Jws;
+    jws: AppleWebPushProvisioningResponse.Jws;
 
     /**
      * A unique identifier for the JWS object.
      */
-    state?: string;
+    state: string;
   }
 
   export namespace AppleWebPushProvisioningResponse {
