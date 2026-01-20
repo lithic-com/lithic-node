@@ -1358,6 +1358,28 @@ export interface CardShippedWebhookEvent {
   tracking_number: string | null;
 }
 
+export interface CardUpdatedWebhookEvent {
+  /**
+   * The token of the card that was updated.
+   */
+  token: string;
+
+  /**
+   * The type of event that occurred.
+   */
+  event_type: 'card.updated';
+
+  /**
+   * The previous values of the fields that were updated.
+   */
+  previous_fields: unknown;
+
+  /**
+   * The current state of the card.
+   */
+  state: string;
+}
+
 export interface CardTransactionUpdatedWebhookEvent extends TransactionsAPI.Transaction {
   /**
    * The type of event that occurred.
@@ -2296,6 +2318,7 @@ export type ParsedWebhookEvent =
   | CardRenewedWebhookEvent
   | CardReissuedWebhookEvent
   | CardShippedWebhookEvent
+  | CardUpdatedWebhookEvent
   | CardTransactionUpdatedWebhookEvent
   | CardTransactionEnhancedDataCreatedWebhookEvent
   | CardTransactionEnhancedDataUpdatedWebhookEvent
@@ -2773,6 +2796,7 @@ export declare namespace Webhooks {
     type CardRenewedWebhookEvent as CardRenewedWebhookEvent,
     type CardReissuedWebhookEvent as CardReissuedWebhookEvent,
     type CardShippedWebhookEvent as CardShippedWebhookEvent,
+    type CardUpdatedWebhookEvent as CardUpdatedWebhookEvent,
     type CardTransactionUpdatedWebhookEvent as CardTransactionUpdatedWebhookEvent,
     type CardTransactionEnhancedDataCreatedWebhookEvent as CardTransactionEnhancedDataCreatedWebhookEvent,
     type CardTransactionEnhancedDataUpdatedWebhookEvent as CardTransactionEnhancedDataUpdatedWebhookEvent,

@@ -747,6 +747,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CardRenewedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CardReissuedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CardShippedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CardUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CardTransactionUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CardTransactionEnhancedDataCreatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CardTransactionEnhancedDataUpdatedWebhookEvent</a></code>
