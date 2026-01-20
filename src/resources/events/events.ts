@@ -120,6 +120,7 @@ export interface Event {
    * - card.reissued: Occurs when a card is reissued.
    * - card.renewed: Occurs when a card is renewed.
    * - card.shipped: Occurs when a card is shipped.
+   * - card.updated: Occurs when a card is updated.
    * - digital_wallet.tokenization_approval_request: Occurs when a tokenization
    *   approval request is made. This event will be deprecated in the future. We
    *   recommend using `tokenization.approval_request` instead.
@@ -213,6 +214,7 @@ export interface Event {
     | 'card.reissued'
     | 'card.renewed'
     | 'card.shipped'
+    | 'card.updated'
     | 'digital_wallet.tokenization_approval_request'
     | 'digital_wallet.tokenization_result'
     | 'digital_wallet.tokenization_two_factor_authentication_code'
@@ -291,6 +293,7 @@ export interface EventSubscription {
     | 'card.reissued'
     | 'card.renewed'
     | 'card.shipped'
+    | 'card.updated'
     | 'digital_wallet.tokenization_approval_request'
     | 'digital_wallet.tokenization_result'
     | 'digital_wallet.tokenization_two_factor_authentication_code'
@@ -407,6 +410,7 @@ export interface EventListParams extends CursorPageParams {
     | 'card.reissued'
     | 'card.renewed'
     | 'card.shipped'
+    | 'card.updated'
     | 'digital_wallet.tokenization_approval_request'
     | 'digital_wallet.tokenization_result'
     | 'digital_wallet.tokenization_two_factor_authentication_code'
