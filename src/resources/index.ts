@@ -299,6 +299,7 @@ export {
   type CardRenewedWebhookEvent,
   type CardReissuedWebhookEvent,
   type CardShippedWebhookEvent,
+  type CardUpdatedWebhookEvent,
   type CardTransactionUpdatedWebhookEvent,
   type CardTransactionEnhancedDataCreatedWebhookEvent,
   type CardTransactionEnhancedDataUpdatedWebhookEvent,
