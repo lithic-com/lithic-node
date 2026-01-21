@@ -429,6 +429,12 @@ export interface Transaction {
    */
   status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED';
 
+  /**
+   * Key-value pairs for tagging resources. Tags allow you to associate arbitrary
+   * metadata with a resource for your own purposes.
+   */
+  tags: { [key: string]: string };
+
   token_info: TokenInfo | null;
 
   /**
