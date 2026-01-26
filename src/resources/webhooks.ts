@@ -1362,7 +1362,7 @@ export interface CardUpdatedWebhookEvent {
   /**
    * The token of the card that was updated.
    */
-  token: string;
+  card_token: string;
 
   /**
    * The type of event that occurred.
