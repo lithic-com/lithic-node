@@ -525,11 +525,10 @@ export interface NonPCICard {
    * wallet-enabled). _ `PHYSICAL` - Manufactured and sent to the cardholder. We
    * offer white label branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe
    * functionality. _ `SINGLE_USE` - Card is closed upon first successful
-   * authorization. _ `MERCHANT_LOCKED` - _[Deprecated]_ Card is locked to the first
-   * merchant that successfully authorizes the card. _ `UNLOCKED` - _[Deprecated]_
-   * Similar behavior to VIRTUAL cards, please use VIRTUAL instead. _
-   * `DIGITAL_WALLET` - _[Deprecated]_ Similar behavior to VIRTUAL cards, please use
-   * VIRTUAL instead.
+   * authorization. _ `MERCHANT_LOCKED` - Card is locked to the first merchant that
+   * successfully authorizes the card. _ `UNLOCKED` - _[Deprecated]_ Similar behavior
+   * to VIRTUAL cards, please use VIRTUAL instead. _ `DIGITAL_WALLET` -
+   * _[Deprecated]_ Similar behavior to VIRTUAL cards, please use VIRTUAL instead.
    */
   type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET';
 
@@ -819,8 +818,8 @@ export interface CardCreateParams {
    *   Reach out at [lithic.com/contact](https://lithic.com/contact) for more
    *   information.
    * - `SINGLE_USE` - Card is closed upon first successful authorization.
-   * - `MERCHANT_LOCKED` - _[Deprecated]_ Card is locked to the first merchant that
-   *   successfully authorizes the card.
+   * - `MERCHANT_LOCKED` - Card is locked to the first merchant that successfully
+   *   authorizes the card.
    * - `UNLOCKED` - _[Deprecated]_ Similar behavior to VIRTUAL cards, please use
    *   VIRTUAL instead.
    * - `DIGITAL_WALLET` - _[Deprecated]_ Similar behavior to VIRTUAL cards, please
