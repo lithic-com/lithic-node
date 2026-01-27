@@ -1,5 +1,42 @@
 # Changelog
 
+## 0.128.0 (2026-01-27)
+
+Full Changelog: [v0.127.0...v0.128.0](https://github.com/lithic-com/lithic-node/compare/v0.127.0...v0.128.0)
+
+### Features
+
+* **api:** Add card.updated event ([ca68a38](https://github.com/lithic-com/lithic-node/commit/ca68a38160a3bb1aa0fce29571f5c8211ecb4079))
+* **api:** Add idempotency key to cards POST and PATCH endpoints ([98afb05](https://github.com/lithic-com/lithic-node/commit/98afb051ae43204a74957b83edbc1b91bb89d6d1))
+* **api:** Add merchant location fields to simulator endpoints ([1b156ef](https://github.com/lithic-com/lithic-node/commit/1b156efbd099ea98a42c5edcb999017a7d79f36b))
+* **api:** Add tags field to card transactions ([062acce](https://github.com/lithic-com/lithic-node/commit/062acce766eae609ab715b095cf1e4226b4d0b8b))
+* **api:** make filter optional for Spend Velocity Auth Rules ([ef79410](https://github.com/lithic-com/lithic-node/commit/ef79410ccbc6a8c6409f80ec94704cd2fe138253))
+
+
+### Bug Fixes
+
+* **api:** Correct field name from ach_hold__period to ach_hold_period ([ead10f3](https://github.com/lithic-com/lithic-node/commit/ead10f32c6352afe9af48fb91d7573cd4f7ab00f))
+* **api:** mark AppleWebPushProvisioningResponse fields required ([3bb4fc1](https://github.com/lithic-com/lithic-node/commit/3bb4fc1d5d202fb0b04da2fd3940a67578618580))
+* **api:** rename WIRE_DRAWDOWN_REQUEST to WIRE_INBOUND_DRAWDOWN_REQUEST ([ef79410](https://github.com/lithic-com/lithic-node/commit/ef79410ccbc6a8c6409f80ec94704cd2fe138253))
+
+
+### Chores
+
+* Add spec linter for YAML and folded style multiline strings ([eefbc00](https://github.com/lithic-com/lithic-node/commit/eefbc0001bd83cdd8d54f04ab0429a9d3d38d8e7))
+* **ci:** upgrade `actions/github-script` ([cd54d0d](https://github.com/lithic-com/lithic-node/commit/cd54d0dfd14ad79f5a7ad017f901b9b35a2b4e89))
+* configure new SDK language ([19ac828](https://github.com/lithic-com/lithic-node/commit/19ac828b81e7c57de8ccd7ead0839b0e47d909b9))
+* fix typo in descriptions ([79ba3d6](https://github.com/lithic-com/lithic-node/commit/79ba3d6e33009523bb7cec77e96dca6ca94d3c7d))
+* **internal:** codegen related update ([9468191](https://github.com/lithic-com/lithic-node/commit/94681910790a2cc3db84c31cb4dd4fe9f4e36cad))
+* **internal:** configure MCP Server hosting ([4bda069](https://github.com/lithic-com/lithic-node/commit/4bda069ffdcb973684b39afa14aa4124eb9bf764))
+* **internal:** update `actions/checkout` version ([3de8381](https://github.com/lithic-com/lithic-node/commit/3de8381be8cacf5cbd152c3945cb709f1ed9a145))
+* **internal:** upgrade babel, qs, js-yaml ([5940b21](https://github.com/lithic-com/lithic-node/commit/5940b21506bacce1935195f6752b4b5293803c4e))
+* Rework event type generation to support spec splitting ([0466f6a](https://github.com/lithic-com/lithic-node/commit/0466f6abc05e245b96a3f7ea4e77917c0ceb2b0f))
+
+
+### Documentation
+
+* Remove deprecated tag from MERCHANT_LOCKED card type ([112880e](https://github.com/lithic-com/lithic-node/commit/112880eaafa3d40d570af8710d4060423c46b65f))
+
 ## 0.127.0 (2026-01-08)
 
 Full Changelog: [v0.126.0...v0.127.0](https://github.com/lithic-com/lithic-node/compare/v0.126.0...v0.127.0)
