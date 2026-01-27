@@ -81,6 +81,9 @@ export class Transactions extends APIResource {
    *     amount: 3831,
    *     descriptor: 'COFFEE SHOP',
    *     pan: '4111111289144142',
+   *     merchant_acceptor_city: 'LOS ANGELES',
+   *     merchant_acceptor_country: 'USA',
+   *     merchant_acceptor_state: 'CA',
    *   });
    * ```
    */
@@ -159,7 +162,10 @@ export class Transactions extends APIResource {
    *       amount: 3831,
    *       descriptor: 'COFFEE SHOP',
    *       pan: '4111111289144142',
+   *       merchant_acceptor_city: 'SEATTLE',
+   *       merchant_acceptor_country: 'USA',
    *       merchant_acceptor_id: 'XRKGDPOWEWQRRWU',
+   *       merchant_acceptor_state: 'WA',
    *     },
    *   );
    * ```
@@ -1251,9 +1257,24 @@ export interface TransactionSimulateAuthorizationParams {
   mcc?: string;
 
   /**
+   * Merchant acceptor city
+   */
+  merchant_acceptor_city?: string;
+
+  /**
+   * Merchant acceptor country code (ISO 3166-1 alpha-3)
+   */
+  merchant_acceptor_country?: string;
+
+  /**
    * Unique identifier to identify the payment card acceptor.
    */
   merchant_acceptor_id?: string;
+
+  /**
+   * Merchant acceptor state/province (ISO 3166-2 subdivision code)
+   */
+  merchant_acceptor_state?: string;
 
   /**
    * Amount of the transaction to be simulated in currency specified in
@@ -1364,9 +1385,24 @@ export interface TransactionSimulateCreditAuthorizationParams {
   mcc?: string;
 
   /**
+   * Merchant acceptor city
+   */
+  merchant_acceptor_city?: string;
+
+  /**
+   * Merchant acceptor country code (ISO 3166-1 alpha-3)
+   */
+  merchant_acceptor_country?: string;
+
+  /**
    * Unique identifier to identify the payment card acceptor.
    */
   merchant_acceptor_id?: string;
+
+  /**
+   * Merchant acceptor state/province (ISO 3166-2 subdivision code)
+   */
+  merchant_acceptor_state?: string;
 }
 
 export interface TransactionSimulateCreditAuthorizationAdviceParams {
@@ -1395,9 +1431,24 @@ export interface TransactionSimulateCreditAuthorizationAdviceParams {
   mcc?: string;
 
   /**
+   * Merchant acceptor city
+   */
+  merchant_acceptor_city?: string;
+
+  /**
+   * Merchant acceptor country code (ISO 3166-1 alpha-3)
+   */
+  merchant_acceptor_country?: string;
+
+  /**
    * Unique identifier to identify the payment card acceptor.
    */
   merchant_acceptor_id?: string;
+
+  /**
+   * Merchant acceptor state/province (ISO 3166-2 subdivision code)
+   */
+  merchant_acceptor_state?: string;
 }
 
 export interface TransactionSimulateReturnParams {
