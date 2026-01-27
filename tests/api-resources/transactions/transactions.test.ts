@@ -82,7 +82,10 @@ describe('resource transactions', () => {
       descriptor: 'COFFEE SHOP',
       pan: '4111111289144142',
       mcc: '5812',
+      merchant_acceptor_city: 'LOS ANGELES',
+      merchant_acceptor_country: 'USA',
       merchant_acceptor_id: 'OODKZAPJVN4YS7O',
+      merchant_acceptor_state: 'CA',
       merchant_amount: 0,
       merchant_currency: 'GBP',
       partial_approval_capable: true,
@@ -153,7 +156,10 @@ describe('resource transactions', () => {
       descriptor: 'COFFEE SHOP',
       pan: '4111111289144142',
       mcc: '5812',
+      merchant_acceptor_city: 'SEATTLE',
+      merchant_acceptor_country: 'USA',
       merchant_acceptor_id: 'XRKGDPOWEWQRRWU',
+      merchant_acceptor_state: 'WA',
     });
   });
 
@@ -178,7 +184,10 @@ describe('resource transactions', () => {
       descriptor: 'COFFEE SHOP',
       pan: '4111111289144142',
       mcc: '5812',
+      merchant_acceptor_city: 'SEATTLE',
+      merchant_acceptor_country: 'USA',
       merchant_acceptor_id: 'XRKGDPOWEWQRRWU',
+      merchant_acceptor_state: 'WA',
     });
   });
 
