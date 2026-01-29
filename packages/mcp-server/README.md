@@ -41,14 +41,14 @@ For clients with a configuration JSON, it might look something like this:
 If you use Cursor, you can install the MCP server by using the button below. You will need to set your environment variables
 in Cursor's `mcp.json`, which can be found in Cursor Settings > Tools & MCP > New MCP Server.
 
-[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=lithic-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImxpdGhpYy1tY3AiXSwiZW52Ijp7IkxJVEhJQ19BUElfS0VZIjoiTXkgTGl0aGljIEFQSSBLZXkiLCJMSVRISUNfV0VCSE9PS19TRUNSRVQiOiJNeSBXZWJob29rIFNlY3JldCJ9fQ)
+[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=lithic-mcp&config=eyJuYW1lIjoibGl0aGljLW1jcCIsInRyYW5zcG9ydCI6Imh0dHAiLCJ1cmwiOiJodHRwczovL2xpdGhpYy5zdGxtY3AuY29tIiwiaGVhZGVycyI6eyJ4LWxpdGhpYy1hcGkta2V5IjoiTXkgTGl0aGljIEFQSSBLZXkifX0)
 
 ### VS Code
 
 If you use MCP, you can install the MCP server by clicking the link below. You will need to set your environment variables
 in VS Code's `mcp.json`, which can be found via Command Palette > MCP: Open User Configuration.
 
-[Open VS Code](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22lithic-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22lithic-mcp%22%5D%2C%22env%22%3A%7B%22LITHIC_API_KEY%22%3A%22My%20Lithic%20API%20Key%22%2C%22LITHIC_WEBHOOK_SECRET%22%3A%22My%20Webhook%20Secret%22%7D%7D)
+[Open VS Code](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22lithic-mcp%22%2C%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Flithic.stlmcp.com%22%2C%22headers%22%3A%7B%22x-lithic-api-key%22%3A%22My%20Lithic%20API%20Key%22%7D%7D)
 
 ### Claude Code
 
@@ -56,7 +56,7 @@ If you use Claude Code, you can install the MCP server by running the command be
 environment variables in Claude Code's `.claude.json`, which can be found in your home directory.
 
 ```
-claude mcp add lithic_mcp_api --env LITHIC_API_KEY="My Lithic API Key" LITHIC_WEBHOOK_SECRET="My Webhook Secret" -- npx -y lithic-mcp
+claude mcp add lithic_mcp_api --header "x-lithic-api-key: My Lithic API Key" --transport http https://lithic.stlmcp.com
 ```
 
 ## Code Mode
