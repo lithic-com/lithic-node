@@ -62,6 +62,7 @@ export class AccountHolders extends APIResource {
    *     },
    *   ],
    *   kyb_passed_timestamp: '2022-03-08T08:00:00Z',
+   *   naics_code: '541512',
    *   website_url: 'https://www.mybusiness.com',
    * });
    * ```
@@ -114,6 +115,7 @@ export class AccountHolders extends APIResource {
    *       entity_token: 'fd771a07-c5c2-42f3-a53c-a6c79c6c0d07',
    *       address: { postal_code: '68023' },
    *     },
+   *     naics_code: '541512',
    *     website_url: 'https://www.mynewbusiness.com',
    *   },
    * );
@@ -382,6 +384,12 @@ export interface AccountHolder {
   individual?: AccountHolder.Individual;
 
   /**
+   * Only present when user_type == "BUSINESS". 6-digit North American Industry
+   * Classification System (NAICS) code for the business.
+   */
+  naics_code?: string;
+
+  /**
    * Only present when user_type == "BUSINESS". User-submitted description of the
    * business.
    */
@@ -433,8 +441,8 @@ export interface AccountHolder {
   /**
    * The type of Account Holder. If the type is "INDIVIDUAL", the "individual"
    * attribute will be present. If the type is "BUSINESS" then the "business_entity",
-   * "control_person", "beneficial_owner_individuals", "nature_of_business", and
-   * "website_url" attributes will be present.
+   * "control_person", "beneficial_owner_individuals", "naics_code",
+   * "nature_of_business", and "website_url" attributes will be present.
    */
   user_type?: 'BUSINESS' | 'INDIVIDUAL';
 
@@ -808,6 +816,12 @@ export interface KYB {
    * This field is required only if workflow type is `KYB_BYO`.
    */
   kyb_passed_timestamp?: string;
+
+  /**
+   * 6-digit North American Industry Classification System (NAICS) code for the
+   * business.
+   */
+  naics_code?: string;
 
   /**
    * Company website URL.
@@ -1380,6 +1394,12 @@ export namespace AccountHolderUpdateResponse {
     individual?: KYBKYCPatchResponse.Individual;
 
     /**
+     * Only present when user_type == "BUSINESS". 6-digit North American Industry
+     * Classification System (NAICS) code for the business.
+     */
+    naics_code?: string;
+
+    /**
      * Only present when user_type == "BUSINESS". User-submitted description of the
      * business.
      */
@@ -1443,8 +1463,8 @@ export namespace AccountHolderUpdateResponse {
      * attribute will be present.
      *
      * If the type is "BUSINESS" then the "business_entity", "control_person",
-     * "beneficial_owner_individuals", "nature_of_business", and "website_url"
-     * attributes will be present.
+     * "beneficial_owner_individuals", "naics_code", "nature_of_business", and
+     * "website_url" attributes will be present.
      */
     user_type?: 'BUSINESS' | 'INDIVIDUAL';
 
@@ -1934,6 +1954,12 @@ export interface AccountHolderSimulateEnrollmentReviewResponse {
   individual?: AccountHolderSimulateEnrollmentReviewResponse.Individual;
 
   /**
+   * Only present when user_type == "BUSINESS". 6-digit North American Industry
+   * Classification System (NAICS) code for the business.
+   */
+  naics_code?: string;
+
+  /**
    * Only present when user_type == "BUSINESS". User-submitted description of the
    * business.
    */
@@ -1997,8 +2023,8 @@ export interface AccountHolderSimulateEnrollmentReviewResponse {
    * attribute will be present.
    *
    * If the type is "BUSINESS" then the "business_entity", "control_person",
-   * "beneficial_owner_individuals", "nature_of_business", and "website_url"
-   * attributes will be present.
+   * "beneficial_owner_individuals", "naics_code", "nature_of_business", and
+   * "website_url" attributes will be present.
    */
   user_type?: 'BUSINESS' | 'INDIVIDUAL';
 
@@ -2390,6 +2416,12 @@ export declare namespace AccountHolderCreateParams {
     kyb_passed_timestamp?: string;
 
     /**
+     * 6-digit North American Industry Classification System (NAICS) code for the
+     * business.
+     */
+    naics_code?: string;
+
+    /**
      * Company website URL.
      */
     website_url?: string;
@@ -2605,6 +2637,12 @@ export declare namespace AccountHolderCreateParams {
      * system
      */
     external_id?: string;
+
+    /**
+     * 6-digit North American Industry Classification System (NAICS) code for the
+     * business.
+     */
+    naics_code?: string;
 
     /**
      * Short description of the company's line of business (i.e., what does the company
@@ -2948,6 +2986,12 @@ export declare namespace AccountHolderUpdateParams {
      * system
      */
     external_id?: string;
+
+    /**
+     * 6-digit North American Industry Classification System (NAICS) code for the
+     * business.
+     */
+    naics_code?: string;
 
     /**
      * Short description of the company's line of business (i.e., what does the company
