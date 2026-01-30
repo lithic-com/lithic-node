@@ -153,6 +153,12 @@ export namespace AccountHolderUpdatedWebhookEvent {
     external_id?: string;
 
     /**
+     * 6-digit North American Industry Classification System (NAICS) code for the
+     * business. Only present if naics_code was included in the update request.
+     */
+    naics_code?: string;
+
+    /**
      * Short description of the company's line of business (i.e., what does the company
      * do?).
      */
@@ -2385,6 +2391,12 @@ export namespace ParsedWebhookEvent {
      * system
      */
     external_id?: string;
+
+    /**
+     * 6-digit North American Industry Classification System (NAICS) code for the
+     * business. Only present if naics_code was included in the update request.
+     */
+    naics_code?: string;
 
     /**
      * Short description of the company's line of business (i.e., what does the company

@@ -138,6 +138,7 @@ describe('resource accountHolders', () => {
       ],
       external_id: 'external_id',
       kyb_passed_timestamp: '2018-05-29T21:16:05Z',
+      naics_code: '541512',
       website_url: 'www.mybusiness.com',
     });
   });
