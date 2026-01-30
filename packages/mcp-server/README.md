@@ -80,10 +80,11 @@ and repeatably.
 
 Launching the client with `--transport=http` launches the server as a remote server using Streamable HTTP transport. The `--port` setting can choose the port it will run on, and the `--socket` setting allows it to run on a Unix socket.
 
-Authorization can be provided via the following headers:
+Authorization and base URL can be provided via the following headers:
 | Header | Equivalent client option | Security scheme |
 | ------------------ | ------------------------ | --------------- |
 | `x-lithic-api-key` | `apiKey` | ApiKeyAuth |
+| `x-base-url` | `baseUrl` | n/a |
 
 A configuration JSON for this server might look like this, assuming the server is hosted at `http://localhost:3000`:
 
@@ -93,7 +94,8 @@ A configuration JSON for this server might look like this, assuming the server i
     "lithic_api": {
       "url": "http://localhost:3000",
       "headers": {
-        "x-lithic-api-key": "My Lithic API Key"
+        "x-lithic-api-key": "My Lithic API Key",
+        "x-base-url": "https://sandbox.lithic.com"
       }
     }
   }

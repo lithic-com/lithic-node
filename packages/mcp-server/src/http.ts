@@ -6,7 +6,7 @@ import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/
 import express from 'express';
 import { McpOptions } from './options';
 import { ClientOptions, initMcpServer, newMcpServer } from './server';
-import { parseAuthHeaders } from './headers';
+import { parseAuthHeaders, parseBaseUrlHeader } from './headers';
 
 const newServer = ({
   clientOptions,
@@ -21,11 +21,13 @@ const newServer = ({
 
   try {
     const authOptions = parseAuthHeaders(req);
+    const baseUrlOptions = parseBaseUrlHeader(req);
     initMcpServer({
       server: server,
       clientOptions: {
         ...clientOptions,
         ...authOptions,
+        ...baseUrlOptions,
       },
     });
   } catch (error) {
