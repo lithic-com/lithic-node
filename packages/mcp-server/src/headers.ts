@@ -10,3 +10,9 @@ export const parseAuthHeaders = (req: IncomingMessage): Partial<ClientOptions> =
     : req.headers['x-lithic-api-key'];
   return { apiKey };
 };
+
+export const parseBaseUrlHeader = (req: IncomingMessage): Record<string, string> => {
+  const baseUrl =
+    Array.isArray(req.headers['x-base-url']) ? req.headers['x-base-url'][0] : req.headers['x-base-url'];
+  return baseUrl ? { baseUrl } : {};
+};
