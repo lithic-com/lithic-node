@@ -76,7 +76,10 @@ export function codeTool(): McpTool {
             'set LITHIC_API_KEY environment variable or provide apiKey client option',
           ),
           LITHIC_WEBHOOK_SECRET: readEnv('LITHIC_WEBHOOK_SECRET') ?? client.webhookSecret ?? undefined,
-          LITHIC_BASE_URL: readEnv('LITHIC_BASE_URL') ?? client.baseURL ?? undefined,
+          LITHIC_BASE_URL:
+            readEnv('LITHIC_BASE_URL') ?? readEnv('LITHIC_ENVIRONMENT') ?
+              undefined
+            : client.baseURL ?? undefined,
         }),
       },
       body: JSON.stringify({
