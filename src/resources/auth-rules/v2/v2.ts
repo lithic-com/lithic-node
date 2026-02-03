@@ -762,8 +762,10 @@ export namespace ConditionalTokenizationActionParameters {
      *
      * - `TIMESTAMP`: The timestamp of the tokenization request in ISO 8601 format.
      * - `TOKENIZATION_CHANNEL`: The channel through which the tokenization request was
-     *   initiated (e.g., DIGITAL_WALLET, ECOMMERCE).
-     * - `TOKENIZATION_SOURCE`: The source of the tokenization request.
+     *   initiated. Valid values are `DIGITAL_WALLET`, `MERCHANT`.
+     * - `TOKENIZATION_SOURCE`: The source of the tokenization request. Valid values
+     *   are `ACCOUNT_ON_FILE`, `MANUAL_PROVISION`, `PUSH_PROVISION`, `CHIP_DIP`,
+     *   `CONTACTLESS_TAP`, `TOKEN`, `UNKNOWN`.
      * - `TOKEN_REQUESTOR_NAME`: The name of the entity requesting the token. Valid
      *   values are `ALT_ID`, `AMAZON_ONE`, `AMERICAN_EXPRESS_TOKEN_SERVICE`,
      *   `ANDROID_PAY`, `APPLE_PAY`, `FACEBOOK`, `FITBIT_PAY`, `GARMIN_PAY`,
