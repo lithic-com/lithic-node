@@ -3,7 +3,7 @@
 import { IncomingMessage } from 'node:http';
 import { ClientOptions } from 'lithic';
 
-export const parseAuthHeaders = (req: IncomingMessage): Partial<ClientOptions> => {
+export const parseAuthHeaders = (req: IncomingMessage, required?: boolean): Partial<ClientOptions> => {
   const apiKey =
     Array.isArray(req.headers['x-lithic-api-key']) ?
       req.headers['x-lithic-api-key'][0]
