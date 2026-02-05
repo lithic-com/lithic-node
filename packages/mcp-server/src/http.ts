@@ -9,7 +9,7 @@ import { McpOptions } from './options';
 import { ClientOptions, initMcpServer, newMcpServer } from './server';
 import { parseAuthHeaders, parseBaseUrlHeader } from './headers';
 
-const newServer = ({
+const newServer = async ({
   clientOptions,
   req,
   res,
@@ -17,13 +17,15 @@ const newServer = ({
   clientOptions: ClientOptions;
   req: express.Request;
   res: express.Response;
-}): McpServer | null => {
-  const server = newMcpServer();
+}): Promise<McpServer | null> => {
+  const server = await newMcpServer();
 
   try {
     const authOptions = parseAuthHeaders(req, false);
+
     const baseUrlOptions = parseBaseUrlHeader(req);
-    initMcpServer({
+
+    await initMcpServer({
       server: server,
       clientOptions: {
         ...clientOptions,
@@ -48,7 +50,7 @@ const newServer = ({
 const post =
   (options: { clientOptions: ClientOptions; mcpOptions: McpOptions }) =>
   async (req: express.Request, res: express.Response) => {
-    const server = newServer({ ...options, req, res });
+    const server = await newServer({ ...options, req, res });
     // If we return null, we already set the authorization error.
     if (server === null) return;
     const transport = new StreamableHTTPServerTransport();
