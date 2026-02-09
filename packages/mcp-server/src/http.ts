@@ -11,10 +11,12 @@ import { parseAuthHeaders, parseBaseUrlHeader } from './headers';
 
 const newServer = async ({
   clientOptions,
+  mcpOptions,
   req,
   res,
 }: {
   clientOptions: ClientOptions;
+  mcpOptions: McpOptions;
   req: express.Request;
   res: express.Response;
 }): Promise<McpServer | null> => {
@@ -27,6 +29,7 @@ const newServer = async ({
 
     await initMcpServer({
       server: server,
+      mcpOptions: mcpOptions,
       clientOptions: {
         ...clientOptions,
         ...authOptions,
