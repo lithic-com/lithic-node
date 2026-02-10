@@ -71,6 +71,25 @@ export class V2 extends APIResource {
   }
 
   /**
+   * Lists Auth Rule evaluation results.
+   *
+   * **Limitations:**
+   *
+   * - Results are available for the past 3 months only
+   * - At least one filter (`event_uuid` or `auth_rule_token`) must be provided
+   * - When filtering by `event_uuid`, pagination is not supported
+   */
+  listResults(
+    query: V2ListResultsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<V2ListResultsResponsesCursorPage, V2ListResultsResponse> {
+    return this._client.getAPIList('/v2/auth_rules/results', CursorPage<V2ListResultsResponse>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Promotes the draft version of an Auth rule to the currently active version such
    * that it is enforced in the respective stream.
    */
@@ -122,6 +141,8 @@ export class V2 extends APIResource {
 }
 
 export type AuthRulesCursorPage = CursorPage<AuthRule>;
+
+export type V2ListResultsResponsesCursorPage = CursorPage<V2ListResultsResponse>;
 
 export interface AuthRule {
   /**
@@ -364,7 +385,7 @@ export namespace Conditional3DSActionParameters {
 
 export interface ConditionalACHActionParameters {
   /**
-   * The action to take if the conditions are met
+   * The action to take if the conditions are met.
    */
   action: ConditionalACHActionParameters.ApproveAction | ConditionalACHActionParameters.ReturnAction;
 
@@ -692,7 +713,7 @@ export type ConditionalOperation =
 
 export interface ConditionalTokenizationActionParameters {
   /**
-   * The action to take if the conditions are met
+   * The action to take if the conditions are met.
    */
   action:
     | ConditionalTokenizationActionParameters.DeclineAction
@@ -1088,6 +1109,217 @@ export namespace VelocityLimitPeriod {
      * not specified.
      */
     month?: number;
+  }
+}
+
+/**
+ * Result of an Auth Rule evaluation
+ */
+export interface V2ListResultsResponse {
+  /**
+   * Globally unique identifier for the evaluation
+   */
+  token: string;
+
+  /**
+   * Actions returned by the rule evaluation
+   */
+  actions: Array<
+    | V2ListResultsResponse.AuthorizationAction
+    | V2ListResultsResponse.ThreeDSAction
+    | V2ListResultsResponse.DeclineAction
+    | V2ListResultsResponse.RequireTfaAction
+    | V2ListResultsResponse.ApproveAction
+    | V2ListResultsResponse.ReturnAction
+  >;
+
+  /**
+   * The Auth Rule token
+   */
+  auth_rule_token: string;
+
+  /**
+   * Timestamp of the rule evaluation
+   */
+  evaluation_time: string;
+
+  /**
+   * The event stream during which the rule was evaluated
+   */
+  event_stream: EventStream;
+
+  /**
+   * Token of the event that triggered the evaluation
+   */
+  event_token: string;
+
+  /**
+   * The state of the Auth Rule
+   */
+  mode: 'ACTIVE' | 'INACTIVE';
+
+  /**
+   * Version of the rule that was evaluated
+   */
+  rule_version: number;
+}
+
+export namespace V2ListResultsResponse {
+  export interface AuthorizationAction {
+    /**
+     * Optional explanation for why this action was taken
+     */
+    explanation?: string;
+  }
+
+  export interface ThreeDSAction {
+    /**
+     * Optional explanation for why this action was taken
+     */
+    explanation?: string;
+  }
+
+  export interface DeclineAction {
+    /**
+     * Decline the tokenization request
+     */
+    type: 'DECLINE';
+
+    /**
+     * Reason code for declining the tokenization request
+     */
+    reason?:
+      | 'ACCOUNT_SCORE_1'
+      | 'DEVICE_SCORE_1'
+      | 'ALL_WALLET_DECLINE_REASONS_PRESENT'
+      | 'WALLET_RECOMMENDED_DECISION_RED'
+      | 'CVC_MISMATCH'
+      | 'CARD_EXPIRY_MONTH_MISMATCH'
+      | 'CARD_EXPIRY_YEAR_MISMATCH'
+      | 'CARD_INVALID_STATE'
+      | 'CUSTOMER_RED_PATH'
+      | 'INVALID_CUSTOMER_RESPONSE'
+      | 'NETWORK_FAILURE'
+      | 'GENERIC_DECLINE'
+      | 'DIGITAL_CARD_ART_REQUIRED';
+  }
+
+  export interface RequireTfaAction {
+    /**
+     * Require two-factor authentication for the tokenization request
+     */
+    type: 'REQUIRE_TFA';
+
+    /**
+     * Reason code for requiring two-factor authentication
+     */
+    reason?:
+      | 'WALLET_RECOMMENDED_TFA'
+      | 'SUSPICIOUS_ACTIVITY'
+      | 'DEVICE_RECENTLY_LOST'
+      | 'TOO_MANY_RECENT_ATTEMPTS'
+      | 'TOO_MANY_RECENT_TOKENS'
+      | 'TOO_MANY_DIFFERENT_CARDHOLDERS'
+      | 'OUTSIDE_HOME_TERRITORY'
+      | 'HAS_SUSPENDED_TOKENS'
+      | 'HIGH_RISK'
+      | 'ACCOUNT_SCORE_LOW'
+      | 'DEVICE_SCORE_LOW'
+      | 'CARD_STATE_TFA'
+      | 'HARDCODED_TFA'
+      | 'CUSTOMER_RULE_TFA'
+      | 'DEVICE_HOST_CARD_EMULATION';
+  }
+
+  export interface ApproveAction {
+    /**
+     * Approve the ACH transaction
+     */
+    type: 'APPROVE';
+  }
+
+  export interface ReturnAction {
+    /**
+     * NACHA return code to use when returning the transaction. Note that the list of
+     * available return codes is subject to an allowlist configured at the program
+     * level
+     */
+    code:
+      | 'R01'
+      | 'R02'
+      | 'R03'
+      | 'R04'
+      | 'R05'
+      | 'R06'
+      | 'R07'
+      | 'R08'
+      | 'R09'
+      | 'R10'
+      | 'R11'
+      | 'R12'
+      | 'R13'
+      | 'R14'
+      | 'R15'
+      | 'R16'
+      | 'R17'
+      | 'R18'
+      | 'R19'
+      | 'R20'
+      | 'R21'
+      | 'R22'
+      | 'R23'
+      | 'R24'
+      | 'R25'
+      | 'R26'
+      | 'R27'
+      | 'R28'
+      | 'R29'
+      | 'R30'
+      | 'R31'
+      | 'R32'
+      | 'R33'
+      | 'R34'
+      | 'R35'
+      | 'R36'
+      | 'R37'
+      | 'R38'
+      | 'R39'
+      | 'R40'
+      | 'R41'
+      | 'R42'
+      | 'R43'
+      | 'R44'
+      | 'R45'
+      | 'R46'
+      | 'R47'
+      | 'R50'
+      | 'R51'
+      | 'R52'
+      | 'R53'
+      | 'R61'
+      | 'R62'
+      | 'R67'
+      | 'R68'
+      | 'R69'
+      | 'R70'
+      | 'R71'
+      | 'R72'
+      | 'R73'
+      | 'R74'
+      | 'R75'
+      | 'R76'
+      | 'R77'
+      | 'R80'
+      | 'R81'
+      | 'R82'
+      | 'R83'
+      | 'R84'
+      | 'R85';
+
+    /**
+     * Return the ACH transaction
+     */
+    type: 'RETURN';
   }
 }
 
@@ -1505,6 +1737,24 @@ export interface V2DraftParams {
     | null;
 }
 
+export interface V2ListResultsParams extends CursorPageParams {
+  /**
+   * Filter by Auth Rule token
+   */
+  auth_rule_token?: string;
+
+  /**
+   * Filter by event UUID
+   */
+  event_uuid?: string;
+
+  /**
+   * Filter by whether the rule evaluation produced any actions. When not provided,
+   * all results are returned.
+   */
+  has_actions?: boolean;
+}
+
 export interface V2RetrieveFeaturesParams {
   account_token?: string;
 
@@ -1542,13 +1792,16 @@ export declare namespace V2 {
     type RuleStats as RuleStats,
     type VelocityLimitParams as VelocityLimitParams,
     type VelocityLimitPeriod as VelocityLimitPeriod,
+    type V2ListResultsResponse as V2ListResultsResponse,
     type V2RetrieveFeaturesResponse as V2RetrieveFeaturesResponse,
     type V2RetrieveReportResponse as V2RetrieveReportResponse,
     type AuthRulesCursorPage as AuthRulesCursorPage,
+    type V2ListResultsResponsesCursorPage as V2ListResultsResponsesCursorPage,
     type V2CreateParams as V2CreateParams,
     type V2UpdateParams as V2UpdateParams,
     type V2ListParams as V2ListParams,
     type V2DraftParams as V2DraftParams,
+    type V2ListResultsParams as V2ListResultsParams,
     type V2RetrieveFeaturesParams as V2RetrieveFeaturesParams,
     type V2RetrieveReportParams as V2RetrieveReportParams,
   };

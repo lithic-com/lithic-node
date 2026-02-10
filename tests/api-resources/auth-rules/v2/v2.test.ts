@@ -124,6 +124,34 @@ describe('resource v2', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
+  test('listResults', async () => {
+    const responsePromise = client.authRules.v2.listResults();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('listResults: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.authRules.v2.listResults(
+        {
+          auth_rule_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          event_uuid: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          has_actions: true,
+          page_size: 1,
+          starting_after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Lithic.NotFoundError);
+  });
+
   test('promote', async () => {
     const responsePromise = client.authRules.v2.promote('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
