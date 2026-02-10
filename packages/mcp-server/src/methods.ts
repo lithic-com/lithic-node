@@ -129,6 +129,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/auth_rules/{auth_rule_token}/draft',
   },
   {
+    clientCallName: 'client.authRules.v2.listResults',
+    fullyQualifiedName: 'authRules.v2.listResults',
+    httpMethod: 'get',
+    httpPath: '/v2/auth_rules/results',
+  },
+  {
     clientCallName: 'client.authRules.v2.promote',
     fullyQualifiedName: 'authRules.v2.promote',
     httpMethod: 'post',

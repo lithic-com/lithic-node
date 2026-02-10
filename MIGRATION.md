@@ -99,6 +99,7 @@ client.example.list(undefined, { headers: { ... } });
 - `client.accounts.list()`
 - `client.accountHolders.list()`
 - `client.authRules.v2.list()`
+- `client.authRules.v2.listResults()`
 - `client.authRules.v2.retrieveFeatures()`
 - `client.tokenizations.list()`
 - `client.tokenizations.resendActivationCode()`
