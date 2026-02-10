@@ -76,8 +76,8 @@ export class V2 extends APIResource {
    * **Limitations:**
    *
    * - Results are available for the past 3 months only
-   * - At least one filter (`event_uuid` or `auth_rule_token`) must be provided
-   * - When filtering by `event_uuid`, pagination is not supported
+   * - At least one filter (`event_token` or `auth_rule_token`) must be provided
+   * - When filtering by `event_token`, pagination is not supported
    */
   listResults(
     query: V2ListResultsParams | null | undefined = {},
@@ -1126,7 +1126,7 @@ export interface V2ListResultsResponse {
    */
   actions: Array<
     | V2ListResultsResponse.AuthorizationAction
-    | V2ListResultsResponse.ThreeDSAction
+    | V2ListResultsResponse.Authentication3DSAction
     | V2ListResultsResponse.DeclineAction
     | V2ListResultsResponse.RequireTfaAction
     | V2ListResultsResponse.ApproveAction
@@ -1172,7 +1172,7 @@ export namespace V2ListResultsResponse {
     explanation?: string;
   }
 
-  export interface ThreeDSAction {
+  export interface Authentication3DSAction {
     /**
      * Optional explanation for why this action was taken
      */
@@ -1744,9 +1744,9 @@ export interface V2ListResultsParams extends CursorPageParams {
   auth_rule_token?: string;
 
   /**
-   * Filter by event UUID
+   * Filter by event token
    */
-  event_uuid?: string;
+  event_token?: string;
 
   /**
    * Filter by whether the rule evaluation produced any actions. When not provided,
