@@ -1115,211 +1115,368 @@ export namespace VelocityLimitPeriod {
 /**
  * Result of an Auth Rule evaluation
  */
-export interface V2ListResultsResponse {
-  /**
-   * Globally unique identifier for the evaluation
-   */
-  token: string;
-
-  /**
-   * Actions returned by the rule evaluation
-   */
-  actions: Array<
-    | V2ListResultsResponse.AuthorizationAction
-    | V2ListResultsResponse.Authentication3DSAction
-    | V2ListResultsResponse.DeclineAction
-    | V2ListResultsResponse.RequireTfaAction
-    | V2ListResultsResponse.ApproveAction
-    | V2ListResultsResponse.ReturnAction
-  >;
-
-  /**
-   * The Auth Rule token
-   */
-  auth_rule_token: string;
-
-  /**
-   * Timestamp of the rule evaluation
-   */
-  evaluation_time: string;
-
-  /**
-   * The event stream during which the rule was evaluated
-   */
-  event_stream: EventStream;
-
-  /**
-   * Token of the event that triggered the evaluation
-   */
-  event_token: string;
-
-  /**
-   * The state of the Auth Rule
-   */
-  mode: 'ACTIVE' | 'INACTIVE';
-
-  /**
-   * Version of the rule that was evaluated
-   */
-  rule_version: number;
-}
+export type V2ListResultsResponse =
+  | V2ListResultsResponse.AuthorizationResult
+  | V2ListResultsResponse.Authentication3DSResult
+  | V2ListResultsResponse.TokenizationResult
+  | V2ListResultsResponse.ACHResult;
 
 export namespace V2ListResultsResponse {
-  export interface AuthorizationAction {
+  export interface AuthorizationResult {
     /**
-     * Optional explanation for why this action was taken
+     * Globally unique identifier for the evaluation
      */
-    explanation?: string;
+    token: string;
+
+    /**
+     * Actions returned by the rule evaluation
+     */
+    actions: Array<AuthorizationResult.Action>;
+
+    /**
+     * The Auth Rule token
+     */
+    auth_rule_token: string;
+
+    /**
+     * Timestamp of the rule evaluation
+     */
+    evaluation_time: string;
+
+    /**
+     * The event stream during which the rule was evaluated
+     */
+    event_stream: 'AUTHORIZATION';
+
+    /**
+     * Token of the event that triggered the evaluation
+     */
+    event_token: string;
+
+    /**
+     * The state of the Auth Rule
+     */
+    mode: 'ACTIVE' | 'INACTIVE';
+
+    /**
+     * Version of the rule that was evaluated
+     */
+    rule_version: number;
   }
 
-  export interface Authentication3DSAction {
-    /**
-     * Optional explanation for why this action was taken
-     */
-    explanation?: string;
+  export namespace AuthorizationResult {
+    export interface Action {
+      type: 'DECLINE' | 'CHALLENGE';
+
+      /**
+       * Optional explanation for why this action was taken
+       */
+      explanation?: string;
+    }
   }
 
-  export interface DeclineAction {
+  export interface Authentication3DSResult {
     /**
-     * Decline the tokenization request
+     * Globally unique identifier for the evaluation
      */
-    type: 'DECLINE';
+    token: string;
 
     /**
-     * Reason code for declining the tokenization request
+     * Actions returned by the rule evaluation
      */
-    reason?:
-      | 'ACCOUNT_SCORE_1'
-      | 'DEVICE_SCORE_1'
-      | 'ALL_WALLET_DECLINE_REASONS_PRESENT'
-      | 'WALLET_RECOMMENDED_DECISION_RED'
-      | 'CVC_MISMATCH'
-      | 'CARD_EXPIRY_MONTH_MISMATCH'
-      | 'CARD_EXPIRY_YEAR_MISMATCH'
-      | 'CARD_INVALID_STATE'
-      | 'CUSTOMER_RED_PATH'
-      | 'INVALID_CUSTOMER_RESPONSE'
-      | 'NETWORK_FAILURE'
-      | 'GENERIC_DECLINE'
-      | 'DIGITAL_CARD_ART_REQUIRED';
+    actions: Array<Authentication3DSResult.Action>;
+
+    /**
+     * The Auth Rule token
+     */
+    auth_rule_token: string;
+
+    /**
+     * Timestamp of the rule evaluation
+     */
+    evaluation_time: string;
+
+    /**
+     * The event stream during which the rule was evaluated
+     */
+    event_stream: 'THREE_DS_AUTHENTICATION';
+
+    /**
+     * Token of the event that triggered the evaluation
+     */
+    event_token: string;
+
+    /**
+     * The state of the Auth Rule
+     */
+    mode: 'ACTIVE' | 'INACTIVE';
+
+    /**
+     * Version of the rule that was evaluated
+     */
+    rule_version: number;
   }
 
-  export interface RequireTfaAction {
-    /**
-     * Require two-factor authentication for the tokenization request
-     */
-    type: 'REQUIRE_TFA';
+  export namespace Authentication3DSResult {
+    export interface Action {
+      type: 'DECLINE' | 'CHALLENGE';
 
-    /**
-     * Reason code for requiring two-factor authentication
-     */
-    reason?:
-      | 'WALLET_RECOMMENDED_TFA'
-      | 'SUSPICIOUS_ACTIVITY'
-      | 'DEVICE_RECENTLY_LOST'
-      | 'TOO_MANY_RECENT_ATTEMPTS'
-      | 'TOO_MANY_RECENT_TOKENS'
-      | 'TOO_MANY_DIFFERENT_CARDHOLDERS'
-      | 'OUTSIDE_HOME_TERRITORY'
-      | 'HAS_SUSPENDED_TOKENS'
-      | 'HIGH_RISK'
-      | 'ACCOUNT_SCORE_LOW'
-      | 'DEVICE_SCORE_LOW'
-      | 'CARD_STATE_TFA'
-      | 'HARDCODED_TFA'
-      | 'CUSTOMER_RULE_TFA'
-      | 'DEVICE_HOST_CARD_EMULATION';
+      /**
+       * Optional explanation for why this action was taken
+       */
+      explanation?: string;
+    }
   }
 
-  export interface ApproveAction {
+  export interface TokenizationResult {
     /**
-     * Approve the ACH transaction
+     * Globally unique identifier for the evaluation
      */
-    type: 'APPROVE';
+    token: string;
+
+    /**
+     * Actions returned by the rule evaluation
+     */
+    actions: Array<TokenizationResult.DeclineAction | TokenizationResult.RequireTfaAction>;
+
+    /**
+     * The Auth Rule token
+     */
+    auth_rule_token: string;
+
+    /**
+     * Timestamp of the rule evaluation
+     */
+    evaluation_time: string;
+
+    /**
+     * The event stream during which the rule was evaluated
+     */
+    event_stream: 'TOKENIZATION';
+
+    /**
+     * Token of the event that triggered the evaluation
+     */
+    event_token: string;
+
+    /**
+     * The state of the Auth Rule
+     */
+    mode: 'ACTIVE' | 'INACTIVE';
+
+    /**
+     * Version of the rule that was evaluated
+     */
+    rule_version: number;
   }
 
-  export interface ReturnAction {
+  export namespace TokenizationResult {
+    export interface DeclineAction {
+      /**
+       * Decline the tokenization request
+       */
+      type: 'DECLINE';
+
+      /**
+       * Optional explanation for why this action was taken
+       */
+      explanation?: string;
+
+      /**
+       * Reason code for declining the tokenization request
+       */
+      reason?:
+        | 'ACCOUNT_SCORE_1'
+        | 'DEVICE_SCORE_1'
+        | 'ALL_WALLET_DECLINE_REASONS_PRESENT'
+        | 'WALLET_RECOMMENDED_DECISION_RED'
+        | 'CVC_MISMATCH'
+        | 'CARD_EXPIRY_MONTH_MISMATCH'
+        | 'CARD_EXPIRY_YEAR_MISMATCH'
+        | 'CARD_INVALID_STATE'
+        | 'CUSTOMER_RED_PATH'
+        | 'INVALID_CUSTOMER_RESPONSE'
+        | 'NETWORK_FAILURE'
+        | 'GENERIC_DECLINE'
+        | 'DIGITAL_CARD_ART_REQUIRED';
+    }
+
+    export interface RequireTfaAction {
+      /**
+       * Require two-factor authentication for the tokenization request
+       */
+      type: 'REQUIRE_TFA';
+
+      /**
+       * Optional explanation for why this action was taken
+       */
+      explanation?: string;
+
+      /**
+       * Reason code for requiring two-factor authentication
+       */
+      reason?:
+        | 'WALLET_RECOMMENDED_TFA'
+        | 'SUSPICIOUS_ACTIVITY'
+        | 'DEVICE_RECENTLY_LOST'
+        | 'TOO_MANY_RECENT_ATTEMPTS'
+        | 'TOO_MANY_RECENT_TOKENS'
+        | 'TOO_MANY_DIFFERENT_CARDHOLDERS'
+        | 'OUTSIDE_HOME_TERRITORY'
+        | 'HAS_SUSPENDED_TOKENS'
+        | 'HIGH_RISK'
+        | 'ACCOUNT_SCORE_LOW'
+        | 'DEVICE_SCORE_LOW'
+        | 'CARD_STATE_TFA'
+        | 'HARDCODED_TFA'
+        | 'CUSTOMER_RULE_TFA'
+        | 'DEVICE_HOST_CARD_EMULATION';
+    }
+  }
+
+  export interface ACHResult {
     /**
-     * NACHA return code to use when returning the transaction. Note that the list of
-     * available return codes is subject to an allowlist configured at the program
-     * level
+     * Globally unique identifier for the evaluation
      */
-    code:
-      | 'R01'
-      | 'R02'
-      | 'R03'
-      | 'R04'
-      | 'R05'
-      | 'R06'
-      | 'R07'
-      | 'R08'
-      | 'R09'
-      | 'R10'
-      | 'R11'
-      | 'R12'
-      | 'R13'
-      | 'R14'
-      | 'R15'
-      | 'R16'
-      | 'R17'
-      | 'R18'
-      | 'R19'
-      | 'R20'
-      | 'R21'
-      | 'R22'
-      | 'R23'
-      | 'R24'
-      | 'R25'
-      | 'R26'
-      | 'R27'
-      | 'R28'
-      | 'R29'
-      | 'R30'
-      | 'R31'
-      | 'R32'
-      | 'R33'
-      | 'R34'
-      | 'R35'
-      | 'R36'
-      | 'R37'
-      | 'R38'
-      | 'R39'
-      | 'R40'
-      | 'R41'
-      | 'R42'
-      | 'R43'
-      | 'R44'
-      | 'R45'
-      | 'R46'
-      | 'R47'
-      | 'R50'
-      | 'R51'
-      | 'R52'
-      | 'R53'
-      | 'R61'
-      | 'R62'
-      | 'R67'
-      | 'R68'
-      | 'R69'
-      | 'R70'
-      | 'R71'
-      | 'R72'
-      | 'R73'
-      | 'R74'
-      | 'R75'
-      | 'R76'
-      | 'R77'
-      | 'R80'
-      | 'R81'
-      | 'R82'
-      | 'R83'
-      | 'R84'
-      | 'R85';
+    token: string;
 
     /**
-     * Return the ACH transaction
+     * Actions returned by the rule evaluation
      */
-    type: 'RETURN';
+    actions: Array<ACHResult.ApproveAction | ACHResult.ReturnAction>;
+
+    /**
+     * The Auth Rule token
+     */
+    auth_rule_token: string;
+
+    /**
+     * Timestamp of the rule evaluation
+     */
+    evaluation_time: string;
+
+    /**
+     * The event stream during which the rule was evaluated
+     */
+    event_stream: 'ACH_CREDIT_RECEIPT' | 'ACH_DEBIT_RECEIPT';
+
+    /**
+     * Token of the event that triggered the evaluation
+     */
+    event_token: string;
+
+    /**
+     * The state of the Auth Rule
+     */
+    mode: 'ACTIVE' | 'INACTIVE';
+
+    /**
+     * Version of the rule that was evaluated
+     */
+    rule_version: number;
+  }
+
+  export namespace ACHResult {
+    export interface ApproveAction {
+      /**
+       * Approve the ACH transaction
+       */
+      type: 'APPROVE';
+
+      /**
+       * Optional explanation for why this action was taken
+       */
+      explanation?: string;
+    }
+
+    export interface ReturnAction {
+      /**
+       * NACHA return code to use when returning the transaction. Note that the list of
+       * available return codes is subject to an allowlist configured at the program
+       * level
+       */
+      code:
+        | 'R01'
+        | 'R02'
+        | 'R03'
+        | 'R04'
+        | 'R05'
+        | 'R06'
+        | 'R07'
+        | 'R08'
+        | 'R09'
+        | 'R10'
+        | 'R11'
+        | 'R12'
+        | 'R13'
+        | 'R14'
+        | 'R15'
+        | 'R16'
+        | 'R17'
+        | 'R18'
+        | 'R19'
+        | 'R20'
+        | 'R21'
+        | 'R22'
+        | 'R23'
+        | 'R24'
+        | 'R25'
+        | 'R26'
+        | 'R27'
+        | 'R28'
+        | 'R29'
+        | 'R30'
+        | 'R31'
+        | 'R32'
+        | 'R33'
+        | 'R34'
+        | 'R35'
+        | 'R36'
+        | 'R37'
+        | 'R38'
+        | 'R39'
+        | 'R40'
+        | 'R41'
+        | 'R42'
+        | 'R43'
+        | 'R44'
+        | 'R45'
+        | 'R46'
+        | 'R47'
+        | 'R50'
+        | 'R51'
+        | 'R52'
+        | 'R53'
+        | 'R61'
+        | 'R62'
+        | 'R67'
+        | 'R68'
+        | 'R69'
+        | 'R70'
+        | 'R71'
+        | 'R72'
+        | 'R73'
+        | 'R74'
+        | 'R75'
+        | 'R76'
+        | 'R77'
+        | 'R80'
+        | 'R81'
+        | 'R82'
+        | 'R83'
+        | 'R84'
+        | 'R85';
+
+      /**
+       * Return the ACH transaction
+       */
+      type: 'RETURN';
+
+      /**
+       * Optional explanation for why this action was taken
+       */
+      explanation?: string;
+    }
   }
 }
 
