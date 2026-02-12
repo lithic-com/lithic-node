@@ -3427,7 +3427,7 @@ export interface AccountHolderSimulateEnrollmentReviewParams {
   /**
    * An account holder's status for use within the simulation.
    */
-  status?: 'ACCEPTED' | 'REJECTED';
+  status?: 'ACCEPTED' | 'REJECTED' | 'PENDING_REVIEW';
 
   /**
    * Status reason that will be associated with the simulated account holder status.
