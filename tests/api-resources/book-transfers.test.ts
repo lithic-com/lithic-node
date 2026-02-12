@@ -36,6 +36,7 @@ describe('resource bookTransfers', () => {
       type: 'ATM_BALANCE_INQUIRY',
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       external_id: 'external_id',
+      hold_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       memo: 'memo',
       on_closed_account: 'FAIL',
     });
