@@ -336,6 +336,11 @@ export interface BookTransferCreateParams {
   external_id?: string;
 
   /**
+   * Token of an existing hold to settle when this transfer is initiated
+   */
+  hold_token?: string;
+
+  /**
    * Optional descriptor for the transfer.
    */
   memo?: string;
