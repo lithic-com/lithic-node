@@ -636,15 +636,26 @@ export interface CardAuthorizationApprovalRequestWebhookEvent {
   acquirer_fee: number;
 
   /**
-   * Authorization amount of the transaction (in cents), including any acquirer fees.
-   * The contents of this field are identical to `authorization_amount`.
+   * @deprecated Deprecated, use `amounts`. Authorization amount of the transaction
+   * (in cents), including any acquirer fees. The contents of this field are
+   * identical to `authorization_amount`.
    */
   amount: number;
 
   /**
-   * The base transaction amount (in cents) plus the acquirer fee field. This is the
-   * amount the issuer should authorize against unless the issuer is paying the
-   * acquirer fee on behalf of the cardholder.
+   * Structured amounts for this authorization. The `cardholder` and `merchant`
+   * amounts reflect the original network authorization values. For programs with
+   * hold adjustments enabled (e.g., automated fuel dispensers or tipping MCCs), the
+   * `hold` amount may exceed the `cardholder` and `merchant` amounts to account for
+   * anticipated final transaction amounts such as tips or fuel fill-ups
+   */
+  amounts: CardAuthorizationApprovalRequestWebhookEvent.Amounts;
+
+  /**
+   * @deprecated Deprecated, use `amounts`. The base transaction amount (in cents)
+   * plus the acquirer fee field. This is the amount the issuer should authorize
+   * against unless the issuer is paying the acquirer fee on behalf of the
+   * cardholder.
    */
   authorization_amount: number;
 
@@ -656,7 +667,8 @@ export interface CardAuthorizationApprovalRequestWebhookEvent {
   card: CardAuthorizationApprovalRequestWebhookEvent.Card;
 
   /**
-   * 3-character alphabetic ISO 4217 code for cardholder's billing currency.
+   * @deprecated Deprecated, use `amounts`. 3-character alphabetic ISO 4217 code for
+   * cardholder's billing currency.
    */
   cardholder_currency: string;
 
@@ -680,22 +692,23 @@ export interface CardAuthorizationApprovalRequestWebhookEvent {
   merchant: Shared.Merchant;
 
   /**
-   * The amount that the merchant will receive, denominated in `merchant_currency`
-   * and in the smallest currency unit. Note the amount includes `acquirer_fee`,
-   * similar to `authorization_amount`. It will be different from
-   * `authorization_amount` if the merchant is taking payment in a different
-   * currency.
+   * @deprecated Deprecated, use `amounts`. The amount that the merchant will
+   * receive, denominated in `merchant_currency` and in the smallest currency unit.
+   * Note the amount includes `acquirer_fee`, similar to `authorization_amount`. It
+   * will be different from `authorization_amount` if the merchant is taking payment
+   * in a different currency.
    */
   merchant_amount: number;
 
   /**
-   * 3-character alphabetic ISO 4217 code for the local currency of the transaction.
+   * @deprecated 3-character alphabetic ISO 4217 code for the local currency of the
+   * transaction.
    */
   merchant_currency: string;
 
   /**
-   * Amount (in cents) of the transaction that has been settled, including any
-   * acquirer fees
+   * @deprecated Deprecated, use `amounts`. Amount (in cents) of the transaction that
+   * has been settled, including any acquirer fees.
    */
   settled_amount: number;
 
@@ -726,11 +739,12 @@ export interface CardAuthorizationApprovalRequestWebhookEvent {
   cashback?: number;
 
   /**
-   * If the transaction was requested in a currency other than the settlement
-   * currency, this field will be populated to indicate the rate used to translate
-   * the merchant_amount to the amount (i.e., `merchant_amount` x `conversion_rate` =
-   * `amount`). Note that the `merchant_amount` is in the local currency and the
-   * amount is in the settlement currency.
+   * @deprecated Deprecated, use `amounts`. If the transaction was requested in a
+   * currency other than the settlement currency, this field will be populated to
+   * indicate the rate used to translate the merchant_amount to the amount (i.e.,
+   * `merchant_amount` x `conversion_rate` = `amount`). Note that the
+   * `merchant_amount` is in the local currency and the amount is in the settlement
+   * currency.
    */
   conversion_rate?: number;
 
@@ -787,6 +801,78 @@ export interface CardAuthorizationApprovalRequestWebhookEvent {
 }
 
 export namespace CardAuthorizationApprovalRequestWebhookEvent {
+  /**
+   * Structured amounts for this authorization. The `cardholder` and `merchant`
+   * amounts reflect the original network authorization values. For programs with
+   * hold adjustments enabled (e.g., automated fuel dispensers or tipping MCCs), the
+   * `hold` amount may exceed the `cardholder` and `merchant` amounts to account for
+   * anticipated final transaction amounts such as tips or fuel fill-ups
+   */
+  export interface Amounts {
+    cardholder: Amounts.Cardholder;
+
+    hold: Amounts.Hold | null;
+
+    merchant: Amounts.Merchant;
+
+    settlement: Amounts.Settlement | null;
+  }
+
+  export namespace Amounts {
+    export interface Cardholder {
+      /**
+       * Amount in the smallest unit of the applicable currency (e.g., cents)
+       */
+      amount: number;
+
+      /**
+       * Exchange rate used for currency conversion
+       */
+      conversion_rate: string;
+
+      /**
+       * 3-character alphabetic ISO 4217 currency
+       */
+      currency: Shared.Currency;
+    }
+
+    export interface Hold {
+      /**
+       * Amount in the smallest unit of the applicable currency (e.g., cents)
+       */
+      amount: number;
+
+      /**
+       * 3-character alphabetic ISO 4217 currency
+       */
+      currency: Shared.Currency;
+    }
+
+    export interface Merchant {
+      /**
+       * Amount in the smallest unit of the applicable currency (e.g., cents)
+       */
+      amount: number;
+
+      /**
+       * 3-character alphabetic ISO 4217 currency
+       */
+      currency: Shared.Currency;
+    }
+
+    export interface Settlement {
+      /**
+       * Amount in the smallest unit of the applicable currency (e.g., cents)
+       */
+      amount: number;
+
+      /**
+       * 3-character alphabetic ISO 4217 currency
+       */
+      currency: Shared.Currency;
+    }
+  }
+
   export interface Avs {
     /**
      * Cardholder address
