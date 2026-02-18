@@ -8,7 +8,7 @@ import morgan from 'morgan';
 import morganBody from 'morgan-body';
 import { getStainlessApiKey, parseClientAuthHeaders, parseBaseUrlHeader } from './auth';
 import { McpOptions } from './options';
-import { ClientOptions, initMcpServer, newMcpServer } from './server';
+import { initMcpServer, newMcpServer } from './server';
 
 const newServer = async ({
   clientOptions,
