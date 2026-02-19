@@ -221,6 +221,7 @@ export interface FinancialAccount {
     | 'END_USER_REQUEST'
     | 'BANK_REQUEST'
     | 'DELINQUENT'
+    | 'INTEREST_AND_FEES_PAUSED'
     | null;
 
   type:
@@ -533,7 +534,13 @@ export interface FinancialAccountUpdateStatusParams {
   /**
    * Substatus for the financial account
    */
-  substatus: 'CHARGED_OFF_FRAUD' | 'END_USER_REQUEST' | 'BANK_REQUEST' | 'CHARGED_OFF_DELINQUENT' | null;
+  substatus:
+    | 'CHARGED_OFF_FRAUD'
+    | 'END_USER_REQUEST'
+    | 'BANK_REQUEST'
+    | 'CHARGED_OFF_DELINQUENT'
+    | 'INTEREST_AND_FEES_PAUSED'
+    | null;
 
   /**
    * User-defined status for the financial account
