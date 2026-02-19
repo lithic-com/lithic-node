@@ -6,7 +6,7 @@ import { ClientOptions } from 'lithic';
 import express from 'express';
 import morgan from 'morgan';
 import morganBody from 'morgan-body';
-import { getStainlessApiKey, parseClientAuthHeaders, parseBaseUrlHeader } from './auth';
+import { getStainlessApiKey, parseClientAuthHeaders } from './auth';
 import { McpOptions } from './options';
 import { initMcpServer, newMcpServer } from './server';
 
@@ -24,31 +24,17 @@ const newServer = async ({
   const stainlessApiKey = getStainlessApiKey(req, mcpOptions);
   const server = await newMcpServer(stainlessApiKey);
 
-  try {
-    const authOptions = parseClientAuthHeaders(req, false);
+  const authOptions = parseClientAuthHeaders(req, false);
 
-    const baseUrlOptions = parseBaseUrlHeader(req);
-
-    await initMcpServer({
-      server: server,
-      mcpOptions: mcpOptions,
-      clientOptions: {
-        ...clientOptions,
-        ...authOptions,
-        ...baseUrlOptions,
-      },
-      stainlessApiKey: stainlessApiKey,
-    });
-  } catch (error) {
-    res.status(401).json({
-      jsonrpc: '2.0',
-      error: {
-        code: -32000,
-        message: `Unauthorized: ${error instanceof Error ? error.message : error}`,
-      },
-    });
-    return null;
-  }
+  await initMcpServer({
+    server: server,
+    mcpOptions: mcpOptions,
+    clientOptions: {
+      ...clientOptions,
+      ...authOptions,
+    },
+    stainlessApiKey: stainlessApiKey,
+  });
 
   return server;
 };
