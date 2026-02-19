@@ -1,5 +1,56 @@
 # Changelog
 
+## 0.129.0 (2026-02-19)
+
+Full Changelog: [v0.128.0...v0.129.0](https://github.com/lithic-com/lithic-node/compare/v0.128.0...v0.129.0)
+
+### Features
+
+* **api:** Add /v2/auth_rules/results endpoint for listing rule evaluation data ([9e5d574](https://github.com/lithic-com/lithic-node/commit/9e5d574525ae1e2e01a956855aae828c6e08c420))
+* **api:** Add amounts object to ASA request ([533b912](https://github.com/lithic-com/lithic-node/commit/533b912c6b1a7d23aea8c05ad75317bba22519b7))
+* **api:** Add hold token field to book transfers ([baf17ff](https://github.com/lithic-com/lithic-node/commit/baf17ff77dabd8ed4bf8546c4a6a18addbfe6601))
+* **api:** Add naics_code to account holder requests/responses ([432e7ee](https://github.com/lithic-com/lithic-node/commit/432e7ee8bc80d84fe7f5f5aecc3f60cab6ed8d0f))
+* **api:** Add network specific wallet recommendation reasons ([aa17d4f](https://github.com/lithic-com/lithic-node/commit/aa17d4fdc3148dd62b7127fa3f9c8b3b0af74a14))
+* **api:** Add PENDING_REVIEW status to KYB enrollment simulation ([a1f5c47](https://github.com/lithic-com/lithic-node/commit/a1f5c4730507bd97b221acf4b640db5a2a0f37ea))
+* **api:** Add result schemas for Authorization and Authentication (3DS) actions ([563b5ff](https://github.com/lithic-com/lithic-node/commit/563b5ff74a562bff3ae58ad0c40854fdd56acbe3))
+* **mcp:** add initial server instructions ([12f5335](https://github.com/lithic-com/lithic-node/commit/12f53350ad370fd5bf432cadfed0d3d331c5b89d))
+* **mcp:** allow specifying environment via remote server ([f2bbc59](https://github.com/lithic-com/lithic-node/commit/f2bbc59ef04e4c14c57e541d402148fcc5b7be1e))
+
+
+### Bug Fixes
+
+* **api:** Update /v2/auth_rules/results endpoint parameter naming and action types ([1b369cc](https://github.com/lithic-com/lithic-node/commit/1b369cc6b4c8ae66540c4850aa53e7f8ef02d269))
+* **client:** avoid memory leak with abort signals ([ef3a98b](https://github.com/lithic-com/lithic-node/commit/ef3a98b4be36ad25c38460ed73d95fe4dd25e89f))
+* **client:** avoid removing abort listener too early ([eb0e7f7](https://github.com/lithic-com/lithic-node/commit/eb0e7f7bb4ad01a6046437456506eb9d45764119))
+* **mcp:** do not fallback on baseUrl if environment env variable is set ([07d71d3](https://github.com/lithic-com/lithic-node/commit/07d71d3bdb85356c58e1dc3a02e93aebea40a824))
+* **mcp:** initialize SDK lazily to avoid failing the connection on init errors ([ce8805e](https://github.com/lithic-com/lithic-node/commit/ce8805ece7454a6b404c605774116c8d431172b9))
+
+
+### Chores
+
+* **client:** do not parse responses with empty content-length ([f8fdb77](https://github.com/lithic-com/lithic-node/commit/f8fdb779afbcd80ca0666a4622264f8a2740f140))
+* **client:** restructure abort controller binding ([45461df](https://github.com/lithic-com/lithic-node/commit/45461df7cce254242b58ce8a7e191f691fb757a1))
+* configure new SDK language ([a09926d](https://github.com/lithic-com/lithic-node/commit/a09926d7eee2338358ae33196a5b2e58b3c39b56))
+* formatting ([1eb7005](https://github.com/lithic-com/lithic-node/commit/1eb700547c5d303febd261d074c964bf0f764a18))
+* **internal/client:** fix form-urlencoded requests ([bb7b560](https://github.com/lithic-com/lithic-node/commit/bb7b56038292ac3dfe867136f9a6ca672f1bdbb5))
+* **internal:** add health check to MCP server when running in HTTP mode ([7e123b2](https://github.com/lithic-com/lithic-node/commit/7e123b200417ff172942b68f26a540bfb6a23a7f))
+* **internal:** allow basic filtering of methods allowed for MCP code mode ([d8c2ff7](https://github.com/lithic-com/lithic-node/commit/d8c2ff7d486e4b1df82840617d488cfa8741da9d))
+* **internal:** allow setting x-stainless-api-key header on mcp server requests ([7536a61](https://github.com/lithic-com/lithic-node/commit/7536a61f2c295dbed86c5b9d92cd354ff3a1d4b1))
+* **internal:** always generate MCP server dockerfiles and upgrade associated dependencies ([be9d995](https://github.com/lithic-com/lithic-node/commit/be9d995ae5db402dfc94767b34f5ae789dbcaaf5))
+* **internal:** avoid type checking errors with ts-reset ([f48610b](https://github.com/lithic-com/lithic-node/commit/f48610bcf4c57dc7ab67d6117a04e9be5b424a1b))
+* **internal:** cache fetch instruction calls in MCP server ([c2988db](https://github.com/lithic-com/lithic-node/commit/c2988db9eff89b5d1f084a43931dc5e4391f3874))
+* **internal:** configure MCP Server hosting ([3feac24](https://github.com/lithic-com/lithic-node/commit/3feac242ccbf68dcddadf15443974965b7dbd9d7))
+* **internal:** fix pagination internals not accepting option promises ([e258c68](https://github.com/lithic-com/lithic-node/commit/e258c6877e3100c092d48ec5c47f8817dd9fb93d))
+* **internal:** improve layout of generated MCP server files ([8c08f2e](https://github.com/lithic-com/lithic-node/commit/8c08f2e7e35288e5d86274b55d871c8df35086f1))
+* **internal:** refactor flag parsing for MCP servers and add debug flag ([5ddc39b](https://github.com/lithic-com/lithic-node/commit/5ddc39bb1a5c9506f97adc1b2a7c61be442278a1))
+* **internal:** support oauth authorization code flow for MCP servers ([cc5b02e](https://github.com/lithic-com/lithic-node/commit/cc5b02ec9163804ea55fe607fec6a414d0802e9a))
+* **mcp:** forward STAINLESS_API_KEY to docs search endpoint ([fc74254](https://github.com/lithic-com/lithic-node/commit/fc74254995d5d5e92ddcd3ef01e8ea326c2dc026))
+
+
+### Documentation
+
+* Fix documentation of tokenization channel and tokenization source for tokenization rules ([35696df](https://github.com/lithic-com/lithic-node/commit/35696dfef306ec17da89ff762b59aea931f6a2e5))
+
 ## 0.128.0 (2026-01-27)
 
 Full Changelog: [v0.127.0...v0.128.0](https://github.com/lithic-com/lithic-node/compare/v0.127.0...v0.128.0)
