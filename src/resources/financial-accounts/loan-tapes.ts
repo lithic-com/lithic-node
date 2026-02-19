@@ -220,6 +220,7 @@ export namespace LoanTape {
         | 'END_USER_REQUEST'
         | 'BANK_REQUEST'
         | 'DELINQUENT'
+        | 'INTEREST_AND_FEES_PAUSED'
         | null;
     }
   }
