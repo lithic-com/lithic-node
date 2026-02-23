@@ -16,6 +16,24 @@ import {
   FinancialTransactionRetrieveParams,
   FinancialTransactions,
 } from './financial-transactions';
+import * as InterestTierScheduleAPI from './interest-tier-schedule';
+import {
+  CategoryTier,
+  InterestTierSchedule,
+  InterestTierScheduleCreateParams,
+  InterestTierScheduleDeleteParams,
+  InterestTierScheduleListParams,
+  InterestTierScheduleResource,
+  InterestTierScheduleRetrieveParams,
+  InterestTierScheduleUpdateParams,
+  InterestTierSchedulesSinglePage,
+} from './interest-tier-schedule';
+import * as LoanTapeConfigurationAPI from './loan-tape-configuration';
+import {
+  LoanTapeConfiguration,
+  LoanTapeConfigurationResource,
+  LoanTapeRebuildConfiguration,
+} from './loan-tape-configuration';
 import * as LoanTapesAPI from './loan-tapes';
 import {
   CategoryBalances,
@@ -47,6 +65,10 @@ export class FinancialAccounts extends APIResource {
     new CreditConfigurationAPI.CreditConfiguration(this._client);
   statements: StatementsAPI.Statements = new StatementsAPI.Statements(this._client);
   loanTapes: LoanTapesAPI.LoanTapes = new LoanTapesAPI.LoanTapes(this._client);
+  loanTapeConfiguration: LoanTapeConfigurationAPI.LoanTapeConfigurationResource =
+    new LoanTapeConfigurationAPI.LoanTapeConfigurationResource(this._client);
+  interestTierSchedule: InterestTierScheduleAPI.InterestTierScheduleResource =
+    new InterestTierScheduleAPI.InterestTierScheduleResource(this._client);
 
   /**
    * Create a new financial account
@@ -552,6 +574,8 @@ FinancialAccounts.Balances = Balances;
 FinancialAccounts.FinancialTransactions = FinancialTransactions;
 FinancialAccounts.CreditConfiguration = CreditConfigurationAPICreditConfiguration;
 FinancialAccounts.LoanTapes = LoanTapes;
+FinancialAccounts.LoanTapeConfigurationResource = LoanTapeConfigurationResource;
+FinancialAccounts.InterestTierScheduleResource = InterestTierScheduleResource;
 
 export declare namespace FinancialAccounts {
   export {
@@ -597,5 +621,23 @@ export declare namespace FinancialAccounts {
     type LoanTapesCursorPage as LoanTapesCursorPage,
     type LoanTapeRetrieveParams as LoanTapeRetrieveParams,
     type LoanTapeListParams as LoanTapeListParams,
+  };
+
+  export {
+    LoanTapeConfigurationResource as LoanTapeConfigurationResource,
+    type LoanTapeConfiguration as LoanTapeConfiguration,
+    type LoanTapeRebuildConfiguration as LoanTapeRebuildConfiguration,
+  };
+
+  export {
+    InterestTierScheduleResource as InterestTierScheduleResource,
+    type CategoryTier as CategoryTier,
+    type InterestTierSchedule as InterestTierSchedule,
+    type InterestTierSchedulesSinglePage as InterestTierSchedulesSinglePage,
+    type InterestTierScheduleCreateParams as InterestTierScheduleCreateParams,
+    type InterestTierScheduleRetrieveParams as InterestTierScheduleRetrieveParams,
+    type InterestTierScheduleUpdateParams as InterestTierScheduleUpdateParams,
+    type InterestTierScheduleListParams as InterestTierScheduleListParams,
+    type InterestTierScheduleDeleteParams as InterestTierScheduleDeleteParams,
   };
 }
