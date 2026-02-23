@@ -60,7 +60,7 @@ $ yarn link lithic
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global lithic
+$ pnpm link --global lithic
 ```
 
 ## Running tests
