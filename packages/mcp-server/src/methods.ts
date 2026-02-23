@@ -624,6 +624,42 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/financial_accounts/{financial_account_token}/loan_tapes',
   },
   {
+    clientCallName: 'client.financialAccounts.loanTapeConfiguration.retrieve',
+    fullyQualifiedName: 'financialAccounts.loanTapeConfiguration.retrieve',
+    httpMethod: 'get',
+    httpPath: '/v1/financial_accounts/{financial_account_token}/loan_tape_configuration',
+  },
+  {
+    clientCallName: 'client.financialAccounts.interestTierSchedule.create',
+    fullyQualifiedName: 'financialAccounts.interestTierSchedule.create',
+    httpMethod: 'post',
+    httpPath: '/v1/financial_accounts/{financial_account_token}/interest_tier_schedule',
+  },
+  {
+    clientCallName: 'client.financialAccounts.interestTierSchedule.retrieve',
+    fullyQualifiedName: 'financialAccounts.interestTierSchedule.retrieve',
+    httpMethod: 'get',
+    httpPath: '/v1/financial_accounts/{financial_account_token}/interest_tier_schedule/{effective_date}',
+  },
+  {
+    clientCallName: 'client.financialAccounts.interestTierSchedule.update',
+    fullyQualifiedName: 'financialAccounts.interestTierSchedule.update',
+    httpMethod: 'put',
+    httpPath: '/v1/financial_accounts/{financial_account_token}/interest_tier_schedule/{effective_date}',
+  },
+  {
+    clientCallName: 'client.financialAccounts.interestTierSchedule.list',
+    fullyQualifiedName: 'financialAccounts.interestTierSchedule.list',
+    httpMethod: 'get',
+    httpPath: '/v1/financial_accounts/{financial_account_token}/interest_tier_schedule',
+  },
+  {
+    clientCallName: 'client.financialAccounts.interestTierSchedule.delete',
+    fullyQualifiedName: 'financialAccounts.interestTierSchedule.delete',
+    httpMethod: 'delete',
+    httpPath: '/v1/financial_accounts/{financial_account_token}/interest_tier_schedule/{effective_date}',
+  },
+  {
     clientCallName: 'client.transactions.retrieve',
     fullyQualifiedName: 'transactions.retrieve',
     httpMethod: 'get',
