@@ -382,6 +382,32 @@ Methods:
 - <code title="get /v1/financial_accounts/{financial_account_token}/loan_tapes/{loan_tape_token}">client.financialAccounts.loanTapes.<a href="./src/resources/financial-accounts/loan-tapes.ts">retrieve</a>(loanTapeToken, { ...params }) -> LoanTape</code>
 - <code title="get /v1/financial_accounts/{financial_account_token}/loan_tapes">client.financialAccounts.loanTapes.<a href="./src/resources/financial-accounts/loan-tapes.ts">list</a>(financialAccountToken, { ...params }) -> LoanTapesCursorPage</code>
 
+## LoanTapeConfiguration
+
+Types:
+
+- <code><a href="./src/resources/financial-accounts/loan-tape-configuration.ts">LoanTapeConfiguration</a></code>
+- <code><a href="./src/resources/financial-accounts/loan-tape-configuration.ts">LoanTapeRebuildConfiguration</a></code>
+
+Methods:
+
+- <code title="get /v1/financial_accounts/{financial_account_token}/loan_tape_configuration">client.financialAccounts.loanTapeConfiguration.<a href="./src/resources/financial-accounts/loan-tape-configuration.ts">retrieve</a>(financialAccountToken) -> LoanTapeConfiguration</code>
+
+## InterestTierSchedule
+
+Types:
+
+- <code><a href="./src/resources/financial-accounts/interest-tier-schedule.ts">CategoryTier</a></code>
+- <code><a href="./src/resources/financial-accounts/interest-tier-schedule.ts">InterestTierSchedule</a></code>
+
+Methods:
+
+- <code title="post /v1/financial_accounts/{financial_account_token}/interest_tier_schedule">client.financialAccounts.interestTierSchedule.<a href="./src/resources/financial-accounts/interest-tier-schedule.ts">create</a>(financialAccountToken, { ...params }) -> InterestTierSchedule</code>
+- <code title="get /v1/financial_accounts/{financial_account_token}/interest_tier_schedule/{effective_date}">client.financialAccounts.interestTierSchedule.<a href="./src/resources/financial-accounts/interest-tier-schedule.ts">retrieve</a>(effectiveDate, { ...params }) -> InterestTierSchedule</code>
+- <code title="put /v1/financial_accounts/{financial_account_token}/interest_tier_schedule/{effective_date}">client.financialAccounts.interestTierSchedule.<a href="./src/resources/financial-accounts/interest-tier-schedule.ts">update</a>(effectiveDate, { ...params }) -> InterestTierSchedule</code>
+- <code title="get /v1/financial_accounts/{financial_account_token}/interest_tier_schedule">client.financialAccounts.interestTierSchedule.<a href="./src/resources/financial-accounts/interest-tier-schedule.ts">list</a>(financialAccountToken, { ...params }) -> InterestTierSchedulesSinglePage</code>
+- <code title="delete /v1/financial_accounts/{financial_account_token}/interest_tier_schedule/{effective_date}">client.financialAccounts.interestTierSchedule.<a href="./src/resources/financial-accounts/interest-tier-schedule.ts">delete</a>(effectiveDate, { ...params }) -> void</code>
+
 # Transactions
 
 Types:

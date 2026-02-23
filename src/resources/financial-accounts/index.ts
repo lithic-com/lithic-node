@@ -28,6 +28,22 @@ export {
   type FinancialTransactionListParams,
 } from './financial-transactions';
 export {
+  InterestTierScheduleResource,
+  type CategoryTier,
+  type InterestTierSchedule,
+  type InterestTierScheduleCreateParams,
+  type InterestTierScheduleRetrieveParams,
+  type InterestTierScheduleUpdateParams,
+  type InterestTierScheduleListParams,
+  type InterestTierScheduleDeleteParams,
+  type InterestTierSchedulesSinglePage,
+} from './interest-tier-schedule';
+export {
+  LoanTapeConfigurationResource,
+  type LoanTapeConfiguration,
+  type LoanTapeRebuildConfiguration,
+} from './loan-tape-configuration';
+export {
   LoanTapes,
   type CategoryBalances,
   type LoanTape,

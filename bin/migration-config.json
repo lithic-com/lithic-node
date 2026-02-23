@@ -336,6 +336,109 @@
           "type": "options"
         }
       ]
+    },
+    {
+      "base": "financialAccounts.interestTierSchedule",
+      "name": "retrieve",
+      "params": [
+        {
+          "type": "param",
+          "key": "effective_date",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": false
+        },
+        {
+          "type": "options"
+        }
+      ],
+      "oldParams": [
+        {
+          "type": "param",
+          "key": "financial_account_token",
+          "location": "path"
+        },
+        {
+          "type": "param",
+          "key": "effective_date",
+          "location": "path"
+        },
+        {
+          "type": "options"
+        }
+      ]
+    },
+    {
+      "base": "financialAccounts.interestTierSchedule",
+      "name": "update",
+      "params": [
+        {
+          "type": "param",
+          "key": "effective_date",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": false
+        },
+        {
+          "type": "options"
+        }
+      ],
+      "oldParams": [
+        {
+          "type": "param",
+          "key": "financial_account_token",
+          "location": "path"
+        },
+        {
+          "type": "param",
+          "key": "effective_date",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": false
+        },
+        {
+          "type": "options"
+        }
+      ]
+    },
+    {
+      "base": "financialAccounts.interestTierSchedule",
+      "name": "delete",
+      "params": [
+        {
+          "type": "param",
+          "key": "effective_date",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": false
+        },
+        {
+          "type": "options"
+        }
+      ],
+      "oldParams": [
+        {
+          "type": "param",
+          "key": "financial_account_token",
+          "location": "path"
+        },
+        {
+          "type": "param",
+          "key": "effective_date",
+          "location": "path"
+        },
+        {
+          "type": "options"
+        }
+      ]
     }
   ]
 }
