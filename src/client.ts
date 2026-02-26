@@ -35,28 +35,6 @@ import {
   WirePartyDetails,
 } from './resources/account-activity';
 import {
-  AccountHolder,
-  AccountHolderCreateParams,
-  AccountHolderCreateResponse,
-  AccountHolderListDocumentsResponse,
-  AccountHolderListParams,
-  AccountHolderRetrieveDocumentParams,
-  AccountHolderSimulateEnrollmentDocumentReviewParams,
-  AccountHolderSimulateEnrollmentReviewParams,
-  AccountHolderSimulateEnrollmentReviewResponse,
-  AccountHolderUpdateParams,
-  AccountHolderUpdateResponse,
-  AccountHolderUploadDocumentParams,
-  AccountHolders,
-  AccountHoldersSinglePage,
-  AddressUpdate,
-  KYB,
-  KYBBusinessEntity,
-  KYC,
-  KYCExempt,
-  RequiredDocument,
-} from './resources/account-holders';
-import {
   Account,
   AccountListParams,
   AccountSpendLimits,
@@ -258,6 +236,28 @@ import {
   TokenizationUpdatedWebhookEvent,
   Webhooks,
 } from './resources/webhooks';
+import {
+  AccountHolder,
+  AccountHolderCreateParams,
+  AccountHolderCreateResponse,
+  AccountHolderListDocumentsResponse,
+  AccountHolderListParams,
+  AccountHolderRetrieveDocumentParams,
+  AccountHolderSimulateEnrollmentDocumentReviewParams,
+  AccountHolderSimulateEnrollmentReviewParams,
+  AccountHolderSimulateEnrollmentReviewResponse,
+  AccountHolderUpdateParams,
+  AccountHolderUpdateResponse,
+  AccountHolderUploadDocumentParams,
+  AccountHolders,
+  AccountHoldersSinglePage,
+  AddressUpdate,
+  KYB,
+  KYBBusinessEntity,
+  KYC,
+  KYCExempt,
+  RequiredDocument,
+} from './resources/account-holders/account-holders';
 import { AuthRules } from './resources/auth-rules/auth-rules';
 import {
   Card,

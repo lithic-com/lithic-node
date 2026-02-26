@@ -40,29 +40,41 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/account-holders.ts">AccountHolder</a></code>
-- <code><a href="./src/resources/account-holders.ts">AddressUpdate</a></code>
-- <code><a href="./src/resources/account-holders.ts">KYB</a></code>
-- <code><a href="./src/resources/account-holders.ts">KYBBusinessEntity</a></code>
-- <code><a href="./src/resources/account-holders.ts">KYC</a></code>
-- <code><a href="./src/resources/account-holders.ts">KYCExempt</a></code>
-- <code><a href="./src/resources/account-holders.ts">RequiredDocument</a></code>
-- <code><a href="./src/resources/account-holders.ts">AccountHolderCreateResponse</a></code>
-- <code><a href="./src/resources/account-holders.ts">AccountHolderUpdateResponse</a></code>
-- <code><a href="./src/resources/account-holders.ts">AccountHolderListDocumentsResponse</a></code>
-- <code><a href="./src/resources/account-holders.ts">AccountHolderSimulateEnrollmentReviewResponse</a></code>
+- <code><a href="./src/resources/account-holders/account-holders.ts">AccountHolder</a></code>
+- <code><a href="./src/resources/account-holders/account-holders.ts">AddressUpdate</a></code>
+- <code><a href="./src/resources/account-holders/account-holders.ts">KYB</a></code>
+- <code><a href="./src/resources/account-holders/account-holders.ts">KYBBusinessEntity</a></code>
+- <code><a href="./src/resources/account-holders/account-holders.ts">KYC</a></code>
+- <code><a href="./src/resources/account-holders/account-holders.ts">KYCExempt</a></code>
+- <code><a href="./src/resources/account-holders/account-holders.ts">RequiredDocument</a></code>
+- <code><a href="./src/resources/account-holders/account-holders.ts">AccountHolderCreateResponse</a></code>
+- <code><a href="./src/resources/account-holders/account-holders.ts">AccountHolderUpdateResponse</a></code>
+- <code><a href="./src/resources/account-holders/account-holders.ts">AccountHolderListDocumentsResponse</a></code>
+- <code><a href="./src/resources/account-holders/account-holders.ts">AccountHolderSimulateEnrollmentReviewResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/account_holders">client.accountHolders.<a href="./src/resources/account-holders.ts">create</a>({ ...params }) -> AccountHolderCreateResponse</code>
-- <code title="get /v1/account_holders/{account_holder_token}">client.accountHolders.<a href="./src/resources/account-holders.ts">retrieve</a>(accountHolderToken) -> AccountHolder</code>
-- <code title="patch /v1/account_holders/{account_holder_token}">client.accountHolders.<a href="./src/resources/account-holders.ts">update</a>(accountHolderToken, { ...params }) -> AccountHolderUpdateResponse</code>
-- <code title="get /v1/account_holders">client.accountHolders.<a href="./src/resources/account-holders.ts">list</a>({ ...params }) -> AccountHoldersSinglePage</code>
-- <code title="get /v1/account_holders/{account_holder_token}/documents">client.accountHolders.<a href="./src/resources/account-holders.ts">listDocuments</a>(accountHolderToken) -> AccountHolderListDocumentsResponse</code>
-- <code title="get /v1/account_holders/{account_holder_token}/documents/{document_token}">client.accountHolders.<a href="./src/resources/account-holders.ts">retrieveDocument</a>(documentToken, { ...params }) -> Document</code>
-- <code title="post /v1/simulate/account_holders/enrollment_document_review">client.accountHolders.<a href="./src/resources/account-holders.ts">simulateEnrollmentDocumentReview</a>({ ...params }) -> Document</code>
-- <code title="post /v1/simulate/account_holders/enrollment_review">client.accountHolders.<a href="./src/resources/account-holders.ts">simulateEnrollmentReview</a>({ ...params }) -> AccountHolderSimulateEnrollmentReviewResponse</code>
-- <code title="post /v1/account_holders/{account_holder_token}/documents">client.accountHolders.<a href="./src/resources/account-holders.ts">uploadDocument</a>(accountHolderToken, { ...params }) -> Document</code>
+- <code title="post /v1/account_holders">client.accountHolders.<a href="./src/resources/account-holders/account-holders.ts">create</a>({ ...params }) -> AccountHolderCreateResponse</code>
+- <code title="get /v1/account_holders/{account_holder_token}">client.accountHolders.<a href="./src/resources/account-holders/account-holders.ts">retrieve</a>(accountHolderToken) -> AccountHolder</code>
+- <code title="patch /v1/account_holders/{account_holder_token}">client.accountHolders.<a href="./src/resources/account-holders/account-holders.ts">update</a>(accountHolderToken, { ...params }) -> AccountHolderUpdateResponse</code>
+- <code title="get /v1/account_holders">client.accountHolders.<a href="./src/resources/account-holders/account-holders.ts">list</a>({ ...params }) -> AccountHoldersSinglePage</code>
+- <code title="get /v1/account_holders/{account_holder_token}/documents">client.accountHolders.<a href="./src/resources/account-holders/account-holders.ts">listDocuments</a>(accountHolderToken) -> AccountHolderListDocumentsResponse</code>
+- <code title="get /v1/account_holders/{account_holder_token}/documents/{document_token}">client.accountHolders.<a href="./src/resources/account-holders/account-holders.ts">retrieveDocument</a>(documentToken, { ...params }) -> Document</code>
+- <code title="post /v1/simulate/account_holders/enrollment_document_review">client.accountHolders.<a href="./src/resources/account-holders/account-holders.ts">simulateEnrollmentDocumentReview</a>({ ...params }) -> Document</code>
+- <code title="post /v1/simulate/account_holders/enrollment_review">client.accountHolders.<a href="./src/resources/account-holders/account-holders.ts">simulateEnrollmentReview</a>({ ...params }) -> AccountHolderSimulateEnrollmentReviewResponse</code>
+- <code title="post /v1/account_holders/{account_holder_token}/documents">client.accountHolders.<a href="./src/resources/account-holders/account-holders.ts">uploadDocument</a>(accountHolderToken, { ...params }) -> Document</code>
+
+## Entities
+
+Types:
+
+- <code><a href="./src/resources/account-holders/entities.ts">AccountHolderEntity</a></code>
+- <code><a href="./src/resources/account-holders/entities.ts">EntityCreateResponse</a></code>
+
+Methods:
+
+- <code title="post /v1/account_holders/{account_holder_token}/entities">client.accountHolders.entities.<a href="./src/resources/account-holders/entities.ts">create</a>(accountHolderToken, { ...params }) -> EntityCreateResponse</code>
+- <code title="delete /v1/account_holders/{account_holder_token}/entities/{entity_token}">client.accountHolders.entities.<a href="./src/resources/account-holders/entities.ts">delete</a>(entityToken, { ...params }) -> AccountHolderEntity</code>
 
 # AuthRules
 

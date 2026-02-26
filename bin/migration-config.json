@@ -37,6 +37,39 @@
       ]
     },
     {
+      "base": "accountHolders.entities",
+      "name": "delete",
+      "params": [
+        {
+          "type": "param",
+          "key": "entity_token",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": false
+        },
+        {
+          "type": "options"
+        }
+      ],
+      "oldParams": [
+        {
+          "type": "param",
+          "key": "account_holder_token",
+          "location": "path"
+        },
+        {
+          "type": "param",
+          "key": "entity_token",
+          "location": "path"
+        },
+        {
+          "type": "options"
+        }
+      ]
+    },
+    {
       "base": "authRules.v2.backtests",
       "name": "retrieve",
       "params": [
