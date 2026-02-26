@@ -2,7 +2,6 @@
 
 import { getRequiredHeader, HeadersLike } from '../internal/headers';
 import { APIResource } from '../core/resource';
-import * as AccountHoldersAPI from './account-holders';
 import { Webhook } from 'standardwebhooks';
 import * as BookTransfersAPI from './book-transfers';
 import * as DisputesAPI from './disputes';
@@ -14,6 +13,7 @@ import * as ManagementOperationsAPI from './management-operations';
 import * as PaymentsAPI from './payments';
 import * as Shared from './shared';
 import * as TokenizationsAPI from './tokenizations';
+import * as AccountHoldersAPI from './account-holders/account-holders';
 import * as ExternalBankAccountsAPI from './external-bank-accounts/external-bank-accounts';
 import * as FinancialAccountsAPI from './financial-accounts/financial-accounts';
 import * as LoanTapesAPI from './financial-accounts/loan-tapes';

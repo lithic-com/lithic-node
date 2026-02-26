@@ -55,6 +55,7 @@ client.parents.children.retrieve('c_456', { parent_id: 'p_123' });
 This affects the following methods:
 
 - `client.accountHolders.retrieveDocument()`
+- `client.accountHolders.entities.delete()`
 - `client.authRules.v2.backtests.retrieve()`
 - `client.cards.financialTransactions.retrieve()`
 - `client.disputes.deleteEvidence()`

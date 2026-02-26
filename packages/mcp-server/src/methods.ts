@@ -95,6 +95,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/account_holders/{account_holder_token}/documents',
   },
   {
+    clientCallName: 'client.accountHolders.entities.create',
+    fullyQualifiedName: 'accountHolders.entities.create',
+    httpMethod: 'post',
+    httpPath: '/v1/account_holders/{account_holder_token}/entities',
+  },
+  {
+    clientCallName: 'client.accountHolders.entities.delete',
+    fullyQualifiedName: 'accountHolders.entities.delete',
+    httpMethod: 'delete',
+    httpPath: '/v1/account_holders/{account_holder_token}/entities/{entity_token}',
+  },
+  {
     clientCallName: 'client.authRules.v2.create',
     fullyQualifiedName: 'authRules.v2.create',
     httpMethod: 'post',
