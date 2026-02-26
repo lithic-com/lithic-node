@@ -30,7 +30,7 @@ export {
   type AccountHolderSimulateEnrollmentReviewParams,
   type AccountHolderUploadDocumentParams,
   type AccountHoldersSinglePage,
-} from './account-holders';
+} from './account-holders/account-holders';
 export {
   Accounts,
   type Account,

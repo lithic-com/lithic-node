@@ -118,6 +118,8 @@ const fuse = new Fuse(
     'client.accountHolders.simulateEnrollmentReview',
     'client.accountHolders.update',
     'client.accountHolders.uploadDocument',
+    'client.accountHolders.entities.create',
+    'client.accountHolders.entities.delete',
     'client.authRules.v2.create',
     'client.authRules.v2.delete',
     'client.authRules.v2.draft',
