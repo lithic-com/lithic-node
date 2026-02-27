@@ -239,7 +239,7 @@ export {
 export {
   Tokenizations,
   type Device,
-  type DigitalWalletTokenMetadata,
+  type TokenMetadata,
   type Tokenization,
   type TokenizationDeclineReason,
   type TokenizationRuleResult,

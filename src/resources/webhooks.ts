@@ -1262,6 +1262,11 @@ export interface TokenizationDecisioningRequestWebhookEvent {
   created: string;
 
   /**
+   * Contains the metadata for the digital wallet being tokenized.
+   */
+  digital_wallet_token_metadata: TokenizationsAPI.TokenMetadata;
+
+  /**
    * The name of this event
    */
   event_type: 'digital_wallet.tokenization_approval_request';
@@ -1285,11 +1290,6 @@ export interface TokenizationDecisioningRequestWebhookEvent {
   wallet_decisioning_info: TokenizationsAPI.WalletDecisioningInfo;
 
   device?: TokenizationsAPI.Device;
-
-  /**
-   * Contains the metadata for the digital wallet being tokenized.
-   */
-  digital_wallet_token_metadata?: TokenizationsAPI.DigitalWalletTokenMetadata;
 
   /**
    * The source of the tokenization.
@@ -1517,6 +1517,11 @@ export interface DigitalWalletTokenizationApprovalRequestWebhookEvent {
   customer_tokenization_decision: DigitalWalletTokenizationApprovalRequestWebhookEvent.CustomerTokenizationDecision | null;
 
   /**
+   * Contains the metadata for the digital wallet being tokenized.
+   */
+  digital_wallet_token_metadata: TokenizationsAPI.TokenMetadata;
+
+  /**
    * The name of this event
    */
   event_type: 'digital_wallet.tokenization_approval_request';
@@ -1540,11 +1545,6 @@ export interface DigitalWalletTokenizationApprovalRequestWebhookEvent {
   wallet_decisioning_info: TokenizationsAPI.WalletDecisioningInfo;
 
   device?: TokenizationsAPI.Device;
-
-  /**
-   * Contains the metadata for the digital wallet being tokenized.
-   */
-  digital_wallet_token_metadata?: TokenizationsAPI.DigitalWalletTokenMetadata;
 
   /**
    * Results from rules that were evaluated for this tokenization
@@ -2074,6 +2074,11 @@ export interface TokenizationApprovalRequestWebhookEvent {
   issuer_decision: 'APPROVED' | 'DENIED' | 'VERIFICATION_REQUIRED';
 
   /**
+   * Contains the metadata for the digital wallet being tokenized.
+   */
+  token_metadata: TokenizationsAPI.TokenMetadata;
+
+  /**
    * The channel through which the tokenization was made.
    */
   tokenization_channel: 'DIGITAL_WALLET' | 'MERCHANT';
@@ -2086,11 +2091,6 @@ export interface TokenizationApprovalRequestWebhookEvent {
   wallet_decisioning_info: TokenizationsAPI.WalletDecisioningInfo;
 
   device?: TokenizationsAPI.Device;
-
-  /**
-   * Contains the metadata for the digital wallet being tokenized.
-   */
-  digital_wallet_token_metadata?: TokenizationsAPI.DigitalWalletTokenMetadata;
 
   /**
    * Results from rules that were evaluated for this tokenization

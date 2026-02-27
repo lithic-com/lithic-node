@@ -154,7 +154,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/tokenizations.ts">Device</a></code>
-- <code><a href="./src/resources/tokenizations.ts">DigitalWalletTokenMetadata</a></code>
+- <code><a href="./src/resources/tokenizations.ts">TokenMetadata</a></code>
 - <code><a href="./src/resources/tokenizations.ts">Tokenization</a></code>
 - <code><a href="./src/resources/tokenizations.ts">TokenizationDeclineReason</a></code>
 - <code><a href="./src/resources/tokenizations.ts">TokenizationRuleResult</a></code>
