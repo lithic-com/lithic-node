@@ -201,7 +201,8 @@ export interface AuthRule {
    * several event streams, the effective one is defined by the separate
    * `event_stream` field.
    *
-   * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
+   * - `CONDITIONAL_BLOCK`: Deprecated. Use `CONDITIONAL_ACTION` instead.
+   *   AUTHORIZATION event stream.
    * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
    * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
    * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
@@ -687,6 +688,9 @@ export namespace ConditionalAuthorizationActionParameters {
   }
 }
 
+/**
+ * @deprecated Deprecated: Use CONDITIONAL_ACTION instead.
+ */
 export interface ConditionalBlockParameters {
   conditions: Array<AuthRuleCondition>;
 }
@@ -1654,7 +1658,8 @@ export declare namespace V2CreateParams {
      * several event streams, the effective one is defined by the separate
      * `event_stream` field.
      *
-     * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
+     * - `CONDITIONAL_BLOCK`: Deprecated. Use `CONDITIONAL_ACTION` instead.
+     *   AUTHORIZATION event stream.
      * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
      * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
      * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
@@ -1707,7 +1712,8 @@ export declare namespace V2CreateParams {
      * several event streams, the effective one is defined by the separate
      * `event_stream` field.
      *
-     * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
+     * - `CONDITIONAL_BLOCK`: Deprecated. Use `CONDITIONAL_ACTION` instead.
+     *   AUTHORIZATION event stream.
      * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
      * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
      * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
@@ -1750,7 +1756,8 @@ export declare namespace V2CreateParams {
      * several event streams, the effective one is defined by the separate
      * `event_stream` field.
      *
-     * - `CONDITIONAL_BLOCK`: AUTHORIZATION event stream.
+     * - `CONDITIONAL_BLOCK`: Deprecated. Use `CONDITIONAL_ACTION` instead.
+     *   AUTHORIZATION event stream.
      * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
      * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
      * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
