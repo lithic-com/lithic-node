@@ -230,11 +230,11 @@ export interface Device {
 /**
  * Contains the metadata for the digital wallet being tokenized.
  */
-export interface DigitalWalletTokenMetadata {
+export interface TokenMetadata {
   /**
    * Contains the information of the account responsible for the payment.
    */
-  payment_account_info: DigitalWalletTokenMetadata.PaymentAccountInfo;
+  payment_account_info: TokenMetadata.PaymentAccountInfo;
 
   /**
    * The current status of the digital wallet token. Pending or declined.
@@ -262,6 +262,7 @@ export interface DigitalWalletTokenMetadata {
     | 'FACEBOOK'
     | 'FITBIT_PAY'
     | 'GARMIN_PAY'
+    | 'GOOGLE_PAY'
     | 'MICROSOFT_PAY'
     | 'NETFLIX'
     | 'SAMSUNG_PAY'
@@ -269,7 +270,7 @@ export interface DigitalWalletTokenMetadata {
     | 'VISA_CHECKOUT';
 }
 
-export namespace DigitalWalletTokenMetadata {
+export namespace TokenMetadata {
   /**
    * Contains the information of the account responsible for the payment.
    */
@@ -639,7 +640,7 @@ export interface TokenizationUpdateDigitalCardArtParams {
 export declare namespace Tokenizations {
   export {
     type Device as Device,
-    type DigitalWalletTokenMetadata as DigitalWalletTokenMetadata,
+    type TokenMetadata as TokenMetadata,
     type Tokenization as Tokenization,
     type TokenizationDeclineReason as TokenizationDeclineReason,
     type TokenizationRuleResult as TokenizationRuleResult,

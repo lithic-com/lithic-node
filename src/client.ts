@@ -156,7 +156,7 @@ import {
 } from './resources/tokenization-decisioning';
 import {
   Device,
-  DigitalWalletTokenMetadata,
+  TokenMetadata,
   Tokenization,
   TokenizationDeclineReason,
   TokenizationListParams,
@@ -1244,7 +1244,7 @@ export declare namespace Lithic {
   export {
     Tokenizations as Tokenizations,
     type Device as Device,
-    type DigitalWalletTokenMetadata as DigitalWalletTokenMetadata,
+    type TokenMetadata as TokenMetadata,
     type Tokenization as Tokenization,
     type TokenizationDeclineReason as TokenizationDeclineReason,
     type TokenizationRuleResult as TokenizationRuleResult,
