@@ -1,6 +1,6 @@
 {
   "name": "lithic-mcp",
-  "version": "0.129.0",
+  "version": "0.130.0",
   "description": "The official MCP Server for the Lithic API",
   "author": "Lithic <sdk-feedback@lithic.com>",
   "types": "dist/index.d.ts",

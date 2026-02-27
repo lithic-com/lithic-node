@@ -1,5 +1,39 @@
 # Changelog
 
+## 0.130.0 (2026-02-27)
+
+Full Changelog: [v0.129.0...v0.130.0](https://github.com/lithic-com/lithic-node/compare/v0.129.0...v0.130.0)
+
+### Features
+
+* **api:** Add account holder entity endpoints ([3fb22ea](https://github.com/lithic-com/lithic-node/commit/3fb22eacba6bcf9e4ea5e96bc628a9e16c6a981d))
+* **api:** Add INTEREST_AND_FEES_PAUSED substatus to financial account ([342cb07](https://github.com/lithic-com/lithic-node/commit/342cb0725d8b9d8645e20e7c7ca7a386ce657f36))
+* **api:** Expose MIL interest schedules and loan tape configuration endpoints ([c71b835](https://github.com/lithic-com/lithic-node/commit/c71b835642458ce89a801ac770b4c5c7e2788a60))
+* **mcp:** add an option to disable code tool ([c3f0f72](https://github.com/lithic-com/lithic-node/commit/c3f0f72caf3029aab0a066cffa1bee89096599f5))
+
+
+### Bug Fixes
+
+* **api:** Correct token_metadata field name in tokenization.approval_request schema ([b55c509](https://github.com/lithic-com/lithic-node/commit/b55c50939ea421b13dfa3443396476f54001b890))
+* **docs/contributing:** correct pnpm link command ([49b3676](https://github.com/lithic-com/lithic-node/commit/49b3676c5eb963fb6608a65b3effb56e2162dc44))
+* **mcp:** update prompt ([fe87cb7](https://github.com/lithic-com/lithic-node/commit/fe87cb730b53bbdfab52ee644a245393045c7808))
+
+
+### Chores
+
+* **internal:** fix MCP Dockerfiles so they can be built without buildkit ([b11e333](https://github.com/lithic-com/lithic-node/commit/b11e3337b479aa0b2eab7ae5aaa914d5ab0cd599))
+* **internal:** fix MCP Dockerfiles so they can be built without buildkit ([d654204](https://github.com/lithic-com/lithic-node/commit/d654204ff237b1ff579d704fd69518ff5f604dc0))
+* **internal:** make MCP code execution location configurable via a flag ([d7ce232](https://github.com/lithic-com/lithic-node/commit/d7ce232aec15b1fd054e8ef2b29d19d54627fcea))
+* **internal:** move stringifyQuery implementation to internal function ([18e4250](https://github.com/lithic-com/lithic-node/commit/18e4250eccfe59f8e09a7c017cfa3745ad0b1d99))
+* **internal:** upgrade @modelcontextprotocol/sdk and hono ([7e9cc7b](https://github.com/lithic-com/lithic-node/commit/7e9cc7b6d308347668dec9dc874cb0c3048fa17b))
+* **mcp:** correctly update version in sync with sdk ([71e0dc6](https://github.com/lithic-com/lithic-node/commit/71e0dc6a360f33aacffbd34619282022d8128060))
+* update mock server docs ([6657e0d](https://github.com/lithic-com/lithic-node/commit/6657e0d898b31c05c58a76c6babff472fc1dfbef))
+
+
+### Documentation
+
+* Remove CONDITIONAL_BLOCK from docs ([79f3258](https://github.com/lithic-com/lithic-node/commit/79f3258e3eb1813e2dbded5b0abc956873035654))
+
 ## 0.129.0 (2026-02-19)
 
 Full Changelog: [v0.128.0...v0.129.0](https://github.com/lithic-com/lithic-node/compare/v0.128.0...v0.129.0)
