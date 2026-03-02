@@ -606,6 +606,11 @@ export interface PaymentCreateParams {
    */
   token?: string;
 
+  /**
+   * Optional hold to settle when this payment is initiated.
+   */
+  hold?: PaymentCreateParams.Hold;
+
   memo?: string;
 
   user_defined_id?: string;
@@ -621,6 +626,16 @@ export namespace PaymentCreateParams {
     ach_hold_period?: number;
 
     addenda?: string | null;
+  }
+
+  /**
+   * Optional hold to settle when this payment is initiated.
+   */
+  export interface Hold {
+    /**
+     * Token of the hold to settle when this payment is initiated.
+     */
+    token: string;
   }
 }
 
