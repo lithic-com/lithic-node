@@ -88,9 +88,9 @@ export interface BacktestResults {
 
 export namespace BacktestResults {
   export interface Results {
-    current_version?: V2API.RuleStats | null;
+    current_version?: V2API.BacktestStats | null;
 
-    draft_version?: V2API.RuleStats | null;
+    draft_version?: V2API.BacktestStats | null;
   }
 
   export interface SimulationParameters {
