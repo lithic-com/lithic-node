@@ -62,15 +62,6 @@ export class AccountHolders extends APIResource {
    *   nature_of_business: 'Software company selling solutions to the restaurant industry',
    *   tos_timestamp: '2022-03-08T08:00:00Z',
    *   workflow: 'KYB_BYO',
-   *   beneficial_owner_entities: [
-   *     {
-   *       address: { ... },
-   *       dba_business_name: 'MHoldings',
-   *       government_id: '98-7654321',
-   *       legal_business_name: 'Majority Holdings LLC',
-   *       phone_numbers: ['+15555555555'],
-   *     },
-   *   ],
    *   kyb_passed_timestamp: '2022-03-08T08:00:00Z',
    *   naics_code: '541512',
    *   website_url: 'https://www.mybusiness.com',
@@ -332,11 +323,6 @@ export interface AccountHolder {
   account_token?: string;
 
   /**
-   * @deprecated Deprecated.
-   */
-  beneficial_owner_entities?: Array<AccountHolder.BeneficialOwnerEntity>;
-
-  /**
    * Only present when user_type == "BUSINESS". You must submit a list of all direct
    * and indirect individuals with 25% or more ownership in the company. A maximum of
    * 4 beneficial owners can be submitted. If no individual owns 25% of the company
@@ -468,48 +454,6 @@ export interface AccountHolder {
 }
 
 export namespace AccountHolder {
-  export interface BeneficialOwnerEntity {
-    /**
-     * Business's physical address - PO boxes, UPS drops, and FedEx drops are not
-     * acceptable; APO/FPO are acceptable.
-     */
-    address: Shared.Address;
-
-    /**
-     * Any name that the business operates under that is not its legal business name
-     * (if applicable).
-     */
-    dba_business_name: string;
-
-    /**
-     * Globally unique identifier for the entity.
-     */
-    entity_token: string;
-
-    /**
-     * Government-issued identification number. US Federal Employer Identification
-     * Numbers (EIN) are currently supported, entered as full nine-digits, with or
-     * without hyphens.
-     */
-    government_id: string;
-
-    /**
-     * Legal (formal) business name.
-     */
-    legal_business_name: string;
-
-    /**
-     * One or more of the business's phone number(s), entered as a list in E.164
-     * format.
-     */
-    phone_numbers: Array<string>;
-
-    /**
-     * Parent company name (if applicable).
-     */
-    parent_company?: string;
-  }
-
   /**
    * Information about an individual associated with an account holder. A subset of
    * the information provided via KYC. For example, we do not return the government
@@ -809,11 +753,6 @@ export interface KYB {
   workflow: 'KYB_BASIC' | 'KYB_BYO';
 
   /**
-   * @deprecated Deprecated.
-   */
-  beneficial_owner_entities?: Array<KYB.BeneficialOwnerEntity>;
-
-  /**
    * A user provided id that can be used to link an account holder with an external
    * system
    */
@@ -976,43 +915,6 @@ export namespace KYB {
      * Individual's phone number, entered in E.164 format.
      */
     phone_number?: string;
-  }
-
-  export interface BeneficialOwnerEntity {
-    /**
-     * Business's physical address - PO boxes, UPS drops, and FedEx drops are not
-     * acceptable; APO/FPO are acceptable.
-     */
-    address: Shared.Address;
-
-    /**
-     * Government-issued identification number. US Federal Employer Identification
-     * Numbers (EIN) are currently supported, entered as full nine-digits, with or
-     * without hyphens.
-     */
-    government_id: string;
-
-    /**
-     * Legal (formal) business name.
-     */
-    legal_business_name: string;
-
-    /**
-     * One or more of the business's phone number(s), entered as a list in E.164
-     * format.
-     */
-    phone_numbers: Array<string>;
-
-    /**
-     * Any name that the business operates under that is not its legal business name
-     * (if applicable).
-     */
-    dba_business_name?: string;
-
-    /**
-     * Parent company name (if applicable).
-     */
-    parent_company?: string;
   }
 }
 
@@ -1329,11 +1231,6 @@ export namespace AccountHolderUpdateResponse {
      * Globally unique identifier for the account.
      */
     account_token?: string;
-
-    /**
-     * Deprecated.
-     */
-    beneficial_owner_entities?: Array<AccountHoldersAPI.KYBBusinessEntity>;
 
     /**
      * Only present when user_type == "BUSINESS". You must submit a list of all direct
@@ -1891,11 +1788,6 @@ export interface AccountHolderSimulateEnrollmentReviewResponse {
   account_token?: string;
 
   /**
-   * Deprecated.
-   */
-  beneficial_owner_entities?: Array<KYBBusinessEntity>;
-
-  /**
    * Only present when user_type == "BUSINESS". You must submit a list of all direct
    * and indirect individuals with 25% or more ownership in the company. A maximum of
    * 4 beneficial owners can be submitted. If no individual owns 25% of the company
@@ -2407,11 +2299,6 @@ export declare namespace AccountHolderCreateParams {
     workflow: 'KYB_BASIC' | 'KYB_BYO';
 
     /**
-     * @deprecated Deprecated.
-     */
-    beneficial_owner_entities?: Array<KYB.BeneficialOwnerEntity>;
-
-    /**
      * A user provided id that can be used to link an account holder with an external
      * system
      */
@@ -2574,43 +2461,6 @@ export declare namespace AccountHolderCreateParams {
        * Individual's phone number, entered in E.164 format.
        */
       phone_number?: string;
-    }
-
-    export interface BeneficialOwnerEntity {
-      /**
-       * Business's physical address - PO boxes, UPS drops, and FedEx drops are not
-       * acceptable; APO/FPO are acceptable.
-       */
-      address: Shared.Address;
-
-      /**
-       * Government-issued identification number. US Federal Employer Identification
-       * Numbers (EIN) are currently supported, entered as full nine-digits, with or
-       * without hyphens.
-       */
-      government_id: string;
-
-      /**
-       * Legal (formal) business name.
-       */
-      legal_business_name: string;
-
-      /**
-       * One or more of the business's phone number(s), entered as a list in E.164
-       * format.
-       */
-      phone_numbers: Array<string>;
-
-      /**
-       * Any name that the business operates under that is not its legal business name
-       * (if applicable).
-       */
-      dba_business_name?: string;
-
-      /**
-       * Parent company name (if applicable).
-       */
-      parent_company?: string;
     }
   }
 
@@ -2959,11 +2809,6 @@ export type AccountHolderUpdateParams =
 export declare namespace AccountHolderUpdateParams {
   export interface KYBPatchRequest {
     /**
-     * @deprecated Deprecated.
-     */
-    beneficial_owner_entities?: Array<KYBPatchRequest.BeneficialOwnerEntity>;
-
-    /**
      * You must submit a list of all direct and indirect individuals with 25% or more
      * ownership in the company. A maximum of 4 beneficial owners can be submitted. If
      * no individual owns 25% of the company you do not need to send beneficial owner
@@ -3016,48 +2861,6 @@ export declare namespace AccountHolderUpdateParams {
   }
 
   export namespace KYBPatchRequest {
-    export interface BeneficialOwnerEntity {
-      /**
-       * Globally unique identifier for an entity.
-       */
-      entity_token: string;
-
-      /**
-       * Business''s physical address - PO boxes, UPS drops, and FedEx drops are not
-       * acceptable; APO/FPO are acceptable.
-       */
-      address?: AccountHoldersAPI.AddressUpdate;
-
-      /**
-       * Any name that the business operates under that is not its legal business name
-       * (if applicable).
-       */
-      dba_business_name?: string;
-
-      /**
-       * Government-issued identification number. US Federal Employer Identification
-       * Numbers (EIN) are currently supported, entered as full nine-digits, with or
-       * without hyphens.
-       */
-      government_id?: string;
-
-      /**
-       * Legal (formal) business name.
-       */
-      legal_business_name?: string;
-
-      /**
-       * Parent company name (if applicable).
-       */
-      parent_company?: string;
-
-      /**
-       * One or more of the business's phone number(s), entered as a list in E.164
-       * format.
-       */
-      phone_numbers?: Array<string>;
-    }
-
     /**
      * Individuals associated with a KYB application. Phone number is optional.
      */
