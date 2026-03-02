@@ -127,11 +127,6 @@ export namespace AccountHolderUpdatedWebhookEvent {
      */
     export interface UpdateRequest {
       /**
-       * @deprecated Deprecated.
-       */
-      beneficial_owner_entities?: Array<AccountHoldersAPI.KYBBusinessEntity>;
-
-      /**
        * You must submit a list of all direct and indirect individuals with 25% or more
        * ownership in the company. A maximum of 4 beneficial owners can be submitted. If
        * no individual owns 25% of the company you do not need to send beneficial owner
@@ -2452,11 +2447,6 @@ export namespace ParsedWebhookEvent {
      * Original request to update the account holder.
      */
     export interface UpdateRequest {
-      /**
-       * @deprecated Deprecated.
-       */
-      beneficial_owner_entities?: Array<AccountHoldersAPI.KYBBusinessEntity>;
-
       /**
        * You must submit a list of all direct and indirect individuals with 25% or more
        * ownership in the company. A maximum of 4 beneficial owners can be submitted. If
