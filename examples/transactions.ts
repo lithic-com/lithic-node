@@ -22,7 +22,7 @@ async function simulateAuthDeclined(card: Lithic.Cards.Card) {
 
   const authResponse = await client.transactions.simulateAuthorization({
     pan: card.pan!,
-    amount: 999999999999,
+    amount: 2000000000,
     descriptor: 'coffee shop',
   });
 
