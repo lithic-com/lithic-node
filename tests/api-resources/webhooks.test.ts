@@ -237,20 +237,27 @@ describe('resource webhooks', () => {
   });
 
   describe('parse', () => {
-    it('should unwrap and validate typed webhook event', () => {
-      const secret = 'whsec_c2VjcmV0Cg==';
-      const payload =
-        '{"event_type":"account_holder.created","token":"00000000-0000-0000-0000-000000000001","account_token":"00000000-0000-0000-0000-000000000001","created":"2019-12-27T18:11:19.117Z","required_documents":[{"entity_token":"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e","status_reasons":["string"],"valid_documents":["string"]}],"status":"ACCEPTED","status_reason":["string"]}';
+    const secret = 'whsec_c2VjcmV0Cg==';
+    const payload =
+      '{"event_type":"account_holder.created","token":"00000000-0000-0000-0000-000000000001","account_token":"00000000-0000-0000-0000-000000000001","created":"2019-12-27T18:11:19.117Z","required_documents":[{"entity_token":"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e","status_reasons":["string"],"valid_documents":["string"]}],"status":"ACCEPTED","status_reason":["string"]}';
+
+    function makeHeaders() {
       const msgID = '1';
       const timestamp = new Date();
       const wh = new Webhook(secret);
       const signature = wh.sign(msgID, timestamp, payload);
-      const headers: Record<string, string> = {
-        'webhook-signature': signature,
-        'webhook-id': msgID,
-        'webhook-timestamp': String(Math.floor(timestamp.getTime() / 1000)),
+      return {
+        wh,
+        headers: {
+          'webhook-signature': signature,
+          'webhook-id': msgID,
+          'webhook-timestamp': String(Math.floor(timestamp.getTime() / 1000)),
+        } as Record<string, string>,
       };
+    }
 
+    it('should unwrap and validate typed webhook event', () => {
+      const { headers } = makeHeaders();
       const event = lithic.webhooks.parse(payload, { headers, secret });
       expect(event).toBeDefined();
       if ('event_type' in event) {
@@ -258,24 +265,44 @@ describe('resource webhooks', () => {
       }
     });
 
-    it('should throw for wrong secret', () => {
-      const secret = 'whsec_c2VjcmV0Cg==';
-      const payload =
-        '{"event_type":"account_holder.created","token":"00000000-0000-0000-0000-000000000001","account_token":"00000000-0000-0000-0000-000000000001","created":"2019-12-27T18:11:19.117Z","required_documents":[{"entity_token":"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e","status_reasons":["string"],"valid_documents":["string"]}],"status":"ACCEPTED","status_reason":["string"]}';
-      const msgID = '1';
-      const timestamp = new Date();
-      const wh = new Webhook(secret);
-      const signature = wh.sign(msgID, timestamp, payload);
-      const headers: Record<string, string> = {
-        'webhook-signature': signature,
-        'webhook-id': msgID,
-        'webhook-timestamp': String(Math.floor(timestamp.getTime() / 1000)),
-      };
+    it('should work with withOptions webhookSecret', () => {
+      const { headers } = makeHeaders();
 
-      expect(() => {
-        const wrongSecret = 'whsec_' + Buffer.from('wrong_secret').toString('base64');
-        lithic.webhooks.parse(payload, { headers, secret: wrongSecret });
-      }).toThrow('No matching signature found');
+      // secret via withOptions
+      lithic.withOptions({ webhookSecret: secret }).webhooks.parse(payload, { headers });
+
+      // per-call secret overrides withOptions
+      lithic
+        .withOptions({ webhookSecret: 'whsec_aaaaaaaaaa==' })
+        .webhooks.parse(payload, { headers, secret });
+    });
+
+    it.each([
+      {
+        name: 'wrong secret',
+        tweakHeaders: (h: Record<string, string>) => h,
+        overrideSecret: 'whsec_' + Buffer.from('wrong_secret').toString('base64'),
+        error: 'No matching signature found',
+      },
+      {
+        name: 'bad signature from different payload',
+        tweakHeaders: (h: Record<string, string>, wh: Webhook) => ({
+          ...h,
+          'webhook-signature': wh.sign('1', new Date(), 'some other payload'),
+        }),
+        error: 'No matching signature found',
+      },
+      {
+        name: 'wrong message ID',
+        tweakHeaders: (h: Record<string, string>) => ({ ...h, 'webhook-id': 'wrong' }),
+        error: 'No matching signature found',
+      },
+    ])('should throw for $name', ({ tweakHeaders, overrideSecret, error }) => {
+      const { wh, headers } = makeHeaders();
+      const tweaked = tweakHeaders(headers, wh);
+      expect(() =>
+        lithic.webhooks.parse(payload, { headers: tweaked, secret: overrideSecret ?? secret }),
+      ).toThrow(error);
     });
   });
 
