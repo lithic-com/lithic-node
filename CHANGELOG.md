@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.131.0 (2026-03-05)
+
+Full Changelog: [v0.130.0...v0.131.0](https://github.com/lithic-com/lithic-node/compare/v0.130.0...v0.131.0)
+
+### Features
+
+* **api:** add action_counts to rule performance reports and code to authorization actions ([b721196](https://github.com/lithic-com/lithic-node/commit/b7211961ba92cc5cd68ad633592b5428060e8478))
+* **api:** Add Hold API for financial account fund reservations ([582aeb7](https://github.com/lithic-com/lithic-node/commit/582aeb7164a9e9523becb601a08e7393904cd4e5))
+* **api:** Remove deprecated beneficial owner entities field ([e0b8292](https://github.com/lithic-com/lithic-node/commit/e0b8292748ddb37a3758a909c5e7314c511985e4))
+
+
+### Chores
+
+* **internal:** codegen related update ([e159665](https://github.com/lithic-com/lithic-node/commit/e159665256ba15bebdb4c4ddd7c27b57ce28e143))
+* **internal:** codegen related update ([bccb03c](https://github.com/lithic-com/lithic-node/commit/bccb03cc6e6d046aa76dac2b77237233d1a614a7))
+
 ## 0.130.0 (2026-02-27)
 
 Full Changelog: [v0.129.0...v0.130.0](https://github.com/lithic-com/lithic-node/compare/v0.129.0...v0.130.0)
