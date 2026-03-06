@@ -303,7 +303,8 @@ export type InstanceFinancialAccountType =
   | 'SECURITY'
   | 'PROGRAM_RECEIVABLES'
   | 'COLLECTION'
-  | 'PROGRAM_BANK_ACCOUNTS_PAYABLE';
+  | 'PROGRAM_BANK_ACCOUNTS_PAYABLE'
+  | 'EARLY_DIRECT_DEPOSIT_FLOAT';
 
 export interface Merchant {
   /**

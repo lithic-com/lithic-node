@@ -147,6 +147,7 @@ client.example.list(undefined, { headers: { ... } });
 - `client.managementOperations.list()`
 - `client.fundingEvents.list()`
 - `client.networkPrograms.list()`
+- `client.holds.list()`
 - `client.accountActivity.list()`
 - `client.transferLimits.list()`
 

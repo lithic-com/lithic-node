@@ -106,6 +106,15 @@ import {
   FundingEvents,
   FundingEventsCursorPage,
 } from './resources/funding-events';
+import {
+  Hold,
+  HoldCreateParams,
+  HoldEvent,
+  HoldListParams,
+  HoldVoidParams,
+  Holds,
+  HoldsCursorPage,
+} from './resources/holds';
 import { InternalTransaction, InternalTransactionResource } from './resources/internal-transaction';
 import {
   ExternalResource,
@@ -1149,6 +1158,7 @@ export class Lithic {
   fundingEvents: API.FundingEvents = new API.FundingEvents(this);
   fraud: API.Fraud = new API.Fraud(this);
   networkPrograms: API.NetworkPrograms = new API.NetworkPrograms(this);
+  holds: API.Holds = new API.Holds(this);
   accountActivity: API.AccountActivity = new API.AccountActivity(this);
   transferLimits: API.TransferLimits = new API.TransferLimits(this);
   webhooks: API.Webhooks = new API.Webhooks(this);
@@ -1184,6 +1194,7 @@ Lithic.InternalTransactionResource = InternalTransactionResource;
 Lithic.FundingEvents = FundingEvents;
 Lithic.Fraud = Fraud;
 Lithic.NetworkPrograms = NetworkPrograms;
+Lithic.Holds = Holds;
 Lithic.AccountActivity = AccountActivity;
 Lithic.TransferLimits = TransferLimits;
 Lithic.Webhooks = Webhooks;
@@ -1501,6 +1512,16 @@ export declare namespace Lithic {
     type NetworkProgram as NetworkProgram,
     type NetworkProgramsSinglePage as NetworkProgramsSinglePage,
     type NetworkProgramListParams as NetworkProgramListParams,
+  };
+
+  export {
+    Holds as Holds,
+    type Hold as Hold,
+    type HoldEvent as HoldEvent,
+    type HoldsCursorPage as HoldsCursorPage,
+    type HoldCreateParams as HoldCreateParams,
+    type HoldListParams as HoldListParams,
+    type HoldVoidParams as HoldVoidParams,
   };
 
   export {
