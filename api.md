@@ -733,6 +733,20 @@ Methods:
 - <code title="get /v1/network_programs/{network_program_token}">client.networkPrograms.<a href="./src/resources/network-programs.ts">retrieve</a>(networkProgramToken) -> NetworkProgram</code>
 - <code title="get /v1/network_programs">client.networkPrograms.<a href="./src/resources/network-programs.ts">list</a>({ ...params }) -> NetworkProgramsSinglePage</code>
 
+# Holds
+
+Types:
+
+- <code><a href="./src/resources/holds.ts">Hold</a></code>
+- <code><a href="./src/resources/holds.ts">HoldEvent</a></code>
+
+Methods:
+
+- <code title="post /v1/financial_accounts/{financial_account_token}/holds">client.holds.<a href="./src/resources/holds.ts">create</a>(financialAccountToken, { ...params }) -> Hold</code>
+- <code title="get /v1/holds/{hold_token}">client.holds.<a href="./src/resources/holds.ts">retrieve</a>(holdToken) -> Hold</code>
+- <code title="get /v1/financial_accounts/{financial_account_token}/holds">client.holds.<a href="./src/resources/holds.ts">list</a>(financialAccountToken, { ...params }) -> HoldsCursorPage</code>
+- <code title="post /v1/holds/{hold_token}/void">client.holds.<a href="./src/resources/holds.ts">void</a>(holdToken, { ...params }) -> Hold</code>
+
 # AccountActivity
 
 Types:
