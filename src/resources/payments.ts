@@ -217,6 +217,7 @@ export interface Payment {
     | 'MANAGEMENT_FEE'
     | 'MANAGEMENT_REWARD'
     | 'MANAGEMENT_DISBURSEMENT'
+    | 'HOLD'
     | 'PROGRAM_FUNDING';
 
   /**

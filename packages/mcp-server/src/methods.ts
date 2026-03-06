@@ -1110,6 +1110,30 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/network_programs',
   },
   {
+    clientCallName: 'client.holds.create',
+    fullyQualifiedName: 'holds.create',
+    httpMethod: 'post',
+    httpPath: '/v1/financial_accounts/{financial_account_token}/holds',
+  },
+  {
+    clientCallName: 'client.holds.retrieve',
+    fullyQualifiedName: 'holds.retrieve',
+    httpMethod: 'get',
+    httpPath: '/v1/holds/{hold_token}',
+  },
+  {
+    clientCallName: 'client.holds.list',
+    fullyQualifiedName: 'holds.list',
+    httpMethod: 'get',
+    httpPath: '/v1/financial_accounts/{financial_account_token}/holds',
+  },
+  {
+    clientCallName: 'client.holds.void',
+    fullyQualifiedName: 'holds.void',
+    httpMethod: 'post',
+    httpPath: '/v1/holds/{hold_token}/void',
+  },
+  {
     clientCallName: 'client.accountActivity.list',
     fullyQualifiedName: 'accountActivity.list',
     httpMethod: 'get',

@@ -178,6 +178,15 @@ export {
   type FundingEventListParams,
   type FundingEventsCursorPage,
 } from './funding-events';
+export {
+  Holds,
+  type Hold,
+  type HoldEvent,
+  type HoldCreateParams,
+  type HoldListParams,
+  type HoldVoidParams,
+  type HoldsCursorPage,
+} from './holds';
 export { InternalTransactionResource, type InternalTransaction } from './internal-transaction';
 export {
   ManagementOperations,
