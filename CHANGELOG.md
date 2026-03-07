@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.132.0 (2026-03-07)
+
+Full Changelog: [v0.131.0...v0.132.0](https://github.com/lithic-com/lithic-node/compare/v0.131.0...v0.132.0)
+
+### Features
+
+* **api:** add EARLY_DIRECT_DEPOSIT_FLOAT type to financial accounts ([20f0c4c](https://github.com/lithic-com/lithic-node/commit/20f0c4c6c467249ddea477e0bf4f5da955e48f4b))
+
+
+### Chores
+
+* **mcp-server:** improve instructions ([8051570](https://github.com/lithic-com/lithic-node/commit/80515701dff9212cda75a39a5ef9dfd2a02a877e))
+
 ## 0.131.0 (2026-03-05)
 
 Full Changelog: [v0.130.0...v0.131.0](https://github.com/lithic-com/lithic-node/compare/v0.130.0...v0.131.0)
