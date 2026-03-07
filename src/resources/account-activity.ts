@@ -3,6 +3,7 @@
 import { APIResource } from '../core/resource';
 import * as BookTransfersAPI from './book-transfers';
 import * as ExternalPaymentsAPI from './external-payments';
+import * as HoldsAPI from './holds';
 import * as ManagementOperationsAPI from './management-operations';
 import * as PaymentsAPI from './payments';
 import * as Shared from './shared';
@@ -66,7 +67,8 @@ export interface WirePartyDetails {
  * which transaction type is returned: INTERNAL returns FinancialTransaction,
  * TRANSFER returns BookTransferTransaction, CARD returns CardTransaction, PAYMENT
  * returns PaymentTransaction, EXTERNAL_PAYMENT returns ExternalPaymentResponse,
- * and MANAGEMENT_OPERATION returns ManagementOperationTransaction
+ * MANAGEMENT_OPERATION returns ManagementOperationTransaction, and HOLD returns
+ * HoldTransaction
  */
 export type AccountActivityListResponse =
   | AccountActivityListResponse.FinancialTransaction
@@ -74,7 +76,8 @@ export type AccountActivityListResponse =
   | AccountActivityListResponse.CardTransaction
   | PaymentsAPI.Payment
   | ExternalPaymentsAPI.ExternalPayment
-  | ManagementOperationsAPI.ManagementOperationTransaction;
+  | ManagementOperationsAPI.ManagementOperationTransaction
+  | HoldsAPI.Hold;
 
 export namespace AccountActivityListResponse {
   /**
@@ -109,6 +112,7 @@ export namespace AccountActivityListResponse {
       | 'MANAGEMENT_FEE'
       | 'MANAGEMENT_REWARD'
       | 'MANAGEMENT_DISBURSEMENT'
+      | 'HOLD'
       | 'PROGRAM_FUNDING';
 
     /**
@@ -203,7 +207,8 @@ export namespace AccountActivityListResponse {
  * which transaction type is returned: INTERNAL returns FinancialTransaction,
  * TRANSFER returns BookTransferTransaction, CARD returns CardTransaction, PAYMENT
  * returns PaymentTransaction, EXTERNAL_PAYMENT returns ExternalPaymentResponse,
- * and MANAGEMENT_OPERATION returns ManagementOperationTransaction
+ * MANAGEMENT_OPERATION returns ManagementOperationTransaction, and HOLD returns
+ * HoldTransaction
  */
 export type AccountActivityRetrieveTransactionResponse =
   | AccountActivityRetrieveTransactionResponse.FinancialTransaction
@@ -211,7 +216,8 @@ export type AccountActivityRetrieveTransactionResponse =
   | AccountActivityRetrieveTransactionResponse.CardTransaction
   | PaymentsAPI.Payment
   | ExternalPaymentsAPI.ExternalPayment
-  | ManagementOperationsAPI.ManagementOperationTransaction;
+  | ManagementOperationsAPI.ManagementOperationTransaction
+  | HoldsAPI.Hold;
 
 export namespace AccountActivityRetrieveTransactionResponse {
   /**
@@ -246,6 +252,7 @@ export namespace AccountActivityRetrieveTransactionResponse {
       | 'MANAGEMENT_FEE'
       | 'MANAGEMENT_REWARD'
       | 'MANAGEMENT_DISBURSEMENT'
+      | 'HOLD'
       | 'PROGRAM_FUNDING';
 
     /**
@@ -375,6 +382,7 @@ export interface AccountActivityListParams extends CursorPageParams {
     | 'MANAGEMENT_FEE'
     | 'MANAGEMENT_REWARD'
     | 'MANAGEMENT_DISBURSEMENT'
+    | 'HOLD'
     | 'PROGRAM_FUNDING';
 
   /**

@@ -256,7 +256,8 @@ export interface FinancialAccount {
     | 'SECURITY'
     | 'PROGRAM_RECEIVABLES'
     | 'COLLECTION'
-    | 'PROGRAM_BANK_ACCOUNTS_PAYABLE';
+    | 'PROGRAM_BANK_ACCOUNTS_PAYABLE'
+    | 'EARLY_DIRECT_DEPOSIT_FLOAT';
 
   updated: string;
 
@@ -540,7 +541,7 @@ export interface FinancialAccountListParams {
   /**
    * List financial accounts of a given type
    */
-  type?: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY';
+  type?: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY' | 'EARLY_DIRECT_DEPOSIT_FLOAT';
 }
 
 export interface FinancialAccountRegisterAccountNumberParams {
