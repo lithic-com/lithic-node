@@ -207,8 +207,10 @@ export interface AuthRule {
    * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
    * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
    *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
+   * - `TYPESCRIPT_CODE`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
+   *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
    */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
+  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE';
 
   /**
    * Card tokens to which the Auth Rule does not apply.
@@ -228,7 +230,8 @@ export namespace AuthRule {
       | V2API.Conditional3DSActionParameters
       | V2API.ConditionalAuthorizationActionParameters
       | V2API.ConditionalACHActionParameters
-      | V2API.ConditionalTokenizationActionParameters;
+      | V2API.ConditionalTokenizationActionParameters
+      | V2API.TypescriptCodeParameters;
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
@@ -239,6 +242,12 @@ export namespace AuthRule {
 
   export interface DraftVersion {
     /**
+     * An error message if the draft version failed compilation. Populated when `state`
+     * is `ERROR`, `null` otherwise.
+     */
+    error: string | null;
+
+    /**
      * Parameters for the Auth Rule
      */
     parameters:
@@ -248,7 +257,22 @@ export namespace AuthRule {
       | V2API.Conditional3DSActionParameters
       | V2API.ConditionalAuthorizationActionParameters
       | V2API.ConditionalACHActionParameters
-      | V2API.ConditionalTokenizationActionParameters;
+      | V2API.ConditionalTokenizationActionParameters
+      | V2API.TypescriptCodeParameters;
+
+    /**
+     * The state of the draft version. Most rules are created synchronously and the
+     * state is immediately `SHADOWING`. Rules backed by TypeScript code are compiled
+     * asynchronously — the state starts as `PENDING` and transitions to `SHADOWING` on
+     * success or `ERROR` on failure.
+     *
+     * - `PENDING`: Compilation of the rule is in progress (TypeScript rules only).
+     * - `SHADOWING`: The draft version is ready and evaluating in shadow mode
+     *   alongside the current active version. It can be promoted to the active
+     *   version.
+     * - `ERROR`: Compilation of the rule failed. Check the `error` field for details.
+     */
+    state: 'PENDING' | 'SHADOWING' | 'ERROR';
 
     /**
      * The version of the rule, this is incremented whenever the rule's parameters
@@ -1253,6 +1277,192 @@ export namespace ReportStats {
   }
 }
 
+/**
+ * A feature made available to the rule. The `name` field is the variable name used
+ * in the rule function signature. The `type` field determines which data the
+ * feature provides to the rule at evaluation time.
+ *
+ * - `AUTHORIZATION`: The authorization request being evaluated. Only available for
+ *   AUTHORIZATION event stream rules.
+ * - `AUTHENTICATION`: The 3DS authentication request being evaluated. Only
+ *   available for THREE_DS_AUTHENTICATION event stream rules.
+ * - `TOKENIZATION`: The tokenization request being evaluated. Only available for
+ *   TOKENIZATION event stream rules.
+ * - `ACH_RECEIPT`: The ACH receipt being evaluated. Only available for
+ *   ACH_CREDIT_RECEIPT and ACH_DEBIT_RECEIPT event stream rules.
+ * - `CARD`: The card associated with the event. Available for AUTHORIZATION and
+ *   THREE_DS_AUTHENTICATION event stream rules.
+ * - `ACCOUNT_HOLDER`: The account holder associated with the card. Available for
+ *   THREE_DS_AUTHENTICATION event stream rules.
+ * - `IP_METADATA`: IP address metadata for the request. Available for
+ *   THREE_DS_AUTHENTICATION event stream rules.
+ * - `SPEND_VELOCITY`: Spend velocity data for the card or account. Requires
+ *   `scope`, `period`, and optionally `filters` to configure the velocity
+ *   calculation. Available for AUTHORIZATION event stream rules.
+ */
+export type RuleFeature =
+  | RuleFeature.AuthorizationFeature
+  | RuleFeature.AuthenticationFeature
+  | RuleFeature.TokenizationFeature
+  | RuleFeature.ACHReceiptFeature
+  | RuleFeature.CardFeature
+  | RuleFeature.AccountHolderFeature
+  | RuleFeature.IPMetadataFeature
+  | RuleFeature.SpendVelocityFeature;
+
+export namespace RuleFeature {
+  export interface AuthorizationFeature {
+    type: 'AUTHORIZATION';
+
+    /**
+     * The variable name for this feature in the rule function signature
+     */
+    name?: string;
+  }
+
+  export interface AuthenticationFeature {
+    type: 'AUTHENTICATION';
+
+    /**
+     * The variable name for this feature in the rule function signature
+     */
+    name?: string;
+  }
+
+  export interface TokenizationFeature {
+    type: 'TOKENIZATION';
+
+    /**
+     * The variable name for this feature in the rule function signature
+     */
+    name?: string;
+  }
+
+  export interface ACHReceiptFeature {
+    type: 'ACH_RECEIPT';
+
+    /**
+     * The variable name for this feature in the rule function signature
+     */
+    name?: string;
+  }
+
+  export interface CardFeature {
+    type: 'CARD';
+
+    /**
+     * The variable name for this feature in the rule function signature
+     */
+    name?: string;
+  }
+
+  export interface AccountHolderFeature {
+    type: 'ACCOUNT_HOLDER';
+
+    /**
+     * The variable name for this feature in the rule function signature
+     */
+    name?: string;
+  }
+
+  export interface IPMetadataFeature {
+    type: 'IP_METADATA';
+
+    /**
+     * The variable name for this feature in the rule function signature
+     */
+    name?: string;
+  }
+
+  export interface SpendVelocityFeature {
+    /**
+     * Velocity over the current day since 00:00 / 12 AM in Eastern Time
+     */
+    period: V2API.VelocityLimitPeriod;
+
+    /**
+     * The scope the velocity is calculated for
+     */
+    scope: 'CARD' | 'ACCOUNT';
+
+    type: 'SPEND_VELOCITY';
+
+    filters?: V2API.VelocityLimitFilters;
+
+    /**
+     * The variable name for this feature in the rule function signature
+     */
+    name?: string;
+  }
+}
+
+/**
+ * Parameters for defining a TypeScript code rule
+ */
+export interface TypescriptCodeParameters {
+  /**
+   * The TypeScript source code of the rule. Must define a `rule()` function that
+   * accepts the declared features as positional arguments (in the same order as the
+   * `features` array) and returns an array of actions.
+   */
+  code: string;
+
+  /**
+   * Features available to the TypeScript code at evaluation time
+   */
+  features: Array<RuleFeature>;
+}
+
+export interface VelocityLimitFilters {
+  /**
+   * ISO-3166-1 alpha-3 Country Codes to exclude from the velocity calculation.
+   * Transactions matching any of the provided will be excluded from the calculated
+   * velocity.
+   */
+  exclude_countries?: Array<string> | null;
+
+  /**
+   * Merchant Category Codes to exclude from the velocity calculation. Transactions
+   * matching this MCC will be excluded from the calculated velocity.
+   */
+  exclude_mccs?: Array<string> | null;
+
+  /**
+   * ISO-3166-1 alpha-3 Country Codes to include in the velocity calculation.
+   * Transactions not matching any of the provided will not be included in the
+   * calculated velocity.
+   */
+  include_countries?: Array<string> | null;
+
+  /**
+   * Merchant Category Codes to include in the velocity calculation. Transactions not
+   * matching this MCC will not be included in the calculated velocity.
+   */
+  include_mccs?: Array<string> | null;
+
+  /**
+   * PAN entry modes to include in the velocity calculation. Transactions not
+   * matching any of the provided will not be included in the calculated velocity.
+   */
+  include_pan_entry_modes?: Array<
+    | 'AUTO_ENTRY'
+    | 'BAR_CODE'
+    | 'CONTACTLESS'
+    | 'CREDENTIAL_ON_FILE'
+    | 'ECOMMERCE'
+    | 'ERROR_KEYED'
+    | 'ERROR_MAGNETIC_STRIPE'
+    | 'ICC'
+    | 'KEY_ENTERED'
+    | 'MAGNETIC_STRIPE'
+    | 'MANUAL'
+    | 'OCR'
+    | 'SECURE_CARDLESS'
+    | 'UNSPECIFIED'
+    | 'UNKNOWN'
+  > | null;
+}
+
 export interface VelocityLimitParams {
   /**
    * Velocity over the current day since 00:00 / 12 AM in Eastern Time
@@ -1264,7 +1474,7 @@ export interface VelocityLimitParams {
    */
   scope: 'CARD' | 'ACCOUNT';
 
-  filters?: VelocityLimitParams.Filters;
+  filters?: VelocityLimitFilters;
 
   /**
    * The maximum amount of spend velocity allowed in the period in minor units (the
@@ -1281,58 +1491,6 @@ export interface VelocityLimitParams {
    * authorization).
    */
   limit_count?: number | null;
-}
-
-export namespace VelocityLimitParams {
-  export interface Filters {
-    /**
-     * ISO-3166-1 alpha-3 Country Codes to exclude from the velocity calculation.
-     * Transactions matching any of the provided will be excluded from the calculated
-     * velocity.
-     */
-    exclude_countries?: Array<string> | null;
-
-    /**
-     * Merchant Category Codes to exclude from the velocity calculation. Transactions
-     * matching this MCC will be excluded from the calculated velocity.
-     */
-    exclude_mccs?: Array<string> | null;
-
-    /**
-     * ISO-3166-1 alpha-3 Country Codes to include in the velocity calculation.
-     * Transactions not matching any of the provided will not be included in the
-     * calculated velocity.
-     */
-    include_countries?: Array<string> | null;
-
-    /**
-     * Merchant Category Codes to include in the velocity calculation. Transactions not
-     * matching this MCC will not be included in the calculated velocity.
-     */
-    include_mccs?: Array<string> | null;
-
-    /**
-     * PAN entry modes to include in the velocity calculation. Transactions not
-     * matching any of the provided will not be included in the calculated velocity.
-     */
-    include_pan_entry_modes?: Array<
-      | 'AUTO_ENTRY'
-      | 'BAR_CODE'
-      | 'CONTACTLESS'
-      | 'CREDENTIAL_ON_FILE'
-      | 'ECOMMERCE'
-      | 'ERROR_KEYED'
-      | 'ERROR_MAGNETIC_STRIPE'
-      | 'ICC'
-      | 'KEY_ENTERED'
-      | 'MAGNETIC_STRIPE'
-      | 'MANUAL'
-      | 'OCR'
-      | 'SECURE_CARDLESS'
-      | 'UNSPECIFIED'
-      | 'UNKNOWN'
-    > | null;
-  }
 }
 
 /**
@@ -1870,7 +2028,7 @@ export interface V2RetrieveFeaturesResponse {
 
 export namespace V2RetrieveFeaturesResponse {
   export interface Feature {
-    filters: Feature.Filters;
+    filters: V2API.VelocityLimitFilters;
 
     /**
      * Velocity over the current day since 00:00 / 12 AM in Eastern Time
@@ -1886,56 +2044,6 @@ export namespace V2RetrieveFeaturesResponse {
   }
 
   export namespace Feature {
-    export interface Filters {
-      /**
-       * ISO-3166-1 alpha-3 Country Codes to exclude from the velocity calculation.
-       * Transactions matching any of the provided will be excluded from the calculated
-       * velocity.
-       */
-      exclude_countries?: Array<string> | null;
-
-      /**
-       * Merchant Category Codes to exclude from the velocity calculation. Transactions
-       * matching this MCC will be excluded from the calculated velocity.
-       */
-      exclude_mccs?: Array<string> | null;
-
-      /**
-       * ISO-3166-1 alpha-3 Country Codes to include in the velocity calculation.
-       * Transactions not matching any of the provided will not be included in the
-       * calculated velocity.
-       */
-      include_countries?: Array<string> | null;
-
-      /**
-       * Merchant Category Codes to include in the velocity calculation. Transactions not
-       * matching this MCC will not be included in the calculated velocity.
-       */
-      include_mccs?: Array<string> | null;
-
-      /**
-       * PAN entry modes to include in the velocity calculation. Transactions not
-       * matching any of the provided will not be included in the calculated velocity.
-       */
-      include_pan_entry_modes?: Array<
-        | 'AUTO_ENTRY'
-        | 'BAR_CODE'
-        | 'CONTACTLESS'
-        | 'CREDENTIAL_ON_FILE'
-        | 'ECOMMERCE'
-        | 'ERROR_KEYED'
-        | 'ERROR_MAGNETIC_STRIPE'
-        | 'ICC'
-        | 'KEY_ENTERED'
-        | 'MAGNETIC_STRIPE'
-        | 'MANUAL'
-        | 'OCR'
-        | 'SECURE_CARDLESS'
-        | 'UNSPECIFIED'
-        | 'UNKNOWN'
-      > | null;
-    }
-
     export interface Value {
       /**
        * Amount (in cents) for the given Auth Rule that is used as input for calculating
@@ -2011,7 +2119,8 @@ export declare namespace V2CreateParams {
       | Conditional3DSActionParameters
       | ConditionalAuthorizationActionParameters
       | ConditionalACHActionParameters
-      | ConditionalTokenizationActionParameters;
+      | ConditionalTokenizationActionParameters
+      | TypescriptCodeParameters;
 
     /**
      * The type of Auth Rule. For certain rule types, this determines the event stream
@@ -2025,8 +2134,10 @@ export declare namespace V2CreateParams {
      * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
      * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
      *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
+     * - `TYPESCRIPT_CODE`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
+     *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
      */
-    type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
+    type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE';
 
     /**
      * Account tokens to which the Auth Rule applies.
@@ -2065,7 +2176,8 @@ export declare namespace V2CreateParams {
       | Conditional3DSActionParameters
       | ConditionalAuthorizationActionParameters
       | ConditionalACHActionParameters
-      | ConditionalTokenizationActionParameters;
+      | ConditionalTokenizationActionParameters
+      | TypescriptCodeParameters;
 
     /**
      * The type of Auth Rule. For certain rule types, this determines the event stream
@@ -2079,8 +2191,10 @@ export declare namespace V2CreateParams {
      * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
      * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
      *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
+     * - `TYPESCRIPT_CODE`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
+     *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
      */
-    type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
+    type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE';
 
     /**
      * The event stream during which the rule will be evaluated.
@@ -2104,7 +2218,8 @@ export declare namespace V2CreateParams {
       | Conditional3DSActionParameters
       | ConditionalAuthorizationActionParameters
       | ConditionalACHActionParameters
-      | ConditionalTokenizationActionParameters;
+      | ConditionalTokenizationActionParameters
+      | TypescriptCodeParameters;
 
     /**
      * Whether the Auth Rule applies to all authorizations on the card program.
@@ -2123,8 +2238,10 @@ export declare namespace V2CreateParams {
      * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
      * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
      *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
+     * - `TYPESCRIPT_CODE`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
+     *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
      */
-    type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION';
+    type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE';
 
     /**
      * The event stream during which the rule will be evaluated.
@@ -2270,6 +2387,7 @@ export interface V2DraftParams {
     | ConditionalAuthorizationActionParameters
     | ConditionalACHActionParameters
     | ConditionalTokenizationActionParameters
+    | TypescriptCodeParameters
     | null;
 }
 
@@ -2339,6 +2457,9 @@ export declare namespace V2 {
     type EventStream as EventStream,
     type MerchantLockParameters as MerchantLockParameters,
     type ReportStats as ReportStats,
+    type RuleFeature as RuleFeature,
+    type TypescriptCodeParameters as TypescriptCodeParameters,
+    type VelocityLimitFilters as VelocityLimitFilters,
     type VelocityLimitParams as VelocityLimitParams,
     type VelocityLimitPeriod as VelocityLimitPeriod,
     type V2ListResultsResponse as V2ListResultsResponse,
