@@ -96,6 +96,9 @@ Types:
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">EventStream</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">MerchantLockParameters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ReportStats</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">RuleFeature</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">TypescriptCodeParameters</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">VelocityLimitFilters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">VelocityLimitParams</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">VelocityLimitPeriod</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2ListResultsResponse</a></code>
