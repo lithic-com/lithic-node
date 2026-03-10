@@ -213,6 +213,11 @@ export namespace StatementLineItems {
      * Subtype of the event that generated the line items
      */
     event_subtype?: string | null;
+
+    /**
+     * Date of the loan tape that generated this line item
+     */
+    loan_tape_date?: string | null;
   }
 }
 
