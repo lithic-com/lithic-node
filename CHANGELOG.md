@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.132.1 (2026-03-10)
+
+Full Changelog: [v0.132.0...v0.132.1](https://github.com/lithic-com/lithic-node/compare/v0.132.0...v0.132.1)
+
+### Features
+
+* **api:** Add event_subtype to statement line items ([82db0f8](https://github.com/lithic-com/lithic-node/commit/82db0f8a69ac22f76e969e4b823edf0bdf6b7902))
+* **api:** add loan_tape_date field to statement line items ([a3995b6](https://github.com/lithic-com/lithic-node/commit/a3995b63bb7e002ff75d394a46f0019016a835ba))
+
+
+### Chores
+
+* **ci:** updating publishing method ([02b0749](https://github.com/lithic-com/lithic-node/commit/02b0749de158843219bf095b34a5b5b1adb14a7d))
+
 ## 0.132.0 (2026-03-10)
 
 Full Changelog: [v0.131.0...v0.132.0](https://github.com/lithic-com/lithic-node/compare/v0.131.0...v0.132.0)
