@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.132.0 (2026-03-10)
+
+Full Changelog: [v0.131.0...v0.132.0](https://github.com/lithic-com/lithic-node/compare/v0.131.0...v0.132.0)
+
+### Features
+
+* **api:** add EARLY_DIRECT_DEPOSIT_FLOAT type to financial accounts ([20f0c4c](https://github.com/lithic-com/lithic-node/commit/20f0c4c6c467249ddea477e0bf4f5da955e48f4b))
+* **api:** add typescript rule type, draft state tracking to auth_rules v2 ([8f4eabb](https://github.com/lithic-com/lithic-node/commit/8f4eabbe9bf4783e2fb8d118ca8c37e84f7d8195))
+
+
+### Bug Fixes
+
+* **api:** Disable MCP server to fix TypeScript SDK package publishing ([8a4d2aa](https://github.com/lithic-com/lithic-node/commit/8a4d2aa3836e03a03de6aa83cb5ccf9a8ef74b59))
+
+
+### Chores
+
+* **internal:** update dependencies to address dependabot vulnerabilities ([fefdd61](https://github.com/lithic-com/lithic-node/commit/fefdd61fef00c32078fba74255eac7069c5025e7))
+* **mcp-server:** improve instructions ([8051570](https://github.com/lithic-com/lithic-node/commit/80515701dff9212cda75a39a5ef9dfd2a02a877e))
+
 ## 0.131.0 (2026-03-05)
 
 Full Changelog: [v0.130.0...v0.131.0](https://github.com/lithic-com/lithic-node/compare/v0.130.0...v0.131.0)
