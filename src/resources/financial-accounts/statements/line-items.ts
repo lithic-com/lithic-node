@@ -206,6 +206,11 @@ export namespace StatementLineItems {
     card_token?: string;
 
     descriptor?: string;
+
+    /**
+     * Subtype of the event that generated the line items
+     */
+    event_subtype?: string | null;
   }
 }
 
