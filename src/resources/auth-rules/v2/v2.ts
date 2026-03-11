@@ -35,9 +35,9 @@ export class V2 extends APIResource {
   /**
    * Updates a V2 Auth rule's properties
    *
-   * If `account_tokens`, `card_tokens`, `program_level`, or `excluded_card_tokens`
-   * is provided, this will replace existing associations with the provided list of
-   * entities.
+   * If `account_tokens`, `card_tokens`, `program_level`, `excluded_card_tokens`,
+   * `excluded_account_tokens`, or `excluded_business_account_tokens` is provided,
+   * this will replace existing associations with the provided list of entities.
    */
   update(authRuleToken: string, body: V2UpdateParams, options?: RequestOptions): APIPromise<AuthRule> {
     return this._client.patch(path`/v2/auth_rules/${authRuleToken}`, { body, ...options });
@@ -211,6 +211,16 @@ export interface AuthRule {
    *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
    */
   type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE';
+
+  /**
+   * Account tokens to which the Auth Rule does not apply.
+   */
+  excluded_account_tokens?: Array<string>;
+
+  /**
+   * Business account tokens to which the Auth Rule does not apply.
+   */
+  excluded_business_account_tokens?: Array<string>;
 
   /**
    * Card tokens to which the Auth Rule does not apply.
@@ -2249,6 +2259,16 @@ export declare namespace V2CreateParams {
     event_stream?: EventStream;
 
     /**
+     * Account tokens to which the Auth Rule does not apply.
+     */
+    excluded_account_tokens?: Array<string>;
+
+    /**
+     * Business account tokens to which the Auth Rule does not apply.
+     */
+    excluded_business_account_tokens?: Array<string>;
+
+    /**
      * Card tokens to which the Auth Rule does not apply.
      */
     excluded_card_tokens?: Array<string>;
@@ -2314,6 +2334,16 @@ export declare namespace V2UpdateParams {
   }
 
   export interface ProgramLevelRule {
+    /**
+     * Account tokens to which the Auth Rule does not apply.
+     */
+    excluded_account_tokens?: Array<string>;
+
+    /**
+     * Business account tokens to which the Auth Rule does not apply.
+     */
+    excluded_business_account_tokens?: Array<string>;
+
     /**
      * Card tokens to which the Auth Rule does not apply.
      */
