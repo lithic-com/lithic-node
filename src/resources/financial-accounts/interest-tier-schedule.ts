@@ -195,6 +195,11 @@ export interface InterestTierSchedule {
   effective_date: string;
 
   /**
+   * Custom rates per category for penalties
+   */
+  penalty_rates?: unknown;
+
+  /**
    * Name of a tier contained in the credit product. Mutually exclusive with
    * tier_rates
    */
@@ -216,6 +221,11 @@ export interface InterestTierScheduleCreateParams {
    * Date the tier should be effective in YYYY-MM-DD format
    */
   effective_date: string;
+
+  /**
+   * Custom rates per category for penalties
+   */
+  penalty_rates?: unknown;
 
   /**
    * Name of a tier contained in the credit product. Mutually exclusive with
@@ -241,6 +251,11 @@ export interface InterestTierScheduleUpdateParams {
    * Path param: Globally unique identifier for financial account
    */
   financial_account_token: string;
+
+  /**
+   * Body param: Custom rates per category for penalties
+   */
+  penalty_rates?: unknown;
 
   /**
    * Body param: Name of a tier contained in the credit product. Mutually exclusive
