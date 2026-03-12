@@ -95,19 +95,14 @@ export namespace BacktestResults {
 
   export interface SimulationParameters {
     /**
-     * Auth Rule Token
+     * The end time of the simulation
      */
-    auth_rule_token?: string;
+    end: string;
 
     /**
-     * The end time of the simulation.
+     * The start time of the simulation
      */
-    end?: string;
-
-    /**
-     * The start time of the simulation.
-     */
-    start?: string;
+    start: string;
   }
 }
 
