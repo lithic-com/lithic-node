@@ -90,6 +90,14 @@ export class V2 extends APIResource {
   }
 
   /**
+   * Returns all versions of an auth rule, sorted by version number descending
+   * (newest first).
+   */
+  listVersions(authRuleToken: string, options?: RequestOptions): APIPromise<V2ListVersionsResponse> {
+    return this._client.get(path`/v2/auth_rules/${authRuleToken}/versions`, options);
+  }
+
+  /**
    * Promotes the draft version of an Auth rule to the currently active version such
    * that it is enforced in the respective stream.
    */
@@ -356,6 +364,37 @@ export interface AuthRuleCondition {
    * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
    */
   value: ConditionalValue;
+}
+
+export interface AuthRuleVersion {
+  /**
+   * Timestamp of when this version was created.
+   */
+  created: string;
+
+  /**
+   * Parameters for the Auth Rule
+   */
+  parameters:
+    | ConditionalBlockParameters
+    | VelocityLimitParams
+    | MerchantLockParameters
+    | Conditional3DSActionParameters
+    | ConditionalAuthorizationActionParameters
+    | ConditionalACHActionParameters
+    | ConditionalTokenizationActionParameters
+    | TypescriptCodeParameters;
+
+  /**
+   * The current state of this version.
+   */
+  state: 'ACTIVE' | 'SHADOW' | 'INACTIVE';
+
+  /**
+   * The version of the rule, this is incremented whenever the rule's parameters
+   * change.
+   */
+  version: number;
 }
 
 export interface BacktestStats {
@@ -2024,6 +2063,10 @@ export namespace V2ListResultsResponse {
   }
 }
 
+export interface V2ListVersionsResponse {
+  data: Array<AuthRuleVersion>;
+}
+
 export interface V2RetrieveFeaturesResponse {
   /**
    * Timestamp at which the Features were evaluated
@@ -2754,6 +2797,7 @@ export declare namespace V2 {
   export {
     type AuthRule as AuthRule,
     type AuthRuleCondition as AuthRuleCondition,
+    type AuthRuleVersion as AuthRuleVersion,
     type BacktestStats as BacktestStats,
     type Conditional3DSActionParameters as Conditional3DSActionParameters,
     type ConditionalACHActionParameters as ConditionalACHActionParameters,
@@ -2772,6 +2816,7 @@ export declare namespace V2 {
     type VelocityLimitParams as VelocityLimitParams,
     type VelocityLimitPeriod as VelocityLimitPeriod,
     type V2ListResultsResponse as V2ListResultsResponse,
+    type V2ListVersionsResponse as V2ListVersionsResponse,
     type V2RetrieveFeaturesResponse as V2RetrieveFeaturesResponse,
     type V2RetrieveReportResponse as V2RetrieveReportResponse,
     type AuthRulesCursorPage as AuthRulesCursorPage,
