@@ -10,7 +10,7 @@ import { maybeMultipartFormRequestOptions } from '../internal/uploads';
 
 export class Disputes extends APIResource {
   /**
-   * Initiate a dispute.
+   * Request a chargeback.
    *
    * @example
    * ```ts
@@ -27,7 +27,7 @@ export class Disputes extends APIResource {
   }
 
   /**
-   * Get dispute.
+   * Get chargeback request.
    *
    * @example
    * ```ts
@@ -41,7 +41,7 @@ export class Disputes extends APIResource {
   }
 
   /**
-   * Update dispute. Can only be modified if status is `NEW`.
+   * Update chargeback request. Can only be modified if status is `NEW`.
    *
    * @example
    * ```ts
@@ -55,7 +55,7 @@ export class Disputes extends APIResource {
   }
 
   /**
-   * List disputes.
+   * List chargeback requests.
    *
    * @example
    * ```ts
@@ -73,7 +73,7 @@ export class Disputes extends APIResource {
   }
 
   /**
-   * Withdraw dispute.
+   * Withdraw chargeback request.
    *
    * @example
    * ```ts
@@ -87,8 +87,8 @@ export class Disputes extends APIResource {
   }
 
   /**
-   * Soft delete evidence for a dispute. Evidence will not be reviewed or submitted
-   * by Lithic after it is withdrawn.
+   * Soft delete evidence for a chargeback request. Evidence will not be reviewed or
+   * submitted by Lithic after it is withdrawn.
    *
    * @example
    * ```ts
@@ -111,8 +111,8 @@ export class Disputes extends APIResource {
   }
 
   /**
-   * Use this endpoint to upload evidences for the dispute. It will return a URL to
-   * upload your documents to. The URL will expire in 30 minutes.
+   * Use this endpoint to upload evidence for a chargeback request. It will return a
+   * URL to upload your documents to. The URL will expire in 30 minutes.
    *
    * Uploaded documents must either be a `jpg`, `png` or `pdf` file, and each must be
    * less than 5 GiB.
@@ -134,7 +134,7 @@ export class Disputes extends APIResource {
   }
 
   /**
-   * List evidence metadata for a dispute.
+   * List evidence for a chargeback request.
    *
    * @example
    * ```ts
@@ -159,7 +159,7 @@ export class Disputes extends APIResource {
   }
 
   /**
-   * Get a dispute's evidence metadata.
+   * Get evidence for a chargeback request.
    *
    * @example
    * ```ts
@@ -437,12 +437,12 @@ export interface DisputeEvidence {
 
 export interface DisputeCreateParams {
   /**
-   * Amount to dispute
+   * Amount for chargeback
    */
   amount: number;
 
   /**
-   * Reason for dispute
+   * Reason for chargeback
    */
   reason:
     | 'ATM_CASH_MISDISPENSE'
@@ -461,39 +461,39 @@ export interface DisputeCreateParams {
     | 'REFUND_NOT_PROCESSED';
 
   /**
-   * Transaction to dispute
+   * Transaction for chargeback
    */
   transaction_token: string;
 
   /**
-   * Date the customer filed the dispute
+   * Date the customer filed the chargeback request
    */
   customer_filed_date?: string;
 
   /**
-   * Customer description of dispute
+   * Customer description
    */
   customer_note?: string;
 }
 
 export interface DisputeUpdateParams {
   /**
-   * Amount to dispute
+   * Amount for chargeback
    */
   amount?: number;
 
   /**
-   * Date the customer filed the dispute
+   * Date the customer filed the chargeback request
    */
   customer_filed_date?: string;
 
   /**
-   * Customer description of dispute
+   * Customer description
    */
   customer_note?: string;
 
   /**
-   * Reason for dispute
+   * Reason for chargeback
    */
   reason?:
     | 'ATM_CASH_MISDISPENSE'
@@ -526,7 +526,7 @@ export interface DisputeListParams extends CursorPageParams {
   end?: string;
 
   /**
-   * List disputes of a specific status.
+   * Filter by status.
    */
   status?:
     | 'ARBITRATION'
