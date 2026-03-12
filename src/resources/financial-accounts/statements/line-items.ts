@@ -59,8 +59,14 @@ export namespace StatementLineItems {
      */
     amount: number;
 
+    /**
+     * Note: Inbound wire transfers are coming soon (availability varies by partner
+     * bank). The WIRE category is a preview. To learn more, contact your customer
+     * success manager.
+     */
     category:
       | 'ACH'
+      | 'WIRE'
       | 'BALANCE_OR_FUNDING'
       | 'FEE'
       | 'REWARD'
