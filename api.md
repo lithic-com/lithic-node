@@ -84,6 +84,7 @@ Types:
 
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">AuthRule</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">AuthRuleCondition</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">AuthRuleVersion</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">BacktestStats</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">Conditional3DSActionParameters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalACHActionParameters</a></code>
@@ -102,6 +103,7 @@ Types:
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">VelocityLimitParams</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">VelocityLimitPeriod</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2ListResultsResponse</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">V2ListVersionsResponse</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2RetrieveFeaturesResponse</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">V2RetrieveReportResponse</a></code>
 
@@ -114,6 +116,7 @@ Methods:
 - <code title="delete /v2/auth_rules/{auth_rule_token}">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">delete</a>(authRuleToken) -> void</code>
 - <code title="post /v2/auth_rules/{auth_rule_token}/draft">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">draft</a>(authRuleToken, { ...params }) -> AuthRule</code>
 - <code title="get /v2/auth_rules/results">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">listResults</a>({ ...params }) -> V2ListResultsResponsesCursorPage</code>
+- <code title="get /v2/auth_rules/{auth_rule_token}/versions">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">listVersions</a>(authRuleToken) -> V2ListVersionsResponse</code>
 - <code title="post /v2/auth_rules/{auth_rule_token}/promote">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">promote</a>(authRuleToken) -> AuthRule</code>
 - <code title="get /v2/auth_rules/{auth_rule_token}/features">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">retrieveFeatures</a>(authRuleToken, { ...params }) -> V2RetrieveFeaturesResponse</code>
 - <code title="get /v2/auth_rules/{auth_rule_token}/report">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">retrieveReport</a>(authRuleToken, { ...params }) -> V2RetrieveReportResponse</code>
