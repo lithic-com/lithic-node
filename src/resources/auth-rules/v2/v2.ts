@@ -90,14 +90,6 @@ export class V2 extends APIResource {
   }
 
   /**
-   * Returns all versions of an auth rule, sorted by version number descending
-   * (newest first).
-   */
-  listVersions(authRuleToken: string, options?: RequestOptions): APIPromise<V2ListVersionsResponse> {
-    return this._client.get(path`/v2/auth_rules/${authRuleToken}/versions`, options);
-  }
-
-  /**
    * Promotes the draft version of an Auth rule to the currently active version such
    * that it is enforced in the respective stream.
    */
@@ -364,37 +356,6 @@ export interface AuthRuleCondition {
    * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
    */
   value: ConditionalValue;
-}
-
-export interface AuthRuleVersion {
-  /**
-   * Timestamp of when this version was created.
-   */
-  created: string;
-
-  /**
-   * Parameters for the Auth Rule
-   */
-  parameters:
-    | ConditionalBlockParameters
-    | VelocityLimitParams
-    | MerchantLockParameters
-    | Conditional3DSActionParameters
-    | ConditionalAuthorizationActionParameters
-    | ConditionalACHActionParameters
-    | ConditionalTokenizationActionParameters
-    | TypescriptCodeParameters;
-
-  /**
-   * The current state of this version.
-   */
-  state: 'ACTIVE' | 'SHADOW' | 'INACTIVE';
-
-  /**
-   * The version of the rule, this is incremented whenever the rule's parameters
-   * change.
-   */
-  version: number;
 }
 
 export interface BacktestStats {
@@ -2063,10 +2024,6 @@ export namespace V2ListResultsResponse {
   }
 }
 
-export interface V2ListVersionsResponse {
-  data: Array<AuthRuleVersion>;
-}
-
 export interface V2RetrieveFeaturesResponse {
   /**
    * Timestamp at which the Features were evaluated
@@ -2152,285 +2109,6 @@ export namespace V2RetrieveReportResponse {
      * Detailed statistics for the draft version of the rule.
      */
     draft_version_statistics: V2API.ReportStats | null;
-
-    /**
-     * Statistics for each version of the rule that was evaluated during the reported
-     * day.
-     */
-    versions: Array<DailyStatistic.Version>;
-  }
-
-  export namespace DailyStatistic {
-    export interface Version {
-      /**
-       * A mapping of action types to the number of times that action was returned by
-       * this version during the relevant period. Actions are the possible outcomes of a
-       * rule evaluation, such as DECLINE, CHALLENGE, REQUIRE_TFA, etc. In case rule
-       * didn't trigger any action, it's counted under NO_ACTION key.
-       */
-      action_counts: { [key: string]: number };
-
-      /**
-       * Example events and their outcomes for this version.
-       */
-      examples: Array<Version.Example>;
-
-      /**
-       * The evaluation mode of this version during the reported period.
-       */
-      state: 'ACTIVE' | 'SHADOW' | 'INACTIVE';
-
-      /**
-       * The rule version number.
-       */
-      version: number;
-    }
-
-    export namespace Version {
-      export interface Example {
-        /**
-         * The actions taken by this version for this event.
-         */
-        actions: Array<
-          | Example.DeclineActionAuthorization
-          | Example.ChallengeActionAuthorization
-          | Example.ResultAuthentication3DSAction
-          | Example.DeclineActionTokenization
-          | Example.RequireTfaAction
-          | Example.ApproveActionACH
-          | Example.ReturnAction
-        >;
-
-        /**
-         * The event token.
-         */
-        event_token: string;
-
-        /**
-         * The timestamp of the event.
-         */
-        timestamp: string;
-      }
-
-      export namespace Example {
-        export interface DeclineActionAuthorization {
-          /**
-           * The detailed result code explaining the specific reason for the decline
-           */
-          code:
-            | 'ACCOUNT_DAILY_SPEND_LIMIT_EXCEEDED'
-            | 'ACCOUNT_DELINQUENT'
-            | 'ACCOUNT_INACTIVE'
-            | 'ACCOUNT_LIFETIME_SPEND_LIMIT_EXCEEDED'
-            | 'ACCOUNT_MONTHLY_SPEND_LIMIT_EXCEEDED'
-            | 'ACCOUNT_PAUSED'
-            | 'ACCOUNT_UNDER_REVIEW'
-            | 'ADDRESS_INCORRECT'
-            | 'APPROVED'
-            | 'AUTH_RULE_ALLOWED_COUNTRY'
-            | 'AUTH_RULE_ALLOWED_MCC'
-            | 'AUTH_RULE_BLOCKED_COUNTRY'
-            | 'AUTH_RULE_BLOCKED_MCC'
-            | 'AUTH_RULE'
-            | 'CARD_CLOSED'
-            | 'CARD_CRYPTOGRAM_VALIDATION_FAILURE'
-            | 'CARD_EXPIRED'
-            | 'CARD_EXPIRY_DATE_INCORRECT'
-            | 'CARD_INVALID'
-            | 'CARD_NOT_ACTIVATED'
-            | 'CARD_PAUSED'
-            | 'CARD_PIN_INCORRECT'
-            | 'CARD_RESTRICTED'
-            | 'CARD_SECURITY_CODE_INCORRECT'
-            | 'CARD_SPEND_LIMIT_EXCEEDED'
-            | 'CONTACT_CARD_ISSUER'
-            | 'CUSTOMER_ASA_TIMEOUT'
-            | 'CUSTOM_ASA_RESULT'
-            | 'DECLINED'
-            | 'DO_NOT_HONOR'
-            | 'DRIVER_NUMBER_INVALID'
-            | 'FORMAT_ERROR'
-            | 'INSUFFICIENT_FUNDING_SOURCE_BALANCE'
-            | 'INSUFFICIENT_FUNDS'
-            | 'LITHIC_SYSTEM_ERROR'
-            | 'LITHIC_SYSTEM_RATE_LIMIT'
-            | 'MALFORMED_ASA_RESPONSE'
-            | 'MERCHANT_INVALID'
-            | 'MERCHANT_LOCKED_CARD_ATTEMPTED_ELSEWHERE'
-            | 'MERCHANT_NOT_PERMITTED'
-            | 'OVER_REVERSAL_ATTEMPTED'
-            | 'PIN_BLOCKED'
-            | 'PROGRAM_CARD_SPEND_LIMIT_EXCEEDED'
-            | 'PROGRAM_SUSPENDED'
-            | 'PROGRAM_USAGE_RESTRICTION'
-            | 'REVERSAL_UNMATCHED'
-            | 'SECURITY_VIOLATION'
-            | 'SINGLE_USE_CARD_REATTEMPTED'
-            | 'SUSPECTED_FRAUD'
-            | 'TRANSACTION_INVALID'
-            | 'TRANSACTION_NOT_PERMITTED_TO_ACQUIRER_OR_TERMINAL'
-            | 'TRANSACTION_NOT_PERMITTED_TO_ISSUER_OR_CARDHOLDER'
-            | 'TRANSACTION_PREVIOUSLY_COMPLETED'
-            | 'UNAUTHORIZED_MERCHANT'
-            | 'VEHICLE_NUMBER_INVALID'
-            | 'CARDHOLDER_CHALLENGED'
-            | 'CARDHOLDER_CHALLENGE_FAILED';
-
-          type: 'DECLINE';
-        }
-
-        export interface ChallengeActionAuthorization {
-          type: 'CHALLENGE';
-        }
-
-        export interface ResultAuthentication3DSAction {
-          type: 'DECLINE' | 'CHALLENGE';
-        }
-
-        export interface DeclineActionTokenization {
-          /**
-           * Decline the tokenization request
-           */
-          type: 'DECLINE';
-
-          /**
-           * Reason code for declining the tokenization request
-           */
-          reason?:
-            | 'ACCOUNT_SCORE_1'
-            | 'DEVICE_SCORE_1'
-            | 'ALL_WALLET_DECLINE_REASONS_PRESENT'
-            | 'WALLET_RECOMMENDED_DECISION_RED'
-            | 'CVC_MISMATCH'
-            | 'CARD_EXPIRY_MONTH_MISMATCH'
-            | 'CARD_EXPIRY_YEAR_MISMATCH'
-            | 'CARD_INVALID_STATE'
-            | 'CUSTOMER_RED_PATH'
-            | 'INVALID_CUSTOMER_RESPONSE'
-            | 'NETWORK_FAILURE'
-            | 'GENERIC_DECLINE'
-            | 'DIGITAL_CARD_ART_REQUIRED';
-        }
-
-        export interface RequireTfaAction {
-          /**
-           * Require two-factor authentication for the tokenization request
-           */
-          type: 'REQUIRE_TFA';
-
-          /**
-           * Reason code for requiring two-factor authentication
-           */
-          reason?:
-            | 'WALLET_RECOMMENDED_TFA'
-            | 'SUSPICIOUS_ACTIVITY'
-            | 'DEVICE_RECENTLY_LOST'
-            | 'TOO_MANY_RECENT_ATTEMPTS'
-            | 'TOO_MANY_RECENT_TOKENS'
-            | 'TOO_MANY_DIFFERENT_CARDHOLDERS'
-            | 'OUTSIDE_HOME_TERRITORY'
-            | 'HAS_SUSPENDED_TOKENS'
-            | 'HIGH_RISK'
-            | 'ACCOUNT_SCORE_LOW'
-            | 'DEVICE_SCORE_LOW'
-            | 'CARD_STATE_TFA'
-            | 'HARDCODED_TFA'
-            | 'CUSTOMER_RULE_TFA'
-            | 'DEVICE_HOST_CARD_EMULATION';
-        }
-
-        export interface ApproveActionACH {
-          /**
-           * Approve the ACH transaction
-           */
-          type: 'APPROVE';
-        }
-
-        export interface ReturnAction {
-          /**
-           * NACHA return code to use when returning the transaction. Note that the list of
-           * available return codes is subject to an allowlist configured at the program
-           * level
-           */
-          code:
-            | 'R01'
-            | 'R02'
-            | 'R03'
-            | 'R04'
-            | 'R05'
-            | 'R06'
-            | 'R07'
-            | 'R08'
-            | 'R09'
-            | 'R10'
-            | 'R11'
-            | 'R12'
-            | 'R13'
-            | 'R14'
-            | 'R15'
-            | 'R16'
-            | 'R17'
-            | 'R18'
-            | 'R19'
-            | 'R20'
-            | 'R21'
-            | 'R22'
-            | 'R23'
-            | 'R24'
-            | 'R25'
-            | 'R26'
-            | 'R27'
-            | 'R28'
-            | 'R29'
-            | 'R30'
-            | 'R31'
-            | 'R32'
-            | 'R33'
-            | 'R34'
-            | 'R35'
-            | 'R36'
-            | 'R37'
-            | 'R38'
-            | 'R39'
-            | 'R40'
-            | 'R41'
-            | 'R42'
-            | 'R43'
-            | 'R44'
-            | 'R45'
-            | 'R46'
-            | 'R47'
-            | 'R50'
-            | 'R51'
-            | 'R52'
-            | 'R53'
-            | 'R61'
-            | 'R62'
-            | 'R67'
-            | 'R68'
-            | 'R69'
-            | 'R70'
-            | 'R71'
-            | 'R72'
-            | 'R73'
-            | 'R74'
-            | 'R75'
-            | 'R76'
-            | 'R77'
-            | 'R80'
-            | 'R81'
-            | 'R82'
-            | 'R83'
-            | 'R84'
-            | 'R85';
-
-          /**
-           * Return the ACH transaction
-           */
-          type: 'RETURN';
-        }
-      }
-    }
   }
 }
 
@@ -2797,7 +2475,6 @@ export declare namespace V2 {
   export {
     type AuthRule as AuthRule,
     type AuthRuleCondition as AuthRuleCondition,
-    type AuthRuleVersion as AuthRuleVersion,
     type BacktestStats as BacktestStats,
     type Conditional3DSActionParameters as Conditional3DSActionParameters,
     type ConditionalACHActionParameters as ConditionalACHActionParameters,
@@ -2816,7 +2493,6 @@ export declare namespace V2 {
     type VelocityLimitParams as VelocityLimitParams,
     type VelocityLimitPeriod as VelocityLimitPeriod,
     type V2ListResultsResponse as V2ListResultsResponse,
-    type V2ListVersionsResponse as V2ListVersionsResponse,
     type V2RetrieveFeaturesResponse as V2RetrieveFeaturesResponse,
     type V2RetrieveReportResponse as V2RetrieveReportResponse,
     type AuthRulesCursorPage as AuthRulesCursorPage,

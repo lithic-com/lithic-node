@@ -121,9 +121,6 @@ export interface Event {
    * - card.renewed: Occurs when a card is renewed.
    * - card.shipped: Occurs when a card is shipped.
    * - card.updated: Occurs when a card is updated.
-   * - digital_wallet.tokenization_approval_request: Occurs when a tokenization
-   *   approval request is made. This event will be deprecated in the future. We
-   *   recommend using `tokenization.approval_request` instead.
    * - digital_wallet.tokenization_result: Occurs when a tokenization request
    *   succeeded or failed.
    *
@@ -215,7 +212,6 @@ export interface Event {
     | 'card.renewed'
     | 'card.shipped'
     | 'card.updated'
-    | 'digital_wallet.tokenization_approval_request'
     | 'digital_wallet.tokenization_result'
     | 'digital_wallet.tokenization_two_factor_authentication_code'
     | 'digital_wallet.tokenization_two_factor_authentication_code_sent'
@@ -294,7 +290,6 @@ export interface EventSubscription {
     | 'card.renewed'
     | 'card.shipped'
     | 'card.updated'
-    | 'digital_wallet.tokenization_approval_request'
     | 'digital_wallet.tokenization_result'
     | 'digital_wallet.tokenization_two_factor_authentication_code'
     | 'digital_wallet.tokenization_two_factor_authentication_code_sent'
@@ -411,7 +406,6 @@ export interface EventListParams extends CursorPageParams {
     | 'card.renewed'
     | 'card.shipped'
     | 'card.updated'
-    | 'digital_wallet.tokenization_approval_request'
     | 'digital_wallet.tokenization_result'
     | 'digital_wallet.tokenization_two_factor_authentication_code'
     | 'digital_wallet.tokenization_two_factor_authentication_code_sent'

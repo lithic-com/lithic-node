@@ -1237,67 +1237,6 @@ export namespace CardAuthorizationApprovalRequestWebhookEvent {
   }
 }
 
-/**
- * A webhook for tokenization decisioning sent to the customer's responder endpoint
- */
-export interface TokenizationDecisioningRequestWebhookEvent {
-  /**
-   * Unique identifier for the user tokenizing a card
-   */
-  account_token: string;
-
-  /**
-   * Unique identifier for the card being tokenized
-   */
-  card_token: string;
-
-  /**
-   * Indicate when the request was received from Mastercard or Visa
-   */
-  created: string;
-
-  /**
-   * Contains the metadata for the digital wallet being tokenized.
-   */
-  digital_wallet_token_metadata: TokenizationsAPI.TokenMetadata;
-
-  /**
-   * The name of this event
-   */
-  event_type: 'digital_wallet.tokenization_approval_request';
-
-  /**
-   * Whether Lithic decisioned on the token, and if so, what the decision was.
-   * APPROVED/VERIFICATION_REQUIRED/DENIED.
-   */
-  issuer_decision: 'APPROVED' | 'DENIED' | 'VERIFICATION_REQUIRED';
-
-  /**
-   * The channel through which the tokenization was made.
-   */
-  tokenization_channel: 'DIGITAL_WALLET' | 'MERCHANT';
-
-  /**
-   * Unique identifier for the digital wallet token attempt
-   */
-  tokenization_token: string;
-
-  wallet_decisioning_info: TokenizationsAPI.WalletDecisioningInfo;
-
-  device?: TokenizationsAPI.Device;
-
-  /**
-   * The source of the tokenization.
-   */
-  tokenization_source?:
-    | 'ACCOUNT_ON_FILE'
-    | 'CONTACTLESS_TAP'
-    | 'MANUAL_PROVISION'
-    | 'PUSH_PROVISION'
-    | 'TOKEN'
-    | 'UNKNOWN';
-}
-
 export interface AuthRulesBacktestReportCreatedWebhookEvent extends BacktestsAPI.BacktestResults {
   /**
    * The type of event that occurred.
@@ -1490,6 +1429,14 @@ export interface CardTransactionEnhancedDataUpdatedWebhookEvent
   event_type: 'card_transaction.enhanced_data.updated';
 }
 
+/**
+ * Payload for digital wallet tokenization approval requests. Used for both the
+ * decisioning responder request (sent to the customer's endpoint for a real-time
+ * decision) and the subsequent webhook event (sent after the decision is made).
+ * Fields like customer_tokenization_decision, tokenization_decline_reasons,
+ * tokenization_tfa_reasons, and rule_results are only populated in the webhook
+ * event, not in the initial decisioning request.
+ */
 export interface DigitalWalletTokenizationApprovalRequestWebhookEvent {
   /**
    * Unique identifier for the user tokenizing a card
@@ -1505,11 +1452,6 @@ export interface DigitalWalletTokenizationApprovalRequestWebhookEvent {
    * Indicate when the request was received from Mastercard or Visa
    */
   created: string;
-
-  /**
-   * Contains the metadata for the customer tokenization decision.
-   */
-  customer_tokenization_decision: DigitalWalletTokenizationApprovalRequestWebhookEvent.CustomerTokenizationDecision | null;
 
   /**
    * Contains the metadata for the digital wallet being tokenized.
@@ -1539,15 +1481,22 @@ export interface DigitalWalletTokenizationApprovalRequestWebhookEvent {
 
   wallet_decisioning_info: TokenizationsAPI.WalletDecisioningInfo;
 
+  /**
+   * Contains the metadata for the customer tokenization decision.
+   */
+  customer_tokenization_decision?: DigitalWalletTokenizationApprovalRequestWebhookEvent.CustomerTokenizationDecision | null;
+
   device?: TokenizationsAPI.Device;
 
   /**
-   * Results from rules that were evaluated for this tokenization
+   * Results from rules that were evaluated for this tokenization. Only populated in
+   * webhook events, not in the initial decisioning request
    */
   rule_results?: Array<TokenizationsAPI.TokenizationRuleResult>;
 
   /**
-   * List of reasons why the tokenization was declined
+   * List of reasons why the tokenization was declined. Only populated in webhook
+   * events, not in the initial decisioning request
    */
   tokenization_decline_reasons?: Array<TokenizationsAPI.TokenizationDeclineReason>;
 
@@ -1563,7 +1512,8 @@ export interface DigitalWalletTokenizationApprovalRequestWebhookEvent {
     | 'UNKNOWN';
 
   /**
-   * List of reasons why two-factor authentication was required
+   * List of reasons why two-factor authentication was required. Only populated in
+   * webhook events, not in the initial decisioning request
    */
   tokenization_tfa_reasons?: Array<TokenizationsAPI.TokenizationTfaReason>;
 }
@@ -2395,7 +2345,6 @@ export type ParsedWebhookEvent =
   | AccountHolderVerificationWebhookEvent
   | AccountHolderDocumentUpdatedWebhookEvent
   | CardAuthorizationApprovalRequestWebhookEvent
-  | TokenizationDecisioningRequestWebhookEvent
   | AuthRulesBacktestReportCreatedWebhookEvent
   | BalanceUpdatedWebhookEvent
   | BookTransferTransactionCreatedWebhookEvent
@@ -2874,7 +2823,6 @@ export declare namespace Webhooks {
     type AccountHolderVerificationWebhookEvent as AccountHolderVerificationWebhookEvent,
     type AccountHolderDocumentUpdatedWebhookEvent as AccountHolderDocumentUpdatedWebhookEvent,
     type CardAuthorizationApprovalRequestWebhookEvent as CardAuthorizationApprovalRequestWebhookEvent,
-    type TokenizationDecisioningRequestWebhookEvent as TokenizationDecisioningRequestWebhookEvent,
     type AuthRulesBacktestReportCreatedWebhookEvent as AuthRulesBacktestReportCreatedWebhookEvent,
     type BalanceUpdatedWebhookEvent as BalanceUpdatedWebhookEvent,
     type BookTransferTransactionCreatedWebhookEvent as BookTransferTransactionCreatedWebhookEvent,
