@@ -298,7 +298,6 @@ export {
   type AccountHolderVerificationWebhookEvent,
   type AccountHolderDocumentUpdatedWebhookEvent,
   type CardAuthorizationApprovalRequestWebhookEvent,
-  type TokenizationDecisioningRequestWebhookEvent,
   type AuthRulesBacktestReportCreatedWebhookEvent,
   type BalanceUpdatedWebhookEvent,
   type BookTransferTransactionCreatedWebhookEvent,

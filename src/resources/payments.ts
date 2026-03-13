@@ -199,7 +199,6 @@ export interface Payment {
    */
   category:
     | 'ACH'
-    | 'WIRE'
     | 'BALANCE_OR_FUNDING'
     | 'FEE'
     | 'REWARD'
@@ -330,10 +329,6 @@ export interface Payment {
 
 export namespace Payment {
   /**
-   * Note: Inbound wire transfers are coming soon (availability varies by partner
-   * bank). Wire-related fields below are a preview. To learn more, contact your
-   * customer success manager.
-   *
    * Payment Event
    */
   export interface Event {
@@ -360,13 +355,7 @@ export namespace Payment {
     result: 'APPROVED' | 'DECLINED';
 
     /**
-     * Note: Inbound wire transfers are coming soon (availability varies by partner
-     * bank). Wire-related event types below are a preview. To learn more, contact your
-     * customer success manager.
-     *
      * Event types:
-     *
-     * ACH events:
      *
      * - `ACH_ORIGINATION_INITIATED` - ACH origination received and pending
      *   approval/release from an ACH hold.
@@ -392,26 +381,6 @@ export namespace Payment {
      *   Financial Institution.
      * - `ACH_RETURN_REJECTED` - ACH return was rejected by the Receiving Depository
      *   Financial Institution.
-     *
-     * Wire transfer events:
-     *
-     * - `WIRE_TRANSFER_INBOUND_RECEIVED` - Inbound wire transfer received from the
-     *   Federal Reserve and pending release to available balance.
-     * - `WIRE_TRANSFER_INBOUND_SETTLED` - Inbound wire transfer funds released from
-     *   pending to available balance.
-     * - `WIRE_TRANSFER_INBOUND_BLOCKED` - Inbound wire transfer blocked and funds
-     *   frozen for regulatory review.
-     *
-     * Wire return events:
-     *
-     * - `WIRE_RETURN_OUTBOUND_INITIATED` - Outbound wire return initiated to return
-     *   funds from an inbound wire transfer.
-     * - `WIRE_RETURN_OUTBOUND_SENT` - Outbound wire return sent to the Federal Reserve
-     *   and pending acceptance.
-     * - `WIRE_RETURN_OUTBOUND_SETTLED` - Outbound wire return accepted by the Federal
-     *   Reserve and funds returned to sender.
-     * - `WIRE_RETURN_OUTBOUND_REJECTED` - Outbound wire return rejected by the Federal
-     *   Reserve.
      */
     type:
       | 'ACH_ORIGINATION_CANCELLED'
@@ -428,14 +397,7 @@ export namespace Payment {
       | 'ACH_RETURN_INITIATED'
       | 'ACH_RETURN_PROCESSED'
       | 'ACH_RETURN_REJECTED'
-      | 'ACH_RETURN_SETTLED'
-      | 'WIRE_TRANSFER_INBOUND_RECEIVED'
-      | 'WIRE_TRANSFER_INBOUND_SETTLED'
-      | 'WIRE_TRANSFER_INBOUND_BLOCKED'
-      | 'WIRE_RETURN_OUTBOUND_INITIATED'
-      | 'WIRE_RETURN_OUTBOUND_SENT'
-      | 'WIRE_RETURN_OUTBOUND_SETTLED'
-      | 'WIRE_RETURN_OUTBOUND_REJECTED';
+      | 'ACH_RETURN_SETTLED';
 
     /**
      * More detailed reasons for the event
@@ -451,9 +413,7 @@ export namespace Payment {
     >;
 
     /**
-     * Payment event external ID. For ACH transactions, this is the ACH trace number.
-     * For inbound wire transfers, this is the IMAD (Input Message Accountability
-     * Data).
+     * Payment event external ID, for example, ACH trace number.
      */
     external_id?: string | null;
   }
@@ -520,6 +480,11 @@ export namespace Payment {
      * for tracking the message through the Fedwire system
      */
     message_id?: string | null;
+
+    /**
+     * Payment details or invoice reference
+     */
+    remittance_information?: string | null;
   }
 
   /**
