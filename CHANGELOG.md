@@ -1,5 +1,34 @@
 # Changelog
 
+## 0.133.0 (2026-03-16)
+
+Full Changelog: [v0.132.1...v0.133.0](https://github.com/lithic-com/lithic-node/compare/v0.132.1...v0.133.0)
+
+### Features
+
+* **api:** add ACH_RECEIPT_RELEASED_EARLY event type to payments ([0bb4d95](https://github.com/lithic-com/lithic-node/commit/0bb4d953f34885a6803e4abfbee90d2839886f81))
+* **api:** add excluded_account_tokens to auth rules v2 ([30cfe26](https://github.com/lithic-com/lithic-node/commit/30cfe260a66896cab48aeb4f5c7abd884704dfce))
+* **api:** add mcp-server package, CI/CD workflows, build scripts, update README ([d942481](https://github.com/lithic-com/lithic-node/commit/d942481202af958f1a60a6584bec8803927b9a63))
+* **api:** add penalty_rates field to interest tier schedule ([aa412d0](https://github.com/lithic-com/lithic-node/commit/aa412d01a8256c187bf23275a5fb1a017793539e))
+* **api:** add versions field to auth rules v2 report response ([aa20bdb](https://github.com/lithic-com/lithic-node/commit/aa20bdbca0982173e9dff5f9fa56a5cc9162bdbb))
+* **api:** add WIRE category/events, remove remittance_information from payments ([8808ca2](https://github.com/lithic-com/lithic-node/commit/8808ca292e45a4a6e0479e8bfff9122fb58634b6))
+
+
+### Bug Fixes
+
+* **api:** [breaking] unify webhook schemas for digital_wallet.tokenization_approval_request webhooks ([4166fbc](https://github.com/lithic-com/lithic-node/commit/4166fbc084b226872d7418c5d086fc7a156f6797))
+* **types:** make start/end required, remove auth_rule_token from backtests ([f61f218](https://github.com/lithic-com/lithic-node/commit/f61f21812b7ea528969ac97ceb0e3bbb72570e3c))
+
+
+### Chores
+
+* **internal:** regenerate SDK with no functional changes ([1c21ea8](https://github.com/lithic-com/lithic-node/commit/1c21ea83d2d4e770561b18419da2f320a9cb6d69))
+
+
+### Documentation
+
+* **api:** update disputes terminology to chargeback request ([2128851](https://github.com/lithic-com/lithic-node/commit/2128851ca772d5405e62ca4ede55a942b976cf3e))
+
 ## 0.132.1 (2026-03-10)
 
 Full Changelog: [v0.132.0...v0.132.1](https://github.com/lithic-com/lithic-node/compare/v0.132.0...v0.132.1)
