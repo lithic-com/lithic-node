@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.134.0 (2026-03-17)
+
+Full Changelog: [v0.133.0...v0.134.0](https://github.com/lithic-com/lithic-node/compare/v0.133.0...v0.134.0)
+
+### Features
+
+* **api:** add remittance_information field to Payment ([133fe04](https://github.com/lithic-com/lithic-node/commit/133fe04e55a65208567a8056a96f8c5c91a641d1))
+
+
+### Bug Fixes
+
+* **types:** make address/dob/email/government_id optional in account-holders ([0966648](https://github.com/lithic-com/lithic-node/commit/0966648a478b19bff02dd8ee63cfa53f8db2454b))
+
+
+### Chores
+
+* **internal:** support x-stainless-mcp-client-permissions headers in MCP servers ([f5266e6](https://github.com/lithic-com/lithic-node/commit/f5266e6e139b91a9899b11f700c8ac0ca69b8d70))
+* **internal:** switch npm publishing from token authentication to OIDC ([2831ff1](https://github.com/lithic-com/lithic-node/commit/2831ff1d00c616a9ddac7bf9ea24ebc05cdd367b))
+* **internal:** tweak CI branches ([cb5acc3](https://github.com/lithic-com/lithic-node/commit/cb5acc3a9fe4ac157eb4876aab37345c39600e70))
+
+
+### Documentation
+
+* **api:** update supported file types in account holder document uploads ([dd26f0e](https://github.com/lithic-com/lithic-node/commit/dd26f0e7be9459b45b37fb3795c0522a6f1a81fc))
+
 ## 0.133.0 (2026-03-16)
 
 Full Changelog: [v0.132.1...v0.133.0](https://github.com/lithic-com/lithic-node/compare/v0.132.1...v0.133.0)
