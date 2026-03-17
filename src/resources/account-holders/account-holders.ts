@@ -2570,30 +2570,36 @@ export declare namespace AccountHolderCreateParams {
     }
 
     /**
-     * Individuals associated with a KYB application. Phone number is optional.
+     * Individuals associated with a KYB_DELEGATED application. Only first and last
+     * name are required.
      */
     export interface BeneficialOwnerIndividual {
+      /**
+       * Individual's first name, as it appears on government-issued identity documents.
+       */
+      first_name: string;
+
+      /**
+       * Individual's last name, as it appears on government-issued identity documents.
+       */
+      last_name: string;
+
       /**
        * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
        * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
        */
-      address: Shared.Address;
+      address?: Shared.Address;
 
       /**
        * Individual's date of birth, as an RFC 3339 date.
        */
-      dob: string;
+      dob?: string;
 
       /**
        * Individual's email address. If utilizing Lithic for chargeback processing, this
        * customer email address may be used to communicate dispute status and resolution.
        */
-      email: string;
-
-      /**
-       * Individual's first name, as it appears on government-issued identity documents.
-       */
-      first_name: string;
+      email?: string;
 
       /**
        * Government-issued identification number (required for identity verification and
@@ -2601,12 +2607,7 @@ export declare namespace AccountHolderCreateParams {
        * Individual Taxpayer Identification Numbers (ITIN) are currently supported,
        * entered as full nine-digits, with or without hyphens
        */
-      government_id: string;
-
-      /**
-       * Individual's last name, as it appears on government-issued identity documents.
-       */
-      last_name: string;
+      government_id?: string;
 
       /**
        * Individual's phone number, entered in E.164 format.
@@ -2626,26 +2627,31 @@ export declare namespace AccountHolderCreateParams {
      */
     export interface ControlPerson {
       /**
+       * Individual's first name, as it appears on government-issued identity documents.
+       */
+      first_name: string;
+
+      /**
+       * Individual's last name, as it appears on government-issued identity documents.
+       */
+      last_name: string;
+
+      /**
        * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
        * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
        */
-      address: Shared.Address;
+      address?: Shared.Address;
 
       /**
        * Individual's date of birth, as an RFC 3339 date.
        */
-      dob: string;
+      dob?: string;
 
       /**
        * Individual's email address. If utilizing Lithic for chargeback processing, this
        * customer email address may be used to communicate dispute status and resolution.
        */
-      email: string;
-
-      /**
-       * Individual's first name, as it appears on government-issued identity documents.
-       */
-      first_name: string;
+      email?: string;
 
       /**
        * Government-issued identification number (required for identity verification and
@@ -2653,12 +2659,7 @@ export declare namespace AccountHolderCreateParams {
        * Individual Taxpayer Identification Numbers (ITIN) are currently supported,
        * entered as full nine-digits, with or without hyphens
        */
-      government_id: string;
-
-      /**
-       * Individual's last name, as it appears on government-issued identity documents.
-       */
-      last_name: string;
+      government_id?: string;
 
       /**
        * Individual's phone number, entered in E.164 format.
