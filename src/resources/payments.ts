@@ -520,6 +520,11 @@ export namespace Payment {
      * for tracking the message through the Fedwire system
      */
     message_id?: string | null;
+
+    /**
+     * Payment details or invoice reference
+     */
+    remittance_information?: string | null;
   }
 
   /**
