@@ -781,6 +781,9 @@ export namespace ConditionalAuthorizationActionParameters {
      * - `ADDRESS_MATCH`: Lithic's evaluation result comparing transaction's address
      *   data with the cardholder KYC data if it exists. Valid values are `MATCH`,
      *   `MATCH_ADDRESS_ONLY`, `MATCH_ZIP_ONLY`,`MISMATCH`,`NOT_PRESENT`.
+     * - `CARD_AGE`: The age of the card in seconds at the time of the authorization.
+     * - `ACCOUNT_AGE`: The age of the account holder's account in seconds at the time
+     *   of the authorization.
      */
     attribute:
       | 'MCC'
@@ -801,7 +804,9 @@ export namespace ConditionalAuthorizationActionParameters {
       | 'PIN_STATUS'
       | 'WALLET_TYPE'
       | 'TRANSACTION_INITIATOR'
-      | 'ADDRESS_MATCH';
+      | 'ADDRESS_MATCH'
+      | 'CARD_AGE'
+      | 'ACCOUNT_AGE';
 
     /**
      * The operation to apply to the attribute
@@ -1342,7 +1347,7 @@ export namespace ReportStats {
  * - `CARD`: The card associated with the event. Available for AUTHORIZATION and
  *   THREE_DS_AUTHENTICATION event stream rules.
  * - `ACCOUNT_HOLDER`: The account holder associated with the card. Available for
- *   THREE_DS_AUTHENTICATION event stream rules.
+ *   AUTHORIZATION and THREE_DS_AUTHENTICATION event stream rules.
  * - `IP_METADATA`: IP address metadata for the request. Available for
  *   THREE_DS_AUTHENTICATION event stream rules.
  * - `SPEND_VELOCITY`: Spend velocity data for the card or account. Requires
