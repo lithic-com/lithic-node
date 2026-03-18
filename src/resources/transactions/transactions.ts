@@ -362,7 +362,10 @@ export interface Transaction {
 
   financial_account_token: string | null;
 
-  merchant: Shared.Merchant;
+  /**
+   * Merchant information including full location details.
+   */
+  merchant: Transaction.Merchant;
 
   /**
    * @deprecated Analogous to the 'amount', but in the merchant currency.
@@ -424,6 +427,13 @@ export interface Transaction {
     | 'UNAUTHORIZED_MERCHANT'
     | 'UNKNOWN_HOST_TIMEOUT'
     | 'USER_TRANSACTION_LIMIT';
+
+  /**
+   * Where the cardholder received the service, when different from the card acceptor
+   * location. This is populated from network data elements such as Mastercard DE-122
+   * SE1 SF9-14 and Visa F34 DS02.
+   */
+  service_location: Transaction.ServiceLocation | null;
 
   /**
    * @deprecated The settled amount of the transaction in the settlement currency.
@@ -529,6 +539,26 @@ export namespace Transaction {
      * Cardholder ZIP code
      */
     zipcode: string;
+  }
+
+  /**
+   * Merchant information including full location details.
+   */
+  export interface Merchant extends Shared.Merchant {
+    /**
+     * Phone number of card acceptor.
+     */
+    phone_number: string | null;
+
+    /**
+     * Postal code of card acceptor.
+     */
+    postal_code: string | null;
+
+    /**
+     * Street address of card acceptor.
+     */
+    street_address: string | null;
   }
 
   export interface Pos {
@@ -655,6 +685,38 @@ export namespace Transaction {
        */
       acceptor_terminal_id?: string | null;
     }
+  }
+
+  /**
+   * Where the cardholder received the service, when different from the card acceptor
+   * location. This is populated from network data elements such as Mastercard DE-122
+   * SE1 SF9-14 and Visa F34 DS02.
+   */
+  export interface ServiceLocation {
+    /**
+     * City of service location.
+     */
+    city: string | null;
+
+    /**
+     * Country code of service location, ISO 3166-1 alpha-3.
+     */
+    country: string | null;
+
+    /**
+     * Postal code of service location.
+     */
+    postal_code: string | null;
+
+    /**
+     * State/province code of service location, ISO 3166-2.
+     */
+    state: string | null;
+
+    /**
+     * Street address of service location.
+     */
+    street_address: string | null;
   }
 
   export interface Event {
