@@ -480,6 +480,12 @@ export namespace Payment {
     company_id?: string | null;
 
     /**
+     * Value to override the configured company name with. Can only be used if allowed
+     * to override
+     */
+    override_company_name?: string | null;
+
+    /**
      * Receipt routing number
      */
     receipt_routing_number?: string | null;
