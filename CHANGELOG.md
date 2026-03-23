@@ -1,5 +1,35 @@
 # Changelog
 
+## 0.135.0 (2026-03-23)
+
+Full Changelog: [v0.134.0...v0.135.0](https://github.com/lithic-com/lithic-node/compare/v0.134.0...v0.135.0)
+
+### Features
+
+* **api:** add card_age/account_age attributes to auth rules v2 ([37971d6](https://github.com/lithic-com/lithic-node/commit/37971d6f89e503b4e7cdc0425ac7ae3c2ebf80c4))
+* **api:** add override_company_name parameter to external payments create ([868f064](https://github.com/lithic-com/lithic-node/commit/868f064eec2ebc0a5aaa1d22ee6aae5b860b9219))
+* **api:** add service location fields to auth rules v2 and merchant models ([c364f7b](https://github.com/lithic-com/lithic-node/commit/c364f7b5924ee351a1a30f65bd79abfec12848d2))
+
+
+### Chores
+
+* **internal:** fix MCP server TS errors that occur with required client options ([42fb3a8](https://github.com/lithic-com/lithic-node/commit/42fb3a8cd1fb71ab45617036d96a70e57cf1a7af))
+* **internal:** switch from steady to prism for mock server ([90699a3](https://github.com/lithic-com/lithic-node/commit/90699a32f04947398a9ca20308a477a88cf589c9))
+* **internal:** update gitignore ([b49bfc6](https://github.com/lithic-com/lithic-node/commit/b49bfc659568b0a11a097def35e053985144d386))
+* **tests:** bump steady to v0.19.4 ([9491eb7](https://github.com/lithic-com/lithic-node/commit/9491eb75d9b0618688f2dc66fb4d2930c959ad51))
+* **tests:** bump steady to v0.19.5 ([37b04df](https://github.com/lithic-com/lithic-node/commit/37b04dfd4ac5ef9fee33d19cfb396cd8dbccc1d4))
+* **tests:** bump steady to v0.19.6 ([f9125f0](https://github.com/lithic-com/lithic-node/commit/f9125f0c12d7b6d66c6ebb50a2f5f1ab96cfe70a))
+
+
+### Documentation
+
+* **api:** update nature_of_business and qr_code_url field descriptions ([3f262d6](https://github.com/lithic-com/lithic-node/commit/3f262d6318c01ab2c1535387bd8bc98361c615bb))
+
+
+### Refactors
+
+* **tests:** switch from prism to steady ([5d648e0](https://github.com/lithic-com/lithic-node/commit/5d648e0e62eb55e2c27e252d120054ec3878e37e))
+
 ## 0.134.0 (2026-03-17)
 
 Full Changelog: [v0.133.0...v0.134.0](https://github.com/lithic-com/lithic-node/compare/v0.133.0...v0.134.0)
