@@ -160,7 +160,8 @@ export namespace AccountHolderUpdatedWebhookEvent {
 
     /**
      * Short description of the company's line of business (i.e., what does the company
-     * do?).
+     * do?). Values longer than 255 characters will be truncated before KYB
+     * verification
      */
     nature_of_business?: string;
 
@@ -2492,7 +2493,8 @@ export namespace ParsedWebhookEvent {
 
     /**
      * Short description of the company's line of business (i.e., what does the company
-     * do?).
+     * do?). Values longer than 255 characters will be truncated before KYB
+     * verification
      */
     nature_of_business?: string;
 
