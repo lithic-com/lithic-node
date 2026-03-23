@@ -44,7 +44,9 @@ export interface Address {
 
 export interface Carrier {
   /**
-   * QR code url to display on the card carrier
+   * QR code URL to display on the card carrier. The `qr_code_url` field requires
+   * your domain to be allowlisted by Lithic before use. Contact Support to configure
+   * your QR code domain
    */
   qr_code_url?: string;
 }
