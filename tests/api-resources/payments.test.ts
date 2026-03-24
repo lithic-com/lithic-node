@@ -36,6 +36,7 @@ describe('resource payments', () => {
         sec_code: 'CCD',
         ach_hold_period: 0,
         addenda: 'addenda',
+        override_company_name: 'override_company_name',
       },
       type: 'COLLECTION',
       token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',

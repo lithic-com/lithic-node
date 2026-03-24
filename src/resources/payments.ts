@@ -676,6 +676,12 @@ export namespace PaymentCreateParams {
     ach_hold_period?: number;
 
     addenda?: string | null;
+
+    /**
+     * Value to override the configured company name with. Can only be used if allowed
+     * to override
+     */
+    override_company_name?: string | null;
   }
 
   /**
