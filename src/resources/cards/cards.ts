@@ -1031,11 +1031,12 @@ export interface CardCreateParams {
    *   tracking
    * - `EXPEDITED` - FedEx or UPS depending on card manufacturer, Standard Overnight
    *   or similar international option, with tracking
-   * - `BULK_EXPEDITED` - Bulk shipment with Expedited shipping
+   * - `BULK` - Card will be shipped as part of a bulk fulfillment order. The
+   *   shipping method and timeline are inherited from the parent bulk order.
    */
   shipping_method?:
     | '2_DAY'
-    | 'BULK_EXPEDITED'
+    | 'BULK'
     | 'EXPEDITED'
     | 'EXPRESS'
     | 'PRIORITY'
@@ -1263,11 +1264,12 @@ export interface CardConvertPhysicalParams {
    *   tracking
    * - `EXPEDITED` - FedEx or UPS depending on card manufacturer, Standard Overnight
    *   or similar international option, with tracking
-   * - `BULK_EXPEDITED` - Bulk shipment with Expedited shipping
+   * - `BULK` - Card will be shipped as part of a bulk fulfillment order. The
+   *   shipping method and timeline are inherited from the parent bulk order.
    */
   shipping_method?:
     | '2_DAY'
-    | 'BULK_EXPEDITED'
+    | 'BULK'
     | 'EXPEDITED'
     | 'EXPRESS'
     | 'PRIORITY'
@@ -1431,11 +1433,12 @@ export interface CardReissueParams {
    *   tracking
    * - `EXPEDITED` - FedEx or UPS depending on card manufacturer, Standard Overnight
    *   or similar international option, with tracking
-   * - `BULK_EXPEDITED` - Bulk shipment with Expedited shipping
+   * - `BULK` - Card will be shipped as part of a bulk fulfillment order. The
+   *   shipping method and timeline are inherited from the parent bulk order.
    */
   shipping_method?:
     | '2_DAY'
-    | 'BULK_EXPEDITED'
+    | 'BULK'
     | 'EXPEDITED'
     | 'EXPRESS'
     | 'PRIORITY'
@@ -1488,11 +1491,12 @@ export interface CardRenewParams {
    *   tracking
    * - `EXPEDITED` - FedEx or UPS depending on card manufacturer, Standard Overnight
    *   or similar international option, with tracking
-   * - `BULK_EXPEDITED` - Bulk shipment with Expedited shipping
+   * - `BULK` - Card will be shipped as part of a bulk fulfillment order. The
+   *   shipping method and timeline are inherited from the parent bulk order.
    */
   shipping_method?:
     | '2_DAY'
-    | 'BULK_EXPEDITED'
+    | 'BULK'
     | 'EXPEDITED'
     | 'EXPRESS'
     | 'PRIORITY'
