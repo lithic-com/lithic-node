@@ -766,6 +766,12 @@ export namespace ConditionalAuthorizationActionParameters {
      *   trailing hour up and until the authorization.
      * - `CARD_TRANSACTION_COUNT_24H`: The number of transactions on the card in the
      *   trailing 24 hours up and until the authorization.
+     * - `CARD_DECLINE_COUNT_15M`: The number of declined transactions on the card in
+     *   the trailing 15 minutes before the authorization.
+     * - `CARD_DECLINE_COUNT_1H`: The number of declined transactions on the card in
+     *   the trailing hour up and until the authorization.
+     * - `CARD_DECLINE_COUNT_24H`: The number of declined transactions on the card in
+     *   the trailing 24 hours up and until the authorization.
      * - `CARD_STATE`: The current state of the card associated with the transaction.
      *   Valid values are `CLOSED`, `OPEN`, `PAUSED`, `PENDING_ACTIVATION`,
      *   `PENDING_FULFILLMENT`.
@@ -807,6 +813,9 @@ export namespace ConditionalAuthorizationActionParameters {
       | 'CARD_TRANSACTION_COUNT_15M'
       | 'CARD_TRANSACTION_COUNT_1H'
       | 'CARD_TRANSACTION_COUNT_24H'
+      | 'CARD_DECLINE_COUNT_15M'
+      | 'CARD_DECLINE_COUNT_1H'
+      | 'CARD_DECLINE_COUNT_24H'
       | 'CARD_STATE'
       | 'PIN_ENTERED'
       | 'PIN_STATUS'
