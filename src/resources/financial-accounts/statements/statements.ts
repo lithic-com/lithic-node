@@ -165,6 +165,8 @@ export interface Statement {
    * Details on number and size of payments to pay off balance
    */
   payoff_details?: Statement.PayoffDetails | null;
+
+  statement_totals?: FinancialAccountsAPI.StatementTotals;
 }
 
 export namespace Statement {
