@@ -955,23 +955,17 @@ export namespace CardAuthorizationApprovalRequestWebhookEvent {
     /**
      * Globally unique identifier for the card.
      */
-    token?: string;
-
-    /**
-     * Hostname of card’s locked merchant (will be empty if not applicable)
-     */
-    hostname?: string;
+    token: string;
 
     /**
      * Last four digits of the card number
      */
-    last_four?: string;
+    last_four: string;
 
     /**
-     * Customizable name to identify the card. We recommend against using this field to
-     * store JSON data as it can cause unexpected behavior.
+     * Customizable name to identify the card
      */
-    memo?: string;
+    memo: string;
 
     /**
      * Amount (in cents) to limit approved authorizations. Purchase requests above the
@@ -983,18 +977,18 @@ export namespace CardAuthorizationApprovalRequestWebhookEvent {
      * charges (i.e., when a merchant sends a clearing message without a prior
      * authorization).
      */
-    spend_limit?: number;
+    spend_limit: number;
 
     /**
      * Note that to support recurring monthly payments, which can occur on different
      * day every month, the time window we consider for MONTHLY velocity starts 6 days
      * after the current calendar date one month prior.
      */
-    spend_limit_duration?: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION';
+    spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION';
 
-    state?: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT';
+    state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT';
 
-    type?: 'SINGLE_USE' | 'MERCHANT_LOCKED' | 'UNLOCKED' | 'PHYSICAL' | 'DIGITAL_WALLET' | 'VIRTUAL';
+    type: 'SINGLE_USE' | 'MERCHANT_LOCKED' | 'UNLOCKED' | 'PHYSICAL' | 'DIGITAL_WALLET' | 'VIRTUAL';
   }
 
   /**
