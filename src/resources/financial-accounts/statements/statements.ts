@@ -102,7 +102,7 @@ export interface Statement {
   /**
    * Globally unique identifier for a credit product
    */
-  credit_product_token: string;
+  credit_product_token: string | null;
 
   /**
    * Number of days in the billing cycle
