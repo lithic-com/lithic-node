@@ -448,6 +448,11 @@ export namespace BacktestStats {
      * The timestamp of the event.
      */
     timestamp?: string;
+
+    /**
+     * The token of the transaction associated with the event
+     */
+    transaction_token?: string | null;
   }
 }
 
@@ -1128,6 +1133,11 @@ export namespace ReportStats {
      * The timestamp of the event.
      */
     timestamp?: string;
+
+    /**
+     * The token of the transaction associated with the event
+     */
+    transaction_token?: string | null;
   }
 
   export namespace Example {
@@ -2254,6 +2264,11 @@ export namespace V2RetrieveReportResponse {
          * The timestamp of the event.
          */
         timestamp: string;
+
+        /**
+         * The token of the transaction associated with the event
+         */
+        transaction_token?: string | null;
       }
 
       export namespace Example {
