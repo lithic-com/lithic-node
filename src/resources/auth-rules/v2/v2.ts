@@ -1698,6 +1698,11 @@ export namespace V2ListResultsResponse {
      * Version of the rule that was evaluated
      */
     rule_version: number;
+
+    /**
+     * The token of the transaction that triggered the rule evaluation
+     */
+    transaction_token: string | null;
   }
 
   export namespace AuthorizationResult {
@@ -1822,6 +1827,11 @@ export namespace V2ListResultsResponse {
      * Version of the rule that was evaluated
      */
     rule_version: number;
+
+    /**
+     * The token of the transaction that triggered the rule evaluation
+     */
+    transaction_token: string | null;
   }
 
   export namespace Authentication3DSResult {
@@ -1875,6 +1885,11 @@ export namespace V2ListResultsResponse {
      * Version of the rule that was evaluated
      */
     rule_version: number;
+
+    /**
+     * The token of the transaction that triggered the rule evaluation
+     */
+    transaction_token: string | null;
   }
 
   export namespace TokenizationResult {
@@ -1981,6 +1996,11 @@ export namespace V2ListResultsResponse {
      * Version of the rule that was evaluated
      */
     rule_version: number;
+
+    /**
+     * The token of the transaction that triggered the rule evaluation
+     */
+    transaction_token: string | null;
   }
 
   export namespace ACHResult {
