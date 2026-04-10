@@ -1065,46 +1065,34 @@ export namespace MerchantLockParameters {
 export interface ReportStats {
   /**
    * A mapping of action types to the number of times that action was returned by
-   * this rule during the relevant period. Actions are the possible outcomes of a
+   * this version during the relevant period. Actions are the possible outcomes of a
    * rule evaluation, such as DECLINE, CHALLENGE, REQUIRE_TFA, etc. In case rule
    * didn't trigger any action, it's counted under NO_ACTION key.
    */
-  action_counts?: { [key: string]: number };
+  action_counts: { [key: string]: number };
 
   /**
-   * @deprecated The total number of historical transactions approved by this rule
-   * during the relevant period, or the number of transactions that would have been
-   * approved if the rule was evaluated in shadow mode.
+   * Example events and their outcomes for this version.
    */
-  approved?: number;
+  examples: Array<ReportStats.Example>;
 
   /**
-   * @deprecated The total number of historical transactions challenged by this rule
-   * during the relevant period, or the number of transactions that would have been
-   * challenged if the rule was evaluated in shadow mode. Currently applicable only
-   * for 3DS Auth Rules.
+   * The evaluation mode of this version during the reported period.
    */
-  challenged?: number;
+  state: 'ACTIVE' | 'SHADOW' | 'INACTIVE';
 
   /**
-   * @deprecated The total number of historical transactions declined by this rule
-   * during the relevant period, or the number of transactions that would have been
-   * declined if the rule was evaluated in shadow mode.
+   * The rule version number.
    */
-  declined?: number;
-
-  /**
-   * Example events and their outcomes.
-   */
-  examples?: Array<ReportStats.Example>;
+  version: number;
 }
 
 export namespace ReportStats {
   export interface Example {
     /**
-     * The actions taken by the rule for this event.
+     * The actions taken by this version for this event.
      */
-    actions?: Array<
+    actions: Array<
       | Example.DeclineActionAuthorization
       | Example.ChallengeActionAuthorization
       | Example.ResultAuthentication3DSAction
@@ -1115,24 +1103,14 @@ export namespace ReportStats {
     >;
 
     /**
-     * @deprecated Whether the rule would have approved the request.
-     */
-    approved?: boolean;
-
-    /**
-     * @deprecated The decision made by the rule for this event.
-     */
-    decision?: 'APPROVED' | 'DECLINED' | 'CHALLENGED';
-
-    /**
      * The event token.
      */
-    event_token?: string;
+    event_token: string;
 
     /**
      * The timestamp of the event.
      */
-    timestamp?: string;
+    timestamp: string;
 
     /**
      * The token of the transaction associated with the event
@@ -2193,303 +2171,15 @@ export interface V2RetrieveReportResponse {
 export namespace V2RetrieveReportResponse {
   export interface DailyStatistic {
     /**
-     * Detailed statistics for the current version of the rule.
-     */
-    current_version_statistics: V2API.ReportStats | null;
-
-    /**
      * The date (UTC) for which the statistics are reported.
      */
     date: string;
 
     /**
-     * Detailed statistics for the draft version of the rule.
-     */
-    draft_version_statistics: V2API.ReportStats | null;
-
-    /**
      * Statistics for each version of the rule that was evaluated during the reported
      * day.
      */
-    versions: Array<DailyStatistic.Version>;
-  }
-
-  export namespace DailyStatistic {
-    export interface Version {
-      /**
-       * A mapping of action types to the number of times that action was returned by
-       * this version during the relevant period. Actions are the possible outcomes of a
-       * rule evaluation, such as DECLINE, CHALLENGE, REQUIRE_TFA, etc. In case rule
-       * didn't trigger any action, it's counted under NO_ACTION key.
-       */
-      action_counts: { [key: string]: number };
-
-      /**
-       * Example events and their outcomes for this version.
-       */
-      examples: Array<Version.Example>;
-
-      /**
-       * The evaluation mode of this version during the reported period.
-       */
-      state: 'ACTIVE' | 'SHADOW' | 'INACTIVE';
-
-      /**
-       * The rule version number.
-       */
-      version: number;
-    }
-
-    export namespace Version {
-      export interface Example {
-        /**
-         * The actions taken by this version for this event.
-         */
-        actions: Array<
-          | Example.DeclineActionAuthorization
-          | Example.ChallengeActionAuthorization
-          | Example.ResultAuthentication3DSAction
-          | Example.DeclineActionTokenization
-          | Example.RequireTfaAction
-          | Example.ApproveActionACH
-          | Example.ReturnAction
-        >;
-
-        /**
-         * The event token.
-         */
-        event_token: string;
-
-        /**
-         * The timestamp of the event.
-         */
-        timestamp: string;
-
-        /**
-         * The token of the transaction associated with the event
-         */
-        transaction_token?: string | null;
-      }
-
-      export namespace Example {
-        export interface DeclineActionAuthorization {
-          /**
-           * The detailed result code explaining the specific reason for the decline
-           */
-          code:
-            | 'ACCOUNT_DAILY_SPEND_LIMIT_EXCEEDED'
-            | 'ACCOUNT_DELINQUENT'
-            | 'ACCOUNT_INACTIVE'
-            | 'ACCOUNT_LIFETIME_SPEND_LIMIT_EXCEEDED'
-            | 'ACCOUNT_MONTHLY_SPEND_LIMIT_EXCEEDED'
-            | 'ACCOUNT_PAUSED'
-            | 'ACCOUNT_UNDER_REVIEW'
-            | 'ADDRESS_INCORRECT'
-            | 'APPROVED'
-            | 'AUTH_RULE_ALLOWED_COUNTRY'
-            | 'AUTH_RULE_ALLOWED_MCC'
-            | 'AUTH_RULE_BLOCKED_COUNTRY'
-            | 'AUTH_RULE_BLOCKED_MCC'
-            | 'AUTH_RULE'
-            | 'CARD_CLOSED'
-            | 'CARD_CRYPTOGRAM_VALIDATION_FAILURE'
-            | 'CARD_EXPIRED'
-            | 'CARD_EXPIRY_DATE_INCORRECT'
-            | 'CARD_INVALID'
-            | 'CARD_NOT_ACTIVATED'
-            | 'CARD_PAUSED'
-            | 'CARD_PIN_INCORRECT'
-            | 'CARD_RESTRICTED'
-            | 'CARD_SECURITY_CODE_INCORRECT'
-            | 'CARD_SPEND_LIMIT_EXCEEDED'
-            | 'CONTACT_CARD_ISSUER'
-            | 'CUSTOMER_ASA_TIMEOUT'
-            | 'CUSTOM_ASA_RESULT'
-            | 'DECLINED'
-            | 'DO_NOT_HONOR'
-            | 'DRIVER_NUMBER_INVALID'
-            | 'FORMAT_ERROR'
-            | 'INSUFFICIENT_FUNDING_SOURCE_BALANCE'
-            | 'INSUFFICIENT_FUNDS'
-            | 'LITHIC_SYSTEM_ERROR'
-            | 'LITHIC_SYSTEM_RATE_LIMIT'
-            | 'MALFORMED_ASA_RESPONSE'
-            | 'MERCHANT_INVALID'
-            | 'MERCHANT_LOCKED_CARD_ATTEMPTED_ELSEWHERE'
-            | 'MERCHANT_NOT_PERMITTED'
-            | 'OVER_REVERSAL_ATTEMPTED'
-            | 'PIN_BLOCKED'
-            | 'PROGRAM_CARD_SPEND_LIMIT_EXCEEDED'
-            | 'PROGRAM_SUSPENDED'
-            | 'PROGRAM_USAGE_RESTRICTION'
-            | 'REVERSAL_UNMATCHED'
-            | 'SECURITY_VIOLATION'
-            | 'SINGLE_USE_CARD_REATTEMPTED'
-            | 'SUSPECTED_FRAUD'
-            | 'TRANSACTION_INVALID'
-            | 'TRANSACTION_NOT_PERMITTED_TO_ACQUIRER_OR_TERMINAL'
-            | 'TRANSACTION_NOT_PERMITTED_TO_ISSUER_OR_CARDHOLDER'
-            | 'TRANSACTION_PREVIOUSLY_COMPLETED'
-            | 'UNAUTHORIZED_MERCHANT'
-            | 'VEHICLE_NUMBER_INVALID'
-            | 'CARDHOLDER_CHALLENGED'
-            | 'CARDHOLDER_CHALLENGE_FAILED';
-
-          type: 'DECLINE';
-        }
-
-        export interface ChallengeActionAuthorization {
-          type: 'CHALLENGE';
-        }
-
-        export interface ResultAuthentication3DSAction {
-          type: 'DECLINE' | 'CHALLENGE';
-        }
-
-        export interface DeclineActionTokenization {
-          /**
-           * Decline the tokenization request
-           */
-          type: 'DECLINE';
-
-          /**
-           * Reason code for declining the tokenization request
-           */
-          reason?:
-            | 'ACCOUNT_SCORE_1'
-            | 'DEVICE_SCORE_1'
-            | 'ALL_WALLET_DECLINE_REASONS_PRESENT'
-            | 'WALLET_RECOMMENDED_DECISION_RED'
-            | 'CVC_MISMATCH'
-            | 'CARD_EXPIRY_MONTH_MISMATCH'
-            | 'CARD_EXPIRY_YEAR_MISMATCH'
-            | 'CARD_INVALID_STATE'
-            | 'CUSTOMER_RED_PATH'
-            | 'INVALID_CUSTOMER_RESPONSE'
-            | 'NETWORK_FAILURE'
-            | 'GENERIC_DECLINE'
-            | 'DIGITAL_CARD_ART_REQUIRED';
-        }
-
-        export interface RequireTfaAction {
-          /**
-           * Require two-factor authentication for the tokenization request
-           */
-          type: 'REQUIRE_TFA';
-
-          /**
-           * Reason code for requiring two-factor authentication
-           */
-          reason?:
-            | 'WALLET_RECOMMENDED_TFA'
-            | 'SUSPICIOUS_ACTIVITY'
-            | 'DEVICE_RECENTLY_LOST'
-            | 'TOO_MANY_RECENT_ATTEMPTS'
-            | 'TOO_MANY_RECENT_TOKENS'
-            | 'TOO_MANY_DIFFERENT_CARDHOLDERS'
-            | 'OUTSIDE_HOME_TERRITORY'
-            | 'HAS_SUSPENDED_TOKENS'
-            | 'HIGH_RISK'
-            | 'ACCOUNT_SCORE_LOW'
-            | 'DEVICE_SCORE_LOW'
-            | 'CARD_STATE_TFA'
-            | 'HARDCODED_TFA'
-            | 'CUSTOMER_RULE_TFA'
-            | 'DEVICE_HOST_CARD_EMULATION';
-        }
-
-        export interface ApproveActionACH {
-          /**
-           * Approve the ACH transaction
-           */
-          type: 'APPROVE';
-        }
-
-        export interface ReturnAction {
-          /**
-           * NACHA return code to use when returning the transaction. Note that the list of
-           * available return codes is subject to an allowlist configured at the program
-           * level
-           */
-          code:
-            | 'R01'
-            | 'R02'
-            | 'R03'
-            | 'R04'
-            | 'R05'
-            | 'R06'
-            | 'R07'
-            | 'R08'
-            | 'R09'
-            | 'R10'
-            | 'R11'
-            | 'R12'
-            | 'R13'
-            | 'R14'
-            | 'R15'
-            | 'R16'
-            | 'R17'
-            | 'R18'
-            | 'R19'
-            | 'R20'
-            | 'R21'
-            | 'R22'
-            | 'R23'
-            | 'R24'
-            | 'R25'
-            | 'R26'
-            | 'R27'
-            | 'R28'
-            | 'R29'
-            | 'R30'
-            | 'R31'
-            | 'R32'
-            | 'R33'
-            | 'R34'
-            | 'R35'
-            | 'R36'
-            | 'R37'
-            | 'R38'
-            | 'R39'
-            | 'R40'
-            | 'R41'
-            | 'R42'
-            | 'R43'
-            | 'R44'
-            | 'R45'
-            | 'R46'
-            | 'R47'
-            | 'R50'
-            | 'R51'
-            | 'R52'
-            | 'R53'
-            | 'R61'
-            | 'R62'
-            | 'R67'
-            | 'R68'
-            | 'R69'
-            | 'R70'
-            | 'R71'
-            | 'R72'
-            | 'R73'
-            | 'R74'
-            | 'R75'
-            | 'R76'
-            | 'R77'
-            | 'R80'
-            | 'R81'
-            | 'R82'
-            | 'R83'
-            | 'R84'
-            | 'R85';
-
-          /**
-           * Return the ACH transaction
-           */
-          type: 'RETURN';
-        }
-      }
-    }
+    versions: Array<V2API.ReportStats>;
   }
 }
 
