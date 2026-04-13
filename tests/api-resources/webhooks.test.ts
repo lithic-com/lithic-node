@@ -261,7 +261,7 @@ describe('resource webhooks', () => {
       const event = lithic.webhooks.parse(payload, { headers, secret });
       expect(event).toBeDefined();
       if ('event_type' in event) {
-        expect(event.event_type).toBe('account_holder.created');
+        expect(event.event_type).toBe('digital_wallet.tokenization_approval_request');
       }
     });
 
