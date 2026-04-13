@@ -1,4 +1,4 @@
 configured_endpoints: 190
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/lithic%2Flithic-df28ee30a3bd4fa595befc2048216e1ee1d3845fcfcf179c1c694ba58fd5e4ed.yml
-openapi_spec_hash: 79bfc19d85c7f03754684d794653e333
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/lithic%2Flithic-fd53f07a8b1f148011972d7eba834d5995778d707ff8ef1ead92580b44142a15.yml
+openapi_spec_hash: 45892e6361542824364d82181d4eb80d
 config_hash: 5eca052bb23d273fa970eac3127dd919

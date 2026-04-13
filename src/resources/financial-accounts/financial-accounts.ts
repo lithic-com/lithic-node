@@ -564,6 +564,7 @@ export interface FinancialAccountUpdateStatusParams {
     | 'BANK_REQUEST'
     | 'CHARGED_OFF_DELINQUENT'
     | 'INTEREST_AND_FEES_PAUSED'
+    | 'DELINQUENT'
     | null;
 
   /**
