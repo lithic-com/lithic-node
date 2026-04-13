@@ -1,5 +1,56 @@
 # Changelog
 
+## 0.136.0 (2026-04-13)
+
+Full Changelog: [v0.135.0...v0.136.0](https://github.com/lithic-com/lithic-node/compare/v0.135.0...v0.136.0)
+
+### Features
+
+* **api:** add decline count attributes to auth-rules v2 ([d004ede](https://github.com/lithic-com/lithic-node/commit/d004ede97fda3a5840c8843a648fe5a3977d2d30))
+* **api:** add DELINQUENT status value to financial accounts update params ([e40c1d9](https://github.com/lithic-com/lithic-node/commit/e40c1d908a6ca40e983df773bed1797dc894382e))
+* **api:** add INTERCHANGE, CHARGEBACK, PROVISIONAL_CREDIT_ACCOUNT to financial account type ([847706f](https://github.com/lithic-com/lithic-node/commit/847706f1adb413adcce81f7d1728109b699a6113))
+* **api:** add override_company_name parameter to payments ACH ([954b27e](https://github.com/lithic-com/lithic-node/commit/954b27e3fb8dd7b8c55ea57b42d878094efbe3d8))
+* **api:** add statement_totals field to Statement response ([e3813f7](https://github.com/lithic-com/lithic-node/commit/e3813f70cf8e408de65ec058a39b137cd74c2dfe))
+* **api:** add transaction_token field to auth rules v2 backtest and report responses ([20eedcc](https://github.com/lithic-com/lithic-node/commit/20eedccaeb35b01d243e136793834dec5b65dcb6))
+* **api:** add transaction_token field to auth rules v2 results response ([0f61795](https://github.com/lithic-com/lithic-node/commit/0f617957b0bd7b3ca6f75217b05ba4b3ff426ce3))
+* **types:** [breaking] remove deprecated fields from auth_rules v2 ReportStats ([3e9c80b](https://github.com/lithic-com/lithic-node/commit/3e9c80b8d44b870d024f8fa4d970fc59aed53d81))
+
+
+### Bug Fixes
+
+* **internal:** gitignore generated `oidc` dir ([08c0b61](https://github.com/lithic-com/lithic-node/commit/08c0b61957f3be0c9c52196cf5af017b136d64ee))
+* **types:** make credit_product_token optional in Statement ([17b829f](https://github.com/lithic-com/lithic-node/commit/17b829f64b633e5756eb186c390f19b4aabbb2db))
+* **types:** make fields required, remove hostname in card authorization approval webhook ([019491a](https://github.com/lithic-com/lithic-node/commit/019491ab1d75a48c2217a6979ac15484944dce6a))
+* **types:** remove INTERCHANGE/CHARGEBACK from FinancialAccount types ([d66715a](https://github.com/lithic-com/lithic-node/commit/d66715a88c2f6357b8fba7453d95970de855f277))
+
+
+### Chores
+
+* **ci:** escape input path in publish-npm workflow ([699d85e](https://github.com/lithic-com/lithic-node/commit/699d85e576bdb3d6c25f868c5b6bba2e3772598b))
+* **ci:** skip lint on metadata-only changes ([10dfba6](https://github.com/lithic-com/lithic-node/commit/10dfba6a8f96b1df7d76885f0a762f50b2ada322))
+* **internal:** codegen related update ([b35ca0b](https://github.com/lithic-com/lithic-node/commit/b35ca0bfac887f26f1639d750f3a3fc0388c8d4d))
+* **internal:** codegen related update ([b84877d](https://github.com/lithic-com/lithic-node/commit/b84877d5e9f041aee204663c7d57db835d29a3b7))
+* **internal:** codegen related update ([827a434](https://github.com/lithic-com/lithic-node/commit/827a4344ef5a4e6a47a58564a69373d1135dedcf))
+* **internal:** fix MCP docker image builds in yarn projects ([cd92ad7](https://github.com/lithic-com/lithic-node/commit/cd92ad7fd5d497ae09f9c90fb26171053f89a903))
+* **internal:** fix MCP server import ordering ([7c9afea](https://github.com/lithic-com/lithic-node/commit/7c9afea91945d7e2d6a1d0586f26b28b5fdec82e))
+* **internal:** improve local docs search for MCP servers ([f3658af](https://github.com/lithic-com/lithic-node/commit/f3658af5dfea2fa5b42c9471054945481153ef99))
+* **internal:** improve local docs search for MCP servers ([231f6a0](https://github.com/lithic-com/lithic-node/commit/231f6a037beea43f90512f3eb6bee560a0233a45))
+* **internal:** show error causes in MCP servers when running in local mode ([8f2eb65](https://github.com/lithic-com/lithic-node/commit/8f2eb65211100b293806548b520f5128b84ccf65))
+* **internal:** support custom-instructions-path flag in MCP servers ([21854f4](https://github.com/lithic-com/lithic-node/commit/21854f4bfde44d17f4f22a0f25913f7e91d87c21))
+* **internal:** support local docs search in MCP servers ([c7f9b6a](https://github.com/lithic-com/lithic-node/commit/c7f9b6a3ef5ebd16763c7f17b9c93b407e32a4b2))
+* **internal:** support type annotations when running MCP in local execution mode ([4f94af4](https://github.com/lithic-com/lithic-node/commit/4f94af4683c5c6116e230e95388685066063483b))
+* **internal:** use link instead of file in MCP server package.json files ([9c8e9af](https://github.com/lithic-com/lithic-node/commit/9c8e9af13c7acbda7f78121bd6097e8d0665e1e5))
+* **mcp-server:** add support for session id, forward client info ([9f3f1cb](https://github.com/lithic-com/lithic-node/commit/9f3f1cbbb34756d4d92ef000e9554a7580a775d8))
+* **mcp-server:** increase local docs search result count from 5 to 10 ([b95dd60](https://github.com/lithic-com/lithic-node/commit/b95dd6002ff69d5cc2b19a95c0b863572ad48480))
+* **mcp-server:** log client info ([2e1174a](https://github.com/lithic-com/lithic-node/commit/2e1174ac9aa88945719d45758ea713ebc5c8eaa8))
+
+
+### Documentation
+
+* **api:** clarify nature_of_business and qr_code_url field constraints ([c36c997](https://github.com/lithic-com/lithic-node/commit/c36c99779ede1d40967ed1763e5124e2f38c3db1))
+* improve examples ([5a40af5](https://github.com/lithic-com/lithic-node/commit/5a40af54023b5d717dbfce50088591f1246d88e9))
+* update examples ([4f9b19d](https://github.com/lithic-com/lithic-node/commit/4f9b19ded173c5e63fbde1c5228c621dff77dc64))
+
 ## 0.135.0 (2026-03-23)
 
 Full Changelog: [v0.134.0...v0.135.0](https://github.com/lithic-com/lithic-node/compare/v0.134.0...v0.135.0)
