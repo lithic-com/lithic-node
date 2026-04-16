@@ -798,6 +798,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">AccountHolderVerificationWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">AccountHolderDocumentUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CardAuthorizationApprovalRequestWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CardAuthorizationChallengeResponseWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">AuthRulesBacktestReportCreatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">BalanceUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">BookTransferTransactionCreatedWebhookEvent</a></code>

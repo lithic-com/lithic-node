@@ -1294,6 +1294,49 @@ export namespace CardAuthorizationApprovalRequestWebhookEvent {
   }
 }
 
+export interface CardAuthorizationChallengeResponseWebhookEvent {
+  /**
+   * The token of the card associated with the challenge
+   */
+  card_token: string | null;
+
+  /**
+   * The method used to deliver the challenge to the cardholder
+   */
+  challenge_method: 'SMS';
+
+  /**
+   * The timestamp of when the challenge was completed
+   */
+  completed: string | null;
+
+  /**
+   * The timestamp of when the challenge was created
+   */
+  created: string;
+
+  /**
+   * Globally unique identifier for the event
+   */
+  event_token: string;
+
+  /**
+   * Event type
+   */
+  event_type: 'card_authorization.challenge_response';
+
+  /**
+   * The cardholder's response to the challenge
+   */
+  response: 'APPROVE' | 'DECLINE';
+
+  /**
+   * The token of the transaction associated with the authorization event being
+   * challenged
+   */
+  transaction_token: string | null;
+}
+
 export interface AuthRulesBacktestReportCreatedWebhookEvent extends BacktestsAPI.BacktestResults {
   /**
    * The type of event that occurred.
@@ -2402,6 +2445,7 @@ export type ParsedWebhookEvent =
   | AccountHolderVerificationWebhookEvent
   | AccountHolderDocumentUpdatedWebhookEvent
   | CardAuthorizationApprovalRequestWebhookEvent
+  | CardAuthorizationChallengeResponseWebhookEvent
   | AuthRulesBacktestReportCreatedWebhookEvent
   | BalanceUpdatedWebhookEvent
   | BookTransferTransactionCreatedWebhookEvent
@@ -2881,6 +2925,7 @@ export declare namespace Webhooks {
     type AccountHolderVerificationWebhookEvent as AccountHolderVerificationWebhookEvent,
     type AccountHolderDocumentUpdatedWebhookEvent as AccountHolderDocumentUpdatedWebhookEvent,
     type CardAuthorizationApprovalRequestWebhookEvent as CardAuthorizationApprovalRequestWebhookEvent,
+    type CardAuthorizationChallengeResponseWebhookEvent as CardAuthorizationChallengeResponseWebhookEvent,
     type AuthRulesBacktestReportCreatedWebhookEvent as AuthRulesBacktestReportCreatedWebhookEvent,
     type BalanceUpdatedWebhookEvent as BalanceUpdatedWebhookEvent,
     type BookTransferTransactionCreatedWebhookEvent as BookTransferTransactionCreatedWebhookEvent,
