@@ -95,6 +95,8 @@ export interface Event {
    *   created.
    * - book_transfer_transaction.updated: Occurs when a book transfer transaction is
    *   updated.
+   * - card_authorization.challenge_response: Occurs when a cardholder responds to an
+   *   SMS challenge during card authorization.
    * - card_transaction.enhanced_data.created: Occurs when L2/L3 enhanced commercial
    *   data is processed for a transaction event.
    * - card_transaction.enhanced_data.updated: Occurs when L2/L3 enhanced commercial
@@ -189,6 +191,7 @@ export interface Event {
     | 'balance.updated'
     | 'book_transfer_transaction.created'
     | 'book_transfer_transaction.updated'
+    | 'card_authorization.challenge_response'
     | 'card_transaction.enhanced_data.created'
     | 'card_transaction.enhanced_data.updated'
     | 'card_transaction.updated'
@@ -267,6 +270,7 @@ export interface EventSubscription {
     | 'balance.updated'
     | 'book_transfer_transaction.created'
     | 'book_transfer_transaction.updated'
+    | 'card_authorization.challenge_response'
     | 'card_transaction.enhanced_data.created'
     | 'card_transaction.enhanced_data.updated'
     | 'card_transaction.updated'
@@ -383,6 +387,7 @@ export interface EventListParams extends CursorPageParams {
     | 'balance.updated'
     | 'book_transfer_transaction.created'
     | 'book_transfer_transaction.updated'
+    | 'card_authorization.challenge_response'
     | 'card_transaction.enhanced_data.created'
     | 'card_transaction.enhanced_data.updated'
     | 'card_transaction.updated'

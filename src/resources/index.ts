@@ -298,6 +298,7 @@ export {
   type AccountHolderVerificationWebhookEvent,
   type AccountHolderDocumentUpdatedWebhookEvent,
   type CardAuthorizationApprovalRequestWebhookEvent,
+  type CardAuthorizationChallengeResponseWebhookEvent,
   type AuthRulesBacktestReportCreatedWebhookEvent,
   type BalanceUpdatedWebhookEvent,
   type BookTransferTransactionCreatedWebhookEvent,
