@@ -7130,6 +7130,61 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     },
   },
   {
+    name: 'set_verification_method',
+    endpoint: '/v1/external_bank_accounts/{external_bank_account_token}/set_verification_method',
+    httpMethod: 'post',
+    summary: 'Set verification method',
+    description:
+      'Update the verification method for an external bank account. Verification method can only be updated\nif the `verification_state` is `PENDING`.\n',
+    stainlessPath: '(resource) external_bank_accounts > (method) set_verification_method',
+    qualified: 'client.externalBankAccounts.setVerificationMethod',
+    params: [
+      'external_bank_account_token: string;',
+      "verification_method: 'MICRO_DEPOSIT' | 'PRENOTE' | 'EXTERNALLY_VERIFIED';",
+      'financial_account_token?: string;',
+    ],
+    response:
+      "{ token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: 'INDIVIDUAL' | 'BUSINESS'; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PRENOTE' | 'EXTERNALLY_VERIFIED' | 'UNVERIFIED'; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }",
+    markdown:
+      "## set_verification_method\n\n`client.externalBankAccounts.setVerificationMethod(external_bank_account_token: string, verification_method: 'MICRO_DEPOSIT' | 'PRENOTE' | 'EXTERNALLY_VERIFIED', financial_account_token?: string): { token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: owner_type; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: verification_method; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: external_bank_account_address; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }`\n\n**post** `/v1/external_bank_accounts/{external_bank_account_token}/set_verification_method`\n\nUpdate the verification method for an external bank account. Verification method can only be updated\nif the `verification_state` is `PENDING`.\n\n\n### Parameters\n\n- `external_bank_account_token: string`\n\n- `verification_method: 'MICRO_DEPOSIT' | 'PRENOTE' | 'EXTERNALLY_VERIFIED'`\n  The verification method to set for the external bank account\n\n- `financial_account_token?: string`\n  The financial account token of the operating account to fund the micro deposits. Required when verification_method is MICRO_DEPOSIT or PRENOTE.\n\n### Returns\n\n- `{ token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: 'INDIVIDUAL' | 'BUSINESS'; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PRENOTE' | 'EXTERNALLY_VERIFIED' | 'UNVERIFIED'; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }`\n\n  - `token: string`\n  - `country: string`\n  - `created: string`\n  - `currency: string`\n  - `last_four: string`\n  - `owner: string`\n  - `owner_type: 'INDIVIDUAL' | 'BUSINESS'`\n  - `routing_number: string`\n  - `state: 'ENABLED' | 'CLOSED' | 'PAUSED'`\n  - `type: 'CHECKING' | 'SAVINGS'`\n  - `verification_attempts: number`\n  - `verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PRENOTE' | 'EXTERNALLY_VERIFIED' | 'UNVERIFIED'`\n  - `verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'`\n  - `account_token?: string`\n  - `address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }`\n  - `company_id?: string`\n  - `dob?: string`\n  - `doing_business_as?: string`\n  - `financial_account_token?: string`\n  - `name?: string`\n  - `user_defined_id?: string`\n  - `verification_failed_reason?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst externalBankAccount = await client.externalBankAccounts.setVerificationMethod('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { verification_method: 'MICRO_DEPOSIT' });\n\nconsole.log(externalBankAccount);\n```",
+    perLanguage: {
+      go: {
+        method: 'client.ExternalBankAccounts.SetVerificationMethod',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalBankAccount, err := client.ExternalBankAccounts.SetVerificationMethod(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.ExternalBankAccountSetVerificationMethodParams{\n\t\t\tVerificationMethod: lithic.F(lithic.ExternalBankAccountSetVerificationMethodParamsVerificationMethodMicroDeposit),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalBankAccount.CompanyID)\n}\n',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/external_bank_accounts/$EXTERNAL_BANK_ACCOUNT_TOKEN/set_verification_method \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "verification_method": "MICRO_DEPOSIT"\n        }\'',
+      },
+      java: {
+        method: 'externalBankAccounts().setVerificationMethod',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.ExternalBankAccount;\nimport com.lithic.api.models.ExternalBankAccountSetVerificationMethodParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        ExternalBankAccountSetVerificationMethodParams params = ExternalBankAccountSetVerificationMethodParams.builder()\n            .externalBankAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n            .verificationMethod(ExternalBankAccountSetVerificationMethodParams.SetVerificationMethodAllowedVerificationMethods.MICRO_DEPOSIT)\n            .build();\n        ExternalBankAccount externalBankAccount = client.externalBankAccounts().setVerificationMethod(params);\n    }\n}',
+      },
+      kotlin: {
+        method: 'externalBankAccounts().setVerificationMethod',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ExternalBankAccount\nimport com.lithic.api.models.ExternalBankAccountSetVerificationMethodParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: ExternalBankAccountSetVerificationMethodParams = ExternalBankAccountSetVerificationMethodParams.builder()\n        .externalBankAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .verificationMethod(ExternalBankAccountSetVerificationMethodParams.SetVerificationMethodAllowedVerificationMethods.MICRO_DEPOSIT)\n        .build()\n    val externalBankAccount: ExternalBankAccount = client.externalBankAccounts().setVerificationMethod(params)\n}',
+      },
+      python: {
+        method: 'external_bank_accounts.set_verification_method',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nexternal_bank_account = client.external_bank_accounts.set_verification_method(\n    external_bank_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    verification_method="MICRO_DEPOSIT",\n)\nprint(external_bank_account.company_id)',
+      },
+      ruby: {
+        method: 'external_bank_accounts.set_verification_method',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_bank_account = lithic.external_bank_accounts.set_verification_method(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  verification_method: :MICRO_DEPOSIT\n)\n\nputs(external_bank_account)',
+      },
+      typescript: {
+        method: 'client.externalBankAccounts.setVerificationMethod',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nconst externalBankAccount = await client.externalBankAccounts.setVerificationMethod(\n  '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n  { verification_method: 'MICRO_DEPOSIT' },\n);\n\nconsole.log(externalBankAccount.company_id);",
+      },
+    },
+  },
+  {
     name: 'create',
     endpoint: '/v1/external_bank_accounts/{external_bank_account_token}/micro_deposits',
     httpMethod: 'post',

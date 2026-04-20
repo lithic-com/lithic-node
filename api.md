@@ -514,6 +514,7 @@ Methods:
 - <code title="get /v1/external_bank_accounts">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">list</a>({ ...params }) -> ExternalBankAccountListResponsesCursorPage</code>
 - <code title="post /v1/external_bank_accounts/{external_bank_account_token}/retry_micro_deposits">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">retryMicroDeposits</a>(externalBankAccountToken, { ...params }) -> ExternalBankAccountRetryMicroDepositsResponse</code>
 - <code title="post /v1/external_bank_accounts/{external_bank_account_token}/retry_prenote">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">retryPrenote</a>(externalBankAccountToken, { ...params }) -> ExternalBankAccount</code>
+- <code title="post /v1/external_bank_accounts/{external_bank_account_token}/set_verification_method">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">setVerificationMethod</a>(externalBankAccountToken, { ...params }) -> ExternalBankAccount</code>
 - <code title="post /v1/external_bank_accounts/{external_bank_account_token}/unpause">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">unpause</a>(externalBankAccountToken) -> ExternalBankAccount</code>
 
 ## MicroDeposits
