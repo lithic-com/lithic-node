@@ -153,6 +153,30 @@ export class ExternalBankAccounts extends APIResource {
   }
 
   /**
+   * Update the verification method for an external bank account. Verification method
+   * can only be updated if the `verification_state` is `PENDING`.
+   *
+   * @example
+   * ```ts
+   * const externalBankAccount =
+   *   await client.externalBankAccounts.setVerificationMethod(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     { verification_method: 'MICRO_DEPOSIT' },
+   *   );
+   * ```
+   */
+  setVerificationMethod(
+    externalBankAccountToken: string,
+    body: ExternalBankAccountSetVerificationMethodParams,
+    options?: RequestOptions,
+  ): APIPromise<ExternalBankAccount> {
+    return this._client.post(
+      path`/v1/external_bank_accounts/${externalBankAccountToken}/set_verification_method`,
+      { body, ...options },
+    );
+  }
+
+  /**
    * Unpause an external bank account
    *
    * @example
@@ -1255,6 +1279,19 @@ export interface ExternalBankAccountRetryPrenoteParams {
   financial_account_token?: string;
 }
 
+export interface ExternalBankAccountSetVerificationMethodParams {
+  /**
+   * The verification method to set for the external bank account
+   */
+  verification_method: 'MICRO_DEPOSIT' | 'PRENOTE' | 'EXTERNALLY_VERIFIED';
+
+  /**
+   * The financial account token of the operating account to fund the micro deposits.
+   * Required when verification_method is MICRO_DEPOSIT or PRENOTE.
+   */
+  financial_account_token?: string;
+}
+
 ExternalBankAccounts.MicroDeposits = MicroDeposits;
 
 export declare namespace ExternalBankAccounts {
@@ -1274,6 +1311,7 @@ export declare namespace ExternalBankAccounts {
     type ExternalBankAccountListParams as ExternalBankAccountListParams,
     type ExternalBankAccountRetryMicroDepositsParams as ExternalBankAccountRetryMicroDepositsParams,
     type ExternalBankAccountRetryPrenoteParams as ExternalBankAccountRetryPrenoteParams,
+    type ExternalBankAccountSetVerificationMethodParams as ExternalBankAccountSetVerificationMethodParams,
   };
 
   export {

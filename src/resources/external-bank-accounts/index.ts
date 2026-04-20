@@ -16,6 +16,7 @@ export {
   type ExternalBankAccountListParams,
   type ExternalBankAccountRetryMicroDepositsParams,
   type ExternalBankAccountRetryPrenoteParams,
+  type ExternalBankAccountSetVerificationMethodParams,
   type ExternalBankAccountListResponsesCursorPage,
 } from './external-bank-accounts';
 export {

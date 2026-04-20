@@ -157,6 +157,30 @@ describe('resource externalBankAccounts', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
+  test('setVerificationMethod: only required params', async () => {
+    const responsePromise = client.externalBankAccounts.setVerificationMethod(
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      { verification_method: 'MICRO_DEPOSIT' },
+    );
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('setVerificationMethod: required and optional params', async () => {
+    const response = await client.externalBankAccounts.setVerificationMethod(
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      {
+        verification_method: 'MICRO_DEPOSIT',
+        financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      },
+    );
+  });
+
   test('unpause', async () => {
     const responsePromise = client.externalBankAccounts.unpause('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
