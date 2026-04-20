@@ -240,6 +240,7 @@ const fuse = new Fuse(
     'client.externalBankAccounts.retrieve',
     'client.externalBankAccounts.retryMicroDeposits',
     'client.externalBankAccounts.retryPrenote',
+    'client.externalBankAccounts.setVerificationMethod',
     'client.externalBankAccounts.unpause',
     'client.externalBankAccounts.update',
     'client.externalBankAccounts.microDeposits.create',

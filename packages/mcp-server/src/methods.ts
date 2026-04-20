@@ -810,6 +810,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/external_bank_accounts/{external_bank_account_token}/retry_prenote',
   },
   {
+    clientCallName: 'client.externalBankAccounts.setVerificationMethod',
+    fullyQualifiedName: 'externalBankAccounts.setVerificationMethod',
+    httpMethod: 'post',
+    httpPath: '/v1/external_bank_accounts/{external_bank_account_token}/set_verification_method',
+  },
+  {
     clientCallName: 'client.externalBankAccounts.unpause',
     fullyQualifiedName: 'externalBankAccounts.unpause',
     httpMethod: 'post',

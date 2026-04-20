@@ -313,6 +313,7 @@ import {
   ExternalBankAccountRetryMicroDepositsParams,
   ExternalBankAccountRetryMicroDepositsResponse,
   ExternalBankAccountRetryPrenoteParams,
+  ExternalBankAccountSetVerificationMethodParams,
   ExternalBankAccountUpdateParams,
   ExternalBankAccountUpdateResponse,
   ExternalBankAccounts,
@@ -1413,6 +1414,7 @@ export declare namespace Lithic {
     type ExternalBankAccountListParams as ExternalBankAccountListParams,
     type ExternalBankAccountRetryMicroDepositsParams as ExternalBankAccountRetryMicroDepositsParams,
     type ExternalBankAccountRetryPrenoteParams as ExternalBankAccountRetryPrenoteParams,
+    type ExternalBankAccountSetVerificationMethodParams as ExternalBankAccountSetVerificationMethodParams,
   };
 
   export {
