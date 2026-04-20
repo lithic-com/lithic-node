@@ -803,6 +803,33 @@ export namespace ConditionalAuthorizationActionParameters {
      * - `CARD_AGE`: The age of the card in seconds at the time of the authorization.
      * - `ACCOUNT_AGE`: The age of the account holder's account in seconds at the time
      *   of the authorization.
+     * - `AMOUNT_Z_SCORE`: The z-score of the transaction amount relative to the
+     *   entity's transaction history. Null if fewer than 30 approved transactions in
+     *   the specified window. Requires `parameters.scope` and `parameters.interval`.
+     * - `AVG_TRANSACTION_AMOUNT`: The average approved transaction amount for the
+     *   entity over the specified window, in cents. Requires `parameters.scope` and
+     *   `parameters.interval`.
+     * - `STDEV_TRANSACTION_AMOUNT`: The standard deviation of approved transaction
+     *   amounts for the entity over the specified window, in cents. Null if fewer than
+     *   30 approved transactions in the specified window. Requires `parameters.scope`
+     *   and `parameters.interval`.
+     * - `IS_NEW_COUNTRY`: Whether the transaction's merchant country has not been seen
+     *   in the entity's transaction history. Valid values are `TRUE`, `FALSE`.
+     *   Requires `parameters.scope`.
+     * - `IS_NEW_MCC`: Whether the transaction's MCC has not been seen in the entity's
+     *   transaction history. Valid values are `TRUE`, `FALSE`. Requires
+     *   `parameters.scope`.
+     * - `IS_FIRST_TRANSACTION`: Whether this is the first transaction for the entity.
+     *   Valid values are `TRUE`, `FALSE`. Requires `parameters.scope`.
+     * - `CONSECUTIVE_DECLINES`: The number of consecutive declined transactions for
+     *   the entity over the last 30 days (rolling). Requires `parameters.scope`. Not
+     *   supported for `BUSINESS_ACCOUNT` scope.
+     * - `TIME_SINCE_LAST_TRANSACTION`: The number of days since the last approved
+     *   transaction for the entity. Requires `parameters.scope`.
+     * - `DISTINCT_COUNTRY_COUNT`: The number of distinct merchant countries seen in
+     *   the entity's transaction history. Requires `parameters.scope`.
+     * - `THREE_DS_SUCCESS_RATE`: The 3DS authentication success rate for the card, as
+     *   a percentage from 0.0 to 100.0. Card-scoped only; no `parameters` required.
      */
     attribute:
       | 'MCC'
@@ -830,7 +857,17 @@ export namespace ConditionalAuthorizationActionParameters {
       | 'SERVICE_LOCATION_STATE'
       | 'SERVICE_LOCATION_POSTAL_CODE'
       | 'CARD_AGE'
-      | 'ACCOUNT_AGE';
+      | 'ACCOUNT_AGE'
+      | 'AMOUNT_Z_SCORE'
+      | 'AVG_TRANSACTION_AMOUNT'
+      | 'STDEV_TRANSACTION_AMOUNT'
+      | 'IS_NEW_COUNTRY'
+      | 'IS_NEW_MCC'
+      | 'IS_FIRST_TRANSACTION'
+      | 'CONSECUTIVE_DECLINES'
+      | 'TIME_SINCE_LAST_TRANSACTION'
+      | 'DISTINCT_COUNTRY_COUNT'
+      | 'THREE_DS_SUCCESS_RATE';
 
     /**
      * The operation to apply to the attribute
@@ -841,6 +878,38 @@ export namespace ConditionalAuthorizationActionParameters {
      * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
      */
     value: V2API.ConditionalValue;
+
+    /**
+     * Additional parameters required for transaction history signal attributes.
+     * Required when `attribute` is one of `AMOUNT_Z_SCORE`, `AVG_TRANSACTION_AMOUNT`,
+     * `STDEV_TRANSACTION_AMOUNT`, `IS_NEW_COUNTRY`, `IS_NEW_MCC`,
+     * `IS_FIRST_TRANSACTION`, `CONSECUTIVE_DECLINES`, `TIME_SINCE_LAST_TRANSACTION`,
+     * or `DISTINCT_COUNTRY_COUNT`. Not used for other attributes.
+     */
+    parameters?: Condition.Parameters;
+  }
+
+  export namespace Condition {
+    /**
+     * Additional parameters required for transaction history signal attributes.
+     * Required when `attribute` is one of `AMOUNT_Z_SCORE`, `AVG_TRANSACTION_AMOUNT`,
+     * `STDEV_TRANSACTION_AMOUNT`, `IS_NEW_COUNTRY`, `IS_NEW_MCC`,
+     * `IS_FIRST_TRANSACTION`, `CONSECUTIVE_DECLINES`, `TIME_SINCE_LAST_TRANSACTION`,
+     * or `DISTINCT_COUNTRY_COUNT`. Not used for other attributes.
+     */
+    export interface Parameters {
+      /**
+       * The time window for statistical attributes (`AMOUNT_Z_SCORE`,
+       * `AVG_TRANSACTION_AMOUNT`, `STDEV_TRANSACTION_AMOUNT`). Use `LIFETIME` for
+       * all-time history or a specific window (`7D`, `30D`, `90D`).
+       */
+      interval?: 'LIFETIME' | '7D' | '30D' | '90D';
+
+      /**
+       * The entity scope to evaluate the attribute against.
+       */
+      scope?: 'CARD' | 'ACCOUNT' | 'BUSINESS_ACCOUNT';
+    }
   }
 }
 
@@ -1360,6 +1429,10 @@ export namespace ReportStats {
  * - `SPEND_VELOCITY`: Spend velocity data for the card or account. Requires
  *   `scope`, `period`, and optionally `filters` to configure the velocity
  *   calculation. Available for AUTHORIZATION event stream rules.
+ * - `TRANSACTION_HISTORY_SIGNALS`: Behavioral feature state derived from the
+ *   entity's transaction history. Requires `scope` to specify whether to load
+ *   card, account, or business account history. Available for AUTHORIZATION event
+ *   stream rules.
  */
 export type RuleFeature =
   | RuleFeature.AuthorizationFeature
@@ -1369,7 +1442,8 @@ export type RuleFeature =
   | RuleFeature.CardFeature
   | RuleFeature.AccountHolderFeature
   | RuleFeature.IPMetadataFeature
-  | RuleFeature.SpendVelocityFeature;
+  | RuleFeature.SpendVelocityFeature
+  | RuleFeature.TransactionHistorySignalsFeature;
 
 export namespace RuleFeature {
   export interface AuthorizationFeature {
@@ -1449,6 +1523,20 @@ export namespace RuleFeature {
     type: 'SPEND_VELOCITY';
 
     filters?: V2API.VelocityLimitFilters;
+
+    /**
+     * The variable name for this feature in the rule function signature
+     */
+    name?: string;
+  }
+
+  export interface TransactionHistorySignalsFeature {
+    /**
+     * The entity scope to load transaction history signals for.
+     */
+    scope: 'CARD' | 'ACCOUNT' | 'BUSINESS_ACCOUNT';
+
+    type: 'TRANSACTION_HISTORY_SIGNALS';
 
     /**
      * The variable name for this feature in the rule function signature
