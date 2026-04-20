@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.137.0 (2026-04-20)
+
+Full Changelog: [v0.136.0...v0.137.0](https://github.com/lithic-com/lithic-node/compare/v0.136.0...v0.137.0)
+
+### Features
+
+* **api:** Add card/account/business account signals endpoints and behavioral rule attributes ([77e743c](https://github.com/lithic-com/lithic-node/commit/77e743c03583f477bd43aa1d600dd563912b53c4))
+* **api:** add CardAuthorizationChallengeResponseWebhookEvent to webhooks ([2e285c4](https://github.com/lithic-com/lithic-node/commit/2e285c4208849bab60afbc0036b5efdff77d6904))
+* **api:** add setVerificationMethod to externalBankAccounts ([fd9c676](https://github.com/lithic-com/lithic-node/commit/fd9c6762fc46e5da4e751e5d84a199356a374348))
+
 ## 0.136.0 (2026-04-13)
 
 Full Changelog: [v0.135.0...v0.136.0](https://github.com/lithic-com/lithic-node/compare/v0.135.0...v0.136.0)
