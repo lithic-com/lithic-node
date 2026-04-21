@@ -463,9 +463,9 @@ export interface NonPCICard {
   created: string;
 
   /**
-   * Deprecated: Funding account for the card.
+   * Funding account for a card
    */
-  funding: NonPCICard.Funding;
+  funding: NonPCICard.Funding | null;
 
   /**
    * Last four digits of the card number.
@@ -561,7 +561,7 @@ export interface NonPCICard {
    * after tokenization. This artwork must be approved by Mastercard and configured
    * by Lithic to use.
    */
-  digital_card_art_token?: string;
+  digital_card_art_token?: string | null;
 
   /**
    * Two digit (MM) expiry month.
@@ -602,7 +602,7 @@ export interface NonPCICard {
    * before use. Specifies the configuration (i.e., physical card art) that the card
    * should be manufactured with.
    */
-  product_id?: string;
+  product_id?: string | null;
 
   /**
    * If the card is a replacement for another card, the globally unique identifier
@@ -643,12 +643,13 @@ export interface NonPCICard {
     | 'INTERNAL_REVIEW'
     | 'EXPIRED'
     | 'UNDELIVERABLE'
-    | 'OTHER';
+    | 'OTHER'
+    | null;
 }
 
 export namespace NonPCICard {
   /**
-   * Deprecated: Funding account for the card.
+   * Funding account for a card
    */
   export interface Funding {
     /**
@@ -690,7 +691,7 @@ export namespace NonPCICard {
     /**
      * The nickname given to the `FundingAccount` or `null` if it has no nickname.
      */
-    nickname?: string;
+    nickname?: string | null;
   }
 }
 
