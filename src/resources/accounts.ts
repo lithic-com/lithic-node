@@ -172,7 +172,8 @@ export interface Account {
     | 'ISSUER_REQUEST'
     | 'NOT_ACTIVE'
     | 'INTERNAL_REVIEW'
-    | 'OTHER';
+    | 'OTHER'
+    | null;
 
   /**
    * @deprecated
@@ -406,7 +407,8 @@ export interface AccountUpdateParams {
     | 'ISSUER_REQUEST'
     | 'NOT_ACTIVE'
     | 'INTERNAL_REVIEW'
-    | 'OTHER';
+    | 'OTHER'
+    | null;
 
   /**
    * @deprecated Address used during Address Verification Service (AVS) checks during
