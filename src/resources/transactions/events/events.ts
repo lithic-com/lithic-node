@@ -5,12 +5,14 @@ import * as EnhancedCommercialDataAPI from './enhanced-commercial-data';
 import { EnhancedCommercialData, EnhancedData } from './enhanced-commercial-data';
 
 export class Events extends APIResource {
-  enhancedCommercialData: EnhancedCommercialDataAPI.EnhancedCommercialData =
-    new EnhancedCommercialDataAPI.EnhancedCommercialData(this._client);
+  enhancedCommercialData: EnhancedCommercialDataAPI.EnhancedCommercialData = new EnhancedCommercialDataAPI.EnhancedCommercialData(this._client);
 }
 
 Events.EnhancedCommercialData = EnhancedCommercialData;
 
 export declare namespace Events {
-  export { EnhancedCommercialData as EnhancedCommercialData, type EnhancedData as EnhancedData };
+  export {
+    EnhancedCommercialData as EnhancedCommercialData,
+    type EnhancedData as EnhancedData
+  };
 }

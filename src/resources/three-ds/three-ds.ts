@@ -2,20 +2,9 @@
 
 import { APIResource } from '../../core/resource';
 import * as AuthenticationAPI from './authentication';
-import {
-  Authentication,
-  AuthenticationSimulateOtpEntryParams,
-  AuthenticationSimulateParams,
-  AuthenticationSimulateResponse,
-} from './authentication';
+import { Authentication, AuthenticationSimulateOtpEntryParams, AuthenticationSimulateParams, AuthenticationSimulateResponse } from './authentication';
 import * as DecisioningAPI from './decisioning';
-import {
-  ChallengeResponse,
-  ChallengeResult,
-  Decisioning,
-  DecisioningChallengeResponseParams,
-  DecisioningRetrieveSecretResponse,
-} from './decisioning';
+import { ChallengeResponse, ChallengeResult, Decisioning, DecisioningChallengeResponseParams, DecisioningRetrieveSecretResponse } from './decisioning';
 
 export class ThreeDS extends APIResource {
   authentication: AuthenticationAPI.Authentication = new AuthenticationAPI.Authentication(this._client);
@@ -97,14 +86,7 @@ export interface ThreeDSAuthentication {
    * - `DATA_SHARE_ONLY` - No Challenge requested (Data Share Only)
    * - `OTHER` - Other indicators not captured by above. These are rarely used
    */
-  three_ds_requestor_challenge_indicator:
-    | 'NO_PREFERENCE'
-    | 'NO_CHALLENGE_REQUESTED'
-    | 'CHALLENGE_PREFERENCE'
-    | 'CHALLENGE_MANDATE'
-    | 'NO_CHALLENGE_RISK_ALREADY_ASSESSED'
-    | 'DATA_SHARE_ONLY'
-    | 'OTHER';
+  three_ds_requestor_challenge_indicator: 'NO_PREFERENCE' | 'NO_CHALLENGE_REQUESTED' | 'CHALLENGE_PREFERENCE' | 'CHALLENGE_MANDATE' | 'NO_CHALLENGE_RISK_ALREADY_ASSESSED' | 'DATA_SHARE_ONLY' | 'OTHER';
 
   /**
    * Object containing additional data about the 3DS request that is beyond the EMV
@@ -124,18 +106,7 @@ export interface ThreeDSAuthentication {
    * causing the merchant to request an authentication. Maps to EMV 3DS field
    * `threeDSRequestorAuthenticationInd`.
    */
-  authentication_request_type?:
-    | 'ADD_CARD'
-    | 'BILLING_AGREEMENT'
-    | 'DELAYED_SHIPMENT'
-    | 'EMV_TOKEN_CARDHOLDER_VERIFICATION'
-    | 'INSTALLMENT_TRANSACTION'
-    | 'MAINTAIN_CARD'
-    | 'PAYMENT_TRANSACTION'
-    | 'RECURRING_TRANSACTION'
-    | 'SPLIT_PAYMENT'
-    | 'SPLIT_SHIPMENT'
-    | null;
+  authentication_request_type?: 'ADD_CARD' | 'BILLING_AGREEMENT' | 'DELAYED_SHIPMENT' | 'EMV_TOKEN_CARDHOLDER_VERIFICATION' | 'INSTALLMENT_TRANSACTION' | 'MAINTAIN_CARD' | 'PAYMENT_TRANSACTION' | 'RECURRING_TRANSACTION' | 'SPLIT_PAYMENT' | 'SPLIT_SHIPMENT' | null;
 
   /**
    * Object containing data about the browser used in the e-commerce transaction.
@@ -161,14 +132,7 @@ export interface ThreeDSAuthentication {
    * authentications for which a decision has not yet been made (e.g. in-flight
    * customer decisioning request).
    */
-  decision_made_by?:
-    | 'LITHIC_RULES'
-    | 'LITHIC_DEFAULT'
-    | 'CUSTOMER_RULES'
-    | 'CUSTOMER_ENDPOINT'
-    | 'NETWORK'
-    | 'UNKNOWN'
-    | null;
+  decision_made_by?: 'LITHIC_RULES' | 'LITHIC_DEFAULT' | 'CUSTOMER_RULES' | 'CUSTOMER_ENDPOINT' | 'NETWORK' | 'UNKNOWN' | null;
 
   /**
    * Type of 3DS Requestor Initiated (3RI) request — i.e., a 3DS authentication that
@@ -177,24 +141,7 @@ export interface ThreeDSAuthentication {
    * for a recurring transaction such as a pay TV subscription or a utility bill.
    * Maps to EMV 3DS field `threeRIInd`.
    */
-  three_ri_request_type?:
-    | 'ACCOUNT_VERIFICATION'
-    | 'ADD_CARD'
-    | 'BILLING_AGREEMENT'
-    | 'CARD_SECURITY_CODE_STATUS_CHECK'
-    | 'DELAYED_SHIPMENT'
-    | 'DEVICE_BINDING_STATUS_CHECK'
-    | 'INSTALLMENT_TRANSACTION'
-    | 'MAIL_ORDER'
-    | 'MAINTAIN_CARD_INFO'
-    | 'OTHER_PAYMENT'
-    | 'RECURRING_TRANSACTION'
-    | 'SPLIT_PAYMENT'
-    | 'SPLIT_SHIPMENT'
-    | 'TELEPHONE_ORDER'
-    | 'TOP_UP'
-    | 'TRUST_LIST_STATUS_CHECK'
-    | null;
+  three_ri_request_type?: 'ACCOUNT_VERIFICATION' | 'ADD_CARD' | 'BILLING_AGREEMENT' | 'CARD_SECURITY_CODE_STATUS_CHECK' | 'DELAYED_SHIPMENT' | 'DEVICE_BINDING_STATUS_CHECK' | 'INSTALLMENT_TRANSACTION' | 'MAIL_ORDER' | 'MAINTAIN_CARD_INFO' | 'OTHER_PAYMENT' | 'RECURRING_TRANSACTION' | 'SPLIT_PAYMENT' | 'SPLIT_SHIPMENT' | 'TELEPHONE_ORDER' | 'TOP_UP' | 'TRUST_LIST_STATUS_CHECK' | null;
 
   /**
    * Object containing data about the e-commerce transaction for which the merchant
@@ -392,12 +339,7 @@ export namespace ThreeDSAuthentication {
        * The delivery time frame for the merchandise. Maps to EMV 3DS field
        * `deliveryTimeframe`.
        */
-      delivery_time_frame?:
-        | 'ELECTRONIC_DELIVERY'
-        | 'OVERNIGHT_SHIPPING'
-        | 'SAME_DAY_SHIPPING'
-        | 'TWO_DAY_OR_MORE_SHIPPING'
-        | null;
+      delivery_time_frame?: 'ELECTRONIC_DELIVERY' | 'OVERNIGHT_SHIPPING' | 'SAME_DAY_SHIPPING' | 'TWO_DAY_OR_MORE_SHIPPING' | null;
 
       /**
        * In prepaid or gift card purchase transactions, purchase amount total in major
@@ -444,17 +386,7 @@ export namespace ThreeDSAuthentication {
        * purchase only includes digital goods, this indicator is used to describe the
        * most expensive item purchased. Maps to EMV 3DS field `shipIndicator`.
        */
-      shipping_method?:
-        | 'DIGITAL_GOODS'
-        | 'LOCKER_DELIVERY'
-        | 'OTHER'
-        | 'PICK_UP_AND_GO_DELIVERY'
-        | 'SHIP_TO_BILLING_ADDRESS'
-        | 'SHIP_TO_NON_BILLING_ADDRESS'
-        | 'SHIP_TO_OTHER_VERIFIED_ADDRESS'
-        | 'SHIP_TO_STORE'
-        | 'TRAVEL_AND_EVENT_TICKETS'
-        | null;
+      shipping_method?: 'DIGITAL_GOODS' | 'LOCKER_DELIVERY' | 'OTHER' | 'PICK_UP_AND_GO_DELIVERY' | 'SHIP_TO_BILLING_ADDRESS' | 'SHIP_TO_NON_BILLING_ADDRESS' | 'SHIP_TO_OTHER_VERIFIED_ADDRESS' | 'SHIP_TO_STORE' | 'TRAVEL_AND_EVENT_TICKETS' | null;
     }
   }
 
@@ -615,16 +547,7 @@ export namespace ThreeDSAuthentication {
      * - ABORTED - Merchant aborted authentication after a challenge was requested
      * - ERROR - The challenge failed for a reason different than those documented
      */
-    status:
-      | 'SUCCESS'
-      | 'PENDING'
-      | 'SMS_DELIVERY_FAILED'
-      | 'CARDHOLDER_TIMEOUT'
-      | 'CANCELED_VIA_CHALLENGE_UI'
-      | 'CANCELED_OOB'
-      | 'ATTEMPTS_EXCEEDED'
-      | 'ABORTED'
-      | 'ERROR';
+    status: 'SUCCESS' | 'PENDING' | 'SMS_DELIVERY_FAILED' | 'CARDHOLDER_TIMEOUT' | 'CANCELED_VIA_CHALLENGE_UI' | 'CANCELED_OOB' | 'ATTEMPTS_EXCEEDED' | 'ABORTED' | 'ERROR';
 
     /**
      * The phone number used for delivering the OTP. Relevant only for SMS_OTP method.
@@ -672,13 +595,7 @@ export namespace ThreeDSAuthentication {
      * Type of the transaction for which a 3DS authentication request is occurring.
      * Maps to EMV 3DS field `transType`.
      */
-    type:
-      | 'ACCOUNT_FUNDING'
-      | 'CHECK_ACCEPTANCE'
-      | 'GOODS_SERVICE_PURCHASE'
-      | 'PREPAID_ACTIVATION_AND_LOAD'
-      | 'QUASI_CASH_TRANSACTION'
-      | null;
+    type: 'ACCOUNT_FUNDING' | 'CHECK_ACCEPTANCE' | 'GOODS_SERVICE_PURCHASE' | 'PREPAID_ACTIVATION_AND_LOAD' | 'QUASI_CASH_TRANSACTION' | null;
   }
 }
 
@@ -686,13 +603,15 @@ ThreeDS.Authentication = Authentication;
 ThreeDS.Decisioning = Decisioning;
 
 export declare namespace ThreeDS {
-  export { type ThreeDSAuthentication as ThreeDSAuthentication };
+  export {
+    type ThreeDSAuthentication as ThreeDSAuthentication
+  };
 
   export {
     Authentication as Authentication,
     type AuthenticationSimulateResponse as AuthenticationSimulateResponse,
     type AuthenticationSimulateParams as AuthenticationSimulateParams,
-    type AuthenticationSimulateOtpEntryParams as AuthenticationSimulateOtpEntryParams,
+    type AuthenticationSimulateOtpEntryParams as AuthenticationSimulateOtpEntryParams
   };
 
   export {
@@ -700,6 +619,6 @@ export declare namespace ThreeDS {
     type ChallengeResponse as ChallengeResponse,
     type ChallengeResult as ChallengeResult,
     type DecisioningRetrieveSecretResponse as DecisioningRetrieveSecretResponse,
-    type DecisioningChallengeResponseParams as DecisioningChallengeResponseParams,
+    type DecisioningChallengeResponseParams as DecisioningChallengeResponseParams
   };
 }

@@ -2,7 +2,9 @@
 
 import { APIResource } from '../core/resource';
 
-export class InternalTransactionResource extends APIResource {}
+export class InternalTransactionResource extends APIResource {
+
+}
 
 export interface InternalTransaction {
   token: string;
@@ -43,5 +45,7 @@ export namespace InternalTransaction {
 }
 
 export declare namespace InternalTransactionResource {
-  export { type InternalTransaction as InternalTransaction };
+  export {
+    type InternalTransaction as InternalTransaction
+  };
 }

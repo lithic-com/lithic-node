@@ -2,21 +2,18 @@
 
 import Lithic from 'lithic';
 
-const client = new Lithic({
-  apiKey: 'My Lithic API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Lithic({ apiKey: 'My Lithic API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource payments', () => {
   test('create: only required params', async () => {
     const responsePromise = client.payments.create({
-      amount: 1,
-      external_bank_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      method: 'ACH_NEXT_DAY',
-      method_attributes: { sec_code: 'CCD' },
-      type: 'COLLECTION',
-    });
+    amount: 1,
+    external_bank_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    method: 'ACH_NEXT_DAY',
+    method_attributes: { sec_code: 'CCD' },
+    type: 'COLLECTION',
+  });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -28,22 +25,22 @@ describe('resource payments', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.payments.create({
-      amount: 1,
-      external_bank_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      method: 'ACH_NEXT_DAY',
-      method_attributes: {
-        sec_code: 'CCD',
-        ach_hold_period: 0,
-        addenda: 'addenda',
-        override_company_name: 'override_company_name',
-      },
-      type: 'COLLECTION',
-      token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      hold: { token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
-      memo: 'memo',
-      user_defined_id: 'user_defined_id',
-    });
+    amount: 1,
+    external_bank_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    method: 'ACH_NEXT_DAY',
+    method_attributes: {
+    sec_code: 'CCD',
+    ach_hold_period: 0,
+    addenda: 'addenda',
+    override_company_name: 'override_company_name',
+  },
+    type: 'COLLECTION',
+    token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    hold: { token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+    memo: 'memo',
+    user_defined_id: 'user_defined_id',
+  });
   });
 
   test('retrieve', async () => {
@@ -70,24 +67,21 @@ describe('resource payments', () => {
 
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.payments.list(
-        {
-          account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          begin: '2019-12-27T18:11:19.117Z',
-          business_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          category: 'ACH',
-          end: '2019-12-27T18:11:19.117Z',
-          ending_before: 'ending_before',
-          financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          page_size: 1,
-          result: 'APPROVED',
-          starting_after: 'starting_after',
-          status: 'DECLINED',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
+    await expect(client.payments.list({
+    account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    begin: '2019-12-27T18:11:19.117Z',
+    business_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    category: 'ACH',
+    end: '2019-12-27T18:11:19.117Z',
+    ending_before: 'ending_before',
+    financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    page_size: 1,
+    result: 'APPROVED',
+    starting_after: 'starting_after',
+    status: 'DECLINED',
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Lithic.NotFoundError);
   });
 
   test('retry', async () => {
@@ -102,10 +96,7 @@ describe('resource payments', () => {
   });
 
   test('return: only required params', async () => {
-    const responsePromise = client.payments.return('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      return_reason_code: 'R01',
-    });
+    const responsePromise = client.payments.return('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', return_reason_code: 'R01' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -117,18 +108,16 @@ describe('resource payments', () => {
 
   test('return: required and optional params', async () => {
     const response = await client.payments.return('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      return_reason_code: 'R01',
-      addenda: 'addenda',
-      date_of_death: '2025-01-15',
-      memo: 'memo',
-    });
+    financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    return_reason_code: 'R01',
+    addenda: 'addenda',
+    date_of_death: '2025-01-15',
+    memo: 'memo',
+  });
   });
 
   test('simulateAction: only required params', async () => {
-    const responsePromise = client.payments.simulateAction('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      event_type: 'ACH_ORIGINATION_REVIEWED',
-    });
+    const responsePromise = client.payments.simulateAction('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { event_type: 'ACH_ORIGINATION_REVIEWED' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -140,21 +129,21 @@ describe('resource payments', () => {
 
   test('simulateAction: required and optional params', async () => {
     const response = await client.payments.simulateAction('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      event_type: 'ACH_ORIGINATION_REVIEWED',
-      date_of_death: '2019-12-27',
-      decline_reason: 'PROGRAM_TRANSACTION_LIMIT_EXCEEDED',
-      return_addenda: 'return_addenda',
-      return_reason_code: 'return_reason_code',
-    });
+    event_type: 'ACH_ORIGINATION_REVIEWED',
+    date_of_death: '2019-12-27',
+    decline_reason: 'PROGRAM_TRANSACTION_LIMIT_EXCEEDED',
+    return_addenda: 'return_addenda',
+    return_reason_code: 'return_reason_code',
+  });
   });
 
   test('simulateReceipt: only required params', async () => {
     const responsePromise = client.payments.simulateReceipt({
-      token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      amount: 0,
-      financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      receipt_type: 'RECEIPT_CREDIT',
-    });
+    token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    amount: 0,
+    financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    receipt_type: 'RECEIPT_CREDIT',
+  });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -166,18 +155,16 @@ describe('resource payments', () => {
 
   test('simulateReceipt: required and optional params', async () => {
     const response = await client.payments.simulateReceipt({
-      token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      amount: 0,
-      financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      receipt_type: 'RECEIPT_CREDIT',
-      memo: 'memo',
-    });
+    token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    amount: 0,
+    financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    receipt_type: 'RECEIPT_CREDIT',
+    memo: 'memo',
+  });
   });
 
   test('simulateRelease: only required params', async () => {
-    const responsePromise = client.payments.simulateRelease({
-      payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-    });
+    const responsePromise = client.payments.simulateRelease({ payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -188,15 +175,11 @@ describe('resource payments', () => {
   });
 
   test('simulateRelease: required and optional params', async () => {
-    const response = await client.payments.simulateRelease({
-      payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-    });
+    const response = await client.payments.simulateRelease({ payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });
   });
 
   test('simulateReturn: only required params', async () => {
-    const responsePromise = client.payments.simulateReturn({
-      payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-    });
+    const responsePromise = client.payments.simulateReturn({ payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -207,9 +190,6 @@ describe('resource payments', () => {
   });
 
   test('simulateReturn: required and optional params', async () => {
-    const response = await client.payments.simulateReturn({
-      payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      return_reason_code: 'R12',
-    });
+    const response = await client.payments.simulateReturn({ payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', return_reason_code: 'R12' });
   });
 });

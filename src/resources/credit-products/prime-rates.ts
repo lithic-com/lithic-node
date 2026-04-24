@@ -9,29 +9,15 @@ export class PrimeRates extends APIResource {
   /**
    * Post Credit Product Prime Rate
    */
-  create(
-    creditProductToken: string,
-    body: PrimeRateCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<void> {
-    return this._client.post(path`/v1/credit_products/${creditProductToken}/prime_rates`, {
-      body,
-      ...options,
-    });
+  create(creditProductToken: string, body: PrimeRateCreateParams, options?: RequestOptions): APIPromise<void> {
+    return this._client.post(path`/v1/credit_products/${creditProductToken}/prime_rates`, { body, ...options });
   }
 
   /**
    * Get Credit Product Prime Rates
    */
-  retrieve(
-    creditProductToken: string,
-    query: PrimeRateRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<PrimeRateRetrieveResponse> {
-    return this._client.get(path`/v1/credit_products/${creditProductToken}/prime_rates`, {
-      query,
-      ...options,
-    });
+  retrieve(creditProductToken: string, query: PrimeRateRetrieveParams | null | undefined = {}, options?: RequestOptions): APIPromise<PrimeRateRetrieveResponse> {
+    return this._client.get(path`/v1/credit_products/${creditProductToken}/prime_rates`, { query, ...options });
   }
 }
 
@@ -89,6 +75,6 @@ export declare namespace PrimeRates {
   export {
     type PrimeRateRetrieveResponse as PrimeRateRetrieveResponse,
     type PrimeRateCreateParams as PrimeRateCreateParams,
-    type PrimeRateRetrieveParams as PrimeRateRetrieveParams,
+    type PrimeRateRetrieveParams as PrimeRateRetrieveParams
   };
 }

@@ -2,42 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as V2API from './v2/v2';
-import {
-  AuthRule,
-  AuthRuleCondition,
-  AuthRuleVersion,
-  AuthRulesCursorPage,
-  BacktestStats,
-  Conditional3DSActionParameters,
-  ConditionalACHActionParameters,
-  ConditionalAttribute,
-  ConditionalAuthorizationActionParameters,
-  ConditionalBlockParameters,
-  ConditionalOperation,
-  ConditionalTokenizationActionParameters,
-  ConditionalValue,
-  EventStream,
-  MerchantLockParameters,
-  ReportStats,
-  RuleFeature,
-  TypescriptCodeParameters,
-  V2,
-  V2CreateParams,
-  V2DraftParams,
-  V2ListParams,
-  V2ListResultsParams,
-  V2ListResultsResponse,
-  V2ListResultsResponsesCursorPage,
-  V2ListVersionsResponse,
-  V2RetrieveFeaturesParams,
-  V2RetrieveFeaturesResponse,
-  V2RetrieveReportParams,
-  V2RetrieveReportResponse,
-  V2UpdateParams,
-  VelocityLimitFilters,
-  VelocityLimitParams,
-  VelocityLimitPeriod,
-} from './v2/v2';
+import { AuthRule, AuthRuleCondition, AuthRuleVersion, AuthRulesCursorPage, BacktestStats, Conditional3DSActionParameters, ConditionalACHActionParameters, ConditionalAttribute, ConditionalAuthorizationActionParameters, ConditionalBlockParameters, ConditionalOperation, ConditionalTokenizationActionParameters, ConditionalValue, EventStream, MerchantLockParameters, ReportStats, RuleFeature, TypescriptCodeParameters, V2, V2CreateParams, V2DraftParams, V2ListParams, V2ListResultsParams, V2ListResultsResponse, V2ListResultsResponsesCursorPage, V2ListVersionsResponse, V2RetrieveFeaturesParams, V2RetrieveFeaturesResponse, V2RetrieveReportParams, V2RetrieveReportResponse, V2UpdateParams, VelocityLimitFilters, VelocityLimitParams, VelocityLimitPeriod } from './v2/v2';
 
 export class AuthRules extends APIResource {
   v2: V2API.V2 = new V2API.V2(this._client);
@@ -80,6 +45,6 @@ export declare namespace AuthRules {
     type V2DraftParams as V2DraftParams,
     type V2ListResultsParams as V2ListResultsParams,
     type V2RetrieveFeaturesParams as V2RetrieveFeaturesParams,
-    type V2RetrieveReportParams as V2RetrieveReportParams,
+    type V2RetrieveReportParams as V2RetrieveReportParams
   };
 }

@@ -6,18 +6,4 @@ export { type Uploadable, toFile } from './core/uploads';
 export { APIPromise } from './core/api-promise';
 export { Lithic, type ClientOptions } from './client';
 export { PagePromise } from './core/pagination';
-export {
-  LithicError,
-  APIError,
-  APIConnectionError,
-  APIConnectionTimeoutError,
-  APIUserAbortError,
-  NotFoundError,
-  ConflictError,
-  RateLimitError,
-  BadRequestError,
-  AuthenticationError,
-  InternalServerError,
-  PermissionDeniedError,
-  UnprocessableEntityError,
-} from './core/error';
+export { LithicError, APIError, APIConnectionError, APIConnectionTimeoutError, APIUserAbortError, NotFoundError, ConflictError, RateLimitError, BadRequestError, AuthenticationError, InternalServerError, PermissionDeniedError, UnprocessableEntityError } from './core/error';

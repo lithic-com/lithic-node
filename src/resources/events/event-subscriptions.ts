@@ -9,16 +9,9 @@ export class EventSubscriptions extends APIResource {
   /**
    * Resend an event to an event subscription.
    */
-  resend(
-    eventSubscriptionToken: string,
-    params: EventSubscriptionResendParams,
-    options?: RequestOptions,
-  ): APIPromise<void> {
-    const { event_token } = params;
-    return this._client.post(
-      path`/v1/events/${event_token}/event_subscriptions/${eventSubscriptionToken}/resend`,
-      options,
-    );
+  resend(eventSubscriptionToken: string, params: EventSubscriptionResendParams, options?: RequestOptions): APIPromise<void> {
+    const { event_token } = params
+    return this._client.post(path`/v1/events/${event_token}/event_subscriptions/${eventSubscriptionToken}/resend`, options);
   }
 }
 
@@ -27,5 +20,7 @@ export interface EventSubscriptionResendParams {
 }
 
 export declare namespace EventSubscriptions {
-  export { type EventSubscriptionResendParams as EventSubscriptionResendParams };
+  export {
+    type EventSubscriptionResendParams as EventSubscriptionResendParams
+  };
 }

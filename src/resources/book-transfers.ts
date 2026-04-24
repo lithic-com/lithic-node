@@ -26,40 +26,26 @@ export class BookTransfers extends APIResource {
   /**
    * List book transfers
    */
-  list(
-    query: BookTransferListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<BookTransferResponsesCursorPage, BookTransferResponse> {
-    return this._client.getAPIList('/v1/book_transfers', CursorPage<BookTransferResponse>, {
-      query,
-      ...options,
-    });
+  list(query: BookTransferListParams | null | undefined = {}, options?: RequestOptions): PagePromise<BookTransferResponsesCursorPage, BookTransferResponse> {
+    return this._client.getAPIList('/v1/book_transfers', CursorPage<BookTransferResponse>, { query, ...options });
   }
 
   /**
    * Retry a book transfer that has been declined
    */
-  retry(
-    bookTransferToken: string,
-    body: BookTransferRetryParams,
-    options?: RequestOptions,
-  ): APIPromise<BookTransferResponse> {
+  retry(bookTransferToken: string, body: BookTransferRetryParams, options?: RequestOptions): APIPromise<BookTransferResponse> {
     return this._client.post(path`/v1/book_transfers/${bookTransferToken}/retry`, { body, ...options });
   }
 
   /**
    * Reverse a book transfer
    */
-  reverse(
-    bookTransferToken: string,
-    body: BookTransferReverseParams,
-    options?: RequestOptions,
-  ): APIPromise<BookTransferResponse> {
+  reverse(bookTransferToken: string, body: BookTransferReverseParams, options?: RequestOptions): APIPromise<BookTransferResponse> {
     return this._client.post(path`/v1/book_transfers/${bookTransferToken}/reverse`, { body, ...options });
   }
 }
 
-export type BookTransferResponsesCursorPage = CursorPage<BookTransferResponse>;
+export type BookTransferResponsesCursorPage = CursorPage<BookTransferResponse>
 
 /**
  * Book transfer transaction
@@ -70,16 +56,7 @@ export interface BookTransferResponse {
    */
   token: string;
 
-  category:
-    | 'ADJUSTMENT'
-    | 'BALANCE_OR_FUNDING'
-    | 'DERECOGNITION'
-    | 'DISPUTE'
-    | 'FEE'
-    | 'INTERNAL'
-    | 'REWARD'
-    | 'PROGRAM_FUNDING'
-    | 'TRANSFER';
+  category: 'ADJUSTMENT' | 'BALANCE_OR_FUNDING' | 'DERECOGNITION' | 'DISPUTE' | 'FEE' | 'INTERNAL' | 'REWARD' | 'PROGRAM_FUNDING' | 'TRANSFER';
 
   /**
    * ISO 8601 timestamp of when the transaction was created
@@ -199,42 +176,7 @@ export namespace BookTransferResponse {
     /**
      * Type of the book transfer
      */
-    type:
-      | 'ATM_BALANCE_INQUIRY'
-      | 'ATM_WITHDRAWAL'
-      | 'ATM_DECLINE'
-      | 'INTERNATIONAL_ATM_WITHDRAWAL'
-      | 'INACTIVITY'
-      | 'STATEMENT'
-      | 'MONTHLY'
-      | 'QUARTERLY'
-      | 'ANNUAL'
-      | 'CUSTOMER_SERVICE'
-      | 'ACCOUNT_MAINTENANCE'
-      | 'ACCOUNT_ACTIVATION'
-      | 'ACCOUNT_CLOSURE'
-      | 'CARD_REPLACEMENT'
-      | 'CARD_DELIVERY'
-      | 'CARD_CREATE'
-      | 'CURRENCY_CONVERSION'
-      | 'INTEREST'
-      | 'LATE_PAYMENT'
-      | 'BILL_PAYMENT'
-      | 'CASH_BACK'
-      | 'ACCOUNT_TO_ACCOUNT'
-      | 'CARD_TO_CARD'
-      | 'DISBURSE'
-      | 'BILLING_ERROR'
-      | 'LOSS_WRITE_OFF'
-      | 'EXPIRED_CARD'
-      | 'EARLY_DERECOGNITION'
-      | 'ESCHEATMENT'
-      | 'INACTIVITY_FEE_DOWN'
-      | 'PROVISIONAL_CREDIT'
-      | 'DISPUTE_WON'
-      | 'SERVICE'
-      | 'TRANSFER'
-      | 'COLLECTION';
+    type: 'ATM_BALANCE_INQUIRY' | 'ATM_WITHDRAWAL' | 'ATM_DECLINE' | 'INTERNATIONAL_ATM_WITHDRAWAL' | 'INACTIVITY' | 'STATEMENT' | 'MONTHLY' | 'QUARTERLY' | 'ANNUAL' | 'CUSTOMER_SERVICE' | 'ACCOUNT_MAINTENANCE' | 'ACCOUNT_ACTIVATION' | 'ACCOUNT_CLOSURE' | 'CARD_REPLACEMENT' | 'CARD_DELIVERY' | 'CARD_CREATE' | 'CURRENCY_CONVERSION' | 'INTEREST' | 'LATE_PAYMENT' | 'BILL_PAYMENT' | 'CASH_BACK' | 'ACCOUNT_TO_ACCOUNT' | 'CARD_TO_CARD' | 'DISBURSE' | 'BILLING_ERROR' | 'LOSS_WRITE_OFF' | 'EXPIRED_CARD' | 'EARLY_DERECOGNITION' | 'ESCHEATMENT' | 'INACTIVITY_FEE_DOWN' | 'PROVISIONAL_CREDIT' | 'DISPUTE_WON' | 'SERVICE' | 'TRANSFER' | 'COLLECTION';
   }
 
   /**
@@ -256,16 +198,7 @@ export interface BookTransferCreateParams {
    */
   amount: number;
 
-  category:
-    | 'ADJUSTMENT'
-    | 'BALANCE_OR_FUNDING'
-    | 'DERECOGNITION'
-    | 'DISPUTE'
-    | 'FEE'
-    | 'INTERNAL'
-    | 'REWARD'
-    | 'PROGRAM_FUNDING'
-    | 'TRANSFER';
+  category: 'ADJUSTMENT' | 'BALANCE_OR_FUNDING' | 'DERECOGNITION' | 'DISPUTE' | 'FEE' | 'INTERNAL' | 'REWARD' | 'PROGRAM_FUNDING' | 'TRANSFER';
 
   /**
    * Globally unique identifier for the financial account or card that will send the
@@ -287,42 +220,7 @@ export interface BookTransferCreateParams {
   /**
    * Type of the book transfer
    */
-  type:
-    | 'ATM_BALANCE_INQUIRY'
-    | 'ATM_WITHDRAWAL'
-    | 'ATM_DECLINE'
-    | 'INTERNATIONAL_ATM_WITHDRAWAL'
-    | 'INACTIVITY'
-    | 'STATEMENT'
-    | 'MONTHLY'
-    | 'QUARTERLY'
-    | 'ANNUAL'
-    | 'CUSTOMER_SERVICE'
-    | 'ACCOUNT_MAINTENANCE'
-    | 'ACCOUNT_ACTIVATION'
-    | 'ACCOUNT_CLOSURE'
-    | 'CARD_REPLACEMENT'
-    | 'CARD_DELIVERY'
-    | 'CARD_CREATE'
-    | 'CURRENCY_CONVERSION'
-    | 'INTEREST'
-    | 'LATE_PAYMENT'
-    | 'BILL_PAYMENT'
-    | 'CASH_BACK'
-    | 'ACCOUNT_TO_ACCOUNT'
-    | 'CARD_TO_CARD'
-    | 'DISBURSE'
-    | 'BILLING_ERROR'
-    | 'LOSS_WRITE_OFF'
-    | 'EXPIRED_CARD'
-    | 'EARLY_DERECOGNITION'
-    | 'ESCHEATMENT'
-    | 'INACTIVITY_FEE_DOWN'
-    | 'PROVISIONAL_CREDIT'
-    | 'DISPUTE_WON'
-    | 'SERVICE'
-    | 'TRANSFER'
-    | 'COLLECTION';
+  type: 'ATM_BALANCE_INQUIRY' | 'ATM_WITHDRAWAL' | 'ATM_DECLINE' | 'INTERNATIONAL_ATM_WITHDRAWAL' | 'INACTIVITY' | 'STATEMENT' | 'MONTHLY' | 'QUARTERLY' | 'ANNUAL' | 'CUSTOMER_SERVICE' | 'ACCOUNT_MAINTENANCE' | 'ACCOUNT_ACTIVATION' | 'ACCOUNT_CLOSURE' | 'CARD_REPLACEMENT' | 'CARD_DELIVERY' | 'CARD_CREATE' | 'CURRENCY_CONVERSION' | 'INTEREST' | 'LATE_PAYMENT' | 'BILL_PAYMENT' | 'CASH_BACK' | 'ACCOUNT_TO_ACCOUNT' | 'CARD_TO_CARD' | 'DISBURSE' | 'BILLING_ERROR' | 'LOSS_WRITE_OFF' | 'EXPIRED_CARD' | 'EARLY_DERECOGNITION' | 'ESCHEATMENT' | 'INACTIVITY_FEE_DOWN' | 'PROVISIONAL_CREDIT' | 'DISPUTE_WON' | 'SERVICE' | 'TRANSFER' | 'COLLECTION';
 
   /**
    * Customer-provided token that will serve as an idempotency token. This token will
@@ -365,16 +263,7 @@ export interface BookTransferListParams extends CursorPageParams {
   /**
    * Book Transfer category to be returned.
    */
-  category?:
-    | 'ADJUSTMENT'
-    | 'BALANCE_OR_FUNDING'
-    | 'DERECOGNITION'
-    | 'DISPUTE'
-    | 'FEE'
-    | 'INTERNAL'
-    | 'REWARD'
-    | 'PROGRAM_FUNDING'
-    | 'TRANSFER';
+  category?: 'ADJUSTMENT' | 'BALANCE_OR_FUNDING' | 'DERECOGNITION' | 'DISPUTE' | 'FEE' | 'INTERNAL' | 'REWARD' | 'PROGRAM_FUNDING' | 'TRANSFER';
 
   /**
    * Date string in RFC 3339 format. Only entries created before the specified time
@@ -421,6 +310,6 @@ export declare namespace BookTransfers {
     type BookTransferCreateParams as BookTransferCreateParams,
     type BookTransferListParams as BookTransferListParams,
     type BookTransferRetryParams as BookTransferRetryParams,
-    type BookTransferReverseParams as BookTransferReverseParams,
+    type BookTransferReverseParams as BookTransferReverseParams
   };
 }

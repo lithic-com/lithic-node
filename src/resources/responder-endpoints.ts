@@ -8,10 +8,7 @@ export class ResponderEndpoints extends APIResource {
   /**
    * Enroll a responder endpoint
    */
-  create(
-    body: ResponderEndpointCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<ResponderEndpointCreateResponse> {
+  create(body: ResponderEndpointCreateParams, options?: RequestOptions): APIPromise<ResponderEndpointCreateResponse> {
     return this._client.post('/v1/responder_endpoints', { body, ...options });
   }
 
@@ -19,17 +16,14 @@ export class ResponderEndpoints extends APIResource {
    * Disenroll a responder endpoint
    */
   delete(params: ResponderEndpointDeleteParams, options?: RequestOptions): APIPromise<void> {
-    const { type } = params;
+    const { type } = params
     return this._client.delete('/v1/responder_endpoints', { query: { type }, ...options });
   }
 
   /**
    * Check the status of a responder endpoint
    */
-  checkStatus(
-    query: ResponderEndpointCheckStatusParams,
-    options?: RequestOptions,
-  ): APIPromise<ResponderEndpointStatus> {
+  checkStatus(query: ResponderEndpointCheckStatusParams, options?: RequestOptions): APIPromise<ResponderEndpointStatus> {
     return this._client.get('/v1/responder_endpoints', { query, ...options });
   }
 }
@@ -85,6 +79,6 @@ export declare namespace ResponderEndpoints {
     type ResponderEndpointCreateResponse as ResponderEndpointCreateResponse,
     type ResponderEndpointCreateParams as ResponderEndpointCreateParams,
     type ResponderEndpointDeleteParams as ResponderEndpointDeleteParams,
-    type ResponderEndpointCheckStatusParams as ResponderEndpointCheckStatusParams,
+    type ResponderEndpointCheckStatusParams as ResponderEndpointCheckStatusParams
   };
 }

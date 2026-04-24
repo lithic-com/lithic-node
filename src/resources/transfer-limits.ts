@@ -8,18 +8,12 @@ export class TransferLimits extends APIResource {
   /**
    * Get transfer limits for a specified date
    */
-  list(
-    query: TransferLimitListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<TransferLimitsResponseDataSinglePage, TransferLimitsResponse.Data> {
-    return this._client.getAPIList('/v1/transfer_limits', SinglePage<TransferLimitsResponse.Data>, {
-      query,
-      ...options,
-    });
+  list(query: TransferLimitListParams | null | undefined = {}, options?: RequestOptions): PagePromise<TransferLimitsResponseDataSinglePage, TransferLimitsResponse.Data> {
+    return this._client.getAPIList('/v1/transfer_limits', SinglePage<TransferLimitsResponse.Data>, { query, ...options });
   }
 }
 
-export type TransferLimitsResponseDataSinglePage = SinglePage<TransferLimitsResponse.Data>;
+export type TransferLimitsResponseDataSinglePage = SinglePage<TransferLimitsResponse.Data>
 
 export interface TransferLimitsResponse {
   /**
@@ -221,6 +215,6 @@ export declare namespace TransferLimits {
   export {
     type TransferLimitsResponse as TransferLimitsResponse,
     type TransferLimitsResponseDataSinglePage as TransferLimitsResponseDataSinglePage,
-    type TransferLimitListParams as TransferLimitListParams,
+    type TransferLimitListParams as TransferLimitListParams
   };
 }

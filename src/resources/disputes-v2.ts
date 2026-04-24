@@ -18,15 +18,12 @@ export class DisputesV2 extends APIResource {
   /**
    * Returns a paginated list of disputes.
    */
-  list(
-    query: DisputesV2ListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<DisputeV2sCursorPage, DisputeV2> {
+  list(query: DisputesV2ListParams | null | undefined = {}, options?: RequestOptions): PagePromise<DisputeV2sCursorPage, DisputeV2> {
     return this._client.getAPIList('/v2/disputes', CursorPage<DisputeV2>, { query, ...options });
   }
 }
 
-export type DisputeV2sCursorPage = CursorPage<DisputeV2>;
+export type DisputeV2sCursorPage = CursorPage<DisputeV2>
 
 /**
  * The Dispute object tracks the progression of a dispute throughout its lifecycle.
@@ -301,6 +298,6 @@ export declare namespace DisputesV2 {
   export {
     type DisputeV2 as DisputeV2,
     type DisputeV2sCursorPage as DisputeV2sCursorPage,
-    type DisputesV2ListParams as DisputesV2ListParams,
+    type DisputesV2ListParams as DisputesV2ListParams
   };
 }

@@ -34,11 +34,7 @@ export class Backtests extends APIResource {
    * transaction does not feature the required inputs to evaluate the rule, then it
    * will not be included in the final backtest report.
    */
-  create(
-    authRuleToken: string,
-    body: BacktestCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<BacktestCreateResponse> {
+  create(authRuleToken: string, body: BacktestCreateParams, options?: RequestOptions): APIPromise<BacktestCreateResponse> {
     return this._client.post(path`/v2/auth_rules/${authRuleToken}/backtests`, { body, ...options });
   }
 
@@ -62,16 +58,9 @@ export class Backtests extends APIResource {
    * currently activated in the respective event stream, regardless of which version
    * of the rule was active in the event stream at the time a backtest is requested.
    */
-  retrieve(
-    authRuleBacktestToken: string,
-    params: BacktestRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<BacktestResults> {
-    const { auth_rule_token } = params;
-    return this._client.get(
-      path`/v2/auth_rules/${auth_rule_token}/backtests/${authRuleBacktestToken}`,
-      options,
-    );
+  retrieve(authRuleBacktestToken: string, params: BacktestRetrieveParams, options?: RequestOptions): APIPromise<BacktestResults> {
+    const { auth_rule_token } = params
+    return this._client.get(path`/v2/auth_rules/${auth_rule_token}/backtests/${authRuleBacktestToken}`, options);
   }
 }
 
@@ -134,6 +123,6 @@ export declare namespace Backtests {
     type BacktestResults as BacktestResults,
     type BacktestCreateResponse as BacktestCreateResponse,
     type BacktestCreateParams as BacktestCreateParams,
-    type BacktestRetrieveParams as BacktestRetrieveParams,
+    type BacktestRetrieveParams as BacktestRetrieveParams
   };
 }

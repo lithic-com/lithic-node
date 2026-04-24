@@ -12,8 +12,7 @@ import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
 export class Transactions extends APIResource {
-  enhancedCommercialData: EnhancedCommercialDataAPI.EnhancedCommercialData =
-    new EnhancedCommercialDataAPI.EnhancedCommercialData(this._client);
+  enhancedCommercialData: EnhancedCommercialDataAPI.EnhancedCommercialData = new EnhancedCommercialDataAPI.EnhancedCommercialData(this._client);
   events: EventsAPI.Events = new EventsAPI.Events(this._client);
 
   /**
@@ -43,10 +42,7 @@ export class Transactions extends APIResource {
    * }
    * ```
    */
-  list(
-    query: TransactionListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<TransactionsCursorPage, Transaction> {
+  list(query: TransactionListParams | null | undefined = {}, options?: RequestOptions): PagePromise<TransactionsCursorPage, Transaction> {
     return this._client.getAPIList('/v1/transactions', CursorPage<Transaction>, { query, ...options });
   }
 
@@ -87,10 +83,7 @@ export class Transactions extends APIResource {
    *   });
    * ```
    */
-  simulateAuthorization(
-    body: TransactionSimulateAuthorizationParams,
-    options?: RequestOptions,
-  ): APIPromise<TransactionSimulateAuthorizationResponse> {
+  simulateAuthorization(body: TransactionSimulateAuthorizationParams, options?: RequestOptions): APIPromise<TransactionSimulateAuthorizationResponse> {
     return this._client.post('/v1/simulate/authorize', { body, ...options });
   }
 
@@ -108,10 +101,7 @@ export class Transactions extends APIResource {
    *   });
    * ```
    */
-  simulateAuthorizationAdvice(
-    body: TransactionSimulateAuthorizationAdviceParams,
-    options?: RequestOptions,
-  ): APIPromise<TransactionSimulateAuthorizationAdviceResponse> {
+  simulateAuthorizationAdvice(body: TransactionSimulateAuthorizationAdviceParams, options?: RequestOptions): APIPromise<TransactionSimulateAuthorizationAdviceResponse> {
     return this._client.post('/v1/simulate/authorization_advice', { body, ...options });
   }
 
@@ -130,10 +120,7 @@ export class Transactions extends APIResource {
    * );
    * ```
    */
-  simulateClearing(
-    body: TransactionSimulateClearingParams,
-    options?: RequestOptions,
-  ): APIPromise<TransactionSimulateClearingResponse> {
+  simulateClearing(body: TransactionSimulateClearingParams, options?: RequestOptions): APIPromise<TransactionSimulateClearingResponse> {
     return this._client.post('/v1/simulate/clearing', { body, ...options });
   }
 
@@ -143,10 +130,7 @@ export class Transactions extends APIResource {
    *
    * @deprecated use `simulateCreditAuthorizationAdvice` instead
    */
-  simulateCreditAuthorization(
-    body: TransactionSimulateCreditAuthorizationParams,
-    options?: RequestOptions,
-  ): APIPromise<TransactionSimulateCreditAuthorizationResponse> {
+  simulateCreditAuthorization(body: TransactionSimulateCreditAuthorizationParams, options?: RequestOptions): APIPromise<TransactionSimulateCreditAuthorizationResponse> {
     return this._client.post('/v1/simulate/credit_authorization_advice', { body, ...options });
   }
 
@@ -170,10 +154,7 @@ export class Transactions extends APIResource {
    *   );
    * ```
    */
-  simulateCreditAuthorizationAdvice(
-    body: TransactionSimulateCreditAuthorizationAdviceParams,
-    options?: RequestOptions,
-  ): APIPromise<TransactionSimulateCreditAuthorizationAdviceResponse> {
+  simulateCreditAuthorizationAdvice(body: TransactionSimulateCreditAuthorizationAdviceParams, options?: RequestOptions): APIPromise<TransactionSimulateCreditAuthorizationAdviceResponse> {
     return this._client.post('/v1/simulate/credit_authorization_advice', { body, ...options });
   }
 
@@ -191,10 +172,7 @@ export class Transactions extends APIResource {
    * });
    * ```
    */
-  simulateReturn(
-    body: TransactionSimulateReturnParams,
-    options?: RequestOptions,
-  ): APIPromise<TransactionSimulateReturnResponse> {
+  simulateReturn(body: TransactionSimulateReturnParams, options?: RequestOptions): APIPromise<TransactionSimulateReturnResponse> {
     return this._client.post('/v1/simulate/return', { body, ...options });
   }
 
@@ -211,10 +189,7 @@ export class Transactions extends APIResource {
    *   });
    * ```
    */
-  simulateReturnReversal(
-    body: TransactionSimulateReturnReversalParams,
-    options?: RequestOptions,
-  ): APIPromise<TransactionSimulateReturnReversalResponse> {
+  simulateReturnReversal(body: TransactionSimulateReturnReversalParams, options?: RequestOptions): APIPromise<TransactionSimulateReturnReversalResponse> {
     return this._client.post('/v1/simulate/return_reversal', { body, ...options });
   }
 
@@ -233,15 +208,12 @@ export class Transactions extends APIResource {
    * });
    * ```
    */
-  simulateVoid(
-    body: TransactionSimulateVoidParams,
-    options?: RequestOptions,
-  ): APIPromise<TransactionSimulateVoidResponse> {
+  simulateVoid(body: TransactionSimulateVoidParams, options?: RequestOptions): APIPromise<TransactionSimulateVoidResponse> {
     return this._client.post('/v1/simulate/void', { body, ...options });
   }
 }
 
-export type TransactionsCursorPage = CursorPage<Transaction>;
+export type TransactionsCursorPage = CursorPage<Transaction>
 
 export interface CardholderAuthentication {
   /**
@@ -257,13 +229,7 @@ export interface CardholderAuthentication {
   /**
    * Indicates which party made the 3DS authentication decision.
    */
-  decision_made_by:
-    | 'CUSTOMER_RULES'
-    | 'CUSTOMER_ENDPOINT'
-    | 'LITHIC_DEFAULT'
-    | 'LITHIC_RULES'
-    | 'NETWORK'
-    | 'UNKNOWN';
+  decision_made_by: 'CUSTOMER_RULES' | 'CUSTOMER_ENDPOINT' | 'LITHIC_DEFAULT' | 'LITHIC_RULES' | 'NETWORK' | 'UNKNOWN';
 
   /**
    * Indicates whether chargeback liability shift applies to the transaction.
@@ -401,32 +367,7 @@ export interface Transaction {
 
   pos: Transaction.Pos;
 
-  result:
-    | 'ACCOUNT_PAUSED'
-    | 'ACCOUNT_STATE_TRANSACTION_FAIL'
-    | 'APPROVED'
-    | 'BANK_CONNECTION_ERROR'
-    | 'BANK_NOT_VERIFIED'
-    | 'CARD_CLOSED'
-    | 'CARD_PAUSED'
-    | 'DECLINED'
-    | 'FRAUD_ADVICE'
-    | 'IGNORED_TTL_EXPIRY'
-    | 'SUSPECTED_FRAUD'
-    | 'INACTIVE_ACCOUNT'
-    | 'INCORRECT_PIN'
-    | 'INVALID_CARD_DETAILS'
-    | 'INSUFFICIENT_FUNDS'
-    | 'INSUFFICIENT_FUNDS_PRELOAD'
-    | 'INVALID_TRANSACTION'
-    | 'MERCHANT_BLACKLIST'
-    | 'ORIGINAL_NOT_FOUND'
-    | 'PREVIOUSLY_COMPLETED'
-    | 'SINGLE_USE_RECHARGED'
-    | 'SWITCH_INOPERATIVE_ADVICE'
-    | 'UNAUTHORIZED_MERCHANT'
-    | 'UNKNOWN_HOST_TIMEOUT'
-    | 'USER_TRANSACTION_LIMIT';
+  result: 'ACCOUNT_PAUSED' | 'ACCOUNT_STATE_TRANSACTION_FAIL' | 'APPROVED' | 'BANK_CONNECTION_ERROR' | 'BANK_NOT_VERIFIED' | 'CARD_CLOSED' | 'CARD_PAUSED' | 'DECLINED' | 'FRAUD_ADVICE' | 'IGNORED_TTL_EXPIRY' | 'SUSPECTED_FRAUD' | 'INACTIVE_ACCOUNT' | 'INCORRECT_PIN' | 'INVALID_CARD_DETAILS' | 'INSUFFICIENT_FUNDS' | 'INSUFFICIENT_FUNDS_PRELOAD' | 'INVALID_TRANSACTION' | 'MERCHANT_BLACKLIST' | 'ORIGINAL_NOT_FOUND' | 'PREVIOUSLY_COMPLETED' | 'SINGLE_USE_RECHARGED' | 'SWITCH_INOPERATIVE_ADVICE' | 'UNAUTHORIZED_MERCHANT' | 'UNKNOWN_HOST_TIMEOUT' | 'USER_TRANSACTION_LIMIT';
 
   /**
    * Where the cardholder received the service, when different from the card acceptor
@@ -577,37 +518,12 @@ export namespace Transaction {
       /**
        * Cardholder presence indicator
        */
-      cardholder:
-        | 'DEFERRED_BILLING'
-        | 'ELECTRONIC_ORDER'
-        | 'INSTALLMENT'
-        | 'MAIL_ORDER'
-        | 'NOT_PRESENT'
-        | 'PREAUTHORIZED'
-        | 'PRESENT'
-        | 'REOCCURRING'
-        | 'TELEPHONE_ORDER'
-        | 'UNKNOWN';
+      cardholder: 'DEFERRED_BILLING' | 'ELECTRONIC_ORDER' | 'INSTALLMENT' | 'MAIL_ORDER' | 'NOT_PRESENT' | 'PREAUTHORIZED' | 'PRESENT' | 'REOCCURRING' | 'TELEPHONE_ORDER' | 'UNKNOWN';
 
       /**
        * Method of entry for the PAN
        */
-      pan:
-        | 'AUTO_ENTRY'
-        | 'BAR_CODE'
-        | 'CONTACTLESS'
-        | 'CREDENTIAL_ON_FILE'
-        | 'ECOMMERCE'
-        | 'ERROR_KEYED'
-        | 'ERROR_MAGNETIC_STRIPE'
-        | 'ICC'
-        | 'KEY_ENTERED'
-        | 'MAGNETIC_STRIPE'
-        | 'MANUAL'
-        | 'OCR'
-        | 'SECURE_CARDLESS'
-        | 'UNKNOWN'
-        | 'UNSPECIFIED';
+      pan: 'AUTO_ENTRY' | 'BAR_CODE' | 'CONTACTLESS' | 'CREDENTIAL_ON_FILE' | 'ECOMMERCE' | 'ERROR_KEYED' | 'ERROR_MAGNETIC_STRIPE' | 'ICC' | 'KEY_ENTERED' | 'MAGNETIC_STRIPE' | 'MANUAL' | 'OCR' | 'SECURE_CARDLESS' | 'UNKNOWN' | 'UNSPECIFIED';
 
       /**
        * Indicates whether the cardholder entered the PIN. True if the PIN was entered.
@@ -653,31 +569,7 @@ export namespace Transaction {
       /**
        * POS Type
        */
-      type:
-        | 'ADMINISTRATIVE'
-        | 'ATM'
-        | 'AUTHORIZATION'
-        | 'COUPON_MACHINE'
-        | 'DIAL_TERMINAL'
-        | 'ECOMMERCE'
-        | 'ECR'
-        | 'FUEL_MACHINE'
-        | 'HOME_TERMINAL'
-        | 'MICR'
-        | 'OFF_PREMISE'
-        | 'PAYMENT'
-        | 'PDA'
-        | 'PHONE'
-        | 'POINT'
-        | 'POS_TERMINAL'
-        | 'PUBLIC_UTILITY'
-        | 'SELF_SERVICE'
-        | 'TELEVISION'
-        | 'TELLER'
-        | 'TRAVELERS_CHECK_MACHINE'
-        | 'VENDING'
-        | 'VOICE'
-        | 'UNKNOWN';
+      type: 'ADMINISTRATIVE' | 'ATM' | 'AUTHORIZATION' | 'COUPON_MACHINE' | 'DIAL_TERMINAL' | 'ECOMMERCE' | 'ECR' | 'FUEL_MACHINE' | 'HOME_TERMINAL' | 'MICR' | 'OFF_PREMISE' | 'PAYMENT' | 'PDA' | 'PHONE' | 'POINT' | 'POS_TERMINAL' | 'PUBLIC_UTILITY' | 'SELF_SERVICE' | 'TELEVISION' | 'TELLER' | 'TRAVELERS_CHECK_MACHINE' | 'VENDING' | 'VOICE' | 'UNKNOWN';
 
       /**
        * Uniquely identifies a terminal at the card acceptor location of acquiring
@@ -737,65 +629,7 @@ export namespace Transaction {
      */
     created: string;
 
-    detailed_results: Array<
-      | 'ACCOUNT_DAILY_SPEND_LIMIT_EXCEEDED'
-      | 'ACCOUNT_DELINQUENT'
-      | 'ACCOUNT_INACTIVE'
-      | 'ACCOUNT_LIFETIME_SPEND_LIMIT_EXCEEDED'
-      | 'ACCOUNT_MONTHLY_SPEND_LIMIT_EXCEEDED'
-      | 'ACCOUNT_PAUSED'
-      | 'ACCOUNT_UNDER_REVIEW'
-      | 'ADDRESS_INCORRECT'
-      | 'APPROVED'
-      | 'AUTH_RULE_ALLOWED_COUNTRY'
-      | 'AUTH_RULE_ALLOWED_MCC'
-      | 'AUTH_RULE_BLOCKED_COUNTRY'
-      | 'AUTH_RULE_BLOCKED_MCC'
-      | 'AUTH_RULE'
-      | 'CARD_CLOSED'
-      | 'CARD_CRYPTOGRAM_VALIDATION_FAILURE'
-      | 'CARD_EXPIRED'
-      | 'CARD_EXPIRY_DATE_INCORRECT'
-      | 'CARD_INVALID'
-      | 'CARD_NOT_ACTIVATED'
-      | 'CARD_PAUSED'
-      | 'CARD_PIN_INCORRECT'
-      | 'CARD_RESTRICTED'
-      | 'CARD_SECURITY_CODE_INCORRECT'
-      | 'CARD_SPEND_LIMIT_EXCEEDED'
-      | 'CONTACT_CARD_ISSUER'
-      | 'CUSTOMER_ASA_TIMEOUT'
-      | 'CUSTOM_ASA_RESULT'
-      | 'DECLINED'
-      | 'DO_NOT_HONOR'
-      | 'DRIVER_NUMBER_INVALID'
-      | 'FORMAT_ERROR'
-      | 'INSUFFICIENT_FUNDING_SOURCE_BALANCE'
-      | 'INSUFFICIENT_FUNDS'
-      | 'LITHIC_SYSTEM_ERROR'
-      | 'LITHIC_SYSTEM_RATE_LIMIT'
-      | 'MALFORMED_ASA_RESPONSE'
-      | 'MERCHANT_INVALID'
-      | 'MERCHANT_LOCKED_CARD_ATTEMPTED_ELSEWHERE'
-      | 'MERCHANT_NOT_PERMITTED'
-      | 'OVER_REVERSAL_ATTEMPTED'
-      | 'PIN_BLOCKED'
-      | 'PROGRAM_CARD_SPEND_LIMIT_EXCEEDED'
-      | 'PROGRAM_SUSPENDED'
-      | 'PROGRAM_USAGE_RESTRICTION'
-      | 'REVERSAL_UNMATCHED'
-      | 'SECURITY_VIOLATION'
-      | 'SINGLE_USE_CARD_REATTEMPTED'
-      | 'SUSPECTED_FRAUD'
-      | 'TRANSACTION_INVALID'
-      | 'TRANSACTION_NOT_PERMITTED_TO_ACQUIRER_OR_TERMINAL'
-      | 'TRANSACTION_NOT_PERMITTED_TO_ISSUER_OR_CARDHOLDER'
-      | 'TRANSACTION_PREVIOUSLY_COMPLETED'
-      | 'UNAUTHORIZED_MERCHANT'
-      | 'VEHICLE_NUMBER_INVALID'
-      | 'CARDHOLDER_CHALLENGED'
-      | 'CARDHOLDER_CHALLENGE_FAILED'
-    >;
+    detailed_results: Array<'ACCOUNT_DAILY_SPEND_LIMIT_EXCEEDED' | 'ACCOUNT_DELINQUENT' | 'ACCOUNT_INACTIVE' | 'ACCOUNT_LIFETIME_SPEND_LIMIT_EXCEEDED' | 'ACCOUNT_MONTHLY_SPEND_LIMIT_EXCEEDED' | 'ACCOUNT_PAUSED' | 'ACCOUNT_UNDER_REVIEW' | 'ADDRESS_INCORRECT' | 'APPROVED' | 'AUTH_RULE_ALLOWED_COUNTRY' | 'AUTH_RULE_ALLOWED_MCC' | 'AUTH_RULE_BLOCKED_COUNTRY' | 'AUTH_RULE_BLOCKED_MCC' | 'AUTH_RULE' | 'CARD_CLOSED' | 'CARD_CRYPTOGRAM_VALIDATION_FAILURE' | 'CARD_EXPIRED' | 'CARD_EXPIRY_DATE_INCORRECT' | 'CARD_INVALID' | 'CARD_NOT_ACTIVATED' | 'CARD_PAUSED' | 'CARD_PIN_INCORRECT' | 'CARD_RESTRICTED' | 'CARD_SECURITY_CODE_INCORRECT' | 'CARD_SPEND_LIMIT_EXCEEDED' | 'CONTACT_CARD_ISSUER' | 'CUSTOMER_ASA_TIMEOUT' | 'CUSTOM_ASA_RESULT' | 'DECLINED' | 'DO_NOT_HONOR' | 'DRIVER_NUMBER_INVALID' | 'FORMAT_ERROR' | 'INSUFFICIENT_FUNDING_SOURCE_BALANCE' | 'INSUFFICIENT_FUNDS' | 'LITHIC_SYSTEM_ERROR' | 'LITHIC_SYSTEM_RATE_LIMIT' | 'MALFORMED_ASA_RESPONSE' | 'MERCHANT_INVALID' | 'MERCHANT_LOCKED_CARD_ATTEMPTED_ELSEWHERE' | 'MERCHANT_NOT_PERMITTED' | 'OVER_REVERSAL_ATTEMPTED' | 'PIN_BLOCKED' | 'PROGRAM_CARD_SPEND_LIMIT_EXCEEDED' | 'PROGRAM_SUSPENDED' | 'PROGRAM_USAGE_RESTRICTION' | 'REVERSAL_UNMATCHED' | 'SECURITY_VIOLATION' | 'SINGLE_USE_CARD_REATTEMPTED' | 'SUSPECTED_FRAUD' | 'TRANSACTION_INVALID' | 'TRANSACTION_NOT_PERMITTED_TO_ACQUIRER_OR_TERMINAL' | 'TRANSACTION_NOT_PERMITTED_TO_ISSUER_OR_CARDHOLDER' | 'TRANSACTION_PREVIOUSLY_COMPLETED' | 'UNAUTHORIZED_MERCHANT' | 'VEHICLE_NUMBER_INVALID' | 'CARDHOLDER_CHALLENGED' | 'CARDHOLDER_CHALLENGE_FAILED'>;
 
     /**
      * Indicates whether the transaction event is a credit or debit to the account.
@@ -815,53 +649,14 @@ export namespace Transaction {
      */
     network_info: Event.NetworkInfo | null;
 
-    result:
-      | 'ACCOUNT_PAUSED'
-      | 'ACCOUNT_STATE_TRANSACTION_FAIL'
-      | 'APPROVED'
-      | 'BANK_CONNECTION_ERROR'
-      | 'BANK_NOT_VERIFIED'
-      | 'CARD_CLOSED'
-      | 'CARD_PAUSED'
-      | 'DECLINED'
-      | 'FRAUD_ADVICE'
-      | 'IGNORED_TTL_EXPIRY'
-      | 'SUSPECTED_FRAUD'
-      | 'INACTIVE_ACCOUNT'
-      | 'INCORRECT_PIN'
-      | 'INVALID_CARD_DETAILS'
-      | 'INSUFFICIENT_FUNDS'
-      | 'INSUFFICIENT_FUNDS_PRELOAD'
-      | 'INVALID_TRANSACTION'
-      | 'MERCHANT_BLACKLIST'
-      | 'ORIGINAL_NOT_FOUND'
-      | 'PREVIOUSLY_COMPLETED'
-      | 'SINGLE_USE_RECHARGED'
-      | 'SWITCH_INOPERATIVE_ADVICE'
-      | 'UNAUTHORIZED_MERCHANT'
-      | 'UNKNOWN_HOST_TIMEOUT'
-      | 'USER_TRANSACTION_LIMIT';
+    result: 'ACCOUNT_PAUSED' | 'ACCOUNT_STATE_TRANSACTION_FAIL' | 'APPROVED' | 'BANK_CONNECTION_ERROR' | 'BANK_NOT_VERIFIED' | 'CARD_CLOSED' | 'CARD_PAUSED' | 'DECLINED' | 'FRAUD_ADVICE' | 'IGNORED_TTL_EXPIRY' | 'SUSPECTED_FRAUD' | 'INACTIVE_ACCOUNT' | 'INCORRECT_PIN' | 'INVALID_CARD_DETAILS' | 'INSUFFICIENT_FUNDS' | 'INSUFFICIENT_FUNDS_PRELOAD' | 'INVALID_TRANSACTION' | 'MERCHANT_BLACKLIST' | 'ORIGINAL_NOT_FOUND' | 'PREVIOUSLY_COMPLETED' | 'SINGLE_USE_RECHARGED' | 'SWITCH_INOPERATIVE_ADVICE' | 'UNAUTHORIZED_MERCHANT' | 'UNKNOWN_HOST_TIMEOUT' | 'USER_TRANSACTION_LIMIT';
 
     rule_results: Array<Event.RuleResult>;
 
     /**
      * Type of transaction event
      */
-    type:
-      | 'AUTHORIZATION'
-      | 'AUTHORIZATION_ADVICE'
-      | 'AUTHORIZATION_EXPIRY'
-      | 'AUTHORIZATION_REVERSAL'
-      | 'BALANCE_INQUIRY'
-      | 'CLEARING'
-      | 'CORRECTION_CREDIT'
-      | 'CORRECTION_DEBIT'
-      | 'CREDIT_AUTHORIZATION'
-      | 'CREDIT_AUTHORIZATION_ADVICE'
-      | 'FINANCIAL_AUTHORIZATION'
-      | 'FINANCIAL_CREDIT_AUTHORIZATION'
-      | 'RETURN'
-      | 'RETURN_REVERSAL';
+    type: 'AUTHORIZATION' | 'AUTHORIZATION_ADVICE' | 'AUTHORIZATION_EXPIRY' | 'AUTHORIZATION_REVERSAL' | 'BALANCE_INQUIRY' | 'CLEARING' | 'CORRECTION_CREDIT' | 'CORRECTION_DEBIT' | 'CREDIT_AUTHORIZATION' | 'CREDIT_AUTHORIZATION_ADVICE' | 'FINANCIAL_AUTHORIZATION' | 'FINANCIAL_CREDIT_AUTHORIZATION' | 'RETURN' | 'RETURN_REVERSAL';
 
     account_type?: 'CHECKING' | 'SAVINGS';
 
@@ -1058,64 +853,7 @@ export namespace Transaction {
       /**
        * The detailed_result associated with this rule's decline.
        */
-      result:
-        | 'ACCOUNT_DAILY_SPEND_LIMIT_EXCEEDED'
-        | 'ACCOUNT_DELINQUENT'
-        | 'ACCOUNT_INACTIVE'
-        | 'ACCOUNT_LIFETIME_SPEND_LIMIT_EXCEEDED'
-        | 'ACCOUNT_MONTHLY_SPEND_LIMIT_EXCEEDED'
-        | 'ACCOUNT_PAUSED'
-        | 'ACCOUNT_UNDER_REVIEW'
-        | 'ADDRESS_INCORRECT'
-        | 'APPROVED'
-        | 'AUTH_RULE_ALLOWED_COUNTRY'
-        | 'AUTH_RULE_ALLOWED_MCC'
-        | 'AUTH_RULE_BLOCKED_COUNTRY'
-        | 'AUTH_RULE_BLOCKED_MCC'
-        | 'AUTH_RULE'
-        | 'CARD_CLOSED'
-        | 'CARD_CRYPTOGRAM_VALIDATION_FAILURE'
-        | 'CARD_EXPIRED'
-        | 'CARD_EXPIRY_DATE_INCORRECT'
-        | 'CARD_INVALID'
-        | 'CARD_NOT_ACTIVATED'
-        | 'CARD_PAUSED'
-        | 'CARD_PIN_INCORRECT'
-        | 'CARD_RESTRICTED'
-        | 'CARD_SECURITY_CODE_INCORRECT'
-        | 'CARD_SPEND_LIMIT_EXCEEDED'
-        | 'CONTACT_CARD_ISSUER'
-        | 'CUSTOMER_ASA_TIMEOUT'
-        | 'CUSTOM_ASA_RESULT'
-        | 'DECLINED'
-        | 'DO_NOT_HONOR'
-        | 'DRIVER_NUMBER_INVALID'
-        | 'FORMAT_ERROR'
-        | 'INSUFFICIENT_FUNDING_SOURCE_BALANCE'
-        | 'INSUFFICIENT_FUNDS'
-        | 'LITHIC_SYSTEM_ERROR'
-        | 'LITHIC_SYSTEM_RATE_LIMIT'
-        | 'MALFORMED_ASA_RESPONSE'
-        | 'MERCHANT_INVALID'
-        | 'MERCHANT_LOCKED_CARD_ATTEMPTED_ELSEWHERE'
-        | 'MERCHANT_NOT_PERMITTED'
-        | 'OVER_REVERSAL_ATTEMPTED'
-        | 'PIN_BLOCKED'
-        | 'PROGRAM_CARD_SPEND_LIMIT_EXCEEDED'
-        | 'PROGRAM_SUSPENDED'
-        | 'PROGRAM_USAGE_RESTRICTION'
-        | 'REVERSAL_UNMATCHED'
-        | 'SECURITY_VIOLATION'
-        | 'SINGLE_USE_CARD_REATTEMPTED'
-        | 'SUSPECTED_FRAUD'
-        | 'TRANSACTION_INVALID'
-        | 'TRANSACTION_NOT_PERMITTED_TO_ACQUIRER_OR_TERMINAL'
-        | 'TRANSACTION_NOT_PERMITTED_TO_ISSUER_OR_CARDHOLDER'
-        | 'TRANSACTION_PREVIOUSLY_COMPLETED'
-        | 'UNAUTHORIZED_MERCHANT'
-        | 'VEHICLE_NUMBER_INVALID'
-        | 'CARDHOLDER_CHALLENGED'
-        | 'CARDHOLDER_CHALLENGE_FAILED';
+      result: 'ACCOUNT_DAILY_SPEND_LIMIT_EXCEEDED' | 'ACCOUNT_DELINQUENT' | 'ACCOUNT_INACTIVE' | 'ACCOUNT_LIFETIME_SPEND_LIMIT_EXCEEDED' | 'ACCOUNT_MONTHLY_SPEND_LIMIT_EXCEEDED' | 'ACCOUNT_PAUSED' | 'ACCOUNT_UNDER_REVIEW' | 'ADDRESS_INCORRECT' | 'APPROVED' | 'AUTH_RULE_ALLOWED_COUNTRY' | 'AUTH_RULE_ALLOWED_MCC' | 'AUTH_RULE_BLOCKED_COUNTRY' | 'AUTH_RULE_BLOCKED_MCC' | 'AUTH_RULE' | 'CARD_CLOSED' | 'CARD_CRYPTOGRAM_VALIDATION_FAILURE' | 'CARD_EXPIRED' | 'CARD_EXPIRY_DATE_INCORRECT' | 'CARD_INVALID' | 'CARD_NOT_ACTIVATED' | 'CARD_PAUSED' | 'CARD_PIN_INCORRECT' | 'CARD_RESTRICTED' | 'CARD_SECURITY_CODE_INCORRECT' | 'CARD_SPEND_LIMIT_EXCEEDED' | 'CONTACT_CARD_ISSUER' | 'CUSTOMER_ASA_TIMEOUT' | 'CUSTOM_ASA_RESULT' | 'DECLINED' | 'DO_NOT_HONOR' | 'DRIVER_NUMBER_INVALID' | 'FORMAT_ERROR' | 'INSUFFICIENT_FUNDING_SOURCE_BALANCE' | 'INSUFFICIENT_FUNDS' | 'LITHIC_SYSTEM_ERROR' | 'LITHIC_SYSTEM_RATE_LIMIT' | 'MALFORMED_ASA_RESPONSE' | 'MERCHANT_INVALID' | 'MERCHANT_LOCKED_CARD_ATTEMPTED_ELSEWHERE' | 'MERCHANT_NOT_PERMITTED' | 'OVER_REVERSAL_ATTEMPTED' | 'PIN_BLOCKED' | 'PROGRAM_CARD_SPEND_LIMIT_EXCEEDED' | 'PROGRAM_SUSPENDED' | 'PROGRAM_USAGE_RESTRICTION' | 'REVERSAL_UNMATCHED' | 'SECURITY_VIOLATION' | 'SINGLE_USE_CARD_REATTEMPTED' | 'SUSPECTED_FRAUD' | 'TRANSACTION_INVALID' | 'TRANSACTION_NOT_PERMITTED_TO_ACQUIRER_OR_TERMINAL' | 'TRANSACTION_NOT_PERMITTED_TO_ISSUER_OR_CARDHOLDER' | 'TRANSACTION_PREVIOUSLY_COMPLETED' | 'UNAUTHORIZED_MERCHANT' | 'VEHICLE_NUMBER_INVALID' | 'CARDHOLDER_CHALLENGED' | 'CARDHOLDER_CHALLENGE_FAILED';
     }
 
     export interface NetworkSpecificData {
@@ -1380,12 +1118,7 @@ export interface TransactionSimulateAuthorizationParams {
    *   to credit funds immediately, and no subsequent clearing is required to settle
    *   the transaction.
    */
-  status?:
-    | 'AUTHORIZATION'
-    | 'BALANCE_INQUIRY'
-    | 'CREDIT_AUTHORIZATION'
-    | 'FINANCIAL_AUTHORIZATION'
-    | 'FINANCIAL_CREDIT_AUTHORIZATION';
+  status?: 'AUTHORIZATION' | 'BALANCE_INQUIRY' | 'CREDIT_AUTHORIZATION' | 'FINANCIAL_AUTHORIZATION' | 'FINANCIAL_CREDIT_AUTHORIZATION';
 }
 
 export interface TransactionSimulateAuthorizationAdviceParams {
@@ -1585,13 +1318,15 @@ export declare namespace Transactions {
     type TransactionSimulateCreditAuthorizationAdviceParams as TransactionSimulateCreditAuthorizationAdviceParams,
     type TransactionSimulateReturnParams as TransactionSimulateReturnParams,
     type TransactionSimulateReturnReversalParams as TransactionSimulateReturnReversalParams,
-    type TransactionSimulateVoidParams as TransactionSimulateVoidParams,
+    type TransactionSimulateVoidParams as TransactionSimulateVoidParams
   };
 
   export {
     EnhancedCommercialData as EnhancedCommercialData,
-    type EnhancedCommercialDataRetrieveResponse as EnhancedCommercialDataRetrieveResponse,
+    type EnhancedCommercialDataRetrieveResponse as EnhancedCommercialDataRetrieveResponse
   };
 
-  export { Events as Events };
+  export {
+    Events as Events
+  };
 }

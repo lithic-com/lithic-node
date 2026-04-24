@@ -4,13 +4,7 @@ import { APIResource } from '../../core/resource';
 import * as AccountHoldersAPI from './account-holders';
 import * as Shared from '../shared';
 import * as EntitiesAPI from './entities';
-import {
-  AccountHolderEntity,
-  Entities,
-  EntityCreateParams,
-  EntityCreateResponse,
-  EntityDeleteParams,
-} from './entities';
+import { AccountHolderEntity, Entities, EntityCreateParams, EntityCreateResponse, EntityDeleteParams } from './entities';
 import { APIPromise } from '../../core/api-promise';
 import { PagePromise, SinglePage } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -69,11 +63,7 @@ export class AccountHolders extends APIResource {
    * ```
    */
   create(body: AccountHolderCreateParams, options?: RequestOptions): APIPromise<AccountHolderCreateResponse> {
-    return this._client.post('/v1/account_holders', {
-      body,
-      timeout: (this._client as any)._options.timeout ?? 300000,
-      ...options,
-    });
+    return this._client.post('/v1/account_holders', { body, timeout: (this._client as any)._options.timeout ?? 300000, ...options });
   }
 
   /**
@@ -122,11 +112,7 @@ export class AccountHolders extends APIResource {
    * );
    * ```
    */
-  update(
-    accountHolderToken: string,
-    body: AccountHolderUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<AccountHolderUpdateResponse> {
+  update(accountHolderToken: string, body: AccountHolderUpdateParams, options?: RequestOptions): APIPromise<AccountHolderUpdateResponse> {
     return this._client.patch(path`/v1/account_holders/${accountHolderToken}`, { body, ...options });
   }
 
@@ -142,10 +128,7 @@ export class AccountHolders extends APIResource {
    * }
    * ```
    */
-  list(
-    query: AccountHolderListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<AccountHoldersSinglePage, AccountHolder> {
+  list(query: AccountHolderListParams | null | undefined = {}, options?: RequestOptions): PagePromise<AccountHoldersSinglePage, AccountHolder> {
     return this._client.getAPIList('/v1/account_holders', SinglePage<AccountHolder>, { query, ...options });
   }
 
@@ -173,10 +156,7 @@ export class AccountHolders extends APIResource {
    * );
    * ```
    */
-  listDocuments(
-    accountHolderToken: string,
-    options?: RequestOptions,
-  ): APIPromise<AccountHolderListDocumentsResponse> {
+  listDocuments(accountHolderToken: string, options?: RequestOptions): APIPromise<AccountHolderListDocumentsResponse> {
     return this._client.get(path`/v1/account_holders/${accountHolderToken}/documents`, options);
   }
 
@@ -208,16 +188,9 @@ export class AccountHolders extends APIResource {
    *   );
    * ```
    */
-  retrieveDocument(
-    documentToken: string,
-    params: AccountHolderRetrieveDocumentParams,
-    options?: RequestOptions,
-  ): APIPromise<Shared.Document> {
-    const { account_holder_token } = params;
-    return this._client.get(
-      path`/v1/account_holders/${account_holder_token}/documents/${documentToken}`,
-      options,
-    );
+  retrieveDocument(documentToken: string, params: AccountHolderRetrieveDocumentParams, options?: RequestOptions): APIPromise<Shared.Document> {
+    const { account_holder_token } = params
+    return this._client.get(path`/v1/account_holders/${account_holder_token}/documents/${documentToken}`, options);
   }
 
   /**
@@ -235,10 +208,7 @@ export class AccountHolders extends APIResource {
    *   );
    * ```
    */
-  simulateEnrollmentDocumentReview(
-    body: AccountHolderSimulateEnrollmentDocumentReviewParams,
-    options?: RequestOptions,
-  ): APIPromise<Shared.Document> {
+  simulateEnrollmentDocumentReview(body: AccountHolderSimulateEnrollmentDocumentReviewParams, options?: RequestOptions): APIPromise<Shared.Document> {
     return this._client.post('/v1/simulate/account_holders/enrollment_document_review', { body, ...options });
   }
 
@@ -257,10 +227,7 @@ export class AccountHolders extends APIResource {
    *   });
    * ```
    */
-  simulateEnrollmentReview(
-    body: AccountHolderSimulateEnrollmentReviewParams,
-    options?: RequestOptions,
-  ): APIPromise<AccountHolderSimulateEnrollmentReviewResponse> {
+  simulateEnrollmentReview(body: AccountHolderSimulateEnrollmentReviewParams, options?: RequestOptions): APIPromise<AccountHolderSimulateEnrollmentReviewResponse> {
     return this._client.post('/v1/simulate/account_holders/enrollment_review', { body, ...options });
   }
 
@@ -295,16 +262,12 @@ export class AccountHolders extends APIResource {
    * );
    * ```
    */
-  uploadDocument(
-    accountHolderToken: string,
-    body: AccountHolderUploadDocumentParams,
-    options?: RequestOptions,
-  ): APIPromise<Shared.Document> {
+  uploadDocument(accountHolderToken: string, body: AccountHolderUploadDocumentParams, options?: RequestOptions): APIPromise<Shared.Document> {
     return this._client.post(path`/v1/account_holders/${accountHolderToken}/documents`, { body, ...options });
   }
 }
 
-export type AccountHoldersSinglePage = SinglePage<AccountHolder>;
+export type AccountHoldersSinglePage = SinglePage<AccountHolder>
 
 export interface AccountHolder {
   /**
@@ -420,19 +383,7 @@ export interface AccountHolder {
    *
    * Reason for the evaluation status.
    */
-  status_reasons?: Array<
-    | 'ADDRESS_VERIFICATION_FAILURE'
-    | 'AGE_THRESHOLD_FAILURE'
-    | 'COMPLETE_VERIFICATION_FAILURE'
-    | 'DOB_VERIFICATION_FAILURE'
-    | 'ID_VERIFICATION_FAILURE'
-    | 'MAX_DOCUMENT_ATTEMPTS'
-    | 'MAX_RESUBMISSION_ATTEMPTS'
-    | 'NAME_VERIFICATION_FAILURE'
-    | 'OTHER_VERIFICATION_FAILURE'
-    | 'RISK_THRESHOLD_FAILURE'
-    | 'WATCHLIST_ALERT_FAILURE'
-  >;
+  status_reasons?: Array<'ADDRESS_VERIFICATION_FAILURE' | 'AGE_THRESHOLD_FAILURE' | 'COMPLETE_VERIFICATION_FAILURE' | 'DOB_VERIFICATION_FAILURE' | 'ID_VERIFICATION_FAILURE' | 'MAX_DOCUMENT_ATTEMPTS' | 'MAX_RESUBMISSION_ATTEMPTS' | 'NAME_VERIFICATION_FAILURE' | 'OTHER_VERIFICATION_FAILURE' | 'RISK_THRESHOLD_FAILURE' | 'WATCHLIST_ALERT_FAILURE'>;
 
   /**
    * The type of Account Holder. If the type is "INDIVIDUAL", the "individual"
@@ -649,19 +600,7 @@ export namespace AccountHolder {
     /**
      * Reason for the evaluation status.
      */
-    status_reasons?: Array<
-      | 'ADDRESS_VERIFICATION_FAILURE'
-      | 'AGE_THRESHOLD_FAILURE'
-      | 'COMPLETE_VERIFICATION_FAILURE'
-      | 'DOB_VERIFICATION_FAILURE'
-      | 'ID_VERIFICATION_FAILURE'
-      | 'MAX_DOCUMENT_ATTEMPTS'
-      | 'MAX_RESUBMISSION_ATTEMPTS'
-      | 'NAME_VERIFICATION_FAILURE'
-      | 'OTHER_VERIFICATION_FAILURE'
-      | 'RISK_THRESHOLD_FAILURE'
-      | 'WATCHLIST_ALERT_FAILURE'
-    >;
+    status_reasons?: Array<'ADDRESS_VERIFICATION_FAILURE' | 'AGE_THRESHOLD_FAILURE' | 'COMPLETE_VERIFICATION_FAILURE' | 'DOB_VERIFICATION_FAILURE' | 'ID_VERIFICATION_FAILURE' | 'MAX_DOCUMENT_ATTEMPTS' | 'MAX_RESUBMISSION_ATTEMPTS' | 'NAME_VERIFICATION_FAILURE' | 'OTHER_VERIFICATION_FAILURE' | 'RISK_THRESHOLD_FAILURE' | 'WATCHLIST_ALERT_FAILURE'>;
 
     /**
      * Timestamp of when the application was last updated.
@@ -1172,32 +1111,7 @@ export interface AccountHolderCreateResponse {
   /**
    * Reason for the evaluation status.
    */
-  status_reasons: Array<
-    | 'ADDRESS_VERIFICATION_FAILURE'
-    | 'AGE_THRESHOLD_FAILURE'
-    | 'COMPLETE_VERIFICATION_FAILURE'
-    | 'DOB_VERIFICATION_FAILURE'
-    | 'ID_VERIFICATION_FAILURE'
-    | 'MAX_DOCUMENT_ATTEMPTS'
-    | 'MAX_RESUBMISSION_ATTEMPTS'
-    | 'NAME_VERIFICATION_FAILURE'
-    | 'OTHER_VERIFICATION_FAILURE'
-    | 'RISK_THRESHOLD_FAILURE'
-    | 'WATCHLIST_ALERT_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_ID_VERIFICATION_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_NAME_VERIFICATION_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_BUSINESS_OFFICERS_NOT_MATCHED'
-    | 'PRIMARY_BUSINESS_ENTITY_SOS_FILING_INACTIVE'
-    | 'PRIMARY_BUSINESS_ENTITY_SOS_NOT_MATCHED'
-    | 'PRIMARY_BUSINESS_ENTITY_CMRA_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_WATCHLIST_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_REGISTERED_AGENT_FAILURE'
-    | 'CONTROL_PERSON_BLOCKLIST_ALERT_FAILURE'
-    | 'CONTROL_PERSON_ID_VERIFICATION_FAILURE'
-    | 'CONTROL_PERSON_DOB_VERIFICATION_FAILURE'
-    | 'CONTROL_PERSON_NAME_VERIFICATION_FAILURE'
-  >;
+  status_reasons: Array<'ADDRESS_VERIFICATION_FAILURE' | 'AGE_THRESHOLD_FAILURE' | 'COMPLETE_VERIFICATION_FAILURE' | 'DOB_VERIFICATION_FAILURE' | 'ID_VERIFICATION_FAILURE' | 'MAX_DOCUMENT_ATTEMPTS' | 'MAX_RESUBMISSION_ATTEMPTS' | 'NAME_VERIFICATION_FAILURE' | 'OTHER_VERIFICATION_FAILURE' | 'RISK_THRESHOLD_FAILURE' | 'WATCHLIST_ALERT_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_ID_VERIFICATION_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_NAME_VERIFICATION_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_BUSINESS_OFFICERS_NOT_MATCHED' | 'PRIMARY_BUSINESS_ENTITY_SOS_FILING_INACTIVE' | 'PRIMARY_BUSINESS_ENTITY_SOS_NOT_MATCHED' | 'PRIMARY_BUSINESS_ENTITY_CMRA_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_WATCHLIST_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_REGISTERED_AGENT_FAILURE' | 'CONTROL_PERSON_BLOCKLIST_ALERT_FAILURE' | 'CONTROL_PERSON_ID_VERIFICATION_FAILURE' | 'CONTROL_PERSON_DOB_VERIFICATION_FAILURE' | 'CONTROL_PERSON_NAME_VERIFICATION_FAILURE'>;
 
   /**
    * Timestamp of when the account holder was created.
@@ -1217,9 +1131,7 @@ export interface AccountHolderCreateResponse {
   required_documents?: Array<RequiredDocument>;
 }
 
-export type AccountHolderUpdateResponse =
-  | AccountHolderUpdateResponse.KYBKYCPatchResponse
-  | AccountHolderUpdateResponse.PatchResponse;
+export type AccountHolderUpdateResponse = AccountHolderUpdateResponse.KYBKYCPatchResponse | AccountHolderUpdateResponse.PatchResponse
 
 export namespace AccountHolderUpdateResponse {
   export interface KYBKYCPatchResponse {
@@ -1339,32 +1251,7 @@ export namespace AccountHolderUpdateResponse {
      * (Deprecated. Use verification_application.status_reasons) Reason for the
      * evaluation status.
      */
-    status_reasons?: Array<
-      | 'ADDRESS_VERIFICATION_FAILURE'
-      | 'AGE_THRESHOLD_FAILURE'
-      | 'COMPLETE_VERIFICATION_FAILURE'
-      | 'DOB_VERIFICATION_FAILURE'
-      | 'ID_VERIFICATION_FAILURE'
-      | 'MAX_DOCUMENT_ATTEMPTS'
-      | 'MAX_RESUBMISSION_ATTEMPTS'
-      | 'NAME_VERIFICATION_FAILURE'
-      | 'OTHER_VERIFICATION_FAILURE'
-      | 'RISK_THRESHOLD_FAILURE'
-      | 'WATCHLIST_ALERT_FAILURE'
-      | 'PRIMARY_BUSINESS_ENTITY_ID_VERIFICATION_FAILURE'
-      | 'PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE'
-      | 'PRIMARY_BUSINESS_ENTITY_NAME_VERIFICATION_FAILURE'
-      | 'PRIMARY_BUSINESS_ENTITY_BUSINESS_OFFICERS_NOT_MATCHED'
-      | 'PRIMARY_BUSINESS_ENTITY_SOS_FILING_INACTIVE'
-      | 'PRIMARY_BUSINESS_ENTITY_SOS_NOT_MATCHED'
-      | 'PRIMARY_BUSINESS_ENTITY_CMRA_FAILURE'
-      | 'PRIMARY_BUSINESS_ENTITY_WATCHLIST_FAILURE'
-      | 'PRIMARY_BUSINESS_ENTITY_REGISTERED_AGENT_FAILURE'
-      | 'CONTROL_PERSON_BLOCKLIST_ALERT_FAILURE'
-      | 'CONTROL_PERSON_ID_VERIFICATION_FAILURE'
-      | 'CONTROL_PERSON_DOB_VERIFICATION_FAILURE'
-      | 'CONTROL_PERSON_NAME_VERIFICATION_FAILURE'
-    >;
+    status_reasons?: Array<'ADDRESS_VERIFICATION_FAILURE' | 'AGE_THRESHOLD_FAILURE' | 'COMPLETE_VERIFICATION_FAILURE' | 'DOB_VERIFICATION_FAILURE' | 'ID_VERIFICATION_FAILURE' | 'MAX_DOCUMENT_ATTEMPTS' | 'MAX_RESUBMISSION_ATTEMPTS' | 'NAME_VERIFICATION_FAILURE' | 'OTHER_VERIFICATION_FAILURE' | 'RISK_THRESHOLD_FAILURE' | 'WATCHLIST_ALERT_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_ID_VERIFICATION_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_NAME_VERIFICATION_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_BUSINESS_OFFICERS_NOT_MATCHED' | 'PRIMARY_BUSINESS_ENTITY_SOS_FILING_INACTIVE' | 'PRIMARY_BUSINESS_ENTITY_SOS_NOT_MATCHED' | 'PRIMARY_BUSINESS_ENTITY_CMRA_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_WATCHLIST_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_REGISTERED_AGENT_FAILURE' | 'CONTROL_PERSON_BLOCKLIST_ALERT_FAILURE' | 'CONTROL_PERSON_ID_VERIFICATION_FAILURE' | 'CONTROL_PERSON_DOB_VERIFICATION_FAILURE' | 'CONTROL_PERSON_NAME_VERIFICATION_FAILURE'>;
 
     /**
      * The type of Account Holder. If the type is "INDIVIDUAL", the "individual"
@@ -1650,32 +1537,7 @@ export namespace AccountHolderUpdateResponse {
       /**
        * Reason for the evaluation status.
        */
-      status_reasons: Array<
-        | 'ADDRESS_VERIFICATION_FAILURE'
-        | 'AGE_THRESHOLD_FAILURE'
-        | 'COMPLETE_VERIFICATION_FAILURE'
-        | 'DOB_VERIFICATION_FAILURE'
-        | 'ID_VERIFICATION_FAILURE'
-        | 'MAX_DOCUMENT_ATTEMPTS'
-        | 'MAX_RESUBMISSION_ATTEMPTS'
-        | 'NAME_VERIFICATION_FAILURE'
-        | 'OTHER_VERIFICATION_FAILURE'
-        | 'RISK_THRESHOLD_FAILURE'
-        | 'WATCHLIST_ALERT_FAILURE'
-        | 'PRIMARY_BUSINESS_ENTITY_ID_VERIFICATION_FAILURE'
-        | 'PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE'
-        | 'PRIMARY_BUSINESS_ENTITY_NAME_VERIFICATION_FAILURE'
-        | 'PRIMARY_BUSINESS_ENTITY_BUSINESS_OFFICERS_NOT_MATCHED'
-        | 'PRIMARY_BUSINESS_ENTITY_SOS_FILING_INACTIVE'
-        | 'PRIMARY_BUSINESS_ENTITY_SOS_NOT_MATCHED'
-        | 'PRIMARY_BUSINESS_ENTITY_CMRA_FAILURE'
-        | 'PRIMARY_BUSINESS_ENTITY_WATCHLIST_FAILURE'
-        | 'PRIMARY_BUSINESS_ENTITY_REGISTERED_AGENT_FAILURE'
-        | 'CONTROL_PERSON_BLOCKLIST_ALERT_FAILURE'
-        | 'CONTROL_PERSON_ID_VERIFICATION_FAILURE'
-        | 'CONTROL_PERSON_DOB_VERIFICATION_FAILURE'
-        | 'CONTROL_PERSON_NAME_VERIFICATION_FAILURE'
-      >;
+      status_reasons: Array<'ADDRESS_VERIFICATION_FAILURE' | 'AGE_THRESHOLD_FAILURE' | 'COMPLETE_VERIFICATION_FAILURE' | 'DOB_VERIFICATION_FAILURE' | 'ID_VERIFICATION_FAILURE' | 'MAX_DOCUMENT_ATTEMPTS' | 'MAX_RESUBMISSION_ATTEMPTS' | 'NAME_VERIFICATION_FAILURE' | 'OTHER_VERIFICATION_FAILURE' | 'RISK_THRESHOLD_FAILURE' | 'WATCHLIST_ALERT_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_ID_VERIFICATION_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_NAME_VERIFICATION_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_BUSINESS_OFFICERS_NOT_MATCHED' | 'PRIMARY_BUSINESS_ENTITY_SOS_FILING_INACTIVE' | 'PRIMARY_BUSINESS_ENTITY_SOS_NOT_MATCHED' | 'PRIMARY_BUSINESS_ENTITY_CMRA_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_WATCHLIST_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_REGISTERED_AGENT_FAILURE' | 'CONTROL_PERSON_BLOCKLIST_ALERT_FAILURE' | 'CONTROL_PERSON_ID_VERIFICATION_FAILURE' | 'CONTROL_PERSON_DOB_VERIFICATION_FAILURE' | 'CONTROL_PERSON_NAME_VERIFICATION_FAILURE'>;
 
       /**
        * Timestamp of when the application was last updated.
@@ -1894,32 +1756,7 @@ export interface AccountHolderSimulateEnrollmentReviewResponse {
    * (Deprecated. Use verification_application.status_reasons) Reason for the
    * evaluation status.
    */
-  status_reasons?: Array<
-    | 'ADDRESS_VERIFICATION_FAILURE'
-    | 'AGE_THRESHOLD_FAILURE'
-    | 'COMPLETE_VERIFICATION_FAILURE'
-    | 'DOB_VERIFICATION_FAILURE'
-    | 'ID_VERIFICATION_FAILURE'
-    | 'MAX_DOCUMENT_ATTEMPTS'
-    | 'MAX_RESUBMISSION_ATTEMPTS'
-    | 'NAME_VERIFICATION_FAILURE'
-    | 'OTHER_VERIFICATION_FAILURE'
-    | 'RISK_THRESHOLD_FAILURE'
-    | 'WATCHLIST_ALERT_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_ID_VERIFICATION_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_NAME_VERIFICATION_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_BUSINESS_OFFICERS_NOT_MATCHED'
-    | 'PRIMARY_BUSINESS_ENTITY_SOS_FILING_INACTIVE'
-    | 'PRIMARY_BUSINESS_ENTITY_SOS_NOT_MATCHED'
-    | 'PRIMARY_BUSINESS_ENTITY_CMRA_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_WATCHLIST_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_REGISTERED_AGENT_FAILURE'
-    | 'CONTROL_PERSON_BLOCKLIST_ALERT_FAILURE'
-    | 'CONTROL_PERSON_ID_VERIFICATION_FAILURE'
-    | 'CONTROL_PERSON_DOB_VERIFICATION_FAILURE'
-    | 'CONTROL_PERSON_NAME_VERIFICATION_FAILURE'
-  >;
+  status_reasons?: Array<'ADDRESS_VERIFICATION_FAILURE' | 'AGE_THRESHOLD_FAILURE' | 'COMPLETE_VERIFICATION_FAILURE' | 'DOB_VERIFICATION_FAILURE' | 'ID_VERIFICATION_FAILURE' | 'MAX_DOCUMENT_ATTEMPTS' | 'MAX_RESUBMISSION_ATTEMPTS' | 'NAME_VERIFICATION_FAILURE' | 'OTHER_VERIFICATION_FAILURE' | 'RISK_THRESHOLD_FAILURE' | 'WATCHLIST_ALERT_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_ID_VERIFICATION_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_NAME_VERIFICATION_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_BUSINESS_OFFICERS_NOT_MATCHED' | 'PRIMARY_BUSINESS_ENTITY_SOS_FILING_INACTIVE' | 'PRIMARY_BUSINESS_ENTITY_SOS_NOT_MATCHED' | 'PRIMARY_BUSINESS_ENTITY_CMRA_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_WATCHLIST_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_REGISTERED_AGENT_FAILURE' | 'CONTROL_PERSON_BLOCKLIST_ALERT_FAILURE' | 'CONTROL_PERSON_ID_VERIFICATION_FAILURE' | 'CONTROL_PERSON_DOB_VERIFICATION_FAILURE' | 'CONTROL_PERSON_NAME_VERIFICATION_FAILURE'>;
 
   /**
    * The type of Account Holder. If the type is "INDIVIDUAL", the "individual"
@@ -2205,32 +2042,7 @@ export namespace AccountHolderSimulateEnrollmentReviewResponse {
     /**
      * Reason for the evaluation status.
      */
-    status_reasons: Array<
-      | 'ADDRESS_VERIFICATION_FAILURE'
-      | 'AGE_THRESHOLD_FAILURE'
-      | 'COMPLETE_VERIFICATION_FAILURE'
-      | 'DOB_VERIFICATION_FAILURE'
-      | 'ID_VERIFICATION_FAILURE'
-      | 'MAX_DOCUMENT_ATTEMPTS'
-      | 'MAX_RESUBMISSION_ATTEMPTS'
-      | 'NAME_VERIFICATION_FAILURE'
-      | 'OTHER_VERIFICATION_FAILURE'
-      | 'RISK_THRESHOLD_FAILURE'
-      | 'WATCHLIST_ALERT_FAILURE'
-      | 'PRIMARY_BUSINESS_ENTITY_ID_VERIFICATION_FAILURE'
-      | 'PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE'
-      | 'PRIMARY_BUSINESS_ENTITY_NAME_VERIFICATION_FAILURE'
-      | 'PRIMARY_BUSINESS_ENTITY_BUSINESS_OFFICERS_NOT_MATCHED'
-      | 'PRIMARY_BUSINESS_ENTITY_SOS_FILING_INACTIVE'
-      | 'PRIMARY_BUSINESS_ENTITY_SOS_NOT_MATCHED'
-      | 'PRIMARY_BUSINESS_ENTITY_CMRA_FAILURE'
-      | 'PRIMARY_BUSINESS_ENTITY_WATCHLIST_FAILURE'
-      | 'PRIMARY_BUSINESS_ENTITY_REGISTERED_AGENT_FAILURE'
-      | 'CONTROL_PERSON_BLOCKLIST_ALERT_FAILURE'
-      | 'CONTROL_PERSON_ID_VERIFICATION_FAILURE'
-      | 'CONTROL_PERSON_DOB_VERIFICATION_FAILURE'
-      | 'CONTROL_PERSON_NAME_VERIFICATION_FAILURE'
-    >;
+    status_reasons: Array<'ADDRESS_VERIFICATION_FAILURE' | 'AGE_THRESHOLD_FAILURE' | 'COMPLETE_VERIFICATION_FAILURE' | 'DOB_VERIFICATION_FAILURE' | 'ID_VERIFICATION_FAILURE' | 'MAX_DOCUMENT_ATTEMPTS' | 'MAX_RESUBMISSION_ATTEMPTS' | 'NAME_VERIFICATION_FAILURE' | 'OTHER_VERIFICATION_FAILURE' | 'RISK_THRESHOLD_FAILURE' | 'WATCHLIST_ALERT_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_ID_VERIFICATION_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_NAME_VERIFICATION_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_BUSINESS_OFFICERS_NOT_MATCHED' | 'PRIMARY_BUSINESS_ENTITY_SOS_FILING_INACTIVE' | 'PRIMARY_BUSINESS_ENTITY_SOS_NOT_MATCHED' | 'PRIMARY_BUSINESS_ENTITY_CMRA_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_WATCHLIST_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_REGISTERED_AGENT_FAILURE' | 'CONTROL_PERSON_BLOCKLIST_ALERT_FAILURE' | 'CONTROL_PERSON_ID_VERIFICATION_FAILURE' | 'CONTROL_PERSON_DOB_VERIFICATION_FAILURE' | 'CONTROL_PERSON_NAME_VERIFICATION_FAILURE'>;
 
     /**
      * Timestamp of when the application was last updated.
@@ -2245,11 +2057,7 @@ export namespace AccountHolderSimulateEnrollmentReviewResponse {
   }
 }
 
-export type AccountHolderCreateParams =
-  | AccountHolderCreateParams.KYB
-  | AccountHolderCreateParams.KYBDelegated
-  | AccountHolderCreateParams.KYC
-  | AccountHolderCreateParams.KYCExempt;
+export type AccountHolderCreateParams = AccountHolderCreateParams.KYB | AccountHolderCreateParams.KYBDelegated | AccountHolderCreateParams.KYC | AccountHolderCreateParams.KYCExempt
 
 export declare namespace AccountHolderCreateParams {
   export interface KYB {
@@ -2805,10 +2613,7 @@ export declare namespace AccountHolderCreateParams {
   }
 }
 
-export type AccountHolderUpdateParams =
-  | AccountHolderUpdateParams.KYBPatchRequest
-  | AccountHolderUpdateParams.KYCPatchRequest
-  | AccountHolderUpdateParams.PatchRequest;
+export type AccountHolderUpdateParams = AccountHolderUpdateParams.KYBPatchRequest | AccountHolderUpdateParams.KYCPatchRequest | AccountHolderUpdateParams.PatchRequest
 
 export declare namespace AccountHolderUpdateParams {
   export interface KYBPatchRequest {
@@ -3222,18 +3027,7 @@ export interface AccountHolderSimulateEnrollmentDocumentReviewParams {
    * Status reason that will be associated with the simulated account holder status.
    * Only required for a `REJECTED` status or `PARTIAL_APPROVAL` status.
    */
-  status_reason?:
-    | 'DOCUMENT_MISSING_REQUIRED_DATA'
-    | 'DOCUMENT_UPLOAD_TOO_BLURRY'
-    | 'FILE_SIZE_TOO_LARGE'
-    | 'INVALID_DOCUMENT_TYPE'
-    | 'INVALID_DOCUMENT_UPLOAD'
-    | 'INVALID_ENTITY'
-    | 'DOCUMENT_EXPIRED'
-    | 'DOCUMENT_ISSUED_GREATER_THAN_30_DAYS'
-    | 'DOCUMENT_TYPE_NOT_SUPPORTED'
-    | 'UNKNOWN_FAILURE_REASON'
-    | 'UNKNOWN_ERROR';
+  status_reason?: 'DOCUMENT_MISSING_REQUIRED_DATA' | 'DOCUMENT_UPLOAD_TOO_BLURRY' | 'FILE_SIZE_TOO_LARGE' | 'INVALID_DOCUMENT_TYPE' | 'INVALID_DOCUMENT_UPLOAD' | 'INVALID_ENTITY' | 'DOCUMENT_EXPIRED' | 'DOCUMENT_ISSUED_GREATER_THAN_30_DAYS' | 'DOCUMENT_TYPE_NOT_SUPPORTED' | 'UNKNOWN_FAILURE_REASON' | 'UNKNOWN_ERROR';
 }
 
 export interface AccountHolderSimulateEnrollmentReviewParams {
@@ -3251,51 +3045,14 @@ export interface AccountHolderSimulateEnrollmentReviewParams {
    * Status reason that will be associated with the simulated account holder status.
    * Only required for a `REJECTED` status.
    */
-  status_reasons?: Array<
-    | 'PRIMARY_BUSINESS_ENTITY_ID_VERIFICATION_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_NAME_VERIFICATION_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_BUSINESS_OFFICERS_NOT_MATCHED'
-    | 'PRIMARY_BUSINESS_ENTITY_SOS_FILING_INACTIVE'
-    | 'PRIMARY_BUSINESS_ENTITY_SOS_NOT_MATCHED'
-    | 'PRIMARY_BUSINESS_ENTITY_CMRA_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_WATCHLIST_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_REGISTERED_AGENT_FAILURE'
-    | 'CONTROL_PERSON_BLOCKLIST_ALERT_FAILURE'
-    | 'CONTROL_PERSON_ID_VERIFICATION_FAILURE'
-    | 'CONTROL_PERSON_DOB_VERIFICATION_FAILURE'
-    | 'CONTROL_PERSON_NAME_VERIFICATION_FAILURE'
-    | 'BENEFICIAL_OWNER_INDIVIDUAL_DOB_VERIFICATION_FAILURE'
-    | 'BENEFICIAL_OWNER_INDIVIDUAL_BLOCKLIST_ALERT_FAILURE'
-    | 'BENEFICIAL_OWNER_INDIVIDUAL_ID_VERIFICATION_FAILURE'
-    | 'BENEFICIAL_OWNER_INDIVIDUAL_NAME_VERIFICATION_FAILURE'
-  >;
+  status_reasons?: Array<'PRIMARY_BUSINESS_ENTITY_ID_VERIFICATION_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_NAME_VERIFICATION_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_BUSINESS_OFFICERS_NOT_MATCHED' | 'PRIMARY_BUSINESS_ENTITY_SOS_FILING_INACTIVE' | 'PRIMARY_BUSINESS_ENTITY_SOS_NOT_MATCHED' | 'PRIMARY_BUSINESS_ENTITY_CMRA_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_WATCHLIST_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_REGISTERED_AGENT_FAILURE' | 'CONTROL_PERSON_BLOCKLIST_ALERT_FAILURE' | 'CONTROL_PERSON_ID_VERIFICATION_FAILURE' | 'CONTROL_PERSON_DOB_VERIFICATION_FAILURE' | 'CONTROL_PERSON_NAME_VERIFICATION_FAILURE' | 'BENEFICIAL_OWNER_INDIVIDUAL_DOB_VERIFICATION_FAILURE' | 'BENEFICIAL_OWNER_INDIVIDUAL_BLOCKLIST_ALERT_FAILURE' | 'BENEFICIAL_OWNER_INDIVIDUAL_ID_VERIFICATION_FAILURE' | 'BENEFICIAL_OWNER_INDIVIDUAL_NAME_VERIFICATION_FAILURE'>;
 }
 
 export interface AccountHolderUploadDocumentParams {
   /**
    * The type of document to upload
    */
-  document_type:
-    | 'EIN_LETTER'
-    | 'TAX_RETURN'
-    | 'OPERATING_AGREEMENT'
-    | 'CERTIFICATE_OF_FORMATION'
-    | 'DRIVERS_LICENSE'
-    | 'PASSPORT'
-    | 'PASSPORT_CARD'
-    | 'CERTIFICATE_OF_GOOD_STANDING'
-    | 'ARTICLES_OF_INCORPORATION'
-    | 'ARTICLES_OF_ORGANIZATION'
-    | 'BYLAWS'
-    | 'GOVERNMENT_BUSINESS_LICENSE'
-    | 'PARTNERSHIP_AGREEMENT'
-    | 'SS4_FORM'
-    | 'BANK_STATEMENT'
-    | 'UTILITY_BILL_STATEMENT'
-    | 'SSN_CARD'
-    | 'ITIN_LETTER'
-    | 'FINCEN_BOI_REPORT';
+  document_type: 'EIN_LETTER' | 'TAX_RETURN' | 'OPERATING_AGREEMENT' | 'CERTIFICATE_OF_FORMATION' | 'DRIVERS_LICENSE' | 'PASSPORT' | 'PASSPORT_CARD' | 'CERTIFICATE_OF_GOOD_STANDING' | 'ARTICLES_OF_INCORPORATION' | 'ARTICLES_OF_ORGANIZATION' | 'BYLAWS' | 'GOVERNMENT_BUSINESS_LICENSE' | 'PARTNERSHIP_AGREEMENT' | 'SS4_FORM' | 'BANK_STATEMENT' | 'UTILITY_BILL_STATEMENT' | 'SSN_CARD' | 'ITIN_LETTER' | 'FINCEN_BOI_REPORT';
 
   /**
    * Globally unique identifier for the entity.
@@ -3325,7 +3082,7 @@ export declare namespace AccountHolders {
     type AccountHolderRetrieveDocumentParams as AccountHolderRetrieveDocumentParams,
     type AccountHolderSimulateEnrollmentDocumentReviewParams as AccountHolderSimulateEnrollmentDocumentReviewParams,
     type AccountHolderSimulateEnrollmentReviewParams as AccountHolderSimulateEnrollmentReviewParams,
-    type AccountHolderUploadDocumentParams as AccountHolderUploadDocumentParams,
+    type AccountHolderUploadDocumentParams as AccountHolderUploadDocumentParams
   };
 
   export {
@@ -3333,6 +3090,6 @@ export declare namespace AccountHolders {
     type AccountHolderEntity as AccountHolderEntity,
     type EntityCreateResponse as EntityCreateResponse,
     type EntityCreateParams as EntityCreateParams,
-    type EntityDeleteParams as EntityDeleteParams,
+    type EntityDeleteParams as EntityDeleteParams
   };
 }

@@ -19,5 +19,7 @@ export interface ExtendedCredit {
 }
 
 export declare namespace ExtendedCreditResource {
-  export { type ExtendedCredit as ExtendedCredit };
+  export {
+    type ExtendedCredit as ExtendedCredit
+  };
 }

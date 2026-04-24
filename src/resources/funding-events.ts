@@ -17,25 +17,19 @@ export class FundingEvents extends APIResource {
   /**
    * Get all funding events for program
    */
-  list(
-    query: FundingEventListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<FundingEventsCursorPage, FundingEvent> {
+  list(query: FundingEventListParams | null | undefined = {}, options?: RequestOptions): PagePromise<FundingEventsCursorPage, FundingEvent> {
     return this._client.getAPIList('/v1/funding_events', CursorPage<FundingEvent>, { query, ...options });
   }
 
   /**
    * Get funding event details by id
    */
-  retrieveDetails(
-    fundingEventToken: string,
-    options?: RequestOptions,
-  ): APIPromise<FundingEventRetrieveDetailsResponse> {
+  retrieveDetails(fundingEventToken: string, options?: RequestOptions): APIPromise<FundingEventRetrieveDetailsResponse> {
     return this._client.get(path`/v1/funding_events/${fundingEventToken}/details`, options);
   }
 }
 
-export type FundingEventsCursorPage = CursorPage<FundingEvent>;
+export type FundingEventsCursorPage = CursorPage<FundingEvent>
 
 export interface FundingEvent {
   /**
@@ -105,13 +99,14 @@ export interface FundingEventRetrieveDetailsResponse {
   settlement_summary_url: string;
 }
 
-export interface FundingEventListParams extends CursorPageParams {}
+export interface FundingEventListParams extends CursorPageParams {
+}
 
 export declare namespace FundingEvents {
   export {
     type FundingEvent as FundingEvent,
     type FundingEventRetrieveDetailsResponse as FundingEventRetrieveDetailsResponse,
     type FundingEventsCursorPage as FundingEventsCursorPage,
-    type FundingEventListParams as FundingEventListParams,
+    type FundingEventListParams as FundingEventListParams
   };
 }

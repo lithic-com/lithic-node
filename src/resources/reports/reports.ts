@@ -9,9 +9,9 @@ export class Reports extends APIResource {
   settlement: SettlementAPI.Settlement = new SettlementAPI.Settlement(this._client);
 }
 
-export type SettlementDetailsCursorPage = CursorPage<SettlementDetail>;
+export type SettlementDetailsCursorPage = CursorPage<SettlementDetail>
 
-export type NetworkTotalsCursorPage = CursorPage<NetworkTotal>;
+export type NetworkTotalsCursorPage = CursorPage<NetworkTotal>
 
 export interface NetworkTotal {
   /**
@@ -204,17 +204,7 @@ export interface SettlementDetail {
   /**
    * The type of settlement record.
    */
-  type:
-    | 'ADJUSTMENT'
-    | 'ARBITRATION'
-    | 'CHARGEBACK'
-    | 'CLEARING'
-    | 'COLLABORATION'
-    | 'FEE'
-    | 'FINANCIAL'
-    | 'NON-FINANCIAL'
-    | 'PREARBITRATION'
-    | 'REPRESENTMENT';
+  type: 'ADJUSTMENT' | 'ARBITRATION' | 'CHARGEBACK' | 'CLEARING' | 'COLLABORATION' | 'FEE' | 'FINANCIAL' | 'NON-FINANCIAL' | 'PREARBITRATION' | 'REPRESENTMENT';
 
   /**
    * Date and time when the transaction first occurred. UTC time zone.
@@ -359,8 +349,11 @@ export declare namespace Reports {
     type NetworkTotal as NetworkTotal,
     type SettlementDetail as SettlementDetail,
     type SettlementReport as SettlementReport,
-    type SettlementSummaryDetails as SettlementSummaryDetails,
+    type SettlementSummaryDetails as SettlementSummaryDetails
   };
 
-  export { Settlement as Settlement, type SettlementListDetailsParams as SettlementListDetailsParams };
+  export {
+    Settlement as Settlement,
+    type SettlementListDetailsParams as SettlementListDetailsParams
+  };
 }

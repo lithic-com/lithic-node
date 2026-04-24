@@ -19,35 +19,22 @@ export class Subscriptions extends APIResource {
   /**
    * Get an event subscription.
    */
-  retrieve(
-    eventSubscriptionToken: string,
-    options?: RequestOptions,
-  ): APIPromise<EventsAPI.EventSubscription> {
+  retrieve(eventSubscriptionToken: string, options?: RequestOptions): APIPromise<EventsAPI.EventSubscription> {
     return this._client.get(path`/v1/event_subscriptions/${eventSubscriptionToken}`, options);
   }
 
   /**
    * Update an event subscription.
    */
-  update(
-    eventSubscriptionToken: string,
-    body: SubscriptionUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<EventsAPI.EventSubscription> {
+  update(eventSubscriptionToken: string, body: SubscriptionUpdateParams, options?: RequestOptions): APIPromise<EventsAPI.EventSubscription> {
     return this._client.patch(path`/v1/event_subscriptions/${eventSubscriptionToken}`, { body, ...options });
   }
 
   /**
    * List all the event subscriptions.
    */
-  list(
-    query: SubscriptionListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<EventSubscriptionsCursorPage, EventsAPI.EventSubscription> {
-    return this._client.getAPIList('/v1/event_subscriptions', CursorPage<EventsAPI.EventSubscription>, {
-      query,
-      ...options,
-    });
+  list(query: SubscriptionListParams | null | undefined = {}, options?: RequestOptions): PagePromise<EventSubscriptionsCursorPage, EventsAPI.EventSubscription> {
+    return this._client.getAPIList('/v1/event_subscriptions', CursorPage<EventsAPI.EventSubscription>, { query, ...options });
   }
 
   /**
@@ -60,31 +47,16 @@ export class Subscriptions extends APIResource {
   /**
    * List all the message attempts for a given event subscription.
    */
-  listAttempts(
-    eventSubscriptionToken: string,
-    query: SubscriptionListAttemptsParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<MessageAttemptsCursorPage, EventsAPI.MessageAttempt> {
-    return this._client.getAPIList(
-      path`/v1/event_subscriptions/${eventSubscriptionToken}/attempts`,
-      CursorPage<EventsAPI.MessageAttempt>,
-      { query, ...options },
-    );
+  listAttempts(eventSubscriptionToken: string, query: SubscriptionListAttemptsParams | null | undefined = {}, options?: RequestOptions): PagePromise<MessageAttemptsCursorPage, EventsAPI.MessageAttempt> {
+    return this._client.getAPIList(path`/v1/event_subscriptions/${eventSubscriptionToken}/attempts`, CursorPage<EventsAPI.MessageAttempt>, { query, ...options });
   }
 
   /**
    * Resend all failed messages since a given time.
    */
-  recover(
-    eventSubscriptionToken: string,
-    params: SubscriptionRecoverParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<void> {
-    const { begin, end } = params ?? {};
-    return this._client.post(path`/v1/event_subscriptions/${eventSubscriptionToken}/recover`, {
-      query: { begin, end },
-      ...options,
-    });
+  recover(eventSubscriptionToken: string, params: SubscriptionRecoverParams | null | undefined = {}, options?: RequestOptions): APIPromise<void> {
+    const { begin, end } = params ?? {}
+    return this._client.post(path`/v1/event_subscriptions/${eventSubscriptionToken}/recover`, { query: { begin, end }, ...options });
   }
 
   /**
@@ -94,25 +66,15 @@ export class Subscriptions extends APIResource {
    * [Retry Schedule](https://docs.lithic.com/docs/events-api#retry-schedule) for
    * details.
    */
-  replayMissing(
-    eventSubscriptionToken: string,
-    params: SubscriptionReplayMissingParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<void> {
-    const { begin, end } = params ?? {};
-    return this._client.post(path`/v1/event_subscriptions/${eventSubscriptionToken}/replay_missing`, {
-      query: { begin, end },
-      ...options,
-    });
+  replayMissing(eventSubscriptionToken: string, params: SubscriptionReplayMissingParams | null | undefined = {}, options?: RequestOptions): APIPromise<void> {
+    const { begin, end } = params ?? {}
+    return this._client.post(path`/v1/event_subscriptions/${eventSubscriptionToken}/replay_missing`, { query: { begin, end }, ...options });
   }
 
   /**
    * Get the secret for an event subscription.
    */
-  retrieveSecret(
-    eventSubscriptionToken: string,
-    options?: RequestOptions,
-  ): APIPromise<SubscriptionRetrieveSecretResponse> {
+  retrieveSecret(eventSubscriptionToken: string, options?: RequestOptions): APIPromise<SubscriptionRetrieveSecretResponse> {
     return this._client.get(path`/v1/event_subscriptions/${eventSubscriptionToken}/secret`, options);
   }
 
@@ -127,15 +89,8 @@ export class Subscriptions extends APIResource {
   /**
    * Send an example message for event.
    */
-  sendSimulatedExample(
-    eventSubscriptionToken: string,
-    body: SubscriptionSendSimulatedExampleParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<void> {
-    return this._client.post(path`/v1/simulate/event_subscriptions/${eventSubscriptionToken}/send_example`, {
-      body,
-      ...options,
-    });
+  sendSimulatedExample(eventSubscriptionToken: string, body: SubscriptionSendSimulatedExampleParams | null | undefined = {}, options?: RequestOptions): APIPromise<void> {
+    return this._client.post(path`/v1/simulate/event_subscriptions/${eventSubscriptionToken}/send_example`, { body, ...options });
   }
 }
 
@@ -166,61 +121,7 @@ export interface SubscriptionCreateParams {
    * Indicates types of events that will be sent to this subscription. If left blank,
    * all types will be sent.
    */
-  event_types?: Array<
-    | 'account_holder_document.updated'
-    | 'account_holder.created'
-    | 'account_holder.updated'
-    | 'account_holder.verification'
-    | 'auth_rules.backtest_report.created'
-    | 'balance.updated'
-    | 'book_transfer_transaction.created'
-    | 'book_transfer_transaction.updated'
-    | 'card_authorization.challenge_response'
-    | 'card_transaction.enhanced_data.created'
-    | 'card_transaction.enhanced_data.updated'
-    | 'card_transaction.updated'
-    | 'card.converted'
-    | 'card.created'
-    | 'card.reissued'
-    | 'card.renewed'
-    | 'card.shipped'
-    | 'card.updated'
-    | 'digital_wallet.tokenization_result'
-    | 'digital_wallet.tokenization_two_factor_authentication_code'
-    | 'digital_wallet.tokenization_two_factor_authentication_code_sent'
-    | 'digital_wallet.tokenization_updated'
-    | 'dispute_evidence.upload_failed'
-    | 'dispute_transaction.created'
-    | 'dispute_transaction.updated'
-    | 'dispute.updated'
-    | 'external_bank_account.created'
-    | 'external_bank_account.updated'
-    | 'external_payment.created'
-    | 'external_payment.updated'
-    | 'financial_account.created'
-    | 'financial_account.updated'
-    | 'funding_event.created'
-    | 'internal_transaction.created'
-    | 'internal_transaction.updated'
-    | 'loan_tape.created'
-    | 'loan_tape.updated'
-    | 'management_operation.created'
-    | 'management_operation.updated'
-    | 'network_total.created'
-    | 'network_total.updated'
-    | 'payment_transaction.created'
-    | 'payment_transaction.updated'
-    | 'settlement_report.updated'
-    | 'statements.created'
-    | 'three_ds_authentication.challenge'
-    | 'three_ds_authentication.created'
-    | 'three_ds_authentication.updated'
-    | 'tokenization.approval_request'
-    | 'tokenization.result'
-    | 'tokenization.two_factor_authentication_code'
-    | 'tokenization.two_factor_authentication_code_sent'
-    | 'tokenization.updated'
-  >;
+  event_types?: Array<'account_holder_document.updated' | 'account_holder.created' | 'account_holder.updated' | 'account_holder.verification' | 'auth_rules.backtest_report.created' | 'balance.updated' | 'book_transfer_transaction.created' | 'book_transfer_transaction.updated' | 'card_authorization.challenge_response' | 'card_transaction.enhanced_data.created' | 'card_transaction.enhanced_data.updated' | 'card_transaction.updated' | 'card.converted' | 'card.created' | 'card.reissued' | 'card.renewed' | 'card.shipped' | 'card.updated' | 'digital_wallet.tokenization_result' | 'digital_wallet.tokenization_two_factor_authentication_code' | 'digital_wallet.tokenization_two_factor_authentication_code_sent' | 'digital_wallet.tokenization_updated' | 'dispute_evidence.upload_failed' | 'dispute_transaction.created' | 'dispute_transaction.updated' | 'dispute.updated' | 'external_bank_account.created' | 'external_bank_account.updated' | 'external_payment.created' | 'external_payment.updated' | 'financial_account.created' | 'financial_account.updated' | 'funding_event.created' | 'internal_transaction.created' | 'internal_transaction.updated' | 'loan_tape.created' | 'loan_tape.updated' | 'management_operation.created' | 'management_operation.updated' | 'network_total.created' | 'network_total.updated' | 'payment_transaction.created' | 'payment_transaction.updated' | 'settlement_report.updated' | 'statements.created' | 'three_ds_authentication.challenge' | 'three_ds_authentication.created' | 'three_ds_authentication.updated' | 'tokenization.approval_request' | 'tokenization.result' | 'tokenization.two_factor_authentication_code' | 'tokenization.two_factor_authentication_code_sent' | 'tokenization.updated'>;
 }
 
 export interface SubscriptionUpdateParams {
@@ -243,64 +144,11 @@ export interface SubscriptionUpdateParams {
    * Indicates types of events that will be sent to this subscription. If left blank,
    * all types will be sent.
    */
-  event_types?: Array<
-    | 'account_holder_document.updated'
-    | 'account_holder.created'
-    | 'account_holder.updated'
-    | 'account_holder.verification'
-    | 'auth_rules.backtest_report.created'
-    | 'balance.updated'
-    | 'book_transfer_transaction.created'
-    | 'book_transfer_transaction.updated'
-    | 'card_authorization.challenge_response'
-    | 'card_transaction.enhanced_data.created'
-    | 'card_transaction.enhanced_data.updated'
-    | 'card_transaction.updated'
-    | 'card.converted'
-    | 'card.created'
-    | 'card.reissued'
-    | 'card.renewed'
-    | 'card.shipped'
-    | 'card.updated'
-    | 'digital_wallet.tokenization_result'
-    | 'digital_wallet.tokenization_two_factor_authentication_code'
-    | 'digital_wallet.tokenization_two_factor_authentication_code_sent'
-    | 'digital_wallet.tokenization_updated'
-    | 'dispute_evidence.upload_failed'
-    | 'dispute_transaction.created'
-    | 'dispute_transaction.updated'
-    | 'dispute.updated'
-    | 'external_bank_account.created'
-    | 'external_bank_account.updated'
-    | 'external_payment.created'
-    | 'external_payment.updated'
-    | 'financial_account.created'
-    | 'financial_account.updated'
-    | 'funding_event.created'
-    | 'internal_transaction.created'
-    | 'internal_transaction.updated'
-    | 'loan_tape.created'
-    | 'loan_tape.updated'
-    | 'management_operation.created'
-    | 'management_operation.updated'
-    | 'network_total.created'
-    | 'network_total.updated'
-    | 'payment_transaction.created'
-    | 'payment_transaction.updated'
-    | 'settlement_report.updated'
-    | 'statements.created'
-    | 'three_ds_authentication.challenge'
-    | 'three_ds_authentication.created'
-    | 'three_ds_authentication.updated'
-    | 'tokenization.approval_request'
-    | 'tokenization.result'
-    | 'tokenization.two_factor_authentication_code'
-    | 'tokenization.two_factor_authentication_code_sent'
-    | 'tokenization.updated'
-  >;
+  event_types?: Array<'account_holder_document.updated' | 'account_holder.created' | 'account_holder.updated' | 'account_holder.verification' | 'auth_rules.backtest_report.created' | 'balance.updated' | 'book_transfer_transaction.created' | 'book_transfer_transaction.updated' | 'card_authorization.challenge_response' | 'card_transaction.enhanced_data.created' | 'card_transaction.enhanced_data.updated' | 'card_transaction.updated' | 'card.converted' | 'card.created' | 'card.reissued' | 'card.renewed' | 'card.shipped' | 'card.updated' | 'digital_wallet.tokenization_result' | 'digital_wallet.tokenization_two_factor_authentication_code' | 'digital_wallet.tokenization_two_factor_authentication_code_sent' | 'digital_wallet.tokenization_updated' | 'dispute_evidence.upload_failed' | 'dispute_transaction.created' | 'dispute_transaction.updated' | 'dispute.updated' | 'external_bank_account.created' | 'external_bank_account.updated' | 'external_payment.created' | 'external_payment.updated' | 'financial_account.created' | 'financial_account.updated' | 'funding_event.created' | 'internal_transaction.created' | 'internal_transaction.updated' | 'loan_tape.created' | 'loan_tape.updated' | 'management_operation.created' | 'management_operation.updated' | 'network_total.created' | 'network_total.updated' | 'payment_transaction.created' | 'payment_transaction.updated' | 'settlement_report.updated' | 'statements.created' | 'three_ds_authentication.challenge' | 'three_ds_authentication.created' | 'three_ds_authentication.updated' | 'tokenization.approval_request' | 'tokenization.result' | 'tokenization.two_factor_authentication_code' | 'tokenization.two_factor_authentication_code_sent' | 'tokenization.updated'>;
 }
 
-export interface SubscriptionListParams extends CursorPageParams {}
+export interface SubscriptionListParams extends CursorPageParams {
+}
 
 export interface SubscriptionListAttemptsParams extends CursorPageParams {
   /**
@@ -350,60 +198,7 @@ export interface SubscriptionSendSimulatedExampleParams {
   /**
    * Event type to send example message for.
    */
-  event_type?:
-    | 'account_holder_document.updated'
-    | 'account_holder.created'
-    | 'account_holder.updated'
-    | 'account_holder.verification'
-    | 'auth_rules.backtest_report.created'
-    | 'balance.updated'
-    | 'book_transfer_transaction.created'
-    | 'book_transfer_transaction.updated'
-    | 'card_authorization.challenge_response'
-    | 'card_transaction.enhanced_data.created'
-    | 'card_transaction.enhanced_data.updated'
-    | 'card_transaction.updated'
-    | 'card.converted'
-    | 'card.created'
-    | 'card.reissued'
-    | 'card.renewed'
-    | 'card.shipped'
-    | 'card.updated'
-    | 'digital_wallet.tokenization_result'
-    | 'digital_wallet.tokenization_two_factor_authentication_code'
-    | 'digital_wallet.tokenization_two_factor_authentication_code_sent'
-    | 'digital_wallet.tokenization_updated'
-    | 'dispute_evidence.upload_failed'
-    | 'dispute_transaction.created'
-    | 'dispute_transaction.updated'
-    | 'dispute.updated'
-    | 'external_bank_account.created'
-    | 'external_bank_account.updated'
-    | 'external_payment.created'
-    | 'external_payment.updated'
-    | 'financial_account.created'
-    | 'financial_account.updated'
-    | 'funding_event.created'
-    | 'internal_transaction.created'
-    | 'internal_transaction.updated'
-    | 'loan_tape.created'
-    | 'loan_tape.updated'
-    | 'management_operation.created'
-    | 'management_operation.updated'
-    | 'network_total.created'
-    | 'network_total.updated'
-    | 'payment_transaction.created'
-    | 'payment_transaction.updated'
-    | 'settlement_report.updated'
-    | 'statements.created'
-    | 'three_ds_authentication.challenge'
-    | 'three_ds_authentication.created'
-    | 'three_ds_authentication.updated'
-    | 'tokenization.approval_request'
-    | 'tokenization.result'
-    | 'tokenization.two_factor_authentication_code'
-    | 'tokenization.two_factor_authentication_code_sent'
-    | 'tokenization.updated';
+  event_type?: 'account_holder_document.updated' | 'account_holder.created' | 'account_holder.updated' | 'account_holder.verification' | 'auth_rules.backtest_report.created' | 'balance.updated' | 'book_transfer_transaction.created' | 'book_transfer_transaction.updated' | 'card_authorization.challenge_response' | 'card_transaction.enhanced_data.created' | 'card_transaction.enhanced_data.updated' | 'card_transaction.updated' | 'card.converted' | 'card.created' | 'card.reissued' | 'card.renewed' | 'card.shipped' | 'card.updated' | 'digital_wallet.tokenization_result' | 'digital_wallet.tokenization_two_factor_authentication_code' | 'digital_wallet.tokenization_two_factor_authentication_code_sent' | 'digital_wallet.tokenization_updated' | 'dispute_evidence.upload_failed' | 'dispute_transaction.created' | 'dispute_transaction.updated' | 'dispute.updated' | 'external_bank_account.created' | 'external_bank_account.updated' | 'external_payment.created' | 'external_payment.updated' | 'financial_account.created' | 'financial_account.updated' | 'funding_event.created' | 'internal_transaction.created' | 'internal_transaction.updated' | 'loan_tape.created' | 'loan_tape.updated' | 'management_operation.created' | 'management_operation.updated' | 'network_total.created' | 'network_total.updated' | 'payment_transaction.created' | 'payment_transaction.updated' | 'settlement_report.updated' | 'statements.created' | 'three_ds_authentication.challenge' | 'three_ds_authentication.created' | 'three_ds_authentication.updated' | 'tokenization.approval_request' | 'tokenization.result' | 'tokenization.two_factor_authentication_code' | 'tokenization.two_factor_authentication_code_sent' | 'tokenization.updated';
 }
 
 export declare namespace Subscriptions {
@@ -415,8 +210,8 @@ export declare namespace Subscriptions {
     type SubscriptionListAttemptsParams as SubscriptionListAttemptsParams,
     type SubscriptionRecoverParams as SubscriptionRecoverParams,
     type SubscriptionReplayMissingParams as SubscriptionReplayMissingParams,
-    type SubscriptionSendSimulatedExampleParams as SubscriptionSendSimulatedExampleParams,
+    type SubscriptionSendSimulatedExampleParams as SubscriptionSendSimulatedExampleParams
   };
 }
 
-export { type EventSubscriptionsCursorPage, type MessageAttemptsCursorPage };
+export { type EventSubscriptionsCursorPage, type MessageAttemptsCursorPage }

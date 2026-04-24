@@ -17,28 +17,19 @@ export class AccountActivity extends APIResource {
   /**
    * Retrieve a list of transactions across all public accounts.
    */
-  list(
-    query: AccountActivityListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<AccountActivityListResponsesCursorPage, AccountActivityListResponse> {
-    return this._client.getAPIList('/v1/account_activity', CursorPage<AccountActivityListResponse>, {
-      query,
-      ...options,
-    });
+  list(query: AccountActivityListParams | null | undefined = {}, options?: RequestOptions): PagePromise<AccountActivityListResponsesCursorPage, AccountActivityListResponse> {
+    return this._client.getAPIList('/v1/account_activity', CursorPage<AccountActivityListResponse>, { query, ...options });
   }
 
   /**
    * Retrieve a single transaction
    */
-  retrieveTransaction(
-    transactionToken: string,
-    options?: RequestOptions,
-  ): APIPromise<AccountActivityRetrieveTransactionResponse> {
+  retrieveTransaction(transactionToken: string, options?: RequestOptions): APIPromise<AccountActivityRetrieveTransactionResponse> {
     return this._client.get(path`/v1/account_activity/${transactionToken}`, options);
   }
 }
 
-export type AccountActivityListResponsesCursorPage = CursorPage<AccountActivityListResponse>;
+export type AccountActivityListResponsesCursorPage = CursorPage<AccountActivityListResponse>
 
 export interface WirePartyDetails {
   /**
@@ -70,14 +61,7 @@ export interface WirePartyDetails {
  * MANAGEMENT_OPERATION returns ManagementOperationTransaction, and HOLD returns
  * HoldTransaction
  */
-export type AccountActivityListResponse =
-  | AccountActivityListResponse.FinancialTransaction
-  | BookTransfersAPI.BookTransferResponse
-  | AccountActivityListResponse.CardTransaction
-  | PaymentsAPI.Payment
-  | ExternalPaymentsAPI.ExternalPayment
-  | ManagementOperationsAPI.ManagementOperationTransaction
-  | HoldsAPI.Hold;
+export type AccountActivityListResponse = AccountActivityListResponse.FinancialTransaction | BookTransfersAPI.BookTransferResponse | AccountActivityListResponse.CardTransaction | PaymentsAPI.Payment | ExternalPaymentsAPI.ExternalPayment | ManagementOperationsAPI.ManagementOperationTransaction | HoldsAPI.Hold
 
 export namespace AccountActivityListResponse {
   /**
@@ -92,29 +76,7 @@ export namespace AccountActivityListResponse {
     /**
      * Transaction category
      */
-    category:
-      | 'ACH'
-      | 'WIRE'
-      | 'BALANCE_OR_FUNDING'
-      | 'FEE'
-      | 'REWARD'
-      | 'ADJUSTMENT'
-      | 'DERECOGNITION'
-      | 'DISPUTE'
-      | 'CARD'
-      | 'EXTERNAL_ACH'
-      | 'EXTERNAL_CHECK'
-      | 'EXTERNAL_FEDNOW'
-      | 'EXTERNAL_RTP'
-      | 'EXTERNAL_TRANSFER'
-      | 'EXTERNAL_WIRE'
-      | 'MANAGEMENT_ADJUSTMENT'
-      | 'MANAGEMENT_DISPUTE'
-      | 'MANAGEMENT_FEE'
-      | 'MANAGEMENT_REWARD'
-      | 'MANAGEMENT_DISBURSEMENT'
-      | 'HOLD'
-      | 'PROGRAM_FUNDING';
+    category: 'ACH' | 'WIRE' | 'BALANCE_OR_FUNDING' | 'FEE' | 'REWARD' | 'ADJUSTMENT' | 'DERECOGNITION' | 'DISPUTE' | 'CARD' | 'EXTERNAL_ACH' | 'EXTERNAL_CHECK' | 'EXTERNAL_FEDNOW' | 'EXTERNAL_RTP' | 'EXTERNAL_TRANSFER' | 'EXTERNAL_WIRE' | 'MANAGEMENT_ADJUSTMENT' | 'MANAGEMENT_DISPUTE' | 'MANAGEMENT_FEE' | 'MANAGEMENT_REWARD' | 'MANAGEMENT_DISBURSEMENT' | 'HOLD' | 'PROGRAM_FUNDING';
 
     /**
      * ISO 8601 timestamp of when the transaction was created
@@ -211,14 +173,7 @@ export namespace AccountActivityListResponse {
  * MANAGEMENT_OPERATION returns ManagementOperationTransaction, and HOLD returns
  * HoldTransaction
  */
-export type AccountActivityRetrieveTransactionResponse =
-  | AccountActivityRetrieveTransactionResponse.FinancialTransaction
-  | BookTransfersAPI.BookTransferResponse
-  | AccountActivityRetrieveTransactionResponse.CardTransaction
-  | PaymentsAPI.Payment
-  | ExternalPaymentsAPI.ExternalPayment
-  | ManagementOperationsAPI.ManagementOperationTransaction
-  | HoldsAPI.Hold;
+export type AccountActivityRetrieveTransactionResponse = AccountActivityRetrieveTransactionResponse.FinancialTransaction | BookTransfersAPI.BookTransferResponse | AccountActivityRetrieveTransactionResponse.CardTransaction | PaymentsAPI.Payment | ExternalPaymentsAPI.ExternalPayment | ManagementOperationsAPI.ManagementOperationTransaction | HoldsAPI.Hold
 
 export namespace AccountActivityRetrieveTransactionResponse {
   /**
@@ -233,29 +188,7 @@ export namespace AccountActivityRetrieveTransactionResponse {
     /**
      * Transaction category
      */
-    category:
-      | 'ACH'
-      | 'WIRE'
-      | 'BALANCE_OR_FUNDING'
-      | 'FEE'
-      | 'REWARD'
-      | 'ADJUSTMENT'
-      | 'DERECOGNITION'
-      | 'DISPUTE'
-      | 'CARD'
-      | 'EXTERNAL_ACH'
-      | 'EXTERNAL_CHECK'
-      | 'EXTERNAL_FEDNOW'
-      | 'EXTERNAL_RTP'
-      | 'EXTERNAL_TRANSFER'
-      | 'EXTERNAL_WIRE'
-      | 'MANAGEMENT_ADJUSTMENT'
-      | 'MANAGEMENT_DISPUTE'
-      | 'MANAGEMENT_FEE'
-      | 'MANAGEMENT_REWARD'
-      | 'MANAGEMENT_DISBURSEMENT'
-      | 'HOLD'
-      | 'PROGRAM_FUNDING';
+    category: 'ACH' | 'WIRE' | 'BALANCE_OR_FUNDING' | 'FEE' | 'REWARD' | 'ADJUSTMENT' | 'DERECOGNITION' | 'DISPUTE' | 'CARD' | 'EXTERNAL_ACH' | 'EXTERNAL_CHECK' | 'EXTERNAL_FEDNOW' | 'EXTERNAL_RTP' | 'EXTERNAL_TRANSFER' | 'EXTERNAL_WIRE' | 'MANAGEMENT_ADJUSTMENT' | 'MANAGEMENT_DISPUTE' | 'MANAGEMENT_FEE' | 'MANAGEMENT_REWARD' | 'MANAGEMENT_DISBURSEMENT' | 'HOLD' | 'PROGRAM_FUNDING';
 
     /**
      * ISO 8601 timestamp of when the transaction was created
@@ -364,29 +297,7 @@ export interface AccountActivityListParams extends CursorPageParams {
   /**
    * Filter by transaction category
    */
-  category?:
-    | 'ACH'
-    | 'WIRE'
-    | 'BALANCE_OR_FUNDING'
-    | 'FEE'
-    | 'REWARD'
-    | 'ADJUSTMENT'
-    | 'DERECOGNITION'
-    | 'DISPUTE'
-    | 'CARD'
-    | 'EXTERNAL_ACH'
-    | 'EXTERNAL_CHECK'
-    | 'EXTERNAL_FEDNOW'
-    | 'EXTERNAL_RTP'
-    | 'EXTERNAL_TRANSFER'
-    | 'EXTERNAL_WIRE'
-    | 'MANAGEMENT_ADJUSTMENT'
-    | 'MANAGEMENT_DISPUTE'
-    | 'MANAGEMENT_FEE'
-    | 'MANAGEMENT_REWARD'
-    | 'MANAGEMENT_DISBURSEMENT'
-    | 'HOLD'
-    | 'PROGRAM_FUNDING';
+  category?: 'ACH' | 'WIRE' | 'BALANCE_OR_FUNDING' | 'FEE' | 'REWARD' | 'ADJUSTMENT' | 'DERECOGNITION' | 'DISPUTE' | 'CARD' | 'EXTERNAL_ACH' | 'EXTERNAL_CHECK' | 'EXTERNAL_FEDNOW' | 'EXTERNAL_RTP' | 'EXTERNAL_TRANSFER' | 'EXTERNAL_WIRE' | 'MANAGEMENT_ADJUSTMENT' | 'MANAGEMENT_DISPUTE' | 'MANAGEMENT_FEE' | 'MANAGEMENT_REWARD' | 'MANAGEMENT_DISBURSEMENT' | 'HOLD' | 'PROGRAM_FUNDING';
 
   /**
    * Date string in RFC 3339 format. Only entries created before the specified time
@@ -416,6 +327,6 @@ export declare namespace AccountActivity {
     type AccountActivityListResponse as AccountActivityListResponse,
     type AccountActivityRetrieveTransactionResponse as AccountActivityRetrieveTransactionResponse,
     type AccountActivityListResponsesCursorPage as AccountActivityListResponsesCursorPage,
-    type AccountActivityListParams as AccountActivityListParams,
+    type AccountActivityListParams as AccountActivityListParams
   };
 }

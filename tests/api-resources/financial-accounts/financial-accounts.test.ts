@@ -2,10 +2,7 @@
 
 import Lithic from 'lithic';
 
-const client = new Lithic({
-  apiKey: 'My Lithic API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Lithic({ apiKey: 'My Lithic API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource financialAccounts', () => {
   test('create: only required params', async () => {
@@ -21,12 +18,12 @@ describe('resource financialAccounts', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.financialAccounts.create({
-      nickname: 'nickname',
-      type: 'OPERATING',
-      account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      is_for_benefit_of: true,
-      'Idempotency-Key': '65a9dad4-1b60-4686-83fd-65b25078a4b4',
-    });
+    nickname: 'nickname',
+    type: 'OPERATING',
+    account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    is_for_benefit_of: true,
+    'Idempotency-Key': '65a9dad4-1b60-4686-83fd-65b25078a4b4',
+  });
   });
 
   test('retrieve', async () => {
@@ -53,13 +50,9 @@ describe('resource financialAccounts', () => {
 
   test('update: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.financialAccounts.update(
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { nickname: 'nickname' },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
+    await expect(client.financialAccounts.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { nickname: 'nickname' }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Lithic.NotFoundError);
   });
 
   test('list', async () => {
@@ -75,23 +68,17 @@ describe('resource financialAccounts', () => {
 
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.financialAccounts.list(
-        {
-          account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          business_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          type: 'ISSUING',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
+    await expect(client.financialAccounts.list({
+    account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    business_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    type: 'ISSUING',
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Lithic.NotFoundError);
   });
 
   test('registerAccountNumber: only required params', async () => {
-    const responsePromise = client.financialAccounts.registerAccountNumber(
-      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      { account_number: 'account_number' },
-    );
+    const responsePromise = client.financialAccounts.registerAccountNumber('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { account_number: 'account_number' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -102,17 +89,11 @@ describe('resource financialAccounts', () => {
   });
 
   test('registerAccountNumber: required and optional params', async () => {
-    const response = await client.financialAccounts.registerAccountNumber(
-      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      { account_number: 'account_number' },
-    );
+    const response = await client.financialAccounts.registerAccountNumber('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { account_number: 'account_number' });
   });
 
   test('updateStatus: only required params', async () => {
-    const responsePromise = client.financialAccounts.updateStatus('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      status: 'CLOSED',
-      substatus: 'END_USER_REQUEST',
-    });
+    const responsePromise = client.financialAccounts.updateStatus('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { status: 'CLOSED', substatus: 'END_USER_REQUEST' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -124,9 +105,9 @@ describe('resource financialAccounts', () => {
 
   test('updateStatus: required and optional params', async () => {
     const response = await client.financialAccounts.updateStatus('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      status: 'CLOSED',
-      substatus: 'END_USER_REQUEST',
-      user_defined_status: '26',
-    });
+    status: 'CLOSED',
+    substatus: 'END_USER_REQUEST',
+    user_defined_status: '26',
+  });
   });
 });

@@ -33,10 +33,7 @@ export class Tokenizations extends APIResource {
    * }
    * ```
    */
-  list(
-    query: TokenizationListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<TokenizationsCursorPage, Tokenization> {
+  list(query: TokenizationListParams | null | undefined = {}, options?: RequestOptions): PagePromise<TokenizationsCursorPage, Tokenization> {
     return this._client.getAPIList('/v1/tokenizations', CursorPage<Tokenization>, { query, ...options });
   }
 
@@ -124,15 +121,8 @@ export class Tokenizations extends APIResource {
    * );
    * ```
    */
-  resendActivationCode(
-    tokenizationToken: string,
-    body: TokenizationResendActivationCodeParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<void> {
-    return this._client.post(path`/v1/tokenizations/${tokenizationToken}/resend_activation_code`, {
-      body,
-      ...options,
-    });
+  resendActivationCode(tokenizationToken: string, body: TokenizationResendActivationCodeParams | null | undefined = {}, options?: RequestOptions): APIPromise<void> {
+    return this._client.post(path`/v1/tokenizations/${tokenizationToken}/resend_activation_code`, { body, ...options });
   }
 
   /**
@@ -194,19 +184,12 @@ export class Tokenizations extends APIResource {
    *   );
    * ```
    */
-  updateDigitalCardArt(
-    tokenizationToken: string,
-    body: TokenizationUpdateDigitalCardArtParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<Tokenization> {
-    return this._client.post(path`/v1/tokenizations/${tokenizationToken}/update_digital_card_art`, {
-      body,
-      ...options,
-    });
+  updateDigitalCardArt(tokenizationToken: string, body: TokenizationUpdateDigitalCardArtParams | null | undefined = {}, options?: RequestOptions): APIPromise<Tokenization> {
+    return this._client.post(path`/v1/tokenizations/${tokenizationToken}/update_digital_card_art`, { body, ...options });
   }
 }
 
-export type TokenizationsCursorPage = CursorPage<Tokenization>;
+export type TokenizationsCursorPage = CursorPage<Tokenization>
 
 export interface Device {
   /**
@@ -255,19 +238,7 @@ export interface TokenMetadata {
   /**
    * Human-readable name of the wallet that the token_requestor_id maps to.
    */
-  token_requestor_name?:
-    | 'AMAZON_ONE'
-    | 'ANDROID_PAY'
-    | 'APPLE_PAY'
-    | 'FACEBOOK'
-    | 'FITBIT_PAY'
-    | 'GARMIN_PAY'
-    | 'GOOGLE_PAY'
-    | 'MICROSOFT_PAY'
-    | 'NETFLIX'
-    | 'SAMSUNG_PAY'
-    | 'UNKNOWN'
-    | 'VISA_CHECKOUT';
+  token_requestor_name?: 'AMAZON_ONE' | 'ANDROID_PAY' | 'APPLE_PAY' | 'FACEBOOK' | 'FITBIT_PAY' | 'GARMIN_PAY' | 'GOOGLE_PAY' | 'MICROSOFT_PAY' | 'NETFLIX' | 'SAMSUNG_PAY' | 'UNKNOWN' | 'VISA_CHECKOUT';
 }
 
 export namespace TokenMetadata {
@@ -349,20 +320,7 @@ export interface Tokenization {
    * one of the defined wallet types. For merchant tokenizations, this will be a
    * free-form merchant name string.
    */
-  token_requestor_name:
-    | 'AMAZON_ONE'
-    | 'ANDROID_PAY'
-    | 'APPLE_PAY'
-    | 'FACEBOOK'
-    | 'FITBIT_PAY'
-    | 'GARMIN_PAY'
-    | 'GOOGLE_PAY'
-    | 'MICROSOFT_PAY'
-    | 'NETFLIX'
-    | 'SAMSUNG_PAY'
-    | 'UNKNOWN'
-    | 'VISA_CHECKOUT'
-    | (string & {});
+  token_requestor_name: 'AMAZON_ONE' | 'ANDROID_PAY' | 'APPLE_PAY' | 'FACEBOOK' | 'FITBIT_PAY' | 'GARMIN_PAY' | 'GOOGLE_PAY' | 'MICROSOFT_PAY' | 'NETFLIX' | 'SAMSUNG_PAY' | 'UNKNOWN' | 'VISA_CHECKOUT' | (string & {});
 
   /**
    * The network's unique reference for the tokenization.
@@ -418,19 +376,7 @@ export namespace Tokenization {
     /**
      * Enum representing the result of the tokenization event
      */
-    result?:
-      | 'APPROVED'
-      | 'DECLINED'
-      | 'NOTIFICATION_DELIVERED'
-      | 'REQUIRE_ADDITIONAL_AUTHENTICATION'
-      | 'TOKEN_ACTIVATED'
-      | 'TOKEN_CREATED'
-      | 'TOKEN_DEACTIVATED'
-      | 'TOKEN_DELETED_FROM_CONSUMER_APP'
-      | 'TOKEN_INACTIVE'
-      | 'TOKEN_STATE_UNKNOWN'
-      | 'TOKEN_SUSPENDED'
-      | 'TOKEN_UPDATED';
+    result?: 'APPROVED' | 'DECLINED' | 'NOTIFICATION_DELIVERED' | 'REQUIRE_ADDITIONAL_AUTHENTICATION' | 'TOKEN_ACTIVATED' | 'TOKEN_CREATED' | 'TOKEN_DEACTIVATED' | 'TOKEN_DELETED_FROM_CONSUMER_APP' | 'TOKEN_INACTIVE' | 'TOKEN_STATE_UNKNOWN' | 'TOKEN_SUSPENDED' | 'TOKEN_UPDATED';
 
     /**
      * Results from rules that were evaluated for this tokenization
@@ -450,32 +396,14 @@ export namespace Tokenization {
     /**
      * Enum representing the type of tokenization event that occurred
      */
-    type?:
-      | 'TOKENIZATION_2FA'
-      | 'TOKENIZATION_AUTHORIZATION'
-      | 'TOKENIZATION_DECISIONING'
-      | 'TOKENIZATION_ELIGIBILITY_CHECK'
-      | 'TOKENIZATION_UPDATED';
+    type?: 'TOKENIZATION_2FA' | 'TOKENIZATION_AUTHORIZATION' | 'TOKENIZATION_DECISIONING' | 'TOKENIZATION_ELIGIBILITY_CHECK' | 'TOKENIZATION_UPDATED';
   }
 }
 
 /**
  * Reason code for why a tokenization was declined
  */
-export type TokenizationDeclineReason =
-  | 'ACCOUNT_SCORE_1'
-  | 'DEVICE_SCORE_1'
-  | 'ALL_WALLET_DECLINE_REASONS_PRESENT'
-  | 'WALLET_RECOMMENDED_DECISION_RED'
-  | 'CVC_MISMATCH'
-  | 'CARD_EXPIRY_MONTH_MISMATCH'
-  | 'CARD_EXPIRY_YEAR_MISMATCH'
-  | 'CARD_INVALID_STATE'
-  | 'CUSTOMER_RED_PATH'
-  | 'INVALID_CUSTOMER_RESPONSE'
-  | 'NETWORK_FAILURE'
-  | 'GENERIC_DECLINE'
-  | 'DIGITAL_CARD_ART_REQUIRED';
+export type TokenizationDeclineReason = 'ACCOUNT_SCORE_1' | 'DEVICE_SCORE_1' | 'ALL_WALLET_DECLINE_REASONS_PRESENT' | 'WALLET_RECOMMENDED_DECISION_RED' | 'CVC_MISMATCH' | 'CARD_EXPIRY_MONTH_MISMATCH' | 'CARD_EXPIRY_YEAR_MISMATCH' | 'CARD_INVALID_STATE' | 'CUSTOMER_RED_PATH' | 'INVALID_CUSTOMER_RESPONSE' | 'NETWORK_FAILURE' | 'GENERIC_DECLINE' | 'DIGITAL_CARD_ART_REQUIRED'
 
 export interface TokenizationRuleResult {
   /**
@@ -505,22 +433,7 @@ export interface TokenizationRuleResult {
 /**
  * Reason code for why a tokenization required two-factor authentication
  */
-export type TokenizationTfaReason =
-  | 'WALLET_RECOMMENDED_TFA'
-  | 'SUSPICIOUS_ACTIVITY'
-  | 'DEVICE_RECENTLY_LOST'
-  | 'TOO_MANY_RECENT_ATTEMPTS'
-  | 'TOO_MANY_RECENT_TOKENS'
-  | 'TOO_MANY_DIFFERENT_CARDHOLDERS'
-  | 'OUTSIDE_HOME_TERRITORY'
-  | 'HAS_SUSPENDED_TOKENS'
-  | 'HIGH_RISK'
-  | 'ACCOUNT_SCORE_LOW'
-  | 'DEVICE_SCORE_LOW'
-  | 'CARD_STATE_TFA'
-  | 'HARDCODED_TFA'
-  | 'CUSTOMER_RULE_TFA'
-  | 'DEVICE_HOST_CARD_EMULATION';
+export type TokenizationTfaReason = 'WALLET_RECOMMENDED_TFA' | 'SUSPICIOUS_ACTIVITY' | 'DEVICE_RECENTLY_LOST' | 'TOO_MANY_RECENT_ATTEMPTS' | 'TOO_MANY_RECENT_TOKENS' | 'TOO_MANY_DIFFERENT_CARDHOLDERS' | 'OUTSIDE_HOME_TERRITORY' | 'HAS_SUSPENDED_TOKENS' | 'HIGH_RISK' | 'ACCOUNT_SCORE_LOW' | 'DEVICE_SCORE_LOW' | 'CARD_STATE_TFA' | 'HARDCODED_TFA' | 'CUSTOMER_RULE_TFA' | 'DEVICE_HOST_CARD_EMULATION'
 
 export interface WalletDecisioningInfo {
   /**
@@ -650,6 +563,6 @@ export declare namespace Tokenizations {
     type TokenizationListParams as TokenizationListParams,
     type TokenizationResendActivationCodeParams as TokenizationResendActivationCodeParams,
     type TokenizationSimulateParams as TokenizationSimulateParams,
-    type TokenizationUpdateDigitalCardArtParams as TokenizationUpdateDigitalCardArtParams,
+    type TokenizationUpdateDigitalCardArtParams as TokenizationUpdateDigitalCardArtParams
   };
 }

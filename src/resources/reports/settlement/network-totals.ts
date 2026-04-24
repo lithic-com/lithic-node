@@ -35,15 +35,8 @@ export class NetworkTotals extends APIResource {
    * }
    * ```
    */
-  list(
-    query: NetworkTotalListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<NetworkTotalsCursorPage, ReportsAPI.NetworkTotal> {
-    return this._client.getAPIList(
-      '/v1/reports/settlement/network_totals',
-      CursorPage<ReportsAPI.NetworkTotal>,
-      { query, ...options },
-    );
+  list(query: NetworkTotalListParams | null | undefined = {}, options?: RequestOptions): PagePromise<NetworkTotalsCursorPage, ReportsAPI.NetworkTotal> {
+    return this._client.getAPIList('/v1/reports/settlement/network_totals', CursorPage<ReportsAPI.NetworkTotal>, { query, ...options });
   }
 }
 
@@ -93,7 +86,9 @@ export interface NetworkTotalListParams extends CursorPageParams {
 }
 
 export declare namespace NetworkTotals {
-  export { type NetworkTotalListParams as NetworkTotalListParams };
+  export {
+    type NetworkTotalListParams as NetworkTotalListParams
+  };
 }
 
-export { type NetworkTotalsCursorPage };
+export { type NetworkTotalsCursorPage }

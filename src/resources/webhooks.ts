@@ -24,10 +24,7 @@ import * as EnhancedCommercialDataAPI from './transactions/events/enhanced-comme
 import { Webhook } from 'standardwebhooks';
 
 export class Webhooks extends APIResource {
-  parsed(
-    body: string,
-    { headers, key }: { headers: Record<string, string>; key?: string },
-  ): ParsedWebhookEvent {
+  parsed(body: string, { headers, key }: { headers: Record<string, string>; key?: string }): ParsedWebhookEvent {
     if (headers !== undefined) {
       const keyStr: string | null = key === undefined ? this._client.webhookSecret : key;
       if (keyStr === null) throw new Error('Webhook key must not be null in order to unwrap');
@@ -72,10 +69,7 @@ export interface AccountHolderCreatedWebhookEvent {
 /**
  * KYB payload for an updated account holder.
  */
-export type AccountHolderUpdatedWebhookEvent =
-  | AccountHolderUpdatedWebhookEvent.KYBPayload
-  | AccountHolderUpdatedWebhookEvent.KYCPayload
-  | AccountHolderUpdatedWebhookEvent.LegacyPayload;
+export type AccountHolderUpdatedWebhookEvent = AccountHolderUpdatedWebhookEvent.KYBPayload | AccountHolderUpdatedWebhookEvent.KYCPayload | AccountHolderUpdatedWebhookEvent.LegacyPayload
 
 export namespace AccountHolderUpdatedWebhookEvent {
   /**
@@ -551,26 +545,7 @@ export interface AccountHolderDocumentUpdatedWebhookEvent {
   /**
    * Type of documentation to be submitted for verification of an account holder
    */
-  document_type?:
-    | 'DRIVERS_LICENSE'
-    | 'PASSPORT'
-    | 'PASSPORT_CARD'
-    | 'EIN_LETTER'
-    | 'TAX_RETURN'
-    | 'OPERATING_AGREEMENT'
-    | 'CERTIFICATE_OF_FORMATION'
-    | 'CERTIFICATE_OF_GOOD_STANDING'
-    | 'ARTICLES_OF_INCORPORATION'
-    | 'ARTICLES_OF_ORGANIZATION'
-    | 'BYLAWS'
-    | 'GOVERNMENT_BUSINESS_LICENSE'
-    | 'PARTNERSHIP_AGREEMENT'
-    | 'SS4_FORM'
-    | 'BANK_STATEMENT'
-    | 'UTILITY_BILL_STATEMENT'
-    | 'SSN_CARD'
-    | 'ITIN_LETTER'
-    | 'FINCEN_BOI_REPORT';
+  document_type?: 'DRIVERS_LICENSE' | 'PASSPORT' | 'PASSPORT_CARD' | 'EIN_LETTER' | 'TAX_RETURN' | 'OPERATING_AGREEMENT' | 'CERTIFICATE_OF_FORMATION' | 'CERTIFICATE_OF_GOOD_STANDING' | 'ARTICLES_OF_INCORPORATION' | 'ARTICLES_OF_ORGANIZATION' | 'BYLAWS' | 'GOVERNMENT_BUSINESS_LICENSE' | 'PARTNERSHIP_AGREEMENT' | 'SS4_FORM' | 'BANK_STATEMENT' | 'UTILITY_BILL_STATEMENT' | 'SSN_CARD' | 'ITIN_LETTER' | 'FINCEN_BOI_REPORT';
 
   /**
    * The token of the entity that the document belongs to
@@ -723,12 +698,7 @@ export interface CardAuthorizationApprovalRequestWebhookEvent {
    * `CREDIT_AUTHORIZATION` and `FINANCIAL_CREDIT_AUTHORIZATION` is only available to
    * users with credit decisioning via ASA enabled.
    */
-  status:
-    | 'AUTHORIZATION'
-    | 'CREDIT_AUTHORIZATION'
-    | 'FINANCIAL_AUTHORIZATION'
-    | 'FINANCIAL_CREDIT_AUTHORIZATION'
-    | 'BALANCE_INQUIRY';
+  status: 'AUTHORIZATION' | 'CREDIT_AUTHORIZATION' | 'FINANCIAL_AUTHORIZATION' | 'FINANCIAL_CREDIT_AUTHORIZATION' | 'BALANCE_INQUIRY';
 
   /**
    * The entity that initiated the transaction.
@@ -1135,36 +1105,12 @@ export namespace CardAuthorizationApprovalRequestWebhookEvent {
       /**
        * Cardholder Presence Indicator
        */
-      cardholder?:
-        | 'DEFERRED_BILLING'
-        | 'ELECTRONIC_ORDER'
-        | 'INSTALLMENT'
-        | 'MAIL_ORDER'
-        | 'NOT_PRESENT'
-        | 'PRESENT'
-        | 'REOCCURRING'
-        | 'TELEPHONE_ORDER'
-        | 'UNKNOWN';
+      cardholder?: 'DEFERRED_BILLING' | 'ELECTRONIC_ORDER' | 'INSTALLMENT' | 'MAIL_ORDER' | 'NOT_PRESENT' | 'PRESENT' | 'REOCCURRING' | 'TELEPHONE_ORDER' | 'UNKNOWN';
 
       /**
        * Method of entry for the PAN
        */
-      pan?:
-        | 'AUTO_ENTRY'
-        | 'BAR_CODE'
-        | 'CONTACTLESS'
-        | 'ECOMMERCE'
-        | 'ERROR_KEYED'
-        | 'ERROR_MAGNETIC_STRIPE'
-        | 'ICC'
-        | 'KEY_ENTERED'
-        | 'MAGNETIC_STRIPE'
-        | 'MANUAL'
-        | 'OCR'
-        | 'SECURE_CARDLESS'
-        | 'UNSPECIFIED'
-        | 'UNKNOWN'
-        | 'CREDENTIAL_ON_FILE';
+      pan?: 'AUTO_ENTRY' | 'BAR_CODE' | 'CONTACTLESS' | 'ECOMMERCE' | 'ERROR_KEYED' | 'ERROR_MAGNETIC_STRIPE' | 'ICC' | 'KEY_ENTERED' | 'MAGNETIC_STRIPE' | 'MANUAL' | 'OCR' | 'SECURE_CARDLESS' | 'UNSPECIFIED' | 'UNKNOWN' | 'CREDENTIAL_ON_FILE';
 
       /**
        * Indicates whether the cardholder entered the PIN. True if the PIN was entered.
@@ -1210,31 +1156,7 @@ export namespace CardAuthorizationApprovalRequestWebhookEvent {
       /**
        * POS Type
        */
-      type:
-        | 'ADMINISTRATIVE'
-        | 'ATM'
-        | 'AUTHORIZATION'
-        | 'COUPON_MACHINE'
-        | 'DIAL_TERMINAL'
-        | 'ECOMMERCE'
-        | 'ECR'
-        | 'FUEL_MACHINE'
-        | 'HOME_TERMINAL'
-        | 'MICR'
-        | 'OFF_PREMISE'
-        | 'PAYMENT'
-        | 'PDA'
-        | 'PHONE'
-        | 'POINT'
-        | 'POS_TERMINAL'
-        | 'PUBLIC_UTILITY'
-        | 'SELF_SERVICE'
-        | 'TELEVISION'
-        | 'TELLER'
-        | 'TRAVELERS_CHECK_MACHINE'
-        | 'VENDING'
-        | 'VOICE'
-        | 'UNKNOWN';
+      type: 'ADMINISTRATIVE' | 'ATM' | 'AUTHORIZATION' | 'COUPON_MACHINE' | 'DIAL_TERMINAL' | 'ECOMMERCE' | 'ECR' | 'FUEL_MACHINE' | 'HOME_TERMINAL' | 'MICR' | 'OFF_PREMISE' | 'PAYMENT' | 'PDA' | 'PHONE' | 'POINT' | 'POS_TERMINAL' | 'PUBLIC_UTILITY' | 'SELF_SERVICE' | 'TELEVISION' | 'TELLER' | 'TRAVELERS_CHECK_MACHINE' | 'VENDING' | 'VOICE' | 'UNKNOWN';
 
       /**
        * Uniquely identifies a terminal at the card acceptor location of acquiring
@@ -1416,18 +1338,7 @@ export interface CardShippedWebhookEvent {
   /**
    * The specific shipping method used to ship the card.
    */
-  shipping_method:
-    | 'Ex-US expedited with tracking'
-    | 'Ex-US standard with tracking'
-    | 'Ex-US standard without tracking'
-    | 'FedEx 2 days'
-    | 'FedEx express'
-    | 'FedEx overnight'
-    | 'USPS priority'
-    | 'USPS with tracking'
-    | 'USPS without tracking envelope'
-    | 'USPS without tracking envelope non-machine'
-    | 'USPS without tracking flat';
+  shipping_method: 'Ex-US expedited with tracking' | 'Ex-US standard with tracking' | 'Ex-US standard without tracking' | 'FedEx 2 days' | 'FedEx express' | 'FedEx overnight' | 'USPS priority' | 'USPS with tracking' | 'USPS without tracking envelope' | 'USPS without tracking envelope non-machine' | 'USPS without tracking flat';
 
   /**
    * The tracking number of the shipment.
@@ -1464,16 +1375,14 @@ export interface CardTransactionUpdatedWebhookEvent extends TransactionsAPI.Tran
   event_type: 'card_transaction.updated';
 }
 
-export interface CardTransactionEnhancedDataCreatedWebhookEvent
-  extends EnhancedCommercialDataAPI.EnhancedData {
+export interface CardTransactionEnhancedDataCreatedWebhookEvent extends EnhancedCommercialDataAPI.EnhancedData {
   /**
    * The type of event that occurred.
    */
   event_type: 'card_transaction.enhanced_data.created';
 }
 
-export interface CardTransactionEnhancedDataUpdatedWebhookEvent
-  extends EnhancedCommercialDataAPI.EnhancedData {
+export interface CardTransactionEnhancedDataUpdatedWebhookEvent extends EnhancedCommercialDataAPI.EnhancedData {
   /**
    * The type of event that occurred.
    */
@@ -1554,13 +1463,7 @@ export interface DigitalWalletTokenizationApprovalRequestWebhookEvent {
   /**
    * The source of the tokenization.
    */
-  tokenization_source?:
-    | 'ACCOUNT_ON_FILE'
-    | 'CONTACTLESS_TAP'
-    | 'MANUAL_PROVISION'
-    | 'PUSH_PROVISION'
-    | 'TOKEN'
-    | 'UNKNOWN';
+  tokenization_source?: 'ACCOUNT_ON_FILE' | 'CONTACTLESS_TAP' | 'MANUAL_PROVISION' | 'PUSH_PROVISION' | 'TOKEN' | 'UNKNOWN';
 
   /**
    * List of reasons why two-factor authentication was required. Only populated in
@@ -1577,13 +1480,7 @@ export namespace DigitalWalletTokenizationApprovalRequestWebhookEvent {
     /**
      * The outcome of the customer's decision
      */
-    outcome:
-      | 'APPROVED'
-      | 'DECLINED'
-      | 'ERROR'
-      | 'INVALID_RESPONSE'
-      | 'REQUIRE_ADDITIONAL_AUTHENTICATION'
-      | 'TIMEOUT';
+    outcome: 'APPROVED' | 'DECLINED' | 'ERROR' | 'INVALID_RESPONSE' | 'REQUIRE_ADDITIONAL_AUTHENTICATION' | 'TIMEOUT';
 
     /**
      * The customer's subscribed URL
@@ -1647,20 +1544,7 @@ export namespace DigitalWalletTokenizationResultWebhookEvent {
     /**
      * List of reasons why the tokenization was declined
      */
-    tokenization_decline_reasons: Array<
-      | 'ACCOUNT_SCORE_1'
-      | 'ALL_WALLET_DECLINE_REASONS_PRESENT'
-      | 'CARD_EXPIRY_MONTH_MISMATCH'
-      | 'CARD_EXPIRY_YEAR_MISMATCH'
-      | 'CARD_INVALID_STATE'
-      | 'CUSTOMER_RED_PATH'
-      | 'CVC_MISMATCH'
-      | 'DEVICE_SCORE_1'
-      | 'GENERIC_DECLINE'
-      | 'INVALID_CUSTOMER_RESPONSE'
-      | 'NETWORK_FAILURE'
-      | 'WALLET_RECOMMENDED_DECISION_RED'
-    >;
+    tokenization_decline_reasons: Array<'ACCOUNT_SCORE_1' | 'ALL_WALLET_DECLINE_REASONS_PRESENT' | 'CARD_EXPIRY_MONTH_MISMATCH' | 'CARD_EXPIRY_YEAR_MISMATCH' | 'CARD_INVALID_STATE' | 'CUSTOMER_RED_PATH' | 'CVC_MISMATCH' | 'DEVICE_SCORE_1' | 'GENERIC_DECLINE' | 'INVALID_CUSTOMER_RESPONSE' | 'NETWORK_FAILURE' | 'WALLET_RECOMMENDED_DECISION_RED'>;
 
     /**
      * The customer's tokenization decision if applicable.
@@ -1895,16 +1779,14 @@ export interface LoanTapeUpdatedWebhookEvent extends LoanTapesAPI.LoanTape {
   event_type: 'loan_tape.updated';
 }
 
-export interface ManagementOperationCreatedWebhookEvent
-  extends ManagementOperationsAPI.ManagementOperationTransaction {
+export interface ManagementOperationCreatedWebhookEvent extends ManagementOperationsAPI.ManagementOperationTransaction {
   /**
    * The type of event that occurred.
    */
   event_type: 'management_operation.created';
 }
 
-export interface ManagementOperationUpdatedWebhookEvent
-  extends ManagementOperationsAPI.ManagementOperationTransaction {
+export interface ManagementOperationUpdatedWebhookEvent extends ManagementOperationsAPI.ManagementOperationTransaction {
   /**
    * The type of event that occurred.
    */
@@ -2101,13 +1983,7 @@ export interface TokenizationApprovalRequestWebhookEvent {
   /**
    * The source of the tokenization.
    */
-  tokenization_source?:
-    | 'ACCOUNT_ON_FILE'
-    | 'CONTACTLESS_TAP'
-    | 'MANUAL_PROVISION'
-    | 'PUSH_PROVISION'
-    | 'TOKEN'
-    | 'UNKNOWN';
+  tokenization_source?: 'ACCOUNT_ON_FILE' | 'CONTACTLESS_TAP' | 'MANUAL_PROVISION' | 'PUSH_PROVISION' | 'TOKEN' | 'UNKNOWN';
 
   /**
    * List of reasons why two-factor authentication was required
@@ -2123,13 +1999,7 @@ export namespace TokenizationApprovalRequestWebhookEvent {
     /**
      * The outcome of the customer's decision
      */
-    outcome:
-      | 'APPROVED'
-      | 'DECLINED'
-      | 'ERROR'
-      | 'INVALID_RESPONSE'
-      | 'REQUIRE_ADDITIONAL_AUTHENTICATION'
-      | 'TIMEOUT';
+    outcome: 'APPROVED' | 'DECLINED' | 'ERROR' | 'INVALID_RESPONSE' | 'REQUIRE_ADDITIONAL_AUTHENTICATION' | 'TIMEOUT';
 
     /**
      * The customer's subscribed URL
@@ -2193,20 +2063,7 @@ export namespace TokenizationResultWebhookEvent {
     /**
      * List of reasons why the tokenization was declined
      */
-    tokenization_decline_reasons: Array<
-      | 'ACCOUNT_SCORE_1'
-      | 'ALL_WALLET_DECLINE_REASONS_PRESENT'
-      | 'CARD_EXPIRY_MONTH_MISMATCH'
-      | 'CARD_EXPIRY_YEAR_MISMATCH'
-      | 'CARD_INVALID_STATE'
-      | 'CUSTOMER_RED_PATH'
-      | 'CVC_MISMATCH'
-      | 'DEVICE_SCORE_1'
-      | 'GENERIC_DECLINE'
-      | 'INVALID_CUSTOMER_RESPONSE'
-      | 'NETWORK_FAILURE'
-      | 'WALLET_RECOMMENDED_DECISION_RED'
-    >;
+    tokenization_decline_reasons: Array<'ACCOUNT_SCORE_1' | 'ALL_WALLET_DECLINE_REASONS_PRESENT' | 'CARD_EXPIRY_MONTH_MISMATCH' | 'CARD_EXPIRY_YEAR_MISMATCH' | 'CARD_INVALID_STATE' | 'CUSTOMER_RED_PATH' | 'CVC_MISMATCH' | 'DEVICE_SCORE_1' | 'GENERIC_DECLINE' | 'INVALID_CUSTOMER_RESPONSE' | 'NETWORK_FAILURE' | 'WALLET_RECOMMENDED_DECISION_RED'>;
 
     /**
      * The customer's tokenization decision if applicable.
@@ -2388,65 +2245,7 @@ export interface DisputeTransactionUpdatedWebhookEvent extends DisputesV2API.Dis
 /**
  * KYB payload for an updated account holder.
  */
-export type ParsedWebhookEvent =
-  | AccountHolderCreatedWebhookEvent
-  | ParsedWebhookEvent.KYBPayload
-  | ParsedWebhookEvent.KYCPayload
-  | ParsedWebhookEvent.LegacyPayload
-  | AccountHolderVerificationWebhookEvent
-  | AccountHolderDocumentUpdatedWebhookEvent
-  | CardAuthorizationApprovalRequestWebhookEvent
-  | CardAuthorizationChallengeResponseWebhookEvent
-  | AuthRulesBacktestReportCreatedWebhookEvent
-  | BalanceUpdatedWebhookEvent
-  | BookTransferTransactionCreatedWebhookEvent
-  | BookTransferTransactionUpdatedWebhookEvent
-  | CardCreatedWebhookEvent
-  | CardConvertedWebhookEvent
-  | CardRenewedWebhookEvent
-  | CardReissuedWebhookEvent
-  | CardShippedWebhookEvent
-  | CardUpdatedWebhookEvent
-  | CardTransactionUpdatedWebhookEvent
-  | CardTransactionEnhancedDataCreatedWebhookEvent
-  | CardTransactionEnhancedDataUpdatedWebhookEvent
-  | DigitalWalletTokenizationApprovalRequestWebhookEvent
-  | DigitalWalletTokenizationResultWebhookEvent
-  | DigitalWalletTokenizationTwoFactorAuthenticationCodeWebhookEvent
-  | DigitalWalletTokenizationTwoFactorAuthenticationCodeSentWebhookEvent
-  | DigitalWalletTokenizationUpdatedWebhookEvent
-  | DisputeUpdatedWebhookEvent
-  | DisputeEvidenceUploadFailedWebhookEvent
-  | ExternalBankAccountCreatedWebhookEvent
-  | ExternalBankAccountUpdatedWebhookEvent
-  | ExternalPaymentCreatedWebhookEvent
-  | ExternalPaymentUpdatedWebhookEvent
-  | FinancialAccountCreatedWebhookEvent
-  | FinancialAccountUpdatedWebhookEvent
-  | FundingEventCreatedWebhookEvent
-  | LoanTapeCreatedWebhookEvent
-  | LoanTapeUpdatedWebhookEvent
-  | ManagementOperationCreatedWebhookEvent
-  | ManagementOperationUpdatedWebhookEvent
-  | InternalTransactionCreatedWebhookEvent
-  | InternalTransactionUpdatedWebhookEvent
-  | NetworkTotalCreatedWebhookEvent
-  | NetworkTotalUpdatedWebhookEvent
-  | PaymentTransactionCreatedWebhookEvent
-  | PaymentTransactionUpdatedWebhookEvent
-  | SettlementReportUpdatedWebhookEvent
-  | StatementsCreatedWebhookEvent
-  | ThreeDSAuthenticationCreatedWebhookEvent
-  | ThreeDSAuthenticationUpdatedWebhookEvent
-  | ThreeDSAuthenticationChallengeWebhookEvent
-  | TokenizationApprovalRequestWebhookEvent
-  | TokenizationResultWebhookEvent
-  | TokenizationTwoFactorAuthenticationCodeWebhookEvent
-  | TokenizationTwoFactorAuthenticationCodeSentWebhookEvent
-  | TokenizationUpdatedWebhookEvent
-  | ThreeDSAuthenticationApprovalRequestWebhookEvent
-  | DisputeTransactionCreatedWebhookEvent
-  | DisputeTransactionUpdatedWebhookEvent;
+export type ParsedWebhookEvent = AccountHolderCreatedWebhookEvent | ParsedWebhookEvent.KYBPayload | ParsedWebhookEvent.KYCPayload | ParsedWebhookEvent.LegacyPayload | AccountHolderVerificationWebhookEvent | AccountHolderDocumentUpdatedWebhookEvent | CardAuthorizationApprovalRequestWebhookEvent | CardAuthorizationChallengeResponseWebhookEvent | AuthRulesBacktestReportCreatedWebhookEvent | BalanceUpdatedWebhookEvent | BookTransferTransactionCreatedWebhookEvent | BookTransferTransactionUpdatedWebhookEvent | CardCreatedWebhookEvent | CardConvertedWebhookEvent | CardRenewedWebhookEvent | CardReissuedWebhookEvent | CardShippedWebhookEvent | CardUpdatedWebhookEvent | CardTransactionUpdatedWebhookEvent | CardTransactionEnhancedDataCreatedWebhookEvent | CardTransactionEnhancedDataUpdatedWebhookEvent | DigitalWalletTokenizationApprovalRequestWebhookEvent | DigitalWalletTokenizationResultWebhookEvent | DigitalWalletTokenizationTwoFactorAuthenticationCodeWebhookEvent | DigitalWalletTokenizationTwoFactorAuthenticationCodeSentWebhookEvent | DigitalWalletTokenizationUpdatedWebhookEvent | DisputeUpdatedWebhookEvent | DisputeEvidenceUploadFailedWebhookEvent | ExternalBankAccountCreatedWebhookEvent | ExternalBankAccountUpdatedWebhookEvent | ExternalPaymentCreatedWebhookEvent | ExternalPaymentUpdatedWebhookEvent | FinancialAccountCreatedWebhookEvent | FinancialAccountUpdatedWebhookEvent | FundingEventCreatedWebhookEvent | LoanTapeCreatedWebhookEvent | LoanTapeUpdatedWebhookEvent | ManagementOperationCreatedWebhookEvent | ManagementOperationUpdatedWebhookEvent | InternalTransactionCreatedWebhookEvent | InternalTransactionUpdatedWebhookEvent | NetworkTotalCreatedWebhookEvent | NetworkTotalUpdatedWebhookEvent | PaymentTransactionCreatedWebhookEvent | PaymentTransactionUpdatedWebhookEvent | SettlementReportUpdatedWebhookEvent | StatementsCreatedWebhookEvent | ThreeDSAuthenticationCreatedWebhookEvent | ThreeDSAuthenticationUpdatedWebhookEvent | ThreeDSAuthenticationChallengeWebhookEvent | TokenizationApprovalRequestWebhookEvent | TokenizationResultWebhookEvent | TokenizationTwoFactorAuthenticationCodeWebhookEvent | TokenizationTwoFactorAuthenticationCodeSentWebhookEvent | TokenizationUpdatedWebhookEvent | ThreeDSAuthenticationApprovalRequestWebhookEvent | DisputeTransactionCreatedWebhookEvent | DisputeTransactionUpdatedWebhookEvent
 
 export namespace ParsedWebhookEvent {
   /**
@@ -2927,6 +2726,6 @@ export declare namespace Webhooks {
     type ThreeDSAuthenticationApprovalRequestWebhookEvent as ThreeDSAuthenticationApprovalRequestWebhookEvent,
     type DisputeTransactionCreatedWebhookEvent as DisputeTransactionCreatedWebhookEvent,
     type DisputeTransactionUpdatedWebhookEvent as DisputeTransactionUpdatedWebhookEvent,
-    type ParsedWebhookEvent as ParsedWebhookEvent,
+    type ParsedWebhookEvent as ParsedWebhookEvent
   };
 }

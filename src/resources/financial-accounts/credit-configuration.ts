@@ -17,14 +17,8 @@ export class CreditConfiguration extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    financialAccountToken: string,
-    options?: RequestOptions,
-  ): APIPromise<FinancialAccountCreditConfig> {
-    return this._client.get(
-      path`/v1/financial_accounts/${financialAccountToken}/credit_configuration`,
-      options,
-    );
+  retrieve(financialAccountToken: string, options?: RequestOptions): APIPromise<FinancialAccountCreditConfig> {
+    return this._client.get(path`/v1/financial_accounts/${financialAccountToken}/credit_configuration`, options);
   }
 
   /**
@@ -38,15 +32,8 @@ export class CreditConfiguration extends APIResource {
    *   );
    * ```
    */
-  update(
-    financialAccountToken: string,
-    body: CreditConfigurationUpdateParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<FinancialAccountCreditConfig> {
-    return this._client.patch(path`/v1/financial_accounts/${financialAccountToken}/credit_configuration`, {
-      body,
-      ...options,
-    });
+  update(financialAccountToken: string, body: CreditConfigurationUpdateParams | null | undefined = {}, options?: RequestOptions): APIPromise<FinancialAccountCreditConfig> {
+    return this._client.patch(path`/v1/financial_accounts/${financialAccountToken}/credit_configuration`, { body, ...options });
   }
 }
 
@@ -112,6 +99,6 @@ export namespace CreditConfigurationUpdateParams {
 export declare namespace CreditConfiguration {
   export {
     type FinancialAccountCreditConfig as FinancialAccountCreditConfig,
-    type CreditConfigurationUpdateParams as CreditConfigurationUpdateParams,
+    type CreditConfigurationUpdateParams as CreditConfigurationUpdateParams
   };
 }

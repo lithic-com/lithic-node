@@ -36,5 +36,7 @@ export interface AuthStreamSecret {
 }
 
 export declare namespace AuthStreamEnrollment {
-  export { type AuthStreamSecret as AuthStreamSecret };
+  export {
+    type AuthStreamSecret as AuthStreamSecret
+  };
 }

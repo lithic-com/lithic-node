@@ -23,21 +23,13 @@ export class LineItems extends APIResource {
    * }
    * ```
    */
-  list(
-    statementToken: string,
-    params: LineItemListParams,
-    options?: RequestOptions,
-  ): PagePromise<StatementLineItemsDataCursorPage, StatementLineItems.Data> {
-    const { financial_account_token, ...query } = params;
-    return this._client.getAPIList(
-      path`/v1/financial_accounts/${financial_account_token}/statements/${statementToken}/line_items`,
-      CursorPage<StatementLineItems.Data>,
-      { query, ...options },
-    );
+  list(statementToken: string, params: LineItemListParams, options?: RequestOptions): PagePromise<StatementLineItemsDataCursorPage, StatementLineItems.Data> {
+    const { financial_account_token, ...query } = params
+    return this._client.getAPIList(path`/v1/financial_accounts/${financial_account_token}/statements/${statementToken}/line_items`, CursorPage<StatementLineItems.Data>, { query, ...options });
   }
 }
 
-export type StatementLineItemsDataCursorPage = CursorPage<StatementLineItems.Data>;
+export type StatementLineItemsDataCursorPage = CursorPage<StatementLineItems.Data>
 
 export interface StatementLineItems {
   data: Array<StatementLineItems.Data>;
@@ -62,29 +54,7 @@ export namespace StatementLineItems {
      * bank). The WIRE category is a preview. To learn more, contact your customer
      * success manager.
      */
-    category:
-      | 'ACH'
-      | 'WIRE'
-      | 'BALANCE_OR_FUNDING'
-      | 'FEE'
-      | 'REWARD'
-      | 'ADJUSTMENT'
-      | 'DERECOGNITION'
-      | 'DISPUTE'
-      | 'CARD'
-      | 'EXTERNAL_ACH'
-      | 'EXTERNAL_CHECK'
-      | 'EXTERNAL_FEDNOW'
-      | 'EXTERNAL_RTP'
-      | 'EXTERNAL_TRANSFER'
-      | 'EXTERNAL_WIRE'
-      | 'MANAGEMENT_ADJUSTMENT'
-      | 'MANAGEMENT_DISPUTE'
-      | 'MANAGEMENT_FEE'
-      | 'MANAGEMENT_REWARD'
-      | 'MANAGEMENT_DISBURSEMENT'
-      | 'HOLD'
-      | 'PROGRAM_FUNDING';
+    category: 'ACH' | 'WIRE' | 'BALANCE_OR_FUNDING' | 'FEE' | 'REWARD' | 'ADJUSTMENT' | 'DERECOGNITION' | 'DISPUTE' | 'CARD' | 'EXTERNAL_ACH' | 'EXTERNAL_CHECK' | 'EXTERNAL_FEDNOW' | 'EXTERNAL_RTP' | 'EXTERNAL_TRANSFER' | 'EXTERNAL_WIRE' | 'MANAGEMENT_ADJUSTMENT' | 'MANAGEMENT_DISPUTE' | 'MANAGEMENT_FEE' | 'MANAGEMENT_REWARD' | 'MANAGEMENT_DISBURSEMENT' | 'HOLD' | 'PROGRAM_FUNDING';
 
     /**
      * Timestamp of when the line item was generated
@@ -102,94 +72,7 @@ export namespace StatementLineItems {
      */
     effective_date: string;
 
-    event_type:
-      | 'ACH_ORIGINATION_CANCELLED'
-      | 'ACH_ORIGINATION_INITIATED'
-      | 'ACH_ORIGINATION_PROCESSED'
-      | 'ACH_ORIGINATION_RELEASED'
-      | 'ACH_ORIGINATION_REJECTED'
-      | 'ACH_ORIGINATION_REVIEWED'
-      | 'ACH_ORIGINATION_SETTLED'
-      | 'ACH_RECEIPT_PROCESSED'
-      | 'ACH_RECEIPT_RELEASED'
-      | 'ACH_RECEIPT_SETTLED'
-      | 'ACH_RETURN_INITIATED'
-      | 'ACH_RETURN_PROCESSED'
-      | 'ACH_RETURN_REJECTED'
-      | 'ACH_RETURN_SETTLED'
-      | 'AUTHORIZATION'
-      | 'AUTHORIZATION_ADVICE'
-      | 'AUTHORIZATION_EXPIRY'
-      | 'AUTHORIZATION_REVERSAL'
-      | 'BALANCE_INQUIRY'
-      | 'BILLING_ERROR'
-      | 'BILLING_ERROR_REVERSAL'
-      | 'CARD_TO_CARD'
-      | 'CASH_BACK'
-      | 'CASH_BACK_REVERSAL'
-      | 'CLEARING'
-      | 'COLLECTION'
-      | 'CORRECTION_CREDIT'
-      | 'CORRECTION_DEBIT'
-      | 'CREDIT_AUTHORIZATION'
-      | 'CREDIT_AUTHORIZATION_ADVICE'
-      | 'CURRENCY_CONVERSION'
-      | 'CURRENCY_CONVERSION_REVERSAL'
-      | 'DISPUTE_WON'
-      | 'EXTERNAL_ACH_CANCELED'
-      | 'EXTERNAL_ACH_INITIATED'
-      | 'EXTERNAL_ACH_RELEASED'
-      | 'EXTERNAL_ACH_REVERSED'
-      | 'EXTERNAL_ACH_SETTLED'
-      | 'EXTERNAL_CHECK_CANCELED'
-      | 'EXTERNAL_CHECK_INITIATED'
-      | 'EXTERNAL_CHECK_RELEASED'
-      | 'EXTERNAL_CHECK_REVERSED'
-      | 'EXTERNAL_CHECK_SETTLED'
-      | 'EXTERNAL_FEDNOW_CANCELED'
-      | 'EXTERNAL_FEDNOW_INITIATED'
-      | 'EXTERNAL_FEDNOW_RELEASED'
-      | 'EXTERNAL_FEDNOW_REVERSED'
-      | 'EXTERNAL_FEDNOW_SETTLED'
-      | 'EXTERNAL_RTP_CANCELED'
-      | 'EXTERNAL_RTP_INITIATED'
-      | 'EXTERNAL_RTP_RELEASED'
-      | 'EXTERNAL_RTP_REVERSED'
-      | 'EXTERNAL_RTP_SETTLED'
-      | 'EXTERNAL_TRANSFER_CANCELED'
-      | 'EXTERNAL_TRANSFER_INITIATED'
-      | 'EXTERNAL_TRANSFER_RELEASED'
-      | 'EXTERNAL_TRANSFER_REVERSED'
-      | 'EXTERNAL_TRANSFER_SETTLED'
-      | 'EXTERNAL_WIRE_CANCELED'
-      | 'EXTERNAL_WIRE_INITIATED'
-      | 'EXTERNAL_WIRE_RELEASED'
-      | 'EXTERNAL_WIRE_REVERSED'
-      | 'EXTERNAL_WIRE_SETTLED'
-      | 'FINANCIAL_AUTHORIZATION'
-      | 'FINANCIAL_CREDIT_AUTHORIZATION'
-      | 'INTEREST'
-      | 'INTEREST_REVERSAL'
-      | 'INTERNAL_ADJUSTMENT'
-      | 'LATE_PAYMENT'
-      | 'LATE_PAYMENT_REVERSAL'
-      | 'LOSS_WRITE_OFF'
-      | 'PROVISIONAL_CREDIT'
-      | 'PROVISIONAL_CREDIT_REVERSAL'
-      | 'SERVICE'
-      | 'RETURN'
-      | 'RETURN_REVERSAL'
-      | 'TRANSFER'
-      | 'TRANSFER_INSUFFICIENT_FUNDS'
-      | 'RETURNED_PAYMENT'
-      | 'RETURNED_PAYMENT_REVERSAL'
-      | 'LITHIC_NETWORK_PAYMENT'
-      | 'ANNUAL'
-      | 'ANNUAL_REVERSAL'
-      | 'QUARTERLY'
-      | 'QUARTERLY_REVERSAL'
-      | 'MONTHLY'
-      | 'MONTHLY_REVERSAL';
+    event_type: 'ACH_ORIGINATION_CANCELLED' | 'ACH_ORIGINATION_INITIATED' | 'ACH_ORIGINATION_PROCESSED' | 'ACH_ORIGINATION_RELEASED' | 'ACH_ORIGINATION_REJECTED' | 'ACH_ORIGINATION_REVIEWED' | 'ACH_ORIGINATION_SETTLED' | 'ACH_RECEIPT_PROCESSED' | 'ACH_RECEIPT_RELEASED' | 'ACH_RECEIPT_SETTLED' | 'ACH_RETURN_INITIATED' | 'ACH_RETURN_PROCESSED' | 'ACH_RETURN_REJECTED' | 'ACH_RETURN_SETTLED' | 'AUTHORIZATION' | 'AUTHORIZATION_ADVICE' | 'AUTHORIZATION_EXPIRY' | 'AUTHORIZATION_REVERSAL' | 'BALANCE_INQUIRY' | 'BILLING_ERROR' | 'BILLING_ERROR_REVERSAL' | 'CARD_TO_CARD' | 'CASH_BACK' | 'CASH_BACK_REVERSAL' | 'CLEARING' | 'COLLECTION' | 'CORRECTION_CREDIT' | 'CORRECTION_DEBIT' | 'CREDIT_AUTHORIZATION' | 'CREDIT_AUTHORIZATION_ADVICE' | 'CURRENCY_CONVERSION' | 'CURRENCY_CONVERSION_REVERSAL' | 'DISPUTE_WON' | 'EXTERNAL_ACH_CANCELED' | 'EXTERNAL_ACH_INITIATED' | 'EXTERNAL_ACH_RELEASED' | 'EXTERNAL_ACH_REVERSED' | 'EXTERNAL_ACH_SETTLED' | 'EXTERNAL_CHECK_CANCELED' | 'EXTERNAL_CHECK_INITIATED' | 'EXTERNAL_CHECK_RELEASED' | 'EXTERNAL_CHECK_REVERSED' | 'EXTERNAL_CHECK_SETTLED' | 'EXTERNAL_FEDNOW_CANCELED' | 'EXTERNAL_FEDNOW_INITIATED' | 'EXTERNAL_FEDNOW_RELEASED' | 'EXTERNAL_FEDNOW_REVERSED' | 'EXTERNAL_FEDNOW_SETTLED' | 'EXTERNAL_RTP_CANCELED' | 'EXTERNAL_RTP_INITIATED' | 'EXTERNAL_RTP_RELEASED' | 'EXTERNAL_RTP_REVERSED' | 'EXTERNAL_RTP_SETTLED' | 'EXTERNAL_TRANSFER_CANCELED' | 'EXTERNAL_TRANSFER_INITIATED' | 'EXTERNAL_TRANSFER_RELEASED' | 'EXTERNAL_TRANSFER_REVERSED' | 'EXTERNAL_TRANSFER_SETTLED' | 'EXTERNAL_WIRE_CANCELED' | 'EXTERNAL_WIRE_INITIATED' | 'EXTERNAL_WIRE_RELEASED' | 'EXTERNAL_WIRE_REVERSED' | 'EXTERNAL_WIRE_SETTLED' | 'FINANCIAL_AUTHORIZATION' | 'FINANCIAL_CREDIT_AUTHORIZATION' | 'INTEREST' | 'INTEREST_REVERSAL' | 'INTERNAL_ADJUSTMENT' | 'LATE_PAYMENT' | 'LATE_PAYMENT_REVERSAL' | 'LOSS_WRITE_OFF' | 'PROVISIONAL_CREDIT' | 'PROVISIONAL_CREDIT_REVERSAL' | 'SERVICE' | 'RETURN' | 'RETURN_REVERSAL' | 'TRANSFER' | 'TRANSFER_INSUFFICIENT_FUNDS' | 'RETURNED_PAYMENT' | 'RETURNED_PAYMENT_REVERSAL' | 'LITHIC_NETWORK_PAYMENT' | 'ANNUAL' | 'ANNUAL_REVERSAL' | 'QUARTERLY' | 'QUARTERLY_REVERSAL' | 'MONTHLY' | 'MONTHLY_REVERSAL';
 
     /**
      * Globally unique identifier for a financial account
@@ -236,6 +119,6 @@ export declare namespace LineItems {
   export {
     type StatementLineItems as StatementLineItems,
     type StatementLineItemsDataCursorPage as StatementLineItemsDataCursorPage,
-    type LineItemListParams as LineItemListParams,
+    type LineItemListParams as LineItemListParams
   };
 }

@@ -13,10 +13,7 @@ export class Holds extends APIResource {
    * payment or book transfer), voiding, or expiration.
    */
   create(financialAccountToken: string, body: HoldCreateParams, options?: RequestOptions): APIPromise<Hold> {
-    return this._client.post(path`/v1/financial_accounts/${financialAccountToken}/holds`, {
-      body,
-      ...options,
-    });
+    return this._client.post(path`/v1/financial_accounts/${financialAccountToken}/holds`, { body, ...options });
   }
 
   /**
@@ -29,16 +26,8 @@ export class Holds extends APIResource {
   /**
    * List holds for a financial account.
    */
-  list(
-    financialAccountToken: string,
-    query: HoldListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<HoldsCursorPage, Hold> {
-    return this._client.getAPIList(
-      path`/v1/financial_accounts/${financialAccountToken}/holds`,
-      CursorPage<Hold>,
-      { query, ...options },
-    );
+  list(financialAccountToken: string, query: HoldListParams | null | undefined = {}, options?: RequestOptions): PagePromise<HoldsCursorPage, Hold> {
+    return this._client.getAPIList(path`/v1/financial_accounts/${financialAccountToken}/holds`, CursorPage<Hold>, { query, ...options });
   }
 
   /**
@@ -50,7 +39,7 @@ export class Holds extends APIResource {
   }
 }
 
-export type HoldsCursorPage = CursorPage<Hold>;
+export type HoldsCursorPage = CursorPage<Hold>
 
 /**
  * A hold transaction representing reserved funds on a financial account. Holds
@@ -196,6 +185,6 @@ export declare namespace Holds {
     type HoldsCursorPage as HoldsCursorPage,
     type HoldCreateParams as HoldCreateParams,
     type HoldListParams as HoldListParams,
-    type HoldVoidParams as HoldVoidParams,
+    type HoldVoidParams as HoldVoidParams
   };
 }

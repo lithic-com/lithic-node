@@ -2,10 +2,7 @@
 
 import Lithic from 'lithic';
 
-const client = new Lithic({
-  apiKey: 'My Lithic API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Lithic({ apiKey: 'My Lithic API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('top level methods', () => {
   test('apiStatus', async () => {

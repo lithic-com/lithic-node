@@ -24,16 +24,9 @@ export class LoanTapes extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    loanTapeToken: string,
-    params: LoanTapeRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<LoanTape> {
-    const { financial_account_token } = params;
-    return this._client.get(
-      path`/v1/financial_accounts/${financial_account_token}/loan_tapes/${loanTapeToken}`,
-      options,
-    );
+  retrieve(loanTapeToken: string, params: LoanTapeRetrieveParams, options?: RequestOptions): APIPromise<LoanTape> {
+    const { financial_account_token } = params
+    return this._client.get(path`/v1/financial_accounts/${financial_account_token}/loan_tapes/${loanTapeToken}`, options);
   }
 
   /**
@@ -49,20 +42,12 @@ export class LoanTapes extends APIResource {
    * }
    * ```
    */
-  list(
-    financialAccountToken: string,
-    query: LoanTapeListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<LoanTapesCursorPage, LoanTape> {
-    return this._client.getAPIList(
-      path`/v1/financial_accounts/${financialAccountToken}/loan_tapes`,
-      CursorPage<LoanTape>,
-      { query, ...options },
-    );
+  list(financialAccountToken: string, query: LoanTapeListParams | null | undefined = {}, options?: RequestOptions): PagePromise<LoanTapesCursorPage, LoanTape> {
+    return this._client.getAPIList(path`/v1/financial_accounts/${financialAccountToken}/loan_tapes`, CursorPage<LoanTape>, { query, ...options });
   }
 }
 
-export type LoanTapesCursorPage = CursorPage<LoanTape>;
+export type LoanTapesCursorPage = CursorPage<LoanTape>
 
 export interface CategoryBalances {
   fees: number;
@@ -214,14 +199,7 @@ export namespace LoanTape {
       /**
        * Substatus for the financial account
        */
-      substatus?:
-        | 'CHARGED_OFF_DELINQUENT'
-        | 'CHARGED_OFF_FRAUD'
-        | 'END_USER_REQUEST'
-        | 'BANK_REQUEST'
-        | 'DELINQUENT'
-        | 'INTEREST_AND_FEES_PAUSED'
-        | null;
+      substatus?: 'CHARGED_OFF_DELINQUENT' | 'CHARGED_OFF_FRAUD' | 'END_USER_REQUEST' | 'BANK_REQUEST' | 'DELINQUENT' | 'INTEREST_AND_FEES_PAUSED' | null;
     }
   }
 
@@ -329,6 +307,6 @@ export declare namespace LoanTapes {
     type LoanTape as LoanTape,
     type LoanTapesCursorPage as LoanTapesCursorPage,
     type LoanTapeRetrieveParams as LoanTapeRetrieveParams,
-    type LoanTapeListParams as LoanTapeListParams,
+    type LoanTapeListParams as LoanTapeListParams
   };
 }

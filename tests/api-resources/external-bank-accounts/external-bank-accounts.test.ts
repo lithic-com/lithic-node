@@ -2,24 +2,21 @@
 
 import Lithic from 'lithic';
 
-const client = new Lithic({
-  apiKey: 'My Lithic API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Lithic({ apiKey: 'My Lithic API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource externalBankAccounts', () => {
   test('create: only required params', async () => {
     const responsePromise = client.externalBankAccounts.create({
-      account_number: '12345678901234567',
-      country: 'USD',
-      currency: 'USD',
-      financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      owner: 'owner',
-      owner_type: 'INDIVIDUAL',
-      routing_number: '123456789',
-      type: 'CHECKING',
-      verification_method: 'MANUAL',
-    });
+    account_number: '12345678901234567',
+    country: 'USD',
+    currency: 'USD',
+    financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    owner: 'owner',
+    owner_type: 'INDIVIDUAL',
+    routing_number: '123456789',
+    type: 'CHECKING',
+    verification_method: 'MANUAL',
+  });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -31,31 +28,31 @@ describe('resource externalBankAccounts', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.externalBankAccounts.create({
-      account_number: '12345678901234567',
-      country: 'USD',
-      currency: 'USD',
-      financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      owner: 'owner',
-      owner_type: 'INDIVIDUAL',
-      routing_number: '123456789',
-      type: 'CHECKING',
-      verification_method: 'MANUAL',
-      account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      address: {
-        address1: 'x',
-        city: 'x',
-        country: 'USD',
-        postal_code: '11201',
-        state: 'xx',
-        address2: 'x',
-      },
-      company_id: 'sq',
-      dob: '2019-12-27',
-      doing_business_as: 'x',
-      name: 'name',
-      user_defined_id: 'x',
-      verification_enforcement: true,
-    });
+    account_number: '12345678901234567',
+    country: 'USD',
+    currency: 'USD',
+    financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    owner: 'owner',
+    owner_type: 'INDIVIDUAL',
+    routing_number: '123456789',
+    type: 'CHECKING',
+    verification_method: 'MANUAL',
+    account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    address: {
+    address1: 'x',
+    city: 'x',
+    country: 'USD',
+    postal_code: '11201',
+    state: 'xx',
+    address2: 'x',
+  },
+    company_id: 'sq',
+    dob: '2019-12-27',
+    doing_business_as: 'x',
+    name: 'name',
+    user_defined_id: 'x',
+    verification_enforcement: true,
+  });
   });
 
   test('retrieve', async () => {
@@ -93,28 +90,23 @@ describe('resource externalBankAccounts', () => {
 
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.externalBankAccounts.list(
-        {
-          account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          account_types: ['CHECKING'],
-          countries: ['string'],
-          ending_before: 'ending_before',
-          owner_types: ['INDIVIDUAL'],
-          page_size: 1,
-          starting_after: 'starting_after',
-          states: ['ENABLED'],
-          verification_states: ['PENDING'],
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
+    await expect(client.externalBankAccounts.list({
+    account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    account_types: ['CHECKING'],
+    countries: ['string'],
+    ending_before: 'ending_before',
+    owner_types: ['INDIVIDUAL'],
+    page_size: 1,
+    starting_after: 'starting_after',
+    states: ['ENABLED'],
+    verification_states: ['PENDING'],
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Lithic.NotFoundError);
   });
 
   test('retryMicroDeposits', async () => {
-    const responsePromise = client.externalBankAccounts.retryMicroDeposits(
-      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-    );
+    const responsePromise = client.externalBankAccounts.retryMicroDeposits('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -126,13 +118,9 @@ describe('resource externalBankAccounts', () => {
 
   test('retryMicroDeposits: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.externalBankAccounts.retryMicroDeposits(
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
+    await expect(client.externalBankAccounts.retryMicroDeposits('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Lithic.NotFoundError);
   });
 
   test('retryPrenote', async () => {
@@ -148,20 +136,13 @@ describe('resource externalBankAccounts', () => {
 
   test('retryPrenote: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.externalBankAccounts.retryPrenote(
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        { financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
+    await expect(client.externalBankAccounts.retryPrenote('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Lithic.NotFoundError);
   });
 
   test('setVerificationMethod: only required params', async () => {
-    const responsePromise = client.externalBankAccounts.setVerificationMethod(
-      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      { verification_method: 'MICRO_DEPOSIT' },
-    );
+    const responsePromise = client.externalBankAccounts.setVerificationMethod('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { verification_method: 'MICRO_DEPOSIT' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -172,13 +153,7 @@ describe('resource externalBankAccounts', () => {
   });
 
   test('setVerificationMethod: required and optional params', async () => {
-    const response = await client.externalBankAccounts.setVerificationMethod(
-      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      {
-        verification_method: 'MICRO_DEPOSIT',
-        financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      },
-    );
+    const response = await client.externalBankAccounts.setVerificationMethod('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { verification_method: 'MICRO_DEPOSIT', financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });
   });
 
   test('unpause', async () => {

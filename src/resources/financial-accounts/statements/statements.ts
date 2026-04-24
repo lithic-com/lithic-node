@@ -3,12 +3,7 @@
 import { APIResource } from '../../../core/resource';
 import * as FinancialAccountsAPI from '../financial-accounts';
 import * as LineItemsAPI from './line-items';
-import {
-  LineItemListParams,
-  LineItems,
-  StatementLineItems,
-  StatementLineItemsDataCursorPage,
-} from './line-items';
+import { LineItemListParams, LineItems, StatementLineItems, StatementLineItemsDataCursorPage } from './line-items';
 import { APIPromise } from '../../../core/api-promise';
 import { CursorPage, type CursorPageParams, PagePromise } from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
@@ -32,16 +27,9 @@ export class Statements extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    statementToken: string,
-    params: StatementRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<Statement> {
-    const { financial_account_token } = params;
-    return this._client.get(
-      path`/v1/financial_accounts/${financial_account_token}/statements/${statementToken}`,
-      options,
-    );
+  retrieve(statementToken: string, params: StatementRetrieveParams, options?: RequestOptions): APIPromise<Statement> {
+    const { financial_account_token } = params
+    return this._client.get(path`/v1/financial_accounts/${financial_account_token}/statements/${statementToken}`, options);
   }
 
   /**
@@ -57,20 +45,12 @@ export class Statements extends APIResource {
    * }
    * ```
    */
-  list(
-    financialAccountToken: string,
-    query: StatementListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<StatementsCursorPage, Statement> {
-    return this._client.getAPIList(
-      path`/v1/financial_accounts/${financialAccountToken}/statements`,
-      CursorPage<Statement>,
-      { query, ...options },
-    );
+  list(financialAccountToken: string, query: StatementListParams | null | undefined = {}, options?: RequestOptions): PagePromise<StatementsCursorPage, Statement> {
+    return this._client.getAPIList(path`/v1/financial_accounts/${financialAccountToken}/statements`, CursorPage<Statement>, { query, ...options });
   }
 }
 
-export type StatementsCursorPage = CursorPage<Statement>;
+export type StatementsCursorPage = CursorPage<Statement>
 
 export interface Statement {
   /**
@@ -222,14 +202,7 @@ export namespace Statement {
       /**
        * Substatus for the financial account
        */
-      substatus?:
-        | 'CHARGED_OFF_DELINQUENT'
-        | 'CHARGED_OFF_FRAUD'
-        | 'END_USER_REQUEST'
-        | 'BANK_REQUEST'
-        | 'DELINQUENT'
-        | 'INTEREST_AND_FEES_PAUSED'
-        | null;
+      substatus?: 'CHARGED_OFF_DELINQUENT' | 'CHARGED_OFF_FRAUD' | 'END_USER_REQUEST' | 'BANK_REQUEST' | 'DELINQUENT' | 'INTEREST_AND_FEES_PAUSED' | null;
     }
   }
 
@@ -339,13 +312,13 @@ export declare namespace Statements {
     type Statements as Statements,
     type StatementsCursorPage as StatementsCursorPage,
     type StatementRetrieveParams as StatementRetrieveParams,
-    type StatementListParams as StatementListParams,
+    type StatementListParams as StatementListParams
   };
 
   export {
     LineItems as LineItems,
     type StatementLineItems as StatementLineItems,
     type StatementLineItemsDataCursorPage as StatementLineItemsDataCursorPage,
-    type LineItemListParams as LineItemListParams,
+    type LineItemListParams as LineItemListParams
   };
 }

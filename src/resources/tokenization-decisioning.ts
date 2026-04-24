@@ -44,6 +44,6 @@ export interface TokenizationDecisioningRotateSecretResponse {
 export declare namespace TokenizationDecisioning {
   export {
     type TokenizationSecret as TokenizationSecret,
-    type TokenizationDecisioningRotateSecretResponse as TokenizationDecisioningRotateSecretResponse,
+    type TokenizationDecisioningRotateSecretResponse as TokenizationDecisioningRotateSecretResponse
   };
 }

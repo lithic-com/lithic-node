@@ -4,17 +4,7 @@ import { APIResource } from '../../core/resource';
 import * as EventSubscriptionsAPI from './event-subscriptions';
 import { EventSubscriptionResendParams, EventSubscriptions } from './event-subscriptions';
 import * as SubscriptionsAPI from './subscriptions';
-import {
-  SubscriptionCreateParams,
-  SubscriptionListAttemptsParams,
-  SubscriptionListParams,
-  SubscriptionRecoverParams,
-  SubscriptionReplayMissingParams,
-  SubscriptionRetrieveSecretResponse,
-  SubscriptionSendSimulatedExampleParams,
-  SubscriptionUpdateParams,
-  Subscriptions,
-} from './subscriptions';
+import { SubscriptionCreateParams, SubscriptionListAttemptsParams, SubscriptionListParams, SubscriptionRecoverParams, SubscriptionReplayMissingParams, SubscriptionRetrieveSecretResponse, SubscriptionSendSimulatedExampleParams, SubscriptionUpdateParams, Subscriptions } from './subscriptions';
 import { APIPromise } from '../../core/api-promise';
 import { CursorPage, type CursorPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -22,9 +12,7 @@ import { path } from '../../internal/utils/path';
 
 export class Events extends APIResource {
   subscriptions: SubscriptionsAPI.Subscriptions = new SubscriptionsAPI.Subscriptions(this._client);
-  eventSubscriptions: EventSubscriptionsAPI.EventSubscriptions = new EventSubscriptionsAPI.EventSubscriptions(
-    this._client,
-  );
+  eventSubscriptions: EventSubscriptionsAPI.EventSubscriptions = new EventSubscriptionsAPI.EventSubscriptions(this._client);
 
   /**
    * Get an event.
@@ -36,33 +24,23 @@ export class Events extends APIResource {
   /**
    * List all events.
    */
-  list(
-    query: EventListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<EventsCursorPage, Event> {
+  list(query: EventListParams | null | undefined = {}, options?: RequestOptions): PagePromise<EventsCursorPage, Event> {
     return this._client.getAPIList('/v1/events', CursorPage<Event>, { query, ...options });
   }
 
   /**
    * List all the message attempts for a given event.
    */
-  listAttempts(
-    eventToken: string,
-    query: EventListAttemptsParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<MessageAttemptsCursorPage, MessageAttempt> {
-    return this._client.getAPIList(path`/v1/events/${eventToken}/attempts`, CursorPage<MessageAttempt>, {
-      query,
-      ...options,
-    });
+  listAttempts(eventToken: string, query: EventListAttemptsParams | null | undefined = {}, options?: RequestOptions): PagePromise<MessageAttemptsCursorPage, MessageAttempt> {
+    return this._client.getAPIList(path`/v1/events/${eventToken}/attempts`, CursorPage<MessageAttempt>, { query, ...options });
   }
 }
 
-export type EventsCursorPage = CursorPage<Event>;
+export type EventsCursorPage = CursorPage<Event>
 
-export type MessageAttemptsCursorPage = CursorPage<MessageAttempt>;
+export type MessageAttemptsCursorPage = CursorPage<MessageAttempt>
 
-export type EventSubscriptionsCursorPage = CursorPage<EventSubscription>;
+export type EventSubscriptionsCursorPage = CursorPage<EventSubscription>
 
 /**
  * A single event that affects the transaction state and lifecycle.
@@ -182,60 +160,7 @@ export interface Event {
    *   request 2FA code is sent to our downstream messaging providers for delivery.
    * - tokenization.updated: Occurs when a tokenization's status has changed.
    */
-  event_type:
-    | 'account_holder_document.updated'
-    | 'account_holder.created'
-    | 'account_holder.updated'
-    | 'account_holder.verification'
-    | 'auth_rules.backtest_report.created'
-    | 'balance.updated'
-    | 'book_transfer_transaction.created'
-    | 'book_transfer_transaction.updated'
-    | 'card_authorization.challenge_response'
-    | 'card_transaction.enhanced_data.created'
-    | 'card_transaction.enhanced_data.updated'
-    | 'card_transaction.updated'
-    | 'card.converted'
-    | 'card.created'
-    | 'card.reissued'
-    | 'card.renewed'
-    | 'card.shipped'
-    | 'card.updated'
-    | 'digital_wallet.tokenization_result'
-    | 'digital_wallet.tokenization_two_factor_authentication_code'
-    | 'digital_wallet.tokenization_two_factor_authentication_code_sent'
-    | 'digital_wallet.tokenization_updated'
-    | 'dispute_evidence.upload_failed'
-    | 'dispute_transaction.created'
-    | 'dispute_transaction.updated'
-    | 'dispute.updated'
-    | 'external_bank_account.created'
-    | 'external_bank_account.updated'
-    | 'external_payment.created'
-    | 'external_payment.updated'
-    | 'financial_account.created'
-    | 'financial_account.updated'
-    | 'funding_event.created'
-    | 'internal_transaction.created'
-    | 'internal_transaction.updated'
-    | 'loan_tape.created'
-    | 'loan_tape.updated'
-    | 'management_operation.created'
-    | 'management_operation.updated'
-    | 'network_total.created'
-    | 'network_total.updated'
-    | 'payment_transaction.created'
-    | 'payment_transaction.updated'
-    | 'settlement_report.updated'
-    | 'statements.created'
-    | 'three_ds_authentication.challenge'
-    | 'three_ds_authentication.created'
-    | 'three_ds_authentication.updated'
-    | 'tokenization.approval_request'
-    | 'tokenization.result'
-    | 'tokenization.two_factor_authentication_code'
-    | 'tokenization.two_factor_authentication_code_sent'
-    | 'tokenization.updated';
+  event_type: 'account_holder_document.updated' | 'account_holder.created' | 'account_holder.updated' | 'account_holder.verification' | 'auth_rules.backtest_report.created' | 'balance.updated' | 'book_transfer_transaction.created' | 'book_transfer_transaction.updated' | 'card_authorization.challenge_response' | 'card_transaction.enhanced_data.created' | 'card_transaction.enhanced_data.updated' | 'card_transaction.updated' | 'card.converted' | 'card.created' | 'card.reissued' | 'card.renewed' | 'card.shipped' | 'card.updated' | 'digital_wallet.tokenization_result' | 'digital_wallet.tokenization_two_factor_authentication_code' | 'digital_wallet.tokenization_two_factor_authentication_code_sent' | 'digital_wallet.tokenization_updated' | 'dispute_evidence.upload_failed' | 'dispute_transaction.created' | 'dispute_transaction.updated' | 'dispute.updated' | 'external_bank_account.created' | 'external_bank_account.updated' | 'external_payment.created' | 'external_payment.updated' | 'financial_account.created' | 'financial_account.updated' | 'funding_event.created' | 'internal_transaction.created' | 'internal_transaction.updated' | 'loan_tape.created' | 'loan_tape.updated' | 'management_operation.created' | 'management_operation.updated' | 'network_total.created' | 'network_total.updated' | 'payment_transaction.created' | 'payment_transaction.updated' | 'settlement_report.updated' | 'statements.created' | 'three_ds_authentication.challenge' | 'three_ds_authentication.created' | 'three_ds_authentication.updated' | 'tokenization.approval_request' | 'tokenization.result' | 'tokenization.two_factor_authentication_code' | 'tokenization.two_factor_authentication_code_sent' | 'tokenization.updated';
 
   payload: { [key: string]: unknown };
 }
@@ -261,61 +186,7 @@ export interface EventSubscription {
 
   url: string;
 
-  event_types?: Array<
-    | 'account_holder_document.updated'
-    | 'account_holder.created'
-    | 'account_holder.updated'
-    | 'account_holder.verification'
-    | 'auth_rules.backtest_report.created'
-    | 'balance.updated'
-    | 'book_transfer_transaction.created'
-    | 'book_transfer_transaction.updated'
-    | 'card_authorization.challenge_response'
-    | 'card_transaction.enhanced_data.created'
-    | 'card_transaction.enhanced_data.updated'
-    | 'card_transaction.updated'
-    | 'card.converted'
-    | 'card.created'
-    | 'card.reissued'
-    | 'card.renewed'
-    | 'card.shipped'
-    | 'card.updated'
-    | 'digital_wallet.tokenization_result'
-    | 'digital_wallet.tokenization_two_factor_authentication_code'
-    | 'digital_wallet.tokenization_two_factor_authentication_code_sent'
-    | 'digital_wallet.tokenization_updated'
-    | 'dispute_evidence.upload_failed'
-    | 'dispute_transaction.created'
-    | 'dispute_transaction.updated'
-    | 'dispute.updated'
-    | 'external_bank_account.created'
-    | 'external_bank_account.updated'
-    | 'external_payment.created'
-    | 'external_payment.updated'
-    | 'financial_account.created'
-    | 'financial_account.updated'
-    | 'funding_event.created'
-    | 'internal_transaction.created'
-    | 'internal_transaction.updated'
-    | 'loan_tape.created'
-    | 'loan_tape.updated'
-    | 'management_operation.created'
-    | 'management_operation.updated'
-    | 'network_total.created'
-    | 'network_total.updated'
-    | 'payment_transaction.created'
-    | 'payment_transaction.updated'
-    | 'settlement_report.updated'
-    | 'statements.created'
-    | 'three_ds_authentication.challenge'
-    | 'three_ds_authentication.created'
-    | 'three_ds_authentication.updated'
-    | 'tokenization.approval_request'
-    | 'tokenization.result'
-    | 'tokenization.two_factor_authentication_code'
-    | 'tokenization.two_factor_authentication_code_sent'
-    | 'tokenization.updated'
-  > | null;
+  event_types?: Array<'account_holder_document.updated' | 'account_holder.created' | 'account_holder.updated' | 'account_holder.verification' | 'auth_rules.backtest_report.created' | 'balance.updated' | 'book_transfer_transaction.created' | 'book_transfer_transaction.updated' | 'card_authorization.challenge_response' | 'card_transaction.enhanced_data.created' | 'card_transaction.enhanced_data.updated' | 'card_transaction.updated' | 'card.converted' | 'card.created' | 'card.reissued' | 'card.renewed' | 'card.shipped' | 'card.updated' | 'digital_wallet.tokenization_result' | 'digital_wallet.tokenization_two_factor_authentication_code' | 'digital_wallet.tokenization_two_factor_authentication_code_sent' | 'digital_wallet.tokenization_updated' | 'dispute_evidence.upload_failed' | 'dispute_transaction.created' | 'dispute_transaction.updated' | 'dispute.updated' | 'external_bank_account.created' | 'external_bank_account.updated' | 'external_payment.created' | 'external_payment.updated' | 'financial_account.created' | 'financial_account.updated' | 'funding_event.created' | 'internal_transaction.created' | 'internal_transaction.updated' | 'loan_tape.created' | 'loan_tape.updated' | 'management_operation.created' | 'management_operation.updated' | 'network_total.created' | 'network_total.updated' | 'payment_transaction.created' | 'payment_transaction.updated' | 'settlement_report.updated' | 'statements.created' | 'three_ds_authentication.challenge' | 'three_ds_authentication.created' | 'three_ds_authentication.updated' | 'tokenization.approval_request' | 'tokenization.result' | 'tokenization.two_factor_authentication_code' | 'tokenization.two_factor_authentication_code_sent' | 'tokenization.updated'> | null;
 }
 
 /**
@@ -378,61 +249,7 @@ export interface EventListParams extends CursorPageParams {
   /**
    * Event types to filter events by.
    */
-  event_types?: Array<
-    | 'account_holder_document.updated'
-    | 'account_holder.created'
-    | 'account_holder.updated'
-    | 'account_holder.verification'
-    | 'auth_rules.backtest_report.created'
-    | 'balance.updated'
-    | 'book_transfer_transaction.created'
-    | 'book_transfer_transaction.updated'
-    | 'card_authorization.challenge_response'
-    | 'card_transaction.enhanced_data.created'
-    | 'card_transaction.enhanced_data.updated'
-    | 'card_transaction.updated'
-    | 'card.converted'
-    | 'card.created'
-    | 'card.reissued'
-    | 'card.renewed'
-    | 'card.shipped'
-    | 'card.updated'
-    | 'digital_wallet.tokenization_result'
-    | 'digital_wallet.tokenization_two_factor_authentication_code'
-    | 'digital_wallet.tokenization_two_factor_authentication_code_sent'
-    | 'digital_wallet.tokenization_updated'
-    | 'dispute_evidence.upload_failed'
-    | 'dispute_transaction.created'
-    | 'dispute_transaction.updated'
-    | 'dispute.updated'
-    | 'external_bank_account.created'
-    | 'external_bank_account.updated'
-    | 'external_payment.created'
-    | 'external_payment.updated'
-    | 'financial_account.created'
-    | 'financial_account.updated'
-    | 'funding_event.created'
-    | 'internal_transaction.created'
-    | 'internal_transaction.updated'
-    | 'loan_tape.created'
-    | 'loan_tape.updated'
-    | 'management_operation.created'
-    | 'management_operation.updated'
-    | 'network_total.created'
-    | 'network_total.updated'
-    | 'payment_transaction.created'
-    | 'payment_transaction.updated'
-    | 'settlement_report.updated'
-    | 'statements.created'
-    | 'three_ds_authentication.challenge'
-    | 'three_ds_authentication.created'
-    | 'three_ds_authentication.updated'
-    | 'tokenization.approval_request'
-    | 'tokenization.result'
-    | 'tokenization.two_factor_authentication_code'
-    | 'tokenization.two_factor_authentication_code_sent'
-    | 'tokenization.updated'
-  >;
+  event_types?: Array<'account_holder_document.updated' | 'account_holder.created' | 'account_holder.updated' | 'account_holder.verification' | 'auth_rules.backtest_report.created' | 'balance.updated' | 'book_transfer_transaction.created' | 'book_transfer_transaction.updated' | 'card_authorization.challenge_response' | 'card_transaction.enhanced_data.created' | 'card_transaction.enhanced_data.updated' | 'card_transaction.updated' | 'card.converted' | 'card.created' | 'card.reissued' | 'card.renewed' | 'card.shipped' | 'card.updated' | 'digital_wallet.tokenization_result' | 'digital_wallet.tokenization_two_factor_authentication_code' | 'digital_wallet.tokenization_two_factor_authentication_code_sent' | 'digital_wallet.tokenization_updated' | 'dispute_evidence.upload_failed' | 'dispute_transaction.created' | 'dispute_transaction.updated' | 'dispute.updated' | 'external_bank_account.created' | 'external_bank_account.updated' | 'external_payment.created' | 'external_payment.updated' | 'financial_account.created' | 'financial_account.updated' | 'funding_event.created' | 'internal_transaction.created' | 'internal_transaction.updated' | 'loan_tape.created' | 'loan_tape.updated' | 'management_operation.created' | 'management_operation.updated' | 'network_total.created' | 'network_total.updated' | 'payment_transaction.created' | 'payment_transaction.updated' | 'settlement_report.updated' | 'statements.created' | 'three_ds_authentication.challenge' | 'three_ds_authentication.created' | 'three_ds_authentication.updated' | 'tokenization.approval_request' | 'tokenization.result' | 'tokenization.two_factor_authentication_code' | 'tokenization.two_factor_authentication_code_sent' | 'tokenization.updated'>;
 
   /**
    * Whether to include the event payload content in the response.
@@ -467,7 +284,7 @@ export declare namespace Events {
     type EventsCursorPage as EventsCursorPage,
     type MessageAttemptsCursorPage as MessageAttemptsCursorPage,
     type EventListParams as EventListParams,
-    type EventListAttemptsParams as EventListAttemptsParams,
+    type EventListAttemptsParams as EventListAttemptsParams
   };
 
   export {
@@ -479,11 +296,11 @@ export declare namespace Events {
     type SubscriptionListAttemptsParams as SubscriptionListAttemptsParams,
     type SubscriptionRecoverParams as SubscriptionRecoverParams,
     type SubscriptionReplayMissingParams as SubscriptionReplayMissingParams,
-    type SubscriptionSendSimulatedExampleParams as SubscriptionSendSimulatedExampleParams,
+    type SubscriptionSendSimulatedExampleParams as SubscriptionSendSimulatedExampleParams
   };
 
   export {
     EventSubscriptions as EventSubscriptions,
-    type EventSubscriptionResendParams as EventSubscriptionResendParams,
+    type EventSubscriptionResendParams as EventSubscriptionResendParams
   };
 }

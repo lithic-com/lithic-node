@@ -24,74 +24,40 @@ export class ExternalPayments extends APIResource {
   /**
    * List external payments
    */
-  list(
-    query: ExternalPaymentListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<ExternalPaymentsCursorPage, ExternalPayment> {
-    return this._client.getAPIList('/v1/external_payments', CursorPage<ExternalPayment>, {
-      query,
-      ...options,
-    });
+  list(query: ExternalPaymentListParams | null | undefined = {}, options?: RequestOptions): PagePromise<ExternalPaymentsCursorPage, ExternalPayment> {
+    return this._client.getAPIList('/v1/external_payments', CursorPage<ExternalPayment>, { query, ...options });
   }
 
   /**
    * Cancel external payment
    */
-  cancel(
-    externalPaymentToken: string,
-    body: ExternalPaymentCancelParams,
-    options?: RequestOptions,
-  ): APIPromise<ExternalPayment> {
-    return this._client.post(path`/v1/external_payments/${externalPaymentToken}/cancel`, {
-      body,
-      ...options,
-    });
+  cancel(externalPaymentToken: string, body: ExternalPaymentCancelParams, options?: RequestOptions): APIPromise<ExternalPayment> {
+    return this._client.post(path`/v1/external_payments/${externalPaymentToken}/cancel`, { body, ...options });
   }
 
   /**
    * Release external payment
    */
-  release(
-    externalPaymentToken: string,
-    body: ExternalPaymentReleaseParams,
-    options?: RequestOptions,
-  ): APIPromise<ExternalPayment> {
-    return this._client.post(path`/v1/external_payments/${externalPaymentToken}/release`, {
-      body,
-      ...options,
-    });
+  release(externalPaymentToken: string, body: ExternalPaymentReleaseParams, options?: RequestOptions): APIPromise<ExternalPayment> {
+    return this._client.post(path`/v1/external_payments/${externalPaymentToken}/release`, { body, ...options });
   }
 
   /**
    * Reverse external payment
    */
-  reverse(
-    externalPaymentToken: string,
-    body: ExternalPaymentReverseParams,
-    options?: RequestOptions,
-  ): APIPromise<ExternalPayment> {
-    return this._client.post(path`/v1/external_payments/${externalPaymentToken}/reverse`, {
-      body,
-      ...options,
-    });
+  reverse(externalPaymentToken: string, body: ExternalPaymentReverseParams, options?: RequestOptions): APIPromise<ExternalPayment> {
+    return this._client.post(path`/v1/external_payments/${externalPaymentToken}/reverse`, { body, ...options });
   }
 
   /**
    * Settle external payment
    */
-  settle(
-    externalPaymentToken: string,
-    body: ExternalPaymentSettleParams,
-    options?: RequestOptions,
-  ): APIPromise<ExternalPayment> {
-    return this._client.post(path`/v1/external_payments/${externalPaymentToken}/settle`, {
-      body,
-      ...options,
-    });
+  settle(externalPaymentToken: string, body: ExternalPaymentSettleParams, options?: RequestOptions): APIPromise<ExternalPayment> {
+    return this._client.post(path`/v1/external_payments/${externalPaymentToken}/settle`, { body, ...options });
   }
 }
 
-export type ExternalPaymentsCursorPage = CursorPage<ExternalPayment>;
+export type ExternalPaymentsCursorPage = CursorPage<ExternalPayment>
 
 export interface ExternalPayment {
   /**
@@ -114,13 +80,7 @@ export interface ExternalPayment {
    */
   updated: string;
 
-  category?:
-    | 'EXTERNAL_WIRE'
-    | 'EXTERNAL_ACH'
-    | 'EXTERNAL_CHECK'
-    | 'EXTERNAL_FEDNOW'
-    | 'EXTERNAL_RTP'
-    | 'EXTERNAL_TRANSFER';
+  category?: 'EXTERNAL_WIRE' | 'EXTERNAL_ACH' | 'EXTERNAL_CHECK' | 'EXTERNAL_FEDNOW' | 'EXTERNAL_RTP' | 'EXTERNAL_TRANSFER';
 
   currency?: string;
 
@@ -160,50 +120,14 @@ export namespace ExternalPayment {
 
     result: 'APPROVED' | 'DECLINED';
 
-    type:
-      | 'EXTERNAL_WIRE_INITIATED'
-      | 'EXTERNAL_WIRE_CANCELED'
-      | 'EXTERNAL_WIRE_SETTLED'
-      | 'EXTERNAL_WIRE_REVERSED'
-      | 'EXTERNAL_WIRE_RELEASED'
-      | 'EXTERNAL_ACH_INITIATED'
-      | 'EXTERNAL_ACH_CANCELED'
-      | 'EXTERNAL_ACH_SETTLED'
-      | 'EXTERNAL_ACH_REVERSED'
-      | 'EXTERNAL_ACH_RELEASED'
-      | 'EXTERNAL_TRANSFER_INITIATED'
-      | 'EXTERNAL_TRANSFER_CANCELED'
-      | 'EXTERNAL_TRANSFER_SETTLED'
-      | 'EXTERNAL_TRANSFER_REVERSED'
-      | 'EXTERNAL_TRANSFER_RELEASED'
-      | 'EXTERNAL_CHECK_INITIATED'
-      | 'EXTERNAL_CHECK_CANCELED'
-      | 'EXTERNAL_CHECK_SETTLED'
-      | 'EXTERNAL_CHECK_REVERSED'
-      | 'EXTERNAL_CHECK_RELEASED'
-      | 'EXTERNAL_FEDNOW_INITIATED'
-      | 'EXTERNAL_FEDNOW_CANCELED'
-      | 'EXTERNAL_FEDNOW_SETTLED'
-      | 'EXTERNAL_FEDNOW_REVERSED'
-      | 'EXTERNAL_FEDNOW_RELEASED'
-      | 'EXTERNAL_RTP_INITIATED'
-      | 'EXTERNAL_RTP_CANCELED'
-      | 'EXTERNAL_RTP_SETTLED'
-      | 'EXTERNAL_RTP_REVERSED'
-      | 'EXTERNAL_RTP_RELEASED';
+    type: 'EXTERNAL_WIRE_INITIATED' | 'EXTERNAL_WIRE_CANCELED' | 'EXTERNAL_WIRE_SETTLED' | 'EXTERNAL_WIRE_REVERSED' | 'EXTERNAL_WIRE_RELEASED' | 'EXTERNAL_ACH_INITIATED' | 'EXTERNAL_ACH_CANCELED' | 'EXTERNAL_ACH_SETTLED' | 'EXTERNAL_ACH_REVERSED' | 'EXTERNAL_ACH_RELEASED' | 'EXTERNAL_TRANSFER_INITIATED' | 'EXTERNAL_TRANSFER_CANCELED' | 'EXTERNAL_TRANSFER_SETTLED' | 'EXTERNAL_TRANSFER_REVERSED' | 'EXTERNAL_TRANSFER_RELEASED' | 'EXTERNAL_CHECK_INITIATED' | 'EXTERNAL_CHECK_CANCELED' | 'EXTERNAL_CHECK_SETTLED' | 'EXTERNAL_CHECK_REVERSED' | 'EXTERNAL_CHECK_RELEASED' | 'EXTERNAL_FEDNOW_INITIATED' | 'EXTERNAL_FEDNOW_CANCELED' | 'EXTERNAL_FEDNOW_SETTLED' | 'EXTERNAL_FEDNOW_REVERSED' | 'EXTERNAL_FEDNOW_RELEASED' | 'EXTERNAL_RTP_INITIATED' | 'EXTERNAL_RTP_CANCELED' | 'EXTERNAL_RTP_SETTLED' | 'EXTERNAL_RTP_REVERSED' | 'EXTERNAL_RTP_RELEASED';
   }
 }
 
 export interface ExternalPaymentCreateParams {
   amount: number;
 
-  category:
-    | 'EXTERNAL_WIRE'
-    | 'EXTERNAL_ACH'
-    | 'EXTERNAL_CHECK'
-    | 'EXTERNAL_FEDNOW'
-    | 'EXTERNAL_RTP'
-    | 'EXTERNAL_TRANSFER';
+  category: 'EXTERNAL_WIRE' | 'EXTERNAL_ACH' | 'EXTERNAL_CHECK' | 'EXTERNAL_FEDNOW' | 'EXTERNAL_RTP' | 'EXTERNAL_TRANSFER';
 
   effective_date: string;
 
@@ -236,13 +160,7 @@ export interface ExternalPaymentListParams extends CursorPageParams {
   /**
    * External Payment category to be returned.
    */
-  category?:
-    | 'EXTERNAL_WIRE'
-    | 'EXTERNAL_ACH'
-    | 'EXTERNAL_CHECK'
-    | 'EXTERNAL_FEDNOW'
-    | 'EXTERNAL_RTP'
-    | 'EXTERNAL_TRANSFER';
+  category?: 'EXTERNAL_WIRE' | 'EXTERNAL_ACH' | 'EXTERNAL_CHECK' | 'EXTERNAL_FEDNOW' | 'EXTERNAL_RTP' | 'EXTERNAL_TRANSFER';
 
   /**
    * Date string in RFC 3339 format. Only entries created before the specified time
@@ -302,6 +220,6 @@ export declare namespace ExternalPayments {
     type ExternalPaymentCancelParams as ExternalPaymentCancelParams,
     type ExternalPaymentReleaseParams as ExternalPaymentReleaseParams,
     type ExternalPaymentReverseParams as ExternalPaymentReverseParams,
-    type ExternalPaymentSettleParams as ExternalPaymentSettleParams,
+    type ExternalPaymentSettleParams as ExternalPaymentSettleParams
   };
 }

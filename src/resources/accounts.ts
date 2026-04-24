@@ -49,10 +49,7 @@ export class Accounts extends APIResource {
    * }
    * ```
    */
-  list(
-    query: AccountListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<AccountsCursorPage, Account> {
+  list(query: AccountListParams | null | undefined = {}, options?: RequestOptions): PagePromise<AccountsCursorPage, Account> {
     return this._client.getAPIList('/v1/accounts', CursorPage<Account>, { query, ...options });
   }
 
@@ -76,7 +73,7 @@ export class Accounts extends APIResource {
   }
 }
 
-export type AccountsCursorPage = CursorPage<Account>;
+export type AccountsCursorPage = CursorPage<Account>
 
 export interface Account {
   /**
@@ -164,16 +161,7 @@ export interface Account {
    *   of the above categories. A comment should be provided to specify the
    *   particular reason.
    */
-  substatus?:
-    | 'FRAUD_IDENTIFIED'
-    | 'SUSPICIOUS_ACTIVITY'
-    | 'RISK_VIOLATION'
-    | 'END_USER_REQUEST'
-    | 'ISSUER_REQUEST'
-    | 'NOT_ACTIVE'
-    | 'INTERNAL_REVIEW'
-    | 'OTHER'
-    | null;
+  substatus?: 'FRAUD_IDENTIFIED' | 'SUSPICIOUS_ACTIVITY' | 'RISK_VIOLATION' | 'END_USER_REQUEST' | 'ISSUER_REQUEST' | 'NOT_ACTIVE' | 'INTERNAL_REVIEW' | 'OTHER' | null;
 
   /**
    * @deprecated
@@ -399,16 +387,7 @@ export interface AccountUpdateParams {
    *   of the above categories. A comment should be provided to specify the
    *   particular reason.
    */
-  substatus?:
-    | 'FRAUD_IDENTIFIED'
-    | 'SUSPICIOUS_ACTIVITY'
-    | 'RISK_VIOLATION'
-    | 'END_USER_REQUEST'
-    | 'ISSUER_REQUEST'
-    | 'NOT_ACTIVE'
-    | 'INTERNAL_REVIEW'
-    | 'OTHER'
-    | null;
+  substatus?: 'FRAUD_IDENTIFIED' | 'SUSPICIOUS_ACTIVITY' | 'RISK_VIOLATION' | 'END_USER_REQUEST' | 'ISSUER_REQUEST' | 'NOT_ACTIVE' | 'INTERNAL_REVIEW' | 'OTHER' | null;
 
   /**
    * @deprecated Address used during Address Verification Service (AVS) checks during
@@ -461,6 +440,6 @@ export declare namespace Accounts {
     type AccountSpendLimits as AccountSpendLimits,
     type AccountsCursorPage as AccountsCursorPage,
     type AccountUpdateParams as AccountUpdateParams,
-    type AccountListParams as AccountListParams,
+    type AccountListParams as AccountListParams
   };
 }

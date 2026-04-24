@@ -2,10 +2,7 @@
 
 import Lithic from 'lithic';
 
-const client = new Lithic({
-  apiKey: 'My Lithic API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Lithic({ apiKey: 'My Lithic API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource fundingEvents', () => {
   test('retrieve', async () => {
@@ -32,16 +29,13 @@ describe('resource fundingEvents', () => {
 
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.fundingEvents.list(
-        {
-          ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          page_size: 1,
-          starting_after: 'starting_after',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
+    await expect(client.fundingEvents.list({
+    ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    page_size: 1,
+    starting_after: 'starting_after',
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Lithic.NotFoundError);
   });
 
   test('retrieveDetails', async () => {

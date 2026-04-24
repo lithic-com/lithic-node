@@ -22,15 +22,8 @@ export class InterestTierScheduleResource extends APIResource {
    *   );
    * ```
    */
-  create(
-    financialAccountToken: string,
-    body: InterestTierScheduleCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<InterestTierSchedule> {
-    return this._client.post(path`/v1/financial_accounts/${financialAccountToken}/interest_tier_schedule`, {
-      body,
-      ...options,
-    });
+  create(financialAccountToken: string, body: InterestTierScheduleCreateParams, options?: RequestOptions): APIPromise<InterestTierSchedule> {
+    return this._client.post(path`/v1/financial_accounts/${financialAccountToken}/interest_tier_schedule`, { body, ...options });
   }
 
   /**
@@ -48,16 +41,9 @@ export class InterestTierScheduleResource extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    effectiveDate: string,
-    params: InterestTierScheduleRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<InterestTierSchedule> {
-    const { financial_account_token } = params;
-    return this._client.get(
-      path`/v1/financial_accounts/${financial_account_token}/interest_tier_schedule/${effectiveDate}`,
-      options,
-    );
+  retrieve(effectiveDate: string, params: InterestTierScheduleRetrieveParams, options?: RequestOptions): APIPromise<InterestTierSchedule> {
+    const { financial_account_token } = params
+    return this._client.get(path`/v1/financial_accounts/${financial_account_token}/interest_tier_schedule/${effectiveDate}`, options);
   }
 
   /**
@@ -75,16 +61,9 @@ export class InterestTierScheduleResource extends APIResource {
    *   );
    * ```
    */
-  update(
-    effectiveDate: string,
-    params: InterestTierScheduleUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<InterestTierSchedule> {
-    const { financial_account_token, ...body } = params;
-    return this._client.put(
-      path`/v1/financial_accounts/${financial_account_token}/interest_tier_schedule/${effectiveDate}`,
-      { body, ...options },
-    );
+  update(effectiveDate: string, params: InterestTierScheduleUpdateParams, options?: RequestOptions): APIPromise<InterestTierSchedule> {
+    const { financial_account_token, ...body } = params
+    return this._client.put(path`/v1/financial_accounts/${financial_account_token}/interest_tier_schedule/${effectiveDate}`, { body, ...options });
   }
 
   /**
@@ -109,16 +88,8 @@ export class InterestTierScheduleResource extends APIResource {
    * }
    * ```
    */
-  list(
-    financialAccountToken: string,
-    query: InterestTierScheduleListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<InterestTierSchedulesSinglePage, InterestTierSchedule> {
-    return this._client.getAPIList(
-      path`/v1/financial_accounts/${financialAccountToken}/interest_tier_schedule`,
-      SinglePage<InterestTierSchedule>,
-      { query, ...options },
-    );
+  list(financialAccountToken: string, query: InterestTierScheduleListParams | null | undefined = {}, options?: RequestOptions): PagePromise<InterestTierSchedulesSinglePage, InterestTierSchedule> {
+    return this._client.getAPIList(path`/v1/financial_accounts/${financialAccountToken}/interest_tier_schedule`, SinglePage<InterestTierSchedule>, { query, ...options });
   }
 
   /**
@@ -150,20 +121,13 @@ export class InterestTierScheduleResource extends APIResource {
    * );
    * ```
    */
-  delete(
-    effectiveDate: string,
-    params: InterestTierScheduleDeleteParams,
-    options?: RequestOptions,
-  ): APIPromise<void> {
-    const { financial_account_token } = params;
-    return this._client.delete(
-      path`/v1/financial_accounts/${financial_account_token}/interest_tier_schedule/${effectiveDate}`,
-      options,
-    );
+  delete(effectiveDate: string, params: InterestTierScheduleDeleteParams, options?: RequestOptions): APIPromise<void> {
+    const { financial_account_token } = params
+    return this._client.delete(path`/v1/financial_accounts/${financial_account_token}/interest_tier_schedule/${effectiveDate}`, options);
   }
 }
 
-export type InterestTierSchedulesSinglePage = SinglePage<InterestTierSchedule>;
+export type InterestTierSchedulesSinglePage = SinglePage<InterestTierSchedule>
 
 /**
  * Rate and rate cap for interest on a category
@@ -302,6 +266,6 @@ export declare namespace InterestTierScheduleResource {
     type InterestTierScheduleRetrieveParams as InterestTierScheduleRetrieveParams,
     type InterestTierScheduleUpdateParams as InterestTierScheduleUpdateParams,
     type InterestTierScheduleListParams as InterestTierScheduleListParams,
-    type InterestTierScheduleDeleteParams as InterestTierScheduleDeleteParams,
+    type InterestTierScheduleDeleteParams as InterestTierScheduleDeleteParams
   };
 }

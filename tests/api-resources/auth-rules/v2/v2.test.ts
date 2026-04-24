@@ -2,25 +2,18 @@
 
 import Lithic from 'lithic';
 
-const client = new Lithic({
-  apiKey: 'My Lithic API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Lithic({ apiKey: 'My Lithic API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource v2', () => {
   test('create: only required params', async () => {
     const responsePromise = client.authRules.v2.create({
-      parameters: {
-        conditions: [
-          {
-            attribute: 'MCC',
-            operation: 'IS_ONE_OF',
-            value: 'string',
-          },
-        ],
-      },
-      type: 'CONDITIONAL_BLOCK',
-    });
+    parameters: { conditions: [{
+    attribute: 'MCC',
+    operation: 'IS_ONE_OF',
+    value: 'string',
+  }] },
+    type: 'CONDITIONAL_BLOCK',
+  });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -32,21 +25,17 @@ describe('resource v2', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.authRules.v2.create({
-      parameters: {
-        conditions: [
-          {
-            attribute: 'MCC',
-            operation: 'IS_ONE_OF',
-            value: 'string',
-          },
-        ],
-      },
-      type: 'CONDITIONAL_BLOCK',
-      account_tokens: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
-      business_account_tokens: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
-      event_stream: 'AUTHORIZATION',
-      name: 'name',
-    });
+    parameters: { conditions: [{
+    attribute: 'MCC',
+    operation: 'IS_ONE_OF',
+    value: 'string',
+  }] },
+    type: 'CONDITIONAL_BLOCK',
+    account_tokens: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
+    business_account_tokens: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
+    event_stream: 'AUTHORIZATION',
+    name: 'name',
+  });
   });
 
   test('retrieve', async () => {
@@ -84,22 +73,19 @@ describe('resource v2', () => {
 
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.authRules.v2.list(
-        {
-          account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          business_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          card_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          event_stream: 'AUTHORIZATION',
-          event_streams: ['AUTHORIZATION'],
-          page_size: 1,
-          scope: 'PROGRAM',
-          starting_after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
+    await expect(client.authRules.v2.list({
+    account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    business_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    card_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    event_stream: 'AUTHORIZATION',
+    event_streams: ['AUTHORIZATION'],
+    page_size: 1,
+    scope: 'PROGRAM',
+    starting_after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Lithic.NotFoundError);
   });
 
   test('delete', async () => {
@@ -137,21 +123,18 @@ describe('resource v2', () => {
 
   test('listResults: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.authRules.v2.listResults(
-        {
-          auth_rule_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          begin: '2019-12-27T18:11:19.117Z',
-          end: '2019-12-27T18:11:19.117Z',
-          ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          event_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          has_actions: true,
-          page_size: 1,
-          starting_after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
+    await expect(client.authRules.v2.listResults({
+    auth_rule_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    begin: '2019-12-27T18:11:19.117Z',
+    end: '2019-12-27T18:11:19.117Z',
+    ending_before: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    event_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    has_actions: true,
+    page_size: 1,
+    starting_after: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Lithic.NotFoundError);
   });
 
   test('listVersions', async () => {
@@ -189,23 +172,13 @@ describe('resource v2', () => {
 
   test('retrieveFeatures: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.authRules.v2.retrieveFeatures(
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        {
-          account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          card_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
+    await expect(client.authRules.v2.retrieveFeatures('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', card_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Lithic.NotFoundError);
   });
 
   test('retrieveReport: only required params', async () => {
-    const responsePromise = client.authRules.v2.retrieveReport('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      begin: '2019-12-27',
-      end: '2019-12-27',
-    });
+    const responsePromise = client.authRules.v2.retrieveReport('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { begin: '2019-12-27', end: '2019-12-27' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -216,9 +189,6 @@ describe('resource v2', () => {
   });
 
   test('retrieveReport: required and optional params', async () => {
-    const response = await client.authRules.v2.retrieveReport('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      begin: '2019-12-27',
-      end: '2019-12-27',
-    });
+    const response = await client.authRules.v2.retrieveReport('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { begin: '2019-12-27', end: '2019-12-27' });
   });
 });

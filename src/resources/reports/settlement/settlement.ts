@@ -26,16 +26,8 @@ export class Settlement extends APIResource {
    * }
    * ```
    */
-  listDetails(
-    reportDate: string,
-    query: SettlementListDetailsParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<SettlementDetailsCursorPage, ReportsAPI.SettlementDetail> {
-    return this._client.getAPIList(
-      path`/v1/reports/settlement/details/${reportDate}`,
-      CursorPage<ReportsAPI.SettlementDetail>,
-      { query, ...options },
-    );
+  listDetails(reportDate: string, query: SettlementListDetailsParams | null | undefined = {}, options?: RequestOptions): PagePromise<SettlementDetailsCursorPage, ReportsAPI.SettlementDetail> {
+    return this._client.getAPIList(path`/v1/reports/settlement/details/${reportDate}`, CursorPage<ReportsAPI.SettlementDetail>, { query, ...options });
   }
 
   /**
@@ -52,14 +44,20 @@ export class Settlement extends APIResource {
   }
 }
 
-export interface SettlementListDetailsParams extends CursorPageParams {}
+export interface SettlementListDetailsParams extends CursorPageParams {
+}
 
 Settlement.NetworkTotals = NetworkTotals;
 
 export declare namespace Settlement {
-  export { type SettlementListDetailsParams as SettlementListDetailsParams };
+  export {
+    type SettlementListDetailsParams as SettlementListDetailsParams
+  };
 
-  export { NetworkTotals as NetworkTotals, type NetworkTotalListParams as NetworkTotalListParams };
+  export {
+    NetworkTotals as NetworkTotals,
+    type NetworkTotalListParams as NetworkTotalListParams
+  };
 }
 
-export { type SettlementDetailsCursorPage };
+export { type SettlementDetailsCursorPage }

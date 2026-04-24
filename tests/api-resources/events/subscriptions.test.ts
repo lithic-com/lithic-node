@@ -2,10 +2,7 @@
 
 import Lithic from 'lithic';
 
-const client = new Lithic({
-  apiKey: 'My Lithic API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Lithic({ apiKey: 'My Lithic API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource subscriptions', () => {
   test('create: only required params', async () => {
@@ -21,11 +18,11 @@ describe('resource subscriptions', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.events.subscriptions.create({
-      url: 'https://example.com',
-      description: 'description',
-      disabled: true,
-      event_types: ['account_holder_document.updated'],
-    });
+    url: 'https://example.com',
+    description: 'description',
+    disabled: true,
+    event_types: ['account_holder_document.updated'],
+  });
   });
 
   test('retrieve', async () => {
@@ -40,9 +37,7 @@ describe('resource subscriptions', () => {
   });
 
   test('update: only required params', async () => {
-    const responsePromise = client.events.subscriptions.update('event_subscription_token', {
-      url: 'https://example.com',
-    });
+    const responsePromise = client.events.subscriptions.update('event_subscription_token', { url: 'https://example.com' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -54,11 +49,11 @@ describe('resource subscriptions', () => {
 
   test('update: required and optional params', async () => {
     const response = await client.events.subscriptions.update('event_subscription_token', {
-      url: 'https://example.com',
-      description: 'description',
-      disabled: true,
-      event_types: ['account_holder_document.updated'],
-    });
+    url: 'https://example.com',
+    description: 'description',
+    disabled: true,
+    event_types: ['account_holder_document.updated'],
+  });
   });
 
   test('list', async () => {
@@ -74,16 +69,13 @@ describe('resource subscriptions', () => {
 
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.events.subscriptions.list(
-        {
-          ending_before: 'ending_before',
-          page_size: 1,
-          starting_after: 'starting_after',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
+    await expect(client.events.subscriptions.list({
+    ending_before: 'ending_before',
+    page_size: 1,
+    starting_after: 'starting_after',
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Lithic.NotFoundError);
   });
 
   // Prism Mock server doesn't want Accept header, but server requires it.
@@ -111,20 +103,16 @@ describe('resource subscriptions', () => {
 
   test('listAttempts: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.events.subscriptions.listAttempts(
-        'event_subscription_token',
-        {
-          begin: '2019-12-27T18:11:19.117Z',
-          end: '2019-12-27T18:11:19.117Z',
-          ending_before: 'ending_before',
-          page_size: 1,
-          starting_after: 'starting_after',
-          status: 'FAILED',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
+    await expect(client.events.subscriptions.listAttempts('event_subscription_token', {
+    begin: '2019-12-27T18:11:19.117Z',
+    end: '2019-12-27T18:11:19.117Z',
+    ending_before: 'ending_before',
+    page_size: 1,
+    starting_after: 'starting_after',
+    status: 'FAILED',
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Lithic.NotFoundError);
   });
 
   // Prism Mock server doesn't want Accept header, but server requires it.
@@ -142,13 +130,9 @@ describe('resource subscriptions', () => {
   // Prism Mock server doesn't want Accept header, but server requires it.
   test.skip('recover: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.events.subscriptions.recover(
-        'event_subscription_token',
-        { begin: '2019-12-27T18:11:19.117Z', end: '2019-12-27T18:11:19.117Z' },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
+    await expect(client.events.subscriptions.recover('event_subscription_token', { begin: '2019-12-27T18:11:19.117Z', end: '2019-12-27T18:11:19.117Z' }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Lithic.NotFoundError);
   });
 
   // Prism Mock server doesn't want Accept header, but server requires it.
@@ -166,13 +150,9 @@ describe('resource subscriptions', () => {
   // Prism Mock server doesn't want Accept header, but server requires it.
   test.skip('replayMissing: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.events.subscriptions.replayMissing(
-        'event_subscription_token',
-        { begin: '2019-12-27T18:11:19.117Z', end: '2019-12-27T18:11:19.117Z' },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
+    await expect(client.events.subscriptions.replayMissing('event_subscription_token', { begin: '2019-12-27T18:11:19.117Z', end: '2019-12-27T18:11:19.117Z' }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Lithic.NotFoundError);
   });
 
   test('retrieveSecret', async () => {
@@ -211,12 +191,8 @@ describe('resource subscriptions', () => {
 
   test('sendSimulatedExample: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.events.subscriptions.sendSimulatedExample(
-        'event_subscription_token',
-        { event_type: 'account_holder_document.updated' },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
+    await expect(client.events.subscriptions.sendSimulatedExample('event_subscription_token', { event_type: 'account_holder_document.updated' }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Lithic.NotFoundError);
   });
 });

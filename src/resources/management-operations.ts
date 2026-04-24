@@ -10,52 +10,33 @@ export class ManagementOperations extends APIResource {
   /**
    * Create management operation
    */
-  create(
-    body: ManagementOperationCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<ManagementOperationTransaction> {
+  create(body: ManagementOperationCreateParams, options?: RequestOptions): APIPromise<ManagementOperationTransaction> {
     return this._client.post('/v1/management_operations', { body, ...options });
   }
 
   /**
    * Get management operation
    */
-  retrieve(
-    managementOperationToken: string,
-    options?: RequestOptions,
-  ): APIPromise<ManagementOperationTransaction> {
+  retrieve(managementOperationToken: string, options?: RequestOptions): APIPromise<ManagementOperationTransaction> {
     return this._client.get(path`/v1/management_operations/${managementOperationToken}`, options);
   }
 
   /**
    * List management operations
    */
-  list(
-    query: ManagementOperationListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<ManagementOperationTransactionsCursorPage, ManagementOperationTransaction> {
-    return this._client.getAPIList('/v1/management_operations', CursorPage<ManagementOperationTransaction>, {
-      query,
-      ...options,
-    });
+  list(query: ManagementOperationListParams | null | undefined = {}, options?: RequestOptions): PagePromise<ManagementOperationTransactionsCursorPage, ManagementOperationTransaction> {
+    return this._client.getAPIList('/v1/management_operations', CursorPage<ManagementOperationTransaction>, { query, ...options });
   }
 
   /**
    * Reverse a management operation
    */
-  reverse(
-    managementOperationToken: string,
-    body: ManagementOperationReverseParams,
-    options?: RequestOptions,
-  ): APIPromise<ManagementOperationTransaction> {
-    return this._client.post(path`/v1/management_operations/${managementOperationToken}/reverse`, {
-      body,
-      ...options,
-    });
+  reverse(managementOperationToken: string, body: ManagementOperationReverseParams, options?: RequestOptions): APIPromise<ManagementOperationTransaction> {
+    return this._client.post(path`/v1/management_operations/${managementOperationToken}/reverse`, { body, ...options });
   }
 }
 
-export type ManagementOperationTransactionsCursorPage = CursorPage<ManagementOperationTransaction>;
+export type ManagementOperationTransactionsCursorPage = CursorPage<ManagementOperationTransaction>
 
 /**
  * External resource associated with the management operation
@@ -80,7 +61,7 @@ export interface ExternalResource {
 /**
  * Type of external resource associated with the management operation
  */
-export type ExternalResourceType = 'STATEMENT' | 'COLLECTION' | 'DISPUTE' | 'UNKNOWN';
+export type ExternalResourceType = 'STATEMENT' | 'COLLECTION' | 'DISPUTE' | 'UNKNOWN'
 
 export interface ManagementOperationTransaction {
   /**
@@ -103,12 +84,7 @@ export interface ManagementOperationTransaction {
    */
   updated: string;
 
-  category?:
-    | 'MANAGEMENT_FEE'
-    | 'MANAGEMENT_DISPUTE'
-    | 'MANAGEMENT_REWARD'
-    | 'MANAGEMENT_ADJUSTMENT'
-    | 'MANAGEMENT_DISBURSEMENT';
+  category?: 'MANAGEMENT_FEE' | 'MANAGEMENT_DISPUTE' | 'MANAGEMENT_REWARD' | 'MANAGEMENT_ADJUSTMENT' | 'MANAGEMENT_DISBURSEMENT';
 
   currency?: string;
 
@@ -155,32 +131,7 @@ export namespace ManagementOperationTransaction {
 
     result: 'APPROVED' | 'DECLINED';
 
-    type:
-      | 'LOSS_WRITE_OFF'
-      | 'CASH_BACK'
-      | 'CASH_BACK_REVERSAL'
-      | 'CURRENCY_CONVERSION'
-      | 'CURRENCY_CONVERSION_REVERSAL'
-      | 'INTEREST'
-      | 'INTEREST_REVERSAL'
-      | 'LATE_PAYMENT'
-      | 'LATE_PAYMENT_REVERSAL'
-      | 'BILLING_ERROR'
-      | 'BILLING_ERROR_REVERSAL'
-      | 'PROVISIONAL_CREDIT'
-      | 'PROVISIONAL_CREDIT_REVERSAL'
-      | 'RETURNED_PAYMENT'
-      | 'RETURNED_PAYMENT_REVERSAL'
-      | 'DISPUTE_WON'
-      | 'DISPUTE_WON_REVERSAL'
-      | 'DISBURSE'
-      | 'DISBURSE_REVERSAL'
-      | 'ANNUAL'
-      | 'ANNUAL_REVERSAL'
-      | 'QUARTERLY'
-      | 'QUARTERLY_REVERSAL'
-      | 'MONTHLY'
-      | 'MONTHLY_REVERSAL';
+    type: 'LOSS_WRITE_OFF' | 'CASH_BACK' | 'CASH_BACK_REVERSAL' | 'CURRENCY_CONVERSION' | 'CURRENCY_CONVERSION_REVERSAL' | 'INTEREST' | 'INTEREST_REVERSAL' | 'LATE_PAYMENT' | 'LATE_PAYMENT_REVERSAL' | 'BILLING_ERROR' | 'BILLING_ERROR_REVERSAL' | 'PROVISIONAL_CREDIT' | 'PROVISIONAL_CREDIT_REVERSAL' | 'RETURNED_PAYMENT' | 'RETURNED_PAYMENT_REVERSAL' | 'DISPUTE_WON' | 'DISPUTE_WON_REVERSAL' | 'DISBURSE' | 'DISBURSE_REVERSAL' | 'ANNUAL' | 'ANNUAL_REVERSAL' | 'QUARTERLY' | 'QUARTERLY_REVERSAL' | 'MONTHLY' | 'MONTHLY_REVERSAL';
 
     subtype?: string | null;
   }
@@ -197,43 +148,13 @@ export namespace ManagementOperationTransaction {
 export interface ManagementOperationCreateParams {
   amount: number;
 
-  category:
-    | 'MANAGEMENT_FEE'
-    | 'MANAGEMENT_DISPUTE'
-    | 'MANAGEMENT_REWARD'
-    | 'MANAGEMENT_ADJUSTMENT'
-    | 'MANAGEMENT_DISBURSEMENT';
+  category: 'MANAGEMENT_FEE' | 'MANAGEMENT_DISPUTE' | 'MANAGEMENT_REWARD' | 'MANAGEMENT_ADJUSTMENT' | 'MANAGEMENT_DISBURSEMENT';
 
   direction: 'CREDIT' | 'DEBIT';
 
   effective_date: string;
 
-  event_type:
-    | 'LOSS_WRITE_OFF'
-    | 'CASH_BACK'
-    | 'CASH_BACK_REVERSAL'
-    | 'CURRENCY_CONVERSION'
-    | 'CURRENCY_CONVERSION_REVERSAL'
-    | 'INTEREST'
-    | 'INTEREST_REVERSAL'
-    | 'LATE_PAYMENT'
-    | 'LATE_PAYMENT_REVERSAL'
-    | 'BILLING_ERROR'
-    | 'BILLING_ERROR_REVERSAL'
-    | 'PROVISIONAL_CREDIT'
-    | 'PROVISIONAL_CREDIT_REVERSAL'
-    | 'RETURNED_PAYMENT'
-    | 'RETURNED_PAYMENT_REVERSAL'
-    | 'DISPUTE_WON'
-    | 'DISPUTE_WON_REVERSAL'
-    | 'DISBURSE'
-    | 'DISBURSE_REVERSAL'
-    | 'ANNUAL'
-    | 'ANNUAL_REVERSAL'
-    | 'QUARTERLY'
-    | 'QUARTERLY_REVERSAL'
-    | 'MONTHLY'
-    | 'MONTHLY_REVERSAL';
+  event_type: 'LOSS_WRITE_OFF' | 'CASH_BACK' | 'CASH_BACK_REVERSAL' | 'CURRENCY_CONVERSION' | 'CURRENCY_CONVERSION_REVERSAL' | 'INTEREST' | 'INTEREST_REVERSAL' | 'LATE_PAYMENT' | 'LATE_PAYMENT_REVERSAL' | 'BILLING_ERROR' | 'BILLING_ERROR_REVERSAL' | 'PROVISIONAL_CREDIT' | 'PROVISIONAL_CREDIT_REVERSAL' | 'RETURNED_PAYMENT' | 'RETURNED_PAYMENT_REVERSAL' | 'DISPUTE_WON' | 'DISPUTE_WON_REVERSAL' | 'DISBURSE' | 'DISBURSE_REVERSAL' | 'ANNUAL' | 'ANNUAL_REVERSAL' | 'QUARTERLY' | 'QUARTERLY_REVERSAL' | 'MONTHLY' | 'MONTHLY_REVERSAL';
 
   financial_account_token: string;
 
@@ -267,12 +188,7 @@ export interface ManagementOperationListParams extends CursorPageParams {
   /**
    * Management operation category to be returned.
    */
-  category?:
-    | 'MANAGEMENT_FEE'
-    | 'MANAGEMENT_DISPUTE'
-    | 'MANAGEMENT_REWARD'
-    | 'MANAGEMENT_ADJUSTMENT'
-    | 'MANAGEMENT_DISBURSEMENT';
+  category?: 'MANAGEMENT_FEE' | 'MANAGEMENT_DISPUTE' | 'MANAGEMENT_REWARD' | 'MANAGEMENT_ADJUSTMENT' | 'MANAGEMENT_DISBURSEMENT';
 
   /**
    * Date string in RFC 3339 format. Only entries created before the specified time
@@ -306,6 +222,6 @@ export declare namespace ManagementOperations {
     type ManagementOperationTransactionsCursorPage as ManagementOperationTransactionsCursorPage,
     type ManagementOperationCreateParams as ManagementOperationCreateParams,
     type ManagementOperationListParams as ManagementOperationListParams,
-    type ManagementOperationReverseParams as ManagementOperationReverseParams,
+    type ManagementOperationReverseParams as ManagementOperationReverseParams
   };
 }

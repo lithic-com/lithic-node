@@ -21,16 +21,9 @@ export class FinancialTransactions extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    financialTransactionToken: string,
-    params: FinancialTransactionRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<FinancialAccountsAPI.FinancialTransaction> {
-    const { card_token } = params;
-    return this._client.get(
-      path`/v1/cards/${card_token}/financial_transactions/${financialTransactionToken}`,
-      options,
-    );
+  retrieve(financialTransactionToken: string, params: FinancialTransactionRetrieveParams, options?: RequestOptions): APIPromise<FinancialAccountsAPI.FinancialTransaction> {
+    const { card_token } = params
+    return this._client.get(path`/v1/cards/${card_token}/financial_transactions/${financialTransactionToken}`, options);
   }
 
   /**
@@ -46,16 +39,8 @@ export class FinancialTransactions extends APIResource {
    * }
    * ```
    */
-  list(
-    cardToken: string,
-    query: FinancialTransactionListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<FinancialTransactionsSinglePage, FinancialAccountsAPI.FinancialTransaction> {
-    return this._client.getAPIList(
-      path`/v1/cards/${cardToken}/financial_transactions`,
-      SinglePage<FinancialAccountsAPI.FinancialTransaction>,
-      { query, ...options },
-    );
+  list(cardToken: string, query: FinancialTransactionListParams | null | undefined = {}, options?: RequestOptions): PagePromise<FinancialTransactionsSinglePage, FinancialAccountsAPI.FinancialTransaction> {
+    return this._client.getAPIList(path`/v1/cards/${cardToken}/financial_transactions`, SinglePage<FinancialAccountsAPI.FinancialTransaction>, { query, ...options });
   }
 }
 
@@ -107,8 +92,8 @@ export interface FinancialTransactionListParams {
 export declare namespace FinancialTransactions {
   export {
     type FinancialTransactionRetrieveParams as FinancialTransactionRetrieveParams,
-    type FinancialTransactionListParams as FinancialTransactionListParams,
+    type FinancialTransactionListParams as FinancialTransactionListParams
   };
 }
 
-export { type FinancialTransactionsSinglePage };
+export { type FinancialTransactionsSinglePage }

@@ -34,11 +34,7 @@ export class Transactions extends APIResource {
    * );
    * ```
    */
-  report(
-    transactionToken: string,
-    body: TransactionReportParams,
-    options?: RequestOptions,
-  ): APIPromise<TransactionReportResponse> {
+  report(transactionToken: string, body: TransactionReportParams, options?: RequestOptions): APIPromise<TransactionReportResponse> {
     return this._client.post(path`/v1/fraud/transactions/${transactionToken}`, { body, ...options });
   }
 }
@@ -101,12 +97,7 @@ export interface TransactionRetrieveResponse {
    *   manipulates or coerces a legitimate cardholder into unauthorized transactions,
    *   often through social engineering tactics.
    */
-  fraud_type?:
-    | 'FIRST_PARTY_FRAUD'
-    | 'ACCOUNT_TAKEOVER'
-    | 'CARD_COMPROMISED'
-    | 'IDENTITY_THEFT'
-    | 'CARDHOLDER_MANIPULATION';
+  fraud_type?: 'FIRST_PARTY_FRAUD' | 'ACCOUNT_TAKEOVER' | 'CARD_COMPROMISED' | 'IDENTITY_THEFT' | 'CARDHOLDER_MANIPULATION';
 
   /**
    * Timestamp representing the last update to the fraud report.
@@ -172,12 +163,7 @@ export interface TransactionReportResponse {
    *   manipulates or coerces a legitimate cardholder into unauthorized transactions,
    *   often through social engineering tactics.
    */
-  fraud_type?:
-    | 'FIRST_PARTY_FRAUD'
-    | 'ACCOUNT_TAKEOVER'
-    | 'CARD_COMPROMISED'
-    | 'IDENTITY_THEFT'
-    | 'CARDHOLDER_MANIPULATION';
+  fraud_type?: 'FIRST_PARTY_FRAUD' | 'ACCOUNT_TAKEOVER' | 'CARD_COMPROMISED' | 'IDENTITY_THEFT' | 'CARDHOLDER_MANIPULATION';
 
   /**
    * Timestamp representing the last update to the fraud report.
@@ -230,18 +216,13 @@ export interface TransactionReportParams {
    *   manipulates or coerces a legitimate cardholder into unauthorized transactions,
    *   often through social engineering tactics.
    */
-  fraud_type?:
-    | 'FIRST_PARTY_FRAUD'
-    | 'ACCOUNT_TAKEOVER'
-    | 'CARD_COMPROMISED'
-    | 'IDENTITY_THEFT'
-    | 'CARDHOLDER_MANIPULATION';
+  fraud_type?: 'FIRST_PARTY_FRAUD' | 'ACCOUNT_TAKEOVER' | 'CARD_COMPROMISED' | 'IDENTITY_THEFT' | 'CARDHOLDER_MANIPULATION';
 }
 
 export declare namespace Transactions {
   export {
     type TransactionRetrieveResponse as TransactionRetrieveResponse,
     type TransactionReportResponse as TransactionReportResponse,
-    type TransactionReportParams as TransactionReportParams,
+    type TransactionReportParams as TransactionReportParams
   };
 }

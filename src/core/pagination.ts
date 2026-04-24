@@ -87,8 +87,7 @@ export class PagePromise<
     super(
       client,
       request,
-      async (client, props) =>
-        new Page(client, props.response, await defaultParseResponse(client, props), props.options),
+      async (client, props) => new Page(client, props.response, await defaultParseResponse(client, props), props.options)
     );
   }
 
@@ -129,20 +128,12 @@ export interface CursorPageParams {
   ending_before?: string;
 }
 
-export class CursorPage<Item extends { token: string }>
-  extends AbstractPage<Item>
-  implements CursorPageResponse<Item>
-{
+export class CursorPage<Item extends { token: string }> extends AbstractPage<Item> implements CursorPageResponse<Item> {
   data: Array<Item>;
 
   has_more: boolean;
 
-  constructor(
-    client: Lithic,
-    response: Response,
-    body: CursorPageResponse<Item>,
-    options: FinalRequestOptions,
-  ) {
+  constructor(client: Lithic, response: Response, body: CursorPageResponse<Item>, options: FinalRequestOptions) {
     super(client, response, body, options);
 
     this.data = body.data || [];
@@ -160,9 +151,7 @@ export class CursorPage<Item extends { token: string }>
   nextPageRequestOptions(): PageRequestOptions | null {
     const data = this.getPaginatedItems();
 
-    const isForwards = !(
-      typeof this.options.query === 'object' && 'ending_before' in (this.options.query || {})
-    );
+    const isForwards = !(typeof this.options.query === 'object' && 'ending_before' in (this.options.query || {}));
     if (isForwards) {
       const token = data[data.length - 1]?.token;
       if (!token) {
@@ -178,7 +167,7 @@ export class CursorPage<Item extends { token: string }>
       };
     }
 
-    const token = data[0]?.token;
+    const token = data[0]?.token
     if (!token) {
       return null;
     }
@@ -204,12 +193,7 @@ export class SinglePage<Item> extends AbstractPage<Item> implements SinglePageRe
 
   has_more: boolean;
 
-  constructor(
-    client: Lithic,
-    response: Response,
-    body: SinglePageResponse<Item>,
-    options: FinalRequestOptions,
-  ) {
+  constructor(client: Lithic, response: Response, body: SinglePageResponse<Item>, options: FinalRequestOptions) {
     super(client, response, body, options);
 
     this.data = body.data || [];

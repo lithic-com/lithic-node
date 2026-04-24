@@ -55,10 +55,7 @@ export class Payments extends APIResource {
    * }
    * ```
    */
-  list(
-    query: PaymentListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<PaymentsCursorPage, Payment> {
+  list(query: PaymentListParams | null | undefined = {}, options?: RequestOptions): PagePromise<PaymentsCursorPage, Payment> {
     return this._client.getAPIList('/v1/payments', CursorPage<Payment>, { query, ...options });
   }
 
@@ -119,11 +116,7 @@ export class Payments extends APIResource {
    * );
    * ```
    */
-  simulateAction(
-    paymentToken: string,
-    body: PaymentSimulateActionParams,
-    options?: RequestOptions,
-  ): APIPromise<PaymentSimulateActionResponse> {
+  simulateAction(paymentToken: string, body: PaymentSimulateActionParams, options?: RequestOptions): APIPromise<PaymentSimulateActionResponse> {
     return this._client.post(path`/v1/simulate/payments/${paymentToken}/action`, { body, ...options });
   }
 
@@ -141,10 +134,7 @@ export class Payments extends APIResource {
    * });
    * ```
    */
-  simulateReceipt(
-    body: PaymentSimulateReceiptParams,
-    options?: RequestOptions,
-  ): APIPromise<PaymentSimulateReceiptResponse> {
+  simulateReceipt(body: PaymentSimulateReceiptParams, options?: RequestOptions): APIPromise<PaymentSimulateReceiptResponse> {
     return this._client.post('/v1/simulate/payments/receipt', { body, ...options });
   }
 
@@ -158,10 +148,7 @@ export class Payments extends APIResource {
    * });
    * ```
    */
-  simulateRelease(
-    body: PaymentSimulateReleaseParams,
-    options?: RequestOptions,
-  ): APIPromise<PaymentSimulateReleaseResponse> {
+  simulateRelease(body: PaymentSimulateReleaseParams, options?: RequestOptions): APIPromise<PaymentSimulateReleaseResponse> {
     return this._client.post('/v1/simulate/payments/release', { body, ...options });
   }
 
@@ -175,15 +162,12 @@ export class Payments extends APIResource {
    * });
    * ```
    */
-  simulateReturn(
-    body: PaymentSimulateReturnParams,
-    options?: RequestOptions,
-  ): APIPromise<PaymentSimulateReturnResponse> {
+  simulateReturn(body: PaymentSimulateReturnParams, options?: RequestOptions): APIPromise<PaymentSimulateReturnResponse> {
     return this._client.post('/v1/simulate/payments/return', { body, ...options });
   }
 }
 
-export type PaymentsCursorPage = CursorPage<Payment>;
+export type PaymentsCursorPage = CursorPage<Payment>
 
 /**
  * Payment transaction
@@ -197,29 +181,7 @@ export interface Payment {
   /**
    * Transaction category
    */
-  category:
-    | 'ACH'
-    | 'WIRE'
-    | 'BALANCE_OR_FUNDING'
-    | 'FEE'
-    | 'REWARD'
-    | 'ADJUSTMENT'
-    | 'DERECOGNITION'
-    | 'DISPUTE'
-    | 'CARD'
-    | 'EXTERNAL_ACH'
-    | 'EXTERNAL_CHECK'
-    | 'EXTERNAL_FEDNOW'
-    | 'EXTERNAL_RTP'
-    | 'EXTERNAL_TRANSFER'
-    | 'EXTERNAL_WIRE'
-    | 'MANAGEMENT_ADJUSTMENT'
-    | 'MANAGEMENT_DISPUTE'
-    | 'MANAGEMENT_FEE'
-    | 'MANAGEMENT_REWARD'
-    | 'MANAGEMENT_DISBURSEMENT'
-    | 'HOLD'
-    | 'PROGRAM_FUNDING';
+  category: 'ACH' | 'WIRE' | 'BALANCE_OR_FUNDING' | 'FEE' | 'REWARD' | 'ADJUSTMENT' | 'DERECOGNITION' | 'DISPUTE' | 'CARD' | 'EXTERNAL_ACH' | 'EXTERNAL_CHECK' | 'EXTERNAL_FEDNOW' | 'EXTERNAL_RTP' | 'EXTERNAL_TRANSFER' | 'EXTERNAL_WIRE' | 'MANAGEMENT_ADJUSTMENT' | 'MANAGEMENT_DISPUTE' | 'MANAGEMENT_FEE' | 'MANAGEMENT_REWARD' | 'MANAGEMENT_DISBURSEMENT' | 'HOLD' | 'PROGRAM_FUNDING';
 
   /**
    * ISO 8601 timestamp of when the transaction was created
@@ -311,16 +273,7 @@ export interface Payment {
    */
   external_bank_account_token?: string | null;
 
-  type?:
-    | 'ORIGINATION_CREDIT'
-    | 'ORIGINATION_DEBIT'
-    | 'RECEIPT_CREDIT'
-    | 'RECEIPT_DEBIT'
-    | 'WIRE_INBOUND_PAYMENT'
-    | 'WIRE_INBOUND_ADMIN'
-    | 'WIRE_OUTBOUND_PAYMENT'
-    | 'WIRE_OUTBOUND_ADMIN'
-    | 'WIRE_INBOUND_DRAWDOWN_REQUEST';
+  type?: 'ORIGINATION_CREDIT' | 'ORIGINATION_DEBIT' | 'RECEIPT_CREDIT' | 'RECEIPT_DEBIT' | 'WIRE_INBOUND_PAYMENT' | 'WIRE_INBOUND_ADMIN' | 'WIRE_OUTBOUND_PAYMENT' | 'WIRE_OUTBOUND_ADMIN' | 'WIRE_INBOUND_DRAWDOWN_REQUEST';
 
   /**
    * User-defined identifier
@@ -413,42 +366,12 @@ export namespace Payment {
      * - `WIRE_RETURN_OUTBOUND_REJECTED` - Outbound wire return rejected by the Federal
      *   Reserve.
      */
-    type:
-      | 'ACH_ORIGINATION_CANCELLED'
-      | 'ACH_ORIGINATION_INITIATED'
-      | 'ACH_ORIGINATION_PROCESSED'
-      | 'ACH_ORIGINATION_REJECTED'
-      | 'ACH_ORIGINATION_RELEASED'
-      | 'ACH_ORIGINATION_REVIEWED'
-      | 'ACH_ORIGINATION_SETTLED'
-      | 'ACH_RECEIPT_PROCESSED'
-      | 'ACH_RECEIPT_RELEASED'
-      | 'ACH_RECEIPT_RELEASED_EARLY'
-      | 'ACH_RECEIPT_SETTLED'
-      | 'ACH_RETURN_INITIATED'
-      | 'ACH_RETURN_PROCESSED'
-      | 'ACH_RETURN_REJECTED'
-      | 'ACH_RETURN_SETTLED'
-      | 'WIRE_TRANSFER_INBOUND_RECEIVED'
-      | 'WIRE_TRANSFER_INBOUND_SETTLED'
-      | 'WIRE_TRANSFER_INBOUND_BLOCKED'
-      | 'WIRE_RETURN_OUTBOUND_INITIATED'
-      | 'WIRE_RETURN_OUTBOUND_SENT'
-      | 'WIRE_RETURN_OUTBOUND_SETTLED'
-      | 'WIRE_RETURN_OUTBOUND_REJECTED';
+    type: 'ACH_ORIGINATION_CANCELLED' | 'ACH_ORIGINATION_INITIATED' | 'ACH_ORIGINATION_PROCESSED' | 'ACH_ORIGINATION_REJECTED' | 'ACH_ORIGINATION_RELEASED' | 'ACH_ORIGINATION_REVIEWED' | 'ACH_ORIGINATION_SETTLED' | 'ACH_RECEIPT_PROCESSED' | 'ACH_RECEIPT_RELEASED' | 'ACH_RECEIPT_RELEASED_EARLY' | 'ACH_RECEIPT_SETTLED' | 'ACH_RETURN_INITIATED' | 'ACH_RETURN_PROCESSED' | 'ACH_RETURN_REJECTED' | 'ACH_RETURN_SETTLED' | 'WIRE_TRANSFER_INBOUND_RECEIVED' | 'WIRE_TRANSFER_INBOUND_SETTLED' | 'WIRE_TRANSFER_INBOUND_BLOCKED' | 'WIRE_RETURN_OUTBOUND_INITIATED' | 'WIRE_RETURN_OUTBOUND_SENT' | 'WIRE_RETURN_OUTBOUND_SETTLED' | 'WIRE_RETURN_OUTBOUND_REJECTED';
 
     /**
      * More detailed reasons for the event
      */
-    detailed_results?: Array<
-      | 'APPROVED'
-      | 'DECLINED'
-      | 'FUNDS_INSUFFICIENT'
-      | 'ACCOUNT_INVALID'
-      | 'PROGRAM_TRANSACTION_LIMIT_EXCEEDED'
-      | 'PROGRAM_DAILY_LIMIT_EXCEEDED'
-      | 'PROGRAM_MONTHLY_LIMIT_EXCEEDED'
-    >;
+    detailed_results?: Array<'APPROVED' | 'DECLINED' | 'FUNDS_INSUFFICIENT' | 'ACCOUNT_INVALID' | 'PROGRAM_TRANSACTION_LIMIT_EXCEEDED' | 'PROGRAM_DAILY_LIMIT_EXCEEDED' | 'PROGRAM_MONTHLY_LIMIT_EXCEEDED'>;
 
     /**
      * Payment event external ID. For ACH transactions, this is the ACH trace number.
@@ -757,17 +680,7 @@ export interface PaymentSimulateActionParams {
   /**
    * Event Type
    */
-  event_type:
-    | 'ACH_ORIGINATION_REVIEWED'
-    | 'ACH_ORIGINATION_RELEASED'
-    | 'ACH_ORIGINATION_PROCESSED'
-    | 'ACH_ORIGINATION_SETTLED'
-    | 'ACH_RECEIPT_SETTLED'
-    | 'ACH_RECEIPT_RELEASED'
-    | 'ACH_RECEIPT_RELEASED_EARLY'
-    | 'ACH_RETURN_INITIATED'
-    | 'ACH_RETURN_PROCESSED'
-    | 'ACH_RETURN_SETTLED';
+  event_type: 'ACH_ORIGINATION_REVIEWED' | 'ACH_ORIGINATION_RELEASED' | 'ACH_ORIGINATION_PROCESSED' | 'ACH_ORIGINATION_SETTLED' | 'ACH_RECEIPT_SETTLED' | 'ACH_RECEIPT_RELEASED' | 'ACH_RECEIPT_RELEASED_EARLY' | 'ACH_RETURN_INITIATED' | 'ACH_RETURN_PROCESSED' | 'ACH_RETURN_SETTLED';
 
   /**
    * Date of Death for ACH Return
@@ -777,10 +690,7 @@ export interface PaymentSimulateActionParams {
   /**
    * Decline reason
    */
-  decline_reason?:
-    | 'PROGRAM_TRANSACTION_LIMIT_EXCEEDED'
-    | 'PROGRAM_DAILY_LIMIT_EXCEEDED'
-    | 'PROGRAM_MONTHLY_LIMIT_EXCEEDED';
+  decline_reason?: 'PROGRAM_TRANSACTION_LIMIT_EXCEEDED' | 'PROGRAM_DAILY_LIMIT_EXCEEDED' | 'PROGRAM_MONTHLY_LIMIT_EXCEEDED';
 
   /**
    * Return Addenda
@@ -855,6 +765,6 @@ export declare namespace Payments {
     type PaymentSimulateActionParams as PaymentSimulateActionParams,
     type PaymentSimulateReceiptParams as PaymentSimulateReceiptParams,
     type PaymentSimulateReleaseParams as PaymentSimulateReleaseParams,
-    type PaymentSimulateReturnParams as PaymentSimulateReturnParams,
+    type PaymentSimulateReturnParams as PaymentSimulateReturnParams
   };
 }

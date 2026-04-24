@@ -18,10 +18,7 @@ export class LoanTapeConfigurationResource extends APIResource {
    * ```
    */
   retrieve(financialAccountToken: string, options?: RequestOptions): APIPromise<LoanTapeConfiguration> {
-    return this._client.get(
-      path`/v1/financial_accounts/${financialAccountToken}/loan_tape_configuration`,
-      options,
-    );
+    return this._client.get(path`/v1/financial_accounts/${financialAccountToken}/loan_tape_configuration`, options);
   }
 }
 
@@ -70,6 +67,6 @@ export interface LoanTapeRebuildConfiguration {
 export declare namespace LoanTapeConfigurationResource {
   export {
     type LoanTapeConfiguration as LoanTapeConfiguration,
-    type LoanTapeRebuildConfiguration as LoanTapeRebuildConfiguration,
+    type LoanTapeRebuildConfiguration as LoanTapeRebuildConfiguration
   };
 }

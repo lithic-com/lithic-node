@@ -78,7 +78,7 @@ export interface ChallengeResponse {
 /**
  * Whether the Cardholder has approved or declined the issued Challenge
  */
-export type ChallengeResult = 'APPROVE' | 'DECLINE_BY_CUSTOMER';
+export type ChallengeResult = 'APPROVE' | 'DECLINE_BY_CUSTOMER'
 
 export interface DecisioningRetrieveSecretResponse {
   /**
@@ -105,6 +105,6 @@ export declare namespace Decisioning {
     type ChallengeResponse as ChallengeResponse,
     type ChallengeResult as ChallengeResult,
     type DecisioningRetrieveSecretResponse as DecisioningRetrieveSecretResponse,
-    type DecisioningChallengeResponseParams as DecisioningChallengeResponseParams,
+    type DecisioningChallengeResponseParams as DecisioningChallengeResponseParams
   };
 }

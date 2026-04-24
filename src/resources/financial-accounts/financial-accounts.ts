@@ -5,52 +5,17 @@ import * as Shared from '../shared';
 import * as BalancesAPI from './balances';
 import { BalanceListParams, Balances } from './balances';
 import * as CreditConfigurationAPI from './credit-configuration';
-import {
-  CreditConfiguration as CreditConfigurationAPICreditConfiguration,
-  CreditConfigurationUpdateParams,
-  FinancialAccountCreditConfig,
-} from './credit-configuration';
+import { CreditConfiguration as CreditConfigurationAPICreditConfiguration, CreditConfigurationUpdateParams, FinancialAccountCreditConfig } from './credit-configuration';
 import * as FinancialTransactionsAPI from './financial-transactions';
-import {
-  FinancialTransactionListParams,
-  FinancialTransactionRetrieveParams,
-  FinancialTransactions,
-} from './financial-transactions';
+import { FinancialTransactionListParams, FinancialTransactionRetrieveParams, FinancialTransactions } from './financial-transactions';
 import * as InterestTierScheduleAPI from './interest-tier-schedule';
-import {
-  CategoryTier,
-  InterestTierSchedule,
-  InterestTierScheduleCreateParams,
-  InterestTierScheduleDeleteParams,
-  InterestTierScheduleListParams,
-  InterestTierScheduleResource,
-  InterestTierScheduleRetrieveParams,
-  InterestTierScheduleUpdateParams,
-  InterestTierSchedulesSinglePage,
-} from './interest-tier-schedule';
+import { CategoryTier, InterestTierSchedule, InterestTierScheduleCreateParams, InterestTierScheduleDeleteParams, InterestTierScheduleListParams, InterestTierScheduleResource, InterestTierScheduleRetrieveParams, InterestTierScheduleUpdateParams, InterestTierSchedulesSinglePage } from './interest-tier-schedule';
 import * as LoanTapeConfigurationAPI from './loan-tape-configuration';
-import {
-  LoanTapeConfiguration,
-  LoanTapeConfigurationResource,
-  LoanTapeRebuildConfiguration,
-} from './loan-tape-configuration';
+import { LoanTapeConfiguration, LoanTapeConfigurationResource, LoanTapeRebuildConfiguration } from './loan-tape-configuration';
 import * as LoanTapesAPI from './loan-tapes';
-import {
-  CategoryBalances,
-  LoanTape,
-  LoanTapeListParams,
-  LoanTapeRetrieveParams,
-  LoanTapes,
-  LoanTapesCursorPage,
-} from './loan-tapes';
+import { CategoryBalances, LoanTape, LoanTapeListParams, LoanTapeRetrieveParams, LoanTapes, LoanTapesCursorPage } from './loan-tapes';
 import * as StatementsAPI from './statements/statements';
-import {
-  Statement,
-  StatementListParams,
-  StatementRetrieveParams,
-  Statements,
-  StatementsCursorPage,
-} from './statements/statements';
+import { Statement, StatementListParams, StatementRetrieveParams, Statements, StatementsCursorPage } from './statements/statements';
 import { APIPromise } from '../../core/api-promise';
 import { PagePromise, SinglePage } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
@@ -59,16 +24,12 @@ import { path } from '../../internal/utils/path';
 
 export class FinancialAccounts extends APIResource {
   balances: BalancesAPI.Balances = new BalancesAPI.Balances(this._client);
-  financialTransactions: FinancialTransactionsAPI.FinancialTransactions =
-    new FinancialTransactionsAPI.FinancialTransactions(this._client);
-  creditConfiguration: CreditConfigurationAPI.CreditConfiguration =
-    new CreditConfigurationAPI.CreditConfiguration(this._client);
+  financialTransactions: FinancialTransactionsAPI.FinancialTransactions = new FinancialTransactionsAPI.FinancialTransactions(this._client);
+  creditConfiguration: CreditConfigurationAPI.CreditConfiguration = new CreditConfigurationAPI.CreditConfiguration(this._client);
   statements: StatementsAPI.Statements = new StatementsAPI.Statements(this._client);
   loanTapes: LoanTapesAPI.LoanTapes = new LoanTapesAPI.LoanTapes(this._client);
-  loanTapeConfiguration: LoanTapeConfigurationAPI.LoanTapeConfigurationResource =
-    new LoanTapeConfigurationAPI.LoanTapeConfigurationResource(this._client);
-  interestTierSchedule: InterestTierScheduleAPI.InterestTierScheduleResource =
-    new InterestTierScheduleAPI.InterestTierScheduleResource(this._client);
+  loanTapeConfiguration: LoanTapeConfigurationAPI.LoanTapeConfigurationResource = new LoanTapeConfigurationAPI.LoanTapeConfigurationResource(this._client);
+  interestTierSchedule: InterestTierScheduleAPI.InterestTierScheduleResource = new InterestTierScheduleAPI.InterestTierScheduleResource(this._client);
 
   /**
    * Create a new financial account
@@ -83,15 +44,8 @@ export class FinancialAccounts extends APIResource {
    * ```
    */
   create(params: FinancialAccountCreateParams, options?: RequestOptions): APIPromise<FinancialAccount> {
-    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
-    return this._client.post('/v1/financial_accounts', {
-      body,
-      ...options,
-      headers: buildHeaders([
-        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
-        options?.headers,
-      ]),
-    });
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params
+    return this._client.post('/v1/financial_accounts', { body, ...options, headers: buildHeaders([{...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined)}, options?.headers]) });
   }
 
   /**
@@ -120,11 +74,7 @@ export class FinancialAccounts extends APIResource {
    *   );
    * ```
    */
-  update(
-    financialAccountToken: string,
-    body: FinancialAccountUpdateParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<FinancialAccount> {
+  update(financialAccountToken: string, body: FinancialAccountUpdateParams | null | undefined = {}, options?: RequestOptions): APIPromise<FinancialAccount> {
     return this._client.patch(path`/v1/financial_accounts/${financialAccountToken}`, { body, ...options });
   }
 
@@ -140,14 +90,8 @@ export class FinancialAccounts extends APIResource {
    * }
    * ```
    */
-  list(
-    query: FinancialAccountListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<FinancialAccountsSinglePage, FinancialAccount> {
-    return this._client.getAPIList('/v1/financial_accounts', SinglePage<FinancialAccount>, {
-      query,
-      ...options,
-    });
+  list(query: FinancialAccountListParams | null | undefined = {}, options?: RequestOptions): PagePromise<FinancialAccountsSinglePage, FinancialAccount> {
+    return this._client.getAPIList('/v1/financial_accounts', SinglePage<FinancialAccount>, { query, ...options });
   }
 
   /**
@@ -161,15 +105,8 @@ export class FinancialAccounts extends APIResource {
    * );
    * ```
    */
-  registerAccountNumber(
-    financialAccountToken: string,
-    body: FinancialAccountRegisterAccountNumberParams,
-    options?: RequestOptions,
-  ): APIPromise<void> {
-    return this._client.post(path`/v1/financial_accounts/${financialAccountToken}/register_account_number`, {
-      body,
-      ...options,
-    });
+  registerAccountNumber(financialAccountToken: string, body: FinancialAccountRegisterAccountNumberParams, options?: RequestOptions): APIPromise<void> {
+    return this._client.post(path`/v1/financial_accounts/${financialAccountToken}/register_account_number`, { body, ...options });
   }
 
   /**
@@ -184,23 +121,16 @@ export class FinancialAccounts extends APIResource {
    *   );
    * ```
    */
-  updateStatus(
-    financialAccountToken: string,
-    body: FinancialAccountUpdateStatusParams,
-    options?: RequestOptions,
-  ): APIPromise<FinancialAccount> {
-    return this._client.post(path`/v1/financial_accounts/${financialAccountToken}/update_status`, {
-      body,
-      ...options,
-    });
+  updateStatus(financialAccountToken: string, body: FinancialAccountUpdateStatusParams, options?: RequestOptions): APIPromise<FinancialAccount> {
+    return this._client.post(path`/v1/financial_accounts/${financialAccountToken}/update_status`, { body, ...options });
   }
 }
 
-export type FinancialAccountsSinglePage = SinglePage<FinancialAccount>;
+export type FinancialAccountsSinglePage = SinglePage<FinancialAccount>
 
-export type FinancialAccountBalancesSinglePage = SinglePage<FinancialAccountBalance>;
+export type FinancialAccountBalancesSinglePage = SinglePage<FinancialAccountBalance>
 
-export type FinancialTransactionsSinglePage = SinglePage<FinancialTransaction>;
+export type FinancialTransactionsSinglePage = SinglePage<FinancialTransaction>
 
 export interface CategoryDetails {
   balance_transfers: string;
@@ -237,28 +167,9 @@ export interface FinancialAccount {
   /**
    * Substatus for the financial account
    */
-  substatus:
-    | 'CHARGED_OFF_DELINQUENT'
-    | 'CHARGED_OFF_FRAUD'
-    | 'END_USER_REQUEST'
-    | 'BANK_REQUEST'
-    | 'DELINQUENT'
-    | 'INTEREST_AND_FEES_PAUSED'
-    | null;
+  substatus: 'CHARGED_OFF_DELINQUENT' | 'CHARGED_OFF_FRAUD' | 'END_USER_REQUEST' | 'BANK_REQUEST' | 'DELINQUENT' | 'INTEREST_AND_FEES_PAUSED' | null;
 
-  type:
-    | 'ISSUING'
-    | 'RESERVE'
-    | 'OPERATING'
-    | 'CHARGED_OFF_FEES'
-    | 'CHARGED_OFF_INTEREST'
-    | 'CHARGED_OFF_PRINCIPAL'
-    | 'SECURITY'
-    | 'PROGRAM_RECEIVABLES'
-    | 'COLLECTION'
-    | 'PROGRAM_BANK_ACCOUNTS_PAYABLE'
-    | 'EARLY_DIRECT_DEPOSIT_FLOAT'
-    | 'PROVISIONAL_CREDIT_ACCOUNT';
+  type: 'ISSUING' | 'RESERVE' | 'OPERATING' | 'CHARGED_OFF_FEES' | 'CHARGED_OFF_INTEREST' | 'CHARGED_OFF_PRINCIPAL' | 'SECURITY' | 'PROGRAM_RECEIVABLES' | 'COLLECTION' | 'PROGRAM_BANK_ACCOUNTS_PAYABLE' | 'EARLY_DIRECT_DEPOSIT_FLOAT' | 'PROVISIONAL_CREDIT_ACCOUNT';
 
   updated: string;
 
@@ -558,14 +469,7 @@ export interface FinancialAccountUpdateStatusParams {
   /**
    * Substatus for the financial account
    */
-  substatus:
-    | 'CHARGED_OFF_FRAUD'
-    | 'END_USER_REQUEST'
-    | 'BANK_REQUEST'
-    | 'CHARGED_OFF_DELINQUENT'
-    | 'INTEREST_AND_FEES_PAUSED'
-    | 'DELINQUENT'
-    | null;
+  substatus: 'CHARGED_OFF_FRAUD' | 'END_USER_REQUEST' | 'BANK_REQUEST' | 'CHARGED_OFF_DELINQUENT' | 'INTEREST_AND_FEES_PAUSED' | 'DELINQUENT' | null;
 
   /**
    * User-defined status for the financial account
@@ -592,21 +496,24 @@ export declare namespace FinancialAccounts {
     type FinancialAccountUpdateParams as FinancialAccountUpdateParams,
     type FinancialAccountListParams as FinancialAccountListParams,
     type FinancialAccountRegisterAccountNumberParams as FinancialAccountRegisterAccountNumberParams,
-    type FinancialAccountUpdateStatusParams as FinancialAccountUpdateStatusParams,
+    type FinancialAccountUpdateStatusParams as FinancialAccountUpdateStatusParams
   };
 
-  export { Balances as Balances, type BalanceListParams as BalanceListParams };
+  export {
+    Balances as Balances,
+    type BalanceListParams as BalanceListParams
+  };
 
   export {
     FinancialTransactions as FinancialTransactions,
     type FinancialTransactionRetrieveParams as FinancialTransactionRetrieveParams,
-    type FinancialTransactionListParams as FinancialTransactionListParams,
+    type FinancialTransactionListParams as FinancialTransactionListParams
   };
 
   export {
     CreditConfigurationAPICreditConfiguration as CreditConfiguration,
     type FinancialAccountCreditConfig as FinancialAccountCreditConfig,
-    type CreditConfigurationUpdateParams as CreditConfigurationUpdateParams,
+    type CreditConfigurationUpdateParams as CreditConfigurationUpdateParams
   };
 
   export {
@@ -614,7 +521,7 @@ export declare namespace FinancialAccounts {
     type Statement as Statement,
     type StatementsCursorPage as StatementsCursorPage,
     type StatementRetrieveParams as StatementRetrieveParams,
-    type StatementListParams as StatementListParams,
+    type StatementListParams as StatementListParams
   };
 
   export {
@@ -623,13 +530,13 @@ export declare namespace FinancialAccounts {
     type LoanTape as LoanTape,
     type LoanTapesCursorPage as LoanTapesCursorPage,
     type LoanTapeRetrieveParams as LoanTapeRetrieveParams,
-    type LoanTapeListParams as LoanTapeListParams,
+    type LoanTapeListParams as LoanTapeListParams
   };
 
   export {
     LoanTapeConfigurationResource as LoanTapeConfigurationResource,
     type LoanTapeConfiguration as LoanTapeConfiguration,
-    type LoanTapeRebuildConfiguration as LoanTapeRebuildConfiguration,
+    type LoanTapeRebuildConfiguration as LoanTapeRebuildConfiguration
   };
 
   export {
@@ -641,6 +548,6 @@ export declare namespace FinancialAccounts {
     type InterestTierScheduleRetrieveParams as InterestTierScheduleRetrieveParams,
     type InterestTierScheduleUpdateParams as InterestTierScheduleUpdateParams,
     type InterestTierScheduleListParams as InterestTierScheduleListParams,
-    type InterestTierScheduleDeleteParams as InterestTierScheduleDeleteParams,
+    type InterestTierScheduleDeleteParams as InterestTierScheduleDeleteParams
   };
 }

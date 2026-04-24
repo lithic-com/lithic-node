@@ -2,10 +2,7 @@
 
 import Lithic from 'lithic';
 
-const client = new Lithic({
-  apiKey: 'My Lithic API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Lithic({ apiKey: 'My Lithic API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource holds', () => {
   test('create: only required params', async () => {
@@ -21,12 +18,12 @@ describe('resource holds', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.holds.create('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      amount: 1,
-      token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      expiration_datetime: '2019-12-27T18:11:19.117Z',
-      memo: 'memo',
-      user_defined_id: 'user_defined_id',
-    });
+    amount: 1,
+    token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    expiration_datetime: '2019-12-27T18:11:19.117Z',
+    memo: 'memo',
+    user_defined_id: 'user_defined_id',
+  });
   });
 
   test('retrieve', async () => {
@@ -53,20 +50,16 @@ describe('resource holds', () => {
 
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.holds.list(
-        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-        {
-          begin: '2019-12-27T18:11:19.117Z',
-          end: '2019-12-27T18:11:19.117Z',
-          ending_before: 'ending_before',
-          page_size: 1,
-          starting_after: 'starting_after',
-          status: 'PENDING',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
+    await expect(client.holds.list('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+    begin: '2019-12-27T18:11:19.117Z',
+    end: '2019-12-27T18:11:19.117Z',
+    ending_before: 'ending_before',
+    page_size: 1,
+    starting_after: 'starting_after',
+    status: 'PENDING',
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Lithic.NotFoundError);
   });
 
   test('void', async () => {

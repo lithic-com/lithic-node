@@ -2,10 +2,7 @@
 
 import Lithic from 'lithic';
 
-const client = new Lithic({
-  apiKey: 'My Lithic API Key',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new Lithic({ apiKey: 'My Lithic API Key', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource events', () => {
   test('retrieve', async () => {
@@ -32,20 +29,17 @@ describe('resource events', () => {
 
   test('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.events.list(
-        {
-          begin: '2019-12-27T18:11:19.117Z',
-          end: '2019-12-27T18:11:19.117Z',
-          ending_before: 'ending_before',
-          event_types: ['account_holder_document.updated'],
-          page_size: 1,
-          starting_after: 'starting_after',
-          with_content: true,
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
+    await expect(client.events.list({
+    begin: '2019-12-27T18:11:19.117Z',
+    end: '2019-12-27T18:11:19.117Z',
+    ending_before: 'ending_before',
+    event_types: ['account_holder_document.updated'],
+    page_size: 1,
+    starting_after: 'starting_after',
+    with_content: true,
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Lithic.NotFoundError);
   });
 
   test('listAttempts', async () => {
@@ -61,19 +55,15 @@ describe('resource events', () => {
 
   test('listAttempts: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.events.listAttempts(
-        'event_token',
-        {
-          begin: '2019-12-27T18:11:19.117Z',
-          end: '2019-12-27T18:11:19.117Z',
-          ending_before: 'ending_before',
-          page_size: 1,
-          starting_after: 'starting_after',
-          status: 'FAILED',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
+    await expect(client.events.listAttempts('event_token', {
+    begin: '2019-12-27T18:11:19.117Z',
+    end: '2019-12-27T18:11:19.117Z',
+    ending_before: 'ending_before',
+    page_size: 1,
+    starting_after: 'starting_after',
+    status: 'FAILED',
+  }, { path: '/_stainless_unknown_path' }))
+      .rejects
+      .toThrow(Lithic.NotFoundError);
   });
 });

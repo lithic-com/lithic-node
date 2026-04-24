@@ -17,15 +17,12 @@ export class NetworkPrograms extends APIResource {
   /**
    * List network programs.
    */
-  list(
-    query: NetworkProgramListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<NetworkProgramsSinglePage, NetworkProgram> {
+  list(query: NetworkProgramListParams | null | undefined = {}, options?: RequestOptions): PagePromise<NetworkProgramsSinglePage, NetworkProgram> {
     return this._client.getAPIList('/v1/network_programs', SinglePage<NetworkProgram>, { query, ...options });
   }
 }
 
-export type NetworkProgramsSinglePage = SinglePage<NetworkProgram>;
+export type NetworkProgramsSinglePage = SinglePage<NetworkProgram>
 
 export interface NetworkProgram {
   /**
@@ -72,6 +69,6 @@ export declare namespace NetworkPrograms {
   export {
     type NetworkProgram as NetworkProgram,
     type NetworkProgramsSinglePage as NetworkProgramsSinglePage,
-    type NetworkProgramListParams as NetworkProgramListParams,
+    type NetworkProgramListParams as NetworkProgramListParams
   };
 }

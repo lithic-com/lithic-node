@@ -18,10 +18,7 @@ export class Authentication extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    threeDSAuthenticationToken: string,
-    options?: RequestOptions,
-  ): APIPromise<ThreeDSAPI.ThreeDSAuthentication> {
+  retrieve(threeDSAuthenticationToken: string, options?: RequestOptions): APIPromise<ThreeDSAPI.ThreeDSAuthentication> {
     return this._client.get(path`/v1/three_ds_authentication/${threeDSAuthenticationToken}`, options);
   }
 
@@ -48,10 +45,7 @@ export class Authentication extends APIResource {
    *   });
    * ```
    */
-  simulate(
-    body: AuthenticationSimulateParams,
-    options?: RequestOptions,
-  ): APIPromise<AuthenticationSimulateResponse> {
+  simulate(body: AuthenticationSimulateParams, options?: RequestOptions): APIPromise<AuthenticationSimulateResponse> {
     return this._client.post('/v1/three_ds_authentication/simulate', { body, ...options });
   }
 
@@ -168,6 +162,6 @@ export declare namespace Authentication {
   export {
     type AuthenticationSimulateResponse as AuthenticationSimulateResponse,
     type AuthenticationSimulateParams as AuthenticationSimulateParams,
-    type AuthenticationSimulateOtpEntryParams as AuthenticationSimulateOtpEntryParams,
+    type AuthenticationSimulateOtpEntryParams as AuthenticationSimulateOtpEntryParams
   };
 }

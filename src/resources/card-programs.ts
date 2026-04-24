@@ -32,15 +32,12 @@ export class CardPrograms extends APIResource {
    * }
    * ```
    */
-  list(
-    query: CardProgramListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<CardProgramsCursorPage, CardProgram> {
+  list(query: CardProgramListParams | null | undefined = {}, options?: RequestOptions): PagePromise<CardProgramsCursorPage, CardProgram> {
     return this._client.getAPIList('/v1/card_programs', CursorPage<CardProgram>, { query, ...options });
   }
 }
 
-export type CardProgramsCursorPage = CursorPage<CardProgram>;
+export type CardProgramsCursorPage = CursorPage<CardProgram>
 
 export interface CardProgram {
   /**
@@ -86,12 +83,13 @@ export interface CardProgram {
   settlement_currencies?: Array<string>;
 }
 
-export interface CardProgramListParams extends CursorPageParams {}
+export interface CardProgramListParams extends CursorPageParams {
+}
 
 export declare namespace CardPrograms {
   export {
     type CardProgram as CardProgram,
     type CardProgramsCursorPage as CardProgramsCursorPage,
-    type CardProgramListParams as CardProgramListParams,
+    type CardProgramListParams as CardProgramListParams
   };
 }

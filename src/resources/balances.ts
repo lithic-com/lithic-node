@@ -8,15 +8,12 @@ export class Balances extends APIResource {
   /**
    * Get the balances for a program, business, or a given end-user account
    */
-  list(
-    query: BalanceListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<BalancesSinglePage, Balance> {
+  list(query: BalanceListParams | null | undefined = {}, options?: RequestOptions): PagePromise<BalancesSinglePage, Balance> {
     return this._client.getAPIList('/v1/balances', SinglePage<Balance>, { query, ...options });
   }
 }
 
-export type BalancesSinglePage = SinglePage<Balance>;
+export type BalancesSinglePage = SinglePage<Balance>
 
 /**
  * Balance
@@ -104,6 +101,6 @@ export declare namespace Balances {
   export {
     type Balance as Balance,
     type BalancesSinglePage as BalancesSinglePage,
-    type BalanceListParams as BalanceListParams,
+    type BalanceListParams as BalanceListParams
   };
 }

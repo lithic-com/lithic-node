@@ -37,11 +37,7 @@ export class Entities extends APIResource {
    * );
    * ```
    */
-  create(
-    accountHolderToken: string,
-    body: EntityCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<EntityCreateResponse> {
+  create(accountHolderToken: string, body: EntityCreateParams, options?: RequestOptions): APIPromise<EntityCreateResponse> {
     return this._client.post(path`/v1/account_holders/${accountHolderToken}/entities`, { body, ...options });
   }
 
@@ -61,16 +57,9 @@ export class Entities extends APIResource {
    *   );
    * ```
    */
-  delete(
-    entityToken: string,
-    params: EntityDeleteParams,
-    options?: RequestOptions,
-  ): APIPromise<AccountHolderEntity> {
-    const { account_holder_token } = params;
-    return this._client.delete(
-      path`/v1/account_holders/${account_holder_token}/entities/${entityToken}`,
-      options,
-    );
+  delete(entityToken: string, params: EntityDeleteParams, options?: RequestOptions): APIPromise<AccountHolderEntity> {
+    const { account_holder_token } = params
+    return this._client.delete(path`/v1/account_holders/${account_holder_token}/entities/${entityToken}`, options);
   }
 }
 
@@ -202,32 +191,7 @@ export interface EntityCreateResponse {
   /**
    * Reason for the evaluation status
    */
-  status_reasons: Array<
-    | 'ADDRESS_VERIFICATION_FAILURE'
-    | 'AGE_THRESHOLD_FAILURE'
-    | 'COMPLETE_VERIFICATION_FAILURE'
-    | 'DOB_VERIFICATION_FAILURE'
-    | 'ID_VERIFICATION_FAILURE'
-    | 'MAX_DOCUMENT_ATTEMPTS'
-    | 'MAX_RESUBMISSION_ATTEMPTS'
-    | 'NAME_VERIFICATION_FAILURE'
-    | 'OTHER_VERIFICATION_FAILURE'
-    | 'RISK_THRESHOLD_FAILURE'
-    | 'WATCHLIST_ALERT_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_ID_VERIFICATION_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_NAME_VERIFICATION_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_BUSINESS_OFFICERS_NOT_MATCHED'
-    | 'PRIMARY_BUSINESS_ENTITY_SOS_FILING_INACTIVE'
-    | 'PRIMARY_BUSINESS_ENTITY_SOS_NOT_MATCHED'
-    | 'PRIMARY_BUSINESS_ENTITY_CMRA_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_WATCHLIST_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_REGISTERED_AGENT_FAILURE'
-    | 'CONTROL_PERSON_BLOCKLIST_ALERT_FAILURE'
-    | 'CONTROL_PERSON_ID_VERIFICATION_FAILURE'
-    | 'CONTROL_PERSON_DOB_VERIFICATION_FAILURE'
-    | 'CONTROL_PERSON_NAME_VERIFICATION_FAILURE'
-  >;
+  status_reasons: Array<'ADDRESS_VERIFICATION_FAILURE' | 'AGE_THRESHOLD_FAILURE' | 'COMPLETE_VERIFICATION_FAILURE' | 'DOB_VERIFICATION_FAILURE' | 'ID_VERIFICATION_FAILURE' | 'MAX_DOCUMENT_ATTEMPTS' | 'MAX_RESUBMISSION_ATTEMPTS' | 'NAME_VERIFICATION_FAILURE' | 'OTHER_VERIFICATION_FAILURE' | 'RISK_THRESHOLD_FAILURE' | 'WATCHLIST_ALERT_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_ID_VERIFICATION_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_NAME_VERIFICATION_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_BUSINESS_OFFICERS_NOT_MATCHED' | 'PRIMARY_BUSINESS_ENTITY_SOS_FILING_INACTIVE' | 'PRIMARY_BUSINESS_ENTITY_SOS_NOT_MATCHED' | 'PRIMARY_BUSINESS_ENTITY_CMRA_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_WATCHLIST_FAILURE' | 'PRIMARY_BUSINESS_ENTITY_REGISTERED_AGENT_FAILURE' | 'CONTROL_PERSON_BLOCKLIST_ALERT_FAILURE' | 'CONTROL_PERSON_ID_VERIFICATION_FAILURE' | 'CONTROL_PERSON_DOB_VERIFICATION_FAILURE' | 'CONTROL_PERSON_NAME_VERIFICATION_FAILURE'>;
 }
 
 export interface EntityCreateParams {
@@ -330,6 +294,6 @@ export declare namespace Entities {
     type AccountHolderEntity as AccountHolderEntity,
     type EntityCreateResponse as EntityCreateResponse,
     type EntityCreateParams as EntityCreateParams,
-    type EntityDeleteParams as EntityDeleteParams,
+    type EntityDeleteParams as EntityDeleteParams
   };
 }

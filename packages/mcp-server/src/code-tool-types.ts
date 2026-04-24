@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { ClientOptions } from 'lithic';
+import { ClientOptions } from 'lithic'
 
 export type WorkerInput = {
   project_name: string;

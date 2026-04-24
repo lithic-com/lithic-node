@@ -19,10 +19,7 @@ export class EnhancedCommercialData extends APIResource {
    *   );
    * ```
    */
-  retrieve(
-    transactionToken: string,
-    options?: RequestOptions,
-  ): APIPromise<EnhancedCommercialDataRetrieveResponse> {
+  retrieve(transactionToken: string, options?: RequestOptions): APIPromise<EnhancedCommercialDataRetrieveResponse> {
     return this._client.get(path`/v1/transactions/${transactionToken}/enhanced_commercial_data`, options);
   }
 }
@@ -32,5 +29,7 @@ export interface EnhancedCommercialDataRetrieveResponse {
 }
 
 export declare namespace EnhancedCommercialData {
-  export { type EnhancedCommercialDataRetrieveResponse as EnhancedCommercialDataRetrieveResponse };
+  export {
+    type EnhancedCommercialDataRetrieveResponse as EnhancedCommercialDataRetrieveResponse
+  };
 }

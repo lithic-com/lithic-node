@@ -132,5 +132,8 @@ export interface TransferCreateParams {
 }
 
 export declare namespace Transfers {
-  export { type Transfer as Transfer, type TransferCreateParams as TransferCreateParams };
+  export {
+    type Transfer as Transfer,
+    type TransferCreateParams as TransferCreateParams
+  };
 }
