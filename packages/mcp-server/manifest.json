@@ -18,9 +18,7 @@
     "entry_point": "index.js",
     "mcp_config": {
       "command": "node",
-      "args": [
-        "${__dirname}/index.js"
-      ],
+      "args": ["${__dirname}/index.js"],
       "env": {
         "LITHIC_API_KEY": "${user_config.LITHIC_API_KEY}",
         "LITHIC_WEBHOOK_SECRET": "${user_config.LITHIC_WEBHOOK_SECRET}"
@@ -48,7 +46,5 @@
       "node": ">=18.0.0"
     }
   },
-  "keywords": [
-    "api"
-  ]
+  "keywords": ["api"]
 }
