@@ -1284,7 +1284,7 @@ export namespace AccountHolderUpdateResponse {
     email?: string;
 
     /**
-     * The type of KYC exemption for a KYC-Exempt Account Holder. "None" if the account
+     * The type of KYC exemption for a KYC-Exempt Account Holder. `null` if the account
      * holder is not KYC-Exempt.
      */
     exemption_type?: 'AUTHORIZED_USER' | 'PREPAID_CARD_USER';
@@ -1839,10 +1839,10 @@ export interface AccountHolderSimulateEnrollmentReviewResponse {
   email?: string;
 
   /**
-   * The type of KYC exemption for a KYC-Exempt Account Holder. "None" if the account
+   * The type of KYC exemption for a KYC-Exempt Account Holder. `null` if the account
    * holder is not KYC-Exempt.
    */
-  exemption_type?: 'AUTHORIZED_USER' | 'PREPAID_CARD_USER';
+  exemption_type?: 'AUTHORIZED_USER' | 'PREPAID_CARD_USER' | null;
 
   /**
    * Customer-provided token that indicates a relationship with an object outside of
