@@ -166,7 +166,7 @@ export interface SettlementDetail {
   /**
    * Card network where the transaction took place.
    */
-  network: 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA';
+  network: 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA';
 
   /**
    * The total gross amount of other fees by type.
@@ -332,7 +332,7 @@ export interface SettlementSummaryDetails {
   /**
    * Card network where the transaction took place
    */
-  network?: 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA';
+  network?: 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA';
 
   /**
    * Total amount of gross other fees outside of interchange.

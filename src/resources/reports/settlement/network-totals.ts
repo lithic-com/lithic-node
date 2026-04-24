@@ -68,7 +68,7 @@ export interface NetworkTotalListParams extends CursorPageParams {
   /**
    * Network to filter on.
    */
-  network?: 'VISA' | 'MASTERCARD' | 'MAESTRO' | 'INTERLINK';
+  network?: 'AMEX' | 'VISA' | 'MASTERCARD' | 'MAESTRO' | 'INTERLINK';
 
   /**
    * Singular report date to filter on (YYYY-MM-DD). Cannot be populated in
