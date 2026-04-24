@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.138.0 (2026-04-24)
+
+Full Changelog: [v0.137.0...v0.138.0](https://github.com/lithic-com/lithic-node/compare/v0.137.0...v0.138.0)
+
+### Features
+
+* **api:** add AMEX to network enum in settlement reports ([d0f5362](https://github.com/lithic-com/lithic-node/commit/d0f5362f7bc061d07058f1fd39cd5f843615ed7a))
+
+
+### Bug Fixes
+
+* **types:** make fields nullable in account-holders, accounts, and cards ([c5475ef](https://github.com/lithic-com/lithic-node/commit/c5475ef1525294e6a50e47637e3479ae5b4c6866))
+
+
+### Chores
+
+* **formatter:** run prettier and eslint separately ([d78245b](https://github.com/lithic-com/lithic-node/commit/d78245b7aad796549148adcf228d0077233d0419))
+* **internal:** more robust bootstrap script ([eb0bf7c](https://github.com/lithic-com/lithic-node/commit/eb0bf7c3e099e87bca8f2997d582fdb10a2b796c))
+* **internal:** update docs ordering ([bb95c1f](https://github.com/lithic-com/lithic-node/commit/bb95c1f529a85c3e04eab6783b1f7301e6085670))
+* restructure docs search code ([f64d754](https://github.com/lithic-com/lithic-node/commit/f64d75431f41bef55ed246bf3da3d8a1183fd327))
+
 ## 0.137.0 (2026-04-20)
 
 Full Changelog: [v0.136.0...v0.137.0](https://github.com/lithic-com/lithic-node/compare/v0.136.0...v0.137.0)
