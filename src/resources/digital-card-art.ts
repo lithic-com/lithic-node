@@ -17,12 +17,15 @@ export class DigitalCardArtResource extends APIResource {
   /**
    * List digital card art.
    */
-  list(query: DigitalCardArtListParams | null | undefined = {}, options?: RequestOptions): PagePromise<DigitalCardArtsCursorPage, DigitalCardArt> {
+  list(
+    query: DigitalCardArtListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<DigitalCardArtsCursorPage, DigitalCardArt> {
     return this._client.getAPIList('/v1/digital_card_art', CursorPage<DigitalCardArt>, { query, ...options });
   }
 }
 
-export type DigitalCardArtsCursorPage = CursorPage<DigitalCardArt>
+export type DigitalCardArtsCursorPage = CursorPage<DigitalCardArt>;
 
 export interface DigitalCardArt {
   /**
@@ -61,13 +64,12 @@ export interface DigitalCardArt {
   is_card_program_default?: boolean;
 }
 
-export interface DigitalCardArtListParams extends CursorPageParams {
-}
+export interface DigitalCardArtListParams extends CursorPageParams {}
 
 export declare namespace DigitalCardArtResource {
   export {
     type DigitalCardArt as DigitalCardArt,
     type DigitalCardArtsCursorPage as DigitalCardArtsCursorPage,
-    type DigitalCardArtListParams as DigitalCardArtListParams
+    type DigitalCardArtListParams as DigitalCardArtListParams,
   };
 }

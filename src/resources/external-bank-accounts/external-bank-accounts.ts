@@ -39,7 +39,10 @@ export class ExternalBankAccounts extends APIResource {
    *   });
    * ```
    */
-  create(body: ExternalBankAccountCreateParams, options?: RequestOptions): APIPromise<ExternalBankAccountCreateResponse> {
+  create(
+    body: ExternalBankAccountCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<ExternalBankAccountCreateResponse> {
     return this._client.post('/v1/external_bank_accounts', { body, ...options });
   }
 
@@ -54,7 +57,10 @@ export class ExternalBankAccounts extends APIResource {
    *   );
    * ```
    */
-  retrieve(externalBankAccountToken: string, options?: RequestOptions): APIPromise<ExternalBankAccountRetrieveResponse> {
+  retrieve(
+    externalBankAccountToken: string,
+    options?: RequestOptions,
+  ): APIPromise<ExternalBankAccountRetrieveResponse> {
     return this._client.get(path`/v1/external_bank_accounts/${externalBankAccountToken}`, options);
   }
 
@@ -69,8 +75,15 @@ export class ExternalBankAccounts extends APIResource {
    *   );
    * ```
    */
-  update(externalBankAccountToken: string, body: ExternalBankAccountUpdateParams, options?: RequestOptions): APIPromise<ExternalBankAccountUpdateResponse> {
-    return this._client.patch(path`/v1/external_bank_accounts/${externalBankAccountToken}`, { body, ...options });
+  update(
+    externalBankAccountToken: string,
+    body: ExternalBankAccountUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<ExternalBankAccountUpdateResponse> {
+    return this._client.patch(path`/v1/external_bank_accounts/${externalBankAccountToken}`, {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -84,8 +97,15 @@ export class ExternalBankAccounts extends APIResource {
    * }
    * ```
    */
-  list(query: ExternalBankAccountListParams | null | undefined = {}, options?: RequestOptions): PagePromise<ExternalBankAccountListResponsesCursorPage, ExternalBankAccountListResponse> {
-    return this._client.getAPIList('/v1/external_bank_accounts', CursorPage<ExternalBankAccountListResponse>, { query, ...options });
+  list(
+    query: ExternalBankAccountListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ExternalBankAccountListResponsesCursorPage, ExternalBankAccountListResponse> {
+    return this._client.getAPIList(
+      '/v1/external_bank_accounts',
+      CursorPage<ExternalBankAccountListResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -99,8 +119,15 @@ export class ExternalBankAccounts extends APIResource {
    *   );
    * ```
    */
-  retryMicroDeposits(externalBankAccountToken: string, body: ExternalBankAccountRetryMicroDepositsParams | null | undefined = {}, options?: RequestOptions): APIPromise<ExternalBankAccountRetryMicroDepositsResponse> {
-    return this._client.post(path`/v1/external_bank_accounts/${externalBankAccountToken}/retry_micro_deposits`, { body, ...options });
+  retryMicroDeposits(
+    externalBankAccountToken: string,
+    body: ExternalBankAccountRetryMicroDepositsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ExternalBankAccountRetryMicroDepositsResponse> {
+    return this._client.post(
+      path`/v1/external_bank_accounts/${externalBankAccountToken}/retry_micro_deposits`,
+      { body, ...options },
+    );
   }
 
   /**
@@ -114,8 +141,15 @@ export class ExternalBankAccounts extends APIResource {
    *   );
    * ```
    */
-  retryPrenote(externalBankAccountToken: string, body: ExternalBankAccountRetryPrenoteParams | null | undefined = {}, options?: RequestOptions): APIPromise<ExternalBankAccount> {
-    return this._client.post(path`/v1/external_bank_accounts/${externalBankAccountToken}/retry_prenote`, { body, ...options });
+  retryPrenote(
+    externalBankAccountToken: string,
+    body: ExternalBankAccountRetryPrenoteParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ExternalBankAccount> {
+    return this._client.post(path`/v1/external_bank_accounts/${externalBankAccountToken}/retry_prenote`, {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -131,8 +165,15 @@ export class ExternalBankAccounts extends APIResource {
    *   );
    * ```
    */
-  setVerificationMethod(externalBankAccountToken: string, body: ExternalBankAccountSetVerificationMethodParams, options?: RequestOptions): APIPromise<ExternalBankAccount> {
-    return this._client.post(path`/v1/external_bank_accounts/${externalBankAccountToken}/set_verification_method`, { body, ...options });
+  setVerificationMethod(
+    externalBankAccountToken: string,
+    body: ExternalBankAccountSetVerificationMethodParams,
+    options?: RequestOptions,
+  ): APIPromise<ExternalBankAccount> {
+    return this._client.post(
+      path`/v1/external_bank_accounts/${externalBankAccountToken}/set_verification_method`,
+      { body, ...options },
+    );
   }
 
   /**
@@ -151,7 +192,7 @@ export class ExternalBankAccounts extends APIResource {
   }
 }
 
-export type ExternalBankAccountListResponsesCursorPage = CursorPage<ExternalBankAccountListResponse>
+export type ExternalBankAccountListResponsesCursorPage = CursorPage<ExternalBankAccountListResponse>;
 
 export interface ExternalBankAccount {
   /**
@@ -290,9 +331,14 @@ export interface ExternalBankAccountAddress {
   address2?: string | null;
 }
 
-export type OwnerType = 'INDIVIDUAL' | 'BUSINESS'
+export type OwnerType = 'INDIVIDUAL' | 'BUSINESS';
 
-export type VerificationMethod = 'MANUAL' | 'MICRO_DEPOSIT' | 'PRENOTE' | 'EXTERNALLY_VERIFIED' | 'UNVERIFIED'
+export type VerificationMethod =
+  | 'MANUAL'
+  | 'MICRO_DEPOSIT'
+  | 'PRENOTE'
+  | 'EXTERNALLY_VERIFIED'
+  | 'UNVERIFIED';
 
 export interface ExternalBankAccountCreateResponse {
   /**
@@ -909,7 +955,10 @@ export interface ExternalBankAccountRetryMicroDepositsResponse {
   verification_failed_reason?: string | null;
 }
 
-export type ExternalBankAccountCreateParams = ExternalBankAccountCreateParams.BankVerifiedCreateBankAccountAPIRequest | ExternalBankAccountCreateParams.ExternallyVerifiedCreateBankAccountAPIRequest | ExternalBankAccountCreateParams.UnverifiedCreateBankAccountAPIRequest
+export type ExternalBankAccountCreateParams =
+  | ExternalBankAccountCreateParams.BankVerifiedCreateBankAccountAPIRequest
+  | ExternalBankAccountCreateParams.ExternallyVerifiedCreateBankAccountAPIRequest
+  | ExternalBankAccountCreateParams.UnverifiedCreateBankAccountAPIRequest;
 
 export declare namespace ExternalBankAccountCreateParams {
   export interface BankVerifiedCreateBankAccountAPIRequest {
@@ -1262,12 +1311,12 @@ export declare namespace ExternalBankAccounts {
     type ExternalBankAccountListParams as ExternalBankAccountListParams,
     type ExternalBankAccountRetryMicroDepositsParams as ExternalBankAccountRetryMicroDepositsParams,
     type ExternalBankAccountRetryPrenoteParams as ExternalBankAccountRetryPrenoteParams,
-    type ExternalBankAccountSetVerificationMethodParams as ExternalBankAccountSetVerificationMethodParams
+    type ExternalBankAccountSetVerificationMethodParams as ExternalBankAccountSetVerificationMethodParams,
   };
 
   export {
     MicroDeposits as MicroDeposits,
     type MicroDepositCreateResponse as MicroDepositCreateResponse,
-    type MicroDepositCreateParams as MicroDepositCreateParams
+    type MicroDepositCreateParams as MicroDepositCreateParams,
   };
 }

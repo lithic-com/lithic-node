@@ -19,8 +19,15 @@ export class MicroDeposits extends APIResource {
    *   );
    * ```
    */
-  create(externalBankAccountToken: string, body: MicroDepositCreateParams, options?: RequestOptions): APIPromise<MicroDepositCreateResponse> {
-    return this._client.post(path`/v1/external_bank_accounts/${externalBankAccountToken}/micro_deposits`, { body, ...options });
+  create(
+    externalBankAccountToken: string,
+    body: MicroDepositCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<MicroDepositCreateResponse> {
+    return this._client.post(path`/v1/external_bank_accounts/${externalBankAccountToken}/micro_deposits`, {
+      body,
+      ...options,
+    });
   }
 }
 
@@ -154,6 +161,6 @@ export interface MicroDepositCreateParams {
 export declare namespace MicroDeposits {
   export {
     type MicroDepositCreateResponse as MicroDepositCreateResponse,
-    type MicroDepositCreateParams as MicroDepositCreateParams
+    type MicroDepositCreateParams as MicroDepositCreateParams,
   };
 }

@@ -5,7 +5,11 @@ import * as Shared from '../shared';
 import * as BalancesAPI from './balances';
 import { BalanceListParams, Balances } from './balances';
 import * as FinancialTransactionsAPI from './financial-transactions';
-import { FinancialTransactionListParams, FinancialTransactionRetrieveParams, FinancialTransactions } from './financial-transactions';
+import {
+  FinancialTransactionListParams,
+  FinancialTransactionRetrieveParams,
+  FinancialTransactions,
+} from './financial-transactions';
 import { APIPromise } from '../../core/api-promise';
 import { CursorPage, type CursorPageParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
@@ -14,7 +18,8 @@ import { path } from '../../internal/utils/path';
 
 export class Cards extends APIResource {
   balances: BalancesAPI.Balances = new BalancesAPI.Balances(this._client);
-  financialTransactions: FinancialTransactionsAPI.FinancialTransactions = new FinancialTransactionsAPI.FinancialTransactions(this._client);
+  financialTransactions: FinancialTransactionsAPI.FinancialTransactions =
+    new FinancialTransactionsAPI.FinancialTransactions(this._client);
 
   /**
    * Create a new virtual or physical card. Parameters `shipping_address` and
@@ -32,8 +37,15 @@ export class Cards extends APIResource {
    * ```
    */
   create(params: CardCreateParams, options?: RequestOptions): APIPromise<Card> {
-    const { 'Idempotency-Key': idempotencyKey, ...body } = params
-    return this._client.post('/v1/cards', { body, ...options, headers: buildHeaders([{...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined)}, options?.headers]) });
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/v1/cards', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -85,7 +97,10 @@ export class Cards extends APIResource {
    * }
    * ```
    */
-  list(query: CardListParams | null | undefined = {}, options?: RequestOptions): PagePromise<NonPCICardsCursorPage, NonPCICard> {
+  list(
+    query: CardListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<NonPCICardsCursorPage, NonPCICard> {
     return this._client.getAPIList('/v1/cards', CursorPage<NonPCICard>, { query, ...options });
   }
 
@@ -125,7 +140,11 @@ export class Cards extends APIResource {
    * );
    * ```
    */
-  convertPhysical(cardToken: string, body: CardConvertPhysicalParams, options?: RequestOptions): APIPromise<Card> {
+  convertPhysical(
+    cardToken: string,
+    body: CardConvertPhysicalParams,
+    options?: RequestOptions,
+  ): APIPromise<Card> {
     return this._client.post(path`/v1/cards/${cardToken}/convert_physical`, { body, ...options });
   }
 
@@ -167,7 +186,11 @@ export class Cards extends APIResource {
    * ```
    */
   embed(query: CardEmbedParams, options?: RequestOptions): APIPromise<string> {
-    return this._client.get('/v1/embed/card', { query, ...options, headers: buildHeaders([{Accept: 'text/html'}, options?.headers]) });
+    return this._client.get('/v1/embed/card', {
+      query,
+      ...options,
+      headers: buildHeaders([{ Accept: 'text/html' }, options?.headers]),
+    });
   }
 
   /**
@@ -186,7 +209,11 @@ export class Cards extends APIResource {
    * );
    * ```
    */
-  provision(cardToken: string, body: CardProvisionParams, options?: RequestOptions): APIPromise<CardProvisionResponse> {
+  provision(
+    cardToken: string,
+    body: CardProvisionParams,
+    options?: RequestOptions,
+  ): APIPromise<CardProvisionResponse> {
     return this._client.post(path`/v1/cards/${cardToken}/provision`, { body, ...options });
   }
 
@@ -316,12 +343,16 @@ export class Cards extends APIResource {
    * );
    * ```
    */
-  webProvision(cardToken: string, body: CardWebProvisionParams, options?: RequestOptions): APIPromise<CardWebProvisionResponse> {
+  webProvision(
+    cardToken: string,
+    body: CardWebProvisionParams,
+    options?: RequestOptions,
+  ): APIPromise<CardWebProvisionResponse> {
     return this._client.post(path`/v1/cards/${cardToken}/web_provision`, { body, ...options });
   }
 }
 
-export type NonPCICardsCursorPage = CursorPage<NonPCICard>
+export type NonPCICardsCursorPage = CursorPage<NonPCICard>;
 
 /**
  * Card details with potentially PCI sensitive information for Enterprise customers
@@ -601,7 +632,19 @@ export interface NonPCICard {
    * has been returned. \* `OTHER` - The reason for the status does not fall into any
    * of the above categories. A comment can be provided to specify the reason.
    */
-  substatus?: 'LOST' | 'COMPROMISED' | 'DAMAGED' | 'END_USER_REQUEST' | 'ISSUER_REQUEST' | 'NOT_ACTIVE' | 'SUSPICIOUS_ACTIVITY' | 'INTERNAL_REVIEW' | 'EXPIRED' | 'UNDELIVERABLE' | 'OTHER' | null;
+  substatus?:
+    | 'LOST'
+    | 'COMPROMISED'
+    | 'DAMAGED'
+    | 'END_USER_REQUEST'
+    | 'ISSUER_REQUEST'
+    | 'NOT_ACTIVE'
+    | 'SUSPICIOUS_ACTIVITY'
+    | 'INTERNAL_REVIEW'
+    | 'EXPIRED'
+    | 'UNDELIVERABLE'
+    | 'OTHER'
+    | null;
 }
 
 export namespace NonPCICard {
@@ -678,9 +721,9 @@ export interface ProvisionResponse {
  * - `TRANSACTION` - Card will authorize multiple transactions if each individual
  *   transaction is under the spend limit.
  */
-export type SpendLimitDuration = 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION'
+export type SpendLimitDuration = 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION';
 
-export type CardEmbedResponse = string
+export type CardEmbedResponse = string;
 
 export interface CardProvisionResponse {
   /**
@@ -690,7 +733,9 @@ export interface CardProvisionResponse {
   provisioning_payload?: string | ProvisionResponse;
 }
 
-export type CardWebProvisionResponse = CardWebProvisionResponse.AppleWebPushProvisioningResponse | CardWebProvisionResponse.GoogleWebPushProvisioningResponse
+export type CardWebProvisionResponse =
+  | CardWebProvisionResponse.AppleWebPushProvisioningResponse
+  | CardWebProvisionResponse.GoogleWebPushProvisioningResponse;
 
 export namespace CardWebProvisionResponse {
   export interface AppleWebPushProvisioningResponse {
@@ -904,7 +949,18 @@ export interface CardCreateParams {
    * - `OTHER` - The reason for the status does not fall into any of the above
    *   categories. A comment should be provided to specify the reason.
    */
-  replacement_substatus?: 'LOST' | 'COMPROMISED' | 'DAMAGED' | 'END_USER_REQUEST' | 'ISSUER_REQUEST' | 'NOT_ACTIVE' | 'SUSPICIOUS_ACTIVITY' | 'INTERNAL_REVIEW' | 'EXPIRED' | 'UNDELIVERABLE' | 'OTHER';
+  replacement_substatus?:
+    | 'LOST'
+    | 'COMPROMISED'
+    | 'DAMAGED'
+    | 'END_USER_REQUEST'
+    | 'ISSUER_REQUEST'
+    | 'NOT_ACTIVE'
+    | 'SUSPICIOUS_ACTIVITY'
+    | 'INTERNAL_REVIEW'
+    | 'EXPIRED'
+    | 'UNDELIVERABLE'
+    | 'OTHER';
 
   /**
    * Body param
@@ -929,7 +985,14 @@ export interface CardCreateParams {
    * - `BULK` - Card will be shipped as part of a bulk fulfillment order. The
    *   shipping method and timeline are inherited from the parent bulk order.
    */
-  shipping_method?: '2_DAY' | 'BULK' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING';
+  shipping_method?:
+    | '2_DAY'
+    | 'BULK'
+    | 'EXPEDITED'
+    | 'EXPRESS'
+    | 'PRIORITY'
+    | 'STANDARD'
+    | 'STANDARD_WITH_TRACKING';
 
   /**
    * Body param: Amount (in cents) to limit approved authorizations (e.g. 100000
@@ -1076,7 +1139,18 @@ export interface CardUpdateParams {
    * - `OTHER` - The reason for the status does not fall into any of the above
    *   categories. A comment should be provided to specify the reason.
    */
-  substatus?: 'LOST' | 'COMPROMISED' | 'DAMAGED' | 'END_USER_REQUEST' | 'ISSUER_REQUEST' | 'NOT_ACTIVE' | 'SUSPICIOUS_ACTIVITY' | 'INTERNAL_REVIEW' | 'EXPIRED' | 'UNDELIVERABLE' | 'OTHER';
+  substatus?:
+    | 'LOST'
+    | 'COMPROMISED'
+    | 'DAMAGED'
+    | 'END_USER_REQUEST'
+    | 'ISSUER_REQUEST'
+    | 'NOT_ACTIVE'
+    | 'SUSPICIOUS_ACTIVITY'
+    | 'INTERNAL_REVIEW'
+    | 'EXPIRED'
+    | 'UNDELIVERABLE'
+    | 'OTHER';
 }
 
 export interface CardListParams extends CursorPageParams {
@@ -1144,7 +1218,14 @@ export interface CardConvertPhysicalParams {
    * - `BULK` - Card will be shipped as part of a bulk fulfillment order. The
    *   shipping method and timeline are inherited from the parent bulk order.
    */
-  shipping_method?: '2_DAY' | 'BULK' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING';
+  shipping_method?:
+    | '2_DAY'
+    | 'BULK'
+    | 'EXPEDITED'
+    | 'EXPRESS'
+    | 'PRIORITY'
+    | 'STANDARD'
+    | 'STANDARD_WITH_TRACKING';
 }
 
 export interface CardEmbedParams {
@@ -1238,7 +1319,14 @@ export interface CardReissueParams {
    * - `BULK` - Card will be shipped as part of a bulk fulfillment order. The
    *   shipping method and timeline are inherited from the parent bulk order.
    */
-  shipping_method?: '2_DAY' | 'BULK' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING';
+  shipping_method?:
+    | '2_DAY'
+    | 'BULK'
+    | 'EXPEDITED'
+    | 'EXPRESS'
+    | 'PRIORITY'
+    | 'STANDARD'
+    | 'STANDARD_WITH_TRACKING';
 }
 
 export interface CardRenewParams {
@@ -1289,7 +1377,14 @@ export interface CardRenewParams {
    * - `BULK` - Card will be shipped as part of a bulk fulfillment order. The
    *   shipping method and timeline are inherited from the parent bulk order.
    */
-  shipping_method?: '2_DAY' | 'BULK' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING';
+  shipping_method?:
+    | '2_DAY'
+    | 'BULK'
+    | 'EXPEDITED'
+    | 'EXPRESS'
+    | 'PRIORITY'
+    | 'STANDARD'
+    | 'STANDARD_WITH_TRACKING';
 }
 
 export interface CardSearchByPanParams {
@@ -1347,17 +1442,14 @@ export declare namespace Cards {
     type CardReissueParams as CardReissueParams,
     type CardRenewParams as CardRenewParams,
     type CardSearchByPanParams as CardSearchByPanParams,
-    type CardWebProvisionParams as CardWebProvisionParams
+    type CardWebProvisionParams as CardWebProvisionParams,
   };
 
-  export {
-    Balances as Balances,
-    type BalanceListParams as BalanceListParams
-  };
+  export { Balances as Balances, type BalanceListParams as BalanceListParams };
 
   export {
     FinancialTransactions as FinancialTransactions,
     type FinancialTransactionRetrieveParams as FinancialTransactionRetrieveParams,
-    type FinancialTransactionListParams as FinancialTransactionListParams
+    type FinancialTransactionListParams as FinancialTransactionListParams,
   };
 }

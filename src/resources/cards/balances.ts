@@ -21,8 +21,16 @@ export class Balances extends APIResource {
    * }
    * ```
    */
-  list(cardToken: string, query: BalanceListParams | null | undefined = {}, options?: RequestOptions): PagePromise<FinancialAccountBalancesSinglePage, FinancialAccountsAPI.FinancialAccountBalance> {
-    return this._client.getAPIList(path`/v1/cards/${cardToken}/balances`, SinglePage<FinancialAccountsAPI.FinancialAccountBalance>, { query, ...options });
+  list(
+    cardToken: string,
+    query: BalanceListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<FinancialAccountBalancesSinglePage, FinancialAccountsAPI.FinancialAccountBalance> {
+    return this._client.getAPIList(
+      path`/v1/cards/${cardToken}/balances`,
+      SinglePage<FinancialAccountsAPI.FinancialAccountBalance>,
+      { query, ...options },
+    );
   }
 }
 
@@ -41,9 +49,7 @@ export interface BalanceListParams {
 }
 
 export declare namespace Balances {
-  export {
-    type BalanceListParams as BalanceListParams
-  };
+  export { type BalanceListParams as BalanceListParams };
 }
 
-export { type FinancialAccountBalancesSinglePage }
+export { type FinancialAccountBalancesSinglePage };

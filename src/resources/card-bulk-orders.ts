@@ -61,7 +61,11 @@ export class CardBulkOrders extends APIResource {
    * );
    * ```
    */
-  update(bulkOrderToken: string, body: CardBulkOrderUpdateParams, options?: RequestOptions): APIPromise<CardBulkOrder> {
+  update(
+    bulkOrderToken: string,
+    body: CardBulkOrderUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<CardBulkOrder> {
     return this._client.patch(path`/v1/card_bulk_orders/${bulkOrderToken}`, { body, ...options });
   }
 
@@ -76,12 +80,15 @@ export class CardBulkOrders extends APIResource {
    * }
    * ```
    */
-  list(query: CardBulkOrderListParams | null | undefined = {}, options?: RequestOptions): PagePromise<CardBulkOrdersCursorPage, CardBulkOrder> {
+  list(
+    query: CardBulkOrderListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<CardBulkOrdersCursorPage, CardBulkOrder> {
     return this._client.getAPIList('/v1/card_bulk_orders', CursorPage<CardBulkOrder>, { query, ...options });
   }
 }
 
-export type CardBulkOrdersCursorPage = CursorPage<CardBulkOrder>
+export type CardBulkOrdersCursorPage = CursorPage<CardBulkOrder>;
 
 /**
  * Represents a bulk order for physical card shipments
@@ -177,6 +184,6 @@ export declare namespace CardBulkOrders {
     type CardBulkOrdersCursorPage as CardBulkOrdersCursorPage,
     type CardBulkOrderCreateParams as CardBulkOrderCreateParams,
     type CardBulkOrderUpdateParams as CardBulkOrderUpdateParams,
-    type CardBulkOrderListParams as CardBulkOrderListParams
+    type CardBulkOrderListParams as CardBulkOrderListParams,
   };
 }

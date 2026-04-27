@@ -63,7 +63,10 @@ export class Disputes extends APIResource {
    * }
    * ```
    */
-  list(query: DisputeListParams | null | undefined = {}, options?: RequestOptions): PagePromise<DisputesCursorPage, Dispute> {
+  list(
+    query: DisputeListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<DisputesCursorPage, Dispute> {
     return this._client.getAPIList('/v1/disputes', CursorPage<Dispute>, { query, ...options });
   }
 
@@ -96,8 +99,12 @@ export class Disputes extends APIResource {
    *   );
    * ```
    */
-  deleteEvidence(evidenceToken: string, params: DisputeDeleteEvidenceParams, options?: RequestOptions): APIPromise<DisputeEvidence> {
-    const { dispute_token } = params
+  deleteEvidence(
+    evidenceToken: string,
+    params: DisputeDeleteEvidenceParams,
+    options?: RequestOptions,
+  ): APIPromise<DisputeEvidence> {
+    const { dispute_token } = params;
     return this._client.delete(path`/v1/disputes/${dispute_token}/evidences/${evidenceToken}`, options);
   }
 
@@ -116,7 +123,11 @@ export class Disputes extends APIResource {
    *   );
    * ```
    */
-  initiateEvidenceUpload(disputeToken: string, body: DisputeInitiateEvidenceUploadParams | null | undefined = {}, options?: RequestOptions): APIPromise<DisputeEvidence> {
+  initiateEvidenceUpload(
+    disputeToken: string,
+    body: DisputeInitiateEvidenceUploadParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<DisputeEvidence> {
     return this._client.post(path`/v1/disputes/${disputeToken}/evidences`, { body, ...options });
   }
 
@@ -133,8 +144,16 @@ export class Disputes extends APIResource {
    * }
    * ```
    */
-  listEvidences(disputeToken: string, query: DisputeListEvidencesParams | null | undefined = {}, options?: RequestOptions): PagePromise<DisputeEvidencesCursorPage, DisputeEvidence> {
-    return this._client.getAPIList(path`/v1/disputes/${disputeToken}/evidences`, CursorPage<DisputeEvidence>, { query, ...options });
+  listEvidences(
+    disputeToken: string,
+    query: DisputeListEvidencesParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<DisputeEvidencesCursorPage, DisputeEvidence> {
+    return this._client.getAPIList(
+      path`/v1/disputes/${disputeToken}/evidences`,
+      CursorPage<DisputeEvidence>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -151,15 +170,19 @@ export class Disputes extends APIResource {
    *   );
    * ```
    */
-  retrieveEvidence(evidenceToken: string, params: DisputeRetrieveEvidenceParams, options?: RequestOptions): APIPromise<DisputeEvidence> {
-    const { dispute_token } = params
+  retrieveEvidence(
+    evidenceToken: string,
+    params: DisputeRetrieveEvidenceParams,
+    options?: RequestOptions,
+  ): APIPromise<DisputeEvidence> {
+    const { dispute_token } = params;
     return this._client.get(path`/v1/disputes/${dispute_token}/evidences/${evidenceToken}`, options);
   }
 }
 
-export type DisputesCursorPage = CursorPage<Dispute>
+export type DisputesCursorPage = CursorPage<Dispute>;
 
-export type DisputeEvidencesCursorPage = CursorPage<DisputeEvidence>
+export type DisputeEvidencesCursorPage = CursorPage<DisputeEvidence>;
 
 /**
  * Dispute.
@@ -242,7 +265,21 @@ export interface Dispute {
    * - `RECURRING_TRANSACTION_NOT_CANCELLED`: The recurring transaction was not
    *   cancelled.
    */
-  reason: 'ATM_CASH_MISDISPENSE' | 'CANCELLED' | 'DUPLICATED' | 'FRAUD_CARD_NOT_PRESENT' | 'FRAUD_CARD_PRESENT' | 'FRAUD_OTHER' | 'GOODS_SERVICES_NOT_AS_DESCRIBED' | 'GOODS_SERVICES_NOT_RECEIVED' | 'INCORRECT_AMOUNT' | 'MISSING_AUTH' | 'OTHER' | 'PROCESSING_ERROR' | 'RECURRING_TRANSACTION_NOT_CANCELLED' | 'REFUND_NOT_PROCESSED';
+  reason:
+    | 'ATM_CASH_MISDISPENSE'
+    | 'CANCELLED'
+    | 'DUPLICATED'
+    | 'FRAUD_CARD_NOT_PRESENT'
+    | 'FRAUD_CARD_PRESENT'
+    | 'FRAUD_OTHER'
+    | 'GOODS_SERVICES_NOT_AS_DESCRIBED'
+    | 'GOODS_SERVICES_NOT_RECEIVED'
+    | 'INCORRECT_AMOUNT'
+    | 'MISSING_AUTH'
+    | 'OTHER'
+    | 'PROCESSING_ERROR'
+    | 'RECURRING_TRANSACTION_NOT_CANCELLED'
+    | 'REFUND_NOT_PROCESSED';
 
   /**
    * Date the representment was received.
@@ -280,7 +317,25 @@ export interface Dispute {
    * - `WON_FIRST_CHARGEBACK`: Won first chargeback.
    * - `WON_PREARBITRATION`: Won prearbitration.
    */
-  resolution_reason: 'CASE_LOST' | 'NETWORK_REJECTED' | 'NO_DISPUTE_RIGHTS_3DS' | 'NO_DISPUTE_RIGHTS_BELOW_THRESHOLD' | 'NO_DISPUTE_RIGHTS_CONTACTLESS' | 'NO_DISPUTE_RIGHTS_HYBRID' | 'NO_DISPUTE_RIGHTS_MAX_CHARGEBACKS' | 'NO_DISPUTE_RIGHTS_OTHER' | 'PAST_FILING_DATE' | 'PREARBITRATION_REJECTED' | 'PROCESSOR_REJECTED_OTHER' | 'REFUNDED' | 'REFUNDED_AFTER_CHARGEBACK' | 'WITHDRAWN' | 'WON_ARBITRATION' | 'WON_FIRST_CHARGEBACK' | 'WON_PREARBITRATION' | null;
+  resolution_reason:
+    | 'CASE_LOST'
+    | 'NETWORK_REJECTED'
+    | 'NO_DISPUTE_RIGHTS_3DS'
+    | 'NO_DISPUTE_RIGHTS_BELOW_THRESHOLD'
+    | 'NO_DISPUTE_RIGHTS_CONTACTLESS'
+    | 'NO_DISPUTE_RIGHTS_HYBRID'
+    | 'NO_DISPUTE_RIGHTS_MAX_CHARGEBACKS'
+    | 'NO_DISPUTE_RIGHTS_OTHER'
+    | 'PAST_FILING_DATE'
+    | 'PREARBITRATION_REJECTED'
+    | 'PROCESSOR_REJECTED_OTHER'
+    | 'REFUNDED'
+    | 'REFUNDED_AFTER_CHARGEBACK'
+    | 'WITHDRAWN'
+    | 'WON_ARBITRATION'
+    | 'WON_FIRST_CHARGEBACK'
+    | 'WON_PREARBITRATION'
+    | null;
 
   /**
    * Status types:
@@ -295,7 +350,15 @@ export interface Dispute {
    * - `CASE_WON` - Case was won and credit will be issued.
    * - `CASE_CLOSED` - Case was lost or withdrawn.
    */
-  status: 'ARBITRATION' | 'CASE_CLOSED' | 'CASE_WON' | 'NEW' | 'PENDING_CUSTOMER' | 'PREARBITRATION' | 'REPRESENTMENT' | 'SUBMITTED';
+  status:
+    | 'ARBITRATION'
+    | 'CASE_CLOSED'
+    | 'CASE_WON'
+    | 'NEW'
+    | 'PENDING_CUSTOMER'
+    | 'PREARBITRATION'
+    | 'REPRESENTMENT'
+    | 'SUBMITTED';
 
   /**
    * The transaction that is being disputed. A transaction can only be disputed once
@@ -360,7 +423,21 @@ export interface DisputeCreateParams {
   /**
    * Reason for chargeback
    */
-  reason: 'ATM_CASH_MISDISPENSE' | 'CANCELLED' | 'DUPLICATED' | 'FRAUD_CARD_NOT_PRESENT' | 'FRAUD_CARD_PRESENT' | 'FRAUD_OTHER' | 'GOODS_SERVICES_NOT_AS_DESCRIBED' | 'GOODS_SERVICES_NOT_RECEIVED' | 'INCORRECT_AMOUNT' | 'MISSING_AUTH' | 'OTHER' | 'PROCESSING_ERROR' | 'RECURRING_TRANSACTION_NOT_CANCELLED' | 'REFUND_NOT_PROCESSED';
+  reason:
+    | 'ATM_CASH_MISDISPENSE'
+    | 'CANCELLED'
+    | 'DUPLICATED'
+    | 'FRAUD_CARD_NOT_PRESENT'
+    | 'FRAUD_CARD_PRESENT'
+    | 'FRAUD_OTHER'
+    | 'GOODS_SERVICES_NOT_AS_DESCRIBED'
+    | 'GOODS_SERVICES_NOT_RECEIVED'
+    | 'INCORRECT_AMOUNT'
+    | 'MISSING_AUTH'
+    | 'OTHER'
+    | 'PROCESSING_ERROR'
+    | 'RECURRING_TRANSACTION_NOT_CANCELLED'
+    | 'REFUND_NOT_PROCESSED';
 
   /**
    * Transaction for chargeback
@@ -397,7 +474,21 @@ export interface DisputeUpdateParams {
   /**
    * Reason for chargeback
    */
-  reason?: 'ATM_CASH_MISDISPENSE' | 'CANCELLED' | 'DUPLICATED' | 'FRAUD_CARD_NOT_PRESENT' | 'FRAUD_CARD_PRESENT' | 'FRAUD_OTHER' | 'GOODS_SERVICES_NOT_AS_DESCRIBED' | 'GOODS_SERVICES_NOT_RECEIVED' | 'INCORRECT_AMOUNT' | 'MISSING_AUTH' | 'OTHER' | 'PROCESSING_ERROR' | 'RECURRING_TRANSACTION_NOT_CANCELLED' | 'REFUND_NOT_PROCESSED';
+  reason?:
+    | 'ATM_CASH_MISDISPENSE'
+    | 'CANCELLED'
+    | 'DUPLICATED'
+    | 'FRAUD_CARD_NOT_PRESENT'
+    | 'FRAUD_CARD_PRESENT'
+    | 'FRAUD_OTHER'
+    | 'GOODS_SERVICES_NOT_AS_DESCRIBED'
+    | 'GOODS_SERVICES_NOT_RECEIVED'
+    | 'INCORRECT_AMOUNT'
+    | 'MISSING_AUTH'
+    | 'OTHER'
+    | 'PROCESSING_ERROR'
+    | 'RECURRING_TRANSACTION_NOT_CANCELLED'
+    | 'REFUND_NOT_PROCESSED';
 }
 
 export interface DisputeListParams extends CursorPageParams {
@@ -416,7 +507,15 @@ export interface DisputeListParams extends CursorPageParams {
   /**
    * Filter by status.
    */
-  status?: 'ARBITRATION' | 'CASE_CLOSED' | 'CASE_WON' | 'NEW' | 'PENDING_CUSTOMER' | 'PREARBITRATION' | 'REPRESENTMENT' | 'SUBMITTED';
+  status?:
+    | 'ARBITRATION'
+    | 'CASE_CLOSED'
+    | 'CASE_WON'
+    | 'NEW'
+    | 'PENDING_CUSTOMER'
+    | 'PREARBITRATION'
+    | 'REPRESENTMENT'
+    | 'SUBMITTED';
 
   /**
    * Transaction tokens to filter by.
@@ -465,6 +564,6 @@ export declare namespace Disputes {
     type DisputeDeleteEvidenceParams as DisputeDeleteEvidenceParams,
     type DisputeInitiateEvidenceUploadParams as DisputeInitiateEvidenceUploadParams,
     type DisputeListEvidencesParams as DisputeListEvidencesParams,
-    type DisputeRetrieveEvidenceParams as DisputeRetrieveEvidenceParams
+    type DisputeRetrieveEvidenceParams as DisputeRetrieveEvidenceParams,
   };
 }
