@@ -143,7 +143,8 @@ export interface SettlementDetail {
   disputes_gross_amount: number;
 
   /**
-   * Globally unique identifiers denoting the Events associated with this settlement.
+   * Array of globally unique identifiers for the financial events that comprise this
+   * settlement. Use these tokens to access detailed event-level information.
    */
   event_tokens: Array<string>;
 
@@ -191,7 +192,12 @@ export interface SettlementDetail {
   settlement_date: string;
 
   /**
-   * Globally unique identifier denoting the associated Transaction object.
+   * Globally unique identifier denoting the associated transaction. For settlement
+   * records with type `CLEARING`, `FINANCIAL`, or `NON-FINANCIAL`, this references a
+   * card transaction token. For settlement records with type `CHARGEBACK`,
+   * `REPRESENTMENT`, `PREARBITRATION`, `ARBITRATION`, or `COLLABORATION`, this
+   * references the dispute transaction token. May be null for certain settlement
+   * types.
    */
   transaction_token: string;
 
