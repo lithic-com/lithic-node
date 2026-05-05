@@ -828,6 +828,10 @@ export namespace ConditionalAuthorizationActionParameters {
      *   transaction for the entity. Requires `parameters.scope`.
      * - `DISTINCT_COUNTRY_COUNT`: The number of distinct merchant countries seen in
      *   the entity's transaction history. Requires `parameters.scope`.
+     * - `IS_NEW_MERCHANT`: Whether the card acceptor ID has not been seen in the
+     *   card's approved transaction history (capped at the 1000 most recently seen
+     *   merchants). Valid values are `TRUE`, `FALSE`. Card-scoped only; no
+     *   `parameters` required.
      * - `THREE_DS_SUCCESS_RATE`: The 3DS authentication success rate for the card, as
      *   a percentage from 0.0 to 100.0. Card-scoped only; no `parameters` required.
      */
@@ -867,6 +871,7 @@ export namespace ConditionalAuthorizationActionParameters {
       | 'CONSECUTIVE_DECLINES'
       | 'TIME_SINCE_LAST_TRANSACTION'
       | 'DISTINCT_COUNTRY_COUNT'
+      | 'IS_NEW_MERCHANT'
       | 'THREE_DS_SUCCESS_RATE';
 
     /**
