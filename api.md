@@ -86,11 +86,13 @@ Types:
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">AuthRuleCondition</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">AuthRuleVersion</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">BacktestStats</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">CardTransactionUpdateAction</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">Conditional3DSActionParameters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalACHActionParameters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalAttribute</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalAuthorizationActionParameters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalBlockParameters</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalCardTransactionUpdateActionParameters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalOperation</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalTokenizationActionParameters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalValue</a></code>
@@ -98,6 +100,7 @@ Types:
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">MerchantLockParameters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ReportStats</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">RuleFeature</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">SpendVelocityFilters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">TypescriptCodeParameters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">VelocityLimitFilters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">VelocityLimitParams</a></code>
