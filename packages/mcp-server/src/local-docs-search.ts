@@ -258,7 +258,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          "curl https://api.lithic.com/v1/accounts/$ACCOUNT_TOKEN \\\n    -X PATCH \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: $LITHIC_API_KEY\" \\\n    -d '{}'",
+          'curl https://api.lithic.com/v1/accounts/$ACCOUNT_TOKEN \\\n    -X PATCH \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "daily_spend_limit": 1000\n        }\'',
       },
     },
   },
@@ -732,7 +732,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          "curl https://api.lithic.com/v1/simulate/account_holders/enrollment_review \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: $LITHIC_API_KEY\" \\\n    -d '{}'",
+          'curl https://api.lithic.com/v1/simulate/account_holders/enrollment_review \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "account_holder_token": "1415964d-4400-4d79-9fb3-eee0faaee4e4",\n          "status": "ACCEPTED",\n          "status_reasons": [\n            "PRIMARY_BUSINESS_ENTITY_ID_VERIFICATION_FAILURE"\n          ]\n        }\'',
       },
     },
   },
@@ -1831,7 +1831,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          'curl https://api.lithic.com/v1/simulate/tokenizations \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "cvv": "776",\n          "expiration_date": "08/29",\n          "pan": "4111111289144142",\n          "tokenization_source": "APPLE_PAY"\n        }\'',
+          'curl https://api.lithic.com/v1/simulate/tokenizations \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "cvv": "776",\n          "expiration_date": "08/29",\n          "pan": "4111111289144142",\n          "tokenization_source": "APPLE_PAY",\n          "account_score": 5,\n          "device_score": 5,\n          "wallet_recommended_decision": "APPROVED"\n        }\'',
       },
     },
   },
@@ -2369,7 +2369,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          'curl https://api.lithic.com/v1/cards \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "type": "VIRTUAL",\n          "bulk_order_token": "5e9483eb-8103-4e16-9794-2106111b2eca",\n          "card_program_token": "5e9483eb-8103-4e16-9794-2106111b2eca",\n          "digital_card_art_token": "5e9483eb-8103-4e16-9794-2106111b2eca",\n          "exp_month": "06",\n          "exp_year": "2027",\n          "memo": "New Card",\n          "product_id": "1",\n          "replacement_account_token": "5e9483eb-8103-4e16-9794-2106111b2eca",\n          "replacement_for": "5e9483eb-8103-4e16-9794-2106111b2eca"\n        }\'',
+          'curl https://api.lithic.com/v1/cards \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "type": "VIRTUAL",\n          "bulk_order_token": "5e9483eb-8103-4e16-9794-2106111b2eca",\n          "card_program_token": "5e9483eb-8103-4e16-9794-2106111b2eca",\n          "digital_card_art_token": "5e9483eb-8103-4e16-9794-2106111b2eca",\n          "exp_month": "06",\n          "exp_year": "2027",\n          "memo": "New Card",\n          "product_id": "1",\n          "replacement_account_token": "5e9483eb-8103-4e16-9794-2106111b2eca",\n          "replacement_for": "5e9483eb-8103-4e16-9794-2106111b2eca",\n          "spend_limit": 1000,\n          "spend_limit_duration": "TRANSACTION",\n          "state": "OPEN"\n        }\'',
       },
     },
   },
@@ -2482,7 +2482,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          'curl https://api.lithic.com/v1/cards/$CARD_TOKEN \\\n    -X PATCH \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "digital_card_art_token": "00000000-0000-0000-1000-000000000000",\n          "memo": "Updated Name",\n          "network_program_token": "00000000-0000-0000-1000-000000000000"\n        }\'',
+          'curl https://api.lithic.com/v1/cards/$CARD_TOKEN \\\n    -X PATCH \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "digital_card_art_token": "00000000-0000-0000-1000-000000000000",\n          "memo": "Updated Name",\n          "network_program_token": "00000000-0000-0000-1000-000000000000",\n          "spend_limit": 100,\n          "spend_limit_duration": "FOREVER",\n          "state": "OPEN"\n        }\'',
       },
     },
   },
@@ -2541,7 +2541,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          "curl https://api.lithic.com/v1/cards/$CARD_TOKEN/provision \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: $LITHIC_API_KEY\" \\\n    -d '{}'",
+          'curl https://api.lithic.com/v1/cards/$CARD_TOKEN/provision \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "digital_wallet": "GOOGLE_PAY"\n        }\'',
       },
     },
   },
@@ -2598,7 +2598,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          "curl https://api.lithic.com/v1/cards/$CARD_TOKEN/reissue \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: $LITHIC_API_KEY\" \\\n    -d '{}'",
+          'curl https://api.lithic.com/v1/cards/$CARD_TOKEN/reissue \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "carrier": {\n            "qr_code_url": "https://lithic.com/activate-card/1"\n          },\n          "product_id": "100",\n          "shipping_address": {\n            "address1": "5 Broad Street",\n            "city": "NEW YORK",\n            "country": "USA",\n            "first_name": "Janet",\n            "last_name": "Yellen",\n            "postal_code": "10001",\n            "state": "NY",\n            "address2": "Unit 5A"\n          },\n          "shipping_method": "STANDARD"\n        }\'',
       },
     },
   },
@@ -2757,7 +2757,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          'curl https://api.lithic.com/v1/cards/$CARD_TOKEN/renew \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "shipping_address": {\n            "address1": "5 Broad Street",\n            "city": "NEW YORK",\n            "country": "USA",\n            "first_name": "Janet",\n            "last_name": "Yellen",\n            "postal_code": "10001",\n            "state": "NY",\n            "address2": "Unit 5A"\n          },\n          "exp_month": "06",\n          "exp_year": "2027"\n        }\'',
+          'curl https://api.lithic.com/v1/cards/$CARD_TOKEN/renew \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "shipping_address": {\n            "address1": "5 Broad Street",\n            "city": "NEW YORK",\n            "country": "USA",\n            "first_name": "Janet",\n            "last_name": "Yellen",\n            "postal_code": "10001",\n            "state": "NY",\n            "address2": "Unit 5A"\n          },\n          "carrier": {\n            "qr_code_url": "https://lithic.com/activate-card/1"\n          },\n          "exp_month": "06",\n          "exp_year": "2027",\n          "product_id": "100",\n          "shipping_method": "STANDARD"\n        }\'',
       },
     },
   },
@@ -2865,7 +2865,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          'curl https://api.lithic.com/v1/cards/$CARD_TOKEN/convert_physical \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "shipping_address": {\n            "address1": "5 Broad Street",\n            "city": "NEW YORK",\n            "country": "USA",\n            "first_name": "Janet",\n            "last_name": "Yellen",\n            "postal_code": "10001",\n            "state": "NY",\n            "address2": "Unit 5A"\n          }\n        }\'',
+          'curl https://api.lithic.com/v1/cards/$CARD_TOKEN/convert_physical \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "shipping_address": {\n            "address1": "5 Broad Street",\n            "city": "NEW YORK",\n            "country": "USA",\n            "first_name": "Janet",\n            "last_name": "Yellen",\n            "postal_code": "10001",\n            "state": "NY",\n            "address2": "Unit 5A"\n          },\n          "carrier": {\n            "qr_code_url": "https://lithic.com/activate-card/1"\n          },\n          "product_id": "100",\n          "shipping_method": "STANDARD"\n        }\'',
       },
     },
   },
@@ -2922,7 +2922,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          "curl https://api.lithic.com/v1/cards/$CARD_TOKEN/web_provision \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: $LITHIC_API_KEY\" \\\n    -d '{}'",
+          'curl https://api.lithic.com/v1/cards/$CARD_TOKEN/web_provision \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "digital_wallet": "APPLE_PAY"\n        }\'',
       },
     },
   },
@@ -3460,7 +3460,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          'curl https://api.lithic.com/v1/disputes \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "amount": 10000,\n          "reason": "FRAUD_CARD_PRESENT",\n          "transaction_token": "12345624-aa69-4cbc-a946-30d90181b621"\n        }\'',
+          'curl https://api.lithic.com/v1/disputes \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "amount": 10000,\n          "reason": "FRAUD_CARD_PRESENT",\n          "transaction_token": "12345624-aa69-4cbc-a946-30d90181b621",\n          "customer_filed_date": "2021-06-28T22:53:15Z"\n        }\'',
       },
     },
   },
@@ -6142,7 +6142,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          'curl https://api.lithic.com/v1/simulate/clearing \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "token": "fabd829d-7f7b-4432-a8f2-07ea4889aaac"\n        }\'',
+          'curl https://api.lithic.com/v1/simulate/clearing \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "token": "fabd829d-7f7b-4432-a8f2-07ea4889aaac",\n          "amount": 0\n        }\'',
       },
     },
   },
@@ -6296,7 +6296,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example:
-          'curl https://api.lithic.com/v1/simulate/void \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "token": "fabd829d-7f7b-4432-a8f2-07ea4889aaac",\n          "type": "AUTHORIZATION_EXPIRY"\n        }\'',
+          'curl https://api.lithic.com/v1/simulate/void \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "token": "fabd829d-7f7b-4432-a8f2-07ea4889aaac",\n          "amount": 100,\n          "type": "AUTHORIZATION_EXPIRY"\n        }\'',
       },
     },
   },
