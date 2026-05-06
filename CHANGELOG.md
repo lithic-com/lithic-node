@@ -1,5 +1,43 @@
 # Changelog
 
+## 0.138.0 (2026-05-06)
+
+Full Changelog: [v0.137.0...v0.138.0](https://github.com/lithic-com/lithic-node/compare/v0.137.0...v0.138.0)
+
+### Features
+
+* **api:** add AMEX to network enum in settlement reports ([d0f5362](https://github.com/lithic-com/lithic-node/commit/d0f5362f7bc061d07058f1fd39cd5f843615ed7a))
+* **api:** add CARD_TRANSACTION_UPDATE support to auth rules v2 ([63b51b8](https://github.com/lithic-com/lithic-node/commit/63b51b81215e634bbfe0ec4e75155fa0f200e8f5))
+* **api:** add IS_NEW_MERCHANT metric to auth rules v2 ([f2b26de](https://github.com/lithic-com/lithic-node/commit/f2b26de0a41a087240c9214c2dc433f9a0cd85e4))
+* support setting headers via env ([2406cf7](https://github.com/lithic-com/lithic-node/commit/2406cf738dafa08c8c0e09a833c25b079c3c4887))
+* Update card expiration from 6 years to 5 years ([7031267](https://github.com/lithic-com/lithic-node/commit/7031267707c21414d050657426d5a0dcdfe7318e))
+
+
+### Bug Fixes
+
+* **types:** make fields nullable in account-holders, accounts, and cards ([c5475ef](https://github.com/lithic-com/lithic-node/commit/c5475ef1525294e6a50e47637e3479ae5b4c6866))
+
+
+### Chores
+
+* avoid formatting file that gets changed during releases ([062a350](https://github.com/lithic-com/lithic-node/commit/062a350217e39bf8b054c4bdfb3054cbfa7137ac))
+* **format:** run eslint and prettier separately ([10aa40f](https://github.com/lithic-com/lithic-node/commit/10aa40fd72fd0933d2bc331dfbec23ce97b6c62f))
+* **formatter:** run prettier and eslint separately ([d78245b](https://github.com/lithic-com/lithic-node/commit/d78245b7aad796549148adcf228d0077233d0419))
+* **internal:** codegen related update ([17f1170](https://github.com/lithic-com/lithic-node/commit/17f1170f306b327ae2766e6f55d0fa64cc9f7b62))
+* **internal:** codegen related update ([c38ad4c](https://github.com/lithic-com/lithic-node/commit/c38ad4c69e7bdaefbc8f6288b29206ec5157650a))
+* **internal:** more robust bootstrap script ([eb0bf7c](https://github.com/lithic-com/lithic-node/commit/eb0bf7c3e099e87bca8f2997d582fdb10a2b796c))
+* **internal:** update docs ordering ([bb95c1f](https://github.com/lithic-com/lithic-node/commit/bb95c1f529a85c3e04eab6783b1f7301e6085670))
+* restructure docs search code ([f64d754](https://github.com/lithic-com/lithic-node/commit/f64d75431f41bef55ed246bf3da3d8a1183fd327))
+
+
+### Documentation
+
+* **api:** improve SettlementDetail event_tokens and transaction_token descriptions ([4d4db79](https://github.com/lithic-com/lithic-node/commit/4d4db79662318ed08590ff8ab40e1f6d7ab0a8be))
+* clarify forwards compat behavior ([6d4c205](https://github.com/lithic-com/lithic-node/commit/6d4c205c664de06157fe7f8db7ed04fdab8625b2))
+* update http mcp docs ([e4ee6ee](https://github.com/lithic-com/lithic-node/commit/e4ee6ee7992ebca94156456cc8fc1e1dd904373c))
+* update logging docs ([0121676](https://github.com/lithic-com/lithic-node/commit/0121676332dd550c327a397f91b61aa7f7aff875))
+* update with proxy auth info ([ec4f6ca](https://github.com/lithic-com/lithic-node/commit/ec4f6ca8dfaefc3fe230109d3a09fdb53c1a3812))
+
 ## 0.137.0 (2026-04-20)
 
 Full Changelog: [v0.136.0...v0.137.0](https://github.com/lithic-com/lithic-node/compare/v0.136.0...v0.137.0)
