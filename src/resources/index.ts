@@ -39,7 +39,7 @@ export {
   type AccountListParams,
   type AccountsCursorPage,
 } from './accounts';
-export { AuthRules } from './auth-rules/auth-rules';
+export { AuthRules, type SignalsResponse } from './auth-rules/auth-rules';
 export { AuthStreamEnrollment, type AuthStreamSecret } from './auth-stream-enrollment';
 export { Balances, type Balance, type BalanceListParams, type BalancesSinglePage } from './balances';
 export {

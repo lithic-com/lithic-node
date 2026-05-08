@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { AuthRules } from './auth-rules';
+export { AuthRules, type SignalsResponse } from './auth-rules';
 export {
   V2,
   type AuthRule,

@@ -314,6 +314,57 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     },
   },
   {
+    name: 'retrieve_signals',
+    endpoint: '/v1/accounts/{account_token}/signals',
+    httpMethod: 'get',
+    summary: 'Fetch account signals',
+    description:
+      "Returns behavioral feature state derived from an account's transaction history.\n\nThese signals expose the same data used by behavioral rule attributes (e.g. `AMOUNT_Z_SCORE`\nwith `scope: ACCOUNT`, `IS_NEW_COUNTRY` with `scope: ACCOUNT`) and custom code\n`TRANSACTION_HISTORY_SIGNALS` features, allowing clients to inspect feature values before\nwriting rules and debug rule behavior.\n\nNote: 3DS fields are not available at the account scope and will be null.\n",
+    stainlessPath: '(resource) accounts > (method) retrieve_signals',
+    qualified: 'client.accounts.retrieveSignals',
+    params: ['account_token: string;'],
+    response:
+      '{ approved_txn_amount_m2: number; approved_txn_amount_m2_30d: number; approved_txn_amount_m2_7d: number; approved_txn_amount_m2_90d: number; approved_txn_count: number; approved_txn_count_30d: number; approved_txn_count_7d: number; approved_txn_count_90d: number; avg_transaction_amount: number; avg_transaction_amount_30d: number; avg_transaction_amount_7d: number; avg_transaction_amount_90d: number; distinct_country_count: number; distinct_mcc_count: number; first_txn_at: string; is_first_transaction: boolean; last_cp_country: string; last_cp_postal_code: string; last_cp_timestamp: string; last_txn_approved_at: string; seen_countries: string[]; seen_mccs: string[]; seen_merchants: string[]; stdev_transaction_amount: number; stdev_transaction_amount_30d: number; stdev_transaction_amount_7d: number; stdev_transaction_amount_90d: number; three_ds_success_count: number; three_ds_success_rate: number; three_ds_total_count: number; time_since_last_transaction_days: number; }',
+    markdown:
+      "## retrieve_signals\n\n`client.accounts.retrieveSignals(account_token: string): { approved_txn_amount_m2: number; approved_txn_amount_m2_30d: number; approved_txn_amount_m2_7d: number; approved_txn_amount_m2_90d: number; approved_txn_count: number; approved_txn_count_30d: number; approved_txn_count_7d: number; approved_txn_count_90d: number; avg_transaction_amount: number; avg_transaction_amount_30d: number; avg_transaction_amount_7d: number; avg_transaction_amount_90d: number; distinct_country_count: number; distinct_mcc_count: number; first_txn_at: string; is_first_transaction: boolean; last_cp_country: string; last_cp_postal_code: string; last_cp_timestamp: string; last_txn_approved_at: string; seen_countries: string[]; seen_mccs: string[]; seen_merchants: string[]; stdev_transaction_amount: number; stdev_transaction_amount_30d: number; stdev_transaction_amount_7d: number; stdev_transaction_amount_90d: number; three_ds_success_count: number; three_ds_success_rate: number; three_ds_total_count: number; time_since_last_transaction_days: number; }`\n\n**get** `/v1/accounts/{account_token}/signals`\n\nReturns behavioral feature state derived from an account's transaction history.\n\nThese signals expose the same data used by behavioral rule attributes (e.g. `AMOUNT_Z_SCORE`\nwith `scope: ACCOUNT`, `IS_NEW_COUNTRY` with `scope: ACCOUNT`) and custom code\n`TRANSACTION_HISTORY_SIGNALS` features, allowing clients to inspect feature values before\nwriting rules and debug rule behavior.\n\nNote: 3DS fields are not available at the account scope and will be null.\n\n\n### Parameters\n\n- `account_token: string`\n\n### Returns\n\n- `{ approved_txn_amount_m2: number; approved_txn_amount_m2_30d: number; approved_txn_amount_m2_7d: number; approved_txn_amount_m2_90d: number; approved_txn_count: number; approved_txn_count_30d: number; approved_txn_count_7d: number; approved_txn_count_90d: number; avg_transaction_amount: number; avg_transaction_amount_30d: number; avg_transaction_amount_7d: number; avg_transaction_amount_90d: number; distinct_country_count: number; distinct_mcc_count: number; first_txn_at: string; is_first_transaction: boolean; last_cp_country: string; last_cp_postal_code: string; last_cp_timestamp: string; last_txn_approved_at: string; seen_countries: string[]; seen_mccs: string[]; seen_merchants: string[]; stdev_transaction_amount: number; stdev_transaction_amount_30d: number; stdev_transaction_amount_7d: number; stdev_transaction_amount_90d: number; three_ds_success_count: number; three_ds_success_rate: number; three_ds_total_count: number; time_since_last_transaction_days: number; }`\n  Behavioral feature state for a card or account derived from its transaction history.\n\nDerived statistical features (averages, standard deviations, z-scores) are computed using Welford's online algorithm over approved transactions. Average fields are null when fewer than 5 approved transactions have been recorded. Standard deviation fields are null when fewer than 30 approved transactions have been recorded.\n\n3DS fields (`three_ds_success_rate`, `three_ds_success_count`, `three_ds_total_count`) are card-scoped and will be null for account responses.\n\nRaw fields (`seen_countries`, `seen_mccs`, `approved_txn_amount_m2`, etc.) are included so clients can compute their own transaction-specific derivations, such as checking whether a new transaction's country is in `seen_countries` to determine `is_new_country`, or computing a z-score using the raw mean and M2 values.\n\n  - `approved_txn_amount_m2: number`\n  - `approved_txn_amount_m2_30d: number`\n  - `approved_txn_amount_m2_7d: number`\n  - `approved_txn_amount_m2_90d: number`\n  - `approved_txn_count: number`\n  - `approved_txn_count_30d: number`\n  - `approved_txn_count_7d: number`\n  - `approved_txn_count_90d: number`\n  - `avg_transaction_amount: number`\n  - `avg_transaction_amount_30d: number`\n  - `avg_transaction_amount_7d: number`\n  - `avg_transaction_amount_90d: number`\n  - `distinct_country_count: number`\n  - `distinct_mcc_count: number`\n  - `first_txn_at: string`\n  - `is_first_transaction: boolean`\n  - `last_cp_country: string`\n  - `last_cp_postal_code: string`\n  - `last_cp_timestamp: string`\n  - `last_txn_approved_at: string`\n  - `seen_countries: string[]`\n  - `seen_mccs: string[]`\n  - `seen_merchants: string[]`\n  - `stdev_transaction_amount: number`\n  - `stdev_transaction_amount_30d: number`\n  - `stdev_transaction_amount_7d: number`\n  - `stdev_transaction_amount_90d: number`\n  - `three_ds_success_count: number`\n  - `three_ds_success_rate: number`\n  - `three_ds_total_count: number`\n  - `time_since_last_transaction_days: number`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst signalsResponse = await client.accounts.retrieveSignals('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(signalsResponse);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.accounts.retrieveSignals',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nconst signalsResponse = await client.accounts.retrieveSignals(\n  '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n);\n\nconsole.log(signalsResponse.approved_txn_amount_m2);",
+      },
+      python: {
+        method: 'accounts.retrieve_signals',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nsignals_response = client.accounts.retrieve_signals(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(signals_response.approved_txn_amount_m2)',
+      },
+      java: {
+        method: 'accounts().retrieveSignals',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.AccountRetrieveSignalsParams;\nimport com.lithic.api.models.SignalsResponse;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        SignalsResponse signalsResponse = client.accounts().retrieveSignals("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e");\n    }\n}',
+      },
+      kotlin: {
+        method: 'accounts().retrieveSignals',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AccountRetrieveSignalsParams\nimport com.lithic.api.models.SignalsResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val signalsResponse: SignalsResponse = client.accounts().retrieveSignals("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
+      },
+      go: {
+        method: 'client.Accounts.GetSignals',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tsignalsResponse, err := client.Accounts.GetSignals(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", signalsResponse.ApprovedTxnAmountM2)\n}\n',
+      },
+      ruby: {
+        method: 'accounts.retrieve_signals',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nsignals_response = lithic.accounts.retrieve_signals("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(signals_response)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/accounts/$ACCOUNT_TOKEN/signals \\\n    -H "Authorization: $LITHIC_API_KEY"',
+      },
+    },
+  },
+  {
     name: 'create',
     endpoint: '/v1/account_holders',
     httpMethod: 'post',
@@ -2699,6 +2750,57 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.lithic.com/v1/cards/$CARD_TOKEN/spend_limits \\\n    -H "Authorization: $LITHIC_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'retrieve_signals',
+    endpoint: '/v1/cards/{card_token}/signals',
+    httpMethod: 'get',
+    summary: 'Fetch card signals',
+    description:
+      "Returns behavioral feature state derived from a card's transaction history.\n\nThese signals expose the same data used by behavioral rule attributes (e.g. `AMOUNT_Z_SCORE` with `scope: CARD`, `IS_NEW_COUNTRY` with `scope: CARD`) and custom code `TRANSACTION_HISTORY_SIGNALS` features, allowing clients to inspect feature values before writing rules and debug rule behavior.\n",
+    stainlessPath: '(resource) cards > (method) retrieve_signals',
+    qualified: 'client.cards.retrieveSignals',
+    params: ['card_token: string;'],
+    response:
+      '{ approved_txn_amount_m2: number; approved_txn_amount_m2_30d: number; approved_txn_amount_m2_7d: number; approved_txn_amount_m2_90d: number; approved_txn_count: number; approved_txn_count_30d: number; approved_txn_count_7d: number; approved_txn_count_90d: number; avg_transaction_amount: number; avg_transaction_amount_30d: number; avg_transaction_amount_7d: number; avg_transaction_amount_90d: number; distinct_country_count: number; distinct_mcc_count: number; first_txn_at: string; is_first_transaction: boolean; last_cp_country: string; last_cp_postal_code: string; last_cp_timestamp: string; last_txn_approved_at: string; seen_countries: string[]; seen_mccs: string[]; seen_merchants: string[]; stdev_transaction_amount: number; stdev_transaction_amount_30d: number; stdev_transaction_amount_7d: number; stdev_transaction_amount_90d: number; three_ds_success_count: number; three_ds_success_rate: number; three_ds_total_count: number; time_since_last_transaction_days: number; }',
+    markdown:
+      "## retrieve_signals\n\n`client.cards.retrieveSignals(card_token: string): { approved_txn_amount_m2: number; approved_txn_amount_m2_30d: number; approved_txn_amount_m2_7d: number; approved_txn_amount_m2_90d: number; approved_txn_count: number; approved_txn_count_30d: number; approved_txn_count_7d: number; approved_txn_count_90d: number; avg_transaction_amount: number; avg_transaction_amount_30d: number; avg_transaction_amount_7d: number; avg_transaction_amount_90d: number; distinct_country_count: number; distinct_mcc_count: number; first_txn_at: string; is_first_transaction: boolean; last_cp_country: string; last_cp_postal_code: string; last_cp_timestamp: string; last_txn_approved_at: string; seen_countries: string[]; seen_mccs: string[]; seen_merchants: string[]; stdev_transaction_amount: number; stdev_transaction_amount_30d: number; stdev_transaction_amount_7d: number; stdev_transaction_amount_90d: number; three_ds_success_count: number; three_ds_success_rate: number; three_ds_total_count: number; time_since_last_transaction_days: number; }`\n\n**get** `/v1/cards/{card_token}/signals`\n\nReturns behavioral feature state derived from a card's transaction history.\n\nThese signals expose the same data used by behavioral rule attributes (e.g. `AMOUNT_Z_SCORE` with `scope: CARD`, `IS_NEW_COUNTRY` with `scope: CARD`) and custom code `TRANSACTION_HISTORY_SIGNALS` features, allowing clients to inspect feature values before writing rules and debug rule behavior.\n\n\n### Parameters\n\n- `card_token: string`\n\n### Returns\n\n- `{ approved_txn_amount_m2: number; approved_txn_amount_m2_30d: number; approved_txn_amount_m2_7d: number; approved_txn_amount_m2_90d: number; approved_txn_count: number; approved_txn_count_30d: number; approved_txn_count_7d: number; approved_txn_count_90d: number; avg_transaction_amount: number; avg_transaction_amount_30d: number; avg_transaction_amount_7d: number; avg_transaction_amount_90d: number; distinct_country_count: number; distinct_mcc_count: number; first_txn_at: string; is_first_transaction: boolean; last_cp_country: string; last_cp_postal_code: string; last_cp_timestamp: string; last_txn_approved_at: string; seen_countries: string[]; seen_mccs: string[]; seen_merchants: string[]; stdev_transaction_amount: number; stdev_transaction_amount_30d: number; stdev_transaction_amount_7d: number; stdev_transaction_amount_90d: number; three_ds_success_count: number; three_ds_success_rate: number; three_ds_total_count: number; time_since_last_transaction_days: number; }`\n  Behavioral feature state for a card or account derived from its transaction history.\n\nDerived statistical features (averages, standard deviations, z-scores) are computed using Welford's online algorithm over approved transactions. Average fields are null when fewer than 5 approved transactions have been recorded. Standard deviation fields are null when fewer than 30 approved transactions have been recorded.\n\n3DS fields (`three_ds_success_rate`, `three_ds_success_count`, `three_ds_total_count`) are card-scoped and will be null for account responses.\n\nRaw fields (`seen_countries`, `seen_mccs`, `approved_txn_amount_m2`, etc.) are included so clients can compute their own transaction-specific derivations, such as checking whether a new transaction's country is in `seen_countries` to determine `is_new_country`, or computing a z-score using the raw mean and M2 values.\n\n  - `approved_txn_amount_m2: number`\n  - `approved_txn_amount_m2_30d: number`\n  - `approved_txn_amount_m2_7d: number`\n  - `approved_txn_amount_m2_90d: number`\n  - `approved_txn_count: number`\n  - `approved_txn_count_30d: number`\n  - `approved_txn_count_7d: number`\n  - `approved_txn_count_90d: number`\n  - `avg_transaction_amount: number`\n  - `avg_transaction_amount_30d: number`\n  - `avg_transaction_amount_7d: number`\n  - `avg_transaction_amount_90d: number`\n  - `distinct_country_count: number`\n  - `distinct_mcc_count: number`\n  - `first_txn_at: string`\n  - `is_first_transaction: boolean`\n  - `last_cp_country: string`\n  - `last_cp_postal_code: string`\n  - `last_cp_timestamp: string`\n  - `last_txn_approved_at: string`\n  - `seen_countries: string[]`\n  - `seen_mccs: string[]`\n  - `seen_merchants: string[]`\n  - `stdev_transaction_amount: number`\n  - `stdev_transaction_amount_30d: number`\n  - `stdev_transaction_amount_7d: number`\n  - `stdev_transaction_amount_90d: number`\n  - `three_ds_success_count: number`\n  - `three_ds_success_rate: number`\n  - `three_ds_total_count: number`\n  - `time_since_last_transaction_days: number`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst signalsResponse = await client.cards.retrieveSignals('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(signalsResponse);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.cards.retrieveSignals',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nconst signalsResponse = await client.cards.retrieveSignals('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(signalsResponse.approved_txn_amount_m2);",
+      },
+      python: {
+        method: 'cards.retrieve_signals',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nsignals_response = client.cards.retrieve_signals(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(signals_response.approved_txn_amount_m2)',
+      },
+      java: {
+        method: 'cards().retrieveSignals',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.CardRetrieveSignalsParams;\nimport com.lithic.api.models.SignalsResponse;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        SignalsResponse signalsResponse = client.cards().retrieveSignals("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e");\n    }\n}',
+      },
+      kotlin: {
+        method: 'cards().retrieveSignals',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CardRetrieveSignalsParams\nimport com.lithic.api.models.SignalsResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val signalsResponse: SignalsResponse = client.cards().retrieveSignals("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
+      },
+      go: {
+        method: 'client.Cards.GetSignals',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tsignalsResponse, err := client.Cards.GetSignals(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", signalsResponse.ApprovedTxnAmountM2)\n}\n',
+      },
+      ruby: {
+        method: 'cards.retrieve_signals',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nsignals_response = lithic.cards.retrieve_signals("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(signals_response)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/cards/$CARD_TOKEN/signals \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
     },
   },
