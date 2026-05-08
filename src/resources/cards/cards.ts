@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
+import * as AuthRulesAPI from '../auth-rules/auth-rules';
 import * as BalancesAPI from './balances';
 import { BalanceListParams, Balances } from './balances';
 import * as FinancialTransactionsAPI from './financial-transactions';
@@ -350,6 +351,25 @@ export class Cards extends APIResource {
    */
   renew(cardToken: string, body: CardRenewParams, options?: RequestOptions): APIPromise<Card> {
     return this._client.post(path`/v1/cards/${cardToken}/renew`, { body, ...options });
+  }
+
+  /**
+   * Returns behavioral feature state derived from a card's transaction history.
+   *
+   * These signals expose the same data used by behavioral rule attributes (e.g.
+   * `AMOUNT_Z_SCORE` with `scope: CARD`, `IS_NEW_COUNTRY` with `scope: CARD`) and
+   * custom code `TRANSACTION_HISTORY_SIGNALS` features, allowing clients to inspect
+   * feature values before writing rules and debug rule behavior.
+   *
+   * @example
+   * ```ts
+   * const signalsResponse = await client.cards.retrieveSignals(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  retrieveSignals(cardToken: string, options?: RequestOptions): APIPromise<AuthRulesAPI.SignalsResponse> {
+    return this._client.get(path`/v1/cards/${cardToken}/signals`, options);
   }
 
   /**

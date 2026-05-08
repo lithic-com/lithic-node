@@ -34,6 +34,7 @@ Methods:
 - <code title="get /v1/accounts/{account_token}">client.accounts.<a href="./src/resources/accounts.ts">retrieve</a>(accountToken) -> Account</code>
 - <code title="patch /v1/accounts/{account_token}">client.accounts.<a href="./src/resources/accounts.ts">update</a>(accountToken, { ...params }) -> Account</code>
 - <code title="get /v1/accounts">client.accounts.<a href="./src/resources/accounts.ts">list</a>({ ...params }) -> AccountsCursorPage</code>
+- <code title="get /v1/accounts/{account_token}/signals">client.accounts.<a href="./src/resources/accounts.ts">retrieveSignals</a>(accountToken) -> SignalsResponse</code>
 - <code title="get /v1/accounts/{account_token}/spend_limits">client.accounts.<a href="./src/resources/accounts.ts">retrieveSpendLimits</a>(accountToken) -> AccountSpendLimits</code>
 
 # AccountHolders
@@ -77,6 +78,10 @@ Methods:
 - <code title="delete /v1/account_holders/{account_holder_token}/entities/{entity_token}">client.accountHolders.entities.<a href="./src/resources/account-holders/entities.ts">delete</a>(entityToken, { ...params }) -> AccountHolderEntity</code>
 
 # AuthRules
+
+Types:
+
+- <code><a href="./src/resources/auth-rules/auth-rules.ts">SignalsResponse</a></code>
 
 ## V2
 
@@ -207,6 +212,7 @@ Methods:
 - <code title="post /v1/cards/{card_token}/provision">client.cards.<a href="./src/resources/cards/cards.ts">provision</a>(cardToken, { ...params }) -> CardProvisionResponse</code>
 - <code title="post /v1/cards/{card_token}/reissue">client.cards.<a href="./src/resources/cards/cards.ts">reissue</a>(cardToken, { ...params }) -> Card</code>
 - <code title="post /v1/cards/{card_token}/renew">client.cards.<a href="./src/resources/cards/cards.ts">renew</a>(cardToken, { ...params }) -> Card</code>
+- <code title="get /v1/cards/{card_token}/signals">client.cards.<a href="./src/resources/cards/cards.ts">retrieveSignals</a>(cardToken) -> SignalsResponse</code>
 - <code title="get /v1/cards/{card_token}/spend_limits">client.cards.<a href="./src/resources/cards/cards.ts">retrieveSpendLimits</a>(cardToken) -> CardSpendLimits</code>
 - <code title="post /v1/cards/search_by_pan">client.cards.<a href="./src/resources/cards/cards.ts">searchByPan</a>({ ...params }) -> Card</code>
 - <code title="post /v1/cards/{card_token}/web_provision">client.cards.<a href="./src/resources/cards/cards.ts">webProvision</a>(cardToken, { ...params }) -> CardWebProvisionResponse</code>
