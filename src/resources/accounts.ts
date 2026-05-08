@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as AuthRulesAPI from './auth-rules/auth-rules';
 import { APIPromise } from '../core/api-promise';
 import { CursorPage, type CursorPageParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
@@ -54,6 +55,28 @@ export class Accounts extends APIResource {
     options?: RequestOptions,
   ): PagePromise<AccountsCursorPage, Account> {
     return this._client.getAPIList('/v1/accounts', CursorPage<Account>, { query, ...options });
+  }
+
+  /**
+   * Returns behavioral feature state derived from an account's transaction history.
+   *
+   * These signals expose the same data used by behavioral rule attributes (e.g.
+   * `AMOUNT_Z_SCORE` with `scope: ACCOUNT`, `IS_NEW_COUNTRY` with `scope: ACCOUNT`)
+   * and custom code `TRANSACTION_HISTORY_SIGNALS` features, allowing clients to
+   * inspect feature values before writing rules and debug rule behavior.
+   *
+   * Note: 3DS fields are not available at the account scope and will be null.
+   *
+   * @example
+   * ```ts
+   * const signalsResponse =
+   *   await client.accounts.retrieveSignals(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  retrieveSignals(accountToken: string, options?: RequestOptions): APIPromise<AuthRulesAPI.SignalsResponse> {
+    return this._client.get(path`/v1/accounts/${accountToken}/signals`, options);
   }
 
   /**

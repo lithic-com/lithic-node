@@ -267,7 +267,7 @@ import {
   KYCExempt,
   RequiredDocument,
 } from './resources/account-holders/account-holders';
-import { AuthRules } from './resources/auth-rules/auth-rules';
+import { AuthRules, SignalsResponse } from './resources/auth-rules/auth-rules';
 import {
   Card,
   CardConvertPhysicalParams,
@@ -1256,7 +1256,7 @@ export declare namespace Lithic {
     type AccountHolderUploadDocumentParams as AccountHolderUploadDocumentParams,
   };
 
-  export { AuthRules as AuthRules };
+  export { AuthRules as AuthRules, type SignalsResponse as SignalsResponse };
 
   export { AuthStreamEnrollment as AuthStreamEnrollment, type AuthStreamSecret as AuthStreamSecret };
 

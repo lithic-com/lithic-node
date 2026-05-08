@@ -35,6 +35,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/accounts',
   },
   {
+    clientCallName: 'client.accounts.retrieveSignals',
+    fullyQualifiedName: 'accounts.retrieveSignals',
+    httpMethod: 'get',
+    httpPath: '/v1/accounts/{account_token}/signals',
+  },
+  {
     clientCallName: 'client.accounts.retrieveSpendLimits',
     fullyQualifiedName: 'accounts.retrieveSpendLimits',
     httpMethod: 'get',
@@ -315,6 +321,12 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'cards.renew',
     httpMethod: 'post',
     httpPath: '/v1/cards/{card_token}/renew',
+  },
+  {
+    clientCallName: 'client.cards.retrieveSignals',
+    fullyQualifiedName: 'cards.retrieveSignals',
+    httpMethod: 'get',
+    httpPath: '/v1/cards/{card_token}/signals',
   },
   {
     clientCallName: 'client.cards.retrieveSpendLimits',
