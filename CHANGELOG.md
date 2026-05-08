@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.139.0 (2026-05-08)
+
+Full Changelog: [v0.138.0...v0.139.0](https://github.com/lithic-com/lithic-node/compare/v0.138.0...v0.139.0)
+
+### Features
+
+* **api:** add retrieveSignals methods to accounts and cards ([e5f850d](https://github.com/lithic-com/lithic-node/commit/e5f850d44eb9df6a5015f337954c287a294b7324))
+* **api:** add unit param and travel attributes to auth rules v2 conditions ([306ba11](https://github.com/lithic-com/lithic-node/commit/306ba11dc0e555f7d76c90eed21bd83a1e691458))
+
+
+### Chores
+
+* redact api-key headers in debug logs ([071bf9f](https://github.com/lithic-com/lithic-node/commit/071bf9fead1e4fd83819ccad85e1cffb6145ab03))
+
 ## 0.138.0 (2026-05-06)
 
 Full Changelog: [v0.137.0...v0.138.0](https://github.com/lithic-com/lithic-node/compare/v0.137.0...v0.138.0)
