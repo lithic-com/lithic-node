@@ -365,6 +365,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/cards/{card_token}/financial_transactions',
   },
   {
+    clientCallName: 'client.cardAuthorizations.challengeResponse',
+    fullyQualifiedName: 'cardAuthorizations.challengeResponse',
+    httpMethod: 'post',
+    httpPath: '/v1/card_authorizations/{event_token}/challenge_response',
+  },
+  {
     clientCallName: 'client.cardBulkOrders.create',
     fullyQualifiedName: 'cardBulkOrders.create',
     httpMethod: 'post',

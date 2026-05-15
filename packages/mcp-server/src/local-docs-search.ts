@@ -3188,6 +3188,55 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     },
   },
   {
+    name: 'challenge_response',
+    endpoint: '/v1/card_authorizations/{event_token}/challenge_response',
+    httpMethod: 'post',
+    summary: 'Respond to Authorization Challenge',
+    description:
+      "Card program's response to Authorization Challenge.\nPrograms that have Authorization Challenges configured as Out of Band receive a [card_authorization.challenge](https://docs.lithic.com/reference/post_card-authorization-challenge) webhook when an authorization attempt triggers a challenge.\nThe card program should respond using this endpoint after the cardholder completes the challenge.",
+    stainlessPath: '(resource) card_authorizations > (method) challenge_response',
+    qualified: 'client.cardAuthorizations.challengeResponse',
+    params: ['event_token: string;', "response: 'APPROVE' | 'DECLINE';"],
+    markdown:
+      "## challenge_response\n\n`client.cardAuthorizations.challengeResponse(event_token: string, response: 'APPROVE' | 'DECLINE'): void`\n\n**post** `/v1/card_authorizations/{event_token}/challenge_response`\n\nCard program's response to Authorization Challenge.\nPrograms that have Authorization Challenges configured as Out of Band receive a [card_authorization.challenge](https://docs.lithic.com/reference/post_card-authorization-challenge) webhook when an authorization attempt triggers a challenge.\nThe card program should respond using this endpoint after the cardholder completes the challenge.\n\n### Parameters\n\n- `event_token: string`\n\n- `response: 'APPROVE' | 'DECLINE'`\n  Whether the cardholder has approved or declined the issued challenge\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.cardAuthorizations.challengeResponse('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { response: 'APPROVE' })\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.cardAuthorizations.challengeResponse',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nawait client.cardAuthorizations.challengeResponse('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {\n  response: 'APPROVE',\n});",
+      },
+      python: {
+        method: 'card_authorizations.challenge_response',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.card_authorizations.challenge_response(\n    event_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    response="APPROVE",\n)',
+      },
+      java: {
+        method: 'cardAuthorizations().challengeResponse',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.CardAuthorizationChallengeResponseParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        CardAuthorizationChallengeResponseParams params = CardAuthorizationChallengeResponseParams.builder()\n            .eventToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n            .response(CardAuthorizationChallengeResponseParams.Response.APPROVE)\n            .build();\n        client.cardAuthorizations().challengeResponse(params);\n    }\n}',
+      },
+      kotlin: {
+        method: 'cardAuthorizations().challengeResponse',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CardAuthorizationChallengeResponseParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: CardAuthorizationChallengeResponseParams = CardAuthorizationChallengeResponseParams.builder()\n        .eventToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .response(CardAuthorizationChallengeResponseParams.Response.APPROVE)\n        .build()\n    client.cardAuthorizations().challengeResponse(params)\n}',
+      },
+      go: {
+        method: 'client.CardAuthorizations.ChallengeResponse',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.CardAuthorizations.ChallengeResponse(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.CardAuthorizationChallengeResponseParams{\n\t\t\tResponse: lithic.F(lithic.CardAuthorizationChallengeResponseParamsResponseApprove),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
+      ruby: {
+        method: 'card_authorizations.challenge_response',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.card_authorizations.challenge_response("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", response: :APPROVE)\n\nputs(result)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/card_authorizations/$EVENT_TOKEN/challenge_response \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "response": "APPROVE"\n        }\'',
+      },
+    },
+  },
+  {
     name: 'list',
     endpoint: '/v1/card_bulk_orders',
     httpMethod: 'get',

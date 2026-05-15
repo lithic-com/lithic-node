@@ -54,6 +54,11 @@ import {
   BookTransfers,
 } from './resources/book-transfers';
 import {
+  CardAuthorization,
+  CardAuthorizationChallengeResponseParams,
+  CardAuthorizations,
+} from './resources/card-authorizations';
+import {
   CardBulkOrder,
   CardBulkOrderCreateParams,
   CardBulkOrderListParams,
@@ -196,6 +201,7 @@ import {
   BookTransferTransactionUpdatedWebhookEvent,
   CardAuthorizationApprovalRequestWebhookEvent,
   CardAuthorizationChallengeResponseWebhookEvent,
+  CardAuthorizationChallengeWebhookEvent,
   CardConvertedWebhookEvent,
   CardCreatedWebhookEvent,
   CardReissuedWebhookEvent,
@@ -1149,6 +1155,7 @@ export class Lithic {
   tokenizationDecisioning: API.TokenizationDecisioning = new API.TokenizationDecisioning(this);
   tokenizations: API.Tokenizations = new API.Tokenizations(this);
   cards: API.Cards = new API.Cards(this);
+  cardAuthorizations: API.CardAuthorizations = new API.CardAuthorizations(this);
   cardBulkOrders: API.CardBulkOrders = new API.CardBulkOrders(this);
   balances: API.Balances = new API.Balances(this);
   disputes: API.Disputes = new API.Disputes(this);
@@ -1185,6 +1192,7 @@ Lithic.AuthStreamEnrollment = AuthStreamEnrollment;
 Lithic.TokenizationDecisioning = TokenizationDecisioning;
 Lithic.Tokenizations = Tokenizations;
 Lithic.Cards = Cards;
+Lithic.CardAuthorizations = CardAuthorizations;
 Lithic.CardBulkOrders = CardBulkOrders;
 Lithic.Balances = Balances;
 Lithic.Disputes = Disputes;
@@ -1303,6 +1311,12 @@ export declare namespace Lithic {
     type CardRenewParams as CardRenewParams,
     type CardSearchByPanParams as CardSearchByPanParams,
     type CardWebProvisionParams as CardWebProvisionParams,
+  };
+
+  export {
+    CardAuthorizations as CardAuthorizations,
+    type CardAuthorization as CardAuthorization,
+    type CardAuthorizationChallengeResponseParams as CardAuthorizationChallengeResponseParams,
   };
 
   export {
@@ -1562,6 +1576,7 @@ export declare namespace Lithic {
     type AccountHolderVerificationWebhookEvent as AccountHolderVerificationWebhookEvent,
     type AccountHolderDocumentUpdatedWebhookEvent as AccountHolderDocumentUpdatedWebhookEvent,
     type CardAuthorizationApprovalRequestWebhookEvent as CardAuthorizationApprovalRequestWebhookEvent,
+    type CardAuthorizationChallengeWebhookEvent as CardAuthorizationChallengeWebhookEvent,
     type CardAuthorizationChallengeResponseWebhookEvent as CardAuthorizationChallengeResponseWebhookEvent,
     type AuthRulesBacktestReportCreatedWebhookEvent as AuthRulesBacktestReportCreatedWebhookEvent,
     type BalanceUpdatedWebhookEvent as BalanceUpdatedWebhookEvent,
