@@ -52,6 +52,11 @@ export {
   type BookTransferResponsesCursorPage,
 } from './book-transfers';
 export {
+  CardAuthorizations,
+  type CardAuthorization,
+  type CardAuthorizationChallengeResponseParams,
+} from './card-authorizations';
+export {
   CardBulkOrders,
   type CardBulkOrder,
   type CardBulkOrderCreateParams,
@@ -299,6 +304,7 @@ export {
   type AccountHolderVerificationWebhookEvent,
   type AccountHolderDocumentUpdatedWebhookEvent,
   type CardAuthorizationApprovalRequestWebhookEvent,
+  type CardAuthorizationChallengeWebhookEvent,
   type CardAuthorizationChallengeResponseWebhookEvent,
   type AuthRulesBacktestReportCreatedWebhookEvent,
   type BalanceUpdatedWebhookEvent,
