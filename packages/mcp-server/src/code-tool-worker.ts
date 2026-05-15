@@ -167,6 +167,7 @@ const fuse = new Fuse(
     'client.cards.balances.list',
     'client.cards.financialTransactions.list',
     'client.cards.financialTransactions.retrieve',
+    'client.cardAuthorizations.challengeResponse',
     'client.cardBulkOrders.create',
     'client.cardBulkOrders.list',
     'client.cardBulkOrders.retrieve',

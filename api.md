@@ -230,6 +230,16 @@ Methods:
 - <code title="get /v1/cards/{card_token}/financial_transactions/{financial_transaction_token}">client.cards.financialTransactions.<a href="./src/resources/cards/financial-transactions.ts">retrieve</a>(financialTransactionToken, { ...params }) -> FinancialTransaction</code>
 - <code title="get /v1/cards/{card_token}/financial_transactions">client.cards.financialTransactions.<a href="./src/resources/cards/financial-transactions.ts">list</a>(cardToken, { ...params }) -> FinancialTransactionsSinglePage</code>
 
+# CardAuthorizations
+
+Types:
+
+- <code><a href="./src/resources/card-authorizations.ts">CardAuthorization</a></code>
+
+Methods:
+
+- <code title="post /v1/card_authorizations/{event_token}/challenge_response">client.cardAuthorizations.<a href="./src/resources/card-authorizations.ts">challengeResponse</a>(eventToken, { ...params }) -> void</code>
+
 # CardBulkOrders
 
 Types:
@@ -795,6 +805,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">AccountHolderVerificationWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">AccountHolderDocumentUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CardAuthorizationApprovalRequestWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CardAuthorizationChallengeWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CardAuthorizationChallengeResponseWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">AuthRulesBacktestReportCreatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">BalanceUpdatedWebhookEvent</a></code>
