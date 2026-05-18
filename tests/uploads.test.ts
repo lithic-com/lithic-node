@@ -1,7 +1,6 @@
 import fs from 'fs';
 import type { ResponseLike } from 'lithic/internal/to-file';
 import { toFile } from 'lithic/core/uploads';
-import { File } from 'node:buffer';
 
 class MyClass {
   name: string = 'foo';
