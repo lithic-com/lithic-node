@@ -953,7 +953,7 @@ export interface KYBBusinessEntity {
   /**
    * Parent company name (if applicable).
    */
-  parent_company?: string;
+  parent_company?: string | null;
 }
 
 export namespace KYBBusinessEntity {
@@ -1848,7 +1848,7 @@ export interface AccountHolderSimulateEnrollmentReviewResponse {
    * Customer-provided token that indicates a relationship with an object outside of
    * the Lithic ecosystem.
    */
-  external_id?: string;
+  external_id?: string | null;
 
   /**
    * Only present when user_type == "INDIVIDUAL". Information about the individual
@@ -1860,7 +1860,7 @@ export interface AccountHolderSimulateEnrollmentReviewResponse {
    * Only present when user_type == "BUSINESS". 6-digit North American Industry
    * Classification System (NAICS) code for the business.
    */
-  naics_code?: string;
+  naics_code?: string | null;
 
   /**
    * Only present when user_type == "BUSINESS". User-submitted description of the
