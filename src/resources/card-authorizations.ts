@@ -440,19 +440,29 @@ export namespace CardAuthorization {
    */
   export interface LatestChallenge {
     /**
-     * The phone number used for sending Authorization Challenge SMS.
+     * The method used to deliver the challenge to the cardholder
+     *
+     * - `SMS` - Challenge was delivered via SMS
+     * - `OUT_OF_BAND` - Challenge was delivered via an out-of-band method
      */
-    phone_number: string;
+    method: 'SMS' | 'OUT_OF_BAND';
+
+    /**
+     * The phone number used for sending the Authorization Challenge. Present only when
+     * the challenge method is `SMS`.
+     */
+    phone_number: string | null;
 
     /**
      * The status of the Authorization Challenge
      *
      * - `COMPLETED` - Challenge was successfully completed by the cardholder
+     * - `DECLINED` - Challenge was declined by the cardholder
      * - `PENDING` - Challenge is still open
      * - `EXPIRED` - Challenge has expired without being completed
      * - `ERROR` - There was an error processing the challenge
      */
-    status: 'COMPLETED' | 'PENDING' | 'EXPIRED' | 'ERROR';
+    status: 'COMPLETED' | 'DECLINED' | 'PENDING' | 'EXPIRED' | 'ERROR';
 
     /**
      * The date and time when the Authorization Challenge was completed in UTC. Present
