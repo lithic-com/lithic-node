@@ -724,7 +724,7 @@ export interface CardAuthorizationChallengeResponseWebhookEvent {
   /**
    * The method used to deliver the challenge to the cardholder
    */
-  challenge_method: 'SMS';
+  challenge_method: 'SMS' | 'OUT_OF_BAND';
 
   /**
    * The timestamp of when the challenge was completed
