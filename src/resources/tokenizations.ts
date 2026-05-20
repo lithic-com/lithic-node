@@ -475,7 +475,8 @@ export type TokenizationDeclineReason =
   | 'INVALID_CUSTOMER_RESPONSE'
   | 'NETWORK_FAILURE'
   | 'GENERIC_DECLINE'
-  | 'DIGITAL_CARD_ART_REQUIRED';
+  | 'DIGITAL_CARD_ART_REQUIRED'
+  | 'INVALID_PAN';
 
 export interface TokenizationRuleResult {
   /**
