@@ -77,7 +77,7 @@ export interface CardProgram {
   /**
    * 3-character alphabetic ISO 4217 code for the currency of the cardholder.
    */
-  cardholder_currency?: string;
+  cardholder_currency?: string | null;
 
   /**
    * List of 3-character alphabetic ISO 4217 codes for the currencies that the card
