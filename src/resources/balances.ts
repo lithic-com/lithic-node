@@ -45,19 +45,19 @@ export interface Balance {
   /**
    * Type of financial account.
    */
-  financial_account_type: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY';
+  financial_account_type: 'CARD' | 'ISSUING' | 'OPERATING' | 'PROGRAM_RECEIVABLES' | 'RESERVE' | 'SECURITY';
 
   /**
    * Globally unique identifier for the last financial transaction event that
    * impacted this balance.
    */
-  last_transaction_event_token: string;
+  last_transaction_event_token: string | null;
 
   /**
    * Globally unique identifier for the last financial transaction that impacted this
    * balance.
    */
-  last_transaction_token: string;
+  last_transaction_token: string | null;
 
   /**
    * Funds not available for spend due to card authorizations or pending ACH release.

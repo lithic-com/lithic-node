@@ -865,7 +865,7 @@ export namespace Transaction {
 
     account_type?: 'CHECKING' | 'SAVINGS';
 
-    network_specific_data?: Event.NetworkSpecificData;
+    network_specific_data?: Event.NetworkSpecificData | null;
   }
 
   export namespace Event {

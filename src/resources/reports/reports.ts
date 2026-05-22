@@ -113,19 +113,19 @@ export interface SettlementDetail {
    * Globally unique identifier denoting the account that the associated transaction
    * occurred on.
    */
-  account_token: string;
+  account_token: string | null;
 
   /**
    * Globally unique identifier denoting the card program that the associated
    * transaction occurred on.
    */
-  card_program_token: string;
+  card_program_token: string | null;
 
   /**
    * Globally unique identifier denoting the card that the associated transaction
    * occurred on.
    */
-  card_token: string;
+  card_token: string | null;
 
   /**
    * Date and time when the transaction first occurred. UTC time zone.
@@ -193,13 +193,13 @@ export interface SettlementDetail {
 
   /**
    * Globally unique identifier denoting the associated transaction. For settlement
-   * records with type `CLEARING`, `FINANCIAL`, or `NON-FINANCIAL`, this references a
+   * records with type `CLEARING`, `FINANCIAL`, or `NON_FINANCIAL`, this references a
    * card transaction token. For settlement records with type `CHARGEBACK`,
    * `REPRESENTMENT`, `PREARBITRATION`, `ARBITRATION`, or `COLLABORATION`, this
    * references the dispute transaction token. May be null for certain settlement
    * types.
    */
-  transaction_token: string;
+  transaction_token: string | null;
 
   /**
    * The total amount of settlement impacting transactions (excluding interchange,
@@ -218,7 +218,7 @@ export interface SettlementDetail {
     | 'COLLABORATION'
     | 'FEE'
     | 'FINANCIAL'
-    | 'NON-FINANCIAL'
+    | 'NON_FINANCIAL'
     | 'PREARBITRATION'
     | 'REPRESENTMENT';
 
