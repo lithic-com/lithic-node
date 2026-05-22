@@ -484,17 +484,17 @@ export interface StatementTotals {
   /**
    * Breakdown of credits
    */
-  credit_details?: unknown;
+  credit_details?: unknown | null;
 
   /**
    * Breakdown of debits
    */
-  debit_details?: unknown;
+  debit_details?: unknown | null;
 
   /**
    * Breakdown of payments
    */
-  payment_details?: unknown;
+  payment_details?: unknown | null;
 }
 
 export interface FinancialAccountCreateParams {

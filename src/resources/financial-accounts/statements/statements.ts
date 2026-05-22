@@ -154,12 +154,12 @@ export interface Statement {
   /**
    * Date when the next payment is due
    */
-  next_payment_due_date?: string;
+  next_payment_due_date?: string | null;
 
   /**
    * Date when the next billing period will end
    */
-  next_statement_end_date?: string;
+  next_statement_end_date?: string | null;
 
   /**
    * Details on number and size of payments to pay off balance

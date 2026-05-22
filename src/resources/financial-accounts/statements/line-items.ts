@@ -189,7 +189,8 @@ export namespace StatementLineItems {
       | 'QUARTERLY'
       | 'QUARTERLY_REVERSAL'
       | 'MONTHLY'
-      | 'MONTHLY_REVERSAL';
+      | 'MONTHLY_REVERSAL'
+      | 'ACCOUNT_TO_ACCOUNT';
 
     /**
      * Globally unique identifier for a financial account
@@ -209,7 +210,7 @@ export namespace StatementLineItems {
     /**
      * Globally unique identifier for a card
      */
-    card_token?: string;
+    card_token?: string | null;
 
     descriptor?: string;
 

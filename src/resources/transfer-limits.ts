@@ -95,7 +95,7 @@ export namespace TransferLimitsResponse {
         /**
          * Amount originated towards limit
          */
-        amount_originated?: number;
+        amount_originated?: number | null;
       }
 
       /**
@@ -110,7 +110,7 @@ export namespace TransferLimitsResponse {
         /**
          * Amount originated towards limit
          */
-        amount_originated?: number;
+        amount_originated?: number | null;
       }
     }
 
@@ -142,7 +142,7 @@ export namespace TransferLimitsResponse {
         /**
          * Amount originated towards limit
          */
-        amount_originated?: number;
+        amount_originated?: number | null;
       }
 
       /**
@@ -157,7 +157,7 @@ export namespace TransferLimitsResponse {
         /**
          * Amount originated towards limit
          */
-        amount_originated?: number;
+        amount_originated?: number | null;
       }
     }
 
@@ -189,7 +189,7 @@ export namespace TransferLimitsResponse {
         /**
          * Amount originated towards limit
          */
-        amount_originated?: number;
+        amount_originated?: number | null;
       }
 
       /**
@@ -204,7 +204,7 @@ export namespace TransferLimitsResponse {
         /**
          * Amount originated towards limit
          */
-        amount_originated?: number;
+        amount_originated?: number | null;
       }
     }
   }
