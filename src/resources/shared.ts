@@ -289,7 +289,8 @@ export interface FinancialEvent {
     | 'QUARTERLY'
     | 'QUARTERLY_REVERSAL'
     | 'MONTHLY'
-    | 'MONTHLY_REVERSAL';
+    | 'MONTHLY_REVERSAL'
+    | 'ACCOUNT_TO_ACCOUNT';
 }
 
 /**
