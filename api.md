@@ -96,6 +96,7 @@ Types:
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalACHActionParameters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalAttribute</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalAuthorizationActionParameters</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalAuthorizationAdjustmentParameters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalBlockParameters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalCardTransactionUpdateActionParameters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalOperation</a></code>

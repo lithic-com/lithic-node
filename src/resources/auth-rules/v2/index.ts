@@ -18,6 +18,7 @@ export {
   type ConditionalACHActionParameters,
   type ConditionalAttribute,
   type ConditionalAuthorizationActionParameters,
+  type ConditionalAuthorizationAdjustmentParameters,
   type ConditionalBlockParameters,
   type ConditionalCardTransactionUpdateActionParameters,
   type ConditionalOperation,
