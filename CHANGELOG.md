@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.140.0 (2026-05-26)
+
+Full Changelog: [v0.139.0...v0.140.0](https://github.com/lithic-com/lithic-node/compare/v0.139.0...v0.140.0)
+
+### Features
+
+* **api:** add card_authorization.challenge webhook event ([aa5e447](https://github.com/lithic-com/lithic-node/commit/aa5e44751b46b22055da3691529cae688f6d6ce5))
+* **api:** add INVALID_PAN decline reason to tokenizations ([f0eb327](https://github.com/lithic-com/lithic-node/commit/f0eb327cd86e7c7e30a638c21730ae8b66702462))
+* **api:** add method field, DECLINED status, OUT_OF_BAND support to card authorization challenges ([79c9536](https://github.com/lithic-com/lithic-node/commit/79c953636648586dfb86bec7af468ae36ca52a51))
+* **api:** add pause method to external_bank_accounts ([5f3dea5](https://github.com/lithic-com/lithic-node/commit/5f3dea57b07b6262adf87eb6e216e98f21b0cabf))
+* **api:** Add schemas for authorization adjustment rules ([d439bf0](https://github.com/lithic-com/lithic-node/commit/d439bf0501982f64dfcd3419e75397f2f7b0e6d3))
+
+
+### Bug Fixes
+
+* **api:** Change conditional value numeric type from integer to number ([6e86c29](https://github.com/lithic-com/lithic-node/commit/6e86c2959478dae721d835a3816b7cc599927131))
+* **types:** add null to parent_company, external_id, naics_code in account-holders ([4ef1a13](https://github.com/lithic-com/lithic-node/commit/4ef1a1308569bd8f1e6edb24ea7bb2a403a0edf6))
+* **typescript:** upgrade tsc-multi so that it works with Node 26 ([560e785](https://github.com/lithic-com/lithic-node/commit/560e785352d9abad5a580d4645330c77c23dad75))
+* **types:** expand enums and add nullability across balance/statement/report types ([cfdea1a](https://github.com/lithic-com/lithic-node/commit/cfdea1a9a1766656214a5ac8ed3e50ef50a497df))
+* **types:** make cardholder_currency nullable in CardProgram ([4367c8f](https://github.com/lithic-com/lithic-node/commit/4367c8f57b78dde57ce1524795629bd25584c111))
+
+
+### Chores
+
+* **tests:** remove redundant File import ([71e2edc](https://github.com/lithic-com/lithic-node/commit/71e2edcacfb63a0ecfb12ad7a953caffc1dd891c))
+
+
+### Documentation
+
+* **api:** clarify ACCOUNT_AGE attribute in auth rules v2 ([a492725](https://github.com/lithic-com/lithic-node/commit/a492725ac836e570ede0091904b38040d0b44446))
+
 ## 0.139.0 (2026-05-08)
 
 Full Changelog: [v0.138.0...v0.139.0](https://github.com/lithic-com/lithic-node/compare/v0.138.0...v0.139.0)
