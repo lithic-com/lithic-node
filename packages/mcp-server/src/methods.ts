@@ -816,6 +816,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/external_bank_accounts',
   },
   {
+    clientCallName: 'client.externalBankAccounts.pause',
+    fullyQualifiedName: 'externalBankAccounts.pause',
+    httpMethod: 'post',
+    httpPath: '/v1/external_bank_accounts/{external_bank_account_token}/pause',
+  },
+  {
     clientCallName: 'client.externalBankAccounts.retryMicroDeposits',
     fullyQualifiedName: 'externalBankAccounts.retryMicroDeposits',
     httpMethod: 'post',
