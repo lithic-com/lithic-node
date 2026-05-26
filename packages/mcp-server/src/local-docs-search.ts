@@ -7231,6 +7231,56 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     },
   },
   {
+    name: 'pause',
+    endpoint: '/v1/external_bank_accounts/{external_bank_account_token}/pause',
+    httpMethod: 'post',
+    summary: 'Pause external bank account',
+    description: 'Pause an external bank account\n',
+    stainlessPath: '(resource) external_bank_accounts > (method) pause',
+    qualified: 'client.externalBankAccounts.pause',
+    params: ['external_bank_account_token: string;'],
+    response:
+      "{ token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: 'INDIVIDUAL' | 'BUSINESS'; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PRENOTE' | 'EXTERNALLY_VERIFIED' | 'UNVERIFIED'; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }",
+    markdown:
+      "## pause\n\n`client.externalBankAccounts.pause(external_bank_account_token: string): { token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: owner_type; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: verification_method; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: external_bank_account_address; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }`\n\n**post** `/v1/external_bank_accounts/{external_bank_account_token}/pause`\n\nPause an external bank account\n\n\n### Parameters\n\n- `external_bank_account_token: string`\n\n### Returns\n\n- `{ token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: 'INDIVIDUAL' | 'BUSINESS'; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PRENOTE' | 'EXTERNALLY_VERIFIED' | 'UNVERIFIED'; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }`\n\n  - `token: string`\n  - `country: string`\n  - `created: string`\n  - `currency: string`\n  - `last_four: string`\n  - `owner: string`\n  - `owner_type: 'INDIVIDUAL' | 'BUSINESS'`\n  - `routing_number: string`\n  - `state: 'ENABLED' | 'CLOSED' | 'PAUSED'`\n  - `type: 'CHECKING' | 'SAVINGS'`\n  - `verification_attempts: number`\n  - `verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PRENOTE' | 'EXTERNALLY_VERIFIED' | 'UNVERIFIED'`\n  - `verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'`\n  - `account_token?: string`\n  - `address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }`\n  - `company_id?: string`\n  - `dob?: string`\n  - `doing_business_as?: string`\n  - `financial_account_token?: string`\n  - `name?: string`\n  - `user_defined_id?: string`\n  - `verification_failed_reason?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst externalBankAccount = await client.externalBankAccounts.pause('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(externalBankAccount);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.externalBankAccounts.pause',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nconst externalBankAccount = await client.externalBankAccounts.pause(\n  '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n);\n\nconsole.log(externalBankAccount.company_id);",
+      },
+      python: {
+        method: 'external_bank_accounts.pause',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nexternal_bank_account = client.external_bank_accounts.pause(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(external_bank_account.company_id)',
+      },
+      java: {
+        method: 'externalBankAccounts().pause',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.ExternalBankAccount;\nimport com.lithic.api.models.ExternalBankAccountPauseParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        ExternalBankAccount externalBankAccount = client.externalBankAccounts().pause("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e");\n    }\n}',
+      },
+      kotlin: {
+        method: 'externalBankAccounts().pause',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ExternalBankAccount\nimport com.lithic.api.models.ExternalBankAccountPauseParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val externalBankAccount: ExternalBankAccount = client.externalBankAccounts().pause("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
+      },
+      go: {
+        method: 'client.ExternalBankAccounts.Pause',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalBankAccount, err := client.ExternalBankAccounts.Pause(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalBankAccount.CompanyID)\n}\n',
+      },
+      ruby: {
+        method: 'external_bank_accounts.pause',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_bank_account = lithic.external_bank_accounts.pause("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(external_bank_account)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/external_bank_accounts/$EXTERNAL_BANK_ACCOUNT_TOKEN/pause \\\n    -X POST \\\n    -H "Authorization: $LITHIC_API_KEY"',
+      },
+    },
+  },
+  {
     name: 'unpause',
     endpoint: '/v1/external_bank_accounts/{external_bank_account_token}/unpause',
     httpMethod: 'post',
