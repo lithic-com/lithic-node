@@ -109,6 +109,21 @@ export class ExternalBankAccounts extends APIResource {
   }
 
   /**
+   * Pause an external bank account
+   *
+   * @example
+   * ```ts
+   * const externalBankAccount =
+   *   await client.externalBankAccounts.pause(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  pause(externalBankAccountToken: string, options?: RequestOptions): APIPromise<ExternalBankAccount> {
+    return this._client.post(path`/v1/external_bank_accounts/${externalBankAccountToken}/pause`, options);
+  }
+
+  /**
    * Retry external bank account micro deposit verification.
    *
    * @example
