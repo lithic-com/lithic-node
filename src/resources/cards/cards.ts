@@ -393,8 +393,8 @@ export class Cards extends APIResource {
   /**
    * Get card configuration such as spend limit and state. Customers must be PCI
    * compliant to use this endpoint. Please contact
-   * [support@lithic.com](mailto:support@lithic.com) for questions. _Note: this is a
-   * `POST` endpoint because it is more secure to send sensitive data in a request
+   * [support.lithic.com](https://support.lithic.com/) for questions. _Note: this is
+   * a `POST` endpoint because it is more secure to send sensitive data in a request
    * body than in a URL._
    *
    * @example
@@ -447,7 +447,7 @@ export interface Card extends NonPCICard {
   /**
    * Primary Account Number (PAN) (i.e. the card number). Customers must be PCI
    * compliant to have PAN returned as a field in production. Please contact
-   * support@lithic.com for questions.
+   * https://support.lithic.com/ for questions.
    */
   pan?: string;
 }
