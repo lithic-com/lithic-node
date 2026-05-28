@@ -440,6 +440,17 @@ export namespace CardAuthorization {
    */
   export interface LatestChallenge {
     /**
+     * The date and time when the Authorization Challenge was completed in UTC. Filled
+     * only if the challenge has been completed.
+     */
+    completed_at: string | null;
+
+    /**
+     * The date and time when the Authorization Challenge was created in UTC
+     */
+    created: string;
+
+    /**
      * The method used to deliver the challenge to the cardholder
      *
      * - `SMS` - Challenge was delivered via SMS
@@ -463,12 +474,6 @@ export namespace CardAuthorization {
      * - `ERROR` - There was an error processing the challenge
      */
     status: 'COMPLETED' | 'DECLINED' | 'PENDING' | 'EXPIRED' | 'ERROR';
-
-    /**
-     * The date and time when the Authorization Challenge was completed in UTC. Present
-     * only if the status is `COMPLETED`.
-     */
-    completed_at?: string;
   }
 
   /**
