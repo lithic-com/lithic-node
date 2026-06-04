@@ -116,6 +116,13 @@ export interface CardAuthorization {
   merchant_currency: string;
 
   /**
+   * Network name validation data, present when the card network requested name
+   * validation for this transaction. Contains the cardholder name provided by the
+   * network and Lithic's computed match result against KYC data on file.
+   */
+  name_validation: CardAuthorization.NameValidation | null;
+
+  /**
    * Where the cardholder received the service, when different from the card acceptor
    * location. This is populated from network data elements such as Mastercard DE-122
    * SE1 SF9-14 and Visa F34 DS02.
@@ -370,6 +377,57 @@ export namespace CardAuthorization {
      * Street address of card acceptor.
      */
     street_address: string | null;
+  }
+
+  /**
+   * Network name validation data, present when the card network requested name
+   * validation for this transaction. Contains the cardholder name provided by the
+   * network and Lithic's computed match result against KYC data on file.
+   */
+  export interface NameValidation {
+    /**
+     * Cardholder name as provided by the card network.
+     */
+    name: NameValidation.Name;
+
+    /**
+     * Lithic's computed match result comparing the network-provided name to the name
+     * on file.
+     */
+    name_on_file_match: NameValidation.NameOnFileMatch;
+  }
+
+  export namespace NameValidation {
+    /**
+     * Cardholder name as provided by the card network.
+     */
+    export interface Name {
+      /**
+       * First name
+       */
+      first: string;
+
+      /**
+       * Last name
+       */
+      last: string;
+
+      /**
+       * Middle name
+       */
+      middle: string | null;
+    }
+
+    /**
+     * Lithic's computed match result comparing the network-provided name to the name
+     * on file.
+     */
+    export interface NameOnFileMatch {
+      /**
+       * Overall name match result.
+       */
+      full_name: 'MATCH' | 'PARTIAL_MATCH' | 'NO_MATCH' | 'UNVERIFIED';
+    }
   }
 
   /**
