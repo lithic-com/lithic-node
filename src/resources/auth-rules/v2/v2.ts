@@ -1000,18 +1000,18 @@ export namespace ConditionalAuthorizationActionParameters {
 
 export interface ConditionalAuthorizationAdjustmentParameters {
   /**
-   * The hold adjustment to apply if the conditions are met
+   * The hold adjustment to apply if the conditions are met.
    */
-  adjustment: ConditionalAuthorizationAdjustmentParameters.Adjustment;
+  action: ConditionalAuthorizationAdjustmentParameters.Action;
 
   conditions: Array<ConditionalAuthorizationAdjustmentParameters.Condition>;
 }
 
 export namespace ConditionalAuthorizationAdjustmentParameters {
   /**
-   * The hold adjustment to apply if the conditions are met
+   * The hold adjustment to apply if the conditions are met.
    */
-  export interface Adjustment {
+  export interface Action {
     /**
      * The mode of the hold adjustment, determining how the value is interpreted:
      *
