@@ -156,6 +156,11 @@ export interface LoanTape {
   ytd_totals: FinancialAccountsAPI.StatementTotals;
 
   /**
+   * Day of the billing period that this loan tape covers, starting at 1
+   */
+  day_of_period?: number | null;
+
+  /**
    * Interest tier to which this account belongs to
    */
   tier?: string | null;
