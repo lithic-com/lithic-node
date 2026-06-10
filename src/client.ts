@@ -349,6 +349,7 @@ import {
   SettlementSummaryDetails,
 } from './resources/reports/reports';
 import { ThreeDS, ThreeDSAuthentication } from './resources/three-ds/three-ds';
+import { TransactionMonitoring } from './resources/transaction-monitoring/transaction-monitoring';
 import {
   CardholderAuthentication,
   TokenInfo,
@@ -1151,6 +1152,7 @@ export class Lithic {
   accounts: API.Accounts = new API.Accounts(this);
   accountHolders: API.AccountHolders = new API.AccountHolders(this);
   authRules: API.AuthRules = new API.AuthRules(this);
+  transactionMonitoring: API.TransactionMonitoring = new API.TransactionMonitoring(this);
   authStreamEnrollment: API.AuthStreamEnrollment = new API.AuthStreamEnrollment(this);
   tokenizationDecisioning: API.TokenizationDecisioning = new API.TokenizationDecisioning(this);
   tokenizations: API.Tokenizations = new API.Tokenizations(this);
@@ -1188,6 +1190,7 @@ export class Lithic {
 Lithic.Accounts = Accounts;
 Lithic.AccountHolders = AccountHolders;
 Lithic.AuthRules = AuthRules;
+Lithic.TransactionMonitoring = TransactionMonitoring;
 Lithic.AuthStreamEnrollment = AuthStreamEnrollment;
 Lithic.TokenizationDecisioning = TokenizationDecisioning;
 Lithic.Tokenizations = Tokenizations;
@@ -1265,6 +1268,8 @@ export declare namespace Lithic {
   };
 
   export { AuthRules as AuthRules, type SignalsResponse as SignalsResponse };
+
+  export { TransactionMonitoring as TransactionMonitoring };
 
   export { AuthStreamEnrollment as AuthStreamEnrollment, type AuthStreamSecret as AuthStreamSecret };
 

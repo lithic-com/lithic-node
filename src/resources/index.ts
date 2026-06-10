@@ -266,6 +266,7 @@ export {
   type TokenizationUpdateDigitalCardArtParams,
   type TokenizationsCursorPage,
 } from './tokenizations';
+export { TransactionMonitoring } from './transaction-monitoring/transaction-monitoring';
 export {
   Transactions,
   type CardholderAuthentication,

@@ -103,6 +103,142 @@
       ]
     },
     {
+      "base": "transactionMonitoring.cases.comments",
+      "name": "update",
+      "params": [
+        {
+          "type": "param",
+          "key": "comment_token",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": false
+        },
+        {
+          "type": "options"
+        }
+      ],
+      "oldParams": [
+        {
+          "type": "param",
+          "key": "case_token",
+          "location": "path"
+        },
+        {
+          "type": "param",
+          "key": "comment_token",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": false
+        },
+        {
+          "type": "options"
+        }
+      ]
+    },
+    {
+      "base": "transactionMonitoring.cases.comments",
+      "name": "delete",
+      "params": [
+        {
+          "type": "param",
+          "key": "comment_token",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": false
+        },
+        {
+          "type": "options"
+        }
+      ],
+      "oldParams": [
+        {
+          "type": "param",
+          "key": "case_token",
+          "location": "path"
+        },
+        {
+          "type": "param",
+          "key": "comment_token",
+          "location": "path"
+        },
+        {
+          "type": "options"
+        }
+      ]
+    },
+    {
+      "base": "transactionMonitoring.cases.files",
+      "name": "retrieve",
+      "params": [
+        {
+          "type": "param",
+          "key": "file_token",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": false
+        },
+        {
+          "type": "options"
+        }
+      ],
+      "oldParams": [
+        {
+          "type": "param",
+          "key": "case_token",
+          "location": "path"
+        },
+        {
+          "type": "param",
+          "key": "file_token",
+          "location": "path"
+        },
+        {
+          "type": "options"
+        }
+      ]
+    },
+    {
+      "base": "transactionMonitoring.cases.files",
+      "name": "delete",
+      "params": [
+        {
+          "type": "param",
+          "key": "file_token",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": false
+        },
+        {
+          "type": "options"
+        }
+      ],
+      "oldParams": [
+        {
+          "type": "param",
+          "key": "case_token",
+          "location": "path"
+        },
+        {
+          "type": "param",
+          "key": "file_token",
+          "location": "path"
+        },
+        {
+          "type": "options"
+        }
+      ]
+    },
+    {
       "base": "cards.financialTransactions",
       "name": "retrieve",
       "params": [
