@@ -880,17 +880,17 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       java: {
         method: 'accountHolders().entities().create',
         example:
-          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.AccountHolderEntityCreateParams;\nimport com.lithic.api.models.EntityCreateResponse;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        AccountHolderEntityCreateParams params = AccountHolderEntityCreateParams.builder()\n            .accountHolderToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n            .address(AccountHolderEntityCreateParams.Address.builder()\n                .address1("300 Normal Forest Way")\n                .city("Portland")\n                .country("USA")\n                .postalCode("90210")\n                .state("OR")\n                .build())\n            .dob("1991-03-08T08:00:00Z")\n            .email("tim@left-earth.com")\n            .firstName("Timmy")\n            .governmentId("211-23-1412")\n            .lastName("Turner")\n            .phoneNumber("+15555555555")\n            .type(AccountHolderEntityCreateParams.EntityType.BENEFICIAL_OWNER_INDIVIDUAL)\n            .build();\n        EntityCreateResponse entity = client.accountHolders().entities().create(params);\n    }\n}',
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.AccountHolderEntityCreateParams;\nimport com.lithic.api.models.EntityCreateResponse;\nimport com.lithic.api.models.EntityType;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        AccountHolderEntityCreateParams params = AccountHolderEntityCreateParams.builder()\n            .accountHolderToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n            .address(AccountHolderEntityCreateParams.Address.builder()\n                .address1("300 Normal Forest Way")\n                .city("Portland")\n                .country("USA")\n                .postalCode("90210")\n                .state("OR")\n                .build())\n            .dob("1991-03-08T08:00:00Z")\n            .email("tim@left-earth.com")\n            .firstName("Timmy")\n            .governmentId("211-23-1412")\n            .lastName("Turner")\n            .phoneNumber("+15555555555")\n            .type(EntityType.BENEFICIAL_OWNER_INDIVIDUAL)\n            .build();\n        EntityCreateResponse entity = client.accountHolders().entities().create(params);\n    }\n}',
       },
       kotlin: {
         method: 'accountHolders().entities().create',
         example:
-          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AccountHolderEntityCreateParams\nimport com.lithic.api.models.EntityCreateResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: AccountHolderEntityCreateParams = AccountHolderEntityCreateParams.builder()\n        .accountHolderToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .address(AccountHolderEntityCreateParams.Address.builder()\n            .address1("300 Normal Forest Way")\n            .city("Portland")\n            .country("USA")\n            .postalCode("90210")\n            .state("OR")\n            .build())\n        .dob("1991-03-08T08:00:00Z")\n        .email("tim@left-earth.com")\n        .firstName("Timmy")\n        .governmentId("211-23-1412")\n        .lastName("Turner")\n        .phoneNumber("+15555555555")\n        .type(AccountHolderEntityCreateParams.EntityType.BENEFICIAL_OWNER_INDIVIDUAL)\n        .build()\n    val entity: EntityCreateResponse = client.accountHolders().entities().create(params)\n}',
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AccountHolderEntityCreateParams\nimport com.lithic.api.models.EntityCreateResponse\nimport com.lithic.api.models.EntityType\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: AccountHolderEntityCreateParams = AccountHolderEntityCreateParams.builder()\n        .accountHolderToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .address(AccountHolderEntityCreateParams.Address.builder()\n            .address1("300 Normal Forest Way")\n            .city("Portland")\n            .country("USA")\n            .postalCode("90210")\n            .state("OR")\n            .build())\n        .dob("1991-03-08T08:00:00Z")\n        .email("tim@left-earth.com")\n        .firstName("Timmy")\n        .governmentId("211-23-1412")\n        .lastName("Turner")\n        .phoneNumber("+15555555555")\n        .type(EntityType.BENEFICIAL_OWNER_INDIVIDUAL)\n        .build()\n    val entity: EntityCreateResponse = client.accountHolders().entities().create(params)\n}',
       },
       go: {
         method: 'client.AccountHolders.Entities.New',
         example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tentity, err := client.AccountHolders.Entities.New(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.AccountHolderEntityNewParams{\n\t\t\tAddress: lithic.F(lithic.AccountHolderEntityNewParamsAddress{\n\t\t\t\tAddress1:   lithic.F("300 Normal Forest Way"),\n\t\t\t\tCity:       lithic.F("Portland"),\n\t\t\t\tCountry:    lithic.F("USA"),\n\t\t\t\tPostalCode: lithic.F("90210"),\n\t\t\t\tState:      lithic.F("OR"),\n\t\t\t}),\n\t\t\tDob:          lithic.F("1991-03-08T08:00:00Z"),\n\t\t\tEmail:        lithic.F("tim@left-earth.com"),\n\t\t\tFirstName:    lithic.F("Timmy"),\n\t\t\tGovernmentID: lithic.F("211-23-1412"),\n\t\t\tLastName:     lithic.F("Turner"),\n\t\t\tPhoneNumber:  lithic.F("+15555555555"),\n\t\t\tType:         lithic.F(lithic.AccountHolderEntityNewParamsTypeBeneficialOwnerIndividual),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", entity.Token)\n}\n',
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tentity, err := client.AccountHolders.Entities.New(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.AccountHolderEntityNewParams{\n\t\t\tAddress: lithic.F(lithic.AccountHolderEntityNewParamsAddress{\n\t\t\t\tAddress1:   lithic.F("300 Normal Forest Way"),\n\t\t\t\tCity:       lithic.F("Portland"),\n\t\t\t\tCountry:    lithic.F("USA"),\n\t\t\t\tPostalCode: lithic.F("90210"),\n\t\t\t\tState:      lithic.F("OR"),\n\t\t\t}),\n\t\t\tDob:          lithic.F("1991-03-08T08:00:00Z"),\n\t\t\tEmail:        lithic.F("tim@left-earth.com"),\n\t\t\tFirstName:    lithic.F("Timmy"),\n\t\t\tGovernmentID: lithic.F("211-23-1412"),\n\t\t\tLastName:     lithic.F("Turner"),\n\t\t\tPhoneNumber:  lithic.F("+15555555555"),\n\t\t\tType:         lithic.F(lithic.EntityTypeBeneficialOwnerIndividual),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", entity.Token)\n}\n',
       },
       ruby: {
         method: 'account_holders.entities.create',
@@ -916,7 +916,7 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     response:
       "{ token: string; account_holder_token: string; address: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; dob: string; email: string; first_name: string; last_name: string; phone_number: string; status: 'ACCEPTED' | 'INACTIVE' | 'PENDING_REVIEW' | 'REJECTED'; type: 'BENEFICIAL_OWNER_INDIVIDUAL' | 'CONTROL_PERSON'; }",
     markdown:
-      "## delete\n\n`client.accountHolders.entities.delete(account_holder_token: string, entity_token: string): { token: string; account_holder_token: string; address: object; dob: string; email: string; first_name: string; last_name: string; phone_number: string; status: 'ACCEPTED' | 'INACTIVE' | 'PENDING_REVIEW' | 'REJECTED'; type: 'BENEFICIAL_OWNER_INDIVIDUAL' | 'CONTROL_PERSON'; }`\n\n**delete** `/v1/account_holders/{account_holder_token}/entities/{entity_token}`\n\nDeactivate a beneficial owner individual on an existing KYB account holder. Only beneficial owner individuals can be deactivated.\n\n### Parameters\n\n- `account_holder_token: string`\n\n- `entity_token: string`\n\n### Returns\n\n- `{ token: string; account_holder_token: string; address: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; dob: string; email: string; first_name: string; last_name: string; phone_number: string; status: 'ACCEPTED' | 'INACTIVE' | 'PENDING_REVIEW' | 'REJECTED'; type: 'BENEFICIAL_OWNER_INDIVIDUAL' | 'CONTROL_PERSON'; }`\n  Information about an entity associated with an account holder\n\n  - `token: string`\n  - `account_holder_token: string`\n  - `address: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }`\n  - `dob: string`\n  - `email: string`\n  - `first_name: string`\n  - `last_name: string`\n  - `phone_number: string`\n  - `status: 'ACCEPTED' | 'INACTIVE' | 'PENDING_REVIEW' | 'REJECTED'`\n  - `type: 'BENEFICIAL_OWNER_INDIVIDUAL' | 'CONTROL_PERSON'`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst accountHolderEntity = await client.accountHolders.entities.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { account_holder_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(accountHolderEntity);\n```",
+      "## delete\n\n`client.accountHolders.entities.delete(account_holder_token: string, entity_token: string): { token: string; account_holder_token: string; address: object; dob: string; email: string; first_name: string; last_name: string; phone_number: string; status: 'ACCEPTED' | 'INACTIVE' | 'PENDING_REVIEW' | 'REJECTED'; type: entity_type; }`\n\n**delete** `/v1/account_holders/{account_holder_token}/entities/{entity_token}`\n\nDeactivate a beneficial owner individual on an existing KYB account holder. Only beneficial owner individuals can be deactivated.\n\n### Parameters\n\n- `account_holder_token: string`\n\n- `entity_token: string`\n\n### Returns\n\n- `{ token: string; account_holder_token: string; address: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; dob: string; email: string; first_name: string; last_name: string; phone_number: string; status: 'ACCEPTED' | 'INACTIVE' | 'PENDING_REVIEW' | 'REJECTED'; type: 'BENEFICIAL_OWNER_INDIVIDUAL' | 'CONTROL_PERSON'; }`\n  Information about an entity associated with an account holder\n\n  - `token: string`\n  - `account_holder_token: string`\n  - `address: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }`\n  - `dob: string`\n  - `email: string`\n  - `first_name: string`\n  - `last_name: string`\n  - `phone_number: string`\n  - `status: 'ACCEPTED' | 'INACTIVE' | 'PENDING_REVIEW' | 'REJECTED'`\n  - `type: 'BENEFICIAL_OWNER_INDIVIDUAL' | 'CONTROL_PERSON'`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst accountHolderEntity = await client.accountHolders.entities.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { account_holder_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(accountHolderEntity);\n```",
     perLanguage: {
       typescript: {
         method: 'client.accountHolders.entities.delete',
@@ -1628,6 +1628,941 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.lithic.com/v2/auth_rules/$AUTH_RULE_TOKEN/backtests/$AUTH_RULE_BACKTEST_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'list',
+    endpoint: '/v1/transaction_monitoring/cases',
+    httpMethod: 'get',
+    summary: 'List cases',
+    description: 'Lists transaction monitoring cases, optionally filtered.',
+    stainlessPath: '(resource) transaction_monitoring.cases > (method) list',
+    qualified: 'client.transactionMonitoring.cases.list',
+    params: [
+      'account_token?: string;',
+      'assignee?: string;',
+      'begin?: string;',
+      'card_token?: string;',
+      'end?: string;',
+      'ending_before?: string;',
+      'entity_token?: string;',
+      'page_size?: number;',
+      'queue_token?: string;',
+      'rule_token?: string;',
+      "sort_by?: 'CREATED_ASC' | 'CREATED_DESC' | 'PRIORITY_DESC' | 'PRIORITY_ASC' | 'STATUS_DESC' | 'STATUS_ASC';",
+      'starting_after?: string;',
+      "status?: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED';",
+      'transaction_token?: string;',
+    ],
+    response:
+      "{ token: string; assignee: string; collection_stopped: string; created: string; entity: { entity_token: string; entity_type: 'CARD' | 'ACCOUNT'; }; pending_transactions: boolean; priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'; queue_token: string; resolution: string; resolution_notes: string; resolved: string; rule_token: string; sla_deadline: string; status: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED'; tags: object; title: string; updated: string; }",
+    markdown:
+      "## list\n\n`client.transactionMonitoring.cases.list(account_token?: string, assignee?: string, begin?: string, card_token?: string, end?: string, ending_before?: string, entity_token?: string, page_size?: number, queue_token?: string, rule_token?: string, sort_by?: 'CREATED_ASC' | 'CREATED_DESC' | 'PRIORITY_DESC' | 'PRIORITY_ASC' | 'STATUS_DESC' | 'STATUS_ASC', starting_after?: string, status?: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED', transaction_token?: string): { token: string; assignee: string; collection_stopped: string; created: string; entity: case_entity; pending_transactions: boolean; priority: case_priority; queue_token: string; resolution: resolution_outcome; resolution_notes: string; resolved: string; rule_token: string; sla_deadline: string; status: case_status; tags: object; title: string; updated: string; }`\n\n**get** `/v1/transaction_monitoring/cases`\n\nLists transaction monitoring cases, optionally filtered.\n\n### Parameters\n\n- `account_token?: string`\n  Only return cases that include transactions on the provided account.\n\n- `assignee?: string`\n  Only return cases assigned to the provided value. Pass an empty string to return only unassigned cases.\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `card_token?: string`\n  Only return cases that include transactions on the provided card.\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `entity_token?: string`\n  Only return cases associated with the provided entity.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `queue_token?: string`\n  Only return cases belonging to the provided queue.\n\n- `rule_token?: string`\n  Only return cases triggered by the provided transaction monitoring rule.\n\n- `sort_by?: 'CREATED_ASC' | 'CREATED_DESC' | 'PRIORITY_DESC' | 'PRIORITY_ASC' | 'STATUS_DESC' | 'STATUS_ASC'`\n  Sort order for the returned cases.\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n- `status?: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED'`\n  Only return cases with the provided status.\n\n- `transaction_token?: string`\n  Only return cases that include the provided transaction.\n\n### Returns\n\n- `{ token: string; assignee: string; collection_stopped: string; created: string; entity: { entity_token: string; entity_type: 'CARD' | 'ACCOUNT'; }; pending_transactions: boolean; priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'; queue_token: string; resolution: string; resolution_notes: string; resolved: string; rule_token: string; sla_deadline: string; status: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED'; tags: object; title: string; updated: string; }`\n  A transaction monitoring case\n\n  - `token: string`\n  - `assignee: string`\n  - `collection_stopped: string`\n  - `created: string`\n  - `entity: { entity_token: string; entity_type: 'CARD' | 'ACCOUNT'; }`\n  - `pending_transactions: boolean`\n  - `priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'`\n  - `queue_token: string`\n  - `resolution: string`\n  - `resolution_notes: string`\n  - `resolved: string`\n  - `rule_token: string`\n  - `sla_deadline: string`\n  - `status: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED'`\n  - `tags: object`\n  - `title: string`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const monitoringCase of client.transactionMonitoring.cases.list()) {\n  console.log(monitoringCase);\n}\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.transactionMonitoring.cases.list',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const monitoringCase of client.transactionMonitoring.cases.list()) {\n  console.log(monitoringCase.token);\n}",
+      },
+      python: {
+        method: 'transaction_monitoring.cases.list',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.transaction_monitoring.cases.list()\npage = page.data[0]\nprint(page.token)',
+      },
+      java: {
+        method: 'transactionMonitoring().cases().list',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.TransactionMonitoringCaseListPage;\nimport com.lithic.api.models.TransactionMonitoringCaseListParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        TransactionMonitoringCaseListPage page = client.transactionMonitoring().cases().list();\n    }\n}',
+      },
+      kotlin: {
+        method: 'transactionMonitoring().cases().list',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionMonitoringCaseListPage\nimport com.lithic.api.models.TransactionMonitoringCaseListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: TransactionMonitoringCaseListPage = client.transactionMonitoring().cases().list()\n}',
+      },
+      go: {
+        method: 'client.TransactionMonitoring.Cases.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.TransactionMonitoring.Cases.List(context.TODO(), lithic.TransactionMonitoringCaseListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.transaction_monitoring.cases.list\n\nputs(page)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/transaction_monitoring/cases \\\n    -H "Authorization: $LITHIC_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'retrieve',
+    endpoint: '/v1/transaction_monitoring/cases/{case_token}',
+    httpMethod: 'get',
+    summary: 'Get case',
+    description: 'Retrieves a single transaction monitoring case.',
+    stainlessPath: '(resource) transaction_monitoring.cases > (method) retrieve',
+    qualified: 'client.transactionMonitoring.cases.retrieve',
+    params: ['case_token: string;'],
+    response:
+      "{ token: string; assignee: string; collection_stopped: string; created: string; entity: { entity_token: string; entity_type: 'CARD' | 'ACCOUNT'; }; pending_transactions: boolean; priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'; queue_token: string; resolution: string; resolution_notes: string; resolved: string; rule_token: string; sla_deadline: string; status: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED'; tags: object; title: string; updated: string; }",
+    markdown:
+      "## retrieve\n\n`client.transactionMonitoring.cases.retrieve(case_token: string): { token: string; assignee: string; collection_stopped: string; created: string; entity: case_entity; pending_transactions: boolean; priority: case_priority; queue_token: string; resolution: resolution_outcome; resolution_notes: string; resolved: string; rule_token: string; sla_deadline: string; status: case_status; tags: object; title: string; updated: string; }`\n\n**get** `/v1/transaction_monitoring/cases/{case_token}`\n\nRetrieves a single transaction monitoring case.\n\n### Parameters\n\n- `case_token: string`\n\n### Returns\n\n- `{ token: string; assignee: string; collection_stopped: string; created: string; entity: { entity_token: string; entity_type: 'CARD' | 'ACCOUNT'; }; pending_transactions: boolean; priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'; queue_token: string; resolution: string; resolution_notes: string; resolved: string; rule_token: string; sla_deadline: string; status: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED'; tags: object; title: string; updated: string; }`\n  A transaction monitoring case\n\n  - `token: string`\n  - `assignee: string`\n  - `collection_stopped: string`\n  - `created: string`\n  - `entity: { entity_token: string; entity_type: 'CARD' | 'ACCOUNT'; }`\n  - `pending_transactions: boolean`\n  - `priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'`\n  - `queue_token: string`\n  - `resolution: string`\n  - `resolution_notes: string`\n  - `resolved: string`\n  - `rule_token: string`\n  - `sla_deadline: string`\n  - `status: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED'`\n  - `tags: object`\n  - `title: string`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst monitoringCase = await client.transactionMonitoring.cases.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(monitoringCase);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.transactionMonitoring.cases.retrieve',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nconst monitoringCase = await client.transactionMonitoring.cases.retrieve(\n  '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n);\n\nconsole.log(monitoringCase.token);",
+      },
+      python: {
+        method: 'transaction_monitoring.cases.retrieve',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nmonitoring_case = client.transaction_monitoring.cases.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(monitoring_case.token)',
+      },
+      java: {
+        method: 'transactionMonitoring().cases().retrieve',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.MonitoringCase;\nimport com.lithic.api.models.TransactionMonitoringCaseRetrieveParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        MonitoringCase monitoringCase = client.transactionMonitoring().cases().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e");\n    }\n}',
+      },
+      kotlin: {
+        method: 'transactionMonitoring().cases().retrieve',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.MonitoringCase\nimport com.lithic.api.models.TransactionMonitoringCaseRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val monitoringCase: MonitoringCase = client.transactionMonitoring().cases().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
+      },
+      go: {
+        method: 'client.TransactionMonitoring.Cases.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tmonitoringCase, err := client.TransactionMonitoring.Cases.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", monitoringCase.Token)\n}\n',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nmonitoring_case = lithic.transaction_monitoring.cases.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(monitoring_case)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'update',
+    endpoint: '/v1/transaction_monitoring/cases/{case_token}',
+    httpMethod: 'patch',
+    summary: 'Update case',
+    description: 'Updates a transaction monitoring case.',
+    stainlessPath: '(resource) transaction_monitoring.cases > (method) update',
+    qualified: 'client.transactionMonitoring.cases.update',
+    params: [
+      'case_token: string;',
+      'actor_token?: string;',
+      'assignee?: string;',
+      "priority?: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';",
+      'resolution?: string;',
+      'resolution_notes?: string;',
+      'sla_deadline?: string;',
+      "status?: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED';",
+      'tags?: object;',
+      'title?: string;',
+    ],
+    response:
+      "{ token: string; assignee: string; collection_stopped: string; created: string; entity: { entity_token: string; entity_type: 'CARD' | 'ACCOUNT'; }; pending_transactions: boolean; priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'; queue_token: string; resolution: string; resolution_notes: string; resolved: string; rule_token: string; sla_deadline: string; status: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED'; tags: object; title: string; updated: string; }",
+    markdown:
+      "## update\n\n`client.transactionMonitoring.cases.update(case_token: string, actor_token?: string, assignee?: string, priority?: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL', resolution?: string, resolution_notes?: string, sla_deadline?: string, status?: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED', tags?: object, title?: string): { token: string; assignee: string; collection_stopped: string; created: string; entity: case_entity; pending_transactions: boolean; priority: case_priority; queue_token: string; resolution: resolution_outcome; resolution_notes: string; resolved: string; rule_token: string; sla_deadline: string; status: case_status; tags: object; title: string; updated: string; }`\n\n**patch** `/v1/transaction_monitoring/cases/{case_token}`\n\nUpdates a transaction monitoring case.\n\n### Parameters\n\n- `case_token: string`\n\n- `actor_token?: string`\n  Optional client-provided identifier for the actor performing this action,\nrecorded on the resulting activity entry. This value is supplied by the\nclient (for example, your own internal user ID) and is not authenticated\nby Lithic\n\n\n- `assignee?: string`\n  New assignee for the case, or `null` to unassign\n\n- `priority?: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'`\n  Priority level of a case, controlling queue ordering and SLA urgency\n\n- `resolution?: string`\n  Outcome recorded when a case is resolved:\n  - `CONFIRMED_FRAUD` - The reviewed activity was confirmed to be fraudulent\n  - `SUSPICIOUS_ACTIVITY` - The activity is suspicious but not confirmed fraud\n  - `FALSE_POSITIVE` - The activity was legitimate and the alert was a false positive\n  - `NO_ACTION_REQUIRED` - No further action is required\n  - `ESCALATED_EXTERNAL` - The case was escalated to an external party\n\n\n- `resolution_notes?: string`\n  Notes describing the resolution\n\n- `sla_deadline?: string`\n  New SLA deadline for the case, or `null` to clear it\n\n- `status?: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED'`\n  Status of a case as it progresses through the review workflow:\n  - `OPEN` - The case has been created and is still collecting matching transactions\n  - `ASSIGNED` - An analyst has been assigned and transaction collection has stopped\n  - `IN_REVIEW` - The case is actively being investigated\n  - `ESCALATED` - The case has been reviewed and requires additional oversight\n  - `RESOLVED` - A determination has been made and a resolution recorded\n  - `CLOSED` - The case is finalized\n\n\n- `tags?: object`\n  Arbitrary key-value metadata to set on the case\n\n- `title?: string`\n  New title for the case, or `null` to clear it\n\n### Returns\n\n- `{ token: string; assignee: string; collection_stopped: string; created: string; entity: { entity_token: string; entity_type: 'CARD' | 'ACCOUNT'; }; pending_transactions: boolean; priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'; queue_token: string; resolution: string; resolution_notes: string; resolved: string; rule_token: string; sla_deadline: string; status: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED'; tags: object; title: string; updated: string; }`\n  A transaction monitoring case\n\n  - `token: string`\n  - `assignee: string`\n  - `collection_stopped: string`\n  - `created: string`\n  - `entity: { entity_token: string; entity_type: 'CARD' | 'ACCOUNT'; }`\n  - `pending_transactions: boolean`\n  - `priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'`\n  - `queue_token: string`\n  - `resolution: string`\n  - `resolution_notes: string`\n  - `resolved: string`\n  - `rule_token: string`\n  - `sla_deadline: string`\n  - `status: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED'`\n  - `tags: object`\n  - `title: string`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst monitoringCase = await client.transactionMonitoring.cases.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(monitoringCase);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.transactionMonitoring.cases.update',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nconst monitoringCase = await client.transactionMonitoring.cases.update(\n  '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n);\n\nconsole.log(monitoringCase.token);",
+      },
+      python: {
+        method: 'transaction_monitoring.cases.update',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nmonitoring_case = client.transaction_monitoring.cases.update(\n    case_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(monitoring_case.token)',
+      },
+      java: {
+        method: 'transactionMonitoring().cases().update',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.MonitoringCase;\nimport com.lithic.api.models.TransactionMonitoringCaseUpdateParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        MonitoringCase monitoringCase = client.transactionMonitoring().cases().update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e");\n    }\n}',
+      },
+      kotlin: {
+        method: 'transactionMonitoring().cases().update',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.MonitoringCase\nimport com.lithic.api.models.TransactionMonitoringCaseUpdateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val monitoringCase: MonitoringCase = client.transactionMonitoring().cases().update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
+      },
+      go: {
+        method: 'client.TransactionMonitoring.Cases.Update',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tmonitoringCase, err := client.TransactionMonitoring.Cases.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringCaseUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", monitoringCase.Token)\n}\n',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.update',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nmonitoring_case = lithic.transaction_monitoring.cases.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(monitoring_case)',
+      },
+      http: {
+        example:
+          "curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN \\\n    -X PATCH \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: $LITHIC_API_KEY\" \\\n    -d '{}'",
+      },
+    },
+  },
+  {
+    name: 'list_activity',
+    endpoint: '/v1/transaction_monitoring/cases/{case_token}/activity',
+    httpMethod: 'get',
+    summary: 'List case activity',
+    description: 'Lists the activity feed for a case.',
+    stainlessPath: '(resource) transaction_monitoring.cases > (method) list_activity',
+    qualified: 'client.transactionMonitoring.cases.listActivity',
+    params: [
+      'case_token: string;',
+      'ending_before?: string;',
+      'page_size?: number;',
+      'starting_after?: string;',
+    ],
+    response:
+      '{ token: string; actor_token: string; created: string; entry_type: string; new_value: string; previous_value: string; }',
+    markdown:
+      "## list_activity\n\n`client.transactionMonitoring.cases.listActivity(case_token: string, ending_before?: string, page_size?: number, starting_after?: string): { token: string; actor_token: string; created: string; entry_type: case_activity_type; new_value: string; previous_value: string; }`\n\n**get** `/v1/transaction_monitoring/cases/{case_token}/activity`\n\nLists the activity feed for a case.\n\n### Parameters\n\n- `case_token: string`\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; actor_token: string; created: string; entry_type: string; new_value: string; previous_value: string; }`\n  A single entry in a case's activity feed\n\n  - `token: string`\n  - `actor_token: string`\n  - `created: string`\n  - `entry_type: string`\n  - `new_value: string`\n  - `previous_value: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const caseActivityEntry of client.transactionMonitoring.cases.listActivity('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')) {\n  console.log(caseActivityEntry);\n}\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.transactionMonitoring.cases.listActivity',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const caseActivityEntry of client.transactionMonitoring.cases.listActivity(\n  '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n)) {\n  console.log(caseActivityEntry.token);\n}",
+      },
+      python: {
+        method: 'transaction_monitoring.cases.list_activity',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.transaction_monitoring.cases.list_activity(\n    case_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\npage = page.data[0]\nprint(page.token)',
+      },
+      java: {
+        method: 'transactionMonitoring().cases().listActivity',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.TransactionMonitoringCaseListActivityPage;\nimport com.lithic.api.models.TransactionMonitoringCaseListActivityParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        TransactionMonitoringCaseListActivityPage page = client.transactionMonitoring().cases().listActivity("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e");\n    }\n}',
+      },
+      kotlin: {
+        method: 'transactionMonitoring().cases().listActivity',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionMonitoringCaseListActivityPage\nimport com.lithic.api.models.TransactionMonitoringCaseListActivityParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: TransactionMonitoringCaseListActivityPage = client.transactionMonitoring().cases().listActivity("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
+      },
+      go: {
+        method: 'client.TransactionMonitoring.Cases.ListActivity',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.TransactionMonitoring.Cases.ListActivity(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringCaseListActivityParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.list_activity',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.transaction_monitoring.cases.list_activity("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN/activity \\\n    -H "Authorization: $LITHIC_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'list_transactions',
+    endpoint: '/v1/transaction_monitoring/cases/{case_token}/transactions',
+    httpMethod: 'get',
+    summary: 'List case transactions',
+    description: 'Lists the transactions associated with a case.',
+    stainlessPath: '(resource) transaction_monitoring.cases > (method) list_transactions',
+    qualified: 'client.transactionMonitoring.cases.listTransactions',
+    params: [
+      'case_token: string;',
+      'ending_before?: string;',
+      'page_size?: number;',
+      'starting_after?: string;',
+    ],
+    response:
+      '{ token: string; account_token: string; added_at: string; card_token: string; transaction_created_at: string; }',
+    markdown:
+      "## list_transactions\n\n`client.transactionMonitoring.cases.listTransactions(case_token: string, ending_before?: string, page_size?: number, starting_after?: string): { token: string; account_token: string; added_at: string; card_token: string; transaction_created_at: string; }`\n\n**get** `/v1/transaction_monitoring/cases/{case_token}/transactions`\n\nLists the transactions associated with a case.\n\n### Parameters\n\n- `case_token: string`\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; account_token: string; added_at: string; card_token: string; transaction_created_at: string; }`\n  A single transaction associated with a case\n\n  - `token: string`\n  - `account_token: string`\n  - `added_at: string`\n  - `card_token: string`\n  - `transaction_created_at: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const caseTransaction of client.transactionMonitoring.cases.listTransactions('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')) {\n  console.log(caseTransaction);\n}\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.transactionMonitoring.cases.listTransactions',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const caseTransaction of client.transactionMonitoring.cases.listTransactions(\n  '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n)) {\n  console.log(caseTransaction.token);\n}",
+      },
+      python: {
+        method: 'transaction_monitoring.cases.list_transactions',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.transaction_monitoring.cases.list_transactions(\n    case_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\npage = page.data[0]\nprint(page.token)',
+      },
+      java: {
+        method: 'transactionMonitoring().cases().listTransactions',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.TransactionMonitoringCaseListTransactionsPage;\nimport com.lithic.api.models.TransactionMonitoringCaseListTransactionsParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        TransactionMonitoringCaseListTransactionsPage page = client.transactionMonitoring().cases().listTransactions("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e");\n    }\n}',
+      },
+      kotlin: {
+        method: 'transactionMonitoring().cases().listTransactions',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionMonitoringCaseListTransactionsPage\nimport com.lithic.api.models.TransactionMonitoringCaseListTransactionsParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: TransactionMonitoringCaseListTransactionsPage = client.transactionMonitoring().cases().listTransactions("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
+      },
+      go: {
+        method: 'client.TransactionMonitoring.Cases.ListTransactions',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.TransactionMonitoring.Cases.ListTransactions(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringCaseListTransactionsParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.list_transactions',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.transaction_monitoring.cases.list_transactions("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN/transactions \\\n    -H "Authorization: $LITHIC_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'retrieve_cards',
+    endpoint: '/v1/transaction_monitoring/cases/{case_token}/cards',
+    httpMethod: 'get',
+    summary: 'List case cards',
+    description: 'Lists the cards involved in a case, with per-card transaction counts.',
+    stainlessPath: '(resource) transaction_monitoring.cases > (method) retrieve_cards',
+    qualified: 'client.transactionMonitoring.cases.retrieveCards',
+    params: ['case_token: string;'],
+    response: '{ account_token: string; card_token: string; transaction_count: number; }[]',
+    markdown:
+      "## retrieve_cards\n\n`client.transactionMonitoring.cases.retrieveCards(case_token: string): object[]`\n\n**get** `/v1/transaction_monitoring/cases/{case_token}/cards`\n\nLists the cards involved in a case, with per-card transaction counts.\n\n### Parameters\n\n- `case_token: string`\n\n### Returns\n\n- `{ account_token: string; card_token: string; transaction_count: number; }[]`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst caseCards = await client.transactionMonitoring.cases.retrieveCards('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(caseCards);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.transactionMonitoring.cases.retrieveCards',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nconst caseCards = await client.transactionMonitoring.cases.retrieveCards(\n  '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n);\n\nconsole.log(caseCards);",
+      },
+      python: {
+        method: 'transaction_monitoring.cases.retrieve_cards',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ncase_cards = client.transaction_monitoring.cases.retrieve_cards(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(case_cards)',
+      },
+      java: {
+        method: 'transactionMonitoring().cases().retrieveCards',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.CaseCard;\nimport com.lithic.api.models.TransactionMonitoringCaseRetrieveCardsParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        List<CaseCard> caseCards = client.transactionMonitoring().cases().retrieveCards("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e");\n    }\n}',
+      },
+      kotlin: {
+        method: 'transactionMonitoring().cases().retrieveCards',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CaseCard\nimport com.lithic.api.models.TransactionMonitoringCaseRetrieveCardsParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val caseCards: List<CaseCard> = client.transactionMonitoring().cases().retrieveCards("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
+      },
+      go: {
+        method: 'client.TransactionMonitoring.Cases.GetCards',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcaseCards, err := client.TransactionMonitoring.Cases.GetCards(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", caseCards)\n}\n',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.retrieve_cards',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncase_cards = lithic.transaction_monitoring.cases.retrieve_cards("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(case_cards)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN/cards \\\n    -H "Authorization: $LITHIC_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'create',
+    endpoint: '/v1/transaction_monitoring/cases/{case_token}/comments',
+    httpMethod: 'post',
+    summary: 'Add case comment',
+    description: 'Adds a comment to a case.',
+    stainlessPath: '(resource) transaction_monitoring.cases.comments > (method) create',
+    qualified: 'client.transactionMonitoring.cases.comments.create',
+    params: ['case_token: string;', 'comment: string;', 'actor_token?: string;'],
+    response:
+      '{ token: string; actor_token: string; created: string; entry_type: string; new_value: string; previous_value: string; }',
+    markdown:
+      "## create\n\n`client.transactionMonitoring.cases.comments.create(case_token: string, comment: string, actor_token?: string): { token: string; actor_token: string; created: string; entry_type: case_activity_type; new_value: string; previous_value: string; }`\n\n**post** `/v1/transaction_monitoring/cases/{case_token}/comments`\n\nAdds a comment to a case.\n\n### Parameters\n\n- `case_token: string`\n\n- `comment: string`\n  Text of the comment\n\n- `actor_token?: string`\n  Optional client-provided identifier for the actor performing this action,\nrecorded on the resulting activity entry. This value is supplied by the\nclient (for example, your own internal user ID) and is not authenticated\nby Lithic\n\n\n### Returns\n\n- `{ token: string; actor_token: string; created: string; entry_type: string; new_value: string; previous_value: string; }`\n  A single entry in a case's activity feed\n\n  - `token: string`\n  - `actor_token: string`\n  - `created: string`\n  - `entry_type: string`\n  - `new_value: string`\n  - `previous_value: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst caseActivityEntry = await client.transactionMonitoring.cases.comments.create('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { comment: 'comment' });\n\nconsole.log(caseActivityEntry);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.transactionMonitoring.cases.comments.create',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nconst caseActivityEntry = await client.transactionMonitoring.cases.comments.create(\n  '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n  { comment: 'comment' },\n);\n\nconsole.log(caseActivityEntry.token);",
+      },
+      python: {
+        method: 'transaction_monitoring.cases.comments.create',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ncase_activity_entry = client.transaction_monitoring.cases.comments.create(\n    case_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    comment="comment",\n)\nprint(case_activity_entry.token)',
+      },
+      java: {
+        method: 'transactionMonitoring().cases().comments().create',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.CaseActivityEntry;\nimport com.lithic.api.models.TransactionMonitoringCaseCommentCreateParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        TransactionMonitoringCaseCommentCreateParams params = TransactionMonitoringCaseCommentCreateParams.builder()\n            .caseToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n            .comment("comment")\n            .build();\n        CaseActivityEntry caseActivityEntry = client.transactionMonitoring().cases().comments().create(params);\n    }\n}',
+      },
+      kotlin: {
+        method: 'transactionMonitoring().cases().comments().create',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CaseActivityEntry\nimport com.lithic.api.models.TransactionMonitoringCaseCommentCreateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TransactionMonitoringCaseCommentCreateParams = TransactionMonitoringCaseCommentCreateParams.builder()\n        .caseToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .comment("comment")\n        .build()\n    val caseActivityEntry: CaseActivityEntry = client.transactionMonitoring().cases().comments().create(params)\n}',
+      },
+      go: {
+        method: 'client.TransactionMonitoring.Cases.Comments.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcaseActivityEntry, err := client.TransactionMonitoring.Cases.Comments.New(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringCaseCommentNewParams{\n\t\t\tComment: lithic.F("comment"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", caseActivityEntry.Token)\n}\n',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.comments.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncase_activity_entry = lithic.transaction_monitoring.cases.comments.create(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  comment: "comment"\n)\n\nputs(case_activity_entry)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN/comments \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "comment": "comment"\n        }\'',
+      },
+    },
+  },
+  {
+    name: 'update',
+    endpoint: '/v1/transaction_monitoring/cases/{case_token}/comments/{comment_token}',
+    httpMethod: 'patch',
+    summary: 'Update case comment',
+    description: 'Edits an existing comment on a case.',
+    stainlessPath: '(resource) transaction_monitoring.cases.comments > (method) update',
+    qualified: 'client.transactionMonitoring.cases.comments.update',
+    params: ['case_token: string;', 'comment_token: string;', 'comment: string;', 'actor_token?: string;'],
+    response:
+      '{ token: string; actor_token: string; created: string; entry_type: string; new_value: string; previous_value: string; }',
+    markdown:
+      "## update\n\n`client.transactionMonitoring.cases.comments.update(case_token: string, comment_token: string, comment: string, actor_token?: string): { token: string; actor_token: string; created: string; entry_type: case_activity_type; new_value: string; previous_value: string; }`\n\n**patch** `/v1/transaction_monitoring/cases/{case_token}/comments/{comment_token}`\n\nEdits an existing comment on a case.\n\n### Parameters\n\n- `case_token: string`\n\n- `comment_token: string`\n\n- `comment: string`\n  New text of the comment\n\n- `actor_token?: string`\n  Optional client-provided identifier for the actor performing this action,\nrecorded on the resulting activity entry. This value is supplied by the\nclient (for example, your own internal user ID) and is not authenticated\nby Lithic\n\n\n### Returns\n\n- `{ token: string; actor_token: string; created: string; entry_type: string; new_value: string; previous_value: string; }`\n  A single entry in a case's activity feed\n\n  - `token: string`\n  - `actor_token: string`\n  - `created: string`\n  - `entry_type: string`\n  - `new_value: string`\n  - `previous_value: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst caseActivityEntry = await client.transactionMonitoring.cases.comments.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { case_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', comment: 'comment' });\n\nconsole.log(caseActivityEntry);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.transactionMonitoring.cases.comments.update',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nconst caseActivityEntry = await client.transactionMonitoring.cases.comments.update(\n  '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n  { case_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', comment: 'comment' },\n);\n\nconsole.log(caseActivityEntry.token);",
+      },
+      python: {
+        method: 'transaction_monitoring.cases.comments.update',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ncase_activity_entry = client.transaction_monitoring.cases.comments.update(\n    comment_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    case_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    comment="comment",\n)\nprint(case_activity_entry.token)',
+      },
+      java: {
+        method: 'transactionMonitoring().cases().comments().update',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.CaseActivityEntry;\nimport com.lithic.api.models.TransactionMonitoringCaseCommentUpdateParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        TransactionMonitoringCaseCommentUpdateParams params = TransactionMonitoringCaseCommentUpdateParams.builder()\n            .caseToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n            .commentToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n            .comment("comment")\n            .build();\n        CaseActivityEntry caseActivityEntry = client.transactionMonitoring().cases().comments().update(params);\n    }\n}',
+      },
+      kotlin: {
+        method: 'transactionMonitoring().cases().comments().update',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CaseActivityEntry\nimport com.lithic.api.models.TransactionMonitoringCaseCommentUpdateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TransactionMonitoringCaseCommentUpdateParams = TransactionMonitoringCaseCommentUpdateParams.builder()\n        .caseToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .commentToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .comment("comment")\n        .build()\n    val caseActivityEntry: CaseActivityEntry = client.transactionMonitoring().cases().comments().update(params)\n}',
+      },
+      go: {
+        method: 'client.TransactionMonitoring.Cases.Comments.Update',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcaseActivityEntry, err := client.TransactionMonitoring.Cases.Comments.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringCaseCommentUpdateParams{\n\t\t\tComment: lithic.F("comment"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", caseActivityEntry.Token)\n}\n',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.comments.update',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncase_activity_entry = lithic.transaction_monitoring.cases.comments.update(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  case_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  comment: "comment"\n)\n\nputs(case_activity_entry)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN/comments/$COMMENT_TOKEN \\\n    -X PATCH \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "comment": "comment"\n        }\'',
+      },
+    },
+  },
+  {
+    name: 'delete',
+    endpoint: '/v1/transaction_monitoring/cases/{case_token}/comments/{comment_token}',
+    httpMethod: 'delete',
+    summary: 'Delete case comment',
+    description: 'Deletes a comment from a case.',
+    stainlessPath: '(resource) transaction_monitoring.cases.comments > (method) delete',
+    qualified: 'client.transactionMonitoring.cases.comments.delete',
+    params: ['case_token: string;', 'comment_token: string;'],
+    markdown:
+      "## delete\n\n`client.transactionMonitoring.cases.comments.delete(case_token: string, comment_token: string): void`\n\n**delete** `/v1/transaction_monitoring/cases/{case_token}/comments/{comment_token}`\n\nDeletes a comment from a case.\n\n### Parameters\n\n- `case_token: string`\n\n- `comment_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.transactionMonitoring.cases.comments.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { case_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' })\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.transactionMonitoring.cases.comments.delete',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nawait client.transactionMonitoring.cases.comments.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {\n  case_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n});",
+      },
+      python: {
+        method: 'transaction_monitoring.cases.comments.delete',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.transaction_monitoring.cases.comments.delete(\n    comment_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    case_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)',
+      },
+      java: {
+        method: 'transactionMonitoring().cases().comments().delete',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.TransactionMonitoringCaseCommentDeleteParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        TransactionMonitoringCaseCommentDeleteParams params = TransactionMonitoringCaseCommentDeleteParams.builder()\n            .caseToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n            .commentToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n            .build();\n        client.transactionMonitoring().cases().comments().delete(params);\n    }\n}',
+      },
+      kotlin: {
+        method: 'transactionMonitoring().cases().comments().delete',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionMonitoringCaseCommentDeleteParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TransactionMonitoringCaseCommentDeleteParams = TransactionMonitoringCaseCommentDeleteParams.builder()\n        .caseToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .commentToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .build()\n    client.transactionMonitoring().cases().comments().delete(params)\n}',
+      },
+      go: {
+        method: 'client.TransactionMonitoring.Cases.Comments.Delete',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.TransactionMonitoring.Cases.Comments.Delete(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.comments.delete',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.transaction_monitoring.cases.comments.delete(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  case_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(result)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN/comments/$COMMENT_TOKEN \\\n    -X DELETE \\\n    -H "Authorization: $LITHIC_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'create',
+    endpoint: '/v1/transaction_monitoring/cases/{case_token}/files',
+    httpMethod: 'post',
+    summary: 'Create case file',
+    description: 'Creates a file record and returns a presigned URL for uploading the file to the case.',
+    stainlessPath: '(resource) transaction_monitoring.cases.files > (method) create',
+    qualified: 'client.transactionMonitoring.cases.files.create',
+    params: ['case_token: string;', 'name: string;'],
+    response:
+      "{ token: string; created: string; download_url: string; download_url_expires: string; failure_reason: string; mime_type: string; name: string; size_bytes: number; status: 'PENDING' | 'READY' | 'REJECTED'; updated: string; upload_constraints: { accepted_mime_types: string[]; max_size_bytes: number; }; upload_url: string; upload_url_expires: string; }",
+    markdown:
+      "## create\n\n`client.transactionMonitoring.cases.files.create(case_token: string, name: string): { token: string; created: string; download_url: string; download_url_expires: string; failure_reason: string; mime_type: string; name: string; size_bytes: number; status: file_status; updated: string; upload_constraints: upload_constraints; upload_url: string; upload_url_expires: string; }`\n\n**post** `/v1/transaction_monitoring/cases/{case_token}/files`\n\nCreates a file record and returns a presigned URL for uploading the file to the case.\n\n### Parameters\n\n- `case_token: string`\n\n- `name: string`\n  Name of the file to upload\n\n### Returns\n\n- `{ token: string; created: string; download_url: string; download_url_expires: string; failure_reason: string; mime_type: string; name: string; size_bytes: number; status: 'PENDING' | 'READY' | 'REJECTED'; updated: string; upload_constraints: { accepted_mime_types: string[]; max_size_bytes: number; }; upload_url: string; upload_url_expires: string; }`\n  A file attached to a case. Status-dependent fields are always present but may be `null`:\n  - `upload_url`, `upload_url_expires`, and `upload_constraints` are populated when `status` is `PENDING` or `REJECTED`\n  - `download_url` and `download_url_expires` are populated when `status` is `READY`\n  - `failure_reason` is populated when `status` is `REJECTED`\n\n\n  - `token: string`\n  - `created: string`\n  - `download_url: string`\n  - `download_url_expires: string`\n  - `failure_reason: string`\n  - `mime_type: string`\n  - `name: string`\n  - `size_bytes: number`\n  - `status: 'PENDING' | 'READY' | 'REJECTED'`\n  - `updated: string`\n  - `upload_constraints: { accepted_mime_types: string[]; max_size_bytes: number; }`\n  - `upload_url: string`\n  - `upload_url_expires: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst caseFile = await client.transactionMonitoring.cases.files.create('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { name: 'name' });\n\nconsole.log(caseFile);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.transactionMonitoring.cases.files.create',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nconst caseFile = await client.transactionMonitoring.cases.files.create(\n  '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n  { name: 'name' },\n);\n\nconsole.log(caseFile.token);",
+      },
+      python: {
+        method: 'transaction_monitoring.cases.files.create',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ncase_file = client.transaction_monitoring.cases.files.create(\n    case_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    name="name",\n)\nprint(case_file.token)',
+      },
+      java: {
+        method: 'transactionMonitoring().cases().files().create',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.CaseFile;\nimport com.lithic.api.models.TransactionMonitoringCaseFileCreateParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        TransactionMonitoringCaseFileCreateParams params = TransactionMonitoringCaseFileCreateParams.builder()\n            .caseToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n            .name("name")\n            .build();\n        CaseFile caseFile = client.transactionMonitoring().cases().files().create(params);\n    }\n}',
+      },
+      kotlin: {
+        method: 'transactionMonitoring().cases().files().create',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CaseFile\nimport com.lithic.api.models.TransactionMonitoringCaseFileCreateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TransactionMonitoringCaseFileCreateParams = TransactionMonitoringCaseFileCreateParams.builder()\n        .caseToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .name("name")\n        .build()\n    val caseFile: CaseFile = client.transactionMonitoring().cases().files().create(params)\n}',
+      },
+      go: {
+        method: 'client.TransactionMonitoring.Cases.Files.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcaseFile, err := client.TransactionMonitoring.Cases.Files.New(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringCaseFileNewParams{\n\t\t\tName: lithic.F("name"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", caseFile.Token)\n}\n',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.files.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncase_file = lithic.transaction_monitoring.cases.files.create("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", name: "name")\n\nputs(case_file)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN/files \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "name": "name"\n        }\'',
+      },
+    },
+  },
+  {
+    name: 'list',
+    endpoint: '/v1/transaction_monitoring/cases/{case_token}/files',
+    httpMethod: 'get',
+    summary: 'List case files',
+    description: 'Lists the files attached to a case.',
+    stainlessPath: '(resource) transaction_monitoring.cases.files > (method) list',
+    qualified: 'client.transactionMonitoring.cases.files.list',
+    params: [
+      'case_token: string;',
+      'ending_before?: string;',
+      'page_size?: number;',
+      'starting_after?: string;',
+    ],
+    response:
+      "{ token: string; created: string; download_url: string; download_url_expires: string; failure_reason: string; mime_type: string; name: string; size_bytes: number; status: 'PENDING' | 'READY' | 'REJECTED'; updated: string; upload_constraints: { accepted_mime_types: string[]; max_size_bytes: number; }; upload_url: string; upload_url_expires: string; }",
+    markdown:
+      "## list\n\n`client.transactionMonitoring.cases.files.list(case_token: string, ending_before?: string, page_size?: number, starting_after?: string): { token: string; created: string; download_url: string; download_url_expires: string; failure_reason: string; mime_type: string; name: string; size_bytes: number; status: file_status; updated: string; upload_constraints: upload_constraints; upload_url: string; upload_url_expires: string; }`\n\n**get** `/v1/transaction_monitoring/cases/{case_token}/files`\n\nLists the files attached to a case.\n\n### Parameters\n\n- `case_token: string`\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; created: string; download_url: string; download_url_expires: string; failure_reason: string; mime_type: string; name: string; size_bytes: number; status: 'PENDING' | 'READY' | 'REJECTED'; updated: string; upload_constraints: { accepted_mime_types: string[]; max_size_bytes: number; }; upload_url: string; upload_url_expires: string; }`\n  A file attached to a case. Status-dependent fields are always present but may be `null`:\n  - `upload_url`, `upload_url_expires`, and `upload_constraints` are populated when `status` is `PENDING` or `REJECTED`\n  - `download_url` and `download_url_expires` are populated when `status` is `READY`\n  - `failure_reason` is populated when `status` is `REJECTED`\n\n\n  - `token: string`\n  - `created: string`\n  - `download_url: string`\n  - `download_url_expires: string`\n  - `failure_reason: string`\n  - `mime_type: string`\n  - `name: string`\n  - `size_bytes: number`\n  - `status: 'PENDING' | 'READY' | 'REJECTED'`\n  - `updated: string`\n  - `upload_constraints: { accepted_mime_types: string[]; max_size_bytes: number; }`\n  - `upload_url: string`\n  - `upload_url_expires: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const caseFile of client.transactionMonitoring.cases.files.list('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')) {\n  console.log(caseFile);\n}\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.transactionMonitoring.cases.files.list',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const caseFile of client.transactionMonitoring.cases.files.list(\n  '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n)) {\n  console.log(caseFile.token);\n}",
+      },
+      python: {
+        method: 'transaction_monitoring.cases.files.list',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.transaction_monitoring.cases.files.list(\n    case_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\npage = page.data[0]\nprint(page.token)',
+      },
+      java: {
+        method: 'transactionMonitoring().cases().files().list',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.TransactionMonitoringCaseFileListPage;\nimport com.lithic.api.models.TransactionMonitoringCaseFileListParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        TransactionMonitoringCaseFileListPage page = client.transactionMonitoring().cases().files().list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e");\n    }\n}',
+      },
+      kotlin: {
+        method: 'transactionMonitoring().cases().files().list',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionMonitoringCaseFileListPage\nimport com.lithic.api.models.TransactionMonitoringCaseFileListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: TransactionMonitoringCaseFileListPage = client.transactionMonitoring().cases().files().list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
+      },
+      go: {
+        method: 'client.TransactionMonitoring.Cases.Files.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.TransactionMonitoring.Cases.Files.List(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringCaseFileListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.files.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.transaction_monitoring.cases.files.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN/files \\\n    -H "Authorization: $LITHIC_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'retrieve',
+    endpoint: '/v1/transaction_monitoring/cases/{case_token}/files/{file_token}',
+    httpMethod: 'get',
+    summary: 'Get case file',
+    description:
+      'Retrieves a single file attached to a case, including a presigned download URL when the file is ready.',
+    stainlessPath: '(resource) transaction_monitoring.cases.files > (method) retrieve',
+    qualified: 'client.transactionMonitoring.cases.files.retrieve',
+    params: ['case_token: string;', 'file_token: string;'],
+    response:
+      "{ token: string; created: string; download_url: string; download_url_expires: string; failure_reason: string; mime_type: string; name: string; size_bytes: number; status: 'PENDING' | 'READY' | 'REJECTED'; updated: string; upload_constraints: { accepted_mime_types: string[]; max_size_bytes: number; }; upload_url: string; upload_url_expires: string; }",
+    markdown:
+      "## retrieve\n\n`client.transactionMonitoring.cases.files.retrieve(case_token: string, file_token: string): { token: string; created: string; download_url: string; download_url_expires: string; failure_reason: string; mime_type: string; name: string; size_bytes: number; status: file_status; updated: string; upload_constraints: upload_constraints; upload_url: string; upload_url_expires: string; }`\n\n**get** `/v1/transaction_monitoring/cases/{case_token}/files/{file_token}`\n\nRetrieves a single file attached to a case, including a presigned download URL when the file is ready.\n\n### Parameters\n\n- `case_token: string`\n\n- `file_token: string`\n\n### Returns\n\n- `{ token: string; created: string; download_url: string; download_url_expires: string; failure_reason: string; mime_type: string; name: string; size_bytes: number; status: 'PENDING' | 'READY' | 'REJECTED'; updated: string; upload_constraints: { accepted_mime_types: string[]; max_size_bytes: number; }; upload_url: string; upload_url_expires: string; }`\n  A file attached to a case. Status-dependent fields are always present but may be `null`:\n  - `upload_url`, `upload_url_expires`, and `upload_constraints` are populated when `status` is `PENDING` or `REJECTED`\n  - `download_url` and `download_url_expires` are populated when `status` is `READY`\n  - `failure_reason` is populated when `status` is `REJECTED`\n\n\n  - `token: string`\n  - `created: string`\n  - `download_url: string`\n  - `download_url_expires: string`\n  - `failure_reason: string`\n  - `mime_type: string`\n  - `name: string`\n  - `size_bytes: number`\n  - `status: 'PENDING' | 'READY' | 'REJECTED'`\n  - `updated: string`\n  - `upload_constraints: { accepted_mime_types: string[]; max_size_bytes: number; }`\n  - `upload_url: string`\n  - `upload_url_expires: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst caseFile = await client.transactionMonitoring.cases.files.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { case_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(caseFile);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.transactionMonitoring.cases.files.retrieve',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nconst caseFile = await client.transactionMonitoring.cases.files.retrieve(\n  '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n  { case_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },\n);\n\nconsole.log(caseFile.token);",
+      },
+      python: {
+        method: 'transaction_monitoring.cases.files.retrieve',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ncase_file = client.transaction_monitoring.cases.files.retrieve(\n    file_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    case_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(case_file.token)',
+      },
+      java: {
+        method: 'transactionMonitoring().cases().files().retrieve',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.CaseFile;\nimport com.lithic.api.models.TransactionMonitoringCaseFileRetrieveParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        TransactionMonitoringCaseFileRetrieveParams params = TransactionMonitoringCaseFileRetrieveParams.builder()\n            .caseToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n            .fileToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n            .build();\n        CaseFile caseFile = client.transactionMonitoring().cases().files().retrieve(params);\n    }\n}',
+      },
+      kotlin: {
+        method: 'transactionMonitoring().cases().files().retrieve',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CaseFile\nimport com.lithic.api.models.TransactionMonitoringCaseFileRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TransactionMonitoringCaseFileRetrieveParams = TransactionMonitoringCaseFileRetrieveParams.builder()\n        .caseToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .fileToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .build()\n    val caseFile: CaseFile = client.transactionMonitoring().cases().files().retrieve(params)\n}',
+      },
+      go: {
+        method: 'client.TransactionMonitoring.Cases.Files.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcaseFile, err := client.TransactionMonitoring.Cases.Files.Get(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", caseFile.Token)\n}\n',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.files.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncase_file = lithic.transaction_monitoring.cases.files.retrieve(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  case_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(case_file)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN/files/$FILE_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'delete',
+    endpoint: '/v1/transaction_monitoring/cases/{case_token}/files/{file_token}',
+    httpMethod: 'delete',
+    summary: 'Delete case file',
+    description: 'Deletes a file from a case.',
+    stainlessPath: '(resource) transaction_monitoring.cases.files > (method) delete',
+    qualified: 'client.transactionMonitoring.cases.files.delete',
+    params: ['case_token: string;', 'file_token: string;'],
+    markdown:
+      "## delete\n\n`client.transactionMonitoring.cases.files.delete(case_token: string, file_token: string): void`\n\n**delete** `/v1/transaction_monitoring/cases/{case_token}/files/{file_token}`\n\nDeletes a file from a case.\n\n### Parameters\n\n- `case_token: string`\n\n- `file_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.transactionMonitoring.cases.files.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { case_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' })\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.transactionMonitoring.cases.files.delete',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nawait client.transactionMonitoring.cases.files.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {\n  case_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n});",
+      },
+      python: {
+        method: 'transaction_monitoring.cases.files.delete',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.transaction_monitoring.cases.files.delete(\n    file_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    case_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)',
+      },
+      java: {
+        method: 'transactionMonitoring().cases().files().delete',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.TransactionMonitoringCaseFileDeleteParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        TransactionMonitoringCaseFileDeleteParams params = TransactionMonitoringCaseFileDeleteParams.builder()\n            .caseToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n            .fileToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n            .build();\n        client.transactionMonitoring().cases().files().delete(params);\n    }\n}',
+      },
+      kotlin: {
+        method: 'transactionMonitoring().cases().files().delete',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionMonitoringCaseFileDeleteParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TransactionMonitoringCaseFileDeleteParams = TransactionMonitoringCaseFileDeleteParams.builder()\n        .caseToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .fileToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .build()\n    client.transactionMonitoring().cases().files().delete(params)\n}',
+      },
+      go: {
+        method: 'client.TransactionMonitoring.Cases.Files.Delete',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.TransactionMonitoring.Cases.Files.Delete(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.files.delete',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.transaction_monitoring.cases.files.delete(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  case_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(result)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN/files/$FILE_TOKEN \\\n    -X DELETE \\\n    -H "Authorization: $LITHIC_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'create',
+    endpoint: '/v1/transaction_monitoring/queues',
+    httpMethod: 'post',
+    summary: 'Create queue',
+    description: 'Creates a new queue for grouping transaction monitoring cases.',
+    stainlessPath: '(resource) transaction_monitoring.queues > (method) create',
+    qualified: 'client.transactionMonitoring.queues.create',
+    params: ['name: string;', 'description?: string;'],
+    response:
+      '{ token: string; case_counts: { ASSIGNED?: number; CLOSED?: number; ESCALATED?: number; IN_REVIEW?: number; OPEN?: number; RESOLVED?: number; }; created: string; description: string; name: string; updated: string; }',
+    markdown:
+      "## create\n\n`client.transactionMonitoring.queues.create(name: string, description?: string): { token: string; case_counts: object; created: string; description: string; name: string; updated: string; }`\n\n**post** `/v1/transaction_monitoring/queues`\n\nCreates a new queue for grouping transaction monitoring cases.\n\n### Parameters\n\n- `name: string`\n  Human-readable name of the queue\n\n- `description?: string`\n  Optional description of the queue\n\n### Returns\n\n- `{ token: string; case_counts: { ASSIGNED?: number; CLOSED?: number; ESCALATED?: number; IN_REVIEW?: number; OPEN?: number; RESOLVED?: number; }; created: string; description: string; name: string; updated: string; }`\n  A queue that groups transaction monitoring cases for review\n\n  - `token: string`\n  - `case_counts: { ASSIGNED?: number; CLOSED?: number; ESCALATED?: number; IN_REVIEW?: number; OPEN?: number; RESOLVED?: number; }`\n  - `created: string`\n  - `description: string`\n  - `name: string`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst queue = await client.transactionMonitoring.queues.create({ name: 'name' });\n\nconsole.log(queue);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.transactionMonitoring.queues.create',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nconst queue = await client.transactionMonitoring.queues.create({ name: 'name' });\n\nconsole.log(queue.token);",
+      },
+      python: {
+        method: 'transaction_monitoring.queues.create',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nqueue = client.transaction_monitoring.queues.create(\n    name="name",\n)\nprint(queue.token)',
+      },
+      java: {
+        method: 'transactionMonitoring().queues().create',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.Queue;\nimport com.lithic.api.models.TransactionMonitoringQueueCreateParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        TransactionMonitoringQueueCreateParams params = TransactionMonitoringQueueCreateParams.builder()\n            .name("name")\n            .build();\n        Queue queue = client.transactionMonitoring().queues().create(params);\n    }\n}',
+      },
+      kotlin: {
+        method: 'transactionMonitoring().queues().create',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Queue\nimport com.lithic.api.models.TransactionMonitoringQueueCreateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TransactionMonitoringQueueCreateParams = TransactionMonitoringQueueCreateParams.builder()\n        .name("name")\n        .build()\n    val queue: Queue = client.transactionMonitoring().queues().create(params)\n}',
+      },
+      go: {
+        method: 'client.TransactionMonitoring.Queues.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tqueue, err := client.TransactionMonitoring.Queues.New(context.TODO(), lithic.TransactionMonitoringQueueNewParams{\n\t\tName: lithic.F("name"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", queue.Token)\n}\n',
+      },
+      ruby: {
+        method: 'transaction_monitoring.queues.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nqueue = lithic.transaction_monitoring.queues.create(name: "name")\n\nputs(queue)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/transaction_monitoring/queues \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "name": "name"\n        }\'',
+      },
+    },
+  },
+  {
+    name: 'list',
+    endpoint: '/v1/transaction_monitoring/queues',
+    httpMethod: 'get',
+    summary: 'List queues',
+    description: 'Lists transaction monitoring queues.',
+    stainlessPath: '(resource) transaction_monitoring.queues > (method) list',
+    qualified: 'client.transactionMonitoring.queues.list',
+    params: ['ending_before?: string;', 'page_size?: number;', 'starting_after?: string;'],
+    response:
+      '{ token: string; case_counts: { ASSIGNED?: number; CLOSED?: number; ESCALATED?: number; IN_REVIEW?: number; OPEN?: number; RESOLVED?: number; }; created: string; description: string; name: string; updated: string; }',
+    markdown:
+      "## list\n\n`client.transactionMonitoring.queues.list(ending_before?: string, page_size?: number, starting_after?: string): { token: string; case_counts: object; created: string; description: string; name: string; updated: string; }`\n\n**get** `/v1/transaction_monitoring/queues`\n\nLists transaction monitoring queues.\n\n### Parameters\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; case_counts: { ASSIGNED?: number; CLOSED?: number; ESCALATED?: number; IN_REVIEW?: number; OPEN?: number; RESOLVED?: number; }; created: string; description: string; name: string; updated: string; }`\n  A queue that groups transaction monitoring cases for review\n\n  - `token: string`\n  - `case_counts: { ASSIGNED?: number; CLOSED?: number; ESCALATED?: number; IN_REVIEW?: number; OPEN?: number; RESOLVED?: number; }`\n  - `created: string`\n  - `description: string`\n  - `name: string`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const queue of client.transactionMonitoring.queues.list()) {\n  console.log(queue);\n}\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.transactionMonitoring.queues.list',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const queue of client.transactionMonitoring.queues.list()) {\n  console.log(queue.token);\n}",
+      },
+      python: {
+        method: 'transaction_monitoring.queues.list',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.transaction_monitoring.queues.list()\npage = page.data[0]\nprint(page.token)',
+      },
+      java: {
+        method: 'transactionMonitoring().queues().list',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.TransactionMonitoringQueueListPage;\nimport com.lithic.api.models.TransactionMonitoringQueueListParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        TransactionMonitoringQueueListPage page = client.transactionMonitoring().queues().list();\n    }\n}',
+      },
+      kotlin: {
+        method: 'transactionMonitoring().queues().list',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionMonitoringQueueListPage\nimport com.lithic.api.models.TransactionMonitoringQueueListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: TransactionMonitoringQueueListPage = client.transactionMonitoring().queues().list()\n}',
+      },
+      go: {
+        method: 'client.TransactionMonitoring.Queues.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.TransactionMonitoring.Queues.List(context.TODO(), lithic.TransactionMonitoringQueueListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
+      ruby: {
+        method: 'transaction_monitoring.queues.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.transaction_monitoring.queues.list\n\nputs(page)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/transaction_monitoring/queues \\\n    -H "Authorization: $LITHIC_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'retrieve',
+    endpoint: '/v1/transaction_monitoring/queues/{queue_token}',
+    httpMethod: 'get',
+    summary: 'Get queue',
+    description: 'Retrieves a single transaction monitoring queue.',
+    stainlessPath: '(resource) transaction_monitoring.queues > (method) retrieve',
+    qualified: 'client.transactionMonitoring.queues.retrieve',
+    params: ['queue_token: string;'],
+    response:
+      '{ token: string; case_counts: { ASSIGNED?: number; CLOSED?: number; ESCALATED?: number; IN_REVIEW?: number; OPEN?: number; RESOLVED?: number; }; created: string; description: string; name: string; updated: string; }',
+    markdown:
+      "## retrieve\n\n`client.transactionMonitoring.queues.retrieve(queue_token: string): { token: string; case_counts: object; created: string; description: string; name: string; updated: string; }`\n\n**get** `/v1/transaction_monitoring/queues/{queue_token}`\n\nRetrieves a single transaction monitoring queue.\n\n### Parameters\n\n- `queue_token: string`\n\n### Returns\n\n- `{ token: string; case_counts: { ASSIGNED?: number; CLOSED?: number; ESCALATED?: number; IN_REVIEW?: number; OPEN?: number; RESOLVED?: number; }; created: string; description: string; name: string; updated: string; }`\n  A queue that groups transaction monitoring cases for review\n\n  - `token: string`\n  - `case_counts: { ASSIGNED?: number; CLOSED?: number; ESCALATED?: number; IN_REVIEW?: number; OPEN?: number; RESOLVED?: number; }`\n  - `created: string`\n  - `description: string`\n  - `name: string`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst queue = await client.transactionMonitoring.queues.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(queue);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.transactionMonitoring.queues.retrieve',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nconst queue = await client.transactionMonitoring.queues.retrieve(\n  '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n);\n\nconsole.log(queue.token);",
+      },
+      python: {
+        method: 'transaction_monitoring.queues.retrieve',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nqueue = client.transaction_monitoring.queues.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(queue.token)',
+      },
+      java: {
+        method: 'transactionMonitoring().queues().retrieve',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.Queue;\nimport com.lithic.api.models.TransactionMonitoringQueueRetrieveParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        Queue queue = client.transactionMonitoring().queues().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e");\n    }\n}',
+      },
+      kotlin: {
+        method: 'transactionMonitoring().queues().retrieve',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Queue\nimport com.lithic.api.models.TransactionMonitoringQueueRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val queue: Queue = client.transactionMonitoring().queues().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
+      },
+      go: {
+        method: 'client.TransactionMonitoring.Queues.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tqueue, err := client.TransactionMonitoring.Queues.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", queue.Token)\n}\n',
+      },
+      ruby: {
+        method: 'transaction_monitoring.queues.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nqueue = lithic.transaction_monitoring.queues.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(queue)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/transaction_monitoring/queues/$QUEUE_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'update',
+    endpoint: '/v1/transaction_monitoring/queues/{queue_token}',
+    httpMethod: 'patch',
+    summary: 'Update queue',
+    description: 'Updates a transaction monitoring queue.',
+    stainlessPath: '(resource) transaction_monitoring.queues > (method) update',
+    qualified: 'client.transactionMonitoring.queues.update',
+    params: ['queue_token: string;', 'description?: string;', 'name?: string;'],
+    response:
+      '{ token: string; case_counts: { ASSIGNED?: number; CLOSED?: number; ESCALATED?: number; IN_REVIEW?: number; OPEN?: number; RESOLVED?: number; }; created: string; description: string; name: string; updated: string; }',
+    markdown:
+      "## update\n\n`client.transactionMonitoring.queues.update(queue_token: string, description?: string, name?: string): { token: string; case_counts: object; created: string; description: string; name: string; updated: string; }`\n\n**patch** `/v1/transaction_monitoring/queues/{queue_token}`\n\nUpdates a transaction monitoring queue.\n\n### Parameters\n\n- `queue_token: string`\n\n- `description?: string`\n  New description for the queue, or `null` to clear it\n\n- `name?: string`\n  New name for the queue\n\n### Returns\n\n- `{ token: string; case_counts: { ASSIGNED?: number; CLOSED?: number; ESCALATED?: number; IN_REVIEW?: number; OPEN?: number; RESOLVED?: number; }; created: string; description: string; name: string; updated: string; }`\n  A queue that groups transaction monitoring cases for review\n\n  - `token: string`\n  - `case_counts: { ASSIGNED?: number; CLOSED?: number; ESCALATED?: number; IN_REVIEW?: number; OPEN?: number; RESOLVED?: number; }`\n  - `created: string`\n  - `description: string`\n  - `name: string`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst queue = await client.transactionMonitoring.queues.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(queue);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.transactionMonitoring.queues.update',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nconst queue = await client.transactionMonitoring.queues.update(\n  '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n);\n\nconsole.log(queue.token);",
+      },
+      python: {
+        method: 'transaction_monitoring.queues.update',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nqueue = client.transaction_monitoring.queues.update(\n    queue_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(queue.token)',
+      },
+      java: {
+        method: 'transactionMonitoring().queues().update',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.Queue;\nimport com.lithic.api.models.TransactionMonitoringQueueUpdateParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        Queue queue = client.transactionMonitoring().queues().update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e");\n    }\n}',
+      },
+      kotlin: {
+        method: 'transactionMonitoring().queues().update',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Queue\nimport com.lithic.api.models.TransactionMonitoringQueueUpdateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val queue: Queue = client.transactionMonitoring().queues().update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
+      },
+      go: {
+        method: 'client.TransactionMonitoring.Queues.Update',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tqueue, err := client.TransactionMonitoring.Queues.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringQueueUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", queue.Token)\n}\n',
+      },
+      ruby: {
+        method: 'transaction_monitoring.queues.update',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nqueue = lithic.transaction_monitoring.queues.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(queue)',
+      },
+      http: {
+        example:
+          "curl https://api.lithic.com/v1/transaction_monitoring/queues/$QUEUE_TOKEN \\\n    -X PATCH \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: $LITHIC_API_KEY\" \\\n    -d '{}'",
+      },
+    },
+  },
+  {
+    name: 'delete',
+    endpoint: '/v1/transaction_monitoring/queues/{queue_token}',
+    httpMethod: 'delete',
+    summary: 'Delete queue',
+    description: 'Deletes a transaction monitoring queue.',
+    stainlessPath: '(resource) transaction_monitoring.queues > (method) delete',
+    qualified: 'client.transactionMonitoring.queues.delete',
+    params: ['queue_token: string;'],
+    markdown:
+      "## delete\n\n`client.transactionMonitoring.queues.delete(queue_token: string): void`\n\n**delete** `/v1/transaction_monitoring/queues/{queue_token}`\n\nDeletes a transaction monitoring queue.\n\n### Parameters\n\n- `queue_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.transactionMonitoring.queues.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.transactionMonitoring.queues.delete',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nawait client.transactionMonitoring.queues.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');",
+      },
+      python: {
+        method: 'transaction_monitoring.queues.delete',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.transaction_monitoring.queues.delete(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)',
+      },
+      java: {
+        method: 'transactionMonitoring().queues().delete',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.TransactionMonitoringQueueDeleteParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        client.transactionMonitoring().queues().delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e");\n    }\n}',
+      },
+      kotlin: {
+        method: 'transactionMonitoring().queues().delete',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionMonitoringQueueDeleteParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    client.transactionMonitoring().queues().delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
+      },
+      go: {
+        method: 'client.TransactionMonitoring.Queues.Delete',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.TransactionMonitoring.Queues.Delete(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
+      ruby: {
+        method: 'transaction_monitoring.queues.delete',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.transaction_monitoring.queues.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(result)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/transaction_monitoring/queues/$QUEUE_TOKEN \\\n    -X DELETE \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
     },
   },
