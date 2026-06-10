@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as AccountHoldersAPI from './account-holders';
+import * as CasesAPI from '../transaction-monitoring/cases/cases';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -126,7 +127,7 @@ export interface AccountHolderEntity {
   /**
    * The type of entity
    */
-  type: 'BENEFICIAL_OWNER_INDIVIDUAL' | 'CONTROL_PERSON';
+  type: CasesAPI.EntityType;
 }
 
 export namespace AccountHolderEntity {
@@ -274,7 +275,7 @@ export interface EntityCreateParams {
   /**
    * The type of entity to create on the account holder
    */
-  type: 'BENEFICIAL_OWNER_INDIVIDUAL' | 'CONTROL_PERSON';
+  type: CasesAPI.EntityType;
 }
 
 export namespace EntityCreateParams {

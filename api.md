@@ -142,6 +142,71 @@ Methods:
 - <code title="post /v2/auth_rules/{auth_rule_token}/backtests">client.authRules.v2.backtests.<a href="./src/resources/auth-rules/v2/backtests.ts">create</a>(authRuleToken, { ...params }) -> BacktestCreateResponse</code>
 - <code title="get /v2/auth_rules/{auth_rule_token}/backtests/{auth_rule_backtest_token}">client.authRules.v2.backtests.<a href="./src/resources/auth-rules/v2/backtests.ts">retrieve</a>(authRuleBacktestToken, { ...params }) -> BacktestResults</code>
 
+# TransactionMonitoring
+
+## Cases
+
+Types:
+
+- <code><a href="./src/resources/transaction-monitoring/cases/cases.ts">CaseActivityEntry</a></code>
+- <code><a href="./src/resources/transaction-monitoring/cases/cases.ts">CaseActivityType</a></code>
+- <code><a href="./src/resources/transaction-monitoring/cases/cases.ts">CaseCard</a></code>
+- <code><a href="./src/resources/transaction-monitoring/cases/cases.ts">CaseEntity</a></code>
+- <code><a href="./src/resources/transaction-monitoring/cases/cases.ts">CasePriority</a></code>
+- <code><a href="./src/resources/transaction-monitoring/cases/cases.ts">CaseSortOrder</a></code>
+- <code><a href="./src/resources/transaction-monitoring/cases/cases.ts">CaseStatus</a></code>
+- <code><a href="./src/resources/transaction-monitoring/cases/cases.ts">CaseTransaction</a></code>
+- <code><a href="./src/resources/transaction-monitoring/cases/cases.ts">EntityType</a></code>
+- <code><a href="./src/resources/transaction-monitoring/cases/cases.ts">MonitoringCase</a></code>
+- <code><a href="./src/resources/transaction-monitoring/cases/cases.ts">ResolutionOutcome</a></code>
+- <code><a href="./src/resources/transaction-monitoring/cases/cases.ts">CaseRetrieveCardsResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/transaction_monitoring/cases/{case_token}">client.transactionMonitoring.cases.<a href="./src/resources/transaction-monitoring/cases/cases.ts">retrieve</a>(caseToken) -> MonitoringCase</code>
+- <code title="patch /v1/transaction_monitoring/cases/{case_token}">client.transactionMonitoring.cases.<a href="./src/resources/transaction-monitoring/cases/cases.ts">update</a>(caseToken, { ...params }) -> MonitoringCase</code>
+- <code title="get /v1/transaction_monitoring/cases">client.transactionMonitoring.cases.<a href="./src/resources/transaction-monitoring/cases/cases.ts">list</a>({ ...params }) -> MonitoringCasesCursorPage</code>
+- <code title="get /v1/transaction_monitoring/cases/{case_token}/activity">client.transactionMonitoring.cases.<a href="./src/resources/transaction-monitoring/cases/cases.ts">listActivity</a>(caseToken, { ...params }) -> CaseActivityEntriesCursorPage</code>
+- <code title="get /v1/transaction_monitoring/cases/{case_token}/transactions">client.transactionMonitoring.cases.<a href="./src/resources/transaction-monitoring/cases/cases.ts">listTransactions</a>(caseToken, { ...params }) -> CaseTransactionsCursorPage</code>
+- <code title="get /v1/transaction_monitoring/cases/{case_token}/cards">client.transactionMonitoring.cases.<a href="./src/resources/transaction-monitoring/cases/cases.ts">retrieveCards</a>(caseToken) -> CaseRetrieveCardsResponse</code>
+
+### Comments
+
+Methods:
+
+- <code title="post /v1/transaction_monitoring/cases/{case_token}/comments">client.transactionMonitoring.cases.comments.<a href="./src/resources/transaction-monitoring/cases/comments.ts">create</a>(caseToken, { ...params }) -> CaseActivityEntry</code>
+- <code title="patch /v1/transaction_monitoring/cases/{case_token}/comments/{comment_token}">client.transactionMonitoring.cases.comments.<a href="./src/resources/transaction-monitoring/cases/comments.ts">update</a>(commentToken, { ...params }) -> CaseActivityEntry</code>
+- <code title="delete /v1/transaction_monitoring/cases/{case_token}/comments/{comment_token}">client.transactionMonitoring.cases.comments.<a href="./src/resources/transaction-monitoring/cases/comments.ts">delete</a>(commentToken, { ...params }) -> void</code>
+
+### Files
+
+Types:
+
+- <code><a href="./src/resources/transaction-monitoring/cases/files.ts">CaseFile</a></code>
+- <code><a href="./src/resources/transaction-monitoring/cases/files.ts">FileStatus</a></code>
+- <code><a href="./src/resources/transaction-monitoring/cases/files.ts">UploadConstraints</a></code>
+
+Methods:
+
+- <code title="post /v1/transaction_monitoring/cases/{case_token}/files">client.transactionMonitoring.cases.files.<a href="./src/resources/transaction-monitoring/cases/files.ts">create</a>(caseToken, { ...params }) -> CaseFile</code>
+- <code title="get /v1/transaction_monitoring/cases/{case_token}/files/{file_token}">client.transactionMonitoring.cases.files.<a href="./src/resources/transaction-monitoring/cases/files.ts">retrieve</a>(fileToken, { ...params }) -> CaseFile</code>
+- <code title="get /v1/transaction_monitoring/cases/{case_token}/files">client.transactionMonitoring.cases.files.<a href="./src/resources/transaction-monitoring/cases/files.ts">list</a>(caseToken, { ...params }) -> CaseFilesCursorPage</code>
+- <code title="delete /v1/transaction_monitoring/cases/{case_token}/files/{file_token}">client.transactionMonitoring.cases.files.<a href="./src/resources/transaction-monitoring/cases/files.ts">delete</a>(fileToken, { ...params }) -> void</code>
+
+## Queues
+
+Types:
+
+- <code><a href="./src/resources/transaction-monitoring/queues.ts">Queue</a></code>
+
+Methods:
+
+- <code title="post /v1/transaction_monitoring/queues">client.transactionMonitoring.queues.<a href="./src/resources/transaction-monitoring/queues.ts">create</a>({ ...params }) -> Queue</code>
+- <code title="get /v1/transaction_monitoring/queues/{queue_token}">client.transactionMonitoring.queues.<a href="./src/resources/transaction-monitoring/queues.ts">retrieve</a>(queueToken) -> Queue</code>
+- <code title="patch /v1/transaction_monitoring/queues/{queue_token}">client.transactionMonitoring.queues.<a href="./src/resources/transaction-monitoring/queues.ts">update</a>(queueToken, { ...params }) -> Queue</code>
+- <code title="get /v1/transaction_monitoring/queues">client.transactionMonitoring.queues.<a href="./src/resources/transaction-monitoring/queues.ts">list</a>({ ...params }) -> QueuesCursorPage</code>
+- <code title="delete /v1/transaction_monitoring/queues/{queue_token}">client.transactionMonitoring.queues.<a href="./src/resources/transaction-monitoring/queues.ts">delete</a>(queueToken) -> void</code>
+
 # AuthStreamEnrollment
 
 Types:

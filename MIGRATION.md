@@ -57,6 +57,10 @@ This affects the following methods:
 - `client.accountHolders.retrieveDocument()`
 - `client.accountHolders.entities.delete()`
 - `client.authRules.v2.backtests.retrieve()`
+- `client.transactionMonitoring.cases.comments.update()`
+- `client.transactionMonitoring.cases.comments.delete()`
+- `client.transactionMonitoring.cases.files.retrieve()`
+- `client.transactionMonitoring.cases.files.delete()`
 - `client.cards.financialTransactions.retrieve()`
 - `client.disputes.deleteEvidence()`
 - `client.disputes.retrieveEvidence()`
@@ -105,6 +109,11 @@ client.example.list(undefined, { headers: { ... } });
 - `client.authRules.v2.list()`
 - `client.authRules.v2.listResults()`
 - `client.authRules.v2.retrieveFeatures()`
+- `client.transactionMonitoring.cases.list()`
+- `client.transactionMonitoring.cases.listActivity()`
+- `client.transactionMonitoring.cases.listTransactions()`
+- `client.transactionMonitoring.cases.files.list()`
+- `client.transactionMonitoring.queues.list()`
 - `client.tokenizations.list()`
 - `client.tokenizations.resendActivationCode()`
 - `client.tokenizations.updateDigitalCardArt()`
