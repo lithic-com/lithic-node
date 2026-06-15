@@ -311,6 +311,12 @@ export interface Payment {
    */
   external_bank_account_token?: string | null;
 
+  /**
+   * Key-value pairs for tagging resources. Tags allow you to associate arbitrary
+   * metadata with a resource for your own purposes.
+   */
+  tags?: { [key: string]: string };
+
   type?:
     | 'ORIGINATION_CREDIT'
     | 'ORIGINATION_DEBIT'
