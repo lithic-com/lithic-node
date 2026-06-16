@@ -217,7 +217,8 @@ export interface AuthRule {
    *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, or CARD_TRANSACTION_UPDATE event
    *   stream.
    * - `TYPESCRIPT_CODE`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
-   *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
+   *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, or CARD_TRANSACTION_UPDATE event
+   *   stream.
    */
   type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE';
 
@@ -1975,10 +1976,13 @@ export namespace ReportStats {
  *   TOKENIZATION event stream rules.
  * - `ACH_RECEIPT`: The ACH receipt being evaluated. Only available for
  *   ACH_CREDIT_RECEIPT and ACH_DEBIT_RECEIPT event stream rules.
- * - `CARD`: The card associated with the event. Available for AUTHORIZATION and
- *   THREE_DS_AUTHENTICATION event stream rules.
+ * - `CARD_TRANSACTION`: The card transaction being evaluated. Only available for
+ *   CARD_TRANSACTION_UPDATE event stream rules.
+ * - `CARD`: The card associated with the event. Available for AUTHORIZATION,
+ *   THREE_DS_AUTHENTICATION, and CARD_TRANSACTION_UPDATE event stream rules.
  * - `ACCOUNT_HOLDER`: The account holder associated with the card. Available for
- *   AUTHORIZATION and THREE_DS_AUTHENTICATION event stream rules.
+ *   AUTHORIZATION, THREE_DS_AUTHENTICATION, and CARD_TRANSACTION_UPDATE event
+ *   stream rules.
  * - `IP_METADATA`: IP address metadata for the request. Available for
  *   THREE_DS_AUTHENTICATION event stream rules.
  * - `SPEND_VELOCITY`: Spend velocity data for the card or account. Requires
@@ -1986,14 +1990,15 @@ export namespace ReportStats {
  *   calculation. Available for AUTHORIZATION event stream rules.
  * - `TRANSACTION_HISTORY_SIGNALS`: Behavioral feature state derived from the
  *   entity's transaction history. Requires `scope` to specify whether to load
- *   card, account, or business account history. Available for AUTHORIZATION event
- *   stream rules.
+ *   card, account, or business account history. Available for AUTHORIZATION and
+ *   CARD_TRANSACTION_UPDATE event stream rules.
  */
 export type RuleFeature =
   | RuleFeature.AuthorizationFeature
   | RuleFeature.AuthenticationFeature
   | RuleFeature.TokenizationFeature
   | RuleFeature.ACHReceiptFeature
+  | RuleFeature.CardTransactionFeature
   | RuleFeature.CardFeature
   | RuleFeature.AccountHolderFeature
   | RuleFeature.IPMetadataFeature
@@ -2030,6 +2035,15 @@ export namespace RuleFeature {
 
   export interface ACHReceiptFeature {
     type: 'ACH_RECEIPT';
+
+    /**
+     * The variable name for this feature in the rule function signature
+     */
+    name?: string;
+  }
+
+  export interface CardTransactionFeature {
+    type: 'CARD_TRANSACTION';
 
     /**
      * The variable name for this feature in the rule function signature
@@ -2878,7 +2892,8 @@ export declare namespace V2CreateParams {
      *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, or CARD_TRANSACTION_UPDATE event
      *   stream.
      * - `TYPESCRIPT_CODE`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
-     *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
+     *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, or CARD_TRANSACTION_UPDATE event
+     *   stream.
      */
     type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE';
 
@@ -2938,7 +2953,8 @@ export declare namespace V2CreateParams {
      *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, or CARD_TRANSACTION_UPDATE event
      *   stream.
      * - `TYPESCRIPT_CODE`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
-     *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
+     *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, or CARD_TRANSACTION_UPDATE event
+     *   stream.
      */
     type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE';
 
@@ -2988,7 +3004,8 @@ export declare namespace V2CreateParams {
      *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, or CARD_TRANSACTION_UPDATE event
      *   stream.
      * - `TYPESCRIPT_CODE`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
-     *   ACH_CREDIT_RECEIPT, or ACH_DEBIT_RECEIPT event stream.
+     *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, or CARD_TRANSACTION_UPDATE event
+     *   stream.
      */
     type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE';
 
