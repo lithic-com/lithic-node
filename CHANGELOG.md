@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.141.0 (2026-06-16)
+
+Full Changelog: [v0.140.0...v0.141.0](https://github.com/lithic-com/lithic-node/compare/v0.140.0...v0.141.0)
+
+### Features
+
+* **api:** add CARD_TRANSACTION feature type to auth rules ([b0a0853](https://github.com/lithic-com/lithic-node/commit/b0a08535053d12a9ccfbdb087ca70877e180aee8))
+* **api:** add condition attributes and parameters to auth rules v2 ([7723499](https://github.com/lithic-com/lithic-node/commit/7723499e44b8191fa1b0b1738baac2b474e8e9c4))
+* **api:** Add created field and make completed_at nullable in latest_challenge ([a346991](https://github.com/lithic-com/lithic-node/commit/a346991c4221e91a0ca9745c8d16af4ed4c5cbd4))
+* **api:** add day_of_period field to loan tapes response ([68b8a9d](https://github.com/lithic-com/lithic-node/commit/68b8a9d3d1d1cd18d8adeb50546a5e805e6c05b4))
+* **api:** add hold adjustment action option to auth_rules.v2 ([a5646fa](https://github.com/lithic-com/lithic-node/commit/a5646face60183e7d600d5004d0e202b69152d00))
+* **api:** add name_validation field to card authorizations ([648f48a](https://github.com/lithic-com/lithic-node/commit/648f48aedafe4f636947ec86e70b5d1ab0e37426))
+* **api:** add route method to transactions ([543639a](https://github.com/lithic-com/lithic-node/commit/543639ac51ca316a0c2d5f23331dbbea1153aa82))
+* **api:** add tags field to payment responses ([527bd29](https://github.com/lithic-com/lithic-node/commit/527bd292b5baf8f564ba84abf27d40dd4227a937))
+* **api:** add transactionMonitoring resource with cases/queues/comments/files endpoints ([a156e4d](https://github.com/lithic-com/lithic-node/commit/a156e4d97d05084c8eefbb31da50a17a4e119bef))
+
+
+### Bug Fixes
+
+* **client:** send content-type header for requests with an omitted optional body ([7d5d03d](https://github.com/lithic-com/lithic-node/commit/7d5d03d08f8d686740cdda7888a14efcadc4f565))
+* **mcp:** use `pure-lockfile` when building mcp server ([52fcdae](https://github.com/lithic-com/lithic-node/commit/52fcdae2df3264e79c2a9550630f2cca1f3c563b))
+
+
+### Documentation
+
+* **api:** update support contact from email to URL ([6d084ee](https://github.com/lithic-com/lithic-node/commit/6d084ee96a3684fcb9bb70d08a5574193fa906ce))
+
 ## 0.140.0 (2026-05-26)
 
 Full Changelog: [v0.139.0...v0.140.0](https://github.com/lithic-com/lithic-node/compare/v0.139.0...v0.140.0)
