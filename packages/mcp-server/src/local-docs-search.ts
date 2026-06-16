@@ -7594,6 +7594,55 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     },
   },
   {
+    name: 'route',
+    endpoint: '/v1/transactions/{transaction_token}/route',
+    httpMethod: 'post',
+    summary: 'Route a transaction',
+    description:
+      'Route a card transaction to a financial account. Only available for select use cases and programs.',
+    stainlessPath: '(resource) transactions > (method) route',
+    qualified: 'client.transactions.route',
+    params: ['transaction_token: string;', 'financial_account_token: string;'],
+    markdown:
+      "## route\n\n`client.transactions.route(transaction_token: string, financial_account_token: string): void`\n\n**post** `/v1/transactions/{transaction_token}/route`\n\nRoute a card transaction to a financial account. Only available for select use cases and programs.\n\n### Parameters\n\n- `transaction_token: string`\n\n- `financial_account_token: string`\n  The token of the financial account to route the transaction to.\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.transactions.route('00000000-0000-0000-0000-000000000000', { financial_account_token: '00000000-0000-0000-0000-000000000000' })\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.transactions.route',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nawait client.transactions.route('00000000-0000-0000-0000-000000000000', {\n  financial_account_token: '00000000-0000-0000-0000-000000000000',\n});",
+      },
+      python: {
+        method: 'transactions.route',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.transactions.route(\n    transaction_token="00000000-0000-0000-0000-000000000000",\n    financial_account_token="00000000-0000-0000-0000-000000000000",\n)',
+      },
+      java: {
+        method: 'transactions().route',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.TransactionRouteParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        TransactionRouteParams params = TransactionRouteParams.builder()\n            .transactionToken("00000000-0000-0000-0000-000000000000")\n            .financialAccountToken("00000000-0000-0000-0000-000000000000")\n            .build();\n        client.transactions().route(params);\n    }\n}',
+      },
+      kotlin: {
+        method: 'transactions().route',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionRouteParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TransactionRouteParams = TransactionRouteParams.builder()\n        .transactionToken("00000000-0000-0000-0000-000000000000")\n        .financialAccountToken("00000000-0000-0000-0000-000000000000")\n        .build()\n    client.transactions().route(params)\n}',
+      },
+      go: {
+        method: 'client.Transactions.Route',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Transactions.Route(\n\t\tcontext.TODO(),\n\t\t"00000000-0000-0000-0000-000000000000",\n\t\tlithic.TransactionRouteParams{\n\t\t\tFinancialAccountToken: lithic.F("00000000-0000-0000-0000-000000000000"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
+      ruby: {
+        method: 'transactions.route',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.transactions.route(\n  "00000000-0000-0000-0000-000000000000",\n  financial_account_token: "00000000-0000-0000-0000-000000000000"\n)\n\nputs(result)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/transactions/$TRANSACTION_TOKEN/route \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "financial_account_token": "00000000-0000-0000-0000-000000000000"\n        }\'',
+      },
+    },
+  },
+  {
     name: 'retrieve',
     endpoint: '/v1/transactions/{transaction_token}/enhanced_commercial_data',
     httpMethod: 'get',

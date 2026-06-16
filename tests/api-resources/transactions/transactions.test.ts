@@ -61,6 +61,25 @@ describe('resource transactions', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
+  test('route: only required params', async () => {
+    const responsePromise = client.transactions.route('00000000-0000-0000-0000-000000000000', {
+      financial_account_token: '00000000-0000-0000-0000-000000000000',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('route: required and optional params', async () => {
+    const response = await client.transactions.route('00000000-0000-0000-0000-000000000000', {
+      financial_account_token: '00000000-0000-0000-0000-000000000000',
+    });
+  });
+
   test('simulateAuthorization: only required params', async () => {
     const responsePromise = client.transactions.simulateAuthorization({
       amount: 3831,

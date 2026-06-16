@@ -822,6 +822,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/transactions/{transaction_token}/expire_authorization',
   },
   {
+    clientCallName: 'client.transactions.route',
+    fullyQualifiedName: 'transactions.route',
+    httpMethod: 'post',
+    httpPath: '/v1/transactions/{transaction_token}/route',
+  },
+  {
     clientCallName: 'client.transactions.simulateAuthorization',
     fullyQualifiedName: 'transactions.simulateAuthorization',
     httpMethod: 'post',

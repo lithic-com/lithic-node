@@ -243,6 +243,7 @@ const fuse = new Fuse(
     'client.transactions.expireAuthorization',
     'client.transactions.list',
     'client.transactions.retrieve',
+    'client.transactions.route',
     'client.transactions.simulateAuthorization',
     'client.transactions.simulateAuthorizationAdvice',
     'client.transactions.simulateClearing',
