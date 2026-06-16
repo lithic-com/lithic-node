@@ -65,6 +65,25 @@ export class Transactions extends APIResource {
   }
 
   /**
+   * Route a card transaction to a financial account. Only available for select use
+   * cases and programs.
+   *
+   * @example
+   * ```ts
+   * await client.transactions.route(
+   *   '00000000-0000-0000-0000-000000000000',
+   *   {
+   *     financial_account_token:
+   *       '00000000-0000-0000-0000-000000000000',
+   *   },
+   * );
+   * ```
+   */
+  route(transactionToken: string, body: TransactionRouteParams, options?: RequestOptions): APIPromise<void> {
+    return this._client.post(path`/v1/transactions/${transactionToken}/route`, { body, ...options });
+  }
+
+  /**
    * Simulates an authorization request from the card network as if it came from a
    * merchant acquirer. If you are configured for ASA, simulating authorizations
    * requires your ASA client to be set up properly, i.e. be able to respond to the
@@ -1291,6 +1310,13 @@ export interface TransactionListParams extends CursorPageParams {
   status?: 'PENDING' | 'VOIDED' | 'SETTLED' | 'DECLINED' | 'EXPIRED';
 }
 
+export interface TransactionRouteParams {
+  /**
+   * The token of the financial account to route the transaction to.
+   */
+  financial_account_token: string;
+}
+
 export interface TransactionSimulateAuthorizationParams {
   /**
    * Amount (in cents) to authorize. For credit authorizations and financial credit
@@ -1578,6 +1604,7 @@ export declare namespace Transactions {
     type TransactionSimulateVoidResponse as TransactionSimulateVoidResponse,
     type TransactionsCursorPage as TransactionsCursorPage,
     type TransactionListParams as TransactionListParams,
+    type TransactionRouteParams as TransactionRouteParams,
     type TransactionSimulateAuthorizationParams as TransactionSimulateAuthorizationParams,
     type TransactionSimulateAuthorizationAdviceParams as TransactionSimulateAuthorizationAdviceParams,
     type TransactionSimulateClearingParams as TransactionSimulateClearingParams,

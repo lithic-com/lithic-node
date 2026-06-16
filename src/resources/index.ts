@@ -281,6 +281,7 @@ export {
   type TransactionSimulateReturnReversalResponse,
   type TransactionSimulateVoidResponse,
   type TransactionListParams,
+  type TransactionRouteParams,
   type TransactionSimulateAuthorizationParams,
   type TransactionSimulateAuthorizationAdviceParams,
   type TransactionSimulateClearingParams,

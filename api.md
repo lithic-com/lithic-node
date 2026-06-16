@@ -537,6 +537,7 @@ Methods:
 - <code title="get /v1/transactions/{transaction_token}">client.transactions.<a href="./src/resources/transactions/transactions.ts">retrieve</a>(transactionToken) -> Transaction</code>
 - <code title="get /v1/transactions">client.transactions.<a href="./src/resources/transactions/transactions.ts">list</a>({ ...params }) -> TransactionsCursorPage</code>
 - <code title="post /v1/transactions/{transaction_token}/expire_authorization">client.transactions.<a href="./src/resources/transactions/transactions.ts">expireAuthorization</a>(transactionToken) -> void</code>
+- <code title="post /v1/transactions/{transaction_token}/route">client.transactions.<a href="./src/resources/transactions/transactions.ts">route</a>(transactionToken, { ...params }) -> void</code>
 - <code title="post /v1/simulate/authorize">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateAuthorization</a>({ ...params }) -> TransactionSimulateAuthorizationResponse</code>
 - <code title="post /v1/simulate/authorization_advice">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateAuthorizationAdvice</a>({ ...params }) -> TransactionSimulateAuthorizationAdviceResponse</code>
 - <code title="post /v1/simulate/clearing">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateClearing</a>({ ...params }) -> TransactionSimulateClearingResponse</code>
