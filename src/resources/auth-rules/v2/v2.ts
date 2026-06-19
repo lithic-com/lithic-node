@@ -152,6 +152,46 @@ export type AuthRulesCursorPage = CursorPage<AuthRule>;
 
 export type V2ListResultsResponsesCursorPage = CursorPage<V2ListResultsResponse>;
 
+export type ACHPaymentUpdateAction =
+  | ACHPaymentUpdateAction.TagAction
+  | ACHPaymentUpdateAction.CreateCaseAction;
+
+export namespace ACHPaymentUpdateAction {
+  export interface TagAction {
+    /**
+     * The key of the tag to apply to the payment
+     */
+    key: string;
+
+    /**
+     * Tag the payment with key-value metadata
+     */
+    type: 'TAG';
+
+    /**
+     * The value of the tag to apply to the payment
+     */
+    value: string;
+  }
+
+  export interface CreateCaseAction {
+    /**
+     * The token of the queue to create the case in
+     */
+    queue_token: string;
+
+    /**
+     * The scope of the case to create
+     */
+    scope: 'FINANCIAL_ACCOUNT';
+
+    /**
+     * Create a case for the payment
+     */
+    type: 'CREATE_CASE';
+  }
+}
+
 export interface AuthRule {
   /**
    * Auth Rule Token
@@ -214,11 +254,11 @@ export interface AuthRule {
    * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
    * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
    * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
-   *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, or CARD_TRANSACTION_UPDATE event
-   *   stream.
+   *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, CARD_TRANSACTION_UPDATE, or
+   *   ACH_PAYMENT_UPDATE event stream.
    * - `TYPESCRIPT_CODE`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
-   *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, or CARD_TRANSACTION_UPDATE event
-   *   stream.
+   *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, CARD_TRANSACTION_UPDATE, or
+   *   ACH_PAYMENT_UPDATE event stream.
    */
   type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE';
 
@@ -252,6 +292,7 @@ export namespace AuthRule {
       | V2API.ConditionalACHActionParameters
       | V2API.ConditionalTokenizationActionParameters
       | V2API.ConditionalCardTransactionUpdateActionParameters
+      | V2API.ConditionalACHPaymentUpdateActionParameters
       | V2API.TypescriptCodeParameters
       | V2API.ConditionalAuthorizationAdjustmentParameters;
 
@@ -281,6 +322,7 @@ export namespace AuthRule {
       | V2API.ConditionalACHActionParameters
       | V2API.ConditionalTokenizationActionParameters
       | V2API.ConditionalCardTransactionUpdateActionParameters
+      | V2API.ConditionalACHPaymentUpdateActionParameters
       | V2API.TypescriptCodeParameters
       | V2API.ConditionalAuthorizationAdjustmentParameters;
 
@@ -390,6 +432,7 @@ export interface AuthRuleVersion {
     | ConditionalACHActionParameters
     | ConditionalTokenizationActionParameters
     | ConditionalCardTransactionUpdateActionParameters
+    | ConditionalACHPaymentUpdateActionParameters
     | TypescriptCodeParameters
     | ConditionalAuthorizationAdjustmentParameters;
 
@@ -685,6 +728,67 @@ export namespace ConditionalACHActionParameters {
      * - `MEMO`: Optional memo or description field included with the ACH transaction.
      */
     attribute: 'COMPANY_NAME' | 'COMPANY_ID' | 'TIMESTAMP' | 'TRANSACTION_AMOUNT' | 'SEC_CODE' | 'MEMO';
+
+    /**
+     * The operation to apply to the attribute
+     */
+    operation: V2API.ConditionalOperation;
+
+    /**
+     * A regex string, to be used with `MATCHES` or `DOES_NOT_MATCH`
+     */
+    value: V2API.ConditionalValue;
+  }
+}
+
+export interface ConditionalACHPaymentUpdateActionParameters {
+  /**
+   * The action to take if the conditions are met.
+   */
+  action: ACHPaymentUpdateAction;
+
+  conditions: Array<ConditionalACHPaymentUpdateActionParameters.Condition>;
+}
+
+export namespace ConditionalACHPaymentUpdateActionParameters {
+  export interface Condition {
+    /**
+     * The attribute to target.
+     *
+     * The following attributes may be targeted:
+     *
+     * - `TRANSACTION_AMOUNT`: The total amount of the ACH payment in minor units
+     *   (cents), calculated as the sum of the settled and pending amounts. Use an
+     *   integer value.
+     * - `SEC_CODE`: Standard Entry Class code indicating the type of ACH transaction.
+     *   Valid values include PPD (Prearranged Payment and Deposit Entry), CCD
+     *   (Corporate Credit or Debit Entry), WEB (Internet-Initiated/Mobile Entry), TEL
+     *   (Telephone-Initiated Entry), and others.
+     * - `RETURN_REASON_CODE`: NACHA return reason code associated with the payment
+     *   (for example, `R01`).
+     * - `ACCOUNT_AGE`: The age of the account in seconds at the time of the payment.
+     *   Use an integer value. For programs where Lithic does not manage or retain
+     *   account holder data, this attribute does not evaluate.
+     * - `EXTERNAL_BANK_ACCOUNT_AGE`: The age of the external bank account in seconds
+     *   at the time of the payment. Use an integer value.
+     * - `EXTERNAL_BANK_ACCOUNT_VERIFICATION_METHOD`: The method used to verify the
+     *   external bank account. Valid values are `MANUAL`, `MICRO_DEPOSIT`, `PRENOTE`,
+     *   `EXTERNALLY_VERIFIED`, or `UNVERIFIED`.
+     * - `EXTERNAL_BANK_ACCOUNT_VERIFICATION_STATE`: The verification state of the
+     *   external bank account. Valid values are `PENDING`, `ENABLED`,
+     *   `FAILED_VERIFICATION`, or `INSUFFICIENT_FUNDS`.
+     * - `EXTERNAL_BANK_ACCOUNT_OWNER_TYPE`: The owner type of the external bank
+     *   account. Valid values are `INDIVIDUAL` or `BUSINESS`.
+     */
+    attribute:
+      | 'TRANSACTION_AMOUNT'
+      | 'SEC_CODE'
+      | 'RETURN_REASON_CODE'
+      | 'ACCOUNT_AGE'
+      | 'EXTERNAL_BANK_ACCOUNT_AGE'
+      | 'EXTERNAL_BANK_ACCOUNT_VERIFICATION_METHOD'
+      | 'EXTERNAL_BANK_ACCOUNT_VERIFICATION_STATE'
+      | 'EXTERNAL_BANK_ACCOUNT_OWNER_TYPE';
 
     /**
      * The operation to apply to the attribute
@@ -1648,7 +1752,8 @@ export type EventStream =
   | 'TOKENIZATION'
   | 'ACH_CREDIT_RECEIPT'
   | 'ACH_DEBIT_RECEIPT'
-  | 'CARD_TRANSACTION_UPDATE';
+  | 'CARD_TRANSACTION_UPDATE'
+  | 'ACH_PAYMENT_UPDATE';
 
 export interface MerchantLockParameters {
   /**
@@ -1978,11 +2083,13 @@ export namespace ReportStats {
  *   ACH_CREDIT_RECEIPT and ACH_DEBIT_RECEIPT event stream rules.
  * - `CARD_TRANSACTION`: The card transaction being evaluated. Only available for
  *   CARD_TRANSACTION_UPDATE event stream rules.
+ * - `ACH_PAYMENT`: The ACH payment being evaluated. Only available for
+ *   ACH_PAYMENT_UPDATE event stream rules.
  * - `CARD`: The card associated with the event. Available for AUTHORIZATION,
  *   THREE_DS_AUTHENTICATION, and CARD_TRANSACTION_UPDATE event stream rules.
- * - `ACCOUNT_HOLDER`: The account holder associated with the card. Available for
- *   AUTHORIZATION, THREE_DS_AUTHENTICATION, and CARD_TRANSACTION_UPDATE event
- *   stream rules.
+ * - `ACCOUNT_HOLDER`: The account holder associated with the event. Available for
+ *   AUTHORIZATION, THREE_DS_AUTHENTICATION, CARD_TRANSACTION_UPDATE, and
+ *   ACH_PAYMENT_UPDATE event stream rules.
  * - `IP_METADATA`: IP address metadata for the request. Available for
  *   THREE_DS_AUTHENTICATION event stream rules.
  * - `SPEND_VELOCITY`: Spend velocity data for the card or account. Requires
@@ -1999,6 +2106,7 @@ export type RuleFeature =
   | RuleFeature.TokenizationFeature
   | RuleFeature.ACHReceiptFeature
   | RuleFeature.CardTransactionFeature
+  | RuleFeature.ACHPaymentFeature
   | RuleFeature.CardFeature
   | RuleFeature.AccountHolderFeature
   | RuleFeature.IPMetadataFeature
@@ -2044,6 +2152,15 @@ export namespace RuleFeature {
 
   export interface CardTransactionFeature {
     type: 'CARD_TRANSACTION';
+
+    /**
+     * The variable name for this feature in the rule function signature
+     */
+    name?: string;
+  }
+
+  export interface ACHPaymentFeature {
+    type: 'ACH_PAYMENT';
 
     /**
      * The variable name for this feature in the rule function signature
@@ -2314,7 +2431,9 @@ export type V2ListResultsResponse =
   | V2ListResultsResponse.AuthorizationResult
   | V2ListResultsResponse.Authentication3DSResult
   | V2ListResultsResponse.TokenizationResult
-  | V2ListResultsResponse.ACHResult;
+  | V2ListResultsResponse.ACHResult
+  | V2ListResultsResponse.CardTransactionUpdateResult
+  | V2ListResultsResponse.ACHPaymentUpdateResult;
 
 export namespace V2ListResultsResponse {
   export interface AuthorizationResult {
@@ -2766,6 +2885,192 @@ export namespace V2ListResultsResponse {
       explanation?: string;
     }
   }
+
+  export interface CardTransactionUpdateResult {
+    /**
+     * Globally unique identifier for the evaluation
+     */
+    token: string;
+
+    /**
+     * Actions returned by the rule evaluation
+     */
+    actions: Array<CardTransactionUpdateResult.TagAction | CardTransactionUpdateResult.CreateCaseAction>;
+
+    /**
+     * The Auth Rule token
+     */
+    auth_rule_token: string;
+
+    /**
+     * Timestamp of the rule evaluation
+     */
+    evaluation_time: string;
+
+    /**
+     * The event stream during which the rule was evaluated
+     */
+    event_stream: 'CARD_TRANSACTION_UPDATE';
+
+    /**
+     * Token of the event that triggered the evaluation
+     */
+    event_token: string;
+
+    /**
+     * The state of the Auth Rule
+     */
+    mode: 'ACTIVE' | 'INACTIVE';
+
+    /**
+     * Version of the rule that was evaluated
+     */
+    rule_version: number;
+
+    /**
+     * The token of the transaction that triggered the rule evaluation
+     */
+    transaction_token: string | null;
+  }
+
+  export namespace CardTransactionUpdateResult {
+    export interface TagAction {
+      /**
+       * The key of the tag to apply to the transaction
+       */
+      key: string;
+
+      /**
+       * Tag the transaction with key-value metadata
+       */
+      type: 'TAG';
+
+      /**
+       * The value of the tag to apply to the transaction
+       */
+      value: string;
+
+      /**
+       * Optional explanation for why this action was taken
+       */
+      explanation?: string;
+    }
+
+    export interface CreateCaseAction {
+      /**
+       * The token of the queue to create the case in
+       */
+      queue_token: string;
+
+      /**
+       * The scope of the case to create
+       */
+      scope: 'CARD' | 'ACCOUNT';
+
+      /**
+       * Create a case for the transaction
+       */
+      type: 'CREATE_CASE';
+
+      /**
+       * Optional explanation for why this action was taken
+       */
+      explanation?: string;
+    }
+  }
+
+  export interface ACHPaymentUpdateResult {
+    /**
+     * Globally unique identifier for the evaluation
+     */
+    token: string;
+
+    /**
+     * Actions returned by the rule evaluation
+     */
+    actions: Array<ACHPaymentUpdateResult.TagAction | ACHPaymentUpdateResult.CreateCaseAction>;
+
+    /**
+     * The Auth Rule token
+     */
+    auth_rule_token: string;
+
+    /**
+     * Timestamp of the rule evaluation
+     */
+    evaluation_time: string;
+
+    /**
+     * The event stream during which the rule was evaluated
+     */
+    event_stream: 'ACH_PAYMENT_UPDATE';
+
+    /**
+     * Token of the event that triggered the evaluation
+     */
+    event_token: string;
+
+    /**
+     * The state of the Auth Rule
+     */
+    mode: 'ACTIVE' | 'INACTIVE';
+
+    /**
+     * Version of the rule that was evaluated
+     */
+    rule_version: number;
+
+    /**
+     * The token of the transaction that triggered the rule evaluation
+     */
+    transaction_token: string | null;
+  }
+
+  export namespace ACHPaymentUpdateResult {
+    export interface TagAction {
+      /**
+       * The key of the tag to apply to the payment
+       */
+      key: string;
+
+      /**
+       * Tag the payment with key-value metadata
+       */
+      type: 'TAG';
+
+      /**
+       * The value of the tag to apply to the payment
+       */
+      value: string;
+
+      /**
+       * Optional explanation for why this action was taken
+       */
+      explanation?: string;
+    }
+
+    export interface CreateCaseAction {
+      /**
+       * The token of the queue to create the case in
+       */
+      queue_token: string;
+
+      /**
+       * The scope of the case to create
+       */
+      scope: 'FINANCIAL_ACCOUNT';
+
+      /**
+       * Create a case for the payment
+       */
+      type: 'CREATE_CASE';
+
+      /**
+       * Optional explanation for why this action was taken
+       */
+      explanation?: string;
+    }
+  }
 }
 
 export interface V2ListVersionsResponse {
@@ -2875,6 +3180,7 @@ export declare namespace V2CreateParams {
       | ConditionalACHActionParameters
       | ConditionalTokenizationActionParameters
       | ConditionalCardTransactionUpdateActionParameters
+      | ConditionalACHPaymentUpdateActionParameters
       | TypescriptCodeParameters
       | ConditionalAuthorizationAdjustmentParameters;
 
@@ -2889,11 +3195,11 @@ export declare namespace V2CreateParams {
      * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
      * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
      * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
-     *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, or CARD_TRANSACTION_UPDATE event
-     *   stream.
+     *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, CARD_TRANSACTION_UPDATE, or
+     *   ACH_PAYMENT_UPDATE event stream.
      * - `TYPESCRIPT_CODE`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
-     *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, or CARD_TRANSACTION_UPDATE event
-     *   stream.
+     *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, CARD_TRANSACTION_UPDATE, or
+     *   ACH_PAYMENT_UPDATE event stream.
      */
     type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE';
 
@@ -2936,6 +3242,7 @@ export declare namespace V2CreateParams {
       | ConditionalACHActionParameters
       | ConditionalTokenizationActionParameters
       | ConditionalCardTransactionUpdateActionParameters
+      | ConditionalACHPaymentUpdateActionParameters
       | TypescriptCodeParameters
       | ConditionalAuthorizationAdjustmentParameters;
 
@@ -2950,11 +3257,11 @@ export declare namespace V2CreateParams {
      * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
      * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
      * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
-     *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, or CARD_TRANSACTION_UPDATE event
-     *   stream.
+     *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, CARD_TRANSACTION_UPDATE, or
+     *   ACH_PAYMENT_UPDATE event stream.
      * - `TYPESCRIPT_CODE`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
-     *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, or CARD_TRANSACTION_UPDATE event
-     *   stream.
+     *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, CARD_TRANSACTION_UPDATE, or
+     *   ACH_PAYMENT_UPDATE event stream.
      */
     type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE';
 
@@ -2982,6 +3289,7 @@ export declare namespace V2CreateParams {
       | ConditionalACHActionParameters
       | ConditionalTokenizationActionParameters
       | ConditionalCardTransactionUpdateActionParameters
+      | ConditionalACHPaymentUpdateActionParameters
       | TypescriptCodeParameters
       | ConditionalAuthorizationAdjustmentParameters;
 
@@ -3001,11 +3309,11 @@ export declare namespace V2CreateParams {
      * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
      * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
      * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
-     *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, or CARD_TRANSACTION_UPDATE event
-     *   stream.
+     *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, CARD_TRANSACTION_UPDATE, or
+     *   ACH_PAYMENT_UPDATE event stream.
      * - `TYPESCRIPT_CODE`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
-     *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, or CARD_TRANSACTION_UPDATE event
-     *   stream.
+     *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, CARD_TRANSACTION_UPDATE, or
+     *   ACH_PAYMENT_UPDATE event stream.
      */
     type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE';
 
@@ -3174,6 +3482,7 @@ export interface V2DraftParams {
     | ConditionalACHActionParameters
     | ConditionalTokenizationActionParameters
     | ConditionalCardTransactionUpdateActionParameters
+    | ConditionalACHPaymentUpdateActionParameters
     | TypescriptCodeParameters
     | ConditionalAuthorizationAdjustmentParameters
     | null;
@@ -3231,6 +3540,7 @@ V2.Backtests = Backtests;
 
 export declare namespace V2 {
   export {
+    type ACHPaymentUpdateAction as ACHPaymentUpdateAction,
     type AuthRule as AuthRule,
     type AuthRuleCondition as AuthRuleCondition,
     type AuthRuleVersion as AuthRuleVersion,
@@ -3238,6 +3548,7 @@ export declare namespace V2 {
     type CardTransactionUpdateAction as CardTransactionUpdateAction,
     type Conditional3DSActionParameters as Conditional3DSActionParameters,
     type ConditionalACHActionParameters as ConditionalACHActionParameters,
+    type ConditionalACHPaymentUpdateActionParameters as ConditionalACHPaymentUpdateActionParameters,
     type ConditionalAttribute as ConditionalAttribute,
     type ConditionalAuthorizationActionParameters as ConditionalAuthorizationActionParameters,
     type ConditionalAuthorizationAdjustmentParameters as ConditionalAuthorizationAdjustmentParameters,

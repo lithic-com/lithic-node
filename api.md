@@ -87,6 +87,7 @@ Types:
 
 Types:
 
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">ACHPaymentUpdateAction</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">AuthRule</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">AuthRuleCondition</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">AuthRuleVersion</a></code>
@@ -94,6 +95,7 @@ Types:
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">CardTransactionUpdateAction</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">Conditional3DSActionParameters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalACHActionParameters</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalACHPaymentUpdateActionParameters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalAttribute</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalAuthorizationActionParameters</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ConditionalAuthorizationAdjustmentParameters</a></code>

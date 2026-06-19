@@ -3,6 +3,7 @@
 export { AuthRules, type SignalsResponse } from './auth-rules';
 export {
   V2,
+  type ACHPaymentUpdateAction,
   type AuthRule,
   type AuthRuleCondition,
   type AuthRuleVersion,
@@ -10,6 +11,7 @@ export {
   type CardTransactionUpdateAction,
   type Conditional3DSActionParameters,
   type ConditionalACHActionParameters,
+  type ConditionalACHPaymentUpdateActionParameters,
   type ConditionalAttribute,
   type ConditionalAuthorizationActionParameters,
   type ConditionalAuthorizationAdjustmentParameters,
