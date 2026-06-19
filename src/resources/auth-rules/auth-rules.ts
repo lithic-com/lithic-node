@@ -3,6 +3,7 @@
 import { APIResource } from '../../core/resource';
 import * as V2API from './v2/v2';
 import {
+  ACHPaymentUpdateAction,
   AuthRule,
   AuthRuleCondition,
   AuthRuleVersion,
@@ -11,6 +12,7 @@ import {
   CardTransactionUpdateAction,
   Conditional3DSActionParameters,
   ConditionalACHActionParameters,
+  ConditionalACHPaymentUpdateActionParameters,
   ConditionalAttribute,
   ConditionalAuthorizationActionParameters,
   ConditionalAuthorizationAdjustmentParameters,
@@ -259,6 +261,7 @@ export declare namespace AuthRules {
 
   export {
     V2 as V2,
+    type ACHPaymentUpdateAction as ACHPaymentUpdateAction,
     type AuthRule as AuthRule,
     type AuthRuleCondition as AuthRuleCondition,
     type AuthRuleVersion as AuthRuleVersion,
@@ -266,6 +269,7 @@ export declare namespace AuthRules {
     type CardTransactionUpdateAction as CardTransactionUpdateAction,
     type Conditional3DSActionParameters as Conditional3DSActionParameters,
     type ConditionalACHActionParameters as ConditionalACHActionParameters,
+    type ConditionalACHPaymentUpdateActionParameters as ConditionalACHPaymentUpdateActionParameters,
     type ConditionalAttribute as ConditionalAttribute,
     type ConditionalAuthorizationActionParameters as ConditionalAuthorizationActionParameters,
     type ConditionalAuthorizationAdjustmentParameters as ConditionalAuthorizationAdjustmentParameters,
