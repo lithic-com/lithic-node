@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.142.0 (2026-06-22)
+
+Full Changelog: [v0.141.0...v0.142.0](https://github.com/lithic-com/lithic-node/compare/v0.141.0...v0.142.0)
+
+### Features
+
+* **api:** add ACH payment update support to auth_rules v2 ([de080ce](https://github.com/lithic-com/lithic-node/commit/de080ce7c0d196f5e338ed45241730a7a18606c1))
+* **api:** add ACH_EVENT_TYPE attribute to auth rules v2 conditional parameters ([6f32c28](https://github.com/lithic-com/lithic-node/commit/6f32c287533ea0238cd2564179f96b7eee218ab5))
+
 ## 0.141.0 (2026-06-16)
 
 Full Changelog: [v0.140.0...v0.141.0](https://github.com/lithic-com/lithic-node/compare/v0.140.0...v0.141.0)
