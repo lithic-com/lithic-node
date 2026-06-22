@@ -29,7 +29,7 @@ export const newMcpServer = async ({
   new McpServer(
     {
       name: 'lithic_api',
-      version: '0.141.0',
+      version: '0.142.0',
     },
     {
       instructions: await getInstructions({ stainlessApiKey, customInstructionsPath }),
