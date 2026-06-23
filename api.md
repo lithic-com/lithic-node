@@ -903,6 +903,11 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CardTransactionUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CardTransactionEnhancedDataCreatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CardTransactionEnhancedDataUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ClaimCreatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ClaimUpdatedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ClaimDocumentUploadedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ClaimDocumentAcceptedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ClaimDocumentRejectedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">DigitalWalletTokenizationApprovalRequestWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">DigitalWalletTokenizationResultWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">DigitalWalletTokenizationTwoFactorAuthenticationCodeWebhookEvent</a></code>
