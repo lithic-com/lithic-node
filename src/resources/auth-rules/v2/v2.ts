@@ -2093,6 +2093,8 @@ export namespace ReportStats {
  *   CARD_TRANSACTION_UPDATE event stream rules.
  * - `ACH_PAYMENT`: The ACH payment being evaluated. Only available for
  *   ACH_PAYMENT_UPDATE event stream rules.
+ * - `EXTERNAL_BANK_ACCOUNT`: The external bank account tied to the ACH payment
+ *   being evaluated. Only available for ACH_PAYMENT_UPDATE event stream rules.
  * - `CARD`: The card associated with the event. Available for AUTHORIZATION,
  *   THREE_DS_AUTHENTICATION, and CARD_TRANSACTION_UPDATE event stream rules.
  * - `ACCOUNT_HOLDER`: The account holder associated with the event. Available for
@@ -2102,7 +2104,17 @@ export namespace ReportStats {
  *   THREE_DS_AUTHENTICATION event stream rules.
  * - `SPEND_VELOCITY`: Spend velocity data for the card or account. Requires
  *   `scope`, `period`, and optionally `filters` to configure the velocity
- *   calculation. Available for AUTHORIZATION event stream rules.
+ *   calculation. Available for AUTHORIZATION and CARD_TRANSACTION_UPDATE event
+ *   stream rules.
+ * - `PAYMENT_VELOCITY`: ACH payment velocity data, aggregated over the given
+ *   scope. Requires `scope`, `period`, and optionally `filters` to configure the
+ *   velocity calculation. Available for ACH_PAYMENT_UPDATE event stream rules.
+ * - `CONSECUTIVE_DECLINES`: The number of consecutive declined transactions since
+ *   the last approval for the card or account. Requires `scope`. Available for
+ *   AUTHORIZATION and CARD_TRANSACTION_UPDATE event stream rules.
+ * - `ACH_PAYMENT_HISTORY`: Windowed settled-amount statistics derived from the
+ *   financial account's ACH payment history. Requires `scope`. Available for
+ *   ACH_PAYMENT_UPDATE event stream rules.
  * - `TRANSACTION_HISTORY_SIGNALS`: Behavioral feature state derived from the
  *   entity's transaction history. Requires `scope` to specify whether to load
  *   card, account, or business account history. Available for AUTHORIZATION and
@@ -2115,11 +2127,15 @@ export type RuleFeature =
   | RuleFeature.ACHReceiptFeature
   | RuleFeature.CardTransactionFeature
   | RuleFeature.ACHPaymentFeature
+  | RuleFeature.ExternalBankAccountFeature
   | RuleFeature.CardFeature
   | RuleFeature.AccountHolderFeature
   | RuleFeature.IPMetadataFeature
   | RuleFeature.SpendVelocityFeature
-  | RuleFeature.TransactionHistorySignalsFeature;
+  | RuleFeature.PaymentVelocityFeature
+  | RuleFeature.TransactionHistorySignalsFeature
+  | RuleFeature.ConsecutiveDeclinesFeature
+  | RuleFeature.ACHPaymentHistoryFeature;
 
 export namespace RuleFeature {
   export interface AuthorizationFeature {
@@ -2176,6 +2192,15 @@ export namespace RuleFeature {
     name?: string;
   }
 
+  export interface ExternalBankAccountFeature {
+    type: 'EXTERNAL_BANK_ACCOUNT';
+
+    /**
+     * The variable name for this feature in the rule function signature
+     */
+    name?: string;
+  }
+
   export interface CardFeature {
     type: 'CARD';
 
@@ -2224,6 +2249,71 @@ export namespace RuleFeature {
     name?: string;
   }
 
+  export interface PaymentVelocityFeature {
+    /**
+     * Velocity over the current day since 00:00 / 12 AM in Eastern Time
+     */
+    period: V2API.VelocityLimitPeriod;
+
+    /**
+     * The scope over which the ACH payment velocity is aggregated.
+     */
+    scope: 'FINANCIAL_ACCOUNT' | 'GLOBAL';
+
+    type: 'PAYMENT_VELOCITY';
+
+    /**
+     * Optional filters applied when aggregating ACH payment velocity. Payments not
+     * matching the provided filters are excluded from the calculated velocity.
+     */
+    filters?: PaymentVelocityFeature.Filters;
+
+    /**
+     * The variable name for this feature in the rule function signature
+     */
+    name?: string;
+  }
+
+  export namespace PaymentVelocityFeature {
+    /**
+     * Optional filters applied when aggregating ACH payment velocity. Payments not
+     * matching the provided filters are excluded from the calculated velocity.
+     */
+    export interface Filters {
+      /**
+       * Exclude payments matching any of the provided tag key-value pairs.
+       */
+      exclude_tags?: { [key: string]: string } | null;
+
+      /**
+       * Payment types to include in the velocity calculation.
+       */
+      include_payment_types?: Array<'ORIGINATION' | 'RECEIPT'> | null;
+
+      /**
+       * Payment polarities to include in the velocity calculation.
+       */
+      include_polarities?: Array<'CREDIT' | 'DEBIT'> | null;
+
+      /**
+       * Payment statuses to include in the velocity calculation.
+       */
+      include_statuses?: Array<
+        'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'
+      > | null;
+
+      /**
+       * Only include payments matching all of the provided tag key-value pairs.
+       */
+      include_tags?: { [key: string]: string } | null;
+
+      /**
+       * Only include payments with the given result.
+       */
+      result?: 'APPROVED' | 'DECLINED';
+    }
+  }
+
   export interface TransactionHistorySignalsFeature {
     /**
      * The entity scope to load transaction history signals for.
@@ -2231,6 +2321,34 @@ export namespace RuleFeature {
     scope: 'CARD' | 'ACCOUNT' | 'BUSINESS_ACCOUNT';
 
     type: 'TRANSACTION_HISTORY_SIGNALS';
+
+    /**
+     * The variable name for this feature in the rule function signature
+     */
+    name?: string;
+  }
+
+  export interface ConsecutiveDeclinesFeature {
+    /**
+     * The entity scope to count consecutive declines for.
+     */
+    scope: 'CARD' | 'ACCOUNT';
+
+    type: 'CONSECUTIVE_DECLINES';
+
+    /**
+     * The variable name for this feature in the rule function signature
+     */
+    name?: string;
+  }
+
+  export interface ACHPaymentHistoryFeature {
+    /**
+     * The entity scope to load ACH payment history for.
+     */
+    scope: 'FINANCIAL_ACCOUNT';
+
+    type: 'ACH_PAYMENT_HISTORY';
 
     /**
      * The variable name for this feature in the rule function signature
