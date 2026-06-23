@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.143.0 (2026-06-23)
+
+Full Changelog: [v0.142.0...v0.143.0](https://github.com/lithic-com/lithic-node/compare/v0.142.0...v0.143.0)
+
+### Features
+
+* **api:** add claim and claim_document webhook events ([0fa2723](https://github.com/lithic-com/lithic-node/commit/0fa2723a5ee4fe9dece58a2b43bb65a6b6b04958))
+* **api:** add external bank/payment velocity/decline history features to auth_rules.v2 ([36a5b96](https://github.com/lithic-com/lithic-node/commit/36a5b96edf49100892ca36d6dc3931eba1c99603))
+
 ## 0.142.0 (2026-06-22)
 
 Full Changelog: [v0.141.0...v0.142.0](https://github.com/lithic-com/lithic-node/compare/v0.141.0...v0.142.0)
