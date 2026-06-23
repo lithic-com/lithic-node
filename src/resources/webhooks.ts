@@ -950,6 +950,469 @@ export interface CardTransactionEnhancedDataUpdatedWebhookEvent
   event_type: 'card_transaction.enhanced_data.updated';
 }
 
+export interface ClaimCreatedWebhookEvent {
+  /**
+   * Unique identifier for the claim, in UUID format
+   */
+  token: string;
+
+  /**
+   * Token for the account holder that filed the claim
+   */
+  account_holder_token: string | null;
+
+  /**
+   * Token for the account associated with the claim
+   */
+  account_token: string | null;
+
+  /**
+   * Tokens for the cards associated with the disputed transactions
+   */
+  card_tokens: Array<string>;
+
+  /**
+   * When the claim was created
+   */
+  created: string;
+
+  /**
+   * Transactions included in this claim
+   */
+  disputed_transactions: Array<ClaimCreatedWebhookEvent.DisputedTransaction>;
+
+  /**
+   * The type of event that occurred.
+   */
+  event_type: 'claim.created';
+
+  /**
+   * Requirements that must be fulfilled before the claim can be submitted
+   */
+  outstanding_requirements: Array<'QUESTIONNAIRE' | 'DOCUMENTS'>;
+
+  /**
+   * Dispute reason code provided when creating the claim
+   */
+  reason:
+    | 'CARD_NOT_PRESENT'
+    | 'CARD_LOST'
+    | 'CARD_STOLEN'
+    | 'CARD_NEVER_RECEIVED'
+    | 'COUNTERFEIT'
+    | 'ACCOUNT_TAKEOVER'
+    | 'PRODUCT_NOT_RECEIVED'
+    | 'NOT_AS_DESCRIBED'
+    | 'CREDIT_NOT_PROCESSED'
+    | 'CANCELLED_RECURRING'
+    | 'PAID_BY_OTHER_MEANS'
+    | 'DUPLICATE_CHARGE'
+    | 'LATE_PRESENTMENT'
+    | 'INCORRECT_TRANSACTION_CODE'
+    | 'NO_AUTHORIZATION'
+    | 'DECLINED'
+    | 'INCORRECT_AMOUNT'
+    | 'ATM_CASH_NOT_DISPENSED'
+    | 'ATM_DEPOSIT_WRONG_AMOUNT'
+    | 'ATM_DEPOSIT_MISSING';
+
+  /**
+   * Current lifecycle status of the claim
+   */
+  status: 'INITIALIZING' | 'AWAITING_INFO' | 'SUBMITTED' | 'RESOLVED' | 'ABANDONED';
+
+  /**
+   * When the claim was submitted. Null until the claim reaches `SUBMITTED` status
+   */
+  submitted: string | null;
+
+  /**
+   * When the claim was last updated
+   */
+  updated: string;
+}
+
+export namespace ClaimCreatedWebhookEvent {
+  /**
+   * A transaction included in a claim, along with the specific events being
+   * disputed.
+   */
+  export interface DisputedTransaction {
+    /**
+     * Tokens for the specific events within the transaction being disputed. Lithic
+     * creates one dispute per event token
+     */
+    event_tokens: Array<string>;
+
+    /**
+     * Token for the transaction being disputed, in UUID format
+     */
+    transaction_token: string;
+  }
+}
+
+export interface ClaimUpdatedWebhookEvent {
+  /**
+   * Unique identifier for the claim, in UUID format
+   */
+  token: string;
+
+  /**
+   * Token for the account holder that filed the claim
+   */
+  account_holder_token: string | null;
+
+  /**
+   * Token for the account associated with the claim
+   */
+  account_token: string | null;
+
+  /**
+   * Tokens for the cards associated with the disputed transactions
+   */
+  card_tokens: Array<string>;
+
+  /**
+   * When the claim was created
+   */
+  created: string;
+
+  /**
+   * Transactions included in this claim
+   */
+  disputed_transactions: Array<ClaimUpdatedWebhookEvent.DisputedTransaction>;
+
+  /**
+   * The type of event that occurred.
+   */
+  event_type: 'claim.updated';
+
+  /**
+   * Requirements that must be fulfilled before the claim can be submitted
+   */
+  outstanding_requirements: Array<'QUESTIONNAIRE' | 'DOCUMENTS'>;
+
+  /**
+   * Dispute reason code provided when creating the claim
+   */
+  reason:
+    | 'CARD_NOT_PRESENT'
+    | 'CARD_LOST'
+    | 'CARD_STOLEN'
+    | 'CARD_NEVER_RECEIVED'
+    | 'COUNTERFEIT'
+    | 'ACCOUNT_TAKEOVER'
+    | 'PRODUCT_NOT_RECEIVED'
+    | 'NOT_AS_DESCRIBED'
+    | 'CREDIT_NOT_PROCESSED'
+    | 'CANCELLED_RECURRING'
+    | 'PAID_BY_OTHER_MEANS'
+    | 'DUPLICATE_CHARGE'
+    | 'LATE_PRESENTMENT'
+    | 'INCORRECT_TRANSACTION_CODE'
+    | 'NO_AUTHORIZATION'
+    | 'DECLINED'
+    | 'INCORRECT_AMOUNT'
+    | 'ATM_CASH_NOT_DISPENSED'
+    | 'ATM_DEPOSIT_WRONG_AMOUNT'
+    | 'ATM_DEPOSIT_MISSING';
+
+  /**
+   * Current lifecycle status of the claim
+   */
+  status: 'INITIALIZING' | 'AWAITING_INFO' | 'SUBMITTED' | 'RESOLVED' | 'ABANDONED';
+
+  /**
+   * When the claim was submitted. Null until the claim reaches `SUBMITTED` status
+   */
+  submitted: string | null;
+
+  /**
+   * When the claim was last updated
+   */
+  updated: string;
+}
+
+export namespace ClaimUpdatedWebhookEvent {
+  /**
+   * A transaction included in a claim, along with the specific events being
+   * disputed.
+   */
+  export interface DisputedTransaction {
+    /**
+     * Tokens for the specific events within the transaction being disputed. Lithic
+     * creates one dispute per event token
+     */
+    event_tokens: Array<string>;
+
+    /**
+     * Token for the transaction being disputed, in UUID format
+     */
+    transaction_token: string;
+  }
+}
+
+export interface ClaimDocumentUploadedWebhookEvent {
+  /**
+   * Unique identifier for the document, in UUID format
+   */
+  token: string;
+
+  /**
+   * When the document was created
+   */
+  created: string;
+
+  /**
+   * Presigned URL for downloading the uploaded document. Available once the document
+   * is being validated or has been accepted (`VALIDATING` or `ACCEPTED`)
+   */
+  download_url: string | null;
+
+  /**
+   * When the download URL expires
+   */
+  download_url_expires_at: string | null;
+
+  /**
+   * The type of event that occurred.
+   */
+  event_type: 'claim_document.uploaded';
+
+  /**
+   * Reason the document failed validation. Null unless `status` is `REJECTED`
+   */
+  failure_reason: 'INVALID_MIME_TYPE' | 'FILE_TOO_LARGE' | 'FILE_EMPTY' | 'CORRUPT_FILE' | 'OTHER' | null;
+
+  /**
+   * Name provided when the upload intent was created
+   */
+  name: string;
+
+  /**
+   * Identifier of the document requirement this document satisfies. Null for
+   * supplemental documents not tied to a specific requirement
+   */
+  requirement_id: string | null;
+
+  /**
+   * Current validation status of the document
+   */
+  status: 'PENDING' | 'VALIDATING' | 'ACCEPTED' | 'REJECTED';
+
+  /**
+   * When the document was last updated
+   */
+  updated: string;
+
+  /**
+   * Constraints that an uploaded file must satisfy.
+   */
+  upload_constraints: ClaimDocumentUploadedWebhookEvent.UploadConstraints | null;
+
+  /**
+   * Presigned URL for uploading the file via HTTP PUT. Null after the upload window
+   * expires or after the document has been validated
+   */
+  upload_url: string | null;
+
+  /**
+   * When the upload URL expires
+   */
+  upload_url_expires_at: string | null;
+}
+
+export namespace ClaimDocumentUploadedWebhookEvent {
+  /**
+   * Constraints that an uploaded file must satisfy.
+   */
+  export interface UploadConstraints {
+    /**
+     * MIME types accepted for upload
+     */
+    accepted_mime_types: Array<string>;
+
+    /**
+     * Maximum file size in bytes. Null if there is no enforced size limit
+     */
+    max_size_bytes: number | null;
+  }
+}
+
+export interface ClaimDocumentAcceptedWebhookEvent {
+  /**
+   * Unique identifier for the document, in UUID format
+   */
+  token: string;
+
+  /**
+   * When the document was created
+   */
+  created: string;
+
+  /**
+   * Presigned URL for downloading the uploaded document. Available once the document
+   * is being validated or has been accepted (`VALIDATING` or `ACCEPTED`)
+   */
+  download_url: string | null;
+
+  /**
+   * When the download URL expires
+   */
+  download_url_expires_at: string | null;
+
+  /**
+   * The type of event that occurred.
+   */
+  event_type: 'claim_document.accepted';
+
+  /**
+   * Reason the document failed validation. Null unless `status` is `REJECTED`
+   */
+  failure_reason: 'INVALID_MIME_TYPE' | 'FILE_TOO_LARGE' | 'FILE_EMPTY' | 'CORRUPT_FILE' | 'OTHER' | null;
+
+  /**
+   * Name provided when the upload intent was created
+   */
+  name: string;
+
+  /**
+   * Identifier of the document requirement this document satisfies. Null for
+   * supplemental documents not tied to a specific requirement
+   */
+  requirement_id: string | null;
+
+  /**
+   * Current validation status of the document
+   */
+  status: 'PENDING' | 'VALIDATING' | 'ACCEPTED' | 'REJECTED';
+
+  /**
+   * When the document was last updated
+   */
+  updated: string;
+
+  /**
+   * Constraints that an uploaded file must satisfy.
+   */
+  upload_constraints: ClaimDocumentAcceptedWebhookEvent.UploadConstraints | null;
+
+  /**
+   * Presigned URL for uploading the file via HTTP PUT. Null after the upload window
+   * expires or after the document has been validated
+   */
+  upload_url: string | null;
+
+  /**
+   * When the upload URL expires
+   */
+  upload_url_expires_at: string | null;
+}
+
+export namespace ClaimDocumentAcceptedWebhookEvent {
+  /**
+   * Constraints that an uploaded file must satisfy.
+   */
+  export interface UploadConstraints {
+    /**
+     * MIME types accepted for upload
+     */
+    accepted_mime_types: Array<string>;
+
+    /**
+     * Maximum file size in bytes. Null if there is no enforced size limit
+     */
+    max_size_bytes: number | null;
+  }
+}
+
+export interface ClaimDocumentRejectedWebhookEvent {
+  /**
+   * Unique identifier for the document, in UUID format
+   */
+  token: string;
+
+  /**
+   * When the document was created
+   */
+  created: string;
+
+  /**
+   * Presigned URL for downloading the uploaded document. Available once the document
+   * is being validated or has been accepted (`VALIDATING` or `ACCEPTED`)
+   */
+  download_url: string | null;
+
+  /**
+   * When the download URL expires
+   */
+  download_url_expires_at: string | null;
+
+  /**
+   * The type of event that occurred.
+   */
+  event_type: 'claim_document.rejected';
+
+  /**
+   * Reason the document failed validation. Null unless `status` is `REJECTED`
+   */
+  failure_reason: 'INVALID_MIME_TYPE' | 'FILE_TOO_LARGE' | 'FILE_EMPTY' | 'CORRUPT_FILE' | 'OTHER' | null;
+
+  /**
+   * Name provided when the upload intent was created
+   */
+  name: string;
+
+  /**
+   * Identifier of the document requirement this document satisfies. Null for
+   * supplemental documents not tied to a specific requirement
+   */
+  requirement_id: string | null;
+
+  /**
+   * Current validation status of the document
+   */
+  status: 'PENDING' | 'VALIDATING' | 'ACCEPTED' | 'REJECTED';
+
+  /**
+   * When the document was last updated
+   */
+  updated: string;
+
+  /**
+   * Constraints that an uploaded file must satisfy.
+   */
+  upload_constraints: ClaimDocumentRejectedWebhookEvent.UploadConstraints | null;
+
+  /**
+   * Presigned URL for uploading the file via HTTP PUT. Null after the upload window
+   * expires or after the document has been validated
+   */
+  upload_url: string | null;
+
+  /**
+   * When the upload URL expires
+   */
+  upload_url_expires_at: string | null;
+}
+
+export namespace ClaimDocumentRejectedWebhookEvent {
+  /**
+   * Constraints that an uploaded file must satisfy.
+   */
+  export interface UploadConstraints {
+    /**
+     * MIME types accepted for upload
+     */
+    accepted_mime_types: Array<string>;
+
+    /**
+     * Maximum file size in bytes. Null if there is no enforced size limit
+     */
+    max_size_bytes: number | null;
+  }
+}
+
 /**
  * Payload for digital wallet tokenization approval requests. Used for both the
  * decisioning responder request (sent to the customer's endpoint for a real-time
@@ -1881,6 +2344,11 @@ export type ParsedWebhookEvent =
   | CardTransactionUpdatedWebhookEvent
   | CardTransactionEnhancedDataCreatedWebhookEvent
   | CardTransactionEnhancedDataUpdatedWebhookEvent
+  | ClaimCreatedWebhookEvent
+  | ClaimUpdatedWebhookEvent
+  | ClaimDocumentUploadedWebhookEvent
+  | ClaimDocumentAcceptedWebhookEvent
+  | ClaimDocumentRejectedWebhookEvent
   | DigitalWalletTokenizationApprovalRequestWebhookEvent
   | DigitalWalletTokenizationResultWebhookEvent
   | DigitalWalletTokenizationTwoFactorAuthenticationCodeWebhookEvent
@@ -2362,6 +2830,11 @@ export declare namespace Webhooks {
     type CardTransactionUpdatedWebhookEvent as CardTransactionUpdatedWebhookEvent,
     type CardTransactionEnhancedDataCreatedWebhookEvent as CardTransactionEnhancedDataCreatedWebhookEvent,
     type CardTransactionEnhancedDataUpdatedWebhookEvent as CardTransactionEnhancedDataUpdatedWebhookEvent,
+    type ClaimCreatedWebhookEvent as ClaimCreatedWebhookEvent,
+    type ClaimUpdatedWebhookEvent as ClaimUpdatedWebhookEvent,
+    type ClaimDocumentUploadedWebhookEvent as ClaimDocumentUploadedWebhookEvent,
+    type ClaimDocumentAcceptedWebhookEvent as ClaimDocumentAcceptedWebhookEvent,
+    type ClaimDocumentRejectedWebhookEvent as ClaimDocumentRejectedWebhookEvent,
     type DigitalWalletTokenizationApprovalRequestWebhookEvent as DigitalWalletTokenizationApprovalRequestWebhookEvent,
     type DigitalWalletTokenizationResultWebhookEvent as DigitalWalletTokenizationResultWebhookEvent,
     type DigitalWalletTokenizationTwoFactorAuthenticationCodeWebhookEvent as DigitalWalletTokenizationTwoFactorAuthenticationCodeWebhookEvent,
