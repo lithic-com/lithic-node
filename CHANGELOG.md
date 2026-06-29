@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.144.0 (2026-06-29)
+
+Full Changelog: [v0.143.0...v0.144.0](https://github.com/lithic-com/lithic-node/compare/v0.143.0...v0.144.0)
+
+### Features
+
+* **api:** add category discriminator and payment fields to case transactions ([c9a95d6](https://github.com/lithic-com/lithic-node/commit/c9a95d61c333d322c161adec65b150ba2e642f2c))
+
+
+### Documentation
+
+* **api:** update cash_amount field description in card authorizations ([44ba106](https://github.com/lithic-com/lithic-node/commit/44ba1065817708a268b35164b90b83b5d577a223))
+
 ## 0.143.0 (2026-06-23)
 
 Full Changelog: [v0.142.0...v0.143.0](https://github.com/lithic-com/lithic-node/compare/v0.142.0...v0.143.0)
