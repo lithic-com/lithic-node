@@ -241,33 +241,75 @@ export type CaseSortOrder =
 export type CaseStatus = 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED';
 
 /**
- * A single transaction associated with a case
+ * A single transaction associated with a case. The `category` field identifies
+ * whether this is a card transaction or a payment transaction.
  */
-export interface CaseTransaction {
+export type CaseTransaction = CaseTransaction.CardCaseTransaction | CaseTransaction.PaymentCaseTransaction;
+
+export namespace CaseTransaction {
   /**
-   * Globally unique identifier for the transaction
+   * A card transaction associated with a case
    */
-  token: string;
+  export interface CardCaseTransaction {
+    /**
+     * Globally unique identifier for the card transaction
+     */
+    token: string;
+
+    /**
+     * Token of the account the transaction belongs to
+     */
+    account_token: string;
+
+    /**
+     * Date and time at which the transaction was added to the case
+     */
+    added_at: string;
+
+    /**
+     * Token of the card the transaction was made on
+     */
+    card_token: string;
+
+    category: 'CARD';
+
+    /**
+     * Date and time at which the transaction was created
+     */
+    transaction_created_at: string;
+  }
 
   /**
-   * Token of the account the transaction belongs to
+   * A payment (ACH) transaction associated with a case
    */
-  account_token: string;
+  export interface PaymentCaseTransaction {
+    /**
+     * Globally unique identifier for the payment transaction
+     */
+    token: string;
 
-  /**
-   * Date and time at which the transaction was added to the case
-   */
-  added_at: string;
+    /**
+     * Date and time at which the transaction was added to the case
+     */
+    added_at: string;
 
-  /**
-   * Token of the card the transaction was made on
-   */
-  card_token: string;
+    category: 'PAYMENT';
 
-  /**
-   * Date and time at which the transaction was created
-   */
-  transaction_created_at: string;
+    /**
+     * Token of the financial account the payment belongs to
+     */
+    financial_account_token: string;
+
+    /**
+     * Date and time at which the transaction was created
+     */
+    transaction_created_at: string;
+
+    /**
+     * Token of the account the payment belongs to, if applicable
+     */
+    account_token?: string;
+  }
 }
 
 /**
