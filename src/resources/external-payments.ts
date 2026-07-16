@@ -234,7 +234,7 @@ export interface ExternalPaymentListParams extends CursorPageParams {
   business_account_token?: string;
 
   /**
-   * External Payment category to be returned.
+   * The external rail the funds moved on
    */
   category?:
     | 'EXTERNAL_WIRE'
