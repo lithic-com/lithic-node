@@ -333,6 +333,8 @@ export {
   type DigitalWalletTokenizationUpdatedWebhookEvent,
   type DisputeUpdatedWebhookEvent,
   type DisputeEvidenceUploadFailedWebhookEvent,
+  type EmbedSessionGeneratedWebhookEvent,
+  type EmbedViewedWebhookEvent,
   type ExternalBankAccountCreatedWebhookEvent,
   type ExternalBankAccountUpdatedWebhookEvent,
   type ExternalPaymentCreatedWebhookEvent,

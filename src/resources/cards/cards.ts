@@ -151,6 +151,9 @@ export class Cards extends APIResource {
   }
 
   /**
+   * **Deprecated.** Use the modern embedded card flow instead: create a session with
+   * `POST /v1/cards/{card_token}/embed` and render it via `GET /v1/embed`.
+   *
    * Handling full card PANs and CVV codes requires that you comply with the Payment
    * Card Industry Data Security Standards (PCI DSS). Some clients choose to reduce
    * their compliance obligations by leveraging our embedded card UI solution
@@ -179,13 +182,7 @@ export class Cards extends APIResource {
    * but **do not ever embed your API key into front end code, as doing so introduces
    * a serious security vulnerability**.
    *
-   * @example
-   * ```ts
-   * const response = await client.cards.embed({
-   *   embed_request: 'embed_request',
-   *   hmac: 'hmac',
-   * });
-   * ```
+   * @deprecated
    */
   embed(query: CardEmbedParams, options?: RequestOptions): APIPromise<string> {
     return this._client.get('/v1/embed/card', {
