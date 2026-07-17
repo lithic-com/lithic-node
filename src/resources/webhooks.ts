@@ -1765,6 +1765,94 @@ export interface DisputeEvidenceUploadFailedWebhookEvent extends DisputesAPI.Dis
   event_type: 'dispute_evidence.upload_failed';
 }
 
+export interface EmbedSessionGeneratedWebhookEvent {
+  /**
+   * The token of the account associated with the card
+   */
+  account_token: string;
+
+  /**
+   * The token of the card associated with the embed session
+   */
+  card_token: string;
+
+  /**
+   * Details about the request that generated the embed session
+   */
+  device_details: EmbedSessionGeneratedWebhookEvent.DeviceDetails;
+
+  /**
+   * The type of event
+   */
+  event_type: 'embed.session_generated';
+
+  /**
+   * The identifier shared by webhook events for the same embed session.
+   */
+  session_id: string;
+
+  /**
+   * The type of embed session that was generated
+   */
+  session_type: 'CARD_EMBED' | 'PIN_SETTING_EMBED';
+}
+
+export namespace EmbedSessionGeneratedWebhookEvent {
+  /**
+   * Details about the request that generated the embed session
+   */
+  export interface DeviceDetails {
+    /**
+     * The IP address recorded for the request that generated the event
+     */
+    ip_address: string;
+  }
+}
+
+export interface EmbedViewedWebhookEvent {
+  /**
+   * The token of the account associated with the card
+   */
+  account_token: string;
+
+  /**
+   * The token of the card whose details were revealed
+   */
+  card_token: string;
+
+  /**
+   * Details about the request that revealed the card detail
+   */
+  device_details: EmbedViewedWebhookEvent.DeviceDetails;
+
+  /**
+   * The type of card detail that was revealed
+   */
+  embed_type: 'PAN' | 'CVV' | 'EXP_MONTH' | 'EXP_YEAR';
+
+  /**
+   * The type of event
+   */
+  event_type: 'embed.viewed';
+
+  /**
+   * The identifier shared by webhook events for the same embed session.
+   */
+  session_id: string;
+}
+
+export namespace EmbedViewedWebhookEvent {
+  /**
+   * Details about the request that revealed the card detail
+   */
+  export interface DeviceDetails {
+    /**
+     * The IP address recorded for the request that generated the event
+     */
+    ip_address: string;
+  }
+}
+
 export interface ExternalBankAccountCreatedWebhookEvent extends ExternalBankAccountsAPI.ExternalBankAccount {
   /**
    * The type of event that occurred.
@@ -2356,6 +2444,8 @@ export type ParsedWebhookEvent =
   | DigitalWalletTokenizationUpdatedWebhookEvent
   | DisputeUpdatedWebhookEvent
   | DisputeEvidenceUploadFailedWebhookEvent
+  | EmbedSessionGeneratedWebhookEvent
+  | EmbedViewedWebhookEvent
   | ExternalBankAccountCreatedWebhookEvent
   | ExternalBankAccountUpdatedWebhookEvent
   | ExternalPaymentCreatedWebhookEvent
@@ -2842,6 +2932,8 @@ export declare namespace Webhooks {
     type DigitalWalletTokenizationUpdatedWebhookEvent as DigitalWalletTokenizationUpdatedWebhookEvent,
     type DisputeUpdatedWebhookEvent as DisputeUpdatedWebhookEvent,
     type DisputeEvidenceUploadFailedWebhookEvent as DisputeEvidenceUploadFailedWebhookEvent,
+    type EmbedSessionGeneratedWebhookEvent as EmbedSessionGeneratedWebhookEvent,
+    type EmbedViewedWebhookEvent as EmbedViewedWebhookEvent,
     type ExternalBankAccountCreatedWebhookEvent as ExternalBankAccountCreatedWebhookEvent,
     type ExternalBankAccountUpdatedWebhookEvent as ExternalBankAccountUpdatedWebhookEvent,
     type ExternalPaymentCreatedWebhookEvent as ExternalPaymentCreatedWebhookEvent,
