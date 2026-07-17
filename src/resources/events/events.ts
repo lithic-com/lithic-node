@@ -163,6 +163,10 @@ export interface Event {
    * This event is not emitted for Managed Disputes. Use
    * `dispute_transaction.created` and `dispute_transaction.updated` instead.
    *
+   * - embed.session_generated: Occurs when a card embed session is successfully
+   *   generated.
+   * - embed.viewed: Occurs when a card detail is successfully revealed through an
+   *   embed.
    * - external_bank_account.created: Occurs when an external bank account is
    *   created.
    * - external_bank_account.updated: Occurs when an external bank account is
@@ -239,6 +243,8 @@ export interface Event {
     | 'dispute_transaction.created'
     | 'dispute_transaction.updated'
     | 'dispute.updated'
+    | 'embed.session_generated'
+    | 'embed.viewed'
     | 'external_bank_account.created'
     | 'external_bank_account.updated'
     | 'external_payment.created'
@@ -324,6 +330,8 @@ export interface EventSubscription {
     | 'dispute_transaction.created'
     | 'dispute_transaction.updated'
     | 'dispute.updated'
+    | 'embed.session_generated'
+    | 'embed.viewed'
     | 'external_bank_account.created'
     | 'external_bank_account.updated'
     | 'external_payment.created'
@@ -447,6 +455,8 @@ export interface EventListParams extends CursorPageParams {
     | 'dispute_transaction.created'
     | 'dispute_transaction.updated'
     | 'dispute.updated'
+    | 'embed.session_generated'
+    | 'embed.viewed'
     | 'external_bank_account.created'
     | 'external_bank_account.updated'
     | 'external_payment.created'

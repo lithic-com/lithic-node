@@ -902,6 +902,8 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">DigitalWalletTokenizationUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">DisputeUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">DisputeEvidenceUploadFailedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">EmbedSessionGeneratedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">EmbedViewedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ExternalBankAccountCreatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ExternalBankAccountUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ExternalPaymentCreatedWebhookEvent</a></code>
