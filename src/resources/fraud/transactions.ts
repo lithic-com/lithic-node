@@ -71,12 +71,12 @@ export interface TransactionRetrieveResponse {
   /**
    * Provides additional context or details about the fraud report.
    */
-  comment?: string;
+  comment?: string | null;
 
   /**
    * Timestamp representing when the fraud report was created.
    */
-  created_at?: string;
+  created_at?: string | null;
 
   /**
    * Specifies the type or category of fraud that the transaction is suspected or
@@ -106,12 +106,13 @@ export interface TransactionRetrieveResponse {
     | 'ACCOUNT_TAKEOVER'
     | 'CARD_COMPROMISED'
     | 'IDENTITY_THEFT'
-    | 'CARDHOLDER_MANIPULATION';
+    | 'CARDHOLDER_MANIPULATION'
+    | null;
 
   /**
    * Timestamp representing the last update to the fraud report.
    */
-  updated_at?: string;
+  updated_at?: string | null;
 }
 
 export interface TransactionReportResponse {
@@ -142,12 +143,12 @@ export interface TransactionReportResponse {
   /**
    * Provides additional context or details about the fraud report.
    */
-  comment?: string;
+  comment?: string | null;
 
   /**
    * Timestamp representing when the fraud report was created.
    */
-  created_at?: string;
+  created_at?: string | null;
 
   /**
    * Specifies the type or category of fraud that the transaction is suspected or
@@ -177,12 +178,13 @@ export interface TransactionReportResponse {
     | 'ACCOUNT_TAKEOVER'
     | 'CARD_COMPROMISED'
     | 'IDENTITY_THEFT'
-    | 'CARDHOLDER_MANIPULATION';
+    | 'CARDHOLDER_MANIPULATION'
+    | null;
 
   /**
    * Timestamp representing the last update to the fraud report.
    */
-  updated_at?: string;
+  updated_at?: string | null;
 }
 
 export interface TransactionReportParams {
