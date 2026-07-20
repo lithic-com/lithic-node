@@ -193,7 +193,7 @@ export interface Event {
    *   event. Upon receiving this request, the Card Program should issue its own
    *   challenge to the cardholder. After a cardholder challenge is successfully
    *   completed, the Card Program needs to respond back to Lithic by call to
-   *   [/v1/three_ds_decisioning/challenge_response](https://docs.lithic.com/reference/post_v1-three-ds-decisioning-challenge-response).
+   *   [/v1/three_ds_decisioning/challenge_response](https://docs.lithic.com/reference/postthreedschallengeresponse).
    *   Then the cardholder must navigate back to the merchant checkout flow to
    *   complete the transaction. Some merchants will include an `app_requestor_url`
    *   for app-based purchases; Lithic recommends triggering a redirect to that URL

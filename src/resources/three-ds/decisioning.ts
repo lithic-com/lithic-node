@@ -8,7 +8,7 @@ export class Decisioning extends APIResource {
   /**
    * Card program's response to a 3DS Challenge Request. Challenge Request is emitted
    * as a webhook
-   * [three_ds_authentication.challenge](https://docs.lithic.com/reference/post_three-ds-authentication-challenge)
+   * [three_ds_authentication.challenge](https://docs.lithic.com/reference/threedsauthenticationchallengewebhook)
    * and your Card Program needs to be configured with Out of Band (OOB) Challenges
    * in order to receive it (see https://docs.lithic.com/docs/3ds-challenge-flow for
    * more information).
