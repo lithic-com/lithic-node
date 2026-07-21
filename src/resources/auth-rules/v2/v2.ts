@@ -2484,7 +2484,7 @@ export namespace VelocityLimitPeriod {
   export interface TrailingWindowObject {
     /**
      * The size of the trailing window to calculate Spend Velocity over in seconds. The
-     * minimum value is 10 seconds, and the maximum value is 2678400 seconds (31 days).
+     * minimum value is 10 seconds, and the maximum value is 7776000 seconds (90 days).
      */
     duration: number;
 
