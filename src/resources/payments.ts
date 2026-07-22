@@ -724,7 +724,7 @@ export interface PaymentListParams extends CursorPageParams {
 
   result?: 'APPROVED' | 'DECLINED';
 
-  status?: 'DECLINED' | 'PENDING' | 'RETURNED' | 'SETTLED';
+  status?: 'DECLINED' | 'PENDING' | 'RETURNED' | 'REVERSED' | 'SETTLED';
 }
 
 export interface PaymentReturnParams {
