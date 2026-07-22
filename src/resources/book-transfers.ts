@@ -79,6 +79,7 @@ export interface BookTransferResponse {
     | 'INTERNAL'
     | 'REWARD'
     | 'PROGRAM_FUNDING'
+    | 'PROGRAM_TRANSFER'
     | 'TRANSFER';
 
   /**
@@ -235,7 +236,9 @@ export namespace BookTransferResponse {
       | 'DISPUTE_WON'
       | 'SERVICE'
       | 'TRANSFER'
-      | 'COLLECTION';
+      | 'COLLECTION'
+      | 'LITHIC_PROGRAM_TRANSFER'
+      | 'BANK_PROGRAM_TRANSFER';
   }
 
   /**
@@ -266,6 +269,7 @@ export interface BookTransferCreateParams {
     | 'INTERNAL'
     | 'REWARD'
     | 'PROGRAM_FUNDING'
+    | 'PROGRAM_TRANSFER'
     | 'TRANSFER';
 
   /**
@@ -324,7 +328,9 @@ export interface BookTransferCreateParams {
     | 'DISPUTE_WON'
     | 'SERVICE'
     | 'TRANSFER'
-    | 'COLLECTION';
+    | 'COLLECTION'
+    | 'LITHIC_PROGRAM_TRANSFER'
+    | 'BANK_PROGRAM_TRANSFER';
 
   /**
    * Customer-provided token that will serve as an idempotency token. This token will
@@ -376,6 +382,7 @@ export interface BookTransferListParams extends CursorPageParams {
     | 'INTERNAL'
     | 'REWARD'
     | 'PROGRAM_FUNDING'
+    | 'PROGRAM_TRANSFER'
     | 'TRANSFER';
 
   /**

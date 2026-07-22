@@ -114,7 +114,8 @@ export namespace AccountActivityListResponse {
       | 'MANAGEMENT_REWARD'
       | 'MANAGEMENT_DISBURSEMENT'
       | 'HOLD'
-      | 'PROGRAM_FUNDING';
+      | 'PROGRAM_FUNDING'
+      | 'PROGRAM_TRANSFER';
 
     /**
      * ISO 8601 timestamp of when the transaction was created
@@ -255,7 +256,8 @@ export namespace AccountActivityRetrieveTransactionResponse {
       | 'MANAGEMENT_REWARD'
       | 'MANAGEMENT_DISBURSEMENT'
       | 'HOLD'
-      | 'PROGRAM_FUNDING';
+      | 'PROGRAM_FUNDING'
+      | 'PROGRAM_TRANSFER';
 
     /**
      * ISO 8601 timestamp of when the transaction was created
@@ -386,7 +388,8 @@ export interface AccountActivityListParams extends CursorPageParams {
     | 'MANAGEMENT_REWARD'
     | 'MANAGEMENT_DISBURSEMENT'
     | 'HOLD'
-    | 'PROGRAM_FUNDING';
+    | 'PROGRAM_FUNDING'
+    | 'PROGRAM_TRANSFER';
 
   /**
    * Date string in RFC 3339 format. Only entries created before the specified time
