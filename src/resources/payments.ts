@@ -497,6 +497,11 @@ export namespace Payment {
     receipt_routing_number?: string | null;
 
     /**
+     * Name of the recipient on ACH receipts. Reflects the originating bank's record
+     */
+    recipient_name?: string | null;
+
+    /**
      * Number of retries attempted
      */
     retries?: number | null;
