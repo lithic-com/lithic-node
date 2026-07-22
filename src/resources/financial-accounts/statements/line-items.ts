@@ -86,7 +86,8 @@ export namespace StatementLineItems {
       | 'MANAGEMENT_REWARD'
       | 'MANAGEMENT_DISBURSEMENT'
       | 'HOLD'
-      | 'PROGRAM_FUNDING';
+      | 'PROGRAM_FUNDING'
+      | 'PROGRAM_TRANSFER';
 
     /**
      * Timestamp of when the line item was generated
@@ -186,6 +187,8 @@ export namespace StatementLineItems {
       | 'RETURNED_PAYMENT'
       | 'RETURNED_PAYMENT_REVERSAL'
       | 'LITHIC_NETWORK_PAYMENT'
+      | 'LITHIC_PROGRAM_TRANSFER'
+      | 'BANK_PROGRAM_TRANSFER'
       | 'ANNUAL'
       | 'ANNUAL_REVERSAL'
       | 'QUARTERLY'

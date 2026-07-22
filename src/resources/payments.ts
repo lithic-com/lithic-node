@@ -219,7 +219,8 @@ export interface Payment {
     | 'MANAGEMENT_REWARD'
     | 'MANAGEMENT_DISBURSEMENT'
     | 'HOLD'
-    | 'PROGRAM_FUNDING';
+    | 'PROGRAM_FUNDING'
+    | 'PROGRAM_TRANSFER';
 
   /**
    * ISO 8601 timestamp of when the transaction was created
