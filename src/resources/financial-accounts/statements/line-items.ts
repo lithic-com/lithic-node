@@ -67,6 +67,7 @@ export namespace StatementLineItems {
     category:
       | 'ACH'
       | 'WIRE'
+      | 'STABLECOIN'
       | 'BALANCE_OR_FUNDING'
       | 'FEE'
       | 'REWARD'
@@ -195,7 +196,10 @@ export namespace StatementLineItems {
       | 'QUARTERLY_REVERSAL'
       | 'MONTHLY'
       | 'MONTHLY_REVERSAL'
-      | 'ACCOUNT_TO_ACCOUNT';
+      | 'ACCOUNT_TO_ACCOUNT'
+      | 'STABLECOIN_RECEIVED'
+      | 'STABLECOIN_REVIEWED'
+      | 'STABLECOIN_SETTLED';
 
     /**
      * Globally unique identifier for a financial account
