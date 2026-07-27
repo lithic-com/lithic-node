@@ -200,6 +200,7 @@ export interface Payment {
   category:
     | 'ACH'
     | 'WIRE'
+    | 'STABLECOIN'
     | 'BALANCE_OR_FUNDING'
     | 'FEE'
     | 'REWARD'
@@ -419,6 +420,13 @@ export namespace Payment {
      *   Reserve and funds returned to sender.
      * - `WIRE_RETURN_OUTBOUND_REJECTED` - Outbound wire return rejected by the Federal
      *   Reserve.
+     *
+     * Stablecoin events:
+     *
+     * - `STABLECOIN_RECEIVED` - Stablecoin pay-in received on-chain and pending
+     *   release to available balance.
+     * - `STABLECOIN_REVIEWED` - Stablecoin pay-in has completed the review process.
+     * - `STABLECOIN_SETTLED` - Stablecoin pay-in funds released to available balance.
      */
     type:
       | 'ACH_ORIGINATION_CANCELLED'
@@ -442,7 +450,10 @@ export namespace Payment {
       | 'WIRE_RETURN_OUTBOUND_INITIATED'
       | 'WIRE_RETURN_OUTBOUND_SENT'
       | 'WIRE_RETURN_OUTBOUND_SETTLED'
-      | 'WIRE_RETURN_OUTBOUND_REJECTED';
+      | 'WIRE_RETURN_OUTBOUND_REJECTED'
+      | 'STABLECOIN_RECEIVED'
+      | 'STABLECOIN_REVIEWED'
+      | 'STABLECOIN_SETTLED';
 
     /**
      * More detailed reasons for the event

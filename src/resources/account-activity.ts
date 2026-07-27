@@ -95,6 +95,7 @@ export namespace AccountActivityListResponse {
     category:
       | 'ACH'
       | 'WIRE'
+      | 'STABLECOIN'
       | 'BALANCE_OR_FUNDING'
       | 'FEE'
       | 'REWARD'
@@ -237,6 +238,7 @@ export namespace AccountActivityRetrieveTransactionResponse {
     category:
       | 'ACH'
       | 'WIRE'
+      | 'STABLECOIN'
       | 'BALANCE_OR_FUNDING'
       | 'FEE'
       | 'REWARD'
@@ -369,6 +371,7 @@ export interface AccountActivityListParams extends CursorPageParams {
   category?:
     | 'ACH'
     | 'WIRE'
+    | 'STABLECOIN'
     | 'BALANCE_OR_FUNDING'
     | 'FEE'
     | 'REWARD'
