@@ -31,7 +31,6 @@ import {
   EntityType,
   MonitoringCase,
   MonitoringCasesCursorPage,
-  ResolutionOutcome,
 } from './cases/cases';
 
 export class TransactionMonitoring extends APIResource {
@@ -55,7 +54,6 @@ export declare namespace TransactionMonitoring {
     type CaseTransaction as CaseTransaction,
     type EntityType as EntityType,
     type MonitoringCase as MonitoringCase,
-    type ResolutionOutcome as ResolutionOutcome,
     type CaseRetrieveCardsResponse as CaseRetrieveCardsResponse,
     type MonitoringCasesCursorPage as MonitoringCasesCursorPage,
     type CaseActivityEntriesCursorPage as CaseActivityEntriesCursorPage,

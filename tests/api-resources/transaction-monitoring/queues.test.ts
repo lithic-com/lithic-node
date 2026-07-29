@@ -22,6 +22,7 @@ describe('resource queues', () => {
   test('create: required and optional params', async () => {
     const response = await client.transactionMonitoring.queues.create({
       name: 'name',
+      allowed_resolutions: ['x'],
       description: 'description',
     });
   });

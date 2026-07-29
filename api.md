@@ -160,7 +160,6 @@ Types:
 - <code><a href="./src/resources/transaction-monitoring/cases/cases.ts">CaseTransaction</a></code>
 - <code><a href="./src/resources/transaction-monitoring/cases/cases.ts">EntityType</a></code>
 - <code><a href="./src/resources/transaction-monitoring/cases/cases.ts">MonitoringCase</a></code>
-- <code><a href="./src/resources/transaction-monitoring/cases/cases.ts">ResolutionOutcome</a></code>
 - <code><a href="./src/resources/transaction-monitoring/cases/cases.ts">CaseRetrieveCardsResponse</a></code>
 
 Methods:

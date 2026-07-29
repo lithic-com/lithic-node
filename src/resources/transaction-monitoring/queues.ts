@@ -61,6 +61,12 @@ export interface Queue {
   token: string;
 
   /**
+   * Resolutions that can be recorded on cases in this queue. Always the effective
+   * list: the queue's own values when it defines them, otherwise the default list
+   */
+  allowed_resolutions: Array<string>;
+
+  /**
    * Number of cases in the queue, broken down by status. A status is omitted when
    * the queue has no cases in that status
    */
@@ -132,12 +138,27 @@ export interface QueueCreateParams {
   name: string;
 
   /**
+   * Resolutions that can be recorded on cases in this queue. Omit or send `null` to
+   * use the default list. Values are free-form labels and must be non-empty and
+   * unique
+   */
+  allowed_resolutions?: Array<string> | null;
+
+  /**
    * Optional description of the queue
    */
   description?: string | null;
 }
 
 export interface QueueUpdateParams {
+  /**
+   * New list of resolutions that can be recorded on cases in this queue, or `null`
+   * to revert to the default list. Values are free-form labels and must be non-empty
+   * and unique. Changing the list only affects what is selectable going forward; the
+   * `resolution` already stored on a case is preserved as-is
+   */
+  allowed_resolutions?: Array<string> | null;
+
   /**
    * New description for the queue, or `null` to clear it
    */
