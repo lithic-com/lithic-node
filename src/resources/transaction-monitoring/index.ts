@@ -12,7 +12,6 @@ export {
   type CaseTransaction,
   type EntityType,
   type MonitoringCase,
-  type ResolutionOutcome,
   type CaseRetrieveCardsResponse,
   type CaseUpdateParams,
   type CaseListParams,
