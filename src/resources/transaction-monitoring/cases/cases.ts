@@ -362,16 +362,10 @@ export interface MonitoringCase {
   queue_token: string;
 
   /**
-   * Outcome recorded when a case is resolved:
-   *
-   * - `CONFIRMED_FRAUD` - The reviewed activity was confirmed to be fraudulent
-   * - `SUSPICIOUS_ACTIVITY` - The activity is suspicious but not confirmed fraud
-   * - `FALSE_POSITIVE` - The activity was legitimate and the alert was a false
-   *   positive
-   * - `NO_ACTION_REQUIRED` - No further action is required
-   * - `ESCALATED_EXTERNAL` - The case was escalated to an external party
+   * Outcome recorded when the case was resolved, from the `allowed_resolutions`
+   * configured on the case's queue
    */
-  resolution: ResolutionOutcome | null;
+  resolution: string | null;
 
   /**
    * Free-form notes describing the resolution
@@ -423,23 +417,6 @@ export interface MonitoringCase {
   updated: string;
 }
 
-/**
- * Outcome recorded when a case is resolved:
- *
- * - `CONFIRMED_FRAUD` - The reviewed activity was confirmed to be fraudulent
- * - `SUSPICIOUS_ACTIVITY` - The activity is suspicious but not confirmed fraud
- * - `FALSE_POSITIVE` - The activity was legitimate and the alert was a false
- *   positive
- * - `NO_ACTION_REQUIRED` - No further action is required
- * - `ESCALATED_EXTERNAL` - The case was escalated to an external party
- */
-export type ResolutionOutcome =
-  | 'CONFIRMED_FRAUD'
-  | 'SUSPICIOUS_ACTIVITY'
-  | 'FALSE_POSITIVE'
-  | 'NO_ACTION_REQUIRED'
-  | 'ESCALATED_EXTERNAL';
-
 export type CaseRetrieveCardsResponse = Array<CaseCard>;
 
 export interface CaseUpdateParams {
@@ -461,16 +438,10 @@ export interface CaseUpdateParams {
   priority?: CasePriority;
 
   /**
-   * Outcome recorded when a case is resolved:
-   *
-   * - `CONFIRMED_FRAUD` - The reviewed activity was confirmed to be fraudulent
-   * - `SUSPICIOUS_ACTIVITY` - The activity is suspicious but not confirmed fraud
-   * - `FALSE_POSITIVE` - The activity was legitimate and the alert was a false
-   *   positive
-   * - `NO_ACTION_REQUIRED` - No further action is required
-   * - `ESCALATED_EXTERNAL` - The case was escalated to an external party
+   * Resolution to record on the case. Must be one of the `allowed_resolutions`
+   * configured on the case's queue, otherwise the request is rejected with a `400`
    */
-  resolution?: ResolutionOutcome;
+  resolution?: string;
 
   /**
    * Notes describing the resolution
@@ -586,7 +557,6 @@ export declare namespace Cases {
     type CaseTransaction as CaseTransaction,
     type EntityType as EntityType,
     type MonitoringCase as MonitoringCase,
-    type ResolutionOutcome as ResolutionOutcome,
     type CaseRetrieveCardsResponse as CaseRetrieveCardsResponse,
     type MonitoringCasesCursorPage as MonitoringCasesCursorPage,
     type CaseActivityEntriesCursorPage as CaseActivityEntriesCursorPage,
