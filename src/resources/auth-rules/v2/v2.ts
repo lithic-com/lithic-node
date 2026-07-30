@@ -726,8 +726,16 @@ export namespace ConditionalACHActionParameters {
      *   (Corporate Credit or Debit Entry), WEB (Internet-Initiated/Mobile Entry), TEL
      *   (Telephone-Initiated Entry), and others.
      * - `MEMO`: Optional memo or description field included with the ACH transaction.
+     * - `RECIPIENT_NAME`: The name of the recipient of the ACH transaction.
      */
-    attribute: 'COMPANY_NAME' | 'COMPANY_ID' | 'TIMESTAMP' | 'TRANSACTION_AMOUNT' | 'SEC_CODE' | 'MEMO';
+    attribute:
+      | 'COMPANY_NAME'
+      | 'COMPANY_ID'
+      | 'TIMESTAMP'
+      | 'TRANSACTION_AMOUNT'
+      | 'SEC_CODE'
+      | 'MEMO'
+      | 'RECIPIENT_NAME';
 
     /**
      * The operation to apply to the attribute
