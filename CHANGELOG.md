@@ -1,5 +1,41 @@
 # Changelog
 
+## 0.145.0 (2026-07-30)
+
+Full Changelog: [v0.144.0...v0.145.0](https://github.com/lithic-com/lithic-node/compare/v0.144.0...v0.145.0)
+
+### Features
+
+* **api:** add disposition_reasons to queues, change resolution to string in cases ([9c65c76](https://github.com/lithic-com/lithic-node/commit/9c65c76d0ef943edf94cf62f457a5335604012cb))
+* **api:** add embed.session_generated and embed.viewed webhook event types ([11b01a3](https://github.com/lithic-com/lithic-node/commit/11b01a39d4e6d861ec9d344c307bd93217a0e2ce))
+* **api:** add PAYMENT enum value to category in book-transfers ([5336e09](https://github.com/lithic-com/lithic-node/commit/5336e09f4a90efeb39a9f8491fe1a82be988efd1))
+* **api:** add program transfer types to account-activity/book-transfers/payments/statements ([d155fa9](https://github.com/lithic-com/lithic-node/commit/d155fa9be4a7651f4b78eded6f4767605404ff47))
+* **api:** add RECIPIENT_NAME attribute to auth_rules v2 ACH conditions ([8e4fabf](https://github.com/lithic-com/lithic-node/commit/8e4fabf684652eef7aceafa5c596789d847f7a67))
+* **api:** add recipient_name field to payments ACH method attributes ([bef9676](https://github.com/lithic-com/lithic-node/commit/bef9676f9671813de6635b6dc4c8034fa6b8649a))
+* **api:** add REVERSED status value to payments list method ([90fff93](https://github.com/lithic-com/lithic-node/commit/90fff936c58e73762751dc3748124a399fdff53e))
+* **api:** add stablecoin category and events to account-activity/payments/line-items ([ccf6dd6](https://github.com/lithic-com/lithic-node/commit/ccf6dd626e4ba0c02774dfcea004a0e7885a87b4))
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([82e45d9](https://github.com/lithic-com/lithic-node/commit/82e45d9b890c8137b8bb6847a4728730b10d359f))
+
+
+### Bug Fixes
+
+* **ci:** bump @arethetypeswrong/cli to ^0.18.0 and run CI workflows on Node 24 ([26e94a9](https://github.com/lithic-com/lithic-node/commit/26e94a90083a853ff7ff5ec8ae0f45ef05e8ed20))
+* **types:** make comment, created_at, fraud_type, updated_at nullable in fraud transactions ([942f058](https://github.com/lithic-com/lithic-node/commit/942f0586ac274cebbe2a1e7f8ae194d1e42aa16f))
+
+
+### Chores
+
+* **internal:** codegen related update ([37e6a52](https://github.com/lithic-com/lithic-node/commit/37e6a52f3ed2e184da527a3a34b438819d26b43b))
+
+
+### Documentation
+
+* **api:** clarify last_transaction_event_token parameter in balances.list ([e58facc](https://github.com/lithic-com/lithic-node/commit/e58facc09ecf8111c2339deb9d9dcc6e243d9084))
+* **api:** expand dispute event descriptions in events resource ([6f33a7e](https://github.com/lithic-com/lithic-node/commit/6f33a7eac9ba69995d7cfdd4edba0e9844e0a2ec))
+* **api:** update category parameter description in externalPayments.list ([ffeabcb](https://github.com/lithic-com/lithic-node/commit/ffeabcba30c154d65bcf9c2fb3f74d8c90acd3cd))
+* **api:** update max duration in auth-rules v2 trailing window ([5185f3d](https://github.com/lithic-com/lithic-node/commit/5185f3dc6140363506626d135091e0a337f6ea79))
+* **api:** update simulate_clearing method documentation in transactions ([ce3f22c](https://github.com/lithic-com/lithic-node/commit/ce3f22c7e0a90684772cd4c82c361763c9fcc063))
+
 ## 0.144.0 (2026-06-29)
 
 Full Changelog: [v0.143.0...v0.144.0](https://github.com/lithic-com/lithic-node/compare/v0.143.0...v0.144.0)
