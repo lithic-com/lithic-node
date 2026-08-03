@@ -2469,6 +2469,23 @@ export interface VelocityLimitParams {
   limit_amount?: number | null;
 
   /**
+   * The maximum amount of cash spend velocity allowed in the period in minor units
+   * (the smallest unit of a currency, e.g. cents for USD). Cash spend covers ATM
+   * withdrawals, cash disbursements, and purchases with cashback. Transactions
+   * exceeding this limit will be declined.
+   */
+  limit_cash_amount?: number | null;
+
+  /**
+   * The number of cash spend velocity impacting transactions may not exceed this
+   * limit in the period. Transactions exceeding this limit will be declined. A cash
+   * velocity impacting transaction is an ATM withdrawal, cash disbursement, or
+   * purchase with cashback that has been authorized, and optionally settled, or a
+   * force post (a transaction that settled without prior authorization).
+   */
+  limit_cash_count?: number | null;
+
+  /**
    * The number of spend velocity impacting transactions may not exceed this limit in
    * the period. Transactions exceeding this limit will be declined. A spend velocity
    * impacting transaction is a transaction that has been authorized, and optionally
