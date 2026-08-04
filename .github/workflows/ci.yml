@@ -109,7 +109,7 @@ jobs:
   examples:
     timeout-minutes: 10
     name: examples
-    runs-on: ${{ github.repository == 'stainless-sdks/lithic-typescript' && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
+    runs-on: ${{ startsWith(github.repository, 'stainless-sdks/') && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
     if: github.repository == 'lithic-com/lithic-node' && (github.event_name == 'push' || github.event.pull_request.head.repo.fork)
 
     steps:
