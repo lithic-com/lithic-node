@@ -6,26 +6,6 @@ import { RequestOptions } from '../../internal/request-options';
 
 export class Decisioning extends APIResource {
   /**
-   * Card program's response to a 3DS Challenge Request. Challenge Request is emitted
-   * as a webhook
-   * [three_ds_authentication.challenge](https://docs.lithic.com/reference/threedsauthenticationchallengewebhook)
-   * and your Card Program needs to be configured with Out of Band (OOB) Challenges
-   * in order to receive it (see https://docs.lithic.com/docs/3ds-challenge-flow for
-   * more information).
-   *
-   * @example
-   * ```ts
-   * await client.threeDS.decisioning.challengeResponse({
-   *   token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   challenge_response: 'APPROVE',
-   * });
-   * ```
-   */
-  challengeResponse(body: DecisioningChallengeResponseParams, options?: RequestOptions): APIPromise<void> {
-    return this._client.post('/v1/three_ds_decisioning/challenge_response', { body, ...options });
-  }
-
-  /**
    * Retrieve the 3DS Decisioning HMAC secret key. If one does not exist for your
    * program yet, calling this endpoint will create one for you. The headers (which
    * you can use to verify 3DS Decisioning requests) will begin appearing shortly
@@ -56,6 +36,26 @@ export class Decisioning extends APIResource {
    */
   rotateSecret(options?: RequestOptions): APIPromise<void> {
     return this._client.post('/v1/three_ds_decisioning/secret/rotate', options);
+  }
+
+  /**
+   * Card program's response to a 3DS Challenge Request. Challenge Request is emitted
+   * as a webhook
+   * [three_ds_authentication.challenge](https://docs.lithic.com/reference/threedsauthenticationchallengewebhook)
+   * and your Card Program needs to be configured with Out of Band (OOB) Challenges
+   * in order to receive it (see https://docs.lithic.com/docs/3ds-challenge-flow for
+   * more information).
+   *
+   * @example
+   * ```ts
+   * await client.threeDS.decisioning.challengeResponse({
+   *   token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   challenge_response: 'APPROVE',
+   * });
+   * ```
+   */
+  challengeResponse(body: DecisioningChallengeResponseParams, options?: RequestOptions): APIPromise<void> {
+    return this._client.post('/v1/three_ds_decisioning/challenge_response', { body, ...options });
   }
 }
 

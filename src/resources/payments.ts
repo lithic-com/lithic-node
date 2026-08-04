@@ -10,6 +10,24 @@ import { path } from '../internal/utils/path';
 
 export class Payments extends APIResource {
   /**
+   * List all the payments for the provided search criteria.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const payment of client.payments.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: PaymentListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PaymentsCursorPage, Payment> {
+    return this._client.getAPIList('/v1/payments', CursorPage<Payment>, { query, ...options });
+  }
+
+  /**
    * Initiates a payment between a financial account and an external bank account.
    *
    * @example
@@ -45,21 +63,37 @@ export class Payments extends APIResource {
   }
 
   /**
-   * List all the payments for the provided search criteria.
+   * Simulates a release of a Payment.
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const payment of client.payments.list()) {
-   *   // ...
-   * }
+   * const response = await client.payments.simulateRelease({
+   *   payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * });
    * ```
    */
-  list(
-    query: PaymentListParams | null | undefined = {},
+  simulateRelease(
+    body: PaymentSimulateReleaseParams,
     options?: RequestOptions,
-  ): PagePromise<PaymentsCursorPage, Payment> {
-    return this._client.getAPIList('/v1/payments', CursorPage<Payment>, { query, ...options });
+  ): APIPromise<PaymentSimulateReleaseResponse> {
+    return this._client.post('/v1/simulate/payments/release', { body, ...options });
+  }
+
+  /**
+   * Simulates a return of a Payment.
+   *
+   * @example
+   * ```ts
+   * const response = await client.payments.simulateReturn({
+   *   payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * });
+   * ```
+   */
+  simulateReturn(
+    body: PaymentSimulateReturnParams,
+    options?: RequestOptions,
+  ): APIPromise<PaymentSimulateReturnResponse> {
+    return this._client.post('/v1/simulate/payments/return', { body, ...options });
   }
 
   /**
@@ -109,25 +143,6 @@ export class Payments extends APIResource {
   }
 
   /**
-   * Simulate payment lifecycle event
-   *
-   * @example
-   * ```ts
-   * const response = await client.payments.simulateAction(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   { event_type: 'ACH_ORIGINATION_REVIEWED' },
-   * );
-   * ```
-   */
-  simulateAction(
-    paymentToken: string,
-    body: PaymentSimulateActionParams,
-    options?: RequestOptions,
-  ): APIPromise<PaymentSimulateActionResponse> {
-    return this._client.post(path`/v1/simulate/payments/${paymentToken}/action`, { body, ...options });
-  }
-
-  /**
    * Simulates a receipt of a Payment.
    *
    * @example
@@ -149,37 +164,22 @@ export class Payments extends APIResource {
   }
 
   /**
-   * Simulates a release of a Payment.
+   * Simulate payment lifecycle event
    *
    * @example
    * ```ts
-   * const response = await client.payments.simulateRelease({
-   *   payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * });
+   * const response = await client.payments.simulateAction(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   { event_type: 'ACH_ORIGINATION_REVIEWED' },
+   * );
    * ```
    */
-  simulateRelease(
-    body: PaymentSimulateReleaseParams,
+  simulateAction(
+    paymentToken: string,
+    body: PaymentSimulateActionParams,
     options?: RequestOptions,
-  ): APIPromise<PaymentSimulateReleaseResponse> {
-    return this._client.post('/v1/simulate/payments/release', { body, ...options });
-  }
-
-  /**
-   * Simulates a return of a Payment.
-   *
-   * @example
-   * ```ts
-   * const response = await client.payments.simulateReturn({
-   *   payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * });
-   * ```
-   */
-  simulateReturn(
-    body: PaymentSimulateReturnParams,
-    options?: RequestOptions,
-  ): APIPromise<PaymentSimulateReturnResponse> {
-    return this._client.post('/v1/simulate/payments/return', { body, ...options });
+  ): APIPromise<PaymentSimulateActionResponse> {
+    return this._client.post(path`/v1/simulate/payments/${paymentToken}/action`, { body, ...options });
   }
 }
 
@@ -660,6 +660,32 @@ export interface PaymentSimulateReturnResponse {
   transaction_event_token: string;
 }
 
+export interface PaymentListParams extends CursorPageParams {
+  account_token?: string;
+
+  /**
+   * Date string in RFC 3339 format. Only entries created after the specified time
+   * will be included. UTC time zone.
+   */
+  begin?: string;
+
+  business_account_token?: string;
+
+  category?: 'ACH';
+
+  /**
+   * Date string in RFC 3339 format. Only entries created before the specified time
+   * will be included. UTC time zone.
+   */
+  end?: string;
+
+  financial_account_token?: string;
+
+  result?: 'APPROVED' | 'DECLINED';
+
+  status?: 'DECLINED' | 'PENDING' | 'RETURNED' | 'REVERSED' | 'SETTLED';
+}
+
 export interface PaymentCreateParams {
   amount: number;
 
@@ -718,30 +744,23 @@ export namespace PaymentCreateParams {
   }
 }
 
-export interface PaymentListParams extends CursorPageParams {
-  account_token?: string;
+export interface PaymentSimulateReleaseParams {
+  /**
+   * Payment Token
+   */
+  payment_token: string;
+}
+
+export interface PaymentSimulateReturnParams {
+  /**
+   * Payment Token
+   */
+  payment_token: string;
 
   /**
-   * Date string in RFC 3339 format. Only entries created after the specified time
-   * will be included. UTC time zone.
+   * Return Reason Code
    */
-  begin?: string;
-
-  business_account_token?: string;
-
-  category?: 'ACH';
-
-  /**
-   * Date string in RFC 3339 format. Only entries created before the specified time
-   * will be included. UTC time zone.
-   */
-  end?: string;
-
-  financial_account_token?: string;
-
-  result?: 'APPROVED' | 'DECLINED';
-
-  status?: 'DECLINED' | 'PENDING' | 'RETURNED' | 'REVERSED' | 'SETTLED';
+  return_reason_code?: string;
 }
 
 export interface PaymentReturnParams {
@@ -774,6 +793,33 @@ export interface PaymentReturnParams {
    * Optional memo for the return. Limited to 10 characters
    */
   memo?: string | null;
+}
+
+export interface PaymentSimulateReceiptParams {
+  /**
+   * Customer-generated payment token used to uniquely identify the simulated payment
+   */
+  token: string;
+
+  /**
+   * Amount
+   */
+  amount: number;
+
+  /**
+   * Financial Account Token
+   */
+  financial_account_token: string;
+
+  /**
+   * Receipt Type
+   */
+  receipt_type: 'RECEIPT_CREDIT' | 'RECEIPT_DEBIT';
+
+  /**
+   * Memo
+   */
+  memo?: string;
 }
 
 export interface PaymentSimulateActionParams {
@@ -816,52 +862,6 @@ export interface PaymentSimulateActionParams {
   return_reason_code?: string;
 }
 
-export interface PaymentSimulateReceiptParams {
-  /**
-   * Customer-generated payment token used to uniquely identify the simulated payment
-   */
-  token: string;
-
-  /**
-   * Amount
-   */
-  amount: number;
-
-  /**
-   * Financial Account Token
-   */
-  financial_account_token: string;
-
-  /**
-   * Receipt Type
-   */
-  receipt_type: 'RECEIPT_CREDIT' | 'RECEIPT_DEBIT';
-
-  /**
-   * Memo
-   */
-  memo?: string;
-}
-
-export interface PaymentSimulateReleaseParams {
-  /**
-   * Payment Token
-   */
-  payment_token: string;
-}
-
-export interface PaymentSimulateReturnParams {
-  /**
-   * Payment Token
-   */
-  payment_token: string;
-
-  /**
-   * Return Reason Code
-   */
-  return_reason_code?: string;
-}
-
 export declare namespace Payments {
   export {
     type Payment as Payment,
@@ -872,12 +872,12 @@ export declare namespace Payments {
     type PaymentSimulateReleaseResponse as PaymentSimulateReleaseResponse,
     type PaymentSimulateReturnResponse as PaymentSimulateReturnResponse,
     type PaymentsCursorPage as PaymentsCursorPage,
-    type PaymentCreateParams as PaymentCreateParams,
     type PaymentListParams as PaymentListParams,
-    type PaymentReturnParams as PaymentReturnParams,
-    type PaymentSimulateActionParams as PaymentSimulateActionParams,
-    type PaymentSimulateReceiptParams as PaymentSimulateReceiptParams,
+    type PaymentCreateParams as PaymentCreateParams,
     type PaymentSimulateReleaseParams as PaymentSimulateReleaseParams,
     type PaymentSimulateReturnParams as PaymentSimulateReturnParams,
+    type PaymentReturnParams as PaymentReturnParams,
+    type PaymentSimulateReceiptParams as PaymentSimulateReceiptParams,
+    type PaymentSimulateActionParams as PaymentSimulateActionParams,
   };
 }

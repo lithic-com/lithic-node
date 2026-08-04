@@ -8,13 +8,6 @@ import { path } from '../internal/utils/path';
 
 export class NetworkPrograms extends APIResource {
   /**
-   * Get network program.
-   */
-  retrieve(networkProgramToken: string, options?: RequestOptions): APIPromise<NetworkProgram> {
-    return this._client.get(path`/v1/network_programs/${networkProgramToken}`, options);
-  }
-
-  /**
    * List network programs.
    */
   list(
@@ -22,6 +15,13 @@ export class NetworkPrograms extends APIResource {
     options?: RequestOptions,
   ): PagePromise<NetworkProgramsSinglePage, NetworkProgram> {
     return this._client.getAPIList('/v1/network_programs', SinglePage<NetworkProgram>, { query, ...options });
+  }
+
+  /**
+   * Get network program.
+   */
+  retrieve(networkProgramToken: string, options?: RequestOptions): APIPromise<NetworkProgram> {
+    return this._client.get(path`/v1/network_programs/${networkProgramToken}`, options);
   }
 }
 

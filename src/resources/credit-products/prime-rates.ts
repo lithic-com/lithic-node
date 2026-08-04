@@ -7,20 +7,6 @@ import { path } from '../../internal/utils/path';
 
 export class PrimeRates extends APIResource {
   /**
-   * Post Credit Product Prime Rate
-   */
-  create(
-    creditProductToken: string,
-    body: PrimeRateCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<void> {
-    return this._client.post(path`/v1/credit_products/${creditProductToken}/prime_rates`, {
-      body,
-      ...options,
-    });
-  }
-
-  /**
    * Get Credit Product Prime Rates
    */
   retrieve(
@@ -30,6 +16,20 @@ export class PrimeRates extends APIResource {
   ): APIPromise<PrimeRateRetrieveResponse> {
     return this._client.get(path`/v1/credit_products/${creditProductToken}/prime_rates`, {
       query,
+      ...options,
+    });
+  }
+
+  /**
+   * Post Credit Product Prime Rate
+   */
+  create(
+    creditProductToken: string,
+    body: PrimeRateCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    return this._client.post(path`/v1/credit_products/${creditProductToken}/prime_rates`, {
+      body,
       ...options,
     });
   }
@@ -61,18 +61,6 @@ export namespace PrimeRateRetrieveResponse {
   }
 }
 
-export interface PrimeRateCreateParams {
-  /**
-   * Date the rate goes into effect
-   */
-  effective_date: string;
-
-  /**
-   * The rate in decimal format
-   */
-  rate: string;
-}
-
 export interface PrimeRateRetrieveParams {
   /**
    * The effective date that the prime rates ends before
@@ -85,10 +73,22 @@ export interface PrimeRateRetrieveParams {
   starting_after?: string;
 }
 
+export interface PrimeRateCreateParams {
+  /**
+   * Date the rate goes into effect
+   */
+  effective_date: string;
+
+  /**
+   * The rate in decimal format
+   */
+  rate: string;
+}
+
 export declare namespace PrimeRates {
   export {
     type PrimeRateRetrieveResponse as PrimeRateRetrieveResponse,
-    type PrimeRateCreateParams as PrimeRateCreateParams,
     type PrimeRateRetrieveParams as PrimeRateRetrieveParams,
+    type PrimeRateCreateParams as PrimeRateCreateParams,
   };
 }

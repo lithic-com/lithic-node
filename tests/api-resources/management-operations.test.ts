@@ -8,6 +8,37 @@ const client = new Lithic({
 });
 
 describe('resource managementOperations', () => {
+  test('list', async () => {
+    const responsePromise = client.managementOperations.list();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.managementOperations.list(
+        {
+          begin: '2019-12-27T18:11:19.117Z',
+          business_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          category: 'MANAGEMENT_FEE',
+          end: '2019-12-27T18:11:19.117Z',
+          ending_before: 'ending_before',
+          financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          page_size: 1,
+          starting_after: 'starting_after',
+          status: 'PENDING',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Lithic.NotFoundError);
+  });
+
   test('create: only required params', async () => {
     const responsePromise = client.managementOperations.create({
       amount: 1,
@@ -51,37 +82,6 @@ describe('resource managementOperations', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('list', async () => {
-    const responsePromise = client.managementOperations.list();
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('list: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.managementOperations.list(
-        {
-          begin: '2019-12-27T18:11:19.117Z',
-          business_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          category: 'MANAGEMENT_FEE',
-          end: '2019-12-27T18:11:19.117Z',
-          ending_before: 'ending_before',
-          financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          page_size: 1,
-          starting_after: 'starting_after',
-          status: 'PENDING',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('reverse: only required params', async () => {

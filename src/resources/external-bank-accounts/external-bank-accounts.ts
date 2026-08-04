@@ -12,6 +12,28 @@ export class ExternalBankAccounts extends APIResource {
   microDeposits: MicroDepositsAPI.MicroDeposits = new MicroDepositsAPI.MicroDeposits(this._client);
 
   /**
+   * List all the external bank accounts for the provided search criteria.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const externalBankAccountListResponse of client.externalBankAccounts.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: ExternalBankAccountListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ExternalBankAccountListResponsesCursorPage, ExternalBankAccountListResponse> {
+    return this._client.getAPIList(
+      '/v1/external_bank_accounts',
+      CursorPage<ExternalBankAccountListResponse>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Creates an external bank account within a program or Lithic account.
    *
    * @example
@@ -87,43 +109,6 @@ export class ExternalBankAccounts extends APIResource {
   }
 
   /**
-   * List all the external bank accounts for the provided search criteria.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const externalBankAccountListResponse of client.externalBankAccounts.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: ExternalBankAccountListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<ExternalBankAccountListResponsesCursorPage, ExternalBankAccountListResponse> {
-    return this._client.getAPIList(
-      '/v1/external_bank_accounts',
-      CursorPage<ExternalBankAccountListResponse>,
-      { query, ...options },
-    );
-  }
-
-  /**
-   * Pause an external bank account
-   *
-   * @example
-   * ```ts
-   * const externalBankAccount =
-   *   await client.externalBankAccounts.pause(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
-   * ```
-   */
-  pause(externalBankAccountToken: string, options?: RequestOptions): APIPromise<ExternalBankAccount> {
-    return this._client.post(path`/v1/external_bank_accounts/${externalBankAccountToken}/pause`, options);
-  }
-
-  /**
    * Retry external bank account micro deposit verification.
    *
    * @example
@@ -168,6 +153,36 @@ export class ExternalBankAccounts extends APIResource {
   }
 
   /**
+   * Pause an external bank account
+   *
+   * @example
+   * ```ts
+   * const externalBankAccount =
+   *   await client.externalBankAccounts.pause(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  pause(externalBankAccountToken: string, options?: RequestOptions): APIPromise<ExternalBankAccount> {
+    return this._client.post(path`/v1/external_bank_accounts/${externalBankAccountToken}/pause`, options);
+  }
+
+  /**
+   * Unpause an external bank account
+   *
+   * @example
+   * ```ts
+   * const externalBankAccount =
+   *   await client.externalBankAccounts.unpause(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  unpause(externalBankAccountToken: string, options?: RequestOptions): APIPromise<ExternalBankAccount> {
+    return this._client.post(path`/v1/external_bank_accounts/${externalBankAccountToken}/unpause`, options);
+  }
+
+  /**
    * Update the verification method for an external bank account. Verification method
    * can only be updated if the `verification_state` is `PENDING`.
    *
@@ -189,21 +204,6 @@ export class ExternalBankAccounts extends APIResource {
       path`/v1/external_bank_accounts/${externalBankAccountToken}/set_verification_method`,
       { body, ...options },
     );
-  }
-
-  /**
-   * Unpause an external bank account
-   *
-   * @example
-   * ```ts
-   * const externalBankAccount =
-   *   await client.externalBankAccounts.unpause(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
-   * ```
-   */
-  unpause(externalBankAccountToken: string, options?: RequestOptions): APIPromise<ExternalBankAccount> {
-    return this._client.post(path`/v1/external_bank_accounts/${externalBankAccountToken}/unpause`, options);
   }
 }
 
@@ -970,6 +970,20 @@ export interface ExternalBankAccountRetryMicroDepositsResponse {
   verification_failed_reason?: string | null;
 }
 
+export interface ExternalBankAccountListParams extends CursorPageParams {
+  account_token?: string;
+
+  account_types?: Array<'CHECKING' | 'SAVINGS'>;
+
+  countries?: Array<string>;
+
+  owner_types?: Array<OwnerType>;
+
+  states?: Array<'ENABLED' | 'CLOSED' | 'PAUSED'>;
+
+  verification_states?: Array<'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'>;
+}
+
 export type ExternalBankAccountCreateParams =
   | ExternalBankAccountCreateParams.BankVerifiedCreateBankAccountAPIRequest
   | ExternalBankAccountCreateParams.ExternallyVerifiedCreateBankAccountAPIRequest
@@ -1272,20 +1286,6 @@ export interface ExternalBankAccountUpdateParams {
   user_defined_id?: string;
 }
 
-export interface ExternalBankAccountListParams extends CursorPageParams {
-  account_token?: string;
-
-  account_types?: Array<'CHECKING' | 'SAVINGS'>;
-
-  countries?: Array<string>;
-
-  owner_types?: Array<OwnerType>;
-
-  states?: Array<'ENABLED' | 'CLOSED' | 'PAUSED'>;
-
-  verification_states?: Array<'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'>;
-}
-
 export interface ExternalBankAccountRetryMicroDepositsParams {
   financial_account_token?: string;
 }
@@ -1321,9 +1321,9 @@ export declare namespace ExternalBankAccounts {
     type ExternalBankAccountListResponse as ExternalBankAccountListResponse,
     type ExternalBankAccountRetryMicroDepositsResponse as ExternalBankAccountRetryMicroDepositsResponse,
     type ExternalBankAccountListResponsesCursorPage as ExternalBankAccountListResponsesCursorPage,
+    type ExternalBankAccountListParams as ExternalBankAccountListParams,
     type ExternalBankAccountCreateParams as ExternalBankAccountCreateParams,
     type ExternalBankAccountUpdateParams as ExternalBankAccountUpdateParams,
-    type ExternalBankAccountListParams as ExternalBankAccountListParams,
     type ExternalBankAccountRetryMicroDepositsParams as ExternalBankAccountRetryMicroDepositsParams,
     type ExternalBankAccountRetryPrenoteParams as ExternalBankAccountRetryPrenoteParams,
     type ExternalBankAccountSetVerificationMethodParams as ExternalBankAccountSetVerificationMethodParams,

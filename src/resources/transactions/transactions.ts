@@ -17,21 +17,6 @@ export class Transactions extends APIResource {
   events: EventsAPI.Events = new EventsAPI.Events(this._client);
 
   /**
-   * Get a specific card transaction. All amounts are in the smallest unit of their
-   * respective currency (e.g., cents for USD).
-   *
-   * @example
-   * ```ts
-   * const transaction = await client.transactions.retrieve(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
-   */
-  retrieve(transactionToken: string, options?: RequestOptions): APIPromise<Transaction> {
-    return this._client.get(path`/v1/transactions/${transactionToken}`, options);
-  }
-
-  /**
    * List card transactions. All amounts are in the smallest unit of their respective
    * currency (e.g., cents for USD) and inclusive of any acquirer fees.
    *
@@ -51,36 +36,18 @@ export class Transactions extends APIResource {
   }
 
   /**
-   * Expire authorization
+   * Get a specific card transaction. All amounts are in the smallest unit of their
+   * respective currency (e.g., cents for USD).
    *
    * @example
    * ```ts
-   * await client.transactions.expireAuthorization(
-   *   '00000000-0000-0000-0000-000000000000',
+   * const transaction = await client.transactions.retrieve(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    * );
    * ```
    */
-  expireAuthorization(transactionToken: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.post(path`/v1/transactions/${transactionToken}/expire_authorization`, options);
-  }
-
-  /**
-   * Route a card transaction to a financial account. Only available for select use
-   * cases and programs.
-   *
-   * @example
-   * ```ts
-   * await client.transactions.route(
-   *   '00000000-0000-0000-0000-000000000000',
-   *   {
-   *     financial_account_token:
-   *       '00000000-0000-0000-0000-000000000000',
-   *   },
-   * );
-   * ```
-   */
-  route(transactionToken: string, body: TransactionRouteParams, options?: RequestOptions): APIPromise<void> {
-    return this._client.post(path`/v1/transactions/${transactionToken}/route`, { body, ...options });
+  retrieve(transactionToken: string, options?: RequestOptions): APIPromise<Transaction> {
+    return this._client.get(path`/v1/transactions/${transactionToken}`, options);
   }
 
   /**
@@ -114,27 +81,6 @@ export class Transactions extends APIResource {
   }
 
   /**
-   * Simulates an authorization advice from the card network as if it came from a
-   * merchant acquirer. An authorization advice changes the pending amount of the
-   * transaction.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.transactions.simulateAuthorizationAdvice({
-   *     token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac',
-   *     amount: 3831,
-   *   });
-   * ```
-   */
-  simulateAuthorizationAdvice(
-    body: TransactionSimulateAuthorizationAdviceParams,
-    options?: RequestOptions,
-  ): APIPromise<TransactionSimulateAuthorizationAdviceResponse> {
-    return this._client.post('/v1/simulate/authorization_advice', { body, ...options });
-  }
-
-  /**
    * Clears an existing authorization, either debit or credit. After this event, the
    * transaction transitions from `PENDING` to `SETTLED` status.
    *
@@ -155,46 +101,6 @@ export class Transactions extends APIResource {
     options?: RequestOptions,
   ): APIPromise<TransactionSimulateClearingResponse> {
     return this._client.post('/v1/simulate/clearing', { body, ...options });
-  }
-
-  /**
-   * Simulates a credit authorization advice from the card network. This message
-   * indicates that the network approved a credit authorization on your behalf.
-   *
-   * @deprecated use `simulateCreditAuthorizationAdvice` instead
-   */
-  simulateCreditAuthorization(
-    body: TransactionSimulateCreditAuthorizationParams,
-    options?: RequestOptions,
-  ): APIPromise<TransactionSimulateCreditAuthorizationResponse> {
-    return this._client.post('/v1/simulate/credit_authorization_advice', { body, ...options });
-  }
-
-  /**
-   * Simulates a credit authorization advice from the card network. This message
-   * indicates that the network approved a credit authorization on your behalf.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.transactions.simulateCreditAuthorizationAdvice(
-   *     {
-   *       amount: 3831,
-   *       descriptor: 'COFFEE SHOP',
-   *       pan: '4111111289144142',
-   *       merchant_acceptor_city: 'SEATTLE',
-   *       merchant_acceptor_country: 'USA',
-   *       merchant_acceptor_id: 'XRKGDPOWEWQRRWU',
-   *       merchant_acceptor_state: 'WA',
-   *     },
-   *   );
-   * ```
-   */
-  simulateCreditAuthorizationAdvice(
-    body: TransactionSimulateCreditAuthorizationAdviceParams,
-    options?: RequestOptions,
-  ): APIPromise<TransactionSimulateCreditAuthorizationAdviceResponse> {
-    return this._client.post('/v1/simulate/credit_authorization_advice', { body, ...options });
   }
 
   /**
@@ -258,6 +164,100 @@ export class Transactions extends APIResource {
     options?: RequestOptions,
   ): APIPromise<TransactionSimulateVoidResponse> {
     return this._client.post('/v1/simulate/void', { body, ...options });
+  }
+
+  /**
+   * Simulates a credit authorization advice from the card network. This message
+   * indicates that the network approved a credit authorization on your behalf.
+   *
+   * @deprecated use `simulateCreditAuthorizationAdvice` instead
+   */
+  simulateCreditAuthorization(
+    body: TransactionSimulateCreditAuthorizationParams,
+    options?: RequestOptions,
+  ): APIPromise<TransactionSimulateCreditAuthorizationResponse> {
+    return this._client.post('/v1/simulate/credit_authorization_advice', { body, ...options });
+  }
+
+  /**
+   * Simulates a credit authorization advice from the card network. This message
+   * indicates that the network approved a credit authorization on your behalf.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.transactions.simulateCreditAuthorizationAdvice(
+   *     {
+   *       amount: 3831,
+   *       descriptor: 'COFFEE SHOP',
+   *       pan: '4111111289144142',
+   *       merchant_acceptor_city: 'SEATTLE',
+   *       merchant_acceptor_country: 'USA',
+   *       merchant_acceptor_id: 'XRKGDPOWEWQRRWU',
+   *       merchant_acceptor_state: 'WA',
+   *     },
+   *   );
+   * ```
+   */
+  simulateCreditAuthorizationAdvice(
+    body: TransactionSimulateCreditAuthorizationAdviceParams,
+    options?: RequestOptions,
+  ): APIPromise<TransactionSimulateCreditAuthorizationAdviceResponse> {
+    return this._client.post('/v1/simulate/credit_authorization_advice', { body, ...options });
+  }
+
+  /**
+   * Simulates an authorization advice from the card network as if it came from a
+   * merchant acquirer. An authorization advice changes the pending amount of the
+   * transaction.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.transactions.simulateAuthorizationAdvice({
+   *     token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac',
+   *     amount: 3831,
+   *   });
+   * ```
+   */
+  simulateAuthorizationAdvice(
+    body: TransactionSimulateAuthorizationAdviceParams,
+    options?: RequestOptions,
+  ): APIPromise<TransactionSimulateAuthorizationAdviceResponse> {
+    return this._client.post('/v1/simulate/authorization_advice', { body, ...options });
+  }
+
+  /**
+   * Expire authorization
+   *
+   * @example
+   * ```ts
+   * await client.transactions.expireAuthorization(
+   *   '00000000-0000-0000-0000-000000000000',
+   * );
+   * ```
+   */
+  expireAuthorization(transactionToken: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.post(path`/v1/transactions/${transactionToken}/expire_authorization`, options);
+  }
+
+  /**
+   * Route a card transaction to a financial account. Only available for select use
+   * cases and programs.
+   *
+   * @example
+   * ```ts
+   * await client.transactions.route(
+   *   '00000000-0000-0000-0000-000000000000',
+   *   {
+   *     financial_account_token:
+   *       '00000000-0000-0000-0000-000000000000',
+   *   },
+   * );
+   * ```
+   */
+  route(transactionToken: string, body: TransactionRouteParams, options?: RequestOptions): APIPromise<void> {
+    return this._client.post(path`/v1/transactions/${transactionToken}/route`, { body, ...options });
   }
 }
 
@@ -1311,13 +1311,6 @@ export interface TransactionListParams extends CursorPageParams {
   status?: 'PENDING' | 'VOIDED' | 'SETTLED' | 'DECLINED' | 'EXPIRED';
 }
 
-export interface TransactionRouteParams {
-  /**
-   * The token of the financial account to route the transaction to.
-   */
-  financial_account_token: string;
-}
-
 export interface TransactionSimulateAuthorizationParams {
   /**
    * Amount (in cents) to authorize. For credit authorizations and financial credit
@@ -1415,19 +1408,6 @@ export interface TransactionSimulateAuthorizationParams {
     | 'FINANCIAL_CREDIT_AUTHORIZATION';
 }
 
-export interface TransactionSimulateAuthorizationAdviceParams {
-  /**
-   * The transaction token returned from the /v1/simulate/authorize. response.
-   */
-  token: string;
-
-  /**
-   * Amount (in cents) to authorize. This amount will override the transaction's
-   * amount that was originally set by /v1/simulate/authorize.
-   */
-  amount: number;
-}
-
 export interface TransactionSimulateClearingParams {
   /**
    * The transaction token returned from the /v1/simulate/authorize response.
@@ -1447,6 +1427,53 @@ export interface TransactionSimulateClearingParams {
    * event.
    */
   amount?: number;
+}
+
+export interface TransactionSimulateReturnParams {
+  /**
+   * Amount (in cents) to authorize.
+   */
+  amount: number;
+
+  /**
+   * Merchant descriptor.
+   */
+  descriptor: string;
+
+  /**
+   * Sixteen digit card number.
+   */
+  pan: string;
+}
+
+export interface TransactionSimulateReturnReversalParams {
+  /**
+   * The transaction token returned from the /v1/simulate/authorize response.
+   */
+  token: string;
+}
+
+export interface TransactionSimulateVoidParams {
+  /**
+   * The transaction token returned from the /v1/simulate/authorize response.
+   */
+  token: string;
+
+  /**
+   * Amount (in cents) to void. Typically this will match the amount in the original
+   * authorization, but can be less. Applies to authorization reversals only. An
+   * authorization expiry will always apply to the full pending amount.
+   */
+  amount?: number;
+
+  /**
+   * Type of event to simulate. Defaults to `AUTHORIZATION_REVERSAL`.
+   *
+   * - `AUTHORIZATION_EXPIRY` indicates authorization has expired and been reversed
+   *   by Lithic.
+   * - `AUTHORIZATION_REVERSAL` indicates authorization was reversed by the merchant.
+   */
+  type?: 'AUTHORIZATION_EXPIRY' | 'AUTHORIZATION_REVERSAL';
 }
 
 export interface TransactionSimulateCreditAuthorizationParams {
@@ -1541,51 +1568,24 @@ export interface TransactionSimulateCreditAuthorizationAdviceParams {
   merchant_acceptor_state?: string;
 }
 
-export interface TransactionSimulateReturnParams {
+export interface TransactionSimulateAuthorizationAdviceParams {
   /**
-   * Amount (in cents) to authorize.
+   * The transaction token returned from the /v1/simulate/authorize. response.
+   */
+  token: string;
+
+  /**
+   * Amount (in cents) to authorize. This amount will override the transaction's
+   * amount that was originally set by /v1/simulate/authorize.
    */
   amount: number;
-
-  /**
-   * Merchant descriptor.
-   */
-  descriptor: string;
-
-  /**
-   * Sixteen digit card number.
-   */
-  pan: string;
 }
 
-export interface TransactionSimulateReturnReversalParams {
+export interface TransactionRouteParams {
   /**
-   * The transaction token returned from the /v1/simulate/authorize response.
+   * The token of the financial account to route the transaction to.
    */
-  token: string;
-}
-
-export interface TransactionSimulateVoidParams {
-  /**
-   * The transaction token returned from the /v1/simulate/authorize response.
-   */
-  token: string;
-
-  /**
-   * Amount (in cents) to void. Typically this will match the amount in the original
-   * authorization, but can be less. Applies to authorization reversals only. An
-   * authorization expiry will always apply to the full pending amount.
-   */
-  amount?: number;
-
-  /**
-   * Type of event to simulate. Defaults to `AUTHORIZATION_REVERSAL`.
-   *
-   * - `AUTHORIZATION_EXPIRY` indicates authorization has expired and been reversed
-   *   by Lithic.
-   * - `AUTHORIZATION_REVERSAL` indicates authorization was reversed by the merchant.
-   */
-  type?: 'AUTHORIZATION_EXPIRY' | 'AUTHORIZATION_REVERSAL';
+  financial_account_token: string;
 }
 
 Transactions.EnhancedCommercialData = EnhancedCommercialData;
@@ -1606,15 +1606,15 @@ export declare namespace Transactions {
     type TransactionSimulateVoidResponse as TransactionSimulateVoidResponse,
     type TransactionsCursorPage as TransactionsCursorPage,
     type TransactionListParams as TransactionListParams,
-    type TransactionRouteParams as TransactionRouteParams,
     type TransactionSimulateAuthorizationParams as TransactionSimulateAuthorizationParams,
-    type TransactionSimulateAuthorizationAdviceParams as TransactionSimulateAuthorizationAdviceParams,
     type TransactionSimulateClearingParams as TransactionSimulateClearingParams,
-    type TransactionSimulateCreditAuthorizationParams as TransactionSimulateCreditAuthorizationParams,
-    type TransactionSimulateCreditAuthorizationAdviceParams as TransactionSimulateCreditAuthorizationAdviceParams,
     type TransactionSimulateReturnParams as TransactionSimulateReturnParams,
     type TransactionSimulateReturnReversalParams as TransactionSimulateReturnReversalParams,
     type TransactionSimulateVoidParams as TransactionSimulateVoidParams,
+    type TransactionSimulateCreditAuthorizationParams as TransactionSimulateCreditAuthorizationParams,
+    type TransactionSimulateCreditAuthorizationAdviceParams as TransactionSimulateCreditAuthorizationAdviceParams,
+    type TransactionSimulateAuthorizationAdviceParams as TransactionSimulateAuthorizationAdviceParams,
+    type TransactionRouteParams as TransactionRouteParams,
   };
 
   export {

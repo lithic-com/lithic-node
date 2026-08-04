@@ -294,11 +294,11 @@ export declare namespace AuthRules {
     type AuthRulesCursorPage as AuthRulesCursorPage,
     type V2ListResultsResponsesCursorPage as V2ListResultsResponsesCursorPage,
     type V2CreateParams as V2CreateParams,
-    type V2UpdateParams as V2UpdateParams,
     type V2ListParams as V2ListParams,
+    type V2UpdateParams as V2UpdateParams,
     type V2DraftParams as V2DraftParams,
-    type V2ListResultsParams as V2ListResultsParams,
-    type V2RetrieveFeaturesParams as V2RetrieveFeaturesParams,
     type V2RetrieveReportParams as V2RetrieveReportParams,
+    type V2RetrieveFeaturesParams as V2RetrieveFeaturesParams,
+    type V2ListResultsParams as V2ListResultsParams,
   };
 }

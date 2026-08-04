@@ -5,6 +5,6 @@ export { ExtendedCreditResource, type ExtendedCredit } from './extended-credit';
 export {
   PrimeRates,
   type PrimeRateRetrieveResponse,
-  type PrimeRateCreateParams,
   type PrimeRateRetrieveParams,
+  type PrimeRateCreateParams,
 } from './prime-rates';

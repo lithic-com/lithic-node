@@ -26,6 +26,16 @@ export class V2 extends APIResource {
   }
 
   /**
+   * Lists V2 Auth rules
+   */
+  list(
+    query: V2ListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<AuthRulesCursorPage, AuthRule> {
+    return this._client.getAPIList('/v2/auth_rules', CursorPage<AuthRule>, { query, ...options });
+  }
+
+  /**
    * Fetches a V2 Auth rule by its token
    */
   retrieve(authRuleToken: string, options?: RequestOptions): APIPromise<AuthRule> {
@@ -41,16 +51,6 @@ export class V2 extends APIResource {
    */
   update(authRuleToken: string, body: V2UpdateParams, options?: RequestOptions): APIPromise<AuthRule> {
     return this._client.patch(path`/v2/auth_rules/${authRuleToken}`, { body, ...options });
-  }
-
-  /**
-   * Lists V2 Auth rules
-   */
-  list(
-    query: V2ListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<AuthRulesCursorPage, AuthRule> {
-    return this._client.getAPIList('/v2/auth_rules', CursorPage<AuthRule>, { query, ...options });
   }
 
   /**
@@ -71,25 +71,6 @@ export class V2 extends APIResource {
   }
 
   /**
-   * Lists Auth Rule evaluation results.
-   *
-   * **Limitations:**
-   *
-   * - Results are available for the past 3 months only
-   * - At least one filter (`event_token` or `auth_rule_token`) must be provided
-   * - When filtering by `event_token`, pagination is not supported
-   */
-  listResults(
-    query: V2ListResultsParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<V2ListResultsResponsesCursorPage, V2ListResultsResponse> {
-    return this._client.getAPIList('/v2/auth_rules/results', CursorPage<V2ListResultsResponse>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
    * Returns all versions of an auth rule, sorted by version number descending
    * (newest first).
    */
@@ -103,25 +84,6 @@ export class V2 extends APIResource {
    */
   promote(authRuleToken: string, options?: RequestOptions): APIPromise<AuthRule> {
     return this._client.post(path`/v2/auth_rules/${authRuleToken}/promote`, options);
-  }
-
-  /**
-   * Fetches the current calculated Feature values for the given Auth Rule
-   *
-   * This only calculates the features for the active version.
-   *
-   * - VelocityLimit Rules calculates the current Velocity Feature data. This
-   *   requires a `card_token` or `account_token` matching what the rule is Scoped
-   *   to.
-   * - ConditionalBlock Rules calculates the CARD*TRANSACTION_COUNT*\* attributes on
-   *   the rule. This requires a `card_token`
-   */
-  retrieveFeatures(
-    authRuleToken: string,
-    query: V2RetrieveFeaturesParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<V2RetrieveFeaturesResponse> {
-    return this._client.get(path`/v2/auth_rules/${authRuleToken}/features`, { query, ...options });
   }
 
   /**
@@ -145,6 +107,44 @@ export class V2 extends APIResource {
     options?: RequestOptions,
   ): APIPromise<V2RetrieveReportResponse> {
     return this._client.get(path`/v2/auth_rules/${authRuleToken}/report`, { query, ...options });
+  }
+
+  /**
+   * Fetches the current calculated Feature values for the given Auth Rule
+   *
+   * This only calculates the features for the active version.
+   *
+   * - VelocityLimit Rules calculates the current Velocity Feature data. This
+   *   requires a `card_token` or `account_token` matching what the rule is Scoped
+   *   to.
+   * - ConditionalBlock Rules calculates the CARD*TRANSACTION_COUNT*\* attributes on
+   *   the rule. This requires a `card_token`
+   */
+  retrieveFeatures(
+    authRuleToken: string,
+    query: V2RetrieveFeaturesParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<V2RetrieveFeaturesResponse> {
+    return this._client.get(path`/v2/auth_rules/${authRuleToken}/features`, { query, ...options });
+  }
+
+  /**
+   * Lists Auth Rule evaluation results.
+   *
+   * **Limitations:**
+   *
+   * - Results are available for the past 3 months only
+   * - At least one filter (`event_token` or `auth_rule_token`) must be provided
+   * - When filtering by `event_token`, pagination is not supported
+   */
+  listResults(
+    query: V2ListResultsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<V2ListResultsResponsesCursorPage, V2ListResultsResponse> {
+    return this._client.getAPIList('/v2/auth_rules/results', CursorPage<V2ListResultsResponse>, {
+      query,
+      ...options,
+    });
   }
 }
 
@@ -2469,6 +2469,23 @@ export interface VelocityLimitParams {
   limit_amount?: number | null;
 
   /**
+   * The maximum amount of cash spend velocity allowed in the period in minor units
+   * (the smallest unit of a currency, e.g. cents for USD). Cash spend covers ATM
+   * withdrawals, cash disbursements, and purchases with cashback. Transactions
+   * exceeding this limit will be declined.
+   */
+  limit_cash_amount?: number | null;
+
+  /**
+   * The number of cash spend velocity impacting transactions may not exceed this
+   * limit in the period. Transactions exceeding this limit will be declined. A cash
+   * velocity impacting transaction is an ATM withdrawal, cash disbursement, or
+   * purchase with cashback that has been authorized, and optionally settled, or a
+   * force post (a transaction that settled without prior authorization).
+   */
+  limit_cash_count?: number | null;
+
+  /**
    * The number of spend velocity impacting transactions may not exceed this limit in
    * the period. Transactions exceeding this limit will be declined. A spend velocity
    * impacting transaction is a transaction that has been authorized, and optionally
@@ -3478,6 +3495,41 @@ export declare namespace V2CreateParams {
   }
 }
 
+export interface V2ListParams extends CursorPageParams {
+  /**
+   * Only return Auth Rules that are bound to the provided account token.
+   */
+  account_token?: string;
+
+  /**
+   * Only return Auth Rules that are bound to the provided business account token.
+   */
+  business_account_token?: string;
+
+  /**
+   * Only return Auth Rules that are bound to the provided card token.
+   */
+  card_token?: string;
+
+  /**
+   * Deprecated: Use event_streams instead. Only return Auth rules that are executed
+   * during the provided event stream.
+   */
+  event_stream?: EventStream;
+
+  /**
+   * Only return Auth rules that are executed during any of the provided event
+   * streams. If event_streams and event_stream are specified, the values will be
+   * combined.
+   */
+  event_streams?: Array<EventStream>;
+
+  /**
+   * Only return Auth Rules that are bound to the provided scope.
+   */
+  scope?: 'PROGRAM' | 'ACCOUNT' | 'BUSINESS_ACCOUNT' | 'CARD' | 'ANY';
+}
+
 export type V2UpdateParams =
   | V2UpdateParams.AccountLevelRule
   | V2UpdateParams.CardLevelRule
@@ -3568,41 +3620,6 @@ export declare namespace V2UpdateParams {
   }
 }
 
-export interface V2ListParams extends CursorPageParams {
-  /**
-   * Only return Auth Rules that are bound to the provided account token.
-   */
-  account_token?: string;
-
-  /**
-   * Only return Auth Rules that are bound to the provided business account token.
-   */
-  business_account_token?: string;
-
-  /**
-   * Only return Auth Rules that are bound to the provided card token.
-   */
-  card_token?: string;
-
-  /**
-   * Deprecated: Use event_streams instead. Only return Auth rules that are executed
-   * during the provided event stream.
-   */
-  event_stream?: EventStream;
-
-  /**
-   * Only return Auth rules that are executed during any of the provided event
-   * streams. If event_streams and event_stream are specified, the values will be
-   * combined.
-   */
-  event_streams?: Array<EventStream>;
-
-  /**
-   * Only return Auth Rules that are bound to the provided scope.
-   */
-  scope?: 'PROGRAM' | 'ACCOUNT' | 'BUSINESS_ACCOUNT' | 'CARD' | 'ANY';
-}
-
 export interface V2DraftParams {
   /**
    * Parameters for the Auth Rule
@@ -3620,6 +3637,24 @@ export interface V2DraftParams {
     | TypescriptCodeParameters
     | ConditionalAuthorizationAdjustmentParameters
     | null;
+}
+
+export interface V2RetrieveReportParams {
+  /**
+   * Start date for the report
+   */
+  begin: string;
+
+  /**
+   * End date for the report
+   */
+  end: string;
+}
+
+export interface V2RetrieveFeaturesParams {
+  account_token?: string;
+
+  card_token?: string;
 }
 
 export interface V2ListResultsParams extends CursorPageParams {
@@ -3650,24 +3685,6 @@ export interface V2ListResultsParams extends CursorPageParams {
    * all results are returned.
    */
   has_actions?: boolean;
-}
-
-export interface V2RetrieveFeaturesParams {
-  account_token?: string;
-
-  card_token?: string;
-}
-
-export interface V2RetrieveReportParams {
-  /**
-   * Start date for the report
-   */
-  begin: string;
-
-  /**
-   * End date for the report
-   */
-  end: string;
 }
 
 V2.Backtests = Backtests;
@@ -3707,12 +3724,12 @@ export declare namespace V2 {
     type AuthRulesCursorPage as AuthRulesCursorPage,
     type V2ListResultsResponsesCursorPage as V2ListResultsResponsesCursorPage,
     type V2CreateParams as V2CreateParams,
-    type V2UpdateParams as V2UpdateParams,
     type V2ListParams as V2ListParams,
+    type V2UpdateParams as V2UpdateParams,
     type V2DraftParams as V2DraftParams,
-    type V2ListResultsParams as V2ListResultsParams,
-    type V2RetrieveFeaturesParams as V2RetrieveFeaturesParams,
     type V2RetrieveReportParams as V2RetrieveReportParams,
+    type V2RetrieveFeaturesParams as V2RetrieveFeaturesParams,
+    type V2ListResultsParams as V2ListResultsParams,
   };
 
   export {

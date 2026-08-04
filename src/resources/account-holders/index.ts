@@ -15,11 +15,11 @@ export {
   type AccountHolderSimulateEnrollmentReviewResponse,
   type AccountHolderCreateParams,
   type AccountHolderUpdateParams,
-  type AccountHolderListParams,
-  type AccountHolderRetrieveDocumentParams,
-  type AccountHolderSimulateEnrollmentDocumentReviewParams,
-  type AccountHolderSimulateEnrollmentReviewParams,
   type AccountHolderUploadDocumentParams,
+  type AccountHolderRetrieveDocumentParams,
+  type AccountHolderListParams,
+  type AccountHolderSimulateEnrollmentReviewParams,
+  type AccountHolderSimulateEnrollmentDocumentReviewParams,
   type AccountHoldersSinglePage,
 } from './account-holders';
 export {

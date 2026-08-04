@@ -9,6 +9,19 @@ import { path } from '../internal/utils/path';
 
 export class BookTransfers extends APIResource {
   /**
+   * List book transfers
+   */
+  list(
+    query: BookTransferListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<BookTransferResponsesCursorPage, BookTransferResponse> {
+    return this._client.getAPIList('/v1/book_transfers', CursorPage<BookTransferResponse>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Book transfer funds between two financial accounts or between a financial
    * account and card
    */
@@ -24,16 +37,14 @@ export class BookTransfers extends APIResource {
   }
 
   /**
-   * List book transfers
+   * Reverse a book transfer
    */
-  list(
-    query: BookTransferListParams | null | undefined = {},
+  reverse(
+    bookTransferToken: string,
+    body: BookTransferReverseParams,
     options?: RequestOptions,
-  ): PagePromise<BookTransferResponsesCursorPage, BookTransferResponse> {
-    return this._client.getAPIList('/v1/book_transfers', CursorPage<BookTransferResponse>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<BookTransferResponse> {
+    return this._client.post(path`/v1/book_transfers/${bookTransferToken}/reverse`, { body, ...options });
   }
 
   /**
@@ -45,17 +56,6 @@ export class BookTransfers extends APIResource {
     options?: RequestOptions,
   ): APIPromise<BookTransferResponse> {
     return this._client.post(path`/v1/book_transfers/${bookTransferToken}/retry`, { body, ...options });
-  }
-
-  /**
-   * Reverse a book transfer
-   */
-  reverse(
-    bookTransferToken: string,
-    body: BookTransferReverseParams,
-    options?: RequestOptions,
-  ): APIPromise<BookTransferResponse> {
-    return this._client.post(path`/v1/book_transfers/${bookTransferToken}/reverse`, { body, ...options });
   }
 }
 
@@ -253,6 +253,55 @@ export namespace BookTransferResponse {
   }
 }
 
+export interface BookTransferListParams extends CursorPageParams {
+  account_token?: string;
+
+  /**
+   * Date string in RFC 3339 format. Only entries created after the specified time
+   * will be included. UTC time zone.
+   */
+  begin?: string;
+
+  business_account_token?: string;
+
+  /**
+   * Book Transfer category to be returned.
+   */
+  category?:
+    | 'ADJUSTMENT'
+    | 'BALANCE_OR_FUNDING'
+    | 'DERECOGNITION'
+    | 'DISPUTE'
+    | 'FEE'
+    | 'INTERNAL'
+    | 'REWARD'
+    | 'PROGRAM_FUNDING'
+    | 'PROGRAM_TRANSFER'
+    | 'TRANSFER';
+
+  /**
+   * Date string in RFC 3339 format. Only entries created before the specified time
+   * will be included. UTC time zone.
+   */
+  end?: string;
+
+  /**
+   * Globally unique identifier for the financial account or card that will send the
+   * funds. Accepted type dependent on the program's use case.
+   */
+  financial_account_token?: string;
+
+  /**
+   * Book transfer result to be returned.
+   */
+  result?: 'APPROVED' | 'DECLINED';
+
+  /**
+   * Book transfer status to be returned.
+   */
+  status?: 'DECLINED' | 'SETTLED';
+}
+
 export interface BookTransferCreateParams {
   /**
    * Amount to be transferred in the currency's smallest unit (e.g., cents for USD).
@@ -359,53 +408,11 @@ export interface BookTransferCreateParams {
   on_closed_account?: 'FAIL' | 'USE_SUSPENSE';
 }
 
-export interface BookTransferListParams extends CursorPageParams {
-  account_token?: string;
-
+export interface BookTransferReverseParams {
   /**
-   * Date string in RFC 3339 format. Only entries created after the specified time
-   * will be included. UTC time zone.
+   * Optional descriptor for the reversal.
    */
-  begin?: string;
-
-  business_account_token?: string;
-
-  /**
-   * Book Transfer category to be returned.
-   */
-  category?:
-    | 'ADJUSTMENT'
-    | 'BALANCE_OR_FUNDING'
-    | 'DERECOGNITION'
-    | 'DISPUTE'
-    | 'FEE'
-    | 'INTERNAL'
-    | 'REWARD'
-    | 'PROGRAM_FUNDING'
-    | 'PROGRAM_TRANSFER'
-    | 'TRANSFER';
-
-  /**
-   * Date string in RFC 3339 format. Only entries created before the specified time
-   * will be included. UTC time zone.
-   */
-  end?: string;
-
-  /**
-   * Globally unique identifier for the financial account or card that will send the
-   * funds. Accepted type dependent on the program's use case.
-   */
-  financial_account_token?: string;
-
-  /**
-   * Book transfer result to be returned.
-   */
-  result?: 'APPROVED' | 'DECLINED';
-
-  /**
-   * Book transfer status to be returned.
-   */
-  status?: 'DECLINED' | 'SETTLED';
+  memo?: string;
 }
 
 export interface BookTransferRetryParams {
@@ -416,20 +423,13 @@ export interface BookTransferRetryParams {
   retry_token: string;
 }
 
-export interface BookTransferReverseParams {
-  /**
-   * Optional descriptor for the reversal.
-   */
-  memo?: string;
-}
-
 export declare namespace BookTransfers {
   export {
     type BookTransferResponse as BookTransferResponse,
     type BookTransferResponsesCursorPage as BookTransferResponsesCursorPage,
-    type BookTransferCreateParams as BookTransferCreateParams,
     type BookTransferListParams as BookTransferListParams,
-    type BookTransferRetryParams as BookTransferRetryParams,
+    type BookTransferCreateParams as BookTransferCreateParams,
     type BookTransferReverseParams as BookTransferReverseParams,
+    type BookTransferRetryParams as BookTransferRetryParams,
   };
 }

@@ -8,6 +8,21 @@ import { path } from '../internal/utils/path';
 
 export class Holds extends APIResource {
   /**
+   * List holds for a financial account.
+   */
+  list(
+    financialAccountToken: string,
+    query: HoldListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<HoldsCursorPage, Hold> {
+    return this._client.getAPIList(
+      path`/v1/financial_accounts/${financialAccountToken}/holds`,
+      CursorPage<Hold>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Create a hold on a financial account. Holds reserve funds by moving them from
    * available to pending balance. They can be resolved via settlement (linked to a
    * payment or book transfer), voiding, or expiration.
@@ -24,21 +39,6 @@ export class Holds extends APIResource {
    */
   retrieve(holdToken: string, options?: RequestOptions): APIPromise<Hold> {
     return this._client.get(path`/v1/holds/${holdToken}`, options);
-  }
-
-  /**
-   * List holds for a financial account.
-   */
-  list(
-    financialAccountToken: string,
-    query: HoldListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<HoldsCursorPage, Hold> {
-    return this._client.getAPIList(
-      path`/v1/financial_accounts/${financialAccountToken}/holds`,
-      CursorPage<Hold>,
-      { query, ...options },
-    );
   }
 
   /**
@@ -136,6 +136,25 @@ export interface HoldEvent {
   type: 'HOLD_INITIATED' | 'HOLD_VOIDED' | 'HOLD_EXPIRED' | 'HOLD_SETTLED';
 }
 
+export interface HoldListParams extends CursorPageParams {
+  /**
+   * Date string in RFC 3339 format. Only entries created after the specified time
+   * will be included. UTC time zone.
+   */
+  begin?: string;
+
+  /**
+   * Date string in RFC 3339 format. Only entries created before the specified time
+   * will be included. UTC time zone.
+   */
+  end?: string;
+
+  /**
+   * Hold status to filter by.
+   */
+  status?: 'PENDING' | 'SETTLED' | 'EXPIRED' | 'VOIDED';
+}
+
 export interface HoldCreateParams {
   /**
    * Amount to hold in cents
@@ -163,25 +182,6 @@ export interface HoldCreateParams {
   user_defined_id?: string;
 }
 
-export interface HoldListParams extends CursorPageParams {
-  /**
-   * Date string in RFC 3339 format. Only entries created after the specified time
-   * will be included. UTC time zone.
-   */
-  begin?: string;
-
-  /**
-   * Date string in RFC 3339 format. Only entries created before the specified time
-   * will be included. UTC time zone.
-   */
-  end?: string;
-
-  /**
-   * Hold status to filter by.
-   */
-  status?: 'PENDING' | 'SETTLED' | 'EXPIRED' | 'VOIDED';
-}
-
 export interface HoldVoidParams {
   /**
    * Reason for voiding the hold
@@ -194,8 +194,8 @@ export declare namespace Holds {
     type Hold as Hold,
     type HoldEvent as HoldEvent,
     type HoldsCursorPage as HoldsCursorPage,
-    type HoldCreateParams as HoldCreateParams,
     type HoldListParams as HoldListParams,
+    type HoldCreateParams as HoldCreateParams,
     type HoldVoidParams as HoldVoidParams,
   };
 }

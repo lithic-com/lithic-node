@@ -27,13 +27,6 @@ export class Events extends APIResource {
   );
 
   /**
-   * Get an event.
-   */
-  retrieve(eventToken: string, options?: RequestOptions): APIPromise<Event> {
-    return this._client.get(path`/v1/events/${eventToken}`, options);
-  }
-
-  /**
    * List all events.
    */
   list(
@@ -41,6 +34,13 @@ export class Events extends APIResource {
     options?: RequestOptions,
   ): PagePromise<EventsCursorPage, Event> {
     return this._client.getAPIList('/v1/events', CursorPage<Event>, { query, ...options });
+  }
+
+  /**
+   * Get an event.
+   */
+  retrieve(eventToken: string, options?: RequestOptions): APIPromise<Event> {
+    return this._client.get(path`/v1/events/${eventToken}`, options);
   }
 
   /**
@@ -574,11 +574,11 @@ export declare namespace Events {
   export {
     Subscriptions as Subscriptions,
     type SubscriptionRetrieveSecretResponse as SubscriptionRetrieveSecretResponse,
+    type SubscriptionListParams as SubscriptionListParams,
     type SubscriptionCreateParams as SubscriptionCreateParams,
     type SubscriptionUpdateParams as SubscriptionUpdateParams,
-    type SubscriptionListParams as SubscriptionListParams,
-    type SubscriptionListAttemptsParams as SubscriptionListAttemptsParams,
     type SubscriptionRecoverParams as SubscriptionRecoverParams,
+    type SubscriptionListAttemptsParams as SubscriptionListAttemptsParams,
     type SubscriptionReplayMissingParams as SubscriptionReplayMissingParams,
     type SubscriptionSendSimulatedExampleParams as SubscriptionSendSimulatedExampleParams,
   };

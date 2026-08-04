@@ -273,7 +273,7 @@
     },
     {
       "base": "disputes",
-      "name": "deleteEvidence",
+      "name": "retrieveEvidence",
       "params": [
         {
           "type": "param",
@@ -306,7 +306,7 @@
     },
     {
       "base": "disputes",
-      "name": "retrieveEvidence",
+      "name": "deleteEvidence",
       "params": [
         {
           "type": "param",

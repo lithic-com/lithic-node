@@ -10,30 +10,6 @@ import { path } from '../../internal/utils/path';
 
 export class FinancialTransactions extends APIResource {
   /**
-   * Get the card financial transaction for the provided token.
-   *
-   * @example
-   * ```ts
-   * const financialTransaction =
-   *   await client.cards.financialTransactions.retrieve(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     { card_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
-   *   );
-   * ```
-   */
-  retrieve(
-    financialTransactionToken: string,
-    params: FinancialTransactionRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<FinancialAccountsAPI.FinancialTransaction> {
-    const { card_token } = params;
-    return this._client.get(
-      path`/v1/cards/${card_token}/financial_transactions/${financialTransactionToken}`,
-      options,
-    );
-  }
-
-  /**
    * List the financial transactions for a given card.
    *
    * @example
@@ -57,10 +33,30 @@ export class FinancialTransactions extends APIResource {
       { query, ...options },
     );
   }
-}
 
-export interface FinancialTransactionRetrieveParams {
-  card_token: string;
+  /**
+   * Get the card financial transaction for the provided token.
+   *
+   * @example
+   * ```ts
+   * const financialTransaction =
+   *   await client.cards.financialTransactions.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     { card_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+   *   );
+   * ```
+   */
+  retrieve(
+    financialTransactionToken: string,
+    params: FinancialTransactionRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<FinancialAccountsAPI.FinancialTransaction> {
+    const { card_token } = params;
+    return this._client.get(
+      path`/v1/cards/${card_token}/financial_transactions/${financialTransactionToken}`,
+      options,
+    );
+  }
 }
 
 export interface FinancialTransactionListParams {
@@ -104,10 +100,14 @@ export interface FinancialTransactionListParams {
   status?: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'RETURNED' | 'SETTLED' | 'VOIDED';
 }
 
+export interface FinancialTransactionRetrieveParams {
+  card_token: string;
+}
+
 export declare namespace FinancialTransactions {
   export {
-    type FinancialTransactionRetrieveParams as FinancialTransactionRetrieveParams,
     type FinancialTransactionListParams as FinancialTransactionListParams,
+    type FinancialTransactionRetrieveParams as FinancialTransactionRetrieveParams,
   };
 }
 

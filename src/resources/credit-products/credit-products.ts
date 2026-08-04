@@ -27,7 +27,7 @@ export declare namespace CreditProducts {
   export {
     PrimeRates as PrimeRates,
     type PrimeRateRetrieveResponse as PrimeRateRetrieveResponse,
-    type PrimeRateCreateParams as PrimeRateCreateParams,
     type PrimeRateRetrieveParams as PrimeRateRetrieveParams,
+    type PrimeRateCreateParams as PrimeRateCreateParams,
   };
 }

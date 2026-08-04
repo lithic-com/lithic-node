@@ -8,17 +8,6 @@ const client = new Lithic({
 });
 
 describe('resource transactions', () => {
-  test('retrieve', async () => {
-    const responsePromise = client.transactions.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
   test('list', async () => {
     const responsePromise = client.transactions.list();
     const rawResponse = await responsePromise.asResponse();
@@ -50,8 +39,8 @@ describe('resource transactions', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  test('expireAuthorization', async () => {
-    const responsePromise = client.transactions.expireAuthorization('00000000-0000-0000-0000-000000000000');
+  test('retrieve', async () => {
+    const responsePromise = client.transactions.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -59,25 +48,6 @@ describe('resource transactions', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('route: only required params', async () => {
-    const responsePromise = client.transactions.route('00000000-0000-0000-0000-000000000000', {
-      financial_account_token: '00000000-0000-0000-0000-000000000000',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('route: required and optional params', async () => {
-    const response = await client.transactions.route('00000000-0000-0000-0000-000000000000', {
-      financial_account_token: '00000000-0000-0000-0000-000000000000',
-    });
   });
 
   test('simulateAuthorization: only required params', async () => {
@@ -113,27 +83,6 @@ describe('resource transactions', () => {
     });
   });
 
-  test('simulateAuthorizationAdvice: only required params', async () => {
-    const responsePromise = client.transactions.simulateAuthorizationAdvice({
-      token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac',
-      amount: 3831,
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('simulateAuthorizationAdvice: required and optional params', async () => {
-    const response = await client.transactions.simulateAuthorizationAdvice({
-      token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac',
-      amount: 3831,
-    });
-  });
-
   test('simulateClearing: only required params', async () => {
     const responsePromise = client.transactions.simulateClearing({
       token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac',
@@ -151,62 +100,6 @@ describe('resource transactions', () => {
     const response = await client.transactions.simulateClearing({
       token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac',
       amount: 0,
-    });
-  });
-
-  test('simulateCreditAuthorization: only required params', async () => {
-    const responsePromise = client.transactions.simulateCreditAuthorization({
-      amount: 3831,
-      descriptor: 'COFFEE SHOP',
-      pan: '4111111289144142',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('simulateCreditAuthorization: required and optional params', async () => {
-    const response = await client.transactions.simulateCreditAuthorization({
-      amount: 3831,
-      descriptor: 'COFFEE SHOP',
-      pan: '4111111289144142',
-      mcc: '5812',
-      merchant_acceptor_city: 'SEATTLE',
-      merchant_acceptor_country: 'USA',
-      merchant_acceptor_id: 'XRKGDPOWEWQRRWU',
-      merchant_acceptor_state: 'WA',
-    });
-  });
-
-  test('simulateCreditAuthorizationAdvice: only required params', async () => {
-    const responsePromise = client.transactions.simulateCreditAuthorizationAdvice({
-      amount: 3831,
-      descriptor: 'COFFEE SHOP',
-      pan: '4111111289144142',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('simulateCreditAuthorizationAdvice: required and optional params', async () => {
-    const response = await client.transactions.simulateCreditAuthorizationAdvice({
-      amount: 3831,
-      descriptor: 'COFFEE SHOP',
-      pan: '4111111289144142',
-      mcc: '5812',
-      merchant_acceptor_city: 'SEATTLE',
-      merchant_acceptor_country: 'USA',
-      merchant_acceptor_id: 'XRKGDPOWEWQRRWU',
-      merchant_acceptor_state: 'WA',
     });
   });
 
@@ -270,6 +163,113 @@ describe('resource transactions', () => {
       token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac',
       amount: 100,
       type: 'AUTHORIZATION_EXPIRY',
+    });
+  });
+
+  test('simulateCreditAuthorization: only required params', async () => {
+    const responsePromise = client.transactions.simulateCreditAuthorization({
+      amount: 3831,
+      descriptor: 'COFFEE SHOP',
+      pan: '4111111289144142',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('simulateCreditAuthorization: required and optional params', async () => {
+    const response = await client.transactions.simulateCreditAuthorization({
+      amount: 3831,
+      descriptor: 'COFFEE SHOP',
+      pan: '4111111289144142',
+      mcc: '5812',
+      merchant_acceptor_city: 'SEATTLE',
+      merchant_acceptor_country: 'USA',
+      merchant_acceptor_id: 'XRKGDPOWEWQRRWU',
+      merchant_acceptor_state: 'WA',
+    });
+  });
+
+  test('simulateCreditAuthorizationAdvice: only required params', async () => {
+    const responsePromise = client.transactions.simulateCreditAuthorizationAdvice({
+      amount: 3831,
+      descriptor: 'COFFEE SHOP',
+      pan: '4111111289144142',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('simulateCreditAuthorizationAdvice: required and optional params', async () => {
+    const response = await client.transactions.simulateCreditAuthorizationAdvice({
+      amount: 3831,
+      descriptor: 'COFFEE SHOP',
+      pan: '4111111289144142',
+      mcc: '5812',
+      merchant_acceptor_city: 'SEATTLE',
+      merchant_acceptor_country: 'USA',
+      merchant_acceptor_id: 'XRKGDPOWEWQRRWU',
+      merchant_acceptor_state: 'WA',
+    });
+  });
+
+  test('simulateAuthorizationAdvice: only required params', async () => {
+    const responsePromise = client.transactions.simulateAuthorizationAdvice({
+      token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac',
+      amount: 3831,
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('simulateAuthorizationAdvice: required and optional params', async () => {
+    const response = await client.transactions.simulateAuthorizationAdvice({
+      token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac',
+      amount: 3831,
+    });
+  });
+
+  test('expireAuthorization', async () => {
+    const responsePromise = client.transactions.expireAuthorization('00000000-0000-0000-0000-000000000000');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('route: only required params', async () => {
+    const responsePromise = client.transactions.route('00000000-0000-0000-0000-000000000000', {
+      financial_account_token: '00000000-0000-0000-0000-000000000000',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('route: required and optional params', async () => {
+    const response = await client.transactions.route('00000000-0000-0000-0000-000000000000', {
+      financial_account_token: '00000000-0000-0000-0000-000000000000',
     });
   });
 });

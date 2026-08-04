@@ -9,13 +9,6 @@ import { path } from '../internal/utils/path';
 
 export class DisputesV2 extends APIResource {
   /**
-   * Retrieves a specific dispute by its token.
-   */
-  retrieve(disputeToken: string, options?: RequestOptions): APIPromise<DisputeV2> {
-    return this._client.get(path`/v2/disputes/${disputeToken}`, options);
-  }
-
-  /**
    * Returns a paginated list of disputes.
    */
   list(
@@ -23,6 +16,13 @@ export class DisputesV2 extends APIResource {
     options?: RequestOptions,
   ): PagePromise<DisputeV2sCursorPage, DisputeV2> {
     return this._client.getAPIList('/v2/disputes', CursorPage<DisputeV2>, { query, ...options });
+  }
+
+  /**
+   * Retrieves a specific dispute by its token.
+   */
+  retrieve(disputeToken: string, options?: RequestOptions): APIPromise<DisputeV2> {
+    return this._client.get(path`/v2/disputes/${disputeToken}`, options);
   }
 }
 

@@ -10,6 +10,24 @@ import { maybeMultipartFormRequestOptions } from '../internal/uploads';
 
 export class Disputes extends APIResource {
   /**
+   * List chargeback requests.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const dispute of client.disputes.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: DisputeListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<DisputesCursorPage, Dispute> {
+    return this._client.getAPIList('/v1/disputes', CursorPage<Dispute>, { query, ...options });
+  }
+
+  /**
    * Request a chargeback.
    *
    * @example
@@ -41,38 +59,6 @@ export class Disputes extends APIResource {
   }
 
   /**
-   * Update chargeback request. Can only be modified if status is `NEW`.
-   *
-   * @example
-   * ```ts
-   * const dispute = await client.disputes.update(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
-   */
-  update(disputeToken: string, body: DisputeUpdateParams, options?: RequestOptions): APIPromise<Dispute> {
-    return this._client.patch(path`/v1/disputes/${disputeToken}`, { body, ...options });
-  }
-
-  /**
-   * List chargeback requests.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const dispute of client.disputes.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: DisputeListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<DisputesCursorPage, Dispute> {
-    return this._client.getAPIList('/v1/disputes', CursorPage<Dispute>, { query, ...options });
-  }
-
-  /**
    * Withdraw chargeback request.
    *
    * @example
@@ -87,50 +73,17 @@ export class Disputes extends APIResource {
   }
 
   /**
-   * Soft delete evidence for a chargeback request. Evidence will not be reviewed or
-   * submitted by Lithic after it is withdrawn.
+   * Update chargeback request. Can only be modified if status is `NEW`.
    *
    * @example
    * ```ts
-   * const disputeEvidence =
-   *   await client.disputes.deleteEvidence(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     {
-   *       dispute_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     },
-   *   );
+   * const dispute = await client.disputes.update(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
    * ```
    */
-  deleteEvidence(
-    evidenceToken: string,
-    params: DisputeDeleteEvidenceParams,
-    options?: RequestOptions,
-  ): APIPromise<DisputeEvidence> {
-    const { dispute_token } = params;
-    return this._client.delete(path`/v1/disputes/${dispute_token}/evidences/${evidenceToken}`, options);
-  }
-
-  /**
-   * Use this endpoint to upload evidence for a chargeback request. It will return a
-   * URL to upload your documents to. The URL will expire in 30 minutes.
-   *
-   * Uploaded documents must either be a `jpg`, `png` or `pdf` file, and each must be
-   * less than 5 GiB.
-   *
-   * @example
-   * ```ts
-   * const disputeEvidence =
-   *   await client.disputes.initiateEvidenceUpload(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
-   * ```
-   */
-  initiateEvidenceUpload(
-    disputeToken: string,
-    body: DisputeInitiateEvidenceUploadParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<DisputeEvidence> {
-    return this._client.post(path`/v1/disputes/${disputeToken}/evidences`, { body, ...options });
+  update(disputeToken: string, body: DisputeUpdateParams, options?: RequestOptions): APIPromise<Dispute> {
+    return this._client.patch(path`/v1/disputes/${disputeToken}`, { body, ...options });
   }
 
   /**
@@ -159,6 +112,29 @@ export class Disputes extends APIResource {
   }
 
   /**
+   * Use this endpoint to upload evidence for a chargeback request. It will return a
+   * URL to upload your documents to. The URL will expire in 30 minutes.
+   *
+   * Uploaded documents must either be a `jpg`, `png` or `pdf` file, and each must be
+   * less than 5 GiB.
+   *
+   * @example
+   * ```ts
+   * const disputeEvidence =
+   *   await client.disputes.initiateEvidenceUpload(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  initiateEvidenceUpload(
+    disputeToken: string,
+    body: DisputeInitiateEvidenceUploadParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<DisputeEvidence> {
+    return this._client.post(path`/v1/disputes/${disputeToken}/evidences`, { body, ...options });
+  }
+
+  /**
    * Get evidence for a chargeback request.
    *
    * @example
@@ -179,6 +155,30 @@ export class Disputes extends APIResource {
   ): APIPromise<DisputeEvidence> {
     const { dispute_token } = params;
     return this._client.get(path`/v1/disputes/${dispute_token}/evidences/${evidenceToken}`, options);
+  }
+
+  /**
+   * Soft delete evidence for a chargeback request. Evidence will not be reviewed or
+   * submitted by Lithic after it is withdrawn.
+   *
+   * @example
+   * ```ts
+   * const disputeEvidence =
+   *   await client.disputes.deleteEvidence(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     {
+   *       dispute_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     },
+   *   );
+   * ```
+   */
+  deleteEvidence(
+    evidenceToken: string,
+    params: DisputeDeleteEvidenceParams,
+    options?: RequestOptions,
+  ): APIPromise<DisputeEvidence> {
+    const { dispute_token } = params;
+    return this._client.delete(path`/v1/disputes/${dispute_token}/evidences/${evidenceToken}`, options);
   }
 
   /**
@@ -435,6 +435,38 @@ export interface DisputeEvidence {
   upload_url?: string;
 }
 
+export interface DisputeListParams extends CursorPageParams {
+  /**
+   * Date string in RFC 3339 format. Only entries created after the specified time
+   * will be included. UTC time zone.
+   */
+  begin?: string;
+
+  /**
+   * Date string in RFC 3339 format. Only entries created before the specified time
+   * will be included. UTC time zone.
+   */
+  end?: string;
+
+  /**
+   * Filter by status.
+   */
+  status?:
+    | 'ARBITRATION'
+    | 'CASE_CLOSED'
+    | 'CASE_WON'
+    | 'NEW'
+    | 'PENDING_CUSTOMER'
+    | 'PREARBITRATION'
+    | 'REPRESENTMENT'
+    | 'SUBMITTED';
+
+  /**
+   * Transaction tokens to filter by.
+   */
+  transaction_tokens?: Array<string>;
+}
+
 export interface DisputeCreateParams {
   /**
    * Amount for chargeback
@@ -512,49 +544,6 @@ export interface DisputeUpdateParams {
     | 'REFUND_NOT_PROCESSED';
 }
 
-export interface DisputeListParams extends CursorPageParams {
-  /**
-   * Date string in RFC 3339 format. Only entries created after the specified time
-   * will be included. UTC time zone.
-   */
-  begin?: string;
-
-  /**
-   * Date string in RFC 3339 format. Only entries created before the specified time
-   * will be included. UTC time zone.
-   */
-  end?: string;
-
-  /**
-   * Filter by status.
-   */
-  status?:
-    | 'ARBITRATION'
-    | 'CASE_CLOSED'
-    | 'CASE_WON'
-    | 'NEW'
-    | 'PENDING_CUSTOMER'
-    | 'PREARBITRATION'
-    | 'REPRESENTMENT'
-    | 'SUBMITTED';
-
-  /**
-   * Transaction tokens to filter by.
-   */
-  transaction_tokens?: Array<string>;
-}
-
-export interface DisputeDeleteEvidenceParams {
-  dispute_token: string;
-}
-
-export interface DisputeInitiateEvidenceUploadParams {
-  /**
-   * Filename of the evidence.
-   */
-  filename?: string;
-}
-
 export interface DisputeListEvidencesParams extends CursorPageParams {
   /**
    * Date string in RFC 3339 format. Only entries created after the specified time
@@ -569,7 +558,18 @@ export interface DisputeListEvidencesParams extends CursorPageParams {
   end?: string;
 }
 
+export interface DisputeInitiateEvidenceUploadParams {
+  /**
+   * Filename of the evidence.
+   */
+  filename?: string;
+}
+
 export interface DisputeRetrieveEvidenceParams {
+  dispute_token: string;
+}
+
+export interface DisputeDeleteEvidenceParams {
   dispute_token: string;
 }
 
@@ -579,12 +579,12 @@ export declare namespace Disputes {
     type DisputeEvidence as DisputeEvidence,
     type DisputesCursorPage as DisputesCursorPage,
     type DisputeEvidencesCursorPage as DisputeEvidencesCursorPage,
+    type DisputeListParams as DisputeListParams,
     type DisputeCreateParams as DisputeCreateParams,
     type DisputeUpdateParams as DisputeUpdateParams,
-    type DisputeListParams as DisputeListParams,
-    type DisputeDeleteEvidenceParams as DisputeDeleteEvidenceParams,
-    type DisputeInitiateEvidenceUploadParams as DisputeInitiateEvidenceUploadParams,
     type DisputeListEvidencesParams as DisputeListEvidencesParams,
+    type DisputeInitiateEvidenceUploadParams as DisputeInitiateEvidenceUploadParams,
     type DisputeRetrieveEvidenceParams as DisputeRetrieveEvidenceParams,
+    type DisputeDeleteEvidenceParams as DisputeDeleteEvidenceParams,
   };
 }

@@ -10,6 +10,31 @@ import { path } from '../../internal/utils/path';
 
 export class LoanTapes extends APIResource {
   /**
+   * List the loan tapes for a given financial account.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const loanTape of client.financialAccounts.loanTapes.list(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * )) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    financialAccountToken: string,
+    query: LoanTapeListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<LoanTapesCursorPage, LoanTape> {
+    return this._client.getAPIList(
+      path`/v1/financial_accounts/${financialAccountToken}/loan_tapes`,
+      CursorPage<LoanTape>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Get a specific loan tape for a given financial account.
    *
    * @example
@@ -33,31 +58,6 @@ export class LoanTapes extends APIResource {
     return this._client.get(
       path`/v1/financial_accounts/${financial_account_token}/loan_tapes/${loanTapeToken}`,
       options,
-    );
-  }
-
-  /**
-   * List the loan tapes for a given financial account.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const loanTape of client.financialAccounts.loanTapes.list(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * )) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    financialAccountToken: string,
-    query: LoanTapeListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<LoanTapesCursorPage, LoanTape> {
-    return this._client.getAPIList(
-      path`/v1/financial_accounts/${financialAccountToken}/loan_tapes`,
-      CursorPage<LoanTape>,
-      { query, ...options },
     );
   }
 }
@@ -307,13 +307,6 @@ export namespace LoanTape {
   }
 }
 
-export interface LoanTapeRetrieveParams {
-  /**
-   * Globally unique identifier for financial account.
-   */
-  financial_account_token: string;
-}
-
 export interface LoanTapeListParams extends CursorPageParams {
   /**
    * Date string in RFC 3339 format. Only entries created after the specified date
@@ -328,12 +321,19 @@ export interface LoanTapeListParams extends CursorPageParams {
   end?: string;
 }
 
+export interface LoanTapeRetrieveParams {
+  /**
+   * Globally unique identifier for financial account.
+   */
+  financial_account_token: string;
+}
+
 export declare namespace LoanTapes {
   export {
     type CategoryBalances as CategoryBalances,
     type LoanTape as LoanTape,
     type LoanTapesCursorPage as LoanTapesCursorPage,
-    type LoanTapeRetrieveParams as LoanTapeRetrieveParams,
     type LoanTapeListParams as LoanTapeListParams,
+    type LoanTapeRetrieveParams as LoanTapeRetrieveParams,
   };
 }

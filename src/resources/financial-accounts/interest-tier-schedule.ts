@@ -8,6 +8,40 @@ import { path } from '../../internal/utils/path';
 
 export class InterestTierScheduleResource extends APIResource {
   /**
+   * List interest tier schedules for a financial account with optional date
+   * filtering.
+   *
+   * If no date parameters are provided, returns all tier schedules. If date
+   * parameters are provided, uses filtering to return matching schedules (max 100).
+   *
+   * - for_date: Returns exact match (takes precedence over other dates)
+   * - before_date: Returns schedules with effective_date <= before_date
+   * - after_date: Returns schedules with effective_date >= after_date
+   * - Both before_date and after_date: Returns schedules in range
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const interestTierSchedule of client.financialAccounts.interestTierSchedule.list(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * )) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    financialAccountToken: string,
+    query: InterestTierScheduleListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<InterestTierSchedulesSinglePage, InterestTierSchedule> {
+    return this._client.getAPIList(
+      path`/v1/financial_accounts/${financialAccountToken}/interest_tier_schedule`,
+      SinglePage<InterestTierSchedule>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Create a new interest tier schedule entry for a supported financial account
    *
    * @example
@@ -84,40 +118,6 @@ export class InterestTierScheduleResource extends APIResource {
     return this._client.put(
       path`/v1/financial_accounts/${financial_account_token}/interest_tier_schedule/${effectiveDate}`,
       { body, ...options },
-    );
-  }
-
-  /**
-   * List interest tier schedules for a financial account with optional date
-   * filtering.
-   *
-   * If no date parameters are provided, returns all tier schedules. If date
-   * parameters are provided, uses filtering to return matching schedules (max 100).
-   *
-   * - for_date: Returns exact match (takes precedence over other dates)
-   * - before_date: Returns schedules with effective_date <= before_date
-   * - after_date: Returns schedules with effective_date >= after_date
-   * - Both before_date and after_date: Returns schedules in range
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const interestTierSchedule of client.financialAccounts.interestTierSchedule.list(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * )) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    financialAccountToken: string,
-    query: InterestTierScheduleListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<InterestTierSchedulesSinglePage, InterestTierSchedule> {
-    return this._client.getAPIList(
-      path`/v1/financial_accounts/${financialAccountToken}/interest_tier_schedule`,
-      SinglePage<InterestTierSchedule>,
-      { query, ...options },
     );
   }
 
@@ -211,6 +211,23 @@ export interface InterestTierSchedule {
   tier_rates?: unknown;
 }
 
+export interface InterestTierScheduleListParams {
+  /**
+   * Return schedules with effective_date >= after_date (ISO format YYYY-MM-DD)
+   */
+  after_date?: string;
+
+  /**
+   * Return schedules with effective_date <= before_date (ISO format YYYY-MM-DD)
+   */
+  before_date?: string;
+
+  /**
+   * Return schedule with effective_date == for_date (ISO format YYYY-MM-DD)
+   */
+  for_date?: string;
+}
+
 export interface InterestTierScheduleCreateParams {
   /**
    * Globally unique identifier for a credit product
@@ -269,23 +286,6 @@ export interface InterestTierScheduleUpdateParams {
   tier_rates?: unknown;
 }
 
-export interface InterestTierScheduleListParams {
-  /**
-   * Return schedules with effective_date >= after_date (ISO format YYYY-MM-DD)
-   */
-  after_date?: string;
-
-  /**
-   * Return schedules with effective_date <= before_date (ISO format YYYY-MM-DD)
-   */
-  before_date?: string;
-
-  /**
-   * Return schedule with effective_date == for_date (ISO format YYYY-MM-DD)
-   */
-  for_date?: string;
-}
-
 export interface InterestTierScheduleDeleteParams {
   /**
    * Globally unique identifier for financial account
@@ -298,10 +298,10 @@ export declare namespace InterestTierScheduleResource {
     type CategoryTier as CategoryTier,
     type InterestTierSchedule as InterestTierSchedule,
     type InterestTierSchedulesSinglePage as InterestTierSchedulesSinglePage,
+    type InterestTierScheduleListParams as InterestTierScheduleListParams,
     type InterestTierScheduleCreateParams as InterestTierScheduleCreateParams,
     type InterestTierScheduleRetrieveParams as InterestTierScheduleRetrieveParams,
     type InterestTierScheduleUpdateParams as InterestTierScheduleUpdateParams,
-    type InterestTierScheduleListParams as InterestTierScheduleListParams,
     type InterestTierScheduleDeleteParams as InterestTierScheduleDeleteParams,
   };
 }

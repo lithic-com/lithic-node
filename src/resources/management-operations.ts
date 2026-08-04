@@ -8,6 +8,19 @@ import { path } from '../internal/utils/path';
 
 export class ManagementOperations extends APIResource {
   /**
+   * List management operations
+   */
+  list(
+    query: ManagementOperationListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ManagementOperationTransactionsCursorPage, ManagementOperationTransaction> {
+    return this._client.getAPIList('/v1/management_operations', CursorPage<ManagementOperationTransaction>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Create management operation
    */
   create(
@@ -25,19 +38,6 @@ export class ManagementOperations extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ManagementOperationTransaction> {
     return this._client.get(path`/v1/management_operations/${managementOperationToken}`, options);
-  }
-
-  /**
-   * List management operations
-   */
-  list(
-    query: ManagementOperationListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<ManagementOperationTransactionsCursorPage, ManagementOperationTransaction> {
-    return this._client.getAPIList('/v1/management_operations', CursorPage<ManagementOperationTransaction>, {
-      query,
-      ...options,
-    });
   }
 
   /**
@@ -194,6 +194,43 @@ export namespace ManagementOperationTransaction {
   }
 }
 
+export interface ManagementOperationListParams extends CursorPageParams {
+  /**
+   * Date string in RFC 3339 format. Only entries created after the specified time
+   * will be included. UTC time zone.
+   */
+  begin?: string;
+
+  business_account_token?: string;
+
+  /**
+   * Management operation category to be returned.
+   */
+  category?:
+    | 'MANAGEMENT_FEE'
+    | 'MANAGEMENT_DISPUTE'
+    | 'MANAGEMENT_REWARD'
+    | 'MANAGEMENT_ADJUSTMENT'
+    | 'MANAGEMENT_DISBURSEMENT';
+
+  /**
+   * Date string in RFC 3339 format. Only entries created before the specified time
+   * will be included. UTC time zone.
+   */
+  end?: string;
+
+  /**
+   * Globally unique identifier for the financial account. Accepted type dependent on
+   * the program's use case.
+   */
+  financial_account_token?: string;
+
+  /**
+   * Management operation status to be returned.
+   */
+  status?: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED';
+}
+
 export interface ManagementOperationCreateParams {
   amount: number;
 
@@ -255,43 +292,6 @@ export interface ManagementOperationCreateParams {
   user_defined_id?: string;
 }
 
-export interface ManagementOperationListParams extends CursorPageParams {
-  /**
-   * Date string in RFC 3339 format. Only entries created after the specified time
-   * will be included. UTC time zone.
-   */
-  begin?: string;
-
-  business_account_token?: string;
-
-  /**
-   * Management operation category to be returned.
-   */
-  category?:
-    | 'MANAGEMENT_FEE'
-    | 'MANAGEMENT_DISPUTE'
-    | 'MANAGEMENT_REWARD'
-    | 'MANAGEMENT_ADJUSTMENT'
-    | 'MANAGEMENT_DISBURSEMENT';
-
-  /**
-   * Date string in RFC 3339 format. Only entries created before the specified time
-   * will be included. UTC time zone.
-   */
-  end?: string;
-
-  /**
-   * Globally unique identifier for the financial account. Accepted type dependent on
-   * the program's use case.
-   */
-  financial_account_token?: string;
-
-  /**
-   * Management operation status to be returned.
-   */
-  status?: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED';
-}
-
 export interface ManagementOperationReverseParams {
   effective_date: string;
 
@@ -304,8 +304,8 @@ export declare namespace ManagementOperations {
     type ExternalResourceType as ExternalResourceType,
     type ManagementOperationTransaction as ManagementOperationTransaction,
     type ManagementOperationTransactionsCursorPage as ManagementOperationTransactionsCursorPage,
-    type ManagementOperationCreateParams as ManagementOperationCreateParams,
     type ManagementOperationListParams as ManagementOperationListParams,
+    type ManagementOperationCreateParams as ManagementOperationCreateParams,
     type ManagementOperationReverseParams as ManagementOperationReverseParams,
   };
 }

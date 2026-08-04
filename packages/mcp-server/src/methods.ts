@@ -17,6 +17,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/status',
   },
   {
+    clientCallName: 'client.accounts.list',
+    fullyQualifiedName: 'accounts.list',
+    httpMethod: 'get',
+    httpPath: '/v1/accounts',
+  },
+  {
     clientCallName: 'client.accounts.retrieve',
     fullyQualifiedName: 'accounts.retrieve',
     httpMethod: 'get',
@@ -29,10 +35,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/accounts/{account_token}',
   },
   {
-    clientCallName: 'client.accounts.list',
-    fullyQualifiedName: 'accounts.list',
+    clientCallName: 'client.accounts.retrieveSpendLimits',
+    fullyQualifiedName: 'accounts.retrieveSpendLimits',
     httpMethod: 'get',
-    httpPath: '/v1/accounts',
+    httpPath: '/v1/accounts/{account_token}/spend_limits',
   },
   {
     clientCallName: 'client.accounts.retrieveSignals',
@@ -41,22 +47,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/accounts/{account_token}/signals',
   },
   {
-    clientCallName: 'client.accounts.retrieveSpendLimits',
-    fullyQualifiedName: 'accounts.retrieveSpendLimits',
-    httpMethod: 'get',
-    httpPath: '/v1/accounts/{account_token}/spend_limits',
-  },
-  {
     clientCallName: 'client.accountHolders.create',
     fullyQualifiedName: 'accountHolders.create',
     httpMethod: 'post',
     httpPath: '/v1/account_holders',
-  },
-  {
-    clientCallName: 'client.accountHolders.retrieve',
-    fullyQualifiedName: 'accountHolders.retrieve',
-    httpMethod: 'get',
-    httpPath: '/v1/account_holders/{account_holder_token}',
   },
   {
     clientCallName: 'client.accountHolders.update',
@@ -65,10 +59,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/account_holders/{account_holder_token}',
   },
   {
-    clientCallName: 'client.accountHolders.list',
-    fullyQualifiedName: 'accountHolders.list',
+    clientCallName: 'client.accountHolders.retrieve',
+    fullyQualifiedName: 'accountHolders.retrieve',
     httpMethod: 'get',
-    httpPath: '/v1/account_holders',
+    httpPath: '/v1/account_holders/{account_holder_token}',
+  },
+  {
+    clientCallName: 'client.accountHolders.uploadDocument',
+    fullyQualifiedName: 'accountHolders.uploadDocument',
+    httpMethod: 'post',
+    httpPath: '/v1/account_holders/{account_holder_token}/documents',
   },
   {
     clientCallName: 'client.accountHolders.listDocuments',
@@ -83,10 +83,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/account_holders/{account_holder_token}/documents/{document_token}',
   },
   {
-    clientCallName: 'client.accountHolders.simulateEnrollmentDocumentReview',
-    fullyQualifiedName: 'accountHolders.simulateEnrollmentDocumentReview',
-    httpMethod: 'post',
-    httpPath: '/v1/simulate/account_holders/enrollment_document_review',
+    clientCallName: 'client.accountHolders.list',
+    fullyQualifiedName: 'accountHolders.list',
+    httpMethod: 'get',
+    httpPath: '/v1/account_holders',
   },
   {
     clientCallName: 'client.accountHolders.simulateEnrollmentReview',
@@ -95,10 +95,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/simulate/account_holders/enrollment_review',
   },
   {
-    clientCallName: 'client.accountHolders.uploadDocument',
-    fullyQualifiedName: 'accountHolders.uploadDocument',
+    clientCallName: 'client.accountHolders.simulateEnrollmentDocumentReview',
+    fullyQualifiedName: 'accountHolders.simulateEnrollmentDocumentReview',
     httpMethod: 'post',
-    httpPath: '/v1/account_holders/{account_holder_token}/documents',
+    httpPath: '/v1/simulate/account_holders/enrollment_document_review',
   },
   {
     clientCallName: 'client.accountHolders.entities.create',
@@ -119,6 +119,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/auth_rules',
   },
   {
+    clientCallName: 'client.authRules.v2.list',
+    fullyQualifiedName: 'authRules.v2.list',
+    httpMethod: 'get',
+    httpPath: '/v2/auth_rules',
+  },
+  {
     clientCallName: 'client.authRules.v2.retrieve',
     fullyQualifiedName: 'authRules.v2.retrieve',
     httpMethod: 'get',
@@ -129,12 +135,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'authRules.v2.update',
     httpMethod: 'patch',
     httpPath: '/v2/auth_rules/{auth_rule_token}',
-  },
-  {
-    clientCallName: 'client.authRules.v2.list',
-    fullyQualifiedName: 'authRules.v2.list',
-    httpMethod: 'get',
-    httpPath: '/v2/auth_rules',
   },
   {
     clientCallName: 'client.authRules.v2.delete',
@@ -149,12 +149,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/auth_rules/{auth_rule_token}/draft',
   },
   {
-    clientCallName: 'client.authRules.v2.listResults',
-    fullyQualifiedName: 'authRules.v2.listResults',
-    httpMethod: 'get',
-    httpPath: '/v2/auth_rules/results',
-  },
-  {
     clientCallName: 'client.authRules.v2.listVersions',
     fullyQualifiedName: 'authRules.v2.listVersions',
     httpMethod: 'get',
@@ -167,16 +161,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/auth_rules/{auth_rule_token}/promote',
   },
   {
+    clientCallName: 'client.authRules.v2.retrieveReport',
+    fullyQualifiedName: 'authRules.v2.retrieveReport',
+    httpMethod: 'get',
+    httpPath: '/v2/auth_rules/{auth_rule_token}/report',
+  },
+  {
     clientCallName: 'client.authRules.v2.retrieveFeatures',
     fullyQualifiedName: 'authRules.v2.retrieveFeatures',
     httpMethod: 'get',
     httpPath: '/v2/auth_rules/{auth_rule_token}/features',
   },
   {
-    clientCallName: 'client.authRules.v2.retrieveReport',
-    fullyQualifiedName: 'authRules.v2.retrieveReport',
+    clientCallName: 'client.authRules.v2.listResults',
+    fullyQualifiedName: 'authRules.v2.listResults',
     httpMethod: 'get',
-    httpPath: '/v2/auth_rules/{auth_rule_token}/report',
+    httpPath: '/v2/auth_rules/results',
   },
   {
     clientCallName: 'client.authRules.v2.backtests.create',
@@ -191,6 +191,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/auth_rules/{auth_rule_token}/backtests/{auth_rule_backtest_token}',
   },
   {
+    clientCallName: 'client.transactionMonitoring.cases.list',
+    fullyQualifiedName: 'transactionMonitoring.cases.list',
+    httpMethod: 'get',
+    httpPath: '/v1/transaction_monitoring/cases',
+  },
+  {
     clientCallName: 'client.transactionMonitoring.cases.retrieve',
     fullyQualifiedName: 'transactionMonitoring.cases.retrieve',
     httpMethod: 'get',
@@ -201,12 +207,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'transactionMonitoring.cases.update',
     httpMethod: 'patch',
     httpPath: '/v1/transaction_monitoring/cases/{case_token}',
-  },
-  {
-    clientCallName: 'client.transactionMonitoring.cases.list',
-    fullyQualifiedName: 'transactionMonitoring.cases.list',
-    httpMethod: 'get',
-    httpPath: '/v1/transaction_monitoring/cases',
   },
   {
     clientCallName: 'client.transactionMonitoring.cases.listActivity',
@@ -251,16 +251,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/transaction_monitoring/cases/{case_token}/files',
   },
   {
-    clientCallName: 'client.transactionMonitoring.cases.files.retrieve',
-    fullyQualifiedName: 'transactionMonitoring.cases.files.retrieve',
-    httpMethod: 'get',
-    httpPath: '/v1/transaction_monitoring/cases/{case_token}/files/{file_token}',
-  },
-  {
     clientCallName: 'client.transactionMonitoring.cases.files.list',
     fullyQualifiedName: 'transactionMonitoring.cases.files.list',
     httpMethod: 'get',
     httpPath: '/v1/transaction_monitoring/cases/{case_token}/files',
+  },
+  {
+    clientCallName: 'client.transactionMonitoring.cases.files.retrieve',
+    fullyQualifiedName: 'transactionMonitoring.cases.files.retrieve',
+    httpMethod: 'get',
+    httpPath: '/v1/transaction_monitoring/cases/{case_token}/files/{file_token}',
   },
   {
     clientCallName: 'client.transactionMonitoring.cases.files.delete',
@@ -275,6 +275,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/transaction_monitoring/queues',
   },
   {
+    clientCallName: 'client.transactionMonitoring.queues.list',
+    fullyQualifiedName: 'transactionMonitoring.queues.list',
+    httpMethod: 'get',
+    httpPath: '/v1/transaction_monitoring/queues',
+  },
+  {
     clientCallName: 'client.transactionMonitoring.queues.retrieve',
     fullyQualifiedName: 'transactionMonitoring.queues.retrieve',
     httpMethod: 'get',
@@ -285,12 +291,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'transactionMonitoring.queues.update',
     httpMethod: 'patch',
     httpPath: '/v1/transaction_monitoring/queues/{queue_token}',
-  },
-  {
-    clientCallName: 'client.transactionMonitoring.queues.list',
-    fullyQualifiedName: 'transactionMonitoring.queues.list',
-    httpMethod: 'get',
-    httpPath: '/v1/transaction_monitoring/queues',
   },
   {
     clientCallName: 'client.transactionMonitoring.queues.delete',
@@ -323,10 +323,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/tokenization_decisioning/secret/rotate',
   },
   {
-    clientCallName: 'client.tokenizations.retrieve',
-    fullyQualifiedName: 'tokenizations.retrieve',
-    httpMethod: 'get',
-    httpPath: '/v1/tokenizations/{tokenization_token}',
+    clientCallName: 'client.tokenizations.simulate',
+    fullyQualifiedName: 'tokenizations.simulate',
+    httpMethod: 'post',
+    httpPath: '/v1/simulate/tokenizations',
   },
   {
     clientCallName: 'client.tokenizations.list',
@@ -335,16 +335,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/tokenizations',
   },
   {
-    clientCallName: 'client.tokenizations.activate',
-    fullyQualifiedName: 'tokenizations.activate',
-    httpMethod: 'post',
-    httpPath: '/v1/tokenizations/{tokenization_token}/activate',
-  },
-  {
-    clientCallName: 'client.tokenizations.deactivate',
-    fullyQualifiedName: 'tokenizations.deactivate',
-    httpMethod: 'post',
-    httpPath: '/v1/tokenizations/{tokenization_token}/deactivate',
+    clientCallName: 'client.tokenizations.retrieve',
+    fullyQualifiedName: 'tokenizations.retrieve',
+    httpMethod: 'get',
+    httpPath: '/v1/tokenizations/{tokenization_token}',
   },
   {
     clientCallName: 'client.tokenizations.pause',
@@ -353,28 +347,40 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/tokenizations/{tokenization_token}/pause',
   },
   {
-    clientCallName: 'client.tokenizations.resendActivationCode',
-    fullyQualifiedName: 'tokenizations.resendActivationCode',
-    httpMethod: 'post',
-    httpPath: '/v1/tokenizations/{tokenization_token}/resend_activation_code',
-  },
-  {
-    clientCallName: 'client.tokenizations.simulate',
-    fullyQualifiedName: 'tokenizations.simulate',
-    httpMethod: 'post',
-    httpPath: '/v1/simulate/tokenizations',
-  },
-  {
     clientCallName: 'client.tokenizations.unpause',
     fullyQualifiedName: 'tokenizations.unpause',
     httpMethod: 'post',
     httpPath: '/v1/tokenizations/{tokenization_token}/unpause',
   },
   {
+    clientCallName: 'client.tokenizations.deactivate',
+    fullyQualifiedName: 'tokenizations.deactivate',
+    httpMethod: 'post',
+    httpPath: '/v1/tokenizations/{tokenization_token}/deactivate',
+  },
+  {
+    clientCallName: 'client.tokenizations.activate',
+    fullyQualifiedName: 'tokenizations.activate',
+    httpMethod: 'post',
+    httpPath: '/v1/tokenizations/{tokenization_token}/activate',
+  },
+  {
+    clientCallName: 'client.tokenizations.resendActivationCode',
+    fullyQualifiedName: 'tokenizations.resendActivationCode',
+    httpMethod: 'post',
+    httpPath: '/v1/tokenizations/{tokenization_token}/resend_activation_code',
+  },
+  {
     clientCallName: 'client.tokenizations.updateDigitalCardArt',
     fullyQualifiedName: 'tokenizations.updateDigitalCardArt',
     httpMethod: 'post',
     httpPath: '/v1/tokenizations/{tokenization_token}/update_digital_card_art',
+  },
+  {
+    clientCallName: 'client.cards.list',
+    fullyQualifiedName: 'cards.list',
+    httpMethod: 'get',
+    httpPath: '/v1/cards',
   },
   {
     clientCallName: 'client.cards.create',
@@ -395,24 +401,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/cards/{card_token}',
   },
   {
-    clientCallName: 'client.cards.list',
-    fullyQualifiedName: 'cards.list',
-    httpMethod: 'get',
-    httpPath: '/v1/cards',
-  },
-  {
-    clientCallName: 'client.cards.convertPhysical',
-    fullyQualifiedName: 'cards.convertPhysical',
-    httpMethod: 'post',
-    httpPath: '/v1/cards/{card_token}/convert_physical',
-  },
-  {
-    clientCallName: 'client.cards.embed',
-    fullyQualifiedName: 'cards.embed',
-    httpMethod: 'get',
-    httpPath: '/v1/embed/card',
-  },
-  {
     clientCallName: 'client.cards.provision',
     fullyQualifiedName: 'cards.provision',
     httpMethod: 'post',
@@ -425,16 +413,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/cards/{card_token}/reissue',
   },
   {
-    clientCallName: 'client.cards.renew',
-    fullyQualifiedName: 'cards.renew',
-    httpMethod: 'post',
-    httpPath: '/v1/cards/{card_token}/renew',
-  },
-  {
-    clientCallName: 'client.cards.retrieveSignals',
-    fullyQualifiedName: 'cards.retrieveSignals',
+    clientCallName: 'client.cards.embed',
+    fullyQualifiedName: 'cards.embed',
     httpMethod: 'get',
-    httpPath: '/v1/cards/{card_token}/signals',
+    httpPath: '/v1/embed/card',
   },
   {
     clientCallName: 'client.cards.retrieveSpendLimits',
@@ -443,10 +425,28 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/cards/{card_token}/spend_limits',
   },
   {
+    clientCallName: 'client.cards.retrieveSignals',
+    fullyQualifiedName: 'cards.retrieveSignals',
+    httpMethod: 'get',
+    httpPath: '/v1/cards/{card_token}/signals',
+  },
+  {
+    clientCallName: 'client.cards.renew',
+    fullyQualifiedName: 'cards.renew',
+    httpMethod: 'post',
+    httpPath: '/v1/cards/{card_token}/renew',
+  },
+  {
     clientCallName: 'client.cards.searchByPan',
     fullyQualifiedName: 'cards.searchByPan',
     httpMethod: 'post',
     httpPath: '/v1/cards/search_by_pan',
+  },
+  {
+    clientCallName: 'client.cards.convertPhysical',
+    fullyQualifiedName: 'cards.convertPhysical',
+    httpMethod: 'post',
+    httpPath: '/v1/cards/{card_token}/convert_physical',
   },
   {
     clientCallName: 'client.cards.webProvision',
@@ -461,22 +461,28 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/cards/{card_token}/balances',
   },
   {
-    clientCallName: 'client.cards.financialTransactions.retrieve',
-    fullyQualifiedName: 'cards.financialTransactions.retrieve',
-    httpMethod: 'get',
-    httpPath: '/v1/cards/{card_token}/financial_transactions/{financial_transaction_token}',
-  },
-  {
     clientCallName: 'client.cards.financialTransactions.list',
     fullyQualifiedName: 'cards.financialTransactions.list',
     httpMethod: 'get',
     httpPath: '/v1/cards/{card_token}/financial_transactions',
   },
   {
+    clientCallName: 'client.cards.financialTransactions.retrieve',
+    fullyQualifiedName: 'cards.financialTransactions.retrieve',
+    httpMethod: 'get',
+    httpPath: '/v1/cards/{card_token}/financial_transactions/{financial_transaction_token}',
+  },
+  {
     clientCallName: 'client.cardAuthorizations.challengeResponse',
     fullyQualifiedName: 'cardAuthorizations.challengeResponse',
     httpMethod: 'post',
     httpPath: '/v1/card_authorizations/{event_token}/challenge_response',
+  },
+  {
+    clientCallName: 'client.cardBulkOrders.list',
+    fullyQualifiedName: 'cardBulkOrders.list',
+    httpMethod: 'get',
+    httpPath: '/v1/card_bulk_orders',
   },
   {
     clientCallName: 'client.cardBulkOrders.create',
@@ -497,16 +503,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/card_bulk_orders/{bulk_order_token}',
   },
   {
-    clientCallName: 'client.cardBulkOrders.list',
-    fullyQualifiedName: 'cardBulkOrders.list',
-    httpMethod: 'get',
-    httpPath: '/v1/card_bulk_orders',
-  },
-  {
     clientCallName: 'client.balances.list',
     fullyQualifiedName: 'balances.list',
     httpMethod: 'get',
     httpPath: '/v1/balances',
+  },
+  {
+    clientCallName: 'client.disputes.list',
+    fullyQualifiedName: 'disputes.list',
+    httpMethod: 'get',
+    httpPath: '/v1/disputes',
   },
   {
     clientCallName: 'client.disputes.create',
@@ -521,39 +527,27 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/disputes/{dispute_token}',
   },
   {
-    clientCallName: 'client.disputes.update',
-    fullyQualifiedName: 'disputes.update',
-    httpMethod: 'patch',
-    httpPath: '/v1/disputes/{dispute_token}',
-  },
-  {
-    clientCallName: 'client.disputes.list',
-    fullyQualifiedName: 'disputes.list',
-    httpMethod: 'get',
-    httpPath: '/v1/disputes',
-  },
-  {
     clientCallName: 'client.disputes.delete',
     fullyQualifiedName: 'disputes.delete',
     httpMethod: 'delete',
     httpPath: '/v1/disputes/{dispute_token}',
   },
   {
-    clientCallName: 'client.disputes.deleteEvidence',
-    fullyQualifiedName: 'disputes.deleteEvidence',
-    httpMethod: 'delete',
-    httpPath: '/v1/disputes/{dispute_token}/evidences/{evidence_token}',
-  },
-  {
-    clientCallName: 'client.disputes.initiateEvidenceUpload',
-    fullyQualifiedName: 'disputes.initiateEvidenceUpload',
-    httpMethod: 'post',
-    httpPath: '/v1/disputes/{dispute_token}/evidences',
+    clientCallName: 'client.disputes.update',
+    fullyQualifiedName: 'disputes.update',
+    httpMethod: 'patch',
+    httpPath: '/v1/disputes/{dispute_token}',
   },
   {
     clientCallName: 'client.disputes.listEvidences',
     fullyQualifiedName: 'disputes.listEvidences',
     httpMethod: 'get',
+    httpPath: '/v1/disputes/{dispute_token}/evidences',
+  },
+  {
+    clientCallName: 'client.disputes.initiateEvidenceUpload',
+    fullyQualifiedName: 'disputes.initiateEvidenceUpload',
+    httpMethod: 'post',
     httpPath: '/v1/disputes/{dispute_token}/evidences',
   },
   {
@@ -563,10 +557,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/disputes/{dispute_token}/evidences/{evidence_token}',
   },
   {
-    clientCallName: 'client.disputesV2.retrieve',
-    fullyQualifiedName: 'disputesV2.retrieve',
-    httpMethod: 'get',
-    httpPath: '/v2/disputes/{dispute_token}',
+    clientCallName: 'client.disputes.deleteEvidence',
+    fullyQualifiedName: 'disputes.deleteEvidence',
+    httpMethod: 'delete',
+    httpPath: '/v1/disputes/{dispute_token}/evidences/{evidence_token}',
   },
   {
     clientCallName: 'client.disputesV2.list',
@@ -575,10 +569,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/disputes',
   },
   {
-    clientCallName: 'client.events.retrieve',
-    fullyQualifiedName: 'events.retrieve',
+    clientCallName: 'client.disputesV2.retrieve',
+    fullyQualifiedName: 'disputesV2.retrieve',
     httpMethod: 'get',
-    httpPath: '/v1/events/{event_token}',
+    httpPath: '/v2/disputes/{dispute_token}',
   },
   {
     clientCallName: 'client.events.list',
@@ -587,10 +581,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/events',
   },
   {
+    clientCallName: 'client.events.retrieve',
+    fullyQualifiedName: 'events.retrieve',
+    httpMethod: 'get',
+    httpPath: '/v1/events/{event_token}',
+  },
+  {
     clientCallName: 'client.events.listAttempts',
     fullyQualifiedName: 'events.listAttempts',
     httpMethod: 'get',
     httpPath: '/v1/events/{event_token}/attempts',
+  },
+  {
+    clientCallName: 'client.events.subscriptions.list',
+    fullyQualifiedName: 'events.subscriptions.list',
+    httpMethod: 'get',
+    httpPath: '/v1/event_subscriptions',
   },
   {
     clientCallName: 'client.events.subscriptions.create',
@@ -611,28 +617,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/event_subscriptions/{event_subscription_token}',
   },
   {
-    clientCallName: 'client.events.subscriptions.list',
-    fullyQualifiedName: 'events.subscriptions.list',
-    httpMethod: 'get',
-    httpPath: '/v1/event_subscriptions',
-  },
-  {
     clientCallName: 'client.events.subscriptions.delete',
     fullyQualifiedName: 'events.subscriptions.delete',
     httpMethod: 'delete',
     httpPath: '/v1/event_subscriptions/{event_subscription_token}',
   },
   {
-    clientCallName: 'client.events.subscriptions.listAttempts',
-    fullyQualifiedName: 'events.subscriptions.listAttempts',
-    httpMethod: 'get',
-    httpPath: '/v1/event_subscriptions/{event_subscription_token}/attempts',
-  },
-  {
     clientCallName: 'client.events.subscriptions.recover',
     fullyQualifiedName: 'events.subscriptions.recover',
     httpMethod: 'post',
     httpPath: '/v1/event_subscriptions/{event_subscription_token}/recover',
+  },
+  {
+    clientCallName: 'client.events.subscriptions.listAttempts',
+    fullyQualifiedName: 'events.subscriptions.listAttempts',
+    httpMethod: 'get',
+    httpPath: '/v1/event_subscriptions/{event_subscription_token}/attempts',
   },
   {
     clientCallName: 'client.events.subscriptions.replayMissing',
@@ -671,9 +671,9 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/transfer',
   },
   {
-    clientCallName: 'client.financialAccounts.create',
-    fullyQualifiedName: 'financialAccounts.create',
-    httpMethod: 'post',
+    clientCallName: 'client.financialAccounts.list',
+    fullyQualifiedName: 'financialAccounts.list',
+    httpMethod: 'get',
     httpPath: '/v1/financial_accounts',
   },
   {
@@ -689,9 +689,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/financial_accounts/{financial_account_token}',
   },
   {
-    clientCallName: 'client.financialAccounts.list',
-    fullyQualifiedName: 'financialAccounts.list',
-    httpMethod: 'get',
+    clientCallName: 'client.financialAccounts.updateStatus',
+    fullyQualifiedName: 'financialAccounts.updateStatus',
+    httpMethod: 'post',
+    httpPath: '/v1/financial_accounts/{financial_account_token}/update_status',
+  },
+  {
+    clientCallName: 'client.financialAccounts.create',
+    fullyQualifiedName: 'financialAccounts.create',
+    httpMethod: 'post',
     httpPath: '/v1/financial_accounts',
   },
   {
@@ -701,16 +707,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/financial_accounts/{financial_account_token}/register_account_number',
   },
   {
-    clientCallName: 'client.financialAccounts.updateStatus',
-    fullyQualifiedName: 'financialAccounts.updateStatus',
-    httpMethod: 'post',
-    httpPath: '/v1/financial_accounts/{financial_account_token}/update_status',
-  },
-  {
     clientCallName: 'client.financialAccounts.balances.list',
     fullyQualifiedName: 'financialAccounts.balances.list',
     httpMethod: 'get',
     httpPath: '/v1/financial_accounts/{financial_account_token}/balances',
+  },
+  {
+    clientCallName: 'client.financialAccounts.financialTransactions.list',
+    fullyQualifiedName: 'financialAccounts.financialTransactions.list',
+    httpMethod: 'get',
+    httpPath: '/v1/financial_accounts/{financial_account_token}/financial_transactions',
   },
   {
     clientCallName: 'client.financialAccounts.financialTransactions.retrieve',
@@ -718,12 +724,6 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'get',
     httpPath:
       '/v1/financial_accounts/{financial_account_token}/financial_transactions/{financial_transaction_token}',
-  },
-  {
-    clientCallName: 'client.financialAccounts.financialTransactions.list',
-    fullyQualifiedName: 'financialAccounts.financialTransactions.list',
-    httpMethod: 'get',
-    httpPath: '/v1/financial_accounts/{financial_account_token}/financial_transactions',
   },
   {
     clientCallName: 'client.financialAccounts.creditConfiguration.retrieve',
@@ -738,16 +738,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/financial_accounts/{financial_account_token}/credit_configuration',
   },
   {
-    clientCallName: 'client.financialAccounts.statements.retrieve',
-    fullyQualifiedName: 'financialAccounts.statements.retrieve',
-    httpMethod: 'get',
-    httpPath: '/v1/financial_accounts/{financial_account_token}/statements/{statement_token}',
-  },
-  {
     clientCallName: 'client.financialAccounts.statements.list',
     fullyQualifiedName: 'financialAccounts.statements.list',
     httpMethod: 'get',
     httpPath: '/v1/financial_accounts/{financial_account_token}/statements',
+  },
+  {
+    clientCallName: 'client.financialAccounts.statements.retrieve',
+    fullyQualifiedName: 'financialAccounts.statements.retrieve',
+    httpMethod: 'get',
+    httpPath: '/v1/financial_accounts/{financial_account_token}/statements/{statement_token}',
   },
   {
     clientCallName: 'client.financialAccounts.statements.lineItems.list',
@@ -756,22 +756,28 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/financial_accounts/{financial_account_token}/statements/{statement_token}/line_items',
   },
   {
-    clientCallName: 'client.financialAccounts.loanTapes.retrieve',
-    fullyQualifiedName: 'financialAccounts.loanTapes.retrieve',
-    httpMethod: 'get',
-    httpPath: '/v1/financial_accounts/{financial_account_token}/loan_tapes/{loan_tape_token}',
-  },
-  {
     clientCallName: 'client.financialAccounts.loanTapes.list',
     fullyQualifiedName: 'financialAccounts.loanTapes.list',
     httpMethod: 'get',
     httpPath: '/v1/financial_accounts/{financial_account_token}/loan_tapes',
   },
   {
+    clientCallName: 'client.financialAccounts.loanTapes.retrieve',
+    fullyQualifiedName: 'financialAccounts.loanTapes.retrieve',
+    httpMethod: 'get',
+    httpPath: '/v1/financial_accounts/{financial_account_token}/loan_tapes/{loan_tape_token}',
+  },
+  {
     clientCallName: 'client.financialAccounts.loanTapeConfiguration.retrieve',
     fullyQualifiedName: 'financialAccounts.loanTapeConfiguration.retrieve',
     httpMethod: 'get',
     httpPath: '/v1/financial_accounts/{financial_account_token}/loan_tape_configuration',
+  },
+  {
+    clientCallName: 'client.financialAccounts.interestTierSchedule.list',
+    fullyQualifiedName: 'financialAccounts.interestTierSchedule.list',
+    httpMethod: 'get',
+    httpPath: '/v1/financial_accounts/{financial_account_token}/interest_tier_schedule',
   },
   {
     clientCallName: 'client.financialAccounts.interestTierSchedule.create',
@@ -792,22 +798,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/financial_accounts/{financial_account_token}/interest_tier_schedule/{effective_date}',
   },
   {
-    clientCallName: 'client.financialAccounts.interestTierSchedule.list',
-    fullyQualifiedName: 'financialAccounts.interestTierSchedule.list',
-    httpMethod: 'get',
-    httpPath: '/v1/financial_accounts/{financial_account_token}/interest_tier_schedule',
-  },
-  {
     clientCallName: 'client.financialAccounts.interestTierSchedule.delete',
     fullyQualifiedName: 'financialAccounts.interestTierSchedule.delete',
     httpMethod: 'delete',
     httpPath: '/v1/financial_accounts/{financial_account_token}/interest_tier_schedule/{effective_date}',
-  },
-  {
-    clientCallName: 'client.transactions.retrieve',
-    fullyQualifiedName: 'transactions.retrieve',
-    httpMethod: 'get',
-    httpPath: '/v1/transactions/{transaction_token}',
   },
   {
     clientCallName: 'client.transactions.list',
@@ -816,16 +810,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/transactions',
   },
   {
-    clientCallName: 'client.transactions.expireAuthorization',
-    fullyQualifiedName: 'transactions.expireAuthorization',
-    httpMethod: 'post',
-    httpPath: '/v1/transactions/{transaction_token}/expire_authorization',
-  },
-  {
-    clientCallName: 'client.transactions.route',
-    fullyQualifiedName: 'transactions.route',
-    httpMethod: 'post',
-    httpPath: '/v1/transactions/{transaction_token}/route',
+    clientCallName: 'client.transactions.retrieve',
+    fullyQualifiedName: 'transactions.retrieve',
+    httpMethod: 'get',
+    httpPath: '/v1/transactions/{transaction_token}',
   },
   {
     clientCallName: 'client.transactions.simulateAuthorization',
@@ -834,28 +822,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/simulate/authorize',
   },
   {
-    clientCallName: 'client.transactions.simulateAuthorizationAdvice',
-    fullyQualifiedName: 'transactions.simulateAuthorizationAdvice',
-    httpMethod: 'post',
-    httpPath: '/v1/simulate/authorization_advice',
-  },
-  {
     clientCallName: 'client.transactions.simulateClearing',
     fullyQualifiedName: 'transactions.simulateClearing',
     httpMethod: 'post',
     httpPath: '/v1/simulate/clearing',
-  },
-  {
-    clientCallName: 'client.transactions.simulateCreditAuthorization',
-    fullyQualifiedName: 'transactions.simulateCreditAuthorization',
-    httpMethod: 'post',
-    httpPath: '/v1/simulate/credit_authorization_advice',
-  },
-  {
-    clientCallName: 'client.transactions.simulateCreditAuthorizationAdvice',
-    fullyQualifiedName: 'transactions.simulateCreditAuthorizationAdvice',
-    httpMethod: 'post',
-    httpPath: '/v1/simulate/credit_authorization_advice',
   },
   {
     clientCallName: 'client.transactions.simulateReturn',
@@ -874,6 +844,36 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'transactions.simulateVoid',
     httpMethod: 'post',
     httpPath: '/v1/simulate/void',
+  },
+  {
+    clientCallName: 'client.transactions.simulateCreditAuthorization',
+    fullyQualifiedName: 'transactions.simulateCreditAuthorization',
+    httpMethod: 'post',
+    httpPath: '/v1/simulate/credit_authorization_advice',
+  },
+  {
+    clientCallName: 'client.transactions.simulateCreditAuthorizationAdvice',
+    fullyQualifiedName: 'transactions.simulateCreditAuthorizationAdvice',
+    httpMethod: 'post',
+    httpPath: '/v1/simulate/credit_authorization_advice',
+  },
+  {
+    clientCallName: 'client.transactions.simulateAuthorizationAdvice',
+    fullyQualifiedName: 'transactions.simulateAuthorizationAdvice',
+    httpMethod: 'post',
+    httpPath: '/v1/simulate/authorization_advice',
+  },
+  {
+    clientCallName: 'client.transactions.expireAuthorization',
+    fullyQualifiedName: 'transactions.expireAuthorization',
+    httpMethod: 'post',
+    httpPath: '/v1/transactions/{transaction_token}/expire_authorization',
+  },
+  {
+    clientCallName: 'client.transactions.route',
+    fullyQualifiedName: 'transactions.route',
+    httpMethod: 'post',
+    httpPath: '/v1/transactions/{transaction_token}/route',
   },
   {
     clientCallName: 'client.transactions.enhancedCommercialData.retrieve',
@@ -906,6 +906,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/responder_endpoints',
   },
   {
+    clientCallName: 'client.externalBankAccounts.list',
+    fullyQualifiedName: 'externalBankAccounts.list',
+    httpMethod: 'get',
+    httpPath: '/v1/external_bank_accounts',
+  },
+  {
     clientCallName: 'client.externalBankAccounts.create',
     fullyQualifiedName: 'externalBankAccounts.create',
     httpMethod: 'post',
@@ -924,18 +930,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/external_bank_accounts/{external_bank_account_token}',
   },
   {
-    clientCallName: 'client.externalBankAccounts.list',
-    fullyQualifiedName: 'externalBankAccounts.list',
-    httpMethod: 'get',
-    httpPath: '/v1/external_bank_accounts',
-  },
-  {
-    clientCallName: 'client.externalBankAccounts.pause',
-    fullyQualifiedName: 'externalBankAccounts.pause',
-    httpMethod: 'post',
-    httpPath: '/v1/external_bank_accounts/{external_bank_account_token}/pause',
-  },
-  {
     clientCallName: 'client.externalBankAccounts.retryMicroDeposits',
     fullyQualifiedName: 'externalBankAccounts.retryMicroDeposits',
     httpMethod: 'post',
@@ -948,10 +942,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/external_bank_accounts/{external_bank_account_token}/retry_prenote',
   },
   {
-    clientCallName: 'client.externalBankAccounts.setVerificationMethod',
-    fullyQualifiedName: 'externalBankAccounts.setVerificationMethod',
+    clientCallName: 'client.externalBankAccounts.pause',
+    fullyQualifiedName: 'externalBankAccounts.pause',
     httpMethod: 'post',
-    httpPath: '/v1/external_bank_accounts/{external_bank_account_token}/set_verification_method',
+    httpPath: '/v1/external_bank_accounts/{external_bank_account_token}/pause',
   },
   {
     clientCallName: 'client.externalBankAccounts.unpause',
@@ -960,10 +954,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/external_bank_accounts/{external_bank_account_token}/unpause',
   },
   {
+    clientCallName: 'client.externalBankAccounts.setVerificationMethod',
+    fullyQualifiedName: 'externalBankAccounts.setVerificationMethod',
+    httpMethod: 'post',
+    httpPath: '/v1/external_bank_accounts/{external_bank_account_token}/set_verification_method',
+  },
+  {
     clientCallName: 'client.externalBankAccounts.microDeposits.create',
     fullyQualifiedName: 'externalBankAccounts.microDeposits.create',
     httpMethod: 'post',
     httpPath: '/v1/external_bank_accounts/{external_bank_account_token}/micro_deposits',
+  },
+  {
+    clientCallName: 'client.payments.list',
+    fullyQualifiedName: 'payments.list',
+    httpMethod: 'get',
+    httpPath: '/v1/payments',
   },
   {
     clientCallName: 'client.payments.create',
@@ -978,10 +984,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/payments/{payment_token}',
   },
   {
-    clientCallName: 'client.payments.list',
-    fullyQualifiedName: 'payments.list',
-    httpMethod: 'get',
-    httpPath: '/v1/payments',
+    clientCallName: 'client.payments.simulateRelease',
+    fullyQualifiedName: 'payments.simulateRelease',
+    httpMethod: 'post',
+    httpPath: '/v1/simulate/payments/release',
+  },
+  {
+    clientCallName: 'client.payments.simulateReturn',
+    fullyQualifiedName: 'payments.simulateReturn',
+    httpMethod: 'post',
+    httpPath: '/v1/simulate/payments/return',
   },
   {
     clientCallName: 'client.payments.retry',
@@ -996,28 +1008,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/payments/{payment_token}/return',
   },
   {
-    clientCallName: 'client.payments.simulateAction',
-    fullyQualifiedName: 'payments.simulateAction',
-    httpMethod: 'post',
-    httpPath: '/v1/simulate/payments/{payment_token}/action',
-  },
-  {
     clientCallName: 'client.payments.simulateReceipt',
     fullyQualifiedName: 'payments.simulateReceipt',
     httpMethod: 'post',
     httpPath: '/v1/simulate/payments/receipt',
   },
   {
-    clientCallName: 'client.payments.simulateRelease',
-    fullyQualifiedName: 'payments.simulateRelease',
+    clientCallName: 'client.payments.simulateAction',
+    fullyQualifiedName: 'payments.simulateAction',
     httpMethod: 'post',
-    httpPath: '/v1/simulate/payments/release',
-  },
-  {
-    clientCallName: 'client.payments.simulateReturn',
-    fullyQualifiedName: 'payments.simulateReturn',
-    httpMethod: 'post',
-    httpPath: '/v1/simulate/payments/return',
+    httpPath: '/v1/simulate/payments/{payment_token}/action',
   },
   {
     clientCallName: 'client.threeDS.authentication.retrieve',
@@ -1038,12 +1038,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/three_ds_decisioning/simulate/enter_otp',
   },
   {
-    clientCallName: 'client.threeDS.decisioning.challengeResponse',
-    fullyQualifiedName: 'threeDS.decisioning.challengeResponse',
-    httpMethod: 'post',
-    httpPath: '/v1/three_ds_decisioning/challenge_response',
-  },
-  {
     clientCallName: 'client.threeDS.decisioning.retrieveSecret',
     fullyQualifiedName: 'threeDS.decisioning.retrieveSecret',
     httpMethod: 'get',
@@ -1054,6 +1048,12 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'threeDS.decisioning.rotateSecret',
     httpMethod: 'post',
     httpPath: '/v1/three_ds_decisioning/secret/rotate',
+  },
+  {
+    clientCallName: 'client.threeDS.decisioning.challengeResponse',
+    fullyQualifiedName: 'threeDS.decisioning.challengeResponse',
+    httpMethod: 'post',
+    httpPath: '/v1/three_ds_decisioning/challenge_response',
   },
   {
     clientCallName: 'client.reports.settlement.listDetails',
@@ -1068,22 +1068,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/reports/settlement/summary/{report_date}',
   },
   {
-    clientCallName: 'client.reports.settlement.networkTotals.retrieve',
-    fullyQualifiedName: 'reports.settlement.networkTotals.retrieve',
-    httpMethod: 'get',
-    httpPath: '/v1/reports/settlement/network_totals/{token}',
-  },
-  {
     clientCallName: 'client.reports.settlement.networkTotals.list',
     fullyQualifiedName: 'reports.settlement.networkTotals.list',
     httpMethod: 'get',
     httpPath: '/v1/reports/settlement/network_totals',
   },
   {
-    clientCallName: 'client.cardPrograms.retrieve',
-    fullyQualifiedName: 'cardPrograms.retrieve',
+    clientCallName: 'client.reports.settlement.networkTotals.retrieve',
+    fullyQualifiedName: 'reports.settlement.networkTotals.retrieve',
     httpMethod: 'get',
-    httpPath: '/v1/card_programs/{card_program_token}',
+    httpPath: '/v1/reports/settlement/network_totals/{token}',
   },
   {
     clientCallName: 'client.cardPrograms.list',
@@ -1092,16 +1086,28 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/card_programs',
   },
   {
-    clientCallName: 'client.digitalCardArt.retrieve',
-    fullyQualifiedName: 'digitalCardArt.retrieve',
+    clientCallName: 'client.cardPrograms.retrieve',
+    fullyQualifiedName: 'cardPrograms.retrieve',
     httpMethod: 'get',
-    httpPath: '/v1/digital_card_art/{digital_card_art_token}',
+    httpPath: '/v1/card_programs/{card_program_token}',
   },
   {
     clientCallName: 'client.digitalCardArt.list',
     fullyQualifiedName: 'digitalCardArt.list',
     httpMethod: 'get',
     httpPath: '/v1/digital_card_art',
+  },
+  {
+    clientCallName: 'client.digitalCardArt.retrieve',
+    fullyQualifiedName: 'digitalCardArt.retrieve',
+    httpMethod: 'get',
+    httpPath: '/v1/digital_card_art/{digital_card_art_token}',
+  },
+  {
+    clientCallName: 'client.bookTransfers.list',
+    fullyQualifiedName: 'bookTransfers.list',
+    httpMethod: 'get',
+    httpPath: '/v1/book_transfers',
   },
   {
     clientCallName: 'client.bookTransfers.create',
@@ -1116,10 +1122,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/book_transfers/{book_transfer_token}',
   },
   {
-    clientCallName: 'client.bookTransfers.list',
-    fullyQualifiedName: 'bookTransfers.list',
-    httpMethod: 'get',
-    httpPath: '/v1/book_transfers',
+    clientCallName: 'client.bookTransfers.reverse',
+    fullyQualifiedName: 'bookTransfers.reverse',
+    httpMethod: 'post',
+    httpPath: '/v1/book_transfers/{book_transfer_token}/reverse',
   },
   {
     clientCallName: 'client.bookTransfers.retry',
@@ -1128,16 +1134,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/book_transfers/{book_transfer_token}/retry',
   },
   {
-    clientCallName: 'client.bookTransfers.reverse',
-    fullyQualifiedName: 'bookTransfers.reverse',
-    httpMethod: 'post',
-    httpPath: '/v1/book_transfers/{book_transfer_token}/reverse',
-  },
-  {
     clientCallName: 'client.creditProducts.extendedCredit.retrieve',
     fullyQualifiedName: 'creditProducts.extendedCredit.retrieve',
     httpMethod: 'get',
     httpPath: '/v1/credit_products/{credit_product_token}/extended_credit',
+  },
+  {
+    clientCallName: 'client.creditProducts.primeRates.retrieve',
+    fullyQualifiedName: 'creditProducts.primeRates.retrieve',
+    httpMethod: 'get',
+    httpPath: '/v1/credit_products/{credit_product_token}/prime_rates',
   },
   {
     clientCallName: 'client.creditProducts.primeRates.create',
@@ -1146,10 +1152,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/credit_products/{credit_product_token}/prime_rates',
   },
   {
-    clientCallName: 'client.creditProducts.primeRates.retrieve',
-    fullyQualifiedName: 'creditProducts.primeRates.retrieve',
+    clientCallName: 'client.externalPayments.list',
+    fullyQualifiedName: 'externalPayments.list',
     httpMethod: 'get',
-    httpPath: '/v1/credit_products/{credit_product_token}/prime_rates',
+    httpPath: '/v1/external_payments',
   },
   {
     clientCallName: 'client.externalPayments.create',
@@ -1164,16 +1170,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/external_payments/{external_payment_token}',
   },
   {
-    clientCallName: 'client.externalPayments.list',
-    fullyQualifiedName: 'externalPayments.list',
-    httpMethod: 'get',
-    httpPath: '/v1/external_payments',
-  },
-  {
-    clientCallName: 'client.externalPayments.cancel',
-    fullyQualifiedName: 'externalPayments.cancel',
+    clientCallName: 'client.externalPayments.settle',
+    fullyQualifiedName: 'externalPayments.settle',
     httpMethod: 'post',
-    httpPath: '/v1/external_payments/{external_payment_token}/cancel',
+    httpPath: '/v1/external_payments/{external_payment_token}/settle',
   },
   {
     clientCallName: 'client.externalPayments.release',
@@ -1182,16 +1182,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/external_payments/{external_payment_token}/release',
   },
   {
+    clientCallName: 'client.externalPayments.cancel',
+    fullyQualifiedName: 'externalPayments.cancel',
+    httpMethod: 'post',
+    httpPath: '/v1/external_payments/{external_payment_token}/cancel',
+  },
+  {
     clientCallName: 'client.externalPayments.reverse',
     fullyQualifiedName: 'externalPayments.reverse',
     httpMethod: 'post',
     httpPath: '/v1/external_payments/{external_payment_token}/reverse',
   },
   {
-    clientCallName: 'client.externalPayments.settle',
-    fullyQualifiedName: 'externalPayments.settle',
-    httpMethod: 'post',
-    httpPath: '/v1/external_payments/{external_payment_token}/settle',
+    clientCallName: 'client.managementOperations.list',
+    fullyQualifiedName: 'managementOperations.list',
+    httpMethod: 'get',
+    httpPath: '/v1/management_operations',
   },
   {
     clientCallName: 'client.managementOperations.create',
@@ -1206,28 +1212,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/management_operations/{management_operation_token}',
   },
   {
-    clientCallName: 'client.managementOperations.list',
-    fullyQualifiedName: 'managementOperations.list',
-    httpMethod: 'get',
-    httpPath: '/v1/management_operations',
-  },
-  {
     clientCallName: 'client.managementOperations.reverse',
     fullyQualifiedName: 'managementOperations.reverse',
     httpMethod: 'post',
     httpPath: '/v1/management_operations/{management_operation_token}/reverse',
   },
   {
-    clientCallName: 'client.fundingEvents.retrieve',
-    fullyQualifiedName: 'fundingEvents.retrieve',
-    httpMethod: 'get',
-    httpPath: '/v1/funding_events/{funding_event_token}',
-  },
-  {
     clientCallName: 'client.fundingEvents.list',
     fullyQualifiedName: 'fundingEvents.list',
     httpMethod: 'get',
     httpPath: '/v1/funding_events',
+  },
+  {
+    clientCallName: 'client.fundingEvents.retrieve',
+    fullyQualifiedName: 'fundingEvents.retrieve',
+    httpMethod: 'get',
+    httpPath: '/v1/funding_events/{funding_event_token}',
   },
   {
     clientCallName: 'client.fundingEvents.retrieveDetails',
@@ -1248,16 +1248,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/fraud/transactions/{transaction_token}',
   },
   {
+    clientCallName: 'client.networkPrograms.list',
+    fullyQualifiedName: 'networkPrograms.list',
+    httpMethod: 'get',
+    httpPath: '/v1/network_programs',
+  },
+  {
     clientCallName: 'client.networkPrograms.retrieve',
     fullyQualifiedName: 'networkPrograms.retrieve',
     httpMethod: 'get',
     httpPath: '/v1/network_programs/{network_program_token}',
   },
   {
-    clientCallName: 'client.networkPrograms.list',
-    fullyQualifiedName: 'networkPrograms.list',
+    clientCallName: 'client.holds.list',
+    fullyQualifiedName: 'holds.list',
     httpMethod: 'get',
-    httpPath: '/v1/network_programs',
+    httpPath: '/v1/financial_accounts/{financial_account_token}/holds',
   },
   {
     clientCallName: 'client.holds.create',
@@ -1270,12 +1276,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'holds.retrieve',
     httpMethod: 'get',
     httpPath: '/v1/holds/{hold_token}',
-  },
-  {
-    clientCallName: 'client.holds.list',
-    fullyQualifiedName: 'holds.list',
-    httpMethod: 'get',
-    httpPath: '/v1/financial_accounts/{financial_account_token}/holds',
   },
   {
     clientCallName: 'client.holds.void',

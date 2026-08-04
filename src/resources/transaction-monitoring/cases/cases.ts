@@ -25,6 +25,19 @@ export class Cases extends APIResource {
   files: FilesAPI.Files = new FilesAPI.Files(this._client);
 
   /**
+   * Lists transaction monitoring cases, optionally filtered.
+   */
+  list(
+    query: CaseListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MonitoringCasesCursorPage, MonitoringCase> {
+    return this._client.getAPIList('/v1/transaction_monitoring/cases', CursorPage<MonitoringCase>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Retrieves a single transaction monitoring case.
    */
   retrieve(caseToken: string, options?: RequestOptions): APIPromise<MonitoringCase> {
@@ -36,19 +49,6 @@ export class Cases extends APIResource {
    */
   update(caseToken: string, body: CaseUpdateParams, options?: RequestOptions): APIPromise<MonitoringCase> {
     return this._client.patch(path`/v1/transaction_monitoring/cases/${caseToken}`, { body, ...options });
-  }
-
-  /**
-   * Lists transaction monitoring cases, optionally filtered.
-   */
-  list(
-    query: CaseListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<MonitoringCasesCursorPage, MonitoringCase> {
-    return this._client.getAPIList('/v1/transaction_monitoring/cases', CursorPage<MonitoringCase>, {
-      query,
-      ...options,
-    });
   }
 
   /**
@@ -419,65 +419,6 @@ export interface MonitoringCase {
 
 export type CaseRetrieveCardsResponse = Array<CaseCard>;
 
-export interface CaseUpdateParams {
-  /**
-   * Optional client-provided identifier for the actor performing this action,
-   * recorded on the resulting activity entry. This value is supplied by the client
-   * (for example, your own internal user ID) and is not authenticated by Lithic
-   */
-  actor_token?: string;
-
-  /**
-   * New assignee for the case, or `null` to unassign
-   */
-  assignee?: string | null;
-
-  /**
-   * Priority level of a case, controlling queue ordering and SLA urgency
-   */
-  priority?: CasePriority;
-
-  /**
-   * Resolution to record on the case. Must be one of the `allowed_resolutions`
-   * configured on the case's queue, otherwise the request is rejected with a `400`
-   */
-  resolution?: string;
-
-  /**
-   * Notes describing the resolution
-   */
-  resolution_notes?: string;
-
-  /**
-   * New SLA deadline for the case, or `null` to clear it
-   */
-  sla_deadline?: string | null;
-
-  /**
-   * Status of a case as it progresses through the review workflow:
-   *
-   * - `OPEN` - The case has been created and is still collecting matching
-   *   transactions
-   * - `ASSIGNED` - An analyst has been assigned and transaction collection has
-   *   stopped
-   * - `IN_REVIEW` - The case is actively being investigated
-   * - `ESCALATED` - The case has been reviewed and requires additional oversight
-   * - `RESOLVED` - A determination has been made and a resolution recorded
-   * - `CLOSED` - The case is finalized
-   */
-  status?: CaseStatus;
-
-  /**
-   * Arbitrary key-value metadata to set on the case
-   */
-  tags?: { [key: string]: string };
-
-  /**
-   * New title for the case, or `null` to clear it
-   */
-  title?: string | null;
-}
-
 export interface CaseListParams extends CursorPageParams {
   /**
    * Only return cases that include transactions on the provided account.
@@ -538,6 +479,65 @@ export interface CaseListParams extends CursorPageParams {
   transaction_token?: string;
 }
 
+export interface CaseUpdateParams {
+  /**
+   * Optional client-provided identifier for the actor performing this action,
+   * recorded on the resulting activity entry. This value is supplied by the client
+   * (for example, your own internal user ID) and is not authenticated by Lithic
+   */
+  actor_token?: string;
+
+  /**
+   * New assignee for the case, or `null` to unassign
+   */
+  assignee?: string | null;
+
+  /**
+   * Priority level of a case, controlling queue ordering and SLA urgency
+   */
+  priority?: CasePriority;
+
+  /**
+   * Resolution to record on the case. Must be one of the `allowed_resolutions`
+   * configured on the case's queue, otherwise the request is rejected with a `400`
+   */
+  resolution?: string;
+
+  /**
+   * Notes describing the resolution
+   */
+  resolution_notes?: string;
+
+  /**
+   * New SLA deadline for the case, or `null` to clear it
+   */
+  sla_deadline?: string | null;
+
+  /**
+   * Status of a case as it progresses through the review workflow:
+   *
+   * - `OPEN` - The case has been created and is still collecting matching
+   *   transactions
+   * - `ASSIGNED` - An analyst has been assigned and transaction collection has
+   *   stopped
+   * - `IN_REVIEW` - The case is actively being investigated
+   * - `ESCALATED` - The case has been reviewed and requires additional oversight
+   * - `RESOLVED` - A determination has been made and a resolution recorded
+   * - `CLOSED` - The case is finalized
+   */
+  status?: CaseStatus;
+
+  /**
+   * Arbitrary key-value metadata to set on the case
+   */
+  tags?: { [key: string]: string };
+
+  /**
+   * New title for the case, or `null` to clear it
+   */
+  title?: string | null;
+}
+
 export interface CaseListActivityParams extends CursorPageParams {}
 
 export interface CaseListTransactionsParams extends CursorPageParams {}
@@ -561,8 +561,8 @@ export declare namespace Cases {
     type MonitoringCasesCursorPage as MonitoringCasesCursorPage,
     type CaseActivityEntriesCursorPage as CaseActivityEntriesCursorPage,
     type CaseTransactionsCursorPage as CaseTransactionsCursorPage,
-    type CaseUpdateParams as CaseUpdateParams,
     type CaseListParams as CaseListParams,
+    type CaseUpdateParams as CaseUpdateParams,
     type CaseListActivityParams as CaseListActivityParams,
     type CaseListTransactionsParams as CaseListTransactionsParams,
   };
@@ -581,8 +581,8 @@ export declare namespace Cases {
     type UploadConstraints as UploadConstraints,
     type CaseFilesCursorPage as CaseFilesCursorPage,
     type FileCreateParams as FileCreateParams,
-    type FileRetrieveParams as FileRetrieveParams,
     type FileListParams as FileListParams,
+    type FileRetrieveParams as FileRetrieveParams,
     type FileDeleteParams as FileDeleteParams,
   };
 }
