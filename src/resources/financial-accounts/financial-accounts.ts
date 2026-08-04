@@ -269,6 +269,12 @@ export interface FinancialAccount {
 
   account_number?: string | null;
 
+  /**
+   * Provisioned blockchain deposit addresses for this financial account, keyed by
+   * the blockchain network that each address belongs to
+   */
+  blockchain_addresses?: { [key: string]: string } | null;
+
   routing_number?: string | null;
 }
 
