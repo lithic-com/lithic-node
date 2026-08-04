@@ -62,6 +62,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## api_status\n\n`client.apiStatus(): { message?: string; }`\n\n**get** `/v1/status`\n\nStatus of api\n\n### Returns\n\n- `{ message?: string; }`\n\n  - `message?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst apiStatus = await client.apiStatus();\n\nconsole.log(apiStatus);\n```",
     perLanguage: {
+      go: {
+        method: 'client.APIStatus',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tapiStatus, err := client.APIStatus(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", apiStatus.Message)\n}\n',
+      },
       java: {
         method: 'apiStatus',
         example:
@@ -90,11 +95,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example: 'curl https://api.lithic.com/v1/status \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.APIStatus',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tapiStatus, err := client.APIStatus(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", apiStatus.Message)\n}\n',
-      },
     },
   },
   {
@@ -117,6 +117,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.accounts.list(begin?: string, end?: string, ending_before?: string, page_size?: number, starting_after?: string): { token: string; created: string; spend_limit: object; state: 'ACTIVE' | 'PAUSED' | 'CLOSED'; account_holder?: object; auth_rule_tokens?: string[]; cardholder_currency?: string; comment?: string; substatus?: string; verification_address?: object; }`\n\n**get** `/v1/accounts`\n\nList account configurations.\n\n\n### Parameters\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; created: string; spend_limit: { daily: number; lifetime: number; monthly: number; }; state: 'ACTIVE' | 'PAUSED' | 'CLOSED'; account_holder?: { token: string; business_account_token: string; email: string; phone_number: string; }; auth_rule_tokens?: string[]; cardholder_currency?: string; comment?: string; substatus?: string; verification_address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; }`\n\n  - `token: string`\n  - `created: string`\n  - `spend_limit: { daily: number; lifetime: number; monthly: number; }`\n  - `state: 'ACTIVE' | 'PAUSED' | 'CLOSED'`\n  - `account_holder?: { token: string; business_account_token: string; email: string; phone_number: string; }`\n  - `auth_rule_tokens?: string[]`\n  - `cardholder_currency?: string`\n  - `comment?: string`\n  - `substatus?: string`\n  - `verification_address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const account of client.accounts.list()) {\n  console.log(account);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.Accounts.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Accounts.List(context.TODO(), lithic.AccountListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'accounts().list',
         example:
@@ -145,11 +150,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example: 'curl https://api.lithic.com/v1/accounts \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Accounts.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Accounts.List(context.TODO(), lithic.AccountListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -166,6 +166,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.accounts.retrieve(account_token: string): { token: string; created: string; spend_limit: object; state: 'ACTIVE' | 'PAUSED' | 'CLOSED'; account_holder?: object; auth_rule_tokens?: string[]; cardholder_currency?: string; comment?: string; substatus?: string; verification_address?: object; }`\n\n**get** `/v1/accounts/{account_token}`\n\nGet account configuration such as spend limits.\n\n### Parameters\n\n- `account_token: string`\n\n### Returns\n\n- `{ token: string; created: string; spend_limit: { daily: number; lifetime: number; monthly: number; }; state: 'ACTIVE' | 'PAUSED' | 'CLOSED'; account_holder?: { token: string; business_account_token: string; email: string; phone_number: string; }; auth_rule_tokens?: string[]; cardholder_currency?: string; comment?: string; substatus?: string; verification_address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; }`\n\n  - `token: string`\n  - `created: string`\n  - `spend_limit: { daily: number; lifetime: number; monthly: number; }`\n  - `state: 'ACTIVE' | 'PAUSED' | 'CLOSED'`\n  - `account_holder?: { token: string; business_account_token: string; email: string; phone_number: string; }`\n  - `auth_rule_tokens?: string[]`\n  - `cardholder_currency?: string`\n  - `comment?: string`\n  - `substatus?: string`\n  - `verification_address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst account = await client.accounts.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(account);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Accounts.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\taccount, err := client.Accounts.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", account.Token)\n}\n',
+      },
       java: {
         method: 'accounts().retrieve',
         example:
@@ -195,11 +200,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/accounts/$ACCOUNT_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Accounts.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\taccount, err := client.Accounts.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", account.Token)\n}\n',
-      },
     },
   },
   {
@@ -226,6 +226,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## update\n\n`client.accounts.update(account_token: string, comment?: string, daily_spend_limit?: number, lifetime_spend_limit?: number, monthly_spend_limit?: number, state?: 'ACTIVE' | 'PAUSED' | 'CLOSED', substatus?: string, verification_address?: { address1?: string; address2?: string; city?: string; country?: string; postal_code?: string; state?: string; }): { token: string; created: string; spend_limit: object; state: 'ACTIVE' | 'PAUSED' | 'CLOSED'; account_holder?: object; auth_rule_tokens?: string[]; cardholder_currency?: string; comment?: string; substatus?: string; verification_address?: object; }`\n\n**patch** `/v1/accounts/{account_token}`\n\nUpdate account configuration such as state or spend limits. Can only be run on accounts that are part of the program managed by this API key.\nAccounts that are in the `PAUSED` state will not be able to transact or create new cards.\n\n\n### Parameters\n\n- `account_token: string`\n\n- `comment?: string`\n  Additional context or information related to the account.\n\n- `daily_spend_limit?: number`\n  Amount (in cents) for the account's daily spend limit (e.g. 100000 would be a $1,000 limit).\nBy default the daily spend limit is set to $1,250.\n\n\n- `lifetime_spend_limit?: number`\n  Amount (in cents) for the account's lifetime spend limit (e.g. 100000 would be a $1,000 limit). Once this limit is reached, no transactions will be accepted on any card created for this account until the limit is updated.\nNote that a spend limit of 0 is effectively no limit, and should only be used to reset or remove a prior limit. Only a limit of 1 or above will result in declined transactions due to checks against the account limit. This behavior differs from the daily spend limit and the monthly spend limit.\n\n\n- `monthly_spend_limit?: number`\n  Amount (in cents) for the account's monthly spend limit (e.g. 100000 would be a $1,000 limit).\nBy default the monthly spend limit is set to $5,000.\n\n\n- `state?: 'ACTIVE' | 'PAUSED' | 'CLOSED'`\n  Account states.\n\n- `substatus?: string`\n  Account state substatus values:\n* `FRAUD_IDENTIFIED` - The account has been recognized as being created or used with stolen or fabricated identity information, encompassing both true identity theft and synthetic identities.\n* `SUSPICIOUS_ACTIVITY` - The account has exhibited suspicious behavior, such as unauthorized access or fraudulent transactions, necessitating further investigation.\n* `RISK_VIOLATION` - The account has been involved in deliberate misuse by the legitimate account holder. Examples include disputing valid transactions without cause, falsely claiming non-receipt of goods, or engaging in intentional bust-out schemes to exploit account services.\n* `END_USER_REQUEST` - The account holder has voluntarily requested the closure of the account for personal reasons. This encompasses situations such as bankruptcy, other financial considerations, or the account holder's death.\n* `ISSUER_REQUEST` - The issuer has initiated the closure of the account due to business strategy, risk management, inactivity, product changes, regulatory concerns, or violations of terms and conditions.\n* `NOT_ACTIVE` - The account has not had any transactions or payment activity within a specified period. This status applies to accounts that are paused or closed due to inactivity.\n* `INTERNAL_REVIEW` - The account is temporarily paused pending further internal review. In future implementations, this status may prevent clients from activating the account via APIs until the review is completed.\n* `OTHER` - The reason for the account's current status does not fall into any of the above categories. A comment should be provided to specify the particular reason.\n\n\n- `verification_address?: { address1?: string; address2?: string; city?: string; country?: string; postal_code?: string; state?: string; }`\n  Address used during Address Verification Service (AVS) checks during transactions if enabled via Auth Rules. This field is deprecated as AVS checks are no longer supported by Auth Rules. The field will be removed from the schema in a future release.\n  - `address1?: string`\n  - `address2?: string`\n  - `city?: string`\n  - `country?: string`\n  - `postal_code?: string`\n  - `state?: string`\n\n### Returns\n\n- `{ token: string; created: string; spend_limit: { daily: number; lifetime: number; monthly: number; }; state: 'ACTIVE' | 'PAUSED' | 'CLOSED'; account_holder?: { token: string; business_account_token: string; email: string; phone_number: string; }; auth_rule_tokens?: string[]; cardholder_currency?: string; comment?: string; substatus?: string; verification_address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; }`\n\n  - `token: string`\n  - `created: string`\n  - `spend_limit: { daily: number; lifetime: number; monthly: number; }`\n  - `state: 'ACTIVE' | 'PAUSED' | 'CLOSED'`\n  - `account_holder?: { token: string; business_account_token: string; email: string; phone_number: string; }`\n  - `auth_rule_tokens?: string[]`\n  - `cardholder_currency?: string`\n  - `comment?: string`\n  - `substatus?: string`\n  - `verification_address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst account = await client.accounts.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(account);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Accounts.Update',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\taccount, err := client.Accounts.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.AccountUpdateParams{\n\t\t\tDailySpendLimit: lithic.F(int64(1000)),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", account.Token)\n}\n',
+      },
       java: {
         method: 'accounts().update',
         example:
@@ -255,11 +260,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/accounts/$ACCOUNT_TOKEN \\\n    -X PATCH \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "daily_spend_limit": 1000\n        }\'',
       },
-      go: {
-        method: 'client.Accounts.Update',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\taccount, err := client.Accounts.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.AccountUpdateParams{\n\t\t\tDailySpendLimit: lithic.F(int64(1000)),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", account.Token)\n}\n',
-      },
     },
   },
   {
@@ -277,6 +277,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve_spend_limits\n\n`client.accounts.retrieveSpendLimits(account_token: string): { available_spend_limit: object; spend_limit?: object; spend_velocity?: object; }`\n\n**get** `/v1/accounts/{account_token}/spend_limits`\n\nGet an Account's available spend limits, which is based on the spend limit configured on the Account and the amount already spent over the spend limit's duration. For example, if the Account has a daily spend limit of $1000 configured, and has spent $600 in the last 24 hours, the available spend limit returned would be $400.\n\n### Parameters\n\n- `account_token: string`\n\n### Returns\n\n- `{ available_spend_limit: { daily?: number; lifetime?: number; monthly?: number; }; spend_limit?: { daily?: number; lifetime?: number; monthly?: number; }; spend_velocity?: { daily?: number; lifetime?: number; monthly?: number; }; }`\n\n  - `available_spend_limit: { daily?: number; lifetime?: number; monthly?: number; }`\n  - `spend_limit?: { daily?: number; lifetime?: number; monthly?: number; }`\n  - `spend_velocity?: { daily?: number; lifetime?: number; monthly?: number; }`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst accountSpendLimits = await client.accounts.retrieveSpendLimits('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(accountSpendLimits);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Accounts.GetSpendLimits',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\taccountSpendLimits, err := client.Accounts.GetSpendLimits(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", accountSpendLimits.AvailableSpendLimit)\n}\n',
+      },
       java: {
         method: 'accounts().retrieveSpendLimits',
         example:
@@ -306,11 +311,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/accounts/$ACCOUNT_TOKEN/spend_limits \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Accounts.GetSpendLimits',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\taccountSpendLimits, err := client.Accounts.GetSpendLimits(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", accountSpendLimits.AvailableSpendLimit)\n}\n',
-      },
     },
   },
   {
@@ -328,6 +328,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve_signals\n\n`client.accounts.retrieveSignals(account_token: string): { approved_txn_amount_m2: number; approved_txn_amount_m2_30d: number; approved_txn_amount_m2_7d: number; approved_txn_amount_m2_90d: number; approved_txn_count: number; approved_txn_count_30d: number; approved_txn_count_7d: number; approved_txn_count_90d: number; avg_transaction_amount: number; avg_transaction_amount_30d: number; avg_transaction_amount_7d: number; avg_transaction_amount_90d: number; distinct_country_count: number; distinct_mcc_count: number; first_txn_at: string; is_first_transaction: boolean; last_cp_country: string; last_cp_postal_code: string; last_cp_timestamp: string; last_txn_approved_at: string; seen_countries: string[]; seen_mccs: string[]; seen_merchants: string[]; stdev_transaction_amount: number; stdev_transaction_amount_30d: number; stdev_transaction_amount_7d: number; stdev_transaction_amount_90d: number; three_ds_success_count: number; three_ds_success_rate: number; three_ds_total_count: number; time_since_last_transaction_days: number; }`\n\n**get** `/v1/accounts/{account_token}/signals`\n\nReturns behavioral feature state derived from an account's transaction history.\n\nThese signals expose the same data used by behavioral rule attributes (e.g. `AMOUNT_Z_SCORE`\nwith `scope: ACCOUNT`, `IS_NEW_COUNTRY` with `scope: ACCOUNT`) and custom code\n`TRANSACTION_HISTORY_SIGNALS` features, allowing clients to inspect feature values before\nwriting rules and debug rule behavior.\n\nNote: 3DS fields are not available at the account scope and will be null.\n\n\n### Parameters\n\n- `account_token: string`\n\n### Returns\n\n- `{ approved_txn_amount_m2: number; approved_txn_amount_m2_30d: number; approved_txn_amount_m2_7d: number; approved_txn_amount_m2_90d: number; approved_txn_count: number; approved_txn_count_30d: number; approved_txn_count_7d: number; approved_txn_count_90d: number; avg_transaction_amount: number; avg_transaction_amount_30d: number; avg_transaction_amount_7d: number; avg_transaction_amount_90d: number; distinct_country_count: number; distinct_mcc_count: number; first_txn_at: string; is_first_transaction: boolean; last_cp_country: string; last_cp_postal_code: string; last_cp_timestamp: string; last_txn_approved_at: string; seen_countries: string[]; seen_mccs: string[]; seen_merchants: string[]; stdev_transaction_amount: number; stdev_transaction_amount_30d: number; stdev_transaction_amount_7d: number; stdev_transaction_amount_90d: number; three_ds_success_count: number; three_ds_success_rate: number; three_ds_total_count: number; time_since_last_transaction_days: number; }`\n  Behavioral feature state for a card or account derived from its transaction history.\n\nDerived statistical features (averages, standard deviations, z-scores) are computed using Welford's online algorithm over approved transactions. Average fields are null when fewer than 5 approved transactions have been recorded. Standard deviation fields are null when fewer than 30 approved transactions have been recorded.\n\n3DS fields (`three_ds_success_rate`, `three_ds_success_count`, `three_ds_total_count`) are card-scoped and will be null for account responses.\n\nRaw fields (`seen_countries`, `seen_mccs`, `approved_txn_amount_m2`, etc.) are included so clients can compute their own transaction-specific derivations, such as checking whether a new transaction's country is in `seen_countries` to determine `is_new_country`, or computing a z-score using the raw mean and M2 values.\n\n  - `approved_txn_amount_m2: number`\n  - `approved_txn_amount_m2_30d: number`\n  - `approved_txn_amount_m2_7d: number`\n  - `approved_txn_amount_m2_90d: number`\n  - `approved_txn_count: number`\n  - `approved_txn_count_30d: number`\n  - `approved_txn_count_7d: number`\n  - `approved_txn_count_90d: number`\n  - `avg_transaction_amount: number`\n  - `avg_transaction_amount_30d: number`\n  - `avg_transaction_amount_7d: number`\n  - `avg_transaction_amount_90d: number`\n  - `distinct_country_count: number`\n  - `distinct_mcc_count: number`\n  - `first_txn_at: string`\n  - `is_first_transaction: boolean`\n  - `last_cp_country: string`\n  - `last_cp_postal_code: string`\n  - `last_cp_timestamp: string`\n  - `last_txn_approved_at: string`\n  - `seen_countries: string[]`\n  - `seen_mccs: string[]`\n  - `seen_merchants: string[]`\n  - `stdev_transaction_amount: number`\n  - `stdev_transaction_amount_30d: number`\n  - `stdev_transaction_amount_7d: number`\n  - `stdev_transaction_amount_90d: number`\n  - `three_ds_success_count: number`\n  - `three_ds_success_rate: number`\n  - `three_ds_total_count: number`\n  - `time_since_last_transaction_days: number`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst signalsResponse = await client.accounts.retrieveSignals('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(signalsResponse);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Accounts.GetSignals',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tsignalsResponse, err := client.Accounts.GetSignals(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", signalsResponse.ApprovedTxnAmountM2)\n}\n',
+      },
       java: {
         method: 'accounts().retrieveSignals',
         example:
@@ -357,11 +362,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/accounts/$ACCOUNT_TOKEN/signals \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Accounts.GetSignals',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tsignalsResponse, err := client.Accounts.GetSignals(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", signalsResponse.ApprovedTxnAmountM2)\n}\n',
-      },
     },
   },
   {
@@ -379,6 +379,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     response:
       "{ token: string; account_token: string; status: 'ACCEPTED' | 'PENDING_REVIEW' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED'; status_reasons: string[]; created?: string; external_id?: string; required_documents?: { entity_token: string; status_reasons: string[]; valid_documents: string[]; }[]; }",
     perLanguage: {
+      go: {
+        method: 'client.AccountHolders.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n\t"github.com/lithic-com/lithic-go/shared"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\taccountHolder, err := client.AccountHolders.New(context.TODO(), lithic.AccountHolderNewParams{\n\t\tBody: lithic.KYBParam{\n\t\t\tBeneficialOwnerIndividuals: lithic.F([]lithic.KYBBeneficialOwnerIndividualParam{{\n\t\t\t\tAddress: lithic.F(shared.AddressParam{\n\t\t\t\t\tAddress1:   lithic.F("300 Normal Forest Way"),\n\t\t\t\t\tCity:       lithic.F("Portland"),\n\t\t\t\t\tCountry:    lithic.F("USA"),\n\t\t\t\t\tPostalCode: lithic.F("90210"),\n\t\t\t\t\tState:      lithic.F("OR"),\n\t\t\t\t}),\n\t\t\t\tDob:          lithic.F("1991-03-08T08:00:00Z"),\n\t\t\t\tEmail:        lithic.F("tim@left-earth.com"),\n\t\t\t\tFirstName:    lithic.F("Timmy"),\n\t\t\t\tGovernmentID: lithic.F("211-23-1412"),\n\t\t\t\tLastName:     lithic.F("Turner"),\n\t\t\t}}),\n\t\t\tBusinessEntity: lithic.F(lithic.KYBBusinessEntityParam{\n\t\t\t\tAddress: lithic.F(shared.AddressParam{\n\t\t\t\t\tAddress1:   lithic.F("123 Old Forest Way"),\n\t\t\t\t\tCity:       lithic.F("Omaha"),\n\t\t\t\t\tCountry:    lithic.F("USA"),\n\t\t\t\t\tPostalCode: lithic.F("61022"),\n\t\t\t\t\tState:      lithic.F("NE"),\n\t\t\t\t}),\n\t\t\t\tGovernmentID:      lithic.F("12-3456789"),\n\t\t\t\tLegalBusinessName: lithic.F("Busy Business, Inc."),\n\t\t\t\tPhoneNumbers:      lithic.F([]string{"+15555555555"}),\n\t\t\t}),\n\t\t\tControlPerson: lithic.F(lithic.KYBControlPersonParam{\n\t\t\t\tAddress: lithic.F(shared.AddressParam{\n\t\t\t\t\tAddress1:   lithic.F("451 New Forest Way"),\n\t\t\t\t\tCity:       lithic.F("Springfield"),\n\t\t\t\t\tCountry:    lithic.F("USA"),\n\t\t\t\t\tPostalCode: lithic.F("68022"),\n\t\t\t\t\tState:      lithic.F("IL"),\n\t\t\t\t}),\n\t\t\t\tDob:          lithic.F("1991-03-08T08:00:00Z"),\n\t\t\t\tEmail:        lithic.F("tom@middle-pluto.com"),\n\t\t\t\tFirstName:    lithic.F("Tom"),\n\t\t\t\tGovernmentID: lithic.F("111-23-1412"),\n\t\t\t\tLastName:     lithic.F("Timothy"),\n\t\t\t}),\n\t\t\tNatureOfBusiness: lithic.F("Software company selling solutions to the restaurant industry"),\n\t\t\tTosTimestamp:     lithic.F("2022-03-08T08:00:00Z"),\n\t\t\tWorkflow:         lithic.F(lithic.KYBWorkflowKYBByo),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", accountHolder.ExternalID)\n}\n',
+      },
       java: {
         method: 'accountHolders().create',
         example:
@@ -408,11 +413,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/account_holders \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    --max-time 300 \\\n    -d \'{\n          "beneficial_owner_individuals": [\n            {\n              "address": {\n                "address1": "123 Old Forest Way",\n                "city": "Omaha",\n                "country": "USA",\n                "postal_code": "68022",\n                "state": "NE"\n              },\n              "dob": "1991-03-08 08:00:00",\n              "email": "tom@middle-earth.com",\n              "first_name": "Tom",\n              "government_id": "111-23-1412",\n              "last_name": "Bombadil"\n            }\n          ],\n          "business_entity": {\n            "address": {\n              "address1": "123 Old Forest Way",\n              "city": "Omaha",\n              "country": "USA",\n              "postal_code": "68022",\n              "state": "NE"\n            },\n            "government_id": "114-123-1513",\n            "legal_business_name": "Acme, Inc.",\n            "phone_numbers": [\n              "+15555555555"\n            ]\n          },\n          "control_person": {\n            "address": {\n              "address1": "123 Old Forest Way",\n              "city": "Omaha",\n              "country": "USA",\n              "postal_code": "68022",\n              "state": "NE"\n            },\n            "dob": "1991-03-08 08:00:00",\n            "email": "tom@middle-earth.com",\n            "first_name": "Tom",\n            "government_id": "111-23-1412",\n            "last_name": "Bombadil"\n          },\n          "nature_of_business": "Software company selling solutions to the restaurant industry",\n          "tos_timestamp": "2018-05-29T21:16:05Z",\n          "workflow": "KYB_BASIC",\n          "kyb_passed_timestamp": "2018-05-29T21:16:05Z",\n          "naics_code": "541512",\n          "website_url": "www.mybusiness.com"\n        }\'',
       },
-      go: {
-        method: 'client.AccountHolders.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n\t"github.com/lithic-com/lithic-go/shared"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\taccountHolder, err := client.AccountHolders.New(context.TODO(), lithic.AccountHolderNewParams{\n\t\tBody: lithic.KYBParam{\n\t\t\tBeneficialOwnerIndividuals: lithic.F([]lithic.KYBBeneficialOwnerIndividualParam{{\n\t\t\t\tAddress: lithic.F(shared.AddressParam{\n\t\t\t\t\tAddress1:   lithic.F("300 Normal Forest Way"),\n\t\t\t\t\tCity:       lithic.F("Portland"),\n\t\t\t\t\tCountry:    lithic.F("USA"),\n\t\t\t\t\tPostalCode: lithic.F("90210"),\n\t\t\t\t\tState:      lithic.F("OR"),\n\t\t\t\t}),\n\t\t\t\tDob:          lithic.F("1991-03-08T08:00:00Z"),\n\t\t\t\tEmail:        lithic.F("tim@left-earth.com"),\n\t\t\t\tFirstName:    lithic.F("Timmy"),\n\t\t\t\tGovernmentID: lithic.F("211-23-1412"),\n\t\t\t\tLastName:     lithic.F("Turner"),\n\t\t\t}}),\n\t\t\tBusinessEntity: lithic.F(lithic.KYBBusinessEntityParam{\n\t\t\t\tAddress: lithic.F(shared.AddressParam{\n\t\t\t\t\tAddress1:   lithic.F("123 Old Forest Way"),\n\t\t\t\t\tCity:       lithic.F("Omaha"),\n\t\t\t\t\tCountry:    lithic.F("USA"),\n\t\t\t\t\tPostalCode: lithic.F("61022"),\n\t\t\t\t\tState:      lithic.F("NE"),\n\t\t\t\t}),\n\t\t\t\tGovernmentID:      lithic.F("12-3456789"),\n\t\t\t\tLegalBusinessName: lithic.F("Busy Business, Inc."),\n\t\t\t\tPhoneNumbers:      lithic.F([]string{"+15555555555"}),\n\t\t\t}),\n\t\t\tControlPerson: lithic.F(lithic.KYBControlPersonParam{\n\t\t\t\tAddress: lithic.F(shared.AddressParam{\n\t\t\t\t\tAddress1:   lithic.F("451 New Forest Way"),\n\t\t\t\t\tCity:       lithic.F("Springfield"),\n\t\t\t\t\tCountry:    lithic.F("USA"),\n\t\t\t\t\tPostalCode: lithic.F("68022"),\n\t\t\t\t\tState:      lithic.F("IL"),\n\t\t\t\t}),\n\t\t\t\tDob:          lithic.F("1991-03-08T08:00:00Z"),\n\t\t\t\tEmail:        lithic.F("tom@middle-pluto.com"),\n\t\t\t\tFirstName:    lithic.F("Tom"),\n\t\t\t\tGovernmentID: lithic.F("111-23-1412"),\n\t\t\t\tLastName:     lithic.F("Timothy"),\n\t\t\t}),\n\t\t\tNatureOfBusiness: lithic.F("Software company selling solutions to the restaurant industry"),\n\t\t\tTosTimestamp:     lithic.F("2022-03-08T08:00:00Z"),\n\t\t\tWorkflow:         lithic.F(lithic.KYBWorkflowKYBByo),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", accountHolder.ExternalID)\n}\n',
-      },
     },
   },
   {
@@ -431,6 +431,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     response:
       "{ token?: string; account_token?: string; beneficial_owner_individuals?: object[]; business_account_token?: string; business_entity?: kyb_business_entity; control_person?: object; created?: string; email?: string; exemption_type?: 'AUTHORIZED_USER' | 'PREPAID_CARD_USER'; external_id?: string; individual?: object; naics_code?: string; nature_of_business?: string; phone_number?: string; required_documents?: required_document[]; status?: 'ACCEPTED' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED'; status_reasons?: string[]; user_type?: 'BUSINESS' | 'INDIVIDUAL'; verification_application?: object; website_url?: string; } | { token?: string; address?: object; business_account_token?: string; email?: string; first_name?: string; last_name?: string; legal_business_name?: string; phone_number?: string; }",
     perLanguage: {
+      go: {
+        method: 'client.AccountHolders.Update',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\taccountHolder, err := client.AccountHolders.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.AccountHolderUpdateParams{\n\t\t\tBody: lithic.AccountHolderUpdateParamsBodyKYBPatchRequest{},\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", accountHolder)\n}\n',
+      },
       java: {
         method: 'accountHolders().update',
         example:
@@ -460,11 +465,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/account_holders/$ACCOUNT_HOLDER_TOKEN \\\n    -X PATCH \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "naics_code": "541512",\n          "nature_of_business": "Software company selling solutions to the restaurant industry",\n          "website_url": "www.mybusiness.com"\n        }\'',
       },
-      go: {
-        method: 'client.AccountHolders.Update',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\taccountHolder, err := client.AccountHolders.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.AccountHolderUpdateParams{\n\t\t\tBody: lithic.AccountHolderUpdateParamsBodyKYBPatchRequest{},\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", accountHolder)\n}\n',
-      },
     },
   },
   {
@@ -481,6 +481,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.accountHolders.retrieve(account_holder_token: string): { token: string; created: string; account_token?: string; beneficial_owner_individuals?: object[]; business_account_token?: string; business_entity?: object; control_person?: object; email?: string; exemption_type?: 'AUTHORIZED_USER' | 'PREPAID_CARD_USER'; external_id?: string; individual?: object; naics_code?: string; nature_of_business?: string; phone_number?: string; required_documents?: required_document[]; status?: 'ACCEPTED' | 'PENDING_REVIEW' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED'; status_reasons?: string[]; user_type?: 'BUSINESS' | 'INDIVIDUAL'; verification_application?: object; website_url?: string; }`\n\n**get** `/v1/account_holders/{account_holder_token}`\n\nGet an Individual or Business Account Holder and/or their KYC or KYB evaluation status.\n\n### Parameters\n\n- `account_holder_token: string`\n\n### Returns\n\n- `{ token: string; created: string; account_token?: string; beneficial_owner_individuals?: { address: object; dob: string; email: string; entity_token: string; first_name: string; last_name: string; phone_number: string; }[]; business_account_token?: string; business_entity?: { address: object; dba_business_name: string; entity_token: string; government_id: string; legal_business_name: string; phone_numbers: string[]; parent_company?: string; }; control_person?: { address: object; dob: string; email: string; entity_token: string; first_name: string; last_name: string; phone_number: string; }; email?: string; exemption_type?: 'AUTHORIZED_USER' | 'PREPAID_CARD_USER'; external_id?: string; individual?: { address: object; dob: string; email: string; entity_token: string; first_name: string; last_name: string; phone_number: string; }; naics_code?: string; nature_of_business?: string; phone_number?: string; required_documents?: { entity_token: string; status_reasons: string[]; valid_documents: string[]; }[]; status?: 'ACCEPTED' | 'PENDING_REVIEW' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED'; status_reasons?: string[]; user_type?: 'BUSINESS' | 'INDIVIDUAL'; verification_application?: { created?: string; status?: 'ACCEPTED' | 'PENDING_REVIEW' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED'; status_reasons?: string[]; updated?: string; }; website_url?: string; }`\n\n  - `token: string`\n  - `created: string`\n  - `account_token?: string`\n  - `beneficial_owner_individuals?: { address: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; dob: string; email: string; entity_token: string; first_name: string; last_name: string; phone_number: string; }[]`\n  - `business_account_token?: string`\n  - `business_entity?: { address: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; dba_business_name: string; entity_token: string; government_id: string; legal_business_name: string; phone_numbers: string[]; parent_company?: string; }`\n  - `control_person?: { address: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; dob: string; email: string; entity_token: string; first_name: string; last_name: string; phone_number: string; }`\n  - `email?: string`\n  - `exemption_type?: 'AUTHORIZED_USER' | 'PREPAID_CARD_USER'`\n  - `external_id?: string`\n  - `individual?: { address: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; dob: string; email: string; entity_token: string; first_name: string; last_name: string; phone_number: string; }`\n  - `naics_code?: string`\n  - `nature_of_business?: string`\n  - `phone_number?: string`\n  - `required_documents?: { entity_token: string; status_reasons: string[]; valid_documents: string[]; }[]`\n  - `status?: 'ACCEPTED' | 'PENDING_REVIEW' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED'`\n  - `status_reasons?: string[]`\n  - `user_type?: 'BUSINESS' | 'INDIVIDUAL'`\n  - `verification_application?: { created?: string; status?: 'ACCEPTED' | 'PENDING_REVIEW' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED'; status_reasons?: string[]; updated?: string; }`\n  - `website_url?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst accountHolder = await client.accountHolders.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(accountHolder);\n```",
     perLanguage: {
+      go: {
+        method: 'client.AccountHolders.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\taccountHolder, err := client.AccountHolders.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", accountHolder.BeneficialOwnerIndividuals)\n}\n',
+      },
       java: {
         method: 'accountHolders().retrieve',
         example:
@@ -510,11 +515,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/account_holders/$ACCOUNT_HOLDER_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.AccountHolders.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\taccountHolder, err := client.AccountHolders.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", accountHolder.BeneficialOwnerIndividuals)\n}\n',
-      },
     },
   },
   {
@@ -532,6 +532,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## upload_document\n\n`client.accountHolders.uploadDocument(account_holder_token: string, document_type: string, entity_token: string): { token: string; account_holder_token: string; document_type: string; entity_token: string; required_document_uploads: object[]; }`\n\n**post** `/v1/account_holders/{account_holder_token}/documents`\n\nUse this endpoint to identify which type of supported government-issued documentation you will upload for further verification.\nIt will return two URLs to upload your document images to - one for the front image and one for the back image.\n\nThis endpoint is only valid for evaluations in a `PENDING_DOCUMENT` state.\n\nSupported file types include `jpg`, `png`, and `pdf`. Each file must be less than 15 MiB. Once both required uploads have been successfully completed, your document will be run through KYC verification.\n\nIf you have registered a webhook, you will receive evaluation updates for any document submission evaluations, as well as for any failed document uploads.\n\nTwo document submission attempts are permitted via this endpoint before a `REJECTED` status is returned and the account creation process is ended. Currently only one type of\naccount holder document is supported per KYC verification.\n\n\n### Parameters\n\n- `account_holder_token: string`\n\n- `document_type: string`\n  The type of document to upload\n\n- `entity_token: string`\n  Globally unique identifier for the entity.\n\n### Returns\n\n- `{ token: string; account_holder_token: string; document_type: string; entity_token: string; required_document_uploads: { token: string; accepted_entity_status_reasons: string[]; created: string; image_type: 'FRONT' | 'BACK'; rejected_entity_status_reasons: string[]; status: 'ACCEPTED' | 'REJECTED' | 'PENDING_UPLOAD' | 'UPLOADED' | 'PARTIAL_APPROVAL'; status_reasons: string[]; updated: string; upload_url: string; }[]; }`\n  Describes the document and the required document image uploads\nrequired to re-run KYC\n\n  - `token: string`\n  - `account_holder_token: string`\n  - `document_type: string`\n  - `entity_token: string`\n  - `required_document_uploads: { token: string; accepted_entity_status_reasons: string[]; created: string; image_type: 'FRONT' | 'BACK'; rejected_entity_status_reasons: string[]; status: 'ACCEPTED' | 'REJECTED' | 'PENDING_UPLOAD' | 'UPLOADED' | 'PARTIAL_APPROVAL'; status_reasons: string[]; updated: string; upload_url: string; }[]`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst document = await client.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { document_type: 'EIN_LETTER', entity_token: '83cf25ae-c14f-4d10-9fa2-0119f36c7286' });\n\nconsole.log(document);\n```",
     perLanguage: {
+      go: {
+        method: 'client.AccountHolders.UploadDocument',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdocument, err := client.AccountHolders.UploadDocument(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.AccountHolderUploadDocumentParams{\n\t\t\tDocumentType: lithic.F(lithic.AccountHolderUploadDocumentParamsDocumentTypeEinLetter),\n\t\t\tEntityToken:  lithic.F("83cf25ae-c14f-4d10-9fa2-0119f36c7286"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", document.Token)\n}\n',
+      },
       java: {
         method: 'accountHolders().uploadDocument',
         example:
@@ -561,11 +566,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/account_holders/$ACCOUNT_HOLDER_TOKEN/documents \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "document_type": "EIN_LETTER",\n          "entity_token": "83cf25ae-c14f-4d10-9fa2-0119f36c7286"\n        }\'',
       },
-      go: {
-        method: 'client.AccountHolders.UploadDocument',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdocument, err := client.AccountHolders.UploadDocument(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.AccountHolderUploadDocumentParams{\n\t\t\tDocumentType: lithic.F(lithic.AccountHolderUploadDocumentParamsDocumentTypeEinLetter),\n\t\t\tEntityToken:  lithic.F("83cf25ae-c14f-4d10-9fa2-0119f36c7286"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", document.Token)\n}\n',
-      },
     },
   },
   {
@@ -583,6 +583,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list_documents\n\n`client.accountHolders.listDocuments(account_holder_token: string): { data?: document[]; }`\n\n**get** `/v1/account_holders/{account_holder_token}/documents`\n\nRetrieve the status of account holder document uploads, or retrieve the upload URLs to process your image uploads.\n\nNote that this is not equivalent to checking the status of the KYC evaluation overall (a document may be successfully uploaded but not be sufficient for KYC to pass).\n\nIn the event your upload URLs have expired, calling this endpoint will refresh them.\nSimilarly, in the event a previous account holder document upload has failed, you can use this endpoint to get a new upload URL for the failed image upload.\n\nWhen a new document upload is generated for a failed attempt, the response will show an additional entry in the `required_document_uploads` list\nin a `PENDING` state for the corresponding `image_type`.\n\n\n### Parameters\n\n- `account_holder_token: string`\n\n### Returns\n\n- `{ data?: { token: string; account_holder_token: string; document_type: string; entity_token: string; required_document_uploads: object[]; }[]; }`\n\n  - `data?: { token: string; account_holder_token: string; document_type: string; entity_token: string; required_document_uploads: { token: string; accepted_entity_status_reasons: string[]; created: string; image_type: 'FRONT' | 'BACK'; rejected_entity_status_reasons: string[]; status: 'ACCEPTED' | 'REJECTED' | 'PENDING_UPLOAD' | 'UPLOADED' | 'PARTIAL_APPROVAL'; status_reasons: string[]; updated: string; upload_url: string; }[]; }[]`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.accountHolders.listDocuments('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.AccountHolders.ListDocuments',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.AccountHolders.ListDocuments(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Data)\n}\n',
+      },
       java: {
         method: 'accountHolders().listDocuments',
         example:
@@ -612,11 +617,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/account_holders/$ACCOUNT_HOLDER_TOKEN/documents \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.AccountHolders.ListDocuments',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.AccountHolders.ListDocuments(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Data)\n}\n',
-      },
     },
   },
   {
@@ -634,6 +634,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve_document\n\n`client.accountHolders.retrieveDocument(account_holder_token: string, document_token: string): { token: string; account_holder_token: string; document_type: string; entity_token: string; required_document_uploads: object[]; }`\n\n**get** `/v1/account_holders/{account_holder_token}/documents/{document_token}`\n\nCheck the status of an account holder document upload, or retrieve the upload URLs to process your image uploads.\n\nNote that this is not equivalent to checking the status of the KYC evaluation overall (a document may be successfully uploaded but not be sufficient for KYC to pass).\n\nIn the event your upload URLs have expired, calling this endpoint will refresh them.\nSimilarly, in the event a document upload has failed, you can use this endpoint to get a new upload URL for the failed image upload.\n\nWhen a new account holder document upload is generated for a failed attempt, the response will show an additional entry in the `required_document_uploads` array\nin a `PENDING` state for the corresponding `image_type`.\n\n\n### Parameters\n\n- `account_holder_token: string`\n\n- `document_token: string`\n\n### Returns\n\n- `{ token: string; account_holder_token: string; document_type: string; entity_token: string; required_document_uploads: { token: string; accepted_entity_status_reasons: string[]; created: string; image_type: 'FRONT' | 'BACK'; rejected_entity_status_reasons: string[]; status: 'ACCEPTED' | 'REJECTED' | 'PENDING_UPLOAD' | 'UPLOADED' | 'PARTIAL_APPROVAL'; status_reasons: string[]; updated: string; upload_url: string; }[]; }`\n  Describes the document and the required document image uploads\nrequired to re-run KYC\n\n  - `token: string`\n  - `account_holder_token: string`\n  - `document_type: string`\n  - `entity_token: string`\n  - `required_document_uploads: { token: string; accepted_entity_status_reasons: string[]; created: string; image_type: 'FRONT' | 'BACK'; rejected_entity_status_reasons: string[]; status: 'ACCEPTED' | 'REJECTED' | 'PENDING_UPLOAD' | 'UPLOADED' | 'PARTIAL_APPROVAL'; status_reasons: string[]; updated: string; upload_url: string; }[]`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst document = await client.accountHolders.retrieveDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { account_holder_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(document);\n```",
     perLanguage: {
+      go: {
+        method: 'client.AccountHolders.GetDocument',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdocument, err := client.AccountHolders.GetDocument(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", document.Token)\n}\n',
+      },
       java: {
         method: 'accountHolders().retrieveDocument',
         example:
@@ -662,11 +667,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.lithic.com/v1/account_holders/$ACCOUNT_HOLDER_TOKEN/documents/$DOCUMENT_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
-      },
-      go: {
-        method: 'client.AccountHolders.GetDocument',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdocument, err := client.AccountHolders.GetDocument(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", document.Token)\n}\n',
       },
     },
   },
@@ -697,6 +697,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.accountHolders.list(begin?: string, email?: string, end?: string, ending_before?: string, external_id?: string, first_name?: string, last_name?: string, legal_business_name?: string, limit?: number, phone_number?: string, starting_after?: string): { token: string; created: string; account_token?: string; beneficial_owner_individuals?: object[]; business_account_token?: string; business_entity?: object; control_person?: object; email?: string; exemption_type?: 'AUTHORIZED_USER' | 'PREPAID_CARD_USER'; external_id?: string; individual?: object; naics_code?: string; nature_of_business?: string; phone_number?: string; required_documents?: required_document[]; status?: 'ACCEPTED' | 'PENDING_REVIEW' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED'; status_reasons?: string[]; user_type?: 'BUSINESS' | 'INDIVIDUAL'; verification_application?: object; website_url?: string; }`\n\n**get** `/v1/account_holders`\n\nGet a list of individual or business account holders and their KYC or KYB evaluation status.\n\n### Parameters\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `email?: string`\n  Email address of the account holder. The query must be an exact match, case insensitive.\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `external_id?: string`\n  If applicable, represents the external_id associated with the account_holder.\n\n- `first_name?: string`\n  (Individual Account Holders only) The first name of the account holder. The query is case insensitive and supports partial matches.\n\n- `last_name?: string`\n  (Individual Account Holders only) The last name of the account holder. The query is case insensitive and supports partial matches.\n\n- `legal_business_name?: string`\n  (Business Account Holders only) The legal business name of the account holder. The query is case insensitive and supports partial matches.\n\n- `limit?: number`\n  The number of account_holders to limit the response to.\n\n- `phone_number?: string`\n  Phone number of the account holder. The query must be an exact match.\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; created: string; account_token?: string; beneficial_owner_individuals?: { address: object; dob: string; email: string; entity_token: string; first_name: string; last_name: string; phone_number: string; }[]; business_account_token?: string; business_entity?: { address: object; dba_business_name: string; entity_token: string; government_id: string; legal_business_name: string; phone_numbers: string[]; parent_company?: string; }; control_person?: { address: object; dob: string; email: string; entity_token: string; first_name: string; last_name: string; phone_number: string; }; email?: string; exemption_type?: 'AUTHORIZED_USER' | 'PREPAID_CARD_USER'; external_id?: string; individual?: { address: object; dob: string; email: string; entity_token: string; first_name: string; last_name: string; phone_number: string; }; naics_code?: string; nature_of_business?: string; phone_number?: string; required_documents?: { entity_token: string; status_reasons: string[]; valid_documents: string[]; }[]; status?: 'ACCEPTED' | 'PENDING_REVIEW' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED'; status_reasons?: string[]; user_type?: 'BUSINESS' | 'INDIVIDUAL'; verification_application?: { created?: string; status?: 'ACCEPTED' | 'PENDING_REVIEW' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED'; status_reasons?: string[]; updated?: string; }; website_url?: string; }`\n\n  - `token: string`\n  - `created: string`\n  - `account_token?: string`\n  - `beneficial_owner_individuals?: { address: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; dob: string; email: string; entity_token: string; first_name: string; last_name: string; phone_number: string; }[]`\n  - `business_account_token?: string`\n  - `business_entity?: { address: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; dba_business_name: string; entity_token: string; government_id: string; legal_business_name: string; phone_numbers: string[]; parent_company?: string; }`\n  - `control_person?: { address: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; dob: string; email: string; entity_token: string; first_name: string; last_name: string; phone_number: string; }`\n  - `email?: string`\n  - `exemption_type?: 'AUTHORIZED_USER' | 'PREPAID_CARD_USER'`\n  - `external_id?: string`\n  - `individual?: { address: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; dob: string; email: string; entity_token: string; first_name: string; last_name: string; phone_number: string; }`\n  - `naics_code?: string`\n  - `nature_of_business?: string`\n  - `phone_number?: string`\n  - `required_documents?: { entity_token: string; status_reasons: string[]; valid_documents: string[]; }[]`\n  - `status?: 'ACCEPTED' | 'PENDING_REVIEW' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED'`\n  - `status_reasons?: string[]`\n  - `user_type?: 'BUSINESS' | 'INDIVIDUAL'`\n  - `verification_application?: { created?: string; status?: 'ACCEPTED' | 'PENDING_REVIEW' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED'; status_reasons?: string[]; updated?: string; }`\n  - `website_url?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const accountHolder of client.accountHolders.list()) {\n  console.log(accountHolder);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.AccountHolders.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.AccountHolders.List(context.TODO(), lithic.AccountHolderListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'accountHolders().list',
         example:
@@ -725,11 +730,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example: 'curl https://api.lithic.com/v1/account_holders \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.AccountHolders.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.AccountHolders.List(context.TODO(), lithic.AccountHolderListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -751,6 +751,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## simulate_enrollment_review\n\n`client.accountHolders.simulateEnrollmentReview(account_holder_token?: string, status?: 'ACCEPTED' | 'REJECTED' | 'PENDING_REVIEW', status_reasons?: string[]): { token?: string; account_token?: string; beneficial_owner_individuals?: object[]; business_account_token?: string; business_entity?: kyb_business_entity; control_person?: object; created?: string; email?: string; exemption_type?: 'AUTHORIZED_USER' | 'PREPAID_CARD_USER'; external_id?: string; individual?: object; naics_code?: string; nature_of_business?: string; phone_number?: string; required_documents?: required_document[]; status?: 'ACCEPTED' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED'; status_reasons?: string[]; user_type?: 'BUSINESS' | 'INDIVIDUAL'; verification_application?: object; website_url?: string; }`\n\n**post** `/v1/simulate/account_holders/enrollment_review`\n\n Simulates an enrollment review for an account holder. This endpoint is only applicable for workflows that may required intervention such as `KYB_BASIC`. \n\n### Parameters\n\n- `account_holder_token?: string`\n  The account holder which to perform the simulation upon.\n\n- `status?: 'ACCEPTED' | 'REJECTED' | 'PENDING_REVIEW'`\n  An account holder's status for use within the simulation.\n\n- `status_reasons?: string[]`\n  Status reason that will be associated with the simulated account holder status. Only required for a `REJECTED` status.\n\n### Returns\n\n- `{ token?: string; account_token?: string; beneficial_owner_individuals?: { address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; dob?: string; email?: string; first_name?: string; government_id?: string; last_name?: string; phone_number?: string; }[]; business_account_token?: string; business_entity?: { address: object; government_id: string; legal_business_name: string; phone_numbers: string[]; dba_business_name?: string; parent_company?: string; }; control_person?: { address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; dob?: string; email?: string; first_name?: string; government_id?: string; last_name?: string; phone_number?: string; }; created?: string; email?: string; exemption_type?: 'AUTHORIZED_USER' | 'PREPAID_CARD_USER'; external_id?: string; individual?: { address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; dob?: string; email?: string; first_name?: string; government_id?: string; last_name?: string; phone_number?: string; }; naics_code?: string; nature_of_business?: string; phone_number?: string; required_documents?: { entity_token: string; status_reasons: string[]; valid_documents: string[]; }[]; status?: 'ACCEPTED' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED'; status_reasons?: string[]; user_type?: 'BUSINESS' | 'INDIVIDUAL'; verification_application?: { created: string; status: 'ACCEPTED' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED'; status_reasons: string[]; updated: string; ky_passed_at?: string; }; website_url?: string; }`\n\n  - `token?: string`\n  - `account_token?: string`\n  - `beneficial_owner_individuals?: { address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; dob?: string; email?: string; first_name?: string; government_id?: string; last_name?: string; phone_number?: string; }[]`\n  - `business_account_token?: string`\n  - `business_entity?: { address: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; government_id: string; legal_business_name: string; phone_numbers: string[]; dba_business_name?: string; parent_company?: string; }`\n  - `control_person?: { address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; dob?: string; email?: string; first_name?: string; government_id?: string; last_name?: string; phone_number?: string; }`\n  - `created?: string`\n  - `email?: string`\n  - `exemption_type?: 'AUTHORIZED_USER' | 'PREPAID_CARD_USER'`\n  - `external_id?: string`\n  - `individual?: { address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; dob?: string; email?: string; first_name?: string; government_id?: string; last_name?: string; phone_number?: string; }`\n  - `naics_code?: string`\n  - `nature_of_business?: string`\n  - `phone_number?: string`\n  - `required_documents?: { entity_token: string; status_reasons: string[]; valid_documents: string[]; }[]`\n  - `status?: 'ACCEPTED' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED'`\n  - `status_reasons?: string[]`\n  - `user_type?: 'BUSINESS' | 'INDIVIDUAL'`\n  - `verification_application?: { created: string; status: 'ACCEPTED' | 'PENDING_DOCUMENT' | 'PENDING_RESUBMIT' | 'REJECTED'; status_reasons: string[]; updated: string; ky_passed_at?: string; }`\n  - `website_url?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.accountHolders.simulateEnrollmentReview();\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.AccountHolders.SimulateEnrollmentReview',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.AccountHolders.SimulateEnrollmentReview(context.TODO(), lithic.AccountHolderSimulateEnrollmentReviewParams{\n\t\tAccountHolderToken: lithic.F("1415964d-4400-4d79-9fb3-eee0faaee4e4"),\n\t\tStatus:             lithic.F(lithic.AccountHolderSimulateEnrollmentReviewParamsStatusAccepted),\n\t\tStatusReasons:      lithic.F([]lithic.AccountHolderSimulateEnrollmentReviewParamsStatusReason{}),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.BeneficialOwnerIndividuals)\n}\n',
+      },
       java: {
         method: 'accountHolders().simulateEnrollmentReview',
         example:
@@ -780,11 +785,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/simulate/account_holders/enrollment_review \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "account_holder_token": "1415964d-4400-4d79-9fb3-eee0faaee4e4",\n          "status": "ACCEPTED",\n          "status_reasons": [\n            "PRIMARY_BUSINESS_ENTITY_ID_VERIFICATION_FAILURE"\n          ]\n        }\'',
       },
-      go: {
-        method: 'client.AccountHolders.SimulateEnrollmentReview',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.AccountHolders.SimulateEnrollmentReview(context.TODO(), lithic.AccountHolderSimulateEnrollmentReviewParams{\n\t\tAccountHolderToken: lithic.F("1415964d-4400-4d79-9fb3-eee0faaee4e4"),\n\t\tStatus:             lithic.F(lithic.AccountHolderSimulateEnrollmentReviewParamsStatusAccepted),\n\t\tStatusReasons:      lithic.F([]lithic.AccountHolderSimulateEnrollmentReviewParamsStatusReason{}),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.BeneficialOwnerIndividuals)\n}\n',
-      },
     },
   },
   {
@@ -806,6 +806,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## simulate_enrollment_document_review\n\n`client.accountHolders.simulateEnrollmentDocumentReview(document_upload_token: string, status: 'UPLOADED' | 'ACCEPTED' | 'REJECTED' | 'PARTIAL_APPROVAL', accepted_entity_status_reasons?: string[], status_reason?: string): { token: string; account_holder_token: string; document_type: string; entity_token: string; required_document_uploads: object[]; }`\n\n**post** `/v1/simulate/account_holders/enrollment_document_review`\n\nSimulates a review for an account holder document upload.\n\n### Parameters\n\n- `document_upload_token: string`\n  The account holder document upload which to perform the simulation upon.\n\n- `status: 'UPLOADED' | 'ACCEPTED' | 'REJECTED' | 'PARTIAL_APPROVAL'`\n  An account holder document's upload status for use within the simulation.\n\n- `accepted_entity_status_reasons?: string[]`\n  A list of status reasons associated with a KYB account holder in PENDING_REVIEW\n\n- `status_reason?: string`\n  Status reason that will be associated with the simulated account holder status. Only required for a `REJECTED` status or `PARTIAL_APPROVAL` status.\n\n### Returns\n\n- `{ token: string; account_holder_token: string; document_type: string; entity_token: string; required_document_uploads: { token: string; accepted_entity_status_reasons: string[]; created: string; image_type: 'FRONT' | 'BACK'; rejected_entity_status_reasons: string[]; status: 'ACCEPTED' | 'REJECTED' | 'PENDING_UPLOAD' | 'UPLOADED' | 'PARTIAL_APPROVAL'; status_reasons: string[]; updated: string; upload_url: string; }[]; }`\n  Describes the document and the required document image uploads\nrequired to re-run KYC\n\n  - `token: string`\n  - `account_holder_token: string`\n  - `document_type: string`\n  - `entity_token: string`\n  - `required_document_uploads: { token: string; accepted_entity_status_reasons: string[]; created: string; image_type: 'FRONT' | 'BACK'; rejected_entity_status_reasons: string[]; status: 'ACCEPTED' | 'REJECTED' | 'PENDING_UPLOAD' | 'UPLOADED' | 'PARTIAL_APPROVAL'; status_reasons: string[]; updated: string; upload_url: string; }[]`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst document = await client.accountHolders.simulateEnrollmentDocumentReview({ document_upload_token: 'b11cd67b-0a52-4180-8365-314f3def5426', status: 'UPLOADED' });\n\nconsole.log(document);\n```",
     perLanguage: {
+      go: {
+        method: 'client.AccountHolders.SimulateEnrollmentDocumentReview',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdocument, err := client.AccountHolders.SimulateEnrollmentDocumentReview(context.TODO(), lithic.AccountHolderSimulateEnrollmentDocumentReviewParams{\n\t\tDocumentUploadToken: lithic.F("b11cd67b-0a52-4180-8365-314f3def5426"),\n\t\tStatus:              lithic.F(lithic.AccountHolderSimulateEnrollmentDocumentReviewParamsStatusUploaded),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", document.Token)\n}\n',
+      },
       java: {
         method: 'accountHolders().simulateEnrollmentDocumentReview',
         example:
@@ -835,11 +840,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/simulate/account_holders/enrollment_document_review \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "document_upload_token": "b11cd67b-0a52-4180-8365-314f3def5426",\n          "status": "UPLOADED"\n        }\'',
       },
-      go: {
-        method: 'client.AccountHolders.SimulateEnrollmentDocumentReview',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdocument, err := client.AccountHolders.SimulateEnrollmentDocumentReview(context.TODO(), lithic.AccountHolderSimulateEnrollmentDocumentReviewParams{\n\t\tDocumentUploadToken: lithic.F("b11cd67b-0a52-4180-8365-314f3def5426"),\n\t\tStatus:              lithic.F(lithic.AccountHolderSimulateEnrollmentDocumentReviewParamsStatusUploaded),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", document.Token)\n}\n',
-      },
     },
   },
   {
@@ -867,6 +867,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.accountHolders.entities.create(account_holder_token: string, address: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }, dob: string, email: string, first_name: string, government_id: string, last_name: string, phone_number: string, type: 'BENEFICIAL_OWNER_INDIVIDUAL' | 'CONTROL_PERSON'): { token: string; account_holder_token: string; created: string; required_documents: required_document[]; status: 'ACCEPTED' | 'INACTIVE' | 'PENDING_REVIEW' | 'REJECTED'; status_reasons: string[]; }`\n\n**post** `/v1/account_holders/{account_holder_token}/entities`\n\nCreate a new beneficial owner individual or replace the control person entity on an existing KYB account holder. This endpoint is only applicable for account holders enrolled through a KYB workflow with the Persona KYB provider.\nA new control person can only replace the existing one. A maximum of 4 beneficial owners can be associated with an account holder.\n\n### Parameters\n\n- `account_holder_token: string`\n\n- `address: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }`\n  Individual's current address - PO boxes, UPS drops, and FedEx drops are not acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.\n  - `address1: string`\n    Valid deliverable address (no PO boxes).\n  - `city: string`\n    Name of city.\n  - `country: string`\n    Valid country code. Only USA is currently supported, entered in uppercase ISO 3166-1 alpha-3 three-character format.\n  - `postal_code: string`\n    Valid postal code. Only USA ZIP codes are currently supported, entered as a five-digit ZIP or nine-digit ZIP+4.\n  - `state: string`\n    Valid state code. Only USA state codes are currently supported, entered in uppercase ISO 3166-2 two-character format.\n  - `address2?: string`\n    Unit or apartment number (if applicable).\n\n- `dob: string`\n  Individual's date of birth, as an RFC 3339 date.\n\n- `email: string`\n  Individual's email address. If utilizing Lithic for chargeback processing, this customer email address may be used to communicate dispute status and resolution.\n\n- `first_name: string`\n  Individual's first name, as it appears on government-issued identity documents.\n\n- `government_id: string`\n  Government-issued identification number (required for identity verification and compliance with banking regulations). Social Security Numbers (SSN) and Individual Taxpayer Identification Numbers (ITIN) are currently supported, entered as full nine-digits, with or without hyphens\n\n- `last_name: string`\n  Individual's last name, as it appears on government-issued identity documents.\n\n- `phone_number: string`\n  Individual's phone number, entered in E.164 format.\n\n- `type: 'BENEFICIAL_OWNER_INDIVIDUAL' | 'CONTROL_PERSON'`\n  The type of entity to create on the account holder\n\n### Returns\n\n- `{ token: string; account_holder_token: string; created: string; required_documents: { entity_token: string; status_reasons: string[]; valid_documents: string[]; }[]; status: 'ACCEPTED' | 'INACTIVE' | 'PENDING_REVIEW' | 'REJECTED'; status_reasons: string[]; }`\n  Response body for creating a new beneficial owner or replacing the control person entity on an existing KYB account holder.\n\n  - `token: string`\n  - `account_holder_token: string`\n  - `created: string`\n  - `required_documents: { entity_token: string; status_reasons: string[]; valid_documents: string[]; }[]`\n  - `status: 'ACCEPTED' | 'INACTIVE' | 'PENDING_REVIEW' | 'REJECTED'`\n  - `status_reasons: string[]`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst entity = await client.accountHolders.entities.create('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {\n  address: {\n  address1: '300 Normal Forest Way',\n  city: 'Portland',\n  country: 'USA',\n  postal_code: '90210',\n  state: 'OR',\n},\n  dob: '1991-03-08T08:00:00Z',\n  email: 'tim@left-earth.com',\n  first_name: 'Timmy',\n  government_id: '211-23-1412',\n  last_name: 'Turner',\n  phone_number: '+15555555555',\n  type: 'BENEFICIAL_OWNER_INDIVIDUAL',\n});\n\nconsole.log(entity);\n```",
     perLanguage: {
+      go: {
+        method: 'client.AccountHolders.Entities.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tentity, err := client.AccountHolders.Entities.New(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.AccountHolderEntityNewParams{\n\t\t\tAddress: lithic.F(lithic.AccountHolderEntityNewParamsAddress{\n\t\t\t\tAddress1:   lithic.F("300 Normal Forest Way"),\n\t\t\t\tCity:       lithic.F("Portland"),\n\t\t\t\tCountry:    lithic.F("USA"),\n\t\t\t\tPostalCode: lithic.F("90210"),\n\t\t\t\tState:      lithic.F("OR"),\n\t\t\t}),\n\t\t\tDob:          lithic.F("1991-03-08T08:00:00Z"),\n\t\t\tEmail:        lithic.F("tim@left-earth.com"),\n\t\t\tFirstName:    lithic.F("Timmy"),\n\t\t\tGovernmentID: lithic.F("211-23-1412"),\n\t\t\tLastName:     lithic.F("Turner"),\n\t\t\tPhoneNumber:  lithic.F("+15555555555"),\n\t\t\tType:         lithic.F(lithic.EntityTypeBeneficialOwnerIndividual),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", entity.Token)\n}\n',
+      },
       java: {
         method: 'accountHolders().entities().create',
         example:
@@ -896,11 +901,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/account_holders/$ACCOUNT_HOLDER_TOKEN/entities \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "address": {\n            "address1": "300 Normal Forest Way",\n            "city": "Portland",\n            "country": "USA",\n            "postal_code": "90210",\n            "state": "OR"\n          },\n          "dob": "1991-03-08T08:00:00Z",\n          "email": "tim@left-earth.com",\n          "first_name": "Timmy",\n          "government_id": "211-23-1412",\n          "last_name": "Turner",\n          "phone_number": "+15555555555",\n          "type": "BENEFICIAL_OWNER_INDIVIDUAL"\n        }\'',
       },
-      go: {
-        method: 'client.AccountHolders.Entities.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tentity, err := client.AccountHolders.Entities.New(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.AccountHolderEntityNewParams{\n\t\t\tAddress: lithic.F(lithic.AccountHolderEntityNewParamsAddress{\n\t\t\t\tAddress1:   lithic.F("300 Normal Forest Way"),\n\t\t\t\tCity:       lithic.F("Portland"),\n\t\t\t\tCountry:    lithic.F("USA"),\n\t\t\t\tPostalCode: lithic.F("90210"),\n\t\t\t\tState:      lithic.F("OR"),\n\t\t\t}),\n\t\t\tDob:          lithic.F("1991-03-08T08:00:00Z"),\n\t\t\tEmail:        lithic.F("tim@left-earth.com"),\n\t\t\tFirstName:    lithic.F("Timmy"),\n\t\t\tGovernmentID: lithic.F("211-23-1412"),\n\t\t\tLastName:     lithic.F("Turner"),\n\t\t\tPhoneNumber:  lithic.F("+15555555555"),\n\t\t\tType:         lithic.F(lithic.EntityTypeBeneficialOwnerIndividual),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", entity.Token)\n}\n',
-      },
     },
   },
   {
@@ -918,6 +918,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## delete\n\n`client.accountHolders.entities.delete(account_holder_token: string, entity_token: string): { token: string; account_holder_token: string; address: object; dob: string; email: string; first_name: string; last_name: string; phone_number: string; status: 'ACCEPTED' | 'INACTIVE' | 'PENDING_REVIEW' | 'REJECTED'; type: entity_type; }`\n\n**delete** `/v1/account_holders/{account_holder_token}/entities/{entity_token}`\n\nDeactivate a beneficial owner individual on an existing KYB account holder. Only beneficial owner individuals can be deactivated.\n\n### Parameters\n\n- `account_holder_token: string`\n\n- `entity_token: string`\n\n### Returns\n\n- `{ token: string; account_holder_token: string; address: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; dob: string; email: string; first_name: string; last_name: string; phone_number: string; status: 'ACCEPTED' | 'INACTIVE' | 'PENDING_REVIEW' | 'REJECTED'; type: 'BENEFICIAL_OWNER_INDIVIDUAL' | 'CONTROL_PERSON'; }`\n  Information about an entity associated with an account holder\n\n  - `token: string`\n  - `account_holder_token: string`\n  - `address: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }`\n  - `dob: string`\n  - `email: string`\n  - `first_name: string`\n  - `last_name: string`\n  - `phone_number: string`\n  - `status: 'ACCEPTED' | 'INACTIVE' | 'PENDING_REVIEW' | 'REJECTED'`\n  - `type: 'BENEFICIAL_OWNER_INDIVIDUAL' | 'CONTROL_PERSON'`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst accountHolderEntity = await client.accountHolders.entities.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { account_holder_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(accountHolderEntity);\n```",
     perLanguage: {
+      go: {
+        method: 'client.AccountHolders.Entities.Delete',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\taccountHolderEntity, err := client.AccountHolders.Entities.Delete(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", accountHolderEntity.Token)\n}\n',
+      },
       java: {
         method: 'accountHolders().entities().delete',
         example:
@@ -947,11 +952,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/account_holders/$ACCOUNT_HOLDER_TOKEN/entities/$ENTITY_TOKEN \\\n    -X DELETE \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.AccountHolders.Entities.Delete',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\taccountHolderEntity, err := client.AccountHolders.Entities.Delete(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", accountHolderEntity.Token)\n}\n',
-      },
     },
   },
   {
@@ -968,6 +968,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     response:
       "{ token: string; account_tokens: string[]; business_account_tokens: string[]; card_tokens: string[]; current_version: { parameters: object | object | object | object | object | object | object | object | object | object | object; version: number; }; draft_version: { error: string; parameters: object | object | object | object | object | object | object | object | object | object | object; state: 'PENDING' | 'SHADOWING' | 'ERROR'; version: number; }; event_stream: string; lithic_managed: boolean; name: string; program_level: boolean; state: 'ACTIVE' | 'INACTIVE'; type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE'; excluded_account_tokens?: string[]; excluded_business_account_tokens?: string[]; excluded_card_tokens?: string[]; }",
     perLanguage: {
+      go: {
+        method: 'client.AuthRules.V2.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n\t"github.com/lithic-com/lithic-go/shared"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tauthRule, err := client.AuthRules.V2.New(context.TODO(), lithic.AuthRuleV2NewParams{\n\t\tBody: lithic.AuthRuleV2NewParamsBodyAccountLevelRule{\n\t\t\tParameters: lithic.F[lithic.AuthRuleV2NewParamsBodyAccountLevelRuleParametersUnion](lithic.ConditionalBlockParameters{\n\t\t\t\tConditions: lithic.F([]lithic.AuthRuleConditionParam{{\n\t\t\t\t\tAttribute: lithic.F(lithic.ConditionalAttributeMcc),\n\t\t\t\t\tOperation: lithic.F(lithic.ConditionalOperationIsOneOf),\n\t\t\t\t\tValue:     lithic.F[lithic.ConditionalValueUnionParam](shared.UnionString("string")),\n\t\t\t\t}}),\n\t\t\t}),\n\t\t\tType: lithic.F(lithic.AuthRuleV2NewParamsBodyAccountLevelRuleTypeConditionalBlock),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", authRule.Token)\n}\n',
+      },
       java: {
         method: 'authRules().v2().create',
         example:
@@ -997,11 +1002,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v2/auth_rules \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "parameters": {\n            "conditions": [\n              {\n                "attribute": "MCC",\n                "operation": "IS_ONE_OF",\n                "value": "string"\n              }\n            ]\n          },\n          "type": "CONDITIONAL_BLOCK"\n        }\'',
       },
-      go: {
-        method: 'client.AuthRules.V2.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n\t"github.com/lithic-com/lithic-go/shared"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tauthRule, err := client.AuthRules.V2.New(context.TODO(), lithic.AuthRuleV2NewParams{\n\t\tBody: lithic.AuthRuleV2NewParamsBodyAccountLevelRule{\n\t\t\tParameters: lithic.F[lithic.AuthRuleV2NewParamsBodyAccountLevelRuleParametersUnion](lithic.ConditionalBlockParameters{\n\t\t\t\tConditions: lithic.F([]lithic.AuthRuleConditionParam{{\n\t\t\t\t\tAttribute: lithic.F(lithic.ConditionalAttributeMcc),\n\t\t\t\t\tOperation: lithic.F(lithic.ConditionalOperationIsOneOf),\n\t\t\t\t\tValue:     lithic.F[lithic.ConditionalValueUnionParam](shared.UnionString("string")),\n\t\t\t\t}}),\n\t\t\t}),\n\t\t\tType: lithic.F(lithic.AuthRuleV2NewParamsBodyAccountLevelRuleTypeConditionalBlock),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", authRule.Token)\n}\n',
-      },
     },
   },
   {
@@ -1028,6 +1028,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.authRules.v2.list(account_token?: string, business_account_token?: string, card_token?: string, ending_before?: string, event_stream?: string, event_streams?: string[], page_size?: number, scope?: 'PROGRAM' | 'ACCOUNT' | 'BUSINESS_ACCOUNT' | 'CARD' | 'ANY', starting_after?: string): { token: string; account_tokens: string[]; business_account_tokens: string[]; card_tokens: string[]; current_version: object; draft_version: object; event_stream: event_stream; lithic_managed: boolean; name: string; program_level: boolean; state: 'ACTIVE' | 'INACTIVE'; type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE'; excluded_account_tokens?: string[]; excluded_business_account_tokens?: string[]; excluded_card_tokens?: string[]; }`\n\n**get** `/v2/auth_rules`\n\nLists V2 Auth rules\n\n### Parameters\n\n- `account_token?: string`\n  Only return Auth Rules that are bound to the provided account token.\n\n- `business_account_token?: string`\n  Only return Auth Rules that are bound to the provided business account token.\n\n- `card_token?: string`\n  Only return Auth Rules that are bound to the provided card token.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `event_stream?: string`\n  Deprecated: Use event_streams instead. Only return Auth rules that are executed during the provided event stream.\n\n- `event_streams?: string[]`\n  Only return Auth rules that are executed during any of the provided event streams. If event_streams and event_stream are specified, the values will be combined.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `scope?: 'PROGRAM' | 'ACCOUNT' | 'BUSINESS_ACCOUNT' | 'CARD' | 'ANY'`\n  Only return Auth Rules that are bound to the provided scope.\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; account_tokens: string[]; business_account_tokens: string[]; card_tokens: string[]; current_version: { parameters: object | object | object | object | object | object | object | object | object | object | object; version: number; }; draft_version: { error: string; parameters: object | object | object | object | object | object | object | object | object | object | object; state: 'PENDING' | 'SHADOWING' | 'ERROR'; version: number; }; event_stream: string; lithic_managed: boolean; name: string; program_level: boolean; state: 'ACTIVE' | 'INACTIVE'; type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE'; excluded_account_tokens?: string[]; excluded_business_account_tokens?: string[]; excluded_card_tokens?: string[]; }`\n\n  - `token: string`\n  - `account_tokens: string[]`\n  - `business_account_tokens: string[]`\n  - `card_tokens: string[]`\n  - `current_version: { parameters: { conditions: object[]; } | { period: object | object | object | object | object; scope: 'CARD' | 'ACCOUNT'; filters?: object; limit_amount?: number; limit_cash_amount?: number; limit_cash_count?: number; limit_count?: number; } | { merchants: { comment?: string; descriptor?: string; merchant_id?: string; }[]; } | { action: 'DECLINE' | 'CHALLENGE'; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: 'DECLINE' | 'CHALLENGE'; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; } | { action: { type: 'APPROVE'; } | { code: string; type: 'RETURN'; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: { type: 'DECLINE'; reason?: string; } | { type: 'REQUIRE_TFA'; reason?: string; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: object | object; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; } | { action: object | object; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { code: string; features: object | object | object | object | object | object | object | object | object | object | object | object | object | object | object[]; } | { action: { mode: 'REPLACE_WITH_AMOUNT' | 'ADD_PERCENTAGE' | 'ADD_AMOUNT'; type: 'HOLD_ADJUSTMENT'; value: number; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; }; version: number; }`\n  - `draft_version: { error: string; parameters: { conditions: object[]; } | { period: object | object | object | object | object; scope: 'CARD' | 'ACCOUNT'; filters?: object; limit_amount?: number; limit_cash_amount?: number; limit_cash_count?: number; limit_count?: number; } | { merchants: { comment?: string; descriptor?: string; merchant_id?: string; }[]; } | { action: 'DECLINE' | 'CHALLENGE'; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: 'DECLINE' | 'CHALLENGE'; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; } | { action: { type: 'APPROVE'; } | { code: string; type: 'RETURN'; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: { type: 'DECLINE'; reason?: string; } | { type: 'REQUIRE_TFA'; reason?: string; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: object | object; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; } | { action: object | object; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { code: string; features: object | object | object | object | object | object | object | object | object | object | object | object | object | object | object[]; } | { action: { mode: 'REPLACE_WITH_AMOUNT' | 'ADD_PERCENTAGE' | 'ADD_AMOUNT'; type: 'HOLD_ADJUSTMENT'; value: number; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; }; state: 'PENDING' | 'SHADOWING' | 'ERROR'; version: number; }`\n  - `event_stream: string`\n  - `lithic_managed: boolean`\n  - `name: string`\n  - `program_level: boolean`\n  - `state: 'ACTIVE' | 'INACTIVE'`\n  - `type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE'`\n  - `excluded_account_tokens?: string[]`\n  - `excluded_business_account_tokens?: string[]`\n  - `excluded_card_tokens?: string[]`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const authRule of client.authRules.v2.list()) {\n  console.log(authRule);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.AuthRules.V2.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.AuthRules.V2.List(context.TODO(), lithic.AuthRuleV2ListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'authRules().v2().list',
         example:
@@ -1056,11 +1061,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example: 'curl https://api.lithic.com/v2/auth_rules \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.AuthRules.V2.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.AuthRules.V2.List(context.TODO(), lithic.AuthRuleV2ListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -1077,6 +1077,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.authRules.v2.retrieve(auth_rule_token: string): { token: string; account_tokens: string[]; business_account_tokens: string[]; card_tokens: string[]; current_version: object; draft_version: object; event_stream: event_stream; lithic_managed: boolean; name: string; program_level: boolean; state: 'ACTIVE' | 'INACTIVE'; type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE'; excluded_account_tokens?: string[]; excluded_business_account_tokens?: string[]; excluded_card_tokens?: string[]; }`\n\n**get** `/v2/auth_rules/{auth_rule_token}`\n\nFetches a V2 Auth rule by its token\n\n### Parameters\n\n- `auth_rule_token: string`\n\n### Returns\n\n- `{ token: string; account_tokens: string[]; business_account_tokens: string[]; card_tokens: string[]; current_version: { parameters: object | object | object | object | object | object | object | object | object | object | object; version: number; }; draft_version: { error: string; parameters: object | object | object | object | object | object | object | object | object | object | object; state: 'PENDING' | 'SHADOWING' | 'ERROR'; version: number; }; event_stream: string; lithic_managed: boolean; name: string; program_level: boolean; state: 'ACTIVE' | 'INACTIVE'; type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE'; excluded_account_tokens?: string[]; excluded_business_account_tokens?: string[]; excluded_card_tokens?: string[]; }`\n\n  - `token: string`\n  - `account_tokens: string[]`\n  - `business_account_tokens: string[]`\n  - `card_tokens: string[]`\n  - `current_version: { parameters: { conditions: object[]; } | { period: object | object | object | object | object; scope: 'CARD' | 'ACCOUNT'; filters?: object; limit_amount?: number; limit_cash_amount?: number; limit_cash_count?: number; limit_count?: number; } | { merchants: { comment?: string; descriptor?: string; merchant_id?: string; }[]; } | { action: 'DECLINE' | 'CHALLENGE'; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: 'DECLINE' | 'CHALLENGE'; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; } | { action: { type: 'APPROVE'; } | { code: string; type: 'RETURN'; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: { type: 'DECLINE'; reason?: string; } | { type: 'REQUIRE_TFA'; reason?: string; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: object | object; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; } | { action: object | object; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { code: string; features: object | object | object | object | object | object | object | object | object | object | object | object | object | object | object[]; } | { action: { mode: 'REPLACE_WITH_AMOUNT' | 'ADD_PERCENTAGE' | 'ADD_AMOUNT'; type: 'HOLD_ADJUSTMENT'; value: number; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; }; version: number; }`\n  - `draft_version: { error: string; parameters: { conditions: object[]; } | { period: object | object | object | object | object; scope: 'CARD' | 'ACCOUNT'; filters?: object; limit_amount?: number; limit_cash_amount?: number; limit_cash_count?: number; limit_count?: number; } | { merchants: { comment?: string; descriptor?: string; merchant_id?: string; }[]; } | { action: 'DECLINE' | 'CHALLENGE'; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: 'DECLINE' | 'CHALLENGE'; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; } | { action: { type: 'APPROVE'; } | { code: string; type: 'RETURN'; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: { type: 'DECLINE'; reason?: string; } | { type: 'REQUIRE_TFA'; reason?: string; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: object | object; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; } | { action: object | object; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { code: string; features: object | object | object | object | object | object | object | object | object | object | object | object | object | object | object[]; } | { action: { mode: 'REPLACE_WITH_AMOUNT' | 'ADD_PERCENTAGE' | 'ADD_AMOUNT'; type: 'HOLD_ADJUSTMENT'; value: number; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; }; state: 'PENDING' | 'SHADOWING' | 'ERROR'; version: number; }`\n  - `event_stream: string`\n  - `lithic_managed: boolean`\n  - `name: string`\n  - `program_level: boolean`\n  - `state: 'ACTIVE' | 'INACTIVE'`\n  - `type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE'`\n  - `excluded_account_tokens?: string[]`\n  - `excluded_business_account_tokens?: string[]`\n  - `excluded_card_tokens?: string[]`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst authRule = await client.authRules.v2.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(authRule);\n```",
     perLanguage: {
+      go: {
+        method: 'client.AuthRules.V2.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tauthRule, err := client.AuthRules.V2.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", authRule.Token)\n}\n',
+      },
       java: {
         method: 'authRules().v2().retrieve',
         example:
@@ -1106,11 +1111,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v2/auth_rules/$AUTH_RULE_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.AuthRules.V2.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tauthRule, err := client.AuthRules.V2.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", authRule.Token)\n}\n',
-      },
     },
   },
   {
@@ -1129,6 +1129,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     response:
       "{ token: string; account_tokens: string[]; business_account_tokens: string[]; card_tokens: string[]; current_version: { parameters: object | object | object | object | object | object | object | object | object | object | object; version: number; }; draft_version: { error: string; parameters: object | object | object | object | object | object | object | object | object | object | object; state: 'PENDING' | 'SHADOWING' | 'ERROR'; version: number; }; event_stream: string; lithic_managed: boolean; name: string; program_level: boolean; state: 'ACTIVE' | 'INACTIVE'; type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE'; excluded_account_tokens?: string[]; excluded_business_account_tokens?: string[]; excluded_card_tokens?: string[]; }",
     perLanguage: {
+      go: {
+        method: 'client.AuthRules.V2.Update',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tauthRule, err := client.AuthRules.V2.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.AuthRuleV2UpdateParams{\n\t\t\tBody: lithic.AuthRuleV2UpdateParamsBodyAccountLevelRule{},\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", authRule.Token)\n}\n',
+      },
       java: {
         method: 'authRules().v2().update',
         example:
@@ -1158,11 +1163,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "curl https://api.lithic.com/v2/auth_rules/$AUTH_RULE_TOKEN \\\n    -X PATCH \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: $LITHIC_API_KEY\" \\\n    -d '{}'",
       },
-      go: {
-        method: 'client.AuthRules.V2.Update',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tauthRule, err := client.AuthRules.V2.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.AuthRuleV2UpdateParams{\n\t\t\tBody: lithic.AuthRuleV2UpdateParamsBodyAccountLevelRule{},\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", authRule.Token)\n}\n',
-      },
     },
   },
   {
@@ -1177,6 +1177,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## delete\n\n`client.authRules.v2.delete(auth_rule_token: string): void`\n\n**delete** `/v2/auth_rules/{auth_rule_token}`\n\nDeletes a V2 Auth rule\n\n### Parameters\n\n- `auth_rule_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.authRules.v2.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')\n```",
     perLanguage: {
+      go: {
+        method: 'client.AuthRules.V2.Delete',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.AuthRules.V2.Delete(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'authRules().v2().delete',
         example:
@@ -1206,11 +1211,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v2/auth_rules/$AUTH_RULE_TOKEN \\\n    -X DELETE \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.AuthRules.V2.Delete',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.AuthRules.V2.Delete(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -1231,6 +1231,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## draft\n\n`client.authRules.v2.draft(auth_rule_token: string, parameters?: { conditions: auth_rule_condition[]; } | { period: velocity_limit_period; scope: 'CARD' | 'ACCOUNT'; filters?: velocity_limit_filters; limit_amount?: number; limit_cash_amount?: number; limit_cash_count?: number; limit_count?: number; } | { merchants: object[]; } | { action: 'DECLINE' | 'CHALLENGE'; conditions: object[]; } | { action: 'DECLINE' | 'CHALLENGE'; conditions: object[]; } | { action: object | object; conditions: object[]; } | { action: object | object; conditions: object[]; } | { action: card_transaction_update_action; conditions: object[]; } | { action: ach_payment_update_action; conditions: object[]; } | { code: string; features: rule_feature[]; } | { action: object; conditions: object[]; }): { token: string; account_tokens: string[]; business_account_tokens: string[]; card_tokens: string[]; current_version: object; draft_version: object; event_stream: event_stream; lithic_managed: boolean; name: string; program_level: boolean; state: 'ACTIVE' | 'INACTIVE'; type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE'; excluded_account_tokens?: string[]; excluded_business_account_tokens?: string[]; excluded_card_tokens?: string[]; }`\n\n**post** `/v2/auth_rules/{auth_rule_token}/draft`\n\nCreates a new draft version of a rule that will be ran in shadow mode.\n\nThis can also be utilized to reset the draft parameters, causing a draft version to no longer be ran in shadow mode.\n\n\n### Parameters\n\n- `auth_rule_token: string`\n\n- `parameters?: { conditions: { attribute: conditional_attribute; operation: conditional_operation; value: conditional_value; }[]; } | { period: { duration: number; type: 'CUSTOM'; } | { type: 'DAY'; } | { type: 'WEEK'; day_of_week?: number; } | { type: 'MONTH'; day_of_month?: number; } | { type: 'YEAR'; day_of_month?: number; month?: number; }; scope: 'CARD' | 'ACCOUNT'; filters?: { exclude_countries?: string[]; exclude_mccs?: string[]; include_countries?: string[]; include_mccs?: string[]; include_pan_entry_modes?: string[]; }; limit_amount?: number; limit_cash_amount?: number; limit_cash_count?: number; limit_count?: number; } | { merchants: { comment?: string; descriptor?: string; merchant_id?: string; }[]; } | { action: 'DECLINE' | 'CHALLENGE'; conditions: { attribute: string; operation: string; value: string | number | number | string[] | string; }[]; } | { action: 'DECLINE' | 'CHALLENGE'; conditions: { attribute: string; operation: string; value: string | number | number | string[] | string; parameters?: { interval?: 'LIFETIME' | '7D' | '30D' | '90D'; scope?: 'CARD' | 'ACCOUNT' | 'BUSINESS_ACCOUNT'; unit?: 'MPH' | 'KPH' | 'MILES' | 'KILOMETERS'; }; }[]; } | { action: { type: 'APPROVE'; } | { code: string; type: 'RETURN'; }; conditions: { attribute: string; operation: string; value: string | number | number | string[] | string; }[]; } | { action: { type: 'DECLINE'; reason?: string; } | { type: 'REQUIRE_TFA'; reason?: string; }; conditions: { attribute: string; operation: string; value: string | number | number | string[] | string; }[]; } | { action: { key: string; type: 'TAG'; value: string; } | { queue_token: string; scope: 'CARD' | 'ACCOUNT'; type: 'CREATE_CASE'; }; conditions: { attribute: string; operation: string; value: string | number | number | string[] | string; parameters?: { filters?: spend_velocity_filters; interval?: 'LIFETIME' | '7D' | '30D' | '90D'; period?: velocity_limit_period; scope?: 'CARD' | 'ACCOUNT' | 'GLOBAL'; unit?: 'MPH' | 'KPH' | 'MILES' | 'KILOMETERS'; }; }[]; } | { action: { key: string; type: 'TAG'; value: string; } | { queue_token: string; scope: 'FINANCIAL_ACCOUNT'; type: 'CREATE_CASE'; }; conditions: { attribute: string; operation: string; value: string | number | number | string[] | string; }[]; } | { code: string; features: { type: 'AUTHORIZATION'; name?: string; } | { type: 'AUTHENTICATION'; name?: string; } | { type: 'TOKENIZATION'; name?: string; } | { type: 'ACH_RECEIPT'; name?: string; } | { type: 'CARD_TRANSACTION'; name?: string; } | { type: 'ACH_PAYMENT'; name?: string; } | { type: 'EXTERNAL_BANK_ACCOUNT'; name?: string; } | { type: 'CARD'; name?: string; } | { type: 'ACCOUNT_HOLDER'; name?: string; } | { type: 'IP_METADATA'; name?: string; } | { period: velocity_limit_period; scope: 'CARD' | 'ACCOUNT'; type: 'SPEND_VELOCITY'; filters?: velocity_limit_filters; name?: string; } | { period: velocity_limit_period; scope: 'FINANCIAL_ACCOUNT' | 'GLOBAL'; type: 'PAYMENT_VELOCITY'; filters?: object; name?: string; } | { scope: 'CARD' | 'ACCOUNT' | 'BUSINESS_ACCOUNT'; type: 'TRANSACTION_HISTORY_SIGNALS'; name?: string; } | { scope: 'CARD' | 'ACCOUNT'; type: 'CONSECUTIVE_DECLINES'; name?: string; } | { scope: 'FINANCIAL_ACCOUNT'; type: 'ACH_PAYMENT_HISTORY'; name?: string; }[]; } | { action: { mode: 'REPLACE_WITH_AMOUNT' | 'ADD_PERCENTAGE' | 'ADD_AMOUNT'; type: 'HOLD_ADJUSTMENT'; value: number; }; conditions: { attribute: string; operation: string; value: string | number | number | string[] | string; parameters?: { interval?: 'LIFETIME' | '7D' | '30D' | '90D'; scope?: 'CARD' | 'ACCOUNT' | 'BUSINESS_ACCOUNT'; unit?: 'MPH' | 'KPH' | 'MILES' | 'KILOMETERS'; }; }[]; }`\n  Parameters for the Auth Rule\n\n### Returns\n\n- `{ token: string; account_tokens: string[]; business_account_tokens: string[]; card_tokens: string[]; current_version: { parameters: object | object | object | object | object | object | object | object | object | object | object; version: number; }; draft_version: { error: string; parameters: object | object | object | object | object | object | object | object | object | object | object; state: 'PENDING' | 'SHADOWING' | 'ERROR'; version: number; }; event_stream: string; lithic_managed: boolean; name: string; program_level: boolean; state: 'ACTIVE' | 'INACTIVE'; type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE'; excluded_account_tokens?: string[]; excluded_business_account_tokens?: string[]; excluded_card_tokens?: string[]; }`\n\n  - `token: string`\n  - `account_tokens: string[]`\n  - `business_account_tokens: string[]`\n  - `card_tokens: string[]`\n  - `current_version: { parameters: { conditions: object[]; } | { period: object | object | object | object | object; scope: 'CARD' | 'ACCOUNT'; filters?: object; limit_amount?: number; limit_cash_amount?: number; limit_cash_count?: number; limit_count?: number; } | { merchants: { comment?: string; descriptor?: string; merchant_id?: string; }[]; } | { action: 'DECLINE' | 'CHALLENGE'; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: 'DECLINE' | 'CHALLENGE'; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; } | { action: { type: 'APPROVE'; } | { code: string; type: 'RETURN'; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: { type: 'DECLINE'; reason?: string; } | { type: 'REQUIRE_TFA'; reason?: string; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: object | object; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; } | { action: object | object; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { code: string; features: object | object | object | object | object | object | object | object | object | object | object | object | object | object | object[]; } | { action: { mode: 'REPLACE_WITH_AMOUNT' | 'ADD_PERCENTAGE' | 'ADD_AMOUNT'; type: 'HOLD_ADJUSTMENT'; value: number; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; }; version: number; }`\n  - `draft_version: { error: string; parameters: { conditions: object[]; } | { period: object | object | object | object | object; scope: 'CARD' | 'ACCOUNT'; filters?: object; limit_amount?: number; limit_cash_amount?: number; limit_cash_count?: number; limit_count?: number; } | { merchants: { comment?: string; descriptor?: string; merchant_id?: string; }[]; } | { action: 'DECLINE' | 'CHALLENGE'; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: 'DECLINE' | 'CHALLENGE'; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; } | { action: { type: 'APPROVE'; } | { code: string; type: 'RETURN'; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: { type: 'DECLINE'; reason?: string; } | { type: 'REQUIRE_TFA'; reason?: string; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: object | object; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; } | { action: object | object; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { code: string; features: object | object | object | object | object | object | object | object | object | object | object | object | object | object | object[]; } | { action: { mode: 'REPLACE_WITH_AMOUNT' | 'ADD_PERCENTAGE' | 'ADD_AMOUNT'; type: 'HOLD_ADJUSTMENT'; value: number; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; }; state: 'PENDING' | 'SHADOWING' | 'ERROR'; version: number; }`\n  - `event_stream: string`\n  - `lithic_managed: boolean`\n  - `name: string`\n  - `program_level: boolean`\n  - `state: 'ACTIVE' | 'INACTIVE'`\n  - `type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE'`\n  - `excluded_account_tokens?: string[]`\n  - `excluded_business_account_tokens?: string[]`\n  - `excluded_card_tokens?: string[]`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst authRule = await client.authRules.v2.draft('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(authRule);\n```",
     perLanguage: {
+      go: {
+        method: 'client.AuthRules.V2.Draft',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tauthRule, err := client.AuthRules.V2.Draft(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.AuthRuleV2DraftParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", authRule.Token)\n}\n',
+      },
       java: {
         method: 'authRules().v2().draft',
         example:
@@ -1260,11 +1265,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "curl https://api.lithic.com/v2/auth_rules/$AUTH_RULE_TOKEN/draft \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: $LITHIC_API_KEY\" \\\n    -d '{}'",
       },
-      go: {
-        method: 'client.AuthRules.V2.Draft',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tauthRule, err := client.AuthRules.V2.Draft(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.AuthRuleV2DraftParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", authRule.Token)\n}\n',
-      },
     },
   },
   {
@@ -1281,6 +1281,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list_versions\n\n`client.authRules.v2.listVersions(auth_rule_token: string): { data: auth_rule_version[]; }`\n\n**get** `/v2/auth_rules/{auth_rule_token}/versions`\n\nReturns all versions of an auth rule, sorted by version number descending (newest first).\n\n### Parameters\n\n- `auth_rule_token: string`\n\n### Returns\n\n- `{ data: { created: string; parameters: conditional_block_parameters | velocity_limit_params | merchant_lock_parameters | conditional_3ds_action_parameters | conditional_authorization_action_parameters | conditional_ach_action_parameters | conditional_tokenization_action_parameters | conditional_card_transaction_update_action_parameters | conditional_ach_payment_update_action_parameters | typescript_code_parameters | conditional_authorization_adjustment_parameters; state: 'ACTIVE' | 'SHADOW' | 'INACTIVE'; version: number; }[]; }`\n\n  - `data: { created: string; parameters: { conditions: auth_rule_condition[]; } | { period: velocity_limit_period; scope: 'CARD' | 'ACCOUNT'; filters?: velocity_limit_filters; limit_amount?: number; limit_cash_amount?: number; limit_cash_count?: number; limit_count?: number; } | { merchants: object[]; } | { action: 'DECLINE' | 'CHALLENGE'; conditions: object[]; } | { action: 'DECLINE' | 'CHALLENGE'; conditions: object[]; } | { action: object | object; conditions: object[]; } | { action: object | object; conditions: object[]; } | { action: card_transaction_update_action; conditions: object[]; } | { action: ach_payment_update_action; conditions: object[]; } | { code: string; features: rule_feature[]; } | { action: object; conditions: object[]; }; state: 'ACTIVE' | 'SHADOW' | 'INACTIVE'; version: number; }[]`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.authRules.v2.listVersions('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.AuthRules.V2.ListVersions',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.AuthRules.V2.ListVersions(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Data)\n}\n',
+      },
       java: {
         method: 'authRules().v2().listVersions',
         example:
@@ -1310,11 +1315,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v2/auth_rules/$AUTH_RULE_TOKEN/versions \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.AuthRules.V2.ListVersions',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.AuthRules.V2.ListVersions(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Data)\n}\n',
-      },
     },
   },
   {
@@ -1332,6 +1332,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## promote\n\n`client.authRules.v2.promote(auth_rule_token: string): { token: string; account_tokens: string[]; business_account_tokens: string[]; card_tokens: string[]; current_version: object; draft_version: object; event_stream: event_stream; lithic_managed: boolean; name: string; program_level: boolean; state: 'ACTIVE' | 'INACTIVE'; type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE'; excluded_account_tokens?: string[]; excluded_business_account_tokens?: string[]; excluded_card_tokens?: string[]; }`\n\n**post** `/v2/auth_rules/{auth_rule_token}/promote`\n\nPromotes the draft version of an Auth rule to the currently active version such that it is enforced in the respective stream.\n\n### Parameters\n\n- `auth_rule_token: string`\n\n### Returns\n\n- `{ token: string; account_tokens: string[]; business_account_tokens: string[]; card_tokens: string[]; current_version: { parameters: object | object | object | object | object | object | object | object | object | object | object; version: number; }; draft_version: { error: string; parameters: object | object | object | object | object | object | object | object | object | object | object; state: 'PENDING' | 'SHADOWING' | 'ERROR'; version: number; }; event_stream: string; lithic_managed: boolean; name: string; program_level: boolean; state: 'ACTIVE' | 'INACTIVE'; type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE'; excluded_account_tokens?: string[]; excluded_business_account_tokens?: string[]; excluded_card_tokens?: string[]; }`\n\n  - `token: string`\n  - `account_tokens: string[]`\n  - `business_account_tokens: string[]`\n  - `card_tokens: string[]`\n  - `current_version: { parameters: { conditions: object[]; } | { period: object | object | object | object | object; scope: 'CARD' | 'ACCOUNT'; filters?: object; limit_amount?: number; limit_cash_amount?: number; limit_cash_count?: number; limit_count?: number; } | { merchants: { comment?: string; descriptor?: string; merchant_id?: string; }[]; } | { action: 'DECLINE' | 'CHALLENGE'; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: 'DECLINE' | 'CHALLENGE'; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; } | { action: { type: 'APPROVE'; } | { code: string; type: 'RETURN'; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: { type: 'DECLINE'; reason?: string; } | { type: 'REQUIRE_TFA'; reason?: string; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: object | object; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; } | { action: object | object; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { code: string; features: object | object | object | object | object | object | object | object | object | object | object | object | object | object | object[]; } | { action: { mode: 'REPLACE_WITH_AMOUNT' | 'ADD_PERCENTAGE' | 'ADD_AMOUNT'; type: 'HOLD_ADJUSTMENT'; value: number; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; }; version: number; }`\n  - `draft_version: { error: string; parameters: { conditions: object[]; } | { period: object | object | object | object | object; scope: 'CARD' | 'ACCOUNT'; filters?: object; limit_amount?: number; limit_cash_amount?: number; limit_cash_count?: number; limit_count?: number; } | { merchants: { comment?: string; descriptor?: string; merchant_id?: string; }[]; } | { action: 'DECLINE' | 'CHALLENGE'; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: 'DECLINE' | 'CHALLENGE'; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; } | { action: { type: 'APPROVE'; } | { code: string; type: 'RETURN'; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: { type: 'DECLINE'; reason?: string; } | { type: 'REQUIRE_TFA'; reason?: string; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { action: object | object; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; } | { action: object | object; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; }[]; } | { code: string; features: object | object | object | object | object | object | object | object | object | object | object | object | object | object | object[]; } | { action: { mode: 'REPLACE_WITH_AMOUNT' | 'ADD_PERCENTAGE' | 'ADD_AMOUNT'; type: 'HOLD_ADJUSTMENT'; value: number; }; conditions: { attribute: string; operation: conditional_operation; value: conditional_value; parameters?: object; }[]; }; state: 'PENDING' | 'SHADOWING' | 'ERROR'; version: number; }`\n  - `event_stream: string`\n  - `lithic_managed: boolean`\n  - `name: string`\n  - `program_level: boolean`\n  - `state: 'ACTIVE' | 'INACTIVE'`\n  - `type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE'`\n  - `excluded_account_tokens?: string[]`\n  - `excluded_business_account_tokens?: string[]`\n  - `excluded_card_tokens?: string[]`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst authRule = await client.authRules.v2.promote('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(authRule);\n```",
     perLanguage: {
+      go: {
+        method: 'client.AuthRules.V2.Promote',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tauthRule, err := client.AuthRules.V2.Promote(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", authRule.Token)\n}\n',
+      },
       java: {
         method: 'authRules().v2().promote',
         example:
@@ -1361,11 +1366,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v2/auth_rules/$AUTH_RULE_TOKEN/promote \\\n    -X POST \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.AuthRules.V2.Promote',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tauthRule, err := client.AuthRules.V2.Promote(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", authRule.Token)\n}\n',
-      },
     },
   },
   {
@@ -1383,6 +1383,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve_report\n\n`client.authRules.v2.retrieveReport(auth_rule_token: string, begin: string, end: string): { auth_rule_token: string; begin: string; daily_statistics: object[]; end: string; }`\n\n**get** `/v2/auth_rules/{auth_rule_token}/report`\n\nRetrieves a performance report for an Auth rule containing daily statistics and evaluation outcomes.\n\n**Time Range Limitations:**\n- Reports are supported for the past 3 months only\n- Maximum interval length is 1 month\n- Report data is available only through the previous day in UTC (current day data is not available)\n\nThe report provides daily statistics for both current and draft versions of the Auth rule, including approval, decline, and challenge counts along with sample events.\n\n\n### Parameters\n\n- `auth_rule_token: string`\n\n- `begin: string`\n  Start date for the report\n\n- `end: string`\n  End date for the report\n\n### Returns\n\n- `{ auth_rule_token: string; begin: string; daily_statistics: { date: string; versions: object[]; }[]; end: string; }`\n\n  - `auth_rule_token: string`\n  - `begin: string`\n  - `daily_statistics: { date: string; versions: { action_counts: object; examples: { actions: object | object | object | object | object | object | object[]; event_token: string; timestamp: string; transaction_token?: string; }[]; state: 'ACTIVE' | 'SHADOW' | 'INACTIVE'; version: number; }[]; }[]`\n  - `end: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.authRules.v2.retrieveReport('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { begin: '2019-12-27', end: '2019-12-27' });\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.AuthRules.V2.GetReport',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.AuthRules.V2.GetReport(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.AuthRuleV2GetReportParams{\n\t\t\tBegin: lithic.F(time.Now()),\n\t\t\tEnd:   lithic.F(time.Now()),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.AuthRuleToken)\n}\n',
+      },
       java: {
         method: 'authRules().v2().retrieveReport',
         example:
@@ -1412,11 +1417,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v2/auth_rules/$AUTH_RULE_TOKEN/report \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.AuthRules.V2.GetReport',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.AuthRules.V2.GetReport(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.AuthRuleV2GetReportParams{\n\t\t\tBegin: lithic.F(time.Now()),\n\t\t\tEnd:   lithic.F(time.Now()),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.AuthRuleToken)\n}\n',
-      },
     },
   },
   {
@@ -1434,6 +1434,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve_features\n\n`client.authRules.v2.retrieveFeatures(auth_rule_token: string, account_token?: string, card_token?: string): { evaluated: string; features: object[]; }`\n\n**get** `/v2/auth_rules/{auth_rule_token}/features`\n\nFetches the current calculated Feature values for the given Auth Rule\n\nThis only calculates the features for the active version.\n- VelocityLimit Rules calculates the current Velocity Feature data. This requires a `card_token` or `account_token` matching what the rule is Scoped to.\n- ConditionalBlock Rules calculates the CARD_TRANSACTION_COUNT_* attributes on the rule. This requires a `card_token`\n\n\n### Parameters\n\n- `auth_rule_token: string`\n\n- `account_token?: string`\n\n- `card_token?: string`\n\n### Returns\n\n- `{ evaluated: string; features: { filters: object; period: object | object | object | object | object; scope: 'CARD' | 'ACCOUNT'; value: { amount: number; count: number; }; }[]; }`\n\n  - `evaluated: string`\n  - `features: { filters: { exclude_countries?: string[]; exclude_mccs?: string[]; include_countries?: string[]; include_mccs?: string[]; include_pan_entry_modes?: string[]; }; period: { duration: number; type: 'CUSTOM'; } | { type: 'DAY'; } | { type: 'WEEK'; day_of_week?: number; } | { type: 'MONTH'; day_of_month?: number; } | { type: 'YEAR'; day_of_month?: number; month?: number; }; scope: 'CARD' | 'ACCOUNT'; value: { amount: number; count: number; }; }[]`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.authRules.v2.retrieveFeatures('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.AuthRules.V2.GetFeatures',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.AuthRules.V2.GetFeatures(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.AuthRuleV2GetFeaturesParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Evaluated)\n}\n',
+      },
       java: {
         method: 'authRules().v2().retrieveFeatures',
         example:
@@ -1463,11 +1468,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v2/auth_rules/$AUTH_RULE_TOKEN/features \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.AuthRules.V2.GetFeatures',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.AuthRules.V2.GetFeatures(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.AuthRuleV2GetFeaturesParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Evaluated)\n}\n',
-      },
     },
   },
   {
@@ -1493,6 +1493,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list_results\n\n`client.authRules.v2.listResults(auth_rule_token?: string, begin?: string, end?: string, ending_before?: string, event_token?: string, has_actions?: boolean, page_size?: number, starting_after?: string): { token: string; actions: object | object[]; auth_rule_token: string; evaluation_time: string; event_stream: 'AUTHORIZATION'; event_token: string; mode: 'ACTIVE' | 'INACTIVE'; rule_version: number; transaction_token: string; } | { token: string; actions: object[]; auth_rule_token: string; evaluation_time: string; event_stream: 'THREE_DS_AUTHENTICATION'; event_token: string; mode: 'ACTIVE' | 'INACTIVE'; rule_version: number; transaction_token: string; } | { token: string; actions: object | object[]; auth_rule_token: string; evaluation_time: string; event_stream: 'TOKENIZATION'; event_token: string; mode: 'ACTIVE' | 'INACTIVE'; rule_version: number; transaction_token: string; } | { token: string; actions: object | object[]; auth_rule_token: string; evaluation_time: string; event_stream: 'ACH_CREDIT_RECEIPT' | 'ACH_DEBIT_RECEIPT'; event_token: string; mode: 'ACTIVE' | 'INACTIVE'; rule_version: number; transaction_token: string; } | { token: string; actions: object | object[]; auth_rule_token: string; evaluation_time: string; event_stream: 'CARD_TRANSACTION_UPDATE'; event_token: string; mode: 'ACTIVE' | 'INACTIVE'; rule_version: number; transaction_token: string; } | { token: string; actions: object | object[]; auth_rule_token: string; evaluation_time: string; event_stream: 'ACH_PAYMENT_UPDATE'; event_token: string; mode: 'ACTIVE' | 'INACTIVE'; rule_version: number; transaction_token: string; }`\n\n**get** `/v2/auth_rules/results`\n\nLists Auth Rule evaluation results.\n\n**Limitations:**\n- Results are available for the past 3 months only\n- At least one filter (`event_token` or `auth_rule_token`) must be provided\n- When filtering by `event_token`, pagination is not supported\n\n\n### Parameters\n\n- `auth_rule_token?: string`\n  Filter by Auth Rule token\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only events evaluated after the specified time will be included. UTC time zone.\n\n- `end?: string`\n  Date string in RFC 3339 format. Only events evaluated before the specified time will be included. UTC time zone.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `event_token?: string`\n  Filter by event token\n\n- `has_actions?: boolean`\n  Filter by whether the rule evaluation produced any actions. When not provided, all results are returned.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; actions: { code: string; type: 'DECLINE'; explanation?: string; } | { type: 'CHALLENGE'; explanation?: string; }[]; auth_rule_token: string; evaluation_time: string; event_stream: 'AUTHORIZATION'; event_token: string; mode: 'ACTIVE' | 'INACTIVE'; rule_version: number; transaction_token: string; } | { token: string; actions: { type: 'DECLINE' | 'CHALLENGE'; explanation?: string; }[]; auth_rule_token: string; evaluation_time: string; event_stream: 'THREE_DS_AUTHENTICATION'; event_token: string; mode: 'ACTIVE' | 'INACTIVE'; rule_version: number; transaction_token: string; } | { token: string; actions: { type: 'DECLINE'; explanation?: string; reason?: string; } | { type: 'REQUIRE_TFA'; explanation?: string; reason?: string; }[]; auth_rule_token: string; evaluation_time: string; event_stream: 'TOKENIZATION'; event_token: string; mode: 'ACTIVE' | 'INACTIVE'; rule_version: number; transaction_token: string; } | { token: string; actions: { type: 'APPROVE'; explanation?: string; } | { code: string; type: 'RETURN'; explanation?: string; }[]; auth_rule_token: string; evaluation_time: string; event_stream: 'ACH_CREDIT_RECEIPT' | 'ACH_DEBIT_RECEIPT'; event_token: string; mode: 'ACTIVE' | 'INACTIVE'; rule_version: number; transaction_token: string; } | { token: string; actions: { key: string; type: 'TAG'; value: string; explanation?: string; } | { queue_token: string; scope: 'CARD' | 'ACCOUNT'; type: 'CREATE_CASE'; explanation?: string; }[]; auth_rule_token: string; evaluation_time: string; event_stream: 'CARD_TRANSACTION_UPDATE'; event_token: string; mode: 'ACTIVE' | 'INACTIVE'; rule_version: number; transaction_token: string; } | { token: string; actions: { key: string; type: 'TAG'; value: string; explanation?: string; } | { queue_token: string; scope: 'FINANCIAL_ACCOUNT'; type: 'CREATE_CASE'; explanation?: string; }[]; auth_rule_token: string; evaluation_time: string; event_stream: 'ACH_PAYMENT_UPDATE'; event_token: string; mode: 'ACTIVE' | 'INACTIVE'; rule_version: number; transaction_token: string; }`\n  Result of an Auth Rule evaluation\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const v2ListResultsResponse of client.authRules.v2.listResults()) {\n  console.log(v2ListResultsResponse);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.AuthRules.V2.ListResults',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.AuthRules.V2.ListResults(context.TODO(), lithic.AuthRuleV2ListResultsParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'authRules().v2().listResults',
         example:
@@ -1522,11 +1527,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v2/auth_rules/results \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.AuthRules.V2.ListResults',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.AuthRules.V2.ListResults(context.TODO(), lithic.AuthRuleV2ListResultsParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -1543,6 +1543,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.authRules.v2.backtests.create(auth_rule_token: string, end?: string, start?: string): { backtest_token?: string; }`\n\n**post** `/v2/auth_rules/{auth_rule_token}/backtests`\n\nInitiates a request to asynchronously generate a backtest for an Auth rule. During backtesting, both the active version (if one exists) and the draft version of the Auth Rule are evaluated by replaying historical transaction data against the rule's conditions. This process allows customers to simulate and understand the effects of proposed rule changes before deployment.\nThe generated backtest report provides detailed results showing whether the draft version of the Auth Rule would have approved or declined historical transactions which were processed during the backtest period. These reports help evaluate how changes to rule configurations might affect overall transaction approval rates.\n\nThe generated backtest report will be delivered asynchronously through a webhook with `event_type` = `auth_rules.backtest_report.created`. See the docs on setting up [webhook subscriptions](https://docs.lithic.com/docs/events-api).\nIt is also possible to request backtest reports on-demand through the `/v2/auth_rules/{auth_rule_token}/backtests/{auth_rule_backtest_token}` endpoint.\n\nLithic currently supports backtesting for `CONDITIONAL_BLOCK` / `CONDITIONAL_ACTION` rules. Backtesting for `VELOCITY_LIMIT` rules is generally not supported. In specific cases (i.e. where Lithic has pre-calculated the requested velocity metrics for historical transactions), a backtest may be feasible. However, such cases are uncommon and customers should not anticipate support for velocity backtests under most configurations.\nIf a historical transaction does not feature the required inputs to evaluate the rule, then it will not be included in the final backtest report.\n\n\n### Parameters\n\n- `auth_rule_token: string`\n\n- `end?: string`\n  The end time of the backtest.\n\n- `start?: string`\n  The start time of the backtest.\n\n### Returns\n\n- `{ backtest_token?: string; }`\n\n  - `backtest_token?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst backtest = await client.authRules.v2.backtests.create('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(backtest);\n```",
     perLanguage: {
+      go: {
+        method: 'client.AuthRules.V2.Backtests.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tbacktest, err := client.AuthRules.V2.Backtests.New(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.AuthRuleV2BacktestNewParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", backtest.BacktestToken)\n}\n',
+      },
       java: {
         method: 'authRules().v2().backtests().create',
         example:
@@ -1572,11 +1577,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "curl https://api.lithic.com/v2/auth_rules/$AUTH_RULE_TOKEN/backtests \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: $LITHIC_API_KEY\" \\\n    -d '{}'",
       },
-      go: {
-        method: 'client.AuthRules.V2.Backtests.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tbacktest, err := client.AuthRules.V2.Backtests.New(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.AuthRuleV2BacktestNewParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", backtest.BacktestToken)\n}\n',
-      },
     },
   },
   {
@@ -1594,6 +1594,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.authRules.v2.backtests.retrieve(auth_rule_token: string, auth_rule_backtest_token: string): { backtest_token: string; results: object; simulation_parameters: object; }`\n\n**get** `/v2/auth_rules/{auth_rule_token}/backtests/{auth_rule_backtest_token}`\n\nReturns the backtest results of an Auth rule (if available).\n\nBacktesting is an asynchronous process that requires time to complete. If a customer retrieves the backtest results using this endpoint before the report is fully generated, the response will return null for `results.current_version` and `results.draft_version`. Customers are advised to wait for the backtest creation process to complete (as indicated by the webhook event auth_rules.backtest_report.created) before retrieving results from this endpoint.\n\nBacktesting is an asynchronous process, while the backtest is being processed, results will not be available which will cause `results.current_version` and `results.draft_version` objects to contain `null`.\nThe entries in `results` will also always represent the configuration of the rule at the time requests are made to this endpoint. For example, the results for `current_version` in the served backtest report will be consistent with which version of the rule is currently activated in the respective event stream, regardless of which version of the rule was active in the event stream at the time a backtest is requested.\n\n\n### Parameters\n\n- `auth_rule_token: string`\n\n- `auth_rule_backtest_token: string`\n\n### Returns\n\n- `{ backtest_token: string; results: { current_version?: object; draft_version?: object; }; simulation_parameters: { end: string; start: string; }; }`\n\n  - `backtest_token: string`\n  - `results: { current_version?: { approved?: number; challenged?: number; declined?: number; examples?: { decision?: 'APPROVED' | 'DECLINED' | 'CHALLENGED'; event_token?: string; timestamp?: string; transaction_token?: string; }[]; version?: number; }; draft_version?: { approved?: number; challenged?: number; declined?: number; examples?: { decision?: 'APPROVED' | 'DECLINED' | 'CHALLENGED'; event_token?: string; timestamp?: string; transaction_token?: string; }[]; version?: number; }; }`\n  - `simulation_parameters: { end: string; start: string; }`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst backtestResults = await client.authRules.v2.backtests.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { auth_rule_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(backtestResults);\n```",
     perLanguage: {
+      go: {
+        method: 'client.AuthRules.V2.Backtests.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tbacktestResults, err := client.AuthRules.V2.Backtests.Get(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", backtestResults.BacktestToken)\n}\n',
+      },
       java: {
         method: 'authRules().v2().backtests().retrieve',
         example:
@@ -1622,11 +1627,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.lithic.com/v2/auth_rules/$AUTH_RULE_TOKEN/backtests/$AUTH_RULE_BACKTEST_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
-      },
-      go: {
-        method: 'client.AuthRules.V2.Backtests.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tbacktestResults, err := client.AuthRules.V2.Backtests.Get(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", backtestResults.BacktestToken)\n}\n',
       },
     },
   },
@@ -1659,6 +1659,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.transactionMonitoring.cases.list(account_token?: string, assignee?: string, begin?: string, card_token?: string, end?: string, ending_before?: string, entity_token?: string, page_size?: number, queue_token?: string, rule_token?: string, sort_by?: 'CREATED_ASC' | 'CREATED_DESC' | 'PRIORITY_DESC' | 'PRIORITY_ASC' | 'STATUS_DESC' | 'STATUS_ASC', starting_after?: string, status?: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED', transaction_token?: string): { token: string; assignee: string; collection_stopped: string; created: string; entity: case_entity; pending_transactions: boolean; priority: case_priority; queue_token: string; resolution: string; resolution_notes: string; resolved: string; rule_token: string; sla_deadline: string; status: case_status; tags: object; title: string; updated: string; }`\n\n**get** `/v1/transaction_monitoring/cases`\n\nLists transaction monitoring cases, optionally filtered.\n\n### Parameters\n\n- `account_token?: string`\n  Only return cases that include transactions on the provided account.\n\n- `assignee?: string`\n  Only return cases assigned to the provided value. Pass an empty string to return only unassigned cases.\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `card_token?: string`\n  Only return cases that include transactions on the provided card.\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `entity_token?: string`\n  Only return cases associated with the provided entity.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `queue_token?: string`\n  Only return cases belonging to the provided queue.\n\n- `rule_token?: string`\n  Only return cases triggered by the provided transaction monitoring rule.\n\n- `sort_by?: 'CREATED_ASC' | 'CREATED_DESC' | 'PRIORITY_DESC' | 'PRIORITY_ASC' | 'STATUS_DESC' | 'STATUS_ASC'`\n  Sort order for the returned cases.\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n- `status?: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED'`\n  Only return cases with the provided status.\n\n- `transaction_token?: string`\n  Only return cases that include the provided transaction.\n\n### Returns\n\n- `{ token: string; assignee: string; collection_stopped: string; created: string; entity: { entity_token: string; entity_type: 'CARD' | 'ACCOUNT'; }; pending_transactions: boolean; priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'; queue_token: string; resolution: string; resolution_notes: string; resolved: string; rule_token: string; sla_deadline: string; status: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED'; tags: object; title: string; updated: string; }`\n  A transaction monitoring case\n\n  - `token: string`\n  - `assignee: string`\n  - `collection_stopped: string`\n  - `created: string`\n  - `entity: { entity_token: string; entity_type: 'CARD' | 'ACCOUNT'; }`\n  - `pending_transactions: boolean`\n  - `priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'`\n  - `queue_token: string`\n  - `resolution: string`\n  - `resolution_notes: string`\n  - `resolved: string`\n  - `rule_token: string`\n  - `sla_deadline: string`\n  - `status: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED'`\n  - `tags: object`\n  - `title: string`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const monitoringCase of client.transactionMonitoring.cases.list()) {\n  console.log(monitoringCase);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.TransactionMonitoring.Cases.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.TransactionMonitoring.Cases.List(context.TODO(), lithic.TransactionMonitoringCaseListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'transactionMonitoring().cases().list',
         example:
@@ -1688,11 +1693,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/transaction_monitoring/cases \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.TransactionMonitoring.Cases.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.TransactionMonitoring.Cases.List(context.TODO(), lithic.TransactionMonitoringCaseListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -1709,6 +1709,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.transactionMonitoring.cases.retrieve(case_token: string): { token: string; assignee: string; collection_stopped: string; created: string; entity: case_entity; pending_transactions: boolean; priority: case_priority; queue_token: string; resolution: string; resolution_notes: string; resolved: string; rule_token: string; sla_deadline: string; status: case_status; tags: object; title: string; updated: string; }`\n\n**get** `/v1/transaction_monitoring/cases/{case_token}`\n\nRetrieves a single transaction monitoring case.\n\n### Parameters\n\n- `case_token: string`\n\n### Returns\n\n- `{ token: string; assignee: string; collection_stopped: string; created: string; entity: { entity_token: string; entity_type: 'CARD' | 'ACCOUNT'; }; pending_transactions: boolean; priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'; queue_token: string; resolution: string; resolution_notes: string; resolved: string; rule_token: string; sla_deadline: string; status: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED'; tags: object; title: string; updated: string; }`\n  A transaction monitoring case\n\n  - `token: string`\n  - `assignee: string`\n  - `collection_stopped: string`\n  - `created: string`\n  - `entity: { entity_token: string; entity_type: 'CARD' | 'ACCOUNT'; }`\n  - `pending_transactions: boolean`\n  - `priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'`\n  - `queue_token: string`\n  - `resolution: string`\n  - `resolution_notes: string`\n  - `resolved: string`\n  - `rule_token: string`\n  - `sla_deadline: string`\n  - `status: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED'`\n  - `tags: object`\n  - `title: string`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst monitoringCase = await client.transactionMonitoring.cases.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(monitoringCase);\n```",
     perLanguage: {
+      go: {
+        method: 'client.TransactionMonitoring.Cases.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tmonitoringCase, err := client.TransactionMonitoring.Cases.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", monitoringCase.Token)\n}\n',
+      },
       java: {
         method: 'transactionMonitoring().cases().retrieve',
         example:
@@ -1738,11 +1743,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.TransactionMonitoring.Cases.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tmonitoringCase, err := client.TransactionMonitoring.Cases.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", monitoringCase.Token)\n}\n',
-      },
     },
   },
   {
@@ -1770,6 +1770,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## update\n\n`client.transactionMonitoring.cases.update(case_token: string, actor_token?: string, assignee?: string, priority?: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL', resolution?: string, resolution_notes?: string, sla_deadline?: string, status?: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED', tags?: object, title?: string): { token: string; assignee: string; collection_stopped: string; created: string; entity: case_entity; pending_transactions: boolean; priority: case_priority; queue_token: string; resolution: string; resolution_notes: string; resolved: string; rule_token: string; sla_deadline: string; status: case_status; tags: object; title: string; updated: string; }`\n\n**patch** `/v1/transaction_monitoring/cases/{case_token}`\n\nUpdates a transaction monitoring case.\n\n### Parameters\n\n- `case_token: string`\n\n- `actor_token?: string`\n  Optional client-provided identifier for the actor performing this action,\nrecorded on the resulting activity entry. This value is supplied by the\nclient (for example, your own internal user ID) and is not authenticated\nby Lithic\n\n\n- `assignee?: string`\n  New assignee for the case, or `null` to unassign\n\n- `priority?: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'`\n  Priority level of a case, controlling queue ordering and SLA urgency\n\n- `resolution?: string`\n  Resolution to record on the case. Must be one of the\n`allowed_resolutions` configured on the case's queue, otherwise the request is\nrejected with a `400`\n\n- `resolution_notes?: string`\n  Notes describing the resolution\n\n- `sla_deadline?: string`\n  New SLA deadline for the case, or `null` to clear it\n\n- `status?: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED'`\n  Status of a case as it progresses through the review workflow:\n  - `OPEN` - The case has been created and is still collecting matching transactions\n  - `ASSIGNED` - An analyst has been assigned and transaction collection has stopped\n  - `IN_REVIEW` - The case is actively being investigated\n  - `ESCALATED` - The case has been reviewed and requires additional oversight\n  - `RESOLVED` - A determination has been made and a resolution recorded\n  - `CLOSED` - The case is finalized\n\n\n- `tags?: object`\n  Arbitrary key-value metadata to set on the case\n\n- `title?: string`\n  New title for the case, or `null` to clear it\n\n### Returns\n\n- `{ token: string; assignee: string; collection_stopped: string; created: string; entity: { entity_token: string; entity_type: 'CARD' | 'ACCOUNT'; }; pending_transactions: boolean; priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'; queue_token: string; resolution: string; resolution_notes: string; resolved: string; rule_token: string; sla_deadline: string; status: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED'; tags: object; title: string; updated: string; }`\n  A transaction monitoring case\n\n  - `token: string`\n  - `assignee: string`\n  - `collection_stopped: string`\n  - `created: string`\n  - `entity: { entity_token: string; entity_type: 'CARD' | 'ACCOUNT'; }`\n  - `pending_transactions: boolean`\n  - `priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'`\n  - `queue_token: string`\n  - `resolution: string`\n  - `resolution_notes: string`\n  - `resolved: string`\n  - `rule_token: string`\n  - `sla_deadline: string`\n  - `status: 'OPEN' | 'ASSIGNED' | 'IN_REVIEW' | 'ESCALATED' | 'RESOLVED' | 'CLOSED'`\n  - `tags: object`\n  - `title: string`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst monitoringCase = await client.transactionMonitoring.cases.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(monitoringCase);\n```",
     perLanguage: {
+      go: {
+        method: 'client.TransactionMonitoring.Cases.Update',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tmonitoringCase, err := client.TransactionMonitoring.Cases.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringCaseUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", monitoringCase.Token)\n}\n',
+      },
       java: {
         method: 'transactionMonitoring().cases().update',
         example:
@@ -1799,11 +1804,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN \\\n    -X PATCH \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: $LITHIC_API_KEY\" \\\n    -d '{}'",
       },
-      go: {
-        method: 'client.TransactionMonitoring.Cases.Update',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tmonitoringCase, err := client.TransactionMonitoring.Cases.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringCaseUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", monitoringCase.Token)\n}\n',
-      },
     },
   },
   {
@@ -1825,6 +1825,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list_activity\n\n`client.transactionMonitoring.cases.listActivity(case_token: string, ending_before?: string, page_size?: number, starting_after?: string): { token: string; actor_token: string; created: string; entry_type: case_activity_type; new_value: string; previous_value: string; }`\n\n**get** `/v1/transaction_monitoring/cases/{case_token}/activity`\n\nLists the activity feed for a case.\n\n### Parameters\n\n- `case_token: string`\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; actor_token: string; created: string; entry_type: string; new_value: string; previous_value: string; }`\n  A single entry in a case's activity feed\n\n  - `token: string`\n  - `actor_token: string`\n  - `created: string`\n  - `entry_type: string`\n  - `new_value: string`\n  - `previous_value: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const caseActivityEntry of client.transactionMonitoring.cases.listActivity('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')) {\n  console.log(caseActivityEntry);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.TransactionMonitoring.Cases.ListActivity',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.TransactionMonitoring.Cases.ListActivity(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringCaseListActivityParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'transactionMonitoring().cases().listActivity',
         example:
@@ -1854,11 +1859,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN/activity \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.TransactionMonitoring.Cases.ListActivity',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.TransactionMonitoring.Cases.ListActivity(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringCaseListActivityParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -1880,6 +1880,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list_transactions\n\n`client.transactionMonitoring.cases.listTransactions(case_token: string, ending_before?: string, page_size?: number, starting_after?: string): { token: string; account_token: string; added_at: string; card_token: string; category: 'CARD'; transaction_created_at: string; } | { token: string; added_at: string; category: 'PAYMENT'; financial_account_token: string; transaction_created_at: string; account_token?: string; }`\n\n**get** `/v1/transaction_monitoring/cases/{case_token}/transactions`\n\nLists the transactions associated with a case.\n\n### Parameters\n\n- `case_token: string`\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; account_token: string; added_at: string; card_token: string; category: 'CARD'; transaction_created_at: string; } | { token: string; added_at: string; category: 'PAYMENT'; financial_account_token: string; transaction_created_at: string; account_token?: string; }`\n  A single transaction associated with a case. The `category` field identifies whether this is a\ncard transaction or a payment transaction.\n\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const caseTransaction of client.transactionMonitoring.cases.listTransactions('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')) {\n  console.log(caseTransaction);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.TransactionMonitoring.Cases.ListTransactions',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.TransactionMonitoring.Cases.ListTransactions(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringCaseListTransactionsParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'transactionMonitoring().cases().listTransactions',
         example:
@@ -1909,11 +1914,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN/transactions \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.TransactionMonitoring.Cases.ListTransactions',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.TransactionMonitoring.Cases.ListTransactions(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringCaseListTransactionsParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -1929,6 +1929,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve_cards\n\n`client.transactionMonitoring.cases.retrieveCards(case_token: string): object[]`\n\n**get** `/v1/transaction_monitoring/cases/{case_token}/cards`\n\nLists the cards involved in a case, with per-card transaction counts.\n\n### Parameters\n\n- `case_token: string`\n\n### Returns\n\n- `{ account_token: string; card_token: string; transaction_count: number; }[]`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst caseCards = await client.transactionMonitoring.cases.retrieveCards('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(caseCards);\n```",
     perLanguage: {
+      go: {
+        method: 'client.TransactionMonitoring.Cases.GetCards',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcaseCards, err := client.TransactionMonitoring.Cases.GetCards(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", caseCards)\n}\n',
+      },
       java: {
         method: 'transactionMonitoring().cases().retrieveCards',
         example:
@@ -1958,11 +1963,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN/cards \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.TransactionMonitoring.Cases.GetCards',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcaseCards, err := client.TransactionMonitoring.Cases.GetCards(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", caseCards)\n}\n',
-      },
     },
   },
   {
@@ -1979,6 +1979,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.transactionMonitoring.cases.comments.create(case_token: string, comment: string, actor_token?: string): { token: string; actor_token: string; created: string; entry_type: case_activity_type; new_value: string; previous_value: string; }`\n\n**post** `/v1/transaction_monitoring/cases/{case_token}/comments`\n\nAdds a comment to a case.\n\n### Parameters\n\n- `case_token: string`\n\n- `comment: string`\n  Text of the comment\n\n- `actor_token?: string`\n  Optional client-provided identifier for the actor performing this action,\nrecorded on the resulting activity entry. This value is supplied by the\nclient (for example, your own internal user ID) and is not authenticated\nby Lithic\n\n\n### Returns\n\n- `{ token: string; actor_token: string; created: string; entry_type: string; new_value: string; previous_value: string; }`\n  A single entry in a case's activity feed\n\n  - `token: string`\n  - `actor_token: string`\n  - `created: string`\n  - `entry_type: string`\n  - `new_value: string`\n  - `previous_value: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst caseActivityEntry = await client.transactionMonitoring.cases.comments.create('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { comment: 'comment' });\n\nconsole.log(caseActivityEntry);\n```",
     perLanguage: {
+      go: {
+        method: 'client.TransactionMonitoring.Cases.Comments.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcaseActivityEntry, err := client.TransactionMonitoring.Cases.Comments.New(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringCaseCommentNewParams{\n\t\t\tComment: lithic.F("comment"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", caseActivityEntry.Token)\n}\n',
+      },
       java: {
         method: 'transactionMonitoring().cases().comments().create',
         example:
@@ -2008,11 +2013,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN/comments \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "comment": "comment"\n        }\'',
       },
-      go: {
-        method: 'client.TransactionMonitoring.Cases.Comments.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcaseActivityEntry, err := client.TransactionMonitoring.Cases.Comments.New(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringCaseCommentNewParams{\n\t\t\tComment: lithic.F("comment"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", caseActivityEntry.Token)\n}\n',
-      },
     },
   },
   {
@@ -2029,6 +2029,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## update\n\n`client.transactionMonitoring.cases.comments.update(case_token: string, comment_token: string, comment: string, actor_token?: string): { token: string; actor_token: string; created: string; entry_type: case_activity_type; new_value: string; previous_value: string; }`\n\n**patch** `/v1/transaction_monitoring/cases/{case_token}/comments/{comment_token}`\n\nEdits an existing comment on a case.\n\n### Parameters\n\n- `case_token: string`\n\n- `comment_token: string`\n\n- `comment: string`\n  New text of the comment\n\n- `actor_token?: string`\n  Optional client-provided identifier for the actor performing this action,\nrecorded on the resulting activity entry. This value is supplied by the\nclient (for example, your own internal user ID) and is not authenticated\nby Lithic\n\n\n### Returns\n\n- `{ token: string; actor_token: string; created: string; entry_type: string; new_value: string; previous_value: string; }`\n  A single entry in a case's activity feed\n\n  - `token: string`\n  - `actor_token: string`\n  - `created: string`\n  - `entry_type: string`\n  - `new_value: string`\n  - `previous_value: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst caseActivityEntry = await client.transactionMonitoring.cases.comments.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { case_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', comment: 'comment' });\n\nconsole.log(caseActivityEntry);\n```",
     perLanguage: {
+      go: {
+        method: 'client.TransactionMonitoring.Cases.Comments.Update',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcaseActivityEntry, err := client.TransactionMonitoring.Cases.Comments.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringCaseCommentUpdateParams{\n\t\t\tComment: lithic.F("comment"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", caseActivityEntry.Token)\n}\n',
+      },
       java: {
         method: 'transactionMonitoring().cases().comments().update',
         example:
@@ -2058,11 +2063,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN/comments/$COMMENT_TOKEN \\\n    -X PATCH \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "comment": "comment"\n        }\'',
       },
-      go: {
-        method: 'client.TransactionMonitoring.Cases.Comments.Update',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcaseActivityEntry, err := client.TransactionMonitoring.Cases.Comments.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringCaseCommentUpdateParams{\n\t\t\tComment: lithic.F("comment"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", caseActivityEntry.Token)\n}\n',
-      },
     },
   },
   {
@@ -2077,6 +2077,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## delete\n\n`client.transactionMonitoring.cases.comments.delete(case_token: string, comment_token: string): void`\n\n**delete** `/v1/transaction_monitoring/cases/{case_token}/comments/{comment_token}`\n\nDeletes a comment from a case.\n\n### Parameters\n\n- `case_token: string`\n\n- `comment_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.transactionMonitoring.cases.comments.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { case_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' })\n```",
     perLanguage: {
+      go: {
+        method: 'client.TransactionMonitoring.Cases.Comments.Delete',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.TransactionMonitoring.Cases.Comments.Delete(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'transactionMonitoring().cases().comments().delete',
         example:
@@ -2106,11 +2111,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN/comments/$COMMENT_TOKEN \\\n    -X DELETE \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.TransactionMonitoring.Cases.Comments.Delete',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.TransactionMonitoring.Cases.Comments.Delete(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -2127,6 +2127,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.transactionMonitoring.cases.files.create(case_token: string, name: string): { token: string; created: string; download_url: string; download_url_expires: string; failure_reason: string; mime_type: string; name: string; size_bytes: number; status: file_status; updated: string; upload_constraints: upload_constraints; upload_url: string; upload_url_expires: string; }`\n\n**post** `/v1/transaction_monitoring/cases/{case_token}/files`\n\nCreates a file record and returns a presigned URL for uploading the file to the case.\n\n### Parameters\n\n- `case_token: string`\n\n- `name: string`\n  Name of the file to upload\n\n### Returns\n\n- `{ token: string; created: string; download_url: string; download_url_expires: string; failure_reason: string; mime_type: string; name: string; size_bytes: number; status: 'PENDING' | 'READY' | 'REJECTED'; updated: string; upload_constraints: { accepted_mime_types: string[]; max_size_bytes: number; }; upload_url: string; upload_url_expires: string; }`\n  A file attached to a case. Status-dependent fields are always present but may be `null`:\n  - `upload_url`, `upload_url_expires`, and `upload_constraints` are populated when `status` is `PENDING` or `REJECTED`\n  - `download_url` and `download_url_expires` are populated when `status` is `READY`\n  - `failure_reason` is populated when `status` is `REJECTED`\n\n\n  - `token: string`\n  - `created: string`\n  - `download_url: string`\n  - `download_url_expires: string`\n  - `failure_reason: string`\n  - `mime_type: string`\n  - `name: string`\n  - `size_bytes: number`\n  - `status: 'PENDING' | 'READY' | 'REJECTED'`\n  - `updated: string`\n  - `upload_constraints: { accepted_mime_types: string[]; max_size_bytes: number; }`\n  - `upload_url: string`\n  - `upload_url_expires: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst caseFile = await client.transactionMonitoring.cases.files.create('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { name: 'name' });\n\nconsole.log(caseFile);\n```",
     perLanguage: {
+      go: {
+        method: 'client.TransactionMonitoring.Cases.Files.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcaseFile, err := client.TransactionMonitoring.Cases.Files.New(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringCaseFileNewParams{\n\t\t\tName: lithic.F("name"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", caseFile.Token)\n}\n',
+      },
       java: {
         method: 'transactionMonitoring().cases().files().create',
         example:
@@ -2156,11 +2161,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN/files \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "name": "name"\n        }\'',
       },
-      go: {
-        method: 'client.TransactionMonitoring.Cases.Files.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcaseFile, err := client.TransactionMonitoring.Cases.Files.New(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringCaseFileNewParams{\n\t\t\tName: lithic.F("name"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", caseFile.Token)\n}\n',
-      },
     },
   },
   {
@@ -2182,6 +2182,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.transactionMonitoring.cases.files.list(case_token: string, ending_before?: string, page_size?: number, starting_after?: string): { token: string; created: string; download_url: string; download_url_expires: string; failure_reason: string; mime_type: string; name: string; size_bytes: number; status: file_status; updated: string; upload_constraints: upload_constraints; upload_url: string; upload_url_expires: string; }`\n\n**get** `/v1/transaction_monitoring/cases/{case_token}/files`\n\nLists the files attached to a case.\n\n### Parameters\n\n- `case_token: string`\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; created: string; download_url: string; download_url_expires: string; failure_reason: string; mime_type: string; name: string; size_bytes: number; status: 'PENDING' | 'READY' | 'REJECTED'; updated: string; upload_constraints: { accepted_mime_types: string[]; max_size_bytes: number; }; upload_url: string; upload_url_expires: string; }`\n  A file attached to a case. Status-dependent fields are always present but may be `null`:\n  - `upload_url`, `upload_url_expires`, and `upload_constraints` are populated when `status` is `PENDING` or `REJECTED`\n  - `download_url` and `download_url_expires` are populated when `status` is `READY`\n  - `failure_reason` is populated when `status` is `REJECTED`\n\n\n  - `token: string`\n  - `created: string`\n  - `download_url: string`\n  - `download_url_expires: string`\n  - `failure_reason: string`\n  - `mime_type: string`\n  - `name: string`\n  - `size_bytes: number`\n  - `status: 'PENDING' | 'READY' | 'REJECTED'`\n  - `updated: string`\n  - `upload_constraints: { accepted_mime_types: string[]; max_size_bytes: number; }`\n  - `upload_url: string`\n  - `upload_url_expires: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const caseFile of client.transactionMonitoring.cases.files.list('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')) {\n  console.log(caseFile);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.TransactionMonitoring.Cases.Files.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.TransactionMonitoring.Cases.Files.List(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringCaseFileListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'transactionMonitoring().cases().files().list',
         example:
@@ -2211,11 +2216,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN/files \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.TransactionMonitoring.Cases.Files.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.TransactionMonitoring.Cases.Files.List(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringCaseFileListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -2233,6 +2233,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.transactionMonitoring.cases.files.retrieve(case_token: string, file_token: string): { token: string; created: string; download_url: string; download_url_expires: string; failure_reason: string; mime_type: string; name: string; size_bytes: number; status: file_status; updated: string; upload_constraints: upload_constraints; upload_url: string; upload_url_expires: string; }`\n\n**get** `/v1/transaction_monitoring/cases/{case_token}/files/{file_token}`\n\nRetrieves a single file attached to a case, including a presigned download URL when the file is ready.\n\n### Parameters\n\n- `case_token: string`\n\n- `file_token: string`\n\n### Returns\n\n- `{ token: string; created: string; download_url: string; download_url_expires: string; failure_reason: string; mime_type: string; name: string; size_bytes: number; status: 'PENDING' | 'READY' | 'REJECTED'; updated: string; upload_constraints: { accepted_mime_types: string[]; max_size_bytes: number; }; upload_url: string; upload_url_expires: string; }`\n  A file attached to a case. Status-dependent fields are always present but may be `null`:\n  - `upload_url`, `upload_url_expires`, and `upload_constraints` are populated when `status` is `PENDING` or `REJECTED`\n  - `download_url` and `download_url_expires` are populated when `status` is `READY`\n  - `failure_reason` is populated when `status` is `REJECTED`\n\n\n  - `token: string`\n  - `created: string`\n  - `download_url: string`\n  - `download_url_expires: string`\n  - `failure_reason: string`\n  - `mime_type: string`\n  - `name: string`\n  - `size_bytes: number`\n  - `status: 'PENDING' | 'READY' | 'REJECTED'`\n  - `updated: string`\n  - `upload_constraints: { accepted_mime_types: string[]; max_size_bytes: number; }`\n  - `upload_url: string`\n  - `upload_url_expires: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst caseFile = await client.transactionMonitoring.cases.files.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { case_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(caseFile);\n```",
     perLanguage: {
+      go: {
+        method: 'client.TransactionMonitoring.Cases.Files.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcaseFile, err := client.TransactionMonitoring.Cases.Files.Get(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", caseFile.Token)\n}\n',
+      },
       java: {
         method: 'transactionMonitoring().cases().files().retrieve',
         example:
@@ -2262,11 +2267,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN/files/$FILE_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.TransactionMonitoring.Cases.Files.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcaseFile, err := client.TransactionMonitoring.Cases.Files.Get(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", caseFile.Token)\n}\n',
-      },
     },
   },
   {
@@ -2281,6 +2281,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## delete\n\n`client.transactionMonitoring.cases.files.delete(case_token: string, file_token: string): void`\n\n**delete** `/v1/transaction_monitoring/cases/{case_token}/files/{file_token}`\n\nDeletes a file from a case.\n\n### Parameters\n\n- `case_token: string`\n\n- `file_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.transactionMonitoring.cases.files.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { case_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' })\n```",
     perLanguage: {
+      go: {
+        method: 'client.TransactionMonitoring.Cases.Files.Delete',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.TransactionMonitoring.Cases.Files.Delete(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'transactionMonitoring().cases().files().delete',
         example:
@@ -2310,11 +2315,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/transaction_monitoring/cases/$CASE_TOKEN/files/$FILE_TOKEN \\\n    -X DELETE \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.TransactionMonitoring.Cases.Files.Delete',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.TransactionMonitoring.Cases.Files.Delete(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -2331,6 +2331,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.transactionMonitoring.queues.create(name: string, allowed_resolutions?: string[], description?: string): { token: string; allowed_resolutions: string[]; case_counts: object; created: string; description: string; name: string; updated: string; }`\n\n**post** `/v1/transaction_monitoring/queues`\n\nCreates a new queue for grouping transaction monitoring cases.\n\n### Parameters\n\n- `name: string`\n  Human-readable name of the queue\n\n- `allowed_resolutions?: string[]`\n  Resolutions that can be recorded on cases in this queue. Omit or send `null` to\nuse the default list. Values are free-form labels and must be non-empty and unique\n\n- `description?: string`\n  Optional description of the queue\n\n### Returns\n\n- `{ token: string; allowed_resolutions: string[]; case_counts: { ASSIGNED?: number; CLOSED?: number; ESCALATED?: number; IN_REVIEW?: number; OPEN?: number; RESOLVED?: number; }; created: string; description: string; name: string; updated: string; }`\n  A queue that groups transaction monitoring cases for review\n\n  - `token: string`\n  - `allowed_resolutions: string[]`\n  - `case_counts: { ASSIGNED?: number; CLOSED?: number; ESCALATED?: number; IN_REVIEW?: number; OPEN?: number; RESOLVED?: number; }`\n  - `created: string`\n  - `description: string`\n  - `name: string`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst queue = await client.transactionMonitoring.queues.create({ name: 'name' });\n\nconsole.log(queue);\n```",
     perLanguage: {
+      go: {
+        method: 'client.TransactionMonitoring.Queues.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tqueue, err := client.TransactionMonitoring.Queues.New(context.TODO(), lithic.TransactionMonitoringQueueNewParams{\n\t\tName: lithic.F("name"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", queue.Token)\n}\n',
+      },
       java: {
         method: 'transactionMonitoring().queues().create',
         example:
@@ -2360,11 +2365,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/transaction_monitoring/queues \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "name": "name"\n        }\'',
       },
-      go: {
-        method: 'client.TransactionMonitoring.Queues.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tqueue, err := client.TransactionMonitoring.Queues.New(context.TODO(), lithic.TransactionMonitoringQueueNewParams{\n\t\tName: lithic.F("name"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", queue.Token)\n}\n',
-      },
     },
   },
   {
@@ -2381,6 +2381,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.transactionMonitoring.queues.list(ending_before?: string, page_size?: number, starting_after?: string): { token: string; allowed_resolutions: string[]; case_counts: object; created: string; description: string; name: string; updated: string; }`\n\n**get** `/v1/transaction_monitoring/queues`\n\nLists transaction monitoring queues.\n\n### Parameters\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; allowed_resolutions: string[]; case_counts: { ASSIGNED?: number; CLOSED?: number; ESCALATED?: number; IN_REVIEW?: number; OPEN?: number; RESOLVED?: number; }; created: string; description: string; name: string; updated: string; }`\n  A queue that groups transaction monitoring cases for review\n\n  - `token: string`\n  - `allowed_resolutions: string[]`\n  - `case_counts: { ASSIGNED?: number; CLOSED?: number; ESCALATED?: number; IN_REVIEW?: number; OPEN?: number; RESOLVED?: number; }`\n  - `created: string`\n  - `description: string`\n  - `name: string`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const queue of client.transactionMonitoring.queues.list()) {\n  console.log(queue);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.TransactionMonitoring.Queues.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.TransactionMonitoring.Queues.List(context.TODO(), lithic.TransactionMonitoringQueueListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'transactionMonitoring().queues().list',
         example:
@@ -2410,11 +2415,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/transaction_monitoring/queues \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.TransactionMonitoring.Queues.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.TransactionMonitoring.Queues.List(context.TODO(), lithic.TransactionMonitoringQueueListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -2431,6 +2431,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.transactionMonitoring.queues.retrieve(queue_token: string): { token: string; allowed_resolutions: string[]; case_counts: object; created: string; description: string; name: string; updated: string; }`\n\n**get** `/v1/transaction_monitoring/queues/{queue_token}`\n\nRetrieves a single transaction monitoring queue.\n\n### Parameters\n\n- `queue_token: string`\n\n### Returns\n\n- `{ token: string; allowed_resolutions: string[]; case_counts: { ASSIGNED?: number; CLOSED?: number; ESCALATED?: number; IN_REVIEW?: number; OPEN?: number; RESOLVED?: number; }; created: string; description: string; name: string; updated: string; }`\n  A queue that groups transaction monitoring cases for review\n\n  - `token: string`\n  - `allowed_resolutions: string[]`\n  - `case_counts: { ASSIGNED?: number; CLOSED?: number; ESCALATED?: number; IN_REVIEW?: number; OPEN?: number; RESOLVED?: number; }`\n  - `created: string`\n  - `description: string`\n  - `name: string`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst queue = await client.transactionMonitoring.queues.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(queue);\n```",
     perLanguage: {
+      go: {
+        method: 'client.TransactionMonitoring.Queues.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tqueue, err := client.TransactionMonitoring.Queues.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", queue.Token)\n}\n',
+      },
       java: {
         method: 'transactionMonitoring().queues().retrieve',
         example:
@@ -2460,11 +2465,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/transaction_monitoring/queues/$QUEUE_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.TransactionMonitoring.Queues.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tqueue, err := client.TransactionMonitoring.Queues.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", queue.Token)\n}\n',
-      },
     },
   },
   {
@@ -2486,6 +2486,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## update\n\n`client.transactionMonitoring.queues.update(queue_token: string, allowed_resolutions?: string[], description?: string, name?: string): { token: string; allowed_resolutions: string[]; case_counts: object; created: string; description: string; name: string; updated: string; }`\n\n**patch** `/v1/transaction_monitoring/queues/{queue_token}`\n\nUpdates a transaction monitoring queue.\n\n### Parameters\n\n- `queue_token: string`\n\n- `allowed_resolutions?: string[]`\n  New list of resolutions that can be recorded on cases in this queue, or `null` to\nrevert to the default list. Values are free-form labels and must be non-empty and\nunique. Changing the list only affects what is selectable going forward; the\n`resolution` already stored on a case is preserved as-is\n\n- `description?: string`\n  New description for the queue, or `null` to clear it\n\n- `name?: string`\n  New name for the queue\n\n### Returns\n\n- `{ token: string; allowed_resolutions: string[]; case_counts: { ASSIGNED?: number; CLOSED?: number; ESCALATED?: number; IN_REVIEW?: number; OPEN?: number; RESOLVED?: number; }; created: string; description: string; name: string; updated: string; }`\n  A queue that groups transaction monitoring cases for review\n\n  - `token: string`\n  - `allowed_resolutions: string[]`\n  - `case_counts: { ASSIGNED?: number; CLOSED?: number; ESCALATED?: number; IN_REVIEW?: number; OPEN?: number; RESOLVED?: number; }`\n  - `created: string`\n  - `description: string`\n  - `name: string`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst queue = await client.transactionMonitoring.queues.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(queue);\n```",
     perLanguage: {
+      go: {
+        method: 'client.TransactionMonitoring.Queues.Update',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tqueue, err := client.TransactionMonitoring.Queues.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringQueueUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", queue.Token)\n}\n',
+      },
       java: {
         method: 'transactionMonitoring().queues().update',
         example:
@@ -2515,11 +2520,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "curl https://api.lithic.com/v1/transaction_monitoring/queues/$QUEUE_TOKEN \\\n    -X PATCH \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: $LITHIC_API_KEY\" \\\n    -d '{}'",
       },
-      go: {
-        method: 'client.TransactionMonitoring.Queues.Update',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tqueue, err := client.TransactionMonitoring.Queues.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TransactionMonitoringQueueUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", queue.Token)\n}\n',
-      },
     },
   },
   {
@@ -2534,6 +2534,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## delete\n\n`client.transactionMonitoring.queues.delete(queue_token: string): void`\n\n**delete** `/v1/transaction_monitoring/queues/{queue_token}`\n\nDeletes a transaction monitoring queue.\n\n### Parameters\n\n- `queue_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.transactionMonitoring.queues.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')\n```",
     perLanguage: {
+      go: {
+        method: 'client.TransactionMonitoring.Queues.Delete',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.TransactionMonitoring.Queues.Delete(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'transactionMonitoring().queues().delete',
         example:
@@ -2563,11 +2568,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/transaction_monitoring/queues/$QUEUE_TOKEN \\\n    -X DELETE \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.TransactionMonitoring.Queues.Delete',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.TransactionMonitoring.Queues.Delete(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -2583,6 +2583,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve_secret\n\n`client.authStreamEnrollment.retrieveSecret(): { secret?: string; }`\n\n**get** `/v1/auth_stream/secret`\n\nRetrieve the ASA HMAC secret key. If one does not exist for your program yet, calling this endpoint will create one for you. The headers (which you can use to verify webhooks) will begin appearing shortly after calling this endpoint for the first time. See [this page](https://docs.lithic.com/docs/auth-stream-access-asa#asa-webhook-verification) for more detail about verifying ASA webhooks.\n\n\n### Returns\n\n- `{ secret?: string; }`\n\n  - `secret?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst authStreamSecret = await client.authStreamEnrollment.retrieveSecret();\n\nconsole.log(authStreamSecret);\n```",
     perLanguage: {
+      go: {
+        method: 'client.AuthStreamEnrollment.GetSecret',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tauthStreamSecret, err := client.AuthStreamEnrollment.GetSecret(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", authStreamSecret.Secret)\n}\n',
+      },
       java: {
         method: 'authStreamEnrollment().retrieveSecret',
         example:
@@ -2612,11 +2617,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/auth_stream/secret \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.AuthStreamEnrollment.GetSecret',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tauthStreamSecret, err := client.AuthStreamEnrollment.GetSecret(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", authStreamSecret.Secret)\n}\n',
-      },
     },
   },
   {
@@ -2631,6 +2631,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## rotate_secret\n\n`client.authStreamEnrollment.rotateSecret(): void`\n\n**post** `/v1/auth_stream/secret/rotate`\n\nGenerate a new ASA HMAC secret key. The old ASA HMAC secret key will be deactivated 24 hours after a successful request to this endpoint. Make a [`GET /auth_stream/secret`](https://docs.lithic.com/reference/getauthstreamsecret) request to retrieve the new secret key.\n\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.authStreamEnrollment.rotateSecret()\n```",
     perLanguage: {
+      go: {
+        method: 'client.AuthStreamEnrollment.RotateSecret',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.AuthStreamEnrollment.RotateSecret(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'authStreamEnrollment().rotateSecret',
         example:
@@ -2660,11 +2665,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/auth_stream/secret/rotate \\\n    -X POST \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.AuthStreamEnrollment.RotateSecret',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.AuthStreamEnrollment.RotateSecret(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -2680,6 +2680,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve_secret\n\n`client.tokenizationDecisioning.retrieveSecret(): { secret?: string; }`\n\n**get** `/v1/tokenization_decisioning/secret`\n\nRetrieve the Tokenization Decisioning secret key. If one does not exist your program yet, calling this endpoint will create one for you. The headers of the Tokenization Decisioning request will contain a hmac signature which you can use to verify requests originate from Lithic. See [this page](https://docs.lithic.com/docs/events-api#verifying-webhooks) for more detail about verifying Tokenization Decisioning requests.\n\n\n### Returns\n\n- `{ secret?: string; }`\n\n  - `secret?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst tokenizationSecret = await client.tokenizationDecisioning.retrieveSecret();\n\nconsole.log(tokenizationSecret);\n```",
     perLanguage: {
+      go: {
+        method: 'client.TokenizationDecisioning.GetSecret',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\ttokenizationSecret, err := client.TokenizationDecisioning.GetSecret(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", tokenizationSecret.Secret)\n}\n',
+      },
       java: {
         method: 'tokenizationDecisioning().retrieveSecret',
         example:
@@ -2709,11 +2714,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/tokenization_decisioning/secret \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.TokenizationDecisioning.GetSecret',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\ttokenizationSecret, err := client.TokenizationDecisioning.GetSecret(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", tokenizationSecret.Secret)\n}\n',
-      },
     },
   },
   {
@@ -2729,6 +2729,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## rotate_secret\n\n`client.tokenizationDecisioning.rotateSecret(): { secret?: string; }`\n\n**post** `/v1/tokenization_decisioning/secret/rotate`\n\nGenerate a new Tokenization Decisioning secret key. The old Tokenization Decisioning secret key will be deactivated 24 hours after a successful request to this endpoint.\n\n\n### Returns\n\n- `{ secret?: string; }`\n\n  - `secret?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.tokenizationDecisioning.rotateSecret();\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.TokenizationDecisioning.RotateSecret',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.TokenizationDecisioning.RotateSecret(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Secret)\n}\n',
+      },
       java: {
         method: 'tokenizationDecisioning().rotateSecret',
         example:
@@ -2758,11 +2763,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/tokenization_decisioning/secret/rotate \\\n    -X POST \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.TokenizationDecisioning.RotateSecret',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.TokenizationDecisioning.RotateSecret(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Secret)\n}\n',
-      },
     },
   },
   {
@@ -2789,6 +2789,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## simulate\n\n`client.tokenizations.simulate(cvv: string, expiration_date: string, pan: string, tokenization_source: 'APPLE_PAY' | 'GOOGLE' | 'SAMSUNG_PAY' | 'MERCHANT', account_score?: number, device_score?: number, entity?: string, wallet_recommended_decision?: 'APPROVED' | 'DECLINED' | 'REQUIRE_ADDITIONAL_AUTHENTICATION'): { token: string; account_token: string; card_token: string; created_at: string; dpan: string; status: 'ACTIVE' | 'DEACTIVATED' | 'INACTIVE' | 'PAUSED' | 'PENDING_2FA' | 'PENDING_ACTIVATION' | 'UNKNOWN'; token_requestor_name: string | string; token_unique_reference: string; tokenization_channel: 'DIGITAL_WALLET' | 'MERCHANT'; updated_at: string; device_id?: string; digital_card_art_token?: string; events?: object[]; payment_account_reference_id?: string; }`\n\n**post** `/v1/simulate/tokenizations`\n\nThis endpoint is used to simulate a card's tokenization in the Digital Wallet and merchant tokenization ecosystem.\n\n\n### Parameters\n\n- `cvv: string`\n  The three digit cvv for the card.\n\n- `expiration_date: string`\n  The expiration date of the card in 'MM/YY' format.\n\n- `pan: string`\n  The sixteen digit card number.\n\n- `tokenization_source: 'APPLE_PAY' | 'GOOGLE' | 'SAMSUNG_PAY' | 'MERCHANT'`\n  The source of the tokenization request.\n\n- `account_score?: number`\n  The account score (1-5) that represents how the Digital Wallet's view on how reputable an end user's account is.\n\n- `device_score?: number`\n  The device score (1-5) that represents how the Digital Wallet's view on how reputable an end user's device is.\n\n- `entity?: string`\n  Optional field to specify the token requestor name for a merchant token simulation. Ignored when tokenization_source is not MERCHANT.\n\n- `wallet_recommended_decision?: 'APPROVED' | 'DECLINED' | 'REQUIRE_ADDITIONAL_AUTHENTICATION'`\n  The decision that the Digital Wallet's recommend\n\n### Returns\n\n- `{ token: string; account_token: string; card_token: string; created_at: string; dpan: string; status: 'ACTIVE' | 'DEACTIVATED' | 'INACTIVE' | 'PAUSED' | 'PENDING_2FA' | 'PENDING_ACTIVATION' | 'UNKNOWN'; token_requestor_name: string | string; token_unique_reference: string; tokenization_channel: 'DIGITAL_WALLET' | 'MERCHANT'; updated_at: string; device_id?: string; digital_card_art_token?: string; events?: { token?: string; created_at?: string; result?: string; rule_results?: object[]; tokenization_decline_reasons?: string[]; tokenization_tfa_reasons?: string[]; type?: string; }[]; payment_account_reference_id?: string; }`\n\n  - `token: string`\n  - `account_token: string`\n  - `card_token: string`\n  - `created_at: string`\n  - `dpan: string`\n  - `status: 'ACTIVE' | 'DEACTIVATED' | 'INACTIVE' | 'PAUSED' | 'PENDING_2FA' | 'PENDING_ACTIVATION' | 'UNKNOWN'`\n  - `token_requestor_name: string | string`\n  - `token_unique_reference: string`\n  - `tokenization_channel: 'DIGITAL_WALLET' | 'MERCHANT'`\n  - `updated_at: string`\n  - `device_id?: string`\n  - `digital_card_art_token?: string`\n  - `events?: { token?: string; created_at?: string; result?: string; rule_results?: { auth_rule_token: string; explanation: string; name: string; result: 'APPROVED' | 'DECLINED' | 'REQUIRE_TFA' | 'ERROR'; }[]; tokenization_decline_reasons?: string[]; tokenization_tfa_reasons?: string[]; type?: string; }[]`\n  - `payment_account_reference_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst tokenization = await client.tokenizations.simulate({\n  cvv: '776',\n  expiration_date: '08/29',\n  pan: '4111111289144142',\n  tokenization_source: 'APPLE_PAY',\n});\n\nconsole.log(tokenization);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Tokenizations.Simulate',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\ttokenization, err := client.Tokenizations.Simulate(context.TODO(), lithic.TokenizationSimulateParams{\n\t\tCvv:                       lithic.F("776"),\n\t\tExpirationDate:            lithic.F("08/29"),\n\t\tPan:                       lithic.F("4111111289144142"),\n\t\tTokenizationSource:        lithic.F(lithic.TokenizationSimulateParamsTokenizationSourceApplePay),\n\t\tAccountScore:              lithic.F(int64(5)),\n\t\tDeviceScore:               lithic.F(int64(5)),\n\t\tWalletRecommendedDecision: lithic.F(lithic.TokenizationSimulateParamsWalletRecommendedDecisionApproved),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", tokenization.DeviceID)\n}\n',
+      },
       java: {
         method: 'tokenizations().simulate',
         example:
@@ -2818,11 +2823,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/simulate/tokenizations \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "cvv": "776",\n          "expiration_date": "08/29",\n          "pan": "4111111289144142",\n          "tokenization_source": "APPLE_PAY",\n          "account_score": 5,\n          "device_score": 5,\n          "wallet_recommended_decision": "APPROVED"\n        }\'',
       },
-      go: {
-        method: 'client.Tokenizations.Simulate',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\ttokenization, err := client.Tokenizations.Simulate(context.TODO(), lithic.TokenizationSimulateParams{\n\t\tCvv:                       lithic.F("776"),\n\t\tExpirationDate:            lithic.F("08/29"),\n\t\tPan:                       lithic.F("4111111289144142"),\n\t\tTokenizationSource:        lithic.F(lithic.TokenizationSimulateParamsTokenizationSourceApplePay),\n\t\tAccountScore:              lithic.F(int64(5)),\n\t\tDeviceScore:               lithic.F(int64(5)),\n\t\tWalletRecommendedDecision: lithic.F(lithic.TokenizationSimulateParamsWalletRecommendedDecisionApproved),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", tokenization.DeviceID)\n}\n',
-      },
     },
   },
   {
@@ -2848,6 +2848,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.tokenizations.list(account_token?: string, begin?: string, card_token?: string, end?: string, ending_before?: string, page_size?: number, starting_after?: string, tokenization_channel?: 'DIGITAL_WALLET' | 'MERCHANT' | 'ALL'): { token: string; account_token: string; card_token: string; created_at: string; dpan: string; status: 'ACTIVE' | 'DEACTIVATED' | 'INACTIVE' | 'PAUSED' | 'PENDING_2FA' | 'PENDING_ACTIVATION' | 'UNKNOWN'; token_requestor_name: string | string; token_unique_reference: string; tokenization_channel: 'DIGITAL_WALLET' | 'MERCHANT'; updated_at: string; device_id?: string; digital_card_art_token?: string; events?: object[]; payment_account_reference_id?: string; }`\n\n**get** `/v1/tokenizations`\n\nList card tokenizations\n\n### Parameters\n\n- `account_token?: string`\n  Filters for tokenizations associated with a specific account.\n\n- `begin?: string`\n  Filter for tokenizations created after this date.\n\n- `card_token?: string`\n  Filters for tokenizations associated with a specific card.\n\n- `end?: string`\n  Filter for tokenizations created before this date.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n- `tokenization_channel?: 'DIGITAL_WALLET' | 'MERCHANT' | 'ALL'`\n  Filter for tokenizations by tokenization channel. If this is not specified, only DIGITAL_WALLET tokenizations will be returned.\n\n### Returns\n\n- `{ token: string; account_token: string; card_token: string; created_at: string; dpan: string; status: 'ACTIVE' | 'DEACTIVATED' | 'INACTIVE' | 'PAUSED' | 'PENDING_2FA' | 'PENDING_ACTIVATION' | 'UNKNOWN'; token_requestor_name: string | string; token_unique_reference: string; tokenization_channel: 'DIGITAL_WALLET' | 'MERCHANT'; updated_at: string; device_id?: string; digital_card_art_token?: string; events?: { token?: string; created_at?: string; result?: string; rule_results?: object[]; tokenization_decline_reasons?: string[]; tokenization_tfa_reasons?: string[]; type?: string; }[]; payment_account_reference_id?: string; }`\n\n  - `token: string`\n  - `account_token: string`\n  - `card_token: string`\n  - `created_at: string`\n  - `dpan: string`\n  - `status: 'ACTIVE' | 'DEACTIVATED' | 'INACTIVE' | 'PAUSED' | 'PENDING_2FA' | 'PENDING_ACTIVATION' | 'UNKNOWN'`\n  - `token_requestor_name: string | string`\n  - `token_unique_reference: string`\n  - `tokenization_channel: 'DIGITAL_WALLET' | 'MERCHANT'`\n  - `updated_at: string`\n  - `device_id?: string`\n  - `digital_card_art_token?: string`\n  - `events?: { token?: string; created_at?: string; result?: string; rule_results?: { auth_rule_token: string; explanation: string; name: string; result: 'APPROVED' | 'DECLINED' | 'REQUIRE_TFA' | 'ERROR'; }[]; tokenization_decline_reasons?: string[]; tokenization_tfa_reasons?: string[]; type?: string; }[]`\n  - `payment_account_reference_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const tokenization of client.tokenizations.list()) {\n  console.log(tokenization);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.Tokenizations.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Tokenizations.List(context.TODO(), lithic.TokenizationListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'tokenizations().list',
         example:
@@ -2876,11 +2881,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example: 'curl https://api.lithic.com/v1/tokenizations \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Tokenizations.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Tokenizations.List(context.TODO(), lithic.TokenizationListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -2897,6 +2897,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.tokenizations.retrieve(tokenization_token: string): { token: string; account_token: string; card_token: string; created_at: string; dpan: string; status: 'ACTIVE' | 'DEACTIVATED' | 'INACTIVE' | 'PAUSED' | 'PENDING_2FA' | 'PENDING_ACTIVATION' | 'UNKNOWN'; token_requestor_name: string | string; token_unique_reference: string; tokenization_channel: 'DIGITAL_WALLET' | 'MERCHANT'; updated_at: string; device_id?: string; digital_card_art_token?: string; events?: object[]; payment_account_reference_id?: string; }`\n\n**get** `/v1/tokenizations/{tokenization_token}`\n\nGet tokenization\n\n### Parameters\n\n- `tokenization_token: string`\n\n### Returns\n\n- `{ token: string; account_token: string; card_token: string; created_at: string; dpan: string; status: 'ACTIVE' | 'DEACTIVATED' | 'INACTIVE' | 'PAUSED' | 'PENDING_2FA' | 'PENDING_ACTIVATION' | 'UNKNOWN'; token_requestor_name: string | string; token_unique_reference: string; tokenization_channel: 'DIGITAL_WALLET' | 'MERCHANT'; updated_at: string; device_id?: string; digital_card_art_token?: string; events?: { token?: string; created_at?: string; result?: string; rule_results?: object[]; tokenization_decline_reasons?: string[]; tokenization_tfa_reasons?: string[]; type?: string; }[]; payment_account_reference_id?: string; }`\n\n  - `token: string`\n  - `account_token: string`\n  - `card_token: string`\n  - `created_at: string`\n  - `dpan: string`\n  - `status: 'ACTIVE' | 'DEACTIVATED' | 'INACTIVE' | 'PAUSED' | 'PENDING_2FA' | 'PENDING_ACTIVATION' | 'UNKNOWN'`\n  - `token_requestor_name: string | string`\n  - `token_unique_reference: string`\n  - `tokenization_channel: 'DIGITAL_WALLET' | 'MERCHANT'`\n  - `updated_at: string`\n  - `device_id?: string`\n  - `digital_card_art_token?: string`\n  - `events?: { token?: string; created_at?: string; result?: string; rule_results?: { auth_rule_token: string; explanation: string; name: string; result: 'APPROVED' | 'DECLINED' | 'REQUIRE_TFA' | 'ERROR'; }[]; tokenization_decline_reasons?: string[]; tokenization_tfa_reasons?: string[]; type?: string; }[]`\n  - `payment_account_reference_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst tokenization = await client.tokenizations.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(tokenization);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Tokenizations.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\ttokenization, err := client.Tokenizations.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", tokenization.DeviceID)\n}\n',
+      },
       java: {
         method: 'tokenizations().retrieve',
         example:
@@ -2926,11 +2931,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/tokenizations/$TOKENIZATION_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Tokenizations.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\ttokenization, err := client.Tokenizations.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", tokenization.DeviceID)\n}\n',
-      },
     },
   },
   {
@@ -2946,6 +2946,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## pause\n\n`client.tokenizations.pause(tokenization_token: string): void`\n\n**post** `/v1/tokenizations/{tokenization_token}/pause`\n\nThis endpoint is used to ask the card network to pause a tokenization. A successful response indicates that the request was successfully delivered to the card network. When the card network pauses the tokenization, the state will be updated and a tokenization.updated event will be sent. The endpoint may only be used on tokenizations with status `ACTIVE`.\nA paused token will prevent merchants from sending authorizations, and is a temporary status that can be changed.\nReach out at [lithic.com/contact](https://lithic.com/contact) for more information.\n\n### Parameters\n\n- `tokenization_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.tokenizations.pause('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')\n```",
     perLanguage: {
+      go: {
+        method: 'client.Tokenizations.Pause',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Tokenizations.Pause(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'tokenizations().pause',
         example:
@@ -2975,11 +2980,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/tokenizations/$TOKENIZATION_TOKEN/pause \\\n    -X POST \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Tokenizations.Pause',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Tokenizations.Pause(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -2995,6 +2995,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## unpause\n\n`client.tokenizations.unpause(tokenization_token: string): void`\n\n**post** `/v1/tokenizations/{tokenization_token}/unpause`\n\nThis endpoint is used to ask the card network to unpause a tokenization. A successful response indicates that the request was successfully delivered to the card network. When the card network unpauses the tokenization, the state will be updated and a tokenization.updated event will be sent. The endpoint may only be used on tokenizations with status `PAUSED`.\nThis will put the tokenization in an active state, and transactions may resume.\nReach out at [lithic.com/contact](https://lithic.com/contact) for more information.\n\n### Parameters\n\n- `tokenization_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.tokenizations.unpause('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')\n```",
     perLanguage: {
+      go: {
+        method: 'client.Tokenizations.Unpause',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Tokenizations.Unpause(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'tokenizations().unpause',
         example:
@@ -3024,11 +3029,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/tokenizations/$TOKENIZATION_TOKEN/unpause \\\n    -X POST \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Tokenizations.Unpause',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Tokenizations.Unpause(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -3044,6 +3044,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## deactivate\n\n`client.tokenizations.deactivate(tokenization_token: string): void`\n\n**post** `/v1/tokenizations/{tokenization_token}/deactivate`\n\nThis endpoint is used to ask the card network to deactivate a tokenization. A successful response indicates that the request was successfully delivered to the card network. When the card network deactivates the tokenization, the state will be updated and a tokenization.updated event will be sent.\nAuthorizations attempted with a deactivated tokenization will be blocked and will not be forwarded to Lithic from the network. Deactivating the token is a permanent operation. If the target is a digital wallet tokenization, it will be removed from its device.\nReach out at [lithic.com/contact](https://lithic.com/contact) for more information.\n\n### Parameters\n\n- `tokenization_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.tokenizations.deactivate('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')\n```",
     perLanguage: {
+      go: {
+        method: 'client.Tokenizations.Deactivate',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Tokenizations.Deactivate(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'tokenizations().deactivate',
         example:
@@ -3073,11 +3078,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/tokenizations/$TOKENIZATION_TOKEN/deactivate \\\n    -X POST \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Tokenizations.Deactivate',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Tokenizations.Deactivate(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -3093,6 +3093,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## activate\n\n`client.tokenizations.activate(tokenization_token: string): void`\n\n**post** `/v1/tokenizations/{tokenization_token}/activate`\n\nThis endpoint is used to ask the card network to activate a tokenization. A successful response indicates that the request was successfully delivered to the card network. When the card network activates the tokenization, the state will be updated and a tokenization.updated event will be sent. The endpoint may only be used on digital wallet tokenizations with status `INACTIVE`, `PENDING_ACTIVATION`, or `PENDING_2FA`.\nThis will put the tokenization in an active state, and transactions will be allowed.\nReach out at [lithic.com/contact](https://lithic.com/contact) for more information.\n\n### Parameters\n\n- `tokenization_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.tokenizations.activate('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')\n```",
     perLanguage: {
+      go: {
+        method: 'client.Tokenizations.Activate',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Tokenizations.Activate(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'tokenizations().activate',
         example:
@@ -3122,11 +3127,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/tokenizations/$TOKENIZATION_TOKEN/activate \\\n    -X POST \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Tokenizations.Activate',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Tokenizations.Activate(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -3145,6 +3145,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## resend_activation_code\n\n`client.tokenizations.resendActivationCode(tokenization_token: string, activation_method_type?: 'EMAIL_TO_CARDHOLDER_ADDRESS' | 'TEXT_TO_CARDHOLDER_NUMBER'): void`\n\n**post** `/v1/tokenizations/{tokenization_token}/resend_activation_code`\n\nThis endpoint is used to ask the card network to send another activation code to a cardholder that has already tried tokenizing a card. A successful response indicates that the request was successfully delivered to the card network.\nThe endpoint may only be used on Mastercard digital wallet tokenizations with status `INACTIVE`, `PENDING_ACTIVATION`, or `PENDING_2FA`. The network will send a new activation code to the one of the contact methods provided in the initial tokenization flow. If a user fails to enter the code correctly 3 times, the contact method will not be eligible for resending the activation code, and the cardholder must restart the provision process.\nReach out at [lithic.com/contact](https://lithic.com/contact) for more information.\n\n### Parameters\n\n- `tokenization_token: string`\n\n- `activation_method_type?: 'EMAIL_TO_CARDHOLDER_ADDRESS' | 'TEXT_TO_CARDHOLDER_NUMBER'`\n  The communication method that the user has selected to use to receive the authentication code.\nSupported Values: Sms = \"TEXT_TO_CARDHOLDER_NUMBER\". Email = \"EMAIL_TO_CARDHOLDER_ADDRESS\"\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.tokenizations.resendActivationCode('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')\n```",
     perLanguage: {
+      go: {
+        method: 'client.Tokenizations.ResendActivationCode',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Tokenizations.ResendActivationCode(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TokenizationResendActivationCodeParams{\n\t\t\tActivationMethodType: lithic.F(lithic.TokenizationResendActivationCodeParamsActivationMethodTypeTextToCardholderNumber),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'tokenizations().resendActivationCode',
         example:
@@ -3174,11 +3179,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/tokenizations/$TOKENIZATION_TOKEN/resend_activation_code \\\n    -X POST \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Tokenizations.ResendActivationCode',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Tokenizations.ResendActivationCode(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TokenizationResendActivationCodeParams{\n\t\t\tActivationMethodType: lithic.F(lithic.TokenizationResendActivationCodeParamsActivationMethodTypeTextToCardholderNumber),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -3196,6 +3196,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## update_digital_card_art\n\n`client.tokenizations.updateDigitalCardArt(tokenization_token: string, digital_card_art_token?: string): { token: string; account_token: string; card_token: string; created_at: string; dpan: string; status: 'ACTIVE' | 'DEACTIVATED' | 'INACTIVE' | 'PAUSED' | 'PENDING_2FA' | 'PENDING_ACTIVATION' | 'UNKNOWN'; token_requestor_name: string | string; token_unique_reference: string; tokenization_channel: 'DIGITAL_WALLET' | 'MERCHANT'; updated_at: string; device_id?: string; digital_card_art_token?: string; events?: object[]; payment_account_reference_id?: string; }`\n\n**post** `/v1/tokenizations/{tokenization_token}/update_digital_card_art`\n\nThis endpoint is used update the digital card art for a digital wallet tokenization. A successful response indicates that the card network has updated the tokenization's art, and the tokenization's `digital_cart_art_token` field was updated.\nThe endpoint may not be used on tokenizations with status `DEACTIVATED`.\nNote that this updates the art for one specific tokenization, not all tokenizations for a card. New tokenizations for a card will be created with the art referenced in the card object's `digital_card_art_token` field.\nReach out at [lithic.com/contact](https://lithic.com/contact) for more information.\n\n### Parameters\n\n- `tokenization_token: string`\n\n- `digital_card_art_token?: string`\n  Specifies the digital card art to be displayed in the user’s digital wallet for a tokenization. This artwork must be approved by the network and configured by Lithic to use. See [Flexible Card Art Guide](https://docs.lithic.com/docs/about-digital-wallets#flexible-card-art).\n\n### Returns\n\n- `{ token: string; account_token: string; card_token: string; created_at: string; dpan: string; status: 'ACTIVE' | 'DEACTIVATED' | 'INACTIVE' | 'PAUSED' | 'PENDING_2FA' | 'PENDING_ACTIVATION' | 'UNKNOWN'; token_requestor_name: string | string; token_unique_reference: string; tokenization_channel: 'DIGITAL_WALLET' | 'MERCHANT'; updated_at: string; device_id?: string; digital_card_art_token?: string; events?: { token?: string; created_at?: string; result?: string; rule_results?: object[]; tokenization_decline_reasons?: string[]; tokenization_tfa_reasons?: string[]; type?: string; }[]; payment_account_reference_id?: string; }`\n\n  - `token: string`\n  - `account_token: string`\n  - `card_token: string`\n  - `created_at: string`\n  - `dpan: string`\n  - `status: 'ACTIVE' | 'DEACTIVATED' | 'INACTIVE' | 'PAUSED' | 'PENDING_2FA' | 'PENDING_ACTIVATION' | 'UNKNOWN'`\n  - `token_requestor_name: string | string`\n  - `token_unique_reference: string`\n  - `tokenization_channel: 'DIGITAL_WALLET' | 'MERCHANT'`\n  - `updated_at: string`\n  - `device_id?: string`\n  - `digital_card_art_token?: string`\n  - `events?: { token?: string; created_at?: string; result?: string; rule_results?: { auth_rule_token: string; explanation: string; name: string; result: 'APPROVED' | 'DECLINED' | 'REQUIRE_TFA' | 'ERROR'; }[]; tokenization_decline_reasons?: string[]; tokenization_tfa_reasons?: string[]; type?: string; }[]`\n  - `payment_account_reference_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst tokenization = await client.tokenizations.updateDigitalCardArt('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(tokenization);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Tokenizations.UpdateDigitalCardArt',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\ttokenization, err := client.Tokenizations.UpdateDigitalCardArt(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TokenizationUpdateDigitalCardArtParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", tokenization.DeviceID)\n}\n',
+      },
       java: {
         method: 'tokenizations().updateDigitalCardArt',
         example:
@@ -3225,11 +3230,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/tokenizations/$TOKENIZATION_TOKEN/update_digital_card_art \\\n    -X POST \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Tokenizations.UpdateDigitalCardArt',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\ttokenization, err := client.Tokenizations.UpdateDigitalCardArt(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.TokenizationUpdateDigitalCardArtParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", tokenization.DeviceID)\n}\n',
-      },
     },
   },
   {
@@ -3255,6 +3255,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.cards.list(account_token?: string, begin?: string, end?: string, ending_before?: string, memo?: string, page_size?: number, starting_after?: string, state?: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT'): { token: string; account_token: string; card_program_token: string; created: string; funding: object; last_four: string; pin_status: 'OK' | 'BLOCKED' | 'NOT_SET'; spend_limit: number; spend_limit_duration: spend_limit_duration; state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT'; type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET'; auth_rule_tokens?: string[]; bulk_order_token?: string; cardholder_currency?: string; comment?: string; digital_card_art_token?: string; exp_month?: string; exp_year?: string; hostname?: string; memo?: string; network_program_token?: string; pending_commands?: string[]; product_id?: string; replacement_for?: string; substatus?: string; }`\n\n**get** `/v1/cards`\n\nList cards.\n\n### Parameters\n\n- `account_token?: string`\n  Returns cards associated with the specified account.\n\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `memo?: string`\n  Returns cards containing the specified partial or full memo text.\n\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n- `state?: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT'`\n  Returns cards with the specified state.\n\n\n### Returns\n\n- `{ token: string; account_token: string; card_program_token: string; created: string; funding: { token: string; created: string; last_four: string; state: 'DELETED' | 'ENABLED' | 'PENDING'; type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS'; account_name?: string; nickname?: string; }; last_four: string; pin_status: 'OK' | 'BLOCKED' | 'NOT_SET'; spend_limit: number; spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION'; state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT'; type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET'; auth_rule_tokens?: string[]; bulk_order_token?: string; cardholder_currency?: string; comment?: string; digital_card_art_token?: string; exp_month?: string; exp_year?: string; hostname?: string; memo?: string; network_program_token?: string; pending_commands?: string[]; product_id?: string; replacement_for?: string; substatus?: string; }`\n  Card details without PCI information\n\n  - `token: string`\n  - `account_token: string`\n  - `card_program_token: string`\n  - `created: string`\n  - `funding: { token: string; created: string; last_four: string; state: 'DELETED' | 'ENABLED' | 'PENDING'; type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS'; account_name?: string; nickname?: string; }`\n  - `last_four: string`\n  - `pin_status: 'OK' | 'BLOCKED' | 'NOT_SET'`\n  - `spend_limit: number`\n  - `spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION'`\n  - `state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT'`\n  - `type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET'`\n  - `auth_rule_tokens?: string[]`\n  - `bulk_order_token?: string`\n  - `cardholder_currency?: string`\n  - `comment?: string`\n  - `digital_card_art_token?: string`\n  - `exp_month?: string`\n  - `exp_year?: string`\n  - `hostname?: string`\n  - `memo?: string`\n  - `network_program_token?: string`\n  - `pending_commands?: string[]`\n  - `product_id?: string`\n  - `replacement_for?: string`\n  - `substatus?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const nonPCICard of client.cards.list()) {\n  console.log(nonPCICard);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.Cards.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Cards.List(context.TODO(), lithic.CardListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'cards().list',
         example:
@@ -3282,11 +3287,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example: 'curl https://api.lithic.com/v1/cards \\\n    -H "Authorization: $LITHIC_API_KEY"',
-      },
-      go: {
-        method: 'client.Cards.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Cards.List(context.TODO(), lithic.CardListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
       },
     },
   },
@@ -3327,6 +3327,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.cards.create(type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET', account_token?: string, bulk_order_token?: string, card_program_token?: string, carrier?: { qr_code_url?: string; }, digital_card_art_token?: string, exp_month?: string, exp_year?: string, memo?: string, pin?: string, product_id?: string, replacement_account_token?: string, replacement_comment?: string, replacement_for?: string, replacement_substatus?: string, shipping_address?: { address1: string; city: string; country: string; first_name: string; last_name: string; postal_code: string; state: string; address2?: string; email?: string; line2_text?: string; phone_number?: string; }, shipping_method?: '2_DAY' | 'BULK' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING', spend_limit?: number, spend_limit_duration?: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION', state?: 'OPEN' | 'PAUSED', Idempotency-Key?: string): object`\n\n**post** `/v1/cards`\n\nCreate a new virtual or physical card. Parameters `shipping_address` and `product_id` only apply to physical cards.\n\n\n### Parameters\n\n- `type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET'`\n  Card types:\n* `VIRTUAL` - Card will authorize at any merchant and can be added to a digital wallet like Apple Pay or Google Pay (if the card program is digital wallet-enabled).\n* `PHYSICAL` - Manufactured and sent to the cardholder. We offer white label branding, credit, ATM, PIN debit, chip/EMV, NFC and magstripe functionality. Reach out at [lithic.com/contact](https://lithic.com/contact) for more information.\n* `SINGLE_USE` - Card is closed upon first successful authorization.\n* `MERCHANT_LOCKED` - Card is locked to the first merchant that successfully authorizes the card.\n* `UNLOCKED` - *[Deprecated]* Similar behavior to VIRTUAL cards, please use VIRTUAL instead.\n* `DIGITAL_WALLET` - *[Deprecated]* Similar behavior to VIRTUAL cards, please use VIRTUAL instead.\n\n\n- `account_token?: string`\n  Globally unique identifier for the account that the card will be associated with. Required for programs enrolling users using the [/account\\_holders endpoint](https://docs.lithic.com/docs/account-holders-kyc). See [Managing Your Program](doc:managing-your-program) for more information.\n\n\n- `bulk_order_token?: string`\n  Globally unique identifier for an existing bulk order to associate this card with. When specified, the card will be added to the bulk order for batch shipment. Only applicable to cards of type PHYSICAL\n\n- `card_program_token?: string`\n  For card programs with more than one BIN range. This must be configured with Lithic before use. Identifies the card program/BIN range under which to create the card. If omitted, will utilize the program's default `card_program_token`. In Sandbox, use 00000000-0000-0000-1000-000000000000 and 00000000-0000-0000-2000-000000000000 to test creating cards on specific card programs.\n\n- `carrier?: { qr_code_url?: string; }`\n  - `qr_code_url?: string`\n    QR code URL to display on the card carrier. The `qr_code_url` field requires your domain to be allowlisted by Lithic before use. Contact Support to configure your QR code domain\n\n- `digital_card_art_token?: string`\n  Specifies the digital card art to be displayed in the user’s digital wallet after tokenization. This artwork must be approved by Mastercard and configured by Lithic to use. See [Flexible Card Art Guide](https://docs.lithic.com/docs/about-digital-wallets#flexible-card-art).\n\n- `exp_month?: string`\n  Two digit (MM) expiry month. If neither `exp_month` nor `exp_year` is provided, an expiration date five years in the future will be generated. Five years is the maximum expiration date.\n\n- `exp_year?: string`\n  Four digit (yyyy) expiry year. If neither `exp_month` nor `exp_year` is provided, an expiration date five years in the future will be generated. Five years is the maximum expiration date.\n\n- `memo?: string`\n  Friendly name to identify the card.\n\n- `pin?: string`\n  Encrypted PIN block (in base64). Applies to cards of type `PHYSICAL` and `VIRTUAL`. See [Encrypted PIN Block](https://docs.lithic.com/docs/cards#encrypted-pin-block).\n\n- `product_id?: string`\n  Only applicable to cards of type `PHYSICAL`. This must be configured with Lithic before use. Specifies the configuration (i.e., physical card art) that the card should be manufactured with.\n\n- `replacement_account_token?: string`\n  Restricted field limited to select use cases. Lithic will reach out directly if this field should be used. Globally unique identifier for the replacement card's account. If this field is specified, `replacement_for` must also be specified. If `replacement_for` is specified and this field is omitted, the replacement card's account will be inferred from the card being replaced.\n\n- `replacement_comment?: string`\n  Additional context or information related to the card that this card will replace.\n\n- `replacement_for?: string`\n  Globally unique identifier for the card that this card will replace. If the card type is `PHYSICAL` it will be replaced by a `PHYSICAL` card. If the card type is `VIRTUAL` it will be replaced by a `VIRTUAL` card.\n\n- `replacement_substatus?: string`\n  Card state substatus values for the card that this card will replace:\n* `LOST` - The physical card is no longer in the cardholder's possession due to being lost or never received by the cardholder.\n* `COMPROMISED` - Card information has been exposed, potentially leading to unauthorized access. This may involve physical card theft, cloning, or online data breaches.\n* `DAMAGED` - The physical card is not functioning properly, such as having chip failures or a demagnetized magnetic stripe.\n* `END_USER_REQUEST` - The cardholder requested the closure of the card for reasons unrelated to fraud or damage, such as switching to a different product or closing the account.\n* `ISSUER_REQUEST` - The issuer closed the card for reasons unrelated to fraud or damage, such as account inactivity, product or policy changes, or technology upgrades.\n* `NOT_ACTIVE` - The card hasn’t had any transaction activity for a specified period, applicable to statuses like `PAUSED` or `CLOSED`.\n* `SUSPICIOUS_ACTIVITY` - The card has one or more suspicious transactions or activities that require review. This can involve prompting the cardholder to confirm legitimate use or report confirmed fraud.\n* `INTERNAL_REVIEW` - The card is temporarily paused pending further internal review.\n* `EXPIRED` - The card has expired and has been closed without being reissued.\n* `UNDELIVERABLE` - The card cannot be delivered to the cardholder and has been returned.\n* `OTHER` - The reason for the status does not fall into any of the above categories. A comment should be provided to specify the reason.\n\n\n- `shipping_address?: { address1: string; city: string; country: string; first_name: string; last_name: string; postal_code: string; state: string; address2?: string; email?: string; line2_text?: string; phone_number?: string; }`\n  - `address1: string`\n    Valid USPS routable address.\n  - `city: string`\n    City\n  - `country: string`\n    Uppercase ISO 3166-1 alpha-3 three character abbreviation.\n  - `first_name: string`\n    Customer's first name. This will be the first name printed on the physical card. The combined length of `first_name` and `last_name` may not exceed 25 characters.\n  - `last_name: string`\n    Customer's surname (family name). This will be the last name printed on the physical card. The combined length of `first_name` and `last_name` may not exceed 25 characters.\n  - `postal_code: string`\n    Postal code (formerly zipcode). For US addresses, either five-digit postal code or nine-digit postal code (ZIP+4) using the format 12345-1234.\n  - `state: string`\n    Uppercase ISO 3166-2 two character abbreviation for US and CA. Optional with a limit of 24 characters for other countries.\n  - `address2?: string`\n    Unit number (if applicable).\n  - `email?: string`\n    Email address to be contacted for expedited shipping process purposes. Required if `shipping_method` is `EXPEDITED`.\n  - `line2_text?: string`\n    Text to be printed on line two of the physical card. Use of this field requires additional permissions.\n  - `phone_number?: string`\n    Cardholder's phone number in E.164 format to be contacted for expedited shipping process purposes. Required if `shipping_method` is `EXPEDITED`.\n\n- `shipping_method?: '2_DAY' | 'BULK' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING'`\n  Shipping method for the card. Only applies to cards of type PHYSICAL.\nUse of options besides `STANDARD` require additional permissions.\n\n* `STANDARD` - USPS regular mail or similar international option, with no tracking\n* `STANDARD_WITH_TRACKING` - USPS regular mail or similar international option, with tracking\n* `PRIORITY` - USPS Priority, 1-3 day shipping, with tracking\n* `EXPRESS` - FedEx or UPS depending on card manufacturer, Express, 3-day shipping, with tracking\n* `2_DAY` - FedEx or UPS depending on card manufacturer, 2-day shipping, with tracking\n* `EXPEDITED` - FedEx or UPS depending on card manufacturer, Standard Overnight or similar international option, with tracking\n* `BULK` - Card will be shipped as part of a bulk fulfillment order. The shipping method and timeline are inherited from the parent bulk order.\n\n\n- `spend_limit?: number`\n  Amount (in cents) to limit approved authorizations (e.g. 100000 would be a $1,000 limit). Transaction requests above the spend limit will be declined. Note that a spend limit of 0 is effectively no limit, and should only be used to reset or remove a prior limit. Only a limit of 1 or above will result in declined transactions due to checks against the card limit.\n\n- `spend_limit_duration?: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION'`\n  Spend limit duration values:\n\n* `ANNUALLY` - Card will authorize transactions up to spend limit for the trailing year.\n* `FOREVER` - Card will authorize only up to spend limit for the entire lifetime of the card.\n* `MONTHLY` - Card will authorize transactions up to spend limit for the trailing month. To support recurring monthly payments, which can occur on different day every month, the time window we consider for monthly velocity starts 6 days after the current calendar date one month prior.\n* `TRANSACTION` - Card will authorize multiple transactions if each individual transaction is under the spend limit.\n\n- `state?: 'OPEN' | 'PAUSED'`\n  Card state values:\n* `OPEN` - Card will approve authorizations (if they match card and account parameters).\n* `PAUSED` - Card will decline authorizations, but can be resumed at a later time.\n\n\n- `Idempotency-Key?: string`\n\n### Returns\n\n- `{ token: string; account_token: string; card_program_token: string; created: string; funding: { token: string; created: string; last_four: string; state: 'DELETED' | 'ENABLED' | 'PENDING'; type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS'; account_name?: string; nickname?: string; }; last_four: string; pin_status: 'OK' | 'BLOCKED' | 'NOT_SET'; spend_limit: number; spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION'; state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT'; type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET'; auth_rule_tokens?: string[]; bulk_order_token?: string; cardholder_currency?: string; comment?: string; digital_card_art_token?: string; exp_month?: string; exp_year?: string; hostname?: string; memo?: string; network_program_token?: string; pending_commands?: string[]; product_id?: string; replacement_for?: string; substatus?: string; }`\n  Card details with potentially PCI sensitive information for Enterprise customers\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst card = await client.cards.create({ type: 'VIRTUAL' });\n\nconsole.log(card);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Cards.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcard, err := client.Cards.New(context.TODO(), lithic.CardNewParams{\n\t\tType:               lithic.F(lithic.CardNewParamsTypeVirtual),\n\t\tMemo:               lithic.F("New Card"),\n\t\tSpendLimit:         lithic.F(int64(1000)),\n\t\tSpendLimitDuration: lithic.F(lithic.SpendLimitDurationTransaction),\n\t\tState:              lithic.F(lithic.CardNewParamsStateOpen),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", card)\n}\n',
+      },
       java: {
         method: 'cards().create',
         example:
@@ -3356,11 +3361,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/cards \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "type": "VIRTUAL",\n          "bulk_order_token": "5e9483eb-8103-4e16-9794-2106111b2eca",\n          "card_program_token": "5e9483eb-8103-4e16-9794-2106111b2eca",\n          "digital_card_art_token": "5e9483eb-8103-4e16-9794-2106111b2eca",\n          "exp_month": "06",\n          "exp_year": "2027",\n          "memo": "New Card",\n          "product_id": "1",\n          "replacement_account_token": "5e9483eb-8103-4e16-9794-2106111b2eca",\n          "replacement_for": "5e9483eb-8103-4e16-9794-2106111b2eca",\n          "spend_limit": 1000,\n          "spend_limit_duration": "TRANSACTION",\n          "state": "OPEN"\n        }\'',
       },
-      go: {
-        method: 'client.Cards.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcard, err := client.Cards.New(context.TODO(), lithic.CardNewParams{\n\t\tType:               lithic.F(lithic.CardNewParamsTypeVirtual),\n\t\tMemo:               lithic.F("New Card"),\n\t\tSpendLimit:         lithic.F(int64(1000)),\n\t\tSpendLimitDuration: lithic.F(lithic.SpendLimitDurationTransaction),\n\t\tState:              lithic.F(lithic.CardNewParamsStateOpen),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", card)\n}\n',
-      },
     },
   },
   {
@@ -3377,6 +3377,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.cards.retrieve(card_token: string): object`\n\n**get** `/v1/cards/{card_token}`\n\nGet card configuration such as spend limit and state.\n\n### Parameters\n\n- `card_token: string`\n\n### Returns\n\n- `{ token: string; account_token: string; card_program_token: string; created: string; funding: { token: string; created: string; last_four: string; state: 'DELETED' | 'ENABLED' | 'PENDING'; type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS'; account_name?: string; nickname?: string; }; last_four: string; pin_status: 'OK' | 'BLOCKED' | 'NOT_SET'; spend_limit: number; spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION'; state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT'; type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET'; auth_rule_tokens?: string[]; bulk_order_token?: string; cardholder_currency?: string; comment?: string; digital_card_art_token?: string; exp_month?: string; exp_year?: string; hostname?: string; memo?: string; network_program_token?: string; pending_commands?: string[]; product_id?: string; replacement_for?: string; substatus?: string; }`\n  Card details with potentially PCI sensitive information for Enterprise customers\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst card = await client.cards.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(card);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Cards.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcard, err := client.Cards.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", card)\n}\n',
+      },
       java: {
         method: 'cards().retrieve',
         example:
@@ -3405,11 +3410,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.lithic.com/v1/cards/$CARD_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
-      },
-      go: {
-        method: 'client.Cards.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcard, err := client.Cards.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", card)\n}\n',
       },
     },
   },
@@ -3440,6 +3440,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## update\n\n`client.cards.update(card_token: string, comment?: string, digital_card_art_token?: string, memo?: string, network_program_token?: string, pin?: string, pin_status?: 'OK', spend_limit?: number, spend_limit_duration?: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION', state?: 'CLOSED' | 'OPEN' | 'PAUSED', substatus?: string): object`\n\n**patch** `/v1/cards/{card_token}`\n\nUpdate the specified properties of the card. Unsupplied properties will remain unchanged.\n\n*Note: setting a card to a `CLOSED` state is a final action that cannot be undone.*\n\n\n### Parameters\n\n- `card_token: string`\n\n- `comment?: string`\n  Additional context or information related to the card.\n\n- `digital_card_art_token?: string`\n  Specifies the digital card art to be displayed in the user’s digital wallet after tokenization. This artwork must be approved by Mastercard and configured by Lithic to use. See [Flexible Card Art Guide](https://docs.lithic.com/docs/about-digital-wallets#flexible-card-art).\n\n- `memo?: string`\n  Friendly name to identify the card.\n\n- `network_program_token?: string`\n  Globally unique identifier for the card's network program. Currently applicable to Visa cards participating in Account Level Management only.\n\n- `pin?: string`\n  Encrypted PIN block (in base64). Only applies to cards of type `PHYSICAL` and `VIRTUAL`. Changing PIN also resets PIN status to `OK`. See [Encrypted PIN Block](https://docs.lithic.com/docs/cards#encrypted-pin-block).\n\n- `pin_status?: 'OK'`\n  Indicates if a card is blocked due a PIN status issue (e.g. excessive incorrect attempts). Can only be set to `OK` to unblock a card.\n\n- `spend_limit?: number`\n  Amount (in cents) to limit approved authorizations (e.g. 100000 would be a $1,000 limit). Transaction requests above the spend limit will be declined. Note that a spend limit of 0 is effectively no limit, and should only be used to reset or remove a prior limit. Only a limit of 1 or above will result in declined transactions due to checks against the card limit.\n\n- `spend_limit_duration?: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION'`\n  Spend limit duration values:\n\n* `ANNUALLY` - Card will authorize transactions up to spend limit for the trailing year.\n* `FOREVER` - Card will authorize only up to spend limit for the entire lifetime of the card.\n* `MONTHLY` - Card will authorize transactions up to spend limit for the trailing month. To support recurring monthly payments, which can occur on different day every month, the time window we consider for monthly velocity starts 6 days after the current calendar date one month prior.\n* `TRANSACTION` - Card will authorize multiple transactions if each individual transaction is under the spend limit.\n\n- `state?: 'CLOSED' | 'OPEN' | 'PAUSED'`\n  Card state values:\n* `CLOSED` - Card will no longer approve authorizations. Closing a card cannot be undone.\n* `OPEN` - Card will approve authorizations (if they match card and account parameters).\n* `PAUSED` - Card will decline authorizations, but can be resumed at a later time.\n\n\n- `substatus?: string`\n  Card state substatus values:\n* `LOST` - The physical card is no longer in the cardholder's possession due to being lost or never received by the cardholder.\n* `COMPROMISED` - Card information has been exposed, potentially leading to unauthorized access. This may involve physical card theft, cloning, or online data breaches.\n* `DAMAGED` - The physical card is not functioning properly, such as having chip failures or a demagnetized magnetic stripe.\n* `END_USER_REQUEST` - The cardholder requested the closure of the card for reasons unrelated to fraud or damage, such as switching to a different product or closing the account.\n* `ISSUER_REQUEST` - The issuer closed the card for reasons unrelated to fraud or damage, such as account inactivity, product or policy changes, or technology upgrades.\n* `NOT_ACTIVE` - The card hasn’t had any transaction activity for a specified period, applicable to statuses like `PAUSED` or `CLOSED`.\n* `SUSPICIOUS_ACTIVITY` - The card has one or more suspicious transactions or activities that require review. This can involve prompting the cardholder to confirm legitimate use or report confirmed fraud.\n* `INTERNAL_REVIEW` - The card is temporarily paused pending further internal review.\n* `EXPIRED` - The card has expired and has been closed without being reissued.\n* `UNDELIVERABLE` - The card cannot be delivered to the cardholder and has been returned.\n* `OTHER` - The reason for the status does not fall into any of the above categories. A comment should be provided to specify the reason.\n\n\n### Returns\n\n- `{ token: string; account_token: string; card_program_token: string; created: string; funding: { token: string; created: string; last_four: string; state: 'DELETED' | 'ENABLED' | 'PENDING'; type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS'; account_name?: string; nickname?: string; }; last_four: string; pin_status: 'OK' | 'BLOCKED' | 'NOT_SET'; spend_limit: number; spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION'; state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT'; type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET'; auth_rule_tokens?: string[]; bulk_order_token?: string; cardholder_currency?: string; comment?: string; digital_card_art_token?: string; exp_month?: string; exp_year?: string; hostname?: string; memo?: string; network_program_token?: string; pending_commands?: string[]; product_id?: string; replacement_for?: string; substatus?: string; }`\n  Card details with potentially PCI sensitive information for Enterprise customers\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst card = await client.cards.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(card);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Cards.Update',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcard, err := client.Cards.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.CardUpdateParams{\n\t\t\tMemo:               lithic.F("Updated Name"),\n\t\t\tSpendLimit:         lithic.F(int64(100)),\n\t\t\tSpendLimitDuration: lithic.F(lithic.SpendLimitDurationForever),\n\t\t\tState:              lithic.F(lithic.CardUpdateParamsStateOpen),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", card)\n}\n',
+      },
       java: {
         method: 'cards().update',
         example:
@@ -3469,11 +3474,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/cards/$CARD_TOKEN \\\n    -X PATCH \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "digital_card_art_token": "00000000-0000-0000-1000-000000000000",\n          "memo": "Updated Name",\n          "network_program_token": "00000000-0000-0000-1000-000000000000",\n          "spend_limit": 100,\n          "spend_limit_duration": "FOREVER",\n          "state": "OPEN"\n        }\'',
       },
-      go: {
-        method: 'client.Cards.Update',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcard, err := client.Cards.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.CardUpdateParams{\n\t\t\tMemo:               lithic.F("Updated Name"),\n\t\t\tSpendLimit:         lithic.F(int64(100)),\n\t\t\tSpendLimitDuration: lithic.F(lithic.SpendLimitDurationForever),\n\t\t\tState:              lithic.F(lithic.CardUpdateParamsStateOpen),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", card)\n}\n',
-      },
     },
   },
   {
@@ -3499,6 +3499,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## provision\n\n`client.cards.provision(card_token: string, certificate?: string, client_device_id?: string, client_wallet_account_id?: string, digital_wallet?: 'APPLE_PAY' | 'GOOGLE_PAY' | 'SAMSUNG_PAY', nonce?: string, nonce_signature?: string): { provisioning_payload?: string | provision_response; }`\n\n**post** `/v1/cards/{card_token}/provision`\n\nAllow your cardholders to directly add payment cards to the device's digital wallet (e.g. Apple Pay) with one touch from your app.\n\nThis requires some additional setup and configuration. Please [Contact Us](https://lithic.com/contact) or your Customer Success representative for more information.\n\n\n### Parameters\n\n- `card_token: string`\n\n- `certificate?: string`\n  Only applicable if `digital_wallet` is `APPLE_PAY`. Omit to receive only `activationData` in the response. Apple's public leaf certificate. Base64 encoded in PEM format with headers `(-----BEGIN CERTIFICATE-----)` and trailers omitted. Provided by the device's wallet.\n\n- `client_device_id?: string`\n  Only applicable if `digital_wallet` is `GOOGLE_PAY` or `SAMSUNG_PAY` and the card is on the Visa network. Stable device identification set by the wallet provider.\n\n- `client_wallet_account_id?: string`\n  Only applicable if `digital_wallet` is `GOOGLE_PAY` or `SAMSUNG_PAY` and the card is on the Visa network. Consumer ID that identifies the wallet account holder entity.\n\n- `digital_wallet?: 'APPLE_PAY' | 'GOOGLE_PAY' | 'SAMSUNG_PAY'`\n  Name of digital wallet provider.\n\n- `nonce?: string`\n  Only applicable if `digital_wallet` is `APPLE_PAY`. Omit to receive only `activationData` in the response. Base64 cryptographic nonce provided by the device's wallet.\n\n- `nonce_signature?: string`\n  Only applicable if `digital_wallet` is `APPLE_PAY`. Omit to receive only `activationData` in the response. Base64 cryptographic nonce provided by the device's wallet.\n\n### Returns\n\n- `{ provisioning_payload?: string | { activationData?: string; encryptedData?: string; ephemeralPublicKey?: string; }; }`\n\n  - `provisioning_payload?: string | { activationData?: string; encryptedData?: string; ephemeralPublicKey?: string; }`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.cards.provision('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Cards.Provision',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Cards.Provision(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.CardProvisionParams{\n\t\t\tDigitalWallet: lithic.F(lithic.CardProvisionParamsDigitalWalletGooglePay),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ProvisioningPayload)\n}\n',
+      },
       java: {
         method: 'cards().provision',
         example:
@@ -3528,11 +3533,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/cards/$CARD_TOKEN/provision \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "digital_wallet": "GOOGLE_PAY"\n        }\'',
       },
-      go: {
-        method: 'client.Cards.Provision',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Cards.Provision(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.CardProvisionParams{\n\t\t\tDigitalWallet: lithic.F(lithic.CardProvisionParamsDigitalWalletGooglePay),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.ProvisioningPayload)\n}\n',
-      },
     },
   },
   {
@@ -3556,6 +3556,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## reissue\n\n`client.cards.reissue(card_token: string, carrier?: { qr_code_url?: string; }, product_id?: string, shipping_address?: { address1: string; city: string; country: string; first_name: string; last_name: string; postal_code: string; state: string; address2?: string; email?: string; line2_text?: string; phone_number?: string; }, shipping_method?: '2_DAY' | 'BULK' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING'): object`\n\n**post** `/v1/cards/{card_token}/reissue`\n\nInitiate print and shipment of a duplicate physical card (e.g. card is physically damaged).  The PAN, expiry, and CVC2 will remain the same and the original card can continue to be used until the new card is activated.\nOnly applies to cards of type `PHYSICAL`.  A card can be reissued or renewed a total of 8 times.\n\n### Parameters\n\n- `card_token: string`\n\n- `carrier?: { qr_code_url?: string; }`\n  If omitted, the previous carrier will be used.\n  - `qr_code_url?: string`\n    QR code URL to display on the card carrier. The `qr_code_url` field requires your domain to be allowlisted by Lithic before use. Contact Support to configure your QR code domain\n\n- `product_id?: string`\n  Specifies the configuration (e.g. physical card art) that the card should be manufactured with, and only applies to cards of type `PHYSICAL`. This must be configured with Lithic before use.\n\n\n- `shipping_address?: { address1: string; city: string; country: string; first_name: string; last_name: string; postal_code: string; state: string; address2?: string; email?: string; line2_text?: string; phone_number?: string; }`\n  If omitted, the previous shipping address will be used.\n  - `address1: string`\n    Valid USPS routable address.\n  - `city: string`\n    City\n  - `country: string`\n    Uppercase ISO 3166-1 alpha-3 three character abbreviation.\n  - `first_name: string`\n    Customer's first name. This will be the first name printed on the physical card. The combined length of `first_name` and `last_name` may not exceed 25 characters.\n  - `last_name: string`\n    Customer's surname (family name). This will be the last name printed on the physical card. The combined length of `first_name` and `last_name` may not exceed 25 characters.\n  - `postal_code: string`\n    Postal code (formerly zipcode). For US addresses, either five-digit postal code or nine-digit postal code (ZIP+4) using the format 12345-1234.\n  - `state: string`\n    Uppercase ISO 3166-2 two character abbreviation for US and CA. Optional with a limit of 24 characters for other countries.\n  - `address2?: string`\n    Unit number (if applicable).\n  - `email?: string`\n    Email address to be contacted for expedited shipping process purposes. Required if `shipping_method` is `EXPEDITED`.\n  - `line2_text?: string`\n    Text to be printed on line two of the physical card. Use of this field requires additional permissions.\n  - `phone_number?: string`\n    Cardholder's phone number in E.164 format to be contacted for expedited shipping process purposes. Required if `shipping_method` is `EXPEDITED`.\n\n- `shipping_method?: '2_DAY' | 'BULK' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING'`\n  Shipping method for the card. Only applies to cards of type PHYSICAL.\nUse of options besides `STANDARD` require additional permissions.\n\n* `STANDARD` - USPS regular mail or similar international option, with no tracking\n* `STANDARD_WITH_TRACKING` - USPS regular mail or similar international option, with tracking\n* `PRIORITY` - USPS Priority, 1-3 day shipping, with tracking\n* `EXPRESS` - FedEx or UPS depending on card manufacturer, Express, 3-day shipping, with tracking\n* `2_DAY` - FedEx or UPS depending on card manufacturer, 2-day shipping, with tracking\n* `EXPEDITED` - FedEx or UPS depending on card manufacturer, Standard Overnight or similar international option, with tracking\n* `BULK` - Card will be shipped as part of a bulk fulfillment order. The shipping method and timeline are inherited from the parent bulk order.\n\n\n### Returns\n\n- `{ token: string; account_token: string; card_program_token: string; created: string; funding: { token: string; created: string; last_four: string; state: 'DELETED' | 'ENABLED' | 'PENDING'; type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS'; account_name?: string; nickname?: string; }; last_four: string; pin_status: 'OK' | 'BLOCKED' | 'NOT_SET'; spend_limit: number; spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION'; state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT'; type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET'; auth_rule_tokens?: string[]; bulk_order_token?: string; cardholder_currency?: string; comment?: string; digital_card_art_token?: string; exp_month?: string; exp_year?: string; hostname?: string; memo?: string; network_program_token?: string; pending_commands?: string[]; product_id?: string; replacement_for?: string; substatus?: string; }`\n  Card details with potentially PCI sensitive information for Enterprise customers\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst card = await client.cards.reissue('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(card);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Cards.Reissue',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n\t"github.com/lithic-com/lithic-go/shared"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcard, err := client.Cards.Reissue(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.CardReissueParams{\n\t\t\tCarrier: lithic.F(shared.CarrierParam{\n\t\t\t\tQrCodeURL: lithic.F("https://lithic.com/activate-card/1"),\n\t\t\t}),\n\t\t\tProductID: lithic.F("100"),\n\t\t\tShippingAddress: lithic.F(shared.ShippingAddressParam{\n\t\t\t\tAddress1:   lithic.F("5 Broad Street"),\n\t\t\t\tAddress2:   lithic.F("Unit 5A"),\n\t\t\t\tCity:       lithic.F("NEW YORK"),\n\t\t\t\tCountry:    lithic.F("USA"),\n\t\t\t\tFirstName:  lithic.F("Janet"),\n\t\t\t\tLastName:   lithic.F("Yellen"),\n\t\t\t\tPostalCode: lithic.F("10001"),\n\t\t\t\tState:      lithic.F("NY"),\n\t\t\t}),\n\t\t\tShippingMethod: lithic.F(lithic.CardReissueParamsShippingMethodStandard),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", card)\n}\n',
+      },
       java: {
         method: 'cards().reissue',
         example:
@@ -3585,11 +3590,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/cards/$CARD_TOKEN/reissue \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "carrier": {\n            "qr_code_url": "https://lithic.com/activate-card/1"\n          },\n          "product_id": "100",\n          "shipping_address": {\n            "address1": "5 Broad Street",\n            "city": "NEW YORK",\n            "country": "USA",\n            "first_name": "Janet",\n            "last_name": "Yellen",\n            "postal_code": "10001",\n            "state": "NY",\n            "address2": "Unit 5A"\n          },\n          "shipping_method": "STANDARD"\n        }\'',
       },
-      go: {
-        method: 'client.Cards.Reissue',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n\t"github.com/lithic-com/lithic-go/shared"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcard, err := client.Cards.Reissue(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.CardReissueParams{\n\t\t\tCarrier: lithic.F(shared.CarrierParam{\n\t\t\t\tQrCodeURL: lithic.F("https://lithic.com/activate-card/1"),\n\t\t\t}),\n\t\t\tProductID: lithic.F("100"),\n\t\t\tShippingAddress: lithic.F(shared.ShippingAddressParam{\n\t\t\t\tAddress1:   lithic.F("5 Broad Street"),\n\t\t\t\tAddress2:   lithic.F("Unit 5A"),\n\t\t\t\tCity:       lithic.F("NEW YORK"),\n\t\t\t\tCountry:    lithic.F("USA"),\n\t\t\t\tFirstName:  lithic.F("Janet"),\n\t\t\t\tLastName:   lithic.F("Yellen"),\n\t\t\t\tPostalCode: lithic.F("10001"),\n\t\t\t\tState:      lithic.F("NY"),\n\t\t\t}),\n\t\t\tShippingMethod: lithic.F(lithic.CardReissueParamsShippingMethodStandard),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", card)\n}\n',
-      },
     },
   },
   {
@@ -3606,6 +3606,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## embed\n\n`client.cards.embed(embed_request: string, hmac: string): string`\n\n**get** `/v1/embed/card`\n\n**Deprecated.** Use the modern embedded card flow instead: create a session with `POST /v1/cards/{card_token}/embed` and render it via `GET /v1/embed`.\n\nHandling full card PANs and CVV codes requires that you comply with the Payment Card Industry Data Security Standards (PCI DSS). Some clients choose to reduce their compliance obligations by leveraging our embedded card UI solution documented below.\n\nIn this setup, PANs and CVV codes are presented to the end-user via a card UI that we provide, optionally styled in the customer's branding using a specified css stylesheet. A user's browser makes the request directly to api.lithic.com, so card PANs and CVVs never touch the API customer's servers while full card data is displayed to their end-users. The response contains an HTML document (see Embedded Card UI or Changelog for upcoming changes in January). This means that the url for the request can be inserted straight into the `src` attribute of an iframe.\n\n```html\n<iframe id=\"card-iframe\"\n        src=\"https://sandbox.lithic.com/v1/embed/card?embed_request=eyJjc3MiO...;hmac=r8tx1...\"\n        allow=\"clipboard-write\" class=\"content\"></iframe>\n```\n\nYou should compute the request payload on the server side. You can render it (or the whole iframe) on the server or make an ajax call from your front end code, but **do not ever embed your API key into front end code, as doing so introduces a serious security vulnerability**.\n\n\n### Parameters\n\n- `embed_request: string`\n  A base64 encoded JSON string of an EmbedRequest to specify which card to load.\n\n- `hmac: string`\n  SHA256 HMAC of the embed_request JSON string with base64 digest.\n\n### Returns\n\n- `string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.cards.embed({ embed_request: 'embed_request', hmac: 'hmac' });\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Cards.Embed',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Cards.Embed(context.TODO(), lithic.CardEmbedParams{\n\t\tEmbedRequest: lithic.F("embed_request"),\n\t\tHmac:         lithic.F("hmac"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
+      },
       java: {
         method: 'cards().embed',
         example:
@@ -3634,11 +3639,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example: 'curl https://api.lithic.com/v1/embed/card \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Cards.Embed',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Cards.Embed(context.TODO(), lithic.CardEmbedParams{\n\t\tEmbedRequest: lithic.F("embed_request"),\n\t\tHmac:         lithic.F("hmac"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
-      },
     },
   },
   {
@@ -3656,6 +3656,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve_spend_limits\n\n`client.cards.retrieveSpendLimits(card_token: string): { available_spend_limit: object; spend_limit?: object; spend_velocity?: object; }`\n\n**get** `/v1/cards/{card_token}/spend_limits`\n\nGet a Card's available spend limit, which is based on the spend limit configured on the Card and the amount already spent over the spend limit's duration. For example, if the Card has a monthly spend limit of $1000 configured, and has spent $600 in the last month, the available spend limit returned would be $400.\n\n### Parameters\n\n- `card_token: string`\n\n### Returns\n\n- `{ available_spend_limit: { annually?: number; forever?: number; monthly?: number; }; spend_limit?: { annually?: number; forever?: number; monthly?: number; }; spend_velocity?: { annually?: number; forever?: number; monthly?: number; }; }`\n\n  - `available_spend_limit: { annually?: number; forever?: number; monthly?: number; }`\n  - `spend_limit?: { annually?: number; forever?: number; monthly?: number; }`\n  - `spend_velocity?: { annually?: number; forever?: number; monthly?: number; }`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst cardSpendLimits = await client.cards.retrieveSpendLimits('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(cardSpendLimits);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Cards.GetSpendLimits',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcardSpendLimits, err := client.Cards.GetSpendLimits(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", cardSpendLimits.AvailableSpendLimit)\n}\n',
+      },
       java: {
         method: 'cards().retrieveSpendLimits',
         example:
@@ -3685,11 +3690,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/cards/$CARD_TOKEN/spend_limits \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Cards.GetSpendLimits',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcardSpendLimits, err := client.Cards.GetSpendLimits(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", cardSpendLimits.AvailableSpendLimit)\n}\n',
-      },
     },
   },
   {
@@ -3707,6 +3707,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve_signals\n\n`client.cards.retrieveSignals(card_token: string): { approved_txn_amount_m2: number; approved_txn_amount_m2_30d: number; approved_txn_amount_m2_7d: number; approved_txn_amount_m2_90d: number; approved_txn_count: number; approved_txn_count_30d: number; approved_txn_count_7d: number; approved_txn_count_90d: number; avg_transaction_amount: number; avg_transaction_amount_30d: number; avg_transaction_amount_7d: number; avg_transaction_amount_90d: number; distinct_country_count: number; distinct_mcc_count: number; first_txn_at: string; is_first_transaction: boolean; last_cp_country: string; last_cp_postal_code: string; last_cp_timestamp: string; last_txn_approved_at: string; seen_countries: string[]; seen_mccs: string[]; seen_merchants: string[]; stdev_transaction_amount: number; stdev_transaction_amount_30d: number; stdev_transaction_amount_7d: number; stdev_transaction_amount_90d: number; three_ds_success_count: number; three_ds_success_rate: number; three_ds_total_count: number; time_since_last_transaction_days: number; }`\n\n**get** `/v1/cards/{card_token}/signals`\n\nReturns behavioral feature state derived from a card's transaction history.\n\nThese signals expose the same data used by behavioral rule attributes (e.g. `AMOUNT_Z_SCORE` with `scope: CARD`, `IS_NEW_COUNTRY` with `scope: CARD`) and custom code `TRANSACTION_HISTORY_SIGNALS` features, allowing clients to inspect feature values before writing rules and debug rule behavior.\n\n\n### Parameters\n\n- `card_token: string`\n\n### Returns\n\n- `{ approved_txn_amount_m2: number; approved_txn_amount_m2_30d: number; approved_txn_amount_m2_7d: number; approved_txn_amount_m2_90d: number; approved_txn_count: number; approved_txn_count_30d: number; approved_txn_count_7d: number; approved_txn_count_90d: number; avg_transaction_amount: number; avg_transaction_amount_30d: number; avg_transaction_amount_7d: number; avg_transaction_amount_90d: number; distinct_country_count: number; distinct_mcc_count: number; first_txn_at: string; is_first_transaction: boolean; last_cp_country: string; last_cp_postal_code: string; last_cp_timestamp: string; last_txn_approved_at: string; seen_countries: string[]; seen_mccs: string[]; seen_merchants: string[]; stdev_transaction_amount: number; stdev_transaction_amount_30d: number; stdev_transaction_amount_7d: number; stdev_transaction_amount_90d: number; three_ds_success_count: number; three_ds_success_rate: number; three_ds_total_count: number; time_since_last_transaction_days: number; }`\n  Behavioral feature state for a card or account derived from its transaction history.\n\nDerived statistical features (averages, standard deviations, z-scores) are computed using Welford's online algorithm over approved transactions. Average fields are null when fewer than 5 approved transactions have been recorded. Standard deviation fields are null when fewer than 30 approved transactions have been recorded.\n\n3DS fields (`three_ds_success_rate`, `three_ds_success_count`, `three_ds_total_count`) are card-scoped and will be null for account responses.\n\nRaw fields (`seen_countries`, `seen_mccs`, `approved_txn_amount_m2`, etc.) are included so clients can compute their own transaction-specific derivations, such as checking whether a new transaction's country is in `seen_countries` to determine `is_new_country`, or computing a z-score using the raw mean and M2 values.\n\n  - `approved_txn_amount_m2: number`\n  - `approved_txn_amount_m2_30d: number`\n  - `approved_txn_amount_m2_7d: number`\n  - `approved_txn_amount_m2_90d: number`\n  - `approved_txn_count: number`\n  - `approved_txn_count_30d: number`\n  - `approved_txn_count_7d: number`\n  - `approved_txn_count_90d: number`\n  - `avg_transaction_amount: number`\n  - `avg_transaction_amount_30d: number`\n  - `avg_transaction_amount_7d: number`\n  - `avg_transaction_amount_90d: number`\n  - `distinct_country_count: number`\n  - `distinct_mcc_count: number`\n  - `first_txn_at: string`\n  - `is_first_transaction: boolean`\n  - `last_cp_country: string`\n  - `last_cp_postal_code: string`\n  - `last_cp_timestamp: string`\n  - `last_txn_approved_at: string`\n  - `seen_countries: string[]`\n  - `seen_mccs: string[]`\n  - `seen_merchants: string[]`\n  - `stdev_transaction_amount: number`\n  - `stdev_transaction_amount_30d: number`\n  - `stdev_transaction_amount_7d: number`\n  - `stdev_transaction_amount_90d: number`\n  - `three_ds_success_count: number`\n  - `three_ds_success_rate: number`\n  - `three_ds_total_count: number`\n  - `time_since_last_transaction_days: number`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst signalsResponse = await client.cards.retrieveSignals('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(signalsResponse);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Cards.GetSignals',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tsignalsResponse, err := client.Cards.GetSignals(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", signalsResponse.ApprovedTxnAmountM2)\n}\n',
+      },
       java: {
         method: 'cards().retrieveSignals',
         example:
@@ -3736,11 +3741,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/cards/$CARD_TOKEN/signals \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Cards.GetSignals',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tsignalsResponse, err := client.Cards.GetSignals(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", signalsResponse.ApprovedTxnAmountM2)\n}\n',
-      },
     },
   },
   {
@@ -3766,6 +3766,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## renew\n\n`client.cards.renew(card_token: string, shipping_address: { address1: string; city: string; country: string; first_name: string; last_name: string; postal_code: string; state: string; address2?: string; email?: string; line2_text?: string; phone_number?: string; }, carrier?: { qr_code_url?: string; }, exp_month?: string, exp_year?: string, product_id?: string, shipping_method?: '2_DAY' | 'BULK' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING'): object`\n\n**post** `/v1/cards/{card_token}/renew`\n\nApplies to card types `PHYSICAL` and `VIRTUAL`.\nFor `PHYSICAL`, creates a new card with the same card token and PAN, but updated expiry and CVC2 code. The original card will keep working for card-present transactions until the new card is activated. For card-not-present transactions, the original card details (expiry, CVC2) will also keep working until the new card is activated.\nA `PHYSICAL` card can be reissued or renewed a total of 8 times.\nFor `VIRTUAL`, the card will retain the same card token and PAN and receive an updated expiry and CVC2 code.\n`product_id`, `shipping_method`, `shipping_address`, `carrier` are only relevant for renewing `PHYSICAL` cards.\n\n### Parameters\n\n- `card_token: string`\n\n- `shipping_address: { address1: string; city: string; country: string; first_name: string; last_name: string; postal_code: string; state: string; address2?: string; email?: string; line2_text?: string; phone_number?: string; }`\n  The shipping address this card will be sent to.\n  - `address1: string`\n    Valid USPS routable address.\n  - `city: string`\n    City\n  - `country: string`\n    Uppercase ISO 3166-1 alpha-3 three character abbreviation.\n  - `first_name: string`\n    Customer's first name. This will be the first name printed on the physical card. The combined length of `first_name` and `last_name` may not exceed 25 characters.\n  - `last_name: string`\n    Customer's surname (family name). This will be the last name printed on the physical card. The combined length of `first_name` and `last_name` may not exceed 25 characters.\n  - `postal_code: string`\n    Postal code (formerly zipcode). For US addresses, either five-digit postal code or nine-digit postal code (ZIP+4) using the format 12345-1234.\n  - `state: string`\n    Uppercase ISO 3166-2 two character abbreviation for US and CA. Optional with a limit of 24 characters for other countries.\n  - `address2?: string`\n    Unit number (if applicable).\n  - `email?: string`\n    Email address to be contacted for expedited shipping process purposes. Required if `shipping_method` is `EXPEDITED`.\n  - `line2_text?: string`\n    Text to be printed on line two of the physical card. Use of this field requires additional permissions.\n  - `phone_number?: string`\n    Cardholder's phone number in E.164 format to be contacted for expedited shipping process purposes. Required if `shipping_method` is `EXPEDITED`.\n\n- `carrier?: { qr_code_url?: string; }`\n  If omitted, the previous carrier will be used.\n  - `qr_code_url?: string`\n    QR code URL to display on the card carrier. The `qr_code_url` field requires your domain to be allowlisted by Lithic before use. Contact Support to configure your QR code domain\n\n- `exp_month?: string`\n  Two digit (MM) expiry month. If neither `exp_month` nor `exp_year` is provided, an expiration date five years in the future will be generated. Five years is the maximum expiration date.\n\n- `exp_year?: string`\n  Four digit (yyyy) expiry year. If neither `exp_month` nor `exp_year` is provided, an expiration date five years in the future will be generated. Five years is the maximum expiration date.\n\n- `product_id?: string`\n  Specifies the configuration (e.g. physical card art) that the card should be manufactured with, and only applies to cards of type `PHYSICAL`. This must be configured with Lithic before use.\n\n\n- `shipping_method?: '2_DAY' | 'BULK' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING'`\n  Shipping method for the card. Only applies to cards of type PHYSICAL.\nUse of options besides `STANDARD` require additional permissions.\n\n* `STANDARD` - USPS regular mail or similar international option, with no tracking\n* `STANDARD_WITH_TRACKING` - USPS regular mail or similar international option, with tracking\n* `PRIORITY` - USPS Priority, 1-3 day shipping, with tracking\n* `EXPRESS` - FedEx or UPS depending on card manufacturer, Express, 3-day shipping, with tracking\n* `2_DAY` - FedEx or UPS depending on card manufacturer, 2-day shipping, with tracking\n* `EXPEDITED` - FedEx or UPS depending on card manufacturer, Standard Overnight or similar international option, with tracking\n* `BULK` - Card will be shipped as part of a bulk fulfillment order. The shipping method and timeline are inherited from the parent bulk order.\n\n\n### Returns\n\n- `{ token: string; account_token: string; card_program_token: string; created: string; funding: { token: string; created: string; last_four: string; state: 'DELETED' | 'ENABLED' | 'PENDING'; type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS'; account_name?: string; nickname?: string; }; last_four: string; pin_status: 'OK' | 'BLOCKED' | 'NOT_SET'; spend_limit: number; spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION'; state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT'; type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET'; auth_rule_tokens?: string[]; bulk_order_token?: string; cardholder_currency?: string; comment?: string; digital_card_art_token?: string; exp_month?: string; exp_year?: string; hostname?: string; memo?: string; network_program_token?: string; pending_commands?: string[]; product_id?: string; replacement_for?: string; substatus?: string; }`\n  Card details with potentially PCI sensitive information for Enterprise customers\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst card = await client.cards.renew('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { shipping_address: {\n  address1: '5 Broad Street',\n  city: 'NEW YORK',\n  country: 'USA',\n  first_name: 'Janet',\n  last_name: 'Yellen',\n  postal_code: '10001',\n  state: 'NY',\n} });\n\nconsole.log(card);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Cards.Renew',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n\t"github.com/lithic-com/lithic-go/shared"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcard, err := client.Cards.Renew(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.CardRenewParams{\n\t\t\tShippingAddress: lithic.F(shared.ShippingAddressParam{\n\t\t\t\tAddress1:   lithic.F("5 Broad Street"),\n\t\t\t\tAddress2:   lithic.F("Unit 5A"),\n\t\t\t\tCity:       lithic.F("NEW YORK"),\n\t\t\t\tCountry:    lithic.F("USA"),\n\t\t\t\tFirstName:  lithic.F("Janet"),\n\t\t\t\tLastName:   lithic.F("Yellen"),\n\t\t\t\tPostalCode: lithic.F("10001"),\n\t\t\t\tState:      lithic.F("NY"),\n\t\t\t}),\n\t\t\tCarrier: lithic.F(shared.CarrierParam{\n\t\t\t\tQrCodeURL: lithic.F("https://lithic.com/activate-card/1"),\n\t\t\t}),\n\t\t\tProductID:      lithic.F("100"),\n\t\t\tShippingMethod: lithic.F(lithic.CardRenewParamsShippingMethodStandard),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", card)\n}\n',
+      },
       java: {
         method: 'cards().renew',
         example:
@@ -3795,11 +3800,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/cards/$CARD_TOKEN/renew \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "shipping_address": {\n            "address1": "5 Broad Street",\n            "city": "NEW YORK",\n            "country": "USA",\n            "first_name": "Janet",\n            "last_name": "Yellen",\n            "postal_code": "10001",\n            "state": "NY",\n            "address2": "Unit 5A"\n          },\n          "carrier": {\n            "qr_code_url": "https://lithic.com/activate-card/1"\n          },\n          "exp_month": "06",\n          "exp_year": "2027",\n          "product_id": "100",\n          "shipping_method": "STANDARD"\n        }\'',
       },
-      go: {
-        method: 'client.Cards.Renew',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n\t"github.com/lithic-com/lithic-go/shared"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcard, err := client.Cards.Renew(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.CardRenewParams{\n\t\t\tShippingAddress: lithic.F(shared.ShippingAddressParam{\n\t\t\t\tAddress1:   lithic.F("5 Broad Street"),\n\t\t\t\tAddress2:   lithic.F("Unit 5A"),\n\t\t\t\tCity:       lithic.F("NEW YORK"),\n\t\t\t\tCountry:    lithic.F("USA"),\n\t\t\t\tFirstName:  lithic.F("Janet"),\n\t\t\t\tLastName:   lithic.F("Yellen"),\n\t\t\t\tPostalCode: lithic.F("10001"),\n\t\t\t\tState:      lithic.F("NY"),\n\t\t\t}),\n\t\t\tCarrier: lithic.F(shared.CarrierParam{\n\t\t\t\tQrCodeURL: lithic.F("https://lithic.com/activate-card/1"),\n\t\t\t}),\n\t\t\tProductID:      lithic.F("100"),\n\t\t\tShippingMethod: lithic.F(lithic.CardRenewParamsShippingMethodStandard),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", card)\n}\n',
-      },
     },
   },
   {
@@ -3817,6 +3817,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## search_by_pan\n\n`client.cards.searchByPan(pan: string): object`\n\n**post** `/v1/cards/search_by_pan`\n\nGet card configuration such as spend limit and state. Customers must be PCI compliant to use this endpoint. Please contact [support.lithic.com](https://support.lithic.com/) for questions.\n*Note: this is a `POST` endpoint because it is more secure to send sensitive data in a request body than in a URL.*\n\n### Parameters\n\n- `pan: string`\n  The PAN for the card being retrieved.\n\n### Returns\n\n- `{ token: string; account_token: string; card_program_token: string; created: string; funding: { token: string; created: string; last_four: string; state: 'DELETED' | 'ENABLED' | 'PENDING'; type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS'; account_name?: string; nickname?: string; }; last_four: string; pin_status: 'OK' | 'BLOCKED' | 'NOT_SET'; spend_limit: number; spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION'; state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT'; type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET'; auth_rule_tokens?: string[]; bulk_order_token?: string; cardholder_currency?: string; comment?: string; digital_card_art_token?: string; exp_month?: string; exp_year?: string; hostname?: string; memo?: string; network_program_token?: string; pending_commands?: string[]; product_id?: string; replacement_for?: string; substatus?: string; }`\n  Card details with potentially PCI sensitive information for Enterprise customers\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst card = await client.cards.searchByPan({ pan: '4111111289144142' });\n\nconsole.log(card);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Cards.SearchByPan',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcard, err := client.Cards.SearchByPan(context.TODO(), lithic.CardSearchByPanParams{\n\t\tPan: lithic.F("4111111289144142"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", card)\n}\n',
+      },
       java: {
         method: 'cards().searchByPan',
         example:
@@ -3846,11 +3851,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/cards/search_by_pan \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "pan": "4111111289144142"\n        }\'',
       },
-      go: {
-        method: 'client.Cards.SearchByPan',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcard, err := client.Cards.SearchByPan(context.TODO(), lithic.CardSearchByPanParams{\n\t\tPan: lithic.F("4111111289144142"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", card)\n}\n',
-      },
     },
   },
   {
@@ -3874,6 +3874,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## convert_physical\n\n`client.cards.convertPhysical(card_token: string, shipping_address: { address1: string; city: string; country: string; first_name: string; last_name: string; postal_code: string; state: string; address2?: string; email?: string; line2_text?: string; phone_number?: string; }, carrier?: { qr_code_url?: string; }, product_id?: string, shipping_method?: '2_DAY' | 'BULK' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING'): object`\n\n**post** `/v1/cards/{card_token}/convert_physical`\n\nConvert a virtual card into a physical card and manufacture it.\nCustomer must supply relevant fields for physical card creation including `product_id`, `carrier`, `shipping_method`, and `shipping_address`.\nThe card token will be unchanged.  The card's type will be altered to `PHYSICAL`.\nThe card will be set to state `PENDING_FULFILLMENT` and fulfilled at next fulfillment cycle.\nVirtual cards created on card programs which do not support physical cards cannot be converted.  The card program cannot be changed as part of the conversion.  Cards must be in an `OPEN` state to be converted.\nOnly applies to cards of type `VIRTUAL` (or existing cards with deprecated types of `DIGITAL_WALLET` and `UNLOCKED`).\n\n### Parameters\n\n- `card_token: string`\n\n- `shipping_address: { address1: string; city: string; country: string; first_name: string; last_name: string; postal_code: string; state: string; address2?: string; email?: string; line2_text?: string; phone_number?: string; }`\n  The shipping address this card will be sent to.\n  - `address1: string`\n    Valid USPS routable address.\n  - `city: string`\n    City\n  - `country: string`\n    Uppercase ISO 3166-1 alpha-3 three character abbreviation.\n  - `first_name: string`\n    Customer's first name. This will be the first name printed on the physical card. The combined length of `first_name` and `last_name` may not exceed 25 characters.\n  - `last_name: string`\n    Customer's surname (family name). This will be the last name printed on the physical card. The combined length of `first_name` and `last_name` may not exceed 25 characters.\n  - `postal_code: string`\n    Postal code (formerly zipcode). For US addresses, either five-digit postal code or nine-digit postal code (ZIP+4) using the format 12345-1234.\n  - `state: string`\n    Uppercase ISO 3166-2 two character abbreviation for US and CA. Optional with a limit of 24 characters for other countries.\n  - `address2?: string`\n    Unit number (if applicable).\n  - `email?: string`\n    Email address to be contacted for expedited shipping process purposes. Required if `shipping_method` is `EXPEDITED`.\n  - `line2_text?: string`\n    Text to be printed on line two of the physical card. Use of this field requires additional permissions.\n  - `phone_number?: string`\n    Cardholder's phone number in E.164 format to be contacted for expedited shipping process purposes. Required if `shipping_method` is `EXPEDITED`.\n\n- `carrier?: { qr_code_url?: string; }`\n  If omitted, the previous carrier will be used.\n  - `qr_code_url?: string`\n    QR code URL to display on the card carrier. The `qr_code_url` field requires your domain to be allowlisted by Lithic before use. Contact Support to configure your QR code domain\n\n- `product_id?: string`\n  Specifies the configuration (e.g. physical card art) that the card should be manufactured with, and only applies to cards of type `PHYSICAL`. This must be configured with Lithic before use.\n\n\n- `shipping_method?: '2_DAY' | 'BULK' | 'EXPEDITED' | 'EXPRESS' | 'PRIORITY' | 'STANDARD' | 'STANDARD_WITH_TRACKING'`\n  Shipping method for the card. Only applies to cards of type PHYSICAL.\nUse of options besides `STANDARD` require additional permissions.\n\n* `STANDARD` - USPS regular mail or similar international option, with no tracking\n* `STANDARD_WITH_TRACKING` - USPS regular mail or similar international option, with tracking\n* `PRIORITY` - USPS Priority, 1-3 day shipping, with tracking\n* `EXPRESS` - FedEx or UPS depending on card manufacturer, Express, 3-day shipping, with tracking\n* `2_DAY` - FedEx or UPS depending on card manufacturer, 2-day shipping, with tracking\n* `EXPEDITED` - FedEx or UPS depending on card manufacturer, Standard Overnight or similar international option, with tracking\n* `BULK` - Card will be shipped as part of a bulk fulfillment order. The shipping method and timeline are inherited from the parent bulk order.\n\n\n### Returns\n\n- `{ token: string; account_token: string; card_program_token: string; created: string; funding: { token: string; created: string; last_four: string; state: 'DELETED' | 'ENABLED' | 'PENDING'; type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS'; account_name?: string; nickname?: string; }; last_four: string; pin_status: 'OK' | 'BLOCKED' | 'NOT_SET'; spend_limit: number; spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION'; state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT'; type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET'; auth_rule_tokens?: string[]; bulk_order_token?: string; cardholder_currency?: string; comment?: string; digital_card_art_token?: string; exp_month?: string; exp_year?: string; hostname?: string; memo?: string; network_program_token?: string; pending_commands?: string[]; product_id?: string; replacement_for?: string; substatus?: string; }`\n  Card details with potentially PCI sensitive information for Enterprise customers\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst card = await client.cards.convertPhysical('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { shipping_address: {\n  address1: '5 Broad Street',\n  city: 'NEW YORK',\n  country: 'USA',\n  first_name: 'Janet',\n  last_name: 'Yellen',\n  postal_code: '10001',\n  state: 'NY',\n} });\n\nconsole.log(card);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Cards.ConvertPhysical',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n\t"github.com/lithic-com/lithic-go/shared"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcard, err := client.Cards.ConvertPhysical(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.CardConvertPhysicalParams{\n\t\t\tShippingAddress: lithic.F(shared.ShippingAddressParam{\n\t\t\t\tAddress1:   lithic.F("5 Broad Street"),\n\t\t\t\tAddress2:   lithic.F("Unit 5A"),\n\t\t\t\tCity:       lithic.F("NEW YORK"),\n\t\t\t\tCountry:    lithic.F("USA"),\n\t\t\t\tFirstName:  lithic.F("Janet"),\n\t\t\t\tLastName:   lithic.F("Yellen"),\n\t\t\t\tPostalCode: lithic.F("10001"),\n\t\t\t\tState:      lithic.F("NY"),\n\t\t\t}),\n\t\t\tCarrier: lithic.F(shared.CarrierParam{\n\t\t\t\tQrCodeURL: lithic.F("https://lithic.com/activate-card/1"),\n\t\t\t}),\n\t\t\tProductID:      lithic.F("100"),\n\t\t\tShippingMethod: lithic.F(lithic.CardConvertPhysicalParamsShippingMethodStandard),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", card)\n}\n',
+      },
       java: {
         method: 'cards().convertPhysical',
         example:
@@ -3903,11 +3908,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/cards/$CARD_TOKEN/convert_physical \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "shipping_address": {\n            "address1": "5 Broad Street",\n            "city": "NEW YORK",\n            "country": "USA",\n            "first_name": "Janet",\n            "last_name": "Yellen",\n            "postal_code": "10001",\n            "state": "NY",\n            "address2": "Unit 5A"\n          },\n          "carrier": {\n            "qr_code_url": "https://lithic.com/activate-card/1"\n          },\n          "product_id": "100",\n          "shipping_method": "STANDARD"\n        }\'',
       },
-      go: {
-        method: 'client.Cards.ConvertPhysical',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n\t"github.com/lithic-com/lithic-go/shared"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcard, err := client.Cards.ConvertPhysical(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.CardConvertPhysicalParams{\n\t\t\tShippingAddress: lithic.F(shared.ShippingAddressParam{\n\t\t\t\tAddress1:   lithic.F("5 Broad Street"),\n\t\t\t\tAddress2:   lithic.F("Unit 5A"),\n\t\t\t\tCity:       lithic.F("NEW YORK"),\n\t\t\t\tCountry:    lithic.F("USA"),\n\t\t\t\tFirstName:  lithic.F("Janet"),\n\t\t\t\tLastName:   lithic.F("Yellen"),\n\t\t\t\tPostalCode: lithic.F("10001"),\n\t\t\t\tState:      lithic.F("NY"),\n\t\t\t}),\n\t\t\tCarrier: lithic.F(shared.CarrierParam{\n\t\t\t\tQrCodeURL: lithic.F("https://lithic.com/activate-card/1"),\n\t\t\t}),\n\t\t\tProductID:      lithic.F("100"),\n\t\t\tShippingMethod: lithic.F(lithic.CardConvertPhysicalParamsShippingMethodStandard),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", card)\n}\n',
-      },
     },
   },
   {
@@ -3931,6 +3931,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## web_provision\n\n`client.cards.webProvision(card_token: string, client_device_id?: string, client_wallet_account_id?: string, digital_wallet?: 'APPLE_PAY' | 'GOOGLE_PAY', server_session_id?: string): { jws: object; state: string; } | { google_opc?: string; tsp_opc?: string; }`\n\n**post** `/v1/cards/{card_token}/web_provision`\n\nAllow your cardholders to directly add payment cards to the device's digital wallet from a browser on the web.\n\nThis requires some additional setup and configuration. Please [Contact Us](https://lithic.com/contact) or your Customer Success representative for more information.\n\n\n### Parameters\n\n- `card_token: string`\n\n- `client_device_id?: string`\n  Only applicable if `digital_wallet` is GOOGLE_PAY. Google Pay Web Push Provisioning device identifier required for the tokenization flow\n\n- `client_wallet_account_id?: string`\n  Only applicable if `digital_wallet` is GOOGLE_PAY. Google Pay Web Push Provisioning wallet account identifier required for the tokenization flow\n\n- `digital_wallet?: 'APPLE_PAY' | 'GOOGLE_PAY'`\n  Name of digital wallet provider.\n\n- `server_session_id?: string`\n  Only applicable if `digital_wallet` is GOOGLE_PAY. Google Pay Web Push Provisioning session identifier required for the FPAN flow.\n\n### Returns\n\n- `{ jws: { header?: { kid?: string; }; payload?: string; protected?: string; signature?: string; }; state: string; } | { google_opc?: string; tsp_opc?: string; }`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.cards.webProvision('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Cards.WebProvision',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Cards.WebProvision(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.CardWebProvisionParams{\n\t\t\tDigitalWallet: lithic.F(lithic.CardWebProvisionParamsDigitalWalletApplePay),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
+      },
       java: {
         method: 'cards().webProvision',
         example:
@@ -3960,11 +3965,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/cards/$CARD_TOKEN/web_provision \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "digital_wallet": "APPLE_PAY"\n        }\'',
       },
-      go: {
-        method: 'client.Cards.WebProvision',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Cards.WebProvision(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.CardWebProvisionParams{\n\t\t\tDigitalWallet: lithic.F(lithic.CardWebProvisionParamsDigitalWalletApplePay),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
-      },
     },
   },
   {
@@ -3981,6 +3981,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.cards.balances.list(card_token: string, balance_date?: string, last_transaction_event_token?: string): { token: string; available_amount: number; created: string; currency: string; last_transaction_event_token: string; last_transaction_token: string; pending_amount: number; total_amount: number; type: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY'; updated: string; }`\n\n**get** `/v1/cards/{card_token}/balances`\n\nGet the balances for a given card.\n\n### Parameters\n\n- `card_token: string`\n\n- `balance_date?: string`\n  UTC date of the balance to retrieve. Defaults to latest available balance\n\n- `last_transaction_event_token?: string`\n  Balance after a given financial event occured.\nFor example, passing the event_token of a $5 CARD_CLEARING financial event will return a balance decreased by $5\n\n\n### Returns\n\n- `{ token: string; available_amount: number; created: string; currency: string; last_transaction_event_token: string; last_transaction_token: string; pending_amount: number; total_amount: number; type: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY'; updated: string; }`\n  Balance of a Financial Account\n\n  - `token: string`\n  - `available_amount: number`\n  - `created: string`\n  - `currency: string`\n  - `last_transaction_event_token: string`\n  - `last_transaction_token: string`\n  - `pending_amount: number`\n  - `total_amount: number`\n  - `type: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY'`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const financialAccountBalance of client.cards.balances.list('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')) {\n  console.log(financialAccountBalance);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.Cards.Balances.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Cards.Balances.List(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.CardBalanceListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'cards().balances().list',
         example:
@@ -4010,11 +4015,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/cards/$CARD_TOKEN/balances \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Cards.Balances.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Cards.Balances.List(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.CardBalanceListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -4040,6 +4040,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.cards.financialTransactions.list(card_token: string, begin?: string, category?: 'CARD' | 'TRANSFER', end?: string, ending_before?: string, result?: 'APPROVED' | 'DECLINED', starting_after?: string, status?: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'RETURNED' | 'SETTLED' | 'VOIDED'): { token: string; category: 'ACH' | 'CARD' | 'INTERNAL' | 'TRANSFER'; created: string; currency: string; descriptor: string; events: financial_event[]; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'RETURNED' | 'SETTLED' | 'VOIDED'; updated: string; }`\n\n**get** `/v1/cards/{card_token}/financial_transactions`\n\nList the financial transactions for a given card.\n\n### Parameters\n\n- `card_token: string`\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `category?: 'CARD' | 'TRANSFER'`\n  Financial Transaction category to be returned.\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `result?: 'APPROVED' | 'DECLINED'`\n  Financial Transaction result to be returned.\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n- `status?: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'RETURNED' | 'SETTLED' | 'VOIDED'`\n  Financial Transaction status to be returned.\n\n### Returns\n\n- `{ token: string; category: 'ACH' | 'CARD' | 'INTERNAL' | 'TRANSFER'; created: string; currency: string; descriptor: string; events: { token?: string; amount?: number; created?: string; result?: 'APPROVED' | 'DECLINED'; type?: string; }[]; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'RETURNED' | 'SETTLED' | 'VOIDED'; updated: string; }`\n\n  - `token: string`\n  - `category: 'ACH' | 'CARD' | 'INTERNAL' | 'TRANSFER'`\n  - `created: string`\n  - `currency: string`\n  - `descriptor: string`\n  - `events: { token?: string; amount?: number; created?: string; result?: 'APPROVED' | 'DECLINED'; type?: string; }[]`\n  - `pending_amount: number`\n  - `result: 'APPROVED' | 'DECLINED'`\n  - `settled_amount: number`\n  - `status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'RETURNED' | 'SETTLED' | 'VOIDED'`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const financialTransaction of client.cards.financialTransactions.list('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')) {\n  console.log(financialTransaction);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.Cards.FinancialTransactions.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Cards.FinancialTransactions.List(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.CardFinancialTransactionListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'cards().financialTransactions().list',
         example:
@@ -4069,11 +4074,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/cards/$CARD_TOKEN/financial_transactions \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Cards.FinancialTransactions.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Cards.FinancialTransactions.List(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.CardFinancialTransactionListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -4090,6 +4090,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.cards.financialTransactions.retrieve(card_token: string, financial_transaction_token: string): { token: string; category: 'ACH' | 'CARD' | 'INTERNAL' | 'TRANSFER'; created: string; currency: string; descriptor: string; events: financial_event[]; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'RETURNED' | 'SETTLED' | 'VOIDED'; updated: string; }`\n\n**get** `/v1/cards/{card_token}/financial_transactions/{financial_transaction_token}`\n\nGet the card financial transaction for the provided token.\n\n### Parameters\n\n- `card_token: string`\n\n- `financial_transaction_token: string`\n\n### Returns\n\n- `{ token: string; category: 'ACH' | 'CARD' | 'INTERNAL' | 'TRANSFER'; created: string; currency: string; descriptor: string; events: { token?: string; amount?: number; created?: string; result?: 'APPROVED' | 'DECLINED'; type?: string; }[]; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'RETURNED' | 'SETTLED' | 'VOIDED'; updated: string; }`\n\n  - `token: string`\n  - `category: 'ACH' | 'CARD' | 'INTERNAL' | 'TRANSFER'`\n  - `created: string`\n  - `currency: string`\n  - `descriptor: string`\n  - `events: { token?: string; amount?: number; created?: string; result?: 'APPROVED' | 'DECLINED'; type?: string; }[]`\n  - `pending_amount: number`\n  - `result: 'APPROVED' | 'DECLINED'`\n  - `settled_amount: number`\n  - `status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'RETURNED' | 'SETTLED' | 'VOIDED'`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst financialTransaction = await client.cards.financialTransactions.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { card_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(financialTransaction);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Cards.FinancialTransactions.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tfinancialTransaction, err := client.Cards.FinancialTransactions.Get(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", financialTransaction.Token)\n}\n',
+      },
       java: {
         method: 'cards().financialTransactions().retrieve',
         example:
@@ -4119,11 +4124,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/cards/$CARD_TOKEN/financial_transactions/$FINANCIAL_TRANSACTION_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Cards.FinancialTransactions.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tfinancialTransaction, err := client.Cards.FinancialTransactions.Get(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", financialTransaction.Token)\n}\n',
-      },
     },
   },
   {
@@ -4139,6 +4139,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## challenge_response\n\n`client.cardAuthorizations.challengeResponse(event_token: string, response: 'APPROVE' | 'DECLINE'): void`\n\n**post** `/v1/card_authorizations/{event_token}/challenge_response`\n\nCard program's response to Authorization Challenge.\nPrograms that have Authorization Challenges configured as Out of Band receive a [card_authorization.challenge](https://docs.lithic.com/reference/cardauthorizationchallengewebhook) webhook when an authorization attempt triggers a challenge.\nThe card program should respond using this endpoint after the cardholder completes the challenge.\n\n### Parameters\n\n- `event_token: string`\n\n- `response: 'APPROVE' | 'DECLINE'`\n  Whether the cardholder has approved or declined the issued challenge\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.cardAuthorizations.challengeResponse('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { response: 'APPROVE' })\n```",
     perLanguage: {
+      go: {
+        method: 'client.CardAuthorizations.ChallengeResponse',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.CardAuthorizations.ChallengeResponse(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.CardAuthorizationChallengeResponseParams{\n\t\t\tResponse: lithic.F(lithic.CardAuthorizationChallengeResponseParamsResponseApprove),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'cardAuthorizations().challengeResponse',
         example:
@@ -4168,11 +4173,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/card_authorizations/$EVENT_TOKEN/challenge_response \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "response": "APPROVE"\n        }\'',
       },
-      go: {
-        method: 'client.CardAuthorizations.ChallengeResponse',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.CardAuthorizations.ChallengeResponse(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.CardAuthorizationChallengeResponseParams{\n\t\t\tResponse: lithic.F(lithic.CardAuthorizationChallengeResponseParamsResponseApprove),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -4195,6 +4195,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.cardBulkOrders.list(begin?: string, end?: string, ending_before?: string, page_size?: number, starting_after?: string): { token: string; card_tokens: string[]; created: string; customer_product_id: string; shipping_address: object; shipping_method: 'BULK_EXPEDITED' | 'BULK_PRIORITY' | 'BULK_2_DAY' | 'BULK_EXPRESS'; status: 'OPEN' | 'LOCKED'; updated: string; }`\n\n**get** `/v1/card_bulk_orders`\n\nList bulk orders for physical card shipments\n\n### Parameters\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; card_tokens: string[]; created: string; customer_product_id: string; shipping_address: object; shipping_method: 'BULK_EXPEDITED' | 'BULK_PRIORITY' | 'BULK_2_DAY' | 'BULK_EXPRESS'; status: 'OPEN' | 'LOCKED'; updated: string; }`\n  Represents a bulk order for physical card shipments\n\n  - `token: string`\n  - `card_tokens: string[]`\n  - `created: string`\n  - `customer_product_id: string`\n  - `shipping_address: object`\n  - `shipping_method: 'BULK_EXPEDITED' | 'BULK_PRIORITY' | 'BULK_2_DAY' | 'BULK_EXPRESS'`\n  - `status: 'OPEN' | 'LOCKED'`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const cardBulkOrder of client.cardBulkOrders.list()) {\n  console.log(cardBulkOrder);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.CardBulkOrders.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.CardBulkOrders.List(context.TODO(), lithic.CardBulkOrderListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'cardBulkOrders().list',
         example:
@@ -4224,11 +4229,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/card_bulk_orders \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.CardBulkOrders.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.CardBulkOrders.List(context.TODO(), lithic.CardBulkOrderListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -4250,6 +4250,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.cardBulkOrders.create(customer_product_id: string, shipping_address: object, shipping_method: 'BULK_EXPEDITED' | 'BULK_PRIORITY' | 'BULK_2_DAY' | 'BULK_EXPRESS'): { token: string; card_tokens: string[]; created: string; customer_product_id: string; shipping_address: object; shipping_method: 'BULK_EXPEDITED' | 'BULK_PRIORITY' | 'BULK_2_DAY' | 'BULK_EXPRESS'; status: 'OPEN' | 'LOCKED'; updated: string; }`\n\n**post** `/v1/card_bulk_orders`\n\nCreate a new bulk order for physical card shipments. Cards can be added to the order via the POST /v1/cards endpoint by specifying the bulk_order_token. Lock the order via PATCH /v1/card_bulk_orders/{bulk_order_token} to prepare for shipment. Please work with your Customer Success Manager and card personalization bureau to ensure bulk shipping is supported for your program.\n\n### Parameters\n\n- `customer_product_id: string`\n  Customer-specified product configuration for physical card manufacturing. This must be configured with Lithic before use\n\n- `shipping_address: object`\n  Shipping address for all cards in this bulk order\n\n- `shipping_method: 'BULK_EXPEDITED' | 'BULK_PRIORITY' | 'BULK_2_DAY' | 'BULK_EXPRESS'`\n  Shipping method for all cards in this bulk order. BULK_PRIORITY, BULK_2_DAY, and BULK_EXPRESS are only available with Perfect Plastic Printing\n\n### Returns\n\n- `{ token: string; card_tokens: string[]; created: string; customer_product_id: string; shipping_address: object; shipping_method: 'BULK_EXPEDITED' | 'BULK_PRIORITY' | 'BULK_2_DAY' | 'BULK_EXPRESS'; status: 'OPEN' | 'LOCKED'; updated: string; }`\n  Represents a bulk order for physical card shipments\n\n  - `token: string`\n  - `card_tokens: string[]`\n  - `created: string`\n  - `customer_product_id: string`\n  - `shipping_address: object`\n  - `shipping_method: 'BULK_EXPEDITED' | 'BULK_PRIORITY' | 'BULK_2_DAY' | 'BULK_EXPRESS'`\n  - `status: 'OPEN' | 'LOCKED'`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst cardBulkOrder = await client.cardBulkOrders.create({\n  customer_product_id: 'custom-card-design-123',\n  shipping_address: {\n  address1: '123 Main Street',\n  city: 'NEW YORK',\n  country: 'USA',\n  first_name: 'Johnny',\n  last_name: 'Appleseed',\n  postal_code: '10001',\n  state: 'NY',\n},\n  shipping_method: 'BULK_EXPEDITED',\n});\n\nconsole.log(cardBulkOrder);\n```",
     perLanguage: {
+      go: {
+        method: 'client.CardBulkOrders.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcardBulkOrder, err := client.CardBulkOrders.New(context.TODO(), lithic.CardBulkOrderNewParams{\n\t\tCustomerProductID: lithic.F("custom-card-design-123"),\n\t\tShippingAddress: lithic.F[any](map[string]interface{}{\n\t\t\t"address1":    "123 Main Street",\n\t\t\t"city":        "NEW YORK",\n\t\t\t"country":     "USA",\n\t\t\t"first_name":  "Johnny",\n\t\t\t"last_name":   "Appleseed",\n\t\t\t"postal_code": "10001",\n\t\t\t"state":       "NY",\n\t\t}),\n\t\tShippingMethod: lithic.F(lithic.CardBulkOrderNewParamsShippingMethodBulkExpedited),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", cardBulkOrder.CustomerProductID)\n}\n',
+      },
       java: {
         method: 'cardBulkOrders().create',
         example:
@@ -4279,11 +4284,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/card_bulk_orders \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "customer_product_id": "custom-card-design-123",\n          "shipping_address": {\n            "address1": "123 Main Street",\n            "city": "NEW YORK",\n            "country": "USA",\n            "first_name": "Johnny",\n            "last_name": "Appleseed",\n            "postal_code": "10001",\n            "state": "NY"\n          },\n          "shipping_method": "BULK_EXPEDITED"\n        }\'',
       },
-      go: {
-        method: 'client.CardBulkOrders.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcardBulkOrder, err := client.CardBulkOrders.New(context.TODO(), lithic.CardBulkOrderNewParams{\n\t\tCustomerProductID: lithic.F("custom-card-design-123"),\n\t\tShippingAddress: lithic.F[any](map[string]interface{}{\n\t\t\t"address1":    "123 Main Street",\n\t\t\t"city":        "NEW YORK",\n\t\t\t"country":     "USA",\n\t\t\t"first_name":  "Johnny",\n\t\t\t"last_name":   "Appleseed",\n\t\t\t"postal_code": "10001",\n\t\t\t"state":       "NY",\n\t\t}),\n\t\tShippingMethod: lithic.F(lithic.CardBulkOrderNewParamsShippingMethodBulkExpedited),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", cardBulkOrder.CustomerProductID)\n}\n',
-      },
     },
   },
   {
@@ -4300,6 +4300,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.cardBulkOrders.retrieve(bulk_order_token: string): { token: string; card_tokens: string[]; created: string; customer_product_id: string; shipping_address: object; shipping_method: 'BULK_EXPEDITED' | 'BULK_PRIORITY' | 'BULK_2_DAY' | 'BULK_EXPRESS'; status: 'OPEN' | 'LOCKED'; updated: string; }`\n\n**get** `/v1/card_bulk_orders/{bulk_order_token}`\n\nRetrieve a specific bulk order by token\n\n### Parameters\n\n- `bulk_order_token: string`\n\n### Returns\n\n- `{ token: string; card_tokens: string[]; created: string; customer_product_id: string; shipping_address: object; shipping_method: 'BULK_EXPEDITED' | 'BULK_PRIORITY' | 'BULK_2_DAY' | 'BULK_EXPRESS'; status: 'OPEN' | 'LOCKED'; updated: string; }`\n  Represents a bulk order for physical card shipments\n\n  - `token: string`\n  - `card_tokens: string[]`\n  - `created: string`\n  - `customer_product_id: string`\n  - `shipping_address: object`\n  - `shipping_method: 'BULK_EXPEDITED' | 'BULK_PRIORITY' | 'BULK_2_DAY' | 'BULK_EXPRESS'`\n  - `status: 'OPEN' | 'LOCKED'`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst cardBulkOrder = await client.cardBulkOrders.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(cardBulkOrder);\n```",
     perLanguage: {
+      go: {
+        method: 'client.CardBulkOrders.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcardBulkOrder, err := client.CardBulkOrders.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", cardBulkOrder.CustomerProductID)\n}\n',
+      },
       java: {
         method: 'cardBulkOrders().retrieve',
         example:
@@ -4329,11 +4334,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/card_bulk_orders/$BULK_ORDER_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.CardBulkOrders.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcardBulkOrder, err := client.CardBulkOrders.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", cardBulkOrder.CustomerProductID)\n}\n',
-      },
     },
   },
   {
@@ -4351,6 +4351,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## update\n\n`client.cardBulkOrders.update(bulk_order_token: string, status: 'LOCKED'): { token: string; card_tokens: string[]; created: string; customer_product_id: string; shipping_address: object; shipping_method: 'BULK_EXPEDITED' | 'BULK_PRIORITY' | 'BULK_2_DAY' | 'BULK_EXPRESS'; status: 'OPEN' | 'LOCKED'; updated: string; }`\n\n**patch** `/v1/card_bulk_orders/{bulk_order_token}`\n\nUpdate a bulk order. Primarily used to lock the order, preventing additional cards from being added\n\n### Parameters\n\n- `bulk_order_token: string`\n\n- `status: 'LOCKED'`\n  Status to update the bulk order to. Use LOCKED to finalize the order\n\n### Returns\n\n- `{ token: string; card_tokens: string[]; created: string; customer_product_id: string; shipping_address: object; shipping_method: 'BULK_EXPEDITED' | 'BULK_PRIORITY' | 'BULK_2_DAY' | 'BULK_EXPRESS'; status: 'OPEN' | 'LOCKED'; updated: string; }`\n  Represents a bulk order for physical card shipments\n\n  - `token: string`\n  - `card_tokens: string[]`\n  - `created: string`\n  - `customer_product_id: string`\n  - `shipping_address: object`\n  - `shipping_method: 'BULK_EXPEDITED' | 'BULK_PRIORITY' | 'BULK_2_DAY' | 'BULK_EXPRESS'`\n  - `status: 'OPEN' | 'LOCKED'`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst cardBulkOrder = await client.cardBulkOrders.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { status: 'LOCKED' });\n\nconsole.log(cardBulkOrder);\n```",
     perLanguage: {
+      go: {
+        method: 'client.CardBulkOrders.Update',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcardBulkOrder, err := client.CardBulkOrders.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.CardBulkOrderUpdateParams{\n\t\t\tStatus: lithic.F(lithic.CardBulkOrderUpdateParamsStatusLocked),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", cardBulkOrder.CustomerProductID)\n}\n',
+      },
       java: {
         method: 'cardBulkOrders().update',
         example:
@@ -4380,11 +4385,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/card_bulk_orders/$BULK_ORDER_TOKEN \\\n    -X PATCH \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "status": "LOCKED"\n        }\'',
       },
-      go: {
-        method: 'client.CardBulkOrders.Update',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcardBulkOrder, err := client.CardBulkOrders.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.CardBulkOrderUpdateParams{\n\t\t\tStatus: lithic.F(lithic.CardBulkOrderUpdateParamsStatusLocked),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", cardBulkOrder.CustomerProductID)\n}\n',
-      },
     },
   },
   {
@@ -4406,6 +4406,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.balances.list(account_token?: string, balance_date?: string, business_account_token?: string, financial_account_type?: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY'): { available_amount: number; created: string; currency: string; financial_account_token: string; financial_account_type: 'CARD' | 'ISSUING' | 'OPERATING' | 'PROGRAM_RECEIVABLES' | 'RESERVE' | 'SECURITY'; last_transaction_event_token: string; last_transaction_token: string; pending_amount: number; total_amount: number; updated: string; }`\n\n**get** `/v1/balances`\n\nGet the balances for a program, business, or a given end-user account\n\n### Parameters\n\n- `account_token?: string`\n  List balances for all financial accounts of a given account_token.\n\n- `balance_date?: string`\n  UTC date and time of the balances to retrieve. Defaults to latest available balances\n\n- `business_account_token?: string`\n  List balances for all financial accounts of a given business_account_token.\n\n- `financial_account_type?: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY'`\n  List balances for a given Financial Account type.\n\n### Returns\n\n- `{ available_amount: number; created: string; currency: string; financial_account_token: string; financial_account_type: 'CARD' | 'ISSUING' | 'OPERATING' | 'PROGRAM_RECEIVABLES' | 'RESERVE' | 'SECURITY'; last_transaction_event_token: string; last_transaction_token: string; pending_amount: number; total_amount: number; updated: string; }`\n  Balance\n\n  - `available_amount: number`\n  - `created: string`\n  - `currency: string`\n  - `financial_account_token: string`\n  - `financial_account_type: 'CARD' | 'ISSUING' | 'OPERATING' | 'PROGRAM_RECEIVABLES' | 'RESERVE' | 'SECURITY'`\n  - `last_transaction_event_token: string`\n  - `last_transaction_token: string`\n  - `pending_amount: number`\n  - `total_amount: number`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const balance of client.balances.list()) {\n  console.log(balance);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.Balances.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Balances.List(context.TODO(), lithic.BalanceListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'balances().list',
         example:
@@ -4434,11 +4439,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example: 'curl https://api.lithic.com/v1/balances \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Balances.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Balances.List(context.TODO(), lithic.BalanceListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -4463,6 +4463,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.disputes.list(begin?: string, end?: string, ending_before?: string, page_size?: number, starting_after?: string, status?: string, transaction_tokens?: string[]): { token: string; amount: number; arbitration_date: string; created: string; customer_filed_date: string; customer_note: string; network_claim_ids: string[]; network_filed_date: string; network_reason_code: string; prearbitration_date: string; primary_claim_id: string; reason: string; representment_date: string; resolution_date: string; resolution_note: string; resolution_reason: string; status: string; transaction_token: string; }`\n\n**get** `/v1/disputes`\n\nList chargeback requests.\n\n### Parameters\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n- `status?: string`\n  Filter by status.\n\n- `transaction_tokens?: string[]`\n  Transaction tokens to filter by.\n\n### Returns\n\n- `{ token: string; amount: number; arbitration_date: string; created: string; customer_filed_date: string; customer_note: string; network_claim_ids: string[]; network_filed_date: string; network_reason_code: string; prearbitration_date: string; primary_claim_id: string; reason: string; representment_date: string; resolution_date: string; resolution_note: string; resolution_reason: string; status: string; transaction_token: string; }`\n  Dispute.\n\n  - `token: string`\n  - `amount: number`\n  - `arbitration_date: string`\n  - `created: string`\n  - `customer_filed_date: string`\n  - `customer_note: string`\n  - `network_claim_ids: string[]`\n  - `network_filed_date: string`\n  - `network_reason_code: string`\n  - `prearbitration_date: string`\n  - `primary_claim_id: string`\n  - `reason: string`\n  - `representment_date: string`\n  - `resolution_date: string`\n  - `resolution_note: string`\n  - `resolution_reason: string`\n  - `status: string`\n  - `transaction_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const dispute of client.disputes.list()) {\n  console.log(dispute);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.Disputes.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Disputes.List(context.TODO(), lithic.DisputeListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'disputes().list',
         example:
@@ -4491,11 +4496,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example: 'curl https://api.lithic.com/v1/disputes \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Disputes.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Disputes.List(context.TODO(), lithic.DisputeListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -4518,6 +4518,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.disputes.create(amount: number, reason: string, transaction_token: string, customer_filed_date?: string, customer_note?: string): { token: string; amount: number; arbitration_date: string; created: string; customer_filed_date: string; customer_note: string; network_claim_ids: string[]; network_filed_date: string; network_reason_code: string; prearbitration_date: string; primary_claim_id: string; reason: string; representment_date: string; resolution_date: string; resolution_note: string; resolution_reason: string; status: string; transaction_token: string; }`\n\n**post** `/v1/disputes`\n\nRequest a chargeback.\n\n### Parameters\n\n- `amount: number`\n  Amount for chargeback\n\n- `reason: string`\n  Reason for chargeback\n\n- `transaction_token: string`\n  Transaction for chargeback\n\n- `customer_filed_date?: string`\n  Date the customer filed the chargeback request\n\n- `customer_note?: string`\n  Customer description\n\n### Returns\n\n- `{ token: string; amount: number; arbitration_date: string; created: string; customer_filed_date: string; customer_note: string; network_claim_ids: string[]; network_filed_date: string; network_reason_code: string; prearbitration_date: string; primary_claim_id: string; reason: string; representment_date: string; resolution_date: string; resolution_note: string; resolution_reason: string; status: string; transaction_token: string; }`\n  Dispute.\n\n  - `token: string`\n  - `amount: number`\n  - `arbitration_date: string`\n  - `created: string`\n  - `customer_filed_date: string`\n  - `customer_note: string`\n  - `network_claim_ids: string[]`\n  - `network_filed_date: string`\n  - `network_reason_code: string`\n  - `prearbitration_date: string`\n  - `primary_claim_id: string`\n  - `reason: string`\n  - `representment_date: string`\n  - `resolution_date: string`\n  - `resolution_note: string`\n  - `resolution_reason: string`\n  - `status: string`\n  - `transaction_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst dispute = await client.disputes.create({\n  amount: 10000,\n  reason: 'FRAUD_CARD_PRESENT',\n  transaction_token: '12345624-aa69-4cbc-a946-30d90181b621',\n});\n\nconsole.log(dispute);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Disputes.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdispute, err := client.Disputes.New(context.TODO(), lithic.DisputeNewParams{\n\t\tAmount:            lithic.F(int64(10000)),\n\t\tReason:            lithic.F(lithic.DisputeNewParamsReasonFraudCardPresent),\n\t\tTransactionToken:  lithic.F("12345624-aa69-4cbc-a946-30d90181b621"),\n\t\tCustomerFiledDate: lithic.F(time.Now()),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", dispute.NetworkClaimIDs)\n}\n',
+      },
       java: {
         method: 'disputes().create',
         example:
@@ -4547,11 +4552,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/disputes \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "amount": 10000,\n          "reason": "FRAUD_CARD_PRESENT",\n          "transaction_token": "12345624-aa69-4cbc-a946-30d90181b621",\n          "customer_filed_date": "2021-06-28T22:53:15Z"\n        }\'',
       },
-      go: {
-        method: 'client.Disputes.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdispute, err := client.Disputes.New(context.TODO(), lithic.DisputeNewParams{\n\t\tAmount:            lithic.F(int64(10000)),\n\t\tReason:            lithic.F(lithic.DisputeNewParamsReasonFraudCardPresent),\n\t\tTransactionToken:  lithic.F("12345624-aa69-4cbc-a946-30d90181b621"),\n\t\tCustomerFiledDate: lithic.F(time.Now()),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", dispute.NetworkClaimIDs)\n}\n',
-      },
     },
   },
   {
@@ -4568,6 +4568,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.disputes.retrieve(dispute_token: string): { token: string; amount: number; arbitration_date: string; created: string; customer_filed_date: string; customer_note: string; network_claim_ids: string[]; network_filed_date: string; network_reason_code: string; prearbitration_date: string; primary_claim_id: string; reason: string; representment_date: string; resolution_date: string; resolution_note: string; resolution_reason: string; status: string; transaction_token: string; }`\n\n**get** `/v1/disputes/{dispute_token}`\n\nGet chargeback request.\n\n### Parameters\n\n- `dispute_token: string`\n\n### Returns\n\n- `{ token: string; amount: number; arbitration_date: string; created: string; customer_filed_date: string; customer_note: string; network_claim_ids: string[]; network_filed_date: string; network_reason_code: string; prearbitration_date: string; primary_claim_id: string; reason: string; representment_date: string; resolution_date: string; resolution_note: string; resolution_reason: string; status: string; transaction_token: string; }`\n  Dispute.\n\n  - `token: string`\n  - `amount: number`\n  - `arbitration_date: string`\n  - `created: string`\n  - `customer_filed_date: string`\n  - `customer_note: string`\n  - `network_claim_ids: string[]`\n  - `network_filed_date: string`\n  - `network_reason_code: string`\n  - `prearbitration_date: string`\n  - `primary_claim_id: string`\n  - `reason: string`\n  - `representment_date: string`\n  - `resolution_date: string`\n  - `resolution_note: string`\n  - `resolution_reason: string`\n  - `status: string`\n  - `transaction_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst dispute = await client.disputes.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(dispute);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Disputes.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdispute, err := client.Disputes.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", dispute.NetworkClaimIDs)\n}\n',
+      },
       java: {
         method: 'disputes().retrieve',
         example:
@@ -4597,11 +4602,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/disputes/$DISPUTE_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Disputes.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdispute, err := client.Disputes.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", dispute.NetworkClaimIDs)\n}\n',
-      },
     },
   },
   {
@@ -4618,6 +4618,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## delete\n\n`client.disputes.delete(dispute_token: string): { token: string; amount: number; arbitration_date: string; created: string; customer_filed_date: string; customer_note: string; network_claim_ids: string[]; network_filed_date: string; network_reason_code: string; prearbitration_date: string; primary_claim_id: string; reason: string; representment_date: string; resolution_date: string; resolution_note: string; resolution_reason: string; status: string; transaction_token: string; }`\n\n**delete** `/v1/disputes/{dispute_token}`\n\nWithdraw chargeback request.\n\n### Parameters\n\n- `dispute_token: string`\n\n### Returns\n\n- `{ token: string; amount: number; arbitration_date: string; created: string; customer_filed_date: string; customer_note: string; network_claim_ids: string[]; network_filed_date: string; network_reason_code: string; prearbitration_date: string; primary_claim_id: string; reason: string; representment_date: string; resolution_date: string; resolution_note: string; resolution_reason: string; status: string; transaction_token: string; }`\n  Dispute.\n\n  - `token: string`\n  - `amount: number`\n  - `arbitration_date: string`\n  - `created: string`\n  - `customer_filed_date: string`\n  - `customer_note: string`\n  - `network_claim_ids: string[]`\n  - `network_filed_date: string`\n  - `network_reason_code: string`\n  - `prearbitration_date: string`\n  - `primary_claim_id: string`\n  - `reason: string`\n  - `representment_date: string`\n  - `resolution_date: string`\n  - `resolution_note: string`\n  - `resolution_reason: string`\n  - `status: string`\n  - `transaction_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst dispute = await client.disputes.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(dispute);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Disputes.Delete',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdispute, err := client.Disputes.Delete(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", dispute.NetworkClaimIDs)\n}\n',
+      },
       java: {
         method: 'disputes().delete',
         example:
@@ -4647,11 +4652,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/disputes/$DISPUTE_TOKEN \\\n    -X DELETE \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Disputes.Delete',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdispute, err := client.Disputes.Delete(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", dispute.NetworkClaimIDs)\n}\n',
-      },
     },
   },
   {
@@ -4674,6 +4674,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## update\n\n`client.disputes.update(dispute_token: string, amount?: number, customer_filed_date?: string, customer_note?: string, reason?: string): { token: string; amount: number; arbitration_date: string; created: string; customer_filed_date: string; customer_note: string; network_claim_ids: string[]; network_filed_date: string; network_reason_code: string; prearbitration_date: string; primary_claim_id: string; reason: string; representment_date: string; resolution_date: string; resolution_note: string; resolution_reason: string; status: string; transaction_token: string; }`\n\n**patch** `/v1/disputes/{dispute_token}`\n\nUpdate chargeback request. Can only be modified if status is `NEW`.\n\n### Parameters\n\n- `dispute_token: string`\n\n- `amount?: number`\n  Amount for chargeback\n\n- `customer_filed_date?: string`\n  Date the customer filed the chargeback request\n\n- `customer_note?: string`\n  Customer description\n\n- `reason?: string`\n  Reason for chargeback\n\n### Returns\n\n- `{ token: string; amount: number; arbitration_date: string; created: string; customer_filed_date: string; customer_note: string; network_claim_ids: string[]; network_filed_date: string; network_reason_code: string; prearbitration_date: string; primary_claim_id: string; reason: string; representment_date: string; resolution_date: string; resolution_note: string; resolution_reason: string; status: string; transaction_token: string; }`\n  Dispute.\n\n  - `token: string`\n  - `amount: number`\n  - `arbitration_date: string`\n  - `created: string`\n  - `customer_filed_date: string`\n  - `customer_note: string`\n  - `network_claim_ids: string[]`\n  - `network_filed_date: string`\n  - `network_reason_code: string`\n  - `prearbitration_date: string`\n  - `primary_claim_id: string`\n  - `reason: string`\n  - `representment_date: string`\n  - `resolution_date: string`\n  - `resolution_note: string`\n  - `resolution_reason: string`\n  - `status: string`\n  - `transaction_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst dispute = await client.disputes.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(dispute);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Disputes.Update',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdispute, err := client.Disputes.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.DisputeUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", dispute.NetworkClaimIDs)\n}\n',
+      },
       java: {
         method: 'disputes().update',
         example:
@@ -4703,11 +4708,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "curl https://api.lithic.com/v1/disputes/$DISPUTE_TOKEN \\\n    -X PATCH \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: $LITHIC_API_KEY\" \\\n    -d '{}'",
       },
-      go: {
-        method: 'client.Disputes.Update',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdispute, err := client.Disputes.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.DisputeUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", dispute.NetworkClaimIDs)\n}\n',
-      },
     },
   },
   {
@@ -4731,6 +4731,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list_evidences\n\n`client.disputes.listEvidences(dispute_token: string, begin?: string, end?: string, ending_before?: string, page_size?: number, starting_after?: string): { token: string; created: string; dispute_token: string; upload_status: 'DELETED' | 'ERROR' | 'PENDING' | 'REJECTED' | 'UPLOADED'; download_url?: string; filename?: string; upload_url?: string; }`\n\n**get** `/v1/disputes/{dispute_token}/evidences`\n\nList evidence for a chargeback request.\n\n### Parameters\n\n- `dispute_token: string`\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; created: string; dispute_token: string; upload_status: 'DELETED' | 'ERROR' | 'PENDING' | 'REJECTED' | 'UPLOADED'; download_url?: string; filename?: string; upload_url?: string; }`\n  Dispute evidence.\n\n  - `token: string`\n  - `created: string`\n  - `dispute_token: string`\n  - `upload_status: 'DELETED' | 'ERROR' | 'PENDING' | 'REJECTED' | 'UPLOADED'`\n  - `download_url?: string`\n  - `filename?: string`\n  - `upload_url?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const disputeEvidence of client.disputes.listEvidences('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')) {\n  console.log(disputeEvidence);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.Disputes.ListEvidences',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Disputes.ListEvidences(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.DisputeListEvidencesParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'disputes().listEvidences',
         example:
@@ -4760,11 +4765,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/disputes/$DISPUTE_TOKEN/evidences \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Disputes.ListEvidences',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Disputes.ListEvidences(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.DisputeListEvidencesParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -4782,6 +4782,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## initiate_evidence_upload\n\n`client.disputes.initiateEvidenceUpload(dispute_token: string, filename?: string): { token: string; created: string; dispute_token: string; upload_status: 'DELETED' | 'ERROR' | 'PENDING' | 'REJECTED' | 'UPLOADED'; download_url?: string; filename?: string; upload_url?: string; }`\n\n**post** `/v1/disputes/{dispute_token}/evidences`\n\nUse this endpoint to upload evidence for a chargeback request. It will return a URL to upload your documents to. The URL will expire in 30 minutes.\n\nUploaded documents must either be a `jpg`, `png` or `pdf` file, and each must be less than 5 GiB.\n\n\n### Parameters\n\n- `dispute_token: string`\n\n- `filename?: string`\n  Filename of the evidence.\n\n### Returns\n\n- `{ token: string; created: string; dispute_token: string; upload_status: 'DELETED' | 'ERROR' | 'PENDING' | 'REJECTED' | 'UPLOADED'; download_url?: string; filename?: string; upload_url?: string; }`\n  Dispute evidence.\n\n  - `token: string`\n  - `created: string`\n  - `dispute_token: string`\n  - `upload_status: 'DELETED' | 'ERROR' | 'PENDING' | 'REJECTED' | 'UPLOADED'`\n  - `download_url?: string`\n  - `filename?: string`\n  - `upload_url?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst disputeEvidence = await client.disputes.initiateEvidenceUpload('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(disputeEvidence);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Disputes.InitiateEvidenceUpload',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdisputeEvidence, err := client.Disputes.InitiateEvidenceUpload(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.DisputeInitiateEvidenceUploadParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", disputeEvidence.Token)\n}\n',
+      },
       java: {
         method: 'disputes().initiateEvidenceUpload',
         example:
@@ -4811,11 +4816,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/disputes/$DISPUTE_TOKEN/evidences \\\n    -X POST \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Disputes.InitiateEvidenceUpload',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdisputeEvidence, err := client.Disputes.InitiateEvidenceUpload(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.DisputeInitiateEvidenceUploadParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", disputeEvidence.Token)\n}\n',
-      },
     },
   },
   {
@@ -4832,6 +4832,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve_evidence\n\n`client.disputes.retrieveEvidence(dispute_token: string, evidence_token: string): { token: string; created: string; dispute_token: string; upload_status: 'DELETED' | 'ERROR' | 'PENDING' | 'REJECTED' | 'UPLOADED'; download_url?: string; filename?: string; upload_url?: string; }`\n\n**get** `/v1/disputes/{dispute_token}/evidences/{evidence_token}`\n\nGet evidence for a chargeback request.\n\n### Parameters\n\n- `dispute_token: string`\n\n- `evidence_token: string`\n\n### Returns\n\n- `{ token: string; created: string; dispute_token: string; upload_status: 'DELETED' | 'ERROR' | 'PENDING' | 'REJECTED' | 'UPLOADED'; download_url?: string; filename?: string; upload_url?: string; }`\n  Dispute evidence.\n\n  - `token: string`\n  - `created: string`\n  - `dispute_token: string`\n  - `upload_status: 'DELETED' | 'ERROR' | 'PENDING' | 'REJECTED' | 'UPLOADED'`\n  - `download_url?: string`\n  - `filename?: string`\n  - `upload_url?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst disputeEvidence = await client.disputes.retrieveEvidence('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { dispute_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(disputeEvidence);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Disputes.GetEvidence',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdisputeEvidence, err := client.Disputes.GetEvidence(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", disputeEvidence.Token)\n}\n',
+      },
       java: {
         method: 'disputes().retrieveEvidence',
         example:
@@ -4861,11 +4866,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/disputes/$DISPUTE_TOKEN/evidences/$EVIDENCE_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Disputes.GetEvidence',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdisputeEvidence, err := client.Disputes.GetEvidence(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", disputeEvidence.Token)\n}\n',
-      },
     },
   },
   {
@@ -4883,6 +4883,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## delete_evidence\n\n`client.disputes.deleteEvidence(dispute_token: string, evidence_token: string): { token: string; created: string; dispute_token: string; upload_status: 'DELETED' | 'ERROR' | 'PENDING' | 'REJECTED' | 'UPLOADED'; download_url?: string; filename?: string; upload_url?: string; }`\n\n**delete** `/v1/disputes/{dispute_token}/evidences/{evidence_token}`\n\nSoft delete evidence for a chargeback request. Evidence will not be reviewed or submitted by Lithic after it is withdrawn.\n\n### Parameters\n\n- `dispute_token: string`\n\n- `evidence_token: string`\n\n### Returns\n\n- `{ token: string; created: string; dispute_token: string; upload_status: 'DELETED' | 'ERROR' | 'PENDING' | 'REJECTED' | 'UPLOADED'; download_url?: string; filename?: string; upload_url?: string; }`\n  Dispute evidence.\n\n  - `token: string`\n  - `created: string`\n  - `dispute_token: string`\n  - `upload_status: 'DELETED' | 'ERROR' | 'PENDING' | 'REJECTED' | 'UPLOADED'`\n  - `download_url?: string`\n  - `filename?: string`\n  - `upload_url?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst disputeEvidence = await client.disputes.deleteEvidence('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { dispute_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(disputeEvidence);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Disputes.DeleteEvidence',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdisputeEvidence, err := client.Disputes.DeleteEvidence(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", disputeEvidence.Token)\n}\n',
+      },
       java: {
         method: 'disputes().deleteEvidence',
         example:
@@ -4912,11 +4917,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/disputes/$DISPUTE_TOKEN/evidences/$EVIDENCE_TOKEN \\\n    -X DELETE \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Disputes.DeleteEvidence',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdisputeEvidence, err := client.Disputes.DeleteEvidence(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", disputeEvidence.Token)\n}\n',
-      },
     },
   },
   {
@@ -4942,6 +4942,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.disputesV2.list(account_token?: string, begin?: string, card_token?: string, disputed_transaction_token?: string, end?: string, ending_before?: string, page_size?: number, starting_after?: string): { token: string; account_token: string; card_token: string; case_id: string; created: string; currency: string; disposition: 'WON' | 'LOST' | 'PARTIALLY_WON' | 'WITHDRAWN' | 'DENIED'; events: object[]; liability_allocation: object; merchant: merchant; network: 'VISA' | 'MASTERCARD'; status: 'OPEN' | 'CLOSED'; transaction_series: object; updated: string; }`\n\n**get** `/v2/disputes`\n\nReturns a paginated list of disputes.\n\n### Parameters\n\n- `account_token?: string`\n  Filter by account token.\n\n- `begin?: string`\n  RFC 3339 timestamp for filtering by created date, inclusive.\n\n- `card_token?: string`\n  Filter by card token.\n\n- `disputed_transaction_token?: string`\n  Filter by the token of the transaction being disputed. Corresponds with transaction_series.related_transaction_token in the Dispute.\n\n- `end?: string`\n  RFC 3339 timestamp for filtering by created date, inclusive.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Number of items to return.\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; account_token: string; card_token: string; case_id: string; created: string; currency: string; disposition: 'WON' | 'LOST' | 'PARTIALLY_WON' | 'WITHDRAWN' | 'DENIED'; events: { token: string; created: string; data: { action: 'OPENED' | 'CLOSED' | 'REOPENED'; amount: number; disposition: 'WON' | 'LOST' | 'PARTIALLY_WON' | 'WITHDRAWN' | 'DENIED'; reason: string; stage: 'CLAIM'; type: 'WORKFLOW'; } | { amount: number; polarity: 'CREDIT' | 'DEBIT'; stage: 'CHARGEBACK' | 'REPRESENTMENT' | 'PREARBITRATION' | 'ARBITRATION' | 'COLLABORATION'; type: 'FINANCIAL'; } | { action: 'PROVISIONAL_CREDIT_GRANTED' | 'PROVISIONAL_CREDIT_REVERSED' | 'WRITTEN_OFF'; amount: number; reason: string; type: 'CARDHOLDER_LIABILITY'; }; type: 'WORKFLOW' | 'FINANCIAL' | 'CARDHOLDER_LIABILITY'; }[]; liability_allocation: { denied_amount: number; original_amount: number; recovered_amount: number; remaining_amount: number; written_off_amount: number; }; merchant: { acceptor_id: string; acquiring_institution_id: string; city: string; country: string; descriptor: string; mcc: string; state: string; }; network: 'VISA' | 'MASTERCARD'; status: 'OPEN' | 'CLOSED'; transaction_series: { related_transaction_event_token: string; related_transaction_token: string; type: 'DISPUTE'; }; updated: string; }`\n  The Dispute object tracks the progression of a dispute throughout its lifecycle.\n\n  - `token: string`\n  - `account_token: string`\n  - `card_token: string`\n  - `case_id: string`\n  - `created: string`\n  - `currency: string`\n  - `disposition: 'WON' | 'LOST' | 'PARTIALLY_WON' | 'WITHDRAWN' | 'DENIED'`\n  - `events: { token: string; created: string; data: { action: 'OPENED' | 'CLOSED' | 'REOPENED'; amount: number; disposition: 'WON' | 'LOST' | 'PARTIALLY_WON' | 'WITHDRAWN' | 'DENIED'; reason: string; stage: 'CLAIM'; type: 'WORKFLOW'; } | { amount: number; polarity: 'CREDIT' | 'DEBIT'; stage: 'CHARGEBACK' | 'REPRESENTMENT' | 'PREARBITRATION' | 'ARBITRATION' | 'COLLABORATION'; type: 'FINANCIAL'; } | { action: 'PROVISIONAL_CREDIT_GRANTED' | 'PROVISIONAL_CREDIT_REVERSED' | 'WRITTEN_OFF'; amount: number; reason: string; type: 'CARDHOLDER_LIABILITY'; }; type: 'WORKFLOW' | 'FINANCIAL' | 'CARDHOLDER_LIABILITY'; }[]`\n  - `liability_allocation: { denied_amount: number; original_amount: number; recovered_amount: number; remaining_amount: number; written_off_amount: number; }`\n  - `merchant: { acceptor_id: string; acquiring_institution_id: string; city: string; country: string; descriptor: string; mcc: string; state: string; }`\n  - `network: 'VISA' | 'MASTERCARD'`\n  - `status: 'OPEN' | 'CLOSED'`\n  - `transaction_series: { related_transaction_event_token: string; related_transaction_token: string; type: 'DISPUTE'; }`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const disputeV2 of client.disputesV2.list()) {\n  console.log(disputeV2);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.DisputesV2.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.DisputesV2.List(context.TODO(), lithic.DisputesV2ListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'disputesV2().list',
         example:
@@ -4970,11 +4975,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example: 'curl https://api.lithic.com/v2/disputes \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.DisputesV2.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.DisputesV2.List(context.TODO(), lithic.DisputesV2ListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -4991,6 +4991,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.disputesV2.retrieve(dispute_token: string): { token: string; account_token: string; card_token: string; case_id: string; created: string; currency: string; disposition: 'WON' | 'LOST' | 'PARTIALLY_WON' | 'WITHDRAWN' | 'DENIED'; events: object[]; liability_allocation: object; merchant: merchant; network: 'VISA' | 'MASTERCARD'; status: 'OPEN' | 'CLOSED'; transaction_series: object; updated: string; }`\n\n**get** `/v2/disputes/{dispute_token}`\n\nRetrieves a specific dispute by its token.\n\n### Parameters\n\n- `dispute_token: string`\n\n### Returns\n\n- `{ token: string; account_token: string; card_token: string; case_id: string; created: string; currency: string; disposition: 'WON' | 'LOST' | 'PARTIALLY_WON' | 'WITHDRAWN' | 'DENIED'; events: { token: string; created: string; data: { action: 'OPENED' | 'CLOSED' | 'REOPENED'; amount: number; disposition: 'WON' | 'LOST' | 'PARTIALLY_WON' | 'WITHDRAWN' | 'DENIED'; reason: string; stage: 'CLAIM'; type: 'WORKFLOW'; } | { amount: number; polarity: 'CREDIT' | 'DEBIT'; stage: 'CHARGEBACK' | 'REPRESENTMENT' | 'PREARBITRATION' | 'ARBITRATION' | 'COLLABORATION'; type: 'FINANCIAL'; } | { action: 'PROVISIONAL_CREDIT_GRANTED' | 'PROVISIONAL_CREDIT_REVERSED' | 'WRITTEN_OFF'; amount: number; reason: string; type: 'CARDHOLDER_LIABILITY'; }; type: 'WORKFLOW' | 'FINANCIAL' | 'CARDHOLDER_LIABILITY'; }[]; liability_allocation: { denied_amount: number; original_amount: number; recovered_amount: number; remaining_amount: number; written_off_amount: number; }; merchant: { acceptor_id: string; acquiring_institution_id: string; city: string; country: string; descriptor: string; mcc: string; state: string; }; network: 'VISA' | 'MASTERCARD'; status: 'OPEN' | 'CLOSED'; transaction_series: { related_transaction_event_token: string; related_transaction_token: string; type: 'DISPUTE'; }; updated: string; }`\n  The Dispute object tracks the progression of a dispute throughout its lifecycle.\n\n  - `token: string`\n  - `account_token: string`\n  - `card_token: string`\n  - `case_id: string`\n  - `created: string`\n  - `currency: string`\n  - `disposition: 'WON' | 'LOST' | 'PARTIALLY_WON' | 'WITHDRAWN' | 'DENIED'`\n  - `events: { token: string; created: string; data: { action: 'OPENED' | 'CLOSED' | 'REOPENED'; amount: number; disposition: 'WON' | 'LOST' | 'PARTIALLY_WON' | 'WITHDRAWN' | 'DENIED'; reason: string; stage: 'CLAIM'; type: 'WORKFLOW'; } | { amount: number; polarity: 'CREDIT' | 'DEBIT'; stage: 'CHARGEBACK' | 'REPRESENTMENT' | 'PREARBITRATION' | 'ARBITRATION' | 'COLLABORATION'; type: 'FINANCIAL'; } | { action: 'PROVISIONAL_CREDIT_GRANTED' | 'PROVISIONAL_CREDIT_REVERSED' | 'WRITTEN_OFF'; amount: number; reason: string; type: 'CARDHOLDER_LIABILITY'; }; type: 'WORKFLOW' | 'FINANCIAL' | 'CARDHOLDER_LIABILITY'; }[]`\n  - `liability_allocation: { denied_amount: number; original_amount: number; recovered_amount: number; remaining_amount: number; written_off_amount: number; }`\n  - `merchant: { acceptor_id: string; acquiring_institution_id: string; city: string; country: string; descriptor: string; mcc: string; state: string; }`\n  - `network: 'VISA' | 'MASTERCARD'`\n  - `status: 'OPEN' | 'CLOSED'`\n  - `transaction_series: { related_transaction_event_token: string; related_transaction_token: string; type: 'DISPUTE'; }`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst disputeV2 = await client.disputesV2.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(disputeV2);\n```",
     perLanguage: {
+      go: {
+        method: 'client.DisputesV2.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdisputeV2, err := client.DisputesV2.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", disputeV2.CaseID)\n}\n',
+      },
       java: {
         method: 'disputesV2().retrieve',
         example:
@@ -5020,11 +5025,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v2/disputes/$DISPUTE_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.DisputesV2.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdisputeV2, err := client.DisputesV2.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", disputeV2.CaseID)\n}\n',
-      },
     },
   },
   {
@@ -5048,6 +5048,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.events.list(begin?: string, end?: string, ending_before?: string, event_types?: string[], page_size?: number, starting_after?: string, with_content?: boolean): { token: string; created: string; event_type: string; payload: object; }`\n\n**get** `/v1/events`\n\nList all events.\n\n### Parameters\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `event_types?: string[]`\n  Event types to filter events by.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n- `with_content?: boolean`\n  Whether to include the event payload content in the response.\n\n### Returns\n\n- `{ token: string; created: string; event_type: string; payload: object; }`\n  A single event that affects the transaction state and lifecycle.\n\n  - `token: string`\n  - `created: string`\n  - `event_type: string`\n  - `payload: object`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const event of client.events.list()) {\n  console.log(event);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.Events.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Events.List(context.TODO(), lithic.EventListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'events().list',
         example:
@@ -5076,11 +5081,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example: 'curl https://api.lithic.com/v1/events \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Events.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Events.List(context.TODO(), lithic.EventListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -5096,6 +5096,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.events.retrieve(event_token: string): { token: string; created: string; event_type: string; payload: object; }`\n\n**get** `/v1/events/{event_token}`\n\nGet an event.\n\n### Parameters\n\n- `event_token: string`\n\n### Returns\n\n- `{ token: string; created: string; event_type: string; payload: object; }`\n  A single event that affects the transaction state and lifecycle.\n\n  - `token: string`\n  - `created: string`\n  - `event_type: string`\n  - `payload: object`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst event = await client.events.retrieve('event_token');\n\nconsole.log(event);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Events.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tevent, err := client.Events.Get(context.TODO(), "event_token")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", event.Token)\n}\n',
+      },
       java: {
         method: 'events().retrieve',
         example:
@@ -5125,11 +5130,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/events/$EVENT_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Events.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tevent, err := client.Events.Get(context.TODO(), "event_token")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", event.Token)\n}\n',
-      },
     },
   },
   {
@@ -5154,6 +5154,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list_attempts\n\n`client.events.listAttempts(event_token: string, begin?: string, end?: string, ending_before?: string, page_size?: number, starting_after?: string, status?: 'FAILED' | 'PENDING' | 'SENDING' | 'SUCCESS'): { token: string; created: string; event_subscription_token: string; event_token: string; response: string; response_status_code: number; status: 'FAILED' | 'PENDING' | 'SENDING' | 'SUCCESS'; url: string; }`\n\n**get** `/v1/events/{event_token}/attempts`\n\nList all the message attempts for a given event.\n\n### Parameters\n\n- `event_token: string`\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n- `status?: 'FAILED' | 'PENDING' | 'SENDING' | 'SUCCESS'`\n\n### Returns\n\n- `{ token: string; created: string; event_subscription_token: string; event_token: string; response: string; response_status_code: number; status: 'FAILED' | 'PENDING' | 'SENDING' | 'SUCCESS'; url: string; }`\n  A subscription to specific event types.\n\n  - `token: string`\n  - `created: string`\n  - `event_subscription_token: string`\n  - `event_token: string`\n  - `response: string`\n  - `response_status_code: number`\n  - `status: 'FAILED' | 'PENDING' | 'SENDING' | 'SUCCESS'`\n  - `url: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const messageAttempt of client.events.listAttempts('event_token')) {\n  console.log(messageAttempt);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.Events.ListAttempts',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Events.ListAttempts(\n\t\tcontext.TODO(),\n\t\t"event_token",\n\t\tlithic.EventListAttemptsParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'events().listAttempts',
         example:
@@ -5183,11 +5188,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/events/$EVENT_TOKEN/attempts \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Events.ListAttempts',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Events.ListAttempts(\n\t\tcontext.TODO(),\n\t\t"event_token",\n\t\tlithic.EventListAttemptsParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -5204,6 +5204,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.events.subscriptions.list(ending_before?: string, page_size?: number, starting_after?: string): { token: string; description: string; disabled: boolean; url: string; event_types?: string[]; }`\n\n**get** `/v1/event_subscriptions`\n\nList all the event subscriptions.\n\n### Parameters\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; description: string; disabled: boolean; url: string; event_types?: string[]; }`\n  A subscription to specific event types.\n\n  - `token: string`\n  - `description: string`\n  - `disabled: boolean`\n  - `url: string`\n  - `event_types?: string[]`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const eventSubscription of client.events.subscriptions.list()) {\n  console.log(eventSubscription);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.Events.Subscriptions.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Events.Subscriptions.List(context.TODO(), lithic.EventSubscriptionListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'events().subscriptions().list',
         example:
@@ -5233,11 +5238,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/event_subscriptions \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Events.Subscriptions.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Events.Subscriptions.List(context.TODO(), lithic.EventSubscriptionListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -5254,6 +5254,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.events.subscriptions.create(url: string, description?: string, disabled?: boolean, event_types?: string[]): { token: string; description: string; disabled: boolean; url: string; event_types?: string[]; }`\n\n**post** `/v1/event_subscriptions`\n\nCreate a new event subscription.\n\n### Parameters\n\n- `url: string`\n  URL to which event webhooks will be sent. URL must be a valid HTTPS address.\n\n- `description?: string`\n  Event subscription description.\n\n- `disabled?: boolean`\n  Whether the event subscription is active (false) or inactive (true).\n\n- `event_types?: string[]`\n  Indicates types of events that will be sent to this subscription. If left blank, all types will be sent.\n\n### Returns\n\n- `{ token: string; description: string; disabled: boolean; url: string; event_types?: string[]; }`\n  A subscription to specific event types.\n\n  - `token: string`\n  - `description: string`\n  - `disabled: boolean`\n  - `url: string`\n  - `event_types?: string[]`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst eventSubscription = await client.events.subscriptions.create({ url: 'https://example.com' });\n\nconsole.log(eventSubscription);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Events.Subscriptions.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\teventSubscription, err := client.Events.Subscriptions.New(context.TODO(), lithic.EventSubscriptionNewParams{\n\t\tURL: lithic.F("https://example.com"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", eventSubscription.Token)\n}\n',
+      },
       java: {
         method: 'events().subscriptions().create',
         example:
@@ -5283,11 +5288,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/event_subscriptions \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "url": "https://example.com"\n        }\'',
       },
-      go: {
-        method: 'client.Events.Subscriptions.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\teventSubscription, err := client.Events.Subscriptions.New(context.TODO(), lithic.EventSubscriptionNewParams{\n\t\tURL: lithic.F("https://example.com"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", eventSubscription.Token)\n}\n',
-      },
     },
   },
   {
@@ -5304,6 +5304,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.events.subscriptions.retrieve(event_subscription_token: string): { token: string; description: string; disabled: boolean; url: string; event_types?: string[]; }`\n\n**get** `/v1/event_subscriptions/{event_subscription_token}`\n\nGet an event subscription.\n\n### Parameters\n\n- `event_subscription_token: string`\n\n### Returns\n\n- `{ token: string; description: string; disabled: boolean; url: string; event_types?: string[]; }`\n  A subscription to specific event types.\n\n  - `token: string`\n  - `description: string`\n  - `disabled: boolean`\n  - `url: string`\n  - `event_types?: string[]`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst eventSubscription = await client.events.subscriptions.retrieve('event_subscription_token');\n\nconsole.log(eventSubscription);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Events.Subscriptions.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\teventSubscription, err := client.Events.Subscriptions.Get(context.TODO(), "event_subscription_token")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", eventSubscription.Token)\n}\n',
+      },
       java: {
         method: 'events().subscriptions().retrieve',
         example:
@@ -5333,11 +5338,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/event_subscriptions/$EVENT_SUBSCRIPTION_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Events.Subscriptions.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\teventSubscription, err := client.Events.Subscriptions.Get(context.TODO(), "event_subscription_token")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", eventSubscription.Token)\n}\n',
-      },
     },
   },
   {
@@ -5360,6 +5360,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## update\n\n`client.events.subscriptions.update(event_subscription_token: string, url: string, description?: string, disabled?: boolean, event_types?: string[]): { token: string; description: string; disabled: boolean; url: string; event_types?: string[]; }`\n\n**patch** `/v1/event_subscriptions/{event_subscription_token}`\n\nUpdate an event subscription.\n\n### Parameters\n\n- `event_subscription_token: string`\n\n- `url: string`\n  URL to which event webhooks will be sent. URL must be a valid HTTPS address.\n\n- `description?: string`\n  Event subscription description.\n\n- `disabled?: boolean`\n  Whether the event subscription is active (false) or inactive (true).\n\n- `event_types?: string[]`\n  Indicates types of events that will be sent to this subscription. If left blank, all types will be sent.\n\n### Returns\n\n- `{ token: string; description: string; disabled: boolean; url: string; event_types?: string[]; }`\n  A subscription to specific event types.\n\n  - `token: string`\n  - `description: string`\n  - `disabled: boolean`\n  - `url: string`\n  - `event_types?: string[]`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst eventSubscription = await client.events.subscriptions.update('event_subscription_token', { url: 'https://example.com' });\n\nconsole.log(eventSubscription);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Events.Subscriptions.Update',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\teventSubscription, err := client.Events.Subscriptions.Update(\n\t\tcontext.TODO(),\n\t\t"event_subscription_token",\n\t\tlithic.EventSubscriptionUpdateParams{\n\t\t\tURL: lithic.F("https://example.com"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", eventSubscription.Token)\n}\n',
+      },
       java: {
         method: 'events().subscriptions().update',
         example:
@@ -5389,11 +5394,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/event_subscriptions/$EVENT_SUBSCRIPTION_TOKEN \\\n    -X PATCH \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "url": "https://example.com"\n        }\'',
       },
-      go: {
-        method: 'client.Events.Subscriptions.Update',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\teventSubscription, err := client.Events.Subscriptions.Update(\n\t\tcontext.TODO(),\n\t\t"event_subscription_token",\n\t\tlithic.EventSubscriptionUpdateParams{\n\t\t\tURL: lithic.F("https://example.com"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", eventSubscription.Token)\n}\n',
-      },
     },
   },
   {
@@ -5408,6 +5408,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## delete\n\n`client.events.subscriptions.delete(event_subscription_token: string): void`\n\n**delete** `/v1/event_subscriptions/{event_subscription_token}`\n\nDelete an event subscription.\n\n### Parameters\n\n- `event_subscription_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.events.subscriptions.delete('event_subscription_token')\n```",
     perLanguage: {
+      go: {
+        method: 'client.Events.Subscriptions.Delete',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Events.Subscriptions.Delete(context.TODO(), "event_subscription_token")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'events().subscriptions().delete',
         example:
@@ -5437,11 +5442,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/event_subscriptions/$EVENT_SUBSCRIPTION_TOKEN \\\n    -X DELETE \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Events.Subscriptions.Delete',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Events.Subscriptions.Delete(context.TODO(), "event_subscription_token")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -5456,6 +5456,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## recover\n\n`client.events.subscriptions.recover(event_subscription_token: string, begin?: string, end?: string): void`\n\n**post** `/v1/event_subscriptions/{event_subscription_token}/recover`\n\nResend all failed messages since a given time.\n\n### Parameters\n\n- `event_subscription_token: string`\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.events.subscriptions.recover('event_subscription_token')\n```",
     perLanguage: {
+      go: {
+        method: 'client.Events.Subscriptions.Recover',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Events.Subscriptions.Recover(\n\t\tcontext.TODO(),\n\t\t"event_subscription_token",\n\t\tlithic.EventSubscriptionRecoverParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'events().subscriptions().recover',
         example:
@@ -5485,11 +5490,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/event_subscriptions/$EVENT_SUBSCRIPTION_TOKEN/recover \\\n    -X POST \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Events.Subscriptions.Recover',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Events.Subscriptions.Recover(\n\t\tcontext.TODO(),\n\t\t"event_subscription_token",\n\t\tlithic.EventSubscriptionRecoverParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -5514,6 +5514,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list_attempts\n\n`client.events.subscriptions.listAttempts(event_subscription_token: string, begin?: string, end?: string, ending_before?: string, page_size?: number, starting_after?: string, status?: 'FAILED' | 'PENDING' | 'SENDING' | 'SUCCESS'): { token: string; created: string; event_subscription_token: string; event_token: string; response: string; response_status_code: number; status: 'FAILED' | 'PENDING' | 'SENDING' | 'SUCCESS'; url: string; }`\n\n**get** `/v1/event_subscriptions/{event_subscription_token}/attempts`\n\nList all the message attempts for a given event subscription.\n\n### Parameters\n\n- `event_subscription_token: string`\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n- `status?: 'FAILED' | 'PENDING' | 'SENDING' | 'SUCCESS'`\n\n### Returns\n\n- `{ token: string; created: string; event_subscription_token: string; event_token: string; response: string; response_status_code: number; status: 'FAILED' | 'PENDING' | 'SENDING' | 'SUCCESS'; url: string; }`\n  A subscription to specific event types.\n\n  - `token: string`\n  - `created: string`\n  - `event_subscription_token: string`\n  - `event_token: string`\n  - `response: string`\n  - `response_status_code: number`\n  - `status: 'FAILED' | 'PENDING' | 'SENDING' | 'SUCCESS'`\n  - `url: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const messageAttempt of client.events.subscriptions.listAttempts('event_subscription_token')) {\n  console.log(messageAttempt);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.Events.Subscriptions.ListAttempts',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Events.Subscriptions.ListAttempts(\n\t\tcontext.TODO(),\n\t\t"event_subscription_token",\n\t\tlithic.EventSubscriptionListAttemptsParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'events().subscriptions().listAttempts',
         example:
@@ -5543,11 +5548,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/event_subscriptions/$EVENT_SUBSCRIPTION_TOKEN/attempts \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Events.Subscriptions.ListAttempts',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Events.Subscriptions.ListAttempts(\n\t\tcontext.TODO(),\n\t\t"event_subscription_token",\n\t\tlithic.EventSubscriptionListAttemptsParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -5563,6 +5563,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## replay_missing\n\n`client.events.subscriptions.replayMissing(event_subscription_token: string, begin?: string, end?: string): void`\n\n**post** `/v1/event_subscriptions/{event_subscription_token}/replay_missing`\n\nReplays messages to the endpoint. Only messages that were created after `begin` will be sent. Messages that were previously sent to the endpoint are not resent.\nMessage will be retried if endpoint responds with a non-2xx status code. See [Retry Schedule](https://docs.lithic.com/docs/events-api#retry-schedule) for details.\n\n\n### Parameters\n\n- `event_subscription_token: string`\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.events.subscriptions.replayMissing('event_subscription_token')\n```",
     perLanguage: {
+      go: {
+        method: 'client.Events.Subscriptions.ReplayMissing',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Events.Subscriptions.ReplayMissing(\n\t\tcontext.TODO(),\n\t\t"event_subscription_token",\n\t\tlithic.EventSubscriptionReplayMissingParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'events().subscriptions().replayMissing',
         example:
@@ -5592,11 +5597,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/event_subscriptions/$EVENT_SUBSCRIPTION_TOKEN/replay_missing \\\n    -X POST \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Events.Subscriptions.ReplayMissing',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Events.Subscriptions.ReplayMissing(\n\t\tcontext.TODO(),\n\t\t"event_subscription_token",\n\t\tlithic.EventSubscriptionReplayMissingParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -5612,6 +5612,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve_secret\n\n`client.events.subscriptions.retrieveSecret(event_subscription_token: string): { secret?: string; }`\n\n**get** `/v1/event_subscriptions/{event_subscription_token}/secret`\n\nGet the secret for an event subscription.\n\n### Parameters\n\n- `event_subscription_token: string`\n\n### Returns\n\n- `{ secret?: string; }`\n\n  - `secret?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.events.subscriptions.retrieveSecret('event_subscription_token');\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Events.Subscriptions.GetSecret',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Events.Subscriptions.GetSecret(context.TODO(), "event_subscription_token")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Secret)\n}\n',
+      },
       java: {
         method: 'events().subscriptions().retrieveSecret',
         example:
@@ -5641,11 +5646,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/event_subscriptions/$EVENT_SUBSCRIPTION_TOKEN/secret \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Events.Subscriptions.GetSecret',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Events.Subscriptions.GetSecret(context.TODO(), "event_subscription_token")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Secret)\n}\n',
-      },
     },
   },
   {
@@ -5661,6 +5661,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## rotate_secret\n\n`client.events.subscriptions.rotateSecret(event_subscription_token: string): void`\n\n**post** `/v1/event_subscriptions/{event_subscription_token}/secret/rotate`\n\nRotate the secret for an event subscription. The previous secret will be valid for the next 24 hours.\n\n\n### Parameters\n\n- `event_subscription_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.events.subscriptions.rotateSecret('event_subscription_token')\n```",
     perLanguage: {
+      go: {
+        method: 'client.Events.Subscriptions.RotateSecret',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Events.Subscriptions.RotateSecret(context.TODO(), "event_subscription_token")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'events().subscriptions().rotateSecret',
         example:
@@ -5690,11 +5695,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/event_subscriptions/$EVENT_SUBSCRIPTION_TOKEN/secret/rotate \\\n    -X POST \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Events.Subscriptions.RotateSecret',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Events.Subscriptions.RotateSecret(context.TODO(), "event_subscription_token")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -5709,6 +5709,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## send_simulated_example\n\n`client.events.subscriptions.sendSimulatedExample(event_subscription_token: string, event_type?: string): void`\n\n**post** `/v1/simulate/event_subscriptions/{event_subscription_token}/send_example`\n\nSend an example message for event.\n\n### Parameters\n\n- `event_subscription_token: string`\n\n- `event_type?: string`\n  Event type to send example message for.\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.events.subscriptions.sendSimulatedExample('event_subscription_token')\n```",
     perLanguage: {
+      go: {
+        method: 'client.Events.Subscriptions.SendSimulatedExample',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Events.Subscriptions.SendSimulatedExample(\n\t\tcontext.TODO(),\n\t\t"event_subscription_token",\n\t\tlithic.EventSubscriptionSendSimulatedExampleParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'events().subscriptions().sendSimulatedExample',
         example:
@@ -5738,11 +5743,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/simulate/event_subscriptions/$EVENT_SUBSCRIPTION_TOKEN/send_example \\\n    -X POST \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Events.Subscriptions.SendSimulatedExample',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Events.Subscriptions.SendSimulatedExample(\n\t\tcontext.TODO(),\n\t\t"event_subscription_token",\n\t\tlithic.EventSubscriptionSendSimulatedExampleParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -5757,6 +5757,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## resend\n\n`client.events.eventSubscriptions.resend(event_token: string, event_subscription_token: string): void`\n\n**post** `/v1/events/{event_token}/event_subscriptions/{event_subscription_token}/resend`\n\nResend an event to an event subscription.\n\n### Parameters\n\n- `event_token: string`\n\n- `event_subscription_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.events.eventSubscriptions.resend('event_subscription_token', { event_token: 'event_token' })\n```",
     perLanguage: {
+      go: {
+        method: 'client.Events.EventSubscriptions.Resend',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Events.EventSubscriptions.Resend(\n\t\tcontext.TODO(),\n\t\t"event_token",\n\t\t"event_subscription_token",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'events().eventSubscriptions().resend',
         example:
@@ -5786,11 +5791,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/events/$EVENT_TOKEN/event_subscriptions/$EVENT_SUBSCRIPTION_TOKEN/resend \\\n    -X POST \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Events.EventSubscriptions.Resend',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Events.EventSubscriptions.Resend(\n\t\tcontext.TODO(),\n\t\t"event_token",\n\t\t"event_subscription_token",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -5807,6 +5807,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.transfers.create(amount: number, from: string, to: string, token?: string, memo?: string): { token?: string; category?: 'TRANSFER'; created?: string; currency?: string; descriptor?: string; events?: financial_event[]; from_balance?: balance[]; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; status?: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED'; to_balance?: balance[]; updated?: string; }`\n\n**post** `/v1/transfer`\n\nTransfer funds between two financial accounts or between a financial account and card\n\n### Parameters\n\n- `amount: number`\n  Amount to be transferred in the currency’s smallest unit (e.g., cents for USD). This should always be a positive value.\n\n- `from: string`\n  Globally unique identifier for the financial account or card that will send the funds. Accepted type dependent on the program's use case.\n\n- `to: string`\n  Globally unique identifier for the financial account or card that will receive the funds. Accepted type dependent on the program's use case.\n\n- `token?: string`\n  Customer-provided token that will serve as an idempotency token. This token will become the transaction token.\n\n- `memo?: string`\n  Optional descriptor for the transfer.\n\n### Returns\n\n- `{ token?: string; category?: 'TRANSFER'; created?: string; currency?: string; descriptor?: string; events?: { token?: string; amount?: number; created?: string; result?: 'APPROVED' | 'DECLINED'; type?: string; }[]; from_balance?: { available_amount: number; created: string; currency: string; financial_account_token: string; financial_account_type: 'CARD' | 'ISSUING' | 'OPERATING' | 'PROGRAM_RECEIVABLES' | 'RESERVE' | 'SECURITY'; last_transaction_event_token: string; last_transaction_token: string; pending_amount: number; total_amount: number; updated: string; }[]; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; status?: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED'; to_balance?: { available_amount: number; created: string; currency: string; financial_account_token: string; financial_account_type: 'CARD' | 'ISSUING' | 'OPERATING' | 'PROGRAM_RECEIVABLES' | 'RESERVE' | 'SECURITY'; last_transaction_event_token: string; last_transaction_token: string; pending_amount: number; total_amount: number; updated: string; }[]; updated?: string; }`\n\n  - `token?: string`\n  - `category?: 'TRANSFER'`\n  - `created?: string`\n  - `currency?: string`\n  - `descriptor?: string`\n  - `events?: { token?: string; amount?: number; created?: string; result?: 'APPROVED' | 'DECLINED'; type?: string; }[]`\n  - `from_balance?: { available_amount: number; created: string; currency: string; financial_account_token: string; financial_account_type: 'CARD' | 'ISSUING' | 'OPERATING' | 'PROGRAM_RECEIVABLES' | 'RESERVE' | 'SECURITY'; last_transaction_event_token: string; last_transaction_token: string; pending_amount: number; total_amount: number; updated: string; }[]`\n  - `pending_amount?: number`\n  - `result?: 'APPROVED' | 'DECLINED'`\n  - `settled_amount?: number`\n  - `status?: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED'`\n  - `to_balance?: { available_amount: number; created: string; currency: string; financial_account_token: string; financial_account_type: 'CARD' | 'ISSUING' | 'OPERATING' | 'PROGRAM_RECEIVABLES' | 'RESERVE' | 'SECURITY'; last_transaction_event_token: string; last_transaction_token: string; pending_amount: number; total_amount: number; updated: string; }[]`\n  - `updated?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst transfer = await client.transfers.create({\n  amount: 0,\n  from: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n  to: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n});\n\nconsole.log(transfer);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Transfers.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\ttransfer, err := client.Transfers.New(context.TODO(), lithic.TransferNewParams{\n\t\tAmount: lithic.F(int64(0)),\n\t\tFrom:   lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t\tTo:     lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", transfer.Token)\n}\n',
+      },
       java: {
         method: 'transfers().create',
         example:
@@ -5831,11 +5836,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/transfer \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "amount": 0,\n          "from": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n          "to": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n        }\'',
       },
-      go: {
-        method: 'client.Transfers.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\ttransfer, err := client.Transfers.New(context.TODO(), lithic.TransferNewParams{\n\t\tAmount: lithic.F(int64(0)),\n\t\tFrom:   lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t\tTo:     lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", transfer.Token)\n}\n',
-      },
     },
   },
   {
@@ -5856,6 +5856,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.financialAccounts.list(account_token?: string, business_account_token?: string, type?: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY' | 'EARLY_DIRECT_DEPOSIT_FLOAT'): { token: string; account_token: string; created: string; credit_configuration: object; is_for_benefit_of: boolean; nickname: string; status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'; substatus: string; type: string; updated: string; user_defined_status: string; account_number?: string; blockchain_addresses?: object; routing_number?: string; }`\n\n**get** `/v1/financial_accounts`\n\nRetrieve information on your financial accounts including routing and account number.\n\n### Parameters\n\n- `account_token?: string`\n  List financial accounts for a given account_token or business_account_token\n\n- `business_account_token?: string`\n  List financial accounts for a given business_account_token\n\n- `type?: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY' | 'EARLY_DIRECT_DEPOSIT_FLOAT'`\n  List financial accounts of a given type\n\n### Returns\n\n- `{ token: string; account_token: string; created: string; credit_configuration: { auto_collection_configuration: { auto_collection_enabled: boolean; }; credit_limit: number; credit_product_token: string; external_bank_account_token: string; tier: string; }; is_for_benefit_of: boolean; nickname: string; status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'; substatus: string; type: string; updated: string; user_defined_status: string; account_number?: string; blockchain_addresses?: object; routing_number?: string; }`\n\n  - `token: string`\n  - `account_token: string`\n  - `created: string`\n  - `credit_configuration: { auto_collection_configuration: { auto_collection_enabled: boolean; }; credit_limit: number; credit_product_token: string; external_bank_account_token: string; tier: string; }`\n  - `is_for_benefit_of: boolean`\n  - `nickname: string`\n  - `status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'`\n  - `substatus: string`\n  - `type: string`\n  - `updated: string`\n  - `user_defined_status: string`\n  - `account_number?: string`\n  - `blockchain_addresses?: object`\n  - `routing_number?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const financialAccount of client.financialAccounts.list()) {\n  console.log(financialAccount);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.FinancialAccounts.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.FinancialAccounts.List(context.TODO(), lithic.FinancialAccountListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'financialAccounts().list',
         example:
@@ -5885,11 +5890,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/financial_accounts \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.FinancialAccounts.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.FinancialAccounts.List(context.TODO(), lithic.FinancialAccountListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -5906,6 +5906,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.financialAccounts.retrieve(financial_account_token: string): { token: string; account_token: string; created: string; credit_configuration: object; is_for_benefit_of: boolean; nickname: string; status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'; substatus: string; type: string; updated: string; user_defined_status: string; account_number?: string; blockchain_addresses?: object; routing_number?: string; }`\n\n**get** `/v1/financial_accounts/{financial_account_token}`\n\nGet a financial account\n\n### Parameters\n\n- `financial_account_token: string`\n\n### Returns\n\n- `{ token: string; account_token: string; created: string; credit_configuration: { auto_collection_configuration: { auto_collection_enabled: boolean; }; credit_limit: number; credit_product_token: string; external_bank_account_token: string; tier: string; }; is_for_benefit_of: boolean; nickname: string; status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'; substatus: string; type: string; updated: string; user_defined_status: string; account_number?: string; blockchain_addresses?: object; routing_number?: string; }`\n\n  - `token: string`\n  - `account_token: string`\n  - `created: string`\n  - `credit_configuration: { auto_collection_configuration: { auto_collection_enabled: boolean; }; credit_limit: number; credit_product_token: string; external_bank_account_token: string; tier: string; }`\n  - `is_for_benefit_of: boolean`\n  - `nickname: string`\n  - `status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'`\n  - `substatus: string`\n  - `type: string`\n  - `updated: string`\n  - `user_defined_status: string`\n  - `account_number?: string`\n  - `blockchain_addresses?: object`\n  - `routing_number?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst financialAccount = await client.financialAccounts.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(financialAccount);\n```",
     perLanguage: {
+      go: {
+        method: 'client.FinancialAccounts.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tfinancialAccount, err := client.FinancialAccounts.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", financialAccount.Token)\n}\n',
+      },
       java: {
         method: 'financialAccounts().retrieve',
         example:
@@ -5935,11 +5940,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.FinancialAccounts.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tfinancialAccount, err := client.FinancialAccounts.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", financialAccount.Token)\n}\n',
-      },
     },
   },
   {
@@ -5956,6 +5956,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## update\n\n`client.financialAccounts.update(financial_account_token: string, nickname?: string): { token: string; account_token: string; created: string; credit_configuration: object; is_for_benefit_of: boolean; nickname: string; status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'; substatus: string; type: string; updated: string; user_defined_status: string; account_number?: string; blockchain_addresses?: object; routing_number?: string; }`\n\n**patch** `/v1/financial_accounts/{financial_account_token}`\n\nUpdate a financial account\n\n### Parameters\n\n- `financial_account_token: string`\n\n- `nickname?: string`\n\n### Returns\n\n- `{ token: string; account_token: string; created: string; credit_configuration: { auto_collection_configuration: { auto_collection_enabled: boolean; }; credit_limit: number; credit_product_token: string; external_bank_account_token: string; tier: string; }; is_for_benefit_of: boolean; nickname: string; status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'; substatus: string; type: string; updated: string; user_defined_status: string; account_number?: string; blockchain_addresses?: object; routing_number?: string; }`\n\n  - `token: string`\n  - `account_token: string`\n  - `created: string`\n  - `credit_configuration: { auto_collection_configuration: { auto_collection_enabled: boolean; }; credit_limit: number; credit_product_token: string; external_bank_account_token: string; tier: string; }`\n  - `is_for_benefit_of: boolean`\n  - `nickname: string`\n  - `status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'`\n  - `substatus: string`\n  - `type: string`\n  - `updated: string`\n  - `user_defined_status: string`\n  - `account_number?: string`\n  - `blockchain_addresses?: object`\n  - `routing_number?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst financialAccount = await client.financialAccounts.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(financialAccount);\n```",
     perLanguage: {
+      go: {
+        method: 'client.FinancialAccounts.Update',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tfinancialAccount, err := client.FinancialAccounts.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.FinancialAccountUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", financialAccount.Token)\n}\n',
+      },
       java: {
         method: 'financialAccounts().update',
         example:
@@ -5985,11 +5990,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN \\\n    -X PATCH \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.FinancialAccounts.Update',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tfinancialAccount, err := client.FinancialAccounts.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.FinancialAccountUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", financialAccount.Token)\n}\n',
-      },
     },
   },
   {
@@ -6011,6 +6011,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## update_status\n\n`client.financialAccounts.updateStatus(financial_account_token: string, status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING', substatus: string, user_defined_status?: string): { token: string; account_token: string; created: string; credit_configuration: object; is_for_benefit_of: boolean; nickname: string; status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'; substatus: string; type: string; updated: string; user_defined_status: string; account_number?: string; blockchain_addresses?: object; routing_number?: string; }`\n\n**post** `/v1/financial_accounts/{financial_account_token}/update_status`\n\nUpdate financial account status\n\n### Parameters\n\n- `financial_account_token: string`\n\n- `status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'`\n  Status of the financial account\n\n- `substatus: string`\n  Substatus for the financial account\n\n- `user_defined_status?: string`\n  User-defined status for the financial account\n\n### Returns\n\n- `{ token: string; account_token: string; created: string; credit_configuration: { auto_collection_configuration: { auto_collection_enabled: boolean; }; credit_limit: number; credit_product_token: string; external_bank_account_token: string; tier: string; }; is_for_benefit_of: boolean; nickname: string; status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'; substatus: string; type: string; updated: string; user_defined_status: string; account_number?: string; blockchain_addresses?: object; routing_number?: string; }`\n\n  - `token: string`\n  - `account_token: string`\n  - `created: string`\n  - `credit_configuration: { auto_collection_configuration: { auto_collection_enabled: boolean; }; credit_limit: number; credit_product_token: string; external_bank_account_token: string; tier: string; }`\n  - `is_for_benefit_of: boolean`\n  - `nickname: string`\n  - `status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'`\n  - `substatus: string`\n  - `type: string`\n  - `updated: string`\n  - `user_defined_status: string`\n  - `account_number?: string`\n  - `blockchain_addresses?: object`\n  - `routing_number?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst financialAccount = await client.financialAccounts.updateStatus('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { status: 'CLOSED', substatus: 'END_USER_REQUEST' });\n\nconsole.log(financialAccount);\n```",
     perLanguage: {
+      go: {
+        method: 'client.FinancialAccounts.UpdateStatus',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tfinancialAccount, err := client.FinancialAccounts.UpdateStatus(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.FinancialAccountUpdateStatusParams{\n\t\t\tStatus:    lithic.F(lithic.FinancialAccountUpdateStatusParamsStatusClosed),\n\t\t\tSubstatus: lithic.F(lithic.FinancialAccountUpdateStatusParamsSubstatusEndUserRequest),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", financialAccount.Token)\n}\n',
+      },
       java: {
         method: 'financialAccounts().updateStatus',
         example:
@@ -6040,11 +6045,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN/update_status \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "status": "CLOSED",\n          "substatus": "END_USER_REQUEST"\n        }\'',
       },
-      go: {
-        method: 'client.FinancialAccounts.UpdateStatus',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tfinancialAccount, err := client.FinancialAccounts.UpdateStatus(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.FinancialAccountUpdateStatusParams{\n\t\t\tStatus:    lithic.F(lithic.FinancialAccountUpdateStatusParamsStatusClosed),\n\t\t\tSubstatus: lithic.F(lithic.FinancialAccountUpdateStatusParamsSubstatusEndUserRequest),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", financialAccount.Token)\n}\n',
-      },
     },
   },
   {
@@ -6067,6 +6067,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.financialAccounts.create(nickname: string, type: 'OPERATING', account_token?: string, is_for_benefit_of?: boolean, Idempotency-Key?: string): { token: string; account_token: string; created: string; credit_configuration: object; is_for_benefit_of: boolean; nickname: string; status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'; substatus: string; type: string; updated: string; user_defined_status: string; account_number?: string; blockchain_addresses?: object; routing_number?: string; }`\n\n**post** `/v1/financial_accounts`\n\nCreate a new financial account\n\n### Parameters\n\n- `nickname: string`\n\n- `type: 'OPERATING'`\n\n- `account_token?: string`\n\n- `is_for_benefit_of?: boolean`\n\n- `Idempotency-Key?: string`\n\n### Returns\n\n- `{ token: string; account_token: string; created: string; credit_configuration: { auto_collection_configuration: { auto_collection_enabled: boolean; }; credit_limit: number; credit_product_token: string; external_bank_account_token: string; tier: string; }; is_for_benefit_of: boolean; nickname: string; status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'; substatus: string; type: string; updated: string; user_defined_status: string; account_number?: string; blockchain_addresses?: object; routing_number?: string; }`\n\n  - `token: string`\n  - `account_token: string`\n  - `created: string`\n  - `credit_configuration: { auto_collection_configuration: { auto_collection_enabled: boolean; }; credit_limit: number; credit_product_token: string; external_bank_account_token: string; tier: string; }`\n  - `is_for_benefit_of: boolean`\n  - `nickname: string`\n  - `status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'`\n  - `substatus: string`\n  - `type: string`\n  - `updated: string`\n  - `user_defined_status: string`\n  - `account_number?: string`\n  - `blockchain_addresses?: object`\n  - `routing_number?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst financialAccount = await client.financialAccounts.create({ nickname: 'nickname', type: 'OPERATING' });\n\nconsole.log(financialAccount);\n```",
     perLanguage: {
+      go: {
+        method: 'client.FinancialAccounts.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tfinancialAccount, err := client.FinancialAccounts.New(context.TODO(), lithic.FinancialAccountNewParams{\n\t\tNickname: lithic.F("nickname"),\n\t\tType:     lithic.F(lithic.FinancialAccountNewParamsTypeOperating),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", financialAccount.Token)\n}\n',
+      },
       java: {
         method: 'financialAccounts().create',
         example:
@@ -6096,11 +6101,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/financial_accounts \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "nickname": "nickname",\n          "type": "OPERATING"\n        }\'',
       },
-      go: {
-        method: 'client.FinancialAccounts.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tfinancialAccount, err := client.FinancialAccounts.New(context.TODO(), lithic.FinancialAccountNewParams{\n\t\tNickname: lithic.F("nickname"),\n\t\tType:     lithic.F(lithic.FinancialAccountNewParamsTypeOperating),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", financialAccount.Token)\n}\n',
-      },
     },
   },
   {
@@ -6115,6 +6115,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## register_account_number\n\n`client.financialAccounts.registerAccountNumber(financial_account_token: string, account_number: string): void`\n\n**post** `/v1/financial_accounts/{financial_account_token}/register_account_number`\n\nRegister account number\n\n### Parameters\n\n- `financial_account_token: string`\n\n- `account_number: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.financialAccounts.registerAccountNumber('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { account_number: 'account_number' })\n```",
     perLanguage: {
+      go: {
+        method: 'client.FinancialAccounts.RegisterAccountNumber',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.FinancialAccounts.RegisterAccountNumber(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.FinancialAccountRegisterAccountNumberParams{\n\t\t\tAccountNumber: lithic.F("account_number"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'financialAccounts().registerAccountNumber',
         example:
@@ -6144,11 +6149,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN/register_account_number \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "account_number": "account_number"\n        }\'',
       },
-      go: {
-        method: 'client.FinancialAccounts.RegisterAccountNumber',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.FinancialAccounts.RegisterAccountNumber(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.FinancialAccountRegisterAccountNumberParams{\n\t\t\tAccountNumber: lithic.F("account_number"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -6169,6 +6169,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.financialAccounts.balances.list(financial_account_token: string, balance_date?: string, last_transaction_event_token?: string): { token: string; available_amount: number; created: string; currency: string; last_transaction_event_token: string; last_transaction_token: string; pending_amount: number; total_amount: number; type: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY'; updated: string; }`\n\n**get** `/v1/financial_accounts/{financial_account_token}/balances`\n\nGet the balances for a given financial account.\n\n### Parameters\n\n- `financial_account_token: string`\n\n- `balance_date?: string`\n  UTC date of the balance to retrieve. Defaults to latest available balance\n\n- `last_transaction_event_token?: string`\n  Balance after a given financial event occured.\nNote: if an account receives multiple events around the same time whose financial impacts cancel out, a balance lookup by one of those event tokens may return 404, since their combined impact on the account is zero.\n\n\n### Returns\n\n- `{ token: string; available_amount: number; created: string; currency: string; last_transaction_event_token: string; last_transaction_token: string; pending_amount: number; total_amount: number; type: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY'; updated: string; }`\n  Balance of a Financial Account\n\n  - `token: string`\n  - `available_amount: number`\n  - `created: string`\n  - `currency: string`\n  - `last_transaction_event_token: string`\n  - `last_transaction_token: string`\n  - `pending_amount: number`\n  - `total_amount: number`\n  - `type: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY'`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const financialAccountBalance of client.financialAccounts.balances.list('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')) {\n  console.log(financialAccountBalance);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.FinancialAccounts.Balances.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.FinancialAccounts.Balances.List(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.FinancialAccountBalanceListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'financialAccounts().balances().list',
         example:
@@ -6198,11 +6203,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN/balances \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.FinancialAccounts.Balances.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.FinancialAccounts.Balances.List(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.FinancialAccountBalanceListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -6228,6 +6228,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.financialAccounts.financialTransactions.list(financial_account_token: string, begin?: string, category?: 'ACH' | 'CARD' | 'INTERNAL' | 'TRANSFER', end?: string, ending_before?: string, result?: 'APPROVED' | 'DECLINED', starting_after?: string, status?: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'RETURNED' | 'SETTLED' | 'VOIDED'): { token: string; category: 'ACH' | 'CARD' | 'INTERNAL' | 'TRANSFER'; created: string; currency: string; descriptor: string; events: financial_event[]; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'RETURNED' | 'SETTLED' | 'VOIDED'; updated: string; }`\n\n**get** `/v1/financial_accounts/{financial_account_token}/financial_transactions`\n\nList the financial transactions for a given financial account.\n\n### Parameters\n\n- `financial_account_token: string`\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `category?: 'ACH' | 'CARD' | 'INTERNAL' | 'TRANSFER'`\n  Financial Transaction category to be returned.\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `result?: 'APPROVED' | 'DECLINED'`\n  Financial Transaction result to be returned.\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n- `status?: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'RETURNED' | 'SETTLED' | 'VOIDED'`\n  Financial Transaction status to be returned.\n\n### Returns\n\n- `{ token: string; category: 'ACH' | 'CARD' | 'INTERNAL' | 'TRANSFER'; created: string; currency: string; descriptor: string; events: { token?: string; amount?: number; created?: string; result?: 'APPROVED' | 'DECLINED'; type?: string; }[]; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'RETURNED' | 'SETTLED' | 'VOIDED'; updated: string; }`\n\n  - `token: string`\n  - `category: 'ACH' | 'CARD' | 'INTERNAL' | 'TRANSFER'`\n  - `created: string`\n  - `currency: string`\n  - `descriptor: string`\n  - `events: { token?: string; amount?: number; created?: string; result?: 'APPROVED' | 'DECLINED'; type?: string; }[]`\n  - `pending_amount: number`\n  - `result: 'APPROVED' | 'DECLINED'`\n  - `settled_amount: number`\n  - `status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'RETURNED' | 'SETTLED' | 'VOIDED'`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const financialTransaction of client.financialAccounts.financialTransactions.list('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')) {\n  console.log(financialTransaction);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.FinancialAccounts.FinancialTransactions.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.FinancialAccounts.FinancialTransactions.List(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.FinancialTransactionListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'financialAccounts().financialTransactions().list',
         example:
@@ -6257,11 +6262,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN/financial_transactions \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.FinancialAccounts.FinancialTransactions.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.FinancialAccounts.FinancialTransactions.List(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.FinancialTransactionListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -6279,6 +6279,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.financialAccounts.financialTransactions.retrieve(financial_account_token: string, financial_transaction_token: string): { token: string; category: 'ACH' | 'CARD' | 'INTERNAL' | 'TRANSFER'; created: string; currency: string; descriptor: string; events: financial_event[]; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'RETURNED' | 'SETTLED' | 'VOIDED'; updated: string; }`\n\n**get** `/v1/financial_accounts/{financial_account_token}/financial_transactions/{financial_transaction_token}`\n\nGet the financial transaction for the provided token.\n\n### Parameters\n\n- `financial_account_token: string`\n\n- `financial_transaction_token: string`\n\n### Returns\n\n- `{ token: string; category: 'ACH' | 'CARD' | 'INTERNAL' | 'TRANSFER'; created: string; currency: string; descriptor: string; events: { token?: string; amount?: number; created?: string; result?: 'APPROVED' | 'DECLINED'; type?: string; }[]; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'RETURNED' | 'SETTLED' | 'VOIDED'; updated: string; }`\n\n  - `token: string`\n  - `category: 'ACH' | 'CARD' | 'INTERNAL' | 'TRANSFER'`\n  - `created: string`\n  - `currency: string`\n  - `descriptor: string`\n  - `events: { token?: string; amount?: number; created?: string; result?: 'APPROVED' | 'DECLINED'; type?: string; }[]`\n  - `pending_amount: number`\n  - `result: 'APPROVED' | 'DECLINED'`\n  - `settled_amount: number`\n  - `status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'RETURNED' | 'SETTLED' | 'VOIDED'`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst financialTransaction = await client.financialAccounts.financialTransactions.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(financialTransaction);\n```",
     perLanguage: {
+      go: {
+        method: 'client.FinancialAccounts.FinancialTransactions.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tfinancialTransaction, err := client.FinancialAccounts.FinancialTransactions.Get(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", financialTransaction.Token)\n}\n',
+      },
       java: {
         method: 'financialAccounts().financialTransactions().retrieve',
         example:
@@ -6308,11 +6313,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN/financial_transactions/$FINANCIAL_TRANSACTION_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.FinancialAccounts.FinancialTransactions.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tfinancialTransaction, err := client.FinancialAccounts.FinancialTransactions.Get(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", financialTransaction.Token)\n}\n',
-      },
     },
   },
   {
@@ -6329,6 +6329,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.financialAccounts.creditConfiguration.retrieve(financial_account_token: string): { account_token: string; auto_collection_configuration: object; credit_limit: number; credit_product_token: string; external_bank_account_token: string; tier: string; }`\n\n**get** `/v1/financial_accounts/{financial_account_token}/credit_configuration`\n\nGet an Account's credit configuration\n\n### Parameters\n\n- `financial_account_token: string`\n\n### Returns\n\n- `{ account_token: string; auto_collection_configuration: { auto_collection_enabled: boolean; }; credit_limit: number; credit_product_token: string; external_bank_account_token: string; tier: string; }`\n\n  - `account_token: string`\n  - `auto_collection_configuration: { auto_collection_enabled: boolean; }`\n  - `credit_limit: number`\n  - `credit_product_token: string`\n  - `external_bank_account_token: string`\n  - `tier: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst financialAccountCreditConfig = await client.financialAccounts.creditConfiguration.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(financialAccountCreditConfig);\n```",
     perLanguage: {
+      go: {
+        method: 'client.FinancialAccounts.CreditConfiguration.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tfinancialAccountCreditConfig, err := client.FinancialAccounts.CreditConfiguration.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", financialAccountCreditConfig.AccountToken)\n}\n',
+      },
       java: {
         method: 'financialAccounts().creditConfiguration().retrieve',
         example:
@@ -6358,11 +6363,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN/credit_configuration \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.FinancialAccounts.CreditConfiguration.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tfinancialAccountCreditConfig, err := client.FinancialAccounts.CreditConfiguration.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", financialAccountCreditConfig.AccountToken)\n}\n',
-      },
     },
   },
   {
@@ -6386,6 +6386,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## update\n\n`client.financialAccounts.creditConfiguration.update(financial_account_token: string, auto_collection_configuration?: { auto_collection_enabled?: boolean; }, credit_limit?: number, credit_product_token?: string, external_bank_account_token?: string, tier?: string): { account_token: string; auto_collection_configuration: object; credit_limit: number; credit_product_token: string; external_bank_account_token: string; tier: string; }`\n\n**patch** `/v1/financial_accounts/{financial_account_token}/credit_configuration`\n\nUpdate an account's credit configuration\n\n### Parameters\n\n- `financial_account_token: string`\n\n- `auto_collection_configuration?: { auto_collection_enabled?: boolean; }`\n  - `auto_collection_enabled?: boolean`\n    If auto collection is enabled for this account\n\n- `credit_limit?: number`\n\n- `credit_product_token?: string`\n  Globally unique identifier for the credit product\n\n- `external_bank_account_token?: string`\n\n- `tier?: string`\n  Tier to assign to a financial account\n\n### Returns\n\n- `{ account_token: string; auto_collection_configuration: { auto_collection_enabled: boolean; }; credit_limit: number; credit_product_token: string; external_bank_account_token: string; tier: string; }`\n\n  - `account_token: string`\n  - `auto_collection_configuration: { auto_collection_enabled: boolean; }`\n  - `credit_limit: number`\n  - `credit_product_token: string`\n  - `external_bank_account_token: string`\n  - `tier: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst financialAccountCreditConfig = await client.financialAccounts.creditConfiguration.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(financialAccountCreditConfig);\n```",
     perLanguage: {
+      go: {
+        method: 'client.FinancialAccounts.CreditConfiguration.Update',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tfinancialAccountCreditConfig, err := client.FinancialAccounts.CreditConfiguration.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.FinancialAccountCreditConfigurationUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", financialAccountCreditConfig.AccountToken)\n}\n',
+      },
       java: {
         method: 'financialAccounts().creditConfiguration().update',
         example:
@@ -6415,11 +6420,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN/credit_configuration \\\n    -X PATCH \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.FinancialAccounts.CreditConfiguration.Update',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tfinancialAccountCreditConfig, err := client.FinancialAccounts.CreditConfiguration.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.FinancialAccountCreditConfigurationUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", financialAccountCreditConfig.AccountToken)\n}\n',
-      },
     },
   },
   {
@@ -6444,6 +6444,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.financialAccounts.statements.list(financial_account_token: string, begin?: string, end?: string, ending_before?: string, include_initial_statements?: boolean, page_size?: number, starting_after?: string): { token: string; account_standing: object; amount_due: object; available_credit: number; created: string; credit_limit: number; credit_product_token: string; days_in_billing_cycle: number; ending_balance: number; financial_account_token: string; payment_due_date: string; period_totals: statement_totals; starting_balance: number; statement_end_date: string; statement_start_date: string; statement_type: 'INITIAL' | 'PERIOD_END' | 'FINAL'; updated: string; ytd_totals: statement_totals; interest_details?: object; next_payment_due_date?: string; next_statement_end_date?: string; payoff_details?: object; statement_totals?: statement_totals; }`\n\n**get** `/v1/financial_accounts/{financial_account_token}/statements`\n\nList the statements for a given financial account.\n\n### Parameters\n\n- `financial_account_token: string`\n  Globally unique identifier for financial account.\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified date will be included.\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified date will be included.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `include_initial_statements?: boolean`\n  Whether to include the initial statement. It is not included by default.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; account_standing: { consecutive_full_payments_made: number; consecutive_minimum_payments_made: number; consecutive_minimum_payments_missed: number; days_past_due: number; financial_account_state: { status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'; substatus?: string; }; has_grace: boolean; period_number: number; period_state: 'STANDARD' | 'PROMO' | 'PENALTY'; }; amount_due: { amount: number; past_due: number; }; available_credit: number; created: string; credit_limit: number; credit_product_token: string; days_in_billing_cycle: number; ending_balance: number; financial_account_token: string; payment_due_date: string; period_totals: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }; starting_balance: number; statement_end_date: string; statement_start_date: string; statement_type: 'INITIAL' | 'PERIOD_END' | 'FINAL'; updated: string; ytd_totals: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }; interest_details?: { actual_interest_charged: number; daily_balance_amounts: object; effective_apr: object; interest_calculation_method: 'DAILY' | 'AVERAGE_DAILY'; interest_for_period: object; prime_rate: string; minimum_interest_charged?: number; }; next_payment_due_date?: string; next_statement_end_date?: string; payoff_details?: { minimum_payment_months: string; minimum_payment_total: string; payoff_period_length_months: number; payoff_period_monthly_payment_amount: number; payoff_period_payment_total: number; }; statement_totals?: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }; }`\n\n  - `token: string`\n  - `account_standing: { consecutive_full_payments_made: number; consecutive_minimum_payments_made: number; consecutive_minimum_payments_missed: number; days_past_due: number; financial_account_state: { status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'; substatus?: string; }; has_grace: boolean; period_number: number; period_state: 'STANDARD' | 'PROMO' | 'PENALTY'; }`\n  - `amount_due: { amount: number; past_due: number; }`\n  - `available_credit: number`\n  - `created: string`\n  - `credit_limit: number`\n  - `credit_product_token: string`\n  - `days_in_billing_cycle: number`\n  - `ending_balance: number`\n  - `financial_account_token: string`\n  - `payment_due_date: string`\n  - `period_totals: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }`\n  - `starting_balance: number`\n  - `statement_end_date: string`\n  - `statement_start_date: string`\n  - `statement_type: 'INITIAL' | 'PERIOD_END' | 'FINAL'`\n  - `updated: string`\n  - `ytd_totals: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }`\n  - `interest_details?: { actual_interest_charged: number; daily_balance_amounts: { balance_transfers: string; cash_advances: string; purchases: string; }; effective_apr: { balance_transfers: string; cash_advances: string; purchases: string; }; interest_calculation_method: 'DAILY' | 'AVERAGE_DAILY'; interest_for_period: { balance_transfers: string; cash_advances: string; purchases: string; }; prime_rate: string; minimum_interest_charged?: number; }`\n  - `next_payment_due_date?: string`\n  - `next_statement_end_date?: string`\n  - `payoff_details?: { minimum_payment_months: string; minimum_payment_total: string; payoff_period_length_months: number; payoff_period_monthly_payment_amount: number; payoff_period_payment_total: number; }`\n  - `statement_totals?: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const statement of client.financialAccounts.statements.list('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')) {\n  console.log(statement);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.FinancialAccounts.Statements.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.FinancialAccounts.Statements.List(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.FinancialAccountStatementListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'financialAccounts().statements().list',
         example:
@@ -6473,11 +6478,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN/statements \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.FinancialAccounts.Statements.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.FinancialAccounts.Statements.List(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.FinancialAccountStatementListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -6494,6 +6494,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.financialAccounts.statements.retrieve(financial_account_token: string, statement_token: string): { token: string; account_standing: object; amount_due: object; available_credit: number; created: string; credit_limit: number; credit_product_token: string; days_in_billing_cycle: number; ending_balance: number; financial_account_token: string; payment_due_date: string; period_totals: statement_totals; starting_balance: number; statement_end_date: string; statement_start_date: string; statement_type: 'INITIAL' | 'PERIOD_END' | 'FINAL'; updated: string; ytd_totals: statement_totals; interest_details?: object; next_payment_due_date?: string; next_statement_end_date?: string; payoff_details?: object; statement_totals?: statement_totals; }`\n\n**get** `/v1/financial_accounts/{financial_account_token}/statements/{statement_token}`\n\nGet a specific statement for a given financial account.\n\n### Parameters\n\n- `financial_account_token: string`\n  Globally unique identifier for financial account.\n\n- `statement_token: string`\n  Globally unique identifier for statements.\n\n### Returns\n\n- `{ token: string; account_standing: { consecutive_full_payments_made: number; consecutive_minimum_payments_made: number; consecutive_minimum_payments_missed: number; days_past_due: number; financial_account_state: { status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'; substatus?: string; }; has_grace: boolean; period_number: number; period_state: 'STANDARD' | 'PROMO' | 'PENALTY'; }; amount_due: { amount: number; past_due: number; }; available_credit: number; created: string; credit_limit: number; credit_product_token: string; days_in_billing_cycle: number; ending_balance: number; financial_account_token: string; payment_due_date: string; period_totals: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }; starting_balance: number; statement_end_date: string; statement_start_date: string; statement_type: 'INITIAL' | 'PERIOD_END' | 'FINAL'; updated: string; ytd_totals: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }; interest_details?: { actual_interest_charged: number; daily_balance_amounts: object; effective_apr: object; interest_calculation_method: 'DAILY' | 'AVERAGE_DAILY'; interest_for_period: object; prime_rate: string; minimum_interest_charged?: number; }; next_payment_due_date?: string; next_statement_end_date?: string; payoff_details?: { minimum_payment_months: string; minimum_payment_total: string; payoff_period_length_months: number; payoff_period_monthly_payment_amount: number; payoff_period_payment_total: number; }; statement_totals?: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }; }`\n\n  - `token: string`\n  - `account_standing: { consecutive_full_payments_made: number; consecutive_minimum_payments_made: number; consecutive_minimum_payments_missed: number; days_past_due: number; financial_account_state: { status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'; substatus?: string; }; has_grace: boolean; period_number: number; period_state: 'STANDARD' | 'PROMO' | 'PENALTY'; }`\n  - `amount_due: { amount: number; past_due: number; }`\n  - `available_credit: number`\n  - `created: string`\n  - `credit_limit: number`\n  - `credit_product_token: string`\n  - `days_in_billing_cycle: number`\n  - `ending_balance: number`\n  - `financial_account_token: string`\n  - `payment_due_date: string`\n  - `period_totals: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }`\n  - `starting_balance: number`\n  - `statement_end_date: string`\n  - `statement_start_date: string`\n  - `statement_type: 'INITIAL' | 'PERIOD_END' | 'FINAL'`\n  - `updated: string`\n  - `ytd_totals: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }`\n  - `interest_details?: { actual_interest_charged: number; daily_balance_amounts: { balance_transfers: string; cash_advances: string; purchases: string; }; effective_apr: { balance_transfers: string; cash_advances: string; purchases: string; }; interest_calculation_method: 'DAILY' | 'AVERAGE_DAILY'; interest_for_period: { balance_transfers: string; cash_advances: string; purchases: string; }; prime_rate: string; minimum_interest_charged?: number; }`\n  - `next_payment_due_date?: string`\n  - `next_statement_end_date?: string`\n  - `payoff_details?: { minimum_payment_months: string; minimum_payment_total: string; payoff_period_length_months: number; payoff_period_monthly_payment_amount: number; payoff_period_payment_total: number; }`\n  - `statement_totals?: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst statement = await client.financialAccounts.statements.retrieve('statement_token', { financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(statement);\n```",
     perLanguage: {
+      go: {
+        method: 'client.FinancialAccounts.Statements.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tstatement, err := client.FinancialAccounts.Statements.Get(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"statement_token",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", statement.Token)\n}\n',
+      },
       java: {
         method: 'financialAccounts().statements().retrieve',
         example:
@@ -6523,11 +6528,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN/statements/$STATEMENT_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.FinancialAccounts.Statements.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tstatement, err := client.FinancialAccounts.Statements.Get(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"statement_token",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", statement.Token)\n}\n',
-      },
     },
   },
   {
@@ -6550,6 +6550,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.financialAccounts.statements.lineItems.list(financial_account_token: string, statement_token: string, ending_before?: string, page_size?: number, starting_after?: string): { token: string; amount: number; category: string; created: string; currency: string; effective_date: string; event_type: string; financial_account_token: string; financial_transaction_event_token: string; financial_transaction_token: string; card_token?: string; descriptor?: string; event_subtype?: string; loan_tape_date?: string; }`\n\n**get** `/v1/financial_accounts/{financial_account_token}/statements/{statement_token}/line_items`\n\nList the line items for a given statement within a given financial account.\n\n### Parameters\n\n- `financial_account_token: string`\n  Globally unique identifier for financial account.\n\n- `statement_token: string`\n  Globally unique identifier for statements.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; amount: number; category: string; created: string; currency: string; effective_date: string; event_type: string; financial_account_token: string; financial_transaction_event_token: string; financial_transaction_token: string; card_token?: string; descriptor?: string; event_subtype?: string; loan_tape_date?: string; }`\n\n  - `token: string`\n  - `amount: number`\n  - `category: string`\n  - `created: string`\n  - `currency: string`\n  - `effective_date: string`\n  - `event_type: string`\n  - `financial_account_token: string`\n  - `financial_transaction_event_token: string`\n  - `financial_transaction_token: string`\n  - `card_token?: string`\n  - `descriptor?: string`\n  - `event_subtype?: string`\n  - `loan_tape_date?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const lineItem of client.financialAccounts.statements.lineItems.list('statement_token', { financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' })) {\n  console.log(lineItem);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.FinancialAccounts.Statements.LineItems.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.FinancialAccounts.Statements.LineItems.List(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"statement_token",\n\t\tlithic.FinancialAccountStatementLineItemListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'financialAccounts().statements().lineItems().list',
         example:
@@ -6579,11 +6584,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN/statements/$STATEMENT_TOKEN/line_items \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.FinancialAccounts.Statements.LineItems.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.FinancialAccounts.Statements.LineItems.List(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"statement_token",\n\t\tlithic.FinancialAccountStatementLineItemListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -6607,6 +6607,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.financialAccounts.loanTapes.list(financial_account_token: string, begin?: string, end?: string, ending_before?: string, page_size?: number, starting_after?: string): { token: string; account_standing: object; available_credit: number; balances: object; created: string; credit_limit: number; credit_product_token: string; date: string; day_totals: statement_totals; ending_balance: number; excess_credits: number; financial_account_token: string; interest_details: object; minimum_payment_balance: object; payment_allocation: object; period_totals: statement_totals; previous_statement_balance: object; starting_balance: number; updated: string; version: number; ytd_totals: statement_totals; day_of_period?: number; tier?: string; }`\n\n**get** `/v1/financial_accounts/{financial_account_token}/loan_tapes`\n\nList the loan tapes for a given financial account.\n\n### Parameters\n\n- `financial_account_token: string`\n  Globally unique identifier for financial account.\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified date will be included.\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified date will be included.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; account_standing: { consecutive_full_payments_made: number; consecutive_minimum_payments_made: number; consecutive_minimum_payments_missed: number; days_past_due: number; financial_account_state: { status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'; substatus?: string; }; has_grace: boolean; period_number: number; period_state: 'STANDARD' | 'PROMO' | 'PENALTY'; }; available_credit: number; balances: { due: object; next_statement_due: object; past_due: object; past_statements_due: object; }; created: string; credit_limit: number; credit_product_token: string; date: string; day_totals: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }; ending_balance: number; excess_credits: number; financial_account_token: string; interest_details: { actual_interest_charged: number; daily_balance_amounts: object; effective_apr: object; interest_calculation_method: 'DAILY' | 'AVERAGE_DAILY'; interest_for_period: object; prime_rate: string; minimum_interest_charged?: number; }; minimum_payment_balance: { amount: number; remaining: number; }; payment_allocation: { fee_details: object; fees: number; interest: number; interest_details: object; principal: number; principal_details: object; }; period_totals: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }; previous_statement_balance: { amount: number; remaining: number; }; starting_balance: number; updated: string; version: number; ytd_totals: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }; day_of_period?: number; tier?: string; }`\n\n  - `token: string`\n  - `account_standing: { consecutive_full_payments_made: number; consecutive_minimum_payments_made: number; consecutive_minimum_payments_missed: number; days_past_due: number; financial_account_state: { status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'; substatus?: string; }; has_grace: boolean; period_number: number; period_state: 'STANDARD' | 'PROMO' | 'PENALTY'; }`\n  - `available_credit: number`\n  - `balances: { due: { fees: number; interest: number; principal: number; }; next_statement_due: { fees: number; interest: number; principal: number; }; past_due: { fees: number; interest: number; principal: number; }; past_statements_due: { fees: number; interest: number; principal: number; }; }`\n  - `created: string`\n  - `credit_limit: number`\n  - `credit_product_token: string`\n  - `date: string`\n  - `day_totals: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }`\n  - `ending_balance: number`\n  - `excess_credits: number`\n  - `financial_account_token: string`\n  - `interest_details: { actual_interest_charged: number; daily_balance_amounts: { balance_transfers: string; cash_advances: string; purchases: string; }; effective_apr: { balance_transfers: string; cash_advances: string; purchases: string; }; interest_calculation_method: 'DAILY' | 'AVERAGE_DAILY'; interest_for_period: { balance_transfers: string; cash_advances: string; purchases: string; }; prime_rate: string; minimum_interest_charged?: number; }`\n  - `minimum_payment_balance: { amount: number; remaining: number; }`\n  - `payment_allocation: { fee_details: { balance_transfers: string; cash_advances: string; purchases: string; }; fees: number; interest: number; interest_details: { balance_transfers: string; cash_advances: string; purchases: string; }; principal: number; principal_details: { balance_transfers: string; cash_advances: string; purchases: string; }; }`\n  - `period_totals: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }`\n  - `previous_statement_balance: { amount: number; remaining: number; }`\n  - `starting_balance: number`\n  - `updated: string`\n  - `version: number`\n  - `ytd_totals: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }`\n  - `day_of_period?: number`\n  - `tier?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const loanTape of client.financialAccounts.loanTapes.list('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')) {\n  console.log(loanTape);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.FinancialAccounts.LoanTapes.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.FinancialAccounts.LoanTapes.List(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.FinancialAccountLoanTapeListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'financialAccounts().loanTapes().list',
         example:
@@ -6636,11 +6641,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN/loan_tapes \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.FinancialAccounts.LoanTapes.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.FinancialAccounts.LoanTapes.List(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.FinancialAccountLoanTapeListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -6657,6 +6657,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.financialAccounts.loanTapes.retrieve(financial_account_token: string, loan_tape_token: string): { token: string; account_standing: object; available_credit: number; balances: object; created: string; credit_limit: number; credit_product_token: string; date: string; day_totals: statement_totals; ending_balance: number; excess_credits: number; financial_account_token: string; interest_details: object; minimum_payment_balance: object; payment_allocation: object; period_totals: statement_totals; previous_statement_balance: object; starting_balance: number; updated: string; version: number; ytd_totals: statement_totals; day_of_period?: number; tier?: string; }`\n\n**get** `/v1/financial_accounts/{financial_account_token}/loan_tapes/{loan_tape_token}`\n\nGet a specific loan tape for a given financial account.\n\n### Parameters\n\n- `financial_account_token: string`\n  Globally unique identifier for financial account.\n\n- `loan_tape_token: string`\n  Globally unique identifier for loan tape.\n\n### Returns\n\n- `{ token: string; account_standing: { consecutive_full_payments_made: number; consecutive_minimum_payments_made: number; consecutive_minimum_payments_missed: number; days_past_due: number; financial_account_state: { status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'; substatus?: string; }; has_grace: boolean; period_number: number; period_state: 'STANDARD' | 'PROMO' | 'PENALTY'; }; available_credit: number; balances: { due: object; next_statement_due: object; past_due: object; past_statements_due: object; }; created: string; credit_limit: number; credit_product_token: string; date: string; day_totals: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }; ending_balance: number; excess_credits: number; financial_account_token: string; interest_details: { actual_interest_charged: number; daily_balance_amounts: object; effective_apr: object; interest_calculation_method: 'DAILY' | 'AVERAGE_DAILY'; interest_for_period: object; prime_rate: string; minimum_interest_charged?: number; }; minimum_payment_balance: { amount: number; remaining: number; }; payment_allocation: { fee_details: object; fees: number; interest: number; interest_details: object; principal: number; principal_details: object; }; period_totals: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }; previous_statement_balance: { amount: number; remaining: number; }; starting_balance: number; updated: string; version: number; ytd_totals: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }; day_of_period?: number; tier?: string; }`\n\n  - `token: string`\n  - `account_standing: { consecutive_full_payments_made: number; consecutive_minimum_payments_made: number; consecutive_minimum_payments_missed: number; days_past_due: number; financial_account_state: { status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING'; substatus?: string; }; has_grace: boolean; period_number: number; period_state: 'STANDARD' | 'PROMO' | 'PENALTY'; }`\n  - `available_credit: number`\n  - `balances: { due: { fees: number; interest: number; principal: number; }; next_statement_due: { fees: number; interest: number; principal: number; }; past_due: { fees: number; interest: number; principal: number; }; past_statements_due: { fees: number; interest: number; principal: number; }; }`\n  - `created: string`\n  - `credit_limit: number`\n  - `credit_product_token: string`\n  - `date: string`\n  - `day_totals: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }`\n  - `ending_balance: number`\n  - `excess_credits: number`\n  - `financial_account_token: string`\n  - `interest_details: { actual_interest_charged: number; daily_balance_amounts: { balance_transfers: string; cash_advances: string; purchases: string; }; effective_apr: { balance_transfers: string; cash_advances: string; purchases: string; }; interest_calculation_method: 'DAILY' | 'AVERAGE_DAILY'; interest_for_period: { balance_transfers: string; cash_advances: string; purchases: string; }; prime_rate: string; minimum_interest_charged?: number; }`\n  - `minimum_payment_balance: { amount: number; remaining: number; }`\n  - `payment_allocation: { fee_details: { balance_transfers: string; cash_advances: string; purchases: string; }; fees: number; interest: number; interest_details: { balance_transfers: string; cash_advances: string; purchases: string; }; principal: number; principal_details: { balance_transfers: string; cash_advances: string; purchases: string; }; }`\n  - `period_totals: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }`\n  - `previous_statement_balance: { amount: number; remaining: number; }`\n  - `starting_balance: number`\n  - `updated: string`\n  - `version: number`\n  - `ytd_totals: { balance_transfers: number; cash_advances: number; credits: number; debits: number; fees: number; interest: number; payments: number; purchases: number; credit_details?: object; debit_details?: object; payment_details?: object; }`\n  - `day_of_period?: number`\n  - `tier?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst loanTape = await client.financialAccounts.loanTapes.retrieve('loan_tape_token', { financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(loanTape);\n```",
     perLanguage: {
+      go: {
+        method: 'client.FinancialAccounts.LoanTapes.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tloanTape, err := client.FinancialAccounts.LoanTapes.Get(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"loan_tape_token",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", loanTape.Token)\n}\n',
+      },
       java: {
         method: 'financialAccounts().loanTapes().retrieve',
         example:
@@ -6686,11 +6691,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN/loan_tapes/$LOAN_TAPE_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.FinancialAccounts.LoanTapes.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tloanTape, err := client.FinancialAccounts.LoanTapes.Get(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"loan_tape_token",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", loanTape.Token)\n}\n',
-      },
     },
   },
   {
@@ -6707,6 +6707,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.financialAccounts.loanTapeConfiguration.retrieve(financial_account_token: string): { created_at: string; financial_account_token: string; instance_token: string; updated_at: string; credit_product_token?: string; loan_tape_rebuild_configuration?: loan_tape_rebuild_configuration; tier_schedule_changed_at?: string; }`\n\n**get** `/v1/financial_accounts/{financial_account_token}/loan_tape_configuration`\n\nGet the loan tape configuration for a given financial account.\n\n### Parameters\n\n- `financial_account_token: string`\n  Globally unique identifier for financial account.\n\n### Returns\n\n- `{ created_at: string; financial_account_token: string; instance_token: string; updated_at: string; credit_product_token?: string; loan_tape_rebuild_configuration?: { rebuild_needed: boolean; last_rebuild?: string; rebuild_from?: string; }; tier_schedule_changed_at?: string; }`\n  Configuration for loan tapes\n\n  - `created_at: string`\n  - `financial_account_token: string`\n  - `instance_token: string`\n  - `updated_at: string`\n  - `credit_product_token?: string`\n  - `loan_tape_rebuild_configuration?: { rebuild_needed: boolean; last_rebuild?: string; rebuild_from?: string; }`\n  - `tier_schedule_changed_at?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst loanTapeConfiguration = await client.financialAccounts.loanTapeConfiguration.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(loanTapeConfiguration);\n```",
     perLanguage: {
+      go: {
+        method: 'client.FinancialAccounts.LoanTapeConfiguration.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tloanTapeConfiguration, err := client.FinancialAccounts.LoanTapeConfiguration.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", loanTapeConfiguration.CreatedAt)\n}\n',
+      },
       java: {
         method: 'financialAccounts().loanTapeConfiguration().retrieve',
         example:
@@ -6736,11 +6741,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN/loan_tape_configuration \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.FinancialAccounts.LoanTapeConfiguration.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tloanTapeConfiguration, err := client.FinancialAccounts.LoanTapeConfiguration.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", loanTapeConfiguration.CreatedAt)\n}\n',
-      },
     },
   },
   {
@@ -6763,6 +6763,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.financialAccounts.interestTierSchedule.list(financial_account_token: string, after_date?: string, before_date?: string, for_date?: string): { credit_product_token: string; effective_date: string; penalty_rates?: object; tier_name?: string; tier_rates?: object; }`\n\n**get** `/v1/financial_accounts/{financial_account_token}/interest_tier_schedule`\n\nList interest tier schedules for a financial account with optional date filtering.\n\nIf no date parameters are provided, returns all tier schedules.\nIf date parameters are provided, uses filtering to return matching schedules (max 100).\n- for_date: Returns exact match (takes precedence over other dates)\n- before_date: Returns schedules with effective_date <= before_date\n- after_date: Returns schedules with effective_date >= after_date\n- Both before_date and after_date: Returns schedules in range\n\n### Parameters\n\n- `financial_account_token: string`\n\n- `after_date?: string`\n  Return schedules with effective_date >= after_date (ISO format YYYY-MM-DD)\n\n- `before_date?: string`\n  Return schedules with effective_date <= before_date (ISO format YYYY-MM-DD)\n\n- `for_date?: string`\n  Return schedule with effective_date == for_date (ISO format YYYY-MM-DD)\n\n### Returns\n\n- `{ credit_product_token: string; effective_date: string; penalty_rates?: object; tier_name?: string; tier_rates?: object; }`\n  Entry in the Tier Schedule of an account\n\n  - `credit_product_token: string`\n  - `effective_date: string`\n  - `penalty_rates?: object`\n  - `tier_name?: string`\n  - `tier_rates?: object`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const interestTierSchedule of client.financialAccounts.interestTierSchedule.list('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')) {\n  console.log(interestTierSchedule);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.FinancialAccounts.InterestTierSchedule.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.FinancialAccounts.InterestTierSchedule.List(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.FinancialAccountInterestTierScheduleListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'financialAccounts().interestTierSchedule().list',
         example:
@@ -6792,11 +6797,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN/interest_tier_schedule \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.FinancialAccounts.InterestTierSchedule.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.FinancialAccounts.InterestTierSchedule.List(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.FinancialAccountInterestTierScheduleListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -6820,6 +6820,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.financialAccounts.interestTierSchedule.create(financial_account_token: string, credit_product_token: string, effective_date: string, penalty_rates?: object, tier_name?: string, tier_rates?: object): { credit_product_token: string; effective_date: string; penalty_rates?: object; tier_name?: string; tier_rates?: object; }`\n\n**post** `/v1/financial_accounts/{financial_account_token}/interest_tier_schedule`\n\nCreate a new interest tier schedule entry for a supported financial account\n\n### Parameters\n\n- `financial_account_token: string`\n\n- `credit_product_token: string`\n  Globally unique identifier for a credit product\n\n- `effective_date: string`\n  Date the tier should be effective in YYYY-MM-DD format\n\n- `penalty_rates?: object`\n  Custom rates per category for penalties\n\n- `tier_name?: string`\n  Name of a tier contained in the credit product. Mutually exclusive with tier_rates\n\n- `tier_rates?: object`\n  Custom rates per category.  Mutually exclusive with tier_name\n\n### Returns\n\n- `{ credit_product_token: string; effective_date: string; penalty_rates?: object; tier_name?: string; tier_rates?: object; }`\n  Entry in the Tier Schedule of an account\n\n  - `credit_product_token: string`\n  - `effective_date: string`\n  - `penalty_rates?: object`\n  - `tier_name?: string`\n  - `tier_rates?: object`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst interestTierSchedule = await client.financialAccounts.interestTierSchedule.create('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { credit_product_token: 'credit_product_token', effective_date: '2019-12-27' });\n\nconsole.log(interestTierSchedule);\n```",
     perLanguage: {
+      go: {
+        method: 'client.FinancialAccounts.InterestTierSchedule.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tinterestTierSchedule, err := client.FinancialAccounts.InterestTierSchedule.New(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.FinancialAccountInterestTierScheduleNewParams{\n\t\t\tInterestTierSchedule: lithic.InterestTierScheduleParam{\n\t\t\t\tCreditProductToken: lithic.F("credit_product_token"),\n\t\t\t\tEffectiveDate:      lithic.F(time.Now()),\n\t\t\t},\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", interestTierSchedule.CreditProductToken)\n}\n',
+      },
       java: {
         method: 'financialAccounts().interestTierSchedule().create',
         example:
@@ -6849,11 +6854,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN/interest_tier_schedule \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "credit_product_token": "credit_product_token",\n          "effective_date": "2019-12-27"\n        }\'',
       },
-      go: {
-        method: 'client.FinancialAccounts.InterestTierSchedule.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tinterestTierSchedule, err := client.FinancialAccounts.InterestTierSchedule.New(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.FinancialAccountInterestTierScheduleNewParams{\n\t\t\tInterestTierSchedule: lithic.InterestTierScheduleParam{\n\t\t\t\tCreditProductToken: lithic.F("credit_product_token"),\n\t\t\t\tEffectiveDate:      lithic.F(time.Now()),\n\t\t\t},\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", interestTierSchedule.CreditProductToken)\n}\n',
-      },
     },
   },
   {
@@ -6870,6 +6870,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.financialAccounts.interestTierSchedule.retrieve(financial_account_token: string, effective_date: string): { credit_product_token: string; effective_date: string; penalty_rates?: object; tier_name?: string; tier_rates?: object; }`\n\n**get** `/v1/financial_accounts/{financial_account_token}/interest_tier_schedule/{effective_date}`\n\nGet a specific interest tier schedule by effective date\n\n### Parameters\n\n- `financial_account_token: string`\n\n- `effective_date: string`\n\n### Returns\n\n- `{ credit_product_token: string; effective_date: string; penalty_rates?: object; tier_name?: string; tier_rates?: object; }`\n  Entry in the Tier Schedule of an account\n\n  - `credit_product_token: string`\n  - `effective_date: string`\n  - `penalty_rates?: object`\n  - `tier_name?: string`\n  - `tier_rates?: object`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst interestTierSchedule = await client.financialAccounts.interestTierSchedule.retrieve('2019-12-27', { financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(interestTierSchedule);\n```",
     perLanguage: {
+      go: {
+        method: 'client.FinancialAccounts.InterestTierSchedule.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tinterestTierSchedule, err := client.FinancialAccounts.InterestTierSchedule.Get(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\ttime.Now(),\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", interestTierSchedule.CreditProductToken)\n}\n',
+      },
       java: {
         method: 'financialAccounts().interestTierSchedule().retrieve',
         example:
@@ -6899,11 +6904,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN/interest_tier_schedule/$EFFECTIVE_DATE \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.FinancialAccounts.InterestTierSchedule.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tinterestTierSchedule, err := client.FinancialAccounts.InterestTierSchedule.Get(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\ttime.Now(),\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", interestTierSchedule.CreditProductToken)\n}\n',
-      },
     },
   },
   {
@@ -6926,6 +6926,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## update\n\n`client.financialAccounts.interestTierSchedule.update(financial_account_token: string, effective_date: string, penalty_rates?: object, tier_name?: string, tier_rates?: object): { credit_product_token: string; effective_date: string; penalty_rates?: object; tier_name?: string; tier_rates?: object; }`\n\n**put** `/v1/financial_accounts/{financial_account_token}/interest_tier_schedule/{effective_date}`\n\nUpdate an existing interest tier schedule\n\n### Parameters\n\n- `financial_account_token: string`\n\n- `effective_date: string`\n\n- `penalty_rates?: object`\n  Custom rates per category for penalties\n\n- `tier_name?: string`\n  Name of a tier contained in the credit product. Mutually exclusive with tier_rates\n\n- `tier_rates?: object`\n  Custom rates per category.  Mutually exclusive with tier_name\n\n### Returns\n\n- `{ credit_product_token: string; effective_date: string; penalty_rates?: object; tier_name?: string; tier_rates?: object; }`\n  Entry in the Tier Schedule of an account\n\n  - `credit_product_token: string`\n  - `effective_date: string`\n  - `penalty_rates?: object`\n  - `tier_name?: string`\n  - `tier_rates?: object`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst interestTierSchedule = await client.financialAccounts.interestTierSchedule.update('2019-12-27', { financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(interestTierSchedule);\n```",
     perLanguage: {
+      go: {
+        method: 'client.FinancialAccounts.InterestTierSchedule.Update',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tinterestTierSchedule, err := client.FinancialAccounts.InterestTierSchedule.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\ttime.Now(),\n\t\tlithic.FinancialAccountInterestTierScheduleUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", interestTierSchedule.CreditProductToken)\n}\n',
+      },
       java: {
         method: 'financialAccounts().interestTierSchedule().update',
         example:
@@ -6955,11 +6960,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN/interest_tier_schedule/$EFFECTIVE_DATE \\\n    -X PUT \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: $LITHIC_API_KEY\" \\\n    -d '{}'",
       },
-      go: {
-        method: 'client.FinancialAccounts.InterestTierSchedule.Update',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tinterestTierSchedule, err := client.FinancialAccounts.InterestTierSchedule.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\ttime.Now(),\n\t\tlithic.FinancialAccountInterestTierScheduleUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", interestTierSchedule.CreditProductToken)\n}\n',
-      },
     },
   },
   {
@@ -6975,6 +6975,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## delete\n\n`client.financialAccounts.interestTierSchedule.delete(financial_account_token: string, effective_date: string): void`\n\n**delete** `/v1/financial_accounts/{financial_account_token}/interest_tier_schedule/{effective_date}`\n\nDelete an interest tier schedule entry.\n\nReturns:\n- 400 Bad Request: Invalid effective_date format OR attempting to delete the earliest\n  tier schedule entry for a non-PENDING account\n- 404 Not Found: Tier schedule entry not found for the given effective_date OR ledger account not found\n\nNote: PENDING accounts can delete the earliest tier schedule entry (account hasn't opened yet).\nActive/non-PENDING accounts cannot delete the earliest entry to prevent orphaning the account.\n\nIf the deleted tier schedule has a past effective_date and the account is ACTIVE,\nthe loan tape rebuild configuration will be updated to trigger rebuilds from that date.\n\n### Parameters\n\n- `financial_account_token: string`\n\n- `effective_date: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.financialAccounts.interestTierSchedule.delete('2019-12-27', { financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' })\n```",
     perLanguage: {
+      go: {
+        method: 'client.FinancialAccounts.InterestTierSchedule.Delete',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.FinancialAccounts.InterestTierSchedule.Delete(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\ttime.Now(),\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'financialAccounts().interestTierSchedule().delete',
         example:
@@ -7004,11 +7009,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN/interest_tier_schedule/$EFFECTIVE_DATE \\\n    -X DELETE \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.FinancialAccounts.InterestTierSchedule.Delete',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.FinancialAccounts.InterestTierSchedule.Delete(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\ttime.Now(),\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -7036,6 +7036,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.transactions.list(account_token?: string, begin?: string, card_token?: string, end?: string, ending_before?: string, page_size?: number, result?: 'APPROVED' | 'DECLINED', starting_after?: string, status?: 'PENDING' | 'VOIDED' | 'SETTLED' | 'DECLINED' | 'EXPIRED'): { token: string; account_token: string; acquirer_fee: number; acquirer_reference_number: string; amount: number; amounts: object; authorization_amount: number; authorization_code: string; avs: object; card_token: string; cardholder_authentication: cardholder_authentication; created: string; financial_account_token: string; merchant: merchant; merchant_amount: number; merchant_authorization_amount: number; merchant_currency: string; network: 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA'; network_risk_score: number; pos: object; result: string; service_location: object; settled_amount: number; status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED'; tags: object; token_info: token_info; updated: string; events?: object[]; }`\n\n**get** `/v1/transactions`\n\nList card transactions. All amounts are in the smallest unit of their respective currency (e.g., cents for USD) and inclusive of any acquirer fees.\n\n\n### Parameters\n\n- `account_token?: string`\n  Filters for transactions associated with a specific account.\n\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `card_token?: string`\n  Filters for transactions associated with a specific card.\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `result?: 'APPROVED' | 'DECLINED'`\n  Filters for transactions using transaction result field. Can filter by `APPROVED`, and `DECLINED`.\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n- `status?: 'PENDING' | 'VOIDED' | 'SETTLED' | 'DECLINED' | 'EXPIRED'`\n  Filters for transactions using transaction status field.\n\n### Returns\n\n- `{ token: string; account_token: string; acquirer_fee: number; acquirer_reference_number: string; amount: number; amounts: { cardholder: { amount: number; conversion_rate: string; currency: currency; }; hold: { amount: number; currency: currency; }; merchant: { amount: number; currency: currency; }; settlement: { amount: number; currency: currency; }; }; authorization_amount: number; authorization_code: string; avs: { address: string; zipcode: string; }; card_token: string; cardholder_authentication: { authentication_method: 'FRICTIONLESS' | 'CHALLENGE' | 'NONE'; authentication_result: 'ATTEMPTS' | 'DECLINE' | 'NONE' | 'SUCCESS'; decision_made_by: 'CUSTOMER_RULES' | 'CUSTOMER_ENDPOINT' | 'LITHIC_DEFAULT' | 'LITHIC_RULES' | 'NETWORK' | 'UNKNOWN'; liability_shift: '3DS_AUTHENTICATED' | 'TOKEN_AUTHENTICATED' | 'NONE'; three_ds_authentication_token: string; }; created: string; financial_account_token: string; merchant: { acceptor_id: string; acquiring_institution_id: string; city: string; country: string; descriptor: string; mcc: string; state: string; }; merchant_amount: number; merchant_authorization_amount: number; merchant_currency: string; network: 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA'; network_risk_score: number; pos: { entry_mode: { card: 'NOT_PRESENT' | 'PREAUTHORIZED' | 'PRESENT' | 'UNKNOWN'; cardholder: string; pan: string; pin_entered: boolean; }; terminal: { attended: boolean; card_retention_capable: boolean; on_premise: boolean; operator: 'ADMINISTRATIVE' | 'CARDHOLDER' | 'CARD_ACCEPTOR' | 'UNKNOWN'; partial_approval_capable: boolean; pin_capability: 'CAPABLE' | 'INOPERATIVE' | 'NOT_CAPABLE' | 'UNSPECIFIED'; type: string; acceptor_terminal_id?: string; }; }; result: string; service_location: { city: string; country: string; postal_code: string; state: string; street_address: string; }; settled_amount: number; status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED'; tags: object; token_info: { wallet_type: 'APPLE_PAY' | 'GOOGLE_PAY' | 'MASTERPASS' | 'MERCHANT' | 'OTHER' | 'SAMSUNG_PAY'; }; updated: string; events?: { token: string; amount: number; amounts: { cardholder: object; merchant: object; settlement: object; }; created: string; detailed_results: string[]; effective_polarity: 'CREDIT' | 'DEBIT'; network_info: { acquirer: object; amex: object; mastercard: object; visa: object; }; result: string; rule_results: { auth_rule_token: string; explanation: string; name: string; result: string; }[]; type: string; account_type?: 'CHECKING' | 'SAVINGS'; network_specific_data?: { mastercard: object; visa: object; }; }[]; }`\n\n  - `token: string`\n  - `account_token: string`\n  - `acquirer_fee: number`\n  - `acquirer_reference_number: string`\n  - `amount: number`\n  - `amounts: { cardholder: { amount: number; conversion_rate: string; currency: string; }; hold: { amount: number; currency: string; }; merchant: { amount: number; currency: string; }; settlement: { amount: number; currency: string; }; }`\n  - `authorization_amount: number`\n  - `authorization_code: string`\n  - `avs: { address: string; zipcode: string; }`\n  - `card_token: string`\n  - `cardholder_authentication: { authentication_method: 'FRICTIONLESS' | 'CHALLENGE' | 'NONE'; authentication_result: 'ATTEMPTS' | 'DECLINE' | 'NONE' | 'SUCCESS'; decision_made_by: 'CUSTOMER_RULES' | 'CUSTOMER_ENDPOINT' | 'LITHIC_DEFAULT' | 'LITHIC_RULES' | 'NETWORK' | 'UNKNOWN'; liability_shift: '3DS_AUTHENTICATED' | 'TOKEN_AUTHENTICATED' | 'NONE'; three_ds_authentication_token: string; }`\n  - `created: string`\n  - `financial_account_token: string`\n  - `merchant: { acceptor_id: string; acquiring_institution_id: string; city: string; country: string; descriptor: string; mcc: string; state: string; }`\n  - `merchant_amount: number`\n  - `merchant_authorization_amount: number`\n  - `merchant_currency: string`\n  - `network: 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA'`\n  - `network_risk_score: number`\n  - `pos: { entry_mode: { card: 'NOT_PRESENT' | 'PREAUTHORIZED' | 'PRESENT' | 'UNKNOWN'; cardholder: string; pan: string; pin_entered: boolean; }; terminal: { attended: boolean; card_retention_capable: boolean; on_premise: boolean; operator: 'ADMINISTRATIVE' | 'CARDHOLDER' | 'CARD_ACCEPTOR' | 'UNKNOWN'; partial_approval_capable: boolean; pin_capability: 'CAPABLE' | 'INOPERATIVE' | 'NOT_CAPABLE' | 'UNSPECIFIED'; type: string; acceptor_terminal_id?: string; }; }`\n  - `result: string`\n  - `service_location: { city: string; country: string; postal_code: string; state: string; street_address: string; }`\n  - `settled_amount: number`\n  - `status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED'`\n  - `tags: object`\n  - `token_info: { wallet_type: 'APPLE_PAY' | 'GOOGLE_PAY' | 'MASTERPASS' | 'MERCHANT' | 'OTHER' | 'SAMSUNG_PAY'; }`\n  - `updated: string`\n  - `events?: { token: string; amount: number; amounts: { cardholder: { amount: number; conversion_rate: string; currency: string; }; merchant: { amount: number; currency: string; }; settlement: { amount: number; conversion_rate: string; currency: string; }; }; created: string; detailed_results: string[]; effective_polarity: 'CREDIT' | 'DEBIT'; network_info: { acquirer: { acquirer_reference_number: string; retrieval_reference_number: string; }; amex: { original_transaction_id: string; transaction_id: string; }; mastercard: { banknet_reference_number: string; original_banknet_reference_number: string; original_switch_serial_number: string; switch_serial_number: string; }; visa: { original_transaction_id: string; transaction_id: string; }; }; result: string; rule_results: { auth_rule_token: string; explanation: string; name: string; result: string; }[]; type: string; account_type?: 'CHECKING' | 'SAVINGS'; network_specific_data?: { mastercard: { ecommerce_security_level_indicator: string; on_behalf_service_result: { result_1: string; result_2: string; service: string; }[]; transaction_type_identifier: string; }; visa: { business_application_identifier: string; }; }; }[]`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const transaction of client.transactions.list()) {\n  console.log(transaction);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.Transactions.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Transactions.List(context.TODO(), lithic.TransactionListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'transactions().list',
         example:
@@ -7064,11 +7069,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example: 'curl https://api.lithic.com/v1/transactions \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Transactions.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Transactions.List(context.TODO(), lithic.TransactionListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -7086,6 +7086,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.transactions.retrieve(transaction_token: string): { token: string; account_token: string; acquirer_fee: number; acquirer_reference_number: string; amount: number; amounts: object; authorization_amount: number; authorization_code: string; avs: object; card_token: string; cardholder_authentication: cardholder_authentication; created: string; financial_account_token: string; merchant: merchant; merchant_amount: number; merchant_authorization_amount: number; merchant_currency: string; network: 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA'; network_risk_score: number; pos: object; result: string; service_location: object; settled_amount: number; status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED'; tags: object; token_info: token_info; updated: string; events?: object[]; }`\n\n**get** `/v1/transactions/{transaction_token}`\n\nGet a specific card transaction. All amounts are in the smallest unit of their respective currency (e.g., cents for USD).\n\n\n### Parameters\n\n- `transaction_token: string`\n\n### Returns\n\n- `{ token: string; account_token: string; acquirer_fee: number; acquirer_reference_number: string; amount: number; amounts: { cardholder: { amount: number; conversion_rate: string; currency: currency; }; hold: { amount: number; currency: currency; }; merchant: { amount: number; currency: currency; }; settlement: { amount: number; currency: currency; }; }; authorization_amount: number; authorization_code: string; avs: { address: string; zipcode: string; }; card_token: string; cardholder_authentication: { authentication_method: 'FRICTIONLESS' | 'CHALLENGE' | 'NONE'; authentication_result: 'ATTEMPTS' | 'DECLINE' | 'NONE' | 'SUCCESS'; decision_made_by: 'CUSTOMER_RULES' | 'CUSTOMER_ENDPOINT' | 'LITHIC_DEFAULT' | 'LITHIC_RULES' | 'NETWORK' | 'UNKNOWN'; liability_shift: '3DS_AUTHENTICATED' | 'TOKEN_AUTHENTICATED' | 'NONE'; three_ds_authentication_token: string; }; created: string; financial_account_token: string; merchant: { acceptor_id: string; acquiring_institution_id: string; city: string; country: string; descriptor: string; mcc: string; state: string; }; merchant_amount: number; merchant_authorization_amount: number; merchant_currency: string; network: 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA'; network_risk_score: number; pos: { entry_mode: { card: 'NOT_PRESENT' | 'PREAUTHORIZED' | 'PRESENT' | 'UNKNOWN'; cardholder: string; pan: string; pin_entered: boolean; }; terminal: { attended: boolean; card_retention_capable: boolean; on_premise: boolean; operator: 'ADMINISTRATIVE' | 'CARDHOLDER' | 'CARD_ACCEPTOR' | 'UNKNOWN'; partial_approval_capable: boolean; pin_capability: 'CAPABLE' | 'INOPERATIVE' | 'NOT_CAPABLE' | 'UNSPECIFIED'; type: string; acceptor_terminal_id?: string; }; }; result: string; service_location: { city: string; country: string; postal_code: string; state: string; street_address: string; }; settled_amount: number; status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED'; tags: object; token_info: { wallet_type: 'APPLE_PAY' | 'GOOGLE_PAY' | 'MASTERPASS' | 'MERCHANT' | 'OTHER' | 'SAMSUNG_PAY'; }; updated: string; events?: { token: string; amount: number; amounts: { cardholder: object; merchant: object; settlement: object; }; created: string; detailed_results: string[]; effective_polarity: 'CREDIT' | 'DEBIT'; network_info: { acquirer: object; amex: object; mastercard: object; visa: object; }; result: string; rule_results: { auth_rule_token: string; explanation: string; name: string; result: string; }[]; type: string; account_type?: 'CHECKING' | 'SAVINGS'; network_specific_data?: { mastercard: object; visa: object; }; }[]; }`\n\n  - `token: string`\n  - `account_token: string`\n  - `acquirer_fee: number`\n  - `acquirer_reference_number: string`\n  - `amount: number`\n  - `amounts: { cardholder: { amount: number; conversion_rate: string; currency: string; }; hold: { amount: number; currency: string; }; merchant: { amount: number; currency: string; }; settlement: { amount: number; currency: string; }; }`\n  - `authorization_amount: number`\n  - `authorization_code: string`\n  - `avs: { address: string; zipcode: string; }`\n  - `card_token: string`\n  - `cardholder_authentication: { authentication_method: 'FRICTIONLESS' | 'CHALLENGE' | 'NONE'; authentication_result: 'ATTEMPTS' | 'DECLINE' | 'NONE' | 'SUCCESS'; decision_made_by: 'CUSTOMER_RULES' | 'CUSTOMER_ENDPOINT' | 'LITHIC_DEFAULT' | 'LITHIC_RULES' | 'NETWORK' | 'UNKNOWN'; liability_shift: '3DS_AUTHENTICATED' | 'TOKEN_AUTHENTICATED' | 'NONE'; three_ds_authentication_token: string; }`\n  - `created: string`\n  - `financial_account_token: string`\n  - `merchant: { acceptor_id: string; acquiring_institution_id: string; city: string; country: string; descriptor: string; mcc: string; state: string; }`\n  - `merchant_amount: number`\n  - `merchant_authorization_amount: number`\n  - `merchant_currency: string`\n  - `network: 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA'`\n  - `network_risk_score: number`\n  - `pos: { entry_mode: { card: 'NOT_PRESENT' | 'PREAUTHORIZED' | 'PRESENT' | 'UNKNOWN'; cardholder: string; pan: string; pin_entered: boolean; }; terminal: { attended: boolean; card_retention_capable: boolean; on_premise: boolean; operator: 'ADMINISTRATIVE' | 'CARDHOLDER' | 'CARD_ACCEPTOR' | 'UNKNOWN'; partial_approval_capable: boolean; pin_capability: 'CAPABLE' | 'INOPERATIVE' | 'NOT_CAPABLE' | 'UNSPECIFIED'; type: string; acceptor_terminal_id?: string; }; }`\n  - `result: string`\n  - `service_location: { city: string; country: string; postal_code: string; state: string; street_address: string; }`\n  - `settled_amount: number`\n  - `status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED'`\n  - `tags: object`\n  - `token_info: { wallet_type: 'APPLE_PAY' | 'GOOGLE_PAY' | 'MASTERPASS' | 'MERCHANT' | 'OTHER' | 'SAMSUNG_PAY'; }`\n  - `updated: string`\n  - `events?: { token: string; amount: number; amounts: { cardholder: { amount: number; conversion_rate: string; currency: string; }; merchant: { amount: number; currency: string; }; settlement: { amount: number; conversion_rate: string; currency: string; }; }; created: string; detailed_results: string[]; effective_polarity: 'CREDIT' | 'DEBIT'; network_info: { acquirer: { acquirer_reference_number: string; retrieval_reference_number: string; }; amex: { original_transaction_id: string; transaction_id: string; }; mastercard: { banknet_reference_number: string; original_banknet_reference_number: string; original_switch_serial_number: string; switch_serial_number: string; }; visa: { original_transaction_id: string; transaction_id: string; }; }; result: string; rule_results: { auth_rule_token: string; explanation: string; name: string; result: string; }[]; type: string; account_type?: 'CHECKING' | 'SAVINGS'; network_specific_data?: { mastercard: { ecommerce_security_level_indicator: string; on_behalf_service_result: { result_1: string; result_2: string; service: string; }[]; transaction_type_identifier: string; }; visa: { business_application_identifier: string; }; }; }[]`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst transaction = await client.transactions.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(transaction);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Transactions.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\ttransaction, err := client.Transactions.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", transaction.Token)\n}\n',
+      },
       java: {
         method: 'transactions().retrieve',
         example:
@@ -7114,11 +7119,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example:
           'curl https://api.lithic.com/v1/transactions/$TRANSACTION_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
-      },
-      go: {
-        method: 'client.Transactions.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\ttransaction, err := client.Transactions.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", transaction.Token)\n}\n',
       },
     },
   },
@@ -7150,6 +7150,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## simulate_authorization\n\n`client.transactions.simulateAuthorization(amount: number, descriptor: string, pan: string, mcc?: string, merchant_acceptor_city?: string, merchant_acceptor_country?: string, merchant_acceptor_id?: string, merchant_acceptor_state?: string, merchant_amount?: number, merchant_currency?: string, partial_approval_capable?: boolean, pin?: string, status?: string): { token?: string; debugging_request_id?: string; }`\n\n**post** `/v1/simulate/authorize`\n\nSimulates an authorization request from the card network as if it came from a merchant acquirer.\nIf you are configured for ASA, simulating authorizations requires your ASA client to be set up properly, i.e. be able to respond to the ASA request with a valid JSON. For users that are not configured for ASA, a daily transaction limit of $5000 USD is applied by default. You can update this limit via the [update account](https://docs.lithic.com/reference/patchaccountbytoken) endpoint.\n\n\n### Parameters\n\n- `amount: number`\n  Amount (in cents) to authorize. For credit authorizations and financial credit authorizations, any value entered will be converted into a negative amount in the simulated transaction. For example, entering 100 in this field will result in a -100 amount in the transaction. For balance inquiries, this field must be set to 0.\n\n- `descriptor: string`\n  Merchant descriptor.\n\n- `pan: string`\n  Sixteen digit card number.\n\n- `mcc?: string`\n  Merchant category code for the transaction to be simulated. A four-digit number listed in ISO 18245.\nSupported merchant category codes can be found [here](https://docs.lithic.com/docs/transactions#merchant-category-codes-mccs).\n\n\n- `merchant_acceptor_city?: string`\n  Merchant acceptor city\n\n- `merchant_acceptor_country?: string`\n  Merchant acceptor country code (ISO 3166-1 alpha-3)\n\n- `merchant_acceptor_id?: string`\n  Unique identifier to identify the payment card acceptor.\n\n- `merchant_acceptor_state?: string`\n  Merchant acceptor state/province (ISO 3166-2 subdivision code)\n\n- `merchant_amount?: number`\n  Amount of the transaction to be simulated in currency specified in merchant_currency, including any acquirer fees.\n\n- `merchant_currency?: string`\n  3-character alphabetic ISO 4217 currency code. Note: Simulator only accepts USD, GBP, EUR and defaults to GBP if another ISO 4217 code is provided\n\n- `partial_approval_capable?: boolean`\n  Set to true if the terminal is capable of partial approval otherwise false.\nPartial approval is when part of a transaction is approved and another\npayment must be used for the remainder.\n\n\n- `pin?: string`\n  Simulate entering a PIN. If omitted, PIN check will not be performed.\n\n- `status?: string`\n  Type of event to simulate.\n* `AUTHORIZATION` is a dual message purchase authorization, meaning a subsequent clearing step is required to settle the transaction.\n* `BALANCE_INQUIRY` is a $0 authorization requesting the balance held on the card, and is most often observed when a cardholder requests to view a card's balance at an ATM.\n* `CREDIT_AUTHORIZATION` is a dual message request from a merchant to authorize a refund, meaning a subsequent clearing step is required to settle the transaction.\n* `FINANCIAL_AUTHORIZATION` is a single message request from a merchant to debit funds immediately (such as an ATM withdrawal), and no subsequent clearing is required to settle the transaction.\n* `FINANCIAL_CREDIT_AUTHORIZATION` is a single message request from a merchant to credit funds immediately, and no subsequent clearing is required to settle the transaction.\n\n\n### Returns\n\n- `{ token?: string; debugging_request_id?: string; }`\n\n  - `token?: string`\n  - `debugging_request_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.transactions.simulateAuthorization({\n  amount: 3831,\n  descriptor: 'COFFEE SHOP',\n  pan: '4111111289144142',\n});\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Transactions.SimulateAuthorization',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Transactions.SimulateAuthorization(context.TODO(), lithic.TransactionSimulateAuthorizationParams{\n\t\tAmount:                  lithic.F(int64(3831)),\n\t\tDescriptor:              lithic.F("COFFEE SHOP"),\n\t\tPan:                     lithic.F("4111111289144142"),\n\t\tMerchantAcceptorCity:    lithic.F("LOS ANGELES"),\n\t\tMerchantAcceptorCountry: lithic.F("USA"),\n\t\tMerchantAcceptorState:   lithic.F("CA"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
+      },
       java: {
         method: 'transactions().simulateAuthorization',
         example:
@@ -7179,11 +7184,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/simulate/authorize \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "amount": 3831,\n          "descriptor": "COFFEE SHOP",\n          "pan": "4111111289144142",\n          "mcc": "5812",\n          "merchant_acceptor_city": "LOS ANGELES",\n          "merchant_acceptor_country": "USA",\n          "merchant_acceptor_id": "OODKZAPJVN4YS7O",\n          "merchant_acceptor_state": "CA",\n          "merchant_currency": "GBP",\n          "pin": "1234",\n          "status": "AUTHORIZATION"\n        }\'',
       },
-      go: {
-        method: 'client.Transactions.SimulateAuthorization',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Transactions.SimulateAuthorization(context.TODO(), lithic.TransactionSimulateAuthorizationParams{\n\t\tAmount:                  lithic.F(int64(3831)),\n\t\tDescriptor:              lithic.F("COFFEE SHOP"),\n\t\tPan:                     lithic.F("4111111289144142"),\n\t\tMerchantAcceptorCity:    lithic.F("LOS ANGELES"),\n\t\tMerchantAcceptorCountry: lithic.F("USA"),\n\t\tMerchantAcceptorState:   lithic.F("CA"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
-      },
     },
   },
   {
@@ -7200,6 +7200,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## simulate_clearing\n\n`client.transactions.simulateClearing(token: string, amount?: number): { debugging_request_id?: string; }`\n\n**post** `/v1/simulate/clearing`\n\nClears an existing authorization, either debit or credit. After this event, the transaction transitions from `PENDING` to `SETTLED` status.\n\nIf `amount` is not set, the full amount of the transaction will be cleared. This endpoint may be called multiple times against the same authorization to simulate a multiple-completion scenario, with each call creating a separate clearing event.\n\n\n### Parameters\n\n- `token: string`\n  The transaction token returned from the /v1/simulate/authorize response.\n\n- `amount?: number`\n  Amount (in cents) to clear. Typically this will match the amount in the original authorization, but can be higher or lower. The sign of this amount will automatically match the sign of the original authorization's amount. For example, entering 100 in this field will result in a -100 amount in the transaction, if the original authorization is a credit authorization.\n\nIf `amount` is not set, the full amount of the transaction will be cleared. This endpoint may be called multiple times against the same authorization to simulate a multiple-completion scenario, with each call creating a separate clearing event.\n\n\n### Returns\n\n- `{ debugging_request_id?: string; }`\n\n  - `debugging_request_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.transactions.simulateClearing({ token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac' });\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Transactions.SimulateClearing',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Transactions.SimulateClearing(context.TODO(), lithic.TransactionSimulateClearingParams{\n\t\tToken: lithic.F("fabd829d-7f7b-4432-a8f2-07ea4889aaac"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
+      },
       java: {
         method: 'transactions().simulateClearing',
         example:
@@ -7229,11 +7234,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/simulate/clearing \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "token": "fabd829d-7f7b-4432-a8f2-07ea4889aaac",\n          "amount": 0\n        }\'',
       },
-      go: {
-        method: 'client.Transactions.SimulateClearing',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Transactions.SimulateClearing(context.TODO(), lithic.TransactionSimulateClearingParams{\n\t\tToken: lithic.F("fabd829d-7f7b-4432-a8f2-07ea4889aaac"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
-      },
     },
   },
   {
@@ -7250,6 +7250,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## simulate_return\n\n`client.transactions.simulateReturn(amount: number, descriptor: string, pan: string): { token?: string; debugging_request_id?: string; }`\n\n**post** `/v1/simulate/return`\n\nReturns, or refunds, an amount back to a card. Returns simulated via this endpoint clear immediately, without prior authorization, and result in a `SETTLED` transaction status.\n\n\n### Parameters\n\n- `amount: number`\n  Amount (in cents) to authorize.\n\n- `descriptor: string`\n  Merchant descriptor.\n\n- `pan: string`\n  Sixteen digit card number.\n\n### Returns\n\n- `{ token?: string; debugging_request_id?: string; }`\n\n  - `token?: string`\n  - `debugging_request_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.transactions.simulateReturn({\n  amount: 3831,\n  descriptor: 'COFFEE SHOP',\n  pan: '4111111289144142',\n});\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Transactions.SimulateReturn',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Transactions.SimulateReturn(context.TODO(), lithic.TransactionSimulateReturnParams{\n\t\tAmount:     lithic.F(int64(3831)),\n\t\tDescriptor: lithic.F("COFFEE SHOP"),\n\t\tPan:        lithic.F("4111111289144142"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
+      },
       java: {
         method: 'transactions().simulateReturn',
         example:
@@ -7279,11 +7284,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/simulate/return \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "amount": 3831,\n          "descriptor": "COFFEE SHOP",\n          "pan": "4111111289144142"\n        }\'',
       },
-      go: {
-        method: 'client.Transactions.SimulateReturn',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Transactions.SimulateReturn(context.TODO(), lithic.TransactionSimulateReturnParams{\n\t\tAmount:     lithic.F(int64(3831)),\n\t\tDescriptor: lithic.F("COFFEE SHOP"),\n\t\tPan:        lithic.F("4111111289144142"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
-      },
     },
   },
   {
@@ -7300,6 +7300,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## simulate_return_reversal\n\n`client.transactions.simulateReturnReversal(token: string): { debugging_request_id?: string; }`\n\n**post** `/v1/simulate/return_reversal`\n\nReverses a return, i.e. a credit transaction with a `SETTLED` status. Returns can be financial credit authorizations, or credit authorizations that have cleared.\n\n\n### Parameters\n\n- `token: string`\n  The transaction token returned from the /v1/simulate/authorize response.\n\n### Returns\n\n- `{ debugging_request_id?: string; }`\n\n  - `debugging_request_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.transactions.simulateReturnReversal({ token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac' });\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Transactions.SimulateReturnReversal',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Transactions.SimulateReturnReversal(context.TODO(), lithic.TransactionSimulateReturnReversalParams{\n\t\tToken: lithic.F("fabd829d-7f7b-4432-a8f2-07ea4889aaac"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
+      },
       java: {
         method: 'transactions().simulateReturnReversal',
         example:
@@ -7329,11 +7334,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/simulate/return_reversal \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "token": "fabd829d-7f7b-4432-a8f2-07ea4889aaac"\n        }\'',
       },
-      go: {
-        method: 'client.Transactions.SimulateReturnReversal',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Transactions.SimulateReturnReversal(context.TODO(), lithic.TransactionSimulateReturnReversalParams{\n\t\tToken: lithic.F("fabd829d-7f7b-4432-a8f2-07ea4889aaac"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
-      },
     },
   },
   {
@@ -7354,6 +7354,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## simulate_void\n\n`client.transactions.simulateVoid(token: string, amount?: number, type?: 'AUTHORIZATION_EXPIRY' | 'AUTHORIZATION_REVERSAL'): { debugging_request_id?: string; }`\n\n**post** `/v1/simulate/void`\n\nVoids a pending authorization. If `amount` is not set, the full amount will be voided. Can be used on partially voided transactions but not partially cleared transactions. _Simulating an authorization expiry on credit authorizations or credit authorization advice is not currently supported but will be added soon._\n\n\n### Parameters\n\n- `token: string`\n  The transaction token returned from the /v1/simulate/authorize response.\n\n- `amount?: number`\n  Amount (in cents) to void. Typically this will match the amount in the original authorization, but can be less. Applies to authorization reversals only. An authorization expiry will always apply to the full pending amount.\n\n- `type?: 'AUTHORIZATION_EXPIRY' | 'AUTHORIZATION_REVERSAL'`\n  Type of event to simulate. Defaults to `AUTHORIZATION_REVERSAL`.\n\n* `AUTHORIZATION_EXPIRY` indicates authorization has expired and been reversed by Lithic.\n* `AUTHORIZATION_REVERSAL` indicates authorization was reversed by the merchant.\n\n\n### Returns\n\n- `{ debugging_request_id?: string; }`\n\n  - `debugging_request_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.transactions.simulateVoid({ token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac' });\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Transactions.SimulateVoid',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Transactions.SimulateVoid(context.TODO(), lithic.TransactionSimulateVoidParams{\n\t\tToken:  lithic.F("fabd829d-7f7b-4432-a8f2-07ea4889aaac"),\n\t\tAmount: lithic.F(int64(100)),\n\t\tType:   lithic.F(lithic.TransactionSimulateVoidParamsTypeAuthorizationExpiry),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
+      },
       java: {
         method: 'transactions().simulateVoid',
         example:
@@ -7383,11 +7388,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/simulate/void \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "token": "fabd829d-7f7b-4432-a8f2-07ea4889aaac",\n          "amount": 100,\n          "type": "AUTHORIZATION_EXPIRY"\n        }\'',
       },
-      go: {
-        method: 'client.Transactions.SimulateVoid',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Transactions.SimulateVoid(context.TODO(), lithic.TransactionSimulateVoidParams{\n\t\tToken:  lithic.F("fabd829d-7f7b-4432-a8f2-07ea4889aaac"),\n\t\tAmount: lithic.F(int64(100)),\n\t\tType:   lithic.F(lithic.TransactionSimulateVoidParamsTypeAuthorizationExpiry),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
-      },
     },
   },
   {
@@ -7413,6 +7413,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## simulate_credit_authorization\n\n`client.transactions.simulateCreditAuthorization(amount: number, descriptor: string, pan: string, mcc?: string, merchant_acceptor_city?: string, merchant_acceptor_country?: string, merchant_acceptor_id?: string, merchant_acceptor_state?: string): { token?: string; debugging_request_id?: string; }`\n\n**post** `/v1/simulate/credit_authorization_advice`\n\nSimulates a credit authorization advice from the card network.\nThis message indicates that the network approved a credit authorization on your behalf.\n\n\n### Parameters\n\n- `amount: number`\n  Amount (in cents). Any value entered will be converted into a negative amount in the simulated transaction. For example, entering 100 in this field will appear as a -100 amount in the transaction.\n\n- `descriptor: string`\n  Merchant descriptor.\n\n- `pan: string`\n  Sixteen digit card number.\n\n- `mcc?: string`\n  Merchant category code for the transaction to be simulated. A four-digit number listed in ISO 18245.\nSupported merchant category codes can be found [here](https://docs.lithic.com/docs/transactions#merchant-category-codes-mccs).\n\n\n- `merchant_acceptor_city?: string`\n  Merchant acceptor city\n\n- `merchant_acceptor_country?: string`\n  Merchant acceptor country code (ISO 3166-1 alpha-3)\n\n- `merchant_acceptor_id?: string`\n  Unique identifier to identify the payment card acceptor.\n\n- `merchant_acceptor_state?: string`\n  Merchant acceptor state/province (ISO 3166-2 subdivision code)\n\n### Returns\n\n- `{ token?: string; debugging_request_id?: string; }`\n\n  - `token?: string`\n  - `debugging_request_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.transactions.simulateCreditAuthorization({\n  amount: 3831,\n  descriptor: 'COFFEE SHOP',\n  pan: '4111111289144142',\n});\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Transactions.SimulateCreditAuthorization',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Transactions.SimulateCreditAuthorization(context.TODO(), lithic.TransactionSimulateCreditAuthorizationParams{\n\t\tAmount:                  lithic.F(int64(3831)),\n\t\tDescriptor:              lithic.F("COFFEE SHOP"),\n\t\tPan:                     lithic.F("4111111289144142"),\n\t\tMerchantAcceptorCity:    lithic.F("SEATTLE"),\n\t\tMerchantAcceptorCountry: lithic.F("USA"),\n\t\tMerchantAcceptorID:      lithic.F("XRKGDPOWEWQRRWU"),\n\t\tMerchantAcceptorState:   lithic.F("WA"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
+      },
       java: {
         method: 'transactions().simulateCreditAuthorization',
         example:
@@ -7432,11 +7437,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         method: 'client.transactions.simulateCreditAuthorization',
         example:
           "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nconst response = await client.transactions.simulateCreditAuthorization({\n  amount: 3831,\n  descriptor: 'COFFEE SHOP',\n  pan: '4111111289144142',\n  merchant_acceptor_city: 'SEATTLE',\n  merchant_acceptor_country: 'USA',\n  merchant_acceptor_id: 'XRKGDPOWEWQRRWU',\n  merchant_acceptor_state: 'WA',\n});\n\nconsole.log(response.debugging_request_id);",
-      },
-      go: {
-        method: 'client.Transactions.SimulateCreditAuthorization',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Transactions.SimulateCreditAuthorization(context.TODO(), lithic.TransactionSimulateCreditAuthorizationParams{\n\t\tAmount:                  lithic.F(int64(3831)),\n\t\tDescriptor:              lithic.F("COFFEE SHOP"),\n\t\tPan:                     lithic.F("4111111289144142"),\n\t\tMerchantAcceptorCity:    lithic.F("SEATTLE"),\n\t\tMerchantAcceptorCountry: lithic.F("USA"),\n\t\tMerchantAcceptorID:      lithic.F("XRKGDPOWEWQRRWU"),\n\t\tMerchantAcceptorState:   lithic.F("WA"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
       },
     },
   },
@@ -7463,6 +7463,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## simulate_credit_authorization_advice\n\n`client.transactions.simulateCreditAuthorizationAdvice(amount: number, descriptor: string, pan: string, mcc?: string, merchant_acceptor_city?: string, merchant_acceptor_country?: string, merchant_acceptor_id?: string, merchant_acceptor_state?: string): { token?: string; debugging_request_id?: string; }`\n\n**post** `/v1/simulate/credit_authorization_advice`\n\nSimulates a credit authorization advice from the card network.\nThis message indicates that the network approved a credit authorization on your behalf.\n\n\n### Parameters\n\n- `amount: number`\n  Amount (in cents). Any value entered will be converted into a negative amount in the simulated transaction. For example, entering 100 in this field will appear as a -100 amount in the transaction.\n\n- `descriptor: string`\n  Merchant descriptor.\n\n- `pan: string`\n  Sixteen digit card number.\n\n- `mcc?: string`\n  Merchant category code for the transaction to be simulated. A four-digit number listed in ISO 18245.\nSupported merchant category codes can be found [here](https://docs.lithic.com/docs/transactions#merchant-category-codes-mccs).\n\n\n- `merchant_acceptor_city?: string`\n  Merchant acceptor city\n\n- `merchant_acceptor_country?: string`\n  Merchant acceptor country code (ISO 3166-1 alpha-3)\n\n- `merchant_acceptor_id?: string`\n  Unique identifier to identify the payment card acceptor.\n\n- `merchant_acceptor_state?: string`\n  Merchant acceptor state/province (ISO 3166-2 subdivision code)\n\n### Returns\n\n- `{ token?: string; debugging_request_id?: string; }`\n\n  - `token?: string`\n  - `debugging_request_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.transactions.simulateCreditAuthorizationAdvice({\n  amount: 3831,\n  descriptor: 'COFFEE SHOP',\n  pan: '4111111289144142',\n});\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Transactions.SimulateCreditAuthorizationAdvice',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Transactions.SimulateCreditAuthorizationAdvice(context.TODO(), lithic.TransactionSimulateCreditAuthorizationAdviceParams{\n\t\tAmount:                  lithic.F(int64(3831)),\n\t\tDescriptor:              lithic.F("COFFEE SHOP"),\n\t\tPan:                     lithic.F("4111111289144142"),\n\t\tMerchantAcceptorCity:    lithic.F("SEATTLE"),\n\t\tMerchantAcceptorCountry: lithic.F("USA"),\n\t\tMerchantAcceptorID:      lithic.F("XRKGDPOWEWQRRWU"),\n\t\tMerchantAcceptorState:   lithic.F("WA"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
+      },
       java: {
         method: 'transactions().simulateCreditAuthorizationAdvice',
         example:
@@ -7492,11 +7497,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/simulate/credit_authorization_advice \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "amount": 3831,\n          "descriptor": "COFFEE SHOP",\n          "pan": "4111111289144142",\n          "mcc": "5812",\n          "merchant_acceptor_city": "SEATTLE",\n          "merchant_acceptor_country": "USA",\n          "merchant_acceptor_id": "XRKGDPOWEWQRRWU",\n          "merchant_acceptor_state": "WA"\n        }\'',
       },
-      go: {
-        method: 'client.Transactions.SimulateCreditAuthorizationAdvice',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Transactions.SimulateCreditAuthorizationAdvice(context.TODO(), lithic.TransactionSimulateCreditAuthorizationAdviceParams{\n\t\tAmount:                  lithic.F(int64(3831)),\n\t\tDescriptor:              lithic.F("COFFEE SHOP"),\n\t\tPan:                     lithic.F("4111111289144142"),\n\t\tMerchantAcceptorCity:    lithic.F("SEATTLE"),\n\t\tMerchantAcceptorCountry: lithic.F("USA"),\n\t\tMerchantAcceptorID:      lithic.F("XRKGDPOWEWQRRWU"),\n\t\tMerchantAcceptorState:   lithic.F("WA"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
-      },
     },
   },
   {
@@ -7513,6 +7513,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## simulate_authorization_advice\n\n`client.transactions.simulateAuthorizationAdvice(token: string, amount: number): { token?: string; debugging_request_id?: string; }`\n\n**post** `/v1/simulate/authorization_advice`\n\nSimulates an authorization advice from the card network as if it came from a merchant acquirer. An authorization advice changes the pending amount of the transaction.\n\n\n### Parameters\n\n- `token: string`\n  The transaction token returned from the /v1/simulate/authorize. response.\n\n- `amount: number`\n  Amount (in cents) to authorize. This amount will override the transaction's amount that was originally set by /v1/simulate/authorize.\n\n### Returns\n\n- `{ token?: string; debugging_request_id?: string; }`\n\n  - `token?: string`\n  - `debugging_request_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.transactions.simulateAuthorizationAdvice({ token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac', amount: 3831 });\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Transactions.SimulateAuthorizationAdvice',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Transactions.SimulateAuthorizationAdvice(context.TODO(), lithic.TransactionSimulateAuthorizationAdviceParams{\n\t\tToken:  lithic.F("fabd829d-7f7b-4432-a8f2-07ea4889aaac"),\n\t\tAmount: lithic.F(int64(3831)),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
+      },
       java: {
         method: 'transactions().simulateAuthorizationAdvice',
         example:
@@ -7542,11 +7547,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/simulate/authorization_advice \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "token": "fabd829d-7f7b-4432-a8f2-07ea4889aaac",\n          "amount": 3831\n        }\'',
       },
-      go: {
-        method: 'client.Transactions.SimulateAuthorizationAdvice',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Transactions.SimulateAuthorizationAdvice(context.TODO(), lithic.TransactionSimulateAuthorizationAdviceParams{\n\t\tToken:  lithic.F("fabd829d-7f7b-4432-a8f2-07ea4889aaac"),\n\t\tAmount: lithic.F(int64(3831)),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
-      },
     },
   },
   {
@@ -7561,6 +7561,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## expire_authorization\n\n`client.transactions.expireAuthorization(transaction_token: string): void`\n\n**post** `/v1/transactions/{transaction_token}/expire_authorization`\n\nExpire authorization\n\n### Parameters\n\n- `transaction_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.transactions.expireAuthorization('00000000-0000-0000-0000-000000000000')\n```",
     perLanguage: {
+      go: {
+        method: 'client.Transactions.ExpireAuthorization',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Transactions.ExpireAuthorization(context.TODO(), "00000000-0000-0000-0000-000000000000")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'transactions().expireAuthorization',
         example:
@@ -7590,11 +7595,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/transactions/$TRANSACTION_TOKEN/expire_authorization \\\n    -X POST \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Transactions.ExpireAuthorization',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Transactions.ExpireAuthorization(context.TODO(), "00000000-0000-0000-0000-000000000000")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -7610,6 +7610,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## route\n\n`client.transactions.route(transaction_token: string, financial_account_token: string): void`\n\n**post** `/v1/transactions/{transaction_token}/route`\n\nRoute a card transaction to a financial account. Only available for select use cases and programs.\n\n### Parameters\n\n- `transaction_token: string`\n\n- `financial_account_token: string`\n  The token of the financial account to route the transaction to.\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.transactions.route('00000000-0000-0000-0000-000000000000', { financial_account_token: '00000000-0000-0000-0000-000000000000' })\n```",
     perLanguage: {
+      go: {
+        method: 'client.Transactions.Route',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Transactions.Route(\n\t\tcontext.TODO(),\n\t\t"00000000-0000-0000-0000-000000000000",\n\t\tlithic.TransactionRouteParams{\n\t\t\tFinancialAccountToken: lithic.F("00000000-0000-0000-0000-000000000000"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'transactions().route',
         example:
@@ -7639,11 +7644,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/transactions/$TRANSACTION_TOKEN/route \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "financial_account_token": "00000000-0000-0000-0000-000000000000"\n        }\'',
       },
-      go: {
-        method: 'client.Transactions.Route',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Transactions.Route(\n\t\tcontext.TODO(),\n\t\t"00000000-0000-0000-0000-000000000000",\n\t\tlithic.TransactionRouteParams{\n\t\t\tFinancialAccountToken: lithic.F("00000000-0000-0000-0000-000000000000"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -7661,6 +7661,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.transactions.enhancedCommercialData.retrieve(transaction_token: string): { data: enhanced_data[]; }`\n\n**get** `/v1/transactions/{transaction_token}/enhanced_commercial_data`\n\nGet all L2/L3 enhanced commercial data associated with a transaction. Not available in sandbox.\n\n### Parameters\n\n- `transaction_token: string`\n\n### Returns\n\n- `{ data: { token: string; common: object; event_token: string; fleet: object[]; transaction_token: string; }[]; }`\n\n  - `data: { token: string; common: { line_items: { amount?: string; description?: string; product_code?: string; quantity?: string; }[]; tax: { amount?: number; exempt?: 'TAX_INCLUDED' | 'TAX_NOT_INCLUDED' | 'NOT_SUPPORTED'; merchant_tax_id?: string; }; customer_reference_number?: string; merchant_reference_number?: string; order_date?: string; }; event_token: string; fleet: { amount_totals: { discount?: number; gross_sale?: number; net_sale?: number; }; fuel: { quantity?: string; type?: string; unit_of_measure?: 'GALLONS' | 'LITERS' | 'POUNDS' | 'KILOGRAMS' | 'IMPERIAL_GALLONS' | 'NOT_APPLICABLE' | 'UNKNOWN'; unit_price?: number; }; driver_number?: string; odometer?: number; service_type?: 'UNKNOWN' | 'UNDEFINED' | 'SELF_SERVICE' | 'FULL_SERVICE' | 'NON_FUEL_ONLY'; vehicle_number?: string; }[]; transaction_token: string; }[]`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst enhancedCommercialData = await client.transactions.enhancedCommercialData.retrieve('00000000-0000-0000-0000-000000000000');\n\nconsole.log(enhancedCommercialData);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Transactions.EnhancedCommercialData.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tenhancedCommercialData, err := client.Transactions.EnhancedCommercialData.Get(context.TODO(), "00000000-0000-0000-0000-000000000000")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", enhancedCommercialData.Data)\n}\n',
+      },
       java: {
         method: 'transactions().enhancedCommercialData().retrieve',
         example:
@@ -7690,11 +7695,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/transactions/$TRANSACTION_TOKEN/enhanced_commercial_data \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Transactions.EnhancedCommercialData.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tenhancedCommercialData, err := client.Transactions.EnhancedCommercialData.Get(context.TODO(), "00000000-0000-0000-0000-000000000000")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", enhancedCommercialData.Data)\n}\n',
-      },
     },
   },
   {
@@ -7712,6 +7712,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.transactions.events.enhancedCommercialData.retrieve(event_token: string): { token: string; common: object; event_token: string; fleet: object[]; transaction_token: string; }`\n\n**get** `/v1/transactions/events/{event_token}/enhanced_commercial_data`\n\nGet L2/L3 enhanced commercial data associated with a transaction event. Not available in sandbox.\n\n### Parameters\n\n- `event_token: string`\n\n### Returns\n\n- `{ token: string; common: { line_items: { amount?: string; description?: string; product_code?: string; quantity?: string; }[]; tax: { amount?: number; exempt?: 'TAX_INCLUDED' | 'TAX_NOT_INCLUDED' | 'NOT_SUPPORTED'; merchant_tax_id?: string; }; customer_reference_number?: string; merchant_reference_number?: string; order_date?: string; }; event_token: string; fleet: { amount_totals: { discount?: number; gross_sale?: number; net_sale?: number; }; fuel: { quantity?: string; type?: string; unit_of_measure?: 'GALLONS' | 'LITERS' | 'POUNDS' | 'KILOGRAMS' | 'IMPERIAL_GALLONS' | 'NOT_APPLICABLE' | 'UNKNOWN'; unit_price?: number; }; driver_number?: string; odometer?: number; service_type?: 'UNKNOWN' | 'UNDEFINED' | 'SELF_SERVICE' | 'FULL_SERVICE' | 'NON_FUEL_ONLY'; vehicle_number?: string; }[]; transaction_token: string; }`\n\n  - `token: string`\n  - `common: { line_items: { amount?: string; description?: string; product_code?: string; quantity?: string; }[]; tax: { amount?: number; exempt?: 'TAX_INCLUDED' | 'TAX_NOT_INCLUDED' | 'NOT_SUPPORTED'; merchant_tax_id?: string; }; customer_reference_number?: string; merchant_reference_number?: string; order_date?: string; }`\n  - `event_token: string`\n  - `fleet: { amount_totals: { discount?: number; gross_sale?: number; net_sale?: number; }; fuel: { quantity?: string; type?: string; unit_of_measure?: 'GALLONS' | 'LITERS' | 'POUNDS' | 'KILOGRAMS' | 'IMPERIAL_GALLONS' | 'NOT_APPLICABLE' | 'UNKNOWN'; unit_price?: number; }; driver_number?: string; odometer?: number; service_type?: 'UNKNOWN' | 'UNDEFINED' | 'SELF_SERVICE' | 'FULL_SERVICE' | 'NON_FUEL_ONLY'; vehicle_number?: string; }[]`\n  - `transaction_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst enhancedData = await client.transactions.events.enhancedCommercialData.retrieve('00000000-0000-0000-0000-000000000000');\n\nconsole.log(enhancedData);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Transactions.Events.EnhancedCommercialData.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tenhancedData, err := client.Transactions.Events.EnhancedCommercialData.Get(context.TODO(), "00000000-0000-0000-0000-000000000000")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", enhancedData.Token)\n}\n',
+      },
       java: {
         method: 'transactions().events().enhancedCommercialData().retrieve',
         example:
@@ -7741,11 +7746,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/transactions/events/$EVENT_TOKEN/enhanced_commercial_data \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Transactions.Events.EnhancedCommercialData.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tenhancedData, err := client.Transactions.Events.EnhancedCommercialData.Get(context.TODO(), "00000000-0000-0000-0000-000000000000")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", enhancedData.Token)\n}\n',
-      },
     },
   },
   {
@@ -7764,6 +7764,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.responderEndpoints.create(type?: 'AUTH_STREAM_ACCESS' | 'THREE_DS_DECISIONING' | 'TOKENIZATION_DECISIONING', url?: string): { enrolled?: boolean; }`\n\n**post** `/v1/responder_endpoints`\n\nEnroll a responder endpoint\n\n### Parameters\n\n- `type?: 'AUTH_STREAM_ACCESS' | 'THREE_DS_DECISIONING' | 'TOKENIZATION_DECISIONING'`\n  The type of the endpoint.\n\n- `url?: string`\n  The URL for the responder endpoint (must be http(s)).\n\n### Returns\n\n- `{ enrolled?: boolean; }`\n\n  - `enrolled?: boolean`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst responderEndpoint = await client.responderEndpoints.create();\n\nconsole.log(responderEndpoint);\n```",
     perLanguage: {
+      go: {
+        method: 'client.ResponderEndpoints.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponderEndpoint, err := client.ResponderEndpoints.New(context.TODO(), lithic.ResponderEndpointNewParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", responderEndpoint.Enrolled)\n}\n',
+      },
       java: {
         method: 'responderEndpoints().create',
         example:
@@ -7793,11 +7798,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "curl https://api.lithic.com/v1/responder_endpoints \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: $LITHIC_API_KEY\" \\\n    -d '{}'",
       },
-      go: {
-        method: 'client.ResponderEndpoints.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponderEndpoint, err := client.ResponderEndpoints.New(context.TODO(), lithic.ResponderEndpointNewParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", responderEndpoint.Enrolled)\n}\n',
-      },
     },
   },
   {
@@ -7812,6 +7812,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## delete\n\n`client.responderEndpoints.delete(type: 'AUTH_STREAM_ACCESS' | 'THREE_DS_DECISIONING' | 'TOKENIZATION_DECISIONING'): void`\n\n**delete** `/v1/responder_endpoints`\n\nDisenroll a responder endpoint\n\n### Parameters\n\n- `type: 'AUTH_STREAM_ACCESS' | 'THREE_DS_DECISIONING' | 'TOKENIZATION_DECISIONING'`\n  The type of the endpoint.\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.responderEndpoints.delete({ type: 'AUTH_STREAM_ACCESS' })\n```",
     perLanguage: {
+      go: {
+        method: 'client.ResponderEndpoints.Delete',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.ResponderEndpoints.Delete(context.TODO(), lithic.ResponderEndpointDeleteParams{\n\t\tType: lithic.F(lithic.ResponderEndpointDeleteParamsTypeAuthStreamAccess),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'responderEndpoints().delete',
         example:
@@ -7841,11 +7846,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/responder_endpoints \\\n    -X DELETE \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.ResponderEndpoints.Delete',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.ResponderEndpoints.Delete(context.TODO(), lithic.ResponderEndpointDeleteParams{\n\t\tType: lithic.F(lithic.ResponderEndpointDeleteParamsTypeAuthStreamAccess),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -7861,6 +7861,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## check_status\n\n`client.responderEndpoints.checkStatus(type: 'AUTH_STREAM_ACCESS' | 'THREE_DS_DECISIONING' | 'TOKENIZATION_DECISIONING'): { enrolled?: boolean; url?: string; }`\n\n**get** `/v1/responder_endpoints`\n\nCheck the status of a responder endpoint\n\n### Parameters\n\n- `type: 'AUTH_STREAM_ACCESS' | 'THREE_DS_DECISIONING' | 'TOKENIZATION_DECISIONING'`\n  The type of the endpoint.\n\n### Returns\n\n- `{ enrolled?: boolean; url?: string; }`\n\n  - `enrolled?: boolean`\n  - `url?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst responderEndpointStatus = await client.responderEndpoints.checkStatus({ type: 'AUTH_STREAM_ACCESS' });\n\nconsole.log(responderEndpointStatus);\n```",
     perLanguage: {
+      go: {
+        method: 'client.ResponderEndpoints.CheckStatus',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponderEndpointStatus, err := client.ResponderEndpoints.CheckStatus(context.TODO(), lithic.ResponderEndpointCheckStatusParams{\n\t\tType: lithic.F(lithic.ResponderEndpointCheckStatusParamsTypeAuthStreamAccess),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", responderEndpointStatus.Enrolled)\n}\n',
+      },
       java: {
         method: 'responderEndpoints().checkStatus',
         example:
@@ -7890,11 +7895,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/responder_endpoints \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.ResponderEndpoints.CheckStatus',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponderEndpointStatus, err := client.ResponderEndpoints.CheckStatus(context.TODO(), lithic.ResponderEndpointCheckStatusParams{\n\t\tType: lithic.F(lithic.ResponderEndpointCheckStatusParamsTypeAuthStreamAccess),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", responderEndpointStatus.Enrolled)\n}\n',
-      },
     },
   },
   {
@@ -7921,6 +7921,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.externalBankAccounts.list(account_token?: string, account_types?: 'CHECKING' | 'SAVINGS'[], countries?: string[], ending_before?: string, owner_types?: 'INDIVIDUAL' | 'BUSINESS'[], page_size?: number, starting_after?: string, states?: 'ENABLED' | 'CLOSED' | 'PAUSED'[], verification_states?: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'[]): { token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: 'BUSINESS' | 'INDIVIDUAL'; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE'; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: external_bank_account_address; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }`\n\n**get** `/v1/external_bank_accounts`\n\nList all the external bank accounts for the provided search criteria.\n\n### Parameters\n\n- `account_token?: string`\n\n- `account_types?: 'CHECKING' | 'SAVINGS'[]`\n\n- `countries?: string[]`\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `owner_types?: 'INDIVIDUAL' | 'BUSINESS'[]`\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n- `states?: 'ENABLED' | 'CLOSED' | 'PAUSED'[]`\n\n- `verification_states?: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'[]`\n\n### Returns\n\n- `{ token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: 'BUSINESS' | 'INDIVIDUAL'; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE'; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }`\n\n  - `token: string`\n  - `country: string`\n  - `created: string`\n  - `currency: string`\n  - `last_four: string`\n  - `owner: string`\n  - `owner_type: 'BUSINESS' | 'INDIVIDUAL'`\n  - `routing_number: string`\n  - `state: 'ENABLED' | 'CLOSED' | 'PAUSED'`\n  - `type: 'CHECKING' | 'SAVINGS'`\n  - `verification_attempts: number`\n  - `verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE'`\n  - `verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'`\n  - `account_token?: string`\n  - `address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }`\n  - `company_id?: string`\n  - `dob?: string`\n  - `doing_business_as?: string`\n  - `financial_account_token?: string`\n  - `name?: string`\n  - `user_defined_id?: string`\n  - `verification_failed_reason?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const externalBankAccountListResponse of client.externalBankAccounts.list()) {\n  console.log(externalBankAccountListResponse);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.ExternalBankAccounts.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.ExternalBankAccounts.List(context.TODO(), lithic.ExternalBankAccountListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'externalBankAccounts().list',
         example:
@@ -7950,11 +7955,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/external_bank_accounts \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.ExternalBankAccounts.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.ExternalBankAccounts.List(context.TODO(), lithic.ExternalBankAccountListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -7971,6 +7971,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     response:
       "{ token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: 'BUSINESS' | 'INDIVIDUAL'; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE'; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }",
     perLanguage: {
+      go: {
+        method: 'client.ExternalBankAccounts.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalBankAccount, err := client.ExternalBankAccounts.New(context.TODO(), lithic.ExternalBankAccountNewParams{\n\t\tBody: lithic.ExternalBankAccountNewParamsBodyBankVerifiedCreateBankAccountAPIRequest{\n\t\t\tAccountNumber:         lithic.F("13719713158835300"),\n\t\t\tCountry:               lithic.F("USA"),\n\t\t\tCurrency:              lithic.F("USD"),\n\t\t\tFinancialAccountToken: lithic.F("dabadb3b-700c-41e3-8801-d5dfc84ebea0"),\n\t\t\tOwner:                 lithic.F("John Doe"),\n\t\t\tOwnerType:             lithic.F(lithic.OwnerTypeBusiness),\n\t\t\tRoutingNumber:         lithic.F("011103093"),\n\t\t\tType:                  lithic.F(lithic.ExternalBankAccountNewParamsBodyBankVerifiedCreateBankAccountAPIRequestTypeChecking),\n\t\t\tVerificationMethod:    lithic.F(lithic.VerificationMethodMicroDeposit),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalBankAccount.CompanyID)\n}\n',
+      },
       java: {
         method: 'externalBankAccounts().create',
         example:
@@ -8000,11 +8005,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/external_bank_accounts \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "account_number": "12345678901234567",\n          "country": "USD",\n          "currency": "USD",\n          "financial_account_token": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n          "owner": "owner",\n          "owner_type": "INDIVIDUAL",\n          "routing_number": "123456789",\n          "type": "CHECKING",\n          "verification_method": "MANUAL"\n        }\'',
       },
-      go: {
-        method: 'client.ExternalBankAccounts.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalBankAccount, err := client.ExternalBankAccounts.New(context.TODO(), lithic.ExternalBankAccountNewParams{\n\t\tBody: lithic.ExternalBankAccountNewParamsBodyBankVerifiedCreateBankAccountAPIRequest{\n\t\t\tAccountNumber:         lithic.F("13719713158835300"),\n\t\t\tCountry:               lithic.F("USA"),\n\t\t\tCurrency:              lithic.F("USD"),\n\t\t\tFinancialAccountToken: lithic.F("dabadb3b-700c-41e3-8801-d5dfc84ebea0"),\n\t\t\tOwner:                 lithic.F("John Doe"),\n\t\t\tOwnerType:             lithic.F(lithic.OwnerTypeBusiness),\n\t\t\tRoutingNumber:         lithic.F("011103093"),\n\t\t\tType:                  lithic.F(lithic.ExternalBankAccountNewParamsBodyBankVerifiedCreateBankAccountAPIRequestTypeChecking),\n\t\t\tVerificationMethod:    lithic.F(lithic.VerificationMethodMicroDeposit),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalBankAccount.CompanyID)\n}\n',
-      },
     },
   },
   {
@@ -8021,6 +8021,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.externalBankAccounts.retrieve(external_bank_account_token: string): { token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: 'BUSINESS' | 'INDIVIDUAL'; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE'; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: external_bank_account_address; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }`\n\n**get** `/v1/external_bank_accounts/{external_bank_account_token}`\n\nGet the external bank account by token.\n\n### Parameters\n\n- `external_bank_account_token: string`\n\n### Returns\n\n- `{ token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: 'BUSINESS' | 'INDIVIDUAL'; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE'; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }`\n\n  - `token: string`\n  - `country: string`\n  - `created: string`\n  - `currency: string`\n  - `last_four: string`\n  - `owner: string`\n  - `owner_type: 'BUSINESS' | 'INDIVIDUAL'`\n  - `routing_number: string`\n  - `state: 'ENABLED' | 'CLOSED' | 'PAUSED'`\n  - `type: 'CHECKING' | 'SAVINGS'`\n  - `verification_attempts: number`\n  - `verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE'`\n  - `verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'`\n  - `account_token?: string`\n  - `address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }`\n  - `company_id?: string`\n  - `dob?: string`\n  - `doing_business_as?: string`\n  - `financial_account_token?: string`\n  - `name?: string`\n  - `user_defined_id?: string`\n  - `verification_failed_reason?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst externalBankAccount = await client.externalBankAccounts.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(externalBankAccount);\n```",
     perLanguage: {
+      go: {
+        method: 'client.ExternalBankAccounts.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalBankAccount, err := client.ExternalBankAccounts.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalBankAccount.CompanyID)\n}\n',
+      },
       java: {
         method: 'externalBankAccounts().retrieve',
         example:
@@ -8050,11 +8055,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/external_bank_accounts/$EXTERNAL_BANK_ACCOUNT_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.ExternalBankAccounts.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalBankAccount, err := client.ExternalBankAccounts.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalBankAccount.CompanyID)\n}\n',
-      },
     },
   },
   {
@@ -8082,6 +8082,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## update\n\n`client.externalBankAccounts.update(external_bank_account_token: string, address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }, company_id?: string, dob?: string, doing_business_as?: string, name?: string, owner?: string, owner_type?: 'INDIVIDUAL' | 'BUSINESS', type?: 'CHECKING' | 'SAVINGS', user_defined_id?: string): { token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: 'BUSINESS' | 'INDIVIDUAL'; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE'; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: external_bank_account_address; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }`\n\n**patch** `/v1/external_bank_accounts/{external_bank_account_token}`\n\nUpdate the external bank account by token.\n\n### Parameters\n\n- `external_bank_account_token: string`\n\n- `address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }`\n  Address\n  - `address1: string`\n  - `city: string`\n  - `country: string`\n  - `postal_code: string`\n  - `state: string`\n  - `address2?: string`\n\n- `company_id?: string`\n  Optional field that helps identify bank accounts in receipts\n\n- `dob?: string`\n  Date of Birth of the Individual that owns the external bank account\n\n- `doing_business_as?: string`\n  Doing Business As\n\n- `name?: string`\n  The nickname for this External Bank Account\n\n- `owner?: string`\n  Legal Name of the business or individual who owns the external account. This will appear in statements\n\n- `owner_type?: 'INDIVIDUAL' | 'BUSINESS'`\n  Owner Type\n\n- `type?: 'CHECKING' | 'SAVINGS'`\n\n- `user_defined_id?: string`\n  User Defined ID\n\n### Returns\n\n- `{ token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: 'BUSINESS' | 'INDIVIDUAL'; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE'; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }`\n\n  - `token: string`\n  - `country: string`\n  - `created: string`\n  - `currency: string`\n  - `last_four: string`\n  - `owner: string`\n  - `owner_type: 'BUSINESS' | 'INDIVIDUAL'`\n  - `routing_number: string`\n  - `state: 'ENABLED' | 'CLOSED' | 'PAUSED'`\n  - `type: 'CHECKING' | 'SAVINGS'`\n  - `verification_attempts: number`\n  - `verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE'`\n  - `verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'`\n  - `account_token?: string`\n  - `address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }`\n  - `company_id?: string`\n  - `dob?: string`\n  - `doing_business_as?: string`\n  - `financial_account_token?: string`\n  - `name?: string`\n  - `user_defined_id?: string`\n  - `verification_failed_reason?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst externalBankAccount = await client.externalBankAccounts.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(externalBankAccount);\n```",
     perLanguage: {
+      go: {
+        method: 'client.ExternalBankAccounts.Update',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalBankAccount, err := client.ExternalBankAccounts.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.ExternalBankAccountUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalBankAccount.CompanyID)\n}\n',
+      },
       java: {
         method: 'externalBankAccounts().update',
         example:
@@ -8111,11 +8116,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "curl https://api.lithic.com/v1/external_bank_accounts/$EXTERNAL_BANK_ACCOUNT_TOKEN \\\n    -X PATCH \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: $LITHIC_API_KEY\" \\\n    -d '{}'",
       },
-      go: {
-        method: 'client.ExternalBankAccounts.Update',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalBankAccount, err := client.ExternalBankAccounts.Update(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.ExternalBankAccountUpdateParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalBankAccount.CompanyID)\n}\n',
-      },
     },
   },
   {
@@ -8132,6 +8132,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retry_micro_deposits\n\n`client.externalBankAccounts.retryMicroDeposits(external_bank_account_token: string, financial_account_token?: string): { token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: 'BUSINESS' | 'INDIVIDUAL'; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE'; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: external_bank_account_address; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }`\n\n**post** `/v1/external_bank_accounts/{external_bank_account_token}/retry_micro_deposits`\n\nRetry external bank account micro deposit verification.\n\n### Parameters\n\n- `external_bank_account_token: string`\n\n- `financial_account_token?: string`\n\n### Returns\n\n- `{ token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: 'BUSINESS' | 'INDIVIDUAL'; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE'; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }`\n\n  - `token: string`\n  - `country: string`\n  - `created: string`\n  - `currency: string`\n  - `last_four: string`\n  - `owner: string`\n  - `owner_type: 'BUSINESS' | 'INDIVIDUAL'`\n  - `routing_number: string`\n  - `state: 'ENABLED' | 'CLOSED' | 'PAUSED'`\n  - `type: 'CHECKING' | 'SAVINGS'`\n  - `verification_attempts: number`\n  - `verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE'`\n  - `verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'`\n  - `account_token?: string`\n  - `address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }`\n  - `company_id?: string`\n  - `dob?: string`\n  - `doing_business_as?: string`\n  - `financial_account_token?: string`\n  - `name?: string`\n  - `user_defined_id?: string`\n  - `verification_failed_reason?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.externalBankAccounts.retryMicroDeposits('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.ExternalBankAccounts.RetryMicroDeposits',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.ExternalBankAccounts.RetryMicroDeposits(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.ExternalBankAccountRetryMicroDepositsParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.CompanyID)\n}\n',
+      },
       java: {
         method: 'externalBankAccounts().retryMicroDeposits',
         example:
@@ -8161,11 +8166,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/external_bank_accounts/$EXTERNAL_BANK_ACCOUNT_TOKEN/retry_micro_deposits \\\n    -X POST \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.ExternalBankAccounts.RetryMicroDeposits',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.ExternalBankAccounts.RetryMicroDeposits(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.ExternalBankAccountRetryMicroDepositsParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.CompanyID)\n}\n',
-      },
     },
   },
   {
@@ -8182,6 +8182,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retry_prenote\n\n`client.externalBankAccounts.retryPrenote(external_bank_account_token: string, financial_account_token?: string): { token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: owner_type; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: verification_method; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: external_bank_account_address; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }`\n\n**post** `/v1/external_bank_accounts/{external_bank_account_token}/retry_prenote`\n\nRetry external bank account prenote verification.\n\n### Parameters\n\n- `external_bank_account_token: string`\n\n- `financial_account_token?: string`\n\n### Returns\n\n- `{ token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: 'INDIVIDUAL' | 'BUSINESS'; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PRENOTE' | 'EXTERNALLY_VERIFIED' | 'UNVERIFIED'; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }`\n\n  - `token: string`\n  - `country: string`\n  - `created: string`\n  - `currency: string`\n  - `last_four: string`\n  - `owner: string`\n  - `owner_type: 'INDIVIDUAL' | 'BUSINESS'`\n  - `routing_number: string`\n  - `state: 'ENABLED' | 'CLOSED' | 'PAUSED'`\n  - `type: 'CHECKING' | 'SAVINGS'`\n  - `verification_attempts: number`\n  - `verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PRENOTE' | 'EXTERNALLY_VERIFIED' | 'UNVERIFIED'`\n  - `verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'`\n  - `account_token?: string`\n  - `address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }`\n  - `company_id?: string`\n  - `dob?: string`\n  - `doing_business_as?: string`\n  - `financial_account_token?: string`\n  - `name?: string`\n  - `user_defined_id?: string`\n  - `verification_failed_reason?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst externalBankAccount = await client.externalBankAccounts.retryPrenote('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(externalBankAccount);\n```",
     perLanguage: {
+      go: {
+        method: 'client.ExternalBankAccounts.RetryPrenote',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalBankAccount, err := client.ExternalBankAccounts.RetryPrenote(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.ExternalBankAccountRetryPrenoteParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalBankAccount.CompanyID)\n}\n',
+      },
       java: {
         method: 'externalBankAccounts().retryPrenote',
         example:
@@ -8211,11 +8216,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/external_bank_accounts/$EXTERNAL_BANK_ACCOUNT_TOKEN/retry_prenote \\\n    -X POST \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.ExternalBankAccounts.RetryPrenote',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalBankAccount, err := client.ExternalBankAccounts.RetryPrenote(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.ExternalBankAccountRetryPrenoteParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalBankAccount.CompanyID)\n}\n',
-      },
     },
   },
   {
@@ -8232,6 +8232,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## pause\n\n`client.externalBankAccounts.pause(external_bank_account_token: string): { token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: owner_type; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: verification_method; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: external_bank_account_address; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }`\n\n**post** `/v1/external_bank_accounts/{external_bank_account_token}/pause`\n\nPause an external bank account\n\n\n### Parameters\n\n- `external_bank_account_token: string`\n\n### Returns\n\n- `{ token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: 'INDIVIDUAL' | 'BUSINESS'; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PRENOTE' | 'EXTERNALLY_VERIFIED' | 'UNVERIFIED'; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }`\n\n  - `token: string`\n  - `country: string`\n  - `created: string`\n  - `currency: string`\n  - `last_four: string`\n  - `owner: string`\n  - `owner_type: 'INDIVIDUAL' | 'BUSINESS'`\n  - `routing_number: string`\n  - `state: 'ENABLED' | 'CLOSED' | 'PAUSED'`\n  - `type: 'CHECKING' | 'SAVINGS'`\n  - `verification_attempts: number`\n  - `verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PRENOTE' | 'EXTERNALLY_VERIFIED' | 'UNVERIFIED'`\n  - `verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'`\n  - `account_token?: string`\n  - `address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }`\n  - `company_id?: string`\n  - `dob?: string`\n  - `doing_business_as?: string`\n  - `financial_account_token?: string`\n  - `name?: string`\n  - `user_defined_id?: string`\n  - `verification_failed_reason?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst externalBankAccount = await client.externalBankAccounts.pause('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(externalBankAccount);\n```",
     perLanguage: {
+      go: {
+        method: 'client.ExternalBankAccounts.Pause',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalBankAccount, err := client.ExternalBankAccounts.Pause(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalBankAccount.CompanyID)\n}\n',
+      },
       java: {
         method: 'externalBankAccounts().pause',
         example:
@@ -8261,11 +8266,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/external_bank_accounts/$EXTERNAL_BANK_ACCOUNT_TOKEN/pause \\\n    -X POST \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.ExternalBankAccounts.Pause',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalBankAccount, err := client.ExternalBankAccounts.Pause(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalBankAccount.CompanyID)\n}\n',
-      },
     },
   },
   {
@@ -8282,6 +8282,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## unpause\n\n`client.externalBankAccounts.unpause(external_bank_account_token: string): { token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: owner_type; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: verification_method; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: external_bank_account_address; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }`\n\n**post** `/v1/external_bank_accounts/{external_bank_account_token}/unpause`\n\nUnpause an external bank account\n\n\n### Parameters\n\n- `external_bank_account_token: string`\n\n### Returns\n\n- `{ token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: 'INDIVIDUAL' | 'BUSINESS'; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PRENOTE' | 'EXTERNALLY_VERIFIED' | 'UNVERIFIED'; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }`\n\n  - `token: string`\n  - `country: string`\n  - `created: string`\n  - `currency: string`\n  - `last_four: string`\n  - `owner: string`\n  - `owner_type: 'INDIVIDUAL' | 'BUSINESS'`\n  - `routing_number: string`\n  - `state: 'ENABLED' | 'CLOSED' | 'PAUSED'`\n  - `type: 'CHECKING' | 'SAVINGS'`\n  - `verification_attempts: number`\n  - `verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PRENOTE' | 'EXTERNALLY_VERIFIED' | 'UNVERIFIED'`\n  - `verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'`\n  - `account_token?: string`\n  - `address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }`\n  - `company_id?: string`\n  - `dob?: string`\n  - `doing_business_as?: string`\n  - `financial_account_token?: string`\n  - `name?: string`\n  - `user_defined_id?: string`\n  - `verification_failed_reason?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst externalBankAccount = await client.externalBankAccounts.unpause('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(externalBankAccount);\n```",
     perLanguage: {
+      go: {
+        method: 'client.ExternalBankAccounts.Unpause',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalBankAccount, err := client.ExternalBankAccounts.Unpause(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalBankAccount.CompanyID)\n}\n',
+      },
       java: {
         method: 'externalBankAccounts().unpause',
         example:
@@ -8311,11 +8316,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/external_bank_accounts/$EXTERNAL_BANK_ACCOUNT_TOKEN/unpause \\\n    -X POST \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.ExternalBankAccounts.Unpause',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalBankAccount, err := client.ExternalBankAccounts.Unpause(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalBankAccount.CompanyID)\n}\n',
-      },
     },
   },
   {
@@ -8337,6 +8337,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## set_verification_method\n\n`client.externalBankAccounts.setVerificationMethod(external_bank_account_token: string, verification_method: 'MICRO_DEPOSIT' | 'PRENOTE' | 'EXTERNALLY_VERIFIED', financial_account_token?: string): { token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: owner_type; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: verification_method; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: external_bank_account_address; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }`\n\n**post** `/v1/external_bank_accounts/{external_bank_account_token}/set_verification_method`\n\nUpdate the verification method for an external bank account. Verification method can only be updated\nif the `verification_state` is `PENDING`.\n\n\n### Parameters\n\n- `external_bank_account_token: string`\n\n- `verification_method: 'MICRO_DEPOSIT' | 'PRENOTE' | 'EXTERNALLY_VERIFIED'`\n  The verification method to set for the external bank account\n\n- `financial_account_token?: string`\n  The financial account token of the operating account to fund the micro deposits. Required when verification_method is MICRO_DEPOSIT or PRENOTE.\n\n### Returns\n\n- `{ token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: 'INDIVIDUAL' | 'BUSINESS'; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PRENOTE' | 'EXTERNALLY_VERIFIED' | 'UNVERIFIED'; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }`\n\n  - `token: string`\n  - `country: string`\n  - `created: string`\n  - `currency: string`\n  - `last_four: string`\n  - `owner: string`\n  - `owner_type: 'INDIVIDUAL' | 'BUSINESS'`\n  - `routing_number: string`\n  - `state: 'ENABLED' | 'CLOSED' | 'PAUSED'`\n  - `type: 'CHECKING' | 'SAVINGS'`\n  - `verification_attempts: number`\n  - `verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PRENOTE' | 'EXTERNALLY_VERIFIED' | 'UNVERIFIED'`\n  - `verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'`\n  - `account_token?: string`\n  - `address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }`\n  - `company_id?: string`\n  - `dob?: string`\n  - `doing_business_as?: string`\n  - `financial_account_token?: string`\n  - `name?: string`\n  - `user_defined_id?: string`\n  - `verification_failed_reason?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst externalBankAccount = await client.externalBankAccounts.setVerificationMethod('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { verification_method: 'MICRO_DEPOSIT' });\n\nconsole.log(externalBankAccount);\n```",
     perLanguage: {
+      go: {
+        method: 'client.ExternalBankAccounts.SetVerificationMethod',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalBankAccount, err := client.ExternalBankAccounts.SetVerificationMethod(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.ExternalBankAccountSetVerificationMethodParams{\n\t\t\tVerificationMethod: lithic.F(lithic.ExternalBankAccountSetVerificationMethodParamsVerificationMethodMicroDeposit),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalBankAccount.CompanyID)\n}\n',
+      },
       java: {
         method: 'externalBankAccounts().setVerificationMethod',
         example:
@@ -8366,11 +8371,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/external_bank_accounts/$EXTERNAL_BANK_ACCOUNT_TOKEN/set_verification_method \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "verification_method": "MICRO_DEPOSIT"\n        }\'',
       },
-      go: {
-        method: 'client.ExternalBankAccounts.SetVerificationMethod',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalBankAccount, err := client.ExternalBankAccounts.SetVerificationMethod(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.ExternalBankAccountSetVerificationMethodParams{\n\t\t\tVerificationMethod: lithic.F(lithic.ExternalBankAccountSetVerificationMethodParamsVerificationMethodMicroDeposit),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalBankAccount.CompanyID)\n}\n',
-      },
     },
   },
   {
@@ -8387,6 +8387,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.externalBankAccounts.microDeposits.create(external_bank_account_token: string, micro_deposits: number[]): { token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: 'BUSINESS' | 'INDIVIDUAL'; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE'; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: external_bank_account_address; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }`\n\n**post** `/v1/external_bank_accounts/{external_bank_account_token}/micro_deposits`\n\nVerify the external bank account by providing the micro deposit amounts.\n\n### Parameters\n\n- `external_bank_account_token: string`\n\n- `micro_deposits: number[]`\n\n### Returns\n\n- `{ token: string; country: string; created: string; currency: string; last_four: string; owner: string; owner_type: 'BUSINESS' | 'INDIVIDUAL'; routing_number: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; type: 'CHECKING' | 'SAVINGS'; verification_attempts: number; verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE'; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; account_token?: string; address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }; company_id?: string; dob?: string; doing_business_as?: string; financial_account_token?: string; name?: string; user_defined_id?: string; verification_failed_reason?: string; }`\n\n  - `token: string`\n  - `country: string`\n  - `created: string`\n  - `currency: string`\n  - `last_four: string`\n  - `owner: string`\n  - `owner_type: 'BUSINESS' | 'INDIVIDUAL'`\n  - `routing_number: string`\n  - `state: 'ENABLED' | 'CLOSED' | 'PAUSED'`\n  - `type: 'CHECKING' | 'SAVINGS'`\n  - `verification_attempts: number`\n  - `verification_method: 'MANUAL' | 'MICRO_DEPOSIT' | 'PLAID' | 'PRENOTE'`\n  - `verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'`\n  - `account_token?: string`\n  - `address?: { address1: string; city: string; country: string; postal_code: string; state: string; address2?: string; }`\n  - `company_id?: string`\n  - `dob?: string`\n  - `doing_business_as?: string`\n  - `financial_account_token?: string`\n  - `name?: string`\n  - `user_defined_id?: string`\n  - `verification_failed_reason?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst microDeposit = await client.externalBankAccounts.microDeposits.create('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { micro_deposits: [0, 0] });\n\nconsole.log(microDeposit);\n```",
     perLanguage: {
+      go: {
+        method: 'client.ExternalBankAccounts.MicroDeposits.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tmicroDeposit, err := client.ExternalBankAccounts.MicroDeposits.New(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.ExternalBankAccountMicroDepositNewParams{\n\t\t\tMicroDeposits: lithic.F([]int64{int64(0), int64(0)}),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", microDeposit.CompanyID)\n}\n',
+      },
       java: {
         method: 'externalBankAccounts().microDeposits().create',
         example:
@@ -8416,11 +8421,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/external_bank_accounts/$EXTERNAL_BANK_ACCOUNT_TOKEN/micro_deposits \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "micro_deposits": [\n            0,\n            0\n          ]\n        }\'',
       },
-      go: {
-        method: 'client.ExternalBankAccounts.MicroDeposits.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tmicroDeposit, err := client.ExternalBankAccounts.MicroDeposits.New(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.ExternalBankAccountMicroDepositNewParams{\n\t\t\tMicroDeposits: lithic.F([]int64{int64(0), int64(0)}),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", microDeposit.CompanyID)\n}\n',
-      },
     },
   },
   {
@@ -8449,6 +8449,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.payments.list(account_token?: string, begin?: string, business_account_token?: string, category?: 'ACH', end?: string, ending_before?: string, financial_account_token?: string, page_size?: number, result?: 'APPROVED' | 'DECLINED', starting_after?: string, status?: 'DECLINED' | 'PENDING' | 'RETURNED' | 'REVERSED' | 'SETTLED'): { token: string; category: string; created: string; descriptor: string; direction: 'CREDIT' | 'DEBIT'; events: object[]; family: 'PAYMENT'; financial_account_token: string; method: 'ACH_NEXT_DAY' | 'ACH_SAME_DAY' | 'WIRE'; method_attributes: object | object; pending_amount: number; related_account_tokens: object; result: 'APPROVED' | 'DECLINED'; settled_amount: number; source: 'LITHIC' | 'EXTERNAL' | 'CUSTOMER'; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; currency?: string; expected_release_date?: string; external_bank_account_token?: string; tags?: object; type?: string; user_defined_id?: string; }`\n\n**get** `/v1/payments`\n\nList all the payments for the provided search criteria.\n\n### Parameters\n\n- `account_token?: string`\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `business_account_token?: string`\n\n- `category?: 'ACH'`\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `financial_account_token?: string`\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `result?: 'APPROVED' | 'DECLINED'`\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n- `status?: 'DECLINED' | 'PENDING' | 'RETURNED' | 'REVERSED' | 'SETTLED'`\n\n### Returns\n\n- `{ token: string; category: string; created: string; descriptor: string; direction: 'CREDIT' | 'DEBIT'; events: { token: string; amount: number; created: string; result: 'APPROVED' | 'DECLINED'; type: string; detailed_results?: string[]; external_id?: string; }[]; family: 'PAYMENT'; financial_account_token: string; method: 'ACH_NEXT_DAY' | 'ACH_SAME_DAY' | 'WIRE'; method_attributes: { sec_code: 'CCD' | 'PPD' | 'WEB' | 'TEL' | 'CIE' | 'CTX'; ach_hold_period?: number; addenda?: string; company_id?: string; override_company_name?: string; receipt_routing_number?: string; recipient_name?: string; retries?: number; return_reason_code?: string; trace_numbers?: string[]; } | { wire_message_type: string; wire_network: 'FEDWIRE' | 'SWIFT'; creditor?: object; debtor?: object; message_id?: string; remittance_information?: string; }; pending_amount: number; related_account_tokens: { account_token: string; business_account_token: string; }; result: 'APPROVED' | 'DECLINED'; settled_amount: number; source: 'LITHIC' | 'EXTERNAL' | 'CUSTOMER'; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; currency?: string; expected_release_date?: string; external_bank_account_token?: string; tags?: object; type?: string; user_defined_id?: string; }`\n  Payment transaction\n\n  - `token: string`\n  - `category: string`\n  - `created: string`\n  - `descriptor: string`\n  - `direction: 'CREDIT' | 'DEBIT'`\n  - `events: { token: string; amount: number; created: string; result: 'APPROVED' | 'DECLINED'; type: string; detailed_results?: string[]; external_id?: string; }[]`\n  - `family: 'PAYMENT'`\n  - `financial_account_token: string`\n  - `method: 'ACH_NEXT_DAY' | 'ACH_SAME_DAY' | 'WIRE'`\n  - `method_attributes: { sec_code: 'CCD' | 'PPD' | 'WEB' | 'TEL' | 'CIE' | 'CTX'; ach_hold_period?: number; addenda?: string; company_id?: string; override_company_name?: string; receipt_routing_number?: string; recipient_name?: string; retries?: number; return_reason_code?: string; trace_numbers?: string[]; } | { wire_message_type: string; wire_network: 'FEDWIRE' | 'SWIFT'; creditor?: { account_number?: string; agent_id?: string; agent_name?: string; name?: string; }; debtor?: { account_number?: string; agent_id?: string; agent_name?: string; name?: string; }; message_id?: string; remittance_information?: string; }`\n  - `pending_amount: number`\n  - `related_account_tokens: { account_token: string; business_account_token: string; }`\n  - `result: 'APPROVED' | 'DECLINED'`\n  - `settled_amount: number`\n  - `source: 'LITHIC' | 'EXTERNAL' | 'CUSTOMER'`\n  - `status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  - `updated: string`\n  - `currency?: string`\n  - `expected_release_date?: string`\n  - `external_bank_account_token?: string`\n  - `tags?: object`\n  - `type?: string`\n  - `user_defined_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const payment of client.payments.list()) {\n  console.log(payment);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.Payments.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Payments.List(context.TODO(), lithic.PaymentListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'payments().list',
         example:
@@ -8477,11 +8482,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example: 'curl https://api.lithic.com/v1/payments \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Payments.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Payments.List(context.TODO(), lithic.PaymentListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -8509,6 +8509,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.payments.create(amount: number, external_bank_account_token: string, financial_account_token: string, method: 'ACH_NEXT_DAY' | 'ACH_SAME_DAY', method_attributes: { sec_code: 'CCD' | 'PPD' | 'WEB'; ach_hold_period?: number; addenda?: string; override_company_name?: string; }, type: 'COLLECTION' | 'PAYMENT', token?: string, hold?: { token: string; }, memo?: string, user_defined_id?: string): object`\n\n**post** `/v1/payments`\n\nInitiates a payment between a financial account and an external bank account.\n\n### Parameters\n\n- `amount: number`\n\n- `external_bank_account_token: string`\n\n- `financial_account_token: string`\n\n- `method: 'ACH_NEXT_DAY' | 'ACH_SAME_DAY'`\n\n- `method_attributes: { sec_code: 'CCD' | 'PPD' | 'WEB'; ach_hold_period?: number; addenda?: string; override_company_name?: string; }`\n  - `sec_code: 'CCD' | 'PPD' | 'WEB'`\n  - `ach_hold_period?: number`\n    Number of days to hold the ACH payment\n  - `addenda?: string`\n  - `override_company_name?: string`\n    Value to override the configured company name with. Can only be used if allowed to override\n\n- `type: 'COLLECTION' | 'PAYMENT'`\n\n- `token?: string`\n  Customer-provided token that will serve as an idempotency token. This token will become the transaction token.\n\n- `hold?: { token: string; }`\n  Optional hold to settle when this payment is initiated.\n  - `token: string`\n    Token of the hold to settle when this payment is initiated.\n\n- `memo?: string`\n\n- `user_defined_id?: string`\n\n### Returns\n\n- `{ token: string; category: string; created: string; descriptor: string; direction: 'CREDIT' | 'DEBIT'; events: { token: string; amount: number; created: string; result: 'APPROVED' | 'DECLINED'; type: string; detailed_results?: string[]; external_id?: string; }[]; family: 'PAYMENT'; financial_account_token: string; method: 'ACH_NEXT_DAY' | 'ACH_SAME_DAY' | 'WIRE'; method_attributes: { sec_code: 'CCD' | 'PPD' | 'WEB' | 'TEL' | 'CIE' | 'CTX'; ach_hold_period?: number; addenda?: string; company_id?: string; override_company_name?: string; receipt_routing_number?: string; recipient_name?: string; retries?: number; return_reason_code?: string; trace_numbers?: string[]; } | { wire_message_type: string; wire_network: 'FEDWIRE' | 'SWIFT'; creditor?: wire_party_details; debtor?: wire_party_details; message_id?: string; remittance_information?: string; }; pending_amount: number; related_account_tokens: { account_token: string; business_account_token: string; }; result: 'APPROVED' | 'DECLINED'; settled_amount: number; source: 'LITHIC' | 'EXTERNAL' | 'CUSTOMER'; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; currency?: string; expected_release_date?: string; external_bank_account_token?: string; tags?: object; type?: string; user_defined_id?: string; }`\n  Payment transaction\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst payment = await client.payments.create({\n  amount: 1,\n  external_bank_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n  financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n  method: 'ACH_NEXT_DAY',\n  method_attributes: { sec_code: 'CCD' },\n  type: 'COLLECTION',\n});\n\nconsole.log(payment);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Payments.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpayment, err := client.Payments.New(context.TODO(), lithic.PaymentNewParams{\n\t\tAmount:                   lithic.F(int64(1)),\n\t\tExternalBankAccountToken: lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t\tFinancialAccountToken:    lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t\tMethod:                   lithic.F(lithic.PaymentNewParamsMethodACHNextDay),\n\t\tMethodAttributes: lithic.F(lithic.PaymentNewParamsMethodAttributes{\n\t\t\tSecCode: lithic.F(lithic.PaymentNewParamsMethodAttributesSecCodeCcd),\n\t\t}),\n\t\tType: lithic.F(lithic.PaymentNewParamsTypeCollection),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", payment)\n}\n',
+      },
       java: {
         method: 'payments().create',
         example:
@@ -8538,11 +8543,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/payments \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "amount": 1,\n          "external_bank_account_token": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n          "financial_account_token": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n          "method": "ACH_NEXT_DAY",\n          "method_attributes": {\n            "sec_code": "CCD"\n          },\n          "type": "COLLECTION"\n        }\'',
       },
-      go: {
-        method: 'client.Payments.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpayment, err := client.Payments.New(context.TODO(), lithic.PaymentNewParams{\n\t\tAmount:                   lithic.F(int64(1)),\n\t\tExternalBankAccountToken: lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t\tFinancialAccountToken:    lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t\tMethod:                   lithic.F(lithic.PaymentNewParamsMethodACHNextDay),\n\t\tMethodAttributes: lithic.F(lithic.PaymentNewParamsMethodAttributes{\n\t\t\tSecCode: lithic.F(lithic.PaymentNewParamsMethodAttributesSecCodeCcd),\n\t\t}),\n\t\tType: lithic.F(lithic.PaymentNewParamsTypeCollection),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", payment)\n}\n',
-      },
     },
   },
   {
@@ -8559,6 +8559,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.payments.retrieve(payment_token: string): { token: string; category: string; created: string; descriptor: string; direction: 'CREDIT' | 'DEBIT'; events: object[]; family: 'PAYMENT'; financial_account_token: string; method: 'ACH_NEXT_DAY' | 'ACH_SAME_DAY' | 'WIRE'; method_attributes: object | object; pending_amount: number; related_account_tokens: object; result: 'APPROVED' | 'DECLINED'; settled_amount: number; source: 'LITHIC' | 'EXTERNAL' | 'CUSTOMER'; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; currency?: string; expected_release_date?: string; external_bank_account_token?: string; tags?: object; type?: string; user_defined_id?: string; }`\n\n**get** `/v1/payments/{payment_token}`\n\nGet the payment by token.\n\n### Parameters\n\n- `payment_token: string`\n\n### Returns\n\n- `{ token: string; category: string; created: string; descriptor: string; direction: 'CREDIT' | 'DEBIT'; events: { token: string; amount: number; created: string; result: 'APPROVED' | 'DECLINED'; type: string; detailed_results?: string[]; external_id?: string; }[]; family: 'PAYMENT'; financial_account_token: string; method: 'ACH_NEXT_DAY' | 'ACH_SAME_DAY' | 'WIRE'; method_attributes: { sec_code: 'CCD' | 'PPD' | 'WEB' | 'TEL' | 'CIE' | 'CTX'; ach_hold_period?: number; addenda?: string; company_id?: string; override_company_name?: string; receipt_routing_number?: string; recipient_name?: string; retries?: number; return_reason_code?: string; trace_numbers?: string[]; } | { wire_message_type: string; wire_network: 'FEDWIRE' | 'SWIFT'; creditor?: object; debtor?: object; message_id?: string; remittance_information?: string; }; pending_amount: number; related_account_tokens: { account_token: string; business_account_token: string; }; result: 'APPROVED' | 'DECLINED'; settled_amount: number; source: 'LITHIC' | 'EXTERNAL' | 'CUSTOMER'; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; currency?: string; expected_release_date?: string; external_bank_account_token?: string; tags?: object; type?: string; user_defined_id?: string; }`\n  Payment transaction\n\n  - `token: string`\n  - `category: string`\n  - `created: string`\n  - `descriptor: string`\n  - `direction: 'CREDIT' | 'DEBIT'`\n  - `events: { token: string; amount: number; created: string; result: 'APPROVED' | 'DECLINED'; type: string; detailed_results?: string[]; external_id?: string; }[]`\n  - `family: 'PAYMENT'`\n  - `financial_account_token: string`\n  - `method: 'ACH_NEXT_DAY' | 'ACH_SAME_DAY' | 'WIRE'`\n  - `method_attributes: { sec_code: 'CCD' | 'PPD' | 'WEB' | 'TEL' | 'CIE' | 'CTX'; ach_hold_period?: number; addenda?: string; company_id?: string; override_company_name?: string; receipt_routing_number?: string; recipient_name?: string; retries?: number; return_reason_code?: string; trace_numbers?: string[]; } | { wire_message_type: string; wire_network: 'FEDWIRE' | 'SWIFT'; creditor?: { account_number?: string; agent_id?: string; agent_name?: string; name?: string; }; debtor?: { account_number?: string; agent_id?: string; agent_name?: string; name?: string; }; message_id?: string; remittance_information?: string; }`\n  - `pending_amount: number`\n  - `related_account_tokens: { account_token: string; business_account_token: string; }`\n  - `result: 'APPROVED' | 'DECLINED'`\n  - `settled_amount: number`\n  - `source: 'LITHIC' | 'EXTERNAL' | 'CUSTOMER'`\n  - `status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  - `updated: string`\n  - `currency?: string`\n  - `expected_release_date?: string`\n  - `external_bank_account_token?: string`\n  - `tags?: object`\n  - `type?: string`\n  - `user_defined_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst payment = await client.payments.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(payment);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Payments.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpayment, err := client.Payments.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", payment.UserDefinedID)\n}\n',
+      },
       java: {
         method: 'payments().retrieve',
         example:
@@ -8588,11 +8593,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/payments/$PAYMENT_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Payments.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpayment, err := client.Payments.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", payment.UserDefinedID)\n}\n',
-      },
     },
   },
   {
@@ -8609,6 +8609,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## simulate_release\n\n`client.payments.simulateRelease(payment_token: string): { debugging_request_id: string; result: 'APPROVED' | 'DECLINED'; transaction_event_token: string; }`\n\n**post** `/v1/simulate/payments/release`\n\nSimulates a release of a Payment.\n\n### Parameters\n\n- `payment_token: string`\n  Payment Token\n\n### Returns\n\n- `{ debugging_request_id: string; result: 'APPROVED' | 'DECLINED'; transaction_event_token: string; }`\n\n  - `debugging_request_id: string`\n  - `result: 'APPROVED' | 'DECLINED'`\n  - `transaction_event_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.payments.simulateRelease({ payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Payments.SimulateRelease',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Payments.SimulateRelease(context.TODO(), lithic.PaymentSimulateReleaseParams{\n\t\tPaymentToken: lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
+      },
       java: {
         method: 'payments().simulateRelease',
         example:
@@ -8638,11 +8643,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/simulate/payments/release \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "payment_token": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n        }\'',
       },
-      go: {
-        method: 'client.Payments.SimulateRelease',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Payments.SimulateRelease(context.TODO(), lithic.PaymentSimulateReleaseParams{\n\t\tPaymentToken: lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
-      },
     },
   },
   {
@@ -8659,6 +8659,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## simulate_return\n\n`client.payments.simulateReturn(payment_token: string, return_reason_code?: string): { debugging_request_id: string; result: 'APPROVED' | 'DECLINED'; transaction_event_token: string; }`\n\n**post** `/v1/simulate/payments/return`\n\nSimulates a return of a Payment.\n\n### Parameters\n\n- `payment_token: string`\n  Payment Token\n\n- `return_reason_code?: string`\n  Return Reason Code\n\n### Returns\n\n- `{ debugging_request_id: string; result: 'APPROVED' | 'DECLINED'; transaction_event_token: string; }`\n\n  - `debugging_request_id: string`\n  - `result: 'APPROVED' | 'DECLINED'`\n  - `transaction_event_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.payments.simulateReturn({ payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Payments.SimulateReturn',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Payments.SimulateReturn(context.TODO(), lithic.PaymentSimulateReturnParams{\n\t\tPaymentToken: lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
+      },
       java: {
         method: 'payments().simulateReturn',
         example:
@@ -8688,11 +8693,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/simulate/payments/return \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "payment_token": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n          "return_reason_code": "R12"\n        }\'',
       },
-      go: {
-        method: 'client.Payments.SimulateReturn',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Payments.SimulateReturn(context.TODO(), lithic.PaymentSimulateReturnParams{\n\t\tPaymentToken: lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
-      },
     },
   },
   {
@@ -8709,6 +8709,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retry\n\n`client.payments.retry(payment_token: string): object`\n\n**post** `/v1/payments/{payment_token}/retry`\n\nRetry an origination which has been returned.\n\n### Parameters\n\n- `payment_token: string`\n\n### Returns\n\n- `{ token: string; category: string; created: string; descriptor: string; direction: 'CREDIT' | 'DEBIT'; events: { token: string; amount: number; created: string; result: 'APPROVED' | 'DECLINED'; type: string; detailed_results?: string[]; external_id?: string; }[]; family: 'PAYMENT'; financial_account_token: string; method: 'ACH_NEXT_DAY' | 'ACH_SAME_DAY' | 'WIRE'; method_attributes: { sec_code: 'CCD' | 'PPD' | 'WEB' | 'TEL' | 'CIE' | 'CTX'; ach_hold_period?: number; addenda?: string; company_id?: string; override_company_name?: string; receipt_routing_number?: string; recipient_name?: string; retries?: number; return_reason_code?: string; trace_numbers?: string[]; } | { wire_message_type: string; wire_network: 'FEDWIRE' | 'SWIFT'; creditor?: wire_party_details; debtor?: wire_party_details; message_id?: string; remittance_information?: string; }; pending_amount: number; related_account_tokens: { account_token: string; business_account_token: string; }; result: 'APPROVED' | 'DECLINED'; settled_amount: number; source: 'LITHIC' | 'EXTERNAL' | 'CUSTOMER'; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; currency?: string; expected_release_date?: string; external_bank_account_token?: string; tags?: object; type?: string; user_defined_id?: string; }`\n  Payment transaction\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.payments.retry('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Payments.Retry',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Payments.Retry(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
+      },
       java: {
         method: 'payments().retry',
         example:
@@ -8738,11 +8743,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/payments/$PAYMENT_TOKEN/retry \\\n    -X POST \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Payments.Retry',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Payments.Retry(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
-      },
     },
   },
   {
@@ -8767,6 +8767,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## return\n\n`client.payments.return(payment_token: string, financial_account_token: string, return_reason_code: string, addenda?: string, date_of_death?: string, memo?: string): { token: string; category: string; created: string; descriptor: string; direction: 'CREDIT' | 'DEBIT'; events: object[]; family: 'PAYMENT'; financial_account_token: string; method: 'ACH_NEXT_DAY' | 'ACH_SAME_DAY' | 'WIRE'; method_attributes: object | object; pending_amount: number; related_account_tokens: object; result: 'APPROVED' | 'DECLINED'; settled_amount: number; source: 'LITHIC' | 'EXTERNAL' | 'CUSTOMER'; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; currency?: string; expected_release_date?: string; external_bank_account_token?: string; tags?: object; type?: string; user_defined_id?: string; }`\n\n**post** `/v1/payments/{payment_token}/return`\n\nReturn an ACH payment with a specified return reason code. Returns must be initiated\nwithin the time window specified by NACHA rules for each return code (typically 2 banking\ndays for most codes, 60 calendar days for unauthorized debits). For a complete list of\nreturn codes and their meanings, see the [ACH Return Reasons documentation](https://docs.lithic.com/docs/ach-overview#ach-return-reasons).\n\nNote:\n  * This endpoint does not modify the state of the financial account associated with the payment. If you would like to change the account state, use the [Update financial account status](https://docs.lithic.com/reference/updatefinancialaccountstatus) endpoint.\n  * By default this endpoint is not enabled for your account. Please contact your implementations manager to enable this feature.\n\n\n### Parameters\n\n- `payment_token: string`\n\n- `financial_account_token: string`\n  Globally unique identifier for the financial account\n\n- `return_reason_code: string`\n  ACH return reason code indicating the reason for returning the payment. Supported codes include R01-R53 and R80-R85. For a complete list of return codes and their meanings, see [ACH Return Reasons](https://docs.lithic.com/docs/ach-overview#ach-return-reasons)\n\n- `addenda?: string`\n  Optional additional information about the return. Limited to 44 characters\n\n- `date_of_death?: string`\n  Date of death in YYYY-MM-DD format. Required when using return codes **R14** (representative payee deceased) or **R15** (beneficiary or account holder deceased)\n\n- `memo?: string`\n  Optional memo for the return. Limited to 10 characters\n\n### Returns\n\n- `{ token: string; category: string; created: string; descriptor: string; direction: 'CREDIT' | 'DEBIT'; events: { token: string; amount: number; created: string; result: 'APPROVED' | 'DECLINED'; type: string; detailed_results?: string[]; external_id?: string; }[]; family: 'PAYMENT'; financial_account_token: string; method: 'ACH_NEXT_DAY' | 'ACH_SAME_DAY' | 'WIRE'; method_attributes: { sec_code: 'CCD' | 'PPD' | 'WEB' | 'TEL' | 'CIE' | 'CTX'; ach_hold_period?: number; addenda?: string; company_id?: string; override_company_name?: string; receipt_routing_number?: string; recipient_name?: string; retries?: number; return_reason_code?: string; trace_numbers?: string[]; } | { wire_message_type: string; wire_network: 'FEDWIRE' | 'SWIFT'; creditor?: object; debtor?: object; message_id?: string; remittance_information?: string; }; pending_amount: number; related_account_tokens: { account_token: string; business_account_token: string; }; result: 'APPROVED' | 'DECLINED'; settled_amount: number; source: 'LITHIC' | 'EXTERNAL' | 'CUSTOMER'; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; currency?: string; expected_release_date?: string; external_bank_account_token?: string; tags?: object; type?: string; user_defined_id?: string; }`\n  Payment transaction\n\n  - `token: string`\n  - `category: string`\n  - `created: string`\n  - `descriptor: string`\n  - `direction: 'CREDIT' | 'DEBIT'`\n  - `events: { token: string; amount: number; created: string; result: 'APPROVED' | 'DECLINED'; type: string; detailed_results?: string[]; external_id?: string; }[]`\n  - `family: 'PAYMENT'`\n  - `financial_account_token: string`\n  - `method: 'ACH_NEXT_DAY' | 'ACH_SAME_DAY' | 'WIRE'`\n  - `method_attributes: { sec_code: 'CCD' | 'PPD' | 'WEB' | 'TEL' | 'CIE' | 'CTX'; ach_hold_period?: number; addenda?: string; company_id?: string; override_company_name?: string; receipt_routing_number?: string; recipient_name?: string; retries?: number; return_reason_code?: string; trace_numbers?: string[]; } | { wire_message_type: string; wire_network: 'FEDWIRE' | 'SWIFT'; creditor?: { account_number?: string; agent_id?: string; agent_name?: string; name?: string; }; debtor?: { account_number?: string; agent_id?: string; agent_name?: string; name?: string; }; message_id?: string; remittance_information?: string; }`\n  - `pending_amount: number`\n  - `related_account_tokens: { account_token: string; business_account_token: string; }`\n  - `result: 'APPROVED' | 'DECLINED'`\n  - `settled_amount: number`\n  - `source: 'LITHIC' | 'EXTERNAL' | 'CUSTOMER'`\n  - `status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  - `updated: string`\n  - `currency?: string`\n  - `expected_release_date?: string`\n  - `external_bank_account_token?: string`\n  - `tags?: object`\n  - `type?: string`\n  - `user_defined_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst payment = await client.payments.return('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', return_reason_code: 'R01' });\n\nconsole.log(payment);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Payments.Return',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpayment, err := client.Payments.Return(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.PaymentReturnParams{\n\t\t\tFinancialAccountToken: lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t\t\tReturnReasonCode:      lithic.F("R01"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", payment.UserDefinedID)\n}\n',
+      },
       java: {
         method: 'payments().return_',
         example:
@@ -8796,11 +8801,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/payments/$PAYMENT_TOKEN/return \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "financial_account_token": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n          "return_reason_code": "R01",\n          "date_of_death": "2025-01-15"\n        }\'',
       },
-      go: {
-        method: 'client.Payments.Return',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpayment, err := client.Payments.Return(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.PaymentReturnParams{\n\t\t\tFinancialAccountToken: lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t\t\tReturnReasonCode:      lithic.F("R01"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", payment.UserDefinedID)\n}\n',
-      },
     },
   },
   {
@@ -8823,6 +8823,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## simulate_receipt\n\n`client.payments.simulateReceipt(token: string, amount: number, financial_account_token: string, receipt_type: 'RECEIPT_CREDIT' | 'RECEIPT_DEBIT', memo?: string): { debugging_request_id: string; result: 'APPROVED' | 'DECLINED'; transaction_event_token: string; }`\n\n**post** `/v1/simulate/payments/receipt`\n\nSimulates a receipt of a Payment.\n\n### Parameters\n\n- `token: string`\n  Customer-generated payment token used to uniquely identify the simulated payment\n\n- `amount: number`\n  Amount\n\n- `financial_account_token: string`\n  Financial Account Token\n\n- `receipt_type: 'RECEIPT_CREDIT' | 'RECEIPT_DEBIT'`\n  Receipt Type\n\n- `memo?: string`\n  Memo\n\n### Returns\n\n- `{ debugging_request_id: string; result: 'APPROVED' | 'DECLINED'; transaction_event_token: string; }`\n\n  - `debugging_request_id: string`\n  - `result: 'APPROVED' | 'DECLINED'`\n  - `transaction_event_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.payments.simulateReceipt({\n  token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n  amount: 0,\n  financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n  receipt_type: 'RECEIPT_CREDIT',\n});\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Payments.SimulateReceipt',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Payments.SimulateReceipt(context.TODO(), lithic.PaymentSimulateReceiptParams{\n\t\tToken:                 lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t\tAmount:                lithic.F(int64(0)),\n\t\tFinancialAccountToken: lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t\tReceiptType:           lithic.F(lithic.PaymentSimulateReceiptParamsReceiptTypeReceiptCredit),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
+      },
       java: {
         method: 'payments().simulateReceipt',
         example:
@@ -8852,11 +8857,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/simulate/payments/receipt \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "token": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n          "amount": 0,\n          "financial_account_token": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n          "receipt_type": "RECEIPT_CREDIT"\n        }\'',
       },
-      go: {
-        method: 'client.Payments.SimulateReceipt',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Payments.SimulateReceipt(context.TODO(), lithic.PaymentSimulateReceiptParams{\n\t\tToken:                 lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t\tAmount:                lithic.F(int64(0)),\n\t\tFinancialAccountToken: lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t\tReceiptType:           lithic.F(lithic.PaymentSimulateReceiptParamsReceiptTypeReceiptCredit),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
-      },
     },
   },
   {
@@ -8880,6 +8880,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## simulate_action\n\n`client.payments.simulateAction(payment_token: string, event_type: string, date_of_death?: string, decline_reason?: string, return_addenda?: string, return_reason_code?: string): { debugging_request_id: string; result: 'APPROVED' | 'DECLINED'; transaction_event_token: string; }`\n\n**post** `/v1/simulate/payments/{payment_token}/action`\n\nSimulate payment lifecycle event\n\n### Parameters\n\n- `payment_token: string`\n\n- `event_type: string`\n  Event Type\n\n- `date_of_death?: string`\n  Date of Death for ACH Return\n\n- `decline_reason?: string`\n  Decline reason\n\n- `return_addenda?: string`\n  Return Addenda\n\n- `return_reason_code?: string`\n  Return Reason Code\n\n### Returns\n\n- `{ debugging_request_id: string; result: 'APPROVED' | 'DECLINED'; transaction_event_token: string; }`\n\n  - `debugging_request_id: string`\n  - `result: 'APPROVED' | 'DECLINED'`\n  - `transaction_event_token: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.payments.simulateAction('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { event_type: 'ACH_ORIGINATION_REVIEWED' });\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Payments.SimulateAction',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Payments.SimulateAction(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.PaymentSimulateActionParams{\n\t\t\tEventType: lithic.F(lithic.PaymentSimulateActionParamsEventTypeACHOriginationReviewed),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
+      },
       java: {
         method: 'payments().simulateAction',
         example:
@@ -8909,11 +8914,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/simulate/payments/$PAYMENT_TOKEN/action \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "event_type": "ACH_ORIGINATION_REVIEWED"\n        }\'',
       },
-      go: {
-        method: 'client.Payments.SimulateAction',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Payments.SimulateAction(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.PaymentSimulateActionParams{\n\t\t\tEventType: lithic.F(lithic.PaymentSimulateActionParamsEventTypeACHOriginationReviewed),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.DebuggingRequestID)\n}\n',
-      },
     },
   },
   {
@@ -8930,6 +8930,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.threeDS.authentication.retrieve(three_ds_authentication_token: string): { token: string; account_type: 'CREDIT' | 'DEBIT' | 'NOT_APPLICABLE'; authentication_result: 'DECLINE' | 'SUCCESS' | 'PENDING_CHALLENGE' | 'PENDING_DECISION'; card_expiry_check: 'MATCH' | 'MISMATCH' | 'NOT_PRESENT'; card_token: string; cardholder: object; channel: 'APP_BASED' | 'BROWSER' | 'THREE_DS_REQUESTOR_INITIATED'; created: string; merchant: object; message_category: 'NON_PAYMENT_AUTHENTICATION' | 'PAYMENT_AUTHENTICATION'; three_ds_requestor_challenge_indicator: string; additional_data?: object; app?: object; authentication_request_type?: string; browser?: object; challenge_metadata?: object; challenge_orchestrated_by?: 'LITHIC' | 'CUSTOMER' | 'NO_CHALLENGE'; decision_made_by?: 'LITHIC_RULES' | 'LITHIC_DEFAULT' | 'CUSTOMER_RULES' | 'CUSTOMER_ENDPOINT' | 'NETWORK' | 'UNKNOWN'; three_ri_request_type?: string; transaction?: object; }`\n\n**get** `/v1/three_ds_authentication/{three_ds_authentication_token}`\n\nGet 3DS Authentication by token\n\n### Parameters\n\n- `three_ds_authentication_token: string`\n\n### Returns\n\n- `{ token: string; account_type: 'CREDIT' | 'DEBIT' | 'NOT_APPLICABLE'; authentication_result: 'DECLINE' | 'SUCCESS' | 'PENDING_CHALLENGE' | 'PENDING_DECISION'; card_expiry_check: 'MATCH' | 'MISMATCH' | 'NOT_PRESENT'; card_token: string; cardholder: { address_match?: boolean; address_on_file_match?: 'MATCH' | 'MATCH_ADDRESS_ONLY' | 'MATCH_ZIP_ONLY' | 'MISMATCH' | 'NOT_PRESENT'; billing_address?: { address1?: string; address2?: string; address3?: string; city?: string; country?: string; postal_code?: string; }; email?: string; name?: string; phone_number_home?: string; phone_number_mobile?: string; phone_number_work?: string; shipping_address?: { address1?: string; address2?: string; address3?: string; city?: string; country?: string; postal_code?: string; }; }; channel: 'APP_BASED' | 'BROWSER' | 'THREE_DS_REQUESTOR_INITIATED'; created: string; merchant: { risk_indicator: { delivery_email_address?: string; delivery_time_frame?: 'ELECTRONIC_DELIVERY' | 'OVERNIGHT_SHIPPING' | 'SAME_DAY_SHIPPING' | 'TWO_DAY_OR_MORE_SHIPPING'; gift_card_amount?: number; gift_card_count?: number; gift_card_currency?: string; order_availability?: 'FUTURE_AVAILABILITY' | 'MERCHANDISE_AVAILABLE'; pre_order_available_date?: string; reorder_items?: 'FIRST_TIME_ORDERED' | 'REORDERED'; shipping_method?: string; }; id?: string; country?: string; mcc?: string; name?: string; }; message_category: 'NON_PAYMENT_AUTHENTICATION' | 'PAYMENT_AUTHENTICATION'; three_ds_requestor_challenge_indicator: string; additional_data?: { network_decision?: 'LOW_RISK' | 'NOT_LOW_RISK'; network_risk_score?: number; }; app?: { device?: string; device_info?: string; ip?: string; latitude?: number; locale?: string; longitude?: number; os?: string; platform?: string; screen_height?: number; screen_width?: number; time_zone?: string; }; authentication_request_type?: string; browser?: { accept_header?: string; ip?: string; java_enabled?: boolean; javascript_enabled?: boolean; language?: string; time_zone?: string; user_agent?: string; }; challenge_metadata?: { method_type: 'SMS_OTP' | 'OUT_OF_BAND'; status: string; phone_number?: string; }; challenge_orchestrated_by?: 'LITHIC' | 'CUSTOMER' | 'NO_CHALLENGE'; decision_made_by?: 'LITHIC_RULES' | 'LITHIC_DEFAULT' | 'CUSTOMER_RULES' | 'CUSTOMER_ENDPOINT' | 'NETWORK' | 'UNKNOWN'; three_ri_request_type?: string; transaction?: { amount: number; cardholder_amount: number; currency: string; currency_exponent: number; date_time: string; type: string; }; }`\n  Represents a 3DS authentication\n\n  - `token: string`\n  - `account_type: 'CREDIT' | 'DEBIT' | 'NOT_APPLICABLE'`\n  - `authentication_result: 'DECLINE' | 'SUCCESS' | 'PENDING_CHALLENGE' | 'PENDING_DECISION'`\n  - `card_expiry_check: 'MATCH' | 'MISMATCH' | 'NOT_PRESENT'`\n  - `card_token: string`\n  - `cardholder: { address_match?: boolean; address_on_file_match?: 'MATCH' | 'MATCH_ADDRESS_ONLY' | 'MATCH_ZIP_ONLY' | 'MISMATCH' | 'NOT_PRESENT'; billing_address?: { address1?: string; address2?: string; address3?: string; city?: string; country?: string; postal_code?: string; }; email?: string; name?: string; phone_number_home?: string; phone_number_mobile?: string; phone_number_work?: string; shipping_address?: { address1?: string; address2?: string; address3?: string; city?: string; country?: string; postal_code?: string; }; }`\n  - `channel: 'APP_BASED' | 'BROWSER' | 'THREE_DS_REQUESTOR_INITIATED'`\n  - `created: string`\n  - `merchant: { risk_indicator: { delivery_email_address?: string; delivery_time_frame?: 'ELECTRONIC_DELIVERY' | 'OVERNIGHT_SHIPPING' | 'SAME_DAY_SHIPPING' | 'TWO_DAY_OR_MORE_SHIPPING'; gift_card_amount?: number; gift_card_count?: number; gift_card_currency?: string; order_availability?: 'FUTURE_AVAILABILITY' | 'MERCHANDISE_AVAILABLE'; pre_order_available_date?: string; reorder_items?: 'FIRST_TIME_ORDERED' | 'REORDERED'; shipping_method?: string; }; id?: string; country?: string; mcc?: string; name?: string; }`\n  - `message_category: 'NON_PAYMENT_AUTHENTICATION' | 'PAYMENT_AUTHENTICATION'`\n  - `three_ds_requestor_challenge_indicator: string`\n  - `additional_data?: { network_decision?: 'LOW_RISK' | 'NOT_LOW_RISK'; network_risk_score?: number; }`\n  - `app?: { device?: string; device_info?: string; ip?: string; latitude?: number; locale?: string; longitude?: number; os?: string; platform?: string; screen_height?: number; screen_width?: number; time_zone?: string; }`\n  - `authentication_request_type?: string`\n  - `browser?: { accept_header?: string; ip?: string; java_enabled?: boolean; javascript_enabled?: boolean; language?: string; time_zone?: string; user_agent?: string; }`\n  - `challenge_metadata?: { method_type: 'SMS_OTP' | 'OUT_OF_BAND'; status: string; phone_number?: string; }`\n  - `challenge_orchestrated_by?: 'LITHIC' | 'CUSTOMER' | 'NO_CHALLENGE'`\n  - `decision_made_by?: 'LITHIC_RULES' | 'LITHIC_DEFAULT' | 'CUSTOMER_RULES' | 'CUSTOMER_ENDPOINT' | 'NETWORK' | 'UNKNOWN'`\n  - `three_ri_request_type?: string`\n  - `transaction?: { amount: number; cardholder_amount: number; currency: string; currency_exponent: number; date_time: string; type: string; }`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst threeDSAuthentication = await client.threeDS.authentication.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(threeDSAuthentication);\n```",
     perLanguage: {
+      go: {
+        method: 'client.ThreeDS.Authentication.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tthreeDSAuthentication, err := client.ThreeDS.Authentication.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", threeDSAuthentication.Token)\n}\n',
+      },
       java: {
         method: 'threeDS().authentication().retrieve',
         example:
@@ -8959,11 +8964,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/three_ds_authentication/$THREE_DS_AUTHENTICATION_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.ThreeDS.Authentication.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tthreeDSAuthentication, err := client.ThreeDS.Authentication.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", threeDSAuthentication.Token)\n}\n',
-      },
     },
   },
   {
@@ -8985,6 +8985,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## simulate\n\n`client.threeDS.authentication.simulate(merchant: { id: string; country: string; mcc: string; name: string; }, pan: string, transaction: { amount: number; currency: string; }, card_expiry_check?: 'MATCH' | 'MISMATCH' | 'NOT_PRESENT'): { token?: string; }`\n\n**post** `/v1/three_ds_authentication/simulate`\n\nSimulates a 3DS authentication request from the payment network as if it came from an ACS. If you're configured for 3DS Customer Decisioning, simulating authentications requires your customer decisioning endpoint to be set up properly (respond with a valid JSON). If the authentication decision is to challenge, ensure that the account holder associated with the card transaction has a valid phone number configured to receive the OTP code via SMS. \n\n### Parameters\n\n- `merchant: { id: string; country: string; mcc: string; name: string; }`\n  Merchant information for the simulated transaction\n  - `id: string`\n    Unique identifier to identify the payment card acceptor. Corresponds to `merchant_acceptor_id` in authorization.\n  - `country: string`\n    Country of the address provided by the cardholder in ISO 3166-1 alpha-3 format (e.g. USA)\n  - `mcc: string`\n    Merchant category code for the transaction to be simulated. A four-digit number listed in ISO 18245. Supported merchant category codes can be found [here](https://docs.lithic.com/docs/transactions#merchant-category-codes-mccs).\n  - `name: string`\n    Merchant descriptor, corresponds to `descriptor` in authorization. If CHALLENGE keyword is included, Lithic will trigger a challenge.\n\n- `pan: string`\n  Sixteen digit card number.\n\n- `transaction: { amount: number; currency: string; }`\n  Transaction details for the simulation\n  - `amount: number`\n    Amount (in cents) to authenticate.\n  - `currency: string`\n    3-character alphabetic ISO 4217 currency code.\n\n- `card_expiry_check?: 'MATCH' | 'MISMATCH' | 'NOT_PRESENT'`\n  When set will use the following values as part of the Simulated Authentication. When not set defaults to MATCH\n\n### Returns\n\n- `{ token?: string; }`\n\n  - `token?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.threeDS.authentication.simulate({\n  merchant: {\n  id: 'OODKZAPJVN4YS7O',\n  country: 'USA',\n  mcc: '5812',\n  name: 'COFFEE SHOP',\n},\n  pan: '4111111289144142',\n  transaction: { amount: 0, currency: 'GBP' },\n});\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.ThreeDS.Authentication.Simulate',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.ThreeDS.Authentication.Simulate(context.TODO(), lithic.ThreeDSAuthenticationSimulateParams{\n\t\tMerchant: lithic.F(lithic.ThreeDSAuthenticationSimulateParamsMerchant{\n\t\t\tID:      lithic.F("OODKZAPJVN4YS7O"),\n\t\t\tCountry: lithic.F("USA"),\n\t\t\tMcc:     lithic.F("5812"),\n\t\t\tName:    lithic.F("COFFEE SHOP"),\n\t\t}),\n\t\tPan: lithic.F("4111111289144142"),\n\t\tTransaction: lithic.F(lithic.ThreeDSAuthenticationSimulateParamsTransaction{\n\t\t\tAmount:   lithic.F(int64(0)),\n\t\t\tCurrency: lithic.F("GBP"),\n\t\t}),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Token)\n}\n',
+      },
       java: {
         method: 'threeDS().authentication().simulate',
         example:
@@ -9014,11 +9019,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/three_ds_authentication/simulate \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "merchant": {\n            "id": "OODKZAPJVN4YS7O",\n            "country": "USA",\n            "mcc": "5812",\n            "name": "COFFEE SHOP"\n          },\n          "pan": "4111111289144142",\n          "transaction": {\n            "amount": 0,\n            "currency": "GBP"\n          }\n        }\'',
       },
-      go: {
-        method: 'client.ThreeDS.Authentication.Simulate',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.ThreeDS.Authentication.Simulate(context.TODO(), lithic.ThreeDSAuthenticationSimulateParams{\n\t\tMerchant: lithic.F(lithic.ThreeDSAuthenticationSimulateParamsMerchant{\n\t\t\tID:      lithic.F("OODKZAPJVN4YS7O"),\n\t\t\tCountry: lithic.F("USA"),\n\t\t\tMcc:     lithic.F("5812"),\n\t\t\tName:    lithic.F("COFFEE SHOP"),\n\t\t}),\n\t\tPan: lithic.F("4111111289144142"),\n\t\tTransaction: lithic.F(lithic.ThreeDSAuthenticationSimulateParamsTransaction{\n\t\t\tAmount:   lithic.F(int64(0)),\n\t\t\tCurrency: lithic.F("GBP"),\n\t\t}),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Token)\n}\n',
-      },
     },
   },
   {
@@ -9034,6 +9034,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## simulate_otp_entry\n\n`client.threeDS.authentication.simulateOtpEntry(token: string, otp: string): void`\n\n**post** `/v1/three_ds_decisioning/simulate/enter_otp`\n\nEndpoint for simulating entering OTP into 3DS Challenge UI. A call to [/v1/three_ds_authentication/simulate](https://docs.lithic.com/reference/postsimulateauthentication) that resulted in triggered SMS-OTP challenge must precede. Only a single attempt is supported; upon entering OTP, the challenge is either approved or declined.\n\n### Parameters\n\n- `token: string`\n  A unique token returned as part of a /v1/three_ds_authentication/simulate call that resulted in PENDING_CHALLENGE authentication result.\n\n- `otp: string`\n  The OTP entered by the cardholder\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.threeDS.authentication.simulateOtpEntry({ token: 'fabd829d-7f7b-4432-a8f2-07ea4889aaac', otp: '123456' })\n```",
     perLanguage: {
+      go: {
+        method: 'client.ThreeDS.Authentication.SimulateOtpEntry',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.ThreeDS.Authentication.SimulateOtpEntry(context.TODO(), lithic.ThreeDSAuthenticationSimulateOtpEntryParams{\n\t\tToken: lithic.F("fabd829d-7f7b-4432-a8f2-07ea4889aaac"),\n\t\tOtp:   lithic.F("123456"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'threeDS().authentication().simulateOtpEntry',
         example:
@@ -9063,11 +9068,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/three_ds_decisioning/simulate/enter_otp \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "token": "fabd829d-7f7b-4432-a8f2-07ea4889aaac",\n          "otp": "123456"\n        }\'',
       },
-      go: {
-        method: 'client.ThreeDS.Authentication.SimulateOtpEntry',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.ThreeDS.Authentication.SimulateOtpEntry(context.TODO(), lithic.ThreeDSAuthenticationSimulateOtpEntryParams{\n\t\tToken: lithic.F("fabd829d-7f7b-4432-a8f2-07ea4889aaac"),\n\t\tOtp:   lithic.F("123456"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -9083,6 +9083,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve_secret\n\n`client.threeDS.decisioning.retrieveSecret(): { secret?: string; }`\n\n**get** `/v1/three_ds_decisioning/secret`\n\nRetrieve the 3DS Decisioning HMAC secret key. If one does not exist for your program yet, calling this endpoint will create one for you. The headers (which you can use to verify 3DS Decisioning requests) will begin appearing shortly after calling this endpoint for the first time. See [this page](https://docs.lithic.com/docs/3ds-decisioning#3ds-decisioning-hmac-secrets) for more detail about verifying 3DS Decisioning requests.\n\n\n### Returns\n\n- `{ secret?: string; }`\n\n  - `secret?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.threeDS.decisioning.retrieveSecret();\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.ThreeDS.Decisioning.GetSecret',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.ThreeDS.Decisioning.GetSecret(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Secret)\n}\n',
+      },
       java: {
         method: 'threeDS().decisioning().retrieveSecret',
         example:
@@ -9112,11 +9117,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/three_ds_decisioning/secret \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.ThreeDS.Decisioning.GetSecret',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.ThreeDS.Decisioning.GetSecret(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Secret)\n}\n',
-      },
     },
   },
   {
@@ -9131,6 +9131,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## rotate_secret\n\n`client.threeDS.decisioning.rotateSecret(): void`\n\n**post** `/v1/three_ds_decisioning/secret/rotate`\n\nGenerate a new 3DS Decisioning HMAC secret key. The old secret key will be deactivated 24 hours after a successful request to this endpoint. Make a [`GET /three_ds_decisioning/secret`](https://docs.lithic.com/reference/getthreedsdecisioningsecret) request to retrieve the new secret key.\n\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.threeDS.decisioning.rotateSecret()\n```",
     perLanguage: {
+      go: {
+        method: 'client.ThreeDS.Decisioning.RotateSecret',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.ThreeDS.Decisioning.RotateSecret(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'threeDS().decisioning().rotateSecret',
         example:
@@ -9160,11 +9165,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/three_ds_decisioning/secret/rotate \\\n    -X POST \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.ThreeDS.Decisioning.RotateSecret',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.ThreeDS.Decisioning.RotateSecret(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -9180,6 +9180,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## challenge_response\n\n`client.threeDS.decisioning.challengeResponse(token: string, challenge_response: 'APPROVE' | 'DECLINE_BY_CUSTOMER'): void`\n\n**post** `/v1/three_ds_decisioning/challenge_response`\n\nCard program's response to a 3DS Challenge Request.\nChallenge Request is emitted as a webhook [three_ds_authentication.challenge](https://docs.lithic.com/reference/threedsauthenticationchallengewebhook) and your Card Program needs to be configured with Out of Band (OOB) Challenges in order to receive it (see https://docs.lithic.com/docs/3ds-challenge-flow for more information).\n\n### Parameters\n\n- `token: string`\n  Globally unique identifier for 3DS Authentication that resulted in PENDING_CHALLENGE authentication result.\n\n- `challenge_response: 'APPROVE' | 'DECLINE_BY_CUSTOMER'`\n  Whether the Cardholder has approved or declined the issued Challenge\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.threeDS.decisioning.challengeResponse({ token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', challenge_response: 'APPROVE' })\n```",
     perLanguage: {
+      go: {
+        method: 'client.ThreeDS.Decisioning.ChallengeResponse',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.ThreeDS.Decisioning.ChallengeResponse(context.TODO(), lithic.ThreeDSDecisioningChallengeResponseParams{\n\t\tChallengeResponse: lithic.ChallengeResponseParam{\n\t\t\tToken:             lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t\t\tChallengeResponse: lithic.F(lithic.ChallengeResultApprove),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'threeDS().decisioning().challengeResponse',
         example:
@@ -9209,11 +9214,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/three_ds_decisioning/challenge_response \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "token": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n          "challenge_response": "APPROVE"\n        }\'',
       },
-      go: {
-        method: 'client.ThreeDS.Decisioning.ChallengeResponse',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.ThreeDS.Decisioning.ChallengeResponse(context.TODO(), lithic.ThreeDSDecisioningChallengeResponseParams{\n\t\tChallengeResponse: lithic.ChallengeResponseParam{\n\t\t\tToken:             lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t\t\tChallengeResponse: lithic.F(lithic.ChallengeResultApprove),\n\t\t},\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -9235,6 +9235,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list_details\n\n`client.reports.settlement.listDetails(report_date: string, ending_before?: string, page_size?: number, starting_after?: string): { token: string; account_token: string; card_program_token: string; card_token: string; created: string; currency: string; disputes_gross_amount: number; event_tokens: string[]; institution: string; interchange_fee_extended_precision: number; interchange_gross_amount: number; network: 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA'; other_fees_details: object; other_fees_gross_amount: number; report_date: string; settlement_date: string; transaction_token: string; transactions_gross_amount: number; type: string; updated: string; fee_description?: string; }`\n\n**get** `/v1/reports/settlement/details/{report_date}`\n\nList details.\n\n### Parameters\n\n- `report_date: string`\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Number of records per page.\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; account_token: string; card_program_token: string; card_token: string; created: string; currency: string; disputes_gross_amount: number; event_tokens: string[]; institution: string; interchange_fee_extended_precision: number; interchange_gross_amount: number; network: 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA'; other_fees_details: { ISA?: number; }; other_fees_gross_amount: number; report_date: string; settlement_date: string; transaction_token: string; transactions_gross_amount: number; type: string; updated: string; fee_description?: string; }`\n\n  - `token: string`\n  - `account_token: string`\n  - `card_program_token: string`\n  - `card_token: string`\n  - `created: string`\n  - `currency: string`\n  - `disputes_gross_amount: number`\n  - `event_tokens: string[]`\n  - `institution: string`\n  - `interchange_fee_extended_precision: number`\n  - `interchange_gross_amount: number`\n  - `network: 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA'`\n  - `other_fees_details: { ISA?: number; }`\n  - `other_fees_gross_amount: number`\n  - `report_date: string`\n  - `settlement_date: string`\n  - `transaction_token: string`\n  - `transactions_gross_amount: number`\n  - `type: string`\n  - `updated: string`\n  - `fee_description?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const settlementDetail of client.reports.settlement.listDetails('2023-09-01')) {\n  console.log(settlementDetail);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.Reports.Settlement.ListDetails',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Reports.Settlement.ListDetails(\n\t\tcontext.TODO(),\n\t\ttime.Now(),\n\t\tlithic.ReportSettlementListDetailsParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'reports().settlement().listDetails',
         example:
@@ -9264,11 +9269,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/reports/settlement/details/$REPORT_DATE \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Reports.Settlement.ListDetails',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Reports.Settlement.ListDetails(\n\t\tcontext.TODO(),\n\t\ttime.Now(),\n\t\tlithic.ReportSettlementListDetailsParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -9285,6 +9285,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## summary\n\n`client.reports.settlement.summary(report_date: string): { created: string; currency: string; details: settlement_summary_details[]; disputes_gross_amount: number; interchange_gross_amount: number; is_complete: boolean; other_fees_gross_amount: number; report_date: string; settled_net_amount: number; transactions_gross_amount: number; updated: string; }`\n\n**get** `/v1/reports/settlement/summary/{report_date}`\n\nGet the settlement report for a specified report date. Not available in sandbox.\n\n### Parameters\n\n- `report_date: string`\n\n### Returns\n\n- `{ created: string; currency: string; details: { currency?: string; disputes_gross_amount?: number; institution?: string; interchange_gross_amount?: number; network?: 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA'; other_fees_gross_amount?: number; settled_net_amount?: number; transactions_gross_amount?: number; }[]; disputes_gross_amount: number; interchange_gross_amount: number; is_complete: boolean; other_fees_gross_amount: number; report_date: string; settled_net_amount: number; transactions_gross_amount: number; updated: string; }`\n\n  - `created: string`\n  - `currency: string`\n  - `details: { currency?: string; disputes_gross_amount?: number; institution?: string; interchange_gross_amount?: number; network?: 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA'; other_fees_gross_amount?: number; settled_net_amount?: number; transactions_gross_amount?: number; }[]`\n  - `disputes_gross_amount: number`\n  - `interchange_gross_amount: number`\n  - `is_complete: boolean`\n  - `other_fees_gross_amount: number`\n  - `report_date: string`\n  - `settled_net_amount: number`\n  - `transactions_gross_amount: number`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst settlementReport = await client.reports.settlement.summary('2023-09-01');\n\nconsole.log(settlementReport);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Reports.Settlement.Summary',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tsettlementReport, err := client.Reports.Settlement.Summary(context.TODO(), time.Now())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", settlementReport.Created)\n}\n',
+      },
       java: {
         method: 'reports().settlement().summary',
         example:
@@ -9314,11 +9319,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/reports/settlement/summary/$REPORT_DATE \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Reports.Settlement.Summary',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tsettlementReport, err := client.Reports.Settlement.Summary(context.TODO(), time.Now())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", settlementReport.Created)\n}\n',
-      },
     },
   },
   {
@@ -9347,6 +9347,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.reports.settlement.networkTotals.list(begin?: string, end?: string, ending_before?: string, institution_id?: string, network?: 'AMEX' | 'VISA' | 'MASTERCARD' | 'MAESTRO' | 'INTERLINK', page_size?: number, report_date?: string, report_date_begin?: string, report_date_end?: string, settlement_institution_id?: string, starting_after?: string): { token: string; amounts: object; created: string; currency: string; institution_id: string; is_complete: boolean; network: 'AMEX' | 'VISA' | 'MASTERCARD' | 'MAESTRO' | 'INTERLINK'; report_date: string; settlement_institution_id: string; settlement_service: string; updated: string; cycle?: number; }`\n\n**get** `/v1/reports/settlement/network_totals`\n\nList network total records with optional filters. Not available in sandbox.\n\n### Parameters\n\n- `begin?: string`\n  Datetime in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `end?: string`\n  Datetime in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `institution_id?: string`\n  Institution ID to filter on.\n\n- `network?: 'AMEX' | 'VISA' | 'MASTERCARD' | 'MAESTRO' | 'INTERLINK'`\n  Network to filter on.\n\n- `page_size?: number`\n  Number of records per page.\n\n- `report_date?: string`\n  Singular report date to filter on (YYYY-MM-DD). Cannot be populated in conjunction with report_date_begin or report_date_end.\n\n- `report_date_begin?: string`\n  Earliest report date to filter on, inclusive (YYYY-MM-DD).\n\n- `report_date_end?: string`\n  Latest report date to filter on, inclusive (YYYY-MM-DD).\n\n- `settlement_institution_id?: string`\n  Settlement institution ID to filter on.\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; amounts: { gross_settlement: number; interchange_fees: number; net_settlement: number; visa_charges?: number; }; created: string; currency: string; institution_id: string; is_complete: boolean; network: 'AMEX' | 'VISA' | 'MASTERCARD' | 'MAESTRO' | 'INTERLINK'; report_date: string; settlement_institution_id: string; settlement_service: string; updated: string; cycle?: number; }`\n\n  - `token: string`\n  - `amounts: { gross_settlement: number; interchange_fees: number; net_settlement: number; visa_charges?: number; }`\n  - `created: string`\n  - `currency: string`\n  - `institution_id: string`\n  - `is_complete: boolean`\n  - `network: 'AMEX' | 'VISA' | 'MASTERCARD' | 'MAESTRO' | 'INTERLINK'`\n  - `report_date: string`\n  - `settlement_institution_id: string`\n  - `settlement_service: string`\n  - `updated: string`\n  - `cycle?: number`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const networkTotal of client.reports.settlement.networkTotals.list()) {\n  console.log(networkTotal);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.Reports.Settlement.NetworkTotals.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Reports.Settlement.NetworkTotals.List(context.TODO(), lithic.ReportSettlementNetworkTotalListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'reports().settlement().networkTotals().list',
         example:
@@ -9376,11 +9381,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/reports/settlement/network_totals \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Reports.Settlement.NetworkTotals.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Reports.Settlement.NetworkTotals.List(context.TODO(), lithic.ReportSettlementNetworkTotalListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -9397,6 +9397,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.reports.settlement.networkTotals.retrieve(token: string): { token: string; amounts: object; created: string; currency: string; institution_id: string; is_complete: boolean; network: 'AMEX' | 'VISA' | 'MASTERCARD' | 'MAESTRO' | 'INTERLINK'; report_date: string; settlement_institution_id: string; settlement_service: string; updated: string; cycle?: number; }`\n\n**get** `/v1/reports/settlement/network_totals/{token}`\n\nRetrieve a specific network total record by token. Not available in sandbox.\n\n### Parameters\n\n- `token: string`\n\n### Returns\n\n- `{ token: string; amounts: { gross_settlement: number; interchange_fees: number; net_settlement: number; visa_charges?: number; }; created: string; currency: string; institution_id: string; is_complete: boolean; network: 'AMEX' | 'VISA' | 'MASTERCARD' | 'MAESTRO' | 'INTERLINK'; report_date: string; settlement_institution_id: string; settlement_service: string; updated: string; cycle?: number; }`\n\n  - `token: string`\n  - `amounts: { gross_settlement: number; interchange_fees: number; net_settlement: number; visa_charges?: number; }`\n  - `created: string`\n  - `currency: string`\n  - `institution_id: string`\n  - `is_complete: boolean`\n  - `network: 'AMEX' | 'VISA' | 'MASTERCARD' | 'MAESTRO' | 'INTERLINK'`\n  - `report_date: string`\n  - `settlement_institution_id: string`\n  - `settlement_service: string`\n  - `updated: string`\n  - `cycle?: number`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst networkTotal = await client.reports.settlement.networkTotals.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(networkTotal);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Reports.Settlement.NetworkTotals.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tnetworkTotal, err := client.Reports.Settlement.NetworkTotals.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", networkTotal.InstitutionID)\n}\n',
+      },
       java: {
         method: 'reports().settlement().networkTotals().retrieve',
         example:
@@ -9426,11 +9431,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/reports/settlement/network_totals/$TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Reports.Settlement.NetworkTotals.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tnetworkTotal, err := client.Reports.Settlement.NetworkTotals.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", networkTotal.InstitutionID)\n}\n',
-      },
     },
   },
   {
@@ -9447,6 +9447,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.cardPrograms.list(ending_before?: string, page_size?: number, starting_after?: string): { token: string; account_level_management_enabled: boolean; created: string; name: string; pan_range_end: string; pan_range_start: string; cardholder_currency?: string; settlement_currencies?: string[]; }`\n\n**get** `/v1/card_programs`\n\nList card programs.\n\n### Parameters\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; account_level_management_enabled: boolean; created: string; name: string; pan_range_end: string; pan_range_start: string; cardholder_currency?: string; settlement_currencies?: string[]; }`\n\n  - `token: string`\n  - `account_level_management_enabled: boolean`\n  - `created: string`\n  - `name: string`\n  - `pan_range_end: string`\n  - `pan_range_start: string`\n  - `cardholder_currency?: string`\n  - `settlement_currencies?: string[]`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const cardProgram of client.cardPrograms.list()) {\n  console.log(cardProgram);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.CardPrograms.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.CardPrograms.List(context.TODO(), lithic.CardProgramListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'cardPrograms().list',
         example:
@@ -9475,11 +9480,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example: 'curl https://api.lithic.com/v1/card_programs \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.CardPrograms.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.CardPrograms.List(context.TODO(), lithic.CardProgramListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -9496,6 +9496,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.cardPrograms.retrieve(card_program_token: string): { token: string; account_level_management_enabled: boolean; created: string; name: string; pan_range_end: string; pan_range_start: string; cardholder_currency?: string; settlement_currencies?: string[]; }`\n\n**get** `/v1/card_programs/{card_program_token}`\n\nGet card program.\n\n### Parameters\n\n- `card_program_token: string`\n\n### Returns\n\n- `{ token: string; account_level_management_enabled: boolean; created: string; name: string; pan_range_end: string; pan_range_start: string; cardholder_currency?: string; settlement_currencies?: string[]; }`\n\n  - `token: string`\n  - `account_level_management_enabled: boolean`\n  - `created: string`\n  - `name: string`\n  - `pan_range_end: string`\n  - `pan_range_start: string`\n  - `cardholder_currency?: string`\n  - `settlement_currencies?: string[]`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst cardProgram = await client.cardPrograms.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(cardProgram);\n```",
     perLanguage: {
+      go: {
+        method: 'client.CardPrograms.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcardProgram, err := client.CardPrograms.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", cardProgram.Token)\n}\n',
+      },
       java: {
         method: 'cardPrograms().retrieve',
         example:
@@ -9525,11 +9530,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/card_programs/$CARD_PROGRAM_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.CardPrograms.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcardProgram, err := client.CardPrograms.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", cardProgram.Token)\n}\n',
-      },
     },
   },
   {
@@ -9546,6 +9546,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.digitalCardArt.list(ending_before?: string, page_size?: number, starting_after?: string): { token: string; card_program_token: string; created: string; description: string; is_enabled: boolean; network: 'MASTERCARD' | 'VISA'; is_card_program_default?: boolean; }`\n\n**get** `/v1/digital_card_art`\n\nList digital card art.\n\n### Parameters\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; card_program_token: string; created: string; description: string; is_enabled: boolean; network: 'MASTERCARD' | 'VISA'; is_card_program_default?: boolean; }`\n\n  - `token: string`\n  - `card_program_token: string`\n  - `created: string`\n  - `description: string`\n  - `is_enabled: boolean`\n  - `network: 'MASTERCARD' | 'VISA'`\n  - `is_card_program_default?: boolean`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const digitalCardArt of client.digitalCardArt.list()) {\n  console.log(digitalCardArt);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.DigitalCardArt.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.DigitalCardArt.List(context.TODO(), lithic.DigitalCardArtListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'digitalCardArt().list',
         example:
@@ -9575,11 +9580,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/digital_card_art \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.DigitalCardArt.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.DigitalCardArt.List(context.TODO(), lithic.DigitalCardArtListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -9596,6 +9596,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.digitalCardArt.retrieve(digital_card_art_token: string): { token: string; card_program_token: string; created: string; description: string; is_enabled: boolean; network: 'MASTERCARD' | 'VISA'; is_card_program_default?: boolean; }`\n\n**get** `/v1/digital_card_art/{digital_card_art_token}`\n\nGet digital card art by token.\n\n### Parameters\n\n- `digital_card_art_token: string`\n\n### Returns\n\n- `{ token: string; card_program_token: string; created: string; description: string; is_enabled: boolean; network: 'MASTERCARD' | 'VISA'; is_card_program_default?: boolean; }`\n\n  - `token: string`\n  - `card_program_token: string`\n  - `created: string`\n  - `description: string`\n  - `is_enabled: boolean`\n  - `network: 'MASTERCARD' | 'VISA'`\n  - `is_card_program_default?: boolean`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst digitalCardArt = await client.digitalCardArt.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(digitalCardArt);\n```",
     perLanguage: {
+      go: {
+        method: 'client.DigitalCardArt.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdigitalCardArt, err := client.DigitalCardArt.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", digitalCardArt.Token)\n}\n',
+      },
       java: {
         method: 'digitalCardArt().retrieve',
         example:
@@ -9625,11 +9630,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/digital_card_art/$DIGITAL_CARD_ART_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.DigitalCardArt.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tdigitalCardArt, err := client.DigitalCardArt.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", digitalCardArt.Token)\n}\n',
-      },
     },
   },
   {
@@ -9658,6 +9658,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.bookTransfers.list(account_token?: string, begin?: string, business_account_token?: string, category?: string, end?: string, ending_before?: string, financial_account_token?: string, page_size?: number, result?: 'APPROVED' | 'DECLINED', starting_after?: string, status?: 'DECLINED' | 'SETTLED'): { token: string; category: string; created: string; currency: string; events: object[]; family: 'TRANSFER'; from_financial_account_token: string; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; to_financial_account_token: string; updated: string; external_id?: string; external_resource?: external_resource; transaction_series?: object; }`\n\n**get** `/v1/book_transfers`\n\nList book transfers\n\n### Parameters\n\n- `account_token?: string`\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `business_account_token?: string`\n\n- `category?: string`\n  Book Transfer category to be returned.\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `financial_account_token?: string`\n  Globally unique identifier for the financial account or card that will send the funds. Accepted type dependent on the program's use case.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `result?: 'APPROVED' | 'DECLINED'`\n  Book transfer result to be returned.\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n- `status?: 'DECLINED' | 'SETTLED'`\n  Book transfer status to be returned.\n\n### Returns\n\n- `{ token: string; category: string; created: string; currency: string; events: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'FUNDS_INSUFFICIENT'[]; memo: string; result: 'APPROVED' | 'DECLINED'; subtype: string; type: string; }[]; family: 'TRANSFER'; from_financial_account_token: string; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; to_financial_account_token: string; updated: string; external_id?: string; external_resource?: { external_resource_token: string; external_resource_type: external_resource_type; external_resource_sub_token?: string; }; transaction_series?: { related_transaction_event_token: string; related_transaction_token: string; type: string; }; }`\n  Book transfer transaction\n\n  - `token: string`\n  - `category: string`\n  - `created: string`\n  - `currency: string`\n  - `events: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'FUNDS_INSUFFICIENT'[]; memo: string; result: 'APPROVED' | 'DECLINED'; subtype: string; type: string; }[]`\n  - `family: 'TRANSFER'`\n  - `from_financial_account_token: string`\n  - `pending_amount: number`\n  - `result: 'APPROVED' | 'DECLINED'`\n  - `settled_amount: number`\n  - `status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  - `to_financial_account_token: string`\n  - `updated: string`\n  - `external_id?: string`\n  - `external_resource?: { external_resource_token: string; external_resource_type: 'STATEMENT' | 'COLLECTION' | 'DISPUTE' | 'UNKNOWN'; external_resource_sub_token?: string; }`\n  - `transaction_series?: { related_transaction_event_token: string; related_transaction_token: string; type: string; }`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const bookTransferResponse of client.bookTransfers.list()) {\n  console.log(bookTransferResponse);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.BookTransfers.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.BookTransfers.List(context.TODO(), lithic.BookTransferListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'bookTransfers().list',
         example:
@@ -9685,11 +9690,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       },
       http: {
         example: 'curl https://api.lithic.com/v1/book_transfers \\\n    -H "Authorization: $LITHIC_API_KEY"',
-      },
-      go: {
-        method: 'client.BookTransfers.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.BookTransfers.List(context.TODO(), lithic.BookTransferListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
       },
     },
   },
@@ -9719,6 +9719,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.bookTransfers.create(amount: number, category: string, from_financial_account_token: string, subtype: string, to_financial_account_token: string, type: string, token?: string, external_id?: string, hold_token?: string, memo?: string, on_closed_account?: 'FAIL' | 'USE_SUSPENSE'): { token: string; category: string; created: string; currency: string; events: object[]; family: 'TRANSFER'; from_financial_account_token: string; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; to_financial_account_token: string; updated: string; external_id?: string; external_resource?: external_resource; transaction_series?: object; }`\n\n**post** `/v1/book_transfers`\n\nBook transfer funds between two financial accounts or between a financial account and card\n\n### Parameters\n\n- `amount: number`\n  Amount to be transferred in the currency's smallest unit (e.g., cents for USD). This should always be a positive value.\n\n- `category: string`\n\n- `from_financial_account_token: string`\n  Globally unique identifier for the financial account or card that will send the funds. Accepted type dependent on the program's use case.\n\n- `subtype: string`\n  The program specific subtype code for the specified category/type.\n\n- `to_financial_account_token: string`\n  Globally unique identifier for the financial account or card that will receive the funds. Accepted type dependent on the program's use case.\n\n- `type: string`\n  Type of the book transfer\n\n- `token?: string`\n  Customer-provided token that will serve as an idempotency token. This token will become the transaction token.\n\n- `external_id?: string`\n  External ID defined by the customer\n\n- `hold_token?: string`\n  Token of an existing hold to settle when this transfer is initiated\n\n- `memo?: string`\n  Optional descriptor for the transfer.\n\n- `on_closed_account?: 'FAIL' | 'USE_SUSPENSE'`\n  What to do if the financial account is closed when posting an operation\n\n### Returns\n\n- `{ token: string; category: string; created: string; currency: string; events: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'FUNDS_INSUFFICIENT'[]; memo: string; result: 'APPROVED' | 'DECLINED'; subtype: string; type: string; }[]; family: 'TRANSFER'; from_financial_account_token: string; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; to_financial_account_token: string; updated: string; external_id?: string; external_resource?: { external_resource_token: string; external_resource_type: external_resource_type; external_resource_sub_token?: string; }; transaction_series?: { related_transaction_event_token: string; related_transaction_token: string; type: string; }; }`\n  Book transfer transaction\n\n  - `token: string`\n  - `category: string`\n  - `created: string`\n  - `currency: string`\n  - `events: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'FUNDS_INSUFFICIENT'[]; memo: string; result: 'APPROVED' | 'DECLINED'; subtype: string; type: string; }[]`\n  - `family: 'TRANSFER'`\n  - `from_financial_account_token: string`\n  - `pending_amount: number`\n  - `result: 'APPROVED' | 'DECLINED'`\n  - `settled_amount: number`\n  - `status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  - `to_financial_account_token: string`\n  - `updated: string`\n  - `external_id?: string`\n  - `external_resource?: { external_resource_token: string; external_resource_type: 'STATEMENT' | 'COLLECTION' | 'DISPUTE' | 'UNKNOWN'; external_resource_sub_token?: string; }`\n  - `transaction_series?: { related_transaction_event_token: string; related_transaction_token: string; type: string; }`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst bookTransferResponse = await client.bookTransfers.create({\n  amount: 1,\n  category: 'ADJUSTMENT',\n  from_financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n  subtype: 'subtype',\n  to_financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n  type: 'ATM_BALANCE_INQUIRY',\n});\n\nconsole.log(bookTransferResponse);\n```",
     perLanguage: {
+      go: {
+        method: 'client.BookTransfers.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tbookTransferResponse, err := client.BookTransfers.New(context.TODO(), lithic.BookTransferNewParams{\n\t\tAmount:                    lithic.F(int64(1)),\n\t\tCategory:                  lithic.F(lithic.BookTransferNewParamsCategoryAdjustment),\n\t\tFromFinancialAccountToken: lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t\tSubtype:                   lithic.F("subtype"),\n\t\tToFinancialAccountToken:   lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t\tType:                      lithic.F(lithic.BookTransferNewParamsTypeAtmBalanceInquiry),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", bookTransferResponse.ExternalID)\n}\n',
+      },
       java: {
         method: 'bookTransfers().create',
         example:
@@ -9748,11 +9753,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/book_transfers \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "amount": 1,\n          "category": "ADJUSTMENT",\n          "from_financial_account_token": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n          "subtype": "subtype",\n          "to_financial_account_token": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n          "type": "ATM_BALANCE_INQUIRY"\n        }\'',
       },
-      go: {
-        method: 'client.BookTransfers.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tbookTransferResponse, err := client.BookTransfers.New(context.TODO(), lithic.BookTransferNewParams{\n\t\tAmount:                    lithic.F(int64(1)),\n\t\tCategory:                  lithic.F(lithic.BookTransferNewParamsCategoryAdjustment),\n\t\tFromFinancialAccountToken: lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t\tSubtype:                   lithic.F("subtype"),\n\t\tToFinancialAccountToken:   lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t\tType:                      lithic.F(lithic.BookTransferNewParamsTypeAtmBalanceInquiry),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", bookTransferResponse.ExternalID)\n}\n',
-      },
     },
   },
   {
@@ -9769,6 +9769,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.bookTransfers.retrieve(book_transfer_token: string): { token: string; category: string; created: string; currency: string; events: object[]; family: 'TRANSFER'; from_financial_account_token: string; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; to_financial_account_token: string; updated: string; external_id?: string; external_resource?: external_resource; transaction_series?: object; }`\n\n**get** `/v1/book_transfers/{book_transfer_token}`\n\nGet book transfer by token\n\n### Parameters\n\n- `book_transfer_token: string`\n\n### Returns\n\n- `{ token: string; category: string; created: string; currency: string; events: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'FUNDS_INSUFFICIENT'[]; memo: string; result: 'APPROVED' | 'DECLINED'; subtype: string; type: string; }[]; family: 'TRANSFER'; from_financial_account_token: string; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; to_financial_account_token: string; updated: string; external_id?: string; external_resource?: { external_resource_token: string; external_resource_type: external_resource_type; external_resource_sub_token?: string; }; transaction_series?: { related_transaction_event_token: string; related_transaction_token: string; type: string; }; }`\n  Book transfer transaction\n\n  - `token: string`\n  - `category: string`\n  - `created: string`\n  - `currency: string`\n  - `events: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'FUNDS_INSUFFICIENT'[]; memo: string; result: 'APPROVED' | 'DECLINED'; subtype: string; type: string; }[]`\n  - `family: 'TRANSFER'`\n  - `from_financial_account_token: string`\n  - `pending_amount: number`\n  - `result: 'APPROVED' | 'DECLINED'`\n  - `settled_amount: number`\n  - `status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  - `to_financial_account_token: string`\n  - `updated: string`\n  - `external_id?: string`\n  - `external_resource?: { external_resource_token: string; external_resource_type: 'STATEMENT' | 'COLLECTION' | 'DISPUTE' | 'UNKNOWN'; external_resource_sub_token?: string; }`\n  - `transaction_series?: { related_transaction_event_token: string; related_transaction_token: string; type: string; }`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst bookTransferResponse = await client.bookTransfers.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(bookTransferResponse);\n```",
     perLanguage: {
+      go: {
+        method: 'client.BookTransfers.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tbookTransferResponse, err := client.BookTransfers.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", bookTransferResponse.ExternalID)\n}\n',
+      },
       java: {
         method: 'bookTransfers().retrieve',
         example:
@@ -9798,11 +9803,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/book_transfers/$BOOK_TRANSFER_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.BookTransfers.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tbookTransferResponse, err := client.BookTransfers.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", bookTransferResponse.ExternalID)\n}\n',
-      },
     },
   },
   {
@@ -9819,6 +9819,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## reverse\n\n`client.bookTransfers.reverse(book_transfer_token: string, memo?: string): { token: string; category: string; created: string; currency: string; events: object[]; family: 'TRANSFER'; from_financial_account_token: string; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; to_financial_account_token: string; updated: string; external_id?: string; external_resource?: external_resource; transaction_series?: object; }`\n\n**post** `/v1/book_transfers/{book_transfer_token}/reverse`\n\nReverse a book transfer\n\n### Parameters\n\n- `book_transfer_token: string`\n\n- `memo?: string`\n  Optional descriptor for the reversal.\n\n### Returns\n\n- `{ token: string; category: string; created: string; currency: string; events: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'FUNDS_INSUFFICIENT'[]; memo: string; result: 'APPROVED' | 'DECLINED'; subtype: string; type: string; }[]; family: 'TRANSFER'; from_financial_account_token: string; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; to_financial_account_token: string; updated: string; external_id?: string; external_resource?: { external_resource_token: string; external_resource_type: external_resource_type; external_resource_sub_token?: string; }; transaction_series?: { related_transaction_event_token: string; related_transaction_token: string; type: string; }; }`\n  Book transfer transaction\n\n  - `token: string`\n  - `category: string`\n  - `created: string`\n  - `currency: string`\n  - `events: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'FUNDS_INSUFFICIENT'[]; memo: string; result: 'APPROVED' | 'DECLINED'; subtype: string; type: string; }[]`\n  - `family: 'TRANSFER'`\n  - `from_financial_account_token: string`\n  - `pending_amount: number`\n  - `result: 'APPROVED' | 'DECLINED'`\n  - `settled_amount: number`\n  - `status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  - `to_financial_account_token: string`\n  - `updated: string`\n  - `external_id?: string`\n  - `external_resource?: { external_resource_token: string; external_resource_type: 'STATEMENT' | 'COLLECTION' | 'DISPUTE' | 'UNKNOWN'; external_resource_sub_token?: string; }`\n  - `transaction_series?: { related_transaction_event_token: string; related_transaction_token: string; type: string; }`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst bookTransferResponse = await client.bookTransfers.reverse('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(bookTransferResponse);\n```",
     perLanguage: {
+      go: {
+        method: 'client.BookTransfers.Reverse',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tbookTransferResponse, err := client.BookTransfers.Reverse(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.BookTransferReverseParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", bookTransferResponse.ExternalID)\n}\n',
+      },
       java: {
         method: 'bookTransfers().reverse',
         example:
@@ -9848,11 +9853,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "curl https://api.lithic.com/v1/book_transfers/$BOOK_TRANSFER_TOKEN/reverse \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: $LITHIC_API_KEY\" \\\n    -d '{}'",
       },
-      go: {
-        method: 'client.BookTransfers.Reverse',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tbookTransferResponse, err := client.BookTransfers.Reverse(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.BookTransferReverseParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", bookTransferResponse.ExternalID)\n}\n',
-      },
     },
   },
   {
@@ -9869,6 +9869,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retry\n\n`client.bookTransfers.retry(book_transfer_token: string, retry_token: string): { token: string; category: string; created: string; currency: string; events: object[]; family: 'TRANSFER'; from_financial_account_token: string; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; to_financial_account_token: string; updated: string; external_id?: string; external_resource?: external_resource; transaction_series?: object; }`\n\n**post** `/v1/book_transfers/{book_transfer_token}/retry`\n\nRetry a book transfer that has been declined\n\n### Parameters\n\n- `book_transfer_token: string`\n\n- `retry_token: string`\n  Customer-provided token that will serve as an idempotency token. This token will become the transaction token.\n\n### Returns\n\n- `{ token: string; category: string; created: string; currency: string; events: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'FUNDS_INSUFFICIENT'[]; memo: string; result: 'APPROVED' | 'DECLINED'; subtype: string; type: string; }[]; family: 'TRANSFER'; from_financial_account_token: string; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; to_financial_account_token: string; updated: string; external_id?: string; external_resource?: { external_resource_token: string; external_resource_type: external_resource_type; external_resource_sub_token?: string; }; transaction_series?: { related_transaction_event_token: string; related_transaction_token: string; type: string; }; }`\n  Book transfer transaction\n\n  - `token: string`\n  - `category: string`\n  - `created: string`\n  - `currency: string`\n  - `events: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'FUNDS_INSUFFICIENT'[]; memo: string; result: 'APPROVED' | 'DECLINED'; subtype: string; type: string; }[]`\n  - `family: 'TRANSFER'`\n  - `from_financial_account_token: string`\n  - `pending_amount: number`\n  - `result: 'APPROVED' | 'DECLINED'`\n  - `settled_amount: number`\n  - `status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  - `to_financial_account_token: string`\n  - `updated: string`\n  - `external_id?: string`\n  - `external_resource?: { external_resource_token: string; external_resource_type: 'STATEMENT' | 'COLLECTION' | 'DISPUTE' | 'UNKNOWN'; external_resource_sub_token?: string; }`\n  - `transaction_series?: { related_transaction_event_token: string; related_transaction_token: string; type: string; }`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst bookTransferResponse = await client.bookTransfers.retry('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { retry_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(bookTransferResponse);\n```",
     perLanguage: {
+      go: {
+        method: 'client.BookTransfers.Retry',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tbookTransferResponse, err := client.BookTransfers.Retry(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.BookTransferRetryParams{\n\t\t\tRetryToken: lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", bookTransferResponse.ExternalID)\n}\n',
+      },
       java: {
         method: 'bookTransfers().retry',
         example:
@@ -9898,11 +9903,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/book_transfers/$BOOK_TRANSFER_TOKEN/retry \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "retry_token": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n        }\'',
       },
-      go: {
-        method: 'client.BookTransfers.Retry',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tbookTransferResponse, err := client.BookTransfers.Retry(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.BookTransferRetryParams{\n\t\t\tRetryToken: lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", bookTransferResponse.ExternalID)\n}\n',
-      },
     },
   },
   {
@@ -9918,6 +9918,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.creditProducts.extendedCredit.retrieve(credit_product_token: string): { credit_extended: number; }`\n\n**get** `/v1/credit_products/{credit_product_token}/extended_credit`\n\nGet the extended credit for a given credit product under a program\n\n### Parameters\n\n- `credit_product_token: string`\n\n### Returns\n\n- `{ credit_extended: number; }`\n\n  - `credit_extended: number`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst extendedCredit = await client.creditProducts.extendedCredit.retrieve('credit_product_token');\n\nconsole.log(extendedCredit);\n```",
     perLanguage: {
+      go: {
+        method: 'client.CreditProducts.ExtendedCredit.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\textendedCredit, err := client.CreditProducts.ExtendedCredit.Get(context.TODO(), "credit_product_token")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", extendedCredit.CreditExtended)\n}\n',
+      },
       java: {
         method: 'creditProducts().extendedCredit().retrieve',
         example:
@@ -9947,11 +9952,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/credit_products/$CREDIT_PRODUCT_TOKEN/extended_credit \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.CreditProducts.ExtendedCredit.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\textendedCredit, err := client.CreditProducts.ExtendedCredit.Get(context.TODO(), "credit_product_token")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", extendedCredit.CreditExtended)\n}\n',
-      },
     },
   },
   {
@@ -9967,6 +9967,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.creditProducts.primeRates.retrieve(credit_product_token: string, ending_before?: string, starting_after?: string): { data: object[]; has_more: boolean; }`\n\n**get** `/v1/credit_products/{credit_product_token}/prime_rates`\n\nGet Credit Product Prime Rates\n\n### Parameters\n\n- `credit_product_token: string`\n  Globally unique identifier for credit products.\n\n- `ending_before?: string`\n  The effective date that the prime rates ends before\n\n- `starting_after?: string`\n  The effective date that the prime rate starts after\n\n### Returns\n\n- `{ data: { effective_date: string; rate: string; }[]; has_more: boolean; }`\n\n  - `data: { effective_date: string; rate: string; }[]`\n  - `has_more: boolean`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst primeRate = await client.creditProducts.primeRates.retrieve('credit_product_token');\n\nconsole.log(primeRate);\n```",
     perLanguage: {
+      go: {
+        method: 'client.CreditProducts.PrimeRates.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tprimeRate, err := client.CreditProducts.PrimeRates.Get(\n\t\tcontext.TODO(),\n\t\t"credit_product_token",\n\t\tlithic.CreditProductPrimeRateGetParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", primeRate.Data)\n}\n',
+      },
       java: {
         method: 'creditProducts().primeRates().retrieve',
         example:
@@ -9996,11 +10001,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/credit_products/$CREDIT_PRODUCT_TOKEN/prime_rates \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.CreditProducts.PrimeRates.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tprimeRate, err := client.CreditProducts.PrimeRates.Get(\n\t\tcontext.TODO(),\n\t\t"credit_product_token",\n\t\tlithic.CreditProductPrimeRateGetParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", primeRate.Data)\n}\n',
-      },
     },
   },
   {
@@ -10015,6 +10015,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.creditProducts.primeRates.create(credit_product_token: string, effective_date: string, rate: string): void`\n\n**post** `/v1/credit_products/{credit_product_token}/prime_rates`\n\nPost Credit Product Prime Rate\n\n### Parameters\n\n- `credit_product_token: string`\n  Globally unique identifier for credit products.\n\n- `effective_date: string`\n  Date the rate goes into effect\n\n- `rate: string`\n  The rate in decimal format\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nawait client.creditProducts.primeRates.create('credit_product_token', { effective_date: '2019-12-27', rate: 'rate' })\n```",
     perLanguage: {
+      go: {
+        method: 'client.CreditProducts.PrimeRates.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.CreditProducts.PrimeRates.New(\n\t\tcontext.TODO(),\n\t\t"credit_product_token",\n\t\tlithic.CreditProductPrimeRateNewParams{\n\t\t\tEffectiveDate: lithic.F(time.Now()),\n\t\t\tRate:          lithic.F("rate"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         method: 'creditProducts().primeRates().create',
         example:
@@ -10044,11 +10049,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/credit_products/$CREDIT_PRODUCT_TOKEN/prime_rates \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "effective_date": "2019-12-27",\n          "rate": "rate"\n        }\'',
       },
-      go: {
-        method: 'client.CreditProducts.PrimeRates.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.CreditProducts.PrimeRates.New(\n\t\tcontext.TODO(),\n\t\t"credit_product_token",\n\t\tlithic.CreditProductPrimeRateNewParams{\n\t\t\tEffectiveDate: lithic.F(time.Now()),\n\t\t\tRate:          lithic.F("rate"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
   {
@@ -10076,6 +10076,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.externalPayments.list(begin?: string, business_account_token?: string, category?: string, end?: string, ending_before?: string, financial_account_token?: string, page_size?: number, result?: 'APPROVED' | 'DECLINED', starting_after?: string, status?: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'): { token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; events?: object[]; family?: 'EXTERNAL_PAYMENT'; financial_account_token?: string; payment_type?: 'DEPOSIT' | 'WITHDRAWAL'; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; user_defined_id?: string; }`\n\n**get** `/v1/external_payments`\n\nList external payments\n\n### Parameters\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `business_account_token?: string`\n\n- `category?: string`\n  The external rail the funds moved on\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `financial_account_token?: string`\n  Globally unique identifier for the financial account or card that will send the funds. Accepted type dependent on the program's use case.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `result?: 'APPROVED' | 'DECLINED'`\n  External Payment result to be returned.\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n- `status?: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  Book transfer status to be returned.\n\n### Returns\n\n- `{ token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; }[]; family?: 'EXTERNAL_PAYMENT'; financial_account_token?: string; payment_type?: 'DEPOSIT' | 'WITHDRAWAL'; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; user_defined_id?: string; }`\n\n  - `token: string`\n  - `created: string`\n  - `status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  - `updated: string`\n  - `category?: string`\n  - `currency?: string`\n  - `events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; }[]`\n  - `family?: 'EXTERNAL_PAYMENT'`\n  - `financial_account_token?: string`\n  - `payment_type?: 'DEPOSIT' | 'WITHDRAWAL'`\n  - `pending_amount?: number`\n  - `result?: 'APPROVED' | 'DECLINED'`\n  - `settled_amount?: number`\n  - `user_defined_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const externalPayment of client.externalPayments.list()) {\n  console.log(externalPayment);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.ExternalPayments.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.ExternalPayments.List(context.TODO(), lithic.ExternalPaymentListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'externalPayments().list',
         example:
@@ -10105,11 +10110,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/external_payments \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.ExternalPayments.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.ExternalPayments.List(context.TODO(), lithic.ExternalPaymentListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -10136,6 +10136,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.externalPayments.create(amount: number, category: string, effective_date: string, financial_account_token: string, payment_type: 'DEPOSIT' | 'WITHDRAWAL', token?: string, memo?: string, progress_to?: 'SETTLED' | 'RELEASED', user_defined_id?: string): { token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; events?: object[]; family?: 'EXTERNAL_PAYMENT'; financial_account_token?: string; payment_type?: 'DEPOSIT' | 'WITHDRAWAL'; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; user_defined_id?: string; }`\n\n**post** `/v1/external_payments`\n\nCreate external payment\n\n### Parameters\n\n- `amount: number`\n\n- `category: string`\n\n- `effective_date: string`\n\n- `financial_account_token: string`\n\n- `payment_type: 'DEPOSIT' | 'WITHDRAWAL'`\n\n- `token?: string`\n  Customer-provided token that will serve as an idempotency token. This token will become the transaction token.\n\n- `memo?: string`\n\n- `progress_to?: 'SETTLED' | 'RELEASED'`\n\n- `user_defined_id?: string`\n\n### Returns\n\n- `{ token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; }[]; family?: 'EXTERNAL_PAYMENT'; financial_account_token?: string; payment_type?: 'DEPOSIT' | 'WITHDRAWAL'; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; user_defined_id?: string; }`\n\n  - `token: string`\n  - `created: string`\n  - `status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  - `updated: string`\n  - `category?: string`\n  - `currency?: string`\n  - `events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; }[]`\n  - `family?: 'EXTERNAL_PAYMENT'`\n  - `financial_account_token?: string`\n  - `payment_type?: 'DEPOSIT' | 'WITHDRAWAL'`\n  - `pending_amount?: number`\n  - `result?: 'APPROVED' | 'DECLINED'`\n  - `settled_amount?: number`\n  - `user_defined_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst externalPayment = await client.externalPayments.create({\n  amount: 0,\n  category: 'EXTERNAL_WIRE',\n  effective_date: '2019-12-27',\n  financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n  payment_type: 'DEPOSIT',\n});\n\nconsole.log(externalPayment);\n```",
     perLanguage: {
+      go: {
+        method: 'client.ExternalPayments.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalPayment, err := client.ExternalPayments.New(context.TODO(), lithic.ExternalPaymentNewParams{\n\t\tAmount:                lithic.F(int64(0)),\n\t\tCategory:              lithic.F(lithic.ExternalPaymentNewParamsCategoryExternalWire),\n\t\tEffectiveDate:         lithic.F(time.Now()),\n\t\tFinancialAccountToken: lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t\tPaymentType:           lithic.F(lithic.ExternalPaymentNewParamsPaymentTypeDeposit),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalPayment.UserDefinedID)\n}\n',
+      },
       java: {
         method: 'externalPayments().create',
         example:
@@ -10165,11 +10170,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/external_payments \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "amount": 0,\n          "category": "EXTERNAL_WIRE",\n          "effective_date": "2019-12-27",\n          "financial_account_token": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n          "payment_type": "DEPOSIT"\n        }\'',
       },
-      go: {
-        method: 'client.ExternalPayments.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalPayment, err := client.ExternalPayments.New(context.TODO(), lithic.ExternalPaymentNewParams{\n\t\tAmount:                lithic.F(int64(0)),\n\t\tCategory:              lithic.F(lithic.ExternalPaymentNewParamsCategoryExternalWire),\n\t\tEffectiveDate:         lithic.F(time.Now()),\n\t\tFinancialAccountToken: lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t\tPaymentType:           lithic.F(lithic.ExternalPaymentNewParamsPaymentTypeDeposit),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalPayment.UserDefinedID)\n}\n',
-      },
     },
   },
   {
@@ -10186,6 +10186,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.externalPayments.retrieve(external_payment_token: string): { token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; events?: object[]; family?: 'EXTERNAL_PAYMENT'; financial_account_token?: string; payment_type?: 'DEPOSIT' | 'WITHDRAWAL'; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; user_defined_id?: string; }`\n\n**get** `/v1/external_payments/{external_payment_token}`\n\nGet external payment\n\n### Parameters\n\n- `external_payment_token: string`\n\n### Returns\n\n- `{ token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; }[]; family?: 'EXTERNAL_PAYMENT'; financial_account_token?: string; payment_type?: 'DEPOSIT' | 'WITHDRAWAL'; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; user_defined_id?: string; }`\n\n  - `token: string`\n  - `created: string`\n  - `status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  - `updated: string`\n  - `category?: string`\n  - `currency?: string`\n  - `events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; }[]`\n  - `family?: 'EXTERNAL_PAYMENT'`\n  - `financial_account_token?: string`\n  - `payment_type?: 'DEPOSIT' | 'WITHDRAWAL'`\n  - `pending_amount?: number`\n  - `result?: 'APPROVED' | 'DECLINED'`\n  - `settled_amount?: number`\n  - `user_defined_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst externalPayment = await client.externalPayments.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(externalPayment);\n```",
     perLanguage: {
+      go: {
+        method: 'client.ExternalPayments.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalPayment, err := client.ExternalPayments.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalPayment.UserDefinedID)\n}\n',
+      },
       java: {
         method: 'externalPayments().retrieve',
         example:
@@ -10215,11 +10220,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/external_payments/$EXTERNAL_PAYMENT_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.ExternalPayments.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalPayment, err := client.ExternalPayments.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalPayment.UserDefinedID)\n}\n',
-      },
     },
   },
   {
@@ -10241,6 +10241,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## settle\n\n`client.externalPayments.settle(external_payment_token: string, effective_date: string, memo?: string, progress_to?: 'SETTLED' | 'RELEASED'): { token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; events?: object[]; family?: 'EXTERNAL_PAYMENT'; financial_account_token?: string; payment_type?: 'DEPOSIT' | 'WITHDRAWAL'; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; user_defined_id?: string; }`\n\n**post** `/v1/external_payments/{external_payment_token}/settle`\n\nSettle external payment\n\n### Parameters\n\n- `external_payment_token: string`\n\n- `effective_date: string`\n\n- `memo?: string`\n\n- `progress_to?: 'SETTLED' | 'RELEASED'`\n\n### Returns\n\n- `{ token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; }[]; family?: 'EXTERNAL_PAYMENT'; financial_account_token?: string; payment_type?: 'DEPOSIT' | 'WITHDRAWAL'; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; user_defined_id?: string; }`\n\n  - `token: string`\n  - `created: string`\n  - `status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  - `updated: string`\n  - `category?: string`\n  - `currency?: string`\n  - `events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; }[]`\n  - `family?: 'EXTERNAL_PAYMENT'`\n  - `financial_account_token?: string`\n  - `payment_type?: 'DEPOSIT' | 'WITHDRAWAL'`\n  - `pending_amount?: number`\n  - `result?: 'APPROVED' | 'DECLINED'`\n  - `settled_amount?: number`\n  - `user_defined_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst externalPayment = await client.externalPayments.settle('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { effective_date: '2019-12-27' });\n\nconsole.log(externalPayment);\n```",
     perLanguage: {
+      go: {
+        method: 'client.ExternalPayments.Settle',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalPayment, err := client.ExternalPayments.Settle(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.ExternalPaymentSettleParams{\n\t\t\tEffectiveDate: lithic.F(time.Now()),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalPayment.UserDefinedID)\n}\n',
+      },
       java: {
         method: 'externalPayments().settle',
         example:
@@ -10270,11 +10275,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/external_payments/$EXTERNAL_PAYMENT_TOKEN/settle \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "effective_date": "2019-12-27"\n        }\'',
       },
-      go: {
-        method: 'client.ExternalPayments.Settle',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalPayment, err := client.ExternalPayments.Settle(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.ExternalPaymentSettleParams{\n\t\t\tEffectiveDate: lithic.F(time.Now()),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalPayment.UserDefinedID)\n}\n',
-      },
     },
   },
   {
@@ -10291,6 +10291,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## release\n\n`client.externalPayments.release(external_payment_token: string, effective_date: string, memo?: string): { token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; events?: object[]; family?: 'EXTERNAL_PAYMENT'; financial_account_token?: string; payment_type?: 'DEPOSIT' | 'WITHDRAWAL'; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; user_defined_id?: string; }`\n\n**post** `/v1/external_payments/{external_payment_token}/release`\n\nRelease external payment\n\n### Parameters\n\n- `external_payment_token: string`\n\n- `effective_date: string`\n\n- `memo?: string`\n\n### Returns\n\n- `{ token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; }[]; family?: 'EXTERNAL_PAYMENT'; financial_account_token?: string; payment_type?: 'DEPOSIT' | 'WITHDRAWAL'; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; user_defined_id?: string; }`\n\n  - `token: string`\n  - `created: string`\n  - `status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  - `updated: string`\n  - `category?: string`\n  - `currency?: string`\n  - `events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; }[]`\n  - `family?: 'EXTERNAL_PAYMENT'`\n  - `financial_account_token?: string`\n  - `payment_type?: 'DEPOSIT' | 'WITHDRAWAL'`\n  - `pending_amount?: number`\n  - `result?: 'APPROVED' | 'DECLINED'`\n  - `settled_amount?: number`\n  - `user_defined_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst externalPayment = await client.externalPayments.release('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { effective_date: '2019-12-27' });\n\nconsole.log(externalPayment);\n```",
     perLanguage: {
+      go: {
+        method: 'client.ExternalPayments.Release',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalPayment, err := client.ExternalPayments.Release(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.ExternalPaymentReleaseParams{\n\t\t\tEffectiveDate: lithic.F(time.Now()),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalPayment.UserDefinedID)\n}\n',
+      },
       java: {
         method: 'externalPayments().release',
         example:
@@ -10320,11 +10325,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/external_payments/$EXTERNAL_PAYMENT_TOKEN/release \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "effective_date": "2019-12-27"\n        }\'',
       },
-      go: {
-        method: 'client.ExternalPayments.Release',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalPayment, err := client.ExternalPayments.Release(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.ExternalPaymentReleaseParams{\n\t\t\tEffectiveDate: lithic.F(time.Now()),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalPayment.UserDefinedID)\n}\n',
-      },
     },
   },
   {
@@ -10341,6 +10341,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## cancel\n\n`client.externalPayments.cancel(external_payment_token: string, effective_date: string, memo?: string): { token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; events?: object[]; family?: 'EXTERNAL_PAYMENT'; financial_account_token?: string; payment_type?: 'DEPOSIT' | 'WITHDRAWAL'; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; user_defined_id?: string; }`\n\n**post** `/v1/external_payments/{external_payment_token}/cancel`\n\nCancel external payment\n\n### Parameters\n\n- `external_payment_token: string`\n\n- `effective_date: string`\n\n- `memo?: string`\n\n### Returns\n\n- `{ token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; }[]; family?: 'EXTERNAL_PAYMENT'; financial_account_token?: string; payment_type?: 'DEPOSIT' | 'WITHDRAWAL'; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; user_defined_id?: string; }`\n\n  - `token: string`\n  - `created: string`\n  - `status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  - `updated: string`\n  - `category?: string`\n  - `currency?: string`\n  - `events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; }[]`\n  - `family?: 'EXTERNAL_PAYMENT'`\n  - `financial_account_token?: string`\n  - `payment_type?: 'DEPOSIT' | 'WITHDRAWAL'`\n  - `pending_amount?: number`\n  - `result?: 'APPROVED' | 'DECLINED'`\n  - `settled_amount?: number`\n  - `user_defined_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst externalPayment = await client.externalPayments.cancel('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { effective_date: '2019-12-27' });\n\nconsole.log(externalPayment);\n```",
     perLanguage: {
+      go: {
+        method: 'client.ExternalPayments.Cancel',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalPayment, err := client.ExternalPayments.Cancel(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.ExternalPaymentCancelParams{\n\t\t\tEffectiveDate: lithic.F(time.Now()),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalPayment.UserDefinedID)\n}\n',
+      },
       java: {
         method: 'externalPayments().cancel',
         example:
@@ -10370,11 +10375,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/external_payments/$EXTERNAL_PAYMENT_TOKEN/cancel \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "effective_date": "2019-12-27"\n        }\'',
       },
-      go: {
-        method: 'client.ExternalPayments.Cancel',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalPayment, err := client.ExternalPayments.Cancel(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.ExternalPaymentCancelParams{\n\t\t\tEffectiveDate: lithic.F(time.Now()),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalPayment.UserDefinedID)\n}\n',
-      },
     },
   },
   {
@@ -10391,6 +10391,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## reverse\n\n`client.externalPayments.reverse(external_payment_token: string, effective_date: string, memo?: string): { token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; events?: object[]; family?: 'EXTERNAL_PAYMENT'; financial_account_token?: string; payment_type?: 'DEPOSIT' | 'WITHDRAWAL'; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; user_defined_id?: string; }`\n\n**post** `/v1/external_payments/{external_payment_token}/reverse`\n\nReverse external payment\n\n### Parameters\n\n- `external_payment_token: string`\n\n- `effective_date: string`\n\n- `memo?: string`\n\n### Returns\n\n- `{ token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; }[]; family?: 'EXTERNAL_PAYMENT'; financial_account_token?: string; payment_type?: 'DEPOSIT' | 'WITHDRAWAL'; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; user_defined_id?: string; }`\n\n  - `token: string`\n  - `created: string`\n  - `status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  - `updated: string`\n  - `category?: string`\n  - `currency?: string`\n  - `events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; }[]`\n  - `family?: 'EXTERNAL_PAYMENT'`\n  - `financial_account_token?: string`\n  - `payment_type?: 'DEPOSIT' | 'WITHDRAWAL'`\n  - `pending_amount?: number`\n  - `result?: 'APPROVED' | 'DECLINED'`\n  - `settled_amount?: number`\n  - `user_defined_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst externalPayment = await client.externalPayments.reverse('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { effective_date: '2019-12-27' });\n\nconsole.log(externalPayment);\n```",
     perLanguage: {
+      go: {
+        method: 'client.ExternalPayments.Reverse',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalPayment, err := client.ExternalPayments.Reverse(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.ExternalPaymentReverseParams{\n\t\t\tEffectiveDate: lithic.F(time.Now()),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalPayment.UserDefinedID)\n}\n',
+      },
       java: {
         method: 'externalPayments().reverse',
         example:
@@ -10420,11 +10425,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/external_payments/$EXTERNAL_PAYMENT_TOKEN/reverse \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "effective_date": "2019-12-27"\n        }\'',
       },
-      go: {
-        method: 'client.ExternalPayments.Reverse',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\texternalPayment, err := client.ExternalPayments.Reverse(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.ExternalPaymentReverseParams{\n\t\t\tEffectiveDate: lithic.F(time.Now()),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", externalPayment.UserDefinedID)\n}\n',
-      },
     },
   },
   {
@@ -10451,6 +10451,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.managementOperations.list(begin?: string, business_account_token?: string, category?: string, end?: string, ending_before?: string, financial_account_token?: string, page_size?: number, starting_after?: string, status?: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'): { token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; direction?: 'CREDIT' | 'DEBIT'; events?: object[]; external_resource?: external_resource; family?: 'MANAGEMENT_OPERATION'; financial_account_token?: string; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; transaction_series?: object; user_defined_id?: string; }`\n\n**get** `/v1/management_operations`\n\nList management operations\n\n### Parameters\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `business_account_token?: string`\n\n- `category?: string`\n  Management operation category to be returned.\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `financial_account_token?: string`\n  Globally unique identifier for the financial account. Accepted type dependent on the program's use case.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n- `status?: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  Management operation status to be returned.\n\n### Returns\n\n- `{ token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; direction?: 'CREDIT' | 'DEBIT'; events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; subtype?: string; }[]; external_resource?: { external_resource_token: string; external_resource_type: external_resource_type; external_resource_sub_token?: string; }; family?: 'MANAGEMENT_OPERATION'; financial_account_token?: string; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; transaction_series?: { related_transaction_event_token: string; related_transaction_token: string; type: string; }; user_defined_id?: string; }`\n\n  - `token: string`\n  - `created: string`\n  - `status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  - `updated: string`\n  - `category?: string`\n  - `currency?: string`\n  - `direction?: 'CREDIT' | 'DEBIT'`\n  - `events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; subtype?: string; }[]`\n  - `external_resource?: { external_resource_token: string; external_resource_type: 'STATEMENT' | 'COLLECTION' | 'DISPUTE' | 'UNKNOWN'; external_resource_sub_token?: string; }`\n  - `family?: 'MANAGEMENT_OPERATION'`\n  - `financial_account_token?: string`\n  - `pending_amount?: number`\n  - `result?: 'APPROVED' | 'DECLINED'`\n  - `settled_amount?: number`\n  - `transaction_series?: { related_transaction_event_token: string; related_transaction_token: string; type: string; }`\n  - `user_defined_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const managementOperationTransaction of client.managementOperations.list()) {\n  console.log(managementOperationTransaction);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.ManagementOperations.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.ManagementOperations.List(context.TODO(), lithic.ManagementOperationListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'managementOperations().list',
         example:
@@ -10480,11 +10485,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/management_operations \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.ManagementOperations.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.ManagementOperations.List(context.TODO(), lithic.ManagementOperationListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -10513,6 +10513,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.managementOperations.create(amount: number, category: string, direction: 'CREDIT' | 'DEBIT', effective_date: string, event_type: string, financial_account_token: string, token?: string, memo?: string, on_closed_account?: 'FAIL' | 'USE_SUSPENSE', subtype?: string, user_defined_id?: string): { token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; direction?: 'CREDIT' | 'DEBIT'; events?: object[]; external_resource?: external_resource; family?: 'MANAGEMENT_OPERATION'; financial_account_token?: string; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; transaction_series?: object; user_defined_id?: string; }`\n\n**post** `/v1/management_operations`\n\nCreate management operation\n\n### Parameters\n\n- `amount: number`\n\n- `category: string`\n\n- `direction: 'CREDIT' | 'DEBIT'`\n\n- `effective_date: string`\n\n- `event_type: string`\n\n- `financial_account_token: string`\n\n- `token?: string`\n  Customer-provided token that will serve as an idempotency token. This token will become the transaction token.\n\n- `memo?: string`\n\n- `on_closed_account?: 'FAIL' | 'USE_SUSPENSE'`\n  What to do if the financial account is closed when posting an operation\n\n- `subtype?: string`\n\n- `user_defined_id?: string`\n\n### Returns\n\n- `{ token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; direction?: 'CREDIT' | 'DEBIT'; events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; subtype?: string; }[]; external_resource?: { external_resource_token: string; external_resource_type: external_resource_type; external_resource_sub_token?: string; }; family?: 'MANAGEMENT_OPERATION'; financial_account_token?: string; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; transaction_series?: { related_transaction_event_token: string; related_transaction_token: string; type: string; }; user_defined_id?: string; }`\n\n  - `token: string`\n  - `created: string`\n  - `status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  - `updated: string`\n  - `category?: string`\n  - `currency?: string`\n  - `direction?: 'CREDIT' | 'DEBIT'`\n  - `events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; subtype?: string; }[]`\n  - `external_resource?: { external_resource_token: string; external_resource_type: 'STATEMENT' | 'COLLECTION' | 'DISPUTE' | 'UNKNOWN'; external_resource_sub_token?: string; }`\n  - `family?: 'MANAGEMENT_OPERATION'`\n  - `financial_account_token?: string`\n  - `pending_amount?: number`\n  - `result?: 'APPROVED' | 'DECLINED'`\n  - `settled_amount?: number`\n  - `transaction_series?: { related_transaction_event_token: string; related_transaction_token: string; type: string; }`\n  - `user_defined_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst managementOperationTransaction = await client.managementOperations.create({\n  amount: 1,\n  category: 'MANAGEMENT_FEE',\n  direction: 'CREDIT',\n  effective_date: '2019-12-27',\n  event_type: 'LOSS_WRITE_OFF',\n  financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n});\n\nconsole.log(managementOperationTransaction);\n```",
     perLanguage: {
+      go: {
+        method: 'client.ManagementOperations.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tmanagementOperationTransaction, err := client.ManagementOperations.New(context.TODO(), lithic.ManagementOperationNewParams{\n\t\tAmount:                lithic.F(int64(1)),\n\t\tCategory:              lithic.F(lithic.ManagementOperationNewParamsCategoryManagementFee),\n\t\tDirection:             lithic.F(lithic.ManagementOperationNewParamsDirectionCredit),\n\t\tEffectiveDate:         lithic.F(time.Now()),\n\t\tEventType:             lithic.F(lithic.ManagementOperationNewParamsEventTypeLossWriteOff),\n\t\tFinancialAccountToken: lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", managementOperationTransaction.UserDefinedID)\n}\n',
+      },
       java: {
         method: 'managementOperations().create',
         example:
@@ -10542,11 +10547,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/management_operations \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "amount": 1,\n          "category": "MANAGEMENT_FEE",\n          "direction": "CREDIT",\n          "effective_date": "2019-12-27",\n          "event_type": "LOSS_WRITE_OFF",\n          "financial_account_token": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n        }\'',
       },
-      go: {
-        method: 'client.ManagementOperations.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tmanagementOperationTransaction, err := client.ManagementOperations.New(context.TODO(), lithic.ManagementOperationNewParams{\n\t\tAmount:                lithic.F(int64(1)),\n\t\tCategory:              lithic.F(lithic.ManagementOperationNewParamsCategoryManagementFee),\n\t\tDirection:             lithic.F(lithic.ManagementOperationNewParamsDirectionCredit),\n\t\tEffectiveDate:         lithic.F(time.Now()),\n\t\tEventType:             lithic.F(lithic.ManagementOperationNewParamsEventTypeLossWriteOff),\n\t\tFinancialAccountToken: lithic.F("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", managementOperationTransaction.UserDefinedID)\n}\n',
-      },
     },
   },
   {
@@ -10563,6 +10563,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.managementOperations.retrieve(management_operation_token: string): { token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; direction?: 'CREDIT' | 'DEBIT'; events?: object[]; external_resource?: external_resource; family?: 'MANAGEMENT_OPERATION'; financial_account_token?: string; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; transaction_series?: object; user_defined_id?: string; }`\n\n**get** `/v1/management_operations/{management_operation_token}`\n\nGet management operation\n\n### Parameters\n\n- `management_operation_token: string`\n\n### Returns\n\n- `{ token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; direction?: 'CREDIT' | 'DEBIT'; events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; subtype?: string; }[]; external_resource?: { external_resource_token: string; external_resource_type: external_resource_type; external_resource_sub_token?: string; }; family?: 'MANAGEMENT_OPERATION'; financial_account_token?: string; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; transaction_series?: { related_transaction_event_token: string; related_transaction_token: string; type: string; }; user_defined_id?: string; }`\n\n  - `token: string`\n  - `created: string`\n  - `status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  - `updated: string`\n  - `category?: string`\n  - `currency?: string`\n  - `direction?: 'CREDIT' | 'DEBIT'`\n  - `events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; subtype?: string; }[]`\n  - `external_resource?: { external_resource_token: string; external_resource_type: 'STATEMENT' | 'COLLECTION' | 'DISPUTE' | 'UNKNOWN'; external_resource_sub_token?: string; }`\n  - `family?: 'MANAGEMENT_OPERATION'`\n  - `financial_account_token?: string`\n  - `pending_amount?: number`\n  - `result?: 'APPROVED' | 'DECLINED'`\n  - `settled_amount?: number`\n  - `transaction_series?: { related_transaction_event_token: string; related_transaction_token: string; type: string; }`\n  - `user_defined_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst managementOperationTransaction = await client.managementOperations.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(managementOperationTransaction);\n```",
     perLanguage: {
+      go: {
+        method: 'client.ManagementOperations.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tmanagementOperationTransaction, err := client.ManagementOperations.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", managementOperationTransaction.UserDefinedID)\n}\n',
+      },
       java: {
         method: 'managementOperations().retrieve',
         example:
@@ -10592,11 +10597,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/management_operations/$MANAGEMENT_OPERATION_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.ManagementOperations.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tmanagementOperationTransaction, err := client.ManagementOperations.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", managementOperationTransaction.UserDefinedID)\n}\n',
-      },
     },
   },
   {
@@ -10613,6 +10613,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## reverse\n\n`client.managementOperations.reverse(management_operation_token: string, effective_date: string, memo?: string): { token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; direction?: 'CREDIT' | 'DEBIT'; events?: object[]; external_resource?: external_resource; family?: 'MANAGEMENT_OPERATION'; financial_account_token?: string; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; transaction_series?: object; user_defined_id?: string; }`\n\n**post** `/v1/management_operations/{management_operation_token}/reverse`\n\nReverse a management operation\n\n### Parameters\n\n- `management_operation_token: string`\n\n- `effective_date: string`\n\n- `memo?: string`\n\n### Returns\n\n- `{ token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; direction?: 'CREDIT' | 'DEBIT'; events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; subtype?: string; }[]; external_resource?: { external_resource_token: string; external_resource_type: external_resource_type; external_resource_sub_token?: string; }; family?: 'MANAGEMENT_OPERATION'; financial_account_token?: string; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; transaction_series?: { related_transaction_event_token: string; related_transaction_token: string; type: string; }; user_defined_id?: string; }`\n\n  - `token: string`\n  - `created: string`\n  - `status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  - `updated: string`\n  - `category?: string`\n  - `currency?: string`\n  - `direction?: 'CREDIT' | 'DEBIT'`\n  - `events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; subtype?: string; }[]`\n  - `external_resource?: { external_resource_token: string; external_resource_type: 'STATEMENT' | 'COLLECTION' | 'DISPUTE' | 'UNKNOWN'; external_resource_sub_token?: string; }`\n  - `family?: 'MANAGEMENT_OPERATION'`\n  - `financial_account_token?: string`\n  - `pending_amount?: number`\n  - `result?: 'APPROVED' | 'DECLINED'`\n  - `settled_amount?: number`\n  - `transaction_series?: { related_transaction_event_token: string; related_transaction_token: string; type: string; }`\n  - `user_defined_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst managementOperationTransaction = await client.managementOperations.reverse('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { effective_date: '2019-12-27' });\n\nconsole.log(managementOperationTransaction);\n```",
     perLanguage: {
+      go: {
+        method: 'client.ManagementOperations.Reverse',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tmanagementOperationTransaction, err := client.ManagementOperations.Reverse(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.ManagementOperationReverseParams{\n\t\t\tEffectiveDate: lithic.F(time.Now()),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", managementOperationTransaction.UserDefinedID)\n}\n',
+      },
       java: {
         method: 'managementOperations().reverse',
         example:
@@ -10642,11 +10647,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/management_operations/$MANAGEMENT_OPERATION_TOKEN/reverse \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "effective_date": "2019-12-27"\n        }\'',
       },
-      go: {
-        method: 'client.ManagementOperations.Reverse',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\t"time"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tmanagementOperationTransaction, err := client.ManagementOperations.Reverse(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.ManagementOperationReverseParams{\n\t\t\tEffectiveDate: lithic.F(time.Now()),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", managementOperationTransaction.UserDefinedID)\n}\n',
-      },
     },
   },
   {
@@ -10663,6 +10663,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.fundingEvents.list(ending_before?: string, page_size?: number, starting_after?: string): { token: string; collection_resource_type: 'BOOK_TRANSFER' | 'PAYMENT'; collection_tokens: string[]; created: string; high_watermark: string; network_settlement_summary: object[]; previous_high_watermark: string; updated: string; }`\n\n**get** `/v1/funding_events`\n\nGet all funding events for program\n\n### Parameters\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n### Returns\n\n- `{ token: string; collection_resource_type: 'BOOK_TRANSFER' | 'PAYMENT'; collection_tokens: string[]; created: string; high_watermark: string; network_settlement_summary: { network_settlement_date: string; settled_gross_amount: number; }[]; previous_high_watermark: string; updated: string; }`\n\n  - `token: string`\n  - `collection_resource_type: 'BOOK_TRANSFER' | 'PAYMENT'`\n  - `collection_tokens: string[]`\n  - `created: string`\n  - `high_watermark: string`\n  - `network_settlement_summary: { network_settlement_date: string; settled_gross_amount: number; }[]`\n  - `previous_high_watermark: string`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const fundingEvent of client.fundingEvents.list()) {\n  console.log(fundingEvent);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.FundingEvents.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.FundingEvents.List(context.TODO(), lithic.FundingEventListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'fundingEvents().list',
         example:
@@ -10691,11 +10696,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example: 'curl https://api.lithic.com/v1/funding_events \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.FundingEvents.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.FundingEvents.List(context.TODO(), lithic.FundingEventListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -10712,6 +10712,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.fundingEvents.retrieve(funding_event_token: string): { token: string; collection_resource_type: 'BOOK_TRANSFER' | 'PAYMENT'; collection_tokens: string[]; created: string; high_watermark: string; network_settlement_summary: object[]; previous_high_watermark: string; updated: string; }`\n\n**get** `/v1/funding_events/{funding_event_token}`\n\nGet funding event for program by id\n\n### Parameters\n\n- `funding_event_token: string`\n\n### Returns\n\n- `{ token: string; collection_resource_type: 'BOOK_TRANSFER' | 'PAYMENT'; collection_tokens: string[]; created: string; high_watermark: string; network_settlement_summary: { network_settlement_date: string; settled_gross_amount: number; }[]; previous_high_watermark: string; updated: string; }`\n\n  - `token: string`\n  - `collection_resource_type: 'BOOK_TRANSFER' | 'PAYMENT'`\n  - `collection_tokens: string[]`\n  - `created: string`\n  - `high_watermark: string`\n  - `network_settlement_summary: { network_settlement_date: string; settled_gross_amount: number; }[]`\n  - `previous_high_watermark: string`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst fundingEvent = await client.fundingEvents.retrieve('funding_event_token');\n\nconsole.log(fundingEvent);\n```",
     perLanguage: {
+      go: {
+        method: 'client.FundingEvents.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tfundingEvent, err := client.FundingEvents.Get(context.TODO(), "funding_event_token")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", fundingEvent.Token)\n}\n',
+      },
       java: {
         method: 'fundingEvents().retrieve',
         example:
@@ -10741,11 +10746,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/funding_events/$FUNDING_EVENT_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.FundingEvents.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tfundingEvent, err := client.FundingEvents.Get(context.TODO(), "funding_event_token")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", fundingEvent.Token)\n}\n',
-      },
     },
   },
   {
@@ -10761,6 +10761,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve_details\n\n`client.fundingEvents.retrieveDetails(funding_event_token: string): { token: string; settlement_details_url: string; settlement_summary_url: string; }`\n\n**get** `/v1/funding_events/{funding_event_token}/details`\n\nGet funding event details by id\n\n### Parameters\n\n- `funding_event_token: string`\n\n### Returns\n\n- `{ token: string; settlement_details_url: string; settlement_summary_url: string; }`\n\n  - `token: string`\n  - `settlement_details_url: string`\n  - `settlement_summary_url: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.fundingEvents.retrieveDetails('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.FundingEvents.GetDetails',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.FundingEvents.GetDetails(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Token)\n}\n',
+      },
       java: {
         method: 'fundingEvents().retrieveDetails',
         example:
@@ -10790,11 +10795,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/funding_events/$FUNDING_EVENT_TOKEN/details \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.FundingEvents.GetDetails',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.FundingEvents.GetDetails(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.Token)\n}\n',
-      },
     },
   },
   {
@@ -10812,6 +10812,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.fraud.transactions.retrieve(transaction_token: string): { fraud_status: 'SUSPECTED_FRAUD' | 'FRAUDULENT' | 'NOT_FRAUDULENT' | 'NO_REPORTED_FRAUD'; transaction_token: string; comment?: string; created_at?: string; fraud_type?: string; updated_at?: string; }`\n\n**get** `/v1/fraud/transactions/{transaction_token}`\n\nRetrieve a fraud report for a specific transaction identified by its unique transaction token.\n\n\n### Parameters\n\n- `transaction_token: string`\n\n### Returns\n\n- `{ fraud_status: 'SUSPECTED_FRAUD' | 'FRAUDULENT' | 'NOT_FRAUDULENT' | 'NO_REPORTED_FRAUD'; transaction_token: string; comment?: string; created_at?: string; fraud_type?: string; updated_at?: string; }`\n\n  - `fraud_status: 'SUSPECTED_FRAUD' | 'FRAUDULENT' | 'NOT_FRAUDULENT' | 'NO_REPORTED_FRAUD'`\n  - `transaction_token: string`\n  - `comment?: string`\n  - `created_at?: string`\n  - `fraud_type?: string`\n  - `updated_at?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst transaction = await client.fraud.transactions.retrieve('00000000-0000-0000-0000-000000000000');\n\nconsole.log(transaction);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Fraud.Transactions.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\ttransaction, err := client.Fraud.Transactions.Get(context.TODO(), "00000000-0000-0000-0000-000000000000")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", transaction.FraudStatus)\n}\n',
+      },
       java: {
         method: 'fraud().transactions().retrieve',
         example:
@@ -10841,11 +10846,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/fraud/transactions/$TRANSACTION_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Fraud.Transactions.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\ttransaction, err := client.Fraud.Transactions.Get(context.TODO(), "00000000-0000-0000-0000-000000000000")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", transaction.FraudStatus)\n}\n',
-      },
     },
   },
   {
@@ -10868,6 +10868,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## report\n\n`client.fraud.transactions.report(transaction_token: string, fraud_status: 'SUSPECTED_FRAUD' | 'FRAUDULENT' | 'NOT_FRAUDULENT', comment?: string, fraud_type?: string): { fraud_status: 'SUSPECTED_FRAUD' | 'FRAUDULENT' | 'NOT_FRAUDULENT' | 'NO_REPORTED_FRAUD'; transaction_token: string; comment?: string; created_at?: string; fraud_type?: string; updated_at?: string; }`\n\n**post** `/v1/fraud/transactions/{transaction_token}`\n\nReport fraud for a specific transaction token by providing details such as fraud type, fraud status, and any additional comments.\n\n\n### Parameters\n\n- `transaction_token: string`\n\n- `fraud_status: 'SUSPECTED_FRAUD' | 'FRAUDULENT' | 'NOT_FRAUDULENT'`\n  The fraud status of the transaction, string (enum) supporting the following values:\n\n - `SUSPECTED_FRAUD`: The transaction is suspected to be fraudulent, but this hasn’t been confirmed.\n - `FRAUDULENT`: The transaction is confirmed to be fraudulent. A transaction may immediately be moved into this state, or be graduated into this state from the `SUSPECTED_FRAUD` state.\n - `NOT_FRAUDULENT`: The transaction is (explicitly) marked as not fraudulent. A transaction may immediately be moved into this state, or be graduated into this state from the `SUSPECTED_FRAUD` state.\n\n- `comment?: string`\n  Optional field providing additional information or context about why the transaction is considered fraudulent.\n\n- `fraud_type?: string`\n  Specifies the type or category of fraud that the transaction is suspected or confirmed to involve, string (enum) supporting the following values:\n\n - `FIRST_PARTY_FRAUD`: First-party fraud occurs when a legitimate account or cardholder intentionally misuses financial services for personal gain. This includes actions such as disputing legitimate transactions to obtain a refund, abusing return policies, or defaulting on credit obligations without intent to repay.\n - `ACCOUNT_TAKEOVER`: Account takeover fraud occurs when a fraudster gains unauthorized access to an existing account, modifies account settings, and carries out fraudulent transactions.\n - `CARD_COMPROMISED`: Card compromised fraud occurs when a fraudster gains access to card details without taking over the account, such as through physical card theft, cloning, or online data breaches.\n - `IDENTITY_THEFT`: Identity theft fraud occurs when a fraudster uses stolen personal information, such as Social Security numbers or addresses, to open accounts, apply for loans, or conduct financial transactions in someone's name.\n - `CARDHOLDER_MANIPULATION`: This type of fraud occurs when a fraudster manipulates or coerces a legitimate cardholder into unauthorized transactions, often through social engineering tactics.\n\n### Returns\n\n- `{ fraud_status: 'SUSPECTED_FRAUD' | 'FRAUDULENT' | 'NOT_FRAUDULENT' | 'NO_REPORTED_FRAUD'; transaction_token: string; comment?: string; created_at?: string; fraud_type?: string; updated_at?: string; }`\n\n  - `fraud_status: 'SUSPECTED_FRAUD' | 'FRAUDULENT' | 'NOT_FRAUDULENT' | 'NO_REPORTED_FRAUD'`\n  - `transaction_token: string`\n  - `comment?: string`\n  - `created_at?: string`\n  - `fraud_type?: string`\n  - `updated_at?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.fraud.transactions.report('00000000-0000-0000-0000-000000000000', { fraud_status: 'SUSPECTED_FRAUD' });\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Fraud.Transactions.Report',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Fraud.Transactions.Report(\n\t\tcontext.TODO(),\n\t\t"00000000-0000-0000-0000-000000000000",\n\t\tlithic.FraudTransactionReportParams{\n\t\t\tFraudStatus: lithic.F(lithic.FraudTransactionReportParamsFraudStatusSuspectedFraud),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.FraudStatus)\n}\n',
+      },
       java: {
         method: 'fraud().transactions().report',
         example:
@@ -10897,11 +10902,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/fraud/transactions/$TRANSACTION_TOKEN \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "fraud_status": "SUSPECTED_FRAUD"\n        }\'',
       },
-      go: {
-        method: 'client.Fraud.Transactions.Report',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.Fraud.Transactions.Report(\n\t\tcontext.TODO(),\n\t\t"00000000-0000-0000-0000-000000000000",\n\t\tlithic.FraudTransactionReportParams{\n\t\t\tFraudStatus: lithic.F(lithic.FraudTransactionReportParamsFraudStatusSuspectedFraud),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response.FraudStatus)\n}\n',
-      },
     },
   },
   {
@@ -10918,6 +10918,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.networkPrograms.list(begin?: string, end?: string, page_size?: number): { token: string; default_product_code: string; name: string; registered_program_identification_number: string; }`\n\n**get** `/v1/network_programs`\n\nList network programs.\n\n### Parameters\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n### Returns\n\n- `{ token: string; default_product_code: string; name: string; registered_program_identification_number: string; }`\n\n  - `token: string`\n  - `default_product_code: string`\n  - `name: string`\n  - `registered_program_identification_number: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const networkProgram of client.networkPrograms.list()) {\n  console.log(networkProgram);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.NetworkPrograms.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.NetworkPrograms.List(context.TODO(), lithic.NetworkProgramListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'networkPrograms().list',
         example:
@@ -10947,11 +10952,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/network_programs \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.NetworkPrograms.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.NetworkPrograms.List(context.TODO(), lithic.NetworkProgramListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -10968,6 +10968,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.networkPrograms.retrieve(network_program_token: string): { token: string; default_product_code: string; name: string; registered_program_identification_number: string; }`\n\n**get** `/v1/network_programs/{network_program_token}`\n\nGet network program.\n\n### Parameters\n\n- `network_program_token: string`\n\n### Returns\n\n- `{ token: string; default_product_code: string; name: string; registered_program_identification_number: string; }`\n\n  - `token: string`\n  - `default_product_code: string`\n  - `name: string`\n  - `registered_program_identification_number: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst networkProgram = await client.networkPrograms.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(networkProgram);\n```",
     perLanguage: {
+      go: {
+        method: 'client.NetworkPrograms.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tnetworkProgram, err := client.NetworkPrograms.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", networkProgram.RegisteredProgramIdentificationNumber)\n}\n',
+      },
       java: {
         method: 'networkPrograms().retrieve',
         example:
@@ -10997,11 +11002,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/network_programs/$NETWORK_PROGRAM_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.NetworkPrograms.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tnetworkProgram, err := client.NetworkPrograms.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", networkProgram.RegisteredProgramIdentificationNumber)\n}\n',
-      },
     },
   },
   {
@@ -11026,6 +11026,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.holds.list(financial_account_token: string, begin?: string, end?: string, ending_before?: string, page_size?: number, starting_after?: string, status?: 'PENDING' | 'SETTLED' | 'EXPIRED' | 'VOIDED'): { token: string; created: string; status: 'PENDING' | 'SETTLED' | 'EXPIRED' | 'VOIDED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; currency?: string; events?: hold_event[]; expiration_datetime?: string; family?: 'HOLD'; financial_account_token?: string; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; user_defined_id?: string; }`\n\n**get** `/v1/financial_accounts/{financial_account_token}/holds`\n\nList holds for a financial account.\n\n### Parameters\n\n- `financial_account_token: string`\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n- `status?: 'PENDING' | 'SETTLED' | 'EXPIRED' | 'VOIDED'`\n  Hold status to filter by.\n\n### Returns\n\n- `{ token: string; created: string; status: 'PENDING' | 'SETTLED' | 'EXPIRED' | 'VOIDED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; currency?: string; events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; memo: string; result: 'APPROVED' | 'DECLINED'; settling_transaction_token: string; type: 'HOLD_INITIATED' | 'HOLD_VOIDED' | 'HOLD_EXPIRED' | 'HOLD_SETTLED'; }[]; expiration_datetime?: string; family?: 'HOLD'; financial_account_token?: string; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; user_defined_id?: string; }`\n  A hold transaction representing reserved funds on a financial account. Holds move funds from available to pending balance in anticipation of future payments. They can be resolved via settlement (linked to payment), manual release, or expiration.\n\n  - `token: string`\n  - `created: string`\n  - `status: 'PENDING' | 'SETTLED' | 'EXPIRED' | 'VOIDED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  - `updated: string`\n  - `currency?: string`\n  - `events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; memo: string; result: 'APPROVED' | 'DECLINED'; settling_transaction_token: string; type: 'HOLD_INITIATED' | 'HOLD_VOIDED' | 'HOLD_EXPIRED' | 'HOLD_SETTLED'; }[]`\n  - `expiration_datetime?: string`\n  - `family?: 'HOLD'`\n  - `financial_account_token?: string`\n  - `pending_amount?: number`\n  - `result?: 'APPROVED' | 'DECLINED'`\n  - `user_defined_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const hold of client.holds.list('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')) {\n  console.log(hold);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.Holds.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Holds.List(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.HoldListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'holds().list',
         example:
@@ -11055,11 +11060,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN/holds \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Holds.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.Holds.List(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.HoldListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -11084,6 +11084,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## create\n\n`client.holds.create(financial_account_token: string, amount: number, token?: string, expiration_datetime?: string, memo?: string, user_defined_id?: string): { token: string; created: string; status: 'PENDING' | 'SETTLED' | 'EXPIRED' | 'VOIDED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; currency?: string; events?: hold_event[]; expiration_datetime?: string; family?: 'HOLD'; financial_account_token?: string; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; user_defined_id?: string; }`\n\n**post** `/v1/financial_accounts/{financial_account_token}/holds`\n\nCreate a hold on a financial account. Holds reserve funds by moving them\nfrom available to pending balance. They can be resolved via settlement\n(linked to a payment or book transfer), voiding, or expiration.\n\n\n### Parameters\n\n- `financial_account_token: string`\n\n- `amount: number`\n  Amount to hold in cents\n\n- `token?: string`\n  Customer-provided token for idempotency. Becomes the hold token.\n\n- `expiration_datetime?: string`\n  When the hold should auto-expire\n\n- `memo?: string`\n  Reason for the hold\n\n- `user_defined_id?: string`\n  User-provided identifier for the hold\n\n### Returns\n\n- `{ token: string; created: string; status: 'PENDING' | 'SETTLED' | 'EXPIRED' | 'VOIDED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; currency?: string; events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; memo: string; result: 'APPROVED' | 'DECLINED'; settling_transaction_token: string; type: 'HOLD_INITIATED' | 'HOLD_VOIDED' | 'HOLD_EXPIRED' | 'HOLD_SETTLED'; }[]; expiration_datetime?: string; family?: 'HOLD'; financial_account_token?: string; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; user_defined_id?: string; }`\n  A hold transaction representing reserved funds on a financial account. Holds move funds from available to pending balance in anticipation of future payments. They can be resolved via settlement (linked to payment), manual release, or expiration.\n\n  - `token: string`\n  - `created: string`\n  - `status: 'PENDING' | 'SETTLED' | 'EXPIRED' | 'VOIDED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  - `updated: string`\n  - `currency?: string`\n  - `events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; memo: string; result: 'APPROVED' | 'DECLINED'; settling_transaction_token: string; type: 'HOLD_INITIATED' | 'HOLD_VOIDED' | 'HOLD_EXPIRED' | 'HOLD_SETTLED'; }[]`\n  - `expiration_datetime?: string`\n  - `family?: 'HOLD'`\n  - `financial_account_token?: string`\n  - `pending_amount?: number`\n  - `result?: 'APPROVED' | 'DECLINED'`\n  - `user_defined_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst hold = await client.holds.create('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { amount: 1 });\n\nconsole.log(hold);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Holds.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\thold, err := client.Holds.New(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.HoldNewParams{\n\t\t\tAmount: lithic.F(int64(1)),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", hold.UserDefinedID)\n}\n',
+      },
       java: {
         method: 'holds().create',
         example:
@@ -11113,11 +11118,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN/holds \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "amount": 1\n        }\'',
       },
-      go: {
-        method: 'client.Holds.New',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\thold, err := client.Holds.New(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.HoldNewParams{\n\t\t\tAmount: lithic.F(int64(1)),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", hold.UserDefinedID)\n}\n',
-      },
     },
   },
   {
@@ -11134,6 +11134,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve\n\n`client.holds.retrieve(hold_token: string): { token: string; created: string; status: 'PENDING' | 'SETTLED' | 'EXPIRED' | 'VOIDED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; currency?: string; events?: hold_event[]; expiration_datetime?: string; family?: 'HOLD'; financial_account_token?: string; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; user_defined_id?: string; }`\n\n**get** `/v1/holds/{hold_token}`\n\nGet hold by token.\n\n### Parameters\n\n- `hold_token: string`\n\n### Returns\n\n- `{ token: string; created: string; status: 'PENDING' | 'SETTLED' | 'EXPIRED' | 'VOIDED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; currency?: string; events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; memo: string; result: 'APPROVED' | 'DECLINED'; settling_transaction_token: string; type: 'HOLD_INITIATED' | 'HOLD_VOIDED' | 'HOLD_EXPIRED' | 'HOLD_SETTLED'; }[]; expiration_datetime?: string; family?: 'HOLD'; financial_account_token?: string; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; user_defined_id?: string; }`\n  A hold transaction representing reserved funds on a financial account. Holds move funds from available to pending balance in anticipation of future payments. They can be resolved via settlement (linked to payment), manual release, or expiration.\n\n  - `token: string`\n  - `created: string`\n  - `status: 'PENDING' | 'SETTLED' | 'EXPIRED' | 'VOIDED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  - `updated: string`\n  - `currency?: string`\n  - `events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; memo: string; result: 'APPROVED' | 'DECLINED'; settling_transaction_token: string; type: 'HOLD_INITIATED' | 'HOLD_VOIDED' | 'HOLD_EXPIRED' | 'HOLD_SETTLED'; }[]`\n  - `expiration_datetime?: string`\n  - `family?: 'HOLD'`\n  - `financial_account_token?: string`\n  - `pending_amount?: number`\n  - `result?: 'APPROVED' | 'DECLINED'`\n  - `user_defined_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst hold = await client.holds.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(hold);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Holds.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\thold, err := client.Holds.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", hold.UserDefinedID)\n}\n',
+      },
       java: {
         method: 'holds().retrieve',
         example:
@@ -11163,11 +11168,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/holds/$HOLD_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.Holds.Get',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\thold, err := client.Holds.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", hold.UserDefinedID)\n}\n',
-      },
     },
   },
   {
@@ -11185,6 +11185,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## void\n\n`client.holds.void(hold_token: string, memo?: string): { token: string; created: string; status: 'PENDING' | 'SETTLED' | 'EXPIRED' | 'VOIDED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; currency?: string; events?: hold_event[]; expiration_datetime?: string; family?: 'HOLD'; financial_account_token?: string; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; user_defined_id?: string; }`\n\n**post** `/v1/holds/{hold_token}/void`\n\nVoid an active hold. This returns the held funds from pending back to\navailable balance. Only holds in PENDING status can be voided.\n\n\n### Parameters\n\n- `hold_token: string`\n\n- `memo?: string`\n  Reason for voiding the hold\n\n### Returns\n\n- `{ token: string; created: string; status: 'PENDING' | 'SETTLED' | 'EXPIRED' | 'VOIDED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; currency?: string; events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; memo: string; result: 'APPROVED' | 'DECLINED'; settling_transaction_token: string; type: 'HOLD_INITIATED' | 'HOLD_VOIDED' | 'HOLD_EXPIRED' | 'HOLD_SETTLED'; }[]; expiration_datetime?: string; family?: 'HOLD'; financial_account_token?: string; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; user_defined_id?: string; }`\n  A hold transaction representing reserved funds on a financial account. Holds move funds from available to pending balance in anticipation of future payments. They can be resolved via settlement (linked to payment), manual release, or expiration.\n\n  - `token: string`\n  - `created: string`\n  - `status: 'PENDING' | 'SETTLED' | 'EXPIRED' | 'VOIDED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'`\n  - `updated: string`\n  - `currency?: string`\n  - `events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; memo: string; result: 'APPROVED' | 'DECLINED'; settling_transaction_token: string; type: 'HOLD_INITIATED' | 'HOLD_VOIDED' | 'HOLD_EXPIRED' | 'HOLD_SETTLED'; }[]`\n  - `expiration_datetime?: string`\n  - `family?: 'HOLD'`\n  - `financial_account_token?: string`\n  - `pending_amount?: number`\n  - `result?: 'APPROVED' | 'DECLINED'`\n  - `user_defined_id?: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst hold = await client.holds.void('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(hold);\n```",
     perLanguage: {
+      go: {
+        method: 'client.Holds.Void',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\thold, err := client.Holds.Void(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.HoldVoidParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", hold.UserDefinedID)\n}\n',
+      },
       java: {
         method: 'holds().void_',
         example:
@@ -11214,11 +11219,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "curl https://api.lithic.com/v1/holds/$HOLD_TOKEN/void \\\n    -H 'Content-Type: application/json' \\\n    -H \"Authorization: $LITHIC_API_KEY\" \\\n    -d '{}'",
       },
-      go: {
-        method: 'client.Holds.Void',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\thold, err := client.Holds.Void(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.HoldVoidParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", hold.UserDefinedID)\n}\n',
-      },
     },
   },
   {
@@ -11247,6 +11247,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.accountActivity.list(account_token?: string, begin?: string, business_account_token?: string, category?: string, end?: string, ending_before?: string, financial_account_token?: string, page_size?: number, result?: 'APPROVED' | 'DECLINED', starting_after?: string, status?: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'RETURNED' | 'REVERSED' | 'SETTLED' | 'VOIDED'): { token: string; category: string; created: string; currency: string; descriptor: string; events: financial_event[]; family: 'INTERNAL'; financial_account_token: string; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; } | object | object | object | object | object | object`\n\n**get** `/v1/account_activity`\n\nRetrieve a list of transactions across all public accounts.\n\n### Parameters\n\n- `account_token?: string`\n  Filter by account token\n\n- `begin?: string`\n  Date string in RFC 3339 format. Only entries created after the specified time will be included. UTC time zone.\n\n- `business_account_token?: string`\n  Filter by business account token\n\n- `category?: string`\n  Filter by transaction category\n\n- `end?: string`\n  Date string in RFC 3339 format. Only entries created before the specified time will be included. UTC time zone.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `financial_account_token?: string`\n  Filter by financial account token\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `result?: 'APPROVED' | 'DECLINED'`\n  Filter by transaction result\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n- `status?: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'RETURNED' | 'REVERSED' | 'SETTLED' | 'VOIDED'`\n  Filter by transaction status\n\n### Returns\n\n- `{ token: string; category: string; created: string; currency: string; descriptor: string; events: { token?: string; amount?: number; created?: string; result?: 'APPROVED' | 'DECLINED'; type?: string; }[]; family: 'INTERNAL'; financial_account_token: string; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; } | { token: string; category: string; created: string; currency: string; events: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'FUNDS_INSUFFICIENT'[]; memo: string; result: 'APPROVED' | 'DECLINED'; subtype: string; type: string; }[]; family: 'TRANSFER'; from_financial_account_token: string; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; to_financial_account_token: string; updated: string; external_id?: string; external_resource?: object; transaction_series?: { related_transaction_event_token: string; related_transaction_token: string; type: string; }; } | { token: string; account_token: string; acquirer_fee: number; acquirer_reference_number: string; amount: number; amounts: { cardholder: object; hold: object; merchant: object; settlement: object; }; authorization_amount: number; authorization_code: string; avs: { address: string; zipcode: string; }; card_token: string; cardholder_authentication: object; created: string; financial_account_token: string; merchant: object; merchant_amount: number; merchant_authorization_amount: number; merchant_currency: string; network: 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA'; network_risk_score: number; pos: { entry_mode: object; terminal: object; }; result: string; service_location: { city: string; country: string; postal_code: string; state: string; street_address: string; }; settled_amount: number; status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED'; tags: object; token_info: object; updated: string; events?: { token: string; amount: number; amounts: object; created: string; detailed_results: string[]; effective_polarity: 'CREDIT' | 'DEBIT'; network_info: object; result: string; rule_results: object[]; type: string; account_type?: 'CHECKING' | 'SAVINGS'; network_specific_data?: object; }[]; } | { token: string; category: string; created: string; descriptor: string; direction: 'CREDIT' | 'DEBIT'; events: { token: string; amount: number; created: string; result: 'APPROVED' | 'DECLINED'; type: string; detailed_results?: string[]; external_id?: string; }[]; family: 'PAYMENT'; financial_account_token: string; method: 'ACH_NEXT_DAY' | 'ACH_SAME_DAY' | 'WIRE'; method_attributes: { sec_code: 'CCD' | 'PPD' | 'WEB' | 'TEL' | 'CIE' | 'CTX'; ach_hold_period?: number; addenda?: string; company_id?: string; override_company_name?: string; receipt_routing_number?: string; recipient_name?: string; retries?: number; return_reason_code?: string; trace_numbers?: string[]; } | { wire_message_type: string; wire_network: 'FEDWIRE' | 'SWIFT'; creditor?: wire_party_details; debtor?: wire_party_details; message_id?: string; remittance_information?: string; }; pending_amount: number; related_account_tokens: { account_token: string; business_account_token: string; }; result: 'APPROVED' | 'DECLINED'; settled_amount: number; source: 'LITHIC' | 'EXTERNAL' | 'CUSTOMER'; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; currency?: string; expected_release_date?: string; external_bank_account_token?: string; tags?: object; type?: string; user_defined_id?: string; } | { token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; }[]; family?: 'EXTERNAL_PAYMENT'; financial_account_token?: string; payment_type?: 'DEPOSIT' | 'WITHDRAWAL'; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; user_defined_id?: string; } | { token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; direction?: 'CREDIT' | 'DEBIT'; events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; subtype?: string; }[]; external_resource?: object; family?: 'MANAGEMENT_OPERATION'; financial_account_token?: string; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; transaction_series?: { related_transaction_event_token: string; related_transaction_token: string; type: string; }; user_defined_id?: string; } | { token: string; created: string; status: 'PENDING' | 'SETTLED' | 'EXPIRED' | 'VOIDED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; currency?: string; events?: object[]; expiration_datetime?: string; family?: 'HOLD'; financial_account_token?: string; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; user_defined_id?: string; }`\n  Response containing multiple transaction types. The `family` field determines which transaction type is returned: INTERNAL returns FinancialTransaction, TRANSFER returns BookTransferTransaction, CARD returns CardTransaction, PAYMENT returns PaymentTransaction, EXTERNAL_PAYMENT returns ExternalPaymentResponse, MANAGEMENT_OPERATION returns ManagementOperationTransaction, and HOLD returns HoldTransaction\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const accountActivityListResponse of client.accountActivity.list()) {\n  console.log(accountActivityListResponse);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.AccountActivity.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.AccountActivity.List(context.TODO(), lithic.AccountActivityListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'accountActivity().list',
         example:
@@ -11276,11 +11281,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/account_activity \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.AccountActivity.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.AccountActivity.List(context.TODO(), lithic.AccountActivityListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -11297,6 +11297,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## retrieve_transaction\n\n`client.accountActivity.retrieveTransaction(transaction_token: string): { token: string; category: string; created: string; currency: string; descriptor: string; events: financial_event[]; family: 'INTERNAL'; financial_account_token: string; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; } | object | object | object | object | object | object`\n\n**get** `/v1/account_activity/{transaction_token}`\n\nRetrieve a single transaction\n\n### Parameters\n\n- `transaction_token: string`\n\n### Returns\n\n- `{ token: string; category: string; created: string; currency: string; descriptor: string; events: { token?: string; amount?: number; created?: string; result?: 'APPROVED' | 'DECLINED'; type?: string; }[]; family: 'INTERNAL'; financial_account_token: string; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; } | { token: string; category: string; created: string; currency: string; events: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'FUNDS_INSUFFICIENT'[]; memo: string; result: 'APPROVED' | 'DECLINED'; subtype: string; type: string; }[]; family: 'TRANSFER'; from_financial_account_token: string; pending_amount: number; result: 'APPROVED' | 'DECLINED'; settled_amount: number; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; to_financial_account_token: string; updated: string; external_id?: string; external_resource?: object; transaction_series?: { related_transaction_event_token: string; related_transaction_token: string; type: string; }; } | { token: string; account_token: string; acquirer_fee: number; acquirer_reference_number: string; amount: number; amounts: { cardholder: object; hold: object; merchant: object; settlement: object; }; authorization_amount: number; authorization_code: string; avs: { address: string; zipcode: string; }; card_token: string; cardholder_authentication: object; created: string; financial_account_token: string; merchant: object; merchant_amount: number; merchant_authorization_amount: number; merchant_currency: string; network: 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA'; network_risk_score: number; pos: { entry_mode: object; terminal: object; }; result: string; service_location: { city: string; country: string; postal_code: string; state: string; street_address: string; }; settled_amount: number; status: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'SETTLED' | 'VOIDED'; tags: object; token_info: object; updated: string; events?: { token: string; amount: number; amounts: object; created: string; detailed_results: string[]; effective_polarity: 'CREDIT' | 'DEBIT'; network_info: object; result: string; rule_results: object[]; type: string; account_type?: 'CHECKING' | 'SAVINGS'; network_specific_data?: object; }[]; } | { token: string; category: string; created: string; descriptor: string; direction: 'CREDIT' | 'DEBIT'; events: { token: string; amount: number; created: string; result: 'APPROVED' | 'DECLINED'; type: string; detailed_results?: string[]; external_id?: string; }[]; family: 'PAYMENT'; financial_account_token: string; method: 'ACH_NEXT_DAY' | 'ACH_SAME_DAY' | 'WIRE'; method_attributes: { sec_code: 'CCD' | 'PPD' | 'WEB' | 'TEL' | 'CIE' | 'CTX'; ach_hold_period?: number; addenda?: string; company_id?: string; override_company_name?: string; receipt_routing_number?: string; recipient_name?: string; retries?: number; return_reason_code?: string; trace_numbers?: string[]; } | { wire_message_type: string; wire_network: 'FEDWIRE' | 'SWIFT'; creditor?: wire_party_details; debtor?: wire_party_details; message_id?: string; remittance_information?: string; }; pending_amount: number; related_account_tokens: { account_token: string; business_account_token: string; }; result: 'APPROVED' | 'DECLINED'; settled_amount: number; source: 'LITHIC' | 'EXTERNAL' | 'CUSTOMER'; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; currency?: string; expected_release_date?: string; external_bank_account_token?: string; tags?: object; type?: string; user_defined_id?: string; } | { token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; }[]; family?: 'EXTERNAL_PAYMENT'; financial_account_token?: string; payment_type?: 'DEPOSIT' | 'WITHDRAWAL'; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; user_defined_id?: string; } | { token: string; created: string; status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; category?: string; currency?: string; direction?: 'CREDIT' | 'DEBIT'; events?: { token: string; amount: number; created: string; detailed_results: 'APPROVED' | 'INSUFFICIENT_FUNDS'[]; effective_date: string; memo: string; result: 'APPROVED' | 'DECLINED'; type: string; subtype?: string; }[]; external_resource?: object; family?: 'MANAGEMENT_OPERATION'; financial_account_token?: string; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; settled_amount?: number; transaction_series?: { related_transaction_event_token: string; related_transaction_token: string; type: string; }; user_defined_id?: string; } | { token: string; created: string; status: 'PENDING' | 'SETTLED' | 'EXPIRED' | 'VOIDED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED'; updated: string; currency?: string; events?: object[]; expiration_datetime?: string; family?: 'HOLD'; financial_account_token?: string; pending_amount?: number; result?: 'APPROVED' | 'DECLINED'; user_defined_id?: string; }`\n  Response containing multiple transaction types. The `family` field determines which transaction type is returned: INTERNAL returns FinancialTransaction, TRANSFER returns BookTransferTransaction, CARD returns CardTransaction, PAYMENT returns PaymentTransaction, EXTERNAL_PAYMENT returns ExternalPaymentResponse, MANAGEMENT_OPERATION returns ManagementOperationTransaction, and HOLD returns HoldTransaction\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst response = await client.accountActivity.retrieveTransaction('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(response);\n```",
     perLanguage: {
+      go: {
+        method: 'client.AccountActivity.GetTransaction',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.AccountActivity.GetTransaction(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
+      },
       java: {
         method: 'accountActivity().retrieveTransaction',
         example:
@@ -11326,11 +11331,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'curl https://api.lithic.com/v1/account_activity/$TRANSACTION_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.AccountActivity.GetTransaction',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tresponse, err := client.AccountActivity.GetTransaction(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", response)\n}\n',
-      },
     },
   },
   {
@@ -11347,6 +11347,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     markdown:
       "## list\n\n`client.transferLimits.list(date?: string): { company_id: string; daily_limit: { credit: object; debit: object; }; date: string; is_fbo: boolean; monthly_limit: { credit: object; debit: object; }; program_limit_per_transaction: { credit: object; debit: object; }; }`\n\n**get** `/v1/transfer_limits`\n\nGet transfer limits for a specified date\n\n### Parameters\n\n- `date?: string`\n  Date for which to retrieve transfer limits (ISO 8601 format)\n\n### Returns\n\n- `{ company_id: string; daily_limit: { credit: { limit: number; amount_originated?: number; }; debit: { limit: number; amount_originated?: number; }; }; date: string; is_fbo: boolean; monthly_limit: { credit: { limit: number; amount_originated?: number; }; debit: { limit: number; amount_originated?: number; }; }; program_limit_per_transaction: { credit: { limit: number; amount_originated?: number; }; debit: { limit: number; amount_originated?: number; }; }; }`\n\n  - `company_id: string`\n  - `daily_limit: { credit: { limit: number; amount_originated?: number; }; debit: { limit: number; amount_originated?: number; }; }`\n  - `date: string`\n  - `is_fbo: boolean`\n  - `monthly_limit: { credit: { limit: number; amount_originated?: number; }; debit: { limit: number; amount_originated?: number; }; }`\n  - `program_limit_per_transaction: { credit: { limit: number; amount_originated?: number; }; debit: { limit: number; amount_originated?: number; }; }`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const transferLimit of client.transferLimits.list()) {\n  console.log(transferLimit);\n}\n```",
     perLanguage: {
+      go: {
+        method: 'client.TransferLimits.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.TransferLimits.List(context.TODO(), lithic.TransferLimitListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
       java: {
         method: 'transferLimits().list',
         example:
@@ -11375,11 +11380,6 @@ const EMBEDDED_METHODS: MethodEntry[] = [
       http: {
         example: 'curl https://api.lithic.com/v1/transfer_limits \\\n    -H "Authorization: $LITHIC_API_KEY"',
       },
-      go: {
-        method: 'client.TransferLimits.List',
-        example:
-          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.TransferLimits.List(context.TODO(), lithic.TransferLimitListParams{})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
-      },
     },
   },
   {
@@ -11391,6 +11391,11 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     stainlessPath: '(resource) webhooks > (method) parsed',
     qualified: 'client.webhooks.parsed',
     perLanguage: {
+      go: {
+        method: 'client.Webhooks.Parsed',
+        example:
+          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Webhooks.Parsed(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
+      },
       java: {
         example:
           'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.WebhookParsedParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        client.webhooks().parsed();\n    }\n}',
@@ -11414,16 +11419,16 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nawait client.webhooks.parsed();",
       },
-      go: {
-        method: 'client.Webhooks.Parsed',
-        example:
-          'package main\n\nimport (\n\t"context"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\terr := client.Webhooks.Parsed(context.TODO())\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n}\n',
-      },
     },
   },
 ];
 
 const EMBEDDED_READMES: { language: string; content: string }[] = [
+  {
+    language: 'go',
+    content:
+      '# Lithic Go API Library\n\n<a href="https://pkg.go.dev/github.com/lithic-com/lithic-go"><img src="https://pkg.go.dev/badge/github.com/lithic-com/lithic-go.svg" alt="Go Reference"></a>\n\nThe Lithic Go library provides convenient access to the [Lithic REST API](https://docs.lithic.com)\nfrom applications written in Go.\n\n\n\n## MCP Server\n\nUse the Lithic MCP Server to enable AI assistants to interact with this API, allowing them to explore endpoints, make test requests, and use documentation to help integrate this SDK into your application.\n\n[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=lithic-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImxpdGhpYy1tY3AiXSwiZW52Ijp7IkxJVEhJQ19BUElfS0VZIjoiTXkgTGl0aGljIEFQSSBLZXkiLCJMSVRISUNfV0VCSE9PS19TRUNSRVQiOiJNeSBXZWJob29rIFNlY3JldCJ9fQ)\n[![Install in VS Code](https://img.shields.io/badge/_-Add_to_VS_Code-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHBhdGggZmlsbD0iI0VFRSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzAuMjM1IDM5Ljg4NGEyLjQ5MSAyLjQ5MSAwIDAgMS0xLjc4MS0uNzNMMTIuNyAyNC43OGwtMy40NiAyLjYyNC0zLjQwNiAyLjU4MmExLjY2NSAxLjY2NSAwIDAgMS0xLjA4Mi4zMzggMS42NjQgMS42NjQgMCAwIDEtMS4wNDYtLjQzMWwtMi4yLTJhMS42NjYgMS42NjYgMCAwIDEgMC0yLjQ2M0w3LjQ1OCAyMCA0LjY3IDE3LjQ1MyAxLjUwNyAxNC41N2ExLjY2NSAxLjY2NSAwIDAgMSAwLTIuNDYzbDIuMi0yYTEuNjY1IDEuNjY1IDAgMCAxIDIuMTMtLjA5N2w2Ljg2MyA1LjIwOUwyOC40NTIuODQ0YTIuNDg4IDIuNDg4IDAgMCAxIDEuODQxLS43MjljLjM1MS4wMDkuNjk5LjA5MSAxLjAxOS4yNDVsOC4yMzYgMy45NjFhMi41IDIuNSAwIDAgMSAxLjQxNSAyLjI1M3YuMDk5LS4wNDVWMzMuMzd2LS4wNDUuMDk1YTIuNTAxIDIuNTAxIDAgMCAxLTEuNDE2IDIuMjU3bC04LjIzNSAzLjk2MWEyLjQ5MiAyLjQ5MiAwIDAgMS0xLjA3Ny4yNDZabS43MTYtMjguOTQ3LTExLjk0OCA5LjA2MiAxMS45NTIgOS4wNjUtLjAwNC0xOC4xMjdaIi8+PC9zdmc+)](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22lithic-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22lithic-mcp%22%5D%2C%22env%22%3A%7B%22LITHIC_API_KEY%22%3A%22My%20Lithic%20API%20Key%22%2C%22LITHIC_WEBHOOK_SECRET%22%3A%22My%20Webhook%20Secret%22%7D%7D)\n\n> Note: You may need to set environment variables in your MCP client.\n\n## Installation\n\n<!-- x-release-please-start-version -->\n\n```go\nimport (\n\t"github.com/lithic-com/lithic-go" // imported as SDK_PackageName\n)\n```\n\n<!-- x-release-please-end -->\n\nOr to pin the version:\n\n<!-- x-release-please-start-version -->\n\n```sh\ngo get -u \'github.com/lithic-com/lithic-go@v0.116.0\'\n```\n\n<!-- x-release-please-end -->\n\n## Requirements\n\nThis library requires Go 1.22+.\n\n## Usage\n\nThe full API of this library can be found in [api.md](api.md).\n\n```go\npackage main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"), // defaults to os.LookupEnv("LITHIC_API_KEY")\n\t\toption.WithEnvironmentSandbox(),        // defaults to option.WithEnvironmentProduction()\n\t)\n\tcard, err := client.Cards.New(context.TODO(), lithic.CardNewParams{\n\t\tType: lithic.F(lithic.CardNewParamsTypeSingleUse),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", card.Token)\n}\n\n```\n\n### Request fields\n\nAll request parameters are wrapped in a generic `Field` type,\nwhich we use to distinguish zero values from null or omitted fields.\n\nThis prevents accidentally sending a zero value if you forget a required parameter,\nand enables explicitly sending `null`, `false`, `\'\'`, or `0` on optional parameters.\nAny field not specified is not sent.\n\nTo construct fields with values, use the helpers `String()`, `Int()`, `Float()`, or most commonly, the generic `F[T]()`.\nTo send a null, use `Null[T]()`, and to send a nonconforming value, use `Raw[T](any)`. For example:\n\n```go\nparams := FooParams{\n\tName: SDK_PackageName.F("hello"),\n\n\t// Explicitly send `"description": null`\n\tDescription: SDK_PackageName.Null[string](),\n\n\tPoint: SDK_PackageName.F(SDK_PackageName.Point{\n\t\tX: SDK_PackageName.Int(0),\n\t\tY: SDK_PackageName.Int(1),\n\n\t\t// In cases where the API specifies a given type,\n\t\t// but you want to send something else, use `Raw`:\n\t\tZ: SDK_PackageName.Raw[int64](0.01), // sends a float\n\t}),\n}\n```\n\n### Response objects\n\nAll fields in response structs are value types (not pointers or wrappers).\n\nIf a given field is `null`, not present, or invalid, the corresponding field\nwill simply be its zero value.\n\nAll response structs also include a special `JSON` field, containing more detailed\ninformation about each property, which you can use like so:\n\n```go\nif res.Name == "" {\n\t// true if `"name"` is either not present or explicitly null\n\tres.JSON.Name.IsNull()\n\n\t// true if the `"name"` key was not present in the response JSON at all\n\tres.JSON.Name.IsMissing()\n\n\t// When the API returns data that cannot be coerced to the expected type:\n\tif res.JSON.Name.IsInvalid() {\n\t\traw := res.JSON.Name.Raw()\n\n\t\tlegacyName := struct{\n\t\t\tFirst string `json:"first"`\n\t\t\tLast  string `json:"last"`\n\t\t}{}\n\t\tjson.Unmarshal([]byte(raw), &legacyName)\n\t\tname = legacyName.First + " " + legacyName.Last\n\t}\n}\n```\n\nThese `.JSON` structs also include an `Extras` map containing\nany properties in the json response that were not specified\nin the struct. This can be useful for API features not yet\npresent in the SDK.\n\n```go\nbody := res.JSON.ExtraFields["my_unexpected_field"].Raw()\n```\n\n### RequestOptions\n\nThis library uses the functional options pattern. Functions defined in the\n`SDK_PackageOptionName` package return a `RequestOption`, which is a closure that mutates a\n`RequestConfig`. These options can be supplied to the client or at individual\nrequests. For example:\n\n```go\nclient := SDK_PackageName.SDK_ClientInitializerName(\n\t// Adds a header to every request made by the client\n\tSDK_PackageOptionName.WithHeader("X-Some-Header", "custom_header_info"),\n)\n\nclient.Cards.New(context.TODO(), ...,\n\t// Override the header\n\tSDK_PackageOptionName.WithHeader("X-Some-Header", "some_other_custom_header_info"),\n\t// Add an undocumented field to the request body, using sjson syntax\n\tSDK_PackageOptionName.WithJSONSet("some.json.path", map[string]string{"my": "object"}),\n)\n```\n\nSee the [full list of request options](https://pkg.go.dev/github.com/lithic-com/lithic-go/SDK_PackageOptionName).\n\n### Pagination\n\nThis library provides some conveniences for working with paginated list endpoints.\n\nYou can use `.ListAutoPaging()` methods to iterate through items across all pages:\n\n```go\niter := client.Cards.ListAutoPaging(context.TODO(), lithic.CardListParams{})\n// Automatically fetches more pages as needed.\nfor iter.Next() {\n\tnonPCICard := iter.Current()\n\tfmt.Printf("%+v\\n", nonPCICard)\n}\nif err := iter.Err(); err != nil {\n\tpanic(err.Error())\n}\n```\n\nOr you can use simple `.List()` methods to fetch a single page and receive a standard response object\nwith additional helper methods like `.GetNextPage()`, e.g.:\n\n```go\npage, err := client.Cards.List(context.TODO(), lithic.CardListParams{})\nfor page != nil {\n\tfor _, card := range page.Data {\n\t\tfmt.Printf("%+v\\n", card)\n\t}\n\tpage, err = page.GetNextPage()\n}\nif err != nil {\n\tpanic(err.Error())\n}\n```\n\n### Errors\n\nWhen the API returns a non-success status code, we return an error with type\n`*SDK_PackageName.Error`. This contains the `StatusCode`, `*http.Request`, and\n`*http.Response` values of the request, as well as the JSON of the error body\n(much like other response objects in the SDK).\n\nTo handle errors, we recommend that you use the `errors.As` pattern:\n\n```go\n_, err := client.Cards.New(context.TODO(), lithic.CardNewParams{\n\tType: lithic.F(lithic.CardNewParamsTypeMerchantLocked),\n})\nif err != nil {\n\tvar apierr *lithic.Error\n\tif errors.As(err, &apierr) {\n\t\tprintln(string(apierr.DumpRequest(true)))  // Prints the serialized HTTP request\n\t\tprintln(string(apierr.DumpResponse(true))) // Prints the serialized HTTP response\n\t\tprintln(apierr.Message)                    // Invalid parameter(s): type\n\t\tprintln(apierr.DebuggingRequestID)         // 94d5e915-xxxx-4cee-a4f5-2xd6ebd279ac\n\t}\n\tpanic(err.Error()) // GET "/v1/cards": 400 Bad Request { ... }\n}\n```\n\nWhen other errors occur, they are returned unwrapped; for example,\nif HTTP transport fails, you might receive `*url.Error` wrapping `*net.OpError`.\n\n### Timeouts\n\nRequests do not time out by default; use context to configure a timeout for a request lifecycle.\n\nNote that if a request is [retried](#retries), the context timeout does not start over.\nTo set a per-retry timeout, use `SDK_PackageOptionName.WithRequestTimeout()`.\n\n```go\n// This sets the timeout for the request, including all the retries.\nctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)\ndefer cancel()\nclient.Cards.List(\n\tctx,\n\tlithic.CardListParams{\n\t\tPageSize: lithic.F(int64(10)),\n\t},\n\t// This sets the per-retry timeout\n\toption.WithRequestTimeout(20*time.Second),\n)\n```\n\n### File uploads\n\nRequest parameters that correspond to file uploads in multipart requests are typed as\n`param.Field[io.Reader]`. The contents of the `io.Reader` will by default be sent as a multipart form\npart with the file name of "anonymous_file" and content-type of "application/octet-stream".\n\nThe file name and content-type can be customized by implementing `Name() string` or `ContentType()\nstring` on the run-time type of `io.Reader`. Note that `os.File` implements `Name() string`, so a\nfile returned by `os.Open` will be sent with the file name on disk.\n\nWe also provide a helper `SDK_PackageName.FileParam(reader io.Reader, filename string, contentType string)`\nwhich can be used to wrap any `io.Reader` with the appropriate file name and content type.\n\n\n\n### Retries\n\nCertain errors will be automatically retried 2 times by default, with a short exponential backoff.\nWe retry by default all connection errors, 408 Request Timeout, 409 Conflict, 429 Rate Limit,\nand >=500 Internal errors.\n\nYou can use the `WithMaxRetries` option to configure or disable this:\n\n```go\n// Configure the default for all requests:\nclient := lithic.NewClient(\n\toption.WithMaxRetries(0), // default is 2\n)\n\n// Override per-request:\nclient.Cards.List(\n\tcontext.TODO(),\n\tlithic.CardListParams{\n\t\tPageSize: lithic.F(int64(10)),\n\t},\n\toption.WithMaxRetries(5),\n)\n```\n\n\n### Accessing raw response data (e.g. response headers)\n\nYou can access the raw HTTP response data by using the `option.WithResponseInto()` request option. This is useful when\nyou need to examine response headers, status codes, or other details.\n\n```go\n// Create a variable to store the HTTP response\nvar response *http.Response\ncard, err := client.Cards.New(\n\tcontext.TODO(),\n\tlithic.CardNewParams{\n\t\tType: lithic.F(lithic.CardNewParamsTypeSingleUse),\n\t},\n\toption.WithResponseInto(&response),\n)\nif err != nil {\n\t// handle error\n}\nfmt.Printf("%+v\\n", card)\n\nfmt.Printf("Status Code: %d\\n", response.StatusCode)\nfmt.Printf("Headers: %+#v\\n", response.Header)\n```\n\n### Making custom/undocumented requests\n\nThis library is typed for convenient access to the documented API. If you need to access undocumented\nendpoints, params, or response properties, the library can still be used.\n\n#### Undocumented endpoints\n\nTo make requests to undocumented endpoints, you can use `client.Get`, `client.Post`, and other HTTP verbs.\n`RequestOptions` on the client, such as retries, will be respected when making these requests.\n\n```go\nvar (\n    // params can be an io.Reader, a []byte, an encoding/json serializable object,\n    // or a "…Params" struct defined in this library.\n    params map[string]interface{}\n\n    // result can be an []byte, *http.Response, a encoding/json deserializable object,\n    // or a model defined in this library.\n    result *http.Response\n)\nerr := client.Post(context.Background(), "/unspecified", params, &result)\nif err != nil {\n    …\n}\n```\n\n#### Undocumented request params\n\nTo make requests using undocumented parameters, you may use either the `SDK_PackageOptionName.WithQuerySet()`\nor the `SDK_PackageOptionName.WithJSONSet()` methods.\n\n```go\nparams := FooNewParams{\n    ID:   SDK_PackageName.F("id_xxxx"),\n    Data: SDK_PackageName.F(FooNewParamsData{\n        FirstName: SDK_PackageName.F("John"),\n    }),\n}\nclient.Foo.New(context.Background(), params, SDK_PackageOptionName.WithJSONSet("data.last_name", "Doe"))\n```\n\n#### Undocumented response properties\n\nTo access undocumented response properties, you may either access the raw JSON of the response as a string\nwith `result.JSON.RawJSON()`, or get the raw JSON of a particular field on the result with\n`result.JSON.Foo.Raw()`.\n\nAny fields that are not present on the response struct will be saved and can be accessed by `result.JSON.ExtraFields()` which returns the extra fields as a `map[string]Field`.\n\n### Middleware\n\nWe provide `SDK_PackageOptionName.WithMiddleware` which applies the given\nmiddleware to requests.\n\n```go\nfunc Logger(req *http.Request, next SDK_PackageOptionName.MiddlewareNext) (res *http.Response, err error) {\n\t// Before the request\n\tstart := time.Now()\n\tLogReq(req)\n\n\t// Forward the request to the next handler\n\tres, err = next(req)\n\n\t// Handle stuff after the request\n\tend := time.Now()\n\tLogRes(res, err, start - end)\n\n    return res, err\n}\n\nclient := SDK_PackageName.SDK_ClientInitializerName(\n\tSDK_PackageOptionName.WithMiddleware(Logger),\n)\n```\n\nWhen multiple middlewares are provided as variadic arguments, the middlewares\nare applied left to right. If `SDK_PackageOptionName.WithMiddleware` is given\nmultiple times, for example first in the client then the method, the\nmiddleware in the client will run first and the middleware given in the method\nwill run next.\n\nYou may also replace the default `http.Client` with\n`SDK_PackageOptionName.WithHTTPClient(client)`. Only one http client is\naccepted (this overwrites any previous client) and receives requests after any\nmiddleware has been applied.\n\n## Semantic versioning\n\nThis package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:\n\n1. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals.)_\n2. Changes that we do not expect to impact the vast majority of users in practice.\n\nWe take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.\n\nWe are keen for your feedback; please open an [issue](https://www.github.com/lithic-com/lithic-go/issues) with questions, bugs, or suggestions.\n\n## Contributing\n\nSee [the contributing documentation](./CONTRIBUTING.md).\n',
+  },
   {
     language: 'java',
     content:
@@ -11448,11 +11453,6 @@ const EMBEDDED_READMES: { language: string; content: string }[] = [
     language: 'typescript',
     content:
       "# Lithic TypeScript API Library\n\n[![NPM version](https://img.shields.io/npm/v/lithic.svg?label=npm%20(stable))](https://npmjs.org/package/lithic) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/lithic)\n\nThis library provides convenient access to the Lithic REST API from server-side TypeScript or JavaScript.\n\n\n\nThe REST API documentation can be found on [docs.lithic.com](https://docs.lithic.com). The full API of this library can be found in [api.md](api.md).\n\n\n\n## MCP Server\n\nUse the Lithic MCP Server to enable AI assistants to interact with this API, allowing them to explore endpoints, make test requests, and use documentation to help integrate this SDK into your application.\n\n[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=lithic-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImxpdGhpYy1tY3AiXSwiZW52Ijp7IkxJVEhJQ19BUElfS0VZIjoiTXkgTGl0aGljIEFQSSBLZXkiLCJMSVRISUNfV0VCSE9PS19TRUNSRVQiOiJNeSBXZWJob29rIFNlY3JldCJ9fQ)\n[![Install in VS Code](https://img.shields.io/badge/_-Add_to_VS_Code-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHBhdGggZmlsbD0iI0VFRSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzAuMjM1IDM5Ljg4NGEyLjQ5MSAyLjQ5MSAwIDAgMS0xLjc4MS0uNzNMMTIuNyAyNC43OGwtMy40NiAyLjYyNC0zLjQwNiAyLjU4MmExLjY2NSAxLjY2NSAwIDAgMS0xLjA4Mi4zMzggMS42NjQgMS42NjQgMCAwIDEtMS4wNDYtLjQzMWwtMi4yLTJhMS42NjYgMS42NjYgMCAwIDEgMC0yLjQ2M0w3LjQ1OCAyMCA0LjY3IDE3LjQ1MyAxLjUwNyAxNC41N2ExLjY2NSAxLjY2NSAwIDAgMSAwLTIuNDYzbDIuMi0yYTEuNjY1IDEuNjY1IDAgMCAxIDIuMTMtLjA5N2w2Ljg2MyA1LjIwOUwyOC40NTIuODQ0YTIuNDg4IDIuNDg4IDAgMCAxIDEuODQxLS43MjljLjM1MS4wMDkuNjk5LjA5MSAxLjAxOS4yNDVsOC4yMzYgMy45NjFhMi41IDIuNSAwIDAgMSAxLjQxNSAyLjI1M3YuMDk5LS4wNDVWMzMuMzd2LS4wNDUuMDk1YTIuNTAxIDIuNTAxIDAgMCAxLTEuNDE2IDIuMjU3bC04LjIzNSAzLjk2MWEyLjQ5MiAyLjQ5MiAwIDAgMS0xLjA3Ny4yNDZabS43MTYtMjguOTQ3LTExLjk0OCA5LjA2MiAxMS45NTIgOS4wNjUtLjAwNC0xOC4xMjdaIi8+PC9zdmc+)](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22lithic-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22lithic-mcp%22%5D%2C%22env%22%3A%7B%22LITHIC_API_KEY%22%3A%22My%20Lithic%20API%20Key%22%2C%22LITHIC_WEBHOOK_SECRET%22%3A%22My%20Webhook%20Secret%22%7D%7D)\n\n> Note: You may need to set environment variables in your MCP client.\n\n## Installation\n\n```sh\nnpm install lithic\n```\n\n\n\n## Usage\n\nThe full API of this library can be found in [api.md](api.md).\n\n<!-- prettier-ignore -->\n```js\nimport Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n  environment: 'sandbox', // defaults to 'production'\n});\n\nconst card = await client.cards.create({ type: 'SINGLE_USE' });\n\nconsole.log(card.token);\n```\n\n\n\n### Request & Response types\n\nThis library includes TypeScript definitions for all request params and response fields. You may import and use them like so:\n\n<!-- prettier-ignore -->\n```ts\nimport Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n  environment: 'sandbox', // defaults to 'production'\n});\n\nconst params: Lithic.CardCreateParams = { type: 'SINGLE_USE' };\nconst card: Lithic.Card = await client.cards.create(params);\n```\n\nDocumentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.\n\n\n\n\n\n## Handling errors\n\nWhen the library is unable to connect to the API,\nor if the API returns a non-success status code (i.e., 4xx or 5xx response),\na subclass of `APIError` will be thrown:\n\n<!-- prettier-ignore -->\n```ts\nconst card = await client.cards.create({ type: 'MERCHANT_LOCKED' }).catch(async (err) => {\n  if (err instanceof Lithic.APIError) {\n    console.log(err.status); // 400\n    console.log(err.name); // BadRequestError\n    console.log(err.error?.message); // Invalid parameter(s): type\n    console.log(err.error?.debugging_request_id); // 94d5e915-xxxx-4cee-a4f5-2xd6ebd279ac\n    console.log(err.headers); // {server: 'nginx', ...}\n  } else {\n    throw err;\n  }\n});\n```\n\nError codes are as follows:\n\n| Status Code | Error Type                 |\n| ----------- | -------------------------- |\n| 400         | `BadRequestError`          |\n| 401         | `AuthenticationError`      |\n| 403         | `PermissionDeniedError`    |\n| 404         | `NotFoundError`            |\n| 422         | `UnprocessableEntityError` |\n| 429         | `RateLimitError`           |\n| >=500       | `InternalServerError`      |\n| N/A         | `APIConnectionError`       |\n\n### Retries\n\nCertain errors will be automatically retried 2 times by default, with a short exponential backoff.\nConnection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict,\n429 Rate Limit, and >=500 Internal errors will all be retried by default.\n\nYou can use the `maxRetries` option to configure or disable this:\n\n<!-- prettier-ignore -->\n```js\n// Configure the default for all requests:\nconst client = new Lithic({\n  maxRetries: 0, // default is 2\n});\n\n// Or, configure per-request:\nawait client.cards.list({ page_size: 10 }, {\n  maxRetries: 5,\n});\n```\n\n### Timeouts\n\nRequests time out after 1 minute by default. You can configure this with a `timeout` option:\n\n<!-- prettier-ignore -->\n```ts\n// Configure the default for all requests:\nconst client = new Lithic({\n  timeout: 20 * 1000, // 20 seconds (default is 1 minute)\n});\n\n// Override per-request:\nawait client.cards.list({ page_size: 10 }, {\n  timeout: 5 * 1000,\n});\n```\n\nOn timeout, an `APIConnectionTimeoutError` is thrown.\n\nNote that requests which time out will be [retried twice by default](#retries).\n\n## Auto-pagination\n\nList methods in the Lithic API are paginated.\nYou can use the `for await … of` syntax to iterate through items across all pages:\n\n```ts\nasync function fetchAllNonPCICards(params) {\n  const allNonPCICards = [];\n  // Automatically fetches more pages as needed.\n  for await (const nonPCICard of client.cards.list()) {\n    allNonPCICards.push(nonPCICard);\n  }\n  return allNonPCICards;\n}\n```\n\nAlternatively, you can request a single page at a time:\n\n```ts\nlet page = await client.cards.list();\nfor (const nonPCICard of page.data) {\n  console.log(nonPCICard);\n}\n\n// Convenience methods are provided for manually paginating:\nwhile (page.hasNextPage()) {\n  page = await page.getNextPage();\n  // ...\n}\n```\n\n\n\n## Advanced Usage\n\n### Accessing raw Response data (e.g., headers)\n\nThe \"raw\" `Response` returned by `fetch()` can be accessed through the `.asResponse()` method on the `APIPromise` type that all methods return.\nThis method returns as soon as the headers for a successful response are received and does not consume the response body, so you are free to write custom parsing or streaming logic.\n\nYou can also use the `.withResponse()` method to get the raw `Response` along with the parsed data.\nUnlike `.asResponse()` this method consumes the body, returning once it is parsed.\n\n<!-- prettier-ignore -->\n```ts\nconst client = new Lithic();\n\nconst response = await client.cards.create({ type: 'SINGLE_USE' }).asResponse();\nconsole.log(response.headers.get('X-My-Header'));\nconsole.log(response.statusText); // access the underlying Response object\n\nconst { data: card, response: raw } = await client.cards\n  .create({ type: 'SINGLE_USE' })\n  .withResponse();\nconsole.log(raw.headers.get('X-My-Header'));\nconsole.log(card.token);\n```\n\n### Logging\n\n> [!IMPORTANT]\n> All log messages are intended for debugging only. The format and content of log messages\n> may change between releases.\n\n#### Log levels\n\nThe log level can be configured in two ways:\n\n1. Via the `LITHIC_LOG` environment variable\n2. Using the `logLevel` client option (overrides the environment variable if set)\n\n```ts\nimport Lithic from 'lithic';\n\nconst client = new Lithic({\n  logLevel: 'debug', // Show all log messages\n});\n```\n\nAvailable log levels, from most to least verbose:\n\n- `'debug'` - Show debug messages, info, warnings, and errors\n- `'info'` - Show info messages, warnings, and errors\n- `'warn'` - Show warnings and errors (default)\n- `'error'` - Show only errors\n- `'off'` - Disable all logging\n\nAt the `'debug'` level, all HTTP requests and responses are logged, including headers and bodies.\nSome authentication-related headers are redacted, but sensitive data in request and response bodies\nmay still be visible.\n\n#### Custom logger\n\nBy default, this library logs to `globalThis.console`. You can also provide a custom logger.\nMost logging libraries are supported, including [pino](https://www.npmjs.com/package/pino), [winston](https://www.npmjs.com/package/winston), [bunyan](https://www.npmjs.com/package/bunyan), [consola](https://www.npmjs.com/package/consola), [signale](https://www.npmjs.com/package/signale), and [@std/log](https://jsr.io/@std/log). If your logger doesn't work, please open an issue.\n\nWhen providing a custom logger, the `logLevel` option still controls which messages are emitted, messages\nbelow the configured level will not be sent to your logger.\n\n```ts\nimport Lithic from 'lithic';\nimport pino from 'pino';\n\nconst logger = pino();\n\nconst client = new Lithic({\n  logger: logger.child({ name: 'Lithic' }),\n  logLevel: 'debug', // Send all messages to pino, allowing it to filter\n});\n```\n\n### Making custom/undocumented requests\n\nThis library is typed for convenient access to the documented API. If you need to access undocumented\nendpoints, params, or response properties, the library can still be used.\n\n#### Undocumented endpoints\n\nTo make requests to undocumented endpoints, you can use `client.get`, `client.post`, and other HTTP verbs.\nOptions on the client, such as retries, will be respected when making these requests.\n\n```ts\nawait client.post('/some/path', {\n  body: { some_prop: 'foo' },\n  query: { some_query_arg: 'bar' },\n});\n```\n\n#### Undocumented request params\n\nTo make requests using undocumented parameters, you may use `// @ts-expect-error` on the undocumented\nparameter. This library doesn't validate at runtime that the request matches the type, so any extra values you\nsend will be sent as-is.\n\n```ts\nclient.cards.create({\n  // ...\n  // @ts-expect-error baz is not yet public\n  baz: 'undocumented option',\n});\n```\n\nFor requests with the `GET` verb, any extra params will be in the query, all other requests will send the\nextra param in the body.\n\nIf you want to explicitly send an extra argument, you can do so with the `query`, `body`, and `headers` request\noptions.\n\n#### Undocumented response properties\n\nTo access undocumented response properties, you may access the response object with `// @ts-expect-error` on\nthe response object, or cast the response object to the requisite type. Like the request params, we do not\nvalidate or strip extra properties from the response from the API.\n\n### Customizing the fetch client\n\nBy default, this library expects a global `fetch` function is defined.\n\nIf you want to use a different `fetch` function, you can either polyfill the global:\n\n```ts\nimport fetch from 'my-fetch';\n\nglobalThis.fetch = fetch;\n```\n\nOr pass it to the client:\n\n```ts\nimport Lithic from 'lithic';\nimport fetch from 'my-fetch';\n\nconst client = new Lithic({ fetch });\n```\n\n### Fetch options\n\nIf you want to set custom `fetch` options without overriding the `fetch` function, you can provide a `fetchOptions` object when instantiating the client or making a request. (Request-specific options override client options.)\n\n```ts\nimport Lithic from 'lithic';\n\nconst client = new Lithic({\n  fetchOptions: {\n    // `RequestInit` options\n  },\n});\n```\n\n#### Configuring proxies\n\nTo modify proxy behavior, you can provide custom `fetchOptions` that add runtime-specific proxy\noptions to requests:\n\n<img src=\"https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/node.svg\" align=\"top\" width=\"18\" height=\"21\"> **Node** <sup>[[docs](https://github.com/nodejs/undici/blob/main/docs/docs/api/ProxyAgent.md#example---proxyagent-with-fetch)]</sup>\n\n```ts\nimport Lithic from 'lithic';\nimport * as undici from 'undici';\n\nconst proxyAgent = new undici.ProxyAgent('http://localhost:8888');\nconst client = new Lithic({\n  fetchOptions: {\n    dispatcher: proxyAgent,\n  },\n});\n```\n\n<img src=\"https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/bun.svg\" align=\"top\" width=\"18\" height=\"21\"> **Bun** <sup>[[docs](https://bun.sh/guides/http/proxy)]</sup>\n\n```ts\nimport Lithic from 'lithic';\n\nconst client = new Lithic({\n  fetchOptions: {\n    proxy: 'http://localhost:8888',\n  },\n});\n```\n\n<img src=\"https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/deno.svg\" align=\"top\" width=\"18\" height=\"21\"> **Deno** <sup>[[docs](https://docs.deno.com/api/deno/~/Deno.createHttpClient)]</sup>\n\n```ts\nimport Lithic from 'npm:lithic';\n\nconst httpClient = Deno.createHttpClient({ proxy: { url: 'http://localhost:8888' } });\nconst client = new Lithic({\n  fetchOptions: {\n    client: httpClient,\n  },\n});\n```\n\n## Frequently Asked Questions\n\n## Semantic versioning\n\nThis package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:\n\n1. Changes that only affect static types, without breaking runtime behavior.\n2. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals.)_\n3. Changes that we do not expect to impact the vast majority of users in practice.\n\nWe take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.\n\nWe are keen for your feedback; please open an [issue](https://www.github.com/lithic-com/lithic-node/issues) with questions, bugs, or suggestions.\n\n## Requirements\n\nTypeScript >= 4.9 is supported.\n\nThe following runtimes are supported:\n\n- Web browsers (Up-to-date Chrome, Firefox, Safari, Edge, and more)\n- Node.js 20 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.\n- Deno v1.28.0 or higher.\n- Bun 1.0 or later.\n- Cloudflare Workers.\n- Vercel Edge Runtime.\n- Jest 28 or greater with the `\"node\"` environment (`\"jsdom\"` is not supported at this time).\n- Nitro v2.6 or greater.\n\nNote that React Native is not supported at this time.\n\nIf you are interested in other runtime environments, please open or upvote an issue on GitHub.\n\n## Contributing\n\nSee [the contributing documentation](./CONTRIBUTING.md).\n",
-  },
-  {
-    language: 'go',
-    content:
-      '# Lithic Go API Library\n\n<a href="https://pkg.go.dev/github.com/lithic-com/lithic-go"><img src="https://pkg.go.dev/badge/github.com/lithic-com/lithic-go.svg" alt="Go Reference"></a>\n\nThe Lithic Go library provides convenient access to the [Lithic REST API](https://docs.lithic.com)\nfrom applications written in Go.\n\n\n\n## MCP Server\n\nUse the Lithic MCP Server to enable AI assistants to interact with this API, allowing them to explore endpoints, make test requests, and use documentation to help integrate this SDK into your application.\n\n[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=lithic-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImxpdGhpYy1tY3AiXSwiZW52Ijp7IkxJVEhJQ19BUElfS0VZIjoiTXkgTGl0aGljIEFQSSBLZXkiLCJMSVRISUNfV0VCSE9PS19TRUNSRVQiOiJNeSBXZWJob29rIFNlY3JldCJ9fQ)\n[![Install in VS Code](https://img.shields.io/badge/_-Add_to_VS_Code-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHBhdGggZmlsbD0iI0VFRSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzAuMjM1IDM5Ljg4NGEyLjQ5MSAyLjQ5MSAwIDAgMS0xLjc4MS0uNzNMMTIuNyAyNC43OGwtMy40NiAyLjYyNC0zLjQwNiAyLjU4MmExLjY2NSAxLjY2NSAwIDAgMS0xLjA4Mi4zMzggMS42NjQgMS42NjQgMCAwIDEtMS4wNDYtLjQzMWwtMi4yLTJhMS42NjYgMS42NjYgMCAwIDEgMC0yLjQ2M0w3LjQ1OCAyMCA0LjY3IDE3LjQ1MyAxLjUwNyAxNC41N2ExLjY2NSAxLjY2NSAwIDAgMSAwLTIuNDYzbDIuMi0yYTEuNjY1IDEuNjY1IDAgMCAxIDIuMTMtLjA5N2w2Ljg2MyA1LjIwOUwyOC40NTIuODQ0YTIuNDg4IDIuNDg4IDAgMCAxIDEuODQxLS43MjljLjM1MS4wMDkuNjk5LjA5MSAxLjAxOS4yNDVsOC4yMzYgMy45NjFhMi41IDIuNSAwIDAgMSAxLjQxNSAyLjI1M3YuMDk5LS4wNDVWMzMuMzd2LS4wNDUuMDk1YTIuNTAxIDIuNTAxIDAgMCAxLTEuNDE2IDIuMjU3bC04LjIzNSAzLjk2MWEyLjQ5MiAyLjQ5MiAwIDAgMS0xLjA3Ny4yNDZabS43MTYtMjguOTQ3LTExLjk0OCA5LjA2MiAxMS45NTIgOS4wNjUtLjAwNC0xOC4xMjdaIi8+PC9zdmc+)](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22lithic-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22lithic-mcp%22%5D%2C%22env%22%3A%7B%22LITHIC_API_KEY%22%3A%22My%20Lithic%20API%20Key%22%2C%22LITHIC_WEBHOOK_SECRET%22%3A%22My%20Webhook%20Secret%22%7D%7D)\n\n> Note: You may need to set environment variables in your MCP client.\n\n## Installation\n\n<!-- x-release-please-start-version -->\n\n```go\nimport (\n\t"github.com/lithic-com/lithic-go" // imported as SDK_PackageName\n)\n```\n\n<!-- x-release-please-end -->\n\nOr to pin the version:\n\n<!-- x-release-please-start-version -->\n\n```sh\ngo get -u \'github.com/lithic-com/lithic-go@v0.116.0\'\n```\n\n<!-- x-release-please-end -->\n\n## Requirements\n\nThis library requires Go 1.22+.\n\n## Usage\n\nThe full API of this library can be found in [api.md](api.md).\n\n```go\npackage main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"), // defaults to os.LookupEnv("LITHIC_API_KEY")\n\t\toption.WithEnvironmentSandbox(),        // defaults to option.WithEnvironmentProduction()\n\t)\n\tcard, err := client.Cards.New(context.TODO(), lithic.CardNewParams{\n\t\tType: lithic.F(lithic.CardNewParamsTypeSingleUse),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", card.Token)\n}\n\n```\n\n### Request fields\n\nAll request parameters are wrapped in a generic `Field` type,\nwhich we use to distinguish zero values from null or omitted fields.\n\nThis prevents accidentally sending a zero value if you forget a required parameter,\nand enables explicitly sending `null`, `false`, `\'\'`, or `0` on optional parameters.\nAny field not specified is not sent.\n\nTo construct fields with values, use the helpers `String()`, `Int()`, `Float()`, or most commonly, the generic `F[T]()`.\nTo send a null, use `Null[T]()`, and to send a nonconforming value, use `Raw[T](any)`. For example:\n\n```go\nparams := FooParams{\n\tName: SDK_PackageName.F("hello"),\n\n\t// Explicitly send `"description": null`\n\tDescription: SDK_PackageName.Null[string](),\n\n\tPoint: SDK_PackageName.F(SDK_PackageName.Point{\n\t\tX: SDK_PackageName.Int(0),\n\t\tY: SDK_PackageName.Int(1),\n\n\t\t// In cases where the API specifies a given type,\n\t\t// but you want to send something else, use `Raw`:\n\t\tZ: SDK_PackageName.Raw[int64](0.01), // sends a float\n\t}),\n}\n```\n\n### Response objects\n\nAll fields in response structs are value types (not pointers or wrappers).\n\nIf a given field is `null`, not present, or invalid, the corresponding field\nwill simply be its zero value.\n\nAll response structs also include a special `JSON` field, containing more detailed\ninformation about each property, which you can use like so:\n\n```go\nif res.Name == "" {\n\t// true if `"name"` is either not present or explicitly null\n\tres.JSON.Name.IsNull()\n\n\t// true if the `"name"` key was not present in the response JSON at all\n\tres.JSON.Name.IsMissing()\n\n\t// When the API returns data that cannot be coerced to the expected type:\n\tif res.JSON.Name.IsInvalid() {\n\t\traw := res.JSON.Name.Raw()\n\n\t\tlegacyName := struct{\n\t\t\tFirst string `json:"first"`\n\t\t\tLast  string `json:"last"`\n\t\t}{}\n\t\tjson.Unmarshal([]byte(raw), &legacyName)\n\t\tname = legacyName.First + " " + legacyName.Last\n\t}\n}\n```\n\nThese `.JSON` structs also include an `Extras` map containing\nany properties in the json response that were not specified\nin the struct. This can be useful for API features not yet\npresent in the SDK.\n\n```go\nbody := res.JSON.ExtraFields["my_unexpected_field"].Raw()\n```\n\n### RequestOptions\n\nThis library uses the functional options pattern. Functions defined in the\n`SDK_PackageOptionName` package return a `RequestOption`, which is a closure that mutates a\n`RequestConfig`. These options can be supplied to the client or at individual\nrequests. For example:\n\n```go\nclient := SDK_PackageName.SDK_ClientInitializerName(\n\t// Adds a header to every request made by the client\n\tSDK_PackageOptionName.WithHeader("X-Some-Header", "custom_header_info"),\n)\n\nclient.Cards.New(context.TODO(), ...,\n\t// Override the header\n\tSDK_PackageOptionName.WithHeader("X-Some-Header", "some_other_custom_header_info"),\n\t// Add an undocumented field to the request body, using sjson syntax\n\tSDK_PackageOptionName.WithJSONSet("some.json.path", map[string]string{"my": "object"}),\n)\n```\n\nSee the [full list of request options](https://pkg.go.dev/github.com/lithic-com/lithic-go/SDK_PackageOptionName).\n\n### Pagination\n\nThis library provides some conveniences for working with paginated list endpoints.\n\nYou can use `.ListAutoPaging()` methods to iterate through items across all pages:\n\n```go\niter := client.Cards.ListAutoPaging(context.TODO(), lithic.CardListParams{})\n// Automatically fetches more pages as needed.\nfor iter.Next() {\n\tnonPCICard := iter.Current()\n\tfmt.Printf("%+v\\n", nonPCICard)\n}\nif err := iter.Err(); err != nil {\n\tpanic(err.Error())\n}\n```\n\nOr you can use simple `.List()` methods to fetch a single page and receive a standard response object\nwith additional helper methods like `.GetNextPage()`, e.g.:\n\n```go\npage, err := client.Cards.List(context.TODO(), lithic.CardListParams{})\nfor page != nil {\n\tfor _, card := range page.Data {\n\t\tfmt.Printf("%+v\\n", card)\n\t}\n\tpage, err = page.GetNextPage()\n}\nif err != nil {\n\tpanic(err.Error())\n}\n```\n\n### Errors\n\nWhen the API returns a non-success status code, we return an error with type\n`*SDK_PackageName.Error`. This contains the `StatusCode`, `*http.Request`, and\n`*http.Response` values of the request, as well as the JSON of the error body\n(much like other response objects in the SDK).\n\nTo handle errors, we recommend that you use the `errors.As` pattern:\n\n```go\n_, err := client.Cards.New(context.TODO(), lithic.CardNewParams{\n\tType: lithic.F(lithic.CardNewParamsTypeMerchantLocked),\n})\nif err != nil {\n\tvar apierr *lithic.Error\n\tif errors.As(err, &apierr) {\n\t\tprintln(string(apierr.DumpRequest(true)))  // Prints the serialized HTTP request\n\t\tprintln(string(apierr.DumpResponse(true))) // Prints the serialized HTTP response\n\t\tprintln(apierr.Message)                    // Invalid parameter(s): type\n\t\tprintln(apierr.DebuggingRequestID)         // 94d5e915-xxxx-4cee-a4f5-2xd6ebd279ac\n\t}\n\tpanic(err.Error()) // GET "/v1/cards": 400 Bad Request { ... }\n}\n```\n\nWhen other errors occur, they are returned unwrapped; for example,\nif HTTP transport fails, you might receive `*url.Error` wrapping `*net.OpError`.\n\n### Timeouts\n\nRequests do not time out by default; use context to configure a timeout for a request lifecycle.\n\nNote that if a request is [retried](#retries), the context timeout does not start over.\nTo set a per-retry timeout, use `SDK_PackageOptionName.WithRequestTimeout()`.\n\n```go\n// This sets the timeout for the request, including all the retries.\nctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)\ndefer cancel()\nclient.Cards.List(\n\tctx,\n\tlithic.CardListParams{\n\t\tPageSize: lithic.F(int64(10)),\n\t},\n\t// This sets the per-retry timeout\n\toption.WithRequestTimeout(20*time.Second),\n)\n```\n\n### File uploads\n\nRequest parameters that correspond to file uploads in multipart requests are typed as\n`param.Field[io.Reader]`. The contents of the `io.Reader` will by default be sent as a multipart form\npart with the file name of "anonymous_file" and content-type of "application/octet-stream".\n\nThe file name and content-type can be customized by implementing `Name() string` or `ContentType()\nstring` on the run-time type of `io.Reader`. Note that `os.File` implements `Name() string`, so a\nfile returned by `os.Open` will be sent with the file name on disk.\n\nWe also provide a helper `SDK_PackageName.FileParam(reader io.Reader, filename string, contentType string)`\nwhich can be used to wrap any `io.Reader` with the appropriate file name and content type.\n\n\n\n### Retries\n\nCertain errors will be automatically retried 2 times by default, with a short exponential backoff.\nWe retry by default all connection errors, 408 Request Timeout, 409 Conflict, 429 Rate Limit,\nand >=500 Internal errors.\n\nYou can use the `WithMaxRetries` option to configure or disable this:\n\n```go\n// Configure the default for all requests:\nclient := lithic.NewClient(\n\toption.WithMaxRetries(0), // default is 2\n)\n\n// Override per-request:\nclient.Cards.List(\n\tcontext.TODO(),\n\tlithic.CardListParams{\n\t\tPageSize: lithic.F(int64(10)),\n\t},\n\toption.WithMaxRetries(5),\n)\n```\n\n\n### Accessing raw response data (e.g. response headers)\n\nYou can access the raw HTTP response data by using the `option.WithResponseInto()` request option. This is useful when\nyou need to examine response headers, status codes, or other details.\n\n```go\n// Create a variable to store the HTTP response\nvar response *http.Response\ncard, err := client.Cards.New(\n\tcontext.TODO(),\n\tlithic.CardNewParams{\n\t\tType: lithic.F(lithic.CardNewParamsTypeSingleUse),\n\t},\n\toption.WithResponseInto(&response),\n)\nif err != nil {\n\t// handle error\n}\nfmt.Printf("%+v\\n", card)\n\nfmt.Printf("Status Code: %d\\n", response.StatusCode)\nfmt.Printf("Headers: %+#v\\n", response.Header)\n```\n\n### Making custom/undocumented requests\n\nThis library is typed for convenient access to the documented API. If you need to access undocumented\nendpoints, params, or response properties, the library can still be used.\n\n#### Undocumented endpoints\n\nTo make requests to undocumented endpoints, you can use `client.Get`, `client.Post`, and other HTTP verbs.\n`RequestOptions` on the client, such as retries, will be respected when making these requests.\n\n```go\nvar (\n    // params can be an io.Reader, a []byte, an encoding/json serializable object,\n    // or a "…Params" struct defined in this library.\n    params map[string]interface{}\n\n    // result can be an []byte, *http.Response, a encoding/json deserializable object,\n    // or a model defined in this library.\n    result *http.Response\n)\nerr := client.Post(context.Background(), "/unspecified", params, &result)\nif err != nil {\n    …\n}\n```\n\n#### Undocumented request params\n\nTo make requests using undocumented parameters, you may use either the `SDK_PackageOptionName.WithQuerySet()`\nor the `SDK_PackageOptionName.WithJSONSet()` methods.\n\n```go\nparams := FooNewParams{\n    ID:   SDK_PackageName.F("id_xxxx"),\n    Data: SDK_PackageName.F(FooNewParamsData{\n        FirstName: SDK_PackageName.F("John"),\n    }),\n}\nclient.Foo.New(context.Background(), params, SDK_PackageOptionName.WithJSONSet("data.last_name", "Doe"))\n```\n\n#### Undocumented response properties\n\nTo access undocumented response properties, you may either access the raw JSON of the response as a string\nwith `result.JSON.RawJSON()`, or get the raw JSON of a particular field on the result with\n`result.JSON.Foo.Raw()`.\n\nAny fields that are not present on the response struct will be saved and can be accessed by `result.JSON.ExtraFields()` which returns the extra fields as a `map[string]Field`.\n\n### Middleware\n\nWe provide `SDK_PackageOptionName.WithMiddleware` which applies the given\nmiddleware to requests.\n\n```go\nfunc Logger(req *http.Request, next SDK_PackageOptionName.MiddlewareNext) (res *http.Response, err error) {\n\t// Before the request\n\tstart := time.Now()\n\tLogReq(req)\n\n\t// Forward the request to the next handler\n\tres, err = next(req)\n\n\t// Handle stuff after the request\n\tend := time.Now()\n\tLogRes(res, err, start - end)\n\n    return res, err\n}\n\nclient := SDK_PackageName.SDK_ClientInitializerName(\n\tSDK_PackageOptionName.WithMiddleware(Logger),\n)\n```\n\nWhen multiple middlewares are provided as variadic arguments, the middlewares\nare applied left to right. If `SDK_PackageOptionName.WithMiddleware` is given\nmultiple times, for example first in the client then the method, the\nmiddleware in the client will run first and the middleware given in the method\nwill run next.\n\nYou may also replace the default `http.Client` with\n`SDK_PackageOptionName.WithHTTPClient(client)`. Only one http client is\naccepted (this overwrites any previous client) and receives requests after any\nmiddleware has been applied.\n\n## Semantic versioning\n\nThis package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:\n\n1. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals.)_\n2. Changes that we do not expect to impact the vast majority of users in practice.\n\nWe take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.\n\nWe are keen for your feedback; please open an [issue](https://www.github.com/lithic-com/lithic-go/issues) with questions, bugs, or suggestions.\n\n## Contributing\n\nSee [the contributing documentation](./CONTRIBUTING.md).\n',
   },
 ];
 
