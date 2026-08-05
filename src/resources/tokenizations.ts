@@ -585,7 +585,7 @@ export interface TokenizationResendActivationCodeParams {
 
 export interface TokenizationSimulateParams {
   /**
-   * The three digit cvv for the card.
+   * The three or four digit CVV for the card. AMEX cards use four digit CVVs.
    */
   cvv: string;
 

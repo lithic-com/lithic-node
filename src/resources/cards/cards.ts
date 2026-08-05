@@ -437,7 +437,7 @@ export type NonPCICardsCursorPage = CursorPage<NonPCICard>;
  */
 export interface Card extends NonPCICard {
   /**
-   * Three digit cvv printed on the back of the card.
+   * Three or four digit CVV printed on the card. Amex cards use four digit CVVs
    */
   cvv?: string;
 
