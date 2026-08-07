@@ -196,8 +196,11 @@ export namespace StatementLineItems {
       | 'MONTHLY_REVERSAL'
       | 'ACCOUNT_TO_ACCOUNT'
       | 'STABLECOIN_RECEIVED'
+      | 'STABLECOIN_INITIATED'
       | 'STABLECOIN_REVIEWED'
-      | 'STABLECOIN_SETTLED';
+      | 'STABLECOIN_SENT'
+      | 'STABLECOIN_SETTLED'
+      | 'STABLECOIN_REJECTED';
 
     /**
      * Globally unique identifier for a financial account
