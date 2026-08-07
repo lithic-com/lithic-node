@@ -271,7 +271,8 @@ export interface FinancialAccount {
 
   /**
    * Provisioned blockchain deposit addresses for this financial account, keyed by
-   * the blockchain network that each address belongs to
+   * the full name of the blockchain network that each address belongs to (e.g.
+   * `ETHEREUM`)
    */
   blockchain_addresses?: { [key: string]: string } | null;
 
