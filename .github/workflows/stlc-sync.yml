@@ -3,8 +3,6 @@
 # At cutover, replace:
 #   - the production repo with lithic-com/lithic-node
 #   - the staging/config repo owner with your own org after transfer
-#   - runs-on: the depot-ubuntu-24.04 guard is Stainless-specific; after transfer
-#     it falls back automatically (or set the STLC_RUNNER repo variable)
 name: Sync SDK repos
 
 # Keeps the staging and production trunks in sync and the config repo's
@@ -29,7 +27,7 @@ jobs:
   back-sync:
     # Fast-forward production main back onto staging so the trunks stay identical.
     # Runner comes from the STLC_RUNNER repo/org variable when set; defaults to GitHub-hosted.
-    runs-on: ${{ startsWith(github.repository, 'stainless-sdks/') && 'depot-ubuntu-24.04' || vars.STLC_RUNNER || 'ubuntu-latest' }}
+    runs-on: ${{ vars.STLC_RUNNER || 'ubuntu-latest' }}
     if: >-
       github.repository == 'stainless-sdks/lithic-typescript-staging' &&
       (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'repository_dispatch')
@@ -105,7 +103,7 @@ jobs:
   notify-back-sync:
     # On a published release, tell staging to back-sync now instead of waiting for
     # the poll. Dispatch-only: it cannot write production or staging contents.
-    runs-on: ${{ startsWith(github.repository, 'stainless-sdks/') && 'depot-ubuntu-24.04' || vars.STLC_RUNNER || 'ubuntu-latest' }}
+    runs-on: ${{ vars.STLC_RUNNER || 'ubuntu-latest' }}
     if: >-
       github.repository == 'stainless-sdks/lithic-typescript-prod' &&
       (github.event_name == 'release' || github.event_name == 'workflow_dispatch')
@@ -158,7 +156,7 @@ jobs:
     # When out-of-band custom code lands on staging main, tell the config repo to
     # re-seal now instead of waiting for its scheduled sync. The loop guards skip
     # stlc's own pushes, so the bot's commits can't trigger a re-seal loop.
-    runs-on: ${{ startsWith(github.repository, 'stainless-sdks/') && 'depot-ubuntu-24.04' || vars.STLC_RUNNER || 'ubuntu-latest' }}
+    runs-on: ${{ vars.STLC_RUNNER || 'ubuntu-latest' }}
     if: >-
       github.repository == 'stainless-sdks/lithic-typescript-staging' &&
       github.event_name == 'push'

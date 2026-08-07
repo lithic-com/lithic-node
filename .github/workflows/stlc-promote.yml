@@ -3,8 +3,6 @@
 # At cutover, replace:
 #   - the production repo with lithic-com/lithic-node
 #   - the staging/config repo owner with your own org after transfer
-#   - runs-on: the depot-ubuntu-24.04 guard is Stainless-specific; after transfer
-#     it falls back automatically (or set the STLC_RUNNER repo variable)
 name: Promote SDKs
 
 # Promote staging to production by fast-forwarding production main up to staging,
@@ -20,7 +18,7 @@ permissions:
 jobs:
   promote:
     # Runner comes from the STLC_RUNNER repo/org variable when set; defaults to GitHub-hosted.
-    runs-on: ${{ startsWith(github.repository, 'stainless-sdks/') && 'depot-ubuntu-24.04' || vars.STLC_RUNNER || 'ubuntu-latest' }}
+    runs-on: ${{ vars.STLC_RUNNER || 'ubuntu-latest' }}
     if: github.repository == 'stainless-sdks/lithic-typescript-staging'
     # Optional gate: add required reviewers to this environment to approve each
     # promote. With none it only scopes secrets and adds no gate. Remove if unused.
