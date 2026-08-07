@@ -77,15 +77,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ApiStatus\nimport com.lithic.api.models.ClientApiStatusParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val apiStatus: ApiStatus = client.apiStatus()\n}',
       },
-      ruby: {
-        method: 'api_status',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\napi_status = lithic.api_status\n\nputs(api_status)',
-      },
       python: {
         method: 'api_status',
         example:
           'from lithic import Lithic\n\nclient = Lithic()\napi_status = client.api_status()\nprint(api_status.message)',
+      },
+      ruby: {
+        method: 'api_status',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\napi_status = lithic.api_status\n\nputs(api_status)',
       },
       typescript: {
         method: 'client.apiStatus',
@@ -132,15 +132,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AccountListPage\nimport com.lithic.api.models.AccountListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: AccountListPage = client.accounts().list()\n}',
       },
-      ruby: {
-        method: 'accounts.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.accounts.list\n\nputs(page)',
-      },
       python: {
         method: 'accounts.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.accounts.list()\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'accounts.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.accounts.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.accounts.list',
@@ -181,15 +181,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Account\nimport com.lithic.api.models.AccountRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val account: Account = client.accounts().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'accounts.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\naccount = lithic.accounts.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(account)',
-      },
       python: {
         method: 'accounts.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\naccount = client.accounts.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(account.token)',
+      },
+      ruby: {
+        method: 'accounts.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\naccount = lithic.accounts.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(account)',
       },
       typescript: {
         method: 'client.accounts.retrieve',
@@ -241,15 +241,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Account\nimport com.lithic.api.models.AccountUpdateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val account: Account = client.accounts().update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'accounts.update',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\naccount = lithic.accounts.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(account)',
-      },
       python: {
         method: 'accounts.update',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\naccount = client.accounts.update(\n    account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    daily_spend_limit=1000,\n)\nprint(account.token)',
+      },
+      ruby: {
+        method: 'accounts.update',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\naccount = lithic.accounts.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(account)',
       },
       typescript: {
         method: 'client.accounts.update',
@@ -292,15 +292,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AccountRetrieveSpendLimitsParams\nimport com.lithic.api.models.AccountSpendLimits\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val accountSpendLimits: AccountSpendLimits = client.accounts().retrieveSpendLimits("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'accounts.retrieve_spend_limits',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\naccount_spend_limits = lithic.accounts.retrieve_spend_limits("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(account_spend_limits)',
-      },
       python: {
         method: 'accounts.retrieve_spend_limits',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\naccount_spend_limits = client.accounts.retrieve_spend_limits(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(account_spend_limits.available_spend_limit)',
+      },
+      ruby: {
+        method: 'accounts.retrieve_spend_limits',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\naccount_spend_limits = lithic.accounts.retrieve_spend_limits("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(account_spend_limits)',
       },
       typescript: {
         method: 'client.accounts.retrieveSpendLimits',
@@ -343,15 +343,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AccountRetrieveSignalsParams\nimport com.lithic.api.models.SignalsResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val signalsResponse: SignalsResponse = client.accounts().retrieveSignals("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'accounts.retrieve_signals',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nsignals_response = lithic.accounts.retrieve_signals("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(signals_response)',
-      },
       python: {
         method: 'accounts.retrieve_signals',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nsignals_response = client.accounts.retrieve_signals(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(signals_response.approved_txn_amount_m2)',
+      },
+      ruby: {
+        method: 'accounts.retrieve_signals',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nsignals_response = lithic.accounts.retrieve_signals("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(signals_response)',
       },
       typescript: {
         method: 'client.accounts.retrieveSignals',
@@ -394,15 +394,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AccountHolderCreateResponse\nimport com.lithic.api.models.Address\nimport com.lithic.api.models.Kyb\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: Kyb = Kyb.builder()\n        .addBeneficialOwnerIndividual(Kyb.KybIndividual.builder()\n            .address(Address.builder()\n                .address1("300 Normal Forest Way")\n                .city("Portland")\n                .country("USA")\n                .postalCode("90210")\n                .state("OR")\n                .build())\n            .dob("1991-03-08T08:00:00Z")\n            .email("tim@left-earth.com")\n            .firstName("Timmy")\n            .governmentId("211-23-1412")\n            .lastName("Turner")\n            .build())\n        .businessEntity(Kyb.BusinessEntity.builder()\n            .address(Address.builder()\n                .address1("123 Old Forest Way")\n                .city("Omaha")\n                .country("USA")\n                .postalCode("61022")\n                .state("NE")\n                .build())\n            .governmentId("12-3456789")\n            .legalBusinessName("Busy Business, Inc.")\n            .addPhoneNumber("+15555555555")\n            .build())\n        .controlPerson(Kyb.KybIndividual.builder()\n            .address(Address.builder()\n                .address1("451 New Forest Way")\n                .city("Springfield")\n                .country("USA")\n                .postalCode("68022")\n                .state("IL")\n                .build())\n            .dob("1991-03-08T08:00:00Z")\n            .email("tom@middle-pluto.com")\n            .firstName("Tom")\n            .governmentId("111-23-1412")\n            .lastName("Timothy")\n            .build())\n        .natureOfBusiness("Software company selling solutions to the restaurant industry")\n        .tosTimestamp("2022-03-08T08:00:00Z")\n        .workflow(Kyb.Workflow.KYB_BYO)\n        .build()\n    val accountHolder: AccountHolderCreateResponse = client.accountHolders().create(params)\n}',
       },
-      ruby: {
-        method: 'account_holders.create',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\naccount_holder = lithic.account_holders.create(\n  body: {\n    beneficial_owner_individuals: [\n      {\n        address: {address1: "300 Normal Forest Way", city: "Portland", country: "USA", postal_code: "90210", state: "OR"},\n        dob: "1991-03-08T08:00:00Z",\n        email: "tim@left-earth.com",\n        first_name: "Timmy",\n        government_id: "211-23-1412",\n        last_name: "Turner"\n      }\n    ],\n    business_entity: {\n      address: {address1: "123 Old Forest Way", city: "Omaha", country: "USA", postal_code: "61022", state: "NE"},\n      government_id: "12-3456789",\n      legal_business_name: "Busy Business, Inc.",\n      phone_numbers: ["+15555555555"]\n    },\n    control_person: {\n      address: {address1: "451 New Forest Way", city: "Springfield", country: "USA", postal_code: "68022", state: "IL"},\n      dob: "1991-03-08T08:00:00Z",\n      email: "tom@middle-pluto.com",\n      first_name: "Tom",\n      government_id: "111-23-1412",\n      last_name: "Timothy"\n    },\n    nature_of_business: "Software company selling solutions to the restaurant industry",\n    tos_timestamp: "2022-03-08T08:00:00Z",\n    workflow: :KYB_BYO\n  }\n)\n\nputs(account_holder)',
-      },
       python: {
         method: 'account_holders.create',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\naccount_holder = client.account_holders.create(\n    beneficial_owner_individuals=[{\n        "address": {\n            "address1": "300 Normal Forest Way",\n            "city": "Portland",\n            "country": "USA",\n            "postal_code": "90210",\n            "state": "OR",\n        },\n        "dob": "1991-03-08T08:00:00Z",\n        "email": "tim@left-earth.com",\n        "first_name": "Timmy",\n        "government_id": "211-23-1412",\n        "last_name": "Turner",\n        "phone_number": "+15555555555",\n    }],\n    business_entity={\n        "address": {\n            "address1": "123 Old Forest Way",\n            "city": "Omaha",\n            "country": "USA",\n            "postal_code": "61022",\n            "state": "NE",\n        },\n        "dba_business_name": "Example Business Solutions",\n        "government_id": "12-3456789",\n        "legal_business_name": "Busy Business, Inc.",\n        "phone_numbers": ["+15555555555"],\n    },\n    control_person={\n        "address": {\n            "address1": "451 New Forest Way",\n            "city": "Springfield",\n            "country": "USA",\n            "postal_code": "68022",\n            "state": "IL",\n        },\n        "dob": "1991-03-08T08:00:00Z",\n        "email": "tom@middle-pluto.com",\n        "first_name": "Tom",\n        "government_id": "111-23-1412",\n        "last_name": "Timothy",\n        "phone_number": "+15555555555",\n    },\n    nature_of_business="Software company selling solutions to the restaurant industry",\n    tos_timestamp="2022-03-08T08:00:00Z",\n    workflow="KYB_BYO",\n    kyb_passed_timestamp="2022-03-08T08:00:00Z",\n    naics_code="541512",\n    website_url="https://www.mybusiness.com",\n)\nprint(account_holder.external_id)',
+      },
+      ruby: {
+        method: 'account_holders.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\naccount_holder = lithic.account_holders.create(\n  body: {\n    beneficial_owner_individuals: [\n      {\n        address: {address1: "300 Normal Forest Way", city: "Portland", country: "USA", postal_code: "90210", state: "OR"},\n        dob: "1991-03-08T08:00:00Z",\n        email: "tim@left-earth.com",\n        first_name: "Timmy",\n        government_id: "211-23-1412",\n        last_name: "Turner"\n      }\n    ],\n    business_entity: {\n      address: {address1: "123 Old Forest Way", city: "Omaha", country: "USA", postal_code: "61022", state: "NE"},\n      government_id: "12-3456789",\n      legal_business_name: "Busy Business, Inc.",\n      phone_numbers: ["+15555555555"]\n    },\n    control_person: {\n      address: {address1: "451 New Forest Way", city: "Springfield", country: "USA", postal_code: "68022", state: "IL"},\n      dob: "1991-03-08T08:00:00Z",\n      email: "tom@middle-pluto.com",\n      first_name: "Tom",\n      government_id: "111-23-1412",\n      last_name: "Timothy"\n    },\n    nature_of_business: "Software company selling solutions to the restaurant industry",\n    tos_timestamp: "2022-03-08T08:00:00Z",\n    workflow: :KYB_BYO\n  }\n)\n\nputs(account_holder)',
       },
       typescript: {
         method: 'client.accountHolders.create',
@@ -446,15 +446,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AccountHolderUpdateParams\nimport com.lithic.api.models.AccountHolderUpdateResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: AccountHolderUpdateParams = AccountHolderUpdateParams.builder()\n        .accountHolderToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .body(AccountHolderUpdateParams.Body.KybPatchRequest.builder().build())\n        .build()\n    val accountHolder: AccountHolderUpdateResponse = client.accountHolders().update(params)\n}',
       },
-      ruby: {
-        method: 'account_holders.update',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\naccount_holder = lithic.account_holders.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", body: {})\n\nputs(account_holder)',
-      },
       python: {
         method: 'account_holders.update',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\naccount_holder = client.account_holders.update(\n    account_holder_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    business_entity={\n        "entity_token": "83cf25ae-c14f-4d10-9fa2-0119f36c7286",\n        "address": {\n            "postal_code": "61023"\n        },\n    },\n    control_person={\n        "entity_token": "fd771a07-c5c2-42f3-a53c-a6c79c6c0d07",\n        "address": {\n            "postal_code": "68023"\n        },\n    },\n    naics_code="541512",\n    website_url="https://www.mynewbusiness.com",\n)\nprint(account_holder)',
+      },
+      ruby: {
+        method: 'account_holders.update',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\naccount_holder = lithic.account_holders.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", body: {})\n\nputs(account_holder)',
       },
       typescript: {
         method: 'client.accountHolders.update',
@@ -496,15 +496,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AccountHolder\nimport com.lithic.api.models.AccountHolderRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val accountHolder: AccountHolder = client.accountHolders().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'account_holders.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\naccount_holder = lithic.account_holders.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(account_holder)',
-      },
       python: {
         method: 'account_holders.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\naccount_holder = client.account_holders.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(account_holder.beneficial_owner_individuals)',
+      },
+      ruby: {
+        method: 'account_holders.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\naccount_holder = lithic.account_holders.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(account_holder)',
       },
       typescript: {
         method: 'client.accountHolders.retrieve',
@@ -547,15 +547,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AccountHolderUploadDocumentParams\nimport com.lithic.api.models.Document\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: AccountHolderUploadDocumentParams = AccountHolderUploadDocumentParams.builder()\n        .accountHolderToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .documentType(AccountHolderUploadDocumentParams.DocumentType.EIN_LETTER)\n        .entityToken("83cf25ae-c14f-4d10-9fa2-0119f36c7286")\n        .build()\n    val document: Document = client.accountHolders().uploadDocument(params)\n}',
       },
-      ruby: {
-        method: 'account_holders.upload_document',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndocument = lithic.account_holders.upload_document(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  document_type: :EIN_LETTER,\n  entity_token: "83cf25ae-c14f-4d10-9fa2-0119f36c7286"\n)\n\nputs(document)',
-      },
       python: {
         method: 'account_holders.upload_document',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ndocument = client.account_holders.upload_document(\n    account_holder_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    document_type="EIN_LETTER",\n    entity_token="83cf25ae-c14f-4d10-9fa2-0119f36c7286",\n)\nprint(document.token)',
+      },
+      ruby: {
+        method: 'account_holders.upload_document',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndocument = lithic.account_holders.upload_document(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  document_type: :EIN_LETTER,\n  entity_token: "83cf25ae-c14f-4d10-9fa2-0119f36c7286"\n)\n\nputs(document)',
       },
       typescript: {
         method: 'client.accountHolders.uploadDocument',
@@ -598,15 +598,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AccountHolderListDocumentsParams\nimport com.lithic.api.models.AccountHolderListDocumentsResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val response: AccountHolderListDocumentsResponse = client.accountHolders().listDocuments("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'account_holders.list_documents',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.account_holders.list_documents("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(response)',
-      },
       python: {
         method: 'account_holders.list_documents',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.account_holders.list_documents(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(response.data)',
+      },
+      ruby: {
+        method: 'account_holders.list_documents',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.account_holders.list_documents("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(response)',
       },
       typescript: {
         method: 'client.accountHolders.listDocuments',
@@ -649,15 +649,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AccountHolderRetrieveDocumentParams\nimport com.lithic.api.models.Document\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: AccountHolderRetrieveDocumentParams = AccountHolderRetrieveDocumentParams.builder()\n        .accountHolderToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .documentToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .build()\n    val document: Document = client.accountHolders().retrieveDocument(params)\n}',
       },
-      ruby: {
-        method: 'account_holders.retrieve_document',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndocument = lithic.account_holders.retrieve_document(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  account_holder_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(document)',
-      },
       python: {
         method: 'account_holders.retrieve_document',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ndocument = client.account_holders.retrieve_document(\n    document_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    account_holder_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(document.token)',
+      },
+      ruby: {
+        method: 'account_holders.retrieve_document',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndocument = lithic.account_holders.retrieve_document(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  account_holder_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(document)',
       },
       typescript: {
         method: 'client.accountHolders.retrieveDocument',
@@ -712,15 +712,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AccountHolderListPage\nimport com.lithic.api.models.AccountHolderListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: AccountHolderListPage = client.accountHolders().list()\n}',
       },
-      ruby: {
-        method: 'account_holders.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.account_holders.list\n\nputs(page)',
-      },
       python: {
         method: 'account_holders.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.account_holders.list()\npage = page.data[0]\nprint(page.beneficial_owner_individuals)',
+      },
+      ruby: {
+        method: 'account_holders.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.account_holders.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.accountHolders.list',
@@ -766,15 +766,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AccountHolderSimulateEnrollmentReviewParams\nimport com.lithic.api.models.AccountHolderSimulateEnrollmentReviewResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val response: AccountHolderSimulateEnrollmentReviewResponse = client.accountHolders().simulateEnrollmentReview()\n}',
       },
-      ruby: {
-        method: 'account_holders.simulate_enrollment_review',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.account_holders.simulate_enrollment_review\n\nputs(response)',
-      },
       python: {
         method: 'account_holders.simulate_enrollment_review',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.account_holders.simulate_enrollment_review(\n    account_holder_token="1415964d-4400-4d79-9fb3-eee0faaee4e4",\n    status="ACCEPTED",\n    status_reasons=[],\n)\nprint(response.beneficial_owner_individuals)',
+      },
+      ruby: {
+        method: 'account_holders.simulate_enrollment_review',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.account_holders.simulate_enrollment_review\n\nputs(response)',
       },
       typescript: {
         method: 'client.accountHolders.simulateEnrollmentReview',
@@ -821,15 +821,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AccountHolderSimulateEnrollmentDocumentReviewParams\nimport com.lithic.api.models.Document\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: AccountHolderSimulateEnrollmentDocumentReviewParams = AccountHolderSimulateEnrollmentDocumentReviewParams.builder()\n        .documentUploadToken("b11cd67b-0a52-4180-8365-314f3def5426")\n        .status(AccountHolderSimulateEnrollmentDocumentReviewParams.Status.UPLOADED)\n        .build()\n    val document: Document = client.accountHolders().simulateEnrollmentDocumentReview(params)\n}',
       },
-      ruby: {
-        method: 'account_holders.simulate_enrollment_document_review',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndocument = lithic.account_holders.simulate_enrollment_document_review(\n  document_upload_token: "b11cd67b-0a52-4180-8365-314f3def5426",\n  status: :UPLOADED\n)\n\nputs(document)',
-      },
       python: {
         method: 'account_holders.simulate_enrollment_document_review',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ndocument = client.account_holders.simulate_enrollment_document_review(\n    document_upload_token="b11cd67b-0a52-4180-8365-314f3def5426",\n    status="UPLOADED",\n)\nprint(document.token)',
+      },
+      ruby: {
+        method: 'account_holders.simulate_enrollment_document_review',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndocument = lithic.account_holders.simulate_enrollment_document_review(\n  document_upload_token: "b11cd67b-0a52-4180-8365-314f3def5426",\n  status: :UPLOADED\n)\n\nputs(document)',
       },
       typescript: {
         method: 'client.accountHolders.simulateEnrollmentDocumentReview',
@@ -882,15 +882,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AccountHolderEntityCreateParams\nimport com.lithic.api.models.EntityCreateResponse\nimport com.lithic.api.models.EntityType\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: AccountHolderEntityCreateParams = AccountHolderEntityCreateParams.builder()\n        .accountHolderToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .address(AccountHolderEntityCreateParams.Address.builder()\n            .address1("300 Normal Forest Way")\n            .city("Portland")\n            .country("USA")\n            .postalCode("90210")\n            .state("OR")\n            .build())\n        .dob("1991-03-08T08:00:00Z")\n        .email("tim@left-earth.com")\n        .firstName("Timmy")\n        .governmentId("211-23-1412")\n        .lastName("Turner")\n        .phoneNumber("+15555555555")\n        .type(EntityType.BENEFICIAL_OWNER_INDIVIDUAL)\n        .build()\n    val entity: EntityCreateResponse = client.accountHolders().entities().create(params)\n}',
       },
-      ruby: {
-        method: 'account_holders.entities.create',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nentity = lithic.account_holders.entities.create(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  address: {address1: "300 Normal Forest Way", city: "Portland", country: "USA", postal_code: "90210", state: "OR"},\n  dob: "1991-03-08T08:00:00Z",\n  email: "tim@left-earth.com",\n  first_name: "Timmy",\n  government_id: "211-23-1412",\n  last_name: "Turner",\n  phone_number: "+15555555555",\n  type: :BENEFICIAL_OWNER_INDIVIDUAL\n)\n\nputs(entity)',
-      },
       python: {
         method: 'account_holders.entities.create',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nentity = client.account_holders.entities.create(\n    account_holder_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    address={\n        "address1": "300 Normal Forest Way",\n        "city": "Portland",\n        "country": "USA",\n        "postal_code": "90210",\n        "state": "OR",\n    },\n    dob="1991-03-08T08:00:00Z",\n    email="tim@left-earth.com",\n    first_name="Timmy",\n    government_id="211-23-1412",\n    last_name="Turner",\n    phone_number="+15555555555",\n    type="BENEFICIAL_OWNER_INDIVIDUAL",\n)\nprint(entity.token)',
+      },
+      ruby: {
+        method: 'account_holders.entities.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nentity = lithic.account_holders.entities.create(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  address: {address1: "300 Normal Forest Way", city: "Portland", country: "USA", postal_code: "90210", state: "OR"},\n  dob: "1991-03-08T08:00:00Z",\n  email: "tim@left-earth.com",\n  first_name: "Timmy",\n  government_id: "211-23-1412",\n  last_name: "Turner",\n  phone_number: "+15555555555",\n  type: :BENEFICIAL_OWNER_INDIVIDUAL\n)\n\nputs(entity)',
       },
       typescript: {
         method: 'client.accountHolders.entities.create',
@@ -933,15 +933,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AccountHolderEntity\nimport com.lithic.api.models.AccountHolderEntityDeleteParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: AccountHolderEntityDeleteParams = AccountHolderEntityDeleteParams.builder()\n        .accountHolderToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .entityToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .build()\n    val accountHolderEntity: AccountHolderEntity = client.accountHolders().entities().delete(params)\n}',
       },
-      ruby: {
-        method: 'account_holders.entities.delete',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\naccount_holder_entity = lithic.account_holders.entities.delete(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  account_holder_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(account_holder_entity)',
-      },
       python: {
         method: 'account_holders.entities.delete',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\naccount_holder_entity = client.account_holders.entities.delete(\n    entity_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    account_holder_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(account_holder_entity.token)',
+      },
+      ruby: {
+        method: 'account_holders.entities.delete',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\naccount_holder_entity = lithic.account_holders.entities.delete(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  account_holder_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(account_holder_entity)',
       },
       typescript: {
         method: 'client.accountHolders.entities.delete',
@@ -983,15 +983,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AuthRule\nimport com.lithic.api.models.AuthRuleCondition\nimport com.lithic.api.models.AuthRuleV2CreateParams\nimport com.lithic.api.models.ConditionalAttribute\nimport com.lithic.api.models.ConditionalBlockParameters\nimport com.lithic.api.models.ConditionalOperation\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: AuthRuleV2CreateParams.Body.AccountLevelRule = AuthRuleV2CreateParams.Body.AccountLevelRule.builder()\n        .parameters(ConditionalBlockParameters.builder()\n            .addCondition(AuthRuleCondition.builder()\n                .attribute(ConditionalAttribute.MCC)\n                .operation(ConditionalOperation.IS_ONE_OF)\n                .value("string")\n                .build())\n            .build())\n        .type(AuthRuleV2CreateParams.Body.AccountLevelRule.AuthRuleType.CONDITIONAL_BLOCK)\n        .build()\n    val authRule: AuthRule = client.authRules().v2().create(params)\n}',
       },
-      ruby: {
-        method: 'auth_rules.v2.create',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nauth_rule = lithic.auth_rules.v2.create(\n  body: {\n    parameters: {conditions: [{attribute: :MCC, operation: :IS_ONE_OF, value: "string"}]},\n    type: :CONDITIONAL_BLOCK\n  }\n)\n\nputs(auth_rule)',
-      },
       python: {
         method: 'auth_rules.v2.create',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nauth_rule = client.auth_rules.v2.create(\n    parameters={\n        "conditions": [{\n            "attribute": "MCC",\n            "operation": "IS_ONE_OF",\n            "value": "string",\n        }]\n    },\n    type="CONDITIONAL_BLOCK",\n)\nprint(auth_rule.token)',
+      },
+      ruby: {
+        method: 'auth_rules.v2.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nauth_rule = lithic.auth_rules.v2.create(\n  body: {\n    parameters: {conditions: [{attribute: :MCC, operation: :IS_ONE_OF, value: "string"}]},\n    type: :CONDITIONAL_BLOCK\n  }\n)\n\nputs(auth_rule)',
       },
       typescript: {
         method: 'client.authRules.v2.create',
@@ -1043,15 +1043,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AuthRuleV2ListPage\nimport com.lithic.api.models.AuthRuleV2ListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: AuthRuleV2ListPage = client.authRules().v2().list()\n}',
       },
-      ruby: {
-        method: 'auth_rules.v2.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.auth_rules.v2.list\n\nputs(page)',
-      },
       python: {
         method: 'auth_rules.v2.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.auth_rules.v2.list()\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'auth_rules.v2.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.auth_rules.v2.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.authRules.v2.list',
@@ -1092,15 +1092,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AuthRule\nimport com.lithic.api.models.AuthRuleV2RetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val authRule: AuthRule = client.authRules().v2().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'auth_rules.v2.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nauth_rule = lithic.auth_rules.v2.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(auth_rule)',
-      },
       python: {
         method: 'auth_rules.v2.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nauth_rule = client.auth_rules.v2.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(auth_rule.token)',
+      },
+      ruby: {
+        method: 'auth_rules.v2.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nauth_rule = lithic.auth_rules.v2.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(auth_rule)',
       },
       typescript: {
         method: 'client.authRules.v2.retrieve',
@@ -1144,15 +1144,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AuthRule\nimport com.lithic.api.models.AuthRuleV2UpdateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: AuthRuleV2UpdateParams = AuthRuleV2UpdateParams.builder()\n        .authRuleToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .body(AuthRuleV2UpdateParams.Body.AccountLevelRule.builder().build())\n        .build()\n    val authRule: AuthRule = client.authRules().v2().update(params)\n}',
       },
-      ruby: {
-        method: 'auth_rules.v2.update',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nauth_rule = lithic.auth_rules.v2.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", body: {})\n\nputs(auth_rule)',
-      },
       python: {
         method: 'auth_rules.v2.update',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nauth_rule = client.auth_rules.v2.update(\n    auth_rule_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(auth_rule.token)',
+      },
+      ruby: {
+        method: 'auth_rules.v2.update',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nauth_rule = lithic.auth_rules.v2.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", body: {})\n\nputs(auth_rule)',
       },
       typescript: {
         method: 'client.authRules.v2.update',
@@ -1192,15 +1192,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AuthRuleV2DeleteParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    client.authRules().v2().delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'auth_rules.v2.delete',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.auth_rules.v2.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(result)',
-      },
       python: {
         method: 'auth_rules.v2.delete',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.auth_rules.v2.delete(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)',
+      },
+      ruby: {
+        method: 'auth_rules.v2.delete',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.auth_rules.v2.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(result)',
       },
       typescript: {
         method: 'client.authRules.v2.delete',
@@ -1246,15 +1246,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AuthRule\nimport com.lithic.api.models.AuthRuleV2DraftParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val authRule: AuthRule = client.authRules().v2().draft("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'auth_rules.v2.draft',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nauth_rule = lithic.auth_rules.v2.draft("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(auth_rule)',
-      },
       python: {
         method: 'auth_rules.v2.draft',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nauth_rule = client.auth_rules.v2.draft(\n    auth_rule_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(auth_rule.token)',
+      },
+      ruby: {
+        method: 'auth_rules.v2.draft',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nauth_rule = lithic.auth_rules.v2.draft("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(auth_rule)',
       },
       typescript: {
         method: 'client.authRules.v2.draft',
@@ -1296,15 +1296,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AuthRuleV2ListVersionsParams\nimport com.lithic.api.models.V2ListVersionsResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val response: V2ListVersionsResponse = client.authRules().v2().listVersions("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'auth_rules.v2.list_versions',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.auth_rules.v2.list_versions("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(response)',
-      },
       python: {
         method: 'auth_rules.v2.list_versions',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.auth_rules.v2.list_versions(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(response.data)',
+      },
+      ruby: {
+        method: 'auth_rules.v2.list_versions',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.auth_rules.v2.list_versions("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(response)',
       },
       typescript: {
         method: 'client.authRules.v2.listVersions',
@@ -1347,15 +1347,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AuthRule\nimport com.lithic.api.models.AuthRuleV2PromoteParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val authRule: AuthRule = client.authRules().v2().promote("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'auth_rules.v2.promote',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nauth_rule = lithic.auth_rules.v2.promote("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(auth_rule)',
-      },
       python: {
         method: 'auth_rules.v2.promote',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nauth_rule = client.auth_rules.v2.promote(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(auth_rule.token)',
+      },
+      ruby: {
+        method: 'auth_rules.v2.promote',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nauth_rule = lithic.auth_rules.v2.promote("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(auth_rule)',
       },
       typescript: {
         method: 'client.authRules.v2.promote',
@@ -1398,15 +1398,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AuthRuleV2RetrieveReportParams\nimport com.lithic.api.models.V2RetrieveReportResponse\nimport java.time.LocalDate\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: AuthRuleV2RetrieveReportParams = AuthRuleV2RetrieveReportParams.builder()\n        .authRuleToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .begin(LocalDate.parse("2019-12-27"))\n        .end(LocalDate.parse("2019-12-27"))\n        .build()\n    val response: V2RetrieveReportResponse = client.authRules().v2().retrieveReport(params)\n}',
       },
-      ruby: {
-        method: 'auth_rules.v2.retrieve_report',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.auth_rules.v2.retrieve_report(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  begin_: "2019-12-27",\n  end_: "2019-12-27"\n)\n\nputs(response)',
-      },
       python: {
         method: 'auth_rules.v2.retrieve_report',
         example:
           'import os\nfrom datetime import date\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.auth_rules.v2.retrieve_report(\n    auth_rule_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    begin=date.fromisoformat("2019-12-27"),\n    end=date.fromisoformat("2019-12-27"),\n)\nprint(response.auth_rule_token)',
+      },
+      ruby: {
+        method: 'auth_rules.v2.retrieve_report',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.auth_rules.v2.retrieve_report(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  begin_: "2019-12-27",\n  end_: "2019-12-27"\n)\n\nputs(response)',
       },
       typescript: {
         method: 'client.authRules.v2.retrieveReport',
@@ -1449,15 +1449,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AuthRuleV2RetrieveFeaturesParams\nimport com.lithic.api.models.V2RetrieveFeaturesResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val response: V2RetrieveFeaturesResponse = client.authRules().v2().retrieveFeatures("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'auth_rules.v2.retrieve_features',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.auth_rules.v2.retrieve_features("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(response)',
-      },
       python: {
         method: 'auth_rules.v2.retrieve_features',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.auth_rules.v2.retrieve_features(\n    auth_rule_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(response.evaluated)',
+      },
+      ruby: {
+        method: 'auth_rules.v2.retrieve_features',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.auth_rules.v2.retrieve_features("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(response)',
       },
       typescript: {
         method: 'client.authRules.v2.retrieveFeatures',
@@ -1508,15 +1508,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AuthRuleV2ListResultsPage\nimport com.lithic.api.models.AuthRuleV2ListResultsParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: AuthRuleV2ListResultsPage = client.authRules().v2().listResults()\n}',
       },
-      ruby: {
-        method: 'auth_rules.v2.list_results',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.auth_rules.v2.list_results\n\nputs(page)',
-      },
       python: {
         method: 'auth_rules.v2.list_results',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.auth_rules.v2.list_results()\npage = page.data[0]\nprint(page)',
+      },
+      ruby: {
+        method: 'auth_rules.v2.list_results',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.auth_rules.v2.list_results\n\nputs(page)',
       },
       typescript: {
         method: 'client.authRules.v2.listResults',
@@ -1558,15 +1558,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AuthRuleV2BacktestCreateParams\nimport com.lithic.api.models.BacktestCreateResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val backtest: BacktestCreateResponse = client.authRules().v2().backtests().create("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'auth_rules.v2.backtests.create',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nbacktest = lithic.auth_rules.v2.backtests.create("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(backtest)',
-      },
       python: {
         method: 'auth_rules.v2.backtests.create',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nbacktest = client.auth_rules.v2.backtests.create(\n    auth_rule_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(backtest.backtest_token)',
+      },
+      ruby: {
+        method: 'auth_rules.v2.backtests.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nbacktest = lithic.auth_rules.v2.backtests.create("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(backtest)',
       },
       typescript: {
         method: 'client.authRules.v2.backtests.create',
@@ -1609,15 +1609,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AuthRuleV2BacktestRetrieveParams\nimport com.lithic.api.models.BacktestResults\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: AuthRuleV2BacktestRetrieveParams = AuthRuleV2BacktestRetrieveParams.builder()\n        .authRuleToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .authRuleBacktestToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .build()\n    val backtestResults: BacktestResults = client.authRules().v2().backtests().retrieve(params)\n}',
       },
-      ruby: {
-        method: 'auth_rules.v2.backtests.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nbacktest_results = lithic.auth_rules.v2.backtests.retrieve(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  auth_rule_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(backtest_results)',
-      },
       python: {
         method: 'auth_rules.v2.backtests.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nbacktest_results = client.auth_rules.v2.backtests.retrieve(\n    auth_rule_backtest_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    auth_rule_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(backtest_results.backtest_token)',
+      },
+      ruby: {
+        method: 'auth_rules.v2.backtests.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nbacktest_results = lithic.auth_rules.v2.backtests.retrieve(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  auth_rule_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(backtest_results)',
       },
       typescript: {
         method: 'client.authRules.v2.backtests.retrieve',
@@ -1674,15 +1674,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionMonitoringCaseListPage\nimport com.lithic.api.models.TransactionMonitoringCaseListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: TransactionMonitoringCaseListPage = client.transactionMonitoring().cases().list()\n}',
       },
-      ruby: {
-        method: 'transaction_monitoring.cases.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.transaction_monitoring.cases.list\n\nputs(page)',
-      },
       python: {
         method: 'transaction_monitoring.cases.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.transaction_monitoring.cases.list()\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.transaction_monitoring.cases.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.transactionMonitoring.cases.list',
@@ -1724,15 +1724,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.MonitoringCase\nimport com.lithic.api.models.TransactionMonitoringCaseRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val monitoringCase: MonitoringCase = client.transactionMonitoring().cases().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'transaction_monitoring.cases.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nmonitoring_case = lithic.transaction_monitoring.cases.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(monitoring_case)',
-      },
       python: {
         method: 'transaction_monitoring.cases.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nmonitoring_case = client.transaction_monitoring.cases.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(monitoring_case.token)',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nmonitoring_case = lithic.transaction_monitoring.cases.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(monitoring_case)',
       },
       typescript: {
         method: 'client.transactionMonitoring.cases.retrieve',
@@ -1785,15 +1785,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.MonitoringCase\nimport com.lithic.api.models.TransactionMonitoringCaseUpdateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val monitoringCase: MonitoringCase = client.transactionMonitoring().cases().update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'transaction_monitoring.cases.update',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nmonitoring_case = lithic.transaction_monitoring.cases.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(monitoring_case)',
-      },
       python: {
         method: 'transaction_monitoring.cases.update',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nmonitoring_case = client.transaction_monitoring.cases.update(\n    case_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(monitoring_case.token)',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.update',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nmonitoring_case = lithic.transaction_monitoring.cases.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(monitoring_case)',
       },
       typescript: {
         method: 'client.transactionMonitoring.cases.update',
@@ -1840,15 +1840,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionMonitoringCaseListActivityPage\nimport com.lithic.api.models.TransactionMonitoringCaseListActivityParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: TransactionMonitoringCaseListActivityPage = client.transactionMonitoring().cases().listActivity("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'transaction_monitoring.cases.list_activity',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.transaction_monitoring.cases.list_activity("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
-      },
       python: {
         method: 'transaction_monitoring.cases.list_activity',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.transaction_monitoring.cases.list_activity(\n    case_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.list_activity',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.transaction_monitoring.cases.list_activity("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
       },
       typescript: {
         method: 'client.transactionMonitoring.cases.listActivity',
@@ -1895,15 +1895,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionMonitoringCaseListTransactionsPage\nimport com.lithic.api.models.TransactionMonitoringCaseListTransactionsParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: TransactionMonitoringCaseListTransactionsPage = client.transactionMonitoring().cases().listTransactions("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'transaction_monitoring.cases.list_transactions',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.transaction_monitoring.cases.list_transactions("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
-      },
       python: {
         method: 'transaction_monitoring.cases.list_transactions',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.transaction_monitoring.cases.list_transactions(\n    case_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\npage = page.data[0]\nprint(page)',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.list_transactions',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.transaction_monitoring.cases.list_transactions("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
       },
       typescript: {
         method: 'client.transactionMonitoring.cases.listTransactions',
@@ -1944,15 +1944,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CaseCard\nimport com.lithic.api.models.TransactionMonitoringCaseRetrieveCardsParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val caseCards: List<CaseCard> = client.transactionMonitoring().cases().retrieveCards("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'transaction_monitoring.cases.retrieve_cards',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncase_cards = lithic.transaction_monitoring.cases.retrieve_cards("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(case_cards)',
-      },
       python: {
         method: 'transaction_monitoring.cases.retrieve_cards',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ncase_cards = client.transaction_monitoring.cases.retrieve_cards(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(case_cards)',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.retrieve_cards',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncase_cards = lithic.transaction_monitoring.cases.retrieve_cards("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(case_cards)',
       },
       typescript: {
         method: 'client.transactionMonitoring.cases.retrieveCards',
@@ -1994,15 +1994,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CaseActivityEntry\nimport com.lithic.api.models.TransactionMonitoringCaseCommentCreateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TransactionMonitoringCaseCommentCreateParams = TransactionMonitoringCaseCommentCreateParams.builder()\n        .caseToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .comment("comment")\n        .build()\n    val caseActivityEntry: CaseActivityEntry = client.transactionMonitoring().cases().comments().create(params)\n}',
       },
-      ruby: {
-        method: 'transaction_monitoring.cases.comments.create',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncase_activity_entry = lithic.transaction_monitoring.cases.comments.create(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  comment: "comment"\n)\n\nputs(case_activity_entry)',
-      },
       python: {
         method: 'transaction_monitoring.cases.comments.create',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ncase_activity_entry = client.transaction_monitoring.cases.comments.create(\n    case_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    comment="comment",\n)\nprint(case_activity_entry.token)',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.comments.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncase_activity_entry = lithic.transaction_monitoring.cases.comments.create(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  comment: "comment"\n)\n\nputs(case_activity_entry)',
       },
       typescript: {
         method: 'client.transactionMonitoring.cases.comments.create',
@@ -2044,15 +2044,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CaseActivityEntry\nimport com.lithic.api.models.TransactionMonitoringCaseCommentUpdateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TransactionMonitoringCaseCommentUpdateParams = TransactionMonitoringCaseCommentUpdateParams.builder()\n        .caseToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .commentToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .comment("comment")\n        .build()\n    val caseActivityEntry: CaseActivityEntry = client.transactionMonitoring().cases().comments().update(params)\n}',
       },
-      ruby: {
-        method: 'transaction_monitoring.cases.comments.update',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncase_activity_entry = lithic.transaction_monitoring.cases.comments.update(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  case_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  comment: "comment"\n)\n\nputs(case_activity_entry)',
-      },
       python: {
         method: 'transaction_monitoring.cases.comments.update',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ncase_activity_entry = client.transaction_monitoring.cases.comments.update(\n    comment_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    case_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    comment="comment",\n)\nprint(case_activity_entry.token)',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.comments.update',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncase_activity_entry = lithic.transaction_monitoring.cases.comments.update(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  case_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  comment: "comment"\n)\n\nputs(case_activity_entry)',
       },
       typescript: {
         method: 'client.transactionMonitoring.cases.comments.update',
@@ -2092,15 +2092,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionMonitoringCaseCommentDeleteParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TransactionMonitoringCaseCommentDeleteParams = TransactionMonitoringCaseCommentDeleteParams.builder()\n        .caseToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .commentToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .build()\n    client.transactionMonitoring().cases().comments().delete(params)\n}',
       },
-      ruby: {
-        method: 'transaction_monitoring.cases.comments.delete',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.transaction_monitoring.cases.comments.delete(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  case_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(result)',
-      },
       python: {
         method: 'transaction_monitoring.cases.comments.delete',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.transaction_monitoring.cases.comments.delete(\n    comment_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    case_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.comments.delete',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.transaction_monitoring.cases.comments.delete(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  case_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(result)',
       },
       typescript: {
         method: 'client.transactionMonitoring.cases.comments.delete',
@@ -2142,15 +2142,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CaseFile\nimport com.lithic.api.models.TransactionMonitoringCaseFileCreateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TransactionMonitoringCaseFileCreateParams = TransactionMonitoringCaseFileCreateParams.builder()\n        .caseToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .name("name")\n        .build()\n    val caseFile: CaseFile = client.transactionMonitoring().cases().files().create(params)\n}',
       },
-      ruby: {
-        method: 'transaction_monitoring.cases.files.create',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncase_file = lithic.transaction_monitoring.cases.files.create("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", name: "name")\n\nputs(case_file)',
-      },
       python: {
         method: 'transaction_monitoring.cases.files.create',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ncase_file = client.transaction_monitoring.cases.files.create(\n    case_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    name="name",\n)\nprint(case_file.token)',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.files.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncase_file = lithic.transaction_monitoring.cases.files.create("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", name: "name")\n\nputs(case_file)',
       },
       typescript: {
         method: 'client.transactionMonitoring.cases.files.create',
@@ -2197,15 +2197,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionMonitoringCaseFileListPage\nimport com.lithic.api.models.TransactionMonitoringCaseFileListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: TransactionMonitoringCaseFileListPage = client.transactionMonitoring().cases().files().list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'transaction_monitoring.cases.files.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.transaction_monitoring.cases.files.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
-      },
       python: {
         method: 'transaction_monitoring.cases.files.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.transaction_monitoring.cases.files.list(\n    case_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.files.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.transaction_monitoring.cases.files.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
       },
       typescript: {
         method: 'client.transactionMonitoring.cases.files.list',
@@ -2248,15 +2248,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CaseFile\nimport com.lithic.api.models.TransactionMonitoringCaseFileRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TransactionMonitoringCaseFileRetrieveParams = TransactionMonitoringCaseFileRetrieveParams.builder()\n        .caseToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .fileToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .build()\n    val caseFile: CaseFile = client.transactionMonitoring().cases().files().retrieve(params)\n}',
       },
-      ruby: {
-        method: 'transaction_monitoring.cases.files.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncase_file = lithic.transaction_monitoring.cases.files.retrieve(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  case_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(case_file)',
-      },
       python: {
         method: 'transaction_monitoring.cases.files.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ncase_file = client.transaction_monitoring.cases.files.retrieve(\n    file_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    case_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(case_file.token)',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.files.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncase_file = lithic.transaction_monitoring.cases.files.retrieve(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  case_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(case_file)',
       },
       typescript: {
         method: 'client.transactionMonitoring.cases.files.retrieve',
@@ -2296,15 +2296,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionMonitoringCaseFileDeleteParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TransactionMonitoringCaseFileDeleteParams = TransactionMonitoringCaseFileDeleteParams.builder()\n        .caseToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .fileToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .build()\n    client.transactionMonitoring().cases().files().delete(params)\n}',
       },
-      ruby: {
-        method: 'transaction_monitoring.cases.files.delete',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.transaction_monitoring.cases.files.delete(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  case_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(result)',
-      },
       python: {
         method: 'transaction_monitoring.cases.files.delete',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.transaction_monitoring.cases.files.delete(\n    file_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    case_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)',
+      },
+      ruby: {
+        method: 'transaction_monitoring.cases.files.delete',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.transaction_monitoring.cases.files.delete(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  case_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(result)',
       },
       typescript: {
         method: 'client.transactionMonitoring.cases.files.delete',
@@ -2346,15 +2346,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Queue\nimport com.lithic.api.models.TransactionMonitoringQueueCreateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TransactionMonitoringQueueCreateParams = TransactionMonitoringQueueCreateParams.builder()\n        .name("name")\n        .build()\n    val queue: Queue = client.transactionMonitoring().queues().create(params)\n}',
       },
-      ruby: {
-        method: 'transaction_monitoring.queues.create',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nqueue = lithic.transaction_monitoring.queues.create(name: "name")\n\nputs(queue)',
-      },
       python: {
         method: 'transaction_monitoring.queues.create',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nqueue = client.transaction_monitoring.queues.create(\n    name="name",\n)\nprint(queue.token)',
+      },
+      ruby: {
+        method: 'transaction_monitoring.queues.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nqueue = lithic.transaction_monitoring.queues.create(name: "name")\n\nputs(queue)',
       },
       typescript: {
         method: 'client.transactionMonitoring.queues.create',
@@ -2396,15 +2396,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionMonitoringQueueListPage\nimport com.lithic.api.models.TransactionMonitoringQueueListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: TransactionMonitoringQueueListPage = client.transactionMonitoring().queues().list()\n}',
       },
-      ruby: {
-        method: 'transaction_monitoring.queues.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.transaction_monitoring.queues.list\n\nputs(page)',
-      },
       python: {
         method: 'transaction_monitoring.queues.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.transaction_monitoring.queues.list()\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'transaction_monitoring.queues.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.transaction_monitoring.queues.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.transactionMonitoring.queues.list',
@@ -2446,15 +2446,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Queue\nimport com.lithic.api.models.TransactionMonitoringQueueRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val queue: Queue = client.transactionMonitoring().queues().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'transaction_monitoring.queues.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nqueue = lithic.transaction_monitoring.queues.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(queue)',
-      },
       python: {
         method: 'transaction_monitoring.queues.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nqueue = client.transaction_monitoring.queues.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(queue.token)',
+      },
+      ruby: {
+        method: 'transaction_monitoring.queues.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nqueue = lithic.transaction_monitoring.queues.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(queue)',
       },
       typescript: {
         method: 'client.transactionMonitoring.queues.retrieve',
@@ -2501,15 +2501,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Queue\nimport com.lithic.api.models.TransactionMonitoringQueueUpdateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val queue: Queue = client.transactionMonitoring().queues().update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'transaction_monitoring.queues.update',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nqueue = lithic.transaction_monitoring.queues.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(queue)',
-      },
       python: {
         method: 'transaction_monitoring.queues.update',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nqueue = client.transaction_monitoring.queues.update(\n    queue_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(queue.token)',
+      },
+      ruby: {
+        method: 'transaction_monitoring.queues.update',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nqueue = lithic.transaction_monitoring.queues.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(queue)',
       },
       typescript: {
         method: 'client.transactionMonitoring.queues.update',
@@ -2549,15 +2549,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionMonitoringQueueDeleteParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    client.transactionMonitoring().queues().delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'transaction_monitoring.queues.delete',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.transaction_monitoring.queues.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(result)',
-      },
       python: {
         method: 'transaction_monitoring.queues.delete',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.transaction_monitoring.queues.delete(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)',
+      },
+      ruby: {
+        method: 'transaction_monitoring.queues.delete',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.transaction_monitoring.queues.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(result)',
       },
       typescript: {
         method: 'client.transactionMonitoring.queues.delete',
@@ -2598,15 +2598,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AuthStreamEnrollmentRetrieveSecretParams\nimport com.lithic.api.models.AuthStreamSecret\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val authStreamSecret: AuthStreamSecret = client.authStreamEnrollment().retrieveSecret()\n}',
       },
-      ruby: {
-        method: 'auth_stream_enrollment.retrieve_secret',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nauth_stream_secret = lithic.auth_stream_enrollment.retrieve_secret\n\nputs(auth_stream_secret)',
-      },
       python: {
         method: 'auth_stream_enrollment.retrieve_secret',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nauth_stream_secret = client.auth_stream_enrollment.retrieve_secret()\nprint(auth_stream_secret.secret)',
+      },
+      ruby: {
+        method: 'auth_stream_enrollment.retrieve_secret',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nauth_stream_secret = lithic.auth_stream_enrollment.retrieve_secret\n\nputs(auth_stream_secret)',
       },
       typescript: {
         method: 'client.authStreamEnrollment.retrieveSecret',
@@ -2646,15 +2646,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AuthStreamEnrollmentRotateSecretParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    client.authStreamEnrollment().rotateSecret()\n}',
       },
-      ruby: {
-        method: 'auth_stream_enrollment.rotate_secret',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.auth_stream_enrollment.rotate_secret\n\nputs(result)',
-      },
       python: {
         method: 'auth_stream_enrollment.rotate_secret',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.auth_stream_enrollment.rotate_secret()',
+      },
+      ruby: {
+        method: 'auth_stream_enrollment.rotate_secret',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.auth_stream_enrollment.rotate_secret\n\nputs(result)',
       },
       typescript: {
         method: 'client.authStreamEnrollment.rotateSecret',
@@ -2695,15 +2695,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TokenizationDecisioningRetrieveSecretParams\nimport com.lithic.api.models.TokenizationSecret\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val tokenizationSecret: TokenizationSecret = client.tokenizationDecisioning().retrieveSecret()\n}',
       },
-      ruby: {
-        method: 'tokenization_decisioning.retrieve_secret',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ntokenization_secret = lithic.tokenization_decisioning.retrieve_secret\n\nputs(tokenization_secret)',
-      },
       python: {
         method: 'tokenization_decisioning.retrieve_secret',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ntokenization_secret = client.tokenization_decisioning.retrieve_secret()\nprint(tokenization_secret.secret)',
+      },
+      ruby: {
+        method: 'tokenization_decisioning.retrieve_secret',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ntokenization_secret = lithic.tokenization_decisioning.retrieve_secret\n\nputs(tokenization_secret)',
       },
       typescript: {
         method: 'client.tokenizationDecisioning.retrieveSecret',
@@ -2744,15 +2744,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TokenizationDecisioningRotateSecretParams\nimport com.lithic.api.models.TokenizationDecisioningRotateSecretResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val response: TokenizationDecisioningRotateSecretResponse = client.tokenizationDecisioning().rotateSecret()\n}',
       },
-      ruby: {
-        method: 'tokenization_decisioning.rotate_secret',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.tokenization_decisioning.rotate_secret\n\nputs(response)',
-      },
       python: {
         method: 'tokenization_decisioning.rotate_secret',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.tokenization_decisioning.rotate_secret()\nprint(response.secret)',
+      },
+      ruby: {
+        method: 'tokenization_decisioning.rotate_secret',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.tokenization_decisioning.rotate_secret\n\nputs(response)',
       },
       typescript: {
         method: 'client.tokenizationDecisioning.rotateSecret',
@@ -2804,15 +2804,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Tokenization\nimport com.lithic.api.models.TokenizationSimulateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TokenizationSimulateParams = TokenizationSimulateParams.builder()\n        .cvv("776")\n        .expirationDate("08/29")\n        .pan("4111111289144142")\n        .tokenizationSource(TokenizationSimulateParams.TokenizationSource.APPLE_PAY)\n        .build()\n    val tokenization: Tokenization = client.tokenizations().simulate(params)\n}',
       },
-      ruby: {
-        method: 'tokenizations.simulate',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ntokenization = lithic.tokenizations.simulate(\n  cvv: "776",\n  expiration_date: "08/29",\n  pan: "4111111289144142",\n  tokenization_source: :APPLE_PAY\n)\n\nputs(tokenization)',
-      },
       python: {
         method: 'tokenizations.simulate',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ntokenization = client.tokenizations.simulate(\n    cvv="776",\n    expiration_date="08/29",\n    pan="4111111289144142",\n    tokenization_source="APPLE_PAY",\n    account_score=5,\n    device_score=5,\n    wallet_recommended_decision="APPROVED",\n)\nprint(tokenization.device_id)',
+      },
+      ruby: {
+        method: 'tokenizations.simulate',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ntokenization = lithic.tokenizations.simulate(\n  cvv: "776",\n  expiration_date: "08/29",\n  pan: "4111111289144142",\n  tokenization_source: :APPLE_PAY\n)\n\nputs(tokenization)',
       },
       typescript: {
         method: 'client.tokenizations.simulate',
@@ -2863,15 +2863,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TokenizationListPage\nimport com.lithic.api.models.TokenizationListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: TokenizationListPage = client.tokenizations().list()\n}',
       },
-      ruby: {
-        method: 'tokenizations.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.tokenizations.list\n\nputs(page)',
-      },
       python: {
         method: 'tokenizations.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.tokenizations.list()\npage = page.data[0]\nprint(page.device_id)',
+      },
+      ruby: {
+        method: 'tokenizations.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.tokenizations.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.tokenizations.list',
@@ -2912,15 +2912,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Tokenization\nimport com.lithic.api.models.TokenizationRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val tokenization: Tokenization = client.tokenizations().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'tokenizations.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ntokenization = lithic.tokenizations.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(tokenization)',
-      },
       python: {
         method: 'tokenizations.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ntokenization = client.tokenizations.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(tokenization.device_id)',
+      },
+      ruby: {
+        method: 'tokenizations.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ntokenization = lithic.tokenizations.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(tokenization)',
       },
       typescript: {
         method: 'client.tokenizations.retrieve',
@@ -2961,15 +2961,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TokenizationPauseParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    client.tokenizations().pause("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'tokenizations.pause',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.tokenizations.pause("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(result)',
-      },
       python: {
         method: 'tokenizations.pause',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.tokenizations.pause(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)',
+      },
+      ruby: {
+        method: 'tokenizations.pause',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.tokenizations.pause("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(result)',
       },
       typescript: {
         method: 'client.tokenizations.pause',
@@ -3010,15 +3010,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TokenizationUnpauseParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    client.tokenizations().unpause("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'tokenizations.unpause',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.tokenizations.unpause("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(result)',
-      },
       python: {
         method: 'tokenizations.unpause',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.tokenizations.unpause(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)',
+      },
+      ruby: {
+        method: 'tokenizations.unpause',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.tokenizations.unpause("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(result)',
       },
       typescript: {
         method: 'client.tokenizations.unpause',
@@ -3059,15 +3059,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TokenizationDeactivateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    client.tokenizations().deactivate("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'tokenizations.deactivate',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.tokenizations.deactivate("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(result)',
-      },
       python: {
         method: 'tokenizations.deactivate',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.tokenizations.deactivate(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)',
+      },
+      ruby: {
+        method: 'tokenizations.deactivate',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.tokenizations.deactivate("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(result)',
       },
       typescript: {
         method: 'client.tokenizations.deactivate',
@@ -3108,15 +3108,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TokenizationActivateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    client.tokenizations().activate("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'tokenizations.activate',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.tokenizations.activate("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(result)',
-      },
       python: {
         method: 'tokenizations.activate',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.tokenizations.activate(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)',
+      },
+      ruby: {
+        method: 'tokenizations.activate',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.tokenizations.activate("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(result)',
       },
       typescript: {
         method: 'client.tokenizations.activate',
@@ -3160,15 +3160,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TokenizationResendActivationCodeParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    client.tokenizations().resendActivationCode("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'tokenizations.resend_activation_code',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.tokenizations.resend_activation_code("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(result)',
-      },
       python: {
         method: 'tokenizations.resend_activation_code',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.tokenizations.resend_activation_code(\n    tokenization_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    activation_method_type="TEXT_TO_CARDHOLDER_NUMBER",\n)',
+      },
+      ruby: {
+        method: 'tokenizations.resend_activation_code',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.tokenizations.resend_activation_code("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(result)',
       },
       typescript: {
         method: 'client.tokenizations.resendActivationCode',
@@ -3211,15 +3211,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Tokenization\nimport com.lithic.api.models.TokenizationUpdateDigitalCardArtParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val tokenization: Tokenization = client.tokenizations().updateDigitalCardArt("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'tokenizations.update_digital_card_art',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ntokenization = lithic.tokenizations.update_digital_card_art("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(tokenization)',
-      },
       python: {
         method: 'tokenizations.update_digital_card_art',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ntokenization = client.tokenizations.update_digital_card_art(\n    tokenization_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(tokenization.device_id)',
+      },
+      ruby: {
+        method: 'tokenizations.update_digital_card_art',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ntokenization = lithic.tokenizations.update_digital_card_art("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(tokenization)',
       },
       typescript: {
         method: 'client.tokenizations.updateDigitalCardArt',
@@ -3270,15 +3270,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CardListPage\nimport com.lithic.api.models.CardListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: CardListPage = client.cards().list()\n}',
       },
-      ruby: {
-        method: 'cards.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.cards.list\n\nputs(page)',
-      },
       python: {
         method: 'cards.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.cards.list()\npage = page.data[0]\nprint(page.product_id)',
+      },
+      ruby: {
+        method: 'cards.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.cards.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.cards.list',
@@ -3342,15 +3342,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Card\nimport com.lithic.api.models.CardCreateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: CardCreateParams = CardCreateParams.builder()\n        .type(CardCreateParams.Type.VIRTUAL)\n        .build()\n    val card: Card = client.cards().create(params)\n}',
       },
-      ruby: {
-        method: 'cards.create',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard = lithic.cards.create(type: :VIRTUAL)\n\nputs(card)',
-      },
       python: {
         method: 'cards.create',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ncard = client.cards.create(\n    type="VIRTUAL",\n    memo="New Card",\n    spend_limit=1000,\n    spend_limit_duration="TRANSACTION",\n    state="OPEN",\n)\nprint(card)',
+      },
+      ruby: {
+        method: 'cards.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard = lithic.cards.create(type: :VIRTUAL)\n\nputs(card)',
       },
       typescript: {
         method: 'client.cards.create',
@@ -3392,15 +3392,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Card\nimport com.lithic.api.models.CardRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val card: Card = client.cards().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'cards.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard = lithic.cards.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(card)',
-      },
       python: {
         method: 'cards.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ncard = client.cards.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(card)',
+      },
+      ruby: {
+        method: 'cards.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard = lithic.cards.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(card)',
       },
       typescript: {
         method: 'client.cards.retrieve',
@@ -3455,15 +3455,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Card\nimport com.lithic.api.models.CardUpdateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val card: Card = client.cards().update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'cards.update',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard = lithic.cards.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(card)',
-      },
       python: {
         method: 'cards.update',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ncard = client.cards.update(\n    card_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    memo="Updated Name",\n    spend_limit=100,\n    spend_limit_duration="FOREVER",\n    state="OPEN",\n)\nprint(card)',
+      },
+      ruby: {
+        method: 'cards.update',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard = lithic.cards.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(card)',
       },
       typescript: {
         method: 'client.cards.update',
@@ -3514,15 +3514,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CardProvisionParams\nimport com.lithic.api.models.CardProvisionResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val response: CardProvisionResponse = client.cards().provision("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'cards.provision',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.cards.provision("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(response)',
-      },
       python: {
         method: 'cards.provision',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.cards.provision(\n    card_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    digital_wallet="GOOGLE_PAY",\n)\nprint(response.provisioning_payload)',
+      },
+      ruby: {
+        method: 'cards.provision',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.cards.provision("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(response)',
       },
       typescript: {
         method: 'client.cards.provision',
@@ -3571,15 +3571,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Card\nimport com.lithic.api.models.CardReissueParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val card: Card = client.cards().reissue("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'cards.reissue',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard = lithic.cards.reissue("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(card)',
-      },
       python: {
         method: 'cards.reissue',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ncard = client.cards.reissue(\n    card_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    carrier={\n        "qr_code_url": "https://lithic.com/activate-card/1"\n    },\n    product_id="100",\n    shipping_address={\n        "address1": "5 Broad Street",\n        "address2": "Unit 5A",\n        "city": "NEW YORK",\n        "country": "USA",\n        "first_name": "Janet",\n        "last_name": "Yellen",\n        "postal_code": "10001",\n        "state": "NY",\n    },\n    shipping_method="STANDARD",\n)\nprint(card)',
+      },
+      ruby: {
+        method: 'cards.reissue',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard = lithic.cards.reissue("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(card)',
       },
       typescript: {
         method: 'client.cards.reissue',
@@ -3621,15 +3621,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CardEmbedParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: CardEmbedParams = CardEmbedParams.builder()\n        .embedRequest("embed_request")\n        .hmac("hmac")\n        .build()\n    val response: String = client.cards().embed(params)\n}',
       },
-      ruby: {
-        method: 'cards.embed',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.cards.embed(embed_request: "embed_request", hmac: "hmac")\n\nputs(response)',
-      },
       python: {
         method: 'cards.embed',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.cards.embed(\n    embed_request="embed_request",\n    hmac="hmac",\n)\nprint(response)',
+      },
+      ruby: {
+        method: 'cards.embed',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.cards.embed(embed_request: "embed_request", hmac: "hmac")\n\nputs(response)',
       },
       typescript: {
         method: 'client.cards.embed',
@@ -3671,15 +3671,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CardRetrieveSpendLimitsParams\nimport com.lithic.api.models.CardSpendLimits\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val cardSpendLimits: CardSpendLimits = client.cards().retrieveSpendLimits("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'cards.retrieve_spend_limits',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard_spend_limits = lithic.cards.retrieve_spend_limits("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(card_spend_limits)',
-      },
       python: {
         method: 'cards.retrieve_spend_limits',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ncard_spend_limits = client.cards.retrieve_spend_limits(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(card_spend_limits.available_spend_limit)',
+      },
+      ruby: {
+        method: 'cards.retrieve_spend_limits',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard_spend_limits = lithic.cards.retrieve_spend_limits("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(card_spend_limits)',
       },
       typescript: {
         method: 'client.cards.retrieveSpendLimits',
@@ -3722,15 +3722,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CardRetrieveSignalsParams\nimport com.lithic.api.models.SignalsResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val signalsResponse: SignalsResponse = client.cards().retrieveSignals("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'cards.retrieve_signals',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nsignals_response = lithic.cards.retrieve_signals("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(signals_response)',
-      },
       python: {
         method: 'cards.retrieve_signals',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nsignals_response = client.cards.retrieve_signals(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(signals_response.approved_txn_amount_m2)',
+      },
+      ruby: {
+        method: 'cards.retrieve_signals',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nsignals_response = lithic.cards.retrieve_signals("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(signals_response)',
       },
       typescript: {
         method: 'client.cards.retrieveSignals',
@@ -3781,15 +3781,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Card\nimport com.lithic.api.models.CardRenewParams\nimport com.lithic.api.models.ShippingAddress\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: CardRenewParams = CardRenewParams.builder()\n        .cardToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .shippingAddress(ShippingAddress.builder()\n            .address1("5 Broad Street")\n            .city("NEW YORK")\n            .country("USA")\n            .firstName("Janet")\n            .lastName("Yellen")\n            .postalCode("10001")\n            .state("NY")\n            .build())\n        .build()\n    val card: Card = client.cards().renew(params)\n}',
       },
-      ruby: {
-        method: 'cards.renew',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard = lithic.cards.renew(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  shipping_address: {\n    address1: "5 Broad Street",\n    city: "NEW YORK",\n    country: "USA",\n    first_name: "Janet",\n    last_name: "Yellen",\n    postal_code: "10001",\n    state: "NY"\n  }\n)\n\nputs(card)',
-      },
       python: {
         method: 'cards.renew',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ncard = client.cards.renew(\n    card_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    shipping_address={\n        "address1": "5 Broad Street",\n        "address2": "Unit 5A",\n        "city": "NEW YORK",\n        "country": "USA",\n        "first_name": "Janet",\n        "last_name": "Yellen",\n        "postal_code": "10001",\n        "state": "NY",\n    },\n    carrier={\n        "qr_code_url": "https://lithic.com/activate-card/1"\n    },\n    product_id="100",\n    shipping_method="STANDARD",\n)\nprint(card)',
+      },
+      ruby: {
+        method: 'cards.renew',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard = lithic.cards.renew(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  shipping_address: {\n    address1: "5 Broad Street",\n    city: "NEW YORK",\n    country: "USA",\n    first_name: "Janet",\n    last_name: "Yellen",\n    postal_code: "10001",\n    state: "NY"\n  }\n)\n\nputs(card)',
       },
       typescript: {
         method: 'client.cards.renew',
@@ -3832,15 +3832,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Card\nimport com.lithic.api.models.CardSearchByPanParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: CardSearchByPanParams = CardSearchByPanParams.builder()\n        .pan("4111111289144142")\n        .build()\n    val card: Card = client.cards().searchByPan(params)\n}',
       },
-      ruby: {
-        method: 'cards.search_by_pan',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard = lithic.cards.search_by_pan(pan: "4111111289144142")\n\nputs(card)',
-      },
       python: {
         method: 'cards.search_by_pan',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ncard = client.cards.search_by_pan(\n    pan="4111111289144142",\n)\nprint(card)',
+      },
+      ruby: {
+        method: 'cards.search_by_pan',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard = lithic.cards.search_by_pan(pan: "4111111289144142")\n\nputs(card)',
       },
       typescript: {
         method: 'client.cards.searchByPan',
@@ -3889,15 +3889,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Card\nimport com.lithic.api.models.CardConvertPhysicalParams\nimport com.lithic.api.models.ShippingAddress\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: CardConvertPhysicalParams = CardConvertPhysicalParams.builder()\n        .cardToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .shippingAddress(ShippingAddress.builder()\n            .address1("5 Broad Street")\n            .city("NEW YORK")\n            .country("USA")\n            .firstName("Janet")\n            .lastName("Yellen")\n            .postalCode("10001")\n            .state("NY")\n            .build())\n        .build()\n    val card: Card = client.cards().convertPhysical(params)\n}',
       },
-      ruby: {
-        method: 'cards.convert_physical',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard = lithic.cards.convert_physical(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  shipping_address: {\n    address1: "5 Broad Street",\n    city: "NEW YORK",\n    country: "USA",\n    first_name: "Janet",\n    last_name: "Yellen",\n    postal_code: "10001",\n    state: "NY"\n  }\n)\n\nputs(card)',
-      },
       python: {
         method: 'cards.convert_physical',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ncard = client.cards.convert_physical(\n    card_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    shipping_address={\n        "address1": "5 Broad Street",\n        "address2": "Unit 5A",\n        "city": "NEW YORK",\n        "country": "USA",\n        "first_name": "Janet",\n        "last_name": "Yellen",\n        "postal_code": "10001",\n        "state": "NY",\n    },\n    carrier={\n        "qr_code_url": "https://lithic.com/activate-card/1"\n    },\n    product_id="100",\n    shipping_method="STANDARD",\n)\nprint(card)',
+      },
+      ruby: {
+        method: 'cards.convert_physical',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard = lithic.cards.convert_physical(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  shipping_address: {\n    address1: "5 Broad Street",\n    city: "NEW YORK",\n    country: "USA",\n    first_name: "Janet",\n    last_name: "Yellen",\n    postal_code: "10001",\n    state: "NY"\n  }\n)\n\nputs(card)',
       },
       typescript: {
         method: 'client.cards.convertPhysical',
@@ -3946,15 +3946,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CardWebProvisionParams\nimport com.lithic.api.models.CardWebProvisionResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val response: CardWebProvisionResponse = client.cards().webProvision("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'cards.web_provision',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.cards.web_provision("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(response)',
-      },
       python: {
         method: 'cards.web_provision',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.cards.web_provision(\n    card_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    digital_wallet="APPLE_PAY",\n)\nprint(response)',
+      },
+      ruby: {
+        method: 'cards.web_provision',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.cards.web_provision("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(response)',
       },
       typescript: {
         method: 'client.cards.webProvision',
@@ -3996,15 +3996,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CardBalanceListPage\nimport com.lithic.api.models.CardBalanceListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: CardBalanceListPage = client.cards().balances().list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'cards.balances.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.cards.balances.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
-      },
       python: {
         method: 'cards.balances.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.cards.balances.list(\n    card_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'cards.balances.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.cards.balances.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
       },
       typescript: {
         method: 'client.cards.balances.list',
@@ -4055,15 +4055,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CardFinancialTransactionListPage\nimport com.lithic.api.models.CardFinancialTransactionListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: CardFinancialTransactionListPage = client.cards().financialTransactions().list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'cards.financial_transactions.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.cards.financial_transactions.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
-      },
       python: {
         method: 'cards.financial_transactions.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.cards.financial_transactions.list(\n    card_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'cards.financial_transactions.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.cards.financial_transactions.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
       },
       typescript: {
         method: 'client.cards.financialTransactions.list',
@@ -4105,15 +4105,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CardFinancialTransactionRetrieveParams\nimport com.lithic.api.models.FinancialTransaction\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: CardFinancialTransactionRetrieveParams = CardFinancialTransactionRetrieveParams.builder()\n        .cardToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .financialTransactionToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .build()\n    val financialTransaction: FinancialTransaction = client.cards().financialTransactions().retrieve(params)\n}',
       },
-      ruby: {
-        method: 'cards.financial_transactions.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nfinancial_transaction = lithic.cards.financial_transactions.retrieve(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  card_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(financial_transaction)',
-      },
       python: {
         method: 'cards.financial_transactions.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nfinancial_transaction = client.cards.financial_transactions.retrieve(\n    financial_transaction_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    card_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(financial_transaction.token)',
+      },
+      ruby: {
+        method: 'cards.financial_transactions.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nfinancial_transaction = lithic.cards.financial_transactions.retrieve(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  card_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(financial_transaction)',
       },
       typescript: {
         method: 'client.cards.financialTransactions.retrieve',
@@ -4154,15 +4154,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CardAuthorizationChallengeResponseParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: CardAuthorizationChallengeResponseParams = CardAuthorizationChallengeResponseParams.builder()\n        .eventToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .response(CardAuthorizationChallengeResponseParams.Response.APPROVE)\n        .build()\n    client.cardAuthorizations().challengeResponse(params)\n}',
       },
-      ruby: {
-        method: 'card_authorizations.challenge_response',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.card_authorizations.challenge_response("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", response: :APPROVE)\n\nputs(result)',
-      },
       python: {
         method: 'card_authorizations.challenge_response',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.card_authorizations.challenge_response(\n    event_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    response="APPROVE",\n)',
+      },
+      ruby: {
+        method: 'card_authorizations.challenge_response',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.card_authorizations.challenge_response("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", response: :APPROVE)\n\nputs(result)',
       },
       typescript: {
         method: 'client.cardAuthorizations.challengeResponse',
@@ -4210,15 +4210,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CardBulkOrderListPage\nimport com.lithic.api.models.CardBulkOrderListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: CardBulkOrderListPage = client.cardBulkOrders().list()\n}',
       },
-      ruby: {
-        method: 'card_bulk_orders.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.card_bulk_orders.list\n\nputs(page)',
-      },
       python: {
         method: 'card_bulk_orders.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.card_bulk_orders.list()\npage = page.data[0]\nprint(page.customer_product_id)',
+      },
+      ruby: {
+        method: 'card_bulk_orders.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.card_bulk_orders.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.cardBulkOrders.list',
@@ -4265,15 +4265,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.core.JsonValue\nimport com.lithic.api.models.CardBulkOrder\nimport com.lithic.api.models.CardBulkOrderCreateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: CardBulkOrderCreateParams = CardBulkOrderCreateParams.builder()\n        .customerProductId("custom-card-design-123")\n        .shippingAddress(JsonValue.from(mapOf(\n          "address1" to "123 Main Street",\n          "city" to "NEW YORK",\n          "country" to "USA",\n          "first_name" to "Johnny",\n          "last_name" to "Appleseed",\n          "postal_code" to "10001",\n          "state" to "NY",\n        )))\n        .shippingMethod(CardBulkOrderCreateParams.ShippingMethod.BULK_EXPEDITED)\n        .build()\n    val cardBulkOrder: CardBulkOrder = client.cardBulkOrders().create(params)\n}',
       },
-      ruby: {
-        method: 'card_bulk_orders.create',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard_bulk_order = lithic.card_bulk_orders.create(\n  customer_product_id: "custom-card-design-123",\n  shipping_address: {\n    address1: "123 Main Street",\n    city: "NEW YORK",\n    country: "USA",\n    first_name: "Johnny",\n    last_name: "Appleseed",\n    postal_code: "10001",\n    state: "NY"\n  },\n  shipping_method: :BULK_EXPEDITED\n)\n\nputs(card_bulk_order)',
-      },
       python: {
         method: 'card_bulk_orders.create',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ncard_bulk_order = client.card_bulk_orders.create(\n    customer_product_id="custom-card-design-123",\n    shipping_address={\n        "address1": "123 Main Street",\n        "city": "NEW YORK",\n        "country": "USA",\n        "first_name": "Johnny",\n        "last_name": "Appleseed",\n        "postal_code": "10001",\n        "state": "NY",\n    },\n    shipping_method="BULK_EXPEDITED",\n)\nprint(card_bulk_order.customer_product_id)',
+      },
+      ruby: {
+        method: 'card_bulk_orders.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard_bulk_order = lithic.card_bulk_orders.create(\n  customer_product_id: "custom-card-design-123",\n  shipping_address: {\n    address1: "123 Main Street",\n    city: "NEW YORK",\n    country: "USA",\n    first_name: "Johnny",\n    last_name: "Appleseed",\n    postal_code: "10001",\n    state: "NY"\n  },\n  shipping_method: :BULK_EXPEDITED\n)\n\nputs(card_bulk_order)',
       },
       typescript: {
         method: 'client.cardBulkOrders.create',
@@ -4315,15 +4315,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CardBulkOrder\nimport com.lithic.api.models.CardBulkOrderRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val cardBulkOrder: CardBulkOrder = client.cardBulkOrders().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'card_bulk_orders.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard_bulk_order = lithic.card_bulk_orders.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(card_bulk_order)',
-      },
       python: {
         method: 'card_bulk_orders.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ncard_bulk_order = client.card_bulk_orders.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(card_bulk_order.customer_product_id)',
+      },
+      ruby: {
+        method: 'card_bulk_orders.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard_bulk_order = lithic.card_bulk_orders.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(card_bulk_order)',
       },
       typescript: {
         method: 'client.cardBulkOrders.retrieve',
@@ -4366,15 +4366,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CardBulkOrder\nimport com.lithic.api.models.CardBulkOrderUpdateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: CardBulkOrderUpdateParams = CardBulkOrderUpdateParams.builder()\n        .bulkOrderToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .status(CardBulkOrderUpdateParams.Status.LOCKED)\n        .build()\n    val cardBulkOrder: CardBulkOrder = client.cardBulkOrders().update(params)\n}',
       },
-      ruby: {
-        method: 'card_bulk_orders.update',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard_bulk_order = lithic.card_bulk_orders.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", status: :LOCKED)\n\nputs(card_bulk_order)',
-      },
       python: {
         method: 'card_bulk_orders.update',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ncard_bulk_order = client.card_bulk_orders.update(\n    bulk_order_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    status="LOCKED",\n)\nprint(card_bulk_order.customer_product_id)',
+      },
+      ruby: {
+        method: 'card_bulk_orders.update',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard_bulk_order = lithic.card_bulk_orders.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", status: :LOCKED)\n\nputs(card_bulk_order)',
       },
       typescript: {
         method: 'client.cardBulkOrders.update',
@@ -4421,15 +4421,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.BalanceListPage\nimport com.lithic.api.models.BalanceListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: BalanceListPage = client.balances().list()\n}',
       },
-      ruby: {
-        method: 'balances.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.balances.list\n\nputs(page)',
-      },
       python: {
         method: 'balances.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.balances.list()\npage = page.data[0]\nprint(page.available_amount)',
+      },
+      ruby: {
+        method: 'balances.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.balances.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.balances.list',
@@ -4478,15 +4478,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.DisputeListPage\nimport com.lithic.api.models.DisputeListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: DisputeListPage = client.disputes().list()\n}',
       },
-      ruby: {
-        method: 'disputes.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.disputes.list\n\nputs(page)',
-      },
       python: {
         method: 'disputes.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.disputes.list()\npage = page.data[0]\nprint(page.network_claim_ids)',
+      },
+      ruby: {
+        method: 'disputes.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.disputes.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.disputes.list',
@@ -4533,15 +4533,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Dispute\nimport com.lithic.api.models.DisputeCreateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: DisputeCreateParams = DisputeCreateParams.builder()\n        .amount(10000L)\n        .reason(DisputeCreateParams.Reason.FRAUD_CARD_PRESENT)\n        .transactionToken("12345624-aa69-4cbc-a946-30d90181b621")\n        .build()\n    val dispute: Dispute = client.disputes().create(params)\n}',
       },
-      ruby: {
-        method: 'disputes.create',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndispute = lithic.disputes.create(\n  amount: 10000,\n  reason: :FRAUD_CARD_PRESENT,\n  transaction_token: "12345624-aa69-4cbc-a946-30d90181b621"\n)\n\nputs(dispute)',
-      },
       python: {
         method: 'disputes.create',
         example:
           'import os\nfrom datetime import datetime\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ndispute = client.disputes.create(\n    amount=10000,\n    reason="FRAUD_CARD_PRESENT",\n    transaction_token="12345624-aa69-4cbc-a946-30d90181b621",\n    customer_filed_date=datetime.fromisoformat("2021-06-28T22:53:15"),\n)\nprint(dispute.network_claim_ids)',
+      },
+      ruby: {
+        method: 'disputes.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndispute = lithic.disputes.create(\n  amount: 10000,\n  reason: :FRAUD_CARD_PRESENT,\n  transaction_token: "12345624-aa69-4cbc-a946-30d90181b621"\n)\n\nputs(dispute)',
       },
       typescript: {
         method: 'client.disputes.create',
@@ -4583,15 +4583,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Dispute\nimport com.lithic.api.models.DisputeRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val dispute: Dispute = client.disputes().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'disputes.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndispute = lithic.disputes.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(dispute)',
-      },
       python: {
         method: 'disputes.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ndispute = client.disputes.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(dispute.network_claim_ids)',
+      },
+      ruby: {
+        method: 'disputes.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndispute = lithic.disputes.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(dispute)',
       },
       typescript: {
         method: 'client.disputes.retrieve',
@@ -4633,15 +4633,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Dispute\nimport com.lithic.api.models.DisputeDeleteParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val dispute: Dispute = client.disputes().delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'disputes.delete',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndispute = lithic.disputes.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(dispute)',
-      },
       python: {
         method: 'disputes.delete',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ndispute = client.disputes.delete(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(dispute.network_claim_ids)',
+      },
+      ruby: {
+        method: 'disputes.delete',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndispute = lithic.disputes.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(dispute)',
       },
       typescript: {
         method: 'client.disputes.delete',
@@ -4689,15 +4689,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Dispute\nimport com.lithic.api.models.DisputeUpdateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val dispute: Dispute = client.disputes().update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'disputes.update',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndispute = lithic.disputes.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(dispute)',
-      },
       python: {
         method: 'disputes.update',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ndispute = client.disputes.update(\n    dispute_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(dispute.network_claim_ids)',
+      },
+      ruby: {
+        method: 'disputes.update',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndispute = lithic.disputes.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(dispute)',
       },
       typescript: {
         method: 'client.disputes.update',
@@ -4746,15 +4746,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.DisputeListEvidencesPage\nimport com.lithic.api.models.DisputeListEvidencesParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: DisputeListEvidencesPage = client.disputes().listEvidences("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'disputes.list_evidences',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.disputes.list_evidences("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
-      },
       python: {
         method: 'disputes.list_evidences',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.disputes.list_evidences(\n    dispute_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'disputes.list_evidences',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.disputes.list_evidences("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
       },
       typescript: {
         method: 'client.disputes.listEvidences',
@@ -4797,15 +4797,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.DisputeEvidence\nimport com.lithic.api.models.DisputeInitiateEvidenceUploadParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val disputeEvidence: DisputeEvidence = client.disputes().initiateEvidenceUpload("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'disputes.initiate_evidence_upload',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndispute_evidence = lithic.disputes.initiate_evidence_upload("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(dispute_evidence)',
-      },
       python: {
         method: 'disputes.initiate_evidence_upload',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ndispute_evidence = client.disputes.initiate_evidence_upload(\n    dispute_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(dispute_evidence.token)',
+      },
+      ruby: {
+        method: 'disputes.initiate_evidence_upload',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndispute_evidence = lithic.disputes.initiate_evidence_upload("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(dispute_evidence)',
       },
       typescript: {
         method: 'client.disputes.initiateEvidenceUpload',
@@ -4847,15 +4847,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.DisputeEvidence\nimport com.lithic.api.models.DisputeRetrieveEvidenceParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: DisputeRetrieveEvidenceParams = DisputeRetrieveEvidenceParams.builder()\n        .disputeToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .evidenceToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .build()\n    val disputeEvidence: DisputeEvidence = client.disputes().retrieveEvidence(params)\n}',
       },
-      ruby: {
-        method: 'disputes.retrieve_evidence',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndispute_evidence = lithic.disputes.retrieve_evidence(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  dispute_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(dispute_evidence)',
-      },
       python: {
         method: 'disputes.retrieve_evidence',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ndispute_evidence = client.disputes.retrieve_evidence(\n    evidence_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    dispute_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(dispute_evidence.token)',
+      },
+      ruby: {
+        method: 'disputes.retrieve_evidence',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndispute_evidence = lithic.disputes.retrieve_evidence(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  dispute_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(dispute_evidence)',
       },
       typescript: {
         method: 'client.disputes.retrieveEvidence',
@@ -4898,15 +4898,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.DisputeDeleteEvidenceParams\nimport com.lithic.api.models.DisputeEvidence\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: DisputeDeleteEvidenceParams = DisputeDeleteEvidenceParams.builder()\n        .disputeToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .evidenceToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .build()\n    val disputeEvidence: DisputeEvidence = client.disputes().deleteEvidence(params)\n}',
       },
-      ruby: {
-        method: 'disputes.delete_evidence',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndispute_evidence = lithic.disputes.delete_evidence(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  dispute_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(dispute_evidence)',
-      },
       python: {
         method: 'disputes.delete_evidence',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ndispute_evidence = client.disputes.delete_evidence(\n    evidence_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    dispute_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(dispute_evidence.token)',
+      },
+      ruby: {
+        method: 'disputes.delete_evidence',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndispute_evidence = lithic.disputes.delete_evidence(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  dispute_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(dispute_evidence)',
       },
       typescript: {
         method: 'client.disputes.deleteEvidence',
@@ -4957,15 +4957,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.DisputesV2ListPage\nimport com.lithic.api.models.DisputesV2ListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: DisputesV2ListPage = client.disputesV2().list()\n}',
       },
-      ruby: {
-        method: 'disputes_v2.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.disputes_v2.list\n\nputs(page)',
-      },
       python: {
         method: 'disputes_v2.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.disputes_v2.list()\npage = page.data[0]\nprint(page.case_id)',
+      },
+      ruby: {
+        method: 'disputes_v2.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.disputes_v2.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.disputesV2.list',
@@ -5006,15 +5006,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.DisputeV2\nimport com.lithic.api.models.DisputesV2RetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val disputeV2: DisputeV2 = client.disputesV2().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'disputes_v2.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndispute_v2 = lithic.disputes_v2.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(dispute_v2)',
-      },
       python: {
         method: 'disputes_v2.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ndispute_v2 = client.disputes_v2.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(dispute_v2.case_id)',
+      },
+      ruby: {
+        method: 'disputes_v2.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndispute_v2 = lithic.disputes_v2.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(dispute_v2)',
       },
       typescript: {
         method: 'client.disputesV2.retrieve',
@@ -5063,15 +5063,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.EventListPage\nimport com.lithic.api.models.EventListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: EventListPage = client.events().list()\n}',
       },
-      ruby: {
-        method: 'events.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.events.list\n\nputs(page)',
-      },
       python: {
         method: 'events.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.events.list()\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'events.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.events.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.events.list',
@@ -5111,15 +5111,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Event\nimport com.lithic.api.models.EventRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val event: Event = client.events().retrieve("event_token")\n}',
       },
-      ruby: {
-        method: 'events.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nevent = lithic.events.retrieve("event_token")\n\nputs(event)',
-      },
       python: {
         method: 'events.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nevent = client.events.retrieve(\n    "event_token",\n)\nprint(event.token)',
+      },
+      ruby: {
+        method: 'events.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nevent = lithic.events.retrieve("event_token")\n\nputs(event)',
       },
       typescript: {
         method: 'client.events.retrieve',
@@ -5169,15 +5169,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.EventListAttemptsPage\nimport com.lithic.api.models.EventListAttemptsParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: EventListAttemptsPage = client.events().listAttempts("event_token")\n}',
       },
-      ruby: {
-        method: 'events.list_attempts',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.events.list_attempts("event_token")\n\nputs(page)',
-      },
       python: {
         method: 'events.list_attempts',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.events.list_attempts(\n    event_token="event_token",\n)\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'events.list_attempts',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.events.list_attempts("event_token")\n\nputs(page)',
       },
       typescript: {
         method: 'client.events.listAttempts',
@@ -5219,15 +5219,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.EventSubscriptionListPage\nimport com.lithic.api.models.EventSubscriptionListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: EventSubscriptionListPage = client.events().subscriptions().list()\n}',
       },
-      ruby: {
-        method: 'events.subscriptions.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.events.subscriptions.list\n\nputs(page)',
-      },
       python: {
         method: 'events.subscriptions.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.events.subscriptions.list()\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'events.subscriptions.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.events.subscriptions.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.events.subscriptions.list',
@@ -5269,15 +5269,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.EventSubscription\nimport com.lithic.api.models.EventSubscriptionCreateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: EventSubscriptionCreateParams = EventSubscriptionCreateParams.builder()\n        .url("https://example.com")\n        .build()\n    val eventSubscription: EventSubscription = client.events().subscriptions().create(params)\n}',
       },
-      ruby: {
-        method: 'events.subscriptions.create',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nevent_subscription = lithic.events.subscriptions.create(url: "https://example.com")\n\nputs(event_subscription)',
-      },
       python: {
         method: 'events.subscriptions.create',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nevent_subscription = client.events.subscriptions.create(\n    url="https://example.com",\n)\nprint(event_subscription.token)',
+      },
+      ruby: {
+        method: 'events.subscriptions.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nevent_subscription = lithic.events.subscriptions.create(url: "https://example.com")\n\nputs(event_subscription)',
       },
       typescript: {
         method: 'client.events.subscriptions.create',
@@ -5319,15 +5319,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.EventSubscription\nimport com.lithic.api.models.EventSubscriptionRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val eventSubscription: EventSubscription = client.events().subscriptions().retrieve("event_subscription_token")\n}',
       },
-      ruby: {
-        method: 'events.subscriptions.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nevent_subscription = lithic.events.subscriptions.retrieve("event_subscription_token")\n\nputs(event_subscription)',
-      },
       python: {
         method: 'events.subscriptions.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nevent_subscription = client.events.subscriptions.retrieve(\n    "event_subscription_token",\n)\nprint(event_subscription.token)',
+      },
+      ruby: {
+        method: 'events.subscriptions.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nevent_subscription = lithic.events.subscriptions.retrieve("event_subscription_token")\n\nputs(event_subscription)',
       },
       typescript: {
         method: 'client.events.subscriptions.retrieve',
@@ -5375,15 +5375,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.EventSubscription\nimport com.lithic.api.models.EventSubscriptionUpdateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: EventSubscriptionUpdateParams = EventSubscriptionUpdateParams.builder()\n        .eventSubscriptionToken("event_subscription_token")\n        .url("https://example.com")\n        .build()\n    val eventSubscription: EventSubscription = client.events().subscriptions().update(params)\n}',
       },
-      ruby: {
-        method: 'events.subscriptions.update',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nevent_subscription = lithic.events.subscriptions.update("event_subscription_token", url: "https://example.com")\n\nputs(event_subscription)',
-      },
       python: {
         method: 'events.subscriptions.update',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nevent_subscription = client.events.subscriptions.update(\n    event_subscription_token="event_subscription_token",\n    url="https://example.com",\n)\nprint(event_subscription.token)',
+      },
+      ruby: {
+        method: 'events.subscriptions.update',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nevent_subscription = lithic.events.subscriptions.update("event_subscription_token", url: "https://example.com")\n\nputs(event_subscription)',
       },
       typescript: {
         method: 'client.events.subscriptions.update',
@@ -5423,15 +5423,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.EventSubscriptionDeleteParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    client.events().subscriptions().delete("event_subscription_token")\n}',
       },
-      ruby: {
-        method: 'events.subscriptions.delete',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.events.subscriptions.delete("event_subscription_token")\n\nputs(result)',
-      },
       python: {
         method: 'events.subscriptions.delete',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.events.subscriptions.delete(\n    "event_subscription_token",\n)',
+      },
+      ruby: {
+        method: 'events.subscriptions.delete',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.events.subscriptions.delete("event_subscription_token")\n\nputs(result)',
       },
       typescript: {
         method: 'client.events.subscriptions.delete',
@@ -5471,15 +5471,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.EventSubscriptionRecoverParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    client.events().subscriptions().recover("event_subscription_token")\n}',
       },
-      ruby: {
-        method: 'events.subscriptions.recover',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.events.subscriptions.recover("event_subscription_token")\n\nputs(result)',
-      },
       python: {
         method: 'events.subscriptions.recover',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.events.subscriptions.recover(\n    event_subscription_token="event_subscription_token",\n)',
+      },
+      ruby: {
+        method: 'events.subscriptions.recover',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.events.subscriptions.recover("event_subscription_token")\n\nputs(result)',
       },
       typescript: {
         method: 'client.events.subscriptions.recover',
@@ -5529,15 +5529,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.EventSubscriptionListAttemptsPage\nimport com.lithic.api.models.EventSubscriptionListAttemptsParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: EventSubscriptionListAttemptsPage = client.events().subscriptions().listAttempts("event_subscription_token")\n}',
       },
-      ruby: {
-        method: 'events.subscriptions.list_attempts',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.events.subscriptions.list_attempts("event_subscription_token")\n\nputs(page)',
-      },
       python: {
         method: 'events.subscriptions.list_attempts',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.events.subscriptions.list_attempts(\n    event_subscription_token="event_subscription_token",\n)\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'events.subscriptions.list_attempts',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.events.subscriptions.list_attempts("event_subscription_token")\n\nputs(page)',
       },
       typescript: {
         method: 'client.events.subscriptions.listAttempts',
@@ -5578,15 +5578,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.EventSubscriptionReplayMissingParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    client.events().subscriptions().replayMissing("event_subscription_token")\n}',
       },
-      ruby: {
-        method: 'events.subscriptions.replay_missing',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.events.subscriptions.replay_missing("event_subscription_token")\n\nputs(result)',
-      },
       python: {
         method: 'events.subscriptions.replay_missing',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.events.subscriptions.replay_missing(\n    event_subscription_token="event_subscription_token",\n)',
+      },
+      ruby: {
+        method: 'events.subscriptions.replay_missing',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.events.subscriptions.replay_missing("event_subscription_token")\n\nputs(result)',
       },
       typescript: {
         method: 'client.events.subscriptions.replayMissing',
@@ -5627,15 +5627,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.EventSubscriptionRetrieveSecretParams\nimport com.lithic.api.models.SubscriptionRetrieveSecretResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val response: SubscriptionRetrieveSecretResponse = client.events().subscriptions().retrieveSecret("event_subscription_token")\n}',
       },
-      ruby: {
-        method: 'events.subscriptions.retrieve_secret',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.events.subscriptions.retrieve_secret("event_subscription_token")\n\nputs(response)',
-      },
       python: {
         method: 'events.subscriptions.retrieve_secret',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.events.subscriptions.retrieve_secret(\n    "event_subscription_token",\n)\nprint(response.secret)',
+      },
+      ruby: {
+        method: 'events.subscriptions.retrieve_secret',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.events.subscriptions.retrieve_secret("event_subscription_token")\n\nputs(response)',
       },
       typescript: {
         method: 'client.events.subscriptions.retrieveSecret',
@@ -5676,15 +5676,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.EventSubscriptionRotateSecretParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    client.events().subscriptions().rotateSecret("event_subscription_token")\n}',
       },
-      ruby: {
-        method: 'events.subscriptions.rotate_secret',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.events.subscriptions.rotate_secret("event_subscription_token")\n\nputs(result)',
-      },
       python: {
         method: 'events.subscriptions.rotate_secret',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.events.subscriptions.rotate_secret(\n    "event_subscription_token",\n)',
+      },
+      ruby: {
+        method: 'events.subscriptions.rotate_secret',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.events.subscriptions.rotate_secret("event_subscription_token")\n\nputs(result)',
       },
       typescript: {
         method: 'client.events.subscriptions.rotateSecret',
@@ -5724,15 +5724,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.EventSubscriptionSendSimulatedExampleParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    client.events().subscriptions().sendSimulatedExample("event_subscription_token")\n}',
       },
-      ruby: {
-        method: 'events.subscriptions.send_simulated_example',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.events.subscriptions.send_simulated_example("event_subscription_token")\n\nputs(result)',
-      },
       python: {
         method: 'events.subscriptions.send_simulated_example',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.events.subscriptions.send_simulated_example(\n    event_subscription_token="event_subscription_token",\n)',
+      },
+      ruby: {
+        method: 'events.subscriptions.send_simulated_example',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.events.subscriptions.send_simulated_example("event_subscription_token")\n\nputs(result)',
       },
       typescript: {
         method: 'client.events.subscriptions.sendSimulatedExample',
@@ -5772,15 +5772,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.EventEventSubscriptionResendParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: EventEventSubscriptionResendParams = EventEventSubscriptionResendParams.builder()\n        .eventToken("event_token")\n        .eventSubscriptionToken("event_subscription_token")\n        .build()\n    client.events().eventSubscriptions().resend(params)\n}',
       },
-      ruby: {
-        method: 'events.event_subscriptions.resend',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.events.event_subscriptions.resend("event_subscription_token", event_token: "event_token")\n\nputs(result)',
-      },
       python: {
         method: 'events.event_subscriptions.resend',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.events.event_subscriptions.resend(\n    event_subscription_token="event_subscription_token",\n    event_token="event_token",\n)',
+      },
+      ruby: {
+        method: 'events.event_subscriptions.resend',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.events.event_subscriptions.resend("event_subscription_token", event_token: "event_token")\n\nputs(result)',
       },
       typescript: {
         method: 'client.events.eventSubscriptions.resend',
@@ -5871,15 +5871,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialAccountListPage\nimport com.lithic.api.models.FinancialAccountListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: FinancialAccountListPage = client.financialAccounts().list()\n}',
       },
-      ruby: {
-        method: 'financial_accounts.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.financial_accounts.list\n\nputs(page)',
-      },
       python: {
         method: 'financial_accounts.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.financial_accounts.list()\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'financial_accounts.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.financial_accounts.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.financialAccounts.list',
@@ -5921,15 +5921,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialAccount\nimport com.lithic.api.models.FinancialAccountRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val financialAccount: FinancialAccount = client.financialAccounts().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'financial_accounts.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nfinancial_account = lithic.financial_accounts.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(financial_account)',
-      },
       python: {
         method: 'financial_accounts.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nfinancial_account = client.financial_accounts.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(financial_account.token)',
+      },
+      ruby: {
+        method: 'financial_accounts.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nfinancial_account = lithic.financial_accounts.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(financial_account)',
       },
       typescript: {
         method: 'client.financialAccounts.retrieve',
@@ -5971,15 +5971,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialAccount\nimport com.lithic.api.models.FinancialAccountUpdateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val financialAccount: FinancialAccount = client.financialAccounts().update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'financial_accounts.update',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nfinancial_account = lithic.financial_accounts.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(financial_account)',
-      },
       python: {
         method: 'financial_accounts.update',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nfinancial_account = client.financial_accounts.update(\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(financial_account.token)',
+      },
+      ruby: {
+        method: 'financial_accounts.update',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nfinancial_account = lithic.financial_accounts.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(financial_account)',
       },
       typescript: {
         method: 'client.financialAccounts.update',
@@ -6026,15 +6026,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialAccount\nimport com.lithic.api.models.FinancialAccountUpdateStatusParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: FinancialAccountUpdateStatusParams = FinancialAccountUpdateStatusParams.builder()\n        .financialAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .status(FinancialAccountUpdateStatusParams.FinancialAccountStatus.CLOSED)\n        .substatus(FinancialAccountUpdateStatusParams.UpdateFinancialAccountSubstatus.END_USER_REQUEST)\n        .build()\n    val financialAccount: FinancialAccount = client.financialAccounts().updateStatus(params)\n}',
       },
-      ruby: {
-        method: 'financial_accounts.update_status',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nfinancial_account = lithic.financial_accounts.update_status(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  status: :CLOSED,\n  substatus: :END_USER_REQUEST\n)\n\nputs(financial_account)',
-      },
       python: {
         method: 'financial_accounts.update_status',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nfinancial_account = client.financial_accounts.update_status(\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    status="CLOSED",\n    substatus="END_USER_REQUEST",\n)\nprint(financial_account.token)',
+      },
+      ruby: {
+        method: 'financial_accounts.update_status',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nfinancial_account = lithic.financial_accounts.update_status(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  status: :CLOSED,\n  substatus: :END_USER_REQUEST\n)\n\nputs(financial_account)',
       },
       typescript: {
         method: 'client.financialAccounts.updateStatus',
@@ -6082,15 +6082,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialAccount\nimport com.lithic.api.models.FinancialAccountCreateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: FinancialAccountCreateParams = FinancialAccountCreateParams.builder()\n        .nickname("nickname")\n        .type(FinancialAccountCreateParams.Type.OPERATING)\n        .build()\n    val financialAccount: FinancialAccount = client.financialAccounts().create(params)\n}',
       },
-      ruby: {
-        method: 'financial_accounts.create',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nfinancial_account = lithic.financial_accounts.create(nickname: "nickname", type: :OPERATING)\n\nputs(financial_account)',
-      },
       python: {
         method: 'financial_accounts.create',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nfinancial_account = client.financial_accounts.create(\n    nickname="nickname",\n    type="OPERATING",\n)\nprint(financial_account.token)',
+      },
+      ruby: {
+        method: 'financial_accounts.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nfinancial_account = lithic.financial_accounts.create(nickname: "nickname", type: :OPERATING)\n\nputs(financial_account)',
       },
       typescript: {
         method: 'client.financialAccounts.create',
@@ -6130,15 +6130,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialAccountRegisterAccountNumberParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: FinancialAccountRegisterAccountNumberParams = FinancialAccountRegisterAccountNumberParams.builder()\n        .financialAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .accountNumber("account_number")\n        .build()\n    client.financialAccounts().registerAccountNumber(params)\n}',
       },
-      ruby: {
-        method: 'financial_accounts.register_account_number',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.financial_accounts.register_account_number(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  account_number: "account_number"\n)\n\nputs(result)',
-      },
       python: {
         method: 'financial_accounts.register_account_number',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.financial_accounts.register_account_number(\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    account_number="account_number",\n)',
+      },
+      ruby: {
+        method: 'financial_accounts.register_account_number',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.financial_accounts.register_account_number(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  account_number: "account_number"\n)\n\nputs(result)',
       },
       typescript: {
         method: 'client.financialAccounts.registerAccountNumber',
@@ -6184,15 +6184,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialAccountBalanceListPage\nimport com.lithic.api.models.FinancialAccountBalanceListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: FinancialAccountBalanceListPage = client.financialAccounts().balances().list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'financial_accounts.balances.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.financial_accounts.balances.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
-      },
       python: {
         method: 'financial_accounts.balances.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.financial_accounts.balances.list(\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'financial_accounts.balances.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.financial_accounts.balances.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
       },
       typescript: {
         method: 'client.financialAccounts.balances.list',
@@ -6243,15 +6243,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialTransactionListPage\nimport com.lithic.api.models.FinancialTransactionListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: FinancialTransactionListPage = client.financialAccounts().financialTransactions().list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'financial_accounts.financial_transactions.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.financial_accounts.financial_transactions.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
-      },
       python: {
         method: 'financial_accounts.financial_transactions.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.financial_accounts.financial_transactions.list(\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'financial_accounts.financial_transactions.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.financial_accounts.financial_transactions.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
       },
       typescript: {
         method: 'client.financialAccounts.financialTransactions.list',
@@ -6294,15 +6294,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialTransaction\nimport com.lithic.api.models.FinancialTransactionRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: FinancialTransactionRetrieveParams = FinancialTransactionRetrieveParams.builder()\n        .financialAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .financialTransactionToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .build()\n    val financialTransaction: FinancialTransaction = client.financialAccounts().financialTransactions().retrieve(params)\n}',
       },
-      ruby: {
-        method: 'financial_accounts.financial_transactions.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nfinancial_transaction = lithic.financial_accounts.financial_transactions.retrieve(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(financial_transaction)',
-      },
       python: {
         method: 'financial_accounts.financial_transactions.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nfinancial_transaction = client.financial_accounts.financial_transactions.retrieve(\n    financial_transaction_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(financial_transaction.token)',
+      },
+      ruby: {
+        method: 'financial_accounts.financial_transactions.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nfinancial_transaction = lithic.financial_accounts.financial_transactions.retrieve(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(financial_transaction)',
       },
       typescript: {
         method: 'client.financialAccounts.financialTransactions.retrieve',
@@ -6344,15 +6344,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialAccountCreditConfig\nimport com.lithic.api.models.FinancialAccountCreditConfigurationRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val financialAccountCreditConfig: FinancialAccountCreditConfig = client.financialAccounts().creditConfiguration().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'financial_accounts.credit_configuration.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nfinancial_account_credit_config = lithic.financial_accounts.credit_configuration.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(financial_account_credit_config)',
-      },
       python: {
         method: 'financial_accounts.credit_configuration.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nfinancial_account_credit_config = client.financial_accounts.credit_configuration.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(financial_account_credit_config.account_token)',
+      },
+      ruby: {
+        method: 'financial_accounts.credit_configuration.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nfinancial_account_credit_config = lithic.financial_accounts.credit_configuration.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(financial_account_credit_config)',
       },
       typescript: {
         method: 'client.financialAccounts.creditConfiguration.retrieve',
@@ -6401,15 +6401,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialAccountCreditConfig\nimport com.lithic.api.models.FinancialAccountCreditConfigurationUpdateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val financialAccountCreditConfig: FinancialAccountCreditConfig = client.financialAccounts().creditConfiguration().update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'financial_accounts.credit_configuration.update',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nfinancial_account_credit_config = lithic.financial_accounts.credit_configuration.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(financial_account_credit_config)',
-      },
       python: {
         method: 'financial_accounts.credit_configuration.update',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nfinancial_account_credit_config = client.financial_accounts.credit_configuration.update(\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(financial_account_credit_config.account_token)',
+      },
+      ruby: {
+        method: 'financial_accounts.credit_configuration.update',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nfinancial_account_credit_config = lithic.financial_accounts.credit_configuration.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(financial_account_credit_config)',
       },
       typescript: {
         method: 'client.financialAccounts.creditConfiguration.update',
@@ -6459,15 +6459,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialAccountStatementListPage\nimport com.lithic.api.models.FinancialAccountStatementListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: FinancialAccountStatementListPage = client.financialAccounts().statements().list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'financial_accounts.statements.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.financial_accounts.statements.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
-      },
       python: {
         method: 'financial_accounts.statements.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.financial_accounts.statements.list(\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'financial_accounts.statements.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.financial_accounts.statements.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
       },
       typescript: {
         method: 'client.financialAccounts.statements.list',
@@ -6509,15 +6509,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialAccountStatementRetrieveParams\nimport com.lithic.api.models.Statement\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: FinancialAccountStatementRetrieveParams = FinancialAccountStatementRetrieveParams.builder()\n        .financialAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .statementToken("statement_token")\n        .build()\n    val statement: Statement = client.financialAccounts().statements().retrieve(params)\n}',
       },
-      ruby: {
-        method: 'financial_accounts.statements.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nstatement = lithic.financial_accounts.statements.retrieve(\n  "statement_token",\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(statement)',
-      },
       python: {
         method: 'financial_accounts.statements.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nstatement = client.financial_accounts.statements.retrieve(\n    statement_token="statement_token",\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(statement.token)',
+      },
+      ruby: {
+        method: 'financial_accounts.statements.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nstatement = lithic.financial_accounts.statements.retrieve(\n  "statement_token",\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(statement)',
       },
       typescript: {
         method: 'client.financialAccounts.statements.retrieve',
@@ -6565,15 +6565,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialAccountStatementLineItemListPage\nimport com.lithic.api.models.FinancialAccountStatementLineItemListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: FinancialAccountStatementLineItemListParams = FinancialAccountStatementLineItemListParams.builder()\n        .financialAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .statementToken("statement_token")\n        .build()\n    val page: FinancialAccountStatementLineItemListPage = client.financialAccounts().statements().lineItems().list(params)\n}',
       },
-      ruby: {
-        method: 'financial_accounts.statements.line_items.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.financial_accounts.statements.line_items.list(\n  "statement_token",\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(page)',
-      },
       python: {
         method: 'financial_accounts.statements.line_items.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.financial_accounts.statements.line_items.list(\n    statement_token="statement_token",\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'financial_accounts.statements.line_items.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.financial_accounts.statements.line_items.list(\n  "statement_token",\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(page)',
       },
       typescript: {
         method: 'client.financialAccounts.statements.lineItems.list',
@@ -6622,15 +6622,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialAccountLoanTapeListPage\nimport com.lithic.api.models.FinancialAccountLoanTapeListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: FinancialAccountLoanTapeListPage = client.financialAccounts().loanTapes().list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'financial_accounts.loan_tapes.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.financial_accounts.loan_tapes.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
-      },
       python: {
         method: 'financial_accounts.loan_tapes.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.financial_accounts.loan_tapes.list(\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'financial_accounts.loan_tapes.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.financial_accounts.loan_tapes.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
       },
       typescript: {
         method: 'client.financialAccounts.loanTapes.list',
@@ -6672,15 +6672,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialAccountLoanTapeRetrieveParams\nimport com.lithic.api.models.LoanTape\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: FinancialAccountLoanTapeRetrieveParams = FinancialAccountLoanTapeRetrieveParams.builder()\n        .financialAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .loanTapeToken("loan_tape_token")\n        .build()\n    val loanTape: LoanTape = client.financialAccounts().loanTapes().retrieve(params)\n}',
       },
-      ruby: {
-        method: 'financial_accounts.loan_tapes.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nloan_tape = lithic.financial_accounts.loan_tapes.retrieve(\n  "loan_tape_token",\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(loan_tape)',
-      },
       python: {
         method: 'financial_accounts.loan_tapes.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nloan_tape = client.financial_accounts.loan_tapes.retrieve(\n    loan_tape_token="loan_tape_token",\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(loan_tape.token)',
+      },
+      ruby: {
+        method: 'financial_accounts.loan_tapes.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nloan_tape = lithic.financial_accounts.loan_tapes.retrieve(\n  "loan_tape_token",\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(loan_tape)',
       },
       typescript: {
         method: 'client.financialAccounts.loanTapes.retrieve',
@@ -6722,15 +6722,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialAccountLoanTapeConfigurationRetrieveParams\nimport com.lithic.api.models.LoanTapeConfiguration\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val loanTapeConfiguration: LoanTapeConfiguration = client.financialAccounts().loanTapeConfiguration().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'financial_accounts.loan_tape_configuration.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nloan_tape_configuration = lithic.financial_accounts.loan_tape_configuration.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(loan_tape_configuration)',
-      },
       python: {
         method: 'financial_accounts.loan_tape_configuration.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nloan_tape_configuration = client.financial_accounts.loan_tape_configuration.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(loan_tape_configuration.created_at)',
+      },
+      ruby: {
+        method: 'financial_accounts.loan_tape_configuration.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nloan_tape_configuration = lithic.financial_accounts.loan_tape_configuration.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(loan_tape_configuration)',
       },
       typescript: {
         method: 'client.financialAccounts.loanTapeConfiguration.retrieve',
@@ -6778,15 +6778,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialAccountInterestTierScheduleListPage\nimport com.lithic.api.models.FinancialAccountInterestTierScheduleListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: FinancialAccountInterestTierScheduleListPage = client.financialAccounts().interestTierSchedule().list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'financial_accounts.interest_tier_schedule.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.financial_accounts.interest_tier_schedule.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
-      },
       python: {
         method: 'financial_accounts.interest_tier_schedule.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.financial_accounts.interest_tier_schedule.list(\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\npage = page.data[0]\nprint(page.credit_product_token)',
+      },
+      ruby: {
+        method: 'financial_accounts.interest_tier_schedule.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.financial_accounts.interest_tier_schedule.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
       },
       typescript: {
         method: 'client.financialAccounts.interestTierSchedule.list',
@@ -6835,15 +6835,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialAccountInterestTierScheduleCreateParams\nimport com.lithic.api.models.InterestTierSchedule\nimport java.time.LocalDate\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: FinancialAccountInterestTierScheduleCreateParams = FinancialAccountInterestTierScheduleCreateParams.builder()\n        .financialAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .interestTierSchedule(InterestTierSchedule.builder()\n            .creditProductToken("credit_product_token")\n            .effectiveDate(LocalDate.parse("2019-12-27"))\n            .build())\n        .build()\n    val interestTierSchedule: InterestTierSchedule = client.financialAccounts().interestTierSchedule().create(params)\n}',
       },
-      ruby: {
-        method: 'financial_accounts.interest_tier_schedule.create',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ninterest_tier_schedule = lithic.financial_accounts.interest_tier_schedule.create(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  credit_product_token: "credit_product_token",\n  effective_date: "2019-12-27"\n)\n\nputs(interest_tier_schedule)',
-      },
       python: {
         method: 'financial_accounts.interest_tier_schedule.create',
         example:
           'import os\nfrom datetime import date\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ninterest_tier_schedule = client.financial_accounts.interest_tier_schedule.create(\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    credit_product_token="credit_product_token",\n    effective_date=date.fromisoformat("2019-12-27"),\n)\nprint(interest_tier_schedule.credit_product_token)',
+      },
+      ruby: {
+        method: 'financial_accounts.interest_tier_schedule.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ninterest_tier_schedule = lithic.financial_accounts.interest_tier_schedule.create(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  credit_product_token: "credit_product_token",\n  effective_date: "2019-12-27"\n)\n\nputs(interest_tier_schedule)',
       },
       typescript: {
         method: 'client.financialAccounts.interestTierSchedule.create',
@@ -6885,15 +6885,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialAccountInterestTierScheduleRetrieveParams\nimport com.lithic.api.models.InterestTierSchedule\nimport java.time.LocalDate\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: FinancialAccountInterestTierScheduleRetrieveParams = FinancialAccountInterestTierScheduleRetrieveParams.builder()\n        .financialAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .effectiveDate(LocalDate.parse("2019-12-27"))\n        .build()\n    val interestTierSchedule: InterestTierSchedule = client.financialAccounts().interestTierSchedule().retrieve(params)\n}',
       },
-      ruby: {
-        method: 'financial_accounts.interest_tier_schedule.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ninterest_tier_schedule = lithic.financial_accounts.interest_tier_schedule.retrieve(\n  "2019-12-27",\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(interest_tier_schedule)',
-      },
       python: {
         method: 'financial_accounts.interest_tier_schedule.retrieve',
         example:
           'import os\nfrom datetime import date\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ninterest_tier_schedule = client.financial_accounts.interest_tier_schedule.retrieve(\n    effective_date=date.fromisoformat("2019-12-27"),\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(interest_tier_schedule.credit_product_token)',
+      },
+      ruby: {
+        method: 'financial_accounts.interest_tier_schedule.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ninterest_tier_schedule = lithic.financial_accounts.interest_tier_schedule.retrieve(\n  "2019-12-27",\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(interest_tier_schedule)',
       },
       typescript: {
         method: 'client.financialAccounts.interestTierSchedule.retrieve',
@@ -6941,15 +6941,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialAccountInterestTierScheduleUpdateParams\nimport com.lithic.api.models.InterestTierSchedule\nimport java.time.LocalDate\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: FinancialAccountInterestTierScheduleUpdateParams = FinancialAccountInterestTierScheduleUpdateParams.builder()\n        .financialAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .effectiveDate(LocalDate.parse("2019-12-27"))\n        .build()\n    val interestTierSchedule: InterestTierSchedule = client.financialAccounts().interestTierSchedule().update(params)\n}',
       },
-      ruby: {
-        method: 'financial_accounts.interest_tier_schedule.update',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ninterest_tier_schedule = lithic.financial_accounts.interest_tier_schedule.update(\n  "2019-12-27",\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(interest_tier_schedule)',
-      },
       python: {
         method: 'financial_accounts.interest_tier_schedule.update',
         example:
           'import os\nfrom datetime import date\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ninterest_tier_schedule = client.financial_accounts.interest_tier_schedule.update(\n    effective_date=date.fromisoformat("2019-12-27"),\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(interest_tier_schedule.credit_product_token)',
+      },
+      ruby: {
+        method: 'financial_accounts.interest_tier_schedule.update',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ninterest_tier_schedule = lithic.financial_accounts.interest_tier_schedule.update(\n  "2019-12-27",\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(interest_tier_schedule)',
       },
       typescript: {
         method: 'client.financialAccounts.interestTierSchedule.update',
@@ -6990,15 +6990,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialAccountInterestTierScheduleDeleteParams\nimport java.time.LocalDate\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: FinancialAccountInterestTierScheduleDeleteParams = FinancialAccountInterestTierScheduleDeleteParams.builder()\n        .financialAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .effectiveDate(LocalDate.parse("2019-12-27"))\n        .build()\n    client.financialAccounts().interestTierSchedule().delete(params)\n}',
       },
-      ruby: {
-        method: 'financial_accounts.interest_tier_schedule.delete',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.financial_accounts.interest_tier_schedule.delete(\n  "2019-12-27",\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(result)',
-      },
       python: {
         method: 'financial_accounts.interest_tier_schedule.delete',
         example:
           'import os\nfrom datetime import date\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.financial_accounts.interest_tier_schedule.delete(\n    effective_date=date.fromisoformat("2019-12-27"),\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)',
+      },
+      ruby: {
+        method: 'financial_accounts.interest_tier_schedule.delete',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.financial_accounts.interest_tier_schedule.delete(\n  "2019-12-27",\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(result)',
       },
       typescript: {
         method: 'client.financialAccounts.interestTierSchedule.delete',
@@ -7051,15 +7051,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionListPage\nimport com.lithic.api.models.TransactionListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: TransactionListPage = client.transactions().list()\n}',
       },
-      ruby: {
-        method: 'transactions.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.transactions.list\n\nputs(page)',
-      },
       python: {
         method: 'transactions.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.transactions.list()\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'transactions.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.transactions.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.transactions.list',
@@ -7101,15 +7101,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Transaction\nimport com.lithic.api.models.TransactionRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val transaction: Transaction = client.transactions().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'transactions.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ntransaction = lithic.transactions.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(transaction)',
-      },
       python: {
         method: 'transactions.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ntransaction = client.transactions.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(transaction.token)',
+      },
+      ruby: {
+        method: 'transactions.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ntransaction = lithic.transactions.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(transaction)',
       },
       typescript: {
         method: 'client.transactions.retrieve',
@@ -7165,15 +7165,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionSimulateAuthorizationParams\nimport com.lithic.api.models.TransactionSimulateAuthorizationResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TransactionSimulateAuthorizationParams = TransactionSimulateAuthorizationParams.builder()\n        .amount(3831L)\n        .descriptor("COFFEE SHOP")\n        .pan("4111111289144142")\n        .build()\n    val response: TransactionSimulateAuthorizationResponse = client.transactions().simulateAuthorization(params)\n}',
       },
-      ruby: {
-        method: 'transactions.simulate_authorization',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.transactions.simulate_authorization(\n  amount: 3831,\n  descriptor: "COFFEE SHOP",\n  pan: "4111111289144142"\n)\n\nputs(response)',
-      },
       python: {
         method: 'transactions.simulate_authorization',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.transactions.simulate_authorization(\n    amount=3831,\n    descriptor="COFFEE SHOP",\n    pan="4111111289144142",\n    merchant_acceptor_city="LOS ANGELES",\n    merchant_acceptor_country="USA",\n    merchant_acceptor_state="CA",\n)\nprint(response.debugging_request_id)',
+      },
+      ruby: {
+        method: 'transactions.simulate_authorization',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.transactions.simulate_authorization(\n  amount: 3831,\n  descriptor: "COFFEE SHOP",\n  pan: "4111111289144142"\n)\n\nputs(response)',
       },
       typescript: {
         method: 'client.transactions.simulateAuthorization',
@@ -7215,15 +7215,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionSimulateClearingParams\nimport com.lithic.api.models.TransactionSimulateClearingResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TransactionSimulateClearingParams = TransactionSimulateClearingParams.builder()\n        .token("fabd829d-7f7b-4432-a8f2-07ea4889aaac")\n        .build()\n    val response: TransactionSimulateClearingResponse = client.transactions().simulateClearing(params)\n}',
       },
-      ruby: {
-        method: 'transactions.simulate_clearing',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.transactions.simulate_clearing(token: "fabd829d-7f7b-4432-a8f2-07ea4889aaac")\n\nputs(response)',
-      },
       python: {
         method: 'transactions.simulate_clearing',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.transactions.simulate_clearing(\n    token="fabd829d-7f7b-4432-a8f2-07ea4889aaac",\n    amount=0,\n)\nprint(response.debugging_request_id)',
+      },
+      ruby: {
+        method: 'transactions.simulate_clearing',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.transactions.simulate_clearing(token: "fabd829d-7f7b-4432-a8f2-07ea4889aaac")\n\nputs(response)',
       },
       typescript: {
         method: 'client.transactions.simulateClearing',
@@ -7265,15 +7265,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionSimulateReturnParams\nimport com.lithic.api.models.TransactionSimulateReturnResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TransactionSimulateReturnParams = TransactionSimulateReturnParams.builder()\n        .amount(3831L)\n        .descriptor("COFFEE SHOP")\n        .pan("4111111289144142")\n        .build()\n    val response: TransactionSimulateReturnResponse = client.transactions().simulateReturn(params)\n}',
       },
-      ruby: {
-        method: 'transactions.simulate_return',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.transactions.simulate_return(amount: 3831, descriptor: "COFFEE SHOP", pan: "4111111289144142")\n\nputs(response)',
-      },
       python: {
         method: 'transactions.simulate_return',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.transactions.simulate_return(\n    amount=3831,\n    descriptor="COFFEE SHOP",\n    pan="4111111289144142",\n)\nprint(response.debugging_request_id)',
+      },
+      ruby: {
+        method: 'transactions.simulate_return',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.transactions.simulate_return(amount: 3831, descriptor: "COFFEE SHOP", pan: "4111111289144142")\n\nputs(response)',
       },
       typescript: {
         method: 'client.transactions.simulateReturn',
@@ -7315,15 +7315,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionSimulateReturnReversalParams\nimport com.lithic.api.models.TransactionSimulateReturnReversalResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TransactionSimulateReturnReversalParams = TransactionSimulateReturnReversalParams.builder()\n        .token("fabd829d-7f7b-4432-a8f2-07ea4889aaac")\n        .build()\n    val response: TransactionSimulateReturnReversalResponse = client.transactions().simulateReturnReversal(params)\n}',
       },
-      ruby: {
-        method: 'transactions.simulate_return_reversal',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.transactions.simulate_return_reversal(token: "fabd829d-7f7b-4432-a8f2-07ea4889aaac")\n\nputs(response)',
-      },
       python: {
         method: 'transactions.simulate_return_reversal',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.transactions.simulate_return_reversal(\n    token="fabd829d-7f7b-4432-a8f2-07ea4889aaac",\n)\nprint(response.debugging_request_id)',
+      },
+      ruby: {
+        method: 'transactions.simulate_return_reversal',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.transactions.simulate_return_reversal(token: "fabd829d-7f7b-4432-a8f2-07ea4889aaac")\n\nputs(response)',
       },
       typescript: {
         method: 'client.transactions.simulateReturnReversal',
@@ -7369,15 +7369,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionSimulateVoidParams\nimport com.lithic.api.models.TransactionSimulateVoidResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TransactionSimulateVoidParams = TransactionSimulateVoidParams.builder()\n        .token("fabd829d-7f7b-4432-a8f2-07ea4889aaac")\n        .build()\n    val response: TransactionSimulateVoidResponse = client.transactions().simulateVoid(params)\n}',
       },
-      ruby: {
-        method: 'transactions.simulate_void',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.transactions.simulate_void(token: "fabd829d-7f7b-4432-a8f2-07ea4889aaac")\n\nputs(response)',
-      },
       python: {
         method: 'transactions.simulate_void',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.transactions.simulate_void(\n    token="fabd829d-7f7b-4432-a8f2-07ea4889aaac",\n    amount=100,\n    type="AUTHORIZATION_EXPIRY",\n)\nprint(response.debugging_request_id)',
+      },
+      ruby: {
+        method: 'transactions.simulate_void',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.transactions.simulate_void(token: "fabd829d-7f7b-4432-a8f2-07ea4889aaac")\n\nputs(response)',
       },
       typescript: {
         method: 'client.transactions.simulateVoid',
@@ -7478,15 +7478,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionSimulateCreditAuthorizationAdviceParams\nimport com.lithic.api.models.TransactionSimulateCreditAuthorizationAdviceResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TransactionSimulateCreditAuthorizationAdviceParams = TransactionSimulateCreditAuthorizationAdviceParams.builder()\n        .amount(3831L)\n        .descriptor("COFFEE SHOP")\n        .pan("4111111289144142")\n        .build()\n    val response: TransactionSimulateCreditAuthorizationAdviceResponse = client.transactions().simulateCreditAuthorizationAdvice(params)\n}',
       },
-      ruby: {
-        method: 'transactions.simulate_credit_authorization_advice',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.transactions.simulate_credit_authorization_advice(\n  amount: 3831,\n  descriptor: "COFFEE SHOP",\n  pan: "4111111289144142"\n)\n\nputs(response)',
-      },
       python: {
         method: 'transactions.simulate_credit_authorization_advice',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.transactions.simulate_credit_authorization_advice(\n    amount=3831,\n    descriptor="COFFEE SHOP",\n    pan="4111111289144142",\n    merchant_acceptor_city="SEATTLE",\n    merchant_acceptor_country="USA",\n    merchant_acceptor_id="XRKGDPOWEWQRRWU",\n    merchant_acceptor_state="WA",\n)\nprint(response.debugging_request_id)',
+      },
+      ruby: {
+        method: 'transactions.simulate_credit_authorization_advice',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.transactions.simulate_credit_authorization_advice(\n  amount: 3831,\n  descriptor: "COFFEE SHOP",\n  pan: "4111111289144142"\n)\n\nputs(response)',
       },
       typescript: {
         method: 'client.transactions.simulateCreditAuthorizationAdvice',
@@ -7528,15 +7528,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionSimulateAuthorizationAdviceParams\nimport com.lithic.api.models.TransactionSimulateAuthorizationAdviceResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TransactionSimulateAuthorizationAdviceParams = TransactionSimulateAuthorizationAdviceParams.builder()\n        .token("fabd829d-7f7b-4432-a8f2-07ea4889aaac")\n        .amount(3831L)\n        .build()\n    val response: TransactionSimulateAuthorizationAdviceResponse = client.transactions().simulateAuthorizationAdvice(params)\n}',
       },
-      ruby: {
-        method: 'transactions.simulate_authorization_advice',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.transactions.simulate_authorization_advice(\n  token: "fabd829d-7f7b-4432-a8f2-07ea4889aaac",\n  amount: 3831\n)\n\nputs(response)',
-      },
       python: {
         method: 'transactions.simulate_authorization_advice',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.transactions.simulate_authorization_advice(\n    token="fabd829d-7f7b-4432-a8f2-07ea4889aaac",\n    amount=3831,\n)\nprint(response.debugging_request_id)',
+      },
+      ruby: {
+        method: 'transactions.simulate_authorization_advice',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.transactions.simulate_authorization_advice(\n  token: "fabd829d-7f7b-4432-a8f2-07ea4889aaac",\n  amount: 3831\n)\n\nputs(response)',
       },
       typescript: {
         method: 'client.transactions.simulateAuthorizationAdvice',
@@ -7576,15 +7576,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionExpireAuthorizationParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    client.transactions().expireAuthorization("00000000-0000-0000-0000-000000000000")\n}',
       },
-      ruby: {
-        method: 'transactions.expire_authorization',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.transactions.expire_authorization("00000000-0000-0000-0000-000000000000")\n\nputs(result)',
-      },
       python: {
         method: 'transactions.expire_authorization',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.transactions.expire_authorization(\n    "00000000-0000-0000-0000-000000000000",\n)',
+      },
+      ruby: {
+        method: 'transactions.expire_authorization',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.transactions.expire_authorization("00000000-0000-0000-0000-000000000000")\n\nputs(result)',
       },
       typescript: {
         method: 'client.transactions.expireAuthorization',
@@ -7625,15 +7625,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransactionRouteParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: TransactionRouteParams = TransactionRouteParams.builder()\n        .transactionToken("00000000-0000-0000-0000-000000000000")\n        .financialAccountToken("00000000-0000-0000-0000-000000000000")\n        .build()\n    client.transactions().route(params)\n}',
       },
-      ruby: {
-        method: 'transactions.route',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.transactions.route(\n  "00000000-0000-0000-0000-000000000000",\n  financial_account_token: "00000000-0000-0000-0000-000000000000"\n)\n\nputs(result)',
-      },
       python: {
         method: 'transactions.route',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.transactions.route(\n    transaction_token="00000000-0000-0000-0000-000000000000",\n    financial_account_token="00000000-0000-0000-0000-000000000000",\n)',
+      },
+      ruby: {
+        method: 'transactions.route',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.transactions.route(\n  "00000000-0000-0000-0000-000000000000",\n  financial_account_token: "00000000-0000-0000-0000-000000000000"\n)\n\nputs(result)',
       },
       typescript: {
         method: 'client.transactions.route',
@@ -7676,15 +7676,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.EnhancedCommercialDataRetrieveResponse\nimport com.lithic.api.models.TransactionEnhancedCommercialDataRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val enhancedCommercialData: EnhancedCommercialDataRetrieveResponse = client.transactions().enhancedCommercialData().retrieve("00000000-0000-0000-0000-000000000000")\n}',
       },
-      ruby: {
-        method: 'transactions.enhanced_commercial_data.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nenhanced_commercial_data = lithic.transactions.enhanced_commercial_data.retrieve("00000000-0000-0000-0000-000000000000")\n\nputs(enhanced_commercial_data)',
-      },
       python: {
         method: 'transactions.enhanced_commercial_data.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nenhanced_commercial_data = client.transactions.enhanced_commercial_data.retrieve(\n    "00000000-0000-0000-0000-000000000000",\n)\nprint(enhanced_commercial_data.data)',
+      },
+      ruby: {
+        method: 'transactions.enhanced_commercial_data.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nenhanced_commercial_data = lithic.transactions.enhanced_commercial_data.retrieve("00000000-0000-0000-0000-000000000000")\n\nputs(enhanced_commercial_data)',
       },
       typescript: {
         method: 'client.transactions.enhancedCommercialData.retrieve',
@@ -7727,15 +7727,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.EnhancedData\nimport com.lithic.api.models.TransactionEventEnhancedCommercialDataRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val enhancedData: EnhancedData = client.transactions().events().enhancedCommercialData().retrieve("00000000-0000-0000-0000-000000000000")\n}',
       },
-      ruby: {
-        method: 'transactions.events.enhanced_commercial_data.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nenhanced_data = lithic.transactions.events.enhanced_commercial_data.retrieve("00000000-0000-0000-0000-000000000000")\n\nputs(enhanced_data)',
-      },
       python: {
         method: 'transactions.events.enhanced_commercial_data.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nenhanced_data = client.transactions.events.enhanced_commercial_data.retrieve(\n    "00000000-0000-0000-0000-000000000000",\n)\nprint(enhanced_data.token)',
+      },
+      ruby: {
+        method: 'transactions.events.enhanced_commercial_data.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nenhanced_data = lithic.transactions.events.enhanced_commercial_data.retrieve("00000000-0000-0000-0000-000000000000")\n\nputs(enhanced_data)',
       },
       typescript: {
         method: 'client.transactions.events.enhancedCommercialData.retrieve',
@@ -7779,15 +7779,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ResponderEndpointCreateParams\nimport com.lithic.api.models.ResponderEndpointCreateResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val responderEndpoint: ResponderEndpointCreateResponse = client.responderEndpoints().create()\n}',
       },
-      ruby: {
-        method: 'responder_endpoints.create',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponder_endpoint = lithic.responder_endpoints.create\n\nputs(responder_endpoint)',
-      },
       python: {
         method: 'responder_endpoints.create',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponder_endpoint = client.responder_endpoints.create()\nprint(responder_endpoint.enrolled)',
+      },
+      ruby: {
+        method: 'responder_endpoints.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponder_endpoint = lithic.responder_endpoints.create\n\nputs(responder_endpoint)',
       },
       typescript: {
         method: 'client.responderEndpoints.create',
@@ -7827,15 +7827,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ResponderEndpointDeleteParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: ResponderEndpointDeleteParams = ResponderEndpointDeleteParams.builder()\n        .type(ResponderEndpointDeleteParams.Type.AUTH_STREAM_ACCESS)\n        .build()\n    client.responderEndpoints().delete(params)\n}',
       },
-      ruby: {
-        method: 'responder_endpoints.delete',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.responder_endpoints.delete(type: :AUTH_STREAM_ACCESS)\n\nputs(result)',
-      },
       python: {
         method: 'responder_endpoints.delete',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.responder_endpoints.delete(\n    type="AUTH_STREAM_ACCESS",\n)',
+      },
+      ruby: {
+        method: 'responder_endpoints.delete',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.responder_endpoints.delete(type: :AUTH_STREAM_ACCESS)\n\nputs(result)',
       },
       typescript: {
         method: 'client.responderEndpoints.delete',
@@ -7876,15 +7876,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ResponderEndpointCheckStatusParams\nimport com.lithic.api.models.ResponderEndpointStatus\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: ResponderEndpointCheckStatusParams = ResponderEndpointCheckStatusParams.builder()\n        .type(ResponderEndpointCheckStatusParams.Type.AUTH_STREAM_ACCESS)\n        .build()\n    val responderEndpointStatus: ResponderEndpointStatus = client.responderEndpoints().checkStatus(params)\n}',
       },
-      ruby: {
-        method: 'responder_endpoints.check_status',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponder_endpoint_status = lithic.responder_endpoints.check_status(type: :AUTH_STREAM_ACCESS)\n\nputs(responder_endpoint_status)',
-      },
       python: {
         method: 'responder_endpoints.check_status',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponder_endpoint_status = client.responder_endpoints.check_status(\n    type="AUTH_STREAM_ACCESS",\n)\nprint(responder_endpoint_status.enrolled)',
+      },
+      ruby: {
+        method: 'responder_endpoints.check_status',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponder_endpoint_status = lithic.responder_endpoints.check_status(type: :AUTH_STREAM_ACCESS)\n\nputs(responder_endpoint_status)',
       },
       typescript: {
         method: 'client.responderEndpoints.checkStatus',
@@ -7936,15 +7936,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ExternalBankAccountListPage\nimport com.lithic.api.models.ExternalBankAccountListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: ExternalBankAccountListPage = client.externalBankAccounts().list()\n}',
       },
-      ruby: {
-        method: 'external_bank_accounts.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.external_bank_accounts.list\n\nputs(page)',
-      },
       python: {
         method: 'external_bank_accounts.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.external_bank_accounts.list()\npage = page.data[0]\nprint(page.company_id)',
+      },
+      ruby: {
+        method: 'external_bank_accounts.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.external_bank_accounts.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.externalBankAccounts.list',
@@ -7986,15 +7986,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ExternalBankAccountCreateParams\nimport com.lithic.api.models.ExternalBankAccountCreateResponse\nimport com.lithic.api.models.OwnerType\nimport com.lithic.api.models.VerificationMethod\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: ExternalBankAccountCreateParams.Body.BankVerifiedCreateBankAccountApiRequest = ExternalBankAccountCreateParams.Body.BankVerifiedCreateBankAccountApiRequest.builder()\n        .accountNumber("13719713158835300")\n        .country("USA")\n        .currency("USD")\n        .financialAccountToken("dabadb3b-700c-41e3-8801-d5dfc84ebea0")\n        .owner("John Doe")\n        .ownerType(OwnerType.BUSINESS)\n        .routingNumber("011103093")\n        .type(ExternalBankAccountCreateParams.Body.BankVerifiedCreateBankAccountApiRequest.AccountType.CHECKING)\n        .verificationMethod(VerificationMethod.MICRO_DEPOSIT)\n        .build()\n    val externalBankAccount: ExternalBankAccountCreateResponse = client.externalBankAccounts().create(params)\n}',
       },
-      ruby: {
-        method: 'external_bank_accounts.create',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_bank_account = lithic.external_bank_accounts.create(\n  body: {\n    account_number: "13719713158835300",\n    country: "USA",\n    currency: "USD",\n    financial_account_token: "dabadb3b-700c-41e3-8801-d5dfc84ebea0",\n    owner: "John Doe",\n    owner_type: :BUSINESS,\n    routing_number: "011103093",\n    type: :CHECKING,\n    verification_method: :MICRO_DEPOSIT\n  }\n)\n\nputs(external_bank_account)',
-      },
       python: {
         method: 'external_bank_accounts.create',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nexternal_bank_account = client.external_bank_accounts.create(\n    account_number="13719713158835300",\n    country="USA",\n    currency="USD",\n    financial_account_token="dabadb3b-700c-41e3-8801-d5dfc84ebea0",\n    owner="John Doe",\n    owner_type="BUSINESS",\n    routing_number="011103093",\n    type="CHECKING",\n    verification_method="MICRO_DEPOSIT",\n    address={\n        "address1": "5 Broad Street",\n        "city": "New York",\n        "country": "USA",\n        "postal_code": "10001",\n        "state": "NY",\n    },\n    name="John Does Checking",\n)\nprint(external_bank_account.company_id)',
+      },
+      ruby: {
+        method: 'external_bank_accounts.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_bank_account = lithic.external_bank_accounts.create(\n  body: {\n    account_number: "13719713158835300",\n    country: "USA",\n    currency: "USD",\n    financial_account_token: "dabadb3b-700c-41e3-8801-d5dfc84ebea0",\n    owner: "John Doe",\n    owner_type: :BUSINESS,\n    routing_number: "011103093",\n    type: :CHECKING,\n    verification_method: :MICRO_DEPOSIT\n  }\n)\n\nputs(external_bank_account)',
       },
       typescript: {
         method: 'client.externalBankAccounts.create',
@@ -8036,15 +8036,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ExternalBankAccountRetrieveParams\nimport com.lithic.api.models.ExternalBankAccountRetrieveResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val externalBankAccount: ExternalBankAccountRetrieveResponse = client.externalBankAccounts().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'external_bank_accounts.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_bank_account = lithic.external_bank_accounts.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(external_bank_account)',
-      },
       python: {
         method: 'external_bank_accounts.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nexternal_bank_account = client.external_bank_accounts.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(external_bank_account.company_id)',
+      },
+      ruby: {
+        method: 'external_bank_accounts.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_bank_account = lithic.external_bank_accounts.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(external_bank_account)',
       },
       typescript: {
         method: 'client.externalBankAccounts.retrieve',
@@ -8097,15 +8097,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ExternalBankAccountUpdateParams\nimport com.lithic.api.models.ExternalBankAccountUpdateResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val externalBankAccount: ExternalBankAccountUpdateResponse = client.externalBankAccounts().update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'external_bank_accounts.update',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_bank_account = lithic.external_bank_accounts.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(external_bank_account)',
-      },
       python: {
         method: 'external_bank_accounts.update',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nexternal_bank_account = client.external_bank_accounts.update(\n    external_bank_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(external_bank_account.company_id)',
+      },
+      ruby: {
+        method: 'external_bank_accounts.update',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_bank_account = lithic.external_bank_accounts.update("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(external_bank_account)',
       },
       typescript: {
         method: 'client.externalBankAccounts.update',
@@ -8147,15 +8147,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ExternalBankAccountRetryMicroDepositsParams\nimport com.lithic.api.models.ExternalBankAccountRetryMicroDepositsResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val response: ExternalBankAccountRetryMicroDepositsResponse = client.externalBankAccounts().retryMicroDeposits("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'external_bank_accounts.retry_micro_deposits',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.external_bank_accounts.retry_micro_deposits("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(response)',
-      },
       python: {
         method: 'external_bank_accounts.retry_micro_deposits',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.external_bank_accounts.retry_micro_deposits(\n    external_bank_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(response.company_id)',
+      },
+      ruby: {
+        method: 'external_bank_accounts.retry_micro_deposits',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.external_bank_accounts.retry_micro_deposits("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(response)',
       },
       typescript: {
         method: 'client.externalBankAccounts.retryMicroDeposits',
@@ -8197,15 +8197,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ExternalBankAccount\nimport com.lithic.api.models.ExternalBankAccountRetryPrenoteParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val externalBankAccount: ExternalBankAccount = client.externalBankAccounts().retryPrenote("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'external_bank_accounts.retry_prenote',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_bank_account = lithic.external_bank_accounts.retry_prenote("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(external_bank_account)',
-      },
       python: {
         method: 'external_bank_accounts.retry_prenote',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nexternal_bank_account = client.external_bank_accounts.retry_prenote(\n    external_bank_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(external_bank_account.company_id)',
+      },
+      ruby: {
+        method: 'external_bank_accounts.retry_prenote',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_bank_account = lithic.external_bank_accounts.retry_prenote("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(external_bank_account)',
       },
       typescript: {
         method: 'client.externalBankAccounts.retryPrenote',
@@ -8247,15 +8247,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ExternalBankAccount\nimport com.lithic.api.models.ExternalBankAccountPauseParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val externalBankAccount: ExternalBankAccount = client.externalBankAccounts().pause("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'external_bank_accounts.pause',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_bank_account = lithic.external_bank_accounts.pause("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(external_bank_account)',
-      },
       python: {
         method: 'external_bank_accounts.pause',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nexternal_bank_account = client.external_bank_accounts.pause(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(external_bank_account.company_id)',
+      },
+      ruby: {
+        method: 'external_bank_accounts.pause',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_bank_account = lithic.external_bank_accounts.pause("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(external_bank_account)',
       },
       typescript: {
         method: 'client.externalBankAccounts.pause',
@@ -8297,15 +8297,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ExternalBankAccount\nimport com.lithic.api.models.ExternalBankAccountUnpauseParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val externalBankAccount: ExternalBankAccount = client.externalBankAccounts().unpause("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'external_bank_accounts.unpause',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_bank_account = lithic.external_bank_accounts.unpause("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(external_bank_account)',
-      },
       python: {
         method: 'external_bank_accounts.unpause',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nexternal_bank_account = client.external_bank_accounts.unpause(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(external_bank_account.company_id)',
+      },
+      ruby: {
+        method: 'external_bank_accounts.unpause',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_bank_account = lithic.external_bank_accounts.unpause("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(external_bank_account)',
       },
       typescript: {
         method: 'client.externalBankAccounts.unpause',
@@ -8352,15 +8352,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ExternalBankAccount\nimport com.lithic.api.models.ExternalBankAccountSetVerificationMethodParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: ExternalBankAccountSetVerificationMethodParams = ExternalBankAccountSetVerificationMethodParams.builder()\n        .externalBankAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .verificationMethod(ExternalBankAccountSetVerificationMethodParams.SetVerificationMethodAllowedVerificationMethods.MICRO_DEPOSIT)\n        .build()\n    val externalBankAccount: ExternalBankAccount = client.externalBankAccounts().setVerificationMethod(params)\n}',
       },
-      ruby: {
-        method: 'external_bank_accounts.set_verification_method',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_bank_account = lithic.external_bank_accounts.set_verification_method(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  verification_method: :MICRO_DEPOSIT\n)\n\nputs(external_bank_account)',
-      },
       python: {
         method: 'external_bank_accounts.set_verification_method',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nexternal_bank_account = client.external_bank_accounts.set_verification_method(\n    external_bank_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    verification_method="MICRO_DEPOSIT",\n)\nprint(external_bank_account.company_id)',
+      },
+      ruby: {
+        method: 'external_bank_accounts.set_verification_method',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_bank_account = lithic.external_bank_accounts.set_verification_method(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  verification_method: :MICRO_DEPOSIT\n)\n\nputs(external_bank_account)',
       },
       typescript: {
         method: 'client.externalBankAccounts.setVerificationMethod',
@@ -8402,15 +8402,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ExternalBankAccountMicroDepositCreateParams\nimport com.lithic.api.models.MicroDepositCreateResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: ExternalBankAccountMicroDepositCreateParams = ExternalBankAccountMicroDepositCreateParams.builder()\n        .externalBankAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .addMicroDeposit(0L)\n        .addMicroDeposit(0L)\n        .build()\n    val microDeposit: MicroDepositCreateResponse = client.externalBankAccounts().microDeposits().create(params)\n}',
       },
-      ruby: {
-        method: 'external_bank_accounts.micro_deposits.create',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nmicro_deposit = lithic.external_bank_accounts.micro_deposits.create(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  micro_deposits: [0, 0]\n)\n\nputs(micro_deposit)',
-      },
       python: {
         method: 'external_bank_accounts.micro_deposits.create',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nmicro_deposit = client.external_bank_accounts.micro_deposits.create(\n    external_bank_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    micro_deposits=[0, 0],\n)\nprint(micro_deposit.company_id)',
+      },
+      ruby: {
+        method: 'external_bank_accounts.micro_deposits.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nmicro_deposit = lithic.external_bank_accounts.micro_deposits.create(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  micro_deposits: [0, 0]\n)\n\nputs(micro_deposit)',
       },
       typescript: {
         method: 'client.externalBankAccounts.microDeposits.create',
@@ -8464,15 +8464,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.PaymentListPage\nimport com.lithic.api.models.PaymentListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: PaymentListPage = client.payments().list()\n}',
       },
-      ruby: {
-        method: 'payments.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.payments.list\n\nputs(page)',
-      },
       python: {
         method: 'payments.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.payments.list()\npage = page.data[0]\nprint(page.user_defined_id)',
+      },
+      ruby: {
+        method: 'payments.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.payments.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.payments.list',
@@ -8524,15 +8524,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.PaymentCreateParams\nimport com.lithic.api.models.PaymentCreateResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: PaymentCreateParams = PaymentCreateParams.builder()\n        .amount(1L)\n        .externalBankAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .financialAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .method(PaymentCreateParams.Method.ACH_NEXT_DAY)\n        .methodAttributes(PaymentCreateParams.PaymentMethodRequestAttributes.builder()\n            .secCode(PaymentCreateParams.PaymentMethodRequestAttributes.SecCode.CCD)\n            .build())\n        .type(PaymentCreateParams.Type.COLLECTION)\n        .build()\n    val payment: PaymentCreateResponse = client.payments().create(params)\n}',
       },
-      ruby: {
-        method: 'payments.create',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npayment = lithic.payments.create(\n  amount: 1,\n  external_bank_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  method_: :ACH_NEXT_DAY,\n  method_attributes: {sec_code: :CCD},\n  type: :COLLECTION\n)\n\nputs(payment)',
-      },
       python: {
         method: 'payments.create',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npayment = client.payments.create(\n    amount=1,\n    external_bank_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    method="ACH_NEXT_DAY",\n    method_attributes={\n        "sec_code": "CCD"\n    },\n    type="COLLECTION",\n)\nprint(payment)',
+      },
+      ruby: {
+        method: 'payments.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npayment = lithic.payments.create(\n  amount: 1,\n  external_bank_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  method_: :ACH_NEXT_DAY,\n  method_attributes: {sec_code: :CCD},\n  type: :COLLECTION\n)\n\nputs(payment)',
       },
       typescript: {
         method: 'client.payments.create',
@@ -8574,15 +8574,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Payment\nimport com.lithic.api.models.PaymentRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val payment: Payment = client.payments().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'payments.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npayment = lithic.payments.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(payment)',
-      },
       python: {
         method: 'payments.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npayment = client.payments.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(payment.user_defined_id)',
+      },
+      ruby: {
+        method: 'payments.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npayment = lithic.payments.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(payment)',
       },
       typescript: {
         method: 'client.payments.retrieve',
@@ -8624,15 +8624,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.PaymentSimulateReleaseParams\nimport com.lithic.api.models.PaymentSimulateReleaseResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: PaymentSimulateReleaseParams = PaymentSimulateReleaseParams.builder()\n        .paymentToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .build()\n    val response: PaymentSimulateReleaseResponse = client.payments().simulateRelease(params)\n}',
       },
-      ruby: {
-        method: 'payments.simulate_release',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.payments.simulate_release(payment_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(response)',
-      },
       python: {
         method: 'payments.simulate_release',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.payments.simulate_release(\n    payment_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(response.debugging_request_id)',
+      },
+      ruby: {
+        method: 'payments.simulate_release',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.payments.simulate_release(payment_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(response)',
       },
       typescript: {
         method: 'client.payments.simulateRelease',
@@ -8674,15 +8674,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.PaymentSimulateReturnParams\nimport com.lithic.api.models.PaymentSimulateReturnResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: PaymentSimulateReturnParams = PaymentSimulateReturnParams.builder()\n        .paymentToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .build()\n    val response: PaymentSimulateReturnResponse = client.payments().simulateReturn(params)\n}',
       },
-      ruby: {
-        method: 'payments.simulate_return',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.payments.simulate_return(payment_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(response)',
-      },
       python: {
         method: 'payments.simulate_return',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.payments.simulate_return(\n    payment_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(response.debugging_request_id)',
+      },
+      ruby: {
+        method: 'payments.simulate_return',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.payments.simulate_return(payment_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(response)',
       },
       typescript: {
         method: 'client.payments.simulateReturn',
@@ -8724,15 +8724,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.PaymentRetryParams\nimport com.lithic.api.models.PaymentRetryResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val response: PaymentRetryResponse = client.payments().retry("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'payments.retry_',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.payments.retry_("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(response)',
-      },
       python: {
         method: 'payments.retry',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.payments.retry(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(response)',
+      },
+      ruby: {
+        method: 'payments.retry_',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.payments.retry_("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(response)',
       },
       typescript: {
         method: 'client.payments.retry',
@@ -8782,15 +8782,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Payment\nimport com.lithic.api.models.PaymentReturnParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: PaymentReturnParams = PaymentReturnParams.builder()\n        .paymentToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .financialAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .returnReasonCode("R01")\n        .build()\n    val payment: Payment = client.payments().return_(params)\n}',
       },
-      ruby: {
-        method: 'payments.return_',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npayment = lithic.payments.return_(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  return_reason_code: "R01"\n)\n\nputs(payment)',
-      },
       python: {
         method: 'payments.return_',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npayment = client.payments.return_(\n    payment_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    return_reason_code="R01",\n)\nprint(payment.user_defined_id)',
+      },
+      ruby: {
+        method: 'payments.return_',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npayment = lithic.payments.return_(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  return_reason_code: "R01"\n)\n\nputs(payment)',
       },
       typescript: {
         method: 'client.payments.return',
@@ -8838,15 +8838,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.PaymentSimulateReceiptParams\nimport com.lithic.api.models.PaymentSimulateReceiptResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: PaymentSimulateReceiptParams = PaymentSimulateReceiptParams.builder()\n        .token("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .amount(0L)\n        .financialAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .receiptType(PaymentSimulateReceiptParams.ReceiptType.RECEIPT_CREDIT)\n        .build()\n    val response: PaymentSimulateReceiptResponse = client.payments().simulateReceipt(params)\n}',
       },
-      ruby: {
-        method: 'payments.simulate_receipt',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.payments.simulate_receipt(\n  token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  amount: 0,\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  receipt_type: :RECEIPT_CREDIT\n)\n\nputs(response)',
-      },
       python: {
         method: 'payments.simulate_receipt',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.payments.simulate_receipt(\n    token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    amount=0,\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    receipt_type="RECEIPT_CREDIT",\n)\nprint(response.debugging_request_id)',
+      },
+      ruby: {
+        method: 'payments.simulate_receipt',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.payments.simulate_receipt(\n  token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  amount: 0,\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  receipt_type: :RECEIPT_CREDIT\n)\n\nputs(response)',
       },
       typescript: {
         method: 'client.payments.simulateReceipt',
@@ -8895,15 +8895,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.PaymentSimulateActionParams\nimport com.lithic.api.models.PaymentSimulateActionResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: PaymentSimulateActionParams = PaymentSimulateActionParams.builder()\n        .paymentToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .eventType(PaymentSimulateActionParams.SupportedSimulationTypes.ACH_ORIGINATION_REVIEWED)\n        .build()\n    val response: PaymentSimulateActionResponse = client.payments().simulateAction(params)\n}',
       },
-      ruby: {
-        method: 'payments.simulate_action',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.payments.simulate_action(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  event_type: :ACH_ORIGINATION_REVIEWED\n)\n\nputs(response)',
-      },
       python: {
         method: 'payments.simulate_action',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.payments.simulate_action(\n    payment_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    event_type="ACH_ORIGINATION_REVIEWED",\n)\nprint(response.debugging_request_id)',
+      },
+      ruby: {
+        method: 'payments.simulate_action',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.payments.simulate_action(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  event_type: :ACH_ORIGINATION_REVIEWED\n)\n\nputs(response)',
       },
       typescript: {
         method: 'client.payments.simulateAction',
@@ -8945,15 +8945,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ThreeDSAuthentication\nimport com.lithic.api.models.ThreeDSAuthenticationRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val threeDSAuthentication: ThreeDSAuthentication = client.threeDS().authentication().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'three_ds.authentication.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nthree_ds_authentication = lithic.three_ds.authentication.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(three_ds_authentication)',
-      },
       python: {
         method: 'three_ds.authentication.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nthree_ds_authentication = client.three_ds.authentication.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(three_ds_authentication.token)',
+      },
+      ruby: {
+        method: 'three_ds.authentication.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nthree_ds_authentication = lithic.three_ds.authentication.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(three_ds_authentication)',
       },
       typescript: {
         method: 'client.threeDS.authentication.retrieve',
@@ -9000,15 +9000,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AuthenticationSimulateResponse\nimport com.lithic.api.models.ThreeDSAuthenticationSimulateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: ThreeDSAuthenticationSimulateParams = ThreeDSAuthenticationSimulateParams.builder()\n        .merchant(ThreeDSAuthenticationSimulateParams.Merchant.builder()\n            .id("OODKZAPJVN4YS7O")\n            .country("USA")\n            .mcc("5812")\n            .name("COFFEE SHOP")\n            .build())\n        .pan("4111111289144142")\n        .transaction(ThreeDSAuthenticationSimulateParams.Transaction.builder()\n            .amount(0L)\n            .currency("GBP")\n            .build())\n        .build()\n    val response: AuthenticationSimulateResponse = client.threeDS().authentication().simulate(params)\n}',
       },
-      ruby: {
-        method: 'three_ds.authentication.simulate',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.three_ds.authentication.simulate(\n  merchant: {id: "OODKZAPJVN4YS7O", country: "USA", mcc: "5812", name: "COFFEE SHOP"},\n  pan: "4111111289144142",\n  transaction: {amount: 0, currency: "GBP"}\n)\n\nputs(response)',
-      },
       python: {
         method: 'three_ds.authentication.simulate',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.three_ds.authentication.simulate(\n    merchant={\n        "id": "OODKZAPJVN4YS7O",\n        "country": "USA",\n        "mcc": "5812",\n        "name": "COFFEE SHOP",\n    },\n    pan="4111111289144142",\n    transaction={\n        "amount": 0,\n        "currency": "GBP",\n    },\n)\nprint(response.token)',
+      },
+      ruby: {
+        method: 'three_ds.authentication.simulate',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.three_ds.authentication.simulate(\n  merchant: {id: "OODKZAPJVN4YS7O", country: "USA", mcc: "5812", name: "COFFEE SHOP"},\n  pan: "4111111289144142",\n  transaction: {amount: 0, currency: "GBP"}\n)\n\nputs(response)',
       },
       typescript: {
         method: 'client.threeDS.authentication.simulate',
@@ -9049,15 +9049,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ThreeDSAuthenticationSimulateOtpEntryParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: ThreeDSAuthenticationSimulateOtpEntryParams = ThreeDSAuthenticationSimulateOtpEntryParams.builder()\n        .token("fabd829d-7f7b-4432-a8f2-07ea4889aaac")\n        .otp("123456")\n        .build()\n    client.threeDS().authentication().simulateOtpEntry(params)\n}',
       },
-      ruby: {
-        method: 'three_ds.authentication.simulate_otp_entry',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.three_ds.authentication.simulate_otp_entry(\n  token: "fabd829d-7f7b-4432-a8f2-07ea4889aaac",\n  otp: "123456"\n)\n\nputs(result)',
-      },
       python: {
         method: 'three_ds.authentication.simulate_otp_entry',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.three_ds.authentication.simulate_otp_entry(\n    token="fabd829d-7f7b-4432-a8f2-07ea4889aaac",\n    otp="123456",\n)',
+      },
+      ruby: {
+        method: 'three_ds.authentication.simulate_otp_entry',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.three_ds.authentication.simulate_otp_entry(\n  token: "fabd829d-7f7b-4432-a8f2-07ea4889aaac",\n  otp: "123456"\n)\n\nputs(result)',
       },
       typescript: {
         method: 'client.threeDS.authentication.simulateOtpEntry',
@@ -9098,15 +9098,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.DecisioningRetrieveSecretResponse\nimport com.lithic.api.models.ThreeDSDecisioningRetrieveSecretParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val response: DecisioningRetrieveSecretResponse = client.threeDS().decisioning().retrieveSecret()\n}',
       },
-      ruby: {
-        method: 'three_ds.decisioning.retrieve_secret',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.three_ds.decisioning.retrieve_secret\n\nputs(response)',
-      },
       python: {
         method: 'three_ds.decisioning.retrieve_secret',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.three_ds.decisioning.retrieve_secret()\nprint(response.secret)',
+      },
+      ruby: {
+        method: 'three_ds.decisioning.retrieve_secret',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.three_ds.decisioning.retrieve_secret\n\nputs(response)',
       },
       typescript: {
         method: 'client.threeDS.decisioning.retrieveSecret',
@@ -9146,15 +9146,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ThreeDSDecisioningRotateSecretParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    client.threeDS().decisioning().rotateSecret()\n}',
       },
-      ruby: {
-        method: 'three_ds.decisioning.rotate_secret',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.three_ds.decisioning.rotate_secret\n\nputs(result)',
-      },
       python: {
         method: 'three_ds.decisioning.rotate_secret',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.three_ds.decisioning.rotate_secret()',
+      },
+      ruby: {
+        method: 'three_ds.decisioning.rotate_secret',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.three_ds.decisioning.rotate_secret\n\nputs(result)',
       },
       typescript: {
         method: 'client.threeDS.decisioning.rotateSecret',
@@ -9195,15 +9195,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ChallengeResponse\nimport com.lithic.api.models.ChallengeResult\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: ChallengeResponse = ChallengeResponse.builder()\n        .token("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .challengeResponse(ChallengeResult.APPROVE)\n        .build()\n    client.threeDS().decisioning().challengeResponse(params)\n}',
       },
-      ruby: {
-        method: 'three_ds.decisioning.challenge_response',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.three_ds.decisioning.challenge_response(\n  token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  challenge_response: :APPROVE\n)\n\nputs(result)',
-      },
       python: {
         method: 'three_ds.decisioning.challenge_response',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.three_ds.decisioning.challenge_response(\n    token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    challenge_response="APPROVE",\n)',
+      },
+      ruby: {
+        method: 'three_ds.decisioning.challenge_response',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.three_ds.decisioning.challenge_response(\n  token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  challenge_response: :APPROVE\n)\n\nputs(result)',
       },
       typescript: {
         method: 'client.threeDS.decisioning.challengeResponse',
@@ -9250,15 +9250,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ReportSettlementListDetailsPage\nimport com.lithic.api.models.ReportSettlementListDetailsParams\nimport java.time.LocalDate\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: ReportSettlementListDetailsPage = client.reports().settlement().listDetails(LocalDate.parse("2023-09-01"))\n}',
       },
-      ruby: {
-        method: 'reports.settlement.list_details',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.reports.settlement.list_details("2023-09-01")\n\nputs(page)',
-      },
       python: {
         method: 'reports.settlement.list_details',
         example:
           'import os\nfrom datetime import date\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.reports.settlement.list_details(\n    report_date=date.fromisoformat("2023-09-01"),\n)\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'reports.settlement.list_details',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.reports.settlement.list_details("2023-09-01")\n\nputs(page)',
       },
       typescript: {
         method: 'client.reports.settlement.listDetails',
@@ -9300,15 +9300,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ReportSettlementSummaryParams\nimport com.lithic.api.models.SettlementReport\nimport java.time.LocalDate\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val settlementReport: SettlementReport = client.reports().settlement().summary(LocalDate.parse("2023-09-01"))\n}',
       },
-      ruby: {
-        method: 'reports.settlement.summary',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nsettlement_report = lithic.reports.settlement.summary("2023-09-01")\n\nputs(settlement_report)',
-      },
       python: {
         method: 'reports.settlement.summary',
         example:
           'import os\nfrom datetime import date\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nsettlement_report = client.reports.settlement.summary(\n    date.fromisoformat("2023-09-01"),\n)\nprint(settlement_report.created)',
+      },
+      ruby: {
+        method: 'reports.settlement.summary',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nsettlement_report = lithic.reports.settlement.summary("2023-09-01")\n\nputs(settlement_report)',
       },
       typescript: {
         method: 'client.reports.settlement.summary',
@@ -9362,15 +9362,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ReportSettlementNetworkTotalListPage\nimport com.lithic.api.models.ReportSettlementNetworkTotalListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: ReportSettlementNetworkTotalListPage = client.reports().settlement().networkTotals().list()\n}',
       },
-      ruby: {
-        method: 'reports.settlement.network_totals.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.reports.settlement.network_totals.list\n\nputs(page)',
-      },
       python: {
         method: 'reports.settlement.network_totals.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.reports.settlement.network_totals.list()\npage = page.data[0]\nprint(page.institution_id)',
+      },
+      ruby: {
+        method: 'reports.settlement.network_totals.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.reports.settlement.network_totals.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.reports.settlement.networkTotals.list',
@@ -9412,15 +9412,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.NetworkTotal\nimport com.lithic.api.models.ReportSettlementNetworkTotalRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val networkTotal: NetworkTotal = client.reports().settlement().networkTotals().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'reports.settlement.network_totals.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nnetwork_total = lithic.reports.settlement.network_totals.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(network_total)',
-      },
       python: {
         method: 'reports.settlement.network_totals.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nnetwork_total = client.reports.settlement.network_totals.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(network_total.institution_id)',
+      },
+      ruby: {
+        method: 'reports.settlement.network_totals.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nnetwork_total = lithic.reports.settlement.network_totals.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(network_total)',
       },
       typescript: {
         method: 'client.reports.settlement.networkTotals.retrieve',
@@ -9462,15 +9462,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CardProgramListPage\nimport com.lithic.api.models.CardProgramListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: CardProgramListPage = client.cardPrograms().list()\n}',
       },
-      ruby: {
-        method: 'card_programs.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.card_programs.list\n\nputs(page)',
-      },
       python: {
         method: 'card_programs.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.card_programs.list()\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'card_programs.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.card_programs.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.cardPrograms.list',
@@ -9511,15 +9511,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CardProgram\nimport com.lithic.api.models.CardProgramRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val cardProgram: CardProgram = client.cardPrograms().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'card_programs.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard_program = lithic.card_programs.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(card_program)',
-      },
       python: {
         method: 'card_programs.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ncard_program = client.card_programs.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(card_program.token)',
+      },
+      ruby: {
+        method: 'card_programs.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard_program = lithic.card_programs.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(card_program)',
       },
       typescript: {
         method: 'client.cardPrograms.retrieve',
@@ -9561,15 +9561,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.DigitalCardArtListPage\nimport com.lithic.api.models.DigitalCardArtListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: DigitalCardArtListPage = client.digitalCardArt().list()\n}',
       },
-      ruby: {
-        method: 'digital_card_art.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.digital_card_art.list\n\nputs(page)',
-      },
       python: {
         method: 'digital_card_art.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.digital_card_art.list()\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'digital_card_art.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.digital_card_art.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.digitalCardArt.list',
@@ -9611,15 +9611,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.DigitalCardArt\nimport com.lithic.api.models.DigitalCardArtRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val digitalCardArt: DigitalCardArt = client.digitalCardArt().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'digital_card_art.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndigital_card_art = lithic.digital_card_art.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(digital_card_art)',
-      },
       python: {
         method: 'digital_card_art.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ndigital_card_art = client.digital_card_art.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(digital_card_art.token)',
+      },
+      ruby: {
+        method: 'digital_card_art.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ndigital_card_art = lithic.digital_card_art.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(digital_card_art)',
       },
       typescript: {
         method: 'client.digitalCardArt.retrieve',
@@ -9673,15 +9673,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.BookTransferListPage\nimport com.lithic.api.models.BookTransferListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: BookTransferListPage = client.bookTransfers().list()\n}',
       },
-      ruby: {
-        method: 'book_transfers.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.book_transfers.list\n\nputs(page)',
-      },
       python: {
         method: 'book_transfers.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.book_transfers.list()\npage = page.data[0]\nprint(page.external_id)',
+      },
+      ruby: {
+        method: 'book_transfers.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.book_transfers.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.bookTransfers.list',
@@ -9734,15 +9734,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.BookTransferCreateParams\nimport com.lithic.api.models.BookTransferResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: BookTransferCreateParams = BookTransferCreateParams.builder()\n        .amount(1L)\n        .category(BookTransferCreateParams.BookTransferCategory.ADJUSTMENT)\n        .fromFinancialAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .subtype("subtype")\n        .toFinancialAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .type(BookTransferCreateParams.BookTransferType.ATM_BALANCE_INQUIRY)\n        .build()\n    val bookTransferResponse: BookTransferResponse = client.bookTransfers().create(params)\n}',
       },
-      ruby: {
-        method: 'book_transfers.create',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nbook_transfer_response = lithic.book_transfers.create(\n  amount: 1,\n  category: :ADJUSTMENT,\n  from_financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  subtype: "subtype",\n  to_financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  type: :ATM_BALANCE_INQUIRY\n)\n\nputs(book_transfer_response)',
-      },
       python: {
         method: 'book_transfers.create',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nbook_transfer_response = client.book_transfers.create(\n    amount=1,\n    category="ADJUSTMENT",\n    from_financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    subtype="subtype",\n    to_financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    type="ATM_BALANCE_INQUIRY",\n)\nprint(book_transfer_response.external_id)',
+      },
+      ruby: {
+        method: 'book_transfers.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nbook_transfer_response = lithic.book_transfers.create(\n  amount: 1,\n  category: :ADJUSTMENT,\n  from_financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  subtype: "subtype",\n  to_financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  type: :ATM_BALANCE_INQUIRY\n)\n\nputs(book_transfer_response)',
       },
       typescript: {
         method: 'client.bookTransfers.create',
@@ -9784,15 +9784,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.BookTransferResponse\nimport com.lithic.api.models.BookTransferRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val bookTransferResponse: BookTransferResponse = client.bookTransfers().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'book_transfers.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nbook_transfer_response = lithic.book_transfers.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(book_transfer_response)',
-      },
       python: {
         method: 'book_transfers.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nbook_transfer_response = client.book_transfers.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(book_transfer_response.external_id)',
+      },
+      ruby: {
+        method: 'book_transfers.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nbook_transfer_response = lithic.book_transfers.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(book_transfer_response)',
       },
       typescript: {
         method: 'client.bookTransfers.retrieve',
@@ -9834,15 +9834,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.BookTransferResponse\nimport com.lithic.api.models.BookTransferReverseParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val bookTransferResponse: BookTransferResponse = client.bookTransfers().reverse("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'book_transfers.reverse',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nbook_transfer_response = lithic.book_transfers.reverse("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(book_transfer_response)',
-      },
       python: {
         method: 'book_transfers.reverse',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nbook_transfer_response = client.book_transfers.reverse(\n    book_transfer_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(book_transfer_response.external_id)',
+      },
+      ruby: {
+        method: 'book_transfers.reverse',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nbook_transfer_response = lithic.book_transfers.reverse("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(book_transfer_response)',
       },
       typescript: {
         method: 'client.bookTransfers.reverse',
@@ -9884,15 +9884,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.BookTransferResponse\nimport com.lithic.api.models.BookTransferRetryParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: BookTransferRetryParams = BookTransferRetryParams.builder()\n        .bookTransferToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .retryToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .build()\n    val bookTransferResponse: BookTransferResponse = client.bookTransfers().retry(params)\n}',
       },
-      ruby: {
-        method: 'book_transfers.retry_',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nbook_transfer_response = lithic.book_transfers.retry_(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  retry_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(book_transfer_response)',
-      },
       python: {
         method: 'book_transfers.retry',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nbook_transfer_response = client.book_transfers.retry(\n    book_transfer_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    retry_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(book_transfer_response.external_id)',
+      },
+      ruby: {
+        method: 'book_transfers.retry_',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nbook_transfer_response = lithic.book_transfers.retry_(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  retry_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(book_transfer_response)',
       },
       typescript: {
         method: 'client.bookTransfers.retry',
@@ -9933,15 +9933,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CreditProductExtendedCreditRetrieveParams\nimport com.lithic.api.models.ExtendedCredit\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val extendedCredit: ExtendedCredit = client.creditProducts().extendedCredit().retrieve("credit_product_token")\n}',
       },
-      ruby: {
-        method: 'credit_products.extended_credit.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nextended_credit = lithic.credit_products.extended_credit.retrieve("credit_product_token")\n\nputs(extended_credit)',
-      },
       python: {
         method: 'credit_products.extended_credit.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nextended_credit = client.credit_products.extended_credit.retrieve(\n    "credit_product_token",\n)\nprint(extended_credit.credit_extended)',
+      },
+      ruby: {
+        method: 'credit_products.extended_credit.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nextended_credit = lithic.credit_products.extended_credit.retrieve("credit_product_token")\n\nputs(extended_credit)',
       },
       typescript: {
         method: 'client.creditProducts.extendedCredit.retrieve',
@@ -9982,15 +9982,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CreditProductPrimeRateRetrieveParams\nimport com.lithic.api.models.PrimeRateRetrieveResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val primeRate: PrimeRateRetrieveResponse = client.creditProducts().primeRates().retrieve("credit_product_token")\n}',
       },
-      ruby: {
-        method: 'credit_products.prime_rates.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nprime_rate = lithic.credit_products.prime_rates.retrieve("credit_product_token")\n\nputs(prime_rate)',
-      },
       python: {
         method: 'credit_products.prime_rates.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nprime_rate = client.credit_products.prime_rates.retrieve(\n    credit_product_token="credit_product_token",\n)\nprint(prime_rate.data)',
+      },
+      ruby: {
+        method: 'credit_products.prime_rates.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nprime_rate = lithic.credit_products.prime_rates.retrieve("credit_product_token")\n\nputs(prime_rate)',
       },
       typescript: {
         method: 'client.creditProducts.primeRates.retrieve',
@@ -10030,15 +10030,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.CreditProductPrimeRateCreateParams\nimport java.time.LocalDate\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: CreditProductPrimeRateCreateParams = CreditProductPrimeRateCreateParams.builder()\n        .creditProductToken("credit_product_token")\n        .effectiveDate(LocalDate.parse("2019-12-27"))\n        .rate("rate")\n        .build()\n    client.creditProducts().primeRates().create(params)\n}',
       },
-      ruby: {
-        method: 'credit_products.prime_rates.create',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.credit_products.prime_rates.create(\n  "credit_product_token",\n  effective_date: "2019-12-27",\n  rate: "rate"\n)\n\nputs(result)',
-      },
       python: {
         method: 'credit_products.prime_rates.create',
         example:
           'import os\nfrom datetime import date\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.credit_products.prime_rates.create(\n    credit_product_token="credit_product_token",\n    effective_date=date.fromisoformat("2019-12-27"),\n    rate="rate",\n)',
+      },
+      ruby: {
+        method: 'credit_products.prime_rates.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.credit_products.prime_rates.create(\n  "credit_product_token",\n  effective_date: "2019-12-27",\n  rate: "rate"\n)\n\nputs(result)',
       },
       typescript: {
         method: 'client.creditProducts.primeRates.create',
@@ -10091,15 +10091,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ExternalPaymentListPage\nimport com.lithic.api.models.ExternalPaymentListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: ExternalPaymentListPage = client.externalPayments().list()\n}',
       },
-      ruby: {
-        method: 'external_payments.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.external_payments.list\n\nputs(page)',
-      },
       python: {
         method: 'external_payments.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.external_payments.list()\npage = page.data[0]\nprint(page.user_defined_id)',
+      },
+      ruby: {
+        method: 'external_payments.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.external_payments.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.externalPayments.list',
@@ -10151,15 +10151,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ExternalPayment\nimport com.lithic.api.models.ExternalPaymentCreateParams\nimport java.time.LocalDate\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: ExternalPaymentCreateParams = ExternalPaymentCreateParams.builder()\n        .amount(0L)\n        .category(ExternalPaymentCreateParams.ExternalPaymentCategory.EXTERNAL_WIRE)\n        .effectiveDate(LocalDate.parse("2019-12-27"))\n        .financialAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .paymentType(ExternalPaymentCreateParams.ExternalPaymentDirection.DEPOSIT)\n        .build()\n    val externalPayment: ExternalPayment = client.externalPayments().create(params)\n}',
       },
-      ruby: {
-        method: 'external_payments.create',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_payment = lithic.external_payments.create(\n  amount: 0,\n  category: :EXTERNAL_WIRE,\n  effective_date: "2019-12-27",\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  payment_type: :DEPOSIT\n)\n\nputs(external_payment)',
-      },
       python: {
         method: 'external_payments.create',
         example:
           'import os\nfrom datetime import date\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nexternal_payment = client.external_payments.create(\n    amount=0,\n    category="EXTERNAL_WIRE",\n    effective_date=date.fromisoformat("2019-12-27"),\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    payment_type="DEPOSIT",\n)\nprint(external_payment.user_defined_id)',
+      },
+      ruby: {
+        method: 'external_payments.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_payment = lithic.external_payments.create(\n  amount: 0,\n  category: :EXTERNAL_WIRE,\n  effective_date: "2019-12-27",\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  payment_type: :DEPOSIT\n)\n\nputs(external_payment)',
       },
       typescript: {
         method: 'client.externalPayments.create',
@@ -10201,15 +10201,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ExternalPayment\nimport com.lithic.api.models.ExternalPaymentRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val externalPayment: ExternalPayment = client.externalPayments().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'external_payments.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_payment = lithic.external_payments.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(external_payment)',
-      },
       python: {
         method: 'external_payments.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nexternal_payment = client.external_payments.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(external_payment.user_defined_id)',
+      },
+      ruby: {
+        method: 'external_payments.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_payment = lithic.external_payments.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(external_payment)',
       },
       typescript: {
         method: 'client.externalPayments.retrieve',
@@ -10256,15 +10256,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ExternalPayment\nimport com.lithic.api.models.ExternalPaymentSettleParams\nimport java.time.LocalDate\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: ExternalPaymentSettleParams = ExternalPaymentSettleParams.builder()\n        .externalPaymentToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .effectiveDate(LocalDate.parse("2019-12-27"))\n        .build()\n    val externalPayment: ExternalPayment = client.externalPayments().settle(params)\n}',
       },
-      ruby: {
-        method: 'external_payments.settle',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_payment = lithic.external_payments.settle("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", effective_date: "2019-12-27")\n\nputs(external_payment)',
-      },
       python: {
         method: 'external_payments.settle',
         example:
           'import os\nfrom datetime import date\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nexternal_payment = client.external_payments.settle(\n    external_payment_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    effective_date=date.fromisoformat("2019-12-27"),\n)\nprint(external_payment.user_defined_id)',
+      },
+      ruby: {
+        method: 'external_payments.settle',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_payment = lithic.external_payments.settle("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", effective_date: "2019-12-27")\n\nputs(external_payment)',
       },
       typescript: {
         method: 'client.externalPayments.settle',
@@ -10306,15 +10306,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ExternalPayment\nimport com.lithic.api.models.ExternalPaymentReleaseParams\nimport java.time.LocalDate\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: ExternalPaymentReleaseParams = ExternalPaymentReleaseParams.builder()\n        .externalPaymentToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .effectiveDate(LocalDate.parse("2019-12-27"))\n        .build()\n    val externalPayment: ExternalPayment = client.externalPayments().release(params)\n}',
       },
-      ruby: {
-        method: 'external_payments.release',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_payment = lithic.external_payments.release("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", effective_date: "2019-12-27")\n\nputs(external_payment)',
-      },
       python: {
         method: 'external_payments.release',
         example:
           'import os\nfrom datetime import date\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nexternal_payment = client.external_payments.release(\n    external_payment_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    effective_date=date.fromisoformat("2019-12-27"),\n)\nprint(external_payment.user_defined_id)',
+      },
+      ruby: {
+        method: 'external_payments.release',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_payment = lithic.external_payments.release("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", effective_date: "2019-12-27")\n\nputs(external_payment)',
       },
       typescript: {
         method: 'client.externalPayments.release',
@@ -10356,15 +10356,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ExternalPayment\nimport com.lithic.api.models.ExternalPaymentCancelParams\nimport java.time.LocalDate\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: ExternalPaymentCancelParams = ExternalPaymentCancelParams.builder()\n        .externalPaymentToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .effectiveDate(LocalDate.parse("2019-12-27"))\n        .build()\n    val externalPayment: ExternalPayment = client.externalPayments().cancel(params)\n}',
       },
-      ruby: {
-        method: 'external_payments.cancel',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_payment = lithic.external_payments.cancel("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", effective_date: "2019-12-27")\n\nputs(external_payment)',
-      },
       python: {
         method: 'external_payments.cancel',
         example:
           'import os\nfrom datetime import date\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nexternal_payment = client.external_payments.cancel(\n    external_payment_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    effective_date=date.fromisoformat("2019-12-27"),\n)\nprint(external_payment.user_defined_id)',
+      },
+      ruby: {
+        method: 'external_payments.cancel',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_payment = lithic.external_payments.cancel("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", effective_date: "2019-12-27")\n\nputs(external_payment)',
       },
       typescript: {
         method: 'client.externalPayments.cancel',
@@ -10406,15 +10406,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ExternalPayment\nimport com.lithic.api.models.ExternalPaymentReverseParams\nimport java.time.LocalDate\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: ExternalPaymentReverseParams = ExternalPaymentReverseParams.builder()\n        .externalPaymentToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .effectiveDate(LocalDate.parse("2019-12-27"))\n        .build()\n    val externalPayment: ExternalPayment = client.externalPayments().reverse(params)\n}',
       },
-      ruby: {
-        method: 'external_payments.reverse',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_payment = lithic.external_payments.reverse("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", effective_date: "2019-12-27")\n\nputs(external_payment)',
-      },
       python: {
         method: 'external_payments.reverse',
         example:
           'import os\nfrom datetime import date\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nexternal_payment = client.external_payments.reverse(\n    external_payment_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    effective_date=date.fromisoformat("2019-12-27"),\n)\nprint(external_payment.user_defined_id)',
+      },
+      ruby: {
+        method: 'external_payments.reverse',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nexternal_payment = lithic.external_payments.reverse("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", effective_date: "2019-12-27")\n\nputs(external_payment)',
       },
       typescript: {
         method: 'client.externalPayments.reverse',
@@ -10466,15 +10466,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ManagementOperationListPage\nimport com.lithic.api.models.ManagementOperationListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: ManagementOperationListPage = client.managementOperations().list()\n}',
       },
-      ruby: {
-        method: 'management_operations.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.management_operations.list\n\nputs(page)',
-      },
       python: {
         method: 'management_operations.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.management_operations.list()\npage = page.data[0]\nprint(page.user_defined_id)',
+      },
+      ruby: {
+        method: 'management_operations.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.management_operations.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.managementOperations.list',
@@ -10528,15 +10528,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ManagementOperationCreateParams\nimport com.lithic.api.models.ManagementOperationTransaction\nimport java.time.LocalDate\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: ManagementOperationCreateParams = ManagementOperationCreateParams.builder()\n        .amount(1L)\n        .category(ManagementOperationCreateParams.ManagementOperationCategory.MANAGEMENT_FEE)\n        .direction(ManagementOperationCreateParams.ManagementOperationDirection.CREDIT)\n        .effectiveDate(LocalDate.parse("2019-12-27"))\n        .eventType(ManagementOperationCreateParams.ManagementOperationEventType.LOSS_WRITE_OFF)\n        .financialAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .build()\n    val managementOperationTransaction: ManagementOperationTransaction = client.managementOperations().create(params)\n}',
       },
-      ruby: {
-        method: 'management_operations.create',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nmanagement_operation_transaction = lithic.management_operations.create(\n  amount: 1,\n  category: :MANAGEMENT_FEE,\n  direction: :CREDIT,\n  effective_date: "2019-12-27",\n  event_type: :LOSS_WRITE_OFF,\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(management_operation_transaction)',
-      },
       python: {
         method: 'management_operations.create',
         example:
           'import os\nfrom datetime import date\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nmanagement_operation_transaction = client.management_operations.create(\n    amount=1,\n    category="MANAGEMENT_FEE",\n    direction="CREDIT",\n    effective_date=date.fromisoformat("2019-12-27"),\n    event_type="LOSS_WRITE_OFF",\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(management_operation_transaction.user_defined_id)',
+      },
+      ruby: {
+        method: 'management_operations.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nmanagement_operation_transaction = lithic.management_operations.create(\n  amount: 1,\n  category: :MANAGEMENT_FEE,\n  direction: :CREDIT,\n  effective_date: "2019-12-27",\n  event_type: :LOSS_WRITE_OFF,\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(management_operation_transaction)',
       },
       typescript: {
         method: 'client.managementOperations.create',
@@ -10578,15 +10578,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ManagementOperationRetrieveParams\nimport com.lithic.api.models.ManagementOperationTransaction\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val managementOperationTransaction: ManagementOperationTransaction = client.managementOperations().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'management_operations.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nmanagement_operation_transaction = lithic.management_operations.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(management_operation_transaction)',
-      },
       python: {
         method: 'management_operations.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nmanagement_operation_transaction = client.management_operations.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(management_operation_transaction.user_defined_id)',
+      },
+      ruby: {
+        method: 'management_operations.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nmanagement_operation_transaction = lithic.management_operations.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(management_operation_transaction)',
       },
       typescript: {
         method: 'client.managementOperations.retrieve',
@@ -10628,15 +10628,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.ManagementOperationReverseParams\nimport com.lithic.api.models.ManagementOperationTransaction\nimport java.time.LocalDate\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: ManagementOperationReverseParams = ManagementOperationReverseParams.builder()\n        .managementOperationToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .effectiveDate(LocalDate.parse("2019-12-27"))\n        .build()\n    val managementOperationTransaction: ManagementOperationTransaction = client.managementOperations().reverse(params)\n}',
       },
-      ruby: {
-        method: 'management_operations.reverse',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nmanagement_operation_transaction = lithic.management_operations.reverse("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", effective_date: "2019-12-27")\n\nputs(management_operation_transaction)',
-      },
       python: {
         method: 'management_operations.reverse',
         example:
           'import os\nfrom datetime import date\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nmanagement_operation_transaction = client.management_operations.reverse(\n    management_operation_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    effective_date=date.fromisoformat("2019-12-27"),\n)\nprint(management_operation_transaction.user_defined_id)',
+      },
+      ruby: {
+        method: 'management_operations.reverse',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nmanagement_operation_transaction = lithic.management_operations.reverse("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", effective_date: "2019-12-27")\n\nputs(management_operation_transaction)',
       },
       typescript: {
         method: 'client.managementOperations.reverse',
@@ -10678,15 +10678,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FundingEventListPage\nimport com.lithic.api.models.FundingEventListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: FundingEventListPage = client.fundingEvents().list()\n}',
       },
-      ruby: {
-        method: 'funding_events.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.funding_events.list\n\nputs(page)',
-      },
       python: {
         method: 'funding_events.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.funding_events.list()\npage = page.data[0]\nprint(page.token)',
+      },
+      ruby: {
+        method: 'funding_events.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.funding_events.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.fundingEvents.list',
@@ -10727,15 +10727,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FundingEvent\nimport com.lithic.api.models.FundingEventRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val fundingEvent: FundingEvent = client.fundingEvents().retrieve("funding_event_token")\n}',
       },
-      ruby: {
-        method: 'funding_events.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nfunding_event = lithic.funding_events.retrieve("funding_event_token")\n\nputs(funding_event)',
-      },
       python: {
         method: 'funding_events.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nfunding_event = client.funding_events.retrieve(\n    "funding_event_token",\n)\nprint(funding_event.token)',
+      },
+      ruby: {
+        method: 'funding_events.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nfunding_event = lithic.funding_events.retrieve("funding_event_token")\n\nputs(funding_event)',
       },
       typescript: {
         method: 'client.fundingEvents.retrieve',
@@ -10776,15 +10776,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FundingEventRetrieveDetailsParams\nimport com.lithic.api.models.FundingEventRetrieveDetailsResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val response: FundingEventRetrieveDetailsResponse = client.fundingEvents().retrieveDetails("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'funding_events.retrieve_details',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.funding_events.retrieve_details("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(response)',
-      },
       python: {
         method: 'funding_events.retrieve_details',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.funding_events.retrieve_details(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(response.token)',
+      },
+      ruby: {
+        method: 'funding_events.retrieve_details',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.funding_events.retrieve_details("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(response)',
       },
       typescript: {
         method: 'client.fundingEvents.retrieveDetails',
@@ -10827,15 +10827,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FraudTransactionRetrieveParams\nimport com.lithic.api.models.TransactionRetrieveResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val transaction: TransactionRetrieveResponse = client.fraud().transactions().retrieve("00000000-0000-0000-0000-000000000000")\n}',
       },
-      ruby: {
-        method: 'fraud.transactions.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ntransaction = lithic.fraud.transactions.retrieve("00000000-0000-0000-0000-000000000000")\n\nputs(transaction)',
-      },
       python: {
         method: 'fraud.transactions.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ntransaction = client.fraud.transactions.retrieve(\n    "00000000-0000-0000-0000-000000000000",\n)\nprint(transaction.fraud_status)',
+      },
+      ruby: {
+        method: 'fraud.transactions.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ntransaction = lithic.fraud.transactions.retrieve("00000000-0000-0000-0000-000000000000")\n\nputs(transaction)',
       },
       typescript: {
         method: 'client.fraud.transactions.retrieve',
@@ -10883,15 +10883,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FraudTransactionReportParams\nimport com.lithic.api.models.TransactionReportResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: FraudTransactionReportParams = FraudTransactionReportParams.builder()\n        .transactionToken("00000000-0000-0000-0000-000000000000")\n        .fraudStatus(FraudTransactionReportParams.FraudStatus.SUSPECTED_FRAUD)\n        .build()\n    val response: TransactionReportResponse = client.fraud().transactions().report(params)\n}',
       },
-      ruby: {
-        method: 'fraud.transactions.report',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.fraud.transactions.report("00000000-0000-0000-0000-000000000000", fraud_status: :SUSPECTED_FRAUD)\n\nputs(response)',
-      },
       python: {
         method: 'fraud.transactions.report',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.fraud.transactions.report(\n    transaction_token="00000000-0000-0000-0000-000000000000",\n    fraud_status="SUSPECTED_FRAUD",\n)\nprint(response.fraud_status)',
+      },
+      ruby: {
+        method: 'fraud.transactions.report',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.fraud.transactions.report("00000000-0000-0000-0000-000000000000", fraud_status: :SUSPECTED_FRAUD)\n\nputs(response)',
       },
       typescript: {
         method: 'client.fraud.transactions.report',
@@ -10933,15 +10933,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.NetworkProgramListPage\nimport com.lithic.api.models.NetworkProgramListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: NetworkProgramListPage = client.networkPrograms().list()\n}',
       },
-      ruby: {
-        method: 'network_programs.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.network_programs.list\n\nputs(page)',
-      },
       python: {
         method: 'network_programs.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.network_programs.list()\npage = page.data[0]\nprint(page.registered_program_identification_number)',
+      },
+      ruby: {
+        method: 'network_programs.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.network_programs.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.networkPrograms.list',
@@ -10983,15 +10983,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.NetworkProgram\nimport com.lithic.api.models.NetworkProgramRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val networkProgram: NetworkProgram = client.networkPrograms().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'network_programs.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nnetwork_program = lithic.network_programs.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(network_program)',
-      },
       python: {
         method: 'network_programs.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nnetwork_program = client.network_programs.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(network_program.registered_program_identification_number)',
+      },
+      ruby: {
+        method: 'network_programs.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nnetwork_program = lithic.network_programs.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(network_program)',
       },
       typescript: {
         method: 'client.networkPrograms.retrieve',
@@ -11041,15 +11041,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.HoldListPage\nimport com.lithic.api.models.HoldListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: HoldListPage = client.holds().list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'holds.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.holds.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
-      },
       python: {
         method: 'holds.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.holds.list(\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\npage = page.data[0]\nprint(page.user_defined_id)',
+      },
+      ruby: {
+        method: 'holds.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.holds.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
       },
       typescript: {
         method: 'client.holds.list',
@@ -11099,15 +11099,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Hold\nimport com.lithic.api.models.HoldCreateParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: HoldCreateParams = HoldCreateParams.builder()\n        .financialAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .amount(1L)\n        .build()\n    val hold: Hold = client.holds().create(params)\n}',
       },
-      ruby: {
-        method: 'holds.create',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nhold = lithic.holds.create("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", amount: 1)\n\nputs(hold)',
-      },
       python: {
         method: 'holds.create',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nhold = client.holds.create(\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    amount=1,\n)\nprint(hold.user_defined_id)',
+      },
+      ruby: {
+        method: 'holds.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nhold = lithic.holds.create("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", amount: 1)\n\nputs(hold)',
       },
       typescript: {
         method: 'client.holds.create',
@@ -11149,15 +11149,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Hold\nimport com.lithic.api.models.HoldRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val hold: Hold = client.holds().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'holds.retrieve',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nhold = lithic.holds.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(hold)',
-      },
       python: {
         method: 'holds.retrieve',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nhold = client.holds.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(hold.user_defined_id)',
+      },
+      ruby: {
+        method: 'holds.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nhold = lithic.holds.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(hold)',
       },
       typescript: {
         method: 'client.holds.retrieve',
@@ -11200,15 +11200,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Hold\nimport com.lithic.api.models.HoldVoidParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val hold: Hold = client.holds().void("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'holds.void',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nhold = lithic.holds.void("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(hold)',
-      },
       python: {
         method: 'holds.void',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nhold = client.holds.void(\n    hold_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(hold.user_defined_id)',
+      },
+      ruby: {
+        method: 'holds.void',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nhold = lithic.holds.void("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(hold)',
       },
       typescript: {
         method: 'client.holds.void',
@@ -11262,15 +11262,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AccountActivityListPage\nimport com.lithic.api.models.AccountActivityListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: AccountActivityListPage = client.accountActivity().list()\n}',
       },
-      ruby: {
-        method: 'account_activity.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.account_activity.list\n\nputs(page)',
-      },
       python: {
         method: 'account_activity.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.account_activity.list()\npage = page.data[0]\nprint(page)',
+      },
+      ruby: {
+        method: 'account_activity.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.account_activity.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.accountActivity.list',
@@ -11312,15 +11312,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.AccountActivityRetrieveTransactionParams\nimport com.lithic.api.models.AccountActivityRetrieveTransactionResponse\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val response: AccountActivityRetrieveTransactionResponse = client.accountActivity().retrieveTransaction("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
       },
-      ruby: {
-        method: 'account_activity.retrieve_transaction',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.account_activity.retrieve_transaction("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(response)',
-      },
       python: {
         method: 'account_activity.retrieve_transaction',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nresponse = client.account_activity.retrieve_transaction(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(response)',
+      },
+      ruby: {
+        method: 'account_activity.retrieve_transaction',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresponse = lithic.account_activity.retrieve_transaction("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(response)',
       },
       typescript: {
         method: 'client.accountActivity.retrieveTransaction',
@@ -11362,15 +11362,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.TransferLimitListPage\nimport com.lithic.api.models.TransferLimitListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: TransferLimitListPage = client.transferLimits().list()\n}',
       },
-      ruby: {
-        method: 'transfer_limits.list',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.transfer_limits.list\n\nputs(page)',
-      },
       python: {
         method: 'transfer_limits.list',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.transfer_limits.list()\npage = page.data[0]\nprint(page.company_id)',
+      },
+      ruby: {
+        method: 'transfer_limits.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.transfer_limits.list\n\nputs(page)',
       },
       typescript: {
         method: 'client.transferLimits.list',
@@ -11404,15 +11404,15 @@ const EMBEDDED_METHODS: MethodEntry[] = [
         example:
           'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.WebhookParsedParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    client.webhooks().parsed()\n}',
       },
-      ruby: {
-        method: 'webhooks.parsed',
-        example:
-          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.webhooks.parsed\n\nputs(result)',
-      },
       python: {
         method: 'webhooks.parsed',
         example:
           'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nclient.webhooks.parsed()',
+      },
+      ruby: {
+        method: 'webhooks.parsed',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nresult = lithic.webhooks.parsed\n\nputs(result)',
       },
       typescript: {
         method: 'client.webhooks.parsed',
@@ -11440,14 +11440,14 @@ const EMBEDDED_READMES: { language: string; content: string }[] = [
       '# Lithic Kotlin API Library\n\n<!-- x-release-please-start-version -->\n[![Maven Central](https://img.shields.io/maven-central/v/com.lithic.api/lithic-kotlin)](https://central.sonatype.com/artifact/com.lithic.api/lithic-kotlin/0.131.0)\n[![javadoc](https://javadoc.io/badge2/com.lithic.api/lithic-kotlin/0.131.0/javadoc.svg)](https://javadoc.io/doc/com.lithic.api/lithic-kotlin/0.131.0)\n<!-- x-release-please-end -->\n\nThe Lithic Kotlin SDK provides convenient access to the [Lithic REST API](https://docs.lithic.com)   from applications written in Kotlin.\n\nThe Lithic Kotlin SDK is similar to the Lithic Java SDK but with minor differences that       make it more ergonomic for use in Kotlin, such as nullable values instead of `Optional`,       `Sequence` instead of `Stream`, and suspend functions instead of `CompletableFuture`.\n\n\n\n## MCP Server\n\nUse the Lithic MCP Server to enable AI assistants to interact with this API, allowing them to explore endpoints, make test requests, and use documentation to help integrate this SDK into your application.\n\n[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=lithic-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImxpdGhpYy1tY3AiXSwiZW52Ijp7IkxJVEhJQ19BUElfS0VZIjoiTXkgTGl0aGljIEFQSSBLZXkiLCJMSVRISUNfV0VCSE9PS19TRUNSRVQiOiJNeSBXZWJob29rIFNlY3JldCJ9fQ)\n[![Install in VS Code](https://img.shields.io/badge/_-Add_to_VS_Code-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHBhdGggZmlsbD0iI0VFRSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzAuMjM1IDM5Ljg4NGEyLjQ5MSAyLjQ5MSAwIDAgMS0xLjc4MS0uNzNMMTIuNyAyNC43OGwtMy40NiAyLjYyNC0zLjQwNiAyLjU4MmExLjY2NSAxLjY2NSAwIDAgMS0xLjA4Mi4zMzggMS42NjQgMS42NjQgMCAwIDEtMS4wNDYtLjQzMWwtMi4yLTJhMS42NjYgMS42NjYgMCAwIDEgMC0yLjQ2M0w3LjQ1OCAyMCA0LjY3IDE3LjQ1MyAxLjUwNyAxNC41N2ExLjY2NSAxLjY2NSAwIDAgMSAwLTIuNDYzbDIuMi0yYTEuNjY1IDEuNjY1IDAgMCAxIDIuMTMtLjA5N2w2Ljg2MyA1LjIwOUwyOC40NTIuODQ0YTIuNDg4IDIuNDg4IDAgMCAxIDEuODQxLS43MjljLjM1MS4wMDkuNjk5LjA5MSAxLjAxOS4yNDVsOC4yMzYgMy45NjFhMi41IDIuNSAwIDAgMSAxLjQxNSAyLjI1M3YuMDk5LS4wNDVWMzMuMzd2LS4wNDUuMDk1YTIuNTAxIDIuNTAxIDAgMCAxLTEuNDE2IDIuMjU3bC04LjIzNSAzLjk2MWEyLjQ5MiAyLjQ5MiAwIDAgMS0xLjA3Ny4yNDZabS43MTYtMjguOTQ3LTExLjk0OCA5LjA2MiAxMS45NTIgOS4wNjUtLjAwNC0xOC4xMjdaIi8+PC9zdmc+)](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22lithic-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22lithic-mcp%22%5D%2C%22env%22%3A%7B%22LITHIC_API_KEY%22%3A%22My%20Lithic%20API%20Key%22%2C%22LITHIC_WEBHOOK_SECRET%22%3A%22My%20Webhook%20Secret%22%7D%7D)\n\n> Note: You may need to set environment variables in your MCP client.\n\n<!-- x-release-please-start-version -->\n\nThe REST API documentation can be found on [docs.lithic.com](https://docs.lithic.com). KDocs are available on [javadoc.io](https://javadoc.io/doc/com.lithic.api/lithic-kotlin/0.131.0).\n\n<!-- x-release-please-end -->\n\n## Installation\n\n<!-- x-release-please-start-version -->\n\n### Gradle\n\n~~~kotlin\nimplementation("com.lithic.api:lithic-kotlin:0.131.0")\n~~~\n\n### Maven\n\n~~~xml\n<dependency>\n  <groupId>com.lithic.api</groupId>\n  <artifactId>lithic-kotlin</artifactId>\n  <version>0.131.0</version>\n</dependency>\n~~~\n\n<!-- x-release-please-end -->\n\n## Requirements\n\nThis library requires Java 8 or later.\n\n## Usage\n\n```kotlin\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Card\nimport com.lithic.api.models.CardCreateParams\n\n// Configures using the `lithic.apiKey`, `lithic.webhookSecret` and `lithic.baseUrl` system properties\n// Or configures using the `LITHIC_API_KEY`, `LITHIC_WEBHOOK_SECRET` and `LITHIC_BASE_URL` environment variables\nval client: LithicClient = LithicOkHttpClient.fromEnv()\n\nval params: CardCreateParams = CardCreateParams.builder()\n    .type(CardCreateParams.Type.SINGLE_USE)\n    .build()\nval card: Card = client.cards().create(params)\n```\n\n## Client configuration\n\nConfigure the client using system properties or environment variables:\n\n```kotlin\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\n\n// Configures using the `lithic.apiKey`, `lithic.webhookSecret` and `lithic.baseUrl` system properties\n// Or configures using the `LITHIC_API_KEY`, `LITHIC_WEBHOOK_SECRET` and `LITHIC_BASE_URL` environment variables\nval client: LithicClient = LithicOkHttpClient.fromEnv()\n```\n\nOr manually:\n\n```kotlin\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\n\nval client: LithicClient = LithicOkHttpClient.builder()\n    .apiKey("My Lithic API Key")\n    .build()\n```\n\nOr using a combination of the two approaches:\n\n```kotlin\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\n\nval client: LithicClient = LithicOkHttpClient.builder()\n    // Configures using the `lithic.apiKey`, `lithic.webhookSecret` and `lithic.baseUrl` system properties\n    // Or configures using the `LITHIC_API_KEY`, `LITHIC_WEBHOOK_SECRET` and `LITHIC_BASE_URL` environment variables\n    .fromEnv()\n    .apiKey("My Lithic API Key")\n    .build()\n```\n\nSee this table for the available options:\n\n| Setter          | System property        | Environment variable    | Required | Default value              |\n| --------------- | ---------------------- | ----------------------- | -------- | -------------------------- |\n| `apiKey`        | `lithic.apiKey`        | `LITHIC_API_KEY`        | true     | -                          |\n| `webhookSecret` | `lithic.webhookSecret` | `LITHIC_WEBHOOK_SECRET` | false    | -                          |\n| `baseUrl`       | `lithic.baseUrl`       | `LITHIC_BASE_URL`       | true     | `"https://api.lithic.com"` |\n\nSystem properties take precedence over environment variables.\n\n> [!TIP]\n> Don\'t create more than one client in the same application. Each client has a connection pool and\n> thread pools, which are more efficient to share between requests.\n\n### Modifying configuration\n\nTo temporarily use a modified client configuration, while reusing the same connection and thread       pools, call `withOptions()` on any client or service:\n\n```kotlin\nimport com.lithic.api.client.LithicClient\n\nval clientWithOptions: LithicClient = client.withOptions {\n    it.baseUrl("https://example.com")\n    it.maxRetries(42)\n}\n```\n\nThe `withOptions()` method does not affect the original client or service.\n\n## Requests and responses\n\nTo send a request to the Lithic API, build an instance of some `Params` class and pass it to the     corresponding client method. When the response is received, it will be deserialized into an instance of     a Kotlin class.\n\nFor example, `client.cards().create(...)` should be called with an instance of `CardCreateParams`, and it     will return an instance of `Card`.\n\n## Immutability\n\nEach class in the SDK has an associated   [builder](https://blogs.oracle.com/javamagazine/post/exploring-joshua-blochs-builder-design-pattern-in-java)   or factory method for constructing it.\n\nEach class is [immutable](https://docs.oracle.com/javase/tutorial/essential/concurrency/immutable.html)   once constructed. If the class has an associated builder, then it has a `toBuilder()` method, which can   be used to convert it back to a builder for making a modified copy.\n\nBecause each class is immutable, builder modification will _never_ affect already built class instances.\n\n## Asynchronous execution\n\nThe default client is synchronous. To switch to asynchronous execution, call the `async()` method:\n\n```kotlin\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Card\nimport com.lithic.api.models.CardCreateParams\n\n// Configures using the `lithic.apiKey`, `lithic.webhookSecret` and `lithic.baseUrl` system properties\n// Or configures using the `LITHIC_API_KEY`, `LITHIC_WEBHOOK_SECRET` and `LITHIC_BASE_URL` environment variables\nval client: LithicClient = LithicOkHttpClient.fromEnv()\n\nval params: CardCreateParams = CardCreateParams.builder()\n    .type(CardCreateParams.Type.SINGLE_USE)\n    .build()\nval card: Card = client.async().cards().create(params)\n```\n\nOr create an asynchronous client from the beginning:\n\n```kotlin\nimport com.lithic.api.client.LithicClientAsync\nimport com.lithic.api.client.okhttp.LithicOkHttpClientAsync\nimport com.lithic.api.models.Card\nimport com.lithic.api.models.CardCreateParams\n\n// Configures using the `lithic.apiKey`, `lithic.webhookSecret` and `lithic.baseUrl` system properties\n// Or configures using the `LITHIC_API_KEY`, `LITHIC_WEBHOOK_SECRET` and `LITHIC_BASE_URL` environment variables\nval client: LithicClientAsync = LithicOkHttpClientAsync.fromEnv()\n\nval params: CardCreateParams = CardCreateParams.builder()\n    .type(CardCreateParams.Type.SINGLE_USE)\n    .build()\nval card: Card = client.cards().create(params)\n```\n\nThe asynchronous client supports the same options as the synchronous one, except most methods are [suspending](https://kotlinlang.org/docs/coroutines-guide.html).\n\n\n\n\n\n\n\n## Raw responses\n\nThe SDK defines methods that deserialize responses into instances of Kotlin classes.       However, these methods don\'t provide access to the response headers, status code, or the raw response       body.\n\nTo access this data, prefix any HTTP method call on a client or service with `withRawResponse()`:\n\n```kotlin\nimport com.lithic.api.core.http.Headers\nimport com.lithic.api.core.http.HttpResponseFor\nimport com.lithic.api.models.Card\nimport com.lithic.api.models.CardCreateParams\n\nval params: CardCreateParams = CardCreateParams.builder()\n    .type(CardCreateParams.Type.SINGLE_USE)\n    .build()\nval card: HttpResponseFor<Card> = client.cards().withRawResponse().create(params)\n\nval statusCode: Int = card.statusCode()\nval headers: Headers = card.headers()\n```\n\nYou can still deserialize the response into an instance of a Kotlin class if needed:\n\n```kotlin\nimport com.lithic.api.models.Card\n\nval parsedCard: Card = card.parse()\n```\n\n## Error handling\n\nThe SDK throws custom unchecked exception types:\n\n- [`LithicServiceException`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/errors/LithicServiceException.kt): Base class for HTTP errors. See this table for which exception       subclass is thrown for each HTTP status code:\n\n  | Status | Exception                                          |\n  | ------ | -------------------------------------------------- |\n  | 400    | [`BadRequestException`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/errors/BadRequestException.kt)           |\n  | 401    | [`UnauthorizedException`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/errors/UnauthorizedException.kt)         |\n  | 403    | [`PermissionDeniedException`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/errors/PermissionDeniedException.kt)     |\n  | 404    | [`NotFoundException`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/errors/NotFoundException.kt)             |\n  | 422    | [`UnprocessableEntityException`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/errors/UnprocessableEntityException.kt)  |\n  | 429    | [`RateLimitException`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/errors/RateLimitException.kt)            |\n  | 5xx    | [`InternalServerException`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/errors/InternalServerException.kt)       |\n  | others | [`UnexpectedStatusCodeException`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/errors/UnexpectedStatusCodeException.kt) |\n\n- [`LithicIoException`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/errors/LithicIoException.kt): I/O networking errors.\n\n- [`LithicRetryableException`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/errors/LithicRetryableException.kt): Generic error indicating a failure that could be retried by the client.\n\n- [`LithicInvalidDataException`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/errors/LithicInvalidDataException.kt): Failure to interpret successfully parsed data. For example,       when accessing a property that\'s supposed to be required, but the API unexpectedly omitted it from the       response.\n\n- [`LithicException`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/errors/LithicException.kt): Base class for all exceptions. Most errors will result in one of the       previously mentioned ones, but completely generic errors may be thrown using the base class.\n\n## Pagination\n\nThe SDK defines methods that return a paginated lists of results. It provides convenient ways to access     the results either one page at a time or item-by-item across all pages.\n\n### Auto-pagination\n\nTo iterate through all results across all pages, use the `autoPager()` method, which automatically     fetches more pages as needed.\n\nWhen using the synchronous client, the method returns a [`Sequence`](https://kotlinlang.org/docs/sequences.html)\n\n```kotlin\nimport com.lithic.api.models.CardListPage\n\nval page: CardListPage = client.cards().list()\npage.autoPager()\n    .take(50)\n    .forEach { card -> println(card) }\n```\n\nWhen using the asynchronous client, the method returns a [`Flow`](https://kotlinlang.org/docs/flow.html):\n\n```kotlin\nimport com.lithic.api.models.CardListPageAsync\n\nval page: CardListPageAsync = client.async().cards().list()\npage.autoPager()\n    .take(50)\n    .forEach { card -> println(card) }\n```\n\n### Manual pagination\n\nTo access individual page items and manually request the next page, use the `items()`,\n`hasNextPage()`, and `nextPage()` methods:\n\n```kotlin\nimport com.lithic.api.models.CardListPage\nimport com.lithic.api.models.NonPciCard\n\nval page: CardListPage = client.cards().list()\nwhile (true) {\n    for (card in page.items()) {\n        println(card)\n    }\n\n    if (!page.hasNextPage()) {\n        break\n    }\n\n    page = page.nextPage()\n}\n```\n\n## Logging\n\nEnable logging by setting the `LITHIC_LOG` environment variable to   `info`:\n\n```sh\nexport LITHIC_LOG=info\n```\n\nOr to `debug` for more verbose logging:\n\n```sh\nexport LITHIC_LOG=debug\n```\n\nOr configure the client manually using the `logLevel` method:\n\n```kotlin\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.core.LogLevel\n\nval client: LithicClient = LithicOkHttpClient.builder()\n    .fromEnv()\n    .logLevel(LogLevel.INFO)\n    .build()\n```\n\n## ProGuard and R8\n\nAlthough the SDK uses reflection, it is still usable with     [ProGuard](https://github.com/Guardsquare/proguard) and     [R8](https://developer.android.com/topic/performance/app-optimization/enable-app-optimization) because     `lithic-kotlin-core` is published with a     [configuration file](lithic-kotlin-core/src/main/resources/META-INF/proguard/lithic-kotlin-core.pro) containing     [keep rules](https://www.guardsquare.com/manual/configuration/usage).\n\nProGuard and R8 should automatically detect and use the published rules, but you can also manually copy     the keep rules if necessary.\n\n\n\n\n\n## Jackson\n\nThe SDK depends on [Jackson](https://github.com/FasterXML/jackson) for JSON     serialization/deserialization. It is compatible with version 2.13.4 or higher,     but depends on version 2.18.2 by default.\n\nThe SDK throws an exception if it detects an incompatible Jackson version at runtime (e.g. if the     default version was overridden in your Maven or Gradle config).\n\nIf the SDK threw an exception, but you\'re _certain_ the version is compatible, then disable the version     check using the `checkJacksonVersionCompatibility` on [`LithicOkHttpClient`](lithic-kotlin-client-okhttp/src/main/kotlin/com/lithic/api/client/okhttp/LithicOkHttpClient.kt) or     [`LithicOkHttpClientAsync`](lithic-kotlin-client-okhttp/src/main/kotlin/com/lithic/api/client/okhttp/LithicOkHttpClientAsync.kt).\n\n> [!CAUTION]\n> We make no guarantee that the SDK works correctly when the Jackson version check is disabled.\n\nAlso note that there are bugs in older Jackson versions that can affect the SDK. We don\'t work around all     Jackson bugs ([example](https://github.com/FasterXML/jackson-databind/issues/3240)) and expect users to     upgrade Jackson for those instead.\n\n## Network options\n\n### Retries\n\nThe SDK automatically retries 2 times by default, with a short exponential backoff between requests.\n\nOnly the following error types are retried:\n- Connection errors (for example, due to a network connectivity problem)\n- 408 Request Timeout\n- 409 Conflict\n- 429 Rate Limit\n- 5xx Internal\n\nThe API may also explicitly instruct the SDK to retry or not retry a request.\n\nTo set a custom number of retries, configure the client using the `maxRetries` method:\n\n```kotlin\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\n\nval client: LithicClient = LithicOkHttpClient.builder()\n    .fromEnv()\n    .maxRetries(4)\n    .build()\n```\n\n### Timeouts\n\nRequests time out after 1 minute by default.\n\nTo set a custom timeout, configure the method call using the `timeout` method:\n\n```kotlin\nimport com.lithic.api.models.CardListPage\n\nval page: CardListPage = client.cards().list(RequestOptions.builder().timeout(Duration.ofSeconds(30)).build())\n```\n\nOr configure the default for all method calls at the client level:\n\n```kotlin\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport java.time.Duration\n\nval client: LithicClient = LithicOkHttpClient.builder()\n    .fromEnv()\n    .timeout(Duration.ofSeconds(30))\n    .build()\n```\n\n### Proxies\n\nTo route requests through a proxy, configure the client using the `proxy` method:\n\n```kotlin\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport java.net.InetSocketAddress\nimport java.net.Proxy\n\nval client: LithicClient = LithicOkHttpClient.builder()\n    .fromEnv()\n    .proxy(Proxy(\n      Proxy.Type.HTTP, InetSocketAddress(\n        "https://example.com", 8080\n      )\n    ))\n    .build()\n```\n\nIf the proxy responds with `407 Proxy Authentication Required`, supply credentials by also   configuring `proxyAuthenticator`:\n\n```kotlin\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.core.http.ProxyAuthenticator\n\nval client: LithicClient = LithicOkHttpClient.builder()\n    .fromEnv()\n    .proxy(...)\n    // Or a custom implementation of `ProxyAuthenticator`.\n    .proxyAuthenticator(ProxyAuthenticator.basic("username", "password"))\n    .build()\n```\n\n### Connection pooling\n\nTo customize the underlying OkHttp connection pool, configure the client using the   `maxIdleConnections` and `keepAliveDuration` methods:\n\n```kotlin\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport java.time.Duration\n\nval client: LithicClient = LithicOkHttpClient.builder()\n    .fromEnv()\n    // If `maxIdleConnections` is set, then `keepAliveDuration` must be set, and vice versa.\n    .maxIdleConnections(10)\n    .keepAliveDuration(Duration.ofMinutes(2))\n    .build()\n```\n\nIf both options are unset, OkHttp\'s default connection pool settings are used.\n\n### HTTPS\n\n> [!NOTE]\n> Most applications should not call these methods, and instead use the system defaults. The defaults include\n> special optimizations that can be lost if the implementations are modified.\n\nTo configure how HTTPS connections are secured, configure the client using the `sslSocketFactory`,   `trustManager`, and `hostnameVerifier` methods:\n\n```kotlin\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\n\nval client: LithicClient = LithicOkHttpClient.builder()\n    .fromEnv()\n    // If `sslSocketFactory` is set, then `trustManager` must be set, and vice versa.\n    .sslSocketFactory(yourSSLSocketFactory)\n    .trustManager(yourTrustManager)\n    .hostnameVerifier(yourHostnameVerifier)\n    .build()\n```\n\n### Environments\n\nThe SDK sends requests to the production by default. To send requests to a different     environment, configure the client like so:\n\n```kotlin\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\n\nval client: LithicClient = LithicOkHttpClient.builder()\n    .fromEnv()\n    .sandbox()\n    .build()\n```\n\n### Custom HTTP client\n\nThe SDK consists of three artifacts:\n- `lithic-kotlin-core`\n  - Contains core SDK logic\n  - Does not depend on [OkHttp](https://square.github.io/okhttp)\n  - Exposes [`LithicClient`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/client/LithicClient.kt), [`LithicClientAsync`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/client/LithicClientAsync.kt),             [`LithicClientImpl`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/client/LithicClientImpl.kt), and [`LithicClientAsyncImpl`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/client/LithicClientAsyncImpl.kt), all of which can             work with any HTTP client\n- `lithic-kotlin-client-okhttp`\n  - Depends on [OkHttp](https://square.github.io/okhttp)\n  - Exposes [`LithicOkHttpClient`](lithic-kotlin-client-okhttp/src/main/kotlin/com/lithic/api/client/okhttp/LithicOkHttpClient.kt) and [`LithicOkHttpClientAsync`](lithic-kotlin-client-okhttp/src/main/kotlin/com/lithic/api/client/okhttp/LithicOkHttpClientAsync.kt), which             provide a way to construct [`LithicClientImpl`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/client/LithicClientImpl.kt) and             [`LithicClientAsyncImpl`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/client/LithicClientAsyncImpl.kt), respectively, using OkHttp\n- `lithic-kotlin`\n  - Depends on and exposes the APIs of both `lithic-kotlin-core` and `lithic-kotlin-client-okhttp`\n  - Does not have its own logic\n\nThis structure allows replacing the SDK\'s default HTTP client without pulling in unnecessary dependencies.\n\n#### Customized [`OkHttpClient`](https://square.github.io/okhttp/3.x/okhttp/okhttp3/OkHttpClient.html)\n\n> [!TIP]\n> Try the available [network options](#network-options) before replacing the default client.\n\nTo use a customized `OkHttpClient`:\n\n1. Replace your [`lithic-kotlin` dependency](#installation) with `lithic-kotlin-core`\n2. Copy `lithic-kotlin-client-okhttp`\'s [`OkHttpClient`](lithic-kotlin-client-okhttp/src/main/kotlin/com/lithic/api/client/okhttp/OkHttpClient.kt) class into your code and        customize it\n3. Construct [`LithicClientImpl`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/client/LithicClientImpl.kt) or [`LithicClientAsyncImpl`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/client/LithicClientAsyncImpl.kt), similarly to        [`LithicOkHttpClient`](lithic-kotlin-client-okhttp/src/main/kotlin/com/lithic/api/client/okhttp/LithicOkHttpClient.kt) or [`LithicOkHttpClientAsync`](lithic-kotlin-client-okhttp/src/main/kotlin/com/lithic/api/client/okhttp/LithicOkHttpClientAsync.kt), using your        customized client\n\n### Completely custom HTTP client\n\nTo use a completely custom HTTP client:\n\n1. Replace your [`lithic-kotlin` dependency](#installation) with `lithic-kotlin-core`\n2. Write a class that implements the [`HttpClient`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/core/http/HttpClient.kt) interface\n3. Construct [`LithicClientImpl`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/client/LithicClientImpl.kt) or [`LithicClientAsyncImpl`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/client/LithicClientAsyncImpl.kt), similarly to        [`LithicOkHttpClient`](lithic-kotlin-client-okhttp/src/main/kotlin/com/lithic/api/client/okhttp/LithicOkHttpClient.kt) or [`LithicOkHttpClientAsync`](lithic-kotlin-client-okhttp/src/main/kotlin/com/lithic/api/client/okhttp/LithicOkHttpClientAsync.kt), using your new        client class\n\n## Undocumented API functionality\n\nThe SDK is typed for convenient usage of the documented API. However, it also supports working with undocumented or not yet supported parts of the API.\n\n### Parameters\n\nTo set undocumented parameters, call the `putAdditionalHeader`, `putAdditionalQueryParam`, or       `putAdditionalBodyProperty` methods on any `Params` class:\n\n```kotlin\nimport com.lithic.api.core.JsonValue\nimport com.lithic.api.models.CardCreateParams\n\nval params: CardCreateParams = CardCreateParams.builder()\n    .putAdditionalHeader("Secret-Header", "42")\n    .putAdditionalQueryParam("secret_query_param", "42")\n    .putAdditionalBodyProperty("secretProperty", JsonValue.from("42"))\n    .build()\n```\n\nThese can be accessed on the built object later using the `_additionalHeaders()`,       `_additionalQueryParams()`, and `_additionalBodyProperties()` methods.\n\nTo set undocumented parameters on _nested_ headers, query params, or body classes, call the         `putAdditionalProperty` method on the nested class:\n\n```kotlin\nimport com.lithic.api.core.JsonValue\nimport com.lithic.api.models.CardCreateParams\nimport com.lithic.api.models.ShippingAddress\n\nval params: CardCreateParams = CardCreateParams.builder()\n    .shippingAddress(ShippingAddress.builder()\n        .putAdditionalProperty("secretProperty", JsonValue.from("42"))\n        .build())\n    .build()\n```\n\nThese properties can be accessed on the nested built object later using the         `_additionalProperties()` method.\n\nTo set a documented parameter or property to an undocumented or not yet supported _value_, pass a       [`JsonValue`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/core/Values.kt) object to its setter:\n\n```kotlin\nimport com.lithic.api.core.JsonValue\nimport com.lithic.api.models.CardCreateParams\n\nval params: CardCreateParams = CardCreateParams.builder()\n    .type(JsonValue.from(42))\n    .build()\n```\n\nThe most straightforward way to create a [`JsonValue`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/core/Values.kt) is using its       `from(...)` method:\n\n```kotlin\nimport com.lithic.api.core.JsonValue\n\n// Create primitive JSON values\nval nullValue: JsonValue = JsonValue.from(null)\nval booleanValue: JsonValue = JsonValue.from(true)\nval numberValue: JsonValue = JsonValue.from(42)\nval stringValue: JsonValue = JsonValue.from("Hello World!")\n\n// Create a JSON array value equivalent to `["Hello", "World"]`\nval arrayValue: JsonValue = JsonValue.from(listOf(\n  "Hello", "World"\n))\n\n// Create a JSON object value equivalent to `{ "a": 1, "b": 2 }`\nval objectValue: JsonValue = JsonValue.from(mapOf(\n  "a" to 1, "b" to 2\n))\n\n// Create an arbitrarily nested JSON equivalent to:\n// {\n//   "a": [1, 2],\n//   "b": [3, 4]\n// }\nval complexValue: JsonValue = JsonValue.from(mapOf(\n  "a" to listOf(\n    1, 2\n  ), "b" to listOf(\n    3, 4\n  )\n))\n```\n\nNormally a `Builder` class\'s `build` method will throw         [`IllegalStateException`](https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html)         if any required parameter or property is unset.\n\nTo forcibly omit a required parameter or property, pass [`JsonMissing`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/core/Values.kt):\n\n```kotlin\nimport com.lithic.api.core.JsonMissing\nimport com.lithic.api.models.CardCreateParams\n\nval params: CardCreateParams = CardCreateParams.builder()\n    .type(JsonMissing.of())\n    .build()\n```\n\n### Response properties\n\nTo access undocumented response properties, call the `_additionalProperties()` method:\n\n```kotlin\nimport com.lithic.api.core.JsonBoolean\nimport com.lithic.api.core.JsonNull\nimport com.lithic.api.core.JsonNumber\nimport com.lithic.api.core.JsonValue\n\nval additionalProperties: Map<String, JsonValue> = client.cards().create(params)._additionalProperties()\nval secretPropertyValue: JsonValue = additionalProperties.get("secretProperty")\n\nval result = when (secretPropertyValue) {\n    is JsonNull -> "It\'s null!"\n    is JsonBoolean -> "It\'s a boolean!"\n    is JsonNumber -> "It\'s a number!"\n    // Other types include `JsonMissing`, `JsonString`, `JsonArray`, and `JsonObject`\n    else -> "It\'s something else!"\n}\n```\n\nTo access a property\'s raw JSON value, which may be undocumented, call its `_` prefixed method:\n\n```kotlin\nimport com.lithic.api.core.JsonField\nimport com.lithic.api.models.CardCreateParams\n\nval type: JsonField<CardCreateParams.Type> = client.cards().create(params)._type()\n\nif (type.isMissing()) {\n  // The property is absent from the JSON response\n} else if (type.isNull()) {\n  // The property was set to literal null\n} else {\n  // Check if value was provided as a string\n  // Other methods include `asNumber()`, `asBoolean()`, etc.\n  val jsonString: String? = type.asString();\n\n  // Try to deserialize into a custom type\n  val myObject: MyClass = type.asUnknown()!!.convert(MyClass::class.java)\n}\n```\n\n### Response validation\n\nIn rare cases, the API may return a response that doesn\'t match the expected type. For example, the SDK     may expect a property to contain a `String`, but the API could return something else.\n\nBy default, the SDK will not throw an exception in this case. It will throw     [`LithicInvalidDataException`](lithic-kotlin-core/src/main/kotlin/com/lithic/api/errors/LithicInvalidDataException.kt) only if you directly access the property.\n\nValidating the response is _not_ forwards compatible with new types from the API for existing fields.\n\nIf you would still prefer to check that the response is completely well-typed upfront, then either call     `validate()`:\n\n```kotlin\nimport com.lithic.api.models.Card\n\nval card: Card = client.cards().create(params).validate()\n```\n\nOr configure the method call to validate the response using the `responseValidation` method:\n\n```kotlin\nimport com.lithic.api.models.Card\n\nval card: Card = client.cards().create(\n  params, RequestOptions.builder().responseValidation(true).build()\n)\n```\n\nOr configure the default for all method calls at the client level:\n\n```kotlin\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\n\nval client: LithicClient = LithicOkHttpClient.builder()\n    .fromEnv()\n    .responseValidation(true)\n    .build()\n```\n\n## FAQ\n\n### Why don\'t you use plain `enum` classes?\n\nKotlin `enum` classes are not trivially   [forwards compatible](https://www.stainless.com/blog/making-java-enums-forwards-compatible). Using them in   the SDK could cause runtime exceptions if the API is updated to respond with a new enum value.\n\n### Why do you represent fields using `JsonField<T>` instead of just plain `T`?\n\nUsing `JsonField<T>` enables a few features:\n\n- Allowing usage of [undocumented API functionality](#undocumented-api-functionality)\n- Lazily [validating the API response against the expected shape](#response-validation)\n- Representing absent vs explicitly null values\n\n### Why don\'t you use [`data` classes](https://kotlinlang.org/docs/data-classes.html)?\n\nIt is not [backwards compatible to add new fields to a data class](https://kotlinlang.org/docs/api-guidelines-backward-compatibility.html#avoid-using-data-classes-in-your-api)   and we don\'t want to introduce a breaking change every time we add a field to a class.\n\n### Why don\'t you use checked exceptions?\n\nChecked exceptions are widely considered a mistake in the Java programming language. In fact, they were   omitted from Kotlin for this reason.\n\nChecked exceptions:\n\n- Are verbose to handle\n- Encourage error handling at the wrong level of abstraction, where nothing can be done about the error\n- Are tedious to propagate due to the [function coloring problem](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function)\n- Don\'t play well with lambdas (also due to the function coloring problem)\n\n## Semantic versioning\n\nThis package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:\n\n1. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals.)_\n2. Changes that we do not expect to impact the vast majority of users in practice.\n\nWe take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.\n\nWe are keen for your feedback; please open an [issue](https://www.github.com/lithic-com/lithic-kotlin/issues) with questions, bugs, or suggestions.\n',
   },
   {
-    language: 'ruby',
-    content:
-      '# Lithic Ruby API library\n\nThe Lithic Ruby library provides convenient access to the Lithic REST API from any Ruby 3.2.0+ application. It ships with comprehensive types & docstrings in Yard, RBS, and RBI – [see below](https://github.com/lithic-com/lithic-ruby#Sorbet) for usage with Sorbet. The standard library\'s `net/http` is used as the HTTP transport, with connection pooling via the `connection_pool` gem.\n\n\n\n\n\n## MCP Server\n\nUse the Lithic MCP Server to enable AI assistants to interact with this API, allowing them to explore endpoints, make test requests, and use documentation to help integrate this SDK into your application.\n\n[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=lithic-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImxpdGhpYy1tY3AiXSwiZW52Ijp7IkxJVEhJQ19BUElfS0VZIjoiTXkgTGl0aGljIEFQSSBLZXkiLCJMSVRISUNfV0VCSE9PS19TRUNSRVQiOiJNeSBXZWJob29rIFNlY3JldCJ9fQ)\n[![Install in VS Code](https://img.shields.io/badge/_-Add_to_VS_Code-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHBhdGggZmlsbD0iI0VFRSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzAuMjM1IDM5Ljg4NGEyLjQ5MSAyLjQ5MSAwIDAgMS0xLjc4MS0uNzNMMTIuNyAyNC43OGwtMy40NiAyLjYyNC0zLjQwNiAyLjU4MmExLjY2NSAxLjY2NSAwIDAgMS0xLjA4Mi4zMzggMS42NjQgMS42NjQgMCAwIDEtMS4wNDYtLjQzMWwtMi4yLTJhMS42NjYgMS42NjYgMCAwIDEgMC0yLjQ2M0w3LjQ1OCAyMCA0LjY3IDE3LjQ1MyAxLjUwNyAxNC41N2ExLjY2NSAxLjY2NSAwIDAgMSAwLTIuNDYzbDIuMi0yYTEuNjY1IDEuNjY1IDAgMCAxIDIuMTMtLjA5N2w2Ljg2MyA1LjIwOUwyOC40NTIuODQ0YTIuNDg4IDIuNDg4IDAgMCAxIDEuODQxLS43MjljLjM1MS4wMDkuNjk5LjA5MSAxLjAxOS4yNDVsOC4yMzYgMy45NjFhMi41IDIuNSAwIDAgMSAxLjQxNSAyLjI1M3YuMDk5LS4wNDVWMzMuMzd2LS4wNDUuMDk1YTIuNTAxIDIuNTAxIDAgMCAxLTEuNDE2IDIuMjU3bC04LjIzNSAzLjk2MWEyLjQ5MiAyLjQ5MiAwIDAgMS0xLjA3Ny4yNDZabS43MTYtMjguOTQ3LTExLjk0OCA5LjA2MiAxMS45NTIgOS4wNjUtLjAwNC0xOC4xMjdaIi8+PC9zdmc+)](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22lithic-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22lithic-mcp%22%5D%2C%22env%22%3A%7B%22LITHIC_API_KEY%22%3A%22My%20Lithic%20API%20Key%22%2C%22LITHIC_WEBHOOK_SECRET%22%3A%22My%20Webhook%20Secret%22%7D%7D)\n\n> Note: You may need to set environment variables in your MCP client.\n\n## Documentation\n\nDocumentation for releases of this gem can be found [on RubyDoc](https://gemdocs.org/gems/lithic).\n\nThe REST API documentation can be found on [docs.lithic.com](https://docs.lithic.com).\n\n## Installation\n\nTo use this gem, install via Bundler by adding the following to your application\'s `Gemfile`:\n\n<!-- x-release-please-start-version -->\n\n```ruby\ngem "lithic", "~> 0.19.0"\n```\n\n<!-- x-release-please-end -->\n\n## Usage\n\n```ruby\nrequire "bundler/setup"\nrequire "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: ENV["LITHIC_API_KEY"], # This is the default and can be omitted\n  environment: "sandbox" # defaults to "production"\n)\n\ncard = lithic.cards.create(type: "SINGLE_USE")\n\nputs(card.token)\n```\n\n\n\n### Pagination\n\nList methods in the Lithic API are paginated.\n\nThis library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:\n\n```ruby\npage = lithic.cards.list\n\n# Fetch single item from page.\ncard = page.data[0]\nputs(card.product_id)\n\n# Automatically fetches more pages as needed.\npage.auto_paging_each do |card|\n  puts(card.product_id)\nend\n```\n\nAlternatively, you can use the `#next_page?` and `#next_page` methods for more granular control working with pages.\n\n```ruby\nif page.next_page?\n  new_page = page.next_page\n  puts(new_page.data[0].product_id)\nend\n```\n\n\n\n### Handling errors\n\nWhen the library is unable to connect to the API, or if the API returns a non-success status code (i.e., 4xx or 5xx response), a subclass of `Lithic::Errors::APIError` will be thrown:\n\n```ruby\nbegin\n  card = lithic.cards.create(type: "MERCHANT_LOCKED")\nrescue Lithic::Errors::APIConnectionError => e\n  puts("The server could not be reached")\n  puts(e.cause)  # an underlying Exception, likely raised within `net/http`\nrescue Lithic::Errors::RateLimitError => e\n  puts("A 429 status code was received; we should back off a bit.")\nrescue Lithic::Errors::APIStatusError => e\n  puts("Another non-200-range status code was received")\n  puts(e.status)\nend\n```\n\nError codes are as follows:\n\n| Cause            | Error Type                 |\n| ---------------- | -------------------------- |\n| HTTP 400         | `BadRequestError`          |\n| HTTP 401         | `AuthenticationError`      |\n| HTTP 403         | `PermissionDeniedError`    |\n| HTTP 404         | `NotFoundError`            |\n| HTTP 409         | `ConflictError`            |\n| HTTP 422         | `UnprocessableEntityError` |\n| HTTP 429         | `RateLimitError`           |\n| HTTP >= 500      | `InternalServerError`      |\n| Other HTTP error | `APIStatusError`           |\n| Timeout          | `APITimeoutError`          |\n| Network error    | `APIConnectionError`       |\n\n### Retries\n\nCertain errors will be automatically retried 2 times by default, with a short exponential backoff.\n\nConnection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict, 429 Rate Limit, >=500 Internal errors, and timeouts will all be retried by default.\n\nYou can use the `max_retries` option to configure or disable this:\n\n```ruby\n# Configure the default for all requests:\nlithic = Lithic::Client.new(\n  max_retries: 0 # default is 2\n)\n\n# Or, configure per-request:\nlithic.cards.list(page_size: 10, request_options: {max_retries: 5})\n```\n\n### Timeouts\n\nBy default, requests will time out after 60 seconds. You can use the timeout option to configure or disable this:\n\n```ruby\n# Configure the default for all requests:\nlithic = Lithic::Client.new(\n  timeout: nil # default is 60\n)\n\n# Or, configure per-request:\nlithic.cards.list(page_size: 10, request_options: {timeout: 5})\n```\n\nOn timeout, `Lithic::Errors::APITimeoutError` is raised.\n\nNote that requests that time out are retried by default.\n\n## Advanced concepts\n\n### BaseModel\n\nAll parameter and response objects inherit from `Lithic::Internal::Type::BaseModel`, which provides several conveniences, including:\n\n1. All fields, including unknown ones, are accessible with `obj[:prop]` syntax, and can be destructured with `obj => {prop: prop}` or pattern-matching syntax.\n\n2. Structural equivalence for equality; if two API calls return the same values, comparing the responses with == will return true.\n\n3. Both instances and the classes themselves can be pretty-printed.\n\n4. Helpers such as `#to_h`, `#deep_to_h`, `#to_json`, and `#to_yaml`.\n\n### Making custom or undocumented requests\n\n#### Undocumented properties\n\nYou can send undocumented parameters to any endpoint, and read undocumented response properties, like so:\n\nNote: the `extra_` parameters of the same name overrides the documented parameters.\n\n```ruby\npage =\n  lithic.cards.list(\n    page_size: 10,\n    request_options: {\n      extra_query: {my_query_parameter: value},\n      extra_body: {my_body_parameter: value},\n      extra_headers: {"my-header": value}\n    }\n  )\n\nputs(page[:my_undocumented_property])\n```\n\n#### Undocumented request params\n\nIf you want to explicitly send an extra param, you can do so with the `extra_query`, `extra_body`, and `extra_headers` under the `request_options:` parameter when making a request, as seen in the examples above.\n\n#### Undocumented endpoints\n\nTo make requests to undocumented endpoints while retaining the benefit of auth, retries, and so on, you can make requests using `client.request`, like so:\n\n```ruby\nresponse = client.request(\n  method: :post,\n  path: \'/undocumented/endpoint\',\n  query: {"dog": "woof"},\n  headers: {"useful-header": "interesting-value"},\n  body: {"hello": "world"}\n)\n```\n\n### Concurrency & connection pooling\n\nThe `Lithic::Client` instances are threadsafe, but are only are fork-safe when there are no in-flight HTTP requests.\n\nEach instance of `Lithic::Client` has its own HTTP connection pool with a default size of 99. As such, we recommend instantiating the client once per application in most settings.\n\nWhen all available connections from the pool are checked out, requests wait for a new connection to become available, with queue time counting towards the request timeout.\n\nUnless otherwise specified, other classes in the SDK do not have locks protecting their underlying data structure.\n\n## Sorbet\n\nThis library provides comprehensive [RBI](https://sorbet.org/docs/rbi) definitions, and has no dependency on sorbet-runtime.\n\nYou can provide typesafe request parameters like so:\n\n```ruby\nlithic.cards.create(type: "SINGLE_USE")\n```\n\nOr, equivalently:\n\n```ruby\n# Hashes work, but are not typesafe:\nlithic.cards.create(type: "SINGLE_USE")\n\n# You can also splat a full Params class:\nparams = Lithic::CardCreateParams.new(type: "SINGLE_USE")\nlithic.cards.create(**params)\n```\n\n### Enums\n\nSince this library does not depend on `sorbet-runtime`, it cannot provide [`T::Enum`](https://sorbet.org/docs/tenum) instances. Instead, we provide "tagged symbols" instead, which is always a primitive at runtime:\n\n```ruby\n# :ACTIVE\nputs(Lithic::AccountUpdateParams::State::ACTIVE)\n\n# Revealed type: `T.all(Lithic::AccountUpdateParams::State, Symbol)`\nT.reveal_type(Lithic::AccountUpdateParams::State::ACTIVE)\n```\n\nEnum parameters have a "relaxed" type, so you can either pass in enum constants or their literal value:\n\n```ruby\n# Using the enum constants preserves the tagged type information:\nlithic.accounts.update(\n  state: Lithic::AccountUpdateParams::State::ACTIVE,\n  # …\n)\n\n# Literal values are also permissible:\nlithic.accounts.update(\n  state: :ACTIVE,\n  # …\n)\n```\n\n## Versioning\n\nThis package follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions. As the library is in initial development and has a major version of `0`, APIs may change at any time.\n\nThis package considers improvements to the (non-runtime) `*.rbi` and `*.rbs` type definitions to be non-breaking changes.\n\n## Requirements\n\nRuby 3.2.0 or higher.\n\n## Contributing\n\nSee [the contributing documentation](https://github.com/lithic-com/lithic-ruby/tree/main/CONTRIBUTING.md).\n',
-  },
-  {
     language: 'python',
     content:
       '# Lithic Python API library\n\n<!-- prettier-ignore -->\n[![PyPI version](https://img.shields.io/pypi/v/lithic.svg?label=pypi%20(stable))](https://pypi.org/project/lithic/)\n\nThe Lithic Python library provides convenient access to the Lithic REST API from any Python 3.9+\napplication. The library includes type definitions for all request params and response fields,\nand offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).\n\n\n\n\n\n## MCP Server\n\nUse the Lithic MCP Server to enable AI assistants to interact with this API, allowing them to explore endpoints, make test requests, and use documentation to help integrate this SDK into your application.\n\n[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=lithic-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImxpdGhpYy1tY3AiXSwiZW52Ijp7IkxJVEhJQ19BUElfS0VZIjoiTXkgTGl0aGljIEFQSSBLZXkiLCJMSVRISUNfV0VCSE9PS19TRUNSRVQiOiJNeSBXZWJob29rIFNlY3JldCJ9fQ)\n[![Install in VS Code](https://img.shields.io/badge/_-Add_to_VS_Code-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHBhdGggZmlsbD0iI0VFRSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzAuMjM1IDM5Ljg4NGEyLjQ5MSAyLjQ5MSAwIDAgMS0xLjc4MS0uNzNMMTIuNyAyNC43OGwtMy40NiAyLjYyNC0zLjQwNiAyLjU4MmExLjY2NSAxLjY2NSAwIDAgMS0xLjA4Mi4zMzggMS42NjQgMS42NjQgMCAwIDEtMS4wNDYtLjQzMWwtMi4yLTJhMS42NjYgMS42NjYgMCAwIDEgMC0yLjQ2M0w3LjQ1OCAyMCA0LjY3IDE3LjQ1MyAxLjUwNyAxNC41N2ExLjY2NSAxLjY2NSAwIDAgMSAwLTIuNDYzbDIuMi0yYTEuNjY1IDEuNjY1IDAgMCAxIDIuMTMtLjA5N2w2Ljg2MyA1LjIwOUwyOC40NTIuODQ0YTIuNDg4IDIuNDg4IDAgMCAxIDEuODQxLS43MjljLjM1MS4wMDkuNjk5LjA5MSAxLjAxOS4yNDVsOC4yMzYgMy45NjFhMi41IDIuNSAwIDAgMSAxLjQxNSAyLjI1M3YuMDk5LS4wNDVWMzMuMzd2LS4wNDUuMDk1YTIuNTAxIDIuNTAxIDAgMCAxLTEuNDE2IDIuMjU3bC04LjIzNSAzLjk2MWEyLjQ5MiAyLjQ5MiAwIDAgMS0xLjA3Ny4yNDZabS43MTYtMjguOTQ3LTExLjk0OCA5LjA2MiAxMS45NTIgOS4wNjUtLjAwNC0xOC4xMjdaIi8+PC9zdmc+)](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22lithic-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22lithic-mcp%22%5D%2C%22env%22%3A%7B%22LITHIC_API_KEY%22%3A%22My%20Lithic%20API%20Key%22%2C%22LITHIC_WEBHOOK_SECRET%22%3A%22My%20Webhook%20Secret%22%7D%7D)\n\n> Note: You may need to set environment variables in your MCP client.\n\n## Documentation\n\nThe REST API documentation can be found on [docs.lithic.com](https://docs.lithic.com). The full API of this library can be found in [api.md](api.md).\n\n## Installation\n\n```sh\n# install from PyPI\npip install lithic\n```\n\n## Usage\n\nThe full API of this library can be found in [api.md](api.md).\n\n```python\nimport os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n    # defaults to "production".\n    environment="sandbox",\n)\n\ncard = client.cards.create(\n    type="SINGLE_USE",\n)\nprint(card.token)\n```\n\nWhile you can provide an `api_key` keyword argument,\nwe recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)\nto add `LITHIC_API_KEY="My Lithic API Key"` to your `.env` file\nso that your API Key is not stored in source control.\n\n## Async usage\n\nSimply import `AsyncLithic` instead of `Lithic` and use `await` with each API call:\n\n```python\nimport os\nimport asyncio\nfrom lithic import AsyncLithic\n\nclient = AsyncLithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n    # defaults to "production".\n    environment="sandbox",\n)\n\nasync def main() -> None:\n  card = await client.cards.create(\n      type="SINGLE_USE",\n  )\n  print(card.token)\n\nasyncio.run(main())\n```\n\nFunctionality between the synchronous and asynchronous clients is otherwise identical.\n\n### With aiohttp\n\nBy default, the async client uses `httpx` for HTTP requests. However, for improved concurrency performance you may also use `aiohttp` as the HTTP backend.\n\nYou can enable this by installing `aiohttp`:\n\n```sh\n# install from PyPI\npip install lithic[aiohttp]\n```\n\nThen you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:\n\n```python\nimport os\nimport asyncio\nfrom lithic import DefaultAioHttpClient\nfrom lithic import AsyncLithic\n\nasync def main() -> None:\n  async with AsyncLithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n    http_client=DefaultAioHttpClient(),\n) as client:\n    card = await client.cards.create(\n        type="SINGLE_USE",\n    )\n    print(card.token)\n\nasyncio.run(main())\n```\n\n\n\n## Using types\n\nNested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev) which also provide helper methods for things like:\n\n- Serializing back into JSON, `model.to_json()`\n- Converting to a dictionary, `model.to_dict()`\n\nTyped requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.\n\n## Pagination\n\nList methods in the Lithic API are paginated.\n\nThis library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:\n\n```python\nfrom lithic import Lithic\n\nclient = Lithic()\n\nall_cards = []\n# Automatically fetches more pages as needed.\nfor card in client.cards.list():\n    # Do something with card here\n    all_cards.append(card)\nprint(all_cards)\n```\n\nOr, asynchronously:\n\n```python\nimport asyncio\nfrom lithic import AsyncLithic\n\nclient = AsyncLithic()\n\nasync def main() -> None:\n    all_cards = []\n    # Iterate through items across all pages, issuing requests as needed.\n    async for card in client.cards.list():\n        all_cards.append(card)\n    print(all_cards)\n\nasyncio.run(main())\n```\n\nAlternatively, you can use the `.has_next_page()`, `.next_page_info()`, or  `.get_next_page()` methods for more granular control working with pages:\n\n```python\nfirst_page = await client.cards.list()\nif first_page.has_next_page():\n    print(f"will fetch next page using these details: {first_page.next_page_info()}")\n    next_page = await first_page.get_next_page()\n    print(f"number of items we just fetched: {len(next_page.data)}")\n\n# Remove `await` for non-async usage.\n```\n\nOr just work directly with the returned data:\n\n```python\nfirst_page = await client.cards.list()\n\nprint(f"next page cursor: {first_page.starting_after}") # => "next page cursor: ..."\nfor card in first_page.data:\n    print(card.product_id)\n\n# Remove `await` for non-async usage.\n```\n\n## Nested params\n\nNested parameters are dictionaries, typed using `TypedDict`, for example:\n\n```python\nfrom lithic import Lithic\n\nclient = Lithic()\n\ncard = client.cards.create(\n    type="PHYSICAL",\n    shipping_address={\n        "address1": "123",\n        "city": "NEW YORK",\n        "country": "USA",\n        "first_name": "Johnny",\n        "last_name": "Appleseed",\n        "postal_code": "10001",\n        "state": "NY",\n    },\n)\n```\n\n\n\n## Handling errors\n\nWhen the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `lithic.APIConnectionError` is raised.\n\nWhen the API returns a non-success status code (that is, 4xx or 5xx\nresponse), a subclass of `lithic.APIStatusError` is raised, containing `status_code` and `response` properties.\n\nAll errors inherit from `lithic.APIError`.\n\n```python\nimport lithic\nfrom lithic import Lithic\n\nclient = Lithic()\n\ntry:\n    client.cards.create(\n        type="MERCHANT_LOCKED",\n    )\nexcept lithic.APIConnectionError as e:\n    print("The server could not be reached")\n    print(e.__cause__) # an underlying Exception, likely raised within httpx.\nexcept lithic.RateLimitError as e:\n    print("A 429 status code was received; we should back off a bit.")\nexcept lithic.APIStatusError as e:\n    print("Another non-200-range status code was received")\n    print(e.status_code)\n    print(e.response)\n```\n\nError codes are as follows:\n\n| Status Code | Error Type                 |\n| ----------- | -------------------------- |\n| 400         | `BadRequestError`          |\n| 401         | `AuthenticationError`      |\n| 403         | `PermissionDeniedError`    |\n| 404         | `NotFoundError`            |\n| 422         | `UnprocessableEntityError` |\n| 429         | `RateLimitError`           |\n| >=500       | `InternalServerError`      |\n| N/A         | `APIConnectionError`       |\n\n### Retries\n\nCertain errors are automatically retried 2 times by default, with a short exponential backoff.\nConnection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict,\n429 Rate Limit, and >=500 Internal errors are all retried by default.\n\nYou can use the `max_retries` option to configure or disable retry settings:\n\n```python\nfrom lithic import Lithic\n\n# Configure the default for all requests:\nclient = Lithic(\n    # default is 2\n    max_retries=0,\n)\n\n# Or, configure per-request:\nclient.with_options(max_retries = 5).cards.list(\n    page_size=10,\n)\n```\n\n### Timeouts\n\nBy default requests time out after 1 minute. You can configure this with a `timeout` option,\nwhich accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:\n\n```python\nfrom lithic import Lithic\n\n# Configure the default for all requests:\nclient = Lithic(\n    # 20 seconds (default is 1 minute)\n    timeout=20.0,\n)\n\n# More granular control:\nclient = Lithic(\n    timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),\n)\n\n# Override per-request:\nclient.with_options(timeout = 5.0).cards.list(\n    page_size=10,\n)\n```\n\nOn timeout, an `APITimeoutError` is thrown.\n\nNote that requests that time out are [retried twice by default](#retries).\n\n\n\n## Advanced\n\n### Logging\n\nWe use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.\n\nYou can enable logging by setting the environment variable `LITHIC_LOG` to `info`.\n\n```shell\n$ export LITHIC_LOG=info\n```\n\nOr to `debug` for more verbose logging.\n\n### How to tell whether `None` means `null` or missing\n\nIn an API response, a field may be explicitly `null`, or missing entirely; in either case, its value is `None` in this library. You can differentiate the two cases with `.model_fields_set`:\n\n```py\nif response.my_field is None:\n  if \'my_field\' not in response.model_fields_set:\n    print(\'Got json like {}, without a "my_field" key present at all.\')\n  else:\n    print(\'Got json like {"my_field": null}.\')\n```\n\n### Accessing raw response data (e.g. headers)\n\nThe "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,\n\n```py\nfrom lithic import Lithic\n\nclient = Lithic()\nresponse = client.cards.with_raw_response.create(\n    type="SINGLE_USE",\n)\nprint(response.headers.get(\'X-My-Header\'))\n\ncard = response.parse()  # get the object that `cards.create()` would have returned\nprint(card.token)\n```\n\nThese methods return a [`LegacyAPIResponse`](https://github.com/lithic-com/lithic-python/tree/main/src/lithic/_legacy_response.py) object. This is a legacy class as we\'re changing it slightly in the next major version.\n\nFor the sync client this will mostly be the same with the exception\nof `content` & `text` will be methods instead of properties. In the\nasync client, all methods will be async.\n\nA migration script will be provided & the migration in general should\nbe smooth.\n\n#### `.with_streaming_response`\n\nThe above interface eagerly reads the full response body when you make the request, which may not always be what you want.\n\nTo stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.\n\nAs such, `.with_streaming_response` methods return a different [`APIResponse`](https://github.com/lithic-com/lithic-python/tree/main/src/lithic/_response.py) object, and the async client returns an [`AsyncAPIResponse`](https://github.com/lithic-com/lithic-python/tree/main/src/lithic/_response.py) object.\n\n```python\nwith client.cards.with_streaming_response.create(\n    type="SINGLE_USE",\n) as response :\n    print(response.headers.get(\'X-My-Header\'))\n\n    for line in response.iter_lines():\n      print(line)\n```\n\nThe context manager is required so that the response will reliably be closed.\n\n### Making custom/undocumented requests\n\nThis library is typed for convenient access to the documented API.\n\nIf you need to access undocumented endpoints, params, or response properties, the library can still be used.\n\n#### Undocumented endpoints\n\nTo make requests to undocumented endpoints, you can make requests using `client.get`, `client.post`, and other\nhttp verbs. Options on the client will be respected (such as retries) when making this request.\n\n```py\nimport httpx\n\nresponse = client.post(\n    "/foo",\n    cast_to=httpx.Response,\n    body={"my_param": True},\n)\n\nprint(response.headers.get("x-foo"))\n```\n\n#### Undocumented request params\n\nIf you want to explicitly send an extra param, you can do so with the `extra_query`, `extra_body`, and `extra_headers` request\noptions.\n\n#### Undocumented response properties\n\nTo access undocumented response properties, you can access the extra fields like `response.unknown_prop`. You\ncan also get all the extra fields on the Pydantic model as a dict with\n[`response.model_extra`](https://docs.pydantic.dev/latest/api/base_model/#pydantic.BaseModel.model_extra).\n\n### Configuring the HTTP client\n\nYou can directly override the [httpx client](https://www.python-httpx.org/api/#client) to customize it for your use case, including:\n\n- Support for [proxies](https://www.python-httpx.org/advanced/proxies/)\n- Custom [transports](https://www.python-httpx.org/advanced/transports/)\n- Additional [advanced](https://www.python-httpx.org/advanced/clients/) functionality\n\n```python\nimport httpx\nfrom lithic import Lithic, DefaultHttpxClient\n\nclient = Lithic(\n    # Or use the `LITHIC_BASE_URL` env var\n    base_url="http://my.test.server.example.com:8083",\n    http_client=DefaultHttpxClient(proxy="http://my.test.proxy.example.com", transport=httpx.HTTPTransport(local_address="0.0.0.0")),\n)\n```\n\nYou can also customize the client on a per-request basis by using `with_options()`:\n\n```python\nclient.with_options(http_client=DefaultHttpxClient(...))\n```\n\n### Managing HTTP resources\n\nBy default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.\n\n```py\nfrom lithic import Lithic\n\nwith Lithic() as client:\n  # make requests here\n  ...\n\n# HTTP client is now closed\n```\n\n## Versioning\n\nThis package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:\n\n1. Changes that only affect static types, without breaking runtime behavior.\n2. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals.)_\n3. Changes that we do not expect to impact the vast majority of users in practice.\n\nWe take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.\n\nWe are keen for your feedback; please open an [issue](https://www.github.com/lithic-com/lithic-python/issues) with questions, bugs, or suggestions.\n\n### Determining the installed version\n\nIf you\'ve upgraded to the latest version but aren\'t seeing any new features you were expecting then your python environment is likely still using an older version.\n\nYou can determine the version that is being used at runtime with:\n\n```py\nimport lithic\nprint(lithic.__version__)\n```\n\n## Requirements\n\nPython 3.9 or higher.\n\n## Contributing\n\nSee [the contributing documentation](./CONTRIBUTING.md).\n',
+  },
+  {
+    language: 'ruby',
+    content:
+      '# Lithic Ruby API library\n\nThe Lithic Ruby library provides convenient access to the Lithic REST API from any Ruby 3.2.0+ application. It ships with comprehensive types & docstrings in Yard, RBS, and RBI – [see below](https://github.com/lithic-com/lithic-ruby#Sorbet) for usage with Sorbet. The standard library\'s `net/http` is used as the HTTP transport, with connection pooling via the `connection_pool` gem.\n\n\n\n\n\n## MCP Server\n\nUse the Lithic MCP Server to enable AI assistants to interact with this API, allowing them to explore endpoints, make test requests, and use documentation to help integrate this SDK into your application.\n\n[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en-US/install-mcp?name=lithic-mcp&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsImxpdGhpYy1tY3AiXSwiZW52Ijp7IkxJVEhJQ19BUElfS0VZIjoiTXkgTGl0aGljIEFQSSBLZXkiLCJMSVRISUNfV0VCSE9PS19TRUNSRVQiOiJNeSBXZWJob29rIFNlY3JldCJ9fQ)\n[![Install in VS Code](https://img.shields.io/badge/_-Add_to_VS_Code-blue?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHBhdGggZmlsbD0iI0VFRSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMzAuMjM1IDM5Ljg4NGEyLjQ5MSAyLjQ5MSAwIDAgMS0xLjc4MS0uNzNMMTIuNyAyNC43OGwtMy40NiAyLjYyNC0zLjQwNiAyLjU4MmExLjY2NSAxLjY2NSAwIDAgMS0xLjA4Mi4zMzggMS42NjQgMS42NjQgMCAwIDEtMS4wNDYtLjQzMWwtMi4yLTJhMS42NjYgMS42NjYgMCAwIDEgMC0yLjQ2M0w3LjQ1OCAyMCA0LjY3IDE3LjQ1MyAxLjUwNyAxNC41N2ExLjY2NSAxLjY2NSAwIDAgMSAwLTIuNDYzbDIuMi0yYTEuNjY1IDEuNjY1IDAgMCAxIDIuMTMtLjA5N2w2Ljg2MyA1LjIwOUwyOC40NTIuODQ0YTIuNDg4IDIuNDg4IDAgMCAxIDEuODQxLS43MjljLjM1MS4wMDkuNjk5LjA5MSAxLjAxOS4yNDVsOC4yMzYgMy45NjFhMi41IDIuNSAwIDAgMSAxLjQxNSAyLjI1M3YuMDk5LS4wNDVWMzMuMzd2LS4wNDUuMDk1YTIuNTAxIDIuNTAxIDAgMCAxLTEuNDE2IDIuMjU3bC04LjIzNSAzLjk2MWEyLjQ5MiAyLjQ5MiAwIDAgMS0xLjA3Ny4yNDZabS43MTYtMjguOTQ3LTExLjk0OCA5LjA2MiAxMS45NTIgOS4wNjUtLjAwNC0xOC4xMjdaIi8+PC9zdmc+)](https://vscode.stainless.com/mcp/%7B%22name%22%3A%22lithic-mcp%22%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22-y%22%2C%22lithic-mcp%22%5D%2C%22env%22%3A%7B%22LITHIC_API_KEY%22%3A%22My%20Lithic%20API%20Key%22%2C%22LITHIC_WEBHOOK_SECRET%22%3A%22My%20Webhook%20Secret%22%7D%7D)\n\n> Note: You may need to set environment variables in your MCP client.\n\n## Documentation\n\nDocumentation for releases of this gem can be found [on RubyDoc](https://gemdocs.org/gems/lithic).\n\nThe REST API documentation can be found on [docs.lithic.com](https://docs.lithic.com).\n\n## Installation\n\nTo use this gem, install via Bundler by adding the following to your application\'s `Gemfile`:\n\n<!-- x-release-please-start-version -->\n\n```ruby\ngem "lithic", "~> 0.19.0"\n```\n\n<!-- x-release-please-end -->\n\n## Usage\n\n```ruby\nrequire "bundler/setup"\nrequire "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: ENV["LITHIC_API_KEY"], # This is the default and can be omitted\n  environment: "sandbox" # defaults to "production"\n)\n\ncard = lithic.cards.create(type: "SINGLE_USE")\n\nputs(card.token)\n```\n\n\n\n### Pagination\n\nList methods in the Lithic API are paginated.\n\nThis library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:\n\n```ruby\npage = lithic.cards.list\n\n# Fetch single item from page.\ncard = page.data[0]\nputs(card.product_id)\n\n# Automatically fetches more pages as needed.\npage.auto_paging_each do |card|\n  puts(card.product_id)\nend\n```\n\nAlternatively, you can use the `#next_page?` and `#next_page` methods for more granular control working with pages.\n\n```ruby\nif page.next_page?\n  new_page = page.next_page\n  puts(new_page.data[0].product_id)\nend\n```\n\n\n\n### Handling errors\n\nWhen the library is unable to connect to the API, or if the API returns a non-success status code (i.e., 4xx or 5xx response), a subclass of `Lithic::Errors::APIError` will be thrown:\n\n```ruby\nbegin\n  card = lithic.cards.create(type: "MERCHANT_LOCKED")\nrescue Lithic::Errors::APIConnectionError => e\n  puts("The server could not be reached")\n  puts(e.cause)  # an underlying Exception, likely raised within `net/http`\nrescue Lithic::Errors::RateLimitError => e\n  puts("A 429 status code was received; we should back off a bit.")\nrescue Lithic::Errors::APIStatusError => e\n  puts("Another non-200-range status code was received")\n  puts(e.status)\nend\n```\n\nError codes are as follows:\n\n| Cause            | Error Type                 |\n| ---------------- | -------------------------- |\n| HTTP 400         | `BadRequestError`          |\n| HTTP 401         | `AuthenticationError`      |\n| HTTP 403         | `PermissionDeniedError`    |\n| HTTP 404         | `NotFoundError`            |\n| HTTP 409         | `ConflictError`            |\n| HTTP 422         | `UnprocessableEntityError` |\n| HTTP 429         | `RateLimitError`           |\n| HTTP >= 500      | `InternalServerError`      |\n| Other HTTP error | `APIStatusError`           |\n| Timeout          | `APITimeoutError`          |\n| Network error    | `APIConnectionError`       |\n\n### Retries\n\nCertain errors will be automatically retried 2 times by default, with a short exponential backoff.\n\nConnection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict, 429 Rate Limit, >=500 Internal errors, and timeouts will all be retried by default.\n\nYou can use the `max_retries` option to configure or disable this:\n\n```ruby\n# Configure the default for all requests:\nlithic = Lithic::Client.new(\n  max_retries: 0 # default is 2\n)\n\n# Or, configure per-request:\nlithic.cards.list(page_size: 10, request_options: {max_retries: 5})\n```\n\n### Timeouts\n\nBy default, requests will time out after 60 seconds. You can use the timeout option to configure or disable this:\n\n```ruby\n# Configure the default for all requests:\nlithic = Lithic::Client.new(\n  timeout: nil # default is 60\n)\n\n# Or, configure per-request:\nlithic.cards.list(page_size: 10, request_options: {timeout: 5})\n```\n\nOn timeout, `Lithic::Errors::APITimeoutError` is raised.\n\nNote that requests that time out are retried by default.\n\n## Advanced concepts\n\n### BaseModel\n\nAll parameter and response objects inherit from `Lithic::Internal::Type::BaseModel`, which provides several conveniences, including:\n\n1. All fields, including unknown ones, are accessible with `obj[:prop]` syntax, and can be destructured with `obj => {prop: prop}` or pattern-matching syntax.\n\n2. Structural equivalence for equality; if two API calls return the same values, comparing the responses with == will return true.\n\n3. Both instances and the classes themselves can be pretty-printed.\n\n4. Helpers such as `#to_h`, `#deep_to_h`, `#to_json`, and `#to_yaml`.\n\n### Making custom or undocumented requests\n\n#### Undocumented properties\n\nYou can send undocumented parameters to any endpoint, and read undocumented response properties, like so:\n\nNote: the `extra_` parameters of the same name overrides the documented parameters.\n\n```ruby\npage =\n  lithic.cards.list(\n    page_size: 10,\n    request_options: {\n      extra_query: {my_query_parameter: value},\n      extra_body: {my_body_parameter: value},\n      extra_headers: {"my-header": value}\n    }\n  )\n\nputs(page[:my_undocumented_property])\n```\n\n#### Undocumented request params\n\nIf you want to explicitly send an extra param, you can do so with the `extra_query`, `extra_body`, and `extra_headers` under the `request_options:` parameter when making a request, as seen in the examples above.\n\n#### Undocumented endpoints\n\nTo make requests to undocumented endpoints while retaining the benefit of auth, retries, and so on, you can make requests using `client.request`, like so:\n\n```ruby\nresponse = client.request(\n  method: :post,\n  path: \'/undocumented/endpoint\',\n  query: {"dog": "woof"},\n  headers: {"useful-header": "interesting-value"},\n  body: {"hello": "world"}\n)\n```\n\n### Concurrency & connection pooling\n\nThe `Lithic::Client` instances are threadsafe, but are only are fork-safe when there are no in-flight HTTP requests.\n\nEach instance of `Lithic::Client` has its own HTTP connection pool with a default size of 99. As such, we recommend instantiating the client once per application in most settings.\n\nWhen all available connections from the pool are checked out, requests wait for a new connection to become available, with queue time counting towards the request timeout.\n\nUnless otherwise specified, other classes in the SDK do not have locks protecting their underlying data structure.\n\n## Sorbet\n\nThis library provides comprehensive [RBI](https://sorbet.org/docs/rbi) definitions, and has no dependency on sorbet-runtime.\n\nYou can provide typesafe request parameters like so:\n\n```ruby\nlithic.cards.create(type: "SINGLE_USE")\n```\n\nOr, equivalently:\n\n```ruby\n# Hashes work, but are not typesafe:\nlithic.cards.create(type: "SINGLE_USE")\n\n# You can also splat a full Params class:\nparams = Lithic::CardCreateParams.new(type: "SINGLE_USE")\nlithic.cards.create(**params)\n```\n\n### Enums\n\nSince this library does not depend on `sorbet-runtime`, it cannot provide [`T::Enum`](https://sorbet.org/docs/tenum) instances. Instead, we provide "tagged symbols" instead, which is always a primitive at runtime:\n\n```ruby\n# :ACTIVE\nputs(Lithic::AccountUpdateParams::State::ACTIVE)\n\n# Revealed type: `T.all(Lithic::AccountUpdateParams::State, Symbol)`\nT.reveal_type(Lithic::AccountUpdateParams::State::ACTIVE)\n```\n\nEnum parameters have a "relaxed" type, so you can either pass in enum constants or their literal value:\n\n```ruby\n# Using the enum constants preserves the tagged type information:\nlithic.accounts.update(\n  state: Lithic::AccountUpdateParams::State::ACTIVE,\n  # …\n)\n\n# Literal values are also permissible:\nlithic.accounts.update(\n  state: :ACTIVE,\n  # …\n)\n```\n\n## Versioning\n\nThis package follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions. As the library is in initial development and has a major version of `0`, APIs may change at any time.\n\nThis package considers improvements to the (non-runtime) `*.rbi` and `*.rbs` type definitions to be non-breaking changes.\n\n## Requirements\n\nRuby 3.2.0 or higher.\n\n## Contributing\n\nSee [the contributing documentation](https://github.com/lithic-com/lithic-ruby/tree/main/CONTRIBUTING.md).\n',
   },
   {
     language: 'typescript',
