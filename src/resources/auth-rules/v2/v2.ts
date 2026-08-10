@@ -183,7 +183,7 @@ export namespace ACHPaymentUpdateAction {
     /**
      * The scope of the case to create
      */
-    scope: 'FINANCIAL_ACCOUNT';
+    scope: 'FINANCIAL_ACCOUNT' | 'PROGRAM';
 
     /**
      * Create a case for the payment
@@ -538,7 +538,7 @@ export namespace CardTransactionUpdateAction {
     /**
      * The scope of the case to create
      */
-    scope: 'CARD' | 'ACCOUNT';
+    scope: 'CARD' | 'ACCOUNT' | 'PROGRAM';
 
     /**
      * Create a case for the transaction
@@ -3116,7 +3116,7 @@ export namespace V2ListResultsResponse {
       /**
        * The scope of the case to create
        */
-      scope: 'CARD' | 'ACCOUNT';
+      scope: 'CARD' | 'ACCOUNT' | 'PROGRAM';
 
       /**
        * Create a case for the transaction
@@ -3209,7 +3209,7 @@ export namespace V2ListResultsResponse {
       /**
        * The scope of the case to create
        */
-      scope: 'FINANCIAL_ACCOUNT';
+      scope: 'FINANCIAL_ACCOUNT' | 'PROGRAM';
 
       /**
        * Create a case for the payment
