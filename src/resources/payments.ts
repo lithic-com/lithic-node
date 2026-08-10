@@ -328,7 +328,8 @@ export interface Payment {
     | 'WIRE_INBOUND_ADMIN'
     | 'WIRE_OUTBOUND_PAYMENT'
     | 'WIRE_OUTBOUND_ADMIN'
-    | 'WIRE_INBOUND_DRAWDOWN_REQUEST';
+    | 'WIRE_INBOUND_DRAWDOWN_REQUEST'
+    | 'STABLECOIN';
 
   /**
    * User-defined identifier
