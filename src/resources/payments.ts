@@ -256,12 +256,15 @@ export interface Payment {
   /**
    * Transfer method
    */
-  method: 'ACH_NEXT_DAY' | 'ACH_SAME_DAY' | 'WIRE';
+  method: 'ACH_NEXT_DAY' | 'ACH_SAME_DAY' | 'WIRE' | 'STABLECOIN';
 
   /**
    * Method-specific attributes
    */
-  method_attributes: Payment.ACHMethodAttributes | Payment.WireMethodAttributes;
+  method_attributes:
+    | Payment.ACHMethodAttributes
+    | Payment.WireMethodAttributes
+    | Payment.StablecoinMethodAttributes;
 
   /**
    * Pending amount in cents
@@ -568,6 +571,19 @@ export namespace Payment {
      * Payment details or invoice reference
      */
     remittance_information?: string | null;
+  }
+
+  export interface StablecoinMethodAttributes {
+    /**
+     * Blockchain the stablecoin transfer settled on
+     */
+    chain: string;
+
+    /**
+     * On-chain transaction hash of the transfer. Null until the transfer has settled
+     * on chain
+     */
+    transaction_hash?: string | null;
   }
 
   /**
