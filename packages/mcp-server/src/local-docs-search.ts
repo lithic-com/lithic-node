@@ -8424,6 +8424,65 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     },
   },
   {
+    name: 'create',
+    endpoint: '/v1/blockchain_recipients',
+    httpMethod: 'post',
+    summary: 'Create blockchain recipient',
+    description:
+      'Register a blockchain address as a withdrawal destination for a financial account\n\nThe recipient is created with a `PENDING` verification state and cannot receive a payout until\nscreening of the address completes. Registering an address that is already registered to the same\nfinancial account returns the existing recipient and its current verification state, rather than\ncreating a second one\n',
+    stainlessPath: '(resource) blockchain_recipients > (method) create',
+    qualified: 'client.blockchainRecipients.create',
+    params: [
+      'account_token: string;',
+      'address: string;',
+      'chain: string;',
+      'owner: string;',
+      "owner_type: 'INDIVIDUAL' | 'BUSINESS';",
+      'address_tag?: string;',
+      'name?: string;',
+    ],
+    response:
+      "{ token: string; account_token: string; address_tag: string; chain: string; created: string; external_id: string; name: string; owner: string; owner_type: 'INDIVIDUAL' | 'BUSINESS'; program_id: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; updated: string; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; }",
+    markdown:
+      "## create\n\n`client.blockchainRecipients.create(account_token: string, address: string, chain: string, owner: string, owner_type: 'INDIVIDUAL' | 'BUSINESS', address_tag?: string, name?: string): { token: string; account_token: string; address_tag: string; chain: string; created: string; external_id: string; name: string; owner: string; owner_type: owner_type; program_id: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; updated: string; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; }`\n\n**post** `/v1/blockchain_recipients`\n\nRegister a blockchain address as a withdrawal destination for a financial account\n\nThe recipient is created with a `PENDING` verification state and cannot receive a payout until\nscreening of the address completes. Registering an address that is already registered to the same\nfinancial account returns the existing recipient and its current verification state, rather than\ncreating a second one\n\n\n### Parameters\n\n- `account_token: string`\n  The financial account the blockchain recipient belongs to\n\n- `address: string`\n  The blockchain address funds will be withdrawn to\n\n- `chain: string`\n  The blockchain network that the address belongs to\n\n- `owner: string`\n  Legal name of the business or individual who owns the blockchain address\n\n- `owner_type: 'INDIVIDUAL' | 'BUSINESS'`\n  Owner Type\n\n- `address_tag?: string`\n  An optional tag or memo used by some chains to identify the destination of a transfer within a shared address\n\n- `name?: string`\n  The nickname for this blockchain recipient\n\n### Returns\n\n- `{ token: string; account_token: string; address_tag: string; chain: string; created: string; external_id: string; name: string; owner: string; owner_type: 'INDIVIDUAL' | 'BUSINESS'; program_id: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; updated: string; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; }`\n\n  - `token: string`\n  - `account_token: string`\n  - `address_tag: string`\n  - `chain: string`\n  - `created: string`\n  - `external_id: string`\n  - `name: string`\n  - `owner: string`\n  - `owner_type: 'INDIVIDUAL' | 'BUSINESS'`\n  - `program_id: string`\n  - `state: 'ENABLED' | 'CLOSED' | 'PAUSED'`\n  - `updated: string`\n  - `verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst blockchainRecipient = await client.blockchainRecipients.create({\n  account_token: 'dabadb3b-700c-41e3-8801-d5dfc84ebea0',\n  address: '0x45bfcf1a6289a0b77b4d3f7d12005a05949fd8c3',\n  chain: 'ETHEREUM',\n  owner: 'John Doe',\n  owner_type: 'INDIVIDUAL',\n});\n\nconsole.log(blockchainRecipient);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.blockchainRecipients.create',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nconst blockchainRecipient = await client.blockchainRecipients.create({\n  account_token: 'dabadb3b-700c-41e3-8801-d5dfc84ebea0',\n  address: '0x45bfcf1a6289a0b77b4d3f7d12005a05949fd8c3',\n  chain: 'ETHEREUM',\n  owner: 'John Doe',\n  owner_type: 'INDIVIDUAL',\n  name: 'Cold wallet',\n});\n\nconsole.log(blockchainRecipient.external_id);",
+      },
+      python: {
+        method: 'blockchain_recipients.create',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nblockchain_recipient = client.blockchain_recipients.create(\n    account_token="dabadb3b-700c-41e3-8801-d5dfc84ebea0",\n    address="0x45bfcf1a6289a0b77b4d3f7d12005a05949fd8c3",\n    chain="ETHEREUM",\n    owner="John Doe",\n    owner_type="INDIVIDUAL",\n    name="Cold wallet",\n)\nprint(blockchain_recipient.external_id)',
+      },
+      java: {
+        method: 'blockchainRecipients().create',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.BlockchainRecipient;\nimport com.lithic.api.models.BlockchainRecipientCreateParams;\nimport com.lithic.api.models.OwnerType;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        BlockchainRecipientCreateParams params = BlockchainRecipientCreateParams.builder()\n            .accountToken("dabadb3b-700c-41e3-8801-d5dfc84ebea0")\n            .address("0x45bfcf1a6289a0b77b4d3f7d12005a05949fd8c3")\n            .chain("ETHEREUM")\n            .owner("John Doe")\n            .ownerType(OwnerType.INDIVIDUAL)\n            .build();\n        BlockchainRecipient blockchainRecipient = client.blockchainRecipients().create(params);\n    }\n}',
+      },
+      kotlin: {
+        method: 'blockchainRecipients().create',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.BlockchainRecipient\nimport com.lithic.api.models.BlockchainRecipientCreateParams\nimport com.lithic.api.models.OwnerType\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: BlockchainRecipientCreateParams = BlockchainRecipientCreateParams.builder()\n        .accountToken("dabadb3b-700c-41e3-8801-d5dfc84ebea0")\n        .address("0x45bfcf1a6289a0b77b4d3f7d12005a05949fd8c3")\n        .chain("ETHEREUM")\n        .owner("John Doe")\n        .ownerType(OwnerType.INDIVIDUAL)\n        .build()\n    val blockchainRecipient: BlockchainRecipient = client.blockchainRecipients().create(params)\n}',
+      },
+      go: {
+        method: 'client.BlockchainRecipients.New',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tblockchainRecipient, err := client.BlockchainRecipients.New(context.TODO(), lithic.BlockchainRecipientNewParams{\n\t\tAccountToken: lithic.F("dabadb3b-700c-41e3-8801-d5dfc84ebea0"),\n\t\tAddress:      lithic.F("0x45bfcf1a6289a0b77b4d3f7d12005a05949fd8c3"),\n\t\tChain:        lithic.F("ETHEREUM"),\n\t\tOwner:        lithic.F("John Doe"),\n\t\tOwnerType:    lithic.F(lithic.OwnerTypeIndividual),\n\t\tName:         lithic.F("Cold wallet"),\n\t})\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", blockchainRecipient.ExternalID)\n}\n',
+      },
+      ruby: {
+        method: 'blockchain_recipients.create',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nblockchain_recipient = lithic.blockchain_recipients.create(\n  account_token: "dabadb3b-700c-41e3-8801-d5dfc84ebea0",\n  address: "0x45bfcf1a6289a0b77b4d3f7d12005a05949fd8c3",\n  chain: "ETHEREUM",\n  owner: "John Doe",\n  owner_type: :INDIVIDUAL\n)\n\nputs(blockchain_recipient)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/blockchain_recipients \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "account_token": "dabadb3b-700c-41e3-8801-d5dfc84ebea0",\n          "address": "0x45bfcf1a6289a0b77b4d3f7d12005a05949fd8c3",\n          "chain": "ETHEREUM",\n          "owner": "John Doe",\n          "owner_type": "INDIVIDUAL",\n          "name": "Cold wallet"\n        }\'',
+      },
+    },
+  },
+  {
     name: 'list',
     endpoint: '/v1/payments',
     httpMethod: 'get',
