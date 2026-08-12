@@ -966,6 +966,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/external_bank_accounts/{external_bank_account_token}/micro_deposits',
   },
   {
+    clientCallName: 'client.blockchainRecipients.create',
+    fullyQualifiedName: 'blockchainRecipients.create',
+    httpMethod: 'post',
+    httpPath: '/v1/blockchain_recipients',
+  },
+  {
     clientCallName: 'client.payments.create',
     fullyQualifiedName: 'payments.create',
     httpMethod: 'post',
