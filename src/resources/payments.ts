@@ -302,6 +302,11 @@ export interface Payment {
   updated: string;
 
   /**
+   * Token of the blockchain recipient the payout is sent to
+   */
+  blockchain_recipient_token?: string | null;
+
+  /**
    * Currency of the transaction in ISO 4217 format
    */
   currency?: string;
