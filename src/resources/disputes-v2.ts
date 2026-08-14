@@ -53,6 +53,12 @@ export interface DisputeV2 {
   case_id: string | null;
 
   /**
+   * Token for the claim this dispute was filed under, in UUID format. Null for
+   * disputes not initiated through the Dispute Intake API.
+   */
+  claim_token: string | null;
+
+  /**
    * When the dispute was created.
    */
   created: string;
@@ -195,7 +201,11 @@ export namespace DisputeV2 {
       /**
        * Action taken regarding cardholder liability
        */
-      action: 'PROVISIONAL_CREDIT_GRANTED' | 'PROVISIONAL_CREDIT_REVERSED' | 'WRITTEN_OFF';
+      action:
+        | 'PROVISIONAL_CREDIT_GRANTED'
+        | 'PROVISIONAL_CREDIT_REVERSED'
+        | 'WRITTEN_OFF'
+        | 'WRITE_OFF_REVERSED';
 
       /**
        * Amount in minor units
@@ -284,6 +294,12 @@ export interface DisputesV2ListParams extends CursorPageParams {
    * Filter by card token.
    */
   card_token?: string;
+
+  /**
+   * Filter by the token of the claim the dispute was filed under. Returns the
+   * disputes created from that claim's disputed transaction events.
+   */
+  claim_token?: string;
 
   /**
    * Filter by the token of the transaction being disputed. Corresponds with
