@@ -8,6 +8,20 @@ import { path } from '../internal/utils/path';
 
 export class CardPrograms extends APIResource {
   /**
+   * Get card program.
+   *
+   * @example
+   * ```ts
+   * const cardProgram = await client.cardPrograms.retrieve(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  retrieve(cardProgramToken: string, options?: RequestOptions): APIPromise<CardProgram> {
+    return this._client.get(path`/v1/card_programs/${cardProgramToken}`, options);
+  }
+
+  /**
    * List card programs.
    *
    * @example
@@ -23,20 +37,6 @@ export class CardPrograms extends APIResource {
     options?: RequestOptions,
   ): PagePromise<CardProgramsCursorPage, CardProgram> {
     return this._client.getAPIList('/v1/card_programs', CursorPage<CardProgram>, { query, ...options });
-  }
-
-  /**
-   * Get card program.
-   *
-   * @example
-   * ```ts
-   * const cardProgram = await client.cardPrograms.retrieve(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
-   */
-  retrieve(cardProgramToken: string, options?: RequestOptions): APIPromise<CardProgram> {
-    return this._client.get(path`/v1/card_programs/${cardProgramToken}`, options);
   }
 }
 

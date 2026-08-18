@@ -10,31 +10,6 @@ import { path } from '../../internal/utils/path';
 
 export class FinancialTransactions extends APIResource {
   /**
-   * List the financial transactions for a given financial account.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const financialTransaction of client.financialAccounts.financialTransactions.list(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * )) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    financialAccountToken: string,
-    query: FinancialTransactionListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<FinancialTransactionsSinglePage, FinancialAccountsAPI.FinancialTransaction> {
-    return this._client.getAPIList(
-      path`/v1/financial_accounts/${financialAccountToken}/financial_transactions`,
-      SinglePage<FinancialAccountsAPI.FinancialTransaction>,
-      { query, ...options },
-    );
-  }
-
-  /**
    * Get the financial transaction for the provided token.
    *
    * @example
@@ -60,6 +35,38 @@ export class FinancialTransactions extends APIResource {
       options,
     );
   }
+
+  /**
+   * List the financial transactions for a given financial account.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const financialTransaction of client.financialAccounts.financialTransactions.list(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * )) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    financialAccountToken: string,
+    query: FinancialTransactionListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<FinancialTransactionsSinglePage, FinancialAccountsAPI.FinancialTransaction> {
+    return this._client.getAPIList(
+      path`/v1/financial_accounts/${financialAccountToken}/financial_transactions`,
+      SinglePage<FinancialAccountsAPI.FinancialTransaction>,
+      { query, ...options },
+    );
+  }
+}
+
+export interface FinancialTransactionRetrieveParams {
+  /**
+   * Globally unique identifier for financial account.
+   */
+  financial_account_token: string;
 }
 
 export interface FinancialTransactionListParams {
@@ -103,17 +110,10 @@ export interface FinancialTransactionListParams {
   status?: 'DECLINED' | 'EXPIRED' | 'PENDING' | 'RETURNED' | 'SETTLED' | 'VOIDED';
 }
 
-export interface FinancialTransactionRetrieveParams {
-  /**
-   * Globally unique identifier for financial account.
-   */
-  financial_account_token: string;
-}
-
 export declare namespace FinancialTransactions {
   export {
-    type FinancialTransactionListParams as FinancialTransactionListParams,
     type FinancialTransactionRetrieveParams as FinancialTransactionRetrieveParams,
+    type FinancialTransactionListParams as FinancialTransactionListParams,
   };
 }
 

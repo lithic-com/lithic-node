@@ -9,24 +9,17 @@ import { path } from '../internal/utils/path';
 
 export class Tokenizations extends APIResource {
   /**
-   * This endpoint is used to simulate a card's tokenization in the Digital Wallet
-   * and merchant tokenization ecosystem.
+   * Get tokenization
    *
    * @example
    * ```ts
-   * const tokenization = await client.tokenizations.simulate({
-   *   cvv: '776',
-   *   expiration_date: '08/29',
-   *   pan: '4111111289144142',
-   *   tokenization_source: 'APPLE_PAY',
-   *   account_score: 5,
-   *   device_score: 5,
-   *   wallet_recommended_decision: 'APPROVED',
-   * });
+   * const tokenization = await client.tokenizations.retrieve(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
    * ```
    */
-  simulate(body: TokenizationSimulateParams, options?: RequestOptions): APIPromise<Tokenization> {
-    return this._client.post('/v1/simulate/tokenizations', { body, ...options });
+  retrieve(tokenizationToken: string, options?: RequestOptions): APIPromise<Tokenization> {
+    return this._client.get(path`/v1/tokenizations/${tokenizationToken}`, options);
   }
 
   /**
@@ -48,58 +41,24 @@ export class Tokenizations extends APIResource {
   }
 
   /**
-   * Get tokenization
-   *
-   * @example
-   * ```ts
-   * const tokenization = await client.tokenizations.retrieve(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
-   */
-  retrieve(tokenizationToken: string, options?: RequestOptions): APIPromise<Tokenization> {
-    return this._client.get(path`/v1/tokenizations/${tokenizationToken}`, options);
-  }
-
-  /**
-   * This endpoint is used to ask the card network to pause a tokenization. A
+   * This endpoint is used to ask the card network to activate a tokenization. A
    * successful response indicates that the request was successfully delivered to the
-   * card network. When the card network pauses the tokenization, the state will be
-   * updated and a tokenization.updated event will be sent. The endpoint may only be
-   * used on tokenizations with status `ACTIVE`. A paused token will prevent
-   * merchants from sending authorizations, and is a temporary status that can be
-   * changed. Reach out at [lithic.com/contact](https://lithic.com/contact) for more
-   * information.
-   *
-   * @example
-   * ```ts
-   * await client.tokenizations.pause(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
-   */
-  pause(tokenizationToken: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.post(path`/v1/tokenizations/${tokenizationToken}/pause`, options);
-  }
-
-  /**
-   * This endpoint is used to ask the card network to unpause a tokenization. A
-   * successful response indicates that the request was successfully delivered to the
-   * card network. When the card network unpauses the tokenization, the state will be
-   * updated and a tokenization.updated event will be sent. The endpoint may only be
-   * used on tokenizations with status `PAUSED`. This will put the tokenization in an
-   * active state, and transactions may resume. Reach out at
+   * card network. When the card network activates the tokenization, the state will
+   * be updated and a tokenization.updated event will be sent. The endpoint may only
+   * be used on digital wallet tokenizations with status `INACTIVE`,
+   * `PENDING_ACTIVATION`, or `PENDING_2FA`. This will put the tokenization in an
+   * active state, and transactions will be allowed. Reach out at
    * [lithic.com/contact](https://lithic.com/contact) for more information.
    *
    * @example
    * ```ts
-   * await client.tokenizations.unpause(
+   * await client.tokenizations.activate(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    * );
    * ```
    */
-  unpause(tokenizationToken: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.post(path`/v1/tokenizations/${tokenizationToken}/unpause`, options);
+  activate(tokenizationToken: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.post(path`/v1/tokenizations/${tokenizationToken}/activate`, options);
   }
 
   /**
@@ -125,24 +84,24 @@ export class Tokenizations extends APIResource {
   }
 
   /**
-   * This endpoint is used to ask the card network to activate a tokenization. A
+   * This endpoint is used to ask the card network to pause a tokenization. A
    * successful response indicates that the request was successfully delivered to the
-   * card network. When the card network activates the tokenization, the state will
-   * be updated and a tokenization.updated event will be sent. The endpoint may only
-   * be used on digital wallet tokenizations with status `INACTIVE`,
-   * `PENDING_ACTIVATION`, or `PENDING_2FA`. This will put the tokenization in an
-   * active state, and transactions will be allowed. Reach out at
-   * [lithic.com/contact](https://lithic.com/contact) for more information.
+   * card network. When the card network pauses the tokenization, the state will be
+   * updated and a tokenization.updated event will be sent. The endpoint may only be
+   * used on tokenizations with status `ACTIVE`. A paused token will prevent
+   * merchants from sending authorizations, and is a temporary status that can be
+   * changed. Reach out at [lithic.com/contact](https://lithic.com/contact) for more
+   * information.
    *
    * @example
    * ```ts
-   * await client.tokenizations.activate(
+   * await client.tokenizations.pause(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    * );
    * ```
    */
-  activate(tokenizationToken: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.post(path`/v1/tokenizations/${tokenizationToken}/activate`, options);
+  pause(tokenizationToken: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.post(path`/v1/tokenizations/${tokenizationToken}/pause`, options);
   }
 
   /**
@@ -174,6 +133,47 @@ export class Tokenizations extends APIResource {
       body,
       ...options,
     });
+  }
+
+  /**
+   * This endpoint is used to simulate a card's tokenization in the Digital Wallet
+   * and merchant tokenization ecosystem.
+   *
+   * @example
+   * ```ts
+   * const tokenization = await client.tokenizations.simulate({
+   *   cvv: '776',
+   *   expiration_date: '08/29',
+   *   pan: '4111111289144142',
+   *   tokenization_source: 'APPLE_PAY',
+   *   account_score: 5,
+   *   device_score: 5,
+   *   wallet_recommended_decision: 'APPROVED',
+   * });
+   * ```
+   */
+  simulate(body: TokenizationSimulateParams, options?: RequestOptions): APIPromise<Tokenization> {
+    return this._client.post('/v1/simulate/tokenizations', { body, ...options });
+  }
+
+  /**
+   * This endpoint is used to ask the card network to unpause a tokenization. A
+   * successful response indicates that the request was successfully delivered to the
+   * card network. When the card network unpauses the tokenization, the state will be
+   * updated and a tokenization.updated event will be sent. The endpoint may only be
+   * used on tokenizations with status `PAUSED`. This will put the tokenization in an
+   * active state, and transactions may resume. Reach out at
+   * [lithic.com/contact](https://lithic.com/contact) for more information.
+   *
+   * @example
+   * ```ts
+   * await client.tokenizations.unpause(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  unpause(tokenizationToken: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.post(path`/v1/tokenizations/${tokenizationToken}/unpause`, options);
   }
 
   /**
@@ -546,9 +546,46 @@ export interface WalletDecisioningInfo {
   recommendation_reasons?: Array<string> | null;
 }
 
+export interface TokenizationListParams extends CursorPageParams {
+  /**
+   * Filters for tokenizations associated with a specific account.
+   */
+  account_token?: string;
+
+  /**
+   * Filter for tokenizations created after this date.
+   */
+  begin?: string;
+
+  /**
+   * Filters for tokenizations associated with a specific card.
+   */
+  card_token?: string;
+
+  /**
+   * Filter for tokenizations created before this date.
+   */
+  end?: string;
+
+  /**
+   * Filter for tokenizations by tokenization channel. If this is not specified, only
+   * DIGITAL_WALLET tokenizations will be returned.
+   */
+  tokenization_channel?: 'DIGITAL_WALLET' | 'MERCHANT' | 'ALL';
+}
+
+export interface TokenizationResendActivationCodeParams {
+  /**
+   * The communication method that the user has selected to use to receive the
+   * authentication code. Supported Values: Sms = "TEXT_TO_CARDHOLDER_NUMBER". Email
+   * = "EMAIL_TO_CARDHOLDER_ADDRESS"
+   */
+  activation_method_type?: 'EMAIL_TO_CARDHOLDER_ADDRESS' | 'TEXT_TO_CARDHOLDER_NUMBER';
+}
+
 export interface TokenizationSimulateParams {
   /**
-   * The three digit cvv for the card.
+   * The three or four digit CVV for the card. AMEX cards use four digit CVVs.
    */
   cvv: string;
 
@@ -591,43 +628,6 @@ export interface TokenizationSimulateParams {
   wallet_recommended_decision?: 'APPROVED' | 'DECLINED' | 'REQUIRE_ADDITIONAL_AUTHENTICATION';
 }
 
-export interface TokenizationListParams extends CursorPageParams {
-  /**
-   * Filters for tokenizations associated with a specific account.
-   */
-  account_token?: string;
-
-  /**
-   * Filter for tokenizations created after this date.
-   */
-  begin?: string;
-
-  /**
-   * Filters for tokenizations associated with a specific card.
-   */
-  card_token?: string;
-
-  /**
-   * Filter for tokenizations created before this date.
-   */
-  end?: string;
-
-  /**
-   * Filter for tokenizations by tokenization channel. If this is not specified, only
-   * DIGITAL_WALLET tokenizations will be returned.
-   */
-  tokenization_channel?: 'DIGITAL_WALLET' | 'MERCHANT' | 'ALL';
-}
-
-export interface TokenizationResendActivationCodeParams {
-  /**
-   * The communication method that the user has selected to use to receive the
-   * authentication code. Supported Values: Sms = "TEXT_TO_CARDHOLDER_NUMBER". Email
-   * = "EMAIL_TO_CARDHOLDER_ADDRESS"
-   */
-  activation_method_type?: 'EMAIL_TO_CARDHOLDER_ADDRESS' | 'TEXT_TO_CARDHOLDER_NUMBER';
-}
-
 export interface TokenizationUpdateDigitalCardArtParams {
   /**
    * Specifies the digital card art to be displayed in the user’s digital wallet for
@@ -648,9 +648,9 @@ export declare namespace Tokenizations {
     type TokenizationTfaReason as TokenizationTfaReason,
     type WalletDecisioningInfo as WalletDecisioningInfo,
     type TokenizationsCursorPage as TokenizationsCursorPage,
-    type TokenizationSimulateParams as TokenizationSimulateParams,
     type TokenizationListParams as TokenizationListParams,
     type TokenizationResendActivationCodeParams as TokenizationResendActivationCodeParams,
+    type TokenizationSimulateParams as TokenizationSimulateParams,
     type TokenizationUpdateDigitalCardArtParams as TokenizationUpdateDigitalCardArtParams,
   };
 }

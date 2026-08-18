@@ -71,24 +71,26 @@ export class FinancialAccounts extends APIResource {
     new InterestTierScheduleAPI.InterestTierScheduleResource(this._client);
 
   /**
-   * Retrieve information on your financial accounts including routing and account
-   * number.
+   * Create a new financial account
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const financialAccount of client.financialAccounts.list()) {
-   *   // ...
-   * }
+   * const financialAccount =
+   *   await client.financialAccounts.create({
+   *     nickname: 'nickname',
+   *     type: 'OPERATING',
+   *   });
    * ```
    */
-  list(
-    query: FinancialAccountListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<FinancialAccountsSinglePage, FinancialAccount> {
-    return this._client.getAPIList('/v1/financial_accounts', SinglePage<FinancialAccount>, {
-      query,
+  create(params: FinancialAccountCreateParams, options?: RequestOptions): APIPromise<FinancialAccount> {
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/v1/financial_accounts', {
+      body,
       ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
     });
   }
 
@@ -127,49 +129,24 @@ export class FinancialAccounts extends APIResource {
   }
 
   /**
-   * Update financial account status
+   * Retrieve information on your financial accounts including routing and account
+   * number.
    *
    * @example
    * ```ts
-   * const financialAccount =
-   *   await client.financialAccounts.updateStatus(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     { status: 'CLOSED', substatus: 'END_USER_REQUEST' },
-   *   );
+   * // Automatically fetches more pages as needed.
+   * for await (const financialAccount of client.financialAccounts.list()) {
+   *   // ...
+   * }
    * ```
    */
-  updateStatus(
-    financialAccountToken: string,
-    body: FinancialAccountUpdateStatusParams,
+  list(
+    query: FinancialAccountListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<FinancialAccount> {
-    return this._client.post(path`/v1/financial_accounts/${financialAccountToken}/update_status`, {
-      body,
+  ): PagePromise<FinancialAccountsSinglePage, FinancialAccount> {
+    return this._client.getAPIList('/v1/financial_accounts', SinglePage<FinancialAccount>, {
+      query,
       ...options,
-    });
-  }
-
-  /**
-   * Create a new financial account
-   *
-   * @example
-   * ```ts
-   * const financialAccount =
-   *   await client.financialAccounts.create({
-   *     nickname: 'nickname',
-   *     type: 'OPERATING',
-   *   });
-   * ```
-   */
-  create(params: FinancialAccountCreateParams, options?: RequestOptions): APIPromise<FinancialAccount> {
-    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
-    return this._client.post('/v1/financial_accounts', {
-      body,
-      ...options,
-      headers: buildHeaders([
-        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
-        options?.headers,
-      ]),
     });
   }
 
@@ -190,6 +167,29 @@ export class FinancialAccounts extends APIResource {
     options?: RequestOptions,
   ): APIPromise<void> {
     return this._client.post(path`/v1/financial_accounts/${financialAccountToken}/register_account_number`, {
+      body,
+      ...options,
+    });
+  }
+
+  /**
+   * Update financial account status
+   *
+   * @example
+   * ```ts
+   * const financialAccount =
+   *   await client.financialAccounts.updateStatus(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     { status: 'CLOSED', substatus: 'END_USER_REQUEST' },
+   *   );
+   * ```
+   */
+  updateStatus(
+    financialAccountToken: string,
+    body: FinancialAccountUpdateStatusParams,
+    options?: RequestOptions,
+  ): APIPromise<FinancialAccount> {
+    return this._client.post(path`/v1/financial_accounts/${financialAccountToken}/update_status`, {
       body,
       ...options,
     });
@@ -271,7 +271,8 @@ export interface FinancialAccount {
 
   /**
    * Provisioned blockchain deposit addresses for this financial account, keyed by
-   * the blockchain network that each address belongs to
+   * the full name of the blockchain network that each address belongs to (e.g.
+   * `ETHEREUM`)
    */
   blockchain_addresses?: { [key: string]: string } | null;
 
@@ -503,51 +504,6 @@ export interface StatementTotals {
   payment_details?: unknown | null;
 }
 
-export interface FinancialAccountListParams {
-  /**
-   * List financial accounts for a given account_token or business_account_token
-   */
-  account_token?: string;
-
-  /**
-   * List financial accounts for a given business_account_token
-   */
-  business_account_token?: string;
-
-  /**
-   * List financial accounts of a given type
-   */
-  type?: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY' | 'EARLY_DIRECT_DEPOSIT_FLOAT';
-}
-
-export interface FinancialAccountUpdateParams {
-  nickname?: string;
-}
-
-export interface FinancialAccountUpdateStatusParams {
-  /**
-   * Status of the financial account
-   */
-  status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING';
-
-  /**
-   * Substatus for the financial account
-   */
-  substatus:
-    | 'CHARGED_OFF_FRAUD'
-    | 'END_USER_REQUEST'
-    | 'BANK_REQUEST'
-    | 'CHARGED_OFF_DELINQUENT'
-    | 'INTEREST_AND_FEES_PAUSED'
-    | 'DELINQUENT'
-    | null;
-
-  /**
-   * User-defined status for the financial account
-   */
-  user_defined_status?: string;
-}
-
 export interface FinancialAccountCreateParams {
   /**
    * Body param
@@ -575,8 +531,53 @@ export interface FinancialAccountCreateParams {
   'Idempotency-Key'?: string;
 }
 
+export interface FinancialAccountUpdateParams {
+  nickname?: string;
+}
+
+export interface FinancialAccountListParams {
+  /**
+   * List financial accounts for a given account_token or business_account_token
+   */
+  account_token?: string;
+
+  /**
+   * List financial accounts for a given business_account_token
+   */
+  business_account_token?: string;
+
+  /**
+   * List financial accounts of a given type
+   */
+  type?: 'ISSUING' | 'OPERATING' | 'RESERVE' | 'SECURITY' | 'EARLY_DIRECT_DEPOSIT_FLOAT';
+}
+
 export interface FinancialAccountRegisterAccountNumberParams {
   account_number: string;
+}
+
+export interface FinancialAccountUpdateStatusParams {
+  /**
+   * Status of the financial account
+   */
+  status: 'OPEN' | 'CLOSED' | 'SUSPENDED' | 'PENDING';
+
+  /**
+   * Substatus for the financial account
+   */
+  substatus:
+    | 'CHARGED_OFF_FRAUD'
+    | 'END_USER_REQUEST'
+    | 'BANK_REQUEST'
+    | 'CHARGED_OFF_DELINQUENT'
+    | 'INTEREST_AND_FEES_PAUSED'
+    | 'DELINQUENT'
+    | null;
+
+  /**
+   * User-defined status for the financial account
+   */
+  user_defined_status?: string;
 }
 
 FinancialAccounts.Balances = Balances;
@@ -594,19 +595,19 @@ export declare namespace FinancialAccounts {
     type FinancialTransaction as FinancialTransaction,
     type StatementTotals as StatementTotals,
     type FinancialAccountsSinglePage as FinancialAccountsSinglePage,
-    type FinancialAccountListParams as FinancialAccountListParams,
-    type FinancialAccountUpdateParams as FinancialAccountUpdateParams,
-    type FinancialAccountUpdateStatusParams as FinancialAccountUpdateStatusParams,
     type FinancialAccountCreateParams as FinancialAccountCreateParams,
+    type FinancialAccountUpdateParams as FinancialAccountUpdateParams,
+    type FinancialAccountListParams as FinancialAccountListParams,
     type FinancialAccountRegisterAccountNumberParams as FinancialAccountRegisterAccountNumberParams,
+    type FinancialAccountUpdateStatusParams as FinancialAccountUpdateStatusParams,
   };
 
   export { Balances as Balances, type BalanceListParams as BalanceListParams };
 
   export {
     FinancialTransactions as FinancialTransactions,
-    type FinancialTransactionListParams as FinancialTransactionListParams,
     type FinancialTransactionRetrieveParams as FinancialTransactionRetrieveParams,
+    type FinancialTransactionListParams as FinancialTransactionListParams,
   };
 
   export {
@@ -619,8 +620,8 @@ export declare namespace FinancialAccounts {
     type Statements as Statements,
     type Statement as Statement,
     type StatementsCursorPage as StatementsCursorPage,
-    type StatementListParams as StatementListParams,
     type StatementRetrieveParams as StatementRetrieveParams,
+    type StatementListParams as StatementListParams,
   };
 
   export {
@@ -628,8 +629,8 @@ export declare namespace FinancialAccounts {
     type CategoryBalances as CategoryBalances,
     type LoanTape as LoanTape,
     type LoanTapesCursorPage as LoanTapesCursorPage,
-    type LoanTapeListParams as LoanTapeListParams,
     type LoanTapeRetrieveParams as LoanTapeRetrieveParams,
+    type LoanTapeListParams as LoanTapeListParams,
   };
 
   export {
@@ -643,10 +644,10 @@ export declare namespace FinancialAccounts {
     type CategoryTier as CategoryTier,
     type InterestTierSchedule as InterestTierSchedule,
     type InterestTierSchedulesSinglePage as InterestTierSchedulesSinglePage,
-    type InterestTierScheduleListParams as InterestTierScheduleListParams,
     type InterestTierScheduleCreateParams as InterestTierScheduleCreateParams,
     type InterestTierScheduleRetrieveParams as InterestTierScheduleRetrieveParams,
     type InterestTierScheduleUpdateParams as InterestTierScheduleUpdateParams,
+    type InterestTierScheduleListParams as InterestTierScheduleListParams,
     type InterestTierScheduleDeleteParams as InterestTierScheduleDeleteParams,
   };
 }

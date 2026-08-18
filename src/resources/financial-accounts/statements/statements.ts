@@ -20,31 +20,6 @@ export class Statements extends APIResource {
   lineItems: LineItemsAPI.LineItems = new LineItemsAPI.LineItems(this._client);
 
   /**
-   * List the statements for a given financial account.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const statement of client.financialAccounts.statements.list(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * )) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    financialAccountToken: string,
-    query: StatementListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<StatementsCursorPage, Statement> {
-    return this._client.getAPIList(
-      path`/v1/financial_accounts/${financialAccountToken}/statements`,
-      CursorPage<Statement>,
-      { query, ...options },
-    );
-  }
-
-  /**
    * Get a specific statement for a given financial account.
    *
    * @example
@@ -68,6 +43,31 @@ export class Statements extends APIResource {
     return this._client.get(
       path`/v1/financial_accounts/${financial_account_token}/statements/${statementToken}`,
       options,
+    );
+  }
+
+  /**
+   * List the statements for a given financial account.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const statement of client.financialAccounts.statements.list(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * )) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    financialAccountToken: string,
+    query: StatementListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<StatementsCursorPage, Statement> {
+    return this._client.getAPIList(
+      path`/v1/financial_accounts/${financialAccountToken}/statements`,
+      CursorPage<Statement>,
+      { query, ...options },
     );
   }
 }
@@ -312,6 +312,13 @@ export interface Statements {
   has_more: boolean;
 }
 
+export interface StatementRetrieveParams {
+  /**
+   * Globally unique identifier for financial account.
+   */
+  financial_account_token: string;
+}
+
 export interface StatementListParams extends CursorPageParams {
   /**
    * Date string in RFC 3339 format. Only entries created after the specified date
@@ -331,13 +338,6 @@ export interface StatementListParams extends CursorPageParams {
   include_initial_statements?: boolean;
 }
 
-export interface StatementRetrieveParams {
-  /**
-   * Globally unique identifier for financial account.
-   */
-  financial_account_token: string;
-}
-
 Statements.LineItems = LineItems;
 
 export declare namespace Statements {
@@ -345,8 +345,8 @@ export declare namespace Statements {
     type Statement as Statement,
     type Statements as Statements,
     type StatementsCursorPage as StatementsCursorPage,
-    type StatementListParams as StatementListParams,
     type StatementRetrieveParams as StatementRetrieveParams,
+    type StatementListParams as StatementListParams,
   };
 
   export {

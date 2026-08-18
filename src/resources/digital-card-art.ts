@@ -8,6 +8,13 @@ import { path } from '../internal/utils/path';
 
 export class DigitalCardArtResource extends APIResource {
   /**
+   * Get digital card art by token.
+   */
+  retrieve(digitalCardArtToken: string, options?: RequestOptions): APIPromise<DigitalCardArt> {
+    return this._client.get(path`/v1/digital_card_art/${digitalCardArtToken}`, options);
+  }
+
+  /**
    * List digital card art.
    */
   list(
@@ -15,13 +22,6 @@ export class DigitalCardArtResource extends APIResource {
     options?: RequestOptions,
   ): PagePromise<DigitalCardArtsCursorPage, DigitalCardArt> {
     return this._client.getAPIList('/v1/digital_card_art', CursorPage<DigitalCardArt>, { query, ...options });
-  }
-
-  /**
-   * Get digital card art by token.
-   */
-  retrieve(digitalCardArtToken: string, options?: RequestOptions): APIPromise<DigitalCardArt> {
-    return this._client.get(path`/v1/digital_card_art/${digitalCardArtToken}`, options);
   }
 }
 

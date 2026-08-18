@@ -10,6 +10,21 @@ import { path } from '../../../internal/utils/path';
 
 export class NetworkTotals extends APIResource {
   /**
+   * Retrieve a specific network total record by token. Not available in sandbox.
+   *
+   * @example
+   * ```ts
+   * const networkTotal =
+   *   await client.reports.settlement.networkTotals.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  retrieve(token: string, options?: RequestOptions): APIPromise<ReportsAPI.NetworkTotal> {
+    return this._client.get(path`/v1/reports/settlement/network_totals/${token}`, options);
+  }
+
+  /**
    * List network total records with optional filters. Not available in sandbox.
    *
    * @example
@@ -29,21 +44,6 @@ export class NetworkTotals extends APIResource {
       CursorPage<ReportsAPI.NetworkTotal>,
       { query, ...options },
     );
-  }
-
-  /**
-   * Retrieve a specific network total record by token. Not available in sandbox.
-   *
-   * @example
-   * ```ts
-   * const networkTotal =
-   *   await client.reports.settlement.networkTotals.retrieve(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
-   * ```
-   */
-  retrieve(token: string, options?: RequestOptions): APIPromise<ReportsAPI.NetworkTotal> {
-    return this._client.get(path`/v1/reports/settlement/network_totals/${token}`, options);
   }
 }
 

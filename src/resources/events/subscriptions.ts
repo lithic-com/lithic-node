@@ -10,19 +10,6 @@ import { path } from '../../internal/utils/path';
 
 export class Subscriptions extends APIResource {
   /**
-   * List all the event subscriptions.
-   */
-  list(
-    query: SubscriptionListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<EventSubscriptionsCursorPage, EventsAPI.EventSubscription> {
-    return this._client.getAPIList('/v1/event_subscriptions', CursorPage<EventsAPI.EventSubscription>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
    * Create a new event subscription.
    */
   create(body: SubscriptionCreateParams, options?: RequestOptions): APIPromise<EventsAPI.EventSubscription> {
@@ -51,25 +38,23 @@ export class Subscriptions extends APIResource {
   }
 
   /**
+   * List all the event subscriptions.
+   */
+  list(
+    query: SubscriptionListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<EventSubscriptionsCursorPage, EventsAPI.EventSubscription> {
+    return this._client.getAPIList('/v1/event_subscriptions', CursorPage<EventsAPI.EventSubscription>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Delete an event subscription.
    */
   delete(eventSubscriptionToken: string, options?: RequestOptions): APIPromise<void> {
     return this._client.delete(path`/v1/event_subscriptions/${eventSubscriptionToken}`, options);
-  }
-
-  /**
-   * Resend all failed messages since a given time.
-   */
-  recover(
-    eventSubscriptionToken: string,
-    params: SubscriptionRecoverParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<void> {
-    const { begin, end } = params ?? {};
-    return this._client.post(path`/v1/event_subscriptions/${eventSubscriptionToken}/recover`, {
-      query: { begin, end },
-      ...options,
-    });
   }
 
   /**
@@ -85,6 +70,21 @@ export class Subscriptions extends APIResource {
       CursorPage<EventsAPI.MessageAttempt>,
       { query, ...options },
     );
+  }
+
+  /**
+   * Resend all failed messages since a given time.
+   */
+  recover(
+    eventSubscriptionToken: string,
+    params: SubscriptionRecoverParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    const { begin, end } = params ?? {};
+    return this._client.post(path`/v1/event_subscriptions/${eventSubscriptionToken}/recover`, {
+      query: { begin, end },
+      ...options,
+    });
   }
 
   /**
@@ -145,8 +145,6 @@ export interface SubscriptionRetrieveSecretResponse {
    */
   secret?: string;
 }
-
-export interface SubscriptionListParams extends CursorPageParams {}
 
 export interface SubscriptionCreateParams {
   /**
@@ -318,19 +316,7 @@ export interface SubscriptionUpdateParams {
   >;
 }
 
-export interface SubscriptionRecoverParams {
-  /**
-   * Date string in RFC 3339 format. Only entries created after the specified time
-   * will be included. UTC time zone.
-   */
-  begin?: string;
-
-  /**
-   * Date string in RFC 3339 format. Only entries created before the specified time
-   * will be included. UTC time zone.
-   */
-  end?: string;
-}
+export interface SubscriptionListParams extends CursorPageParams {}
 
 export interface SubscriptionListAttemptsParams extends CursorPageParams {
   /**
@@ -346,6 +332,20 @@ export interface SubscriptionListAttemptsParams extends CursorPageParams {
   end?: string;
 
   status?: 'FAILED' | 'PENDING' | 'SENDING' | 'SUCCESS';
+}
+
+export interface SubscriptionRecoverParams {
+  /**
+   * Date string in RFC 3339 format. Only entries created after the specified time
+   * will be included. UTC time zone.
+   */
+  begin?: string;
+
+  /**
+   * Date string in RFC 3339 format. Only entries created before the specified time
+   * will be included. UTC time zone.
+   */
+  end?: string;
 }
 
 export interface SubscriptionReplayMissingParams {
@@ -433,11 +433,11 @@ export interface SubscriptionSendSimulatedExampleParams {
 export declare namespace Subscriptions {
   export {
     type SubscriptionRetrieveSecretResponse as SubscriptionRetrieveSecretResponse,
-    type SubscriptionListParams as SubscriptionListParams,
     type SubscriptionCreateParams as SubscriptionCreateParams,
     type SubscriptionUpdateParams as SubscriptionUpdateParams,
-    type SubscriptionRecoverParams as SubscriptionRecoverParams,
+    type SubscriptionListParams as SubscriptionListParams,
     type SubscriptionListAttemptsParams as SubscriptionListAttemptsParams,
+    type SubscriptionRecoverParams as SubscriptionRecoverParams,
     type SubscriptionReplayMissingParams as SubscriptionReplayMissingParams,
     type SubscriptionSendSimulatedExampleParams as SubscriptionSendSimulatedExampleParams,
   };

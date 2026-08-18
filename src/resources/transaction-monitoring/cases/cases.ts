@@ -25,19 +25,6 @@ export class Cases extends APIResource {
   files: FilesAPI.Files = new FilesAPI.Files(this._client);
 
   /**
-   * Lists transaction monitoring cases, optionally filtered.
-   */
-  list(
-    query: CaseListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<MonitoringCasesCursorPage, MonitoringCase> {
-    return this._client.getAPIList('/v1/transaction_monitoring/cases', CursorPage<MonitoringCase>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
    * Retrieves a single transaction monitoring case.
    */
   retrieve(caseToken: string, options?: RequestOptions): APIPromise<MonitoringCase> {
@@ -49,6 +36,19 @@ export class Cases extends APIResource {
    */
   update(caseToken: string, body: CaseUpdateParams, options?: RequestOptions): APIPromise<MonitoringCase> {
     return this._client.patch(path`/v1/transaction_monitoring/cases/${caseToken}`, { body, ...options });
+  }
+
+  /**
+   * Lists transaction monitoring cases, optionally filtered.
+   */
+  list(
+    query: CaseListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MonitoringCasesCursorPage, MonitoringCase> {
+    return this._client.getAPIList('/v1/transaction_monitoring/cases', CursorPage<MonitoringCase>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -190,17 +190,22 @@ export interface CaseCard {
  */
 export interface CaseEntity {
   /**
-   * Globally unique identifier for the associated entity
+   * Globally unique identifier for the associated entity: the card token for `CARD`,
+   * the account token for `ACCOUNT`, and the financial account token for
+   * `FINANCIAL_ACCOUNT`. Null for `PROGRAM`, which is not scoped to an individual
+   * entity
    */
-  entity_token: string;
+  entity_token: string | null;
 
   /**
    * The type of entity a case is associated with:
    *
    * - `CARD` - The case is associated with a card
    * - `ACCOUNT` - The case is associated with an account
+   * - `FINANCIAL_ACCOUNT` - The case is associated with a financial account
+   * - `PROGRAM` - The case is associated with the whole program
    */
-  entity_type: 'CARD' | 'ACCOUNT';
+  entity_type: 'CARD' | 'ACCOUNT' | 'FINANCIAL_ACCOUNT' | 'PROGRAM';
 }
 
 /**
@@ -419,66 +424,6 @@ export interface MonitoringCase {
 
 export type CaseRetrieveCardsResponse = Array<CaseCard>;
 
-export interface CaseListParams extends CursorPageParams {
-  /**
-   * Only return cases that include transactions on the provided account.
-   */
-  account_token?: string;
-
-  /**
-   * Only return cases assigned to the provided value. Pass an empty string to return
-   * only unassigned cases.
-   */
-  assignee?: string;
-
-  /**
-   * Date string in RFC 3339 format. Only entries created after the specified time
-   * will be included. UTC time zone.
-   */
-  begin?: string;
-
-  /**
-   * Only return cases that include transactions on the provided card.
-   */
-  card_token?: string;
-
-  /**
-   * Date string in RFC 3339 format. Only entries created before the specified time
-   * will be included. UTC time zone.
-   */
-  end?: string;
-
-  /**
-   * Only return cases associated with the provided entity.
-   */
-  entity_token?: string;
-
-  /**
-   * Only return cases belonging to the provided queue.
-   */
-  queue_token?: string;
-
-  /**
-   * Only return cases triggered by the provided transaction monitoring rule.
-   */
-  rule_token?: string;
-
-  /**
-   * Sort order for the returned cases.
-   */
-  sort_by?: CaseSortOrder;
-
-  /**
-   * Only return cases with the provided status.
-   */
-  status?: CaseStatus;
-
-  /**
-   * Only return cases that include the provided transaction.
-   */
-  transaction_token?: string;
-}
-
 export interface CaseUpdateParams {
   /**
    * Optional client-provided identifier for the actor performing this action,
@@ -538,6 +483,68 @@ export interface CaseUpdateParams {
   title?: string | null;
 }
 
+export interface CaseListParams extends CursorPageParams {
+  /**
+   * Only return cases that include transactions on the provided account.
+   */
+  account_token?: string;
+
+  /**
+   * Only return cases assigned to the provided value. Pass an empty string to return
+   * only unassigned cases.
+   */
+  assignee?: string;
+
+  /**
+   * Date string in RFC 3339 format. Only entries created after the specified time
+   * will be included. UTC time zone.
+   */
+  begin?: string;
+
+  /**
+   * Only return cases that include transactions on the provided card.
+   */
+  card_token?: string;
+
+  /**
+   * Date string in RFC 3339 format. Only entries created before the specified time
+   * will be included. UTC time zone.
+   */
+  end?: string;
+
+  /**
+   * Only return cases associated with the provided entity. Accepts a card, account,
+   * or financial account token. Cases with a `PROGRAM` entity have no entity token
+   * and are never returned by this filter.
+   */
+  entity_token?: string;
+
+  /**
+   * Only return cases belonging to the provided queue.
+   */
+  queue_token?: string;
+
+  /**
+   * Only return cases triggered by the provided transaction monitoring rule.
+   */
+  rule_token?: string;
+
+  /**
+   * Sort order for the returned cases.
+   */
+  sort_by?: CaseSortOrder;
+
+  /**
+   * Only return cases with the provided status.
+   */
+  status?: CaseStatus;
+
+  /**
+   * Only return cases that include the provided transaction.
+   */
+  transaction_token?: string;
+}
+
 export interface CaseListActivityParams extends CursorPageParams {}
 
 export interface CaseListTransactionsParams extends CursorPageParams {}
@@ -561,8 +568,8 @@ export declare namespace Cases {
     type MonitoringCasesCursorPage as MonitoringCasesCursorPage,
     type CaseActivityEntriesCursorPage as CaseActivityEntriesCursorPage,
     type CaseTransactionsCursorPage as CaseTransactionsCursorPage,
-    type CaseListParams as CaseListParams,
     type CaseUpdateParams as CaseUpdateParams,
+    type CaseListParams as CaseListParams,
     type CaseListActivityParams as CaseListActivityParams,
     type CaseListTransactionsParams as CaseListTransactionsParams,
   };
@@ -581,8 +588,8 @@ export declare namespace Cases {
     type UploadConstraints as UploadConstraints,
     type CaseFilesCursorPage as CaseFilesCursorPage,
     type FileCreateParams as FileCreateParams,
-    type FileListParams as FileListParams,
     type FileRetrieveParams as FileRetrieveParams,
+    type FileListParams as FileListParams,
     type FileDeleteParams as FileDeleteParams,
   };
 }

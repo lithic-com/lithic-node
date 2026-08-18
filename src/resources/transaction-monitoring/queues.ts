@@ -15,19 +15,6 @@ export class Queues extends APIResource {
   }
 
   /**
-   * Lists transaction monitoring queues.
-   */
-  list(
-    query: QueueListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<QueuesCursorPage, Queue> {
-    return this._client.getAPIList('/v1/transaction_monitoring/queues', CursorPage<Queue>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
    * Retrieves a single transaction monitoring queue.
    */
   retrieve(queueToken: string, options?: RequestOptions): APIPromise<Queue> {
@@ -39,6 +26,19 @@ export class Queues extends APIResource {
    */
   update(queueToken: string, body: QueueUpdateParams, options?: RequestOptions): APIPromise<Queue> {
     return this._client.patch(path`/v1/transaction_monitoring/queues/${queueToken}`, { body, ...options });
+  }
+
+  /**
+   * Lists transaction monitoring queues.
+   */
+  list(
+    query: QueueListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<QueuesCursorPage, Queue> {
+    return this._client.getAPIList('/v1/transaction_monitoring/queues', CursorPage<Queue>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -150,8 +150,6 @@ export interface QueueCreateParams {
   description?: string | null;
 }
 
-export interface QueueListParams extends CursorPageParams {}
-
 export interface QueueUpdateParams {
   /**
    * New list of resolutions that can be recorded on cases in this queue, or `null`
@@ -172,12 +170,14 @@ export interface QueueUpdateParams {
   name?: string;
 }
 
+export interface QueueListParams extends CursorPageParams {}
+
 export declare namespace Queues {
   export {
     type Queue as Queue,
     type QueuesCursorPage as QueuesCursorPage,
     type QueueCreateParams as QueueCreateParams,
-    type QueueListParams as QueueListParams,
     type QueueUpdateParams as QueueUpdateParams,
+    type QueueListParams as QueueListParams,
   };
 }

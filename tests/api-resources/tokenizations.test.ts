@@ -8,13 +8,8 @@ const client = new Lithic({
 });
 
 describe('resource tokenizations', () => {
-  test('simulate: only required params', async () => {
-    const responsePromise = client.tokenizations.simulate({
-      cvv: '776',
-      expiration_date: '08/29',
-      pan: '4111111289144142',
-      tokenization_source: 'APPLE_PAY',
-    });
+  test('retrieve', async () => {
+    const responsePromise = client.tokenizations.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,19 +17,6 @@ describe('resource tokenizations', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('simulate: required and optional params', async () => {
-    const response = await client.tokenizations.simulate({
-      cvv: '776',
-      expiration_date: '08/29',
-      pan: '4111111289144142',
-      tokenization_source: 'APPLE_PAY',
-      account_score: 5,
-      device_score: 5,
-      entity: 'entity',
-      wallet_recommended_decision: 'APPROVED',
-    });
   });
 
   test('list', async () => {
@@ -67,30 +49,8 @@ describe('resource tokenizations', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  test('retrieve', async () => {
-    const responsePromise = client.tokenizations.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('pause', async () => {
-    const responsePromise = client.tokenizations.pause('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('unpause', async () => {
-    const responsePromise = client.tokenizations.unpause('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+  test('activate', async () => {
+    const responsePromise = client.tokenizations.activate('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -111,8 +71,8 @@ describe('resource tokenizations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('activate', async () => {
-    const responsePromise = client.tokenizations.activate('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+  test('pause', async () => {
+    const responsePromise = client.tokenizations.pause('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -142,6 +102,46 @@ describe('resource tokenizations', () => {
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Lithic.NotFoundError);
+  });
+
+  test('simulate: only required params', async () => {
+    const responsePromise = client.tokenizations.simulate({
+      cvv: '776',
+      expiration_date: '08/29',
+      pan: '4111111289144142',
+      tokenization_source: 'APPLE_PAY',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('simulate: required and optional params', async () => {
+    const response = await client.tokenizations.simulate({
+      cvv: '776',
+      expiration_date: '08/29',
+      pan: '4111111289144142',
+      tokenization_source: 'APPLE_PAY',
+      account_score: 5,
+      device_score: 5,
+      entity: 'entity',
+      wallet_recommended_decision: 'APPROVED',
+    });
+  });
+
+  test('unpause', async () => {
+    const responsePromise = client.tokenizations.unpause('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('updateDigitalCardArt', async () => {

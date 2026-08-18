@@ -10,7 +10,7 @@ export {
 export {
   Statements,
   type Statement,
-  type StatementListParams,
   type StatementRetrieveParams,
+  type StatementListParams,
   type StatementsCursorPage,
 } from './statements';

@@ -13,8 +13,8 @@ export {
   type EntityType,
   type MonitoringCase,
   type CaseRetrieveCardsResponse,
-  type CaseListParams,
   type CaseUpdateParams,
+  type CaseListParams,
   type CaseListActivityParams,
   type CaseListTransactionsParams,
   type MonitoringCasesCursorPage,
@@ -25,8 +25,8 @@ export {
   Queues,
   type Queue,
   type QueueCreateParams,
-  type QueueListParams,
   type QueueUpdateParams,
+  type QueueListParams,
   type QueuesCursorPage,
 } from './queues';
 export { TransactionMonitoring } from './transaction-monitoring';

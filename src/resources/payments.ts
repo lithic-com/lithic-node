@@ -10,24 +10,6 @@ import { path } from '../internal/utils/path';
 
 export class Payments extends APIResource {
   /**
-   * List all the payments for the provided search criteria.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const payment of client.payments.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: PaymentListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<PaymentsCursorPage, Payment> {
-    return this._client.getAPIList('/v1/payments', CursorPage<Payment>, { query, ...options });
-  }
-
-  /**
    * Initiates a payment between a financial account and an external bank account.
    *
    * @example
@@ -63,37 +45,21 @@ export class Payments extends APIResource {
   }
 
   /**
-   * Simulates a release of a Payment.
+   * List all the payments for the provided search criteria.
    *
    * @example
    * ```ts
-   * const response = await client.payments.simulateRelease({
-   *   payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * });
+   * // Automatically fetches more pages as needed.
+   * for await (const payment of client.payments.list()) {
+   *   // ...
+   * }
    * ```
    */
-  simulateRelease(
-    body: PaymentSimulateReleaseParams,
+  list(
+    query: PaymentListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<PaymentSimulateReleaseResponse> {
-    return this._client.post('/v1/simulate/payments/release', { body, ...options });
-  }
-
-  /**
-   * Simulates a return of a Payment.
-   *
-   * @example
-   * ```ts
-   * const response = await client.payments.simulateReturn({
-   *   payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * });
-   * ```
-   */
-  simulateReturn(
-    body: PaymentSimulateReturnParams,
-    options?: RequestOptions,
-  ): APIPromise<PaymentSimulateReturnResponse> {
-    return this._client.post('/v1/simulate/payments/return', { body, ...options });
+  ): PagePromise<PaymentsCursorPage, Payment> {
+    return this._client.getAPIList('/v1/payments', CursorPage<Payment>, { query, ...options });
   }
 
   /**
@@ -143,6 +109,25 @@ export class Payments extends APIResource {
   }
 
   /**
+   * Simulate payment lifecycle event
+   *
+   * @example
+   * ```ts
+   * const response = await client.payments.simulateAction(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   { event_type: 'ACH_ORIGINATION_REVIEWED' },
+   * );
+   * ```
+   */
+  simulateAction(
+    paymentToken: string,
+    body: PaymentSimulateActionParams,
+    options?: RequestOptions,
+  ): APIPromise<PaymentSimulateActionResponse> {
+    return this._client.post(path`/v1/simulate/payments/${paymentToken}/action`, { body, ...options });
+  }
+
+  /**
    * Simulates a receipt of a Payment.
    *
    * @example
@@ -164,22 +149,37 @@ export class Payments extends APIResource {
   }
 
   /**
-   * Simulate payment lifecycle event
+   * Simulates a release of a Payment.
    *
    * @example
    * ```ts
-   * const response = await client.payments.simulateAction(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   { event_type: 'ACH_ORIGINATION_REVIEWED' },
-   * );
+   * const response = await client.payments.simulateRelease({
+   *   payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * });
    * ```
    */
-  simulateAction(
-    paymentToken: string,
-    body: PaymentSimulateActionParams,
+  simulateRelease(
+    body: PaymentSimulateReleaseParams,
     options?: RequestOptions,
-  ): APIPromise<PaymentSimulateActionResponse> {
-    return this._client.post(path`/v1/simulate/payments/${paymentToken}/action`, { body, ...options });
+  ): APIPromise<PaymentSimulateReleaseResponse> {
+    return this._client.post('/v1/simulate/payments/release', { body, ...options });
+  }
+
+  /**
+   * Simulates a return of a Payment.
+   *
+   * @example
+   * ```ts
+   * const response = await client.payments.simulateReturn({
+   *   payment_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * });
+   * ```
+   */
+  simulateReturn(
+    body: PaymentSimulateReturnParams,
+    options?: RequestOptions,
+  ): APIPromise<PaymentSimulateReturnResponse> {
+    return this._client.post('/v1/simulate/payments/return', { body, ...options });
   }
 }
 
@@ -328,7 +328,8 @@ export interface Payment {
     | 'WIRE_INBOUND_ADMIN'
     | 'WIRE_OUTBOUND_PAYMENT'
     | 'WIRE_OUTBOUND_ADMIN'
-    | 'WIRE_INBOUND_DRAWDOWN_REQUEST';
+    | 'WIRE_INBOUND_DRAWDOWN_REQUEST'
+    | 'STABLECOIN';
 
   /**
    * User-defined identifier
@@ -425,8 +426,16 @@ export namespace Payment {
      *
      * - `STABLECOIN_RECEIVED` - Stablecoin pay-in received on-chain and pending
      *   release to available balance.
-     * - `STABLECOIN_REVIEWED` - Stablecoin pay-in has completed the review process.
-     * - `STABLECOIN_SETTLED` - Stablecoin pay-in funds released to available balance.
+     * - `STABLECOIN_INITIATED` - Stablecoin withdrawal initiated, with the funds
+     *   placed on hold.
+     * - `STABLECOIN_REVIEWED` - Stablecoin pay-in or withdrawal has completed the
+     *   review process.
+     * - `STABLECOIN_SENT` - Stablecoin withdrawal accepted for on-chain submission to
+     *   the destination address, and pending confirmation.
+     * - `STABLECOIN_SETTLED` - Stablecoin pay-in funds released to available balance,
+     *   or stablecoin withdrawal confirmed on-chain.
+     * - `STABLECOIN_REJECTED` - Stablecoin withdrawal failed and the hold placed at
+     *   initiation has been reversed.
      */
     type:
       | 'ACH_ORIGINATION_CANCELLED'
@@ -452,8 +461,11 @@ export namespace Payment {
       | 'WIRE_RETURN_OUTBOUND_SETTLED'
       | 'WIRE_RETURN_OUTBOUND_REJECTED'
       | 'STABLECOIN_RECEIVED'
+      | 'STABLECOIN_INITIATED'
       | 'STABLECOIN_REVIEWED'
-      | 'STABLECOIN_SETTLED';
+      | 'STABLECOIN_SENT'
+      | 'STABLECOIN_SETTLED'
+      | 'STABLECOIN_REJECTED';
 
     /**
      * More detailed reasons for the event
@@ -471,7 +483,9 @@ export namespace Payment {
     /**
      * Payment event external ID. For ACH transactions, this is the ACH trace number.
      * For inbound wire transfers, this is the IMAD (Input Message Accountability
-     * Data).
+     * Data). For stablecoin payments, this is the on-chain transaction hash of the
+     * transfer; it is present on events that reflect on-chain activity and null on
+     * internal lifecycle events.
      */
     external_id?: string | null;
   }
@@ -660,32 +674,6 @@ export interface PaymentSimulateReturnResponse {
   transaction_event_token: string;
 }
 
-export interface PaymentListParams extends CursorPageParams {
-  account_token?: string;
-
-  /**
-   * Date string in RFC 3339 format. Only entries created after the specified time
-   * will be included. UTC time zone.
-   */
-  begin?: string;
-
-  business_account_token?: string;
-
-  category?: 'ACH';
-
-  /**
-   * Date string in RFC 3339 format. Only entries created before the specified time
-   * will be included. UTC time zone.
-   */
-  end?: string;
-
-  financial_account_token?: string;
-
-  result?: 'APPROVED' | 'DECLINED';
-
-  status?: 'DECLINED' | 'PENDING' | 'RETURNED' | 'REVERSED' | 'SETTLED';
-}
-
 export interface PaymentCreateParams {
   amount: number;
 
@@ -744,23 +732,30 @@ export namespace PaymentCreateParams {
   }
 }
 
-export interface PaymentSimulateReleaseParams {
-  /**
-   * Payment Token
-   */
-  payment_token: string;
-}
-
-export interface PaymentSimulateReturnParams {
-  /**
-   * Payment Token
-   */
-  payment_token: string;
+export interface PaymentListParams extends CursorPageParams {
+  account_token?: string;
 
   /**
-   * Return Reason Code
+   * Date string in RFC 3339 format. Only entries created after the specified time
+   * will be included. UTC time zone.
    */
-  return_reason_code?: string;
+  begin?: string;
+
+  business_account_token?: string;
+
+  category?: 'ACH';
+
+  /**
+   * Date string in RFC 3339 format. Only entries created before the specified time
+   * will be included. UTC time zone.
+   */
+  end?: string;
+
+  financial_account_token?: string;
+
+  result?: 'APPROVED' | 'DECLINED';
+
+  status?: 'DECLINED' | 'PENDING' | 'RETURNED' | 'REVERSED' | 'SETTLED';
 }
 
 export interface PaymentReturnParams {
@@ -793,33 +788,6 @@ export interface PaymentReturnParams {
    * Optional memo for the return. Limited to 10 characters
    */
   memo?: string | null;
-}
-
-export interface PaymentSimulateReceiptParams {
-  /**
-   * Customer-generated payment token used to uniquely identify the simulated payment
-   */
-  token: string;
-
-  /**
-   * Amount
-   */
-  amount: number;
-
-  /**
-   * Financial Account Token
-   */
-  financial_account_token: string;
-
-  /**
-   * Receipt Type
-   */
-  receipt_type: 'RECEIPT_CREDIT' | 'RECEIPT_DEBIT';
-
-  /**
-   * Memo
-   */
-  memo?: string;
 }
 
 export interface PaymentSimulateActionParams {
@@ -862,6 +830,52 @@ export interface PaymentSimulateActionParams {
   return_reason_code?: string;
 }
 
+export interface PaymentSimulateReceiptParams {
+  /**
+   * Customer-generated payment token used to uniquely identify the simulated payment
+   */
+  token: string;
+
+  /**
+   * Amount
+   */
+  amount: number;
+
+  /**
+   * Financial Account Token
+   */
+  financial_account_token: string;
+
+  /**
+   * Receipt Type
+   */
+  receipt_type: 'RECEIPT_CREDIT' | 'RECEIPT_DEBIT';
+
+  /**
+   * Memo
+   */
+  memo?: string;
+}
+
+export interface PaymentSimulateReleaseParams {
+  /**
+   * Payment Token
+   */
+  payment_token: string;
+}
+
+export interface PaymentSimulateReturnParams {
+  /**
+   * Payment Token
+   */
+  payment_token: string;
+
+  /**
+   * Return Reason Code
+   */
+  return_reason_code?: string;
+}
+
 export declare namespace Payments {
   export {
     type Payment as Payment,
@@ -872,12 +886,12 @@ export declare namespace Payments {
     type PaymentSimulateReleaseResponse as PaymentSimulateReleaseResponse,
     type PaymentSimulateReturnResponse as PaymentSimulateReturnResponse,
     type PaymentsCursorPage as PaymentsCursorPage,
-    type PaymentListParams as PaymentListParams,
     type PaymentCreateParams as PaymentCreateParams,
+    type PaymentListParams as PaymentListParams,
+    type PaymentReturnParams as PaymentReturnParams,
+    type PaymentSimulateActionParams as PaymentSimulateActionParams,
+    type PaymentSimulateReceiptParams as PaymentSimulateReceiptParams,
     type PaymentSimulateReleaseParams as PaymentSimulateReleaseParams,
     type PaymentSimulateReturnParams as PaymentSimulateReturnParams,
-    type PaymentReturnParams as PaymentReturnParams,
-    type PaymentSimulateReceiptParams as PaymentSimulateReceiptParams,
-    type PaymentSimulateActionParams as PaymentSimulateActionParams,
   };
 }

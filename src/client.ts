@@ -1256,8 +1256,8 @@ export declare namespace Lithic {
     type Account as Account,
     type AccountSpendLimits as AccountSpendLimits,
     type AccountsCursorPage as AccountsCursorPage,
-    type AccountListParams as AccountListParams,
     type AccountUpdateParams as AccountUpdateParams,
+    type AccountListParams as AccountListParams,
   };
 
   export {
@@ -1276,11 +1276,11 @@ export declare namespace Lithic {
     type AccountHoldersSinglePage as AccountHoldersSinglePage,
     type AccountHolderCreateParams as AccountHolderCreateParams,
     type AccountHolderUpdateParams as AccountHolderUpdateParams,
-    type AccountHolderUploadDocumentParams as AccountHolderUploadDocumentParams,
-    type AccountHolderRetrieveDocumentParams as AccountHolderRetrieveDocumentParams,
     type AccountHolderListParams as AccountHolderListParams,
-    type AccountHolderSimulateEnrollmentReviewParams as AccountHolderSimulateEnrollmentReviewParams,
+    type AccountHolderRetrieveDocumentParams as AccountHolderRetrieveDocumentParams,
     type AccountHolderSimulateEnrollmentDocumentReviewParams as AccountHolderSimulateEnrollmentDocumentReviewParams,
+    type AccountHolderSimulateEnrollmentReviewParams as AccountHolderSimulateEnrollmentReviewParams,
+    type AccountHolderUploadDocumentParams as AccountHolderUploadDocumentParams,
   };
 
   export { AuthRules as AuthRules, type SignalsResponse as SignalsResponse };
@@ -1305,9 +1305,9 @@ export declare namespace Lithic {
     type TokenizationTfaReason as TokenizationTfaReason,
     type WalletDecisioningInfo as WalletDecisioningInfo,
     type TokenizationsCursorPage as TokenizationsCursorPage,
-    type TokenizationSimulateParams as TokenizationSimulateParams,
     type TokenizationListParams as TokenizationListParams,
     type TokenizationResendActivationCodeParams as TokenizationResendActivationCodeParams,
+    type TokenizationSimulateParams as TokenizationSimulateParams,
     type TokenizationUpdateDigitalCardArtParams as TokenizationUpdateDigitalCardArtParams,
   };
 
@@ -1322,15 +1322,15 @@ export declare namespace Lithic {
     type CardProvisionResponse as CardProvisionResponse,
     type CardWebProvisionResponse as CardWebProvisionResponse,
     type NonPCICardsCursorPage as NonPCICardsCursorPage,
-    type CardListParams as CardListParams,
     type CardCreateParams as CardCreateParams,
     type CardUpdateParams as CardUpdateParams,
+    type CardListParams as CardListParams,
+    type CardConvertPhysicalParams as CardConvertPhysicalParams,
+    type CardEmbedParams as CardEmbedParams,
     type CardProvisionParams as CardProvisionParams,
     type CardReissueParams as CardReissueParams,
-    type CardEmbedParams as CardEmbedParams,
     type CardRenewParams as CardRenewParams,
     type CardSearchByPanParams as CardSearchByPanParams,
-    type CardConvertPhysicalParams as CardConvertPhysicalParams,
     type CardWebProvisionParams as CardWebProvisionParams,
   };
 
@@ -1344,9 +1344,9 @@ export declare namespace Lithic {
     CardBulkOrders as CardBulkOrders,
     type CardBulkOrder as CardBulkOrder,
     type CardBulkOrdersCursorPage as CardBulkOrdersCursorPage,
-    type CardBulkOrderListParams as CardBulkOrderListParams,
     type CardBulkOrderCreateParams as CardBulkOrderCreateParams,
     type CardBulkOrderUpdateParams as CardBulkOrderUpdateParams,
+    type CardBulkOrderListParams as CardBulkOrderListParams,
   };
 
   export {
@@ -1362,13 +1362,13 @@ export declare namespace Lithic {
     type DisputeEvidence as DisputeEvidence,
     type DisputesCursorPage as DisputesCursorPage,
     type DisputeEvidencesCursorPage as DisputeEvidencesCursorPage,
-    type DisputeListParams as DisputeListParams,
     type DisputeCreateParams as DisputeCreateParams,
     type DisputeUpdateParams as DisputeUpdateParams,
-    type DisputeListEvidencesParams as DisputeListEvidencesParams,
-    type DisputeInitiateEvidenceUploadParams as DisputeInitiateEvidenceUploadParams,
-    type DisputeRetrieveEvidenceParams as DisputeRetrieveEvidenceParams,
+    type DisputeListParams as DisputeListParams,
     type DisputeDeleteEvidenceParams as DisputeDeleteEvidenceParams,
+    type DisputeInitiateEvidenceUploadParams as DisputeInitiateEvidenceUploadParams,
+    type DisputeListEvidencesParams as DisputeListEvidencesParams,
+    type DisputeRetrieveEvidenceParams as DisputeRetrieveEvidenceParams,
   };
 
   export {
@@ -1403,11 +1403,11 @@ export declare namespace Lithic {
     type FinancialTransaction as FinancialTransaction,
     type StatementTotals as StatementTotals,
     type FinancialAccountsSinglePage as FinancialAccountsSinglePage,
-    type FinancialAccountListParams as FinancialAccountListParams,
-    type FinancialAccountUpdateParams as FinancialAccountUpdateParams,
-    type FinancialAccountUpdateStatusParams as FinancialAccountUpdateStatusParams,
     type FinancialAccountCreateParams as FinancialAccountCreateParams,
+    type FinancialAccountUpdateParams as FinancialAccountUpdateParams,
+    type FinancialAccountListParams as FinancialAccountListParams,
     type FinancialAccountRegisterAccountNumberParams as FinancialAccountRegisterAccountNumberParams,
+    type FinancialAccountUpdateStatusParams as FinancialAccountUpdateStatusParams,
   };
 
   export {
@@ -1425,15 +1425,15 @@ export declare namespace Lithic {
     type TransactionSimulateVoidResponse as TransactionSimulateVoidResponse,
     type TransactionsCursorPage as TransactionsCursorPage,
     type TransactionListParams as TransactionListParams,
+    type TransactionRouteParams as TransactionRouteParams,
     type TransactionSimulateAuthorizationParams as TransactionSimulateAuthorizationParams,
+    type TransactionSimulateAuthorizationAdviceParams as TransactionSimulateAuthorizationAdviceParams,
     type TransactionSimulateClearingParams as TransactionSimulateClearingParams,
+    type TransactionSimulateCreditAuthorizationParams as TransactionSimulateCreditAuthorizationParams,
+    type TransactionSimulateCreditAuthorizationAdviceParams as TransactionSimulateCreditAuthorizationAdviceParams,
     type TransactionSimulateReturnParams as TransactionSimulateReturnParams,
     type TransactionSimulateReturnReversalParams as TransactionSimulateReturnReversalParams,
     type TransactionSimulateVoidParams as TransactionSimulateVoidParams,
-    type TransactionSimulateCreditAuthorizationParams as TransactionSimulateCreditAuthorizationParams,
-    type TransactionSimulateCreditAuthorizationAdviceParams as TransactionSimulateCreditAuthorizationAdviceParams,
-    type TransactionSimulateAuthorizationAdviceParams as TransactionSimulateAuthorizationAdviceParams,
-    type TransactionRouteParams as TransactionRouteParams,
   };
 
   export {
@@ -1457,9 +1457,9 @@ export declare namespace Lithic {
     type ExternalBankAccountListResponse as ExternalBankAccountListResponse,
     type ExternalBankAccountRetryMicroDepositsResponse as ExternalBankAccountRetryMicroDepositsResponse,
     type ExternalBankAccountListResponsesCursorPage as ExternalBankAccountListResponsesCursorPage,
-    type ExternalBankAccountListParams as ExternalBankAccountListParams,
     type ExternalBankAccountCreateParams as ExternalBankAccountCreateParams,
     type ExternalBankAccountUpdateParams as ExternalBankAccountUpdateParams,
+    type ExternalBankAccountListParams as ExternalBankAccountListParams,
     type ExternalBankAccountRetryMicroDepositsParams as ExternalBankAccountRetryMicroDepositsParams,
     type ExternalBankAccountRetryPrenoteParams as ExternalBankAccountRetryPrenoteParams,
     type ExternalBankAccountSetVerificationMethodParams as ExternalBankAccountSetVerificationMethodParams,
@@ -1475,13 +1475,13 @@ export declare namespace Lithic {
     type PaymentSimulateReleaseResponse as PaymentSimulateReleaseResponse,
     type PaymentSimulateReturnResponse as PaymentSimulateReturnResponse,
     type PaymentsCursorPage as PaymentsCursorPage,
-    type PaymentListParams as PaymentListParams,
     type PaymentCreateParams as PaymentCreateParams,
+    type PaymentListParams as PaymentListParams,
+    type PaymentReturnParams as PaymentReturnParams,
+    type PaymentSimulateActionParams as PaymentSimulateActionParams,
+    type PaymentSimulateReceiptParams as PaymentSimulateReceiptParams,
     type PaymentSimulateReleaseParams as PaymentSimulateReleaseParams,
     type PaymentSimulateReturnParams as PaymentSimulateReturnParams,
-    type PaymentReturnParams as PaymentReturnParams,
-    type PaymentSimulateReceiptParams as PaymentSimulateReceiptParams,
-    type PaymentSimulateActionParams as PaymentSimulateActionParams,
   };
 
   export { ThreeDS as ThreeDS, type ThreeDSAuthentication as ThreeDSAuthentication };
@@ -1512,10 +1512,10 @@ export declare namespace Lithic {
     BookTransfers as BookTransfers,
     type BookTransferResponse as BookTransferResponse,
     type BookTransferResponsesCursorPage as BookTransferResponsesCursorPage,
-    type BookTransferListParams as BookTransferListParams,
     type BookTransferCreateParams as BookTransferCreateParams,
-    type BookTransferReverseParams as BookTransferReverseParams,
+    type BookTransferListParams as BookTransferListParams,
     type BookTransferRetryParams as BookTransferRetryParams,
+    type BookTransferReverseParams as BookTransferReverseParams,
   };
 
   export { CreditProducts as CreditProducts };
@@ -1524,12 +1524,12 @@ export declare namespace Lithic {
     ExternalPayments as ExternalPayments,
     type ExternalPayment as ExternalPayment,
     type ExternalPaymentsCursorPage as ExternalPaymentsCursorPage,
-    type ExternalPaymentListParams as ExternalPaymentListParams,
     type ExternalPaymentCreateParams as ExternalPaymentCreateParams,
-    type ExternalPaymentSettleParams as ExternalPaymentSettleParams,
-    type ExternalPaymentReleaseParams as ExternalPaymentReleaseParams,
+    type ExternalPaymentListParams as ExternalPaymentListParams,
     type ExternalPaymentCancelParams as ExternalPaymentCancelParams,
+    type ExternalPaymentReleaseParams as ExternalPaymentReleaseParams,
     type ExternalPaymentReverseParams as ExternalPaymentReverseParams,
+    type ExternalPaymentSettleParams as ExternalPaymentSettleParams,
   };
 
   export {
@@ -1538,8 +1538,8 @@ export declare namespace Lithic {
     type ExternalResourceType as ExternalResourceType,
     type ManagementOperationTransaction as ManagementOperationTransaction,
     type ManagementOperationTransactionsCursorPage as ManagementOperationTransactionsCursorPage,
-    type ManagementOperationListParams as ManagementOperationListParams,
     type ManagementOperationCreateParams as ManagementOperationCreateParams,
+    type ManagementOperationListParams as ManagementOperationListParams,
     type ManagementOperationReverseParams as ManagementOperationReverseParams,
   };
 
@@ -1570,8 +1570,8 @@ export declare namespace Lithic {
     type Hold as Hold,
     type HoldEvent as HoldEvent,
     type HoldsCursorPage as HoldsCursorPage,
-    type HoldListParams as HoldListParams,
     type HoldCreateParams as HoldCreateParams,
+    type HoldListParams as HoldListParams,
     type HoldVoidParams as HoldVoidParams,
   };
 

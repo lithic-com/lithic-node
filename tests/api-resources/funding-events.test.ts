@@ -8,6 +8,17 @@ const client = new Lithic({
 });
 
 describe('resource fundingEvents', () => {
+  test('retrieve', async () => {
+    const responsePromise = client.fundingEvents.retrieve('funding_event_token');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
   test('list', async () => {
     const responsePromise = client.fundingEvents.list();
     const rawResponse = await responsePromise.asResponse();
@@ -31,17 +42,6 @@ describe('resource fundingEvents', () => {
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Lithic.NotFoundError);
-  });
-
-  test('retrieve', async () => {
-    const responsePromise = client.fundingEvents.retrieve('funding_event_token');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   test('retrieveDetails', async () => {

@@ -7,20 +7,6 @@ import { path } from '../../internal/utils/path';
 
 export class PrimeRates extends APIResource {
   /**
-   * Get Credit Product Prime Rates
-   */
-  retrieve(
-    creditProductToken: string,
-    query: PrimeRateRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<PrimeRateRetrieveResponse> {
-    return this._client.get(path`/v1/credit_products/${creditProductToken}/prime_rates`, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
    * Post Credit Product Prime Rate
    */
   create(
@@ -30,6 +16,20 @@ export class PrimeRates extends APIResource {
   ): APIPromise<void> {
     return this._client.post(path`/v1/credit_products/${creditProductToken}/prime_rates`, {
       body,
+      ...options,
+    });
+  }
+
+  /**
+   * Get Credit Product Prime Rates
+   */
+  retrieve(
+    creditProductToken: string,
+    query: PrimeRateRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<PrimeRateRetrieveResponse> {
+    return this._client.get(path`/v1/credit_products/${creditProductToken}/prime_rates`, {
+      query,
       ...options,
     });
   }
@@ -61,18 +61,6 @@ export namespace PrimeRateRetrieveResponse {
   }
 }
 
-export interface PrimeRateRetrieveParams {
-  /**
-   * The effective date that the prime rates ends before
-   */
-  ending_before?: string;
-
-  /**
-   * The effective date that the prime rate starts after
-   */
-  starting_after?: string;
-}
-
 export interface PrimeRateCreateParams {
   /**
    * Date the rate goes into effect
@@ -85,10 +73,22 @@ export interface PrimeRateCreateParams {
   rate: string;
 }
 
+export interface PrimeRateRetrieveParams {
+  /**
+   * The effective date that the prime rates ends before
+   */
+  ending_before?: string;
+
+  /**
+   * The effective date that the prime rate starts after
+   */
+  starting_after?: string;
+}
+
 export declare namespace PrimeRates {
   export {
     type PrimeRateRetrieveResponse as PrimeRateRetrieveResponse,
-    type PrimeRateRetrieveParams as PrimeRateRetrieveParams,
     type PrimeRateCreateParams as PrimeRateCreateParams,
+    type PrimeRateRetrieveParams as PrimeRateRetrieveParams,
   };
 }

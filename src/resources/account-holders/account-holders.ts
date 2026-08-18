@@ -77,6 +77,21 @@ export class AccountHolders extends APIResource {
   }
 
   /**
+   * Get an Individual or Business Account Holder and/or their KYC or KYB evaluation
+   * status.
+   *
+   * @example
+   * ```ts
+   * const accountHolder = await client.accountHolders.retrieve(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  retrieve(accountHolderToken: string, options?: RequestOptions): APIPromise<AccountHolder> {
+    return this._client.get(path`/v1/account_holders/${accountHolderToken}`, options);
+  }
+
+  /**
    * Update the information associated with a particular account holder (including
    * business owners and control persons associated to a business account). If Lithic
    * is performing KYB or KYC and additional verification is required we will run the
@@ -116,57 +131,22 @@ export class AccountHolders extends APIResource {
   }
 
   /**
-   * Get an Individual or Business Account Holder and/or their KYC or KYB evaluation
-   * status.
+   * Get a list of individual or business account holders and their KYC or KYB
+   * evaluation status.
    *
    * @example
    * ```ts
-   * const accountHolder = await client.accountHolders.retrieve(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
+   * // Automatically fetches more pages as needed.
+   * for await (const accountHolder of client.accountHolders.list()) {
+   *   // ...
+   * }
    * ```
    */
-  retrieve(accountHolderToken: string, options?: RequestOptions): APIPromise<AccountHolder> {
-    return this._client.get(path`/v1/account_holders/${accountHolderToken}`, options);
-  }
-
-  /**
-   * Use this endpoint to identify which type of supported government-issued
-   * documentation you will upload for further verification. It will return two URLs
-   * to upload your document images to - one for the front image and one for the back
-   * image.
-   *
-   * This endpoint is only valid for evaluations in a `PENDING_DOCUMENT` state.
-   *
-   * Supported file types include `jpg`, `png`, and `pdf`. Each file must be less
-   * than 15 MiB. Once both required uploads have been successfully completed, your
-   * document will be run through KYC verification.
-   *
-   * If you have registered a webhook, you will receive evaluation updates for any
-   * document submission evaluations, as well as for any failed document uploads.
-   *
-   * Two document submission attempts are permitted via this endpoint before a
-   * `REJECTED` status is returned and the account creation process is ended.
-   * Currently only one type of account holder document is supported per KYC
-   * verification.
-   *
-   * @example
-   * ```ts
-   * const document = await client.accountHolders.uploadDocument(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   {
-   *     document_type: 'EIN_LETTER',
-   *     entity_token: '83cf25ae-c14f-4d10-9fa2-0119f36c7286',
-   *   },
-   * );
-   * ```
-   */
-  uploadDocument(
-    accountHolderToken: string,
-    body: AccountHolderUploadDocumentParams,
+  list(
+    query: AccountHolderListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<Shared.Document> {
-    return this._client.post(path`/v1/account_holders/${accountHolderToken}/documents`, { body, ...options });
+  ): PagePromise<AccountHoldersSinglePage, AccountHolder> {
+    return this._client.getAPIList('/v1/account_holders', SinglePage<AccountHolder>, { query, ...options });
   }
 
   /**
@@ -241,22 +221,25 @@ export class AccountHolders extends APIResource {
   }
 
   /**
-   * Get a list of individual or business account holders and their KYC or KYB
-   * evaluation status.
+   * Simulates a review for an account holder document upload.
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const accountHolder of client.accountHolders.list()) {
-   *   // ...
-   * }
+   * const document =
+   *   await client.accountHolders.simulateEnrollmentDocumentReview(
+   *     {
+   *       document_upload_token:
+   *         'b11cd67b-0a52-4180-8365-314f3def5426',
+   *       status: 'UPLOADED',
+   *     },
+   *   );
    * ```
    */
-  list(
-    query: AccountHolderListParams | null | undefined = {},
+  simulateEnrollmentDocumentReview(
+    body: AccountHolderSimulateEnrollmentDocumentReviewParams,
     options?: RequestOptions,
-  ): PagePromise<AccountHoldersSinglePage, AccountHolder> {
-    return this._client.getAPIList('/v1/account_holders', SinglePage<AccountHolder>, { query, ...options });
+  ): APIPromise<Shared.Document> {
+    return this._client.post('/v1/simulate/account_holders/enrollment_document_review', { body, ...options });
   }
 
   /**
@@ -282,25 +265,42 @@ export class AccountHolders extends APIResource {
   }
 
   /**
-   * Simulates a review for an account holder document upload.
+   * Use this endpoint to identify which type of supported government-issued
+   * documentation you will upload for further verification. It will return two URLs
+   * to upload your document images to - one for the front image and one for the back
+   * image.
+   *
+   * This endpoint is only valid for evaluations in a `PENDING_DOCUMENT` state.
+   *
+   * Supported file types include `jpg`, `png`, and `pdf`. Each file must be less
+   * than 15 MiB. Once both required uploads have been successfully completed, your
+   * document will be run through KYC verification.
+   *
+   * If you have registered a webhook, you will receive evaluation updates for any
+   * document submission evaluations, as well as for any failed document uploads.
+   *
+   * Two document submission attempts are permitted via this endpoint before a
+   * `REJECTED` status is returned and the account creation process is ended.
+   * Currently only one type of account holder document is supported per KYC
+   * verification.
    *
    * @example
    * ```ts
-   * const document =
-   *   await client.accountHolders.simulateEnrollmentDocumentReview(
-   *     {
-   *       document_upload_token:
-   *         'b11cd67b-0a52-4180-8365-314f3def5426',
-   *       status: 'UPLOADED',
-   *     },
-   *   );
+   * const document = await client.accountHolders.uploadDocument(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   {
+   *     document_type: 'EIN_LETTER',
+   *     entity_token: '83cf25ae-c14f-4d10-9fa2-0119f36c7286',
+   *   },
+   * );
    * ```
    */
-  simulateEnrollmentDocumentReview(
-    body: AccountHolderSimulateEnrollmentDocumentReviewParams,
+  uploadDocument(
+    accountHolderToken: string,
+    body: AccountHolderUploadDocumentParams,
     options?: RequestOptions,
   ): APIPromise<Shared.Document> {
-    return this._client.post('/v1/simulate/account_holders/enrollment_document_review', { body, ...options });
+    return this._client.post(path`/v1/account_holders/${accountHolderToken}/documents`, { body, ...options });
   }
 }
 
@@ -3130,44 +3130,6 @@ export declare namespace AccountHolderUpdateParams {
   }
 }
 
-export interface AccountHolderUploadDocumentParams {
-  /**
-   * The type of document to upload
-   */
-  document_type:
-    | 'EIN_LETTER'
-    | 'TAX_RETURN'
-    | 'OPERATING_AGREEMENT'
-    | 'CERTIFICATE_OF_FORMATION'
-    | 'DRIVERS_LICENSE'
-    | 'PASSPORT'
-    | 'PASSPORT_CARD'
-    | 'CERTIFICATE_OF_GOOD_STANDING'
-    | 'ARTICLES_OF_INCORPORATION'
-    | 'ARTICLES_OF_ORGANIZATION'
-    | 'BYLAWS'
-    | 'GOVERNMENT_BUSINESS_LICENSE'
-    | 'PARTNERSHIP_AGREEMENT'
-    | 'SS4_FORM'
-    | 'BANK_STATEMENT'
-    | 'UTILITY_BILL_STATEMENT'
-    | 'SSN_CARD'
-    | 'ITIN_LETTER'
-    | 'FINCEN_BOI_REPORT';
-
-  /**
-   * Globally unique identifier for the entity.
-   */
-  entity_token: string;
-}
-
-export interface AccountHolderRetrieveDocumentParams {
-  /**
-   * Globally unique identifier for the account holder.
-   */
-  account_holder_token: string;
-}
-
 export interface AccountHolderListParams {
   /**
    * Date string in RFC 3339 format. Only entries created after the specified time
@@ -3233,40 +3195,11 @@ export interface AccountHolderListParams {
   starting_after?: string;
 }
 
-export interface AccountHolderSimulateEnrollmentReviewParams {
+export interface AccountHolderRetrieveDocumentParams {
   /**
-   * The account holder which to perform the simulation upon.
+   * Globally unique identifier for the account holder.
    */
-  account_holder_token?: string;
-
-  /**
-   * An account holder's status for use within the simulation.
-   */
-  status?: 'ACCEPTED' | 'REJECTED' | 'PENDING_REVIEW';
-
-  /**
-   * Status reason that will be associated with the simulated account holder status.
-   * Only required for a `REJECTED` status.
-   */
-  status_reasons?: Array<
-    | 'PRIMARY_BUSINESS_ENTITY_ID_VERIFICATION_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_NAME_VERIFICATION_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_BUSINESS_OFFICERS_NOT_MATCHED'
-    | 'PRIMARY_BUSINESS_ENTITY_SOS_FILING_INACTIVE'
-    | 'PRIMARY_BUSINESS_ENTITY_SOS_NOT_MATCHED'
-    | 'PRIMARY_BUSINESS_ENTITY_CMRA_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_WATCHLIST_FAILURE'
-    | 'PRIMARY_BUSINESS_ENTITY_REGISTERED_AGENT_FAILURE'
-    | 'CONTROL_PERSON_BLOCKLIST_ALERT_FAILURE'
-    | 'CONTROL_PERSON_ID_VERIFICATION_FAILURE'
-    | 'CONTROL_PERSON_DOB_VERIFICATION_FAILURE'
-    | 'CONTROL_PERSON_NAME_VERIFICATION_FAILURE'
-    | 'BENEFICIAL_OWNER_INDIVIDUAL_DOB_VERIFICATION_FAILURE'
-    | 'BENEFICIAL_OWNER_INDIVIDUAL_BLOCKLIST_ALERT_FAILURE'
-    | 'BENEFICIAL_OWNER_INDIVIDUAL_ID_VERIFICATION_FAILURE'
-    | 'BENEFICIAL_OWNER_INDIVIDUAL_NAME_VERIFICATION_FAILURE'
-  >;
+  account_holder_token: string;
 }
 
 export interface AccountHolderSimulateEnrollmentDocumentReviewParams {
@@ -3303,6 +3236,73 @@ export interface AccountHolderSimulateEnrollmentDocumentReviewParams {
     | 'UNKNOWN_ERROR';
 }
 
+export interface AccountHolderSimulateEnrollmentReviewParams {
+  /**
+   * The account holder which to perform the simulation upon.
+   */
+  account_holder_token?: string;
+
+  /**
+   * An account holder's status for use within the simulation.
+   */
+  status?: 'ACCEPTED' | 'REJECTED' | 'PENDING_REVIEW';
+
+  /**
+   * Status reason that will be associated with the simulated account holder status.
+   * Only required for a `REJECTED` status.
+   */
+  status_reasons?: Array<
+    | 'PRIMARY_BUSINESS_ENTITY_ID_VERIFICATION_FAILURE'
+    | 'PRIMARY_BUSINESS_ENTITY_ADDRESS_VERIFICATION_FAILURE'
+    | 'PRIMARY_BUSINESS_ENTITY_NAME_VERIFICATION_FAILURE'
+    | 'PRIMARY_BUSINESS_ENTITY_BUSINESS_OFFICERS_NOT_MATCHED'
+    | 'PRIMARY_BUSINESS_ENTITY_SOS_FILING_INACTIVE'
+    | 'PRIMARY_BUSINESS_ENTITY_SOS_NOT_MATCHED'
+    | 'PRIMARY_BUSINESS_ENTITY_CMRA_FAILURE'
+    | 'PRIMARY_BUSINESS_ENTITY_WATCHLIST_FAILURE'
+    | 'PRIMARY_BUSINESS_ENTITY_REGISTERED_AGENT_FAILURE'
+    | 'CONTROL_PERSON_BLOCKLIST_ALERT_FAILURE'
+    | 'CONTROL_PERSON_ID_VERIFICATION_FAILURE'
+    | 'CONTROL_PERSON_DOB_VERIFICATION_FAILURE'
+    | 'CONTROL_PERSON_NAME_VERIFICATION_FAILURE'
+    | 'BENEFICIAL_OWNER_INDIVIDUAL_DOB_VERIFICATION_FAILURE'
+    | 'BENEFICIAL_OWNER_INDIVIDUAL_BLOCKLIST_ALERT_FAILURE'
+    | 'BENEFICIAL_OWNER_INDIVIDUAL_ID_VERIFICATION_FAILURE'
+    | 'BENEFICIAL_OWNER_INDIVIDUAL_NAME_VERIFICATION_FAILURE'
+  >;
+}
+
+export interface AccountHolderUploadDocumentParams {
+  /**
+   * The type of document to upload
+   */
+  document_type:
+    | 'EIN_LETTER'
+    | 'TAX_RETURN'
+    | 'OPERATING_AGREEMENT'
+    | 'CERTIFICATE_OF_FORMATION'
+    | 'DRIVERS_LICENSE'
+    | 'PASSPORT'
+    | 'PASSPORT_CARD'
+    | 'CERTIFICATE_OF_GOOD_STANDING'
+    | 'ARTICLES_OF_INCORPORATION'
+    | 'ARTICLES_OF_ORGANIZATION'
+    | 'BYLAWS'
+    | 'GOVERNMENT_BUSINESS_LICENSE'
+    | 'PARTNERSHIP_AGREEMENT'
+    | 'SS4_FORM'
+    | 'BANK_STATEMENT'
+    | 'UTILITY_BILL_STATEMENT'
+    | 'SSN_CARD'
+    | 'ITIN_LETTER'
+    | 'FINCEN_BOI_REPORT';
+
+  /**
+   * Globally unique identifier for the entity.
+   */
+  entity_token: string;
+}
+
 AccountHolders.Entities = Entities;
 
 export declare namespace AccountHolders {
@@ -3321,11 +3321,11 @@ export declare namespace AccountHolders {
     type AccountHoldersSinglePage as AccountHoldersSinglePage,
     type AccountHolderCreateParams as AccountHolderCreateParams,
     type AccountHolderUpdateParams as AccountHolderUpdateParams,
-    type AccountHolderUploadDocumentParams as AccountHolderUploadDocumentParams,
-    type AccountHolderRetrieveDocumentParams as AccountHolderRetrieveDocumentParams,
     type AccountHolderListParams as AccountHolderListParams,
-    type AccountHolderSimulateEnrollmentReviewParams as AccountHolderSimulateEnrollmentReviewParams,
+    type AccountHolderRetrieveDocumentParams as AccountHolderRetrieveDocumentParams,
     type AccountHolderSimulateEnrollmentDocumentReviewParams as AccountHolderSimulateEnrollmentDocumentReviewParams,
+    type AccountHolderSimulateEnrollmentReviewParams as AccountHolderSimulateEnrollmentReviewParams,
+    type AccountHolderUploadDocumentParams as AccountHolderUploadDocumentParams,
   };
 
   export {

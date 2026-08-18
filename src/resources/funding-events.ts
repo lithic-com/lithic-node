@@ -8,6 +8,13 @@ import { path } from '../internal/utils/path';
 
 export class FundingEvents extends APIResource {
   /**
+   * Get funding event for program by id
+   */
+  retrieve(fundingEventToken: string, options?: RequestOptions): APIPromise<FundingEvent> {
+    return this._client.get(path`/v1/funding_events/${fundingEventToken}`, options);
+  }
+
+  /**
    * Get all funding events for program
    */
   list(
@@ -15,13 +22,6 @@ export class FundingEvents extends APIResource {
     options?: RequestOptions,
   ): PagePromise<FundingEventsCursorPage, FundingEvent> {
     return this._client.getAPIList('/v1/funding_events', CursorPage<FundingEvent>, { query, ...options });
-  }
-
-  /**
-   * Get funding event for program by id
-   */
-  retrieve(fundingEventToken: string, options?: RequestOptions): APIPromise<FundingEvent> {
-    return this._client.get(path`/v1/funding_events/${fundingEventToken}`, options);
   }
 
   /**

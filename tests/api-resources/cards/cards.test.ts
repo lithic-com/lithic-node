@@ -8,36 +8,6 @@ const client = new Lithic({
 });
 
 describe('resource cards', () => {
-  test('list', async () => {
-    const responsePromise = client.cards.list();
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('list: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.cards.list(
-        {
-          account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          begin: '2019-12-27T18:11:19.117Z',
-          end: '2019-12-27T18:11:19.117Z',
-          ending_before: 'ending_before',
-          memo: 'memo',
-          page_size: 1,
-          starting_after: 'starting_after',
-          state: 'CLOSED',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
-  });
-
   test('create: only required params', async () => {
     const responsePromise = client.cards.create({ type: 'VIRTUAL' });
     const rawResponse = await responsePromise.asResponse();
@@ -109,8 +79,8 @@ describe('resource cards', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('provision', async () => {
-    const responsePromise = client.cards.provision('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
+  test('list', async () => {
+    const responsePromise = client.cards.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -120,8 +90,37 @@ describe('resource cards', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('reissue', async () => {
-    const responsePromise = client.cards.reissue('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
+  test('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.cards.list(
+        {
+          account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          begin: '2019-12-27T18:11:19.117Z',
+          end: '2019-12-27T18:11:19.117Z',
+          ending_before: 'ending_before',
+          memo: 'memo',
+          page_size: 1,
+          starting_after: 'starting_after',
+          state: 'CLOSED',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Lithic.NotFoundError);
+  });
+
+  test('convertPhysical: only required params', async () => {
+    const responsePromise = client.cards.convertPhysical('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      shipping_address: {
+        address1: '5 Broad Street',
+        city: 'NEW YORK',
+        country: 'USA',
+        first_name: 'Janet',
+        last_name: 'Yellen',
+        postal_code: '10001',
+        state: 'NY',
+      },
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -129,6 +128,27 @@ describe('resource cards', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('convertPhysical: required and optional params', async () => {
+    const response = await client.cards.convertPhysical('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      shipping_address: {
+        address1: '5 Broad Street',
+        city: 'NEW YORK',
+        country: 'USA',
+        first_name: 'Janet',
+        last_name: 'Yellen',
+        postal_code: '10001',
+        state: 'NY',
+        address2: 'Unit 5A',
+        email: 'johnny@appleseed.com',
+        line2_text: 'The Bluth Company',
+        phone_number: '+15555555555',
+      },
+      carrier: { qr_code_url: 'https://lithic.com/activate-card/1' },
+      product_id: '100',
+      shipping_method: 'STANDARD',
+    });
   });
 
   test('embed: only required params', async () => {
@@ -156,8 +176,8 @@ describe('resource cards', () => {
     expect(url).toContain('hmac');
   });
 
-  test('retrieveSpendLimits', async () => {
-    const responsePromise = client.cards.retrieveSpendLimits('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+  test('provision', async () => {
+    const responsePromise = client.cards.provision('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -167,8 +187,8 @@ describe('resource cards', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('retrieveSignals', async () => {
-    const responsePromise = client.cards.retrieveSignals('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+  test('reissue', async () => {
+    const responsePromise = client.cards.reissue('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -222,6 +242,28 @@ describe('resource cards', () => {
     });
   });
 
+  test('retrieveSignals', async () => {
+    const responsePromise = client.cards.retrieveSignals('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('retrieveSpendLimits', async () => {
+    const responsePromise = client.cards.retrieveSpendLimits('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
   test('searchByPan: only required params', async () => {
     const responsePromise = client.cards.searchByPan({ pan: '4111111289144142' });
     const rawResponse = await responsePromise.asResponse();
@@ -235,48 +277,6 @@ describe('resource cards', () => {
 
   test('searchByPan: required and optional params', async () => {
     const response = await client.cards.searchByPan({ pan: '4111111289144142' });
-  });
-
-  test('convertPhysical: only required params', async () => {
-    const responsePromise = client.cards.convertPhysical('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      shipping_address: {
-        address1: '5 Broad Street',
-        city: 'NEW YORK',
-        country: 'USA',
-        first_name: 'Janet',
-        last_name: 'Yellen',
-        postal_code: '10001',
-        state: 'NY',
-      },
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('convertPhysical: required and optional params', async () => {
-    const response = await client.cards.convertPhysical('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      shipping_address: {
-        address1: '5 Broad Street',
-        city: 'NEW YORK',
-        country: 'USA',
-        first_name: 'Janet',
-        last_name: 'Yellen',
-        postal_code: '10001',
-        state: 'NY',
-        address2: 'Unit 5A',
-        email: 'johnny@appleseed.com',
-        line2_text: 'The Bluth Company',
-        phone_number: '+15555555555',
-      },
-      carrier: { qr_code_url: 'https://lithic.com/activate-card/1' },
-      product_id: '100',
-      shipping_method: 'STANDARD',
-    });
   });
 
   test('webProvision', async () => {

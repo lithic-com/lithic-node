@@ -58,8 +58,8 @@ export declare namespace TransactionMonitoring {
     type MonitoringCasesCursorPage as MonitoringCasesCursorPage,
     type CaseActivityEntriesCursorPage as CaseActivityEntriesCursorPage,
     type CaseTransactionsCursorPage as CaseTransactionsCursorPage,
-    type CaseListParams as CaseListParams,
     type CaseUpdateParams as CaseUpdateParams,
+    type CaseListParams as CaseListParams,
     type CaseListActivityParams as CaseListActivityParams,
     type CaseListTransactionsParams as CaseListTransactionsParams,
   };
@@ -69,7 +69,7 @@ export declare namespace TransactionMonitoring {
     type Queue as Queue,
     type QueuesCursorPage as QueuesCursorPage,
     type QueueCreateParams as QueueCreateParams,
-    type QueueListParams as QueueListParams,
     type QueueUpdateParams as QueueUpdateParams,
+    type QueueListParams as QueueListParams,
   };
 }

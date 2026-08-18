@@ -8,37 +8,6 @@ const client = new Lithic({
 });
 
 describe('resource externalBankAccounts', () => {
-  test('list', async () => {
-    const responsePromise = client.externalBankAccounts.list();
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('list: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.externalBankAccounts.list(
-        {
-          account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          account_types: ['CHECKING'],
-          countries: ['string'],
-          ending_before: 'ending_before',
-          owner_types: ['INDIVIDUAL'],
-          page_size: 1,
-          starting_after: 'starting_after',
-          states: ['ENABLED'],
-          verification_states: ['PENDING'],
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
-  });
-
   test('create: only required params', async () => {
     const responsePromise = client.externalBankAccounts.create({
       account_number: '12345678901234567',
@@ -111,6 +80,48 @@ describe('resource externalBankAccounts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
+  test('list', async () => {
+    const responsePromise = client.externalBankAccounts.list();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.externalBankAccounts.list(
+        {
+          account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          account_types: ['CHECKING'],
+          countries: ['string'],
+          ending_before: 'ending_before',
+          owner_types: ['INDIVIDUAL'],
+          page_size: 1,
+          starting_after: 'starting_after',
+          states: ['ENABLED'],
+          verification_states: ['PENDING'],
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Lithic.NotFoundError);
+  });
+
+  test('pause', async () => {
+    const responsePromise = client.externalBankAccounts.pause('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
   test('retryMicroDeposits', async () => {
     const responsePromise = client.externalBankAccounts.retryMicroDeposits(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -157,28 +168,6 @@ describe('resource externalBankAccounts', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  test('pause', async () => {
-    const responsePromise = client.externalBankAccounts.pause('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('unpause', async () => {
-    const responsePromise = client.externalBankAccounts.unpause('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
   test('setVerificationMethod: only required params', async () => {
     const responsePromise = client.externalBankAccounts.setVerificationMethod(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -201,5 +190,16 @@ describe('resource externalBankAccounts', () => {
         financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       },
     );
+  });
+
+  test('unpause', async () => {
+    const responsePromise = client.externalBankAccounts.unpause('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 });

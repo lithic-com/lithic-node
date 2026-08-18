@@ -8,24 +8,6 @@ import { path } from '../internal/utils/path';
 
 export class CardBulkOrders extends APIResource {
   /**
-   * List bulk orders for physical card shipments
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const cardBulkOrder of client.cardBulkOrders.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: CardBulkOrderListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<CardBulkOrdersCursorPage, CardBulkOrder> {
-    return this._client.getAPIList('/v1/card_bulk_orders', CursorPage<CardBulkOrder>, { query, ...options });
-  }
-
-  /**
    * Create a new bulk order for physical card shipments. Cards can be added to the
    * order via the POST /v1/cards endpoint by specifying the bulk_order_token. Lock
    * the order via PATCH /v1/card_bulk_orders/{bulk_order_token} to prepare for
@@ -86,6 +68,24 @@ export class CardBulkOrders extends APIResource {
   ): APIPromise<CardBulkOrder> {
     return this._client.patch(path`/v1/card_bulk_orders/${bulkOrderToken}`, { body, ...options });
   }
+
+  /**
+   * List bulk orders for physical card shipments
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const cardBulkOrder of client.cardBulkOrders.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: CardBulkOrderListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<CardBulkOrdersCursorPage, CardBulkOrder> {
+    return this._client.getAPIList('/v1/card_bulk_orders', CursorPage<CardBulkOrder>, { query, ...options });
+  }
 }
 
 export type CardBulkOrdersCursorPage = CursorPage<CardBulkOrder>;
@@ -138,20 +138,6 @@ export interface CardBulkOrder {
   updated: string;
 }
 
-export interface CardBulkOrderListParams extends CursorPageParams {
-  /**
-   * Date string in RFC 3339 format. Only entries created after the specified time
-   * will be included. UTC time zone.
-   */
-  begin?: string;
-
-  /**
-   * Date string in RFC 3339 format. Only entries created before the specified time
-   * will be included. UTC time zone.
-   */
-  end?: string;
-}
-
 export interface CardBulkOrderCreateParams {
   /**
    * Customer-specified product configuration for physical card manufacturing. This
@@ -178,12 +164,26 @@ export interface CardBulkOrderUpdateParams {
   status: 'LOCKED';
 }
 
+export interface CardBulkOrderListParams extends CursorPageParams {
+  /**
+   * Date string in RFC 3339 format. Only entries created after the specified time
+   * will be included. UTC time zone.
+   */
+  begin?: string;
+
+  /**
+   * Date string in RFC 3339 format. Only entries created before the specified time
+   * will be included. UTC time zone.
+   */
+  end?: string;
+}
+
 export declare namespace CardBulkOrders {
   export {
     type CardBulkOrder as CardBulkOrder,
     type CardBulkOrdersCursorPage as CardBulkOrdersCursorPage,
-    type CardBulkOrderListParams as CardBulkOrderListParams,
     type CardBulkOrderCreateParams as CardBulkOrderCreateParams,
     type CardBulkOrderUpdateParams as CardBulkOrderUpdateParams,
+    type CardBulkOrderListParams as CardBulkOrderListParams,
   };
 }

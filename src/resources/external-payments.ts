@@ -8,19 +8,6 @@ import { path } from '../internal/utils/path';
 
 export class ExternalPayments extends APIResource {
   /**
-   * List external payments
-   */
-  list(
-    query: ExternalPaymentListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<ExternalPaymentsCursorPage, ExternalPayment> {
-    return this._client.getAPIList('/v1/external_payments', CursorPage<ExternalPayment>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
    * Create external payment
    */
   create(body: ExternalPaymentCreateParams, options?: RequestOptions): APIPromise<ExternalPayment> {
@@ -35,14 +22,27 @@ export class ExternalPayments extends APIResource {
   }
 
   /**
-   * Settle external payment
+   * List external payments
    */
-  settle(
+  list(
+    query: ExternalPaymentListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ExternalPaymentsCursorPage, ExternalPayment> {
+    return this._client.getAPIList('/v1/external_payments', CursorPage<ExternalPayment>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
+   * Cancel external payment
+   */
+  cancel(
     externalPaymentToken: string,
-    body: ExternalPaymentSettleParams,
+    body: ExternalPaymentCancelParams,
     options?: RequestOptions,
   ): APIPromise<ExternalPayment> {
-    return this._client.post(path`/v1/external_payments/${externalPaymentToken}/settle`, {
+    return this._client.post(path`/v1/external_payments/${externalPaymentToken}/cancel`, {
       body,
       ...options,
     });
@@ -63,20 +63,6 @@ export class ExternalPayments extends APIResource {
   }
 
   /**
-   * Cancel external payment
-   */
-  cancel(
-    externalPaymentToken: string,
-    body: ExternalPaymentCancelParams,
-    options?: RequestOptions,
-  ): APIPromise<ExternalPayment> {
-    return this._client.post(path`/v1/external_payments/${externalPaymentToken}/cancel`, {
-      body,
-      ...options,
-    });
-  }
-
-  /**
    * Reverse external payment
    */
   reverse(
@@ -85,6 +71,20 @@ export class ExternalPayments extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ExternalPayment> {
     return this._client.post(path`/v1/external_payments/${externalPaymentToken}/reverse`, {
+      body,
+      ...options,
+    });
+  }
+
+  /**
+   * Settle external payment
+   */
+  settle(
+    externalPaymentToken: string,
+    body: ExternalPaymentSettleParams,
+    options?: RequestOptions,
+  ): APIPromise<ExternalPayment> {
+    return this._client.post(path`/v1/external_payments/${externalPaymentToken}/settle`, {
       body,
       ...options,
     });
@@ -194,6 +194,36 @@ export namespace ExternalPayment {
   }
 }
 
+export interface ExternalPaymentCreateParams {
+  amount: number;
+
+  category:
+    | 'EXTERNAL_WIRE'
+    | 'EXTERNAL_ACH'
+    | 'EXTERNAL_CHECK'
+    | 'EXTERNAL_FEDNOW'
+    | 'EXTERNAL_RTP'
+    | 'EXTERNAL_TRANSFER';
+
+  effective_date: string;
+
+  financial_account_token: string;
+
+  payment_type: 'DEPOSIT' | 'WITHDRAWAL';
+
+  /**
+   * Customer-provided token that will serve as an idempotency token. This token will
+   * become the transaction token.
+   */
+  token?: string;
+
+  memo?: string;
+
+  progress_to?: 'SETTLED' | 'RELEASED';
+
+  user_defined_id?: string;
+}
+
 export interface ExternalPaymentListParams extends CursorPageParams {
   /**
    * Date string in RFC 3339 format. Only entries created after the specified time
@@ -237,51 +267,13 @@ export interface ExternalPaymentListParams extends CursorPageParams {
   status?: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED';
 }
 
-export interface ExternalPaymentCreateParams {
-  amount: number;
-
-  category:
-    | 'EXTERNAL_WIRE'
-    | 'EXTERNAL_ACH'
-    | 'EXTERNAL_CHECK'
-    | 'EXTERNAL_FEDNOW'
-    | 'EXTERNAL_RTP'
-    | 'EXTERNAL_TRANSFER';
-
-  effective_date: string;
-
-  financial_account_token: string;
-
-  payment_type: 'DEPOSIT' | 'WITHDRAWAL';
-
-  /**
-   * Customer-provided token that will serve as an idempotency token. This token will
-   * become the transaction token.
-   */
-  token?: string;
-
-  memo?: string;
-
-  progress_to?: 'SETTLED' | 'RELEASED';
-
-  user_defined_id?: string;
-}
-
-export interface ExternalPaymentSettleParams {
+export interface ExternalPaymentCancelParams {
   effective_date: string;
 
   memo?: string;
-
-  progress_to?: 'SETTLED' | 'RELEASED';
 }
 
 export interface ExternalPaymentReleaseParams {
-  effective_date: string;
-
-  memo?: string;
-}
-
-export interface ExternalPaymentCancelParams {
   effective_date: string;
 
   memo?: string;
@@ -293,15 +285,23 @@ export interface ExternalPaymentReverseParams {
   memo?: string;
 }
 
+export interface ExternalPaymentSettleParams {
+  effective_date: string;
+
+  memo?: string;
+
+  progress_to?: 'SETTLED' | 'RELEASED';
+}
+
 export declare namespace ExternalPayments {
   export {
     type ExternalPayment as ExternalPayment,
     type ExternalPaymentsCursorPage as ExternalPaymentsCursorPage,
-    type ExternalPaymentListParams as ExternalPaymentListParams,
     type ExternalPaymentCreateParams as ExternalPaymentCreateParams,
-    type ExternalPaymentSettleParams as ExternalPaymentSettleParams,
-    type ExternalPaymentReleaseParams as ExternalPaymentReleaseParams,
+    type ExternalPaymentListParams as ExternalPaymentListParams,
     type ExternalPaymentCancelParams as ExternalPaymentCancelParams,
+    type ExternalPaymentReleaseParams as ExternalPaymentReleaseParams,
     type ExternalPaymentReverseParams as ExternalPaymentReverseParams,
+    type ExternalPaymentSettleParams as ExternalPaymentSettleParams,
   };
 }

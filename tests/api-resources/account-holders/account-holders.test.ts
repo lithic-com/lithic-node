@@ -126,17 +126,6 @@ describe('resource accountHolders', () => {
     });
   });
 
-  test('update', async () => {
-    const responsePromise = client.accountHolders.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
   test('retrieve', async () => {
     const responsePromise = client.accountHolders.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
@@ -148,11 +137,8 @@ describe('resource accountHolders', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('uploadDocument: only required params', async () => {
-    const responsePromise = client.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      document_type: 'EIN_LETTER',
-      entity_token: '83cf25ae-c14f-4d10-9fa2-0119f36c7286',
-    });
+  test('update', async () => {
+    const responsePromise = client.accountHolders.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -160,43 +146,6 @@ describe('resource accountHolders', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('uploadDocument: required and optional params', async () => {
-    const response = await client.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      document_type: 'EIN_LETTER',
-      entity_token: '83cf25ae-c14f-4d10-9fa2-0119f36c7286',
-    });
-  });
-
-  test('listDocuments', async () => {
-    const responsePromise = client.accountHolders.listDocuments('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('retrieveDocument: only required params', async () => {
-    const responsePromise = client.accountHolders.retrieveDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      account_holder_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('retrieveDocument: required and optional params', async () => {
-    const response = await client.accountHolders.retrieveDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      account_holder_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-    });
   });
 
   test('list', async () => {
@@ -232,8 +181,8 @@ describe('resource accountHolders', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  test('simulateEnrollmentReview', async () => {
-    const responsePromise = client.accountHolders.simulateEnrollmentReview({});
+  test('listDocuments', async () => {
+    const responsePromise = client.accountHolders.listDocuments('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -241,6 +190,25 @@ describe('resource accountHolders', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('retrieveDocument: only required params', async () => {
+    const responsePromise = client.accountHolders.retrieveDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      account_holder_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('retrieveDocument: required and optional params', async () => {
+    const response = await client.accountHolders.retrieveDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      account_holder_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
   });
 
   test('simulateEnrollmentDocumentReview: only required params', async () => {
@@ -263,6 +231,38 @@ describe('resource accountHolders', () => {
       status: 'UPLOADED',
       accepted_entity_status_reasons: ['string'],
       status_reason: 'DOCUMENT_MISSING_REQUIRED_DATA',
+    });
+  });
+
+  test('simulateEnrollmentReview', async () => {
+    const responsePromise = client.accountHolders.simulateEnrollmentReview({});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('uploadDocument: only required params', async () => {
+    const responsePromise = client.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      document_type: 'EIN_LETTER',
+      entity_token: '83cf25ae-c14f-4d10-9fa2-0119f36c7286',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('uploadDocument: required and optional params', async () => {
+    const response = await client.accountHolders.uploadDocument('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      document_type: 'EIN_LETTER',
+      entity_token: '83cf25ae-c14f-4d10-9fa2-0119f36c7286',
     });
   });
 });

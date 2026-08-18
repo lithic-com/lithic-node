@@ -31,11 +31,11 @@ Types:
 
 Methods:
 
-- <code title="get /v1/accounts">client.accounts.<a href="./src/resources/accounts.ts">list</a>({ ...params }) -> AccountsCursorPage</code>
 - <code title="get /v1/accounts/{account_token}">client.accounts.<a href="./src/resources/accounts.ts">retrieve</a>(accountToken) -> Account</code>
 - <code title="patch /v1/accounts/{account_token}">client.accounts.<a href="./src/resources/accounts.ts">update</a>(accountToken, { ...params }) -> Account</code>
-- <code title="get /v1/accounts/{account_token}/spend_limits">client.accounts.<a href="./src/resources/accounts.ts">retrieveSpendLimits</a>(accountToken) -> AccountSpendLimits</code>
+- <code title="get /v1/accounts">client.accounts.<a href="./src/resources/accounts.ts">list</a>({ ...params }) -> AccountsCursorPage</code>
 - <code title="get /v1/accounts/{account_token}/signals">client.accounts.<a href="./src/resources/accounts.ts">retrieveSignals</a>(accountToken) -> SignalsResponse</code>
+- <code title="get /v1/accounts/{account_token}/spend_limits">client.accounts.<a href="./src/resources/accounts.ts">retrieveSpendLimits</a>(accountToken) -> AccountSpendLimits</code>
 
 # AccountHolders
 
@@ -56,14 +56,14 @@ Types:
 Methods:
 
 - <code title="post /v1/account_holders">client.accountHolders.<a href="./src/resources/account-holders/account-holders.ts">create</a>({ ...params }) -> AccountHolderCreateResponse</code>
-- <code title="patch /v1/account_holders/{account_holder_token}">client.accountHolders.<a href="./src/resources/account-holders/account-holders.ts">update</a>(accountHolderToken, { ...params }) -> AccountHolderUpdateResponse</code>
 - <code title="get /v1/account_holders/{account_holder_token}">client.accountHolders.<a href="./src/resources/account-holders/account-holders.ts">retrieve</a>(accountHolderToken) -> AccountHolder</code>
-- <code title="post /v1/account_holders/{account_holder_token}/documents">client.accountHolders.<a href="./src/resources/account-holders/account-holders.ts">uploadDocument</a>(accountHolderToken, { ...params }) -> Document</code>
+- <code title="patch /v1/account_holders/{account_holder_token}">client.accountHolders.<a href="./src/resources/account-holders/account-holders.ts">update</a>(accountHolderToken, { ...params }) -> AccountHolderUpdateResponse</code>
+- <code title="get /v1/account_holders">client.accountHolders.<a href="./src/resources/account-holders/account-holders.ts">list</a>({ ...params }) -> AccountHoldersSinglePage</code>
 - <code title="get /v1/account_holders/{account_holder_token}/documents">client.accountHolders.<a href="./src/resources/account-holders/account-holders.ts">listDocuments</a>(accountHolderToken) -> AccountHolderListDocumentsResponse</code>
 - <code title="get /v1/account_holders/{account_holder_token}/documents/{document_token}">client.accountHolders.<a href="./src/resources/account-holders/account-holders.ts">retrieveDocument</a>(documentToken, { ...params }) -> Document</code>
-- <code title="get /v1/account_holders">client.accountHolders.<a href="./src/resources/account-holders/account-holders.ts">list</a>({ ...params }) -> AccountHoldersSinglePage</code>
-- <code title="post /v1/simulate/account_holders/enrollment_review">client.accountHolders.<a href="./src/resources/account-holders/account-holders.ts">simulateEnrollmentReview</a>({ ...params }) -> AccountHolderSimulateEnrollmentReviewResponse</code>
 - <code title="post /v1/simulate/account_holders/enrollment_document_review">client.accountHolders.<a href="./src/resources/account-holders/account-holders.ts">simulateEnrollmentDocumentReview</a>({ ...params }) -> Document</code>
+- <code title="post /v1/simulate/account_holders/enrollment_review">client.accountHolders.<a href="./src/resources/account-holders/account-holders.ts">simulateEnrollmentReview</a>({ ...params }) -> AccountHolderSimulateEnrollmentReviewResponse</code>
+- <code title="post /v1/account_holders/{account_holder_token}/documents">client.accountHolders.<a href="./src/resources/account-holders/account-holders.ts">uploadDocument</a>(accountHolderToken, { ...params }) -> Document</code>
 
 ## Entities
 
@@ -121,16 +121,16 @@ Types:
 Methods:
 
 - <code title="post /v2/auth_rules">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">create</a>({ ...params }) -> AuthRule</code>
-- <code title="get /v2/auth_rules">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">list</a>({ ...params }) -> AuthRulesCursorPage</code>
 - <code title="get /v2/auth_rules/{auth_rule_token}">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">retrieve</a>(authRuleToken) -> AuthRule</code>
 - <code title="patch /v2/auth_rules/{auth_rule_token}">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">update</a>(authRuleToken, { ...params }) -> AuthRule</code>
+- <code title="get /v2/auth_rules">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">list</a>({ ...params }) -> AuthRulesCursorPage</code>
 - <code title="delete /v2/auth_rules/{auth_rule_token}">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">delete</a>(authRuleToken) -> void</code>
 - <code title="post /v2/auth_rules/{auth_rule_token}/draft">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">draft</a>(authRuleToken, { ...params }) -> AuthRule</code>
+- <code title="get /v2/auth_rules/results">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">listResults</a>({ ...params }) -> V2ListResultsResponsesCursorPage</code>
 - <code title="get /v2/auth_rules/{auth_rule_token}/versions">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">listVersions</a>(authRuleToken) -> V2ListVersionsResponse</code>
 - <code title="post /v2/auth_rules/{auth_rule_token}/promote">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">promote</a>(authRuleToken) -> AuthRule</code>
-- <code title="get /v2/auth_rules/{auth_rule_token}/report">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">retrieveReport</a>(authRuleToken, { ...params }) -> V2RetrieveReportResponse</code>
 - <code title="get /v2/auth_rules/{auth_rule_token}/features">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">retrieveFeatures</a>(authRuleToken, { ...params }) -> V2RetrieveFeaturesResponse</code>
-- <code title="get /v2/auth_rules/results">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">listResults</a>({ ...params }) -> V2ListResultsResponsesCursorPage</code>
+- <code title="get /v2/auth_rules/{auth_rule_token}/report">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">retrieveReport</a>(authRuleToken, { ...params }) -> V2RetrieveReportResponse</code>
 
 ### Backtests
 
@@ -164,9 +164,9 @@ Types:
 
 Methods:
 
-- <code title="get /v1/transaction_monitoring/cases">client.transactionMonitoring.cases.<a href="./src/resources/transaction-monitoring/cases/cases.ts">list</a>({ ...params }) -> MonitoringCasesCursorPage</code>
 - <code title="get /v1/transaction_monitoring/cases/{case_token}">client.transactionMonitoring.cases.<a href="./src/resources/transaction-monitoring/cases/cases.ts">retrieve</a>(caseToken) -> MonitoringCase</code>
 - <code title="patch /v1/transaction_monitoring/cases/{case_token}">client.transactionMonitoring.cases.<a href="./src/resources/transaction-monitoring/cases/cases.ts">update</a>(caseToken, { ...params }) -> MonitoringCase</code>
+- <code title="get /v1/transaction_monitoring/cases">client.transactionMonitoring.cases.<a href="./src/resources/transaction-monitoring/cases/cases.ts">list</a>({ ...params }) -> MonitoringCasesCursorPage</code>
 - <code title="get /v1/transaction_monitoring/cases/{case_token}/activity">client.transactionMonitoring.cases.<a href="./src/resources/transaction-monitoring/cases/cases.ts">listActivity</a>(caseToken, { ...params }) -> CaseActivityEntriesCursorPage</code>
 - <code title="get /v1/transaction_monitoring/cases/{case_token}/transactions">client.transactionMonitoring.cases.<a href="./src/resources/transaction-monitoring/cases/cases.ts">listTransactions</a>(caseToken, { ...params }) -> CaseTransactionsCursorPage</code>
 - <code title="get /v1/transaction_monitoring/cases/{case_token}/cards">client.transactionMonitoring.cases.<a href="./src/resources/transaction-monitoring/cases/cases.ts">retrieveCards</a>(caseToken) -> CaseRetrieveCardsResponse</code>
@@ -190,8 +190,8 @@ Types:
 Methods:
 
 - <code title="post /v1/transaction_monitoring/cases/{case_token}/files">client.transactionMonitoring.cases.files.<a href="./src/resources/transaction-monitoring/cases/files.ts">create</a>(caseToken, { ...params }) -> CaseFile</code>
-- <code title="get /v1/transaction_monitoring/cases/{case_token}/files">client.transactionMonitoring.cases.files.<a href="./src/resources/transaction-monitoring/cases/files.ts">list</a>(caseToken, { ...params }) -> CaseFilesCursorPage</code>
 - <code title="get /v1/transaction_monitoring/cases/{case_token}/files/{file_token}">client.transactionMonitoring.cases.files.<a href="./src/resources/transaction-monitoring/cases/files.ts">retrieve</a>(fileToken, { ...params }) -> CaseFile</code>
+- <code title="get /v1/transaction_monitoring/cases/{case_token}/files">client.transactionMonitoring.cases.files.<a href="./src/resources/transaction-monitoring/cases/files.ts">list</a>(caseToken, { ...params }) -> CaseFilesCursorPage</code>
 - <code title="delete /v1/transaction_monitoring/cases/{case_token}/files/{file_token}">client.transactionMonitoring.cases.files.<a href="./src/resources/transaction-monitoring/cases/files.ts">delete</a>(fileToken, { ...params }) -> void</code>
 
 ## Queues
@@ -203,9 +203,9 @@ Types:
 Methods:
 
 - <code title="post /v1/transaction_monitoring/queues">client.transactionMonitoring.queues.<a href="./src/resources/transaction-monitoring/queues.ts">create</a>({ ...params }) -> Queue</code>
-- <code title="get /v1/transaction_monitoring/queues">client.transactionMonitoring.queues.<a href="./src/resources/transaction-monitoring/queues.ts">list</a>({ ...params }) -> QueuesCursorPage</code>
 - <code title="get /v1/transaction_monitoring/queues/{queue_token}">client.transactionMonitoring.queues.<a href="./src/resources/transaction-monitoring/queues.ts">retrieve</a>(queueToken) -> Queue</code>
 - <code title="patch /v1/transaction_monitoring/queues/{queue_token}">client.transactionMonitoring.queues.<a href="./src/resources/transaction-monitoring/queues.ts">update</a>(queueToken, { ...params }) -> Queue</code>
+- <code title="get /v1/transaction_monitoring/queues">client.transactionMonitoring.queues.<a href="./src/resources/transaction-monitoring/queues.ts">list</a>({ ...params }) -> QueuesCursorPage</code>
 - <code title="delete /v1/transaction_monitoring/queues/{queue_token}">client.transactionMonitoring.queues.<a href="./src/resources/transaction-monitoring/queues.ts">delete</a>(queueToken) -> void</code>
 
 # AuthStreamEnrollment
@@ -245,14 +245,14 @@ Types:
 
 Methods:
 
-- <code title="post /v1/simulate/tokenizations">client.tokenizations.<a href="./src/resources/tokenizations.ts">simulate</a>({ ...params }) -> Tokenization</code>
-- <code title="get /v1/tokenizations">client.tokenizations.<a href="./src/resources/tokenizations.ts">list</a>({ ...params }) -> TokenizationsCursorPage</code>
 - <code title="get /v1/tokenizations/{tokenization_token}">client.tokenizations.<a href="./src/resources/tokenizations.ts">retrieve</a>(tokenizationToken) -> Tokenization</code>
-- <code title="post /v1/tokenizations/{tokenization_token}/pause">client.tokenizations.<a href="./src/resources/tokenizations.ts">pause</a>(tokenizationToken) -> void</code>
-- <code title="post /v1/tokenizations/{tokenization_token}/unpause">client.tokenizations.<a href="./src/resources/tokenizations.ts">unpause</a>(tokenizationToken) -> void</code>
-- <code title="post /v1/tokenizations/{tokenization_token}/deactivate">client.tokenizations.<a href="./src/resources/tokenizations.ts">deactivate</a>(tokenizationToken) -> void</code>
+- <code title="get /v1/tokenizations">client.tokenizations.<a href="./src/resources/tokenizations.ts">list</a>({ ...params }) -> TokenizationsCursorPage</code>
 - <code title="post /v1/tokenizations/{tokenization_token}/activate">client.tokenizations.<a href="./src/resources/tokenizations.ts">activate</a>(tokenizationToken) -> void</code>
+- <code title="post /v1/tokenizations/{tokenization_token}/deactivate">client.tokenizations.<a href="./src/resources/tokenizations.ts">deactivate</a>(tokenizationToken) -> void</code>
+- <code title="post /v1/tokenizations/{tokenization_token}/pause">client.tokenizations.<a href="./src/resources/tokenizations.ts">pause</a>(tokenizationToken) -> void</code>
 - <code title="post /v1/tokenizations/{tokenization_token}/resend_activation_code">client.tokenizations.<a href="./src/resources/tokenizations.ts">resendActivationCode</a>(tokenizationToken, { ...params }) -> void</code>
+- <code title="post /v1/simulate/tokenizations">client.tokenizations.<a href="./src/resources/tokenizations.ts">simulate</a>({ ...params }) -> Tokenization</code>
+- <code title="post /v1/tokenizations/{tokenization_token}/unpause">client.tokenizations.<a href="./src/resources/tokenizations.ts">unpause</a>(tokenizationToken) -> void</code>
 - <code title="post /v1/tokenizations/{tokenization_token}/update_digital_card_art">client.tokenizations.<a href="./src/resources/tokenizations.ts">updateDigitalCardArt</a>(tokenizationToken, { ...params }) -> Tokenization</code>
 
 # Cards
@@ -270,18 +270,18 @@ Types:
 
 Methods:
 
-- <code title="get /v1/cards">client.cards.<a href="./src/resources/cards/cards.ts">list</a>({ ...params }) -> NonPCICardsCursorPage</code>
 - <code title="post /v1/cards">client.cards.<a href="./src/resources/cards/cards.ts">create</a>({ ...params }) -> Card</code>
 - <code title="get /v1/cards/{card_token}">client.cards.<a href="./src/resources/cards/cards.ts">retrieve</a>(cardToken) -> Card</code>
 - <code title="patch /v1/cards/{card_token}">client.cards.<a href="./src/resources/cards/cards.ts">update</a>(cardToken, { ...params }) -> Card</code>
+- <code title="get /v1/cards">client.cards.<a href="./src/resources/cards/cards.ts">list</a>({ ...params }) -> NonPCICardsCursorPage</code>
+- <code title="post /v1/cards/{card_token}/convert_physical">client.cards.<a href="./src/resources/cards/cards.ts">convertPhysical</a>(cardToken, { ...params }) -> Card</code>
+- <code title="get /v1/embed/card">client.cards.<a href="./src/resources/cards/cards.ts">embed</a>({ ...params }) -> string</code>
 - <code title="post /v1/cards/{card_token}/provision">client.cards.<a href="./src/resources/cards/cards.ts">provision</a>(cardToken, { ...params }) -> CardProvisionResponse</code>
 - <code title="post /v1/cards/{card_token}/reissue">client.cards.<a href="./src/resources/cards/cards.ts">reissue</a>(cardToken, { ...params }) -> Card</code>
-- <code title="get /v1/embed/card">client.cards.<a href="./src/resources/cards/cards.ts">embed</a>({ ...params }) -> string</code>
-- <code title="get /v1/cards/{card_token}/spend_limits">client.cards.<a href="./src/resources/cards/cards.ts">retrieveSpendLimits</a>(cardToken) -> CardSpendLimits</code>
-- <code title="get /v1/cards/{card_token}/signals">client.cards.<a href="./src/resources/cards/cards.ts">retrieveSignals</a>(cardToken) -> SignalsResponse</code>
 - <code title="post /v1/cards/{card_token}/renew">client.cards.<a href="./src/resources/cards/cards.ts">renew</a>(cardToken, { ...params }) -> Card</code>
+- <code title="get /v1/cards/{card_token}/signals">client.cards.<a href="./src/resources/cards/cards.ts">retrieveSignals</a>(cardToken) -> SignalsResponse</code>
+- <code title="get /v1/cards/{card_token}/spend_limits">client.cards.<a href="./src/resources/cards/cards.ts">retrieveSpendLimits</a>(cardToken) -> CardSpendLimits</code>
 - <code title="post /v1/cards/search_by_pan">client.cards.<a href="./src/resources/cards/cards.ts">searchByPan</a>({ ...params }) -> Card</code>
-- <code title="post /v1/cards/{card_token}/convert_physical">client.cards.<a href="./src/resources/cards/cards.ts">convertPhysical</a>(cardToken, { ...params }) -> Card</code>
 - <code title="post /v1/cards/{card_token}/web_provision">client.cards.<a href="./src/resources/cards/cards.ts">webProvision</a>(cardToken, { ...params }) -> CardWebProvisionResponse</code>
 - <code>client.cards.<a href="./src/resources/cards/cards.ts">getEmbedHTML</a>(...args) -> Promise&lt;string&gt;</code>
 - <code>client.cards.<a href="./src/resources/cards/cards.ts">getEmbedURL</a>(...args) -> string</code>
@@ -296,8 +296,8 @@ Methods:
 
 Methods:
 
-- <code title="get /v1/cards/{card_token}/financial_transactions">client.cards.financialTransactions.<a href="./src/resources/cards/financial-transactions.ts">list</a>(cardToken, { ...params }) -> FinancialTransactionsSinglePage</code>
 - <code title="get /v1/cards/{card_token}/financial_transactions/{financial_transaction_token}">client.cards.financialTransactions.<a href="./src/resources/cards/financial-transactions.ts">retrieve</a>(financialTransactionToken, { ...params }) -> FinancialTransaction</code>
+- <code title="get /v1/cards/{card_token}/financial_transactions">client.cards.financialTransactions.<a href="./src/resources/cards/financial-transactions.ts">list</a>(cardToken, { ...params }) -> FinancialTransactionsSinglePage</code>
 
 # CardAuthorizations
 
@@ -317,10 +317,10 @@ Types:
 
 Methods:
 
-- <code title="get /v1/card_bulk_orders">client.cardBulkOrders.<a href="./src/resources/card-bulk-orders.ts">list</a>({ ...params }) -> CardBulkOrdersCursorPage</code>
 - <code title="post /v1/card_bulk_orders">client.cardBulkOrders.<a href="./src/resources/card-bulk-orders.ts">create</a>({ ...params }) -> CardBulkOrder</code>
 - <code title="get /v1/card_bulk_orders/{bulk_order_token}">client.cardBulkOrders.<a href="./src/resources/card-bulk-orders.ts">retrieve</a>(bulkOrderToken) -> CardBulkOrder</code>
 - <code title="patch /v1/card_bulk_orders/{bulk_order_token}">client.cardBulkOrders.<a href="./src/resources/card-bulk-orders.ts">update</a>(bulkOrderToken, { ...params }) -> CardBulkOrder</code>
+- <code title="get /v1/card_bulk_orders">client.cardBulkOrders.<a href="./src/resources/card-bulk-orders.ts">list</a>({ ...params }) -> CardBulkOrdersCursorPage</code>
 
 # Balances
 
@@ -341,15 +341,15 @@ Types:
 
 Methods:
 
-- <code title="get /v1/disputes">client.disputes.<a href="./src/resources/disputes.ts">list</a>({ ...params }) -> DisputesCursorPage</code>
 - <code title="post /v1/disputes">client.disputes.<a href="./src/resources/disputes.ts">create</a>({ ...params }) -> Dispute</code>
 - <code title="get /v1/disputes/{dispute_token}">client.disputes.<a href="./src/resources/disputes.ts">retrieve</a>(disputeToken) -> Dispute</code>
-- <code title="delete /v1/disputes/{dispute_token}">client.disputes.<a href="./src/resources/disputes.ts">delete</a>(disputeToken) -> Dispute</code>
 - <code title="patch /v1/disputes/{dispute_token}">client.disputes.<a href="./src/resources/disputes.ts">update</a>(disputeToken, { ...params }) -> Dispute</code>
-- <code title="get /v1/disputes/{dispute_token}/evidences">client.disputes.<a href="./src/resources/disputes.ts">listEvidences</a>(disputeToken, { ...params }) -> DisputeEvidencesCursorPage</code>
-- <code title="post /v1/disputes/{dispute_token}/evidences">client.disputes.<a href="./src/resources/disputes.ts">initiateEvidenceUpload</a>(disputeToken, { ...params }) -> DisputeEvidence</code>
-- <code title="get /v1/disputes/{dispute_token}/evidences/{evidence_token}">client.disputes.<a href="./src/resources/disputes.ts">retrieveEvidence</a>(evidenceToken, { ...params }) -> DisputeEvidence</code>
+- <code title="get /v1/disputes">client.disputes.<a href="./src/resources/disputes.ts">list</a>({ ...params }) -> DisputesCursorPage</code>
+- <code title="delete /v1/disputes/{dispute_token}">client.disputes.<a href="./src/resources/disputes.ts">delete</a>(disputeToken) -> Dispute</code>
 - <code title="delete /v1/disputes/{dispute_token}/evidences/{evidence_token}">client.disputes.<a href="./src/resources/disputes.ts">deleteEvidence</a>(evidenceToken, { ...params }) -> DisputeEvidence</code>
+- <code title="post /v1/disputes/{dispute_token}/evidences">client.disputes.<a href="./src/resources/disputes.ts">initiateEvidenceUpload</a>(disputeToken, { ...params }) -> DisputeEvidence</code>
+- <code title="get /v1/disputes/{dispute_token}/evidences">client.disputes.<a href="./src/resources/disputes.ts">listEvidences</a>(disputeToken, { ...params }) -> DisputeEvidencesCursorPage</code>
+- <code title="get /v1/disputes/{dispute_token}/evidences/{evidence_token}">client.disputes.<a href="./src/resources/disputes.ts">retrieveEvidence</a>(evidenceToken, { ...params }) -> DisputeEvidence</code>
 - <code>client.disputes.<a href="./src/resources/disputes.ts">uploadEvidence</a>(disputeToken, file, options?) -> Promise&lt;void&gt;</code>
 
 # DisputesV2
@@ -360,8 +360,8 @@ Types:
 
 Methods:
 
-- <code title="get /v2/disputes">client.disputesV2.<a href="./src/resources/disputes-v2.ts">list</a>({ ...params }) -> DisputeV2sCursorPage</code>
 - <code title="get /v2/disputes/{dispute_token}">client.disputesV2.<a href="./src/resources/disputes-v2.ts">retrieve</a>(disputeToken) -> DisputeV2</code>
+- <code title="get /v2/disputes">client.disputesV2.<a href="./src/resources/disputes-v2.ts">list</a>({ ...params }) -> DisputeV2sCursorPage</code>
 
 # Events
 
@@ -373,8 +373,8 @@ Types:
 
 Methods:
 
-- <code title="get /v1/events">client.events.<a href="./src/resources/events/events.ts">list</a>({ ...params }) -> EventsCursorPage</code>
 - <code title="get /v1/events/{event_token}">client.events.<a href="./src/resources/events/events.ts">retrieve</a>(eventToken) -> Event</code>
+- <code title="get /v1/events">client.events.<a href="./src/resources/events/events.ts">list</a>({ ...params }) -> EventsCursorPage</code>
 - <code title="get /v1/events/{event_token}/attempts">client.events.<a href="./src/resources/events/events.ts">listAttempts</a>(eventToken, { ...params }) -> MessageAttemptsCursorPage</code>
 - <code>client.events.<a href="./src/resources/events/events.ts">resend</a>(eventToken, params, options?) -> Promise&lt;void&gt;</code>
 
@@ -386,13 +386,13 @@ Types:
 
 Methods:
 
-- <code title="get /v1/event_subscriptions">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">list</a>({ ...params }) -> EventSubscriptionsCursorPage</code>
 - <code title="post /v1/event_subscriptions">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">create</a>({ ...params }) -> EventSubscription</code>
 - <code title="get /v1/event_subscriptions/{event_subscription_token}">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">retrieve</a>(eventSubscriptionToken) -> EventSubscription</code>
 - <code title="patch /v1/event_subscriptions/{event_subscription_token}">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">update</a>(eventSubscriptionToken, { ...params }) -> EventSubscription</code>
+- <code title="get /v1/event_subscriptions">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">list</a>({ ...params }) -> EventSubscriptionsCursorPage</code>
 - <code title="delete /v1/event_subscriptions/{event_subscription_token}">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">delete</a>(eventSubscriptionToken) -> void</code>
-- <code title="post /v1/event_subscriptions/{event_subscription_token}/recover">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">recover</a>(eventSubscriptionToken, { ...params }) -> void</code>
 - <code title="get /v1/event_subscriptions/{event_subscription_token}/attempts">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">listAttempts</a>(eventSubscriptionToken, { ...params }) -> MessageAttemptsCursorPage</code>
+- <code title="post /v1/event_subscriptions/{event_subscription_token}/recover">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">recover</a>(eventSubscriptionToken, { ...params }) -> void</code>
 - <code title="post /v1/event_subscriptions/{event_subscription_token}/replay_missing">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">replayMissing</a>(eventSubscriptionToken, { ...params }) -> void</code>
 - <code title="get /v1/event_subscriptions/{event_subscription_token}/secret">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">retrieveSecret</a>(eventSubscriptionToken) -> SubscriptionRetrieveSecretResponse</code>
 - <code title="post /v1/event_subscriptions/{event_subscription_token}/secret/rotate">client.events.subscriptions.<a href="./src/resources/events/subscriptions.ts">rotateSecret</a>(eventSubscriptionToken) -> void</code>
@@ -426,12 +426,12 @@ Types:
 
 Methods:
 
-- <code title="get /v1/financial_accounts">client.financialAccounts.<a href="./src/resources/financial-accounts/financial-accounts.ts">list</a>({ ...params }) -> FinancialAccountsSinglePage</code>
+- <code title="post /v1/financial_accounts">client.financialAccounts.<a href="./src/resources/financial-accounts/financial-accounts.ts">create</a>({ ...params }) -> FinancialAccount</code>
 - <code title="get /v1/financial_accounts/{financial_account_token}">client.financialAccounts.<a href="./src/resources/financial-accounts/financial-accounts.ts">retrieve</a>(financialAccountToken) -> FinancialAccount</code>
 - <code title="patch /v1/financial_accounts/{financial_account_token}">client.financialAccounts.<a href="./src/resources/financial-accounts/financial-accounts.ts">update</a>(financialAccountToken, { ...params }) -> FinancialAccount</code>
-- <code title="post /v1/financial_accounts/{financial_account_token}/update_status">client.financialAccounts.<a href="./src/resources/financial-accounts/financial-accounts.ts">updateStatus</a>(financialAccountToken, { ...params }) -> FinancialAccount</code>
-- <code title="post /v1/financial_accounts">client.financialAccounts.<a href="./src/resources/financial-accounts/financial-accounts.ts">create</a>({ ...params }) -> FinancialAccount</code>
+- <code title="get /v1/financial_accounts">client.financialAccounts.<a href="./src/resources/financial-accounts/financial-accounts.ts">list</a>({ ...params }) -> FinancialAccountsSinglePage</code>
 - <code title="post /v1/financial_accounts/{financial_account_token}/register_account_number">client.financialAccounts.<a href="./src/resources/financial-accounts/financial-accounts.ts">registerAccountNumber</a>(financialAccountToken, { ...params }) -> void</code>
+- <code title="post /v1/financial_accounts/{financial_account_token}/update_status">client.financialAccounts.<a href="./src/resources/financial-accounts/financial-accounts.ts">updateStatus</a>(financialAccountToken, { ...params }) -> FinancialAccount</code>
 
 ## Balances
 
@@ -443,8 +443,8 @@ Methods:
 
 Methods:
 
-- <code title="get /v1/financial_accounts/{financial_account_token}/financial_transactions">client.financialAccounts.financialTransactions.<a href="./src/resources/financial-accounts/financial-transactions.ts">list</a>(financialAccountToken, { ...params }) -> FinancialTransactionsSinglePage</code>
 - <code title="get /v1/financial_accounts/{financial_account_token}/financial_transactions/{financial_transaction_token}">client.financialAccounts.financialTransactions.<a href="./src/resources/financial-accounts/financial-transactions.ts">retrieve</a>(financialTransactionToken, { ...params }) -> FinancialTransaction</code>
+- <code title="get /v1/financial_accounts/{financial_account_token}/financial_transactions">client.financialAccounts.financialTransactions.<a href="./src/resources/financial-accounts/financial-transactions.ts">list</a>(financialAccountToken, { ...params }) -> FinancialTransactionsSinglePage</code>
 
 ## CreditConfiguration
 
@@ -466,8 +466,8 @@ Types:
 
 Methods:
 
-- <code title="get /v1/financial_accounts/{financial_account_token}/statements">client.financialAccounts.statements.<a href="./src/resources/financial-accounts/statements/statements.ts">list</a>(financialAccountToken, { ...params }) -> StatementsCursorPage</code>
 - <code title="get /v1/financial_accounts/{financial_account_token}/statements/{statement_token}">client.financialAccounts.statements.<a href="./src/resources/financial-accounts/statements/statements.ts">retrieve</a>(statementToken, { ...params }) -> Statement</code>
+- <code title="get /v1/financial_accounts/{financial_account_token}/statements">client.financialAccounts.statements.<a href="./src/resources/financial-accounts/statements/statements.ts">list</a>(financialAccountToken, { ...params }) -> StatementsCursorPage</code>
 
 ### LineItems
 
@@ -488,8 +488,8 @@ Types:
 
 Methods:
 
-- <code title="get /v1/financial_accounts/{financial_account_token}/loan_tapes">client.financialAccounts.loanTapes.<a href="./src/resources/financial-accounts/loan-tapes.ts">list</a>(financialAccountToken, { ...params }) -> LoanTapesCursorPage</code>
 - <code title="get /v1/financial_accounts/{financial_account_token}/loan_tapes/{loan_tape_token}">client.financialAccounts.loanTapes.<a href="./src/resources/financial-accounts/loan-tapes.ts">retrieve</a>(loanTapeToken, { ...params }) -> LoanTape</code>
+- <code title="get /v1/financial_accounts/{financial_account_token}/loan_tapes">client.financialAccounts.loanTapes.<a href="./src/resources/financial-accounts/loan-tapes.ts">list</a>(financialAccountToken, { ...params }) -> LoanTapesCursorPage</code>
 
 ## LoanTapeConfiguration
 
@@ -511,10 +511,10 @@ Types:
 
 Methods:
 
-- <code title="get /v1/financial_accounts/{financial_account_token}/interest_tier_schedule">client.financialAccounts.interestTierSchedule.<a href="./src/resources/financial-accounts/interest-tier-schedule.ts">list</a>(financialAccountToken, { ...params }) -> InterestTierSchedulesSinglePage</code>
 - <code title="post /v1/financial_accounts/{financial_account_token}/interest_tier_schedule">client.financialAccounts.interestTierSchedule.<a href="./src/resources/financial-accounts/interest-tier-schedule.ts">create</a>(financialAccountToken, { ...params }) -> InterestTierSchedule</code>
 - <code title="get /v1/financial_accounts/{financial_account_token}/interest_tier_schedule/{effective_date}">client.financialAccounts.interestTierSchedule.<a href="./src/resources/financial-accounts/interest-tier-schedule.ts">retrieve</a>(effectiveDate, { ...params }) -> InterestTierSchedule</code>
 - <code title="put /v1/financial_accounts/{financial_account_token}/interest_tier_schedule/{effective_date}">client.financialAccounts.interestTierSchedule.<a href="./src/resources/financial-accounts/interest-tier-schedule.ts">update</a>(effectiveDate, { ...params }) -> InterestTierSchedule</code>
+- <code title="get /v1/financial_accounts/{financial_account_token}/interest_tier_schedule">client.financialAccounts.interestTierSchedule.<a href="./src/resources/financial-accounts/interest-tier-schedule.ts">list</a>(financialAccountToken, { ...params }) -> InterestTierSchedulesSinglePage</code>
 - <code title="delete /v1/financial_accounts/{financial_account_token}/interest_tier_schedule/{effective_date}">client.financialAccounts.interestTierSchedule.<a href="./src/resources/financial-accounts/interest-tier-schedule.ts">delete</a>(effectiveDate, { ...params }) -> void</code>
 
 # Transactions
@@ -535,18 +535,18 @@ Types:
 
 Methods:
 
-- <code title="get /v1/transactions">client.transactions.<a href="./src/resources/transactions/transactions.ts">list</a>({ ...params }) -> TransactionsCursorPage</code>
 - <code title="get /v1/transactions/{transaction_token}">client.transactions.<a href="./src/resources/transactions/transactions.ts">retrieve</a>(transactionToken) -> Transaction</code>
+- <code title="get /v1/transactions">client.transactions.<a href="./src/resources/transactions/transactions.ts">list</a>({ ...params }) -> TransactionsCursorPage</code>
+- <code title="post /v1/transactions/{transaction_token}/expire_authorization">client.transactions.<a href="./src/resources/transactions/transactions.ts">expireAuthorization</a>(transactionToken) -> void</code>
+- <code title="post /v1/transactions/{transaction_token}/route">client.transactions.<a href="./src/resources/transactions/transactions.ts">route</a>(transactionToken, { ...params }) -> void</code>
 - <code title="post /v1/simulate/authorize">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateAuthorization</a>({ ...params }) -> TransactionSimulateAuthorizationResponse</code>
+- <code title="post /v1/simulate/authorization_advice">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateAuthorizationAdvice</a>({ ...params }) -> TransactionSimulateAuthorizationAdviceResponse</code>
 - <code title="post /v1/simulate/clearing">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateClearing</a>({ ...params }) -> TransactionSimulateClearingResponse</code>
+- <code title="post /v1/simulate/credit_authorization_advice">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateCreditAuthorization</a>({ ...params }) -> TransactionSimulateCreditAuthorizationResponse</code>
+- <code title="post /v1/simulate/credit_authorization_advice">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateCreditAuthorizationAdvice</a>({ ...params }) -> TransactionSimulateCreditAuthorizationAdviceResponse</code>
 - <code title="post /v1/simulate/return">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateReturn</a>({ ...params }) -> TransactionSimulateReturnResponse</code>
 - <code title="post /v1/simulate/return_reversal">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateReturnReversal</a>({ ...params }) -> TransactionSimulateReturnReversalResponse</code>
 - <code title="post /v1/simulate/void">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateVoid</a>({ ...params }) -> TransactionSimulateVoidResponse</code>
-- <code title="post /v1/simulate/credit_authorization_advice">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateCreditAuthorization</a>({ ...params }) -> TransactionSimulateCreditAuthorizationResponse</code>
-- <code title="post /v1/simulate/credit_authorization_advice">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateCreditAuthorizationAdvice</a>({ ...params }) -> TransactionSimulateCreditAuthorizationAdviceResponse</code>
-- <code title="post /v1/simulate/authorization_advice">client.transactions.<a href="./src/resources/transactions/transactions.ts">simulateAuthorizationAdvice</a>({ ...params }) -> TransactionSimulateAuthorizationAdviceResponse</code>
-- <code title="post /v1/transactions/{transaction_token}/expire_authorization">client.transactions.<a href="./src/resources/transactions/transactions.ts">expireAuthorization</a>(transactionToken) -> void</code>
-- <code title="post /v1/transactions/{transaction_token}/route">client.transactions.<a href="./src/resources/transactions/transactions.ts">route</a>(transactionToken, { ...params }) -> void</code>
 
 ## EnhancedCommercialData
 
@@ -608,15 +608,15 @@ Types:
 
 Methods:
 
-- <code title="get /v1/external_bank_accounts">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">list</a>({ ...params }) -> ExternalBankAccountListResponsesCursorPage</code>
 - <code title="post /v1/external_bank_accounts">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">create</a>({ ...params }) -> ExternalBankAccountCreateResponse</code>
 - <code title="get /v1/external_bank_accounts/{external_bank_account_token}">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">retrieve</a>(externalBankAccountToken) -> ExternalBankAccountRetrieveResponse</code>
 - <code title="patch /v1/external_bank_accounts/{external_bank_account_token}">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">update</a>(externalBankAccountToken, { ...params }) -> ExternalBankAccountUpdateResponse</code>
+- <code title="get /v1/external_bank_accounts">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">list</a>({ ...params }) -> ExternalBankAccountListResponsesCursorPage</code>
+- <code title="post /v1/external_bank_accounts/{external_bank_account_token}/pause">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">pause</a>(externalBankAccountToken) -> ExternalBankAccount</code>
 - <code title="post /v1/external_bank_accounts/{external_bank_account_token}/retry_micro_deposits">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">retryMicroDeposits</a>(externalBankAccountToken, { ...params }) -> ExternalBankAccountRetryMicroDepositsResponse</code>
 - <code title="post /v1/external_bank_accounts/{external_bank_account_token}/retry_prenote">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">retryPrenote</a>(externalBankAccountToken, { ...params }) -> ExternalBankAccount</code>
-- <code title="post /v1/external_bank_accounts/{external_bank_account_token}/pause">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">pause</a>(externalBankAccountToken) -> ExternalBankAccount</code>
-- <code title="post /v1/external_bank_accounts/{external_bank_account_token}/unpause">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">unpause</a>(externalBankAccountToken) -> ExternalBankAccount</code>
 - <code title="post /v1/external_bank_accounts/{external_bank_account_token}/set_verification_method">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">setVerificationMethod</a>(externalBankAccountToken, { ...params }) -> ExternalBankAccount</code>
+- <code title="post /v1/external_bank_accounts/{external_bank_account_token}/unpause">client.externalBankAccounts.<a href="./src/resources/external-bank-accounts/external-bank-accounts.ts">unpause</a>(externalBankAccountToken) -> ExternalBankAccount</code>
 
 ## MicroDeposits
 
@@ -642,15 +642,15 @@ Types:
 
 Methods:
 
-- <code title="get /v1/payments">client.payments.<a href="./src/resources/payments.ts">list</a>({ ...params }) -> PaymentsCursorPage</code>
 - <code title="post /v1/payments">client.payments.<a href="./src/resources/payments.ts">create</a>({ ...params }) -> PaymentCreateResponse</code>
 - <code title="get /v1/payments/{payment_token}">client.payments.<a href="./src/resources/payments.ts">retrieve</a>(paymentToken) -> Payment</code>
-- <code title="post /v1/simulate/payments/release">client.payments.<a href="./src/resources/payments.ts">simulateRelease</a>({ ...params }) -> PaymentSimulateReleaseResponse</code>
-- <code title="post /v1/simulate/payments/return">client.payments.<a href="./src/resources/payments.ts">simulateReturn</a>({ ...params }) -> PaymentSimulateReturnResponse</code>
+- <code title="get /v1/payments">client.payments.<a href="./src/resources/payments.ts">list</a>({ ...params }) -> PaymentsCursorPage</code>
 - <code title="post /v1/payments/{payment_token}/retry">client.payments.<a href="./src/resources/payments.ts">retry</a>(paymentToken) -> PaymentRetryResponse</code>
 - <code title="post /v1/payments/{payment_token}/return">client.payments.<a href="./src/resources/payments.ts">return</a>(paymentToken, { ...params }) -> Payment</code>
-- <code title="post /v1/simulate/payments/receipt">client.payments.<a href="./src/resources/payments.ts">simulateReceipt</a>({ ...params }) -> PaymentSimulateReceiptResponse</code>
 - <code title="post /v1/simulate/payments/{payment_token}/action">client.payments.<a href="./src/resources/payments.ts">simulateAction</a>(paymentToken, { ...params }) -> PaymentSimulateActionResponse</code>
+- <code title="post /v1/simulate/payments/receipt">client.payments.<a href="./src/resources/payments.ts">simulateReceipt</a>({ ...params }) -> PaymentSimulateReceiptResponse</code>
+- <code title="post /v1/simulate/payments/release">client.payments.<a href="./src/resources/payments.ts">simulateRelease</a>({ ...params }) -> PaymentSimulateReleaseResponse</code>
+- <code title="post /v1/simulate/payments/return">client.payments.<a href="./src/resources/payments.ts">simulateReturn</a>({ ...params }) -> PaymentSimulateReturnResponse</code>
 
 # ThreeDS
 
@@ -680,9 +680,9 @@ Types:
 
 Methods:
 
+- <code title="post /v1/three_ds_decisioning/challenge_response">client.threeDS.decisioning.<a href="./src/resources/three-ds/decisioning.ts">challengeResponse</a>({ ...params }) -> void</code>
 - <code title="get /v1/three_ds_decisioning/secret">client.threeDS.decisioning.<a href="./src/resources/three-ds/decisioning.ts">retrieveSecret</a>() -> DecisioningRetrieveSecretResponse</code>
 - <code title="post /v1/three_ds_decisioning/secret/rotate">client.threeDS.decisioning.<a href="./src/resources/three-ds/decisioning.ts">rotateSecret</a>() -> void</code>
-- <code title="post /v1/three_ds_decisioning/challenge_response">client.threeDS.decisioning.<a href="./src/resources/three-ds/decisioning.ts">challengeResponse</a>({ ...params }) -> void</code>
 
 # Reports
 
@@ -704,8 +704,8 @@ Methods:
 
 Methods:
 
-- <code title="get /v1/reports/settlement/network_totals">client.reports.settlement.networkTotals.<a href="./src/resources/reports/settlement/network-totals.ts">list</a>({ ...params }) -> NetworkTotalsCursorPage</code>
 - <code title="get /v1/reports/settlement/network_totals/{token}">client.reports.settlement.networkTotals.<a href="./src/resources/reports/settlement/network-totals.ts">retrieve</a>(token) -> NetworkTotal</code>
+- <code title="get /v1/reports/settlement/network_totals">client.reports.settlement.networkTotals.<a href="./src/resources/reports/settlement/network-totals.ts">list</a>({ ...params }) -> NetworkTotalsCursorPage</code>
 
 # CardPrograms
 
@@ -715,8 +715,8 @@ Types:
 
 Methods:
 
-- <code title="get /v1/card_programs">client.cardPrograms.<a href="./src/resources/card-programs.ts">list</a>({ ...params }) -> CardProgramsCursorPage</code>
 - <code title="get /v1/card_programs/{card_program_token}">client.cardPrograms.<a href="./src/resources/card-programs.ts">retrieve</a>(cardProgramToken) -> CardProgram</code>
+- <code title="get /v1/card_programs">client.cardPrograms.<a href="./src/resources/card-programs.ts">list</a>({ ...params }) -> CardProgramsCursorPage</code>
 
 # DigitalCardArt
 
@@ -726,8 +726,8 @@ Types:
 
 Methods:
 
-- <code title="get /v1/digital_card_art">client.digitalCardArt.<a href="./src/resources/digital-card-art.ts">list</a>({ ...params }) -> DigitalCardArtsCursorPage</code>
 - <code title="get /v1/digital_card_art/{digital_card_art_token}">client.digitalCardArt.<a href="./src/resources/digital-card-art.ts">retrieve</a>(digitalCardArtToken) -> DigitalCardArt</code>
+- <code title="get /v1/digital_card_art">client.digitalCardArt.<a href="./src/resources/digital-card-art.ts">list</a>({ ...params }) -> DigitalCardArtsCursorPage</code>
 
 # BookTransfers
 
@@ -737,11 +737,11 @@ Types:
 
 Methods:
 
-- <code title="get /v1/book_transfers">client.bookTransfers.<a href="./src/resources/book-transfers.ts">list</a>({ ...params }) -> BookTransferResponsesCursorPage</code>
 - <code title="post /v1/book_transfers">client.bookTransfers.<a href="./src/resources/book-transfers.ts">create</a>({ ...params }) -> BookTransferResponse</code>
 - <code title="get /v1/book_transfers/{book_transfer_token}">client.bookTransfers.<a href="./src/resources/book-transfers.ts">retrieve</a>(bookTransferToken) -> BookTransferResponse</code>
-- <code title="post /v1/book_transfers/{book_transfer_token}/reverse">client.bookTransfers.<a href="./src/resources/book-transfers.ts">reverse</a>(bookTransferToken, { ...params }) -> BookTransferResponse</code>
+- <code title="get /v1/book_transfers">client.bookTransfers.<a href="./src/resources/book-transfers.ts">list</a>({ ...params }) -> BookTransferResponsesCursorPage</code>
 - <code title="post /v1/book_transfers/{book_transfer_token}/retry">client.bookTransfers.<a href="./src/resources/book-transfers.ts">retry</a>(bookTransferToken, { ...params }) -> BookTransferResponse</code>
+- <code title="post /v1/book_transfers/{book_transfer_token}/reverse">client.bookTransfers.<a href="./src/resources/book-transfers.ts">reverse</a>(bookTransferToken, { ...params }) -> BookTransferResponse</code>
 
 # CreditProducts
 
@@ -763,8 +763,8 @@ Types:
 
 Methods:
 
-- <code title="get /v1/credit_products/{credit_product_token}/prime_rates">client.creditProducts.primeRates.<a href="./src/resources/credit-products/prime-rates.ts">retrieve</a>(creditProductToken, { ...params }) -> PrimeRateRetrieveResponse</code>
 - <code title="post /v1/credit_products/{credit_product_token}/prime_rates">client.creditProducts.primeRates.<a href="./src/resources/credit-products/prime-rates.ts">create</a>(creditProductToken, { ...params }) -> void</code>
+- <code title="get /v1/credit_products/{credit_product_token}/prime_rates">client.creditProducts.primeRates.<a href="./src/resources/credit-products/prime-rates.ts">retrieve</a>(creditProductToken, { ...params }) -> PrimeRateRetrieveResponse</code>
 
 # ExternalPayments
 
@@ -774,13 +774,13 @@ Types:
 
 Methods:
 
-- <code title="get /v1/external_payments">client.externalPayments.<a href="./src/resources/external-payments.ts">list</a>({ ...params }) -> ExternalPaymentsCursorPage</code>
 - <code title="post /v1/external_payments">client.externalPayments.<a href="./src/resources/external-payments.ts">create</a>({ ...params }) -> ExternalPayment</code>
 - <code title="get /v1/external_payments/{external_payment_token}">client.externalPayments.<a href="./src/resources/external-payments.ts">retrieve</a>(externalPaymentToken) -> ExternalPayment</code>
-- <code title="post /v1/external_payments/{external_payment_token}/settle">client.externalPayments.<a href="./src/resources/external-payments.ts">settle</a>(externalPaymentToken, { ...params }) -> ExternalPayment</code>
-- <code title="post /v1/external_payments/{external_payment_token}/release">client.externalPayments.<a href="./src/resources/external-payments.ts">release</a>(externalPaymentToken, { ...params }) -> ExternalPayment</code>
+- <code title="get /v1/external_payments">client.externalPayments.<a href="./src/resources/external-payments.ts">list</a>({ ...params }) -> ExternalPaymentsCursorPage</code>
 - <code title="post /v1/external_payments/{external_payment_token}/cancel">client.externalPayments.<a href="./src/resources/external-payments.ts">cancel</a>(externalPaymentToken, { ...params }) -> ExternalPayment</code>
+- <code title="post /v1/external_payments/{external_payment_token}/release">client.externalPayments.<a href="./src/resources/external-payments.ts">release</a>(externalPaymentToken, { ...params }) -> ExternalPayment</code>
 - <code title="post /v1/external_payments/{external_payment_token}/reverse">client.externalPayments.<a href="./src/resources/external-payments.ts">reverse</a>(externalPaymentToken, { ...params }) -> ExternalPayment</code>
+- <code title="post /v1/external_payments/{external_payment_token}/settle">client.externalPayments.<a href="./src/resources/external-payments.ts">settle</a>(externalPaymentToken, { ...params }) -> ExternalPayment</code>
 
 # ManagementOperations
 
@@ -792,9 +792,9 @@ Types:
 
 Methods:
 
-- <code title="get /v1/management_operations">client.managementOperations.<a href="./src/resources/management-operations.ts">list</a>({ ...params }) -> ManagementOperationTransactionsCursorPage</code>
 - <code title="post /v1/management_operations">client.managementOperations.<a href="./src/resources/management-operations.ts">create</a>({ ...params }) -> ManagementOperationTransaction</code>
 - <code title="get /v1/management_operations/{management_operation_token}">client.managementOperations.<a href="./src/resources/management-operations.ts">retrieve</a>(managementOperationToken) -> ManagementOperationTransaction</code>
+- <code title="get /v1/management_operations">client.managementOperations.<a href="./src/resources/management-operations.ts">list</a>({ ...params }) -> ManagementOperationTransactionsCursorPage</code>
 - <code title="post /v1/management_operations/{management_operation_token}/reverse">client.managementOperations.<a href="./src/resources/management-operations.ts">reverse</a>(managementOperationToken, { ...params }) -> ManagementOperationTransaction</code>
 
 # InternalTransaction
@@ -812,8 +812,8 @@ Types:
 
 Methods:
 
-- <code title="get /v1/funding_events">client.fundingEvents.<a href="./src/resources/funding-events.ts">list</a>({ ...params }) -> FundingEventsCursorPage</code>
 - <code title="get /v1/funding_events/{funding_event_token}">client.fundingEvents.<a href="./src/resources/funding-events.ts">retrieve</a>(fundingEventToken) -> FundingEvent</code>
+- <code title="get /v1/funding_events">client.fundingEvents.<a href="./src/resources/funding-events.ts">list</a>({ ...params }) -> FundingEventsCursorPage</code>
 - <code title="get /v1/funding_events/{funding_event_token}/details">client.fundingEvents.<a href="./src/resources/funding-events.ts">retrieveDetails</a>(fundingEventToken) -> FundingEventRetrieveDetailsResponse</code>
 
 # Fraud
@@ -838,8 +838,8 @@ Types:
 
 Methods:
 
-- <code title="get /v1/network_programs">client.networkPrograms.<a href="./src/resources/network-programs.ts">list</a>({ ...params }) -> NetworkProgramsSinglePage</code>
 - <code title="get /v1/network_programs/{network_program_token}">client.networkPrograms.<a href="./src/resources/network-programs.ts">retrieve</a>(networkProgramToken) -> NetworkProgram</code>
+- <code title="get /v1/network_programs">client.networkPrograms.<a href="./src/resources/network-programs.ts">list</a>({ ...params }) -> NetworkProgramsSinglePage</code>
 
 # Holds
 
@@ -850,9 +850,9 @@ Types:
 
 Methods:
 
-- <code title="get /v1/financial_accounts/{financial_account_token}/holds">client.holds.<a href="./src/resources/holds.ts">list</a>(financialAccountToken, { ...params }) -> HoldsCursorPage</code>
 - <code title="post /v1/financial_accounts/{financial_account_token}/holds">client.holds.<a href="./src/resources/holds.ts">create</a>(financialAccountToken, { ...params }) -> Hold</code>
 - <code title="get /v1/holds/{hold_token}">client.holds.<a href="./src/resources/holds.ts">retrieve</a>(holdToken) -> Hold</code>
+- <code title="get /v1/financial_accounts/{financial_account_token}/holds">client.holds.<a href="./src/resources/holds.ts">list</a>(financialAccountToken, { ...params }) -> HoldsCursorPage</code>
 - <code title="post /v1/holds/{hold_token}/void">client.holds.<a href="./src/resources/holds.ts">void</a>(holdToken, { ...params }) -> Hold</code>
 
 # AccountActivity

@@ -24,24 +24,6 @@ export class Cards extends APIResource {
     new FinancialTransactionsAPI.FinancialTransactions(this._client);
 
   /**
-   * List cards.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const nonPCICard of client.cards.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: CardListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<NonPCICardsCursorPage, NonPCICard> {
-    return this._client.getAPIList('/v1/cards', CursorPage<NonPCICard>, { query, ...options });
-  }
-
-  /**
    * Create a new virtual or physical card. Parameters `shipping_address` and
    * `product_id` only apply to physical cards.
    *
@@ -104,6 +86,110 @@ export class Cards extends APIResource {
    */
   update(cardToken: string, body: CardUpdateParams, options?: RequestOptions): APIPromise<Card> {
     return this._client.patch(path`/v1/cards/${cardToken}`, { body, ...options });
+  }
+
+  /**
+   * List cards.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const nonPCICard of client.cards.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: CardListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<NonPCICardsCursorPage, NonPCICard> {
+    return this._client.getAPIList('/v1/cards', CursorPage<NonPCICard>, { query, ...options });
+  }
+
+  /**
+   * Convert a virtual card into a physical card and manufacture it. Customer must
+   * supply relevant fields for physical card creation including `product_id`,
+   * `carrier`, `shipping_method`, and `shipping_address`. The card token will be
+   * unchanged. The card's type will be altered to `PHYSICAL`. The card will be set
+   * to state `PENDING_FULFILLMENT` and fulfilled at next fulfillment cycle. Virtual
+   * cards created on card programs which do not support physical cards cannot be
+   * converted. The card program cannot be changed as part of the conversion. Cards
+   * must be in an `OPEN` state to be converted. Only applies to cards of type
+   * `VIRTUAL` (or existing cards with deprecated types of `DIGITAL_WALLET` and
+   * `UNLOCKED`).
+   *
+   * @example
+   * ```ts
+   * const card = await client.cards.convertPhysical(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   {
+   *     shipping_address: {
+   *       address1: '5 Broad Street',
+   *       address2: 'Unit 5A',
+   *       city: 'NEW YORK',
+   *       country: 'USA',
+   *       first_name: 'Janet',
+   *       last_name: 'Yellen',
+   *       postal_code: '10001',
+   *       state: 'NY',
+   *     },
+   *     carrier: {
+   *       qr_code_url: 'https://lithic.com/activate-card/1',
+   *     },
+   *     product_id: '100',
+   *     shipping_method: 'STANDARD',
+   *   },
+   * );
+   * ```
+   */
+  convertPhysical(
+    cardToken: string,
+    body: CardConvertPhysicalParams,
+    options?: RequestOptions,
+  ): APIPromise<Card> {
+    return this._client.post(path`/v1/cards/${cardToken}/convert_physical`, { body, ...options });
+  }
+
+  /**
+   * **Deprecated.** Use the modern embedded card flow instead: create a session with
+   * `POST /v1/cards/{card_token}/embed` and render it via `GET /v1/embed`.
+   *
+   * Handling full card PANs and CVV codes requires that you comply with the Payment
+   * Card Industry Data Security Standards (PCI DSS). Some clients choose to reduce
+   * their compliance obligations by leveraging our embedded card UI solution
+   * documented below.
+   *
+   * In this setup, PANs and CVV codes are presented to the end-user via a card UI
+   * that we provide, optionally styled in the customer's branding using a specified
+   * css stylesheet. A user's browser makes the request directly to api.lithic.com,
+   * so card PANs and CVVs never touch the API customer's servers while full card
+   * data is displayed to their end-users. The response contains an HTML document
+   * (see Embedded Card UI or Changelog for upcoming changes in January). This means
+   * that the url for the request can be inserted straight into the `src` attribute
+   * of an iframe.
+   *
+   * ```html
+   * <iframe
+   *   id="card-iframe"
+   *   src="https://sandbox.lithic.com/v1/embed/card?embed_request=eyJjc3MiO...;hmac=r8tx1..."
+   *   allow="clipboard-write"
+   *   class="content"
+   * ></iframe>
+   * ```
+   *
+   * You should compute the request payload on the server side. You can render it (or
+   * the whole iframe) on the server or make an ajax call from your front end code,
+   * but **do not ever embed your API key into front end code, as doing so introduces
+   * a serious security vulnerability**.
+   *
+   * @deprecated
+   */
+  embed(query: CardEmbedParams, options?: RequestOptions): APIPromise<string> {
+    return this._client.get('/v1/embed/card', {
+      query,
+      ...options,
+      headers: buildHeaders([{ Accept: 'text/html' }, options?.headers]),
+    });
   }
 
   /**
@@ -226,85 +312,6 @@ export class Cards extends APIResource {
   }
 
   /**
-   * **Deprecated.** Use the modern embedded card flow instead: create a session with
-   * `POST /v1/cards/{card_token}/embed` and render it via `GET /v1/embed`.
-   *
-   * Handling full card PANs and CVV codes requires that you comply with the Payment
-   * Card Industry Data Security Standards (PCI DSS). Some clients choose to reduce
-   * their compliance obligations by leveraging our embedded card UI solution
-   * documented below.
-   *
-   * In this setup, PANs and CVV codes are presented to the end-user via a card UI
-   * that we provide, optionally styled in the customer's branding using a specified
-   * css stylesheet. A user's browser makes the request directly to api.lithic.com,
-   * so card PANs and CVVs never touch the API customer's servers while full card
-   * data is displayed to their end-users. The response contains an HTML document
-   * (see Embedded Card UI or Changelog for upcoming changes in January). This means
-   * that the url for the request can be inserted straight into the `src` attribute
-   * of an iframe.
-   *
-   * ```html
-   * <iframe
-   *   id="card-iframe"
-   *   src="https://sandbox.lithic.com/v1/embed/card?embed_request=eyJjc3MiO...;hmac=r8tx1..."
-   *   allow="clipboard-write"
-   *   class="content"
-   * ></iframe>
-   * ```
-   *
-   * You should compute the request payload on the server side. You can render it (or
-   * the whole iframe) on the server or make an ajax call from your front end code,
-   * but **do not ever embed your API key into front end code, as doing so introduces
-   * a serious security vulnerability**.
-   *
-   * @deprecated
-   */
-  embed(query: CardEmbedParams, options?: RequestOptions): APIPromise<string> {
-    return this._client.get('/v1/embed/card', {
-      query,
-      ...options,
-      headers: buildHeaders([{ Accept: 'text/html' }, options?.headers]),
-    });
-  }
-
-  /**
-   * Get a Card's available spend limit, which is based on the spend limit configured
-   * on the Card and the amount already spent over the spend limit's duration. For
-   * example, if the Card has a monthly spend limit of $1000 configured, and has
-   * spent $600 in the last month, the available spend limit returned would be $400.
-   *
-   * @example
-   * ```ts
-   * const cardSpendLimits =
-   *   await client.cards.retrieveSpendLimits(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
-   * ```
-   */
-  retrieveSpendLimits(cardToken: string, options?: RequestOptions): APIPromise<CardSpendLimits> {
-    return this._client.get(path`/v1/cards/${cardToken}/spend_limits`, options);
-  }
-
-  /**
-   * Returns behavioral feature state derived from a card's transaction history.
-   *
-   * These signals expose the same data used by behavioral rule attributes (e.g.
-   * `AMOUNT_Z_SCORE` with `scope: CARD`, `IS_NEW_COUNTRY` with `scope: CARD`) and
-   * custom code `TRANSACTION_HISTORY_SIGNALS` features, allowing clients to inspect
-   * feature values before writing rules and debug rule behavior.
-   *
-   * @example
-   * ```ts
-   * const signalsResponse = await client.cards.retrieveSignals(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
-   */
-  retrieveSignals(cardToken: string, options?: RequestOptions): APIPromise<AuthRulesAPI.SignalsResponse> {
-    return this._client.get(path`/v1/cards/${cardToken}/signals`, options);
-  }
-
-  /**
    * Applies to card types `PHYSICAL` and `VIRTUAL`. For `PHYSICAL`, creates a new
    * card with the same card token and PAN, but updated expiry and CVC2 code. The
    * original card will keep working for card-present transactions until the new card
@@ -344,6 +351,43 @@ export class Cards extends APIResource {
   }
 
   /**
+   * Returns behavioral feature state derived from a card's transaction history.
+   *
+   * These signals expose the same data used by behavioral rule attributes (e.g.
+   * `AMOUNT_Z_SCORE` with `scope: CARD`, `IS_NEW_COUNTRY` with `scope: CARD`) and
+   * custom code `TRANSACTION_HISTORY_SIGNALS` features, allowing clients to inspect
+   * feature values before writing rules and debug rule behavior.
+   *
+   * @example
+   * ```ts
+   * const signalsResponse = await client.cards.retrieveSignals(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  retrieveSignals(cardToken: string, options?: RequestOptions): APIPromise<AuthRulesAPI.SignalsResponse> {
+    return this._client.get(path`/v1/cards/${cardToken}/signals`, options);
+  }
+
+  /**
+   * Get a Card's available spend limit, which is based on the spend limit configured
+   * on the Card and the amount already spent over the spend limit's duration. For
+   * example, if the Card has a monthly spend limit of $1000 configured, and has
+   * spent $600 in the last month, the available spend limit returned would be $400.
+   *
+   * @example
+   * ```ts
+   * const cardSpendLimits =
+   *   await client.cards.retrieveSpendLimits(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  retrieveSpendLimits(cardToken: string, options?: RequestOptions): APIPromise<CardSpendLimits> {
+    return this._client.get(path`/v1/cards/${cardToken}/spend_limits`, options);
+  }
+
+  /**
    * Get card configuration such as spend limit and state. Customers must be PCI
    * compliant to use this endpoint. Please contact
    * [support.lithic.com](https://support.lithic.com/) for questions. _Note: this is
@@ -359,50 +403,6 @@ export class Cards extends APIResource {
    */
   searchByPan(body: CardSearchByPanParams, options?: RequestOptions): APIPromise<Card> {
     return this._client.post('/v1/cards/search_by_pan', { body, ...options });
-  }
-
-  /**
-   * Convert a virtual card into a physical card and manufacture it. Customer must
-   * supply relevant fields for physical card creation including `product_id`,
-   * `carrier`, `shipping_method`, and `shipping_address`. The card token will be
-   * unchanged. The card's type will be altered to `PHYSICAL`. The card will be set
-   * to state `PENDING_FULFILLMENT` and fulfilled at next fulfillment cycle. Virtual
-   * cards created on card programs which do not support physical cards cannot be
-   * converted. The card program cannot be changed as part of the conversion. Cards
-   * must be in an `OPEN` state to be converted. Only applies to cards of type
-   * `VIRTUAL` (or existing cards with deprecated types of `DIGITAL_WALLET` and
-   * `UNLOCKED`).
-   *
-   * @example
-   * ```ts
-   * const card = await client.cards.convertPhysical(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   {
-   *     shipping_address: {
-   *       address1: '5 Broad Street',
-   *       address2: 'Unit 5A',
-   *       city: 'NEW YORK',
-   *       country: 'USA',
-   *       first_name: 'Janet',
-   *       last_name: 'Yellen',
-   *       postal_code: '10001',
-   *       state: 'NY',
-   *     },
-   *     carrier: {
-   *       qr_code_url: 'https://lithic.com/activate-card/1',
-   *     },
-   *     product_id: '100',
-   *     shipping_method: 'STANDARD',
-   *   },
-   * );
-   * ```
-   */
-  convertPhysical(
-    cardToken: string,
-    body: CardConvertPhysicalParams,
-    options?: RequestOptions,
-  ): APIPromise<Card> {
-    return this._client.post(path`/v1/cards/${cardToken}/convert_physical`, { body, ...options });
   }
 
   /**
@@ -437,7 +437,7 @@ export type NonPCICardsCursorPage = CursorPage<NonPCICard>;
  */
 export interface Card extends NonPCICard {
   /**
-   * Three digit cvv printed on the back of the card.
+   * Three or four digit CVV printed on the card. Amex cards use four digit CVVs
    */
   cvv?: string;
 
@@ -874,35 +874,6 @@ export namespace CardWebProvisionResponse {
   }
 }
 
-export interface CardListParams extends CursorPageParams {
-  /**
-   * Returns cards associated with the specified account.
-   */
-  account_token?: string;
-
-  /**
-   * Date string in RFC 3339 format. Only entries created after the specified time
-   * will be included. UTC time zone.
-   */
-  begin?: string;
-
-  /**
-   * Date string in RFC 3339 format. Only entries created before the specified time
-   * will be included. UTC time zone.
-   */
-  end?: string;
-
-  /**
-   * Returns cards containing the specified partial or full memo text.
-   */
-  memo?: string;
-
-  /**
-   * Returns cards with the specified state.
-   */
-  state?: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT';
-}
-
 export interface CardCreateParams {
   /**
    * Body param: Card types:
@@ -1251,6 +1222,93 @@ export interface CardUpdateParams {
     | 'OTHER';
 }
 
+export interface CardListParams extends CursorPageParams {
+  /**
+   * Returns cards associated with the specified account.
+   */
+  account_token?: string;
+
+  /**
+   * Date string in RFC 3339 format. Only entries created after the specified time
+   * will be included. UTC time zone.
+   */
+  begin?: string;
+
+  /**
+   * Date string in RFC 3339 format. Only entries created before the specified time
+   * will be included. UTC time zone.
+   */
+  end?: string;
+
+  /**
+   * Returns cards containing the specified partial or full memo text.
+   */
+  memo?: string;
+
+  /**
+   * Returns cards with the specified state.
+   */
+  state?: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT';
+}
+
+export interface CardConvertPhysicalParams {
+  /**
+   * The shipping address this card will be sent to.
+   */
+  shipping_address: Shared.ShippingAddress;
+
+  /**
+   * If omitted, the previous carrier will be used.
+   */
+  carrier?: Shared.Carrier;
+
+  /**
+   * Specifies the configuration (e.g. physical card art) that the card should be
+   * manufactured with, and only applies to cards of type `PHYSICAL`. This must be
+   * configured with Lithic before use.
+   */
+  product_id?: string;
+
+  /**
+   * Shipping method for the card. Only applies to cards of type PHYSICAL. Use of
+   * options besides `STANDARD` require additional permissions.
+   *
+   * - `STANDARD` - USPS regular mail or similar international option, with no
+   *   tracking
+   * - `STANDARD_WITH_TRACKING` - USPS regular mail or similar international option,
+   *   with tracking
+   * - `PRIORITY` - USPS Priority, 1-3 day shipping, with tracking
+   * - `EXPRESS` - FedEx or UPS depending on card manufacturer, Express, 3-day
+   *   shipping, with tracking
+   * - `2_DAY` - FedEx or UPS depending on card manufacturer, 2-day shipping, with
+   *   tracking
+   * - `EXPEDITED` - FedEx or UPS depending on card manufacturer, Standard Overnight
+   *   or similar international option, with tracking
+   * - `BULK` - Card will be shipped as part of a bulk fulfillment order. The
+   *   shipping method and timeline are inherited from the parent bulk order.
+   */
+  shipping_method?:
+    | '2_DAY'
+    | 'BULK'
+    | 'EXPEDITED'
+    | 'EXPRESS'
+    | 'PRIORITY'
+    | 'STANDARD'
+    | 'STANDARD_WITH_TRACKING';
+}
+
+export interface CardEmbedParams {
+  /**
+   * A base64 encoded JSON string of an EmbedRequest to specify which card to load.
+   */
+  embed_request: string;
+
+  /**
+   * SHA256 HMAC of the embed_request JSON string with base64 digest.
+   */
+  hmac: string;
+}
+
 export interface CardGetEmbedHTMLParams {
   /**
    * Globally unique identifier for the card to be displayed.
@@ -1408,18 +1466,6 @@ export interface CardReissueParams {
     | 'STANDARD_WITH_TRACKING';
 }
 
-export interface CardEmbedParams {
-  /**
-   * A base64 encoded JSON string of an EmbedRequest to specify which card to load.
-   */
-  embed_request: string;
-
-  /**
-   * SHA256 HMAC of the embed_request JSON string with base64 digest.
-   */
-  hmac: string;
-}
-
 export interface CardRenewParams {
   /**
    * The shipping address this card will be sent to.
@@ -1487,52 +1533,6 @@ export interface CardSearchByPanParams {
   pan: string;
 }
 
-export interface CardConvertPhysicalParams {
-  /**
-   * The shipping address this card will be sent to.
-   */
-  shipping_address: Shared.ShippingAddress;
-
-  /**
-   * If omitted, the previous carrier will be used.
-   */
-  carrier?: Shared.Carrier;
-
-  /**
-   * Specifies the configuration (e.g. physical card art) that the card should be
-   * manufactured with, and only applies to cards of type `PHYSICAL`. This must be
-   * configured with Lithic before use.
-   */
-  product_id?: string;
-
-  /**
-   * Shipping method for the card. Only applies to cards of type PHYSICAL. Use of
-   * options besides `STANDARD` require additional permissions.
-   *
-   * - `STANDARD` - USPS regular mail or similar international option, with no
-   *   tracking
-   * - `STANDARD_WITH_TRACKING` - USPS regular mail or similar international option,
-   *   with tracking
-   * - `PRIORITY` - USPS Priority, 1-3 day shipping, with tracking
-   * - `EXPRESS` - FedEx or UPS depending on card manufacturer, Express, 3-day
-   *   shipping, with tracking
-   * - `2_DAY` - FedEx or UPS depending on card manufacturer, 2-day shipping, with
-   *   tracking
-   * - `EXPEDITED` - FedEx or UPS depending on card manufacturer, Standard Overnight
-   *   or similar international option, with tracking
-   * - `BULK` - Card will be shipped as part of a bulk fulfillment order. The
-   *   shipping method and timeline are inherited from the parent bulk order.
-   */
-  shipping_method?:
-    | '2_DAY'
-    | 'BULK'
-    | 'EXPEDITED'
-    | 'EXPRESS'
-    | 'PRIORITY'
-    | 'STANDARD'
-    | 'STANDARD_WITH_TRACKING';
-}
-
 export interface CardWebProvisionParams {
   /**
    * Only applicable if `digital_wallet` is GOOGLE_PAY. Google Pay Web Push
@@ -1572,17 +1572,17 @@ export declare namespace Cards {
     type CardProvisionResponse as CardProvisionResponse,
     type CardWebProvisionResponse as CardWebProvisionResponse,
     type NonPCICardsCursorPage as NonPCICardsCursorPage,
-    type CardListParams as CardListParams,
     type CardCreateParams as CardCreateParams,
     type CardUpdateParams as CardUpdateParams,
+    type CardListParams as CardListParams,
+    type CardConvertPhysicalParams as CardConvertPhysicalParams,
+    type CardEmbedParams as CardEmbedParams,
     type CardGetEmbedHTMLParams,
     type CardGetEmbedURLParams,
     type CardProvisionParams as CardProvisionParams,
     type CardReissueParams as CardReissueParams,
-    type CardEmbedParams as CardEmbedParams,
     type CardRenewParams as CardRenewParams,
     type CardSearchByPanParams as CardSearchByPanParams,
-    type CardConvertPhysicalParams as CardConvertPhysicalParams,
     type CardWebProvisionParams as CardWebProvisionParams,
   };
 
@@ -1590,7 +1590,7 @@ export declare namespace Cards {
 
   export {
     FinancialTransactions as FinancialTransactions,
-    type FinancialTransactionListParams as FinancialTransactionListParams,
     type FinancialTransactionRetrieveParams as FinancialTransactionRetrieveParams,
+    type FinancialTransactionListParams as FinancialTransactionListParams,
   };
 }

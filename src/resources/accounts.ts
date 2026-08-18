@@ -9,24 +9,6 @@ import { path } from '../internal/utils/path';
 
 export class Accounts extends APIResource {
   /**
-   * List account configurations.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const account of client.accounts.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: AccountListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<AccountsCursorPage, Account> {
-    return this._client.getAPIList('/v1/accounts', CursorPage<Account>, { query, ...options });
-  }
-
-  /**
    * Get account configuration such as spend limits.
    *
    * @example
@@ -58,22 +40,21 @@ export class Accounts extends APIResource {
   }
 
   /**
-   * Get an Account's available spend limits, which is based on the spend limit
-   * configured on the Account and the amount already spent over the spend limit's
-   * duration. For example, if the Account has a daily spend limit of $1000
-   * configured, and has spent $600 in the last 24 hours, the available spend limit
-   * returned would be $400.
+   * List account configurations.
    *
    * @example
    * ```ts
-   * const accountSpendLimits =
-   *   await client.accounts.retrieveSpendLimits(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
+   * // Automatically fetches more pages as needed.
+   * for await (const account of client.accounts.list()) {
+   *   // ...
+   * }
    * ```
    */
-  retrieveSpendLimits(accountToken: string, options?: RequestOptions): APIPromise<AccountSpendLimits> {
-    return this._client.get(path`/v1/accounts/${accountToken}/spend_limits`, options);
+  list(
+    query: AccountListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<AccountsCursorPage, Account> {
+    return this._client.getAPIList('/v1/accounts', CursorPage<Account>, { query, ...options });
   }
 
   /**
@@ -96,6 +77,25 @@ export class Accounts extends APIResource {
    */
   retrieveSignals(accountToken: string, options?: RequestOptions): APIPromise<AuthRulesAPI.SignalsResponse> {
     return this._client.get(path`/v1/accounts/${accountToken}/signals`, options);
+  }
+
+  /**
+   * Get an Account's available spend limits, which is based on the spend limit
+   * configured on the Account and the amount already spent over the spend limit's
+   * duration. For example, if the Account has a daily spend limit of $1000
+   * configured, and has spent $600 in the last 24 hours, the available spend limit
+   * returned would be $400.
+   *
+   * @example
+   * ```ts
+   * const accountSpendLimits =
+   *   await client.accounts.retrieveSpendLimits(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  retrieveSpendLimits(accountToken: string, options?: RequestOptions): APIPromise<AccountSpendLimits> {
+    return this._client.get(path`/v1/accounts/${accountToken}/spend_limits`, options);
   }
 }
 
@@ -359,20 +359,6 @@ export namespace AccountSpendLimits {
   }
 }
 
-export interface AccountListParams extends CursorPageParams {
-  /**
-   * Date string in RFC 3339 format. Only entries created after the specified time
-   * will be included. UTC time zone.
-   */
-  begin?: string;
-
-  /**
-   * Date string in RFC 3339 format. Only entries created before the specified time
-   * will be included. UTC time zone.
-   */
-  end?: string;
-}
-
 export interface AccountUpdateParams {
   /**
    * Additional context or information related to the account.
@@ -478,12 +464,26 @@ export namespace AccountUpdateParams {
   }
 }
 
+export interface AccountListParams extends CursorPageParams {
+  /**
+   * Date string in RFC 3339 format. Only entries created after the specified time
+   * will be included. UTC time zone.
+   */
+  begin?: string;
+
+  /**
+   * Date string in RFC 3339 format. Only entries created before the specified time
+   * will be included. UTC time zone.
+   */
+  end?: string;
+}
+
 export declare namespace Accounts {
   export {
     type Account as Account,
     type AccountSpendLimits as AccountSpendLimits,
     type AccountsCursorPage as AccountsCursorPage,
-    type AccountListParams as AccountListParams,
     type AccountUpdateParams as AccountUpdateParams,
+    type AccountListParams as AccountListParams,
   };
 }

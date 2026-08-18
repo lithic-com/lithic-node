@@ -8,8 +8,8 @@ const client = new Lithic({
 });
 
 describe('resource financialAccounts', () => {
-  test('list', async () => {
-    const responsePromise = client.financialAccounts.list();
+  test('create: only required params', async () => {
+    const responsePromise = client.financialAccounts.create({ nickname: 'nickname', type: 'OPERATING' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -19,18 +19,14 @@ describe('resource financialAccounts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('list: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.financialAccounts.list(
-        {
-          account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          business_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-          type: 'ISSUING',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Lithic.NotFoundError);
+  test('create: required and optional params', async () => {
+    const response = await client.financialAccounts.create({
+      nickname: 'nickname',
+      type: 'OPERATING',
+      account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      is_for_benefit_of: true,
+      'Idempotency-Key': '65a9dad4-1b60-4686-83fd-65b25078a4b4',
+    });
   });
 
   test('retrieve', async () => {
@@ -66,11 +62,8 @@ describe('resource financialAccounts', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
-  test('updateStatus: only required params', async () => {
-    const responsePromise = client.financialAccounts.updateStatus('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      status: 'CLOSED',
-      substatus: 'END_USER_REQUEST',
-    });
+  test('list', async () => {
+    const responsePromise = client.financialAccounts.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -80,33 +73,18 @@ describe('resource financialAccounts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('updateStatus: required and optional params', async () => {
-    const response = await client.financialAccounts.updateStatus('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      status: 'CLOSED',
-      substatus: 'END_USER_REQUEST',
-      user_defined_status: '26',
-    });
-  });
-
-  test('create: only required params', async () => {
-    const responsePromise = client.financialAccounts.create({ nickname: 'nickname', type: 'OPERATING' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  test('create: required and optional params', async () => {
-    const response = await client.financialAccounts.create({
-      nickname: 'nickname',
-      type: 'OPERATING',
-      account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      is_for_benefit_of: true,
-      'Idempotency-Key': '65a9dad4-1b60-4686-83fd-65b25078a4b4',
-    });
+  test('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.financialAccounts.list(
+        {
+          account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          business_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          type: 'ISSUING',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Lithic.NotFoundError);
   });
 
   test('registerAccountNumber: only required params', async () => {
@@ -128,5 +106,27 @@ describe('resource financialAccounts', () => {
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       { account_number: 'account_number' },
     );
+  });
+
+  test('updateStatus: only required params', async () => {
+    const responsePromise = client.financialAccounts.updateStatus('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      status: 'CLOSED',
+      substatus: 'END_USER_REQUEST',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('updateStatus: required and optional params', async () => {
+    const response = await client.financialAccounts.updateStatus('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      status: 'CLOSED',
+      substatus: 'END_USER_REQUEST',
+      user_defined_status: '26',
+    });
   });
 });

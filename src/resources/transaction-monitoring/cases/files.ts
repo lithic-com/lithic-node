@@ -16,6 +16,15 @@ export class Files extends APIResource {
   }
 
   /**
+   * Retrieves a single file attached to a case, including a presigned download URL
+   * when the file is ready.
+   */
+  retrieve(fileToken: string, params: FileRetrieveParams, options?: RequestOptions): APIPromise<CaseFile> {
+    const { case_token } = params;
+    return this._client.get(path`/v1/transaction_monitoring/cases/${case_token}/files/${fileToken}`, options);
+  }
+
+  /**
    * Lists the files attached to a case.
    */
   list(
@@ -28,15 +37,6 @@ export class Files extends APIResource {
       CursorPage<CaseFile>,
       { query, ...options },
     );
-  }
-
-  /**
-   * Retrieves a single file attached to a case, including a presigned download URL
-   * when the file is ready.
-   */
-  retrieve(fileToken: string, params: FileRetrieveParams, options?: RequestOptions): APIPromise<CaseFile> {
-    const { case_token } = params;
-    return this._client.get(path`/v1/transaction_monitoring/cases/${case_token}/files/${fileToken}`, options);
   }
 
   /**
@@ -169,14 +169,14 @@ export interface FileCreateParams {
   name: string;
 }
 
-export interface FileListParams extends CursorPageParams {}
-
 export interface FileRetrieveParams {
   /**
    * Globally unique identifier for the case.
    */
   case_token: string;
 }
+
+export interface FileListParams extends CursorPageParams {}
 
 export interface FileDeleteParams {
   /**
@@ -192,8 +192,8 @@ export declare namespace Files {
     type UploadConstraints as UploadConstraints,
     type CaseFilesCursorPage as CaseFilesCursorPage,
     type FileCreateParams as FileCreateParams,
-    type FileListParams as FileListParams,
     type FileRetrieveParams as FileRetrieveParams,
+    type FileListParams as FileListParams,
     type FileDeleteParams as FileDeleteParams,
   };
 }
