@@ -264,7 +264,13 @@ export class Cards extends APIResource {
    * ```ts
    * const response = await client.cards.provision(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   { digital_wallet: 'GOOGLE_PAY' },
+   *   {
+   *     client_device_id:
+   *       'd3538acf-e5df-4446-8ce6-588fa4472ac1',
+   *     client_wallet_account_id:
+   *       'd3538acf-e5df-4446-8ce6-588fa4472ac1',
+   *     digital_wallet: 'GOOGLE_PAY',
+   *   },
    * );
    * ```
    */
@@ -1387,16 +1393,18 @@ export interface CardProvisionParams {
   certificate?: string;
 
   /**
-   * Only applicable if `digital_wallet` is `GOOGLE_PAY` or `SAMSUNG_PAY` and the
-   * card is on the Visa network. Stable device identification set by the wallet
-   * provider.
+   * Only applicable if `digital_wallet` is `GOOGLE_PAY` or `SAMSUNG_PAY`. Stable
+   * device identification set by the wallet provider. Required for both wallets
+   * regardless of network, though the value is only used for cards on the Visa
+   * network and is ignored on Amex and Mastercard.
    */
   client_device_id?: string;
 
   /**
-   * Only applicable if `digital_wallet` is `GOOGLE_PAY` or `SAMSUNG_PAY` and the
-   * card is on the Visa network. Consumer ID that identifies the wallet account
-   * holder entity.
+   * Only applicable if `digital_wallet` is `GOOGLE_PAY` or `SAMSUNG_PAY`. Consumer
+   * ID that identifies the wallet account holder entity. Required for both wallets
+   * regardless of network, though the value is only used for cards on the Visa
+   * network and is ignored on Amex and Mastercard.
    */
   client_wallet_account_id?: string;
 
