@@ -76,7 +76,7 @@ export interface DisputeV2 {
   /**
    * Chronological list of events that have occurred in the dispute lifecycle
    */
-  events: Array<DisputeV2.Event>;
+  events: Array<DisputeV2.WorkflowEvent | DisputeV2.FinancialEvent | DisputeV2.CardholderLiabilityEvent>;
 
   /**
    * Current breakdown of how liability is allocated for the disputed amount
@@ -109,9 +109,9 @@ export interface DisputeV2 {
 
 export namespace DisputeV2 {
   /**
-   * Event that occurred in the dispute lifecycle
+   * Event tracking the dispute's case management workflow
    */
-  export interface Event {
+  export interface WorkflowEvent {
     /**
      * Unique identifier for the event, in UUID format
      */
@@ -123,21 +123,21 @@ export namespace DisputeV2 {
     created: string;
 
     /**
-     * Details specific to the event type
+     * Details specific to workflow events
      */
-    data: Event.Workflow | Event.Financial | Event.CardholderLiability;
+    data: WorkflowEvent.Data;
 
     /**
-     * Type of event
+     * Type of event. Always `WORKFLOW`
      */
-    type: 'WORKFLOW' | 'FINANCIAL' | 'CARDHOLDER_LIABILITY';
+    type: 'WORKFLOW';
   }
 
-  export namespace Event {
+  export namespace WorkflowEvent {
     /**
      * Details specific to workflow events
      */
-    export interface Workflow {
+    export interface Data {
       /**
        * Action taken in this stage
        */
@@ -162,17 +162,39 @@ export namespace DisputeV2 {
        * Current stage of the dispute workflow
        */
       stage: 'CLAIM';
-
-      /**
-       * Event type discriminator
-       */
-      type: 'WORKFLOW';
     }
+  }
+
+  /**
+   * Event tracking a funds movement between issuer and acquirer
+   */
+  export interface FinancialEvent {
+    /**
+     * Unique identifier for the event, in UUID format
+     */
+    token: string;
+
+    /**
+     * When the event occurred
+     */
+    created: string;
 
     /**
      * Details specific to financial events
      */
-    export interface Financial {
+    data: FinancialEvent.Data;
+
+    /**
+     * Type of event. Always `FINANCIAL`
+     */
+    type: 'FINANCIAL';
+  }
+
+  export namespace FinancialEvent {
+    /**
+     * Details specific to financial events
+     */
+    export interface Data {
       /**
        * Amount in minor units
        */
@@ -187,17 +209,39 @@ export namespace DisputeV2 {
        * Stage at which the financial event occurred
        */
       stage: 'CHARGEBACK' | 'REPRESENTMENT' | 'PREARBITRATION' | 'ARBITRATION' | 'COLLABORATION';
-
-      /**
-       * Event type discriminator
-       */
-      type: 'FINANCIAL';
     }
+  }
+
+  /**
+   * Event tracking a change in cardholder liability
+   */
+  export interface CardholderLiabilityEvent {
+    /**
+     * Unique identifier for the event, in UUID format
+     */
+    token: string;
+
+    /**
+     * When the event occurred
+     */
+    created: string;
 
     /**
      * Details specific to cardholder liability events
      */
-    export interface CardholderLiability {
+    data: CardholderLiabilityEvent.Data;
+
+    /**
+     * Type of event. Always `CARDHOLDER_LIABILITY`
+     */
+    type: 'CARDHOLDER_LIABILITY';
+  }
+
+  export namespace CardholderLiabilityEvent {
+    /**
+     * Details specific to cardholder liability events
+     */
+    export interface Data {
       /**
        * Action taken regarding cardholder liability
        */
@@ -215,12 +259,7 @@ export namespace DisputeV2 {
       /**
        * Reason for the action
        */
-      reason: string;
-
-      /**
-       * Event type discriminator
-       */
-      type: 'CARDHOLDER_LIABILITY';
+      reason: string | null;
     }
   }
 
