@@ -40,9 +40,10 @@ export interface BlockchainRecipient {
   token: string;
 
   /**
-   * The financial account the blockchain recipient belongs to
+   * The financial account the blockchain recipient belongs to, or null when the
+   * recipient is registered against the program rather than a financial account
    */
-  account_token: string;
+  account_token: string | null;
 
   /**
    * An optional tag or memo used by some chains to identify the destination of a
