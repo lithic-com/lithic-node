@@ -53,6 +53,12 @@ export interface DisputeV2 {
   case_id: string | null;
 
   /**
+   * Token for the claim this dispute was filed under, in UUID format. Null for
+   * disputes not initiated through the Dispute Intake API.
+   */
+  claim_token: string | null;
+
+  /**
    * When the dispute was created.
    */
   created: string;
@@ -70,7 +76,7 @@ export interface DisputeV2 {
   /**
    * Chronological list of events that have occurred in the dispute lifecycle
    */
-  events: Array<DisputeV2.Event>;
+  events: Array<DisputeV2.WorkflowEvent | DisputeV2.FinancialEvent | DisputeV2.CardholderLiabilityEvent>;
 
   /**
    * Current breakdown of how liability is allocated for the disputed amount
@@ -103,9 +109,9 @@ export interface DisputeV2 {
 
 export namespace DisputeV2 {
   /**
-   * Event that occurred in the dispute lifecycle
+   * Event tracking the dispute's case management workflow
    */
-  export interface Event {
+  export interface WorkflowEvent {
     /**
      * Unique identifier for the event, in UUID format
      */
@@ -117,21 +123,21 @@ export namespace DisputeV2 {
     created: string;
 
     /**
-     * Details specific to the event type
+     * Details specific to workflow events
      */
-    data: Event.Workflow | Event.Financial | Event.CardholderLiability;
+    data: WorkflowEvent.Data;
 
     /**
-     * Type of event
+     * Type of event. Always `WORKFLOW`
      */
-    type: 'WORKFLOW' | 'FINANCIAL' | 'CARDHOLDER_LIABILITY';
+    type: 'WORKFLOW';
   }
 
-  export namespace Event {
+  export namespace WorkflowEvent {
     /**
      * Details specific to workflow events
      */
-    export interface Workflow {
+    export interface Data {
       /**
        * Action taken in this stage
        */
@@ -156,17 +162,39 @@ export namespace DisputeV2 {
        * Current stage of the dispute workflow
        */
       stage: 'CLAIM';
-
-      /**
-       * Event type discriminator
-       */
-      type: 'WORKFLOW';
     }
+  }
+
+  /**
+   * Event tracking a funds movement between issuer and acquirer
+   */
+  export interface FinancialEvent {
+    /**
+     * Unique identifier for the event, in UUID format
+     */
+    token: string;
+
+    /**
+     * When the event occurred
+     */
+    created: string;
 
     /**
      * Details specific to financial events
      */
-    export interface Financial {
+    data: FinancialEvent.Data;
+
+    /**
+     * Type of event. Always `FINANCIAL`
+     */
+    type: 'FINANCIAL';
+  }
+
+  export namespace FinancialEvent {
+    /**
+     * Details specific to financial events
+     */
+    export interface Data {
       /**
        * Amount in minor units
        */
@@ -181,21 +209,47 @@ export namespace DisputeV2 {
        * Stage at which the financial event occurred
        */
       stage: 'CHARGEBACK' | 'REPRESENTMENT' | 'PREARBITRATION' | 'ARBITRATION' | 'COLLABORATION';
-
-      /**
-       * Event type discriminator
-       */
-      type: 'FINANCIAL';
     }
+  }
+
+  /**
+   * Event tracking a change in cardholder liability
+   */
+  export interface CardholderLiabilityEvent {
+    /**
+     * Unique identifier for the event, in UUID format
+     */
+    token: string;
+
+    /**
+     * When the event occurred
+     */
+    created: string;
 
     /**
      * Details specific to cardholder liability events
      */
-    export interface CardholderLiability {
+    data: CardholderLiabilityEvent.Data;
+
+    /**
+     * Type of event. Always `CARDHOLDER_LIABILITY`
+     */
+    type: 'CARDHOLDER_LIABILITY';
+  }
+
+  export namespace CardholderLiabilityEvent {
+    /**
+     * Details specific to cardholder liability events
+     */
+    export interface Data {
       /**
        * Action taken regarding cardholder liability
        */
-      action: 'PROVISIONAL_CREDIT_GRANTED' | 'PROVISIONAL_CREDIT_REVERSED' | 'WRITTEN_OFF';
+      action:
+        | 'PROVISIONAL_CREDIT_GRANTED'
+        | 'PROVISIONAL_CREDIT_REVERSED'
+        | 'WRITTEN_OFF'
+        | 'WRITE_OFF_REVERSED';
 
       /**
        * Amount in minor units
@@ -205,12 +259,7 @@ export namespace DisputeV2 {
       /**
        * Reason for the action
        */
-      reason: string;
-
-      /**
-       * Event type discriminator
-       */
-      type: 'CARDHOLDER_LIABILITY';
+      reason: string | null;
     }
   }
 
@@ -284,6 +333,12 @@ export interface DisputesV2ListParams extends CursorPageParams {
    * Filter by card token.
    */
   card_token?: string;
+
+  /**
+   * Filter by the token of the claim the dispute was filed under. Returns the
+   * disputes created from that claim's disputed transaction events.
+   */
+  claim_token?: string;
 
   /**
    * Filter by the token of the transaction being disputed. Corresponds with

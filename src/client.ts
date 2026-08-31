@@ -45,6 +45,11 @@ import {
 import { AuthStreamEnrollment, AuthStreamSecret } from './resources/auth-stream-enrollment';
 import { Balance, BalanceListParams, Balances, BalancesSinglePage } from './resources/balances';
 import {
+  BlockchainRecipient,
+  BlockchainRecipientCreateParams,
+  BlockchainRecipients,
+} from './resources/blockchain-recipients';
+import {
   BookTransferCreateParams,
   BookTransferListParams,
   BookTransferResponse,
@@ -1184,6 +1189,7 @@ export class Lithic {
   transactions: API.Transactions = new API.Transactions(this);
   responderEndpoints: API.ResponderEndpoints = new API.ResponderEndpoints(this);
   externalBankAccounts: API.ExternalBankAccounts = new API.ExternalBankAccounts(this);
+  blockchainRecipients: API.BlockchainRecipients = new API.BlockchainRecipients(this);
   payments: API.Payments = new API.Payments(this);
   threeDS: API.ThreeDS = new API.ThreeDS(this);
   reports: API.Reports = new API.Reports(this);
@@ -1222,6 +1228,7 @@ Lithic.FinancialAccounts = FinancialAccounts;
 Lithic.Transactions = Transactions;
 Lithic.ResponderEndpoints = ResponderEndpoints;
 Lithic.ExternalBankAccounts = ExternalBankAccounts;
+Lithic.BlockchainRecipients = BlockchainRecipients;
 Lithic.Payments = Payments;
 Lithic.ThreeDS = ThreeDS;
 Lithic.Reports = Reports;
@@ -1463,6 +1470,12 @@ export declare namespace Lithic {
     type ExternalBankAccountRetryMicroDepositsParams as ExternalBankAccountRetryMicroDepositsParams,
     type ExternalBankAccountRetryPrenoteParams as ExternalBankAccountRetryPrenoteParams,
     type ExternalBankAccountSetVerificationMethodParams as ExternalBankAccountSetVerificationMethodParams,
+  };
+
+  export {
+    BlockchainRecipients as BlockchainRecipients,
+    type BlockchainRecipient as BlockchainRecipient,
+    type BlockchainRecipientCreateParams as BlockchainRecipientCreateParams,
   };
 
   export {

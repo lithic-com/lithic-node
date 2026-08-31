@@ -628,6 +628,16 @@ Methods:
 
 - <code title="post /v1/external_bank_accounts/{external_bank_account_token}/micro_deposits">client.externalBankAccounts.microDeposits.<a href="./src/resources/external-bank-accounts/micro-deposits.ts">create</a>(externalBankAccountToken, { ...params }) -> MicroDepositCreateResponse</code>
 
+# BlockchainRecipients
+
+Types:
+
+- <code><a href="./src/resources/blockchain-recipients.ts">BlockchainRecipient</a></code>
+
+Methods:
+
+- <code title="post /v1/blockchain_recipients">client.blockchainRecipients.<a href="./src/resources/blockchain-recipients.ts">create</a>({ ...params }) -> BlockchainRecipient</code>
+
 # Payments
 
 Types:

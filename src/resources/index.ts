@@ -43,6 +43,11 @@ export { AuthRules, type SignalsResponse } from './auth-rules/auth-rules';
 export { AuthStreamEnrollment, type AuthStreamSecret } from './auth-stream-enrollment';
 export { Balances, type Balance, type BalanceListParams, type BalancesSinglePage } from './balances';
 export {
+  BlockchainRecipients,
+  type BlockchainRecipient,
+  type BlockchainRecipientCreateParams,
+} from './blockchain-recipients';
+export {
   BookTransfers,
   type BookTransferResponse,
   type BookTransferCreateParams,
