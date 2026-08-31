@@ -19,6 +19,7 @@ export {
   type CardGetEmbedHTMLParams,
   type CardGetEmbedURLParams,
   type CardProvisionParams,
+  type CardReassignAccountParams,
   type CardReissueParams,
   type CardRenewParams,
   type CardSearchByPanParams,

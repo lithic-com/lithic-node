@@ -283,6 +283,31 @@ export class Cards extends APIResource {
   }
 
   /**
+   * Reassigns a card to another account. The card must be in an `OPEN` or `PAUSED`
+   * state, and the destination account must be in an `ACTIVE` state.
+   *
+   * Clients must contact their Lithic account manager for access to this endpoint.
+   *
+   * @example
+   * ```ts
+   * const card = await client.cards.reassignAccount(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   {
+   *     new_account_token:
+   *       '82d7c408-2bbb-4f63-889a-8a2a2b1601af',
+   *   },
+   * );
+   * ```
+   */
+  reassignAccount(
+    cardToken: string,
+    body: CardReassignAccountParams,
+    options?: RequestOptions,
+  ): APIPromise<Card> {
+    return this._client.post(path`/v1/cards/${cardToken}/reassign_account`, { body, ...options });
+  }
+
+  /**
    * Initiate print and shipment of a duplicate physical card (e.g. card is
    * physically damaged). The PAN, expiry, and CVC2 will remain the same and the
    * original card can continue to be used until the new card is activated. Only
@@ -1428,6 +1453,13 @@ export interface CardProvisionParams {
   nonce_signature?: string;
 }
 
+export interface CardReassignAccountParams {
+  /**
+   * Globally unique identifier for the account to associate with the card
+   */
+  new_account_token: string;
+}
+
 export interface CardReissueParams {
   /**
    * If omitted, the previous carrier will be used.
@@ -1588,6 +1620,7 @@ export declare namespace Cards {
     type CardGetEmbedHTMLParams,
     type CardGetEmbedURLParams,
     type CardProvisionParams as CardProvisionParams,
+    type CardReassignAccountParams as CardReassignAccountParams,
     type CardReissueParams as CardReissueParams,
     type CardRenewParams as CardRenewParams,
     type CardSearchByPanParams as CardSearchByPanParams,

@@ -187,6 +187,25 @@ describe('resource cards', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
+  test('reassignAccount: only required params', async () => {
+    const responsePromise = client.cards.reassignAccount('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      new_account_token: '82d7c408-2bbb-4f63-889a-8a2a2b1601af',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('reassignAccount: required and optional params', async () => {
+    const response = await client.cards.reassignAccount('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      new_account_token: '82d7c408-2bbb-4f63-889a-8a2a2b1601af',
+    });
+  });
+
   test('reissue', async () => {
     const responsePromise = client.cards.reissue('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
     const rawResponse = await responsePromise.asResponse();
