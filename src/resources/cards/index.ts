@@ -17,6 +17,7 @@ export {
   type CardConvertPhysicalParams,
   type CardEmbedParams,
   type CardProvisionParams,
+  type CardReassignAccountParams,
   type CardReissueParams,
   type CardRenewParams,
   type CardSearchByPanParams,
