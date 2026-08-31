@@ -174,6 +174,7 @@ const fuse = new Fuse(
     'client.cards.embed',
     'client.cards.list',
     'client.cards.provision',
+    'client.cards.reassignAccount',
     'client.cards.reissue',
     'client.cards.renew',
     'client.cards.retrieve',

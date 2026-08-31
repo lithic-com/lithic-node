@@ -419,6 +419,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/cards/{card_token}/provision',
   },
   {
+    clientCallName: 'client.cards.reassignAccount',
+    fullyQualifiedName: 'cards.reassignAccount',
+    httpMethod: 'post',
+    httpPath: '/v1/cards/{card_token}/reassign_account',
+  },
+  {
     clientCallName: 'client.cards.reissue',
     fullyQualifiedName: 'cards.reissue',
     httpMethod: 'post',
