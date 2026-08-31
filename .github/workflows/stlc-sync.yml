@@ -1,8 +1,10 @@
-# NOTE(stlc migration, 2026-08-04): repo names below point at the
-# stainless-sdks placeholder repos used to validate the migration.
-# At cutover, replace:
-#   - the production repo with lithic-com/lithic-node
-#   - the staging/config repo owner with your own org after transfer
+# NOTE(post-transfer, 2026-08-12): this repo moved from stainless-sdks to privacy-com.
+# Remaining items, deliberately not done yet:
+#   - production repo: still points at the stainless-sdks placeholder below. Real target is
+#     lithic-com/lithic-node — intentionally not switched over yet; see the migration plan.
+#   - config repo: updated below to privacy-com/lithic-schemas (stainless/lithic/). The
+#     seal-dispatch this triggers is currently inert (no CONFIG_DISPATCH_TOKEN secret exists
+#     yet), so setting this ahead of time is safe.
 name: Sync SDK repos
 
 # Keeps the staging and production trunks in sync and the config repo's
@@ -166,7 +168,7 @@ jobs:
       group: seal-dispatch-${{ github.ref }}
       cancel-in-progress: false
     env:
-      CONFIG_REPO: stainless-sdks/lithic-config
+      CONFIG_REPO: privacy-com/lithic-schemas
     steps:
       - name: Loop-guard and send re-seal dispatch
         env:

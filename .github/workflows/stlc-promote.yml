@@ -1,8 +1,7 @@
-# NOTE(stlc migration, 2026-08-04): repo names below point at the
-# stainless-sdks placeholder repos used to validate the migration.
-# At cutover, replace:
-#   - the production repo with lithic-com/lithic-node
-#   - the staging/config repo owner with your own org after transfer
+# NOTE(post-transfer, 2026-08-12): this repo moved from stainless-sdks to privacy-com.
+# Production repo still points at the stainless-sdks placeholder below. Real target is
+# lithic-com/lithic-node — intentionally not switched over yet; see the migration plan.
+# Do not dispatch this workflow until that's deliberately ready.
 name: Promote SDKs
 
 # Promote staging to production by fast-forwarding production main up to staging,
