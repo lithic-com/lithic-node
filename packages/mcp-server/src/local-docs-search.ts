@@ -3803,6 +3803,57 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     },
   },
   {
+    name: 'reassign_account',
+    endpoint: '/v1/cards/{card_token}/reassign_account',
+    httpMethod: 'post',
+    summary: 'Reassign a card to another account',
+    description:
+      'Reassigns a card to another account. The card must be in an `OPEN` or `PAUSED` state, and the destination account must be in an `ACTIVE` state.\n\nClients must contact their Lithic account manager for access to this endpoint.\n',
+    stainlessPath: '(resource) cards > (method) reassign_account',
+    qualified: 'client.cards.reassignAccount',
+    params: ['card_token: string;', 'new_account_token: string;'],
+    response:
+      "{ token: string; account_token: string; card_program_token: string; created: string; funding: { token: string; created: string; last_four: string; state: 'DELETED' | 'ENABLED' | 'PENDING'; type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS'; account_name?: string; nickname?: string; }; last_four: string; pin_status: 'OK' | 'BLOCKED' | 'NOT_SET'; spend_limit: number; spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION'; state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT'; type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET'; auth_rule_tokens?: string[]; bulk_order_token?: string; cardholder_currency?: string; comment?: string; digital_card_art_token?: string; exp_month?: string; exp_year?: string; hostname?: string; memo?: string; network_program_token?: string; pending_commands?: string[]; product_id?: string; replacement_for?: string; substatus?: string; }",
+    markdown:
+      "## reassign_account\n\n`client.cards.reassignAccount(card_token: string, new_account_token: string): object`\n\n**post** `/v1/cards/{card_token}/reassign_account`\n\nReassigns a card to another account. The card must be in an `OPEN` or `PAUSED` state, and the destination account must be in an `ACTIVE` state.\n\nClients must contact their Lithic account manager for access to this endpoint.\n\n\n### Parameters\n\n- `card_token: string`\n\n- `new_account_token: string`\n  Globally unique identifier for the account to associate with the card\n\n### Returns\n\n- `{ token: string; account_token: string; card_program_token: string; created: string; funding: { token: string; created: string; last_four: string; state: 'DELETED' | 'ENABLED' | 'PENDING'; type: 'DEPOSITORY_CHECKING' | 'DEPOSITORY_SAVINGS'; account_name?: string; nickname?: string; }; last_four: string; pin_status: 'OK' | 'BLOCKED' | 'NOT_SET'; spend_limit: number; spend_limit_duration: 'ANNUALLY' | 'FOREVER' | 'MONTHLY' | 'TRANSACTION'; state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT'; type: 'MERCHANT_LOCKED' | 'PHYSICAL' | 'SINGLE_USE' | 'VIRTUAL' | 'UNLOCKED' | 'DIGITAL_WALLET'; auth_rule_tokens?: string[]; bulk_order_token?: string; cardholder_currency?: string; comment?: string; digital_card_art_token?: string; exp_month?: string; exp_year?: string; hostname?: string; memo?: string; network_program_token?: string; pending_commands?: string[]; product_id?: string; replacement_for?: string; substatus?: string; }`\n  Card details with potentially PCI sensitive information for Enterprise customers\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst card = await client.cards.reassignAccount('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', { new_account_token: '82d7c408-2bbb-4f63-889a-8a2a2b1601af' });\n\nconsole.log(card);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.cards.reassignAccount',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nconst card = await client.cards.reassignAccount('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {\n  new_account_token: '82d7c408-2bbb-4f63-889a-8a2a2b1601af',\n});\n\nconsole.log(card);",
+      },
+      python: {
+        method: 'cards.reassign_account',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ncard = client.cards.reassign_account(\n    card_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n    new_account_token="82d7c408-2bbb-4f63-889a-8a2a2b1601af",\n)\nprint(card)',
+      },
+      java: {
+        method: 'cards().reassignAccount',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.Card;\nimport com.lithic.api.models.CardReassignAccountParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        CardReassignAccountParams params = CardReassignAccountParams.builder()\n            .cardToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n            .newAccountToken("82d7c408-2bbb-4f63-889a-8a2a2b1601af")\n            .build();\n        Card card = client.cards().reassignAccount(params);\n    }\n}',
+      },
+      kotlin: {
+        method: 'cards().reassignAccount',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.Card\nimport com.lithic.api.models.CardReassignAccountParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: CardReassignAccountParams = CardReassignAccountParams.builder()\n        .cardToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .newAccountToken("82d7c408-2bbb-4f63-889a-8a2a2b1601af")\n        .build()\n    val card: Card = client.cards().reassignAccount(params)\n}',
+      },
+      go: {
+        method: 'client.Cards.ReassignAccount',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tcard, err := client.Cards.ReassignAccount(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.CardReassignAccountParams{\n\t\t\tNewAccountToken: lithic.F("82d7c408-2bbb-4f63-889a-8a2a2b1601af"),\n\t\t},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", card)\n}\n',
+      },
+      ruby: {
+        method: 'cards.reassign_account',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ncard = lithic.cards.reassign_account(\n  "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n  new_account_token: "82d7c408-2bbb-4f63-889a-8a2a2b1601af"\n)\n\nputs(card)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/cards/$CARD_TOKEN/reassign_account \\\n    -H \'Content-Type: application/json\' \\\n    -H "Authorization: $LITHIC_API_KEY" \\\n    -d \'{\n          "new_account_token": "82d7c408-2bbb-4f63-889a-8a2a2b1601af"\n        }\'',
+      },
+    },
+  },
+  {
     name: 'search_by_pan',
     endpoint: '/v1/cards/search_by_pan',
     httpMethod: 'post',

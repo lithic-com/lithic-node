@@ -277,6 +277,7 @@ Methods:
 - <code title="post /v1/cards/{card_token}/convert_physical">client.cards.<a href="./src/resources/cards/cards.ts">convertPhysical</a>(cardToken, { ...params }) -> Card</code>
 - <code title="get /v1/embed/card">client.cards.<a href="./src/resources/cards/cards.ts">embed</a>({ ...params }) -> string</code>
 - <code title="post /v1/cards/{card_token}/provision">client.cards.<a href="./src/resources/cards/cards.ts">provision</a>(cardToken, { ...params }) -> CardProvisionResponse</code>
+- <code title="post /v1/cards/{card_token}/reassign_account">client.cards.<a href="./src/resources/cards/cards.ts">reassignAccount</a>(cardToken, { ...params }) -> Card</code>
 - <code title="post /v1/cards/{card_token}/reissue">client.cards.<a href="./src/resources/cards/cards.ts">reissue</a>(cardToken, { ...params }) -> Card</code>
 - <code title="post /v1/cards/{card_token}/renew">client.cards.<a href="./src/resources/cards/cards.ts">renew</a>(cardToken, { ...params }) -> Card</code>
 - <code title="get /v1/cards/{card_token}/signals">client.cards.<a href="./src/resources/cards/cards.ts">retrieveSignals</a>(cardToken) -> SignalsResponse</code>
