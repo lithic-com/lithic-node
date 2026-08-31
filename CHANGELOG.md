@@ -1,5 +1,42 @@
 # Changelog
 
+## 0.146.0 (2026-08-31)
+
+Full Changelog: [v0.145.0...v0.146.0](https://github.com/lithic-com/lithic-node/compare/v0.145.0...v0.146.0)
+
+### Features
+
+* **api:** add blockchain_addresses field to financial account responses ([4194b81](https://github.com/lithic-com/lithic-node/commit/4194b81f3cdcd7f58faa97b42884c79b86920390))
+* **api:** add blockchain_recipients resource with create method ([67a3827](https://github.com/lithic-com/lithic-node/commit/67a3827c8cfe4f618593da7e002956c4b1e73fc9))
+* **api:** add claim_token param/field and WRITE_OFF_REVERSED enum to disputesV2 ([fe4d256](https://github.com/lithic-com/lithic-node/commit/fe4d256c07f72241ae60acd99426e79fc78e3544))
+* **api:** Add limit_cash_amount and limit_cash_count to VelocityLimit template ([cde6d09](https://github.com/lithic-com/lithic-node/commit/cde6d09649b94b094eb269247eff71246ee4d75d))
+* **api:** add PROGRAM scope to auth rule actions, entity types to cases ([3a236e3](https://github.com/lithic-com/lithic-node/commit/3a236e32c9472ad5c63ed5575b34ea3019096549))
+* **api:** add reassignAccount method to cards ([e1ec8ca](https://github.com/lithic-com/lithic-node/commit/e1ec8ca6414a40fbdaf7a2bebc52cd732340a352))
+* **api:** add stablecoin inbound/outbound payment types ([9cf3394](https://github.com/lithic-com/lithic-node/commit/9cf3394169e2eca847c91aad010fc89938069e3c))
+* **api:** add stablecoin lifecycle enum values to line items/payments/financial events ([ccda791](https://github.com/lithic-com/lithic-node/commit/ccda7914b31a68bf500bfe5552be23ec47077d38))
+* **api:** add STABLECOIN payment method and attributes to payments ([4296eb4](https://github.com/lithic-com/lithic-node/commit/4296eb4ce0357acb8dd6cfa53956699abf1b7f9f))
+* **api:** add STABLECOIN payment method, nullable method_attributes to payments ([f80554d](https://github.com/lithic-com/lithic-node/commit/f80554dd99299edb60d123eadd478aecf934b78c))
+* **api:** add STABLECOIN payment type to payments ([a55164c](https://github.com/lithic-com/lithic-node/commit/a55164c2281183f8b3c99ae2c1114ab7bc7d104c))
+* Make blockchain recipient account_token nullable ([99bca3e](https://github.com/lithic-com/lithic-node/commit/99bca3e865f4214f26e299db15579fcf2d66a738))
+* Remove stablecoin transfer type ([062881c](https://github.com/lithic-com/lithic-node/commit/062881c243e2ca3208033386f18ad363c8730353))
+
+
+### Bug Fixes
+
+* **types:** rename event data types and remove type discriminators in disputes-v2 ([e4544e9](https://github.com/lithic-com/lithic-node/commit/e4544e908a83afac4e5ede3dedd81f13f6ba366d))
+
+
+### Chores
+
+* **internal:** allow the mock server port to be set with STAINLESS_MOCK_PORT ([142cc32](https://github.com/lithic-com/lithic-node/commit/142cc3247111fefda98745a12de17b3fe1b62efa))
+* **internal:** codegen related update ([0c3e1dc](https://github.com/lithic-com/lithic-node/commit/0c3e1dccbee1e2e84b0284751f5a6b2c90d2f89d))
+
+
+### Documentation
+
+* **api:** clarify CVV field descriptions for AMEX cards ([a636964](https://github.com/lithic-com/lithic-node/commit/a63696438e8968a9966b045ac49e2bff37ea45d7))
+* **api:** clarify parameter requirements for cards.provision ([36bb385](https://github.com/lithic-com/lithic-node/commit/36bb385df19c6ea5e0a371017f94d9033145d257))
+
 ## 0.145.0 (2026-07-30)
 
 Full Changelog: [v0.144.0...v0.145.0](https://github.com/lithic-com/lithic-node/compare/v0.144.0...v0.145.0)
