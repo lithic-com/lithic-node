@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.147.0 (2026-09-03)
+
+Full Changelog: [v0.146.0...v0.147.0](https://github.com/lithic-com/lithic-node/compare/v0.146.0...v0.147.0)
+
+### Features
+
+* **api:** add EXTERNAL_STABLECOIN category and events to payments/account-activity/statements ([d89001c](https://github.com/lithic-com/lithic-node/commit/d89001c431cbfcb4a0be1e61a79299d8d6096794))
+* **api:** add OTHER enum value to type field in auth_rules.v2 ([022c00b](https://github.com/lithic-com/lithic-node/commit/022c00bec0a58609473ce0a843f526f01382c064))
+
+
+### Documentation
+
+* **mcp:** document code execution modes and the local code runner ([7623f85](https://github.com/lithic-com/lithic-node/commit/7623f85c394e10f26f44b377a730d33edb9ea4c8))
+
 ## 0.146.0 (2026-08-31)
 
 Full Changelog: [v0.145.0...v0.146.0](https://github.com/lithic-com/lithic-node/compare/v0.145.0...v0.146.0)

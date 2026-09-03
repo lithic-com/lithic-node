@@ -62,19 +62,32 @@ claude mcp add lithic_mcp_api --header "x-lithic-api-key: My Lithic API Key" --t
 ## Code Mode
 
 This MCP server is built on the "Code Mode" tool scheme. In this MCP Server,
-your agent will write code against the TypeScript SDK, which will then be executed in an
-isolated sandbox. To accomplish this, the server will expose two tools to your agent:
+your agent will write code against the TypeScript SDK, which will then be executed in a
+sandbox. To accomplish this, the server will expose two tools to your agent:
 
 - The first tool is a docs search tool, which can be used to generically query for
   documentation about your API/SDK.
 
 - The second tool is a code tool, where the agent can write code against the TypeScript SDK.
-  The code will be executed in a sandbox environment without web or filesystem access. Then,
-  anything the code returns or prints will be returned to the agent as the result of the
-  tool call.
+  The code is executed in a sandbox whose filesystem and network access are restricted to
+  what the SDK needs — see "Where code runs" below. Then, anything the code returns or
+  prints will be returned to the agent as the result of the tool call.
 
 Using this scheme, agents are capable of performing very complex tasks deterministically
 and repeatably.
+
+### Where code runs
+
+The `--code-execution-mode` flag controls where the code tool runs your agent's code:
+
+- `--code-execution-mode=local` runs each code tool call in a Deno subprocess on the same
+  machine as the MCP server, restricted to reading the server's own files and to making network
+  requests to your API host. Nothing is sent to Stainless. Deno must be installed for this mode
+  to work: install it from https://deno.land, or add it to the MCP server's dependencies with
+  `npm install deno`.
+
+- `--code-execution-mode=stainless-sandbox` sends the code to a Stainless-hosted sandbox to be
+  executed there. This mode is deprecated and is being turned off, so use `local` instead.
 
 ## Running remotely
 

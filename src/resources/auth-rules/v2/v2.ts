@@ -259,8 +259,16 @@ export interface AuthRule {
    * - `TYPESCRIPT_CODE`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
    *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, CARD_TRANSACTION_UPDATE, or
    *   ACH_PAYMENT_UPDATE event stream.
+   * - `OTHER`: A rule whose type is not exposed through this API. Rules of this type
+   *   are read-only; `OTHER` cannot be used when creating a rule.
    */
-  type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE';
+  type:
+    | 'CONDITIONAL_BLOCK'
+    | 'VELOCITY_LIMIT'
+    | 'MERCHANT_LOCK'
+    | 'CONDITIONAL_ACTION'
+    | 'TYPESCRIPT_CODE'
+    | 'OTHER';
 
   /**
    * Account tokens to which the Auth Rule does not apply.
@@ -3351,8 +3359,16 @@ export declare namespace V2CreateParams {
      * - `TYPESCRIPT_CODE`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
      *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, CARD_TRANSACTION_UPDATE, or
      *   ACH_PAYMENT_UPDATE event stream.
+     * - `OTHER`: A rule whose type is not exposed through this API. Rules of this type
+     *   are read-only; `OTHER` cannot be used when creating a rule.
      */
-    type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE';
+    type:
+      | 'CONDITIONAL_BLOCK'
+      | 'VELOCITY_LIMIT'
+      | 'MERCHANT_LOCK'
+      | 'CONDITIONAL_ACTION'
+      | 'TYPESCRIPT_CODE'
+      | 'OTHER';
 
     /**
      * Account tokens to which the Auth Rule applies.
@@ -3413,8 +3429,16 @@ export declare namespace V2CreateParams {
      * - `TYPESCRIPT_CODE`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
      *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, CARD_TRANSACTION_UPDATE, or
      *   ACH_PAYMENT_UPDATE event stream.
+     * - `OTHER`: A rule whose type is not exposed through this API. Rules of this type
+     *   are read-only; `OTHER` cannot be used when creating a rule.
      */
-    type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE';
+    type:
+      | 'CONDITIONAL_BLOCK'
+      | 'VELOCITY_LIMIT'
+      | 'MERCHANT_LOCK'
+      | 'CONDITIONAL_ACTION'
+      | 'TYPESCRIPT_CODE'
+      | 'OTHER';
 
     /**
      * The event stream during which the rule will be evaluated.
@@ -3465,8 +3489,16 @@ export declare namespace V2CreateParams {
      * - `TYPESCRIPT_CODE`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
      *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, CARD_TRANSACTION_UPDATE, or
      *   ACH_PAYMENT_UPDATE event stream.
+     * - `OTHER`: A rule whose type is not exposed through this API. Rules of this type
+     *   are read-only; `OTHER` cannot be used when creating a rule.
      */
-    type: 'CONDITIONAL_BLOCK' | 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE';
+    type:
+      | 'CONDITIONAL_BLOCK'
+      | 'VELOCITY_LIMIT'
+      | 'MERCHANT_LOCK'
+      | 'CONDITIONAL_ACTION'
+      | 'TYPESCRIPT_CODE'
+      | 'OTHER';
 
     /**
      * The event stream during which the rule will be evaluated.
