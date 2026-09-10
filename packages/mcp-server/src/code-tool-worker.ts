@@ -269,6 +269,7 @@ const fuse = new Fuse(
     'client.externalBankAccounts.update',
     'client.externalBankAccounts.microDeposits.create',
     'client.blockchainRecipients.create',
+    'client.blockchainRecipients.retrieve',
     'client.payments.create',
     'client.payments.createStablecoin',
     'client.payments.list',

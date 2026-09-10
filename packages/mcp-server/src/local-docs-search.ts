@@ -8535,6 +8535,57 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     },
   },
   {
+    name: 'retrieve',
+    endpoint: '/v1/blockchain_recipients/{blockchain_recipient_token}',
+    httpMethod: 'get',
+    summary: 'Get blockchain recipient',
+    description:
+      'Get a blockchain recipient by token\n\nUse this to poll the `verification_state` after registering an address: a recipient cannot receive\na payout until screening completes and moves it out of `PENDING`\n',
+    stainlessPath: '(resource) blockchain_recipients > (method) retrieve',
+    qualified: 'client.blockchainRecipients.retrieve',
+    params: ['blockchain_recipient_token: string;'],
+    response:
+      "{ token: string; account_token: string; address_tag: string; chain: string; created: string; external_id: string; name: string; owner: string; owner_type: 'INDIVIDUAL' | 'BUSINESS'; program_id: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; updated: string; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; }",
+    markdown:
+      "## retrieve\n\n`client.blockchainRecipients.retrieve(blockchain_recipient_token: string): { token: string; account_token: string; address_tag: string; chain: string; created: string; external_id: string; name: string; owner: string; owner_type: owner_type; program_id: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; updated: string; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; }`\n\n**get** `/v1/blockchain_recipients/{blockchain_recipient_token}`\n\nGet a blockchain recipient by token\n\nUse this to poll the `verification_state` after registering an address: a recipient cannot receive\na payout until screening completes and moves it out of `PENDING`\n\n\n### Parameters\n\n- `blockchain_recipient_token: string`\n\n### Returns\n\n- `{ token: string; account_token: string; address_tag: string; chain: string; created: string; external_id: string; name: string; owner: string; owner_type: 'INDIVIDUAL' | 'BUSINESS'; program_id: string; state: 'ENABLED' | 'CLOSED' | 'PAUSED'; updated: string; verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'; }`\n\n  - `token: string`\n  - `account_token: string`\n  - `address_tag: string`\n  - `chain: string`\n  - `created: string`\n  - `external_id: string`\n  - `name: string`\n  - `owner: string`\n  - `owner_type: 'INDIVIDUAL' | 'BUSINESS'`\n  - `program_id: string`\n  - `state: 'ENABLED' | 'CLOSED' | 'PAUSED'`\n  - `updated: string`\n  - `verification_state: 'PENDING' | 'ENABLED' | 'FAILED_VERIFICATION' | 'INSUFFICIENT_FUNDS'`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst blockchainRecipient = await client.blockchainRecipients.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(blockchainRecipient);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.blockchainRecipients.retrieve',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nconst blockchainRecipient = await client.blockchainRecipients.retrieve(\n  '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n);\n\nconsole.log(blockchainRecipient.external_id);",
+      },
+      python: {
+        method: 'blockchain_recipients.retrieve',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nblockchain_recipient = client.blockchain_recipients.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(blockchain_recipient.external_id)',
+      },
+      java: {
+        method: 'blockchainRecipients().retrieve',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.BlockchainRecipient;\nimport com.lithic.api.models.BlockchainRecipientRetrieveParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        BlockchainRecipient blockchainRecipient = client.blockchainRecipients().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e");\n    }\n}',
+      },
+      kotlin: {
+        method: 'blockchainRecipients().retrieve',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.BlockchainRecipient\nimport com.lithic.api.models.BlockchainRecipientRetrieveParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val blockchainRecipient: BlockchainRecipient = client.blockchainRecipients().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
+      },
+      go: {
+        method: 'client.BlockchainRecipients.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tblockchainRecipient, err := client.BlockchainRecipients.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", blockchainRecipient.ExternalID)\n}\n',
+      },
+      ruby: {
+        method: 'blockchain_recipients.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nblockchain_recipient = lithic.blockchain_recipients.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(blockchain_recipient)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/blockchain_recipients/$BLOCKCHAIN_RECIPIENT_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
+      },
+    },
+  },
+  {
     name: 'list',
     endpoint: '/v1/payments',
     httpMethod: 'get',
