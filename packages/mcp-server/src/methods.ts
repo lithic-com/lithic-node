@@ -996,6 +996,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/payments',
   },
   {
+    clientCallName: 'client.payments.createStablecoin',
+    fullyQualifiedName: 'payments.createStablecoin',
+    httpMethod: 'post',
+    httpPath: '/v1/payments/stablecoin',
+  },
+  {
     clientCallName: 'client.payments.retry',
     fullyQualifiedName: 'payments.retry',
     httpMethod: 'post',
