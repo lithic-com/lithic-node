@@ -978,6 +978,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/blockchain_recipients',
   },
   {
+    clientCallName: 'client.blockchainRecipients.retrieve',
+    fullyQualifiedName: 'blockchainRecipients.retrieve',
+    httpMethod: 'get',
+    httpPath: '/v1/blockchain_recipients/{blockchain_recipient_token}',
+  },
+  {
     clientCallName: 'client.payments.create',
     fullyQualifiedName: 'payments.create',
     httpMethod: 'post',

@@ -625,6 +625,7 @@ Types:
 Methods:
 
 - <code title="post /v1/blockchain_recipients">client.blockchainRecipients.<a href="./src/resources/blockchain-recipients.ts">create</a>({ ...params }) -> BlockchainRecipient</code>
+- <code title="get /v1/blockchain_recipients/{blockchain_recipient_token}">client.blockchainRecipients.<a href="./src/resources/blockchain-recipients.ts">retrieve</a>(blockchainRecipientToken) -> BlockchainRecipient</code>
 
 # Payments
 
