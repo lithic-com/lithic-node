@@ -322,6 +322,7 @@ export {
   type BookTransferTransactionUpdatedWebhookEvent,
   type CardCreatedWebhookEvent,
   type CardConvertedWebhookEvent,
+  type CardPinUpdatedWebhookEvent,
   type CardRenewedWebhookEvent,
   type CardReissuedWebhookEvent,
   type CardShippedWebhookEvent,
