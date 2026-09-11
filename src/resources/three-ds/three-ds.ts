@@ -171,6 +171,13 @@ export interface ThreeDSAuthentication {
     | null;
 
   /**
+   * PSD2/SCA context for EEA and UK transactions. Present when Lithic determines the
+   * transaction is in scope for PSD2 Strong Customer Authentication. Absent for
+   * out-of-scope transactions.
+   */
+  psd2_context?: ThreeDSAuthentication.Psd2Context | null;
+
+  /**
    * Type of 3DS Requestor Initiated (3RI) request — i.e., a 3DS authentication that
    * takes place at the initiation of the merchant rather than the cardholder. The
    * most common example of this is where a merchant is authenticating before billing
@@ -630,6 +637,59 @@ export namespace ThreeDSAuthentication {
      * The phone number used for delivering the OTP. Relevant only for SMS_OTP method.
      */
     phone_number?: string | null;
+  }
+
+  /**
+   * PSD2/SCA context for EEA and UK transactions. Present when Lithic determines the
+   * transaction is in scope for PSD2 Strong Customer Authentication. Absent for
+   * out-of-scope transactions.
+   */
+  export interface Psd2Context {
+    /**
+     * SCA exemption declared by the acquirer in the 3DS authentication request.
+     *
+     * - `NONE` - No exemption claimed
+     * - `TRANSACTION_RISK_ANALYSIS` - Transaction Risk Analysis (TRA) exemption;
+     *   acquirer asserts low fraud risk
+     * - `LOW_VALUE` - Low-value payment exemption; transaction is below the EUR 30
+     *   threshold
+     * - `RECURRING_PAYMENT` - Recurring payment with a fixed amount to the same payee
+     * - `MERCHANT_INITIATED_TRANSACTION` - Merchant-initiated transaction (MIT);
+     *   cardholder not present
+     * - `TRUSTED_BENEFICIARY` - Trusted beneficiary; merchant is on cardholder's
+     *   whitelist
+     * - `STRONG_CUSTOMER_AUTHENTICATION_DELEGATION` - SCA already performed by a
+     *   delegated third-party authenticator
+     * - `SECURE_CORPORATE_PAYMENT` - Secure corporate payment using a dedicated
+     *   corporate card or process
+     * - `AUTHENTICATION_OUTAGE_EXCEPTION` - Authentication outage exception;
+     *   scheme-level fallback during ACS downtime
+     * - `BUNDLED` - Mastercard only; bundled exemption code where the exact exemption
+     *   type cannot be distinguished
+     */
+    acquirer_exemption?:
+      | 'NONE'
+      | 'TRANSACTION_RISK_ANALYSIS'
+      | 'LOW_VALUE'
+      | 'RECURRING_PAYMENT'
+      | 'MERCHANT_INITIATED_TRANSACTION'
+      | 'TRUSTED_BENEFICIARY'
+      | 'STRONG_CUSTOMER_AUTHENTICATION_DELEGATION'
+      | 'SECURE_CORPORATE_PAYMENT'
+      | 'AUTHENTICATION_OUTAGE_EXCEPTION'
+      | 'BUNDLED';
+
+    /**
+     * Lithic's validation of the acquirer-declared exemption. Absent when no acquirer
+     * exemption was declared.
+     *
+     * - `ACCEPTED` - Lithic signals support the acquirer's claim
+     * - `REJECTED` - Lithic signals contradict the claim, or a required signal is
+     *   missing
+     * - `NOT_VALIDATED` - Exemption was declared but Lithic has no basis to evaluate
+     *   it; treated as `REJECTED` for challenge purposes
+     */
+    lithic_exemption_validation?: 'ACCEPTED' | 'REJECTED' | 'NOT_VALIDATED';
   }
 
   /**
