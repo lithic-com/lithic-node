@@ -774,6 +774,36 @@ export interface CardConvertedWebhookEvent {
   event_type: 'card.converted';
 }
 
+export interface CardPinUpdatedWebhookEvent {
+  /**
+   * The token of the card whose PIN or PIN status was updated
+   */
+  card_token: string;
+
+  /**
+   * The type of event that occurred.
+   */
+  event_type: 'card.pin_updated';
+
+  /**
+   * The card's PIN status after the update
+   */
+  pin_status: 'OK' | 'BLOCKED';
+
+  /**
+   * The reason for the PIN update:
+   *
+   * - `PIN_SET` - The PIN was set for the first time; `pin_status` is `OK`
+   * - `PIN_CHANGED` - The PIN was changed, including when changing a blocked PIN;
+   *   `pin_status` is `OK`
+   * - `PIN_UNBLOCKED` - The PIN was unblocked without changing it; `pin_status` is
+   *   `OK`
+   * - `EXCESSIVE_PIN_ATTEMPTS` - The PIN was blocked due to excessive incorrect PIN
+   *   attempts; `pin_status` is `BLOCKED`
+   */
+  status_reason: 'PIN_SET' | 'PIN_CHANGED' | 'PIN_UNBLOCKED' | 'EXCESSIVE_PIN_ATTEMPTS';
+}
+
 export interface CardRenewedWebhookEvent {
   /**
    * The type of event that occurred.
@@ -2376,6 +2406,7 @@ export type ParsedWebhookEvent =
   | BookTransferTransactionUpdatedWebhookEvent
   | CardCreatedWebhookEvent
   | CardConvertedWebhookEvent
+  | CardPinUpdatedWebhookEvent
   | CardRenewedWebhookEvent
   | CardReissuedWebhookEvent
   | CardShippedWebhookEvent
@@ -2864,6 +2895,7 @@ export declare namespace Webhooks {
     type BookTransferTransactionUpdatedWebhookEvent as BookTransferTransactionUpdatedWebhookEvent,
     type CardCreatedWebhookEvent as CardCreatedWebhookEvent,
     type CardConvertedWebhookEvent as CardConvertedWebhookEvent,
+    type CardPinUpdatedWebhookEvent as CardPinUpdatedWebhookEvent,
     type CardRenewedWebhookEvent as CardRenewedWebhookEvent,
     type CardReissuedWebhookEvent as CardReissuedWebhookEvent,
     type CardShippedWebhookEvent as CardShippedWebhookEvent,
