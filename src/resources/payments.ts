@@ -10,7 +10,14 @@ import { path } from '../internal/utils/path';
 
 export class Payments extends APIResource {
   /**
-   * Initiates a payment between a financial account and an external bank account.
+   * Initiates an ACH payment between a financial account and an external bank
+   * account.
+   *
+   * This endpoint originates on the ACH rail only. To send a stablecoin payout, use
+   * the
+   * [Create stablecoin payment](https://docs.lithic.com/reference/createstablecoinpayment)
+   * endpoint. Payments on every rail are read back through
+   * [List payments](https://docs.lithic.com/reference/searchpayments).
    *
    * @example
    * ```ts
@@ -60,6 +67,45 @@ export class Payments extends APIResource {
     options?: RequestOptions,
   ): PagePromise<PaymentsCursorPage, Payment> {
     return this._client.getAPIList('/v1/payments', CursorPage<Payment>, { query, ...options });
+  }
+
+  /**
+   * Initiates a stablecoin payout from a financial account to a registered
+   * blockchain recipient.
+   *
+   * The recipient must have been registered with
+   * [Create blockchain recipient](https://docs.lithic.com/reference/createblockchainrecipient)
+   * and have completed address screening — only a recipient in the `ENABLED`
+   * verification state can receive a payout. The destination address and chain come
+   * from the recipient, so they are not supplied here.
+   *
+   * Only payouts are initiated through this endpoint. Stablecoin pay-ins are
+   * credited from on-chain deposits to a financial account's deposit address and are
+   * not created through the API. Funds are placed on hold when the payout is
+   * initiated, and a payout that fails on chain reverses that hold. A payout cannot
+   * be cancelled once it has been submitted on chain.
+   *
+   * This endpoint is only available to stablecoin-enabled programs. Contact your
+   * customer success manager to learn more.
+   *
+   * @example
+   * ```ts
+   * const response = await client.payments.createStablecoin({
+   *   amount: 1588,
+   *   blockchain_recipient_token:
+   *     '1e3fdb71-4b52-4a30-a7a9-52c85e26a1d9',
+   *   financial_account_token:
+   *     '35b0c466-a3e3-519a-9549-ead6a6a2277d',
+   *   type: 'PAYMENT',
+   *   memo: 'Vendor payout',
+   * });
+   * ```
+   */
+  createStablecoin(
+    body: PaymentCreateStablecoinParams,
+    options?: RequestOptions,
+  ): APIPromise<PaymentCreateStablecoinResponse> {
+    return this._client.post('/v1/payments/stablecoin', { body, ...options });
   }
 
   /**
@@ -212,6 +258,7 @@ export interface Payment {
     | 'EXTERNAL_CHECK'
     | 'EXTERNAL_FEDNOW'
     | 'EXTERNAL_RTP'
+    | 'EXTERNAL_STABLECOIN'
     | 'EXTERNAL_TRANSFER'
     | 'EXTERNAL_WIRE'
     | 'MANAGEMENT_ADJUSTMENT'
@@ -621,6 +668,16 @@ export interface PaymentCreateResponse extends Payment {
 /**
  * Payment transaction
  */
+export interface PaymentCreateStablecoinResponse extends Payment {
+  /**
+   * Balance
+   */
+  balance?: BalancesAPI.Balance;
+}
+
+/**
+ * Payment transaction
+ */
 export interface PaymentRetryResponse extends Payment {
   /**
    * Balance
@@ -765,7 +822,7 @@ export interface PaymentListParams extends CursorPageParams {
 
   business_account_token?: string;
 
-  category?: 'ACH';
+  category?: 'ACH' | 'STABLECOIN';
 
   /**
    * Date string in RFC 3339 format. Only entries created before the specified time
@@ -778,6 +835,58 @@ export interface PaymentListParams extends CursorPageParams {
   result?: 'APPROVED' | 'DECLINED';
 
   status?: 'DECLINED' | 'PENDING' | 'RETURNED' | 'REVERSED' | 'SETTLED';
+}
+
+export interface PaymentCreateStablecoinParams {
+  /**
+   * Payout amount in cents
+   */
+  amount: number;
+
+  /**
+   * Token of the blockchain recipient to send the payout to. The recipient must be
+   * in the `ENABLED` verification state
+   */
+  blockchain_recipient_token: string;
+
+  /**
+   * Token of the financial account the payout is funded from
+   */
+  financial_account_token: string;
+
+  /**
+   * Direction of the payment. Stablecoin supports payouts only
+   */
+  type: 'PAYMENT';
+
+  /**
+   * Customer-provided token that will serve as an idempotency token. This token will
+   * become the transaction token
+   */
+  token?: string;
+
+  /**
+   * Optional hold to settle when this payout is initiated
+   */
+  hold?: PaymentCreateStablecoinParams.Hold;
+
+  /**
+   * Memo recorded on the payout. Defaults to `Stablecoin payout on <chain>` when
+   * omitted
+   */
+  memo?: string;
+}
+
+export namespace PaymentCreateStablecoinParams {
+  /**
+   * Optional hold to settle when this payout is initiated
+   */
+  export interface Hold {
+    /**
+     * Token of the hold to settle when this payout is initiated
+     */
+    token: string;
+  }
 }
 
 export interface PaymentReturnParams {
@@ -826,7 +935,8 @@ export interface PaymentSimulateActionParams {
     | 'ACH_RECEIPT_RELEASED_EARLY'
     | 'ACH_RETURN_INITIATED'
     | 'ACH_RETURN_PROCESSED'
-    | 'ACH_RETURN_SETTLED';
+    | 'ACH_RETURN_SETTLED'
+    | 'STABLECOIN_REVIEWED';
 
   /**
    * Date of Death for ACH Return
@@ -902,6 +1012,7 @@ export declare namespace Payments {
   export {
     type Payment as Payment,
     type PaymentCreateResponse as PaymentCreateResponse,
+    type PaymentCreateStablecoinResponse as PaymentCreateStablecoinResponse,
     type PaymentRetryResponse as PaymentRetryResponse,
     type PaymentSimulateActionResponse as PaymentSimulateActionResponse,
     type PaymentSimulateReceiptResponse as PaymentSimulateReceiptResponse,
@@ -910,6 +1021,7 @@ export declare namespace Payments {
     type PaymentsCursorPage as PaymentsCursorPage,
     type PaymentCreateParams as PaymentCreateParams,
     type PaymentListParams as PaymentListParams,
+    type PaymentCreateStablecoinParams as PaymentCreateStablecoinParams,
     type PaymentReturnParams as PaymentReturnParams,
     type PaymentSimulateActionParams as PaymentSimulateActionParams,
     type PaymentSimulateReceiptParams as PaymentSimulateReceiptParams,

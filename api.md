@@ -638,6 +638,7 @@ Types:
 Methods:
 
 - <code title="post /v1/blockchain_recipients">client.blockchainRecipients.<a href="./src/resources/blockchain-recipients.ts">create</a>({ ...params }) -> BlockchainRecipient</code>
+- <code title="get /v1/blockchain_recipients/{blockchain_recipient_token}">client.blockchainRecipients.<a href="./src/resources/blockchain-recipients.ts">retrieve</a>(blockchainRecipientToken) -> BlockchainRecipient</code>
 
 # Payments
 
@@ -645,6 +646,7 @@ Types:
 
 - <code><a href="./src/resources/payments.ts">Payment</a></code>
 - <code><a href="./src/resources/payments.ts">PaymentCreateResponse</a></code>
+- <code><a href="./src/resources/payments.ts">PaymentCreateStablecoinResponse</a></code>
 - <code><a href="./src/resources/payments.ts">PaymentRetryResponse</a></code>
 - <code><a href="./src/resources/payments.ts">PaymentSimulateActionResponse</a></code>
 - <code><a href="./src/resources/payments.ts">PaymentSimulateReceiptResponse</a></code>
@@ -656,6 +658,7 @@ Methods:
 - <code title="post /v1/payments">client.payments.<a href="./src/resources/payments.ts">create</a>({ ...params }) -> PaymentCreateResponse</code>
 - <code title="get /v1/payments/{payment_token}">client.payments.<a href="./src/resources/payments.ts">retrieve</a>(paymentToken) -> Payment</code>
 - <code title="get /v1/payments">client.payments.<a href="./src/resources/payments.ts">list</a>({ ...params }) -> PaymentsCursorPage</code>
+- <code title="post /v1/payments/stablecoin">client.payments.<a href="./src/resources/payments.ts">createStablecoin</a>({ ...params }) -> PaymentCreateStablecoinResponse</code>
 - <code title="post /v1/payments/{payment_token}/retry">client.payments.<a href="./src/resources/payments.ts">retry</a>(paymentToken) -> PaymentRetryResponse</code>
 - <code title="post /v1/payments/{payment_token}/return">client.payments.<a href="./src/resources/payments.ts">return</a>(paymentToken, { ...params }) -> Payment</code>
 - <code title="post /v1/simulate/payments/{payment_token}/action">client.payments.<a href="./src/resources/payments.ts">simulateAction</a>(paymentToken, { ...params }) -> PaymentSimulateActionResponse</code>
@@ -906,6 +909,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">BookTransferTransactionUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CardCreatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CardConvertedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CardPinUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CardRenewedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CardReissuedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CardShippedWebhookEvent</a></code>

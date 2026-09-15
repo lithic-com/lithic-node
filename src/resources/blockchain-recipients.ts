@@ -4,6 +4,7 @@ import { APIResource } from '../core/resource';
 import * as ExternalBankAccountsAPI from './external-bank-accounts/external-bank-accounts';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
+import { path } from '../internal/utils/path';
 
 export class BlockchainRecipients extends APIResource {
   /**
@@ -30,6 +31,25 @@ export class BlockchainRecipients extends APIResource {
    */
   create(body: BlockchainRecipientCreateParams, options?: RequestOptions): APIPromise<BlockchainRecipient> {
     return this._client.post('/v1/blockchain_recipients', { body, ...options });
+  }
+
+  /**
+   * Get a blockchain recipient by token
+   *
+   * Use this to poll the `verification_state` after registering an address: a
+   * recipient cannot receive a payout until screening completes and moves it out of
+   * `PENDING`
+   *
+   * @example
+   * ```ts
+   * const blockchainRecipient =
+   *   await client.blockchainRecipients.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  retrieve(blockchainRecipientToken: string, options?: RequestOptions): APIPromise<BlockchainRecipient> {
+    return this._client.get(path`/v1/blockchain_recipients/${blockchainRecipientToken}`, options);
   }
 }
 

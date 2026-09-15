@@ -90,6 +90,34 @@ describe('resource payments', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
+  test('createStablecoin: only required params', async () => {
+    const responsePromise = client.payments.createStablecoin({
+      amount: 1588,
+      blockchain_recipient_token: '1e3fdb71-4b52-4a30-a7a9-52c85e26a1d9',
+      financial_account_token: '35b0c466-a3e3-519a-9549-ead6a6a2277d',
+      type: 'PAYMENT',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('createStablecoin: required and optional params', async () => {
+    const response = await client.payments.createStablecoin({
+      amount: 1588,
+      blockchain_recipient_token: '1e3fdb71-4b52-4a30-a7a9-52c85e26a1d9',
+      financial_account_token: '35b0c466-a3e3-519a-9549-ead6a6a2277d',
+      type: 'PAYMENT',
+      token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      hold: { token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+      memo: 'Vendor payout',
+    });
+  });
+
   test('retry', async () => {
     const responsePromise = client.payments.retry('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();

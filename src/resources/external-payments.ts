@@ -120,6 +120,7 @@ export interface ExternalPayment {
     | 'EXTERNAL_CHECK'
     | 'EXTERNAL_FEDNOW'
     | 'EXTERNAL_RTP'
+    | 'EXTERNAL_STABLECOIN'
     | 'EXTERNAL_TRANSFER';
 
   currency?: string;
@@ -190,7 +191,12 @@ export namespace ExternalPayment {
       | 'EXTERNAL_RTP_CANCELED'
       | 'EXTERNAL_RTP_SETTLED'
       | 'EXTERNAL_RTP_REVERSED'
-      | 'EXTERNAL_RTP_RELEASED';
+      | 'EXTERNAL_RTP_RELEASED'
+      | 'EXTERNAL_STABLECOIN_INITIATED'
+      | 'EXTERNAL_STABLECOIN_CANCELED'
+      | 'EXTERNAL_STABLECOIN_SETTLED'
+      | 'EXTERNAL_STABLECOIN_REVERSED'
+      | 'EXTERNAL_STABLECOIN_RELEASED';
   }
 }
 
@@ -203,6 +209,7 @@ export interface ExternalPaymentCreateParams {
     | 'EXTERNAL_CHECK'
     | 'EXTERNAL_FEDNOW'
     | 'EXTERNAL_RTP'
+    | 'EXTERNAL_STABLECOIN'
     | 'EXTERNAL_TRANSFER';
 
   effective_date: string;
@@ -242,6 +249,7 @@ export interface ExternalPaymentListParams extends CursorPageParams {
     | 'EXTERNAL_CHECK'
     | 'EXTERNAL_FEDNOW'
     | 'EXTERNAL_RTP'
+    | 'EXTERNAL_STABLECOIN'
     | 'EXTERNAL_TRANSFER';
 
   /**
