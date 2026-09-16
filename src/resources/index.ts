@@ -229,6 +229,7 @@ export {
   type PaymentCreateParams,
   type PaymentListParams,
   type PaymentCreateStablecoinParams,
+  type PaymentRetryParams,
   type PaymentReturnParams,
   type PaymentSimulateActionParams,
   type PaymentSimulateReceiptParams,
