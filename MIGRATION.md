@@ -146,6 +146,7 @@ client.example.list(undefined, { headers: { ... } });
 - `client.externalBankAccounts.retryMicroDeposits()`
 - `client.externalBankAccounts.retryPrenote()`
 - `client.payments.list()`
+- `client.payments.retry()`
 - `client.reports.settlement.listDetails()`
 - `client.reports.settlement.networkTotals.list()`
 - `client.cardPrograms.list()`
