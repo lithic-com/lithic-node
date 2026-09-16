@@ -182,7 +182,9 @@ export namespace ManagementOperationTransaction {
       | 'QUARTERLY'
       | 'QUARTERLY_REVERSAL'
       | 'MONTHLY'
-      | 'MONTHLY_REVERSAL';
+      | 'MONTHLY_REVERSAL'
+      | 'FEE'
+      | 'FEE_REVERSAL';
 
     subtype?: string | null;
   }
@@ -237,7 +239,9 @@ export interface ManagementOperationCreateParams {
     | 'QUARTERLY'
     | 'QUARTERLY_REVERSAL'
     | 'MONTHLY'
-    | 'MONTHLY_REVERSAL';
+    | 'MONTHLY_REVERSAL'
+    | 'FEE'
+    | 'FEE_REVERSAL';
 
   financial_account_token: string;
 

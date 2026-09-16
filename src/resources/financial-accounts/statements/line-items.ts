@@ -176,6 +176,8 @@ export namespace StatementLineItems {
       | 'EXTERNAL_WIRE_RELEASED'
       | 'EXTERNAL_WIRE_REVERSED'
       | 'EXTERNAL_WIRE_SETTLED'
+      | 'FEE'
+      | 'FEE_REVERSAL'
       | 'FINANCIAL_AUTHORIZATION'
       | 'FINANCIAL_CREDIT_AUTHORIZATION'
       | 'INSTALLMENT_FEE'
