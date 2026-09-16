@@ -115,11 +115,16 @@ export class Payments extends APIResource {
    * ```ts
    * const response = await client.payments.retry(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   { method: 'ACH_SAME_DAY' },
    * );
    * ```
    */
-  retry(paymentToken: string, options?: RequestOptions): APIPromise<PaymentRetryResponse> {
-    return this._client.post(path`/v1/payments/${paymentToken}/retry`, options);
+  retry(
+    paymentToken: string,
+    body: PaymentRetryParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<PaymentRetryResponse> {
+    return this._client.post(path`/v1/payments/${paymentToken}/retry`, { body, ...options });
   }
 
   /**
@@ -889,6 +894,15 @@ export namespace PaymentCreateStablecoinParams {
   }
 }
 
+export interface PaymentRetryParams {
+  /**
+   * Settlement speed to retry the payment at. Defaults to the original payment's
+   * method. An `ACH_SAME_DAY` retry is rejected if the payment is for $1,000,000.00
+   * or more, or if it is submitted after the same day ACH cutoff
+   */
+  method?: 'ACH_NEXT_DAY' | 'ACH_SAME_DAY';
+}
+
 export interface PaymentReturnParams {
   /**
    * Globally unique identifier for the financial account
@@ -1022,6 +1036,7 @@ export declare namespace Payments {
     type PaymentCreateParams as PaymentCreateParams,
     type PaymentListParams as PaymentListParams,
     type PaymentCreateStablecoinParams as PaymentCreateStablecoinParams,
+    type PaymentRetryParams as PaymentRetryParams,
     type PaymentReturnParams as PaymentReturnParams,
     type PaymentSimulateActionParams as PaymentSimulateActionParams,
     type PaymentSimulateReceiptParams as PaymentSimulateReceiptParams,

@@ -129,6 +129,17 @@ describe('resource payments', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
+  test('retry: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.payments.retry(
+        '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+        { method: 'ACH_SAME_DAY' },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Lithic.NotFoundError);
+  });
+
   test('return: only required params', async () => {
     const responsePromise = client.payments.return('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
