@@ -6258,6 +6258,57 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     },
   },
   {
+    name: 'retrieve',
+    endpoint: '/v1/financial_accounts/{financial_account_token}/open_to_buy',
+    httpMethod: 'get',
+    summary: 'Get open to buy',
+    description:
+      'Get the funds available for card spend backed by a given Security Account, along with the\nbalances that amount is derived from.\n\nOpen to buy is the amount Lithic authorizes card spend against. It is not a stored balance,\nso it is recalculated on every request from the Security Account, the funds held against spend\nLithic has already paid out to the networks on your behalf, and the spend that has not yet been\ncollected. The accounts that feed the calculation depend on your program setup, so\n`summary.settled_funds` is `null` outside Commercial Charge.\n\nSupported for Commercial Charge, Dynamic Reserve, and Secured Charge programs. Returns `404`\nif `financial_account_token` is not a Security Account you own, or if your program setup does\nnot use an open to buy calculation.\n',
+    stainlessPath: '(resource) financial_accounts.open_to_buy > (method) retrieve',
+    qualified: 'client.financialAccounts.openToBuy.retrieve',
+    params: ['financial_account_token: string;'],
+    response:
+      '{ open_to_buy: number; summary: { security: number; settled_funds: number; total_outstanding_spend: number; }; }',
+    markdown:
+      "## retrieve\n\n`client.financialAccounts.openToBuy.retrieve(financial_account_token: string): { open_to_buy: number; summary: open_to_buy_summary; }`\n\n**get** `/v1/financial_accounts/{financial_account_token}/open_to_buy`\n\nGet the funds available for card spend backed by a given Security Account, along with the\nbalances that amount is derived from.\n\nOpen to buy is the amount Lithic authorizes card spend against. It is not a stored balance,\nso it is recalculated on every request from the Security Account, the funds held against spend\nLithic has already paid out to the networks on your behalf, and the spend that has not yet been\ncollected. The accounts that feed the calculation depend on your program setup, so\n`summary.settled_funds` is `null` outside Commercial Charge.\n\nSupported for Commercial Charge, Dynamic Reserve, and Secured Charge programs. Returns `404`\nif `financial_account_token` is not a Security Account you own, or if your program setup does\nnot use an open to buy calculation.\n\n\n### Parameters\n\n- `financial_account_token: string`\n\n### Returns\n\n- `{ open_to_buy: number; summary: { security: number; settled_funds: number; total_outstanding_spend: number; }; }`\n  Open to Buy\n\n  - `open_to_buy: number`\n  - `summary: { security: number; settled_funds: number; total_outstanding_spend: number; }`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst openToBuy = await client.financialAccounts.openToBuy.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');\n\nconsole.log(openToBuy);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.financialAccounts.openToBuy.retrieve',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nconst openToBuy = await client.financialAccounts.openToBuy.retrieve(\n  '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n);\n\nconsole.log(openToBuy.open_to_buy);",
+      },
+      python: {
+        method: 'financial_accounts.open_to_buy.retrieve',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\nopen_to_buy = client.financial_accounts.open_to_buy.retrieve(\n    "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(open_to_buy.open_to_buy)',
+      },
+      java: {
+        method: 'financialAccounts().openToBuy().retrieve',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.FinancialAccountOpenToBuyRetrieveParams;\nimport com.lithic.api.models.OpenToBuy;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        OpenToBuy openToBuy = client.financialAccounts().openToBuy().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e");\n    }\n}',
+      },
+      kotlin: {
+        method: 'financialAccounts().openToBuy().retrieve',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialAccountOpenToBuyRetrieveParams\nimport com.lithic.api.models.OpenToBuy\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val openToBuy: OpenToBuy = client.financialAccounts().openToBuy().retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
+      },
+      go: {
+        method: 'client.FinancialAccounts.OpenToBuy.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\topenToBuy, err := client.FinancialAccounts.OpenToBuy.Get(context.TODO(), "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", openToBuy.OpenToBuy)\n}\n',
+      },
+      ruby: {
+        method: 'financial_accounts.open_to_buy.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\nopen_to_buy = lithic.financial_accounts.open_to_buy.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(open_to_buy)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN/open_to_buy \\\n    -H "Authorization: $LITHIC_API_KEY"',
+      },
+    },
+  },
+  {
     name: 'list',
     endpoint: '/v1/financial_accounts/{financial_account_token}/financial_transactions',
     httpMethod: 'get',
