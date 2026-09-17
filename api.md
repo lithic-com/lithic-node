@@ -440,6 +440,17 @@ Methods:
 
 - <code title="get /v1/financial_accounts/{financial_account_token}/balances">client.financialAccounts.balances.<a href="./src/resources/financial-accounts/balances.ts">list</a>(financialAccountToken, { ...params }) -> FinancialAccountBalancesSinglePage</code>
 
+## OpenToBuy
+
+Types:
+
+- <code><a href="./src/resources/financial-accounts/open-to-buy.ts">OpenToBuy</a></code>
+- <code><a href="./src/resources/financial-accounts/open-to-buy.ts">OpenToBuySummary</a></code>
+
+Methods:
+
+- <code title="get /v1/financial_accounts/{financial_account_token}/open_to_buy">client.financialAccounts.openToBuy.<a href="./src/resources/financial-accounts/open-to-buy.ts">retrieve</a>(financialAccountToken) -> OpenToBuy</code>
+
 ## FinancialTransactions
 
 Methods:

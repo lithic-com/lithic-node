@@ -51,6 +51,7 @@ export {
   type LoanTapeListParams,
   type LoanTapesCursorPage,
 } from './loan-tapes';
+export { OpenToBuyResource, type OpenToBuy, type OpenToBuySummary } from './open-to-buy';
 export {
   Statements,
   type Statement,

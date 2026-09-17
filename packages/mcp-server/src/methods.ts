@@ -719,6 +719,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/financial_accounts/{financial_account_token}/balances',
   },
   {
+    clientCallName: 'client.financialAccounts.openToBuy.retrieve',
+    fullyQualifiedName: 'financialAccounts.openToBuy.retrieve',
+    httpMethod: 'get',
+    httpPath: '/v1/financial_accounts/{financial_account_token}/open_to_buy',
+  },
+  {
     clientCallName: 'client.financialAccounts.financialTransactions.retrieve',
     fullyQualifiedName: 'financialAccounts.financialTransactions.retrieve',
     httpMethod: 'get',

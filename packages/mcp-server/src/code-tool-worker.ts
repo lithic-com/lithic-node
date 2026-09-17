@@ -226,6 +226,7 @@ const fuse = new Fuse(
     'client.financialAccounts.update',
     'client.financialAccounts.updateStatus',
     'client.financialAccounts.balances.list',
+    'client.financialAccounts.openToBuy.retrieve',
     'client.financialAccounts.financialTransactions.list',
     'client.financialAccounts.financialTransactions.retrieve',
     'client.financialAccounts.creditConfiguration.retrieve',
