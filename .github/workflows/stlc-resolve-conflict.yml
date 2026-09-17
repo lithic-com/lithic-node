@@ -1,0 +1,168 @@
+name: Resolve pending main conflict
+
+# lithic-schemas's push-triggered stlc build can't drive claude-code-action inline (that
+# action only recognizes issues/issue_comment/pull_request/pull_request_review/
+# pull_request_review_comment/workflow_dispatch/repository_dispatch/schedule/workflow_run --
+# push isn't in that list, no config bypasses it). So on a push-time custom-code conflict,
+# lithic-schemas's "Cut conflict PR" step hands the conflict off here: it pushes ONE commit
+# to `stlc/pending-main-conflict`, parented on this repo's `main`, whose tree is the state
+# stlc was left in -- regenerated SDK with the custom-code patch applied as far as it would
+# go, and conflict markers left in the files it couldn't apply.
+#
+# Note what that means: git sees NO conflict here (the branch is a clean descendant of
+# main). The markers are ordinary file content. So this workflow finds them by text search,
+# not `git diff --diff-filter=U`, and there is no merge to perform -- just markers to fix.
+# (An earlier version of this pair pushed stlc's own HEAD and let GitHub compute a native
+# merge instead. That does not work: stlc keeps a separate internal `seal` lineage that
+# shares only the repo's initial commit with the trunk, so the comparison came out as ~1791
+# files of add/add conflicts instead of the handful of files that are really custom code.)
+#
+# Deliberately does not auto-merge: a human reviews and merges, same as the seal PR pattern
+# in stlc-sync.yml. Merging triggers that file's `seal-dispatch` job, which notifies
+# lithic-schemas to re-sync.
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+  # claude-code-action mints an OIDC token and exchanges it for a GitHub token, so it needs
+  # id-token: write. Without it every attempt fails with "Unable to get
+  # ACTIONS_ID_TOKEN_REQUEST_URL env variable" before it ever looks at the conflict -- and
+  # because the step is continue-on-error, the job still goes green and the PR comment
+  # reads as "couldn't auto-resolve" rather than "never ran". Same set as lithic-schemas'
+  # own claude.yaml.
+  id-token: write
+
+jobs:
+  resolve:
+    # Scope to the one branch this is for -- this workflow has no reason to run on any other
+    # PR into this repo (this repo's main is stlc-managed).
+    if: github.event.pull_request.head.ref == 'stlc/pending-main-conflict'
+    runs-on: ${{ vars.STLC_RUNNER || 'ubuntu-latest' }}
+    concurrency:
+      # One resolution attempt at a time per PR -- a rapid-fire re-push (lithic-schemas
+      # force-pushing a fresher conflict) shouldn't race with itself.
+      group: resolve-pending-conflict-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
+    steps:
+      - name: Check out PR branch
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Find conflict markers
+        id: markers
+        run: |
+          # Git's own markers always carry a label ("<<<<<<< ours", ">>>>>>> theirs"), so
+          # requiring the trailing space keeps this from matching a row of angle brackets in
+          # generated docs or a test fixture. Require BOTH ends to be present before
+          # believing it.
+          if git grep -lE '^<{7} ' -- . > /dev/null 2>&1 && git grep -lE '^>{7} ' -- . > /dev/null 2>&1; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+            echo "Files with conflict markers:"
+            git grep -lE '^<{7} ' -- .
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "No conflict markers found -- nothing for this workflow to do."
+          fi
+
+      - name: Resolve conflict markers with Claude
+        id: resolve
+        if: steps.markers.outputs.present == 'true'
+        # continue-on-error: a miss must fall through to the "still conflicted" path below,
+        # not be swallowed as a silent success.
+        continue-on-error: true
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # This PR was opened by the lithic-workflow-dispatcher GitHub App (lithic-schemas's
+          # "Cut conflict PR" step, same LITHIC_WORKFLOW_APP_ID/PRIVATE_KEY as bundle.yaml),
+          # so github.actor here is that bot, not a human -- claude-code-action's
+          # human-actor guard rejects it unless allow-listed. Same bot, same reasoning as the
+          # inline resolve step in stlc-build-template.yml.
+          allowed_bots: "lithic-workflow-dispatcher"
+          # Read/Edit plus read-only git. Committing and pushing happen in the explicit step
+          # below, where they're auditable from the workflow log rather than folded into
+          # whatever the model decides to run.
+          claude_args: |
+            --allowedTools "Read,Edit,Bash(git grep:*),Bash(git status:*),Bash(git diff:*),Bash(git log:*)"
+          prompt: |
+            This repo is a Stainless-generated SDK. The checked-out branch is a single commit
+            on top of `main` holding a half-finished integration: the SDK was regenerated
+            from a changed OpenAPI spec, then the repo's hand-written custom code was
+            replayed on top, and some of it would not apply cleanly. Those spots still have
+            `<<<<<<<` / `=======` / `>>>>>>>` conflict markers sitting in the files as
+            ordinary text. Git itself reports no conflict and there is no merge in progress,
+            so find them with `git grep -nE '^<{7} '`, not `git diff --diff-filter=U`.
+
+            In each marker block, the `<<<<<<<` section is the newly generated code and the
+            `>>>>>>>` section is the hand-written custom code -- but read the labels on the
+            marker lines to confirm rather than trusting position alone.
+
+            1. Find every file containing conflict markers.
+            2. Resolve each block: keep the intent of the hand-written custom code while
+               taking whatever the new generation legitimately added or changed. When in
+               doubt, preserve the custom-code behavior and layer the new generated pieces
+               (new types, fields, methods) around it rather than dropping either side.
+            3. Delete the marker lines themselves as you resolve each block.
+            4. Do not commit, push, or run a formatter -- later steps handle that.
+            5. If a block can't be resolved with confidence (ambiguous intent, or a semantic
+               conflict a textual merge can't settle), leave its markers in place and say so
+               plainly in your final summary instead of guessing.
+
+      - name: Commit and push resolution
+        id: finish
+        if: always() && steps.markers.outputs.present == 'true'
+        run: |
+          set -euo pipefail
+          if git grep -lE '^<{7} ' -- . > /dev/null 2>&1; then
+            echo "Conflict markers still present -- not committing a half-resolved tree."
+            echo "resolved=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Markers gone but no changes staged -- nothing to commit."
+            echo "resolved=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "lithic-workflow[bot]"
+          git config user.email "lithic-workflow[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "stlc: resolve pending main conflict"
+          git push origin "HEAD:${{ github.event.pull_request.head.ref }}"
+          echo "resolved=true" >> "$GITHUB_OUTPUT"
+
+      - name: Comment status on the PR
+        if: always() && steps.markers.outputs.present == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          RESOLVED: ${{ steps.finish.outputs.resolved }}
+        run: |
+          merge_note="Merge with \"Create a merge commit\" -- not squash or rebase (breaks stlc's lineage tracking; see stainless/README.md in lithic-schemas)."
+          if [ "$RESOLVED" = "true" ]; then
+            body="Conflict markers resolved and pushed. Please review the diff and merge when ready. ${merge_note}"
+          else
+            body="Could not fully auto-resolve this conflict -- markers are still present (Claude flagged low confidence, or the resolution step failed). Needs a human: check out this branch, search for \`<<<<<<<\`, fix the blocks, commit and push. ${merge_note}"
+          fi
+          gh pr comment "$PR_NUMBER" --body "$body"
+
+      - name: Alert on failure
+        if: failure()
+        env:
+          ALERT_WEBHOOK_URL: ${{ secrets.STLC_ALERT_WEBHOOK_URL }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          msg="Conflict-resolution workflow failed in ${{ github.repository }} for the pending main conflict PR (#${{ github.event.pull_request.number }}). It needs manual resolution now. Run: ${RUN_URL}"
+          echo "::error title=stlc workflow failed::$msg"
+          { echo "### ⚠️ stlc workflow failed"; echo ""; echo "$msg"; } >> "$GITHUB_STEP_SUMMARY"
+          if [ -n "${ALERT_WEBHOOK_URL:-}" ]; then
+            curl -sS -X POST -H 'Content-Type: application/json' \
+              -d "$(jq -n --arg text "$msg" '{text:$text}')" "$ALERT_WEBHOOK_URL" \
+              || echo "::warning::Alert webhook POST failed"
+          fi
