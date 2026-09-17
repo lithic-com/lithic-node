@@ -43,6 +43,8 @@ import {
   LoanTapes,
   LoanTapesCursorPage,
 } from './loan-tapes';
+import * as OpenToBuyAPI from './open-to-buy';
+import { OpenToBuy, OpenToBuyResource, OpenToBuySummary } from './open-to-buy';
 import * as StatementsAPI from './statements/statements';
 import {
   Statement,
@@ -59,6 +61,7 @@ import { path } from '../../internal/utils/path';
 
 export class FinancialAccounts extends APIResource {
   balances: BalancesAPI.Balances = new BalancesAPI.Balances(this._client);
+  openToBuy: OpenToBuyAPI.OpenToBuyResource = new OpenToBuyAPI.OpenToBuyResource(this._client);
   financialTransactions: FinancialTransactionsAPI.FinancialTransactions =
     new FinancialTransactionsAPI.FinancialTransactions(this._client);
   creditConfiguration: CreditConfigurationAPI.CreditConfiguration =
@@ -581,6 +584,7 @@ export interface FinancialAccountUpdateStatusParams {
 }
 
 FinancialAccounts.Balances = Balances;
+FinancialAccounts.OpenToBuyResource = OpenToBuyResource;
 FinancialAccounts.FinancialTransactions = FinancialTransactions;
 FinancialAccounts.CreditConfiguration = CreditConfigurationAPICreditConfiguration;
 FinancialAccounts.LoanTapes = LoanTapes;
@@ -603,6 +607,12 @@ export declare namespace FinancialAccounts {
   };
 
   export { Balances as Balances, type BalanceListParams as BalanceListParams };
+
+  export {
+    OpenToBuyResource as OpenToBuyResource,
+    type OpenToBuy as OpenToBuy,
+    type OpenToBuySummary as OpenToBuySummary,
+  };
 
   export {
     FinancialTransactions as FinancialTransactions,
