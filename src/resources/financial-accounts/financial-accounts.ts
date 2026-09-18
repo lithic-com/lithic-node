@@ -16,6 +16,15 @@ import {
   FinancialTransactionRetrieveParams,
   FinancialTransactions,
 } from './financial-transactions';
+import * as InstallmentPlansAPI from './installment-plans';
+import {
+  InstallmentPlan,
+  InstallmentPlanListParams,
+  InstallmentPlanRetrieveParams,
+  InstallmentPlans,
+  InstallmentPlansCursorPage,
+  TransactionCategoryBalances,
+} from './installment-plans';
 import * as InterestTierScheduleAPI from './interest-tier-schedule';
 import {
   CategoryTier,
@@ -68,6 +77,9 @@ export class FinancialAccounts extends APIResource {
     new CreditConfigurationAPI.CreditConfiguration(this._client);
   statements: StatementsAPI.Statements = new StatementsAPI.Statements(this._client);
   loanTapes: LoanTapesAPI.LoanTapes = new LoanTapesAPI.LoanTapes(this._client);
+  installmentPlans: InstallmentPlansAPI.InstallmentPlans = new InstallmentPlansAPI.InstallmentPlans(
+    this._client,
+  );
   loanTapeConfiguration: LoanTapeConfigurationAPI.LoanTapeConfigurationResource =
     new LoanTapeConfigurationAPI.LoanTapeConfigurationResource(this._client);
   interestTierSchedule: InterestTierScheduleAPI.InterestTierScheduleResource =
@@ -588,6 +600,7 @@ FinancialAccounts.OpenToBuyResource = OpenToBuyResource;
 FinancialAccounts.FinancialTransactions = FinancialTransactions;
 FinancialAccounts.CreditConfiguration = CreditConfigurationAPICreditConfiguration;
 FinancialAccounts.LoanTapes = LoanTapes;
+FinancialAccounts.InstallmentPlans = InstallmentPlans;
 FinancialAccounts.LoanTapeConfigurationResource = LoanTapeConfigurationResource;
 FinancialAccounts.InterestTierScheduleResource = InterestTierScheduleResource;
 
@@ -641,6 +654,15 @@ export declare namespace FinancialAccounts {
     type LoanTapesCursorPage as LoanTapesCursorPage,
     type LoanTapeRetrieveParams as LoanTapeRetrieveParams,
     type LoanTapeListParams as LoanTapeListParams,
+  };
+
+  export {
+    InstallmentPlans as InstallmentPlans,
+    type InstallmentPlan as InstallmentPlan,
+    type TransactionCategoryBalances as TransactionCategoryBalances,
+    type InstallmentPlansCursorPage as InstallmentPlansCursorPage,
+    type InstallmentPlanRetrieveParams as InstallmentPlanRetrieveParams,
+    type InstallmentPlanListParams as InstallmentPlanListParams,
   };
 
   export {

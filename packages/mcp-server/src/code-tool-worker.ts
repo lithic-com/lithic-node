@@ -236,6 +236,8 @@ const fuse = new Fuse(
     'client.financialAccounts.statements.lineItems.list',
     'client.financialAccounts.loanTapes.list',
     'client.financialAccounts.loanTapes.retrieve',
+    'client.financialAccounts.installmentPlans.list',
+    'client.financialAccounts.installmentPlans.retrieve',
     'client.financialAccounts.loanTapeConfiguration.retrieve',
     'client.financialAccounts.interestTierSchedule.create',
     'client.financialAccounts.interestTierSchedule.delete',
