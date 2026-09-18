@@ -780,6 +780,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v1/financial_accounts/{financial_account_token}/loan_tapes',
   },
   {
+    clientCallName: 'client.financialAccounts.installmentPlans.retrieve',
+    fullyQualifiedName: 'financialAccounts.installmentPlans.retrieve',
+    httpMethod: 'get',
+    httpPath: '/v1/financial_accounts/{financial_account_token}/installment_plans/{installment_plan_token}',
+  },
+  {
+    clientCallName: 'client.financialAccounts.installmentPlans.list',
+    fullyQualifiedName: 'financialAccounts.installmentPlans.list',
+    httpMethod: 'get',
+    httpPath: '/v1/financial_accounts/{financial_account_token}/installment_plans',
+  },
+  {
     clientCallName: 'client.financialAccounts.loanTapeConfiguration.retrieve',
     fullyQualifiedName: 'financialAccounts.loanTapeConfiguration.retrieve',
     httpMethod: 'get',
