@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.147.0 (2026-09-18)
+
+Full Changelog: [v0.146.0...v0.147.0](https://github.com/lithic-com/lithic-node/compare/v0.146.0...v0.147.0)
+
+### Features
+
+* [CARDS-5174] Add reiusse/renew 409 error ([fa0ae4c](https://github.com/lithic-com/lithic-node/commit/fa0ae4c9d0d466dc66ee5fe7bc5bc3174db1d4e0))
+* [TRE-14464] Update /retry payments endpoint to accept method ([ad8c6d4](https://github.com/lithic-com/lithic-node/commit/ad8c6d429b3868c9202c2ff7a0d00ae21376487b))
+* [TRE-14524] Add Open to buy API spec ([e0bc361](https://github.com/lithic-com/lithic-node/commit/e0bc36190aaac85568d469b9dc0daa4f0b4cb8ee))
+* Add missing blockchain/stablecoin endpoints to the spec ([6011012](https://github.com/lithic-com/lithic-node/commit/60110124c2d5033eef60f80a8a90b6f5fccae5fb))
+* **api:** add card.pin_updated webhook event ([e174e1b](https://github.com/lithic-com/lithic-node/commit/e174e1b4fa580e4b93f4a91384a3a771a474506b))
+* **api:** add EXTERNAL_STABLECOIN category and events to payments/account-activity/statements ([d89001c](https://github.com/lithic-com/lithic-node/commit/d89001c431cbfcb4a0be1e61a79299d8d6096794))
+* **api:** add FEE/FEE_REVERSAL to line-items/management-operations/financial events ([c2550c8](https://github.com/lithic-com/lithic-node/commit/c2550c85089ea32157af9de5f31e3935db7c5681))
+* **api:** add installmentPlans resource to financialAccounts ([778acc4](https://github.com/lithic-com/lithic-node/commit/778acc4e58811d933d45866ab9066004e85f65f9))
+* **api:** add OTHER enum value to type field in auth_rules.v2 ([022c00b](https://github.com/lithic-com/lithic-node/commit/022c00bec0a58609473ce0a843f526f01382c064))
+* **api:** add psd2_context field to threeDS.authentication response ([9872235](https://github.com/lithic-com/lithic-node/commit/9872235a163047bd300ed1222ec79e2fcc9a1fc1))
+* **api:** add STABLECOIN_REVIEWED event type to payment simulate action ([d40e9cd](https://github.com/lithic-com/lithic-node/commit/d40e9cd20eb0a8d1547648cb3fdec27976d6c604))
+* AUTH-3759: Add DECLINE_SCA_REQUIRED and SCA_REQUIRED enum entries ([bb3cc93](https://github.com/lithic-com/lithic-node/commit/bb3cc935769cfe3c0b69728d6d83ef7e802baa97))
+* TRE-14349: add installment plan management operation event types ([67bb3d0](https://github.com/lithic-com/lithic-node/commit/67bb3d0ae9522b3f4b76df53fbf43961f5bb874e))
+* TRE-14429: Document the stablecoin payments endpoint ([1f241df](https://github.com/lithic-com/lithic-node/commit/1f241df9bbd3b4c5c31521f07f3ccb52f06b8640))
+
+
+### Documentation
+
+* **mcp:** document code execution modes and the local code runner ([7623f85](https://github.com/lithic-com/lithic-node/commit/7623f85c394e10f26f44b377a730d33edb9ea4c8))
+
 ## 0.146.0 (2026-08-31)
 
 Full Changelog: [v0.145.0...v0.146.0](https://github.com/lithic-com/lithic-node/compare/v0.145.0...v0.146.0)
