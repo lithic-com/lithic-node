@@ -69,6 +69,7 @@ This affects the following methods:
 - `client.financialAccounts.statements.retrieve()`
 - `client.financialAccounts.statements.lineItems.list()`
 - `client.financialAccounts.loanTapes.retrieve()`
+- `client.financialAccounts.installmentPlans.retrieve()`
 - `client.financialAccounts.interestTierSchedule.retrieve()`
 - `client.financialAccounts.interestTierSchedule.update()`
 - `client.financialAccounts.interestTierSchedule.delete()`
@@ -140,6 +141,7 @@ client.example.list(undefined, { headers: { ... } });
 - `client.financialAccounts.creditConfiguration.update()`
 - `client.financialAccounts.statements.list()`
 - `client.financialAccounts.loanTapes.list()`
+- `client.financialAccounts.installmentPlans.list()`
 - `client.financialAccounts.interestTierSchedule.list()`
 - `client.transactions.list()`
 - `client.externalBankAccounts.list()`

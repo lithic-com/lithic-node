@@ -503,6 +503,18 @@ Methods:
 - <code title="get /v1/financial_accounts/{financial_account_token}/loan_tapes/{loan_tape_token}">client.financialAccounts.loanTapes.<a href="./src/resources/financial-accounts/loan-tapes.ts">retrieve</a>(loanTapeToken, { ...params }) -> LoanTape</code>
 - <code title="get /v1/financial_accounts/{financial_account_token}/loan_tapes">client.financialAccounts.loanTapes.<a href="./src/resources/financial-accounts/loan-tapes.ts">list</a>(financialAccountToken, { ...params }) -> LoanTapesCursorPage</code>
 
+## InstallmentPlans
+
+Types:
+
+- <code><a href="./src/resources/financial-accounts/installment-plans.ts">InstallmentPlan</a></code>
+- <code><a href="./src/resources/financial-accounts/installment-plans.ts">TransactionCategoryBalances</a></code>
+
+Methods:
+
+- <code title="get /v1/financial_accounts/{financial_account_token}/installment_plans/{installment_plan_token}">client.financialAccounts.installmentPlans.<a href="./src/resources/financial-accounts/installment-plans.ts">retrieve</a>(installmentPlanToken, { ...params }) -> InstallmentPlan</code>
+- <code title="get /v1/financial_accounts/{financial_account_token}/installment_plans">client.financialAccounts.installmentPlans.<a href="./src/resources/financial-accounts/installment-plans.ts">list</a>(financialAccountToken, { ...params }) -> InstallmentPlansCursorPage</code>
+
 ## LoanTapeConfiguration
 
 Types:
