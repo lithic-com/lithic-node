@@ -6797,6 +6797,112 @@ const EMBEDDED_METHODS: MethodEntry[] = [
     },
   },
   {
+    name: 'list',
+    endpoint: '/v1/financial_accounts/{financial_account_token}/installment_plans',
+    httpMethod: 'get',
+    summary: 'List installment plans',
+    description: 'List the installment plans for a given financial account.',
+    stainlessPath: '(resource) financial_accounts.installment_plans > (method) list',
+    qualified: 'client.financialAccounts.installmentPlans.list',
+    params: [
+      'financial_account_token: string;',
+      'ending_before?: string;',
+      'page_size?: number;',
+      'starting_after?: string;',
+      "state?: 'PENDING' | 'ACTIVE' | 'REBUILD_IN_PROGRESS' | 'FULLY_PAID' | 'CANCELLED';",
+    ],
+    response:
+      "{ token: string; closed_at: string; created: string; fee_amount: number; financial_account_token: string; installment_plan_total: number; installments: { amount_due: number; amount_due_details: object; amount_outstanding: number; amount_outstanding_details: object; amount_paid: number; amount_paid_details: object; date_assessed: string; due_date: string; installment_num: number; payment_due_date: string; payments: { amount: number; amount_details: transaction_category_balances; date: string; }[]; }[]; installments_outstanding: number; installments_paid: number; num_installments: number; principal_amount: number; source_amounts: { balance_transfers: category_balances; cash_advances: category_balances; purchases: category_balances; }; source_id: string; source_type: 'UNPAID_BALANCE' | 'TRANSACTION'; start_date: string; state: 'PENDING' | 'ACTIVE' | 'REBUILD_IN_PROGRESS' | 'FULLY_PAID' | 'CANCELLED'; total_paid: number; updated: string; }",
+    markdown:
+      "## list\n\n`client.financialAccounts.installmentPlans.list(financial_account_token: string, ending_before?: string, page_size?: number, starting_after?: string, state?: 'PENDING' | 'ACTIVE' | 'REBUILD_IN_PROGRESS' | 'FULLY_PAID' | 'CANCELLED'): { token: string; closed_at: string; created: string; fee_amount: number; financial_account_token: string; installment_plan_total: number; installments: object[]; installments_outstanding: number; installments_paid: number; num_installments: number; principal_amount: number; source_amounts: transaction_category_balances; source_id: string; source_type: 'UNPAID_BALANCE' | 'TRANSACTION'; start_date: string; state: 'PENDING' | 'ACTIVE' | 'REBUILD_IN_PROGRESS' | 'FULLY_PAID' | 'CANCELLED'; total_paid: number; updated: string; }`\n\n**get** `/v1/financial_accounts/{financial_account_token}/installment_plans`\n\nList the installment plans for a given financial account.\n\n### Parameters\n\n- `financial_account_token: string`\n  Globally unique identifier for financial account.\n\n- `ending_before?: string`\n  A cursor representing an item's token before which a page of results should end. Used to retrieve the previous page of results before this item.\n\n- `page_size?: number`\n  Page size (for pagination).\n\n- `starting_after?: string`\n  A cursor representing an item's token after which a page of results should begin. Used to retrieve the next page of results after this item.\n\n- `state?: 'PENDING' | 'ACTIVE' | 'REBUILD_IN_PROGRESS' | 'FULLY_PAID' | 'CANCELLED'`\n  Only installment plans in this state will be included.\n\n### Returns\n\n- `{ token: string; closed_at: string; created: string; fee_amount: number; financial_account_token: string; installment_plan_total: number; installments: { amount_due: number; amount_due_details: object; amount_outstanding: number; amount_outstanding_details: object; amount_paid: number; amount_paid_details: object; date_assessed: string; due_date: string; installment_num: number; payment_due_date: string; payments: { amount: number; amount_details: transaction_category_balances; date: string; }[]; }[]; installments_outstanding: number; installments_paid: number; num_installments: number; principal_amount: number; source_amounts: { balance_transfers: category_balances; cash_advances: category_balances; purchases: category_balances; }; source_id: string; source_type: 'UNPAID_BALANCE' | 'TRANSACTION'; start_date: string; state: 'PENDING' | 'ACTIVE' | 'REBUILD_IN_PROGRESS' | 'FULLY_PAID' | 'CANCELLED'; total_paid: number; updated: string; }`\n\n  - `token: string`\n  - `closed_at: string`\n  - `created: string`\n  - `fee_amount: number`\n  - `financial_account_token: string`\n  - `installment_plan_total: number`\n  - `installments: { amount_due: number; amount_due_details: { balance_transfers: object; cash_advances: object; purchases: object; }; amount_outstanding: number; amount_outstanding_details: { balance_transfers: object; cash_advances: object; purchases: object; }; amount_paid: number; amount_paid_details: { balance_transfers: object; cash_advances: object; purchases: object; }; date_assessed: string; due_date: string; installment_num: number; payment_due_date: string; payments: { amount: number; amount_details: { balance_transfers: category_balances; cash_advances: category_balances; purchases: category_balances; }; date: string; }[]; }[]`\n  - `installments_outstanding: number`\n  - `installments_paid: number`\n  - `num_installments: number`\n  - `principal_amount: number`\n  - `source_amounts: { balance_transfers: { fees: number; interest: number; principal: number; }; cash_advances: { fees: number; interest: number; principal: number; }; purchases: { fees: number; interest: number; principal: number; }; }`\n  - `source_id: string`\n  - `source_type: 'UNPAID_BALANCE' | 'TRANSACTION'`\n  - `start_date: string`\n  - `state: 'PENDING' | 'ACTIVE' | 'REBUILD_IN_PROGRESS' | 'FULLY_PAID' | 'CANCELLED'`\n  - `total_paid: number`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\n// Automatically fetches more pages as needed.\nfor await (const installmentPlan of client.financialAccounts.installmentPlans.list('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e')) {\n  console.log(installmentPlan);\n}\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.financialAccounts.installmentPlans.list',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\n// Automatically fetches more pages as needed.\nfor await (const installmentPlan of client.financialAccounts.installmentPlans.list(\n  '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',\n)) {\n  console.log(installmentPlan.installments_paid);\n}",
+      },
+      python: {
+        method: 'financial_accounts.installment_plans.list',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\npage = client.financial_accounts.installment_plans.list(\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\npage = page.data[0]\nprint(page.installments_paid)',
+      },
+      java: {
+        method: 'financialAccounts().installmentPlans().list',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.FinancialAccountInstallmentPlanListPage;\nimport com.lithic.api.models.FinancialAccountInstallmentPlanListParams;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        FinancialAccountInstallmentPlanListPage page = client.financialAccounts().installmentPlans().list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e");\n    }\n}',
+      },
+      kotlin: {
+        method: 'financialAccounts().installmentPlans().list',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialAccountInstallmentPlanListPage\nimport com.lithic.api.models.FinancialAccountInstallmentPlanListParams\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val page: FinancialAccountInstallmentPlanListPage = client.financialAccounts().installmentPlans().list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n}',
+      },
+      go: {
+        method: 'client.FinancialAccounts.InstallmentPlans.List',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tpage, err := client.FinancialAccounts.InstallmentPlans.List(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\tlithic.FinancialAccountInstallmentPlanListParams{},\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", page)\n}\n',
+      },
+      ruby: {
+        method: 'financial_accounts.installment_plans.list',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\npage = lithic.financial_accounts.installment_plans.list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n\nputs(page)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN/installment_plans \\\n    -H "Authorization: $LITHIC_API_KEY"',
+      },
+    },
+  },
+  {
+    name: 'retrieve',
+    endpoint: '/v1/financial_accounts/{financial_account_token}/installment_plans/{installment_plan_token}',
+    httpMethod: 'get',
+    summary: 'Get installment plan by token',
+    description: 'Get a specific installment plan for a given financial account.',
+    stainlessPath: '(resource) financial_accounts.installment_plans > (method) retrieve',
+    qualified: 'client.financialAccounts.installmentPlans.retrieve',
+    params: ['financial_account_token: string;', 'installment_plan_token: string;'],
+    response:
+      "{ token: string; closed_at: string; created: string; fee_amount: number; financial_account_token: string; installment_plan_total: number; installments: { amount_due: number; amount_due_details: object; amount_outstanding: number; amount_outstanding_details: object; amount_paid: number; amount_paid_details: object; date_assessed: string; due_date: string; installment_num: number; payment_due_date: string; payments: { amount: number; amount_details: transaction_category_balances; date: string; }[]; }[]; installments_outstanding: number; installments_paid: number; num_installments: number; principal_amount: number; source_amounts: { balance_transfers: category_balances; cash_advances: category_balances; purchases: category_balances; }; source_id: string; source_type: 'UNPAID_BALANCE' | 'TRANSACTION'; start_date: string; state: 'PENDING' | 'ACTIVE' | 'REBUILD_IN_PROGRESS' | 'FULLY_PAID' | 'CANCELLED'; total_paid: number; updated: string; }",
+    markdown:
+      "## retrieve\n\n`client.financialAccounts.installmentPlans.retrieve(financial_account_token: string, installment_plan_token: string): { token: string; closed_at: string; created: string; fee_amount: number; financial_account_token: string; installment_plan_total: number; installments: object[]; installments_outstanding: number; installments_paid: number; num_installments: number; principal_amount: number; source_amounts: transaction_category_balances; source_id: string; source_type: 'UNPAID_BALANCE' | 'TRANSACTION'; start_date: string; state: 'PENDING' | 'ACTIVE' | 'REBUILD_IN_PROGRESS' | 'FULLY_PAID' | 'CANCELLED'; total_paid: number; updated: string; }`\n\n**get** `/v1/financial_accounts/{financial_account_token}/installment_plans/{installment_plan_token}`\n\nGet a specific installment plan for a given financial account.\n\n### Parameters\n\n- `financial_account_token: string`\n  Globally unique identifier for financial account.\n\n- `installment_plan_token: string`\n  Globally unique identifier for installment plan.\n\n### Returns\n\n- `{ token: string; closed_at: string; created: string; fee_amount: number; financial_account_token: string; installment_plan_total: number; installments: { amount_due: number; amount_due_details: object; amount_outstanding: number; amount_outstanding_details: object; amount_paid: number; amount_paid_details: object; date_assessed: string; due_date: string; installment_num: number; payment_due_date: string; payments: { amount: number; amount_details: transaction_category_balances; date: string; }[]; }[]; installments_outstanding: number; installments_paid: number; num_installments: number; principal_amount: number; source_amounts: { balance_transfers: category_balances; cash_advances: category_balances; purchases: category_balances; }; source_id: string; source_type: 'UNPAID_BALANCE' | 'TRANSACTION'; start_date: string; state: 'PENDING' | 'ACTIVE' | 'REBUILD_IN_PROGRESS' | 'FULLY_PAID' | 'CANCELLED'; total_paid: number; updated: string; }`\n\n  - `token: string`\n  - `closed_at: string`\n  - `created: string`\n  - `fee_amount: number`\n  - `financial_account_token: string`\n  - `installment_plan_total: number`\n  - `installments: { amount_due: number; amount_due_details: { balance_transfers: object; cash_advances: object; purchases: object; }; amount_outstanding: number; amount_outstanding_details: { balance_transfers: object; cash_advances: object; purchases: object; }; amount_paid: number; amount_paid_details: { balance_transfers: object; cash_advances: object; purchases: object; }; date_assessed: string; due_date: string; installment_num: number; payment_due_date: string; payments: { amount: number; amount_details: { balance_transfers: category_balances; cash_advances: category_balances; purchases: category_balances; }; date: string; }[]; }[]`\n  - `installments_outstanding: number`\n  - `installments_paid: number`\n  - `num_installments: number`\n  - `principal_amount: number`\n  - `source_amounts: { balance_transfers: { fees: number; interest: number; principal: number; }; cash_advances: { fees: number; interest: number; principal: number; }; purchases: { fees: number; interest: number; principal: number; }; }`\n  - `source_id: string`\n  - `source_type: 'UNPAID_BALANCE' | 'TRANSACTION'`\n  - `start_date: string`\n  - `state: 'PENDING' | 'ACTIVE' | 'REBUILD_IN_PROGRESS' | 'FULLY_PAID' | 'CANCELLED'`\n  - `total_paid: number`\n  - `updated: string`\n\n### Example\n\n```typescript\nimport Lithic from 'lithic';\n\nconst client = new Lithic();\n\nconst installmentPlan = await client.financialAccounts.installmentPlans.retrieve('installment_plan_token', { financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' });\n\nconsole.log(installmentPlan);\n```",
+    perLanguage: {
+      typescript: {
+        method: 'client.financialAccounts.installmentPlans.retrieve',
+        example:
+          "import Lithic from 'lithic';\n\nconst client = new Lithic({\n  apiKey: process.env['LITHIC_API_KEY'], // This is the default and can be omitted\n});\n\nconst installmentPlan = await client.financialAccounts.installmentPlans.retrieve(\n  'installment_plan_token',\n  { financial_account_token: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },\n);\n\nconsole.log(installmentPlan.installments_paid);",
+      },
+      python: {
+        method: 'financial_accounts.installment_plans.retrieve',
+        example:
+          'import os\nfrom lithic import Lithic\n\nclient = Lithic(\n    api_key=os.environ.get("LITHIC_API_KEY"),  # This is the default and can be omitted\n)\ninstallment_plan = client.financial_accounts.installment_plans.retrieve(\n    installment_plan_token="installment_plan_token",\n    financial_account_token="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n)\nprint(installment_plan.installments_paid)',
+      },
+      java: {
+        method: 'financialAccounts().installmentPlans().retrieve',
+        example:
+          'package com.lithic.api.example;\n\nimport com.lithic.api.client.LithicClient;\nimport com.lithic.api.client.okhttp.LithicOkHttpClient;\nimport com.lithic.api.models.FinancialAccountInstallmentPlanRetrieveParams;\nimport com.lithic.api.models.InstallmentPlan;\n\npublic final class Main {\n    private Main() {}\n\n    public static void main(String[] args) {\n        LithicClient client = LithicOkHttpClient.fromEnv();\n\n        FinancialAccountInstallmentPlanRetrieveParams params = FinancialAccountInstallmentPlanRetrieveParams.builder()\n            .financialAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n            .installmentPlanToken("installment_plan_token")\n            .build();\n        InstallmentPlan installmentPlan = client.financialAccounts().installmentPlans().retrieve(params);\n    }\n}',
+      },
+      kotlin: {
+        method: 'financialAccounts().installmentPlans().retrieve',
+        example:
+          'package com.lithic.api.example\n\nimport com.lithic.api.client.LithicClient\nimport com.lithic.api.client.okhttp.LithicOkHttpClient\nimport com.lithic.api.models.FinancialAccountInstallmentPlanRetrieveParams\nimport com.lithic.api.models.InstallmentPlan\n\nfun main() {\n    val client: LithicClient = LithicOkHttpClient.fromEnv()\n\n    val params: FinancialAccountInstallmentPlanRetrieveParams = FinancialAccountInstallmentPlanRetrieveParams.builder()\n        .financialAccountToken("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")\n        .installmentPlanToken("installment_plan_token")\n        .build()\n    val installmentPlan: InstallmentPlan = client.financialAccounts().installmentPlans().retrieve(params)\n}',
+      },
+      go: {
+        method: 'client.FinancialAccounts.InstallmentPlans.Get',
+        example:
+          'package main\n\nimport (\n\t"context"\n\t"fmt"\n\n\t"github.com/lithic-com/lithic-go"\n\t"github.com/lithic-com/lithic-go/option"\n)\n\nfunc main() {\n\tclient := lithic.NewClient(\n\t\toption.WithAPIKey("My Lithic API Key"),\n\t)\n\tinstallmentPlan, err := client.FinancialAccounts.InstallmentPlans.Get(\n\t\tcontext.TODO(),\n\t\t"182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",\n\t\t"installment_plan_token",\n\t)\n\tif err != nil {\n\t\tpanic(err.Error())\n\t}\n\tfmt.Printf("%+v\\n", installmentPlan.InstallmentsPaid)\n}\n',
+      },
+      ruby: {
+        method: 'financial_accounts.installment_plans.retrieve',
+        example:
+          'require "lithic"\n\nlithic = Lithic::Client.new(\n  api_key: "My Lithic API Key",\n  environment: "sandbox" # defaults to "production"\n)\n\ninstallment_plan = lithic.financial_accounts.installment_plans.retrieve(\n  "installment_plan_token",\n  financial_account_token: "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"\n)\n\nputs(installment_plan)',
+      },
+      http: {
+        example:
+          'curl https://api.lithic.com/v1/financial_accounts/$FINANCIAL_ACCOUNT_TOKEN/installment_plans/$INSTALLMENT_PLAN_TOKEN \\\n    -H "Authorization: $LITHIC_API_KEY"',
+      },
+    },
+  },
+  {
     name: 'retrieve',
     endpoint: '/v1/financial_accounts/{financial_account_token}/loan_tape_configuration',
     httpMethod: 'get',

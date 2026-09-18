@@ -28,6 +28,14 @@ export {
   type FinancialTransactionListParams,
 } from './financial-transactions';
 export {
+  InstallmentPlans,
+  type InstallmentPlan,
+  type TransactionCategoryBalances,
+  type InstallmentPlanRetrieveParams,
+  type InstallmentPlanListParams,
+  type InstallmentPlansCursorPage,
+} from './installment-plans';
+export {
   InterestTierScheduleResource,
   type CategoryTier,
   type InterestTierSchedule,
