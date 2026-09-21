@@ -85,7 +85,7 @@ jobs:
           # so github.actor here is that bot, not a human -- claude-code-action's
           # human-actor guard rejects it unless allow-listed. Same bot, same reasoning as the
           # inline resolve step in stlc-build-template.yml.
-          allowed_bots: "lithic-workflow-dispatcher"
+          allowed_bots: 'lithic-workflow-dispatcher'
           # Read/Edit plus read-only git. Committing and pushing happen in the explicit step
           # below, where they're auditable from the workflow log rather than folded into
           # whatever the model decides to run.
