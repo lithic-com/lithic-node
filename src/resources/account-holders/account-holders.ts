@@ -687,22 +687,38 @@ export interface AddressUpdate {
   city?: string;
 
   /**
-   * Valid country code. Only USA is currently supported, entered in uppercase ISO
-   * 3166-1 alpha-3 three-character format.
+   * Valid country code, entered in uppercase ISO 3166-1 alpha-3 three-character
+   * format. Supported countries depend on the onboarding workflow used for the
+   * account holder.
    */
   country?: string;
 
   /**
-   * Valid postal code. Only USA ZIP codes are currently supported, entered as a
-   * five-digit ZIP or nine-digit ZIP+4.
+   * Valid postal code. For USA addresses, enter either a five-digit postal code or a
+   * nine-digit postal code (ZIP+4) using the format 12345-1234. Required for all
+   * countries except the following, which do not use postal codes: ABW, AGO, ARE,
+   * ATG, BDI, BEN, BFA, BHS, BLZ, BOL, BWA, CIV, CMR, COD, COG, COK, COM, DJI, DMA,
+   * ERI, FJI, GAB, GMB, GNQ, GRD, GUY, HKG, KIR, MAC, MLI, MRT, NIU, NRU, QAT, RWA,
+   * SLB, SLE, SSD, SUR, SXM, SYC, TGO, TKL, TLS, TON, TUV, UGA, VUT, YEM, ZWE
    */
-  postal_code?: string;
+  postal_code?: string | null;
 
   /**
-   * Valid state code. Only USA state codes are currently supported, entered in
-   * uppercase ISO 3166-2 two-character format.
+   * Valid state, province, or subdivision code, entered as the uppercase ISO 3166-2
+   * code for the country without the country prefix. For example, `CA` for
+   * California. Optional unless the address is in one of the following countries,
+   * where it is required:
+   *
+   * - `USA`
+   * - `CAN`
+   * - `AUS`
+   * - `CHN`
+   * - `KOR`
+   * - `MEX`
+   * - `MYS`
+   * - `NZL`
    */
-  state?: string;
+  state?: string | null;
 }
 
 export interface KYB {
@@ -786,7 +802,8 @@ export namespace KYB {
   export interface BeneficialOwnerIndividual {
     /**
      * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-     * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+     * acceptable; APO/FPO are acceptable. Only USA addresses are supported for the KYB
+     * and KYC workflows.
      */
     address: Shared.Address;
 
@@ -879,7 +896,8 @@ export namespace KYB {
   export interface ControlPerson {
     /**
      * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-     * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+     * acceptable; APO/FPO are acceptable. Only USA addresses are supported for the KYB
+     * and KYC workflows.
      */
     address: Shared.Address;
 
@@ -973,27 +991,43 @@ export namespace KYBBusinessEntity {
     city: string;
 
     /**
-     * Valid country code. Only USA is currently supported, entered in uppercase ISO
-     * 3166-1 alpha-3 three-character format.
+     * Valid country code, entered in uppercase ISO 3166-1 alpha-3 three-character
+     * format. Supported countries depend on the onboarding workflow used for the
+     * account holder.
      */
     country: string;
-
-    /**
-     * Valid postal code. Only USA ZIP codes are currently supported, entered as a
-     * five-digit ZIP or nine-digit ZIP+4.
-     */
-    postal_code: string;
-
-    /**
-     * Valid state code. Only USA state codes are currently supported, entered in
-     * uppercase ISO 3166-2 two-character format.
-     */
-    state: string;
 
     /**
      * Unit or apartment number (if applicable).
      */
     address2?: string;
+
+    /**
+     * Valid postal code. For USA addresses, enter either a five-digit postal code or a
+     * nine-digit postal code (ZIP+4) using the format 12345-1234. Required for all
+     * countries except the following, which do not use postal codes: ABW, AGO, ARE,
+     * ATG, BDI, BEN, BFA, BHS, BLZ, BOL, BWA, CIV, CMR, COD, COG, COK, COM, DJI, DMA,
+     * ERI, FJI, GAB, GMB, GNQ, GRD, GUY, HKG, KIR, MAC, MLI, MRT, NIU, NRU, QAT, RWA,
+     * SLB, SLE, SSD, SUR, SXM, SYC, TGO, TKL, TLS, TON, TUV, UGA, VUT, YEM, ZWE
+     */
+    postal_code?: string | null;
+
+    /**
+     * Valid state, province, or subdivision code, entered as the uppercase ISO 3166-2
+     * code for the country without the country prefix. For example, `CA` for
+     * California. Optional unless the address is in one of the following countries,
+     * where it is required:
+     *
+     * - `USA`
+     * - `CAN`
+     * - `AUS`
+     * - `CHN`
+     * - `KOR`
+     * - `MEX`
+     * - `MYS`
+     * - `NZL`
+     */
+    state?: string | null;
   }
 }
 
@@ -1039,7 +1073,8 @@ export namespace KYC {
   export interface Individual {
     /**
      * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-     * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+     * acceptable; APO/FPO are acceptable. Only USA addresses are supported for the KYB
+     * and KYC workflows.
      */
     address: Shared.Address;
 
@@ -1391,7 +1426,8 @@ export namespace AccountHolderUpdateResponse {
     export interface BeneficialOwnerIndividual {
       /**
        * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-       * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+       * acceptable; APO/FPO are acceptable. Only USA addresses are supported for the KYB
+       * and KYC workflows.
        */
       address?: BeneficialOwnerIndividual.Address;
 
@@ -1425,7 +1461,8 @@ export namespace AccountHolderUpdateResponse {
     export namespace BeneficialOwnerIndividual {
       /**
        * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-       * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+       * acceptable; APO/FPO are acceptable. Only USA addresses are supported for the KYB
+       * and KYC workflows.
        */
       export interface Address {
         /**
@@ -1439,27 +1476,43 @@ export namespace AccountHolderUpdateResponse {
         city: string;
 
         /**
-         * Valid country code. Only USA is currently supported, entered in uppercase ISO
-         * 3166-1 alpha-3 three-character format.
+         * Valid country code, entered in uppercase ISO 3166-1 alpha-3 three-character
+         * format. Supported countries depend on the onboarding workflow used for the
+         * account holder.
          */
         country: string;
-
-        /**
-         * Valid postal code. Only USA ZIP codes are currently supported, entered as a
-         * five-digit ZIP or nine-digit ZIP+4.
-         */
-        postal_code: string;
-
-        /**
-         * Valid state code. Only USA state codes are currently supported, entered in
-         * uppercase ISO 3166-2 two-character format.
-         */
-        state: string;
 
         /**
          * Unit or apartment number (if applicable).
          */
         address2?: string;
+
+        /**
+         * Valid postal code. For USA addresses, enter either a five-digit postal code or a
+         * nine-digit postal code (ZIP+4) using the format 12345-1234. Required for all
+         * countries except the following, which do not use postal codes: ABW, AGO, ARE,
+         * ATG, BDI, BEN, BFA, BHS, BLZ, BOL, BWA, CIV, CMR, COD, COG, COK, COM, DJI, DMA,
+         * ERI, FJI, GAB, GMB, GNQ, GRD, GUY, HKG, KIR, MAC, MLI, MRT, NIU, NRU, QAT, RWA,
+         * SLB, SLE, SSD, SUR, SXM, SYC, TGO, TKL, TLS, TON, TUV, UGA, VUT, YEM, ZWE
+         */
+        postal_code?: string | null;
+
+        /**
+         * Valid state, province, or subdivision code, entered as the uppercase ISO 3166-2
+         * code for the country without the country prefix. For example, `CA` for
+         * California. Optional unless the address is in one of the following countries,
+         * where it is required:
+         *
+         * - `USA`
+         * - `CAN`
+         * - `AUS`
+         * - `CHN`
+         * - `KOR`
+         * - `MEX`
+         * - `MYS`
+         * - `NZL`
+         */
+        state?: string | null;
       }
     }
 
@@ -1479,7 +1532,8 @@ export namespace AccountHolderUpdateResponse {
     export interface ControlPerson {
       /**
        * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-       * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+       * acceptable; APO/FPO are acceptable. Only USA addresses are supported for the KYB
+       * and KYC workflows.
        */
       address?: ControlPerson.Address;
 
@@ -1513,7 +1567,8 @@ export namespace AccountHolderUpdateResponse {
     export namespace ControlPerson {
       /**
        * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-       * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+       * acceptable; APO/FPO are acceptable. Only USA addresses are supported for the KYB
+       * and KYC workflows.
        */
       export interface Address {
         /**
@@ -1527,27 +1582,43 @@ export namespace AccountHolderUpdateResponse {
         city: string;
 
         /**
-         * Valid country code. Only USA is currently supported, entered in uppercase ISO
-         * 3166-1 alpha-3 three-character format.
+         * Valid country code, entered in uppercase ISO 3166-1 alpha-3 three-character
+         * format. Supported countries depend on the onboarding workflow used for the
+         * account holder.
          */
         country: string;
-
-        /**
-         * Valid postal code. Only USA ZIP codes are currently supported, entered as a
-         * five-digit ZIP or nine-digit ZIP+4.
-         */
-        postal_code: string;
-
-        /**
-         * Valid state code. Only USA state codes are currently supported, entered in
-         * uppercase ISO 3166-2 two-character format.
-         */
-        state: string;
 
         /**
          * Unit or apartment number (if applicable).
          */
         address2?: string;
+
+        /**
+         * Valid postal code. For USA addresses, enter either a five-digit postal code or a
+         * nine-digit postal code (ZIP+4) using the format 12345-1234. Required for all
+         * countries except the following, which do not use postal codes: ABW, AGO, ARE,
+         * ATG, BDI, BEN, BFA, BHS, BLZ, BOL, BWA, CIV, CMR, COD, COG, COK, COM, DJI, DMA,
+         * ERI, FJI, GAB, GMB, GNQ, GRD, GUY, HKG, KIR, MAC, MLI, MRT, NIU, NRU, QAT, RWA,
+         * SLB, SLE, SSD, SUR, SXM, SYC, TGO, TKL, TLS, TON, TUV, UGA, VUT, YEM, ZWE
+         */
+        postal_code?: string | null;
+
+        /**
+         * Valid state, province, or subdivision code, entered as the uppercase ISO 3166-2
+         * code for the country without the country prefix. For example, `CA` for
+         * California. Optional unless the address is in one of the following countries,
+         * where it is required:
+         *
+         * - `USA`
+         * - `CAN`
+         * - `AUS`
+         * - `CHN`
+         * - `KOR`
+         * - `MEX`
+         * - `MYS`
+         * - `NZL`
+         */
+        state?: string | null;
       }
     }
 
@@ -1558,7 +1629,8 @@ export namespace AccountHolderUpdateResponse {
     export interface Individual {
       /**
        * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-       * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+       * acceptable; APO/FPO are acceptable. Only USA addresses are supported for the KYB
+       * and KYC workflows.
        */
       address?: Individual.Address;
 
@@ -1592,7 +1664,8 @@ export namespace AccountHolderUpdateResponse {
     export namespace Individual {
       /**
        * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-       * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+       * acceptable; APO/FPO are acceptable. Only USA addresses are supported for the KYB
+       * and KYC workflows.
        */
       export interface Address {
         /**
@@ -1606,27 +1679,43 @@ export namespace AccountHolderUpdateResponse {
         city: string;
 
         /**
-         * Valid country code. Only USA is currently supported, entered in uppercase ISO
-         * 3166-1 alpha-3 three-character format.
+         * Valid country code, entered in uppercase ISO 3166-1 alpha-3 three-character
+         * format. Supported countries depend on the onboarding workflow used for the
+         * account holder.
          */
         country: string;
-
-        /**
-         * Valid postal code. Only USA ZIP codes are currently supported, entered as a
-         * five-digit ZIP or nine-digit ZIP+4.
-         */
-        postal_code: string;
-
-        /**
-         * Valid state code. Only USA state codes are currently supported, entered in
-         * uppercase ISO 3166-2 two-character format.
-         */
-        state: string;
 
         /**
          * Unit or apartment number (if applicable).
          */
         address2?: string;
+
+        /**
+         * Valid postal code. For USA addresses, enter either a five-digit postal code or a
+         * nine-digit postal code (ZIP+4) using the format 12345-1234. Required for all
+         * countries except the following, which do not use postal codes: ABW, AGO, ARE,
+         * ATG, BDI, BEN, BFA, BHS, BLZ, BOL, BWA, CIV, CMR, COD, COG, COK, COM, DJI, DMA,
+         * ERI, FJI, GAB, GMB, GNQ, GRD, GUY, HKG, KIR, MAC, MLI, MRT, NIU, NRU, QAT, RWA,
+         * SLB, SLE, SSD, SUR, SXM, SYC, TGO, TKL, TLS, TON, TUV, UGA, VUT, YEM, ZWE
+         */
+        postal_code?: string | null;
+
+        /**
+         * Valid state, province, or subdivision code, entered as the uppercase ISO 3166-2
+         * code for the country without the country prefix. For example, `CA` for
+         * California. Optional unless the address is in one of the following countries,
+         * where it is required:
+         *
+         * - `USA`
+         * - `CAN`
+         * - `AUS`
+         * - `CHN`
+         * - `KOR`
+         * - `MEX`
+         * - `MYS`
+         * - `NZL`
+         */
+        state?: string | null;
       }
     }
 
@@ -1748,27 +1837,43 @@ export namespace AccountHolderUpdateResponse {
       city: string;
 
       /**
-       * Valid country code. Only USA is currently supported, entered in uppercase ISO
-       * 3166-1 alpha-3 three-character format.
+       * Valid country code, entered in uppercase ISO 3166-1 alpha-3 three-character
+       * format. Supported countries depend on the onboarding workflow used for the
+       * account holder.
        */
       country: string;
-
-      /**
-       * Valid postal code. Only USA ZIP codes are currently supported, entered as a
-       * five-digit ZIP or nine-digit ZIP+4.
-       */
-      postal_code: string;
-
-      /**
-       * Valid state code. Only USA state codes are currently supported, entered in
-       * uppercase ISO 3166-2 two-character format.
-       */
-      state: string;
 
       /**
        * Unit or apartment number (if applicable).
        */
       address2?: string;
+
+      /**
+       * Valid postal code. For USA addresses, enter either a five-digit postal code or a
+       * nine-digit postal code (ZIP+4) using the format 12345-1234. Required for all
+       * countries except the following, which do not use postal codes: ABW, AGO, ARE,
+       * ATG, BDI, BEN, BFA, BHS, BLZ, BOL, BWA, CIV, CMR, COD, COG, COK, COM, DJI, DMA,
+       * ERI, FJI, GAB, GMB, GNQ, GRD, GUY, HKG, KIR, MAC, MLI, MRT, NIU, NRU, QAT, RWA,
+       * SLB, SLE, SSD, SUR, SXM, SYC, TGO, TKL, TLS, TON, TUV, UGA, VUT, YEM, ZWE
+       */
+      postal_code?: string | null;
+
+      /**
+       * Valid state, province, or subdivision code, entered as the uppercase ISO 3166-2
+       * code for the country without the country prefix. For example, `CA` for
+       * California. Optional unless the address is in one of the following countries,
+       * where it is required:
+       *
+       * - `USA`
+       * - `CAN`
+       * - `AUS`
+       * - `CHN`
+       * - `KOR`
+       * - `MEX`
+       * - `MYS`
+       * - `NZL`
+       */
+      state?: string | null;
     }
   }
 }
@@ -1946,7 +2051,8 @@ export namespace AccountHolderSimulateEnrollmentReviewResponse {
   export interface BeneficialOwnerIndividual {
     /**
      * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-     * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+     * acceptable; APO/FPO are acceptable. Only USA addresses are supported for the KYB
+     * and KYC workflows.
      */
     address?: BeneficialOwnerIndividual.Address;
 
@@ -1980,7 +2086,8 @@ export namespace AccountHolderSimulateEnrollmentReviewResponse {
   export namespace BeneficialOwnerIndividual {
     /**
      * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-     * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+     * acceptable; APO/FPO are acceptable. Only USA addresses are supported for the KYB
+     * and KYC workflows.
      */
     export interface Address {
       /**
@@ -1994,27 +2101,43 @@ export namespace AccountHolderSimulateEnrollmentReviewResponse {
       city: string;
 
       /**
-       * Valid country code. Only USA is currently supported, entered in uppercase ISO
-       * 3166-1 alpha-3 three-character format.
+       * Valid country code, entered in uppercase ISO 3166-1 alpha-3 three-character
+       * format. Supported countries depend on the onboarding workflow used for the
+       * account holder.
        */
       country: string;
-
-      /**
-       * Valid postal code. Only USA ZIP codes are currently supported, entered as a
-       * five-digit ZIP or nine-digit ZIP+4.
-       */
-      postal_code: string;
-
-      /**
-       * Valid state code. Only USA state codes are currently supported, entered in
-       * uppercase ISO 3166-2 two-character format.
-       */
-      state: string;
 
       /**
        * Unit or apartment number (if applicable).
        */
       address2?: string;
+
+      /**
+       * Valid postal code. For USA addresses, enter either a five-digit postal code or a
+       * nine-digit postal code (ZIP+4) using the format 12345-1234. Required for all
+       * countries except the following, which do not use postal codes: ABW, AGO, ARE,
+       * ATG, BDI, BEN, BFA, BHS, BLZ, BOL, BWA, CIV, CMR, COD, COG, COK, COM, DJI, DMA,
+       * ERI, FJI, GAB, GMB, GNQ, GRD, GUY, HKG, KIR, MAC, MLI, MRT, NIU, NRU, QAT, RWA,
+       * SLB, SLE, SSD, SUR, SXM, SYC, TGO, TKL, TLS, TON, TUV, UGA, VUT, YEM, ZWE
+       */
+      postal_code?: string | null;
+
+      /**
+       * Valid state, province, or subdivision code, entered as the uppercase ISO 3166-2
+       * code for the country without the country prefix. For example, `CA` for
+       * California. Optional unless the address is in one of the following countries,
+       * where it is required:
+       *
+       * - `USA`
+       * - `CAN`
+       * - `AUS`
+       * - `CHN`
+       * - `KOR`
+       * - `MEX`
+       * - `MYS`
+       * - `NZL`
+       */
+      state?: string | null;
     }
   }
 
@@ -2034,7 +2157,8 @@ export namespace AccountHolderSimulateEnrollmentReviewResponse {
   export interface ControlPerson {
     /**
      * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-     * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+     * acceptable; APO/FPO are acceptable. Only USA addresses are supported for the KYB
+     * and KYC workflows.
      */
     address?: ControlPerson.Address;
 
@@ -2068,7 +2192,8 @@ export namespace AccountHolderSimulateEnrollmentReviewResponse {
   export namespace ControlPerson {
     /**
      * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-     * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+     * acceptable; APO/FPO are acceptable. Only USA addresses are supported for the KYB
+     * and KYC workflows.
      */
     export interface Address {
       /**
@@ -2082,27 +2207,43 @@ export namespace AccountHolderSimulateEnrollmentReviewResponse {
       city: string;
 
       /**
-       * Valid country code. Only USA is currently supported, entered in uppercase ISO
-       * 3166-1 alpha-3 three-character format.
+       * Valid country code, entered in uppercase ISO 3166-1 alpha-3 three-character
+       * format. Supported countries depend on the onboarding workflow used for the
+       * account holder.
        */
       country: string;
-
-      /**
-       * Valid postal code. Only USA ZIP codes are currently supported, entered as a
-       * five-digit ZIP or nine-digit ZIP+4.
-       */
-      postal_code: string;
-
-      /**
-       * Valid state code. Only USA state codes are currently supported, entered in
-       * uppercase ISO 3166-2 two-character format.
-       */
-      state: string;
 
       /**
        * Unit or apartment number (if applicable).
        */
       address2?: string;
+
+      /**
+       * Valid postal code. For USA addresses, enter either a five-digit postal code or a
+       * nine-digit postal code (ZIP+4) using the format 12345-1234. Required for all
+       * countries except the following, which do not use postal codes: ABW, AGO, ARE,
+       * ATG, BDI, BEN, BFA, BHS, BLZ, BOL, BWA, CIV, CMR, COD, COG, COK, COM, DJI, DMA,
+       * ERI, FJI, GAB, GMB, GNQ, GRD, GUY, HKG, KIR, MAC, MLI, MRT, NIU, NRU, QAT, RWA,
+       * SLB, SLE, SSD, SUR, SXM, SYC, TGO, TKL, TLS, TON, TUV, UGA, VUT, YEM, ZWE
+       */
+      postal_code?: string | null;
+
+      /**
+       * Valid state, province, or subdivision code, entered as the uppercase ISO 3166-2
+       * code for the country without the country prefix. For example, `CA` for
+       * California. Optional unless the address is in one of the following countries,
+       * where it is required:
+       *
+       * - `USA`
+       * - `CAN`
+       * - `AUS`
+       * - `CHN`
+       * - `KOR`
+       * - `MEX`
+       * - `MYS`
+       * - `NZL`
+       */
+      state?: string | null;
     }
   }
 
@@ -2113,7 +2254,8 @@ export namespace AccountHolderSimulateEnrollmentReviewResponse {
   export interface Individual {
     /**
      * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-     * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+     * acceptable; APO/FPO are acceptable. Only USA addresses are supported for the KYB
+     * and KYC workflows.
      */
     address?: Individual.Address;
 
@@ -2147,7 +2289,8 @@ export namespace AccountHolderSimulateEnrollmentReviewResponse {
   export namespace Individual {
     /**
      * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-     * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+     * acceptable; APO/FPO are acceptable. Only USA addresses are supported for the KYB
+     * and KYC workflows.
      */
     export interface Address {
       /**
@@ -2161,27 +2304,43 @@ export namespace AccountHolderSimulateEnrollmentReviewResponse {
       city: string;
 
       /**
-       * Valid country code. Only USA is currently supported, entered in uppercase ISO
-       * 3166-1 alpha-3 three-character format.
+       * Valid country code, entered in uppercase ISO 3166-1 alpha-3 three-character
+       * format. Supported countries depend on the onboarding workflow used for the
+       * account holder.
        */
       country: string;
-
-      /**
-       * Valid postal code. Only USA ZIP codes are currently supported, entered as a
-       * five-digit ZIP or nine-digit ZIP+4.
-       */
-      postal_code: string;
-
-      /**
-       * Valid state code. Only USA state codes are currently supported, entered in
-       * uppercase ISO 3166-2 two-character format.
-       */
-      state: string;
 
       /**
        * Unit or apartment number (if applicable).
        */
       address2?: string;
+
+      /**
+       * Valid postal code. For USA addresses, enter either a five-digit postal code or a
+       * nine-digit postal code (ZIP+4) using the format 12345-1234. Required for all
+       * countries except the following, which do not use postal codes: ABW, AGO, ARE,
+       * ATG, BDI, BEN, BFA, BHS, BLZ, BOL, BWA, CIV, CMR, COD, COG, COK, COM, DJI, DMA,
+       * ERI, FJI, GAB, GMB, GNQ, GRD, GUY, HKG, KIR, MAC, MLI, MRT, NIU, NRU, QAT, RWA,
+       * SLB, SLE, SSD, SUR, SXM, SYC, TGO, TKL, TLS, TON, TUV, UGA, VUT, YEM, ZWE
+       */
+      postal_code?: string | null;
+
+      /**
+       * Valid state, province, or subdivision code, entered as the uppercase ISO 3166-2
+       * code for the country without the country prefix. For example, `CA` for
+       * California. Optional unless the address is in one of the following countries,
+       * where it is required:
+       *
+       * - `USA`
+       * - `CAN`
+       * - `AUS`
+       * - `CHN`
+       * - `KOR`
+       * - `MEX`
+       * - `MYS`
+       * - `NZL`
+       */
+      state?: string | null;
     }
   }
 
@@ -2333,7 +2492,8 @@ export declare namespace AccountHolderCreateParams {
     export interface BeneficialOwnerIndividual {
       /**
        * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-       * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+       * acceptable; APO/FPO are acceptable. Only USA addresses are supported for the KYB
+       * and KYC workflows.
        */
       address: Shared.Address;
 
@@ -2426,7 +2586,8 @@ export declare namespace AccountHolderCreateParams {
     export interface ControlPerson {
       /**
        * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-       * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+       * acceptable; APO/FPO are acceptable. Only USA addresses are supported for the KYB
+       * and KYC workflows.
        */
       address: Shared.Address;
 
@@ -2589,7 +2750,8 @@ export declare namespace AccountHolderCreateParams {
 
       /**
        * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-       * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+       * acceptable; APO/FPO are acceptable. Only USA addresses are supported for the KYB
+       * and KYC workflows.
        */
       address?: Shared.Address;
 
@@ -2641,7 +2803,8 @@ export declare namespace AccountHolderCreateParams {
 
       /**
        * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-       * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+       * acceptable; APO/FPO are acceptable. Only USA addresses are supported for the KYB
+       * and KYC workflows.
        */
       address?: Shared.Address;
 
@@ -2713,7 +2876,8 @@ export declare namespace AccountHolderCreateParams {
     export interface Individual {
       /**
        * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-       * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+       * acceptable; APO/FPO are acceptable. Only USA addresses are supported for the KYB
+       * and KYC workflows.
        */
       address: Shared.Address;
 
@@ -2877,7 +3041,8 @@ export declare namespace AccountHolderUpdateParams {
 
       /**
        * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-       * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+       * acceptable; APO/FPO are acceptable. Only USA addresses are supported for the KYB
+       * and KYC workflows.
        */
       address?: AccountHoldersAPI.AddressUpdate;
 
@@ -2980,7 +3145,8 @@ export declare namespace AccountHolderUpdateParams {
 
       /**
        * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-       * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+       * acceptable; APO/FPO are acceptable. Only USA addresses are supported for the KYB
+       * and KYC workflows.
        */
       address?: AccountHoldersAPI.AddressUpdate;
 
@@ -3047,7 +3213,8 @@ export declare namespace AccountHolderUpdateParams {
 
       /**
        * Individual's current address - PO boxes, UPS drops, and FedEx drops are not
-       * acceptable; APO/FPO are acceptable. Only USA addresses are currently supported.
+       * acceptable; APO/FPO are acceptable. Only USA addresses are supported for the KYB
+       * and KYC workflows.
        */
       address?: AccountHoldersAPI.AddressUpdate;
 
