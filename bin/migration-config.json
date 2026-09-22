@@ -540,6 +540,81 @@
       ]
     },
     {
+      "base": "financialAccounts.installmentPlans.statements",
+      "name": "retrieve",
+      "params": [
+        {
+          "type": "param",
+          "key": "statement_token",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": false
+        },
+        {
+          "type": "options"
+        }
+      ],
+      "oldParams": [
+        {
+          "type": "param",
+          "key": "financial_account_token",
+          "location": "path"
+        },
+        {
+          "type": "param",
+          "key": "installment_plan_token",
+          "location": "path"
+        },
+        {
+          "type": "param",
+          "key": "statement_token",
+          "location": "path"
+        },
+        {
+          "type": "options"
+        }
+      ]
+    },
+    {
+      "base": "financialAccounts.installmentPlans.statements",
+      "name": "list",
+      "params": [
+        {
+          "type": "param",
+          "key": "installment_plan_token",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": false
+        },
+        {
+          "type": "options"
+        }
+      ],
+      "oldParams": [
+        {
+          "type": "param",
+          "key": "financial_account_token",
+          "location": "path"
+        },
+        {
+          "type": "param",
+          "key": "installment_plan_token",
+          "location": "path"
+        },
+        {
+          "type": "params",
+          "maybeOverload": true
+        },
+        {
+          "type": "options"
+        }
+      ]
+    },
+    {
       "base": "financialAccounts.interestTierSchedule",
       "name": "retrieve",
       "params": [

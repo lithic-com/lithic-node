@@ -34,7 +34,7 @@ export {
   type InstallmentPlanRetrieveParams,
   type InstallmentPlanListParams,
   type InstallmentPlansCursorPage,
-} from './installment-plans';
+} from './installment-plans/index';
 export {
   InterestTierScheduleResource,
   type CategoryTier,

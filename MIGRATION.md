@@ -52,7 +52,9 @@ client.parents.children.retrieve('p_123', 'c_456');
 client.parents.children.retrieve('c_456', { parent_id: 'p_123' });
 ```
 
-This affects the following methods:
+<details>
+
+<summary>This affects the following methods</summary>
 
 - `client.accountHolders.retrieveDocument()`
 - `client.accountHolders.entities.delete()`
@@ -70,9 +72,13 @@ This affects the following methods:
 - `client.financialAccounts.statements.lineItems.list()`
 - `client.financialAccounts.loanTapes.retrieve()`
 - `client.financialAccounts.installmentPlans.retrieve()`
+- `client.financialAccounts.installmentPlans.statements.retrieve()`
+- `client.financialAccounts.installmentPlans.statements.list()`
 - `client.financialAccounts.interestTierSchedule.retrieve()`
 - `client.financialAccounts.interestTierSchedule.update()`
 - `client.financialAccounts.interestTierSchedule.delete()`
+
+</details>
 
 ### URI encoded path parameters
 

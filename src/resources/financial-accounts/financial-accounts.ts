@@ -16,15 +16,6 @@ import {
   FinancialTransactionRetrieveParams,
   FinancialTransactions,
 } from './financial-transactions';
-import * as InstallmentPlansAPI from './installment-plans';
-import {
-  InstallmentPlan,
-  InstallmentPlanListParams,
-  InstallmentPlanRetrieveParams,
-  InstallmentPlans,
-  InstallmentPlansCursorPage,
-  TransactionCategoryBalances,
-} from './installment-plans';
 import * as InterestTierScheduleAPI from './interest-tier-schedule';
 import {
   CategoryTier,
@@ -54,6 +45,15 @@ import {
 } from './loan-tapes';
 import * as OpenToBuyAPI from './open-to-buy';
 import { OpenToBuy, OpenToBuyResource, OpenToBuySummary } from './open-to-buy';
+import * as InstallmentPlansAPI from './installment-plans/installment-plans';
+import {
+  InstallmentPlan,
+  InstallmentPlanListParams,
+  InstallmentPlanRetrieveParams,
+  InstallmentPlans,
+  InstallmentPlansCursorPage,
+  TransactionCategoryBalances,
+} from './installment-plans/installment-plans';
 import * as StatementsAPI from './statements/statements';
 import {
   Statement,

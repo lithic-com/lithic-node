@@ -507,13 +507,24 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/financial-accounts/installment-plans.ts">InstallmentPlan</a></code>
-- <code><a href="./src/resources/financial-accounts/installment-plans.ts">TransactionCategoryBalances</a></code>
+- <code><a href="./src/resources/financial-accounts/installment-plans/installment-plans.ts">InstallmentPlan</a></code>
+- <code><a href="./src/resources/financial-accounts/installment-plans/installment-plans.ts">TransactionCategoryBalances</a></code>
 
 Methods:
 
-- <code title="get /v1/financial_accounts/{financial_account_token}/installment_plans/{installment_plan_token}">client.financialAccounts.installmentPlans.<a href="./src/resources/financial-accounts/installment-plans.ts">retrieve</a>(installmentPlanToken, { ...params }) -> InstallmentPlan</code>
-- <code title="get /v1/financial_accounts/{financial_account_token}/installment_plans">client.financialAccounts.installmentPlans.<a href="./src/resources/financial-accounts/installment-plans.ts">list</a>(financialAccountToken, { ...params }) -> InstallmentPlansCursorPage</code>
+- <code title="get /v1/financial_accounts/{financial_account_token}/installment_plans/{installment_plan_token}">client.financialAccounts.installmentPlans.<a href="./src/resources/financial-accounts/installment-plans/installment-plans.ts">retrieve</a>(installmentPlanToken, { ...params }) -> InstallmentPlan</code>
+- <code title="get /v1/financial_accounts/{financial_account_token}/installment_plans">client.financialAccounts.installmentPlans.<a href="./src/resources/financial-accounts/installment-plans/installment-plans.ts">list</a>(financialAccountToken, { ...params }) -> InstallmentPlansCursorPage</code>
+
+### Statements
+
+Types:
+
+- <code><a href="./src/resources/financial-accounts/installment-plans/statements.ts">InstallmentPlanStatement</a></code>
+
+Methods:
+
+- <code title="get /v1/financial_accounts/{financial_account_token}/installment_plans/{installment_plan_token}/statements/{statement_token}">client.financialAccounts.installmentPlans.statements.<a href="./src/resources/financial-accounts/installment-plans/statements.ts">retrieve</a>(statementToken, { ...params }) -> InstallmentPlanStatement</code>
+- <code title="get /v1/financial_accounts/{financial_account_token}/installment_plans/{installment_plan_token}/statements">client.financialAccounts.installmentPlans.statements.<a href="./src/resources/financial-accounts/installment-plans/statements.ts">list</a>(installmentPlanToken, { ...params }) -> InstallmentPlanStatementsCursorPage</code>
 
 ## LoanTapeConfiguration
 
