@@ -100,6 +100,7 @@ describe('resource transactions', () => {
       amount: 3831,
       descriptor: 'COFFEE SHOP',
       pan: '4111111289144142',
+      billing_currency: 'CAD',
       mcc: '5812',
       merchant_acceptor_city: 'LOS ANGELES',
       merchant_acceptor_country: 'USA',
@@ -109,6 +110,7 @@ describe('resource transactions', () => {
       merchant_currency: 'GBP',
       partial_approval_capable: true,
       pin: '1234',
+      settlement_currency: 'CAD',
       status: 'AUTHORIZATION',
     });
   });
@@ -174,6 +176,7 @@ describe('resource transactions', () => {
       amount: 3831,
       descriptor: 'COFFEE SHOP',
       pan: '4111111289144142',
+      billing_currency: 'CAD',
       mcc: '5812',
       merchant_acceptor_city: 'SEATTLE',
       merchant_acceptor_country: 'USA',
@@ -202,6 +205,7 @@ describe('resource transactions', () => {
       amount: 3831,
       descriptor: 'COFFEE SHOP',
       pan: '4111111289144142',
+      billing_currency: 'CAD',
       mcc: '5812',
       merchant_acceptor_city: 'SEATTLE',
       merchant_acceptor_country: 'USA',
@@ -230,6 +234,8 @@ describe('resource transactions', () => {
       amount: 3831,
       descriptor: 'COFFEE SHOP',
       pan: '4111111289144142',
+      billing_currency: 'CAD',
+      settlement_currency: 'CAD',
     });
   });
 

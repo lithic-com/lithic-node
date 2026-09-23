@@ -1341,6 +1341,13 @@ export interface TransactionSimulateAuthorizationParams {
   pan: string;
 
   /**
+   * 3-character alphabetic ISO 4217 currency code for the cardholder billing amount.
+   * Permitted values are USD, GBP, EUR and CAD, and any other ISO 4217 code returns
+   * a 422. Defaults to USD
+   */
+  billing_currency?: string;
+
+  /**
    * Merchant category code for the transaction to be simulated. A four-digit number
    * listed in ISO 18245. Supported merchant category codes can be found
    * [here](https://docs.lithic.com/docs/transactions#merchant-category-codes-mccs).
@@ -1374,8 +1381,10 @@ export interface TransactionSimulateAuthorizationParams {
   merchant_amount?: number;
 
   /**
-   * 3-character alphabetic ISO 4217 currency code. Note: Simulator only accepts USD,
-   * GBP, EUR and defaults to GBP if another ISO 4217 code is provided
+   * 3-character alphabetic ISO 4217 currency code for the merchant amount. Only used
+   * when merchant_amount is set, and defaults to GBP in that case. Without
+   * merchant_amount, the merchant amount uses the billing currency. Permitted values
+   * are USD, GBP, EUR and CAD, and any other ISO 4217 code returns a 422
    */
   merchant_currency?: string;
 
@@ -1390,6 +1399,15 @@ export interface TransactionSimulateAuthorizationParams {
    * Simulate entering a PIN. If omitted, PIN check will not be performed.
    */
   pin?: string;
+
+  /**
+   * 3-character alphabetic ISO 4217 currency code for the settlement amount.
+   * Permitted values are USD, GBP, EUR and CAD, and any other ISO 4217 code returns
+   * a 422. Defaults to the value of billing_currency. Only single message
+   * (financial) authorizations carry a settlement amount, and the value is ignored
+   * for dual message authorizations
+   */
+  settlement_currency?: string;
 
   /**
    * Type of event to simulate.
@@ -1470,6 +1488,13 @@ export interface TransactionSimulateCreditAuthorizationParams {
   pan: string;
 
   /**
+   * 3-character alphabetic ISO 4217 currency code for the cardholder billing amount.
+   * Permitted values are USD, GBP, EUR and CAD, and any other ISO 4217 code returns
+   * a 422. Defaults to USD
+   */
+  billing_currency?: string;
+
+  /**
    * Merchant category code for the transaction to be simulated. A four-digit number
    * listed in ISO 18245. Supported merchant category codes can be found
    * [here](https://docs.lithic.com/docs/transactions#merchant-category-codes-mccs).
@@ -1516,6 +1541,13 @@ export interface TransactionSimulateCreditAuthorizationAdviceParams {
   pan: string;
 
   /**
+   * 3-character alphabetic ISO 4217 currency code for the cardholder billing amount.
+   * Permitted values are USD, GBP, EUR and CAD, and any other ISO 4217 code returns
+   * a 422. Defaults to USD
+   */
+  billing_currency?: string;
+
+  /**
    * Merchant category code for the transaction to be simulated. A four-digit number
    * listed in ISO 18245. Supported merchant category codes can be found
    * [here](https://docs.lithic.com/docs/transactions#merchant-category-codes-mccs).
@@ -1558,6 +1590,20 @@ export interface TransactionSimulateReturnParams {
    * Sixteen digit card number.
    */
   pan: string;
+
+  /**
+   * 3-character alphabetic ISO 4217 currency code for the cardholder billing amount.
+   * Permitted values are USD, GBP, EUR and CAD, and any other ISO 4217 code returns
+   * a 422. Defaults to USD
+   */
+  billing_currency?: string;
+
+  /**
+   * 3-character alphabetic ISO 4217 currency code for the settlement amount.
+   * Permitted values are USD, GBP, EUR and CAD, and any other ISO 4217 code returns
+   * a 422. Defaults to the value of billing_currency
+   */
+  settlement_currency?: string;
 }
 
 export interface TransactionSimulateReturnReversalParams {
