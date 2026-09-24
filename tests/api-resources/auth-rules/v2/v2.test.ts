@@ -11,15 +11,10 @@ describe('resource v2', () => {
   test('create: only required params', async () => {
     const responsePromise = client.authRules.v2.create({
       parameters: {
-        conditions: [
-          {
-            attribute: 'MCC',
-            operation: 'IS_ONE_OF',
-            value: 'string',
-          },
-        ],
+        period: { duration: 10, type: 'CUSTOM' },
+        scope: 'CARD',
       },
-      type: 'CONDITIONAL_BLOCK',
+      type: 'VELOCITY_LIMIT',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -33,15 +28,21 @@ describe('resource v2', () => {
   test('create: required and optional params', async () => {
     const response = await client.authRules.v2.create({
       parameters: {
-        conditions: [
-          {
-            attribute: 'MCC',
-            operation: 'IS_ONE_OF',
-            value: 'string',
-          },
-        ],
+        period: { duration: 10, type: 'CUSTOM' },
+        scope: 'CARD',
+        filters: {
+          exclude_countries: ['USD'],
+          exclude_mccs: ['5542'],
+          include_countries: ['USD'],
+          include_mccs: ['5542'],
+          include_pan_entry_modes: ['AUTO_ENTRY'],
+        },
+        limit_amount: 10000,
+        limit_cash_amount: 5000,
+        limit_cash_count: 0,
+        limit_count: 0,
       },
-      type: 'CONDITIONAL_BLOCK',
+      type: 'VELOCITY_LIMIT',
       account_tokens: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
       business_account_tokens: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
       event_stream: 'AUTHORIZATION',
