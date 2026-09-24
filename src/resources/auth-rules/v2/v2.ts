@@ -1785,6 +1785,11 @@ export interface MerchantLockParameters {
    * (based on descriptors or IDs) that the lock applies to.
    */
   merchants: Array<MerchantLockParameters.Merchant>;
+
+  /**
+   * Timestamp of when the merchant lock was created
+   */
+  locked_at?: string;
 }
 
 export namespace MerchantLockParameters {
