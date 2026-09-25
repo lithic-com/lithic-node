@@ -1,5 +1,68 @@
 # Changelog
 
+## 0.147.0 (2026-09-18)
+
+Full Changelog: [v0.146.0...v0.147.0](https://github.com/lithic-com/lithic-node/compare/v0.146.0...v0.147.0)
+
+### Features
+
+* [CARDS-5174] Add reiusse/renew 409 error ([fa0ae4c](https://github.com/lithic-com/lithic-node/commit/fa0ae4c9d0d466dc66ee5fe7bc5bc3174db1d4e0))
+* [TRE-14464] Update /retry payments endpoint to accept method ([ad8c6d4](https://github.com/lithic-com/lithic-node/commit/ad8c6d429b3868c9202c2ff7a0d00ae21376487b))
+* [TRE-14524] Add Open to buy API spec ([e0bc361](https://github.com/lithic-com/lithic-node/commit/e0bc36190aaac85568d469b9dc0daa4f0b4cb8ee))
+* Add missing blockchain/stablecoin endpoints to the spec ([6011012](https://github.com/lithic-com/lithic-node/commit/60110124c2d5033eef60f80a8a90b6f5fccae5fb))
+* **api:** add card.pin_updated webhook event ([e174e1b](https://github.com/lithic-com/lithic-node/commit/e174e1b4fa580e4b93f4a91384a3a771a474506b))
+* **api:** add EXTERNAL_STABLECOIN category and events to payments/account-activity/statements ([d89001c](https://github.com/lithic-com/lithic-node/commit/d89001c431cbfcb4a0be1e61a79299d8d6096794))
+* **api:** add FEE/FEE_REVERSAL to line-items/management-operations/financial events ([c2550c8](https://github.com/lithic-com/lithic-node/commit/c2550c85089ea32157af9de5f31e3935db7c5681))
+* **api:** add installmentPlans resource to financialAccounts ([778acc4](https://github.com/lithic-com/lithic-node/commit/778acc4e58811d933d45866ab9066004e85f65f9))
+* **api:** add OTHER enum value to type field in auth_rules.v2 ([022c00b](https://github.com/lithic-com/lithic-node/commit/022c00bec0a58609473ce0a843f526f01382c064))
+* **api:** add psd2_context field to threeDS.authentication response ([9872235](https://github.com/lithic-com/lithic-node/commit/9872235a163047bd300ed1222ec79e2fcc9a1fc1))
+* **api:** add STABLECOIN_REVIEWED event type to payment simulate action ([d40e9cd](https://github.com/lithic-com/lithic-node/commit/d40e9cd20eb0a8d1547648cb3fdec27976d6c604))
+* AUTH-3759: Add DECLINE_SCA_REQUIRED and SCA_REQUIRED enum entries ([bb3cc93](https://github.com/lithic-com/lithic-node/commit/bb3cc935769cfe3c0b69728d6d83ef7e802baa97))
+* TRE-14349: add installment plan management operation event types ([67bb3d0](https://github.com/lithic-com/lithic-node/commit/67bb3d0ae9522b3f4b76df53fbf43961f5bb874e))
+* TRE-14429: Document the stablecoin payments endpoint ([1f241df](https://github.com/lithic-com/lithic-node/commit/1f241df9bbd3b4c5c31521f07f3ccb52f06b8640))
+
+
+### Documentation
+
+* **mcp:** document code execution modes and the local code runner ([7623f85](https://github.com/lithic-com/lithic-node/commit/7623f85c394e10f26f44b377a730d33edb9ea4c8))
+
+## 0.146.0 (2026-08-31)
+
+Full Changelog: [v0.145.0...v0.146.0](https://github.com/lithic-com/lithic-node/compare/v0.145.0...v0.146.0)
+
+### Features
+
+* **api:** add blockchain_addresses field to financial account responses ([4194b81](https://github.com/lithic-com/lithic-node/commit/4194b81f3cdcd7f58faa97b42884c79b86920390))
+* **api:** add blockchain_recipients resource with create method ([67a3827](https://github.com/lithic-com/lithic-node/commit/67a3827c8cfe4f618593da7e002956c4b1e73fc9))
+* **api:** add claim_token param/field and WRITE_OFF_REVERSED enum to disputesV2 ([fe4d256](https://github.com/lithic-com/lithic-node/commit/fe4d256c07f72241ae60acd99426e79fc78e3544))
+* **api:** Add limit_cash_amount and limit_cash_count to VelocityLimit template ([cde6d09](https://github.com/lithic-com/lithic-node/commit/cde6d09649b94b094eb269247eff71246ee4d75d))
+* **api:** add PROGRAM scope to auth rule actions, entity types to cases ([3a236e3](https://github.com/lithic-com/lithic-node/commit/3a236e32c9472ad5c63ed5575b34ea3019096549))
+* **api:** add reassignAccount method to cards ([e1ec8ca](https://github.com/lithic-com/lithic-node/commit/e1ec8ca6414a40fbdaf7a2bebc52cd732340a352))
+* **api:** add stablecoin inbound/outbound payment types ([9cf3394](https://github.com/lithic-com/lithic-node/commit/9cf3394169e2eca847c91aad010fc89938069e3c))
+* **api:** add stablecoin lifecycle enum values to line items/payments/financial events ([ccda791](https://github.com/lithic-com/lithic-node/commit/ccda7914b31a68bf500bfe5552be23ec47077d38))
+* **api:** add STABLECOIN payment method and attributes to payments ([4296eb4](https://github.com/lithic-com/lithic-node/commit/4296eb4ce0357acb8dd6cfa53956699abf1b7f9f))
+* **api:** add STABLECOIN payment method, nullable method_attributes to payments ([f80554d](https://github.com/lithic-com/lithic-node/commit/f80554dd99299edb60d123eadd478aecf934b78c))
+* **api:** add STABLECOIN payment type to payments ([a55164c](https://github.com/lithic-com/lithic-node/commit/a55164c2281183f8b3c99ae2c1114ab7bc7d104c))
+* Make blockchain recipient account_token nullable ([99bca3e](https://github.com/lithic-com/lithic-node/commit/99bca3e865f4214f26e299db15579fcf2d66a738))
+* Remove stablecoin transfer type ([062881c](https://github.com/lithic-com/lithic-node/commit/062881c243e2ca3208033386f18ad363c8730353))
+
+
+### Bug Fixes
+
+* **types:** rename event data types and remove type discriminators in disputes-v2 ([e4544e9](https://github.com/lithic-com/lithic-node/commit/e4544e908a83afac4e5ede3dedd81f13f6ba366d))
+
+
+### Chores
+
+* **internal:** allow the mock server port to be set with STAINLESS_MOCK_PORT ([142cc32](https://github.com/lithic-com/lithic-node/commit/142cc3247111fefda98745a12de17b3fe1b62efa))
+* **internal:** codegen related update ([0c3e1dc](https://github.com/lithic-com/lithic-node/commit/0c3e1dccbee1e2e84b0284751f5a6b2c90d2f89d))
+
+
+### Documentation
+
+* **api:** clarify CVV field descriptions for AMEX cards ([a636964](https://github.com/lithic-com/lithic-node/commit/a63696438e8968a9966b045ac49e2bff37ea45d7))
+* **api:** clarify parameter requirements for cards.provision ([36bb385](https://github.com/lithic-com/lithic-node/commit/36bb385df19c6ea5e0a371017f94d9033145d257))
+
 ## 0.145.0 (2026-07-30)
 
 Full Changelog: [v0.144.0...v0.145.0](https://github.com/lithic-com/lithic-node/compare/v0.144.0...v0.145.0)
