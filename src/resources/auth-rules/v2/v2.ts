@@ -419,6 +419,9 @@ export interface AuthRuleCondition {
    *   card acceptor postal code.
    * - `CARD_AGE`: The age of the card in seconds at the time of the authorization.
    *   Use an integer value.
+   * - `IS_DOMESTIC`: Whether the merchant's country matches the card program's
+   *   issuing country. Valid values are `TRUE`, `FALSE`. For programs with no
+   *   issuing country configured, this attribute does not evaluate.
    * - `ACCOUNT_AGE`: The age of the account holder's account in seconds at the time
    *   of the authorization. Use an integer value. For programs where Lithic does not
    *   manage or retain account holder data, this attribute does not evaluate.
@@ -1017,6 +1020,9 @@ export namespace ConditionalACHPaymentUpdateActionParameters {
  *   card acceptor postal code.
  * - `CARD_AGE`: The age of the card in seconds at the time of the authorization.
  *   Use an integer value.
+ * - `IS_DOMESTIC`: Whether the merchant's country matches the card program's
+ *   issuing country. Valid values are `TRUE`, `FALSE`. For programs with no
+ *   issuing country configured, this attribute does not evaluate.
  * - `ACCOUNT_AGE`: The age of the account holder's account in seconds at the time
  *   of the authorization. Use an integer value. For programs where Lithic does not
  *   manage or retain account holder data, this attribute does not evaluate.
@@ -1093,6 +1099,7 @@ export type ConditionalAttribute =
   | 'SERVICE_LOCATION_STATE'
   | 'SERVICE_LOCATION_POSTAL_CODE'
   | 'CARD_AGE'
+  | 'IS_DOMESTIC'
   | 'ACCOUNT_AGE'
   | 'AMOUNT_Z_SCORE'
   | 'AVG_TRANSACTION_AMOUNT'
@@ -1225,6 +1232,9 @@ export namespace ConditionalAuthorizationAdjustmentParameters {
      *   card acceptor postal code.
      * - `CARD_AGE`: The age of the card in seconds at the time of the authorization.
      *   Use an integer value.
+     * - `IS_DOMESTIC`: Whether the merchant's country matches the card program's
+     *   issuing country. Valid values are `TRUE`, `FALSE`. For programs with no
+     *   issuing country configured, this attribute does not evaluate.
      * - `ACCOUNT_AGE`: The age of the account holder's account in seconds at the time
      *   of the authorization. Use an integer value. For programs where Lithic does not
      *   manage or retain account holder data, this attribute does not evaluate.
@@ -1301,6 +1311,7 @@ export namespace ConditionalAuthorizationAdjustmentParameters {
       | 'SERVICE_LOCATION_STATE'
       | 'SERVICE_LOCATION_POSTAL_CODE'
       | 'CARD_AGE'
+      | 'IS_DOMESTIC'
       | 'ACCOUNT_AGE'
       | 'AMOUNT_Z_SCORE'
       | 'AVG_TRANSACTION_AMOUNT'
