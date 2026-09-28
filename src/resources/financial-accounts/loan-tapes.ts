@@ -134,6 +134,11 @@ export interface LoanTape {
 
   payment_allocation: LoanTape.PaymentAllocation;
 
+  /**
+   * Allocation of payments only, excluding credits
+   */
+  payment_only_allocation: LoanTape.PaymentOnlyAllocation | null;
+
   period_totals: FinancialAccountsAPI.StatementTotals;
 
   previous_statement_balance: LoanTape.PreviousStatementBalance;
@@ -278,6 +283,32 @@ export namespace LoanTape {
   }
 
   export interface PaymentAllocation {
+    fee_details: FinancialAccountsAPI.CategoryDetails | null;
+
+    /**
+     * Amount allocated to fees in cents
+     */
+    fees: number;
+
+    /**
+     * Amount allocated to interest in cents
+     */
+    interest: number;
+
+    interest_details: FinancialAccountsAPI.CategoryDetails | null;
+
+    /**
+     * Amount allocated to principal in cents
+     */
+    principal: number;
+
+    principal_details: FinancialAccountsAPI.CategoryDetails | null;
+  }
+
+  /**
+   * Allocation of payments only, excluding credits
+   */
+  export interface PaymentOnlyAllocation {
     fee_details: FinancialAccountsAPI.CategoryDetails | null;
 
     /**
