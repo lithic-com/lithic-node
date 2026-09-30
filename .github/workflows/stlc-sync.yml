@@ -1,10 +1,3 @@
-# NOTE(post-transfer, 2026-08-12): this repo moved from stainless-sdks to privacy-com.
-# Remaining items, deliberately not done yet:
-#   - production repo: still points at the stainless-sdks placeholder below. Real target is
-#     lithic-com/lithic-node — intentionally not switched over yet; see the migration plan.
-#   - config repo: updated below to privacy-com/lithic-schemas (stainless/lithic/). The
-#     seal-dispatch this triggers is currently inert (no CONFIG_DISPATCH_TOKEN secret exists
-#     yet), so setting this ahead of time is safe.
 name: Sync SDK repos
 
 # Keeps the staging and production trunks in sync and the config repo's
@@ -31,7 +24,7 @@ jobs:
     # Runner comes from the STLC_RUNNER repo/org variable when set; defaults to GitHub-hosted.
     runs-on: ${{ vars.STLC_RUNNER || 'ubuntu-latest' }}
     if: >-
-      github.repository == 'stainless-sdks/lithic-typescript-staging' &&
+      github.repository == 'privacy-com/lithic-typescript-staging' &&
       (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'repository_dispatch')
     permissions:
       contents: write
@@ -39,7 +32,7 @@ jobs:
       group: stlc-back-sync
       cancel-in-progress: true
     env:
-      PRODUCTION_REPO: stainless-sdks/lithic-typescript-prod
+      PRODUCTION_REPO: lithic-com/lithic-node
     steps:
       - name: Check out staging
         uses: actions/checkout@v6
@@ -107,12 +100,12 @@ jobs:
     # the poll. Dispatch-only: it cannot write production or staging contents.
     runs-on: ${{ vars.STLC_RUNNER || 'ubuntu-latest' }}
     if: >-
-      github.repository == 'stainless-sdks/lithic-typescript-prod' &&
+      github.repository == 'lithic-com/lithic-node' &&
       (github.event_name == 'release' || github.event_name == 'workflow_dispatch')
     permissions:
       contents: read
     env:
-      STAGING_REPO: stainless-sdks/lithic-typescript-staging
+      STAGING_REPO: privacy-com/lithic-typescript-staging
     steps:
       - name: Dispatch back-sync to staging
         env:
@@ -160,7 +153,7 @@ jobs:
     # stlc's own pushes, so the bot's commits can't trigger a re-seal loop.
     runs-on: ${{ vars.STLC_RUNNER || 'ubuntu-latest' }}
     if: >-
-      github.repository == 'stainless-sdks/lithic-typescript-staging' &&
+      github.repository == 'privacy-com/lithic-typescript-staging' &&
       github.event_name == 'push'
     permissions:
       contents: read

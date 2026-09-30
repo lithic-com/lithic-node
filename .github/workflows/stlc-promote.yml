@@ -1,30 +1,36 @@
-# NOTE(post-transfer, 2026-08-12): this repo moved from stainless-sdks to privacy-com.
-# Production repo still points at the stainless-sdks placeholder below. Real target is
-# lithic-com/lithic-node — intentionally not switched over yet; see the migration plan.
-# Do not dispatch this workflow until that's deliberately ready.
 name: Promote SDKs
 
 # Promote staging to production by fast-forwarding production main up to staging,
 # preserving SHAs so the trunks stay identical and linear (nothing to heal on the
-# next stlc build). Manual dispatch by design: a maintainer promotes the accumulated
-# batch to cut a release; release-please then opens its version PR on production.
+# next stlc build). Manual dispatch for now: a maintainer promotes the accumulated
+# batch, and release-please (running on production) then updates its version PR.
+# Once the first promotes have been run by hand and trusted, add
+#   push: { branches: [main] }
+# to `on:` so every stlc push to staging main promotes automatically.
+#
+# This file is promoted into production along with everything else; the repository
+# guard below keeps it inert there.
+#
+# Credentials: a lithic-com GitHub App (LITHIC_SDK_RELEASE_APP_ID / _PRIVATE_KEY),
+# installed on the production repo and listed as a bypass actor on its main branch
+# ruleset. No PATs.
 on:
   workflow_dispatch: {}
 
 permissions:
   contents: read
 
+concurrency:
+  group: stlc-promote
+  cancel-in-progress: false
+
 jobs:
   promote:
     # Runner comes from the STLC_RUNNER repo/org variable when set; defaults to GitHub-hosted.
     runs-on: ${{ vars.STLC_RUNNER || 'ubuntu-latest' }}
-    if: github.repository == 'stainless-sdks/lithic-typescript-staging'
-    # Optional gate: add required reviewers to this environment to approve each
-    # promote. With none it only scopes secrets and adds no gate. Remove if unused.
-    environment: production
+    if: github.repository == 'privacy-com/lithic-typescript-staging'
     env:
-      PRODUCTION_REPO: stainless-sdks/lithic-typescript-prod
-      GH_TOKEN: ${{ secrets.PRODUCTION_REPO_TOKEN }}
+      PRODUCTION_REPO: lithic-com/lithic-node
     steps:
       - name: Check out staging
         uses: actions/checkout@v6
@@ -32,7 +38,18 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      - name: Mint production token
+        id: app
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.LITHIC_SDK_RELEASE_APP_ID }}
+          private-key: ${{ secrets.LITHIC_SDK_RELEASE_APP_PRIVATE_KEY }}
+          owner: lithic-com
+          repositories: lithic-node
+
       - name: Fetch production main
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
         run: |
           git remote add production \
             "https://x-access-token:${GH_TOKEN}@github.com/${PRODUCTION_REPO}.git"
@@ -57,7 +74,7 @@ jobs:
           # Refuse unless production is an ancestor of staging: otherwise the trunks
           # have forked (production advanced without a back-sync) and FF is unsafe.
           if ! git merge-base --is-ancestor production/main origin/main; then
-            echo "::error title=Promote blocked::production/main is not an ancestor of staging main. Back-sync production into staging first."
+            echo "::error title=Promote blocked::production/main is not an ancestor of staging main. Back-sync production into staging first (stlc-sync.yml)."
             exit 1
           fi
           git push production origin/main:refs/heads/main
