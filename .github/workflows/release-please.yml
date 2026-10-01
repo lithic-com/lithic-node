@@ -14,7 +14,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Custom: release-please must act as the lithic-sdk-release App rather than
+      # GITHUB_TOKEN (whose releases don't trigger the publish workflows) or a PAT.
+      - name: Mint release token
+        id: app
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.LITHIC_SDK_RELEASE_APP_ID }}
+          private-key: ${{ secrets.LITHIC_SDK_RELEASE_APP_PRIVATE_KEY }}
+
       - uses: googleapis/release-please-action@5c625bfb5d1ff62eadeeb3772007f7f66fdcf071 # v4.4.1
         id: release
         with:
-          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          token: ${{ steps.app.outputs.token }}
