@@ -2,19 +2,23 @@ name: Promote SDKs
 
 # Promote staging to production by fast-forwarding production main up to staging,
 # preserving SHAs so the trunks stay identical and linear (nothing to heal on the
-# next stlc build). Manual dispatch for now: a maintainer promotes the accumulated
-# batch, and release-please (running on production) then updates its version PR.
-# Once the first promotes have been run by hand and trusted, add
-#   push: { branches: [main] }
-# to `on:` so every stlc push to staging main promotes automatically.
+# next stlc build). Runs on every push to staging main, so production main always
+# mirrors staging and release-please (running on production) keeps its version PR
+# current. The human gate is merging that release PR, not this push: production main
+# is not what customers install until a release is tagged. workflow_dispatch remains
+# for a manual re-run.
 #
 # This file is promoted into production along with everything else; the repository
-# guard below keeps it inert there.
+# guard below keeps it inert there. Back-sync pushes to staging use GITHUB_TOKEN, which
+# does not fire workflows, so a release cannot loop back through here.
 #
 # Credentials: a lithic-com GitHub App (LITHIC_SDK_RELEASE_APP_ID / _PRIVATE_KEY),
 # installed on the production repo and listed as a bypass actor on its main branch
 # ruleset. No PATs.
 on:
+  push:
+    # main only. stlc preview/integrated/codegen and conflict branches never push to main.
+    branches: [main]
   workflow_dispatch: {}
 
 permissions:
@@ -55,14 +59,16 @@ jobs:
             "https://x-access-token:${GH_TOKEN}@github.com/${PRODUCTION_REPO}.git"
           git fetch production main
 
-      - name: Check whether production already has staging's content
+      - name: Check whether production already has staging's tip
         id: diff
         run: |
-          # After a release, production has release-please commits staging lacks, so compare trees.
-          MERGED=$(git merge-tree --write-tree production/main origin/main) || MERGED=conflict
-          PRODUCTION_TREE=$(git rev-parse 'production/main^{tree}')
-          if [ "$MERGED" = "$PRODUCTION_TREE" ]; then
-            echo "Production already contains staging's content. Nothing to promote."
+          # Ancestry, not content. Production may be *ahead* of staging right after a release
+          # (release-please's version commit, not yet back-synced): then it already contains
+          # staging's tip and there is nothing to promote. A tree comparison was used here
+          # before and wrongly skipped commits that change no files (e.g. empty Conventional
+          # Commits seeded for release-please), leaving production without them.
+          if git merge-base --is-ancestor origin/main production/main; then
+            echo "Production already contains staging's tip $(git rev-parse --short origin/main). Nothing to promote."
             echo "synced=true" >> "$GITHUB_OUTPUT"
           else
             echo "synced=false" >> "$GITHUB_OUTPUT"
@@ -78,7 +84,7 @@ jobs:
             exit 1
           fi
           git push production origin/main:refs/heads/main
-          echo "Fast-forwarded production/main to staging/main."
+          echo "Fast-forwarded production/main $(git rev-parse --short production/main) -> $(git rev-parse --short origin/main)."
 
       - name: Alert on failure
         if: failure()
