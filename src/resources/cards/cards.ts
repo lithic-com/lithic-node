@@ -35,6 +35,7 @@ export class Cards extends APIResource {
    *   spend_limit: 1000,
    *   spend_limit_duration: 'TRANSACTION',
    *   state: 'OPEN',
+   *   tags: { 'risk-level': 'high' },
    * });
    * ```
    */
@@ -80,6 +81,7 @@ export class Cards extends APIResource {
    *     spend_limit: 100,
    *     spend_limit_duration: 'FOREVER',
    *     state: 'OPEN',
+   *     tags: { 'risk-level': 'high' },
    *   },
    * );
    * ```
@@ -620,6 +622,13 @@ export interface NonPCICard {
   state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT';
 
   /**
+   * Key-value pairs for tagging resources. Tags allow you to associate arbitrary
+   * metadata with a resource for your own purposes. A resource can have at most 50
+   * tags, with keys up to 40 characters and values up to 500 characters
+   */
+  tags: { [key: string]: string };
+
+  /**
    * Card types: _ `VIRTUAL` - Card will authorize at any merchant and can be added
    * to a digital wallet like Apple Pay or Google Pay (if the card program is digital
    * wallet-enabled). _ `PHYSICAL` - Manufactured and sent to the cardholder. We
@@ -1132,6 +1141,13 @@ export interface CardCreateParams {
   state?: 'OPEN' | 'PAUSED';
 
   /**
+   * Body param: Key-value pairs to tag the card with. A replacement card does not
+   * inherit tags from the card it replaces. A card can have at most 50 tags, with
+   * keys up to 40 characters and values up to 500 characters
+   */
+  tags?: { [key: string]: string };
+
+  /**
    * Header param: Idempotency key for the request
    */
   'Idempotency-Key'?: string;
@@ -1253,6 +1269,14 @@ export interface CardUpdateParams {
     | 'EXPIRED'
     | 'UNDELIVERABLE'
     | 'OTHER';
+
+  /**
+   * Key-value pairs to merge into the card's tags. Supplied keys are added or
+   * overwritten, a key with a `null` value is removed, and omitted keys remain
+   * unchanged. A card can have at most 50 tags, with keys up to 40 characters and
+   * values up to 500 characters
+   */
+  tags?: { [key: string]: string | null };
 }
 
 export interface CardListParams extends CursorPageParams {
