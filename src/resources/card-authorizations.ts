@@ -357,6 +357,13 @@ export namespace CardAuthorization {
 
     state: 'CLOSED' | 'OPEN' | 'PAUSED' | 'PENDING_ACTIVATION' | 'PENDING_FULFILLMENT';
 
+    /**
+     * Key-value pairs for tagging resources. Tags allow you to associate arbitrary
+     * metadata with a resource for your own purposes. A resource can have at most 50
+     * tags, with keys up to 40 characters and values up to 500 characters
+     */
+    tags: { [key: string]: string };
+
     type: 'SINGLE_USE' | 'MERCHANT_LOCKED' | 'UNLOCKED' | 'PHYSICAL' | 'DIGITAL_WALLET' | 'VIRTUAL';
   }
 
