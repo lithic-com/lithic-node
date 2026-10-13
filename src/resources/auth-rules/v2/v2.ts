@@ -35,9 +35,9 @@ export class V2 extends APIResource {
   /**
    * Updates a V2 Auth rule's properties
    *
-   * If `account_tokens`, `card_tokens`, `program_level`, `excluded_card_tokens`,
-   * `excluded_account_tokens`, or `excluded_business_account_tokens` is provided,
-   * this will replace existing associations with the provided list of entities.
+   * If `entities` is provided, this will replace the rule's existing entities with
+   * the provided `include` and `exclude` lists. To change entities incrementally,
+   * use `PATCH /v2/auth_rules/{auth_rule_token}/entities` instead.
    */
   update(authRuleToken: string, body: V2UpdateParams, options?: RequestOptions): APIPromise<AuthRule> {
     return this._client.patch(path`/v2/auth_rules/${authRuleToken}`, { body, ...options });
@@ -146,6 +146,21 @@ export class V2 extends APIResource {
   ): APIPromise<V2RetrieveReportResponse> {
     return this._client.get(path`/v2/auth_rules/${authRuleToken}/report`, { query, ...options });
   }
+
+  /**
+   * Adds entities to and removes entities from a V2 Auth rule's `include` and
+   * `exclude` lists
+   *
+   * To replace all of the rule's entities at once, provide `entities` to
+   * `PATCH /v2/auth_rules/{auth_rule_token}` instead.
+   */
+  updateEntities(
+    authRuleToken: string,
+    body: V2UpdateEntitiesParams,
+    options?: RequestOptions,
+  ): APIPromise<AuthRule> {
+    return this._client.patch(path`/v2/auth_rules/${authRuleToken}/entities`, { body, ...options });
+  }
 }
 
 export type AuthRulesCursorPage = CursorPage<AuthRule>;
@@ -199,23 +214,37 @@ export interface AuthRule {
   token: string;
 
   /**
+   * @deprecated Deprecated: Use `entities.include` with `ACCOUNT` entities instead.
+   *
    * Account tokens to which the Auth Rule applies.
    */
   account_tokens: Array<string>;
 
   /**
+   * @deprecated Deprecated: Use `entities.include` with `BUSINESS_ACCOUNT` entities
+   * instead.
+   *
    * Business Account tokens to which the Auth Rule applies.
    */
   business_account_tokens: Array<string>;
 
   /**
-   * Card tokens to which the Auth Rule applies.
+   * @deprecated Deprecated: Use `entities.include` with `CARD` entities instead.
+   *
+   * Card tokens to which the Auth Rule applies. Cards the rule applies to through a
+   * `CARD_TAG` entity are not listed.
    */
   card_tokens: Array<string>;
 
   current_version: AuthRule.CurrentVersion | null;
 
   draft_version: AuthRule.DraftVersion | null;
+
+  /**
+   * The entities the Auth Rule applies to (`include`) and does not apply to
+   * (`exclude`). An exclusion overrides an inclusion.
+   */
+  entities: AuthRuleEntitiesResponse;
 
   /**
    * The event stream during which the rule will be evaluated.
@@ -234,6 +263,8 @@ export interface AuthRule {
   name: string | null;
 
   /**
+   * @deprecated Deprecated: Use `entities.include` with a `PROGRAM` entity instead.
+   *
    * Whether the Auth Rule applies to all authorizations on the card program.
    */
   program_level: boolean;
@@ -263,17 +294,25 @@ export interface AuthRule {
   type: 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE' | 'OTHER';
 
   /**
+   * @deprecated Deprecated: Use `entities.exclude` with `ACCOUNT` entities instead.
+   *
    * Account tokens to which the Auth Rule does not apply.
    */
   excluded_account_tokens?: Array<string>;
 
   /**
+   * @deprecated Deprecated: Use `entities.exclude` with `BUSINESS_ACCOUNT` entities
+   * instead.
+   *
    * Business account tokens to which the Auth Rule does not apply.
    */
   excluded_business_account_tokens?: Array<string>;
 
   /**
-   * Card tokens to which the Auth Rule does not apply.
+   * @deprecated Deprecated: Use `entities.exclude` with `CARD` entities instead.
+   *
+   * Card tokens to which the Auth Rule does not apply. Cards excluded through a
+   * `CARD_TAG` entity are not listed.
    */
   excluded_card_tokens?: Array<string>;
 }
@@ -526,6 +565,136 @@ export namespace AuthRuleCondition {
      * For `DISTANCE_FROM_LAST_TRANSACTION`: `MILES` or `KILOMETERS`.
      */
     unit?: 'MPH' | 'KPH' | 'MILES' | 'KILOMETERS';
+  }
+}
+
+/**
+ * The entities an Auth Rule applies to (`include`) and does not apply to
+ * (`exclude`). An exclusion overrides an inclusion, so a card excluded here is
+ * skipped even when the program, its account or one of its tags is included.
+ *
+ * The rule's resulting entities must satisfy these constraints after any write:
+ *
+ * - `include` must contain at least one entity.
+ * - If `PROGRAM` is included, it must be the only included entity.
+ * - `PROGRAM` cannot be excluded.
+ * - An entity cannot appear in both `include` and `exclude`, or twice in the same
+ *   list.
+ * - A rule can have at most 1,000 entities across `include` and `exclude`, not
+ *   counting `PROGRAM`.
+ * - Entity types must be valid for the rule's event stream.
+ * - `CARD`, `ACCOUNT` and `BUSINESS_ACCOUNT` tokens must belong to your program.
+ */
+export interface AuthRuleEntities {
+  /**
+   * Entities the Auth Rule does not apply to. Defaults to an empty list in requests.
+   */
+  exclude?: Array<AuthRuleEntity>;
+
+  /**
+   * Entities the Auth Rule applies to. Defaults to an empty list in requests.
+   */
+  include?: Array<AuthRuleEntity>;
+}
+
+/**
+ * The entities the Auth Rule applies to (`include`) and does not apply to
+ * (`exclude`). An exclusion overrides an inclusion.
+ */
+export interface AuthRuleEntitiesResponse {
+  /**
+   * Entities the Auth Rule does not apply to
+   */
+  exclude: Array<AuthRuleEntity>;
+
+  /**
+   * Entities the Auth Rule applies to
+   */
+  include: Array<AuthRuleEntity>;
+}
+
+/**
+ * An entity that an Auth Rule can apply to. The `type` field determines which
+ * other fields are present.
+ *
+ * - `PROGRAM`: the entire card program.
+ * - `CARD`: a single card.
+ * - `ACCOUNT`: a single account.
+ * - `BUSINESS_ACCOUNT`: a single business account.
+ * - `CARD_TAG`: every card that carries the given tag (`key` and `value`).
+ *
+ * `CARD` and `CARD_TAG` entities can only be used with rules on the
+ * `AUTHORIZATION`, `THREE_DS_AUTHENTICATION`, `TOKENIZATION` and
+ * `CARD_TRANSACTION_UPDATE` event streams. Rules on the other event streams accept
+ * `PROGRAM`, `ACCOUNT` and `BUSINESS_ACCOUNT` only.
+ */
+export type AuthRuleEntity =
+  | AuthRuleEntity.AuthRuleProgramEntity
+  | AuthRuleEntity.AuthRuleCardEntity
+  | AuthRuleEntity.AuthRuleAccountEntity
+  | AuthRuleEntity.AuthRuleBusinessAccountEntity
+  | AuthRuleEntity.AuthRuleCardTagEntity;
+
+export namespace AuthRuleEntity {
+  /**
+   * The entire card program. Takes no other fields.
+   */
+  export interface AuthRuleProgramEntity {
+    type: 'PROGRAM';
+  }
+
+  /**
+   * A single card.
+   */
+  export interface AuthRuleCardEntity {
+    /**
+     * Token of the card
+     */
+    token: string;
+
+    type: 'CARD';
+  }
+
+  /**
+   * A single account.
+   */
+  export interface AuthRuleAccountEntity {
+    /**
+     * Token of the account
+     */
+    token: string;
+
+    type: 'ACCOUNT';
+  }
+
+  /**
+   * A single business account.
+   */
+  export interface AuthRuleBusinessAccountEntity {
+    /**
+     * Token of the business account
+     */
+    token: string;
+
+    type: 'BUSINESS_ACCOUNT';
+  }
+
+  /**
+   * Every card whose `tags` contain `key` set to `value`.
+   */
+  export interface AuthRuleCardTagEntity {
+    /**
+     * Tag key. Keys starting with `lithic.` (case-insensitive) are reserved and
+     * rejected.
+     */
+    key: string;
+
+    type: 'CARD_TAG';
+
+    /**
+     * Tag value
+     */
+    value: string;
   }
 }
 
@@ -3322,11 +3491,77 @@ export namespace V2RetrieveReportResponse {
 }
 
 export type V2CreateParams =
+  | V2CreateParams.Rule
   | V2CreateParams.AccountLevelRule
   | V2CreateParams.CardLevelRule
   | V2CreateParams.ProgramLevelRule;
 
 export declare namespace V2CreateParams {
+  export interface Rule {
+    /**
+     * The entities an Auth Rule applies to (`include`) and does not apply to
+     * (`exclude`). An exclusion overrides an inclusion, so a card excluded here is
+     * skipped even when the program, its account or one of its tags is included.
+     *
+     * The rule's resulting entities must satisfy these constraints after any write:
+     *
+     * - `include` must contain at least one entity.
+     * - If `PROGRAM` is included, it must be the only included entity.
+     * - `PROGRAM` cannot be excluded.
+     * - An entity cannot appear in both `include` and `exclude`, or twice in the same
+     *   list.
+     * - A rule can have at most 1,000 entities across `include` and `exclude`, not
+     *   counting `PROGRAM`.
+     * - Entity types must be valid for the rule's event stream.
+     * - `CARD`, `ACCOUNT` and `BUSINESS_ACCOUNT` tokens must belong to your program.
+     */
+    entities: AuthRuleEntities;
+
+    /**
+     * Parameters for the Auth Rule
+     */
+    parameters:
+      | VelocityLimitParams
+      | MerchantLockParameters
+      | Conditional3DSActionParameters
+      | ConditionalAuthorizationActionParameters
+      | ConditionalACHActionParameters
+      | ConditionalTokenizationActionParameters
+      | ConditionalCardTransactionUpdateActionParameters
+      | ConditionalACHPaymentUpdateActionParameters
+      | TypescriptCodeParameters
+      | ConditionalAuthorizationAdjustmentParameters;
+
+    /**
+     * The type of Auth Rule. For certain rule types, this determines the event stream
+     * during which it will be evaluated. For rules that can be applied to one of
+     * several event streams, the effective one is defined by the separate
+     * `event_stream` field.
+     *
+     * - `VELOCITY_LIMIT`: AUTHORIZATION event stream.
+     * - `MERCHANT_LOCK`: AUTHORIZATION event stream.
+     * - `CONDITIONAL_ACTION`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
+     *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, CARD_TRANSACTION_UPDATE, or
+     *   ACH_PAYMENT_UPDATE event stream.
+     * - `TYPESCRIPT_CODE`: AUTHORIZATION, THREE_DS_AUTHENTICATION, TOKENIZATION,
+     *   ACH_CREDIT_RECEIPT, ACH_DEBIT_RECEIPT, CARD_TRANSACTION_UPDATE, or
+     *   ACH_PAYMENT_UPDATE event stream.
+     * - `OTHER`: A rule whose type is not exposed through this API. Rules of this type
+     *   are read-only; `OTHER` cannot be used when creating a rule.
+     */
+    type: 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE' | 'OTHER';
+
+    /**
+     * The event stream during which the rule will be evaluated.
+     */
+    event_stream?: EventStream;
+
+    /**
+     * Auth Rule Name
+     */
+    name?: string | null;
+  }
+
   export interface AccountLevelRule {
     /**
      * Parameters for the Auth Rule
@@ -3363,11 +3598,16 @@ export declare namespace V2CreateParams {
     type: 'VELOCITY_LIMIT' | 'MERCHANT_LOCK' | 'CONDITIONAL_ACTION' | 'TYPESCRIPT_CODE' | 'OTHER';
 
     /**
+     * @deprecated Deprecated: Use `entities.include` with `ACCOUNT` entities instead.
+     *
      * Account tokens to which the Auth Rule applies.
      */
     account_tokens?: Array<string>;
 
     /**
+     * @deprecated Deprecated: Use `entities.include` with `BUSINESS_ACCOUNT` entities
+     * instead.
+     *
      * Business Account tokens to which the Auth Rule applies.
      */
     business_account_tokens?: Array<string>;
@@ -3385,7 +3625,10 @@ export declare namespace V2CreateParams {
 
   export interface CardLevelRule {
     /**
-     * Card tokens to which the Auth Rule applies.
+     * @deprecated Deprecated: Use `entities.include` with `CARD` entities instead.
+     *
+     * Card tokens to which the Auth Rule applies. Cards the rule applies to through a
+     * `CARD_TAG` entity are not listed.
      */
     card_tokens: Array<string>;
 
@@ -3451,6 +3694,8 @@ export declare namespace V2CreateParams {
       | ConditionalAuthorizationAdjustmentParameters;
 
     /**
+     * @deprecated Deprecated: Use `entities.include` with a `PROGRAM` entity instead.
+     *
      * Whether the Auth Rule applies to all authorizations on the card program.
      */
     program_level: boolean;
@@ -3480,17 +3725,25 @@ export declare namespace V2CreateParams {
     event_stream?: EventStream;
 
     /**
+     * @deprecated Deprecated: Use `entities.exclude` with `ACCOUNT` entities instead.
+     *
      * Account tokens to which the Auth Rule does not apply.
      */
     excluded_account_tokens?: Array<string>;
 
     /**
+     * @deprecated Deprecated: Use `entities.exclude` with `BUSINESS_ACCOUNT` entities
+     * instead.
+     *
      * Business account tokens to which the Auth Rule does not apply.
      */
     excluded_business_account_tokens?: Array<string>;
 
     /**
-     * Card tokens to which the Auth Rule does not apply.
+     * @deprecated Deprecated: Use `entities.exclude` with `CARD` entities instead.
+     *
+     * Card tokens to which the Auth Rule does not apply. Cards excluded through a
+     * `CARD_TAG` entity are not listed.
      */
     excluded_card_tokens?: Array<string>;
 
@@ -3502,18 +3755,59 @@ export declare namespace V2CreateParams {
 }
 
 export type V2UpdateParams =
+  | V2UpdateParams.Rule
   | V2UpdateParams.AccountLevelRule
   | V2UpdateParams.CardLevelRule
   | V2UpdateParams.ProgramLevelRule;
 
 export declare namespace V2UpdateParams {
+  export interface Rule {
+    /**
+     * The entities an Auth Rule applies to (`include`) and does not apply to
+     * (`exclude`). An exclusion overrides an inclusion, so a card excluded here is
+     * skipped even when the program, its account or one of its tags is included.
+     *
+     * The rule's resulting entities must satisfy these constraints after any write:
+     *
+     * - `include` must contain at least one entity.
+     * - If `PROGRAM` is included, it must be the only included entity.
+     * - `PROGRAM` cannot be excluded.
+     * - An entity cannot appear in both `include` and `exclude`, or twice in the same
+     *   list.
+     * - A rule can have at most 1,000 entities across `include` and `exclude`, not
+     *   counting `PROGRAM`.
+     * - Entity types must be valid for the rule's event stream.
+     * - `CARD`, `ACCOUNT` and `BUSINESS_ACCOUNT` tokens must belong to your program.
+     */
+    entities?: AuthRuleEntities;
+
+    /**
+     * Auth Rule Name
+     */
+    name?: string | null;
+
+    /**
+     * The desired state of the Auth Rule.
+     *
+     * Note that only deactivating an Auth Rule through this endpoint is supported at
+     * this time. If you need to (re-)activate an Auth Rule the /promote endpoint
+     * should be used to promote a draft to the currently active version.
+     */
+    state?: 'INACTIVE';
+  }
+
   export interface AccountLevelRule {
     /**
+     * @deprecated Deprecated: Use `entities.include` with `ACCOUNT` entities instead.
+     *
      * Account tokens to which the Auth Rule applies.
      */
     account_tokens?: Array<string>;
 
     /**
+     * @deprecated Deprecated: Use `entities.include` with `BUSINESS_ACCOUNT` entities
+     * instead.
+     *
      * Business Account tokens to which the Auth Rule applies.
      */
     business_account_tokens?: Array<string>;
@@ -3535,7 +3829,10 @@ export declare namespace V2UpdateParams {
 
   export interface CardLevelRule {
     /**
-     * Card tokens to which the Auth Rule applies.
+     * @deprecated Deprecated: Use `entities.include` with `CARD` entities instead.
+     *
+     * Card tokens to which the Auth Rule applies. Cards the rule applies to through a
+     * `CARD_TAG` entity are not listed.
      */
     card_tokens?: Array<string>;
 
@@ -3556,17 +3853,25 @@ export declare namespace V2UpdateParams {
 
   export interface ProgramLevelRule {
     /**
+     * @deprecated Deprecated: Use `entities.exclude` with `ACCOUNT` entities instead.
+     *
      * Account tokens to which the Auth Rule does not apply.
      */
     excluded_account_tokens?: Array<string>;
 
     /**
+     * @deprecated Deprecated: Use `entities.exclude` with `BUSINESS_ACCOUNT` entities
+     * instead.
+     *
      * Business account tokens to which the Auth Rule does not apply.
      */
     excluded_business_account_tokens?: Array<string>;
 
     /**
-     * Card tokens to which the Auth Rule does not apply.
+     * @deprecated Deprecated: Use `entities.exclude` with `CARD` entities instead.
+     *
+     * Card tokens to which the Auth Rule does not apply. Cards excluded through a
+     * `CARD_TAG` entity are not listed.
      */
     excluded_card_tokens?: Array<string>;
 
@@ -3576,6 +3881,8 @@ export declare namespace V2UpdateParams {
     name?: string | null;
 
     /**
+     * @deprecated Deprecated: Use `entities.include` with a `PROGRAM` entity instead.
+     *
      * Whether the Auth Rule applies to all authorizations on the card program.
      */
     program_level?: boolean;
@@ -3621,7 +3928,8 @@ export interface V2ListParams extends CursorPageParams {
   event_streams?: Array<EventStream>;
 
   /**
-   * Only return Auth Rules that are bound to the provided scope.
+   * Only return Auth Rules that are bound to the provided scope. When no token is
+   * provided, `CARD` also returns Auth Rules that include a `CARD_TAG` entity.
    */
   scope?: 'PROGRAM' | 'ACCOUNT' | 'BUSINESS_ACCOUNT' | 'CARD' | 'ANY';
 }
@@ -3692,6 +4000,18 @@ export interface V2RetrieveReportParams {
   end: string;
 }
 
+export interface V2UpdateEntitiesParams {
+  /**
+   * Entities to add to the rule's `include` and `exclude` lists
+   */
+  add?: AuthRuleEntities;
+
+  /**
+   * Entities to remove from the rule's `include` and `exclude` lists
+   */
+  remove?: AuthRuleEntities;
+}
+
 V2.Backtests = Backtests;
 
 export declare namespace V2 {
@@ -3699,6 +4019,9 @@ export declare namespace V2 {
     type ACHPaymentUpdateAction as ACHPaymentUpdateAction,
     type AuthRule as AuthRule,
     type AuthRuleCondition as AuthRuleCondition,
+    type AuthRuleEntities as AuthRuleEntities,
+    type AuthRuleEntitiesResponse as AuthRuleEntitiesResponse,
+    type AuthRuleEntity as AuthRuleEntity,
     type AuthRuleVersion as AuthRuleVersion,
     type BacktestStats as BacktestStats,
     type CardTransactionUpdateAction as CardTransactionUpdateAction,
@@ -3734,6 +4057,7 @@ export declare namespace V2 {
     type V2ListResultsParams as V2ListResultsParams,
     type V2RetrieveFeaturesParams as V2RetrieveFeaturesParams,
     type V2RetrieveReportParams as V2RetrieveReportParams,
+    type V2UpdateEntitiesParams as V2UpdateEntitiesParams,
   };
 
   export {

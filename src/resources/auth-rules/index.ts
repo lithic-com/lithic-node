@@ -6,6 +6,9 @@ export {
   type ACHPaymentUpdateAction,
   type AuthRule,
   type AuthRuleCondition,
+  type AuthRuleEntities,
+  type AuthRuleEntitiesResponse,
+  type AuthRuleEntity,
   type AuthRuleVersion,
   type BacktestStats,
   type CardTransactionUpdateAction,
@@ -39,6 +42,7 @@ export {
   type V2ListResultsParams,
   type V2RetrieveFeaturesParams,
   type V2RetrieveReportParams,
+  type V2UpdateEntitiesParams,
   type AuthRulesCursorPage,
   type V2ListResultsResponsesCursorPage,
 } from './v2/index';

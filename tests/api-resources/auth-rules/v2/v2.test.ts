@@ -10,6 +10,7 @@ const client = new Lithic({
 describe('resource v2', () => {
   test('create: only required params', async () => {
     const responsePromise = client.authRules.v2.create({
+      entities: {},
       parameters: {
         period: { duration: 10, type: 'CUSTOM' },
         scope: 'CARD',
@@ -27,6 +28,7 @@ describe('resource v2', () => {
 
   test('create: required and optional params', async () => {
     const response = await client.authRules.v2.create({
+      entities: { exclude: [{ type: 'PROGRAM' }], include: [{ type: 'PROGRAM' }] },
       parameters: {
         period: { duration: 10, type: 'CUSTOM' },
         scope: 'CARD',
@@ -43,8 +45,6 @@ describe('resource v2', () => {
         limit_count: 0,
       },
       type: 'VELOCITY_LIMIT',
-      account_tokens: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
-      business_account_tokens: ['182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e'],
       event_stream: 'AUTHORIZATION',
       name: 'name',
     });
@@ -221,5 +221,16 @@ describe('resource v2', () => {
       begin: '2019-12-27',
       end: '2019-12-27',
     });
+  });
+
+  test('updateEntities', async () => {
+    const responsePromise = client.authRules.v2.updateEntities('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 });

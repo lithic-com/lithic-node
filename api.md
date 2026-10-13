@@ -90,6 +90,9 @@ Types:
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">ACHPaymentUpdateAction</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">AuthRule</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">AuthRuleCondition</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">AuthRuleEntities</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">AuthRuleEntitiesResponse</a></code>
+- <code><a href="./src/resources/auth-rules/v2/v2.ts">AuthRuleEntity</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">AuthRuleVersion</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">BacktestStats</a></code>
 - <code><a href="./src/resources/auth-rules/v2/v2.ts">CardTransactionUpdateAction</a></code>
@@ -130,6 +133,7 @@ Methods:
 - <code title="post /v2/auth_rules/{auth_rule_token}/promote">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">promote</a>(authRuleToken) -> AuthRule</code>
 - <code title="get /v2/auth_rules/{auth_rule_token}/features">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">retrieveFeatures</a>(authRuleToken, { ...params }) -> V2RetrieveFeaturesResponse</code>
 - <code title="get /v2/auth_rules/{auth_rule_token}/report">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">retrieveReport</a>(authRuleToken, { ...params }) -> V2RetrieveReportResponse</code>
+- <code title="patch /v2/auth_rules/{auth_rule_token}/entities">client.authRules.v2.<a href="./src/resources/auth-rules/v2/v2.ts">updateEntities</a>(authRuleToken, { ...params }) -> AuthRule</code>
 
 ### Backtests
 
