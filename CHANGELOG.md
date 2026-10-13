@@ -1,5 +1,30 @@
 # Changelog
 
+## [0.148.0](https://github.com/lithic-com/lithic-node/compare/v0.147.0...v0.148.0) (2026-10-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** the CONDITIONAL_BLOCK rule type and the ConditionalBlockParameters model are removed. All rules are now CONDITIONAL_ACTION.
+* **stlc:** the CONDITIONAL_BLOCK rule type and the ConditionalBlockParameters model are removed. All rules are now CONDITIONAL_ACTION.
+
+### Features
+
+* **api:** accept billing_currency and settlement_currency on transaction simulation endpoints ([ac60856](https://github.com/lithic-com/lithic-node/commit/ac608560f6232bb71edf19385bdd909ac5ef7a0c))
+* **api:** add entities to auth rules and an endpoint to update a rule's entities incrementally ([9f90933](https://github.com/lithic-com/lithic-node/commit/9f90933ae027f5f47440385ce264fc713d4ebdb6))
+* **api:** add installment plan statement endpoints to financial accounts ([b3bc5bd](https://github.com/lithic-com/lithic-node/commit/b3bc5bd50a698ccae887b78b73d15595881b6aba))
+* **api:** add payment-only allocation breakdown to the loan tape ([9e402e2](https://github.com/lithic-com/lithic-node/commit/9e402e21075d8ccd8fea3eed1979610ff0813c65))
+* **api:** add tags to card create and update parameters and card responses ([d769592](https://github.com/lithic-com/lithic-node/commit/d7695921b2700ab877dfaf2b05d206313823054d))
+* **api:** add tags to the card object in auth stream access requests ([44c54c9](https://github.com/lithic-com/lithic-node/commit/44c54c943c2b49c1ca67dc871691e1d51efae64b))
+* **api:** expose the full conditional attribute set for authorization rules ([74c483e](https://github.com/lithic-com/lithic-node/commit/74c483ed6ef433c1353e4118a8f05688e5d704f3))
+* **api:** remove CONDITIONAL_BLOCK from authorization rules ([0fc09eb](https://github.com/lithic-com/lithic-node/commit/0fc09ebe8335b2b50d1c652cdca08d9fcbab844f))
+* **api:** support international addresses and address2 for KYB_DELEGATED and KYC_EXEMPT workflows ([f5d24ea](https://github.com/lithic-com/lithic-node/commit/f5d24eafb65edbc1bb002ad3377a9d56039dcae5))
+
+
+### Continuous Integration
+
+* **stlc:** promote by ancestry and on push; seed release 0.148.0 ([#14](https://github.com/lithic-com/lithic-node/issues/14)) ([7665d64](https://github.com/lithic-com/lithic-node/commit/7665d6404bc3ee100ef78eb5522118c1fd9aebe9))
+
 ## 0.147.0 (2026-09-18)
 
 Full Changelog: [v0.146.0...v0.147.0](https://github.com/lithic-com/lithic-node/compare/v0.146.0...v0.147.0)
