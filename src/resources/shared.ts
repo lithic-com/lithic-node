@@ -321,7 +321,8 @@ export interface FinancialEvent {
     | 'STABLECOIN_REVIEWED'
     | 'STABLECOIN_SENT'
     | 'STABLECOIN_SETTLED'
-    | 'STABLECOIN_REJECTED';
+    | 'STABLECOIN_REJECTED'
+    | 'INSTANCE_TO_INSTANCE';
 }
 
 /**

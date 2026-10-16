@@ -238,7 +238,8 @@ export namespace BookTransferResponse {
       | 'TRANSFER'
       | 'COLLECTION'
       | 'LITHIC_PROGRAM_TRANSFER'
-      | 'BANK_PROGRAM_TRANSFER';
+      | 'BANK_PROGRAM_TRANSFER'
+      | 'INSTANCE_TO_INSTANCE';
   }
 
   /**
@@ -330,7 +331,8 @@ export interface BookTransferCreateParams {
     | 'TRANSFER'
     | 'COLLECTION'
     | 'LITHIC_PROGRAM_TRANSFER'
-    | 'BANK_PROGRAM_TRANSFER';
+    | 'BANK_PROGRAM_TRANSFER'
+    | 'INSTANCE_TO_INSTANCE';
 
   /**
    * Customer-provided token that will serve as an idempotency token. This token will
