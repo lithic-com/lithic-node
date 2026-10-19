@@ -72,7 +72,8 @@ export namespace EnhancedData {
      */
     export interface LineItem {
       /**
-       * The price of the item purchased in merchant currency.
+       * @deprecated Deprecated: Use unit_amount instead. The price of the item purchased
+       * in merchant currency.
        */
       amount?: string | null;
 
@@ -90,6 +91,17 @@ export namespace EnhancedData {
        * The quantity of the item purchased.
        */
       quantity?: string | null;
+
+      /**
+       * The total cost for the line item in merchant currency, covering all units
+       * purchased.
+       */
+      total_amount?: string | null;
+
+      /**
+       * The price per individual unit in merchant currency.
+       */
+      unit_amount?: string | null;
     }
 
     export interface Tax {
