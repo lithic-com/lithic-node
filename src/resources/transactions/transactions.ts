@@ -408,7 +408,7 @@ export interface Transaction {
    * Card network of the authorization. Value is `UNKNOWN` when Lithic cannot
    * determine the network code from the upstream provider.
    */
-  network: 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA' | null;
+  network: 'ALLPOINT' | 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA' | null;
 
   /**
    * Network-provided score assessing risk level associated with a given

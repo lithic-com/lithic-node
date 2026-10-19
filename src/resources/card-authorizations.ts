@@ -193,7 +193,7 @@ export interface CardAuthorization {
   /**
    * Card network of the authorization.
    */
-  network?: 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA';
+  network?: 'ALLPOINT' | 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA';
 
   /**
    * Network-provided score assessing risk level associated with a given
