@@ -179,7 +179,7 @@ export namespace AccountActivityListResponse {
   /**
    * Card transaction with ledger base properties
    */
-  export interface CardTransaction extends Omit<TransactionsAPI.Transaction, 'status'> {
+  export interface CardTransaction extends TransactionsAPI.Transaction {
     /**
      * Unique identifier for the transaction
      */
@@ -194,11 +194,6 @@ export namespace AccountActivityListResponse {
      * CARD - Card Transaction
      */
     family: 'CARD';
-
-    /**
-     * The status of the transaction
-     */
-    status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED';
 
     /**
      * ISO 8601 timestamp of when the transaction was last updated
@@ -324,7 +319,7 @@ export namespace AccountActivityRetrieveTransactionResponse {
   /**
    * Card transaction with ledger base properties
    */
-  export interface CardTransaction extends Omit<TransactionsAPI.Transaction, 'status'> {
+  export interface CardTransaction extends TransactionsAPI.Transaction {
     /**
      * Unique identifier for the transaction
      */
@@ -339,11 +334,6 @@ export namespace AccountActivityRetrieveTransactionResponse {
      * CARD - Card Transaction
      */
     family: 'CARD';
-
-    /**
-     * The status of the transaction
-     */
-    status: 'PENDING' | 'SETTLED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED';
 
     /**
      * ISO 8601 timestamp of when the transaction was last updated

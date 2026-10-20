@@ -70,11 +70,6 @@ export interface Hold {
   created: string;
 
   /**
-   * Status of a hold transaction
-   */
-  status: 'PENDING' | 'SETTLED' | 'EXPIRED' | 'VOIDED' | 'DECLINED' | 'REVERSED' | 'CANCELED' | 'RETURNED';
-
-  /**
    * ISO 8601 timestamp of when the transaction was last updated
    */
   updated: string;
@@ -101,6 +96,11 @@ export interface Hold {
   pending_amount?: number;
 
   result?: 'APPROVED' | 'DECLINED';
+
+  /**
+   * Status of a hold transaction
+   */
+  status?: 'PENDING' | 'SETTLED' | 'EXPIRED' | 'VOIDED';
 
   user_defined_id?: string | null;
 }
