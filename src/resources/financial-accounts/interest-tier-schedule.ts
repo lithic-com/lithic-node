@@ -197,18 +197,18 @@ export interface InterestTierSchedule {
   /**
    * Custom rates per category for penalties
    */
-  penalty_rates?: unknown;
+  penalty_rates?: unknown | null;
 
   /**
    * Name of a tier contained in the credit product. Mutually exclusive with
    * tier_rates
    */
-  tier_name?: string;
+  tier_name?: string | null;
 
   /**
    * Custom rates per category. Mutually exclusive with tier_name
    */
-  tier_rates?: unknown;
+  tier_rates?: unknown | null;
 }
 
 export interface InterestTierScheduleCreateParams {
@@ -225,18 +225,18 @@ export interface InterestTierScheduleCreateParams {
   /**
    * Custom rates per category for penalties
    */
-  penalty_rates?: unknown;
+  penalty_rates?: unknown | null;
 
   /**
    * Name of a tier contained in the credit product. Mutually exclusive with
    * tier_rates
    */
-  tier_name?: string;
+  tier_name?: string | null;
 
   /**
    * Custom rates per category. Mutually exclusive with tier_name
    */
-  tier_rates?: unknown;
+  tier_rates?: unknown | null;
 }
 
 export interface InterestTierScheduleRetrieveParams {
@@ -255,18 +255,18 @@ export interface InterestTierScheduleUpdateParams {
   /**
    * Body param: Custom rates per category for penalties
    */
-  penalty_rates?: unknown;
+  penalty_rates?: unknown | null;
 
   /**
    * Body param: Name of a tier contained in the credit product. Mutually exclusive
    * with tier_rates
    */
-  tier_name?: string;
+  tier_name?: string | null;
 
   /**
    * Body param: Custom rates per category. Mutually exclusive with tier_name
    */
-  tier_rates?: unknown;
+  tier_rates?: unknown | null;
 }
 
 export interface InterestTierScheduleListParams {
