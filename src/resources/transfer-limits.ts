@@ -51,6 +51,11 @@ export namespace TransferLimitsResponse {
     date: string;
 
     /**
+     * Financial entity ID the limits are scoped to
+     */
+    financial_entity_id: string;
+
+    /**
      * Whether the company is a FBO; based on the company ID prefix
      */
     is_fbo: boolean;
