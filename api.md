@@ -621,7 +621,6 @@ Methods:
 - <code title="delete /v1/responder_endpoints">client.responderEndpoints.<a href="./src/resources/responder-endpoints.ts">delete</a>({ ...params }) -> void</code>
 - <code title="get /v1/responder_endpoints">client.responderEndpoints.<a href="./src/resources/responder-endpoints.ts">checkStatus</a>({ ...params }) -> ResponderEndpointStatus</code>
 
-<<<<<<< HEAD
 # IPRanges
 
 Types:
@@ -631,7 +630,7 @@ Types:
 Methods:
 
 - <code title="get /v1/ip_ranges">client.ipRanges.<a href="./src/resources/ip-ranges.ts">retrieve</a>() -> IPRangeRetrieveResponse</code>
-=======
+
 # Webhooks
 
 Methods:
@@ -640,7 +639,6 @@ Methods:
 - <code>client.webhooks.<a href="./src/resources/webhooks.ts">verifySignature</a>(body, headers, secret) -> void</code>
 - <code>client.webhooks.<a href="./src/resources/webhooks.ts">parse</a>(body, headers, secret) -> ParsedWebhookEvent</code>
 - <code>client.webhooks.<a href="./src/resources/webhooks.ts">parseUnsafe</a>(body) -> ParsedWebhookEvent</code>
->>>>>>> f6e57376 (Apply custom code)
 
 # ExternalBankAccounts
 
