@@ -126,6 +126,7 @@ import {
   HoldsCursorPage,
 } from './resources/holds';
 import { InternalTransaction, InternalTransactionResource } from './resources/internal-transaction';
+import { IPRangeRetrieveResponse, IPRanges } from './resources/ip-ranges';
 import {
   ExternalResource,
   ExternalResourceType,
@@ -1193,6 +1194,7 @@ export class Lithic {
   financialAccounts: API.FinancialAccounts = new API.FinancialAccounts(this);
   transactions: API.Transactions = new API.Transactions(this);
   responderEndpoints: API.ResponderEndpoints = new API.ResponderEndpoints(this);
+  ipRanges: API.IPRanges = new API.IPRanges(this);
   externalBankAccounts: API.ExternalBankAccounts = new API.ExternalBankAccounts(this);
   blockchainRecipients: API.BlockchainRecipients = new API.BlockchainRecipients(this);
   payments: API.Payments = new API.Payments(this);
@@ -1232,6 +1234,7 @@ Lithic.Transfers = Transfers;
 Lithic.FinancialAccounts = FinancialAccounts;
 Lithic.Transactions = Transactions;
 Lithic.ResponderEndpoints = ResponderEndpoints;
+Lithic.IPRanges = IPRanges;
 Lithic.ExternalBankAccounts = ExternalBankAccounts;
 Lithic.BlockchainRecipients = BlockchainRecipients;
 Lithic.Payments = Payments;
@@ -1457,6 +1460,8 @@ export declare namespace Lithic {
     type ResponderEndpointDeleteParams as ResponderEndpointDeleteParams,
     type ResponderEndpointCheckStatusParams as ResponderEndpointCheckStatusParams,
   };
+
+  export { IPRanges as IPRanges, type IPRangeRetrieveResponse as IPRangeRetrieveResponse };
 
   export {
     ExternalBankAccounts as ExternalBankAccounts,
