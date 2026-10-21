@@ -621,6 +621,16 @@ Methods:
 - <code title="delete /v1/responder_endpoints">client.responderEndpoints.<a href="./src/resources/responder-endpoints.ts">delete</a>({ ...params }) -> void</code>
 - <code title="get /v1/responder_endpoints">client.responderEndpoints.<a href="./src/resources/responder-endpoints.ts">checkStatus</a>({ ...params }) -> ResponderEndpointStatus</code>
 
+# IPRanges
+
+Types:
+
+- <code><a href="./src/resources/ip-ranges.ts">IPRangeRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="get /v1/ip_ranges">client.ipRanges.<a href="./src/resources/ip-ranges.ts">retrieve</a>() -> IPRangeRetrieveResponse</code>
+
 # Webhooks
 
 Methods:

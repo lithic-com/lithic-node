@@ -199,6 +199,7 @@ export {
   type HoldVoidParams,
   type HoldsCursorPage,
 } from './holds';
+export { IPRanges, type IPRangeRetrieveResponse } from './ip-ranges';
 export { InternalTransactionResource, type InternalTransaction } from './internal-transaction';
 export {
   ManagementOperations,
