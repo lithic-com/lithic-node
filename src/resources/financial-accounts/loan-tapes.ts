@@ -258,6 +258,11 @@ export namespace LoanTape {
      * Amount due for the past billing cycles.
      */
     past_statements_due: LoanTapesAPI.CategoryBalances;
+
+    /**
+     * Amounts converted into installment plans
+     */
+    installments?: LoanTapesAPI.CategoryBalances | null;
   }
 
   export interface InterestDetails {

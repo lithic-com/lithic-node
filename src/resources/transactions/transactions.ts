@@ -419,7 +419,11 @@ export interface Transaction {
    */
   network_risk_score: number | null;
 
-  pos: Transaction.Pos;
+  /**
+   * Point of sale data for the transaction. Null when no point of sale data is
+   * available, such as clearing-only records that never went through authorization
+   */
+  pos: Transaction.Pos | null;
 
   result:
     | 'ACCOUNT_PAUSED'
@@ -582,6 +586,10 @@ export namespace Transaction {
     street_address: string | null;
   }
 
+  /**
+   * Point of sale data for the transaction. Null when no point of sale data is
+   * available, such as clearing-only records that never went through authorization
+   */
   export interface Pos {
     entry_mode: Pos.EntryMode;
 
