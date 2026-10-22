@@ -105,7 +105,25 @@ export interface FundingEventRetrieveDetailsResponse {
   settlement_summary_url: string;
 }
 
-export interface FundingEventListParams extends CursorPageParams {}
+export interface FundingEventListParams extends CursorPageParams {
+  /**
+   * Date string in RFC 3339 format. Only entries created after the specified time
+   * will be included. UTC time zone.
+   */
+  begin?: string;
+
+  /**
+   * Date string in RFC 3339 format. Only entries created before the specified time
+   * will be included. UTC time zone.
+   */
+  end?: string;
+
+  /**
+   * Only funding events with a settlement breakout for this network settlement date
+   * will be included.
+   */
+  network_settlement_date?: string;
+}
 
 export declare namespace FundingEvents {
   export {

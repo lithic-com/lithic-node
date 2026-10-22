@@ -301,7 +301,7 @@ Methods:
 Methods:
 
 - <code title="get /v1/cards/{card_token}/financial_transactions/{financial_transaction_token}">client.cards.financialTransactions.<a href="./src/resources/cards/financial-transactions.ts">retrieve</a>(financialTransactionToken, { ...params }) -> FinancialTransaction</code>
-- <code title="get /v1/cards/{card_token}/financial_transactions">client.cards.financialTransactions.<a href="./src/resources/cards/financial-transactions.ts">list</a>(cardToken, { ...params }) -> FinancialTransactionsSinglePage</code>
+- <code title="get /v1/cards/{card_token}/financial_transactions">client.cards.financialTransactions.<a href="./src/resources/cards/financial-transactions.ts">list</a>(cardToken, { ...params }) -> FinancialTransactionsCursorPage</code>
 
 # CardAuthorizations
 
@@ -459,7 +459,7 @@ Methods:
 Methods:
 
 - <code title="get /v1/financial_accounts/{financial_account_token}/financial_transactions/{financial_transaction_token}">client.financialAccounts.financialTransactions.<a href="./src/resources/financial-accounts/financial-transactions.ts">retrieve</a>(financialTransactionToken, { ...params }) -> FinancialTransaction</code>
-- <code title="get /v1/financial_accounts/{financial_account_token}/financial_transactions">client.financialAccounts.financialTransactions.<a href="./src/resources/financial-accounts/financial-transactions.ts">list</a>(financialAccountToken, { ...params }) -> FinancialTransactionsSinglePage</code>
+- <code title="get /v1/financial_accounts/{financial_account_token}/financial_transactions">client.financialAccounts.financialTransactions.<a href="./src/resources/financial-accounts/financial-transactions.ts">list</a>(financialAccountToken, { ...params }) -> FinancialTransactionsCursorPage</code>
 
 ## CreditConfiguration
 

@@ -52,6 +52,7 @@ describe('resource financialTransactions', () => {
           category: 'ACH',
           end: '2019-12-27T18:11:19.117Z',
           ending_before: 'ending_before',
+          page_size: 1,
           result: 'APPROVED',
           starting_after: 'starting_after',
           status: 'DECLINED',

@@ -19,7 +19,7 @@ export {
   type FinancialAccountRegisterAccountNumberParams,
   type FinancialAccountUpdateStatusParams,
   type FinancialAccountBalancesSinglePage,
-  type FinancialTransactionsSinglePage,
+  type FinancialTransactionsCursorPage,
   type FinancialAccountsSinglePage,
 } from './financial-accounts';
 export {

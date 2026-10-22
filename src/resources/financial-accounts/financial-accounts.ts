@@ -63,7 +63,7 @@ import {
   StatementsCursorPage,
 } from './statements/statements';
 import { APIPromise } from '../../core/api-promise';
-import { PagePromise, SinglePage } from '../../core/pagination';
+import { CursorPage, PagePromise, SinglePage } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -215,7 +215,7 @@ export type FinancialAccountsSinglePage = SinglePage<FinancialAccount>;
 
 export type FinancialAccountBalancesSinglePage = SinglePage<FinancialAccountBalance>;
 
-export type FinancialTransactionsSinglePage = SinglePage<FinancialTransaction>;
+export type FinancialTransactionsCursorPage = CursorPage<FinancialTransaction>;
 
 export interface CategoryDetails {
   balance_transfers: string;

@@ -2,9 +2,9 @@
 
 import { APIResource } from '../../core/resource';
 import * as FinancialAccountsAPI from '../financial-accounts/financial-accounts';
-import { FinancialTransactionsSinglePage } from '../financial-accounts/financial-accounts';
+import { FinancialTransactionsCursorPage } from '../financial-accounts/financial-accounts';
 import { APIPromise } from '../../core/api-promise';
-import { PagePromise, SinglePage } from '../../core/pagination';
+import { CursorPage, type CursorPageParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -50,10 +50,10 @@ export class FinancialTransactions extends APIResource {
     cardToken: string,
     query: FinancialTransactionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<FinancialTransactionsSinglePage, FinancialAccountsAPI.FinancialTransaction> {
+  ): PagePromise<FinancialTransactionsCursorPage, FinancialAccountsAPI.FinancialTransaction> {
     return this._client.getAPIList(
       path`/v1/cards/${cardToken}/financial_transactions`,
-      SinglePage<FinancialAccountsAPI.FinancialTransaction>,
+      CursorPage<FinancialAccountsAPI.FinancialTransaction>,
       { query, ...options },
     );
   }
@@ -63,7 +63,7 @@ export interface FinancialTransactionRetrieveParams {
   card_token: string;
 }
 
-export interface FinancialTransactionListParams {
+export interface FinancialTransactionListParams extends CursorPageParams {
   /**
    * Date string in RFC 3339 format. Only entries created after the specified time
    * will be included. UTC time zone.
@@ -82,21 +82,9 @@ export interface FinancialTransactionListParams {
   end?: string;
 
   /**
-   * A cursor representing an item's token before which a page of results should end.
-   * Used to retrieve the previous page of results before this item.
-   */
-  ending_before?: string;
-
-  /**
    * Financial Transaction result to be returned.
    */
   result?: 'APPROVED' | 'DECLINED';
-
-  /**
-   * A cursor representing an item's token after which a page of results should
-   * begin. Used to retrieve the next page of results after this item.
-   */
-  starting_after?: string;
 
   /**
    * Financial Transaction status to be returned.
@@ -111,4 +99,4 @@ export declare namespace FinancialTransactions {
   };
 }
 
-export { type FinancialTransactionsSinglePage };
+export { type FinancialTransactionsCursorPage };

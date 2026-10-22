@@ -179,7 +179,7 @@ export {
   type FinancialAccountRegisterAccountNumberParams,
   type FinancialAccountUpdateStatusParams,
   type FinancialAccountBalancesSinglePage,
-  type FinancialTransactionsSinglePage,
+  type FinancialTransactionsCursorPage,
   type FinancialAccountsSinglePage,
 } from './financial-accounts/financial-accounts';
 export { Fraud } from './fraud/fraud';
