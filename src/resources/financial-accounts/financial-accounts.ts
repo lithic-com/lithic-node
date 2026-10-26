@@ -351,13 +351,13 @@ export interface FinancialAccountBalance {
    * Globally unique identifier for the last financial transaction event that
    * impacted this balance.
    */
-  last_transaction_event_token: string;
+  last_transaction_event_token: string | null;
 
   /**
    * Globally unique identifier for the last financial transaction that impacted this
    * balance.
    */
-  last_transaction_token: string;
+  last_transaction_token: string | null;
 
   /**
    * Funds not available for spend due to card authorizations or pending ACH release.
