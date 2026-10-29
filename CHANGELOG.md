@@ -1,5 +1,31 @@
 # Changelog
 
+## [0.149.0](https://github.com/lithic-com/lithic-node/compare/v0.148.0...v0.149.0) (2026-10-28)
+
+
+### Features
+
+* **api:** add ALLPOINT to card transaction and authorization network enums ([60efa48](https://github.com/lithic-com/lithic-node/commit/60efa4807e423b40800cfc7a597ea0f281cda5d5))
+* **api:** add financial_entity_id to transfer limits response items ([8a3b7b2](https://github.com/lithic-com/lithic-node/commit/8a3b7b2c83396ab47208e8d1b8d5cc6e15457681))
+* **api:** add INSTANCE_TO_INSTANCE to book transfer type and financial event type enums ([6729807](https://github.com/lithic-com/lithic-node/commit/67298077f699fda8a005498856e549da6c1a850b))
+* **api:** add intra-bank transaction category and intra_bank financial event types ([2e062ee](https://github.com/lithic-com/lithic-node/commit/2e062ee204ee89da38f93f8bc968955f35755a00))
+* **api:** add page_size to financial transaction lists and date filters to funding events list ([382ab9c](https://github.com/lithic-com/lithic-node/commit/382ab9cdf40f2d1ce48fefa02d2dd10700dd3221))
+* **api:** add reference_id field to claims for matching with the dashboard ([8e0630c](https://github.com/lithic-com/lithic-node/commit/8e0630c046da8e79e8227012e93c69e68c45d547))
+* **api:** add unit_amount and total_amount to enhanced commercial data line items, deprecate amount ([eae1373](https://github.com/lithic-com/lithic-node/commit/eae1373ee0d971509c18d3b6a283e058aec23987))
+
+
+### Bug Fixes
+
+* **api:** correct status enum types on hold and card transaction models ([1684fe8](https://github.com/lithic-com/lithic-node/commit/1684fe860b5bab547ccf811054fe40f021818ba0))
+* **api:** financial account balance last transaction tokens are nullable (breaks java/kotlin types) ([6b30767](https://github.com/lithic-com/lithic-node/commit/6b307677422d93fd6a065a1d44e255201477bf51))
+* **api:** make tier_name, tier_rates, and penalty_rates nullable on account tier schedules ([7e46b91](https://github.com/lithic-com/lithic-node/commit/7e46b9183a8f3e48fb467f4b34a05bf17949de47))
+* **api:** mark transaction pos field as nullable when no point of sale data is available ([04cc55c](https://github.com/lithic-com/lithic-node/commit/04cc55c9259a41853f7f2737f995f6fbc2130a62))
+
+
+### Documentation
+
+* **api:** clarify credit product can only be assigned once to pending financial accounts ([4e5936f](https://github.com/lithic-com/lithic-node/commit/4e5936f4af32f770f63a79f27b84f138bdc4cd08))
+
 ## [0.148.0](https://github.com/lithic-com/lithic-node/compare/v0.147.0...v0.148.0) (2026-10-13)
 
 
