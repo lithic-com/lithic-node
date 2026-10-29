@@ -101,6 +101,12 @@ export interface InstallmentPlan {
   financial_account_token: string;
 
   /**
+   * Amount credited to this plan after the plan was recalculated. The plan amount is
+   * not changed, and this credit reduces the amount owed
+   */
+  installment_plan_adjustment: number;
+
+  /**
    * Total owed on the plan in cents, the principal amount plus the enrollment fee
    */
   installment_plan_total: number;
@@ -215,6 +221,11 @@ export namespace InstallmentPlan {
      * Payments applied to this installment, oldest first
      */
     payments: Array<Installment.Payment>;
+
+    /**
+     * Amount from installment_plan_adjustment credited to this installment
+     */
+    installment_adjustment?: number;
   }
 
   export namespace Installment {
@@ -230,6 +241,12 @@ export namespace InstallmentPlan {
        * Date the payment was applied to the installment
        */
       date: string;
+
+      /**
+       * True when the source of the payment is an adjustment of an underlying account or
+       * transaction
+       */
+      is_adjustment?: boolean;
     }
   }
 }
