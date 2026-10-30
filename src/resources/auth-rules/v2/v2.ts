@@ -3959,8 +3959,8 @@ export interface V2ListResultsParams extends CursorPageParams {
   auth_rule_token?: string;
 
   /**
-   * Date string in RFC 3339 format. Only events evaluated after the specified time
-   * will be included. UTC time zone.
+   * Date string in RFC 3339 format. Only events evaluated on or after the specified
+   * time will be included. UTC time zone.
    */
   begin?: string;
 

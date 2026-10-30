@@ -279,8 +279,8 @@ export interface StatementListParams extends CursorPageParams {
   financial_account_token: string;
 
   /**
-   * Query param: Date string in RFC 3339 format. Only entries created after the
-   * specified date will be included.
+   * Query param: Date string in RFC 3339 format. Only entries created on or after
+   * the specified date will be included.
    */
   begin?: string;
 

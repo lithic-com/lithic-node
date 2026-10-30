@@ -51,8 +51,8 @@ export interface NetworkProgram {
 
 export interface NetworkProgramListParams {
   /**
-   * Date string in RFC 3339 format. Only entries created after the specified time
-   * will be included. UTC time zone.
+   * Date string in RFC 3339 format. Only entries created on or after the specified
+   * time will be included. UTC time zone.
    */
   begin?: string;
 

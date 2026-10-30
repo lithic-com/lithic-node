@@ -321,8 +321,8 @@ export interface StatementRetrieveParams {
 
 export interface StatementListParams extends CursorPageParams {
   /**
-   * Date string in RFC 3339 format. Only entries created after the specified date
-   * will be included.
+   * Date string in RFC 3339 format. Only entries created on or after the specified
+   * date will be included.
    */
   begin?: string;
 

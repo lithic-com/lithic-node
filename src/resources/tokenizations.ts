@@ -553,7 +553,7 @@ export interface TokenizationListParams extends CursorPageParams {
   account_token?: string;
 
   /**
-   * Filter for tokenizations created after this date.
+   * Filter for tokenizations created on or after this date.
    */
   begin?: string;
 
