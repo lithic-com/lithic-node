@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.150.0](https://github.com/lithic-com/lithic-node/compare/v0.149.0...v0.150.0) (2026-10-30)
+
+
+### Features
+
+* **api:** add installment plan adjustment amounts and is_adjustment flag to installment plans ([c68c7bf](https://github.com/lithic-com/lithic-node/commit/c68c7bf506bf3dd59127b680502bf9db7b1f4cae))
+* **api:** add source, adjustment, and timestamp fields to installment plan statements ([8b5a45b](https://github.com/lithic-com/lithic-node/commit/8b5a45ba89f97a904e1951af7f617aa6196c0608))
+
+
+### Chores
+
+* **ci:** Removing pre-release configuration ([#731](https://github.com/lithic-com/lithic-node/issues/731)) ([8435317](https://github.com/lithic-com/lithic-node/commit/8435317338bb63603b421988d2bef1b6aba77245))
+
+
+### Documentation
+
+* **api:** clarify that begin filters on list endpoints are inclusive (on or after) ([6ba0295](https://github.com/lithic-com/lithic-node/commit/6ba0295a8af74a72bb4756740a9f344353bba52b))
+
 ## [0.149.0](https://github.com/lithic-com/lithic-node/compare/v0.148.0...v0.149.0) (2026-10-28)
 
 
