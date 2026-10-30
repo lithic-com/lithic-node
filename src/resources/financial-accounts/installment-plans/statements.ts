@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
-import * as LoanTapesAPI from '../loan-tapes';
+import * as InstallmentPlansAPI from './installment-plans';
 import { APIPromise } from '../../../core/api-promise';
 import { CursorPage, type CursorPageParams, PagePromise } from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
@@ -84,9 +84,27 @@ export interface InstallmentPlanStatement {
   token: string;
 
   /**
+   * Date the plan was paid off or cancelled, or null if it was still open as of this
+   * statement
+   */
+  closed_at: string | null;
+
+  /**
+   * Timestamp of when the installment plan was created
+   */
+  created: string;
+
+  /**
    * Enrollment fee charged when the plan was created in cents
    */
   fee_amount: number;
+
+  /**
+   * Amount credited to this plan after the plan was recalculated, as of this
+   * statement. The plan amount is not changed, and this credit reduces the amount
+   * owed
+   */
+  installment_plan_adjustment: number;
 
   /**
    * Globally unique identifier for the installment plan this snapshot is of
@@ -123,6 +141,18 @@ export interface InstallmentPlanStatement {
    */
   principal_amount: number;
 
+  /**
+   * Balance the plan was opened on, broken out by category, or null if it was not
+   * recorded
+   */
+  source_amounts: InstallmentPlansAPI.TransactionCategoryBalances | null;
+
+  /**
+   * Identifier of the record the plan was opened from, such as the closing statement
+   * for an unpaid balance
+   */
+  source_id: string;
+
   source_type: 'UNPAID_BALANCE' | 'TRANSACTION';
 
   /**
@@ -141,13 +171,16 @@ export interface InstallmentPlanStatement {
    * Amount paid towards the plan as of this statement in cents
    */
   total_paid: number;
+
+  /**
+   * Timestamp of when the installment plan was last updated as of this statement
+   */
+  updated: string;
 }
 
 export namespace InstallmentPlanStatement {
   /**
-   * One installment of a plan as of the statement. Amounts are totalled across
-   * transaction categories rather than broken out by them, which the installment
-   * plan endpoint does
+   * One installment of a plan as of the statement
    */
   export interface Installment {
     /**
@@ -155,21 +188,21 @@ export namespace InstallmentPlanStatement {
      */
     amount_due: number;
 
-    amount_due_details: LoanTapesAPI.CategoryBalances;
+    amount_due_details: InstallmentPlansAPI.TransactionCategoryBalances;
 
     /**
      * Amount still owed on the installment in cents
      */
     amount_outstanding: number;
 
-    amount_outstanding_details: LoanTapesAPI.CategoryBalances;
+    amount_outstanding_details: InstallmentPlansAPI.TransactionCategoryBalances;
 
     /**
      * Amount paid towards the installment in cents
      */
     amount_paid: number;
 
-    amount_paid_details: LoanTapesAPI.CategoryBalances;
+    amount_paid_details: InstallmentPlansAPI.TransactionCategoryBalances;
 
     /**
      * Date the installment was actually assessed onto the account, or null if it had
@@ -196,6 +229,12 @@ export namespace InstallmentPlanStatement {
      * Payments applied to this installment, oldest first
      */
     payments: Array<Installment.Payment>;
+
+    /**
+     * Amount from installment_plan_adjustment credited to this installment as of this
+     * statement
+     */
+    installment_adjustment?: number;
   }
 
   export namespace Installment {
@@ -205,10 +244,18 @@ export namespace InstallmentPlanStatement {
        */
       amount: number;
 
+      amount_details: InstallmentPlansAPI.TransactionCategoryBalances;
+
       /**
        * Date the payment was applied to the installment
        */
       date: string;
+
+      /**
+       * True when the source of the payment is an adjustment of an underlying account or
+       * transaction
+       */
+      is_adjustment?: boolean;
     }
   }
 }
