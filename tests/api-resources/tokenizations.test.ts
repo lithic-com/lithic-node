@@ -8,6 +8,27 @@ const client = new Lithic({
 });
 
 describe('resource tokenizations', () => {
+  test('create: only required params', async () => {
+    const responsePromise = client.tokenizations.create('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      agent_token: '20f418a7-27c2-486c-aeee-3ad2beb87c91',
+      type: 'AGENT',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('create: required and optional params', async () => {
+    const response = await client.tokenizations.create('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      agent_token: '20f418a7-27c2-486c-aeee-3ad2beb87c91',
+      type: 'AGENT',
+    });
+  });
+
   test('retrieve', async () => {
     const responsePromise = client.tokenizations.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
@@ -60,6 +81,55 @@ describe('resource tokenizations', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
+  test('createPaymentCredentials: only required params', async () => {
+    const responsePromise = client.tokenizations.createPaymentCredentials(
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      {
+        device: {
+          application_name: 'Example app',
+          brand: 'Example brand',
+          ip_address: '192.0.2.1',
+          type: 'Mobile',
+        },
+        mandate: {
+          amount: 1250,
+          expires_at: '2026-10-29T15:00:00Z',
+          frequency: 'ONE_TIME',
+          merchant: { name: 'Example merchant', url: 'https://merchant.example' },
+        },
+        type: 'HUMAN_IN_THE_LOOP',
+      },
+    );
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('createPaymentCredentials: required and optional params', async () => {
+    const response = await client.tokenizations.createPaymentCredentials(
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      {
+        device: {
+          application_name: 'Example app',
+          brand: 'Example brand',
+          ip_address: '192.0.2.1',
+          type: 'Mobile',
+        },
+        mandate: {
+          amount: 1250,
+          expires_at: '2026-10-29T15:00:00Z',
+          frequency: 'ONE_TIME',
+          merchant: { name: 'Example merchant', url: 'https://merchant.example' },
+        },
+        type: 'HUMAN_IN_THE_LOOP',
+      },
+    );
+  });
+
   test('deactivate', async () => {
     const responsePromise = client.tokenizations.deactivate('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
@@ -104,6 +174,25 @@ describe('resource tokenizations', () => {
     ).rejects.toThrow(Lithic.NotFoundError);
   });
 
+  test('selectTfaMethod: only required params', async () => {
+    const responsePromise = client.tokenizations.selectTfaMethod('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      method: 'SMS',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('selectTfaMethod: required and optional params', async () => {
+    const response = await client.tokenizations.selectTfaMethod('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      method: 'SMS',
+    });
+  });
+
   test('simulate: only required params', async () => {
     const responsePromise = client.tokenizations.simulate({
       cvv: '776',
@@ -130,6 +219,25 @@ describe('resource tokenizations', () => {
       device_score: 5,
       entity: 'entity',
       wallet_recommended_decision: 'APPROVED',
+    });
+  });
+
+  test('submitTfa: only required params', async () => {
+    const responsePromise = client.tokenizations.submitTfa('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      value: '01929',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  test('submitTfa: required and optional params', async () => {
+    const response = await client.tokenizations.submitTfa('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      value: '01929',
     });
   });
 
