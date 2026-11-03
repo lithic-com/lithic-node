@@ -81,6 +81,11 @@ export interface BacktestResults {
    */
   backtest_token: string;
 
+  /**
+   * Date and time when the backtest was requested
+   */
+  created: string;
+
   results: BacktestResults.Results;
 
   simulation_parameters: BacktestResults.SimulationParameters;
