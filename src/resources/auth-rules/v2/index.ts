@@ -23,7 +23,6 @@ export {
   type ConditionalACHPaymentUpdateActionParameters,
   type ConditionalAttribute,
   type ConditionalAuthorizationActionParameters,
-  type ConditionalAuthorizationAdjustmentParameters,
   type ConditionalCardTransactionUpdateActionParameters,
   type ConditionalOperation,
   type ConditionalTokenizationActionParameters,
