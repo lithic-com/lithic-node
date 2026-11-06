@@ -1,5 +1,32 @@
 # Changelog
 
+## [0.150.0](https://github.com/lithic-com/lithic-node/compare/v0.149.0...v0.150.0) (2026-11-06)
+
+
+### Features
+
+* **api:** add installment plan adjustment amounts and is_adjustment flag to installment plans ([c68c7bf](https://github.com/lithic-com/lithic-node/commit/c68c7bf506bf3dd59127b680502bf9db7b1f4cae))
+* **api:** add source, adjustment, and timestamp fields to installment plan statements ([8b5a45b](https://github.com/lithic-com/lithic-node/commit/8b5a45ba89f97a904e1951af7f617aa6196c0608))
+* **api:** add tokenization create, 2fa, and payment credentials endpoints to tokenizations ([abd008d](https://github.com/lithic-com/lithic-node/commit/abd008dd0a0b35744d3c5dfe8624abcca0cd0387))
+* **api:** add updated to 3DS authentications and created to backtests and challenge events ([fae6489](https://github.com/lithic-com/lithic-node/commit/fae64891a67cf26302410a3ba16292446ed5b9b5))
+* **api:** support hold adjustment actions in conditional authorization auth rule parameters ([c22a8a3](https://github.com/lithic-com/lithic-node/commit/c22a8a34e5bbdbb462a9e653ef5591c293411f5e))
+
+
+### Bug Fixes
+
+* **api:** correct event_type on create management operation to creatable, non-reversal types ([a32b9b5](https://github.com/lithic-com/lithic-node/commit/a32b9b5c29197979f0b7d431ad4dac71728d6c64))
+* **api:** remove incorrect defaults for daily and monthly spend limits on account update ([26882cb](https://github.com/lithic-com/lithic-node/commit/26882cb6447873302162f2fd53db6d6ba911aae8))
+
+
+### Chores
+
+* **ci:** Removing pre-release configuration ([#731](https://github.com/lithic-com/lithic-node/issues/731)) ([8435317](https://github.com/lithic-com/lithic-node/commit/8435317338bb63603b421988d2bef1b6aba77245))
+
+
+### Documentation
+
+* **api:** clarify that begin filters on list endpoints are inclusive (on or after) ([6ba0295](https://github.com/lithic-com/lithic-node/commit/6ba0295a8af74a72bb4756740a9f344353bba52b))
+
 ## [0.149.0](https://github.com/lithic-com/lithic-node/compare/v0.148.0...v0.149.0) (2026-10-28)
 
 
