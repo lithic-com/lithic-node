@@ -786,6 +786,8 @@ export interface KYB {
   /**
    * 6-digit North American Industry Classification System (NAICS) code for the
    * business.
+   *
+   * This parameter is required if workflow type is `KYB_BASIC`
    */
   naics_code?: string;
 
@@ -2476,6 +2478,8 @@ export declare namespace AccountHolderCreateParams {
     /**
      * 6-digit North American Industry Classification System (NAICS) code for the
      * business.
+     *
+     * This parameter is required if workflow type is `KYB_BASIC`
      */
     naics_code?: string;
 
