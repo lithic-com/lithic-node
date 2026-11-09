@@ -7,7 +7,7 @@
 
 * **api:** add installment plan adjustment amounts and is_adjustment flag to installment plans ([c68c7bf](https://github.com/lithic-com/lithic-node/commit/c68c7bf506bf3dd59127b680502bf9db7b1f4cae))
 * **api:** add source, adjustment, and timestamp fields to installment plan statements ([8b5a45b](https://github.com/lithic-com/lithic-node/commit/8b5a45ba89f97a904e1951af7f617aa6196c0608))
-* **api:** add tokenization create, 2fa, and payment credentials endpoints to tokenizations ([abd008d](https://github.com/lithic-com/lithic-node/commit/abd008dd0a0b35744d3c5dfe8624abcca0cd0387))
+* **api:** add AGENT_PAY tokenization channel and tfa_methods to tokenizations ([abd008d](https://github.com/lithic-com/lithic-node/commit/abd008dd0a0b35744d3c5dfe8624abcca0cd0387))
 * **api:** add updated to 3DS authentications and created to backtests and challenge events ([fae6489](https://github.com/lithic-com/lithic-node/commit/fae64891a67cf26302410a3ba16292446ed5b9b5))
 * **api:** support hold adjustment actions in conditional authorization auth rule parameters ([c22a8a3](https://github.com/lithic-com/lithic-node/commit/c22a8a34e5bbdbb462a9e653ef5591c293411f5e))
 
