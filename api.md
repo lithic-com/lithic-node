@@ -244,23 +244,16 @@ Types:
 - <code><a href="./src/resources/tokenizations.ts">TokenizationRuleResult</a></code>
 - <code><a href="./src/resources/tokenizations.ts">TokenizationTfaReason</a></code>
 - <code><a href="./src/resources/tokenizations.ts">WalletDecisioningInfo</a></code>
-- <code><a href="./src/resources/tokenizations.ts">TokenizationCreatePaymentCredentialsResponse</a></code>
-- <code><a href="./src/resources/tokenizations.ts">TokenizationSelectTfaMethodResponse</a></code>
-- <code><a href="./src/resources/tokenizations.ts">TokenizationSubmitTfaResponse</a></code>
 
 Methods:
 
-- <code title="post /v1/cards/{card_token}/tokenizations">client.tokenizations.<a href="./src/resources/tokenizations.ts">create</a>(cardToken, { ...params }) -> Tokenization</code>
 - <code title="get /v1/tokenizations/{tokenization_token}">client.tokenizations.<a href="./src/resources/tokenizations.ts">retrieve</a>(tokenizationToken) -> Tokenization</code>
 - <code title="get /v1/tokenizations">client.tokenizations.<a href="./src/resources/tokenizations.ts">list</a>({ ...params }) -> TokenizationsCursorPage</code>
 - <code title="post /v1/tokenizations/{tokenization_token}/activate">client.tokenizations.<a href="./src/resources/tokenizations.ts">activate</a>(tokenizationToken) -> void</code>
-- <code title="post /v1/tokenizations/{tokenization_token}/payment_credentials">client.tokenizations.<a href="./src/resources/tokenizations.ts">createPaymentCredentials</a>(tokenizationToken, { ...params }) -> TokenizationCreatePaymentCredentialsResponse</code>
 - <code title="post /v1/tokenizations/{tokenization_token}/deactivate">client.tokenizations.<a href="./src/resources/tokenizations.ts">deactivate</a>(tokenizationToken) -> void</code>
 - <code title="post /v1/tokenizations/{tokenization_token}/pause">client.tokenizations.<a href="./src/resources/tokenizations.ts">pause</a>(tokenizationToken) -> void</code>
 - <code title="post /v1/tokenizations/{tokenization_token}/resend_activation_code">client.tokenizations.<a href="./src/resources/tokenizations.ts">resendActivationCode</a>(tokenizationToken, { ...params }) -> void</code>
-- <code title="post /v1/tokenizations/{tokenization_token}/select_tfa_method">client.tokenizations.<a href="./src/resources/tokenizations.ts">selectTfaMethod</a>(tokenizationToken, { ...params }) -> TokenizationSelectTfaMethodResponse</code>
 - <code title="post /v1/simulate/tokenizations">client.tokenizations.<a href="./src/resources/tokenizations.ts">simulate</a>({ ...params }) -> Tokenization</code>
-- <code title="post /v1/tokenizations/{tokenization_token}/submit_tfa">client.tokenizations.<a href="./src/resources/tokenizations.ts">submitTfa</a>(tokenizationToken, { ...params }) -> TokenizationSubmitTfaResponse</code>
 - <code title="post /v1/tokenizations/{tokenization_token}/unpause">client.tokenizations.<a href="./src/resources/tokenizations.ts">unpause</a>(tokenizationToken) -> void</code>
 - <code title="post /v1/tokenizations/{tokenization_token}/update_digital_card_art">client.tokenizations.<a href="./src/resources/tokenizations.ts">updateDigitalCardArt</a>(tokenizationToken, { ...params }) -> Tokenization</code>
 

@@ -9,40 +9,6 @@ import { path } from '../internal/utils/path';
 
 export class Tokenizations extends APIResource {
   /**
-   * > 🚧 Beta API
-   * >
-   * > This endpoint is in beta and subject to change.
-   *
-   * Create a tokenization for an OPEN card. Contact your Lithic representative to
-   * configure tokenization for your program and card network.
-   *
-   * If the status is PENDING_2FA, select an available tfa_methods entry and submit
-   * the cardholder's authentication code. An ACTIVE tokenization can then be used to
-   * create payment credentials.
-   *
-   * Additional attempts to create the same tokenizations on a card will result in a
-   * 409 Conflict.
-   *
-   * @example
-   * ```ts
-   * const tokenization = await client.tokenizations.create(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   {
-   *     agent_token: '20f418a7-27c2-486c-aeee-3ad2beb87c91',
-   *     type: 'AGENT',
-   *   },
-   * );
-   * ```
-   */
-  create(
-    cardToken: string,
-    body: TokenizationCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<Tokenization> {
-    return this._client.post(path`/v1/cards/${cardToken}/tokenizations`, { body, ...options });
-  }
-
-  /**
    * Get tokenization
    *
    * @example
@@ -93,53 +59,6 @@ export class Tokenizations extends APIResource {
    */
   activate(tokenizationToken: string, options?: RequestOptions): APIPromise<void> {
     return this._client.post(path`/v1/tokenizations/${tokenizationToken}/activate`, options);
-  }
-
-  /**
-   * > 🚧 Beta API
-   * >
-   * > This endpoint is in beta and subject to change.
-   *
-   * Create payment credentials and a purchase mandate for an ACTIVE tokenization.
-   *
-   * The credential value, expiration date, and CVV are only available in this
-   * response and cannot be retrieved later.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.tokenizations.createPaymentCredentials(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     {
-   *       device: {
-   *         ip_address: '192.0.2.1',
-   *         type: 'Mobile',
-   *         brand: 'Example brand',
-   *         application_name: 'Example app',
-   *       },
-   *       mandate: {
-   *         frequency: 'ONE_TIME',
-   *         expires_at: '2026-10-29T15:00:00Z',
-   *         amount: 1250,
-   *         merchant: {
-   *           name: 'Example merchant',
-   *           url: 'https://merchant.example',
-   *         },
-   *       },
-   *       type: 'HUMAN_IN_THE_LOOP',
-   *     },
-   *   );
-   * ```
-   */
-  createPaymentCredentials(
-    tokenizationToken: string,
-    body: TokenizationCreatePaymentCredentialsParams,
-    options?: RequestOptions,
-  ): APIPromise<TokenizationCreatePaymentCredentialsResponse> {
-    return this._client.post(path`/v1/tokenizations/${tokenizationToken}/payment_credentials`, {
-      body,
-      ...options,
-    });
   }
 
   /**
@@ -217,38 +136,6 @@ export class Tokenizations extends APIResource {
   }
 
   /**
-   * > 🚧 Beta API
-   * >
-   * > This endpoint is in beta and subject to change.
-   *
-   * Select an available SMS or EMAIL authentication method for a tokenization with
-   * status PENDING_2FA. Use a method returned in the tokenization's list of
-   * tfa_methods. The card network initiates delivery of the authentication code to
-   * the corresponding destination.
-   *
-   * A successful response confirms method selection, not tokenization activation.
-   * Submit the code using submit_tfa after the cardholder receives it.
-   *
-   * @example
-   * ```ts
-   * const response = await client.tokenizations.selectTfaMethod(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   { method: 'SMS' },
-   * );
-   * ```
-   */
-  selectTfaMethod(
-    tokenizationToken: string,
-    body: TokenizationSelectTfaMethodParams,
-    options?: RequestOptions,
-  ): APIPromise<TokenizationSelectTfaMethodResponse> {
-    return this._client.post(path`/v1/tokenizations/${tokenizationToken}/select_tfa_method`, {
-      body,
-      ...options,
-    });
-  }
-
-  /**
    * This endpoint is used to simulate a card's tokenization in the Digital Wallet
    * and merchant tokenization ecosystem.
    *
@@ -267,35 +154,6 @@ export class Tokenizations extends APIResource {
    */
   simulate(body: TokenizationSimulateParams, options?: RequestOptions): APIPromise<Tokenization> {
     return this._client.post('/v1/simulate/tokenizations', { body, ...options });
-  }
-
-  /**
-   * > 🚧 Beta API
-   * >
-   * > This endpoint is in beta and subject to change.
-   *
-   * Submit the cardholder's one-time authentication code for a tokenization with
-   * status PENDING_2FA. A successful select_tfa_method request must precede
-   * submission. Send the code as a string to preserve leading zeros.
-   *
-   * A successful response means that the network accepted the authentication code.
-   * The activation of a tokenization will occur asynchronously initiated by the card
-   * network.
-   *
-   * @example
-   * ```ts
-   * const response = await client.tokenizations.submitTfa(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   { value: '01929' },
-   * );
-   * ```
-   */
-  submitTfa(
-    tokenizationToken: string,
-    body: TokenizationSubmitTfaParams,
-    options?: RequestOptions,
-  ): APIPromise<TokenizationSubmitTfaResponse> {
-    return this._client.post(path`/v1/tokenizations/${tokenizationToken}/submit_tfa`, { body, ...options });
   }
 
   /**
@@ -707,153 +565,6 @@ export interface WalletDecisioningInfo {
   recommendation_reasons?: Array<string> | null;
 }
 
-export interface TokenizationCreatePaymentCredentialsResponse {
-  /**
-   * Globally unique identifier for the payment credential resource
-   */
-  token: string;
-
-  /**
-   * Globally unique identifier for the associated agent
-   */
-  agent_token: string;
-
-  /**
-   * Date and time when the payment credential resource was created
-   */
-  created_at: string;
-
-  /**
-   * Payment credential and dynamic security code for the purchase
-   */
-  credentials: TokenizationCreatePaymentCredentialsResponse.Credentials;
-
-  mandate: TokenizationCreatePaymentCredentialsResponse.Mandate;
-
-  /**
-   * Status of the payment credential resource. New credentials have status ACTIVE
-   */
-  status: 'ACTIVE' | 'DEACTIVATED' | 'COMPLETED' | 'CANCELLED';
-
-  /**
-   * Globally unique identifier for the associated tokenization
-   */
-  tokenization_token: string;
-
-  /**
-   * Type of purchase for which payment credentials are requested
-   */
-  type: 'AUTONOMOUS' | 'HUMAN_IN_THE_LOOP' | 'RECURRING';
-
-  /**
-   * Date and time when the payment credential resource was last updated
-   */
-  updated_at: string;
-}
-
-export namespace TokenizationCreatePaymentCredentialsResponse {
-  /**
-   * Payment credential and dynamic security code for the purchase
-   */
-  export interface Credentials {
-    /**
-     * Dynamic card security code for the purchase
-     */
-    cvv: string;
-
-    /**
-     * Expiration month of the payment credential
-     */
-    expiration_month: string;
-
-    /**
-     * Expiration year of the payment credential
-     */
-    expiration_year: string;
-
-    /**
-     * Date and time when the dynamic security code expires
-     */
-    expires_at: string;
-
-    /**
-     * Payment credential to use as the card number for the purchase
-     */
-    value: string;
-  }
-
-  export interface Mandate {
-    /**
-     * Globally unique identifier for the mandate
-     */
-    token: string;
-
-    /**
-     * Purchase amount and mandate limit in USD cents
-     */
-    amount: number;
-
-    /**
-     * Date and time when the mandate expires, independent of the payment credentials'
-     * expiration
-     */
-    expires_at: string;
-
-    /**
-     * Purchase frequency. RECURRING purchases require WEEKLY, MONTHLY, or YEARLY
-     */
-    frequency: 'ONE_TIME' | 'WEEKLY' | 'MONTHLY' | 'YEARLY';
-
-    merchant: Mandate.Merchant;
-
-    /**
-     * Status of the mandate. New mandates have status PENDING
-     */
-    status: 'PENDING' | 'COMPLETED' | 'CANCELLED';
-  }
-
-  export namespace Mandate {
-    export interface Merchant {
-      /**
-       * Merchant name
-       */
-      name: string;
-
-      /**
-       * Merchant website URL
-       */
-      url: string;
-    }
-  }
-}
-
-export interface TokenizationSelectTfaMethodResponse {
-  /**
-   * Whether the card network accepted the authentication method selection
-   */
-  success: boolean;
-}
-
-export interface TokenizationSubmitTfaResponse {
-  /**
-   * Whether the card network accepted the authentication code. A true value does not
-   * mean the tokenization is already active
-   */
-  success: boolean;
-}
-
-export interface TokenizationCreateParams {
-  /**
-   * Globally unique identifier for the active agent configured for your program
-   */
-  agent_token: string;
-
-  /**
-   * Type of tokenization to create
-   */
-  type: 'AGENT';
-}
-
 export interface TokenizationListParams extends CursorPageParams {
   /**
    * Filters for tokenizations associated with a specific account.
@@ -882,81 +593,6 @@ export interface TokenizationListParams extends CursorPageParams {
   tokenization_channel?: 'DIGITAL_WALLET' | 'MERCHANT' | 'AGENT_PAY' | 'ALL';
 }
 
-export interface TokenizationCreatePaymentCredentialsParams {
-  /**
-   * Device used for the purchase
-   */
-  device: TokenizationCreatePaymentCredentialsParams.Device;
-
-  mandate: TokenizationCreatePaymentCredentialsParams.Mandate;
-
-  /**
-   * Type of purchase for which payment credentials are requested
-   */
-  type: 'AUTONOMOUS' | 'HUMAN_IN_THE_LOOP' | 'RECURRING';
-}
-
-export namespace TokenizationCreatePaymentCredentialsParams {
-  /**
-   * Device used for the purchase
-   */
-  export interface Device {
-    /**
-     * Name of the application used for the purchase
-     */
-    application_name: string;
-
-    /**
-     * Device brand
-     */
-    brand: string;
-
-    /**
-     * IP address of the device
-     */
-    ip_address: string;
-
-    /**
-     * Device type
-     */
-    type: string;
-  }
-
-  export interface Mandate {
-    /**
-     * Purchase amount and mandate limit in USD cents
-     */
-    amount: number;
-
-    /**
-     * Date and time when the mandate expires, independent of the payment credentials'
-     * expiration
-     */
-    expires_at: string;
-
-    /**
-     * Purchase frequency. RECURRING purchases require WEEKLY, MONTHLY, or YEARLY
-     */
-    frequency: 'ONE_TIME' | 'WEEKLY' | 'MONTHLY' | 'YEARLY';
-
-    merchant: Mandate.Merchant;
-  }
-
-  export namespace Mandate {
-    export interface Merchant {
-      /**
-       * Merchant name
-       */
-      name: string;
-
-      /**
-       * Merchant website URL
-       */
-      url: string;
-    }
-  }
-}
-
 export interface TokenizationResendActivationCodeParams {
   /**
    * The communication method that the user has selected to use to receive the
@@ -964,13 +600,6 @@ export interface TokenizationResendActivationCodeParams {
    * = "EMAIL_TO_CARDHOLDER_ADDRESS"
    */
   activation_method_type?: 'EMAIL_TO_CARDHOLDER_ADDRESS' | 'TEXT_TO_CARDHOLDER_NUMBER';
-}
-
-export interface TokenizationSelectTfaMethodParams {
-  /**
-   * An available method from the tokenization's list of tfa_methods
-   */
-  method: 'SMS' | 'EMAIL';
 }
 
 export interface TokenizationSimulateParams {
@@ -1018,14 +647,6 @@ export interface TokenizationSimulateParams {
   wallet_recommended_decision?: 'APPROVED' | 'DECLINED' | 'REQUIRE_ADDITIONAL_AUTHENTICATION';
 }
 
-export interface TokenizationSubmitTfaParams {
-  /**
-   * One-time authentication code received by the cardholder, including any leading
-   * zeros
-   */
-  value: string;
-}
-
 export interface TokenizationUpdateDigitalCardArtParams {
   /**
    * Specifies the digital card art to be displayed in the user’s digital wallet for
@@ -1045,17 +666,10 @@ export declare namespace Tokenizations {
     type TokenizationRuleResult as TokenizationRuleResult,
     type TokenizationTfaReason as TokenizationTfaReason,
     type WalletDecisioningInfo as WalletDecisioningInfo,
-    type TokenizationCreatePaymentCredentialsResponse as TokenizationCreatePaymentCredentialsResponse,
-    type TokenizationSelectTfaMethodResponse as TokenizationSelectTfaMethodResponse,
-    type TokenizationSubmitTfaResponse as TokenizationSubmitTfaResponse,
     type TokenizationsCursorPage as TokenizationsCursorPage,
-    type TokenizationCreateParams as TokenizationCreateParams,
     type TokenizationListParams as TokenizationListParams,
-    type TokenizationCreatePaymentCredentialsParams as TokenizationCreatePaymentCredentialsParams,
     type TokenizationResendActivationCodeParams as TokenizationResendActivationCodeParams,
-    type TokenizationSelectTfaMethodParams as TokenizationSelectTfaMethodParams,
     type TokenizationSimulateParams as TokenizationSimulateParams,
-    type TokenizationSubmitTfaParams as TokenizationSubmitTfaParams,
     type TokenizationUpdateDigitalCardArtParams as TokenizationUpdateDigitalCardArtParams,
   };
 }
