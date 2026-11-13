@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.151.0](https://github.com/lithic-com/lithic-node/compare/v0.150.0...v0.151.0) (2026-11-13)
+
+
+### Features
+
+* **api:** add ALLPOINT to network enums on settlement report and detail endpoints ([e08fdbe](https://github.com/lithic-com/lithic-node/commit/e08fdbec562a9791c29be08b61947c934ee2e9bc))
+
 ## [0.150.0](https://github.com/lithic-com/lithic-node/compare/v0.149.0...v0.150.0) (2026-11-09)
 
 
