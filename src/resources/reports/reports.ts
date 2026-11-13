@@ -45,10 +45,10 @@ export interface NetworkTotal {
   is_complete: boolean;
 
   /**
-   * Card network where the transaction took place. AMEX, VISA, MASTERCARD, MAESTRO,
-   * or INTERLINK.
+   * Card network where the transaction took place. ALLPOINT, AMEX, VISA, MASTERCARD,
+   * MAESTRO, or INTERLINK.
    */
-  network: 'AMEX' | 'VISA' | 'MASTERCARD' | 'MAESTRO' | 'INTERLINK';
+  network: 'ALLPOINT' | 'AMEX' | 'VISA' | 'MASTERCARD' | 'MAESTRO' | 'INTERLINK';
 
   /**
    * Date that the network total record applies to. YYYY-MM-DD format.
@@ -167,7 +167,7 @@ export interface SettlementDetail {
   /**
    * Card network where the transaction took place.
    */
-  network: 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA';
+  network: 'ALLPOINT' | 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA';
 
   /**
    * The total gross amount of other fees by type.
@@ -338,7 +338,7 @@ export interface SettlementSummaryDetails {
   /**
    * Card network where the transaction took place
    */
-  network?: 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA';
+  network?: 'ALLPOINT' | 'AMEX' | 'INTERLINK' | 'MAESTRO' | 'MASTERCARD' | 'UNKNOWN' | 'VISA';
 
   /**
    * Total amount of gross other fees outside of interchange.
