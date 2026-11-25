@@ -673,7 +673,9 @@ export interface NonPCICard {
   digital_card_art_token?: string | null;
 
   /**
-   * Two digit (MM) expiry month.
+   * Two digit (MM) expiry month. Cards expire at the end of this month in UTC. A
+   * card with expiry month 01 can be used through 23:59:59 UTC on January 31 and is
+   * declined from 00:00:00 UTC on February 1.
    */
   exp_month?: string;
 
@@ -978,7 +980,9 @@ export interface CardCreateParams {
   /**
    * Body param: Two digit (MM) expiry month. If neither `exp_month` nor `exp_year`
    * is provided, an expiration date five years in the future will be generated. Five
-   * years is the maximum expiration date.
+   * years is the maximum expiration date. Cards expire at the end of this month in
+   * UTC. A card with expiry month 01 can be used through 23:59:59 UTC on January 31
+   * and is declined from 00:00:00 UTC on February 1.
    */
   exp_month?: string;
 
@@ -1546,7 +1550,9 @@ export interface CardRenewParams {
   /**
    * Two digit (MM) expiry month. If neither `exp_month` nor `exp_year` is provided,
    * an expiration date five years in the future will be generated. Five years is the
-   * maximum expiration date.
+   * maximum expiration date. Cards expire at the end of this month in UTC. A card
+   * with expiry month 01 can be used through 23:59:59 UTC on January 31 and is
+   * declined from 00:00:00 UTC on February 1.
    */
   exp_month?: string;
 
