@@ -1071,7 +1071,9 @@ export interface ClaimCreatedWebhookEvent {
   event_type: 'claim.created';
 
   /**
-   * Requirements that must be fulfilled before the claim can be submitted
+   * What the client still needs to provide for the claim. The claim can be submitted
+   * once `QUESTIONNAIRE` is no longer in the array. `DOCUMENTS` stays in the array,
+   * before and after submission, while any required document is still outstanding
    */
   outstanding_requirements: Array<'QUESTIONNAIRE' | 'DOCUMENTS'>;
 
@@ -1180,7 +1182,9 @@ export interface ClaimUpdatedWebhookEvent {
   event_type: 'claim.updated';
 
   /**
-   * Requirements that must be fulfilled before the claim can be submitted
+   * What the client still needs to provide for the claim. The claim can be submitted
+   * once `QUESTIONNAIRE` is no longer in the array. `DOCUMENTS` stays in the array,
+   * before and after submission, while any required document is still outstanding
    */
   outstanding_requirements: Array<'QUESTIONNAIRE' | 'DOCUMENTS'>;
 
