@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.151.0](https://github.com/lithic-com/lithic-node/compare/v0.150.0...v0.151.0) (2026-11-25)
+
+
+### Features
+
+* **api:** add ALLPOINT to network enums on settlement report and detail endpoints ([e08fdbe](https://github.com/lithic-com/lithic-node/commit/e08fdbec562a9791c29be08b61947c934ee2e9bc))
+* **api:** Document UTC end-of-month card expiry cutoff ([6c158a6](https://github.com/lithic-com/lithic-node/commit/6c158a6680392e13566d794d1f94844e91142f95))
+* **api:** Fix statement amount_due.amount description ([f2762ac](https://github.com/lithic-com/lithic-node/commit/f2762ac9ae872b55bb6be91ded7f610e8c5496fb))
+
+
+### Documentation
+
+* **api:** clarify auth rule draft version state and error cover dry run of typescript rules ([6cfa55a](https://github.com/lithic-com/lithic-node/commit/6cfa55a24ab23cd335c45eaa1734a63f42acb6f8))
+* **api:** clarify when dispute claims can be submitted in outstanding_requirements description ([8f7bcdf](https://github.com/lithic-com/lithic-node/commit/8f7bcdfa2285354bdd7f1680f3800c0e30ccb04c))
+
 ## [0.150.0](https://github.com/lithic-com/lithic-node/compare/v0.149.0...v0.150.0) (2026-11-09)
 
 
